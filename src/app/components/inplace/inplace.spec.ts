@@ -41,7 +41,7 @@ describe('Inplace', () => {
         const inplaceEl = fixture.debugElement.query(By.css('div'));
         const closableButton = fixture.debugElement.query(By.css('button'));
         expect(inplaceEl.nativeElement.className).toContain("Primeng ROCKS!");
-        expect(inplaceEl.nativeElement.className).toContain("ui-inplace-closable");
+        expect(inplaceEl.nativeElement.className).toContain("p-inplace-closable");
         expect(inplaceEl.nativeElement.style.height).toContain("300px");
         expect(closableButton).toBeTruthy();
     });
@@ -52,7 +52,7 @@ describe('Inplace', () => {
   
         const activateSpy = spyOn(inplace,'activate').and.callThrough();
         const deactivateSpy = spyOn(inplace,'deactivate').and.callThrough();
-        const displayEl = fixture.debugElement.query(By.css('.ui-inplace-display'));
+        const displayEl = fixture.debugElement.query(By.css('.p-inplace-display'));
         displayEl.nativeElement.click();
         fixture.detectChanges();
 
@@ -73,7 +73,7 @@ describe('Inplace', () => {
   
         const activateSpy = spyOn(inplace,'activate').and.callThrough();
         const deactivateSpy = spyOn(inplace,'deactivate').and.callThrough();
-        const displayEl = fixture.debugElement.query(By.css('.ui-inplace-display'));
+        const displayEl = fixture.debugElement.query(By.css('.p-inplace-display'));
         displayEl.nativeElement.click();
         fixture.detectChanges();
 
@@ -82,6 +82,7 @@ describe('Inplace', () => {
         inplace.active = true;
         fixture.detectChanges();
 
+        inplace.cd.detectChanges();
         const closableButtonEl = fixture.debugElement.query(By.css('button'));
         closableButtonEl.nativeElement.click();
         fixture.detectChanges();
