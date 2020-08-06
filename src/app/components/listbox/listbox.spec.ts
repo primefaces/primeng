@@ -55,10 +55,8 @@ describe('Listbox', () => {
         bmwEl.click();
         fixture.detectChanges();
 
-        const listboxEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        const filterInputEl = fixture.debugElement.query(By.css('.ui-listbox-filter-container')).query(By.css('input')).nativeElement;
-        const checkboxEl = fixture.debugElement.queryAll(By.css('li'))[1].query(By.css('.ui-chkbox-icon')).nativeElement;
-        expect(listboxEl.className).toContain("ui-state-disabled");
+        const filterInputEl = fixture.debugElement.query(By.css('.p-listbox-filter-container')).query(By.css('input')).nativeElement;
+        const checkboxEl = fixture.debugElement.queryAll(By.css('li'))[1].query(By.css('.p-checkbox-icon')).nativeElement;
         expect(filterInputEl.disabled).toEqual(true);
         expect(checkboxEl.className).not.toContain("pi pi-check");
         expect(clickSingleSpy).not.toHaveBeenCalled();
@@ -137,23 +135,15 @@ describe('Listbox', () => {
             {label: 'VW', value: 'VW'},
             {label: 'Volvo', value: 'Volvo'}
         ];
-        const readonlyInput = fixture.debugElement.query(By.css("input"));
-        readonlyInput.nativeElement.dispatchEvent(new Event("focus"));
-        const clickSingleSpy = spyOn(listbox, 'onOptionClickSingle').and.callThrough();
-        const onOptionClick = spyOn(listbox, 'onOptionClick').and.callThrough();
         fixture.detectChanges();
         
-        const container = fixture.debugElement.query(By.css("div"));
-        expect(container.nativeElement.className).toContain("ui-state-focus");
+        const onOptionClick = spyOn(listbox, 'onOptionClick').and.callThrough();
         const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
         bmwEl.click();
-        readonlyInput.nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
 
-        expect(container.nativeElement.className).not.toContain("ui-state-focus");
         expect(listbox.value).toEqual("BMW");
-        expect(bmwEl.className).toContain("ui-state-highlight");
-        expect(clickSingleSpy).toHaveBeenCalled();
+        expect(bmwEl.className).toContain("p-highlight");
         expect(onOptionClick).toHaveBeenCalled();
         expect(listbox.optionTouched).toEqual(false);
     });
@@ -179,12 +169,12 @@ describe('Listbox', () => {
         fixture.detectChanges();
 
         expect(listbox.value).toEqual("BMW");
-        expect(bmwEl.className).toContain("ui-state-highlight");
+        expect(bmwEl.className).toContain("p-highlight");
         bmwEl.click();
         fixture.detectChanges();
 
         expect(listbox.value).not.toEqual("BMW");
-        expect(bmwEl.className).not.toContain("ui-state-highlight");
+        expect(bmwEl.className).not.toContain("p-highlight");
     });
 
     it('should select two item with multiple option', () => {
@@ -215,8 +205,8 @@ describe('Listbox', () => {
 
         expect(listbox.value[0]).toEqual("BMW");
         expect(listbox.value[1]).toEqual("Audi");
-        expect(bmwEl.className).toContain("ui-state-highlight");
-        expect(audiEl.className).toContain("ui-state-highlight");
+        expect(bmwEl.className).toContain("p-highlight");
+        expect(audiEl.className).toContain("p-highlight");
         expect(clickMultipleSpy).toHaveBeenCalledTimes(2);
     });
 
@@ -248,8 +238,8 @@ describe('Listbox', () => {
 
         expect(listbox.value[0]).not.toEqual("BMW");
         expect(listbox.value[1]).not.toEqual("Audi");
-        expect(bmwEl.className).not.toContain("ui-state-highlight");
-        expect(audiEl.className).not.toContain("ui-state-highlight");
+        expect(bmwEl.className).not.toContain("p-highlight");
+        expect(audiEl.className).not.toContain("p-highlight");
         expect(clickMultipleSpy).toHaveBeenCalledTimes(4);
     });
 
@@ -269,15 +259,16 @@ describe('Listbox', () => {
             {label: 'Volvo', value: 'Volvo'}
         ];
         const toggleAllSpy = spyOn(listbox, 'toggleAll').and.callThrough();
+        listbox.cd.detectChanges();
         fixture.detectChanges();
-        
-        const selectAllEl = fixture.debugElement.query(By.css('.ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default')).nativeElement;
+
+        const selectAllEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
         selectAllEl.click();
         fixture.detectChanges();
 
         expect(listbox.value.length).toEqual(10);
         expect(listbox.allChecked).toEqual(true);
-        expect(selectAllEl.className).toContain('ui-state-active');
+        expect(selectAllEl.className).toContain('p-highlight');
         expect(toggleAllSpy).toHaveBeenCalled();
     });
 
@@ -297,14 +288,14 @@ describe('Listbox', () => {
         listbox.filter = true;
         fixture.detectChanges();
         
-        const filterInputEl = fixture.debugElement.query(By.css('.ui-listbox-filter-container')).children[0].nativeElement;
+        const filterInputEl = fixture.debugElement.query(By.css('.p-listbox-filter-container')).children[0].nativeElement;
         filterInputEl.value = "f";
         filterInputEl.dispatchEvent(new Event('input'));
         fixture.detectChanges();
 
         for(let x =0; x<10; x++ ){
         if (x == 2 || x==3){
-            expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("block");
+            expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("flex");
         }
         else {
             expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("none");
@@ -420,8 +411,9 @@ describe('Listbox', () => {
         listbox.onOptionClick(ctrlClickEvent,listbox.options[1]);
         fixture.detectChanges();
         
+        listbox.cd.detectChanges();
         expect(listbox.value).toEqual(null);
-        expect(bmwEl.className).not.toContain("ui-state-highlight");
+        expect(bmwEl.className).not.toContain("p-highlight");
         expect(onOptionClick).toHaveBeenCalled();
         expect(data.value).toEqual(null);
     });
@@ -454,8 +446,9 @@ describe('Listbox', () => {
         listbox.onOptionClick(ctrlClickEvent,listbox.options[1]);
         fixture.detectChanges();
         
+        listbox.cd.detectChanges();
         expect(listbox.value).toEqual([]);
-        expect(bmwEl.className).not.toContain("ui-state-highlight");
+        expect(bmwEl.className).not.toContain("p-highlight");
         expect(onOptionClick).toHaveBeenCalled();
         expect(data.value).toEqual([]);
     });
@@ -490,7 +483,7 @@ describe('Listbox', () => {
         expect(listbox.value[0]).toEqual("BMW");
         expect(listbox.value.length).toEqual(1);
         expect(listbox.value[1]).not.toEqual("Audi");
-        expect(bmwEl.className).toContain("ui-state-highlight");
+        expect(bmwEl.className).toContain("p-highlight");
         expect(clickCheckboxSpy).toHaveBeenCalledTimes(3);
     });
 
@@ -512,7 +505,8 @@ describe('Listbox', () => {
         const toggleAllSpy = spyOn(listbox, 'toggleAll').and.callThrough();
         fixture.detectChanges();
         
-        const selectAllEl = fixture.debugElement.query(By.css('.ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default')).nativeElement;
+        listbox.cd.detectChanges();
+        const selectAllEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
         selectAllEl.click();
         fixture.detectChanges();
 
@@ -521,7 +515,7 @@ describe('Listbox', () => {
 
         expect(listbox.value.length).toEqual(0);
         expect(listbox.allChecked).toEqual(false);
-        expect(selectAllEl.className).not.toContain('ui-state-active');
+        expect(selectAllEl.className).not.toContain('p-highlight');
         expect(toggleAllSpy).toHaveBeenCalledTimes(2);
     });
 
@@ -544,13 +538,14 @@ describe('Listbox', () => {
         const toggleAllSpy = spyOn(listbox, 'toggleAll').and.callThrough();
         fixture.detectChanges();
         
-        const selectAllEl = fixture.debugElement.query(By.css('.ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default')).nativeElement;
+        listbox.cd.detectChanges();
+        const selectAllEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
         selectAllEl.click();
         fixture.detectChanges();
 
         expect(listbox.value).toEqual(undefined);
         expect(listbox.allChecked).toEqual(undefined);
-        expect(selectAllEl.className).not.toContain('ui-state-active');
+        expect(selectAllEl.className).not.toContain('p-highlight');
         expect(toggleAllSpy).toHaveBeenCalledTimes(1);
     });
 
@@ -574,7 +569,7 @@ describe('Listbox', () => {
 
         for(let x =0; x<10; x++ ){
             if (x == 1){
-                expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("block");
+                expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("flex");
             }
             else {
                 expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("none");
@@ -602,21 +597,21 @@ describe('Listbox', () => {
         listbox.filterValue = "o";
         fixture.detectChanges();
 
-        const headerCheckBoxReadonlyEl = fixture.debugElement.query(By.css(".ui-chkbox.ui-widget")).query(By.css("input"));
-        const headerCheckBoxEl = fixture.debugElement.query(By.css(".ui-chkbox-box"));
+        const headerCheckBoxReadonlyEl = fixture.debugElement.query(By.css(".p-checkbox.p-component")).query(By.css("input"));
+        const headerCheckBoxEl = fixture.debugElement.query(By.css(".p-checkbox-box"));
         headerCheckBoxReadonlyEl.nativeElement.dispatchEvent(new Event("focus"));
         headerCheckBoxEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(listbox.value.length).toEqual(3);
-        expect(headerCheckBoxEl.nativeElement.className).toContain("ui-state-active");
-        expect(headerCheckBoxEl.nativeElement.className).toContain("ui-state-focus");
+        expect(headerCheckBoxEl.nativeElement.className).toContain("p-highlight");
+        expect(headerCheckBoxEl.nativeElement.className).toContain("p-focus");
         listbox.filterValue = "m";
         headerCheckBoxReadonlyEl.nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
         
-        expect(headerCheckBoxEl.nativeElement.className).not.toContain("ui-state-active");
-        expect(headerCheckBoxEl.nativeElement.className).not.toContain("ui-state-focus");
+        expect(headerCheckBoxEl.nativeElement.className).not.toContain("p-highlight");
+        expect(headerCheckBoxEl.nativeElement.className).not.toContain("p-focus");
     });
 
 
