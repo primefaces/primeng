@@ -120,7 +120,7 @@ describe('ConextMenu', () => {
     it('should create container by default', () => {
         fixture.detectChanges();
 
-        const containerEls = fixture.debugElement.queryAll(By.css('.ui-contextmenu'));
+        const containerEls = fixture.debugElement.queryAll(By.css('.p-contextmenu'));
         expect(containerEls.length).toEqual(2);
     });
 
@@ -238,77 +238,5 @@ describe('ConextMenu', () => {
         fixture.detectChanges();
 
         expect(hideSpy).toHaveBeenCalled();
-    });
-    
-    it('should change activeitem when mouseenter', () => {
-        fixture.detectChanges();
-
-        const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
-        contextmenuEvent.pageY = 20;
-        contextmenuEvent.initEvent('contextmenu', true, true);
-        document.dispatchEvent(contextmenuEvent);
-        fixture.detectChanges();
-
-        let menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem).toEqual(null);        
-        menuItems[0].nativeElement.dispatchEvent(new Event("mouseenter"));
-        fixture.detectChanges();
-
-        menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem.textContent).toEqual("FileNewProjectOtherOpenQuit"); 
-    });
-
-    it('should change activeitem to null when outside click', fakeAsync(() => {
-        fixture.detectChanges();
-
-        const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
-        contextmenuEvent.pageY = 20;
-        contextmenuEvent.initEvent('contextmenu', true, true);
-        document.dispatchEvent(contextmenuEvent);
-        fixture.detectChanges();
-
-        let menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem).toEqual(null);        
-        menuItems[0].nativeElement.dispatchEvent(new Event("mouseenter"));
-        fixture.detectChanges();
-
-        menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem.textContent).toEqual("FileNewProjectOtherOpenQuit");
-        document.dispatchEvent(new Event('click'));
-        tick(1000);
-        fixture.detectChanges();
-
-        menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem).toEqual(null);
-    }));
-
-    it('should change activeitem to new activeitem', () => {
-        fixture.detectChanges();
-
-        const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
-        contextmenuEvent.pageY = 20;
-        contextmenuEvent.initEvent('contextmenu', true, true);
-        document.dispatchEvent(contextmenuEvent);
-        fixture.detectChanges();
-
-        let menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem).toEqual(null);        
-        menuItems[0].nativeElement.dispatchEvent(new Event("mouseenter"));
-        fixture.detectChanges();
-
-        menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem.textContent).toEqual("FileNewProjectOtherOpenQuit");
-        menuItems[0].nativeElement.dispatchEvent(new Event("mouseleave"));
-        fixture.detectChanges();
-
-        menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        menuItems[6].nativeElement.dispatchEvent(new Event("mouseenter"));
-        fixture.detectChanges();
-
-        expect(menuItems[0].componentInstance.activeItem.textContent).not.toEqual("FileNewProjectOtherOpenQuit");
-        expect(menuItems[0].componentInstance.activeItem.textContent).toEqual("EditDeleteRefresh");
     });
 });

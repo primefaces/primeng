@@ -32,7 +32,7 @@ class TestConfirmDialogComponent {
 
 }
 
-fdescribe('ConfirmDialog', () => {
+describe('ConfirmDialog', () => {
   
   let confirmDialog: ConfirmDialog;
   let fixture: ComponentFixture<TestConfirmDialogComponent>;
