@@ -27,6 +27,7 @@ gulp.task('build-css-prod', function() {
         'src/app/components/inputtextarea/inputtextarea.css',
         'src/app/components/password/password.css',
         'src/app/components/radiobutton/radiobutton.css',
+        'src/app/components/ripple/ripple.css',
         'src/app/components/tooltip/tooltip.css'
     ])
     .pipe(concat('primeng.css'))
