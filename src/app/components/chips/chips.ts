@@ -96,7 +96,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     filled: boolean;
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

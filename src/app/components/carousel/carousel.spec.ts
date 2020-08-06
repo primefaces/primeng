@@ -36,14 +36,14 @@ describe('Carousel', () => {
     it('should created by default', () => {
         fixture.detectChanges();
   
-        const containerEl = fixture.debugElement.query(By.css('.ui-carousel'));
+        const containerEl = fixture.debugElement.query(By.css('.p-carousel'));
         expect(containerEl.nativeElement).toBeTruthy();
     });
 
     it('should create 9 elements', () => {
         fixture.detectChanges();
   
-        const containerEl = fixture.debugElement.queryAll(By.css('.ui-carousel-item'));
+        const containerEl = fixture.debugElement.queryAll(By.css('.p-carousel-item'));
         expect(containerEl.length).toEqual(9);
     });
 
@@ -52,7 +52,7 @@ describe('Carousel', () => {
         fixture.detectChanges();
   
         const onNextNavSpy = spyOn(carousel,"navForward").and.callThrough();
-        const nextEl = fixture.debugElement.query(By.css('.ui-carousel-next'));
+        const nextEl = fixture.debugElement.query(By.css('.p-carousel-next'));
         expect(carousel.page).toEqual(0);
         nextEl.nativeElement.click();
         fixture.detectChanges();
@@ -71,7 +71,7 @@ describe('Carousel', () => {
         fixture.detectChanges();
   
         const onPrevNavSpy = spyOn(carousel,"navBackward").and.callThrough();
-        const prevEl = fixture.debugElement.query(By.css('.ui-carousel-prev'));
+        const prevEl = fixture.debugElement.query(By.css('.p-carousel-prev'));
         expect(carousel.page).toEqual(0);
         prevEl.nativeElement.click();
         fixture.detectChanges();

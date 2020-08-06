@@ -120,7 +120,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <span [ngClass]="'p-badge'" *ngIf="badge" [class]="badgeClass">{{badge}}</span>
         </button>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class Button implements AfterContentInit {
