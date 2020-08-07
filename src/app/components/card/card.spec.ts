@@ -116,7 +116,6 @@ describe('Card', () => {
 		fixture.detectChanges();
 
 		const cardHeaderEl = fixture.debugElement.query(By.css('.p-card-header'));
-		console.log(cardHeaderEl)
 		expect(cardHeaderEl).toBeFalsy();
 	});
 });
