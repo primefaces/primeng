@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.0.0-rc.2](https://github.com/primefaces/primeng/tree/10.0.0-rc.2)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.1...10.0.0-rc.2)
+**Fixed bugs:**
+
+- Ripple effect is not working [\#9111](https://github.com/primefaces/primeng/issues/9111)
+
 ## [10.0.0-rc.1](https://github.com/primefaces/primeng/tree/10.0.0-rc.1)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.1.3...10.0.0-rc.1)
