@@ -118,3 +118,7 @@ button {
     transition: opacity .1s linear;
 }
 
+.p-toggleable-content.ng-animating {
+    overflow: hidden;
+}
+
