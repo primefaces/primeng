@@ -113,7 +113,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     public _value: any[];
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     get selection(): any[] {
         return this._selection;
