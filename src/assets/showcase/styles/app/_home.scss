@@ -18,6 +18,11 @@
         margin-bottom: 2rem;
     }
 
+    .section-image {
+        width: 100%;
+        max-width: 430px;
+    }
+
     .introduction {
         background-color: var(--surface-a);
         background-image: url('./assets/showcase/images/home/intro-bg.jpg');
@@ -142,8 +147,7 @@
         text-align: left;
         padding-top: 2rem;
 
-        img{
-            width: auto;
+        img {
             box-shadow: none;
         }
 
@@ -181,10 +185,6 @@
         background-color: var(--surface-a);
         padding: 2rem;
         color: var(--text-color);
-
-        img {
-        
-        }
 
         .p-md-6:last-child {
             text-align: center;
