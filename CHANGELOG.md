@@ -1,5 +1,17 @@
 # Changelog
 
+## [10.0.0-rc.3](https://github.com/primefaces/primeng/tree/10.0.0-rc.3)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.2...10.0.0-rc.3)
+**Fixed bugs:**
+
+- Padding for Fieldset content [\#9146](https://github.com/primefaces/primeng/issues/9146)
+- Content slide animations fail on Safari [\#9145](https://github.com/primefaces/primeng/issues/9145)
+- HTML page auto scrolls down when TextArea with AutoResize option is set [\#9129](https://github.com/primefaces/primeng/issues/9129)
+- Invalid markup on Calendar Time Picker [\#9137](https://github.com/primefaces/primeng/issues/9137)
+- Calendar FocusTrap not working [\#9136](https://github.com/primefaces/primeng/issues/9136)
+- Multiselect filter not working in v10.0.0-rc.2 [\#9135](https://github.com/primefaces/primeng/issues/9135)
+
 ## [10.0.0-rc.2](https://github.com/primefaces/primeng/tree/10.0.0-rc.2)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.1...10.0.0-rc.2)
