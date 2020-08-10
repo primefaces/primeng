@@ -2920,6 +2920,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: #e0e0e0;
   color: #000001;
 }
+.p-fieldset .p-fieldset-content {
+  padding: 0.75rem;
+}
 
 .p-panel .p-panel-header {
   border: 1px solid #e0e0e0;
