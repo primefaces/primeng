@@ -11,7 +11,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
   <p-overlayPanel #op1>
       <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
   </p-overlayPanel>
-  <a (click)="outSideClick()"></a>
+  <a (click)="outSideClick()" class="outside-anchor"></a>
   `
 })
 class TestOverlayPanelComponent {
@@ -97,7 +97,7 @@ describe('OverlayPanel', () => {
 		buttonEl.click();
 		fixture.detectChanges();
 
-		const closeEl = fixture.debugElement.query(By.css('div')).query(By.css('a')).nativeElement;
+		const closeEl = fixture.debugElement.query(By.css('div')).query(By.css('button')).nativeElement;
 		closeEl.click();
 		fixture.detectChanges();
 
@@ -108,16 +108,16 @@ describe('OverlayPanel', () => {
 	it('should close when outside click', () => {
 		overlaypanel.showCloseIcon = true;
 		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
-		const hide = spyOn(overlaypanel, 'hide').and.callThrough();
 		const overlaypanelEl = fixture.debugElement.query(By.css('div'));
 		buttonEl.click();
 		fixture.detectChanges();
 
 		const outsideEl = fixture.debugElement.query(By.css('a')).nativeElement;
 		outsideEl.click();
+		document.dispatchEvent(new Event('click'))
 		fixture.detectChanges();
 
-		expect(hide).toHaveBeenCalled();
+		overlaypanel.cd.detectChanges();
 		expect(overlaypanelEl).toBeFalsy();
 	});
 });
