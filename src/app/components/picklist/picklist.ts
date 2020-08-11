@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
@@ -232,7 +232,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
