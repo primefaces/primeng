@@ -67,7 +67,7 @@ export class RadioButton implements ControlValueAccessor {
         
     public focused: boolean;
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(public cd: ChangeDetectorRef) {}
     
     handleClick(event, radioButton, focus) {
         event.preventDefault();
