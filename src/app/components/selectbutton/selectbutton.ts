@@ -66,7 +66,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     
     onModelTouched: Function = () => {};
     
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(public cd: ChangeDetectorRef) {}
     
     @Input() get options(): any[] {
         return this._options;
