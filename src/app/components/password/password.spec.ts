@@ -44,7 +44,7 @@ describe('Password', () => {
         tick(300);
         fixture.detectChanges();
 
-        const panelEl = document.getElementsByClassName('ui-password-panel')[0];
+        const panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl).toBeTruthy();
     }));
 
@@ -56,13 +56,13 @@ describe('Password', () => {
         tick(300);
         fixture.detectChanges();
 
-        let panelEl = document.getElementsByClassName('ui-password-panel')[0];
+        let panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl).toBeTruthy();
         inputEl.triggerEventHandler('blur',null);
         tick(300);
         fixture.detectChanges();
 
-        panelEl = document.getElementsByClassName('ui-password-panel')[0];
+        panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl).toEqual(undefined);
     }));
 
@@ -75,7 +75,7 @@ describe('Password', () => {
         fixture.detectChanges();
 
         inputEl.triggerEventHandler('keyup',{'target':{'value':''}});
-        const panelEl = document.getElementsByClassName('ui-password-panel')[0];
+        const panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl.children[1].textContent).toEqual("Enter a password");
     }));
 
@@ -88,7 +88,7 @@ describe('Password', () => {
         fixture.detectChanges();
 
         inputEl.triggerEventHandler('keyup',{'target':{'value':'t'}});
-        const panelEl = document.getElementsByClassName('ui-password-panel')[0];
+        const panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl.children[1].textContent).toEqual("Weak");
     }));
 
@@ -101,7 +101,7 @@ describe('Password', () => {
         fixture.detectChanges();
 
         inputEl.triggerEventHandler('keyup',{'target':{'value':'t23et23'}});
-        const panelEl = document.getElementsByClassName('ui-password-panel')[0];
+        const panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl.children[1].textContent).toEqual("Medium");
     }));
 
@@ -114,7 +114,7 @@ describe('Password', () => {
         fixture.detectChanges();
 
         inputEl.triggerEventHandler('keyup',{'target':{'value':'t23eaviciit2with3out4you'}});
-        const panelEl = document.getElementsByClassName('ui-password-panel')[0];
+        const panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl.children[1].textContent).toEqual("Strong");
     }));
 });
