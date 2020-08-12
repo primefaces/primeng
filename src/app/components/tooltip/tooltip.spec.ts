@@ -60,7 +60,7 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
-        const panelEl = document.getElementsByClassName('ui-tooltip-right')[0];
+        const panelEl = document.getElementsByClassName('p-tooltip-right')[0];
         expect(panelEl).toBeTruthy();
     });
 
@@ -74,7 +74,7 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
-        const panelEl = document.getElementsByClassName('ui-tooltip-right')[0];
+        const panelEl = document.getElementsByClassName('p-tooltip-right')[0];
         expect(panelEl).toBeTruthy();
     });
 
@@ -88,7 +88,7 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
-        const panelEl = document.getElementsByClassName('ui-tooltip-top')[0];
+        const panelEl = document.getElementsByClassName('p-tooltip-top')[0];
         expect(panelEl).toBeTruthy();
     });
 
@@ -102,7 +102,7 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
-        const panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        const panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeTruthy();
     });
 
@@ -117,12 +117,12 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
-        let panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        let panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeTruthy();
         inputEl.nativeElement.dispatchEvent(new Event("mouseleave"));
         fixture.detectChanges();
 
-        panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeFalsy();
     });
 
@@ -136,12 +136,12 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
-        let panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        let panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeTruthy();
         inputEl.nativeElement.dispatchEvent(new Event("click"));
         fixture.detectChanges();
 
-        panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeFalsy();
     });
 
@@ -156,7 +156,7 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
 
-        let panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        let panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeTruthy();
     });
 
@@ -171,12 +171,12 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
 
-        let panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        let panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeTruthy();
         inputEl.nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
 
-        panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeFalsy();
     });
 
@@ -192,7 +192,7 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
 
-        let panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        let panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeFalsy();
     });
 
@@ -207,12 +207,12 @@ describe('Tooltip', () => {
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
 
-        let panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        let panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeTruthy();
         window.dispatchEvent(new Event("resize"));
         fixture.detectChanges();
 
-        panelEl = document.getElementsByClassName('ui-tooltip-bottom')[0];
+        panelEl = document.getElementsByClassName('p-tooltip-bottom')[0];
         expect(panelEl).toBeFalsy();
     });
 });
