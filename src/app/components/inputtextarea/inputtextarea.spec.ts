@@ -53,7 +53,7 @@ describe('InputTextarea', () => {
 		inputTextEl.nativeElement.dispatchEvent(new Event('blur'));
 		fixture.detectChanges();
 
-		expect(onResizeSpy).toHaveBeenCalledTimes(4);
+		expect(onResizeSpy).toHaveBeenCalledTimes(2);
 	});
 
 	it('should increment height', () => {

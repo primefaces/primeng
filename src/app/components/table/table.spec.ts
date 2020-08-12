@@ -1416,54 +1416,6 @@ describe('Table', () => {
         expect(reorableHeaderEls[3].nativeElement.textContent).toEqual(" Brand ");
     });
 
-    it('should reorder row (top of the dropped row)', () => {
-        fixture.detectChanges();
-
-        const reorderableTableEl = fixture.debugElement.query(By.css(".reorderableTable"));
-        let reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
-        expect(reorderableRowEls[1].nativeElement.draggable).toBeFalsy();
-        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" VW ");
-        reorderableRowEls[1].nativeElement.classList.add("p-datatable-reorderablerow-handle");
-        reorderableRowEls[1].nativeElement.dispatchEvent(new Event("mousedown"));
-        fixture.detectChanges();
-
-        expect(reorderableRowEls[1].nativeElement.draggable).toBeTruthy();
-        reorderableRowEls[1].nativeElement.classList.remove("p-datatable-reorderablerow-handle");
-        const onRowDragStartSpy = spyOn(reorderableTable,"onRowDragStart").and.callThrough();
-        const dragEvent: any = document.createEvent('CustomEvent');
-        dragEvent.initEvent('dragstart', true, true);
-        dragEvent.dataTransfer = {setData(val1,val2){}};
-        reorderableRowEls[1].nativeElement.dispatchEvent(dragEvent);
-        fixture.detectChanges();
-
-        expect(onRowDragStartSpy).toHaveBeenCalled();
-        expect(reorderableTable.rowDragging).toBeTruthy();
-        expect(reorderableTable.draggedRowIndex).toEqual(0);
-        dragEvent.initEvent('dragover', true,true);
-        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth * 3 + 1; 
-        const onRowDragOverSpy = spyOn(reorderableTable,"onRowDragOver").and.callThrough();
-        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
-        fixture.detectChanges();
-
-        expect(onRowDragOverSpy).toHaveBeenCalled();
-        expect(reorderableRowEls[3].nativeElement.classList).toContain("p-datatable-dragpoint-bottom");
-        expect(reorderableTable.droppedRowIndex).toEqual(3);
-        const onRowDropSpy = spyOn(reorderableTable,"onRowDrop").and.callThrough();
-        const onRowDragEndSpy = spyOn(reorderableTable,"onRowDragEnd").and.callThrough();
-        const onRowDragLeaveSpy = spyOn(reorderableTable,"onRowDragLeave").and.callThrough();
-        dragEvent.initEvent('drop', true,true);
-        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
-        fixture.detectChanges();
-
-        reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
-        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" Audi ");
-        expect(reorderableRowEls[2].children[1].nativeElement.textContent).toEqual(" Renault ");
-        expect(reorderableRowEls[3].children[1].nativeElement.textContent).toEqual(" VW ");
-        expect(onRowDropSpy).toHaveBeenCalled();
-        expect(onRowDragEndSpy).toHaveBeenCalled();
-        expect(onRowDragLeaveSpy).toHaveBeenCalled();
-    });
-
     it('should reorder row (bottom of the dropped row)', () => {
         fixture.detectChanges();
 

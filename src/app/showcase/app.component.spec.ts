@@ -6,26 +6,27 @@ import { AutoCompleteModule } from '../components/autocomplete/autocomplete';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppConfigComponent } from './app.config.component';
 import { VersionService } from './service/versionservice';
+import { AppConfigService } from './service/appconfigservice';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-        imports: [ 
-          RouterTestingModule,
-          FormsModule,
-          BrowserAnimationsModule,
-          AutoCompleteModule,
-          HttpClientModule
-        ],
-        declarations: [ AppComponent, AppConfigComponent ],
-        providers: [VersionService]
-    }).compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [
+				RouterTestingModule,
+				FormsModule,
+				BrowserAnimationsModule,
+				AutoCompleteModule,
+				HttpClientModule
+			],
+			declarations: [AppComponent, AppConfigComponent],
+			providers: [VersionService, AppConfigService]
+		}).compileComponents();
+	}));
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+	it('should create the app', async(() => {
+		const fixture = TestBed.createComponent(AppComponent);
+		const app = fixture.debugElement.componentInstance;
+		expect(app).toBeTruthy();
+	}));
 });
