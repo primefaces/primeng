@@ -49,7 +49,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    constructor(public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
+    constructor(public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {}
     
     closed: boolean;
     
@@ -165,7 +165,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     tabChanged: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
       
     ngAfterContentInit() {
         this.initTabs();
