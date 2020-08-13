@@ -5,7 +5,6 @@ import {CheckboxDemo} from './checkboxdemo';
 import {CheckboxDemoRoutingModule} from './checkboxdemo-routing.module';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 import { AppCodeModule } from '../../app.code.component';
 
@@ -17,8 +16,7 @@ import { AppCodeModule } from '../../app.code.component';
         CheckboxModule,
 		AppInputStyleSwitchModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		CheckboxDemo

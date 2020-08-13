@@ -13,8 +13,6 @@ export class TableColResizeDemo implements OnInit {
 
     customers: Customer[];
 
-    cols: any[];
-
     constructor(private productService: ProductService, private customerService: CustomerService) { }
 
     ngOnInit() {

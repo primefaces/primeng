@@ -13,10 +13,10 @@ import {RippleModule} from 'primeng/ripple';
         <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
-                <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header">
@@ -35,7 +35,7 @@ import {RippleModule} from 'primeng/ripple';
                         <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" pRipple
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'" role="option" [attr.aria-selected]="isSelected(item)"
-                            [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
+                            [attr.draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="p-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)"
@@ -113,7 +113,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     public _value: any[];
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     get selection(): any[] {
         return this._selection;

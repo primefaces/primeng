@@ -24,4 +24,5 @@ export class TableResponsiveDemo implements OnInit {
             { field: 'quantity', header: 'Quantity' }
         ];
     }
+    
 }

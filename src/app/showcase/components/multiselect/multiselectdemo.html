@@ -48,7 +48,7 @@
             <h5>CDK</h5>
             <p>Virtual Scrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 npm install @angular/cdk --save
 </app-code>
 
@@ -61,7 +61,7 @@ import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
             <p>MultiSelect requires a value to bind and a collection of options. There are two alternatives of how to define the <i>options</i> property; one way is providing a collection of SelectItem
             instances whereas other way is providing an array of arbitrary objects along with the <i>optionLabel</i> property to specify the field name of the option. SelectItem API is designed to have more control on how
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-multiSelect [options]="cities1" [(ngModel)]="selectedCities1"&gt;&lt;/p-multiSelect&gt;
 
 &lt;p-multiSelect [options]="cities2" [(ngModel)]="selectedCities2" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
@@ -110,7 +110,7 @@ export class MyModel &#123;
 
             <h5>Model Driven Forms</h5>
             <p>MultiSelect can be used in a model driven form as well.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
@@ -139,7 +139,7 @@ export class MyModel &#123;
             <h5>Filtering</h5>
             <p>Options can be filtered using an input field in the overlay by enabling the <i>filter</i> property. By default filtering is done against
                 label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true"&gt;&lt;/p-multiSelect&gt;
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" filterBy="label,value.name"&gt;&lt;/p-multiSelect&gt;
 </app-code>
@@ -150,7 +150,7 @@ export class MyModel &#123;
 
             <h5>Header and Footer</h5>
             <p><i>p-header</i> and <i>p-footer</i> elements can be used display custom content inside the header and footer sections.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
     &lt;p-header&gt;
         //Header content
@@ -164,14 +164,14 @@ export class MyModel &#123;
             <h5>Virtual Scrolling</h5>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
                 to avoid performance issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining itemSize to specify the height of an item.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 

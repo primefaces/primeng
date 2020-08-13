@@ -139,9 +139,249 @@
             </a>
 
 <app-code lang="markup" ngNonBindable>
+&lt;p-toast&gt;&lt;/p-toast&gt;
+
+&lt;div class="card"&gt;
+    &lt;p-toolbar styleClass="p-mb-4"&gt;
+        &lt;ng-template pTemplate="left"&gt;
+            &lt;button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"&gt;&lt;/button&gt;
+            &lt;button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+
+        &lt;ng-template pTemplate="right"&gt;
+            &lt;p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"&gt;&lt;/p-fileUpload&gt;
+            &lt;button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-toolbar&gt;
+
+    &lt;p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [showCurrentPageReport]="true"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
+                &lt;h5 class="p-m-0"&gt;Manage Products&lt;/h5&gt;
+                &lt;span class="p-input-icon-left"&gt;
+                    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+                    &lt;input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th style="width: 3rem"&gt;
+                    &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+                &lt;/th&gt;
+                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th&gt;Image&lt;/th&gt;
+                &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="category"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="rating"&gt;Reviews &lt;p-sortIcon field="rating"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="inventoryStatus"&gt;Status &lt;p-sortIcon field="inventoryStatus"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th&gt;&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &lt;p-tableCheckbox [value]="product"&gt;&lt;/p-tableCheckbox&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /&gt;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"&gt;&lt;/button&gt;
+                    &lt;button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"&gt;&lt;/button&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="summary"&gt;
+            &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
+                In total there are &#123;&#123;products ? products.length : 0 &#125;&#125; products.
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;p-dialog [(visible)]="productDialog" [style]="&#123;width: '450px'&#125;" header="Product Details" [modal]="true" styleClass="p-fluid"&gt;
+    &lt;ng-template pTemplate="content"&gt;
+        &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"&gt;
+        &lt;div class="p-field"&gt;
+            &lt;label for="name"&gt;Name&lt;/label&gt;
+            &lt;input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus /&gt;
+            &lt;small class="p-invalid" *ngIf="submitted && !product.name"&gt;Name is required.&lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class="p-field"&gt;
+            &lt;label for="description"&gt;Description&lt;/label&gt;
+            &lt;textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+
+        &lt;div class="p-field"&gt;
+            &lt;label class="p-mb-3"&gt;Category&lt;/label&gt;
+            &lt;div class="p-formgrid p-grid"&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category1"&gt;Accessories&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category2"&gt;Clothing&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category3"&gt;Electronics&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category4"&gt;Fitness&lt;/label&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="p-formgrid p-grid"&gt;
+            &lt;div class="p-field p-col"&gt;
+                &lt;label for="price"&gt;Price&lt;/label&gt;
+                &lt;p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"&gt;&lt;/p-inputNumber&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col"&gt;
+                &lt;label for="quantity"&gt;Quantity&lt;/label&gt;
+                &lt;p-inputNumber id="quantity" [(ngModel)]="product.quantity"&gt;&lt;/p-inputNumber&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"&gt;&lt;/button&gt;
+        &lt;button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+
+&lt;p-confirmDialog [style]="&#123;width: '450px'&#125;"&gt;&lt;/p-confirmDialog&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+import &#123; ConfirmationService &#125; from 'primeng/api';
+import &#123; MessageService &#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './tablecruddemo.html',
+    styleUrls: ['./tabledemo.scss'],
+    styles: [`
+        :host ::ng-deep .p-dialog .product-image &#123;
+            width: 150px;
+            margin: 0 auto 2rem auto;
+            display: block;
+        &#125;
+    `],
+    providers: [MessageService,ConfirmationService]
+&#125;)
+export class TableCrudDemo implements OnInit &#123;
+
+    productDialog: boolean;
+
+    products: Product[];
+
+    product: Product;
+
+    selectedProducts: Product[];
+
+    submitted: boolean;
+
+    constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.productService.getProducts().then(data =&gt; this.products = data);
+    &#125;
+
+    openNew() &#123;
+        this.product = &#123;&#125;;
+        this.submitted = false;
+        this.productDialog = true;
+    &#125;
+
+    deleteSelectedProducts() &#123;
+        this.confirmationService.confirm(&#123;
+            message: 'Are you sure you want to delete the selected products?',
+            header: 'Confirm',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () =&gt; &#123;
+                this.products = this.products.filter(val =&gt; !this.selectedProducts.includes(val));
+                this.selectedProducts = null;
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000&#125;);
+            &#125;
+        &#125;);
+    &#125;
+
+    editProduct(product: Product) &#123;
+        this.product = &#123;...product&#125;;
+        this.productDialog = true;
+    &#125;
+
+    deleteProduct(product: Product) &#123;
+        this.confirmationService.confirm(&#123;
+            message: 'Are you sure you want to delete ' + product.name + '?',
+            header: 'Confirm',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () =&gt; &#123;
+                this.products = this.products.filter(val =&gt; val.id !== product.id);
+                this.product = &#123;&#125;;
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000&#125;);
+            &#125;
+        &#125;);
+    &#125;
+
+    hideDialog() &#123;
+        this.productDialog = false;
+        this.submitted = false;
+    &#125;
+    
+    saveProduct() &#123;
+        this.submitted = true;
+
+        if (this.product.name.trim()) &#123;
+            if (this.product.id) &#123;
+                this.products[this.findIndexById(this.product.id)] = this.product;                
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000&#125;);
+            &#125;
+            else &#123;
+                this.product.id = this.createId();
+                this.product.image = 'product-placeholder.svg';
+                this.products.push(this.product);
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000&#125;);
+            &#125;
+
+            this.products = [...this.products];
+            this.productDialog = false;
+            this.product = &#123;&#125;;
+        &#125;
+    &#125;
+
+    findIndexById(id: string): number &#123;
+        let index = -1;
+        for (let i = 0; i &lt; this.products.length; i++) &#123;
+            if (this.products[i].id === id) &#123;
+                index = i;
+                break;
+            &#125;
+        &#125;
+
+        return index;
+    &#125;
+
+    createId(): string &#123;
+        let id = '';
+        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for ( var i = 0; i &lt; 5; i++ ) &#123;
+            id += chars.charAt(Math.floor(Math.random() * chars.length));
+        &#125;
+        return id;
+    &#125;
+&#125;
 </app-code>
   
         </p-tabPanel>

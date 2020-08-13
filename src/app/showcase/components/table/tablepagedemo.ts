@@ -32,10 +32,11 @@ export class TablePageDemo implements OnInit {
     }
 
     isLastPage(): boolean {
-        return this.first === (this.customers.length - this.rows);
+        return this.customers ? this.first === (this.customers.length - this.rows): true;
     }
 
     isFirstPage(): boolean {
-        return this.first === 0;
+        return this.customers ? this.first === 0 : true;
     }
+    
 }

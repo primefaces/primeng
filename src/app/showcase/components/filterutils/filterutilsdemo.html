@@ -177,8 +177,7 @@ FilterUtils['isPrimeNumber'](568985673);              //false
             <a href="https://stackblitz.com/edit/primeng-filterutils-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -203,11 +202,9 @@ FilterUtils['isPrimeNumber'](568985673);              //false
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class FilterUtilsDemo &#123;
 
     cars: Car[];
@@ -237,8 +234,7 @@ export class FilterUtilsDemo &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

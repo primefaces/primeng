@@ -5,7 +5,6 @@ import {SlideMenuDemoRoutingModule} from './slidemenudemo-routing.module';
 import {SlideMenuModule} from 'primeng/slidemenu';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -15,8 +14,7 @@ import { AppCodeModule } from '../../app.code.component';
         SlideMenuModule,
         ButtonModule,
         TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		SlideMenuDemo

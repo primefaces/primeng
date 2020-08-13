@@ -82,6 +82,6 @@ describe('BlockUI', () => {
         fixture.detectChanges();
         
         expect(blockSpy).toHaveBeenCalled();
-        expect(blockui2.target.style.position).toEqual("relative");
+        expect(blockui2.target.getBlockableElement().style.position).toEqual("relative");
     });
 });

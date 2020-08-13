@@ -38,9 +38,96 @@
             </a>
 
 <app-code lang="markup" ngNonBindable>
+&lt;p-table [columns]="cols" [value]="products" styleClass="p-datatable-responsive-demo"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &lt;span class="p-column-title"&gt;&#123;&#123;col.header&#125;&#125;&lt;/span&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
+@Component(&#123;
+    templateUrl: './tableresponsivedemo.html',
+    styleUrls: ['./tableresponsivedemo.scss']
+&#125;)
+export class TableResponsiveDemo implements OnInit &#123;
+
+    products: Product[];
+
+    cols: any[];
+
+    constructor(private productService: ProductService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.productService.getProductsSmall().then(data =&gt; this.products = data);
+
+        this.cols = [
+            &#123; field: 'code', header: 'Code' &#125;,
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'category', header: 'Category' &#125;,
+            &#123; field: 'quantity', header: 'Quantity' &#125;
+        ];
+    &#125;
+    
+&#125;
+</app-code>
+
+<app-code lang="css" ngNonBindable>
+:host ::ng-deep &#123;    
+    .p-datatable-responsive-demo .p-datatable-tbody &gt; tr &gt; td .p-column-title &#123;
+        display: none;
+    &#125;
+&#125;
+
+@media screen and (max-width: 40rem) &#123;
+    :host ::ng-deep &#123;
+        .p-datatable &#123;
+            &.p-datatable-responsive-demo &#123;
+                .p-datatable-thead &gt; tr &gt; th,
+                .p-datatable-tfoot &gt; tr &gt; td &#123;
+                    display: none !important;
+                &#125;
+
+                .p-datatable-tbody &gt; tr &gt; td &#123;
+                    text-align: left;
+                    display: block;
+                    width: 100%;
+                    float: left;
+                    clear: left;
+                    border: 0 none;
+
+                    .p-column-title &#123;
+                        padding: .4rem;
+                        min-width: 30%;
+                        display: inline-block;
+                        margin: -.4em 1em -.4em -.4rem;
+                        font-weight: bold;
+                    &#125;
+
+                    &:last-child &#123;
+                        border-bottom: 1px solid var(--surface-d);
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
 </app-code>
 
         </p-tabPanel>

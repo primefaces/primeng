@@ -20,7 +20,7 @@
                     </div>
                     <div class="product-list-action">
                         <h6 class="p-mb-2">${{product.price}}</h6>
-                        <span class="'product-badge status-'{{product.inventoryStatus.toLowerCase()}}">{{product.inventoryStatus}}</span>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                     </div>
                 </div>
             </ng-template>
@@ -42,7 +42,7 @@ import &#123;OrderListModule&#125; from 'primeng/orderlist';
 <app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="p-helper-clearfix"&gt;
+        &lt;div&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
@@ -70,7 +70,7 @@ export class MyComponent &#123;
 <app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="p-helper-clearfix"&gt;
+        &lt;div&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
@@ -307,7 +307,7 @@ export class MyComponent &#123;
             &lt;/div&gt;
             &lt;div class="product-list-action"&gt;
                 &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
-                &lt;span class="'product-badge status-'&#123;&#123;product.inventoryStatus.toLowerCase()&#125;&#125;"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
+                &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;

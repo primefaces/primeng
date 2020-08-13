@@ -62,7 +62,7 @@ export class TableService {
         <div #container [ngStyle]="style" [class]="styleClass"
             [ngClass]="{'p-datatable p-component': true, 
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
-                'p-datatable-auto-layout': autoLayout, 
+                'p-datatable-auto-layout': autoLayout,
                 'p-datatable-resizable': resizableColumns,
                 'p-datatable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'p-datatable-scrollable': scrollable,

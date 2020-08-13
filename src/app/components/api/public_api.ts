@@ -1,4 +1,5 @@
 export * from './blockableui';
+export * from './primengconfig';
 export * from './confirmation';
 export * from './confirmationservice';
 export * from './filtermetadata';

@@ -31,11 +31,11 @@
                 <div class="p-col-2"><label for="drg">Drag</label></div>
                 <div class="p-col-10"><p-checkbox [(ngModel)]="draggable" binary="true" [style]="{'margin-top':'.25em'}"></p-checkbox></div>
             </div>
-            <p-footer>
+            <ng-template pTemplate="footer">
                 <div>
                     <button type="button" pButton label="Add Marker" icon="pi pi-plus" (click)="addMarker()"></button>
                 </div>
-            </p-footer>
+            </ng-template>
         </p-dialog>
     </div>
 </div>
@@ -359,11 +359,11 @@ export class MyModel &#123;
         &lt;div class="p-col-2"&gt;&lt;label for="drg"&gt;Drag&lt;/label&gt;&lt;/div&gt;
         &lt;div class="p-col-10"&gt;&lt;p-checkbox [(ngModel)]="draggable" binary="true" [style]="&#123;'margin-top':'.25em'&#125;"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         &lt;div&gt;
             &lt;button type="button" pButton label="Add Marker" icon="pi-plus" (click)="addMarker()"&gt;&lt;/button&gt;
         &lt;/div&gt;
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 </app-code>
 

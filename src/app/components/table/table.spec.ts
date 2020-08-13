@@ -232,7 +232,7 @@ import { RouterTestingModule } from '@angular/router/testing';
         <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
             <tr>
                 <td [attr.colspan]="columns.length + 1">
-                    <div class="p-grid ui-fluid expandedRow" style="font-size:16px;padding:20px">
+                    <div class="p-grid p-fluid expandedRow" style="font-size:16px;padding:20px">
                         <div class="p-col-12 p-md-3" style="text-align:center">
                         </div>
                         <div class="p-col-12 p-md-9">
@@ -271,7 +271,7 @@ import { RouterTestingModule } from '@angular/router/testing';
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns" class="ui-resizable-column">
+                <td *ngFor="let col of columns" class="p-resizable-column">
                     {{rowData[col.field]}}
                 </td>
             </tr>
@@ -325,7 +325,7 @@ import { RouterTestingModule } from '@angular/router/testing';
                 </th>
             </tr>
             <tr>
-                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="p-fluid">
                     <input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value">
                 </th>
             </tr>
@@ -469,7 +469,7 @@ describe('Table', () => {
         fixture.detectChanges();
   
         const tableEl = fixture.debugElement.query(By.css('div'));
-        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(10);
     });
 
@@ -502,9 +502,9 @@ describe('Table', () => {
         fixture.detectChanges();
         
         const tableEl = fixture.debugElement.query(By.css('div'));
-        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(5);
-        const pageTwoEl = fixture.debugElement.query(By.css("p-paginator")).query(By.css(".ui-paginator-pages")).children[1];
+        const pageTwoEl = fixture.debugElement.query(By.css("p-paginator")).query(By.css(".p-paginator-pages")).children[1];
 
         pageTwoEl.nativeElement.click();
         fixture.detectChanges();
@@ -523,7 +523,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         const tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(2);
     }));
 
@@ -537,7 +537,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         const tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(2);
         filterTable.reset();
         fixture.detectChanges();
@@ -555,7 +555,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         const tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
     }));
 
@@ -572,7 +572,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         const tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(0);
     }));
 
@@ -584,13 +584,13 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
         filterTable.filter(null,"vin","endsWith");
         tick(300);
         fixture.detectChanges();
 
-        bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(10);
     }));
 
@@ -602,7 +602,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
     }));
 
@@ -614,7 +614,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(9);
     }));
 
@@ -626,7 +626,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
         filterTable.filter([],"brand","in");
         tick(300);
@@ -643,7 +643,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(3);
     }));
 
@@ -655,7 +655,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(5);
     }));
 
@@ -667,7 +667,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(5);
     }));
 
@@ -679,7 +679,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
-        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(7);
     }));
 
@@ -690,7 +690,7 @@ describe('Table', () => {
         brandSortEl.nativeElement.click();
         fixture.detectChanges();
 
-        const firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('td'));
+        const firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.p-datatable-tbody')).query(By.css('td'));
 
         expect(firstEl.nativeElement.outerText).toEqual("Audi");
     });
@@ -704,7 +704,7 @@ describe('Table', () => {
         colorSortEl.nativeElement.click();
         fixture.detectChanges();
 
-        const firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('tr'));
+        const firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.p-datatable-tbody')).query(By.css('tr'));
 
         expect(firstEl.children[3].nativeElement.outerText).toEqual("Black");
         expect(firstEl.children[2].nativeElement.outerText).toEqual("2011");
@@ -713,7 +713,7 @@ describe('Table', () => {
         tick(300);
         fixture.detectChanges();
 
-        const firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('tr'));
+        const firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.p-datatable-tbody')).query(By.css('tr'));
         expect(firstRow.children[2].nativeElement.outerText).toEqual("2000");
     }));
 
@@ -726,7 +726,7 @@ describe('Table', () => {
         brandSortEl.nativeElement.click();
         fixture.detectChanges();
 
-        const firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('td'));
+        const firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.p-datatable-tbody')).query(By.css('td'));
 
         expect(firstEl.nativeElement.outerText).toEqual("Audi");
     });
@@ -740,18 +740,18 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.brand).toEqual("VW");
-        expect(vwEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(vwEl.nativeElement.className).toContain('p-highlight');
         const audiEl = selectableRows[1];
         audiEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.brand).toEqual("Audi");
-        expect(audiEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         audiEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection).toBeFalsy();
-        expect(audiEl.nativeElement.className).not.toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).not.toContain('p-highlight');
     });
 
     it('should select single item and unselect when another item select and self click without dataKey', () => {
@@ -765,18 +765,18 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.brand).toEqual("VW");
-        expect(vwEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(vwEl.nativeElement.className).toContain('p-highlight');
         const audiEl = selectableRows[1];
         audiEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.brand).toEqual("Audi");
-        expect(audiEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         audiEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection).toBeFalsy();
-        expect(audiEl.nativeElement.className).not.toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).not.toContain('p-highlight');
     });
 
     it('should select multiple items and unselect with self click', () => {
@@ -791,19 +791,19 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection[0].brand).toEqual("VW");
-        expect(vwEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(vwEl.nativeElement.className).toContain('p-highlight');
         const audiEl = selectableRows[1];
         audiEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection[1].brand).toEqual("Audi");
         expect(basicSelectionTable.selection.length).toEqual(2);
-        expect(audiEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         audiEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.length).toEqual(1);
-        expect(audiEl.nativeElement.className).not.toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).not.toContain('p-highlight');
     });
 
     it('should select single item with metaKey selection', () => {
@@ -818,7 +818,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.brand).toEqual("VW");
-        expect(vwEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(vwEl.nativeElement.className).toContain('p-highlight');
         const event: any = document.createEvent('CustomEvent');
         event.metaKey = true;
         event.ctrlKey = true;
@@ -828,12 +828,12 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.brand).toEqual("Audi");
-        expect(audiEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         audiEl.nativeElement.dispatchEvent(event);
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection).toBeFalsy();
-        expect(audiEl.nativeElement.className).not.toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).not.toContain('p-highlight');
     });
 
     it('should select multiple items with metaKey selection', () => {
@@ -850,7 +850,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection[0].brand).toEqual("VW");
-        expect(vwEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(vwEl.nativeElement.className).toContain('p-highlight');
         const event: any = document.createEvent('CustomEvent');
         event.metaKey = true;
         event.ctrlKey = true;
@@ -861,12 +861,12 @@ describe('Table', () => {
 
         expect(basicSelectionTable.selection[1].brand).toEqual("Audi");
         expect(basicSelectionTable.selection.length).toEqual(2);
-        expect(audiEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         audiEl.nativeElement.dispatchEvent(event);
         fixture.detectChanges();
 
         expect(basicSelectionTable.selection.length).toEqual(1);
-        expect(audiEl.nativeElement.className).not.toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).not.toContain('p-highlight');
     });
 
     it('should select range  with shiftKey selection', () => {
@@ -889,7 +889,7 @@ describe('Table', () => {
 
         expect(basicSelectionTable.rangeRowIndex).toEqual(basicSelectionTable.anchorRowIndex);
         expect(basicSelectionTable.selection[0].brand).toEqual("Audi");
-        expect(audiEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         const mercedesEl = selectableRows[4];
         mercedesEl.nativeElement.dispatchEvent(event);
         fixture.detectChanges();
@@ -929,7 +929,7 @@ describe('Table', () => {
 
         expect(basicSelectionTable.rangeRowIndex).toEqual(basicSelectionTable.anchorRowIndex);
         expect(basicSelectionTable.selection[0].brand).toEqual("Audi");
-        expect(audiEl.nativeElement.className).toContain('ui-state-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         const mercedesEl = selectableRows[4];
         mercedesEl.nativeElement.dispatchEvent(event);
         fixture.detectChanges();
@@ -962,11 +962,11 @@ describe('Table', () => {
         vwRadioEl.nativeElement.click();
         fixture.detectChanges();
         
-        expect(vwRadioEl.query(By.css(".ui-radiobutton-box")).nativeElement.className).toContain("ui-state-focus");
+        expect(vwRadioEl.query(By.css(".p-radiobutton-box")).nativeElement.className).toContain("p-focus");
         vwRadioEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
 
-        expect(vwRadioEl.query(By.css(".ui-radiobutton-box")).nativeElement.className).not.toContain("ui-state-focus");
+        expect(vwRadioEl.query(By.css(".p-radiobutton-box")).nativeElement.className).not.toContain("p-focus");
         expect(radioSelectionTable.selection.brand).toEqual("VW");
         bmwRadioEl.nativeElement.click();
         fixture.detectChanges();
@@ -991,11 +991,11 @@ describe('Table', () => {
         vwCheckboxEl.nativeElement.click();
         fixture.detectChanges();
         
-        expect(vwCheckboxEl.query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
+        expect(vwCheckboxEl.query(By.css(".p-checkbox-box")).nativeElement.className).toContain("p-focus");
         vwCheckboxEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
 
-        expect(vwCheckboxEl.query(By.css(".ui-chkbox-box")).nativeElement.className).not.toContain("ui-state-focus");
+        expect(vwCheckboxEl.query(By.css(".p-checkbox-box")).nativeElement.className).not.toContain("p-focus");
         expect(checkboxSelectionTable.selection[0].brand).toEqual("VW");
         const audiCheckboxEl = checkboxRows[1].query(By.css("div"));
         audiCheckboxEl.nativeElement.click();
@@ -1021,12 +1021,12 @@ describe('Table', () => {
         headerCheckbox.query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
         
-        expect(headerCheckbox.query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
+        expect(headerCheckbox.query(By.css(".p-checkbox-box")).nativeElement.className).toContain("p-focus");
         headerCheckbox.nativeElement.click();
         headerCheckbox.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
 
-        expect(headerCheckbox.query(By.css(".ui-chkbox-box")).nativeElement.className).not.toContain("ui-state-focus");
+        expect(headerCheckbox.query(By.css(".p-checkbox-box")).nativeElement.className).not.toContain("p-focus");
         expect(checkboxSelectionTable.selection.length).toEqual(10);
         vwCheckboxEl.nativeElement.click();
         fixture.detectChanges();
@@ -1097,7 +1097,7 @@ describe('Table', () => {
     it('should open cell', () => {
         fixture.detectChanges();
 
-        let cell = fixture.debugElement.query(By.css(".ui-editable-column"));
+        let cell = fixture.debugElement.query(By.css(".p-editable-column"));
         cell.nativeElement.click();
         fixture.detectChanges();
 
@@ -1107,7 +1107,7 @@ describe('Table', () => {
     it('should close cell', () => {
         fixture.detectChanges();
 
-        let cell = fixture.debugElement.query(By.css(".ui-editable-column"));
+        let cell = fixture.debugElement.query(By.css(".p-editable-column"));
         let editableDir = cell.parent.query(By.directive(EditableColumn)).injector.get(EditableColumn);
         cell.nativeElement.click();
         fixture.detectChanges();
@@ -1136,7 +1136,7 @@ describe('Table', () => {
     it('should open next cell', () => {
         fixture.detectChanges();
 
-        let cellEls = fixture.debugElement.queryAll(By.css(".ui-editable-column"));
+        let cellEls = fixture.debugElement.queryAll(By.css(".p-editable-column"));
         let cell = cellEls[0];
         let editableDir = cell.parent.query(By.directive(EditableColumn)).injector.get(EditableColumn);
         const moveToNextCellSpy = spyOn(editableDir, 'moveToNextCell').and.callThrough();
@@ -1157,7 +1157,7 @@ describe('Table', () => {
     it('should open prev cell', () => {
         fixture.detectChanges();
 
-        let cellEls = fixture.debugElement.queryAll(By.css(".ui-editable-column"));
+        let cellEls = fixture.debugElement.queryAll(By.css(".p-editable-column"));
         let cell = cellEls[1];
         cell.nativeElement.click();
         fixture.detectChanges();
@@ -1198,7 +1198,7 @@ describe('Table', () => {
         colResizeTable.columnResizeMode = "expand";
         fixture.detectChanges();
 
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let resizerEls = document.getElementsByClassName("p-column-resizer");
         let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
@@ -1237,7 +1237,7 @@ describe('Table', () => {
         colResizeTable.scrollHeight = "50px";
         fixture.detectChanges();
 
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let resizerEls = document.getElementsByClassName("p-column-resizer");
         let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
@@ -1271,7 +1271,7 @@ describe('Table', () => {
     it('should call resize (fit)', () => {
         fixture.detectChanges();
 
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let resizerEls = document.getElementsByClassName("p-column-resizer");
         let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
@@ -1306,7 +1306,7 @@ describe('Table', () => {
         colResizeTable.scrollHeight = "50px";
         fixture.detectChanges();
 
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let resizerEls = document.getElementsByClassName("p-column-resizer");
         let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
@@ -1416,69 +1416,19 @@ describe('Table', () => {
         expect(reorableHeaderEls[3].nativeElement.textContent).toEqual(" Brand ");
     });
 
-    it('should reorder row (top of the dropped row)', () => {
-        fixture.detectChanges();
-
-        const reorderableTableEl = fixture.debugElement.query(By.css(".reorderableTable"));
-        let reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
-        let handleEls = reorderableTableEl.queryAll(By.css(".ui-table-reorderablerow-handle"));
-        expect(reorderableRowEls[1].nativeElement.draggable).toBeFalsy();
-        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" VW ");
-        reorderableRowEls[1].nativeElement.classList.add("ui-table-reorderablerow-handle");
-        reorderableRowEls[1].nativeElement.dispatchEvent(new Event("mousedown"));
-        fixture.detectChanges();
-
-        expect(reorderableRowEls[1].nativeElement.draggable).toBeTruthy();
-        reorderableRowEls[1].nativeElement.classList.remove("ui-table-reorderablerow-handle");
-        const onRowDragStartSpy = spyOn(reorderableTable,"onRowDragStart").and.callThrough();
-        const dragEvent: any = document.createEvent('CustomEvent');
-        dragEvent.initEvent('dragstart', true, true);
-        dragEvent.dataTransfer = {setData(val1,val2){}};
-        reorderableRowEls[1].nativeElement.dispatchEvent(dragEvent);
-        fixture.detectChanges();
-
-        expect(onRowDragStartSpy).toHaveBeenCalled();
-        expect(reorderableTable.rowDragging).toBeTruthy();
-        expect(reorderableTable.draggedRowIndex).toEqual(0);
-        dragEvent.initEvent('dragover', true,true);
-        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth * 3 + 1; 
-        const onRowDragOverSpy = spyOn(reorderableTable,"onRowDragOver").and.callThrough();
-        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
-        fixture.detectChanges();
-
-        expect(onRowDragOverSpy).toHaveBeenCalled();
-        expect(reorderableRowEls[3].nativeElement.classList).toContain("ui-table-dragpoint-bottom");
-        expect(reorderableTable.droppedRowIndex).toEqual(3);
-        const onRowDropSpy = spyOn(reorderableTable,"onRowDrop").and.callThrough();
-        const onRowDragEndSpy = spyOn(reorderableTable,"onRowDragEnd").and.callThrough();
-        const onRowDragLeaveSpy = spyOn(reorderableTable,"onRowDragLeave").and.callThrough();
-        dragEvent.initEvent('drop', true,true);
-        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
-        fixture.detectChanges();
-
-        reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
-        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" Audi ");
-        expect(reorderableRowEls[2].children[1].nativeElement.textContent).toEqual(" Renault ");
-        expect(reorderableRowEls[3].children[1].nativeElement.textContent).toEqual(" VW ");
-        expect(onRowDropSpy).toHaveBeenCalled();
-        expect(onRowDragEndSpy).toHaveBeenCalled();
-        expect(onRowDragLeaveSpy).toHaveBeenCalled();
-    });
-
     it('should reorder row (bottom of the dropped row)', () => {
         fixture.detectChanges();
 
         const reorderableTableEl = fixture.debugElement.query(By.css(".reorderableTable"));
         let reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
-        let handleEls = reorderableTableEl.queryAll(By.css(".ui-table-reorderablerow-handle"));
         expect(reorderableRowEls[1].nativeElement.draggable).toBeFalsy();
         expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" VW ");
-        reorderableRowEls[1].nativeElement.classList.add("ui-table-reorderablerow-handle");
+        reorderableRowEls[1].nativeElement.classList.add("p-datatable-reorderablerow-handle");
         reorderableRowEls[1].nativeElement.dispatchEvent(new Event("mousedown"));
         fixture.detectChanges();
 
         expect(reorderableRowEls[1].nativeElement.draggable).toBeTruthy();
-        reorderableRowEls[1].nativeElement.classList.remove("ui-table-reorderablerow-handle");
+        reorderableRowEls[1].nativeElement.classList.remove("p-datatable-reorderablerow-handle");
         const onRowDragStartSpy = spyOn(reorderableTable,"onRowDragStart").and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
@@ -1553,7 +1503,7 @@ describe('Table', () => {
     it('should open contextMenu and select row', () => {
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.css(".p-contextmenu")).componentInstance as ContextMenu;
         const showSpy = spyOn(contextMenu,"show").and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTable"));
         const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
@@ -1575,7 +1525,7 @@ describe('Table', () => {
         contextMenuTable.contextMenuSelectionMode = "joint";
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.css(".p-contextmenu")).componentInstance as ContextMenu;
         const showSpy = spyOn(contextMenu,"show").and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTable"));
         const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
@@ -1597,7 +1547,7 @@ describe('Table', () => {
         contextMenuTable.contextMenuSelectionMode = "joint";
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.css(".p-contextmenu")).componentInstance as ContextMenu;
         const showSpy = spyOn(contextMenu,"show").and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTable"));
         const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
@@ -1631,11 +1581,11 @@ describe('Table', () => {
         brandFilter.nativeElement.dispatchEvent(new Event("input"));
         fixture.detectChanges();
 
-        const rowEls = stateTableEl.queryAll(By.css(".ui-selectable-row"));
+        const rowEls = stateTableEl.queryAll(By.css(".p-selectable-row"));
         rowEls[0].nativeElement.click();
         fixture.detectChanges();
 
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let resizerEls = document.getElementsByClassName("p-column-resizer");
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
         event.initEvent('mousedown');
@@ -1688,11 +1638,11 @@ describe('Table', () => {
         brandFilter.nativeElement.dispatchEvent(new Event("input"));
         fixture.detectChanges();
 
-        const rowEls = stateTableEl.queryAll(By.css(".ui-selectable-row"));
+        const rowEls = stateTableEl.queryAll(By.css(".p-selectable-row"));
         rowEls[0].nativeElement.click();
         fixture.detectChanges();
 
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let resizerEls = document.getElementsByClassName("p-column-resizer");
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
         event.initEvent('mousedown');

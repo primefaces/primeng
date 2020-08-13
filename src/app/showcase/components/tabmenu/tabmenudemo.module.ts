@@ -4,7 +4,6 @@ import {TabMenuDemo} from './tabmenudemo';
 import {TabMenuDemoRoutingModule} from './tabmenudemo-routing.module';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -13,8 +12,7 @@ import {AppCodeModule} from '../../app.code.component';
 		TabMenuDemoRoutingModule,
         TabMenuModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		TabMenuDemo,

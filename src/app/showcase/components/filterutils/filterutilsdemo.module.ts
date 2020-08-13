@@ -1,9 +1,8 @@
-import { NgModule }     from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';;
 import { TabViewModule } from 'primeng/tabview';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { FilterUtilsDemo } from './filterutilsdemo';
 import { FilterUtilsDemoRoutingModule } from './filterutils-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -18,7 +17,6 @@ import { AppCodeModule } from '../../app.code.component';
         ButtonModule,
         TabViewModule,
         AppCodeModule,
-		CodeHighlighterModule,
 		AutoCompleteModule,
 		FormsModule,
 		TableModule,

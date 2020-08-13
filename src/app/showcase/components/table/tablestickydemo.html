@@ -48,11 +48,71 @@
                 <span>Edit in StackBlitz</span>
             </a>
 
-            <app-code lang="markup" ngNonBindable>
-            </app-code>
-            
-            <app-code lang="typescript" ngNonBindable>
-            </app-code> 
+<app-code lang="markup" ngNonBindable>
+&lt;p-table [value]="customers"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Country&lt;/th&gt;
+            &lt;th&gt;Representative&lt;/th&gt;
+            &lt;th&gt;Status&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &#123;&#123;customer.name&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                &lt;span class="image-text"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+
+@Component(&#123;
+    templateUrl: './tablestickydemo.html',
+    styleUrls: ['./tabledemo.scss'],
+    styles: [`
+        :host ::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th &#123;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 69px;
+        &#125;
+
+        @media screen and (max-width: 64em) &#123;
+            :host ::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th &#123;
+                top: 99px;
+            &#125;
+        &#125;
+`]
+&#125;)
+export class TableStickyDemo implements OnInit &#123;
+
+    customers: Customer[];
+
+    constructor(private customerService: CustomerService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.customerService.getCustomersLarge().then(customers =&gt; this.customers = customers);
+    &#125;
+
+&#125;
+</app-code> 
 
         </p-tabPanel>
 

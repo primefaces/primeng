@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ProductService} from '../../service/productservice';
+import { Component } from '@angular/core';
+import { ProductService } from '../../service/productservice';
 import { Product } from '../../domain/product';
 
 @Component({

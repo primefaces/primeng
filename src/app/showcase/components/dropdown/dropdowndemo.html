@@ -51,7 +51,7 @@
         <p-tabPanel header="Documentation">
             <h5>CDK</h5>
             <p>VirtualScrolling enabled Dropdown depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 npm install @angular/cdk --save
 </app-code>
 
@@ -65,7 +65,7 @@ import &#123;DropdownModule&#125; from 'primeng/dropdown';
             <p>Dropdown requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
             instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-dropdown&gt;
 
 &lt;p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-dropdown&gt;
@@ -115,21 +115,21 @@ export class MyModel &#123;
 
             <h5>Model Driven Forms</h5>
             <p>Dropdown can be used in a model driven form as well.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
 </app-code>
 
             <h5>Filtering</h5>
             <p>Options can be filtered using an input field in the overlay by enabling the <i>filter</i> property. By default filtering is done against
                 label of the SelectItem and <i>filterBy</i> property is available to choose one or more properties of the SelectItem API.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-dropdown&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true" filterBy="label,value.name"&gt;&lt;/p-dropdown&gt;
 </app-code>
 
             <h5>Grouping</h5>
             <p>Displaying options as grouped is enabled by providing a collection of SelectItemGroup instances and setting <i>group</i> property to true.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar" placeholder="Select a Car" [group]="true"&gt;&lt;/p-dropdown&gt;
 </app-code>
 
@@ -227,14 +227,14 @@ export class MyModel &#123;
             <h5>Virtual Scrolling</h5>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
                 to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. </p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown [options]="cities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-dropdown&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-dropdown&gt;
 </app-code>
             <h5>Properties</h5>
@@ -577,12 +577,12 @@ export class MyModel &#123;
                 </table>
             </div>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown #dd [options]="cars" [(ngModel)]="selectedCar" filter="true"&gt;&lt;/p-dropdown&gt;
 &lt;button type="button" pButton label="Clear" (click)="clearFilter(dd)"&gt;&lt;/button&gt;
 </app-code>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 clearFilter(dropdown: Dropdown) &#123;
     dropdown.resetFilter();
 &#125;

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output, ViewChild, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
+import { VersionService } from './service/versionservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 
@@ -206,15 +207,25 @@ import { Subscription } from 'rxjs';
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 2)">Resources</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
-                        <li><a [routerLink]="['/support']"><span>Support</span></a></li>
-                        <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Forum</span></a></li>
-                        <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
+                        
+                        <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
                         <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
                         <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>
+                        <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Forum</span></a></li>
+                        <li><a [routerLink]="['/lts']"><span>LTS</span></a></li>
+                        <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
+                        <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
+                        <li><a [routerLink]="['/support']"><span>Support</span></a></li>
                         <li><a href="https://twitter.com/prime_ng?lang=en" target="_blank"><span>Twitter</span></a></li>
                         <li><a href="https://www.primefaces.org/whouses" target="_blank"><span>Who Uses</span></a></li>
-                        <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
-                        <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
+                    </ul>
+                </li>
+                <li class="topbar-submenu">
+                    <a tabindex="0" (click)="toggleMenu($event, 3)">{{versions ? versions[0].version : 'Latest'}}</a>
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width:100%">
+                        <li *ngFor="let v of versions">
+                            <a [href]="v.url">{{v.version}}</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -282,11 +293,14 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'rhea': 'rhea.png'
     };
 
-    constructor(private router: Router, private configService: AppConfigService) {}
+    versions: any[];
+
+    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+        this.versionService.getVersions().then(data => this.versions = data);
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {

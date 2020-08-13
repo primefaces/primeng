@@ -83,4 +83,5 @@ export class TableFilterDemo implements OnInit {
     onRepresentativeChange(event) {
         this.table.filter(event.value, 'representative', 'in')
     }
+    
 }

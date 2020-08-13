@@ -1,0 +1,23 @@
+:host ::ng-deep .pro-section {
+    display: flex;
+    margin-top: .75rem;
+
+    .pro-section-text {
+        flex: 1 1 auto;
+        padding: 0rem 1rem 0 0;
+
+        .action-button {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+    }
+
+    .pro-section-image {
+        text-align: center;
+        padding: 1rem;
+    }
+}
+
+li {
+    line-height: 1.5;
+}

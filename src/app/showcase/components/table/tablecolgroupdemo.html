@@ -54,9 +54,92 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable>
+&lt;p-table [value]="sales"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th rowspan="3"&gt;Product&lt;/th&gt;
+            &lt;th colspan="4"&gt;Sale Rate&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th colspan="2"&gt;Sales&lt;/th&gt;
+            &lt;th colspan="2"&gt;Profits&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Last Year&lt;/th&gt;
+            &lt;th&gt;This Year&lt;/th&gt;
+            &lt;th&gt;Last Year&lt;/th&gt;
+            &lt;th&gt;This Year&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-sale&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;sale.product&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.lastYearSale&#125;&#125;%&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.thisYearSale&#125;&#125;%&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.lastYearProfit | currency: 'USD'&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.thisYearProfit | currency: 'USD'&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;tr&gt;
+            &lt;td colspan="3" class="p-text-right"&gt;Totals&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;lastYearTotal | currency: 'USD'&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;thisYearTotal | currency: 'USD'&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+
+@Component(&#123;
+    templateUrl: './tablecolgroupdemo.html'
+&#125;)
+export class TableColGroupDemo implements OnInit &#123;
+
+    sales: any[];
+
+    lastYearTotal: number;
+
+    thisYearTotal: number;
+
+    ngOnInit() &#123;
+        this.sales = [
+            &#123;product: 'Bamboo Watch', lastYearSale: 51, thisYearSale: 40, lastYearProfit: 54406, thisYearProfit: 43342&#125;,
+            &#123;product: 'Black Watch', lastYearSale: 83, thisYearSale: 9, lastYearProfit: 423132, thisYearProfit: 312122&#125;,
+            &#123;product: 'Blue Band', lastYearSale: 38, thisYearSale: 5, lastYearProfit: 12321, thisYearProfit: 8500&#125;,
+            &#123;product: 'Blue T-Shirt', lastYearSale: 49, thisYearSale: 22, lastYearProfit: 745232, thisYearProfit: 65323&#125;,
+            &#123;product: 'Brown Purse', lastYearSale: 17, thisYearSale: 79, lastYearProfit: 643242, thisYearProfit: 500332&#125;,
+            &#123;product: 'Chakra Bracelet', lastYearSale: 52, thisYearSale:  65, lastYearProfit: 421132, thisYearProfit: 150005&#125;,
+            &#123;product: 'Galaxy Earrings', lastYearSale: 82, thisYearSale: 12, lastYearProfit: 131211, thisYearProfit: 100214&#125;,
+            &#123;product: 'Game Controller', lastYearSale: 44, thisYearSale: 45, lastYearProfit: 66442, thisYearProfit: 53322&#125;,
+            &#123;product: 'Gaming Set', lastYearSale: 90, thisYearSale: 56, lastYearProfit: 765442, thisYearProfit: 296232&#125;,
+            &#123;product: 'Gold Phone Case', lastYearSale: 75, thisYearSale: 54, lastYearProfit: 21212, thisYearProfit: 12533&#125;
+        ];
+
+        this.calculateLastYearTotal();
+        this.calculateThisYearTotal();
+    &#125;
+
+    calculateLastYearTotal() &#123;
+        let total = 0;
+        for(let sale of this.sales) &#123;
+            total += sale.lastYearProfit;
+        &#125;
+
+        this.lastYearTotal = total;
+    &#125;
+
+    calculateThisYearTotal() &#123;
+        let total = 0;
+        for(let sale of this.sales) &#123;
+            total += sale.thisYearProfit;
+        &#125;
+
+        this.thisYearTotal = total;
+    &#125;
+&#125;
 </app-code>  
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">

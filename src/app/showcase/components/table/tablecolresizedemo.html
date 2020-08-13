@@ -9,7 +9,7 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Fit Mode</h5>
-        <p-table [columns]="cols" [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines">
+        <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Code</th>
@@ -31,7 +31,7 @@
 
     <div class="card">
         <h5>Expand Mode</h5>
-        <p-table [columns]="cols" [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines">
+        <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Code</th>
@@ -122,9 +122,134 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Fit Mode&lt;/h5&gt;
+    &lt;p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th pResizableColumn&gt;Code&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Name&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Category&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Quantity&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Expand Mode&lt;/h5&gt;
+    &lt;p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th pResizableColumn&gt;Code&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Name&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Category&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Quantity&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Scrollable&lt;/h5&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines"&gt;
+        &lt;ng-template pTemplate="colgroup"&gt;
+            &lt;colgroup&gt;
+                &lt;col&gt;
+                &lt;col&gt;
+                &lt;col&gt;
+                &lt;col&gt;
+            &lt;/colgroup&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th pResizableColumn&gt;Name&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Country&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Company&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Scrollable with Variable Width&lt;/h5&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines"&gt;
+        &lt;ng-template pTemplate="colgroup"&gt;
+            &lt;colgroup&gt;
+                &lt;col style="width:25%"&gt;
+                &lt;col style="width:15%"&gt;
+                &lt;col style="width:35%"&gt;
+                &lt;col style="width:25%"&gt;
+            &lt;/colgroup&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th pResizableColumn&gt;Name&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Country&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Company&lt;/th&gt;
+                &lt;th pResizableColumn&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; ProductService &#125; from '../../service/productservice';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+
+@Component(&#123;
+    templateUrl: './tablecolresizedemo.html'
+&#125;)
+export class TableColResizeDemo implements OnInit &#123;
+
+    products: Product[];
+
+    customers: Customer[];
+
+    constructor(private productService: ProductService, private customerService: CustomerService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.productService.getProductsSmall().then(data =&gt; this.products = data);
+        this.customerService.getCustomersLarge().then(customers =&gt; this.customers = customers);
+    &#125;
+&#125;
 </app-code>
         </p-tabPanel>
 

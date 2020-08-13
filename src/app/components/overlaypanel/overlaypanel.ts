@@ -92,7 +92,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     destroyCallback: Function;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {}
         
     ngAfterContentInit() {
         this.templates.forEach((item) => {

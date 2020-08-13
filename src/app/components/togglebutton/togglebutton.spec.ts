@@ -21,27 +21,28 @@ describe('ToggleButton', () => {
         toggleButton = fixture.componentInstance;
     });
 
-    it('should display the OFF label when value is undefined', () => {
+    it('should display the onLabel and offLabel', () => {
+        toggleButton.onLabel = 'YES';
         toggleButton.offLabel = 'NO';
         fixture.detectChanges();
-        const labelEl = fixture.debugElement.query(By.css('.ui-button-text'));
-        expect(labelEl.nativeElement.textContent).toBe('NO');
-    });
 
-    it('should display the ON label when clicked', () => {
-        toggleButton.onLabel = 'YES';
-        fixture.detectChanges();
-        const clickEl = fixture.nativeElement.querySelector('.ui-togglebutton')
+        const clickEl = fixture.nativeElement.querySelector('.p-togglebutton')
         clickEl.click();
         fixture.detectChanges();
 
-        const labelEl = fixture.debugElement.query(By.css('.ui-button-text'));
-        expect(labelEl.nativeElement.textContent).toBe('YES')
+        const labelEl = fixture.debugElement.query(By.css('.p-button-label'));
+        expect(labelEl.nativeElement.textContent).toBe('YES');
+
+        clickEl.click();
+        fixture.detectChanges();
+
+        expect(labelEl.nativeElement.textContent).toBe('NO');
     });
 
     it('Should display as checked when value is true by default', () => {
         toggleButton.checked = true;
         fixture.detectChanges();
+
         expect(toggleButton.checked).toBe(true);
     });
 });

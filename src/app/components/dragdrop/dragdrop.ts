@@ -194,6 +194,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     @HostListener('drop', ['$event'])
     drop(event) {
         if (this.allowDrop(event)) {
+            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
             event.preventDefault();
             this.onDrop.emit(event);
         }
@@ -206,7 +207,8 @@ export class Droppable implements AfterViewInit, OnDestroy {
         if (this.dropEffect) {
             event.dataTransfer.dropEffect = this.dropEffect;
         }
-                
+            
+        DomHandler.addClass(this.el.nativeElement, 'p-draggable-enter');
         this.onDragEnter.emit(event);
     }
     
@@ -214,6 +216,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     dragLeave(event) {
         event.preventDefault();
                 
+        DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
         this.onDragLeave.emit(event);
     }
         

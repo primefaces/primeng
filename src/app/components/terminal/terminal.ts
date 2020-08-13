@@ -1,4 +1,4 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -47,7 +47,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     subscription: Subscription;
     
-    constructor(public el: ElementRef, public terminalService: TerminalService) {
+    constructor(public el: ElementRef, public terminalService: TerminalService, public cd: ChangeDetectorRef) {
         this.subscription = terminalService.responseHandler.subscribe(response => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;

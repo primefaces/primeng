@@ -6,7 +6,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TabViewModule } from 'primeng/tabview';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { FocusTrapDemoRoutingModule } from './focustrapdemo-routing.module';
 import { FocusTrapDemo } from './focustrapdemo';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -27,7 +26,6 @@ import { AppCodeModule } from '../../app.code.component';
         InputTextModule,
         AccordionModule,
         TabViewModule,
-        CodeHighlighterModule,
         AppCodeModule,
         FocusTrapModule,
 		AutoCompleteModule,

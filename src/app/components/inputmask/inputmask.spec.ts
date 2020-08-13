@@ -237,7 +237,7 @@ describe('InputMask', () => {
         fixture.detectChanges();
 
         inputMaskEl = fixture.debugElement.query(By.css('input'));
-        expect(inputMaskEl.parent.nativeElement.className).toContain("ui-inputwrapper-focus");
+        expect(inputMaskEl.parent.nativeElement.className).toContain("p-inputwrapper-focus");
         expect(onInputFocusSpy).toHaveBeenCalled();
     });
 

@@ -27,7 +27,6 @@ import { TabViewModule } from 'primeng/tabview';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ContextMenuModule } from 'primeng/contextmenu';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -43,8 +42,7 @@ import { AppCodeModule } from '../../app.code.component';
         MultiSelectModule,
         InputTextModule,
         ContextMenuModule,
-        AppCodeModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
         TreeTableDemo,

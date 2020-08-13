@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router'
-import {RTLDemo} from './rtldemo';
+import {BadgeDemo} from './badgedemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: RTLDemo}
+			{path:'',component: BadgeDemo}
 		])
 	],
 	exports: [
 		RouterModule
 	]
 })
-export class RTLDemoRoutingModule {}
+export class BadgeDemoRoutingModule {}

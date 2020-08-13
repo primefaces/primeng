@@ -35,10 +35,8 @@ describe('InputText', () => {
   
         const inputEl = fixture.debugElement.query(By.css('input'));
         expect(inputEl.nativeElement).toBeTruthy();
-        expect(inputEl.nativeElement.className).toContain("ui-inputtext");
-        expect(inputEl.nativeElement.className).toContain("ui-corner-all");
-        expect(inputEl.nativeElement.className).toContain("ui-state-default");
-        expect(inputEl.nativeElement.className).toContain("ui-widget");
+        expect(inputEl.nativeElement.className).toContain("p-inputtext");
+        expect(inputEl.nativeElement.className).toContain("p-component");
 
     });
 
@@ -50,6 +48,6 @@ describe('InputText', () => {
         inputEl.nativeElement.dispatchEvent(new Event("input"));
         fixture.detectChanges();
 
-        expect(inputEl.nativeElement.className).toContain("ui-state-filled");
+        expect(inputEl.nativeElement.className).toContain("p-filled");
     });
 });

@@ -54,8 +54,9 @@ describe('RadioButton', () => {
         radiobutton.inputViewChild.nativeElement.checked=true;
         fixture.detectChanges();
 
-        const boxEl = fixture.nativeElement.querySelector('.ui-radiobutton-box');
-        expect(boxEl.className).toContain('ui-state-active');
+        radiobutton.cd.detectChanges();
+        const boxEl = fixture.nativeElement.querySelector('.p-radiobutton-box');
+        expect(boxEl.className).toContain('p-highlight');
     });
 
     it('should disabled', () => {
@@ -69,8 +70,8 @@ describe('RadioButton', () => {
         const inputEl = fixture.debugElement.query(By.css('input'));
         const labelEl = fixture.debugElement.query(By.css('label'));
         expect(inputEl.nativeElement.disabled).toEqual(true);
-        expect(radiobuttonEl.nativeElement.className).toContain("ui-state-disabled");
-        expect(labelEl.nativeElement.className).toContain("ui-label-disabled");
+        expect(radiobuttonEl.nativeElement.className).toContain("p-disabled");
+        expect(labelEl.nativeElement.className).toContain("p-disabled");
 
         radiobuttonEl.nativeElement.click();
         fixture.detectChanges();
@@ -96,7 +97,6 @@ describe('RadioButton', () => {
         const onFocusSpy = spyOn(radiobutton,'onInputFocus').and.callThrough();
         const radiobuttonEl = fixture.debugElement.queryAll(By.css('div'))[2];
         const inputEl = fixture.debugElement.query(By.css('input'));
-        const iconEl = fixture.debugElement.query(By.css('span'));
         inputEl.nativeElement.dispatchEvent(new Event('focus'));
         radiobuttonEl.nativeElement.click();
         fixture.detectChanges();
@@ -107,8 +107,7 @@ describe('RadioButton', () => {
         expect(radiobutton.checked).toEqual(true);
         expect(value).toEqual(5);
         expect(radiobutton.focused).toEqual(true);
-        expect(radiobuttonEl.nativeElement.className).toContain("ui-state-focus");
-        expect(iconEl.nativeElement.className).toContain("pi pi-circle-on");
+        expect(radiobuttonEl.nativeElement.className).toContain("p-focus");
     });
 
     it('should click label', () => {
@@ -131,7 +130,7 @@ describe('RadioButton', () => {
         expect(selectSpy).toHaveBeenCalled();
         expect(onFocusSpy).toHaveBeenCalled();
         expect(radiobutton.checked).toEqual(true);
-        expect(labelEl.nativeElement.className).toContain("ui-label-focus");
+        expect(labelEl.nativeElement.className).toContain("p-radiobutton-label-focus");
         expect(value).toEqual(5);
         inputEl.nativeElement.dispatchEvent(new Event('blur'));
         fixture.detectChanges();

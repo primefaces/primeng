@@ -12,8 +12,6 @@ import {DropdownModule} from 'primeng/dropdown';
 import {AppCodeModule} from '../../app.code.component';
 import {TabViewModule} from 'primeng/tabview';
 
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
-
 @NgModule({
 	imports: [
         CommonModule,
@@ -26,8 +24,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         InputTextModule,
         RatingModule,
         ButtonModule,
-        AppCodeModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		DataViewDemo

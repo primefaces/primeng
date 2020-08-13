@@ -1,6 +1,7 @@
-import { NgModule, Directive, AfterViewInit, ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { NgModule, Directive, AfterViewInit, ElementRef, NgZone, OnDestroy, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Directive({
     selector: '[pRipple]',
@@ -10,19 +11,21 @@ import { DomHandler } from 'primeng/dom';
 })
 export class Ripple implements AfterViewInit, OnDestroy {
 
-    constructor(public el: ElementRef, public zone: NgZone) { }
+    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) { }
 
     animationListener: any;
 
     mouseDownListener: any;
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            this.create();
-
-            this.mouseDownListener = this.onMouseDown.bind(this);
-            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-        });
+        if (this.config && this.config.ripple) {
+            this.zone.runOutsideAngular(() => {
+                this.create();
+    
+                this.mouseDownListener = this.onMouseDown.bind(this);
+                this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
+            });
+        }
     }
 
     onMouseDown(event: MouseEvent) {
@@ -86,7 +89,9 @@ export class Ripple implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.remove();
+        if (this.config && this.config.ripple) {
+            this.remove();
+        }
     }
 }
 

@@ -4,9 +4,7 @@ import {MegaMenuDemo} from './megamenudemo';
 import {MegaMenuDemoRoutingModule} from './megamenudemo-routing.module';
 import {MegaMenuModule} from 'primeng/megamenu';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
-
 
 @NgModule({
 	imports: [
@@ -14,8 +12,7 @@ import {AppCodeModule} from '../../app.code.component';
 		MegaMenuDemoRoutingModule,
         MegaMenuModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		MegaMenuDemo

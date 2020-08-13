@@ -40,7 +40,7 @@ import &#123;AutoCompleteModule&#125; from 'primeng/autocomplete';
             <h5>Getting Started</h5>
             <p>AutoComplete uses ngModel for two-way binding, requires a list of suggestions and a completeMethod to query for the results. The completeMethod
             gets the query text as event.query property and should update the suggestions with the search results.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
@@ -69,7 +69,7 @@ export class AutoCompleteDemo &#123;
 
             <h5>Model Driven Forms</h5>
             <p>AutoComplete can be used in a model driven form as well.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete formControlName="city" [suggestions]="results" (completeMethod)="search($event)"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
@@ -78,7 +78,7 @@ export class AutoCompleteDemo &#123;
                 property that takes "blank" or "current" as possible values. "blank" is the default mode to send a query with an empty string
                 whereas "current" setting sends a query with the current value of the input.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)"
             [dropdown]="true"&gt;&lt;/p-autoComplete&gt;
 </app-code>
@@ -106,7 +106,7 @@ export class AutoCompleteDemo &#123;
             <h5>Multiple Selection</h5>
             <p>Multiple mode is enabled using <i>multiple</i> property to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
@@ -130,7 +130,7 @@ export class AutoCompleteDemo &#123;
             <p>AutoComplete can also work with objects using the <i>field</i> property that defines the label to display as a suggestion. The value passed to the model would still be the
             object instance of a suggestion. Here is an example with a Country object that has name and code fields such as &#123;name:"United States",code:"USA"&#125;.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)" field="name"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
@@ -154,17 +154,17 @@ export class AutoCompleteDemo &#123;
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared
             to make sure the value passed to the model is always one of the suggestions.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)" [forceSelection]="true"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
             <h5>Templating</h5>
             <p>Item ng-template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
     &lt;ng-template let-brand pTemplate="item"&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{brand}}.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;brand&#125;&#125;.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-autoComplete&gt;
@@ -173,7 +173,7 @@ export class AutoCompleteDemo &#123;
             <p>In multiple mode, selected item can be customized using selectedItem ng-template. Note that this
                 template is not supported in single mode.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"&gt;
     &lt;ng-template let-value pTemplate="selectedItem"&gt;
         &lt;span style="font-size:18px"&gt;&gt;&#123;&#123;value&#125;&#125;&lt;&lt;/span&gt;
@@ -185,7 +185,7 @@ export class AutoCompleteDemo &#123;
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
                 example below disables the animations altogether.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-autoComplete [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 

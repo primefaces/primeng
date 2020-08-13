@@ -430,15 +430,15 @@ myUploader(event) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-fileupload</td>
+                            <td>p-fileupload</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-fileupload-buttonbar</td>
+                            <td>p-fileupload-buttonbar</td>
                             <td>Header containing the buttons</td>
                         </tr>
                         <tr>
-                            <td>ui-fileupload-content</td>
+                            <td>p-fileupload-content</td>
                             <td>Content section</td>
                         </tr>
                     </tbody>
@@ -453,8 +453,7 @@ myUploader(event) &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fileupload" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 
 &lt;div class="card"&gt;
@@ -474,11 +473,9 @@ myUploader(event) &#123;
     &lt;h5&gt;Basic with Auto&lt;/h5&gt;
     &lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class FileUploadDemo &#123;
 
     uploadedFiles: any[] = [];
@@ -493,8 +490,7 @@ export class FileUploadDemo &#123;
         this.messageService.add(&#123;severity: 'info', summary: 'File Uploaded', detail: ''&#125;);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -4,7 +4,6 @@ import {PickListDemo} from './picklistdemo';
 import {PickListDemoRoutingModule} from './picklistdemo-routing.module';
 import {PickListModule} from 'primeng/picklist';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -13,8 +12,7 @@ import { AppCodeModule } from '../../app.code.component';
 		PickListDemoRoutingModule,
         PickListModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		PickListDemo

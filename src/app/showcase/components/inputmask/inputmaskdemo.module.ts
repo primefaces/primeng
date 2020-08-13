@@ -5,7 +5,6 @@ import {InputMaskDemo} from './inputmaskdemo';
 import {InputMaskDemoRoutingModule} from './inputmaskdemo-routing.module';
 import {InputMaskModule} from 'primeng/inputmask';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
@@ -17,8 +16,7 @@ import {AppCodeModule} from '../../app.code.component';
         InputMaskModule,
         TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		InputMaskDemo

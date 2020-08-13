@@ -56,7 +56,7 @@ describe('OrganizationChart', () => {
     it('should display by default', () => {
         fixture.detectChanges();
   
-        const organizationchartEl = fixture.debugElement.query(By.css('.ui-organizationchart'));
+        const organizationchartEl = fixture.debugElement.query(By.css('.p-organizationchart'));
         expect(organizationchartEl.nativeElement).toBeTruthy();
     });
 
@@ -64,7 +64,7 @@ describe('OrganizationChart', () => {
         organizationchart.selectionMode = "single";
         fixture.detectChanges();
   
-        const nodeEls = fixture.debugElement.queryAll(By.css('.ui-organizationchart-node-content'));
+        const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         const chelseaEl = nodeEls[2];
         barcelonaEl.nativeElement.click();
@@ -85,7 +85,7 @@ describe('OrganizationChart', () => {
         organizationchart.selectionMode = "multiple";
         fixture.detectChanges();
   
-        const nodeEls = fixture.debugElement.queryAll(By.css('.ui-organizationchart-node-content'));
+        const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         const chelseaEl = nodeEls[2];
         barcelonaEl.nativeElement.click();
@@ -107,12 +107,12 @@ describe('OrganizationChart', () => {
         organizationchart.selectionMode = "single";
         fixture.detectChanges();
   
-        const nodeEls = fixture.debugElement.queryAll(By.css('.ui-organizationchart-node-content'));
+        const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         barcelonaEl.nativeElement.click();
         fixture.detectChanges();
 
-        const toggelEl = fixture.debugElement.query(By.css('.ui-node-toggler'));
+        const toggelEl = fixture.debugElement.query(By.css('.p-node-toggler'));
         toggelEl.nativeElement.click();
         fixture.detectChanges();
 
@@ -157,7 +157,7 @@ describe('OrganizationChart', () => {
         }];
         fixture.detectChanges();
   
-        const nodeEls = fixture.debugElement.queryAll(By.css('.ui-organizationchart-node-content'));
+        const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         barcelonaEl.nativeElement.click();
         fixture.detectChanges();

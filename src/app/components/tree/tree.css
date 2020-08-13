@@ -62,10 +62,10 @@
 
 .p-tree .p-tree-loading-overlay {
     position: absolute;
-    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
 
 .p-tree-flex-scrollable {

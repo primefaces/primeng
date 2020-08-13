@@ -22,4 +22,5 @@ export class TableStateDemo implements OnInit {
         this.customerService.getCustomersMedium().then(data => this.customers1 = data);
         this.customerService.getCustomersMedium().then(data => this.customers2 = data);
     }
+    
 }

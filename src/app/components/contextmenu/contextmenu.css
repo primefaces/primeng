@@ -40,12 +40,3 @@
 .p-contextmenu .p-menuitem-active > p-contextmenusub > .p-submenu-list {
     display: block !important;
 }
-
-.p-contextmenu-enter {
-    opacity: 0;
-}
-
-.p-contextmenu-enter-active {
-    -webkit-transition: opacity 250ms;
-    transition: opacity 250ms;
-}

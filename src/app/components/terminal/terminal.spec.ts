@@ -64,9 +64,10 @@ describe('Terminal', () => {
         terminal.handleCommand(event as KeyboardEvent);
         fixture.detectChanges();
 
+        terminal.cd.detectChanges();
         expect(terminal.command).toEqual('');
-        const commandEl = fixture.debugElement.query(By.css('.ui-terminal-command'));
-        const responseEl = fixture.debugElement.query(By.css('.ui-terminal-content')).queryAll(By.css('div'))[1];
+        const commandEl = fixture.debugElement.query(By.css('.p-terminal-command'));
+        const responseEl = fixture.debugElement.query(By.css('.p-terminal-content')).queryAll(By.css('div'))[1];
         expect(commandEl.nativeElement.textContent).toEqual('d');
         expect(responseEl.nativeElement.textContent).toEqual('Command succeed');
     });
@@ -79,9 +80,10 @@ describe('Terminal', () => {
         terminal.handleCommand(event as KeyboardEvent);
         fixture.detectChanges();
 
+        terminal.cd.detectChanges();
         expect(terminal.command).toEqual('');
-        const commandEl = fixture.debugElement.query(By.css('.ui-terminal-command'));
-        const responseEl = fixture.debugElement.query(By.css('.ui-terminal-content')).queryAll(By.css('div'))[1];
+        const commandEl = fixture.debugElement.query(By.css('.p-terminal-command'));
+        const responseEl = fixture.debugElement.query(By.css('.p-terminal-content')).queryAll(By.css('div'))[1];
         expect(commandEl.nativeElement.textContent).toEqual('dd');
         expect(responseEl.nativeElement.textContent).toEqual('Unknown command: dd');
     });

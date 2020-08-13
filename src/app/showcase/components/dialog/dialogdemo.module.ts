@@ -5,7 +5,6 @@ import {DialogDemoRoutingModule} from './dialogdemo-routing.module';
 import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -15,8 +14,7 @@ import {AppCodeModule} from '../../app.code.component';
         DialogModule,
 		ButtonModule,
 		AppCodeModule,
-        TabViewModule,
-        CodeHighlighterModule
+        TabViewModule
 	],
 	declarations: [
 		DialogDemo

@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'accordion', loadChildren: () => import('./components/accordion/accordiondemo.module').then(m => m.AccordionDemoModule)},
             {path: 'autocomplete', loadChildren: () => import('./components/autocomplete/autocompletedemo.module').then(m => m.AutoCompleteDemoModule)},
             {path: 'blockui', loadChildren: () => import('./components/blockui/blockuidemo.module').then(m => m.BlockUIDemoModule)},
+            {path: 'badge', loadChildren: () => import('./components/badge/badgedemo.module').then(m => m.BadgeDemoModule)},
             {path: 'breadcrumb', loadChildren: () => import('./components/breadcrumb/breadcrumbdemo.module').then(m => m.BreadcrumbDemoModule)},
             {path: 'button', loadChildren: () => import('./components/button/buttondemo.module').then(m => m.ButtonDemoModule)},
             {path: 'calendar', loadChildren: () => import('./components/calendar/calendardemo.module').then(m => m.CalendarDemoModule)},
@@ -34,6 +35,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'editor', loadChildren: () => import('./components/editor/editordemo.module').then(m => m.EditorDemoModule)},
             {path: 'fieldset', loadChildren: () => import('./components/fieldset/fieldsetdemo.module').then(m => m.FieldsetDemoModule)},
             {path: 'fileupload', loadChildren: () => import('./components/fileupload/fileuploaddemo.module').then(m => m.FileUploadDemoModule)},
+            {path: 'floatlabel', loadChildren: () => import('./components/floatlabel/floatlabeldemo.module').then(m => m.FloatLabelDemoModule)},
             {path: 'filterutils', loadChildren: () => import('./components/filterutils/filterutilsdemo.module').then(m => m.FilterUtilsDemoModule)},
             {path: 'focustrap', loadChildren: () => import('./components/focustrap/focustrapdemo.module').then(m => m.FocusTrapDemoModule)},
             {path: 'fullcalendar', loadChildren: () => import('./components/fullcalendar/fullcalendardemo.module').then(m => m.FullCalendarDemoModule)},
@@ -68,9 +70,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'progressspinner', loadChildren: () => import('./components/progressspinner/progressspinnerdemo.module').then(m => m.ProgressSpinnerDemoModule)},
             {path: 'radiobutton', loadChildren: () => import('./components/radiobutton/radiobuttondemo.module').then(m => m.RadioButtonDemoModule)},
             {path: 'rating', loadChildren: () => import('./components/rating/ratingdemo.module').then(m => m.RatingDemoModule)},
-            {path: 'responsive', loadChildren: () => import('./components/responsive/responsivedemo.module').then(m => m.ResponsiveDemoModule)},
             {path: 'ripple', loadChildren: () => import('./components/ripple/rippledemo.module').then(m => m.RippleDemoModule)},
-            {path: 'rtl', loadChildren: () => import('./components/rtl/rtldemo.module').then(m => m.RTLDemoModule)},
             {path: 'scrollpanel', loadChildren: () => import('./components/scrollpanel/scrollpaneldemo.module').then(m => m.ScrollPanelDemoModule) },
             {path: 'selectbutton', loadChildren: () => import('./components/selectbutton/selectbuttondemo.module').then(m => m.SelectButtonDemoModule)},
             {path: 'sidebar', loadChildren: () => import('./components/sidebar/sidebardemo.module').then(m => m.SidebarDemoModule)},
@@ -91,7 +91,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'tree', loadChildren: () => import('./components/tree/treedemo.module').then(m => m.TreeDemoModule)},
             {path: 'treetable', loadChildren: () => import('./components/treetable/treetabledemo.module').then(m => m.TreeTableDemoModule)},
             {path: 'tristatecheckbox', loadChildren: () => import('./components/tristatecheckbox/tristatecheckboxdemo.module').then(m => m.TriStateCheckboxDemoModule)},
-            {path: 'validation', loadChildren: () => import('./components/validation/validationdemo.module').then(m => m.ValidationDemoModule)},
             {path: 'virtualscroller', loadChildren: () => import('./components/virtualscroller/virtualscrollerdemo.module').then(m => m.VirtualScrollerDemoModule)}
         ], {scrollPositionRestoration: 'enabled'})    
     ],

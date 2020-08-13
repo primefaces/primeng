@@ -18,7 +18,6 @@ import {RippleModule} from 'primeng/ripple';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {PrimeFlexDemoRoutingModule} from './primeflexdemo-routing.module';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 
@@ -37,7 +36,6 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 		PrimeFlexDemoRoutingModule,
 		TabViewModule,
 		AppCodeModule,
-        CodeHighlighterModule,
         AppInputStyleSwitchModule
 	],
 	declarations: [
