@@ -2,11 +2,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
-    styles: [`
-        .ui-inputnumber {
-            margin-top: 1em;
-        }
-    `],
     encapsulation: ViewEncapsulation.None
 })
 export class InputNumberDemo {
