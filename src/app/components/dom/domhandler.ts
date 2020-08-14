@@ -552,4 +552,9 @@ export class DomHandler {
             }
         return visibleFocusableElements;
     }
+
+    static generateZIndex() {
+        this.zindex = this.zindex||999;
+        return ++this.zindex;
+    }
 }
