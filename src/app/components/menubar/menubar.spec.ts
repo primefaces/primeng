@@ -125,16 +125,14 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
-		const secondParentEl = parentEls[1];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
+		const secondParentEl = parentEl.queryAll(By.css('.p-menuitem-link'))[1];
 		firstParentEl.nativeElement.dispatchEvent(new Event('click'));
 		fixture.detectChanges();
 
-		expect(firstParentEl.componentInstance.activeMenu.textContent).toEqual(firstParentEl.nativeElement.textContent);
-		expect(firstParentEl.componentInstance.activeItem).toBeTruthy();
-		expect(firstParentEl.nativeElement.className).toContain('p-menuitem-active');
-		expect(secondParentEl.nativeElement.className).not.toContain('p-menuitem-active');
+		expect(firstParentEl.parent.nativeElement.className).toContain('p-menuitem-active');
+		expect(secondParentEl.parent.nativeElement.className).not.toContain('p-menuitem-active');
 	});
 
 	it('should call onItemMouseLeave and not close firstParentMenu', fakeAsync(() => {
@@ -162,18 +160,15 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
-		const secondParentEl = parentEls[1];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
 		firstParentEl.nativeElement.dispatchEvent(new Event('click'));
 		fixture.detectChanges();
 
 		firstParentEl.nativeElement.dispatchEvent(new Event('mouseleave'));
 		fixture.detectChanges();
 
-		expect(firstParentEl.componentInstance.activeItem).not.toEqual(null);
-		expect(secondParentEl.componentInstance.activeItem).not.toEqual(null);
-		expect(firstParentEl.nativeElement.className).toContain('p-menuitem-active');
+		expect(firstParentEl.parent.nativeElement.className).toContain('p-menuitem-active');
 	}));
 
 	it('should call itemClick', () => {
@@ -201,22 +196,20 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
-		const secondParentEl = parentEls[1];
-		const onItemMenuClickSpy = spyOn(firstParentEl.componentInstance, 'onItemMenuClick').and.callThrough();
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
+		const secondParentEl = parentEl.queryAll(By.css('.p-menuitem-link'))[1];
 		firstParentEl.nativeElement.dispatchEvent(new Event('click'));
 		fixture.detectChanges();
 
-		const firstSubmenuList = firstParentEl.query(By.css('ul'));
-		const firstSubItem = firstSubmenuList.children[0];
+		const firstSubmenuList = fixture.debugElement.query(By.css('.p-submenu-list'));
+		const firstSubItem = firstSubmenuList.query(By.css('.p-menuitem-link'));
 		firstSubItem.nativeElement.click();
 		fixture.detectChanges();
 
-		expect(onItemMenuClickSpy).toHaveBeenCalled();
 		expect(firstParentEl.componentInstance.activeItem).toEqual(null);
 		expect(secondParentEl.componentInstance.activeItem).toEqual(null);
-		expect(firstParentEl.nativeElement.className).not.toContain('p-menuitem-active');
+		expect(firstParentEl.parent.nativeElement.className).not.toContain('p-menuitem-active');
 	});
 
 	it('should call onItemMouseEnter and not show firstParentMenu', () => {
@@ -244,15 +237,15 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem'));
 		const onItemMouseEnterSpy = spyOn(firstParentEl.componentInstance, 'onItemMouseEnter').and.callThrough();
 		firstParentEl.nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
 		expect(firstParentEl.componentInstance.activeItem).toBeFalsy();
 		expect(onItemMouseEnterSpy).toHaveBeenCalled();
-		expect(firstParentEl.nativeElement.className).not.toContain('p-menuitem-active');
+		expect(firstParentEl.parent.nativeElement.className).not.toContain('p-menuitem-active');
 	});
 
 	it('should call onItemMouseLeave and not close firstParentMenu', fakeAsync(() => {
@@ -280,8 +273,8 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
 		firstParentEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -289,8 +282,7 @@ describe('Menubar', () => {
 		tick(300);
 		fixture.detectChanges();
 
-		expect(firstParentEl.componentInstance.activeItem).toBeTruthy();
-		expect(firstParentEl.nativeElement.className).toContain('p-menuitem-active');
+		expect(firstParentEl.parent.nativeElement.className).toContain('p-menuitem-active');
 	}));
 
 	it('should call itemClick and bindEventListener', () => {
@@ -318,24 +310,19 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
-		const secondParentEl = parentEls[1];
-		const onItemMenuClickSpy = spyOn(firstParentEl.componentInstance, 'onItemMenuClick').and.callThrough();
-		const bindEventListenerSpy = spyOn(firstParentEl.componentInstance, 'bindEventListener').and.callThrough();
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
+		const bindEventListenerSpy = spyOn(firstParentEl.componentInstance, 'bindDocumentClickListener').and.callThrough();
 		firstParentEl.nativeElement.click();
 		fixture.detectChanges();
 
-		const firstSubmenuList = firstParentEl.query(By.css('ul'));
+		const firstSubmenuList = fixture.debugElement.query(By.css('.p-submenu-list'));
 		const firstSubItem = firstSubmenuList.children[0];
 		firstSubItem.nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
-		expect(onItemMenuClickSpy).toHaveBeenCalled();
 		expect(bindEventListenerSpy).toHaveBeenCalled();
-		expect(firstParentEl.componentInstance.activeItem).toBeTruthy();
-		expect(secondParentEl.componentInstance.activeItem).toBeTruthy();
-		expect(firstParentEl.nativeElement.className).toContain('p-menuitem-active');
+		expect(firstParentEl.parent.nativeElement.className).toContain('p-menuitem-active');
 	});
 
 	it('should show router items', () => {
@@ -364,13 +351,12 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
 		firstParentEl.nativeElement.dispatchEvent(new Event('click'));
 		fixture.detectChanges();
 
-		expect(firstParentEl.componentInstance.activeMenu.textContent).toEqual(firstParentEl.nativeElement.textContent);
-		expect(firstParentEl.componentInstance.activeItem).toBeTruthy();
+		expect(firstParentEl.componentInstance.activeItem.label).toEqual(firstParentEl.nativeElement.textContent);
 	});
 
 	it('should call itemClick', () => {
@@ -399,14 +385,14 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
 		firstParentEl.nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
-		const firstSubmenuList = firstParentEl.query(By.css('ul'));
+		const firstSubmenuList = fixture.debugElement.query(By.css('.p-submenu-list'));
 		const firstSubItem = firstSubmenuList.children[0].query(By.css('a'));
-		const itemClickSpy = spyOn(firstSubItem.componentInstance, 'itemClick').and.callThrough();
+		const itemClickSpy = spyOn(firstSubItem.componentInstance, 'onItemClick').and.callThrough();
 		firstSubItem.nativeElement.click();
 		fixture.detectChanges();
 
@@ -440,14 +426,13 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
 		firstParentEl.nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
-		const firstItem = firstParentEl.query(By.css('a'));
-		expect(firstItem.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(firstItem.nativeElement.style.height).toContain("300px");
+		expect(firstParentEl.nativeElement.className).toContain("Primeng ROCKS!");
+		expect(firstParentEl.nativeElement.style.height).toContain("300px");
 	});
 
 	it('should change item disable', () => {
@@ -476,12 +461,11 @@ describe('Menubar', () => {
 		];
 		fixture.detectChanges();
 
-		const parentEls = fixture.debugElement.query(By.css('.p-menubar-root-list')).children;
-		const firstParentEl = parentEls[0];
+		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
 		firstParentEl.nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
-		const firstItem = firstParentEl.query(By.css('a'));
-		expect(firstItem.nativeElement.className).toContain('p-disabled');
+		expect(firstParentEl.nativeElement.className).toContain('p-disabled');
 	});
 });
