@@ -55,6 +55,16 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.4) (2020-08-18)
+
+**Fixed bugs:**
+
+- Button lose class style after label update with after primeng 9.1.0 [\#8996](https://github.com/primefaces/primeng/issues/8996)
+- primeng.css is corrupted in 9.1.3 [\#9161](https://github.com/primefaces/primeng/issues/9161)
+- Add style and styleClass to InputNumber [\#9048](https://github.com/primefaces/primeng/issues/9048)
+- p-inputNumber is missing inputStyleClass property [\#9028](https://github.com/primefaces/primeng/issues/9028)
+- HTML page auto scrolls down when TextArea with AutoResize option is set [\#9129](https://github.com/primefaces/primeng/issues/9129)
+
 ## [9.1.3](https://github.com/primefaces/primeng/tree/9.1.3) (2020-07-06)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.1.2...9.1.3)
