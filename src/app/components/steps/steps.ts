@@ -1,7 +1,8 @@
-import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule, Router, ActivatedRoute} from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-steps',
@@ -31,7 +32,7 @@ import {RouterModule, Router, ActivatedRoute} from '@angular/router';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./steps.css']
 })
-export class Steps {
+export class Steps implements OnInit, OnDestroy {
     
     @Input() activeIndex: number = 0;
     
@@ -45,7 +46,13 @@ export class Steps {
     
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
-    constructor(private router: Router, private route:ActivatedRoute) { }
+    constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
+    
+    subscription: Subscription;
+
+    ngOnInit() {
+        this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
+    }
     
     itemClick(event: Event, item: MenuItem, i: number) {
         if (this.readonly || item.disabled) {
@@ -78,6 +85,10 @@ export class Steps {
             return this.router.isActive(item.routerLink, false) || this.router.isActive(this.router.createUrlTree([item.routerLink], {relativeTo: this.route}).toString(), false);
         else    
             return index === this.activeIndex;
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }
 
