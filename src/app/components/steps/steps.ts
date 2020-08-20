@@ -57,7 +57,6 @@ export class Steps implements OnInit, OnDestroy {
     itemClick(event: Event, item: MenuItem, i: number) {
         if (this.readonly || item.disabled) {
             event.preventDefault();
-            debugger;
             return;
         }
         
