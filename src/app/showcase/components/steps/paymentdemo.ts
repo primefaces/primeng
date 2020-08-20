@@ -58,10 +58,8 @@ export class PaymentDemo implements OnInit {
     }
 
     nextPage() {
-        if (this.paymentInformation.cardholderName && this.paymentInformation.cardholderNumber && this.paymentInformation.date && this.paymentInformation.cvv) {
-            this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
-            this.router.navigate(['steps/confirmation']);
-        }
+        this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
+        this.router.navigate(['steps/confirmation']);
     }
 
     prevPage() {
