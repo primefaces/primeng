@@ -26,11 +26,11 @@ const hideAnimation = animation([
                 'p-dialog-left': position === 'left',
                 'p-dialog-right': position === 'right',
                 'p-dialog-top': position === 'top',
-                'p-dialog-topleft': position === 'topleft',
-                'p-dialog-topright': position === 'topright',
+                'p-dialog-top-left': position === 'topleft' || position === 'top-left',
+                'p-dialog-top-right': position === 'topright' || position === 'top-right',
                 'p-dialog-bottom': position === 'bottom',
-                'p-dialog-bottomleft': position === 'bottomleft',
-                'p-dialog-bottomright': position === 'bottomright'}">
+                'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
+                'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'}">
             <div #container [ngClass]="{'p-dialog p-component':true, 'p-dialog-rtl':rtl,'p-dialog-draggable':draggable,'p-dialog-resizable':resizable, 'p-dialog-maximized': maximized}"
                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">

@@ -76,14 +76,14 @@
                 <p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"></p-button>
             </div>
             <div class="p-col">
-                <p-button (click)="showPositionDialog('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
-                <p-button (click)="showPositionDialog('topright')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
             </div>
             <div class="p-col">
-                <p-button (click)="showPositionDialog('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"></p-button>
-                <p-button (click)="showPositionDialog('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"></p-button>
             </div>
         </div>
         <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
@@ -179,7 +179,7 @@ Content
 </app-code>
 
             <h5>Positioning</h5>
-            <p>Dialog location is controlled with the <i>position</i> property whose default value is center. Other valid values are top", "bottom", "left", "right", "topleft", "topright", "bottomleft" and "bottomright". You may also call the resetPosition() method of Dialog to re-position it after the content or position changes.</p>
+            <p>Dialog location is controlled with the <i>position</i> property whose default value is center. Other valid values are top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" and "bottom-right". You may also call the resetPosition() method of Dialog to re-position it after the content or position changes.</p>
 <app-code lang="markup" ngNonBindable>
 &lt;p-dialog position="top" [(visible)]="display"&gt;
 Content
@@ -277,7 +277,7 @@ Content
                             <td>position</td>
                             <td>string</td>
                             <td>center</td>
-                            <td>Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright".</td>
+                            <td>Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".</td>
                         </tr>
                         <tr>
                             <td>blockScroll</td>
@@ -585,14 +585,14 @@ Content
         &lt;p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-button (click)="showPositionDialog('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="showPositionDialog('topright')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-button (click)="showPositionDialog('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="showPositionDialog('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"

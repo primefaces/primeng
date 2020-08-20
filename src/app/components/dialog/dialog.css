@@ -68,10 +68,10 @@
 .p-dialog-bottom .p-dialog,
 .p-dialog-left .p-dialog,
 .p-dialog-right .p-dialog,
-.p-dialog-topleft .p-dialog,
-.p-dialog-topright .p-dialog,
-.p-dialog-bottomleft .p-dialog,
-.p-dialog-bottomright .p-dialog {
+.p-dialog-top-left .p-dialog,
+.p-dialog-top-right .p-dialog,
+.p-dialog-bottom-left .p-dialog,
+.p-dialog-bottom-right .p-dialog {
     margin: .75rem;
     transform: translate3d(0px, 0px, 0px);
 }
@@ -99,22 +99,22 @@
 .p-dialog-top {
     align-items: flex-start;
 }
-.p-dialog-topleft {
+.p-dialog-top-left {
     justify-content: flex-start;
     align-items: flex-start;
 }
-.p-dialog-topright {
+.p-dialog-top-right {
     justify-content: flex-end;
     align-items: flex-start;
 }
 .p-dialog-bottom {
     align-items: flex-end;
 }
-.p-dialog-bottomleft {
+.p-dialog-bottom-left {
     justify-content: flex-start;
     align-items: flex-end;
 }
-.p-dialog-bottomright {
+.p-dialog-bottom-right {
     justify-content: flex-end;
     align-items: flex-end;
 }
