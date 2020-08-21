@@ -40,15 +40,11 @@ let idx: number = 0;
                 height: '0',
                 overflow: 'hidden'
             })),
-            state('void', style({
-                height: '{{height}}'
-            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
             transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
-            transition('void => hidden', animate('{{transitionParams}}')),
-            transition('void => visible', animate('{{transitionParams}}'))
+            transition('void => *', animate(0))
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
