@@ -18,11 +18,11 @@ export class FocusTrap {
             e.preventDefault();
             let focusableElements = DomHandler.getFocusableElements(this.el.nativeElement);
             if (focusableElements && focusableElements.length > 0) {
-                if (!document.activeElement) {
+                if (!focusableElements[0].ownerDocument.activeElement) {
                     focusableElements[0].focus();
                 }
                 else {
-                    let focusedIndex = focusableElements.indexOf(document.activeElement);
+                    let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                     if (e.shiftKey) {
                         if (focusedIndex == -1 || focusedIndex === 0)

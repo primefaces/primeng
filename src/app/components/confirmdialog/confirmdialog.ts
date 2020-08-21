@@ -121,7 +121,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
         }
-        
+
         this.cd.markForCheck();
     }
 
@@ -376,11 +376,11 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                     let focusableElements = DomHandler.getFocusableElements(this.container);
 
                     if (focusableElements && focusableElements.length > 0) {
-                        if (!document.activeElement) {
+                        if (!focusableElements[0].ownerDocument.activeElement) {
                             focusableElements[0].focus();
                         }
                         else {
-                            let focusedIndex = focusableElements.indexOf(document.activeElement);
+                            let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                             if (event.shiftKey) {
                                 if (focusedIndex == -1 || focusedIndex === 0)
