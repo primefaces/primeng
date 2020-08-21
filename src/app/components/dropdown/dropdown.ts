@@ -10,7 +10,7 @@ import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {FilterUtils} from 'primeng/utils';
 import {TooltipModule} from 'primeng/tooltip';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -520,8 +520,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     isInputClick(event): boolean {
-        return DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') || 
-            event.target.isSameNode(this.accessibleViewChild.nativeElement) || 
+        return DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') ||
+            event.target.isSameNode(this.accessibleViewChild.nativeElement) ||
             (this.editableInputViewChild && event.target.isSameNode(this.editableInputViewChild.nativeElement));
     }
 
@@ -1042,7 +1042,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (this.isOutsideClicked(event)) {
                     this.hide(event);
                     this.unbindDocumentClickListener();

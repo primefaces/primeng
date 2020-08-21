@@ -618,7 +618,9 @@ export class Dialog implements AfterContentInit,OnDestroy {
     }
 
     bindDocumentEscapeListener() {
-        this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
                 if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);

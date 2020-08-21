@@ -207,15 +207,17 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     }
 
     bindGlobalListeners() {
-        this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-            if (!this.preventDocumentClickListener&&this.visible) {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+        this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
+            if (!this.preventDocumentClickListener && this.visible) {
                 this.hide(event);
             }
             this.preventDocumentClickListener = false;
             this.cd.markForCheck();
         });
         if (this.closeOnEscape && !this.documentEscapeListener) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+            this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                     if (event.which == 27) {
                     if (parseInt(this.panel.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                         this.hide(event);

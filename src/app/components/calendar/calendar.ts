@@ -2461,7 +2461,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.zone.runOutsideAngular(() => {
-                this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+                this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
                         this.zone.run(() => {
                             this.hideOverlay();

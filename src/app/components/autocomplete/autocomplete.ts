@@ -709,7 +709,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (event.which === 3) {
                     return;
                 }

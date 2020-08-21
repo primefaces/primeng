@@ -363,7 +363,9 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     bindGlobalListeners() {
         if ((this.closeOnEscape && this.closable) || this.focusTrap && !this.documentEscapeListener) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which == 27 && (this.closeOnEscape && this.closable)) {
                     if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
