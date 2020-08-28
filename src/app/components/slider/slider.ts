@@ -296,6 +296,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 this.updateValue(newValue, event);
             }         
         }
+
+        this.cd.markForCheck();
     }
     
     handleStepChange(newValue: number, oldValue: number) {
