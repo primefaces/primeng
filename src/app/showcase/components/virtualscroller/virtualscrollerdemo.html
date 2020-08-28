@@ -72,12 +72,12 @@
         <p-tabPanel header="Documentation">
             <h5>CDK</h5>
             <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @angular/cdk --save
 </app-code>
 
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;VirtualScrollerModule&#125; from 'primeng/virtualscroller';
 </app-code>
 
@@ -89,7 +89,7 @@ import &#123;VirtualScrollerModule&#125; from 'primeng/virtualscroller';
                 to define an object to be displayed by the VirtualScroller. Cars are loaded by a CarService that
                 connects to a server to fetch the cars with a Promise. Note that this is for demo purposes only, 
                 any data source such as an Observable can be used as an alternative as well.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export interface Car &#123;
     vin;
     year;
@@ -98,7 +98,7 @@ export interface Car &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; HttpClient &#125; from '@angular/common/http';
 import &#123; Injectable &#125; from '@angular/core';
 
@@ -119,7 +119,7 @@ export class CarService &#123;
 </app-code>
 
             <p>Here is a sample VirtualScroller that displays a list of cars loaded from a remote datasource.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class VirtualScrollerDemo implements OnInit &#123;
 
     cars: Car[];
@@ -132,7 +132,7 @@ export class VirtualScrollerDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
     &lt;ng-template pTemplate="item" let-car&gt;
         Car content
@@ -142,7 +142,7 @@ export class VirtualScrollerDemo implements OnInit &#123;
 
             <h5>Sections</h5>
             <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
     &lt;p-header&gt;Header Content&lt;/p-header&gt;
     &lt;p-footer&gt;Footer Content&lt;/p-footer&gt;
@@ -157,7 +157,7 @@ export class VirtualScrollerDemo implements OnInit &#123;
              onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,
             enable <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using <i>onLazyLoad</i> that actually loads a chunk from a datasource. onLazyLoad gets an event object
             that contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-virtualScroller [value]="virtualCars" scrollHeight="500px" [itemSize]="150" [rows]="100"
     [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
@@ -169,7 +169,7 @@ export class VirtualScrollerDemo implements OnInit &#123;
 &lt;/p-virtualScroller&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class LazyVirtualScrollerDemo implements OnInit &#123;
 
     virtualCars: Car[];
@@ -198,7 +198,7 @@ export class LazyVirtualScrollerDemo implements OnInit &#123;
 
             <h5>Programmatic Scroll</h5>
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton label="Reset" (click)="reset"&gt;&lt;/button&gt;
 
 &lt;p-virtualScroller #vs [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
@@ -208,7 +208,7 @@ export class LazyVirtualScrollerDemo implements OnInit &#123;
 &lt;/p-virtualScroller&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @ViewChild('vs') vs: VirtualScroller;
 
 reset() &#123;
@@ -398,7 +398,7 @@ reset() &#123;
             <a href="https://stackblitz.com/edit/primeng-virtualscroller-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Lazy Loading&lt;/h5&gt;
 &lt;p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
         [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
@@ -457,7 +457,7 @@ reset() &#123;
 &lt;/p-virtualScroller&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component,OnInit} from '@angular/core';
 import &#123;CarService} from '../../service/carservice';
 import &#123;LazyLoadEvent,SelectItem} from 'primeng/api';

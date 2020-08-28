@@ -32,14 +32,14 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;OrderListModule&#125; from 'primeng/orderlist';
 </app-code>
 
             <h3>Getting Started</h3>
             <p>OrderList requires an array as its value and a ng-template for its content where each item in the array
                  can be accessed inside the ng-template using a local <i>ng-template</i> variable.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div&gt;
@@ -50,7 +50,7 @@ import &#123;OrderListModule&#125; from 'primeng/orderlist';
 &lt;/p-orderList&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponent &#123;
 
     cars: Car[];
@@ -67,7 +67,7 @@ export class MyComponent &#123;
 
             <h3>Selection Binding</h3>
             <p>The optional <i>selection</i> property is provided in case you'd like to a two-way binding to the selections.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div&gt;
@@ -78,7 +78,7 @@ export class MyComponent &#123;
 &lt;/p-orderList&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponent &#123;
 
     cars: Car[];
@@ -93,18 +93,18 @@ export class MyComponent &#123;
 
             <h3>Filtering</h3>
             <p>Items can be filtered using an input field by enabling the <i>filterBy</i> property that specifies the fields to use in filtering.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" filterBy="brand"&gt;&lt;/p-orderList&gt;
 </app-code>
 
             <p>Multiple fields can be defines using a comma separates list.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" filterBy="brand,color,address.city"&gt;&lt;/p-orderList&gt;
 </app-code>
 
             <h3>DragDrop</h3>
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" dragdrop="true"&gt;
 </app-code>
 
@@ -112,7 +112,7 @@ export class MyComponent &#123;
             <p>Buttons that control the ordering are displayed at the left side of the list by default, <i>controlsPosition</i> property enables customizing the location. Currently
                 right is the available alternative.
             </p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" controlsPosition="right"&gt;
 </app-code>
 
@@ -293,7 +293,7 @@ export class MyComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-orderlist-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="products" [listStyle]="&#123;'height':'auto'&#125;" header="List of Products" filterBy="name" filterPlaceholder="Filter by name" dragdrop="true"&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
@@ -314,7 +314,7 @@ export class MyComponent &#123;
 &lt;/p-orderList&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class OrderListDemo &#123;
 
     products: Product[];

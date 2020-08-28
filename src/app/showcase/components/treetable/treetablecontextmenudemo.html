@@ -40,7 +40,7 @@
             <a href="https://stackblitz.com/edit/primeng-treetablecontextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm"&gt;
@@ -63,7 +63,7 @@
 
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableContextMenuDemo &#123;
 
     files: TreeNode[];

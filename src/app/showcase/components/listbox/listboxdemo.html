@@ -37,7 +37,7 @@ import &#123;ListboxModule&#125; from 'primeng/listbox';
       instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how
       the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
       
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-listbox [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-listbox&gt;
 
 &lt;p-listbox [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-listbox&gt;
@@ -85,7 +85,7 @@ export class MyModel &#123;
         In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
         using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
         devices metaKeySelection is turned off automatically.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
 </app-code>
 
@@ -132,13 +132,13 @@ addOption() &#123;
       <h5>Filter</h5>
       <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
         mode is "contains" and alternative is "startsWith" configuted by <i>filterMode</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
 </app-code>
 
       <h5>Model Driven Forms</h5>
       <p>Listbox can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-listbox [options]="cities" formControlName="cities"&gt;&lt;/p-listbox&gt;
 </app-code>
 
@@ -146,7 +146,7 @@ addOption() &#123;
       <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template where
         the local ng-template variable refers to an option in the options collection. Additionally a custom header and footer can be provided
         using <i>p-header</i> and <i>p-footer</i> element.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar"&gt;
     &lt;p-header&gt;
       List of Car
@@ -409,7 +409,7 @@ export class MyModel &#123;
       <a href="https://stackblitz.com/edit/primeng-listbox-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
         <span>Edit in StackBlitz</span>
       </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Single&lt;/h5&gt;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="&#123;'width':'15rem'&#125;"&gt;&lt;/p-listbox&gt;
 

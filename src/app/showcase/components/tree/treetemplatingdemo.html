@@ -27,7 +27,7 @@
             <a href="https://stackblitz.com/edit/primeng-treetemplating-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="nodes"&gt;
     &lt;ng-template let-node pTemplate="url"&gt;
         &lt;a [href]="node.data"&gt;&#123;&#123;node.label&#125;&#125;&lt;/a&gt;
@@ -37,7 +37,7 @@
     &lt;/ng-template&gt;
 &lt;/p-tree&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTemplatingDemo implements OnInit &#123;
 
     nodes: TreeNode[];

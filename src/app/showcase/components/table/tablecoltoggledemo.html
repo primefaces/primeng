@@ -41,7 +41,7 @@
             <a href="https://stackblitz.com/edit/primeng-tablecoltoggle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="selectedColumns" [value]="products"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
@@ -66,7 +66,7 @@
 &lt;/p-table&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; Component, OnInit, Input &#125; from '@angular/core';
 import &#123; Product &#125; from '../../domain/product';
 import &#123; ProductService &#125; from '../../service/productservice';

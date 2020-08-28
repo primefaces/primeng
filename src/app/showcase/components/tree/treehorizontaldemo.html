@@ -19,10 +19,10 @@
             <a href="https://stackblitz.com/edit/primeng-treehorizontal-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" layout="horizontal" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-tree&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component,OnInit&#125; from '@angular/core';
 import &#123;NodeService&#125; from '../../service/nodeservice';
 import &#123;TreeNode&#125; from 'primeng/api';

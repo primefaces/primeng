@@ -66,7 +66,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Preloaded Data (10000 Rows)&lt;/h5&gt;
     &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
@@ -117,7 +117,7 @@
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component, OnInit&#125; from '@angular/core';
 import &#123;Car&#125; from '../../components/domain/car';
 import &#123;CarService&#125; from '../../service/carservice';

@@ -68,7 +68,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DataViewModule&#125; from 'primeng/dataview';
 </app-code>
 
@@ -80,7 +80,7 @@ import &#123;DataViewModule&#125; from 'primeng/dataview';
 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export interface Car &#123;
     vin;
     year;
@@ -89,7 +89,7 @@ export interface Car &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Injectable&#125; from 'angular2/core';
 import &#123;Http, Response&#125; from 'angular2/http';
 import &#123;Car&#125; from '../domain/car';
@@ -108,7 +108,7 @@ export class CarService &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DataViewDemo implements OnInit &#123;
 
     cars: Car[];
@@ -121,7 +121,7 @@ export class DataViewDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -136,7 +136,7 @@ export class DataViewDemo implements OnInit &#123;
                 in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/flexgrid']">PrimeFlex</a> style class of your choice.</p>
             <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -154,7 +154,7 @@ export class DataViewDemo implements OnInit &#123;
             <h3>Sections</h3>
             <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
@@ -177,7 +177,7 @@ export class DataViewDemo implements OnInit &#123;
                 you can create your own that updates the layout property of the DataView.
             </p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars"&gt;
     &lt;p-header&gt;
         &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
@@ -203,7 +203,7 @@ export class DataViewDemo implements OnInit &#123;
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
                 of page links to display. To customize the left and right side of the paginators, use <i>paginatorLeftTemplate</i> and <i>paginatorRightTemplate</i> templates.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -232,7 +232,7 @@ export class DataViewDemo implements OnInit &#123;
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
@@ -248,7 +248,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 loadData(event) &#123;
     //event.first = First row offset
     //event.rows = Number of rows per page
@@ -259,7 +259,7 @@ loadData(event) &#123;
             <p><i>sortField</i> and <i>sortOrder</i> properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
                 Here is an example that uses a dropdown where simply updating the <i>sortField</i> - <i>sortOrder</i> bindings of the DataView initiates sorting.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;
     &lt;p-header&gt;
         &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
@@ -278,7 +278,7 @@ loadData(event) &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DataViewSortDemo implements OnInit &#123;
 
     cars: Car[];
@@ -324,7 +324,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
                 Here is an example that uses an input field. filterBy is a string and multiple fields can be defined with a comma separated list.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView #dv [value]="cars" filterBy="brand"&gt;
     &lt;p-header&gt;
         &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value, "contains")"&gt;
@@ -347,7 +347,7 @@ export class DataViewSortDemo implements OnInit &#123;
             <p>DataView has a loading property, when enabled a spinner icon is displayed to indicate data load.
                 An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataview [value]="cars" [loading]="loading"&gt;
     //content
 &lt;/p-dataview&gt;
@@ -602,7 +602,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
         [sortField]="sortField" [sortOrder]="sortOrder" layout="grid"&gt;
@@ -661,7 +661,7 @@ export class DataViewSortDemo implements OnInit &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DataViewDemo implements OnInit &#123;
 
     products: Product[];

@@ -28,14 +28,14 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ToolbarModule&#125; from 'primeng/toolbar';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Toolbar is a container component defined using p-toolbar element. Left aligned content is placed inside a div 
             having <i>.p-toolbar-group-left</i> class and similarly <i>.p-toolbar-group-right</i> for right alignment.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toolbar&gt;
     &lt;div class="p-toolbar-group-left"&gt;
         &lt;p-button label="New" icon="pi pi-plus"&gt;&lt;/p-button&gt;
@@ -120,7 +120,7 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
             <a href="https://stackblitz.com/edit/primeng-toolbar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toolbar&gt;
     &lt;div class="p-toolbar-group-left"&gt;
         &lt;p-button label="New" icon="pi pi-plus" class="p-mr-2"&gt;&lt;/p-button&gt;
@@ -138,7 +138,7 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
 </app-code>>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 items: MenuItem[];
 ngOnInit() &#123;
     this.items = [

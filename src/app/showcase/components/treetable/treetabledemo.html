@@ -56,19 +56,19 @@
         <p-tabPanel header="Documentation">
             <h5>CDK</h5>
             <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @angular/cdk --save
 </app-code>
 
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TreeTableModule&#125; from 'primeng/treetable';
 import &#123;TreeNode&#125; from 'primeng/api';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>TreeTable component requires a collection of TreeNode objects as its value and templates for the presentation. TreeNode API represents a node with various properties, here is the list of properties utilized by the TreeTable.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export interface TreeNode &#123;
     data?: any;
     children?: TreeNode[];
@@ -78,7 +78,7 @@ export interface TreeNode &#123;
 </app-code>
 
             <p>Usually nodes will be loaded from a remote datasoure, an example NodeService that fetches the data from a json file would be;</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class NodeService &#123;
 
@@ -93,7 +93,7 @@ export class NodeService &#123;
 </app-code>
 
         <p>The filesystem.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &#123;
     "data":
     [
@@ -181,7 +181,7 @@ export class NodeService &#123;
 
 <p>Files get loaded from a service and then bound to the <i>value</i> property whereas <i>header</i> and <i>body</i> templates are used to define the content of these sections.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableDemoComponent implements OnInit &#123;
 
     files: TreeNode[];
@@ -204,7 +204,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
         </ul>
 
         <p>Toggle icon is configured using the p-treeTableToggler by binding the rowNode instance. Most of the time, toggler icon is added to the first column however there is no restriction on where the toggler should be located inside the row.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -231,7 +231,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
             only property that table component uses is field, rest of the properties like header depend on your choice.
         </p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableDemo implements OnInit &#123;
 
     files: TreeNode[];
@@ -254,7 +254,7 @@ export class TreeTableDemo implements OnInit &#123;
 
 <p>There are two ways to render dynamic columns, since cols property is in the scope of component you can just simply bind it to ngFor directive to generate the structure.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -277,7 +277,7 @@ export class TreeTableDemo implements OnInit &#123;
             <p>Other alternative is binding the cols array to the <i>columns</i> property and then defining a template variable to access it within your templates.
                 There is only 1 case where this is required which is reorderable columns.
             </p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -411,13 +411,13 @@ export class TreeTableDemo implements OnInit &#123;
                 setter is used instead of ngDoCheck/IterableDiffers which can reduce performance. So when you manipulate the value such as removing a node, adding a node or changing children of a node, instead of using array methods such as push, splice
                 create a new array reference using a spread operator or similar.
             </p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 this.value = [...this.value];
 </app-code>
 
             <h5>Keyboard Navigation</h5>
             <p>Nodes can be navigated and toggles using arrow keys if the optional <i>ttRow</i> directive is applied to the body row element.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
     &lt;tr [ttRow]="rowNode"&gt;
         &lt;td *ngFor="let col of columns; let i = index"&gt;
@@ -430,7 +430,7 @@ this.value = [...this.value];
 
             <h5>Sections</h5>
             <p>Table offers various templates to display additional information about the data such as a caption, <i>header</i>, <i>summary</i> and <i>footer</i>.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         FileSystem
@@ -469,7 +469,7 @@ this.value = [...this.value];
             <p>Columns can easily be grouped using templating. Let's start with sample data of sales of brands per year.</p>
 
 <div style="height:400px;overflow: auto">
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableColGroupDemo implements OnInit &#123;
 
     sales: TreeNode[];
@@ -604,7 +604,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 </app-code>
 </div>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="sales"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -648,7 +648,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
             <h5>Paginator</h5>
             <p>Pagination is enabled by setting <i>paginator</i> property to true, rows property defines the number of rows per page and pageLinks specify the the number
                 of page links to display. See <a [routerLink]="['/paginator']">paginator</a> component for more information.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -669,7 +669,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 </app-code>
 
             <p>Paginator accepts custom content for the left and the right side via named templates.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -710,7 +710,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
             <p>A column can be made sortable by adding the <i>ttSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-treeTableSortIcon</i> component. For dynamic columns,
                 setting <i>ttSortableColumnDisabled</i> property as true disables sorting for that particular column.
             </p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -732,12 +732,12 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 </app-code>
             <p>Default sorting is executed on a single column, in order to enable multiple field sorting, set <i>sortMode</i> property to "multiple" and use metakey
             when clicking on another column.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="cars" sortMode="multiple"&gt;
 </app-code>
 
             <p>In case you'd like to display the table as sorted by default initially on load, use the <i>sortField</i>-<i>sortOrder</i> properties in single mode.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" sortField="year"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -758,7 +758,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </app-code>
             <p>In multiple mode, use the <i>multiSortMeta</i> property and bind an array of SortMeta objects.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" sortMode="multiple" [multiSortMeta]="multiSortMeta"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -779,7 +779,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 this.multiSortMeta = [];
 this.multiSortMeta.push(&#123;field: 'year', order: 1&#125;);
 this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
@@ -788,7 +788,7 @@ this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
             <p>Instead of using the built-in sorting algorithm a custom sort can be attached by enabling <i>customSort</i> property and defining a <i>sortFunction</i> implementation. This function gets a SortEvent instance
                 that provides the data to sort, sortField, sortOrder and multiSortMeta.
             </p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableSortDemo implements OnInit &#123;
 
     files: TreeNode[];
@@ -836,7 +836,7 @@ export class TreeTableSortDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" (sortFunction)="customSort($event)" [customSort]="true"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -870,7 +870,7 @@ export class TreeTableSortDemo implements OnInit &#123;
 
             <p>In addition <i>filterMode</i> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand,
                 in <b>strict</b> mode when the query matches a node, filtering continues on all descendants.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable #tt [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div style="text-align: right"&gt;
@@ -901,7 +901,7 @@ export class TreeTableSortDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Component(&#123;
     templateUrl: './treetablefilterdemo.html'
 &#125;)
@@ -928,7 +928,7 @@ export class TreeTableFilterDemo &#123;
             <p>If you have static columns and need to use global filtering, globalFilterFields property must be defined to configure which fields should be used in global filtering. Another
                 use case of this property is to change the fields to utilize in global filtering with dynamic columns.
             </p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable #tt [value]="files" [columns]="cols"&gt;
     //content
 &lt;/p-treeTable&gt;
@@ -954,7 +954,7 @@ export class TreeTableFilterDemo &#123;
             </p>
 
             <p>In single mode, selection binding is an object reference.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableSelectionDemo &#123;
 
     files: TreeNode[];
@@ -969,7 +969,7 @@ export class TreeTableSelectionDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" selectionMode="single" [(selection)]="selectedNode" dataKey="name"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -990,7 +990,7 @@ export class TreeTableSelectionDemo &#123;
 </app-code>
 
         <p>In multiple mode, selection binding should be an array.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableSelectionDemo &#123;
 
     files: TreeNode[];
@@ -1005,7 +1005,7 @@ export class TreeTableSelectionDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1026,7 +1026,7 @@ export class TreeTableSelectionDemo &#123;
 </app-code>
 
                 <p>Checkbox selection utilizes p-treeTableCheckbox component whose value should be the rowNode. Optionally <i>p-treeTableHeaderCheckbox</i> is available to select or unselect all the nodes.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div style="text-align:left"&gt;
@@ -1059,7 +1059,7 @@ export class TreeTableSelectionDemo &#123;
             <p>TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a treetable, add <i>ttContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template
             variable for the menu and bind it to the contextMenu property of the treetable. This enables displaying the menu whenever a row is right clicked. A separate <i>contextMenuSelection</i>
             property is used to get a hold of the right clicked row. For dynamic columns, setting <i>ttContextMenuRowDisabled</i> property as true disables context menu for that particular row.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm"&gt;
@@ -1088,7 +1088,7 @@ export class TreeTableSelectionDemo &#123;
             <h5>Editing</h5>
             <p>Incell editing is enabled by adding <i>ttEditableColumn</i> directive to an editable cell that has a <i>p-treeTableCellEditor</i> helper
                 component to define the input-output templates for the edit and view modes respectively.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1116,7 +1116,7 @@ export class TreeTableSelectionDemo &#123;
 </app-code>
 
             <p>If you require the edited row data and the field at onEditComplete event, bind the data to the <i>ttEditableColumn</i> directive and the field to the <i>ttEditableColumnField</i> directive</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;td [ttEditableColumn]="rowData" [ttEditableColumnField]="'year'"&gt;
 </app-code>
 
@@ -1129,7 +1129,7 @@ export class TreeTableSelectionDemo &#123;
             When you need to change column widths, since table width is 100%, giving fixed pixel widths does not work well as browsers scale them, instead give percentage widths.
             </p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1150,7 +1150,7 @@ export class TreeTableSelectionDemo &#123;
 </app-code>
 
             <p><b>Note:</b> Scrollable tables require a column group to support resizing.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true"&gt;
     &lt;ng-template pTemplate="colgroup" let-columns&gt;
         &lt;colgroup&gt;
@@ -1180,7 +1180,7 @@ export class TreeTableSelectionDemo &#123;
             <h5>Column Reordering</h5>
             <p>Columns can be reordered using drag drop by setting the <i>reorderableColumns</i> to true and adding <i>ttReorderableColumn</i> directive to the columns that can be dragged. Note that
                 columns should be dynamic for reordering to work. For dynamic columns, setting <i>ttReorderableColumnDisabled</i> property as true disables reordering for that particular column.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [reorderableColumns]="true"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1205,7 +1205,7 @@ export class TreeTableSelectionDemo &#123;
             <p>TreeTable supports both horizontal and vertical scrolling as well as frozen columns and rows. Additionally, virtualScroll mode enables dealing with large datasets by rendering data on demand during scrolling.</p>
 
             <p>Sample below uses vertical scrolling where headers are fixed and data is <i>scrollable</i>.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1229,7 +1229,7 @@ export class TreeTableSelectionDemo &#123;
             <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
             table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
 &lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
     &lt;p-treeTable [value]="files2" [columns]="cols" [scrollable]="true" scrollHeight="flex"&gt;
@@ -1259,7 +1259,7 @@ export class TreeTableSelectionDemo &#123;
             <h5>Full Page Scroll</h5>
             <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/treetable/flexscroll']">Full Page</a> demo for an example.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="content-section implementation" style="height: calc(100vh - 149px)"&gt;
     &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="flex"
         [virtualScroll]="true" [virtualRowHeight]="34"&gt;
@@ -1289,7 +1289,7 @@ export class TreeTableSelectionDemo &#123;
             <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
                 use colgroup as below to avoid misalignment issues as it will apply both the header, body and footer sections which are different separate elements internally.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [style]="&#123;width:'600px'&#125;"&gt;
     &lt;ng-template pTemplate="colgroup" let-columns&gt;
         &lt;colgroup&gt;
@@ -1315,7 +1315,7 @@ export class TreeTableSelectionDemo &#123;
 </app-code>
 
         <p>Horizontal and Vertical scrolling can be combined as well on the same table.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [style]="&#123;width:'600px'&#125;"&gt;
     &lt;ng-template pTemplate="colgroup" let-columns&gt;
         &lt;colgroup&gt;
@@ -1347,7 +1347,7 @@ export class TreeTableSelectionDemo &#123;
             if require different content for the frozen section use frozenheader, frozenbody and frozenfooter instead.
         </p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="200px" frozenWidth="200px"&gt;
     &lt;ng-template pTemplate="colgroup" let-columns&gt;
         &lt;colgroup&gt;
@@ -1381,7 +1381,7 @@ export class TreeTableSelectionDemo &#123;
 
             <p>When frozen columns are enabled, frozen and scrollable cells may have content with varying height which leads to misalignment. To avoid a performance hit, Table avoids expensive calculations
              to align the row heights as it can be easily done with templating.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;ng-template pTemplate="body" let-rowData="rowData" let-columns="columns"&gt;
     &lt;tr style="30px"&gt;
         &lt;td *ngFor="let col of columns; let i = index"&gt;
@@ -1394,7 +1394,7 @@ export class TreeTableSelectionDemo &#123;
             <h5>Virtual Scrolling</h5>
             <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
                 would be enough to enable this functionality. It is also suggested to use the same virtualRowHeight value on the tr element inside the body template.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="200px"
     [virtualScroll]="true" [virtualRowHeight]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -1424,7 +1424,7 @@ export class TreeTableSelectionDemo &#123;
             that contains information about how the data should be loaded. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 
-            <app-code lang="markup" ngNonBindable>
+            <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true"
     (onLazyLoad)="loadNodes($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -1445,7 +1445,7 @@ export class TreeTableSelectionDemo &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 loadNodes(event: LazyLoadEvent) &#123;
     //event.first = First row offset
     //event.rows = Number of rows per page
@@ -1461,7 +1461,7 @@ loadNodes(event: LazyLoadEvent) &#123;
 
             <p>Lazy loading applies to the first level nodes in the tree hierarchy, instead if you need to lazy load the children of a node, set <i>leaf</i> as true on that node
                 and use onNodeExpand event to load children when a node is expanded only.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" (onNodeExpand)="onNodeExpand($event)"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1481,7 +1481,7 @@ loadNodes(event: LazyLoadEvent) &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 onNodeExpand(event) &#125;
     //const node = event.node;
     //populate node.children
@@ -1496,7 +1496,7 @@ onNodeExpand(event) &#125;
             <h5>Responsive</h5>
             <p>TreeTable does not provide a built-in responsive feature as it is easy to implement as you have full control over the presentation, here is an
                 example with media queries.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Component(&#123;
     templateUrl: './treetableresponsivedemo.html',
     styles: [`
@@ -1545,7 +1545,7 @@ export class TreeTableResponsiveDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -1573,7 +1573,7 @@ export class TreeTableResponsiveDemo &#123;
 
             <h5>EmptyMessage</h5>
             <p>When there is no data, <i>emptymessage</i> template can be used to display a message.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -1605,7 +1605,7 @@ export class TreeTableResponsiveDemo &#123;
             <h5>Loading Status</h5>
             <p>TreeTable has a <i>loading</i> property, when enabled a spinner icon is displayed to indicate data load.
                 An optional <i>loadingIcon</i> property can be passed in case you'd like a different loading icon.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [loading]="loading"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1625,7 +1625,7 @@ export class TreeTableResponsiveDemo &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableDemo implements OnInit &#123;
 
     files: TreeNode[];
@@ -1656,7 +1656,7 @@ export class TreeTableDemo implements OnInit &#123;
             <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class. Example here
                 paint the background of the last cell using a colgroup and highlights rows whose year is older than 2000.
             </p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -2253,7 +2253,7 @@ export class TreeTableDemo implements OnInit &#123;
             <a href="https://stackblitz.com/edit/primeng-treetable-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-treeTable [value]="files1"&gt;
     &lt;ng-template pTemplate="header"&gt;
@@ -2295,7 +2295,7 @@ export class TreeTableDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableDemo implements OnInit &#123;
 
     files1: TreeNode[];

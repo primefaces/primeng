@@ -26,27 +26,27 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;InputTextareaModule&#125; from 'primeng/inputtextarea';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>InputTextarea is applied to an input field with pInputTextarea directive.</p>
                     
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;textarea pInputTextarea&gt;&lt;/textarea&gt;
 </app-code>
 
             <h5>Model Binding</h5>
             <p>A model can be bound using the standard ngModel directive.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;textarea pInputTextarea [(ngModel)]="property"&gt;&lt;/textarea&gt;
 </app-code>
 
             <h5>AutoResize</h5>
             <p>In auto resize mode, textarea grows instead of displaying a scrollbar. When this feature is enabled, rows and cols properties
             are required to be defined.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;
 </app-code>
 
@@ -128,7 +128,7 @@ import &#123;InputTextareaModule&#125; from 'primeng/inputtextarea';
             <a href="https://stackblitz.com/edit/primeng-inputtextarea-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Default&lt;/h5&gt;
 &lt;textarea rows="5" cols="30" pInputTextarea&gt;&lt;/textarea&gt;
 

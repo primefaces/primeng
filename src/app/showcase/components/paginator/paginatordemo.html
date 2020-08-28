@@ -32,31 +32,31 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;PaginatorModule&#125; from 'primeng/paginator';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Paginator is defined using p-paginator element.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator&gt;&lt;/p-paginator&gt;
 </app-code>
             <h5>Rows and TotalRecords</h5>
             <p><i>rows</i> and <i>totalRecords</i> define how many pages the paginator should display. Paginator below will have 10 pages.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="100"&gt;&lt;/p-paginator&gt;
 </app-code>
 
             <h5>PageLinks</h5>
             <p>PageLinks provide shortcuts to jump to a specific page, use <i>pageLinkSize</i> property to define the number of links to display. Default is 5.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
 </app-code>
 
             <h5>Rows Per Page</h5>
             <p>Number of items per page can be changed by the user using a dropdown if you define <i>rowsPerPageOptions</i> as an array of possible values.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </app-code>
 
@@ -199,11 +199,11 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                 </table>
             </div>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponent &#123;
 
     paginate(event) &#123;
@@ -274,7 +274,7 @@ export class MyComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-paginator-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 &lt;h5&gt;Basic&lt;/h5&gt;
     &lt;p-paginator [rows]="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;

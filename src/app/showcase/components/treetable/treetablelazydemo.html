@@ -39,7 +39,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" 
     (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -59,7 +59,7 @@
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableLazyDemo &#123;
 
     files: TreeNode[];

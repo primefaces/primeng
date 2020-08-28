@@ -40,7 +40,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)" 
     [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading"&gt;
     &lt;ng-template pTemplate="header"&gt;
@@ -62,7 +62,7 @@
 &lt;/p-table&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; Component, OnInit &#125; from '@angular/core';
 import &#123; Customer &#125; from '../../domain/customer';
 import &#123; CustomerService &#125; from '../../service/customerservice';

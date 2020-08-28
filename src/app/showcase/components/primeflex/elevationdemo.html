@@ -20,13 +20,13 @@
         <p-tabPanel header="Documentation">
             <h5>Getting Started</h5>
             <p>Elevation is added to an element using the <i>.p-shadow-&#123;level&#125;</i> class.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-shadow-1" /&gt;
 </app-code>
 
             <h5>Levels</h5>
             <p>There are 24 depths available varying from 1 to 24.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-shadow-1" /&gt;
 &lt;div class="p-shadow-24" /&gt;
 </app-code>
@@ -42,7 +42,7 @@
             <a href="https://stackblitz.com/edit/primeng-primeflex-elevation-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col" *ngFor="let box of boxes; index as i"&gt;
         &lt;div [class]="'box p-shadow-' + (i + 1)"&gt;
@@ -52,7 +52,7 @@
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ElevationDemo &#123;
 
     boxes: Array&lt;number&gt; = new Array(24);

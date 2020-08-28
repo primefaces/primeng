@@ -24,13 +24,13 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;GalleriaModule&#125; from 'primeng/galleria';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Galleria requires item template and a value as an array of objects</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-galleria [value]="images"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
@@ -39,7 +39,7 @@ import &#123;GalleriaModule&#125; from 'primeng/galleria';
 </app-code>
             <p>For the rest of the documentation, sample data below would be return from an example service e.g. PhotoService.</p>
 <div style="overflow: auto; height: 400px; margin-bottom: 1em;">
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &#123;
     "data":[
         &#123;
@@ -136,7 +136,7 @@ import &#123;GalleriaModule&#125; from 'primeng/galleria';
 &#125;
 </app-code>
 </div>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class PhotoService &#123;
 
@@ -150,7 +150,7 @@ export class PhotoService &#123;
     &#125;
 &#125;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class GalleriaDemo implements OnInit &#123;
 
     images: any[];
@@ -178,7 +178,7 @@ export class GalleriaDemo implements OnInit &#123;
 </app-code>
             <h5>Items per page</h5>
             <p>Number of items per page is defined using the <i>numVisible</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-galleria [value]="images" [numVisible]="5"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
@@ -194,7 +194,7 @@ export class GalleriaDemo implements OnInit &#123;
             <h5>Responsive</h5>
             <p>For responsive design, <i>numVisible</i> can be defined using the <i>responsiveOptions</i> property that should be an array of
                 objects whose breakpoint defines the max-width to apply the settings.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
@@ -206,7 +206,7 @@ export class GalleriaDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 responsiveOptions:any[] = [
     &#123;
         breakpoint: '1024px',
@@ -225,7 +225,7 @@ responsiveOptions:any[] = [
 
             <h5>Header and Footer</h5>
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> properties.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         &lt;h1&gt;
@@ -250,7 +250,7 @@ responsiveOptions:any[] = [
                 <h5>Indicators</h5>
                 <p>Indicators allow quick navigation between the items. Set <i>showIndicators</i> to display indicators which can be customized further
                 with the <i>changeItemOnIndicatorHover</i>, <i>showIndicatorsOnItem</i> and <i>indicatorsPosition</i> properties.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-galleria [value]="images" [indicators]="true"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
@@ -476,7 +476,7 @@ responsiveOptions:any[] = [
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
@@ -489,7 +489,7 @@ responsiveOptions:any[] = [
 &lt;/p-galleria&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class GalleriaDemo &#123;
         
     images: any[];

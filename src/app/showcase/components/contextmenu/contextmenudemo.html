@@ -16,7 +16,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ContextMenuModule&#125; from 'primeng/contextmenu';
 import &#123;MenuItem&#125; from 'primeng/api';
 </app-code>
@@ -26,13 +26,13 @@ import &#123;MenuItem&#125; from 'primeng/api';
 
             <h5>Getting Started</h5>
             <p>ContextMenu requires nested menuitems as its model and in its simplest form ContextMenu is attached to the document with global setting. .</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-contextMenu [global]="true" [model]="items"&gt;&lt;/p-contextMenu&gt;
 </app-code>
 
             <h5>Target</h5>
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
 
 &lt;img #img src="assets/showcase/images/primeng.svg" alt="Logo"&gt;
@@ -42,7 +42,7 @@ import &#123;MenuItem&#125; from 'primeng/api';
             <p>Some components like Table require special attention so they provide a different method to attach a context menu. Refer to 
             individual documentation of components with special integration like Table.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ContextMenuDemo &#123;
 
     private items: MenuItem[];
@@ -251,12 +251,12 @@ export class ContextMenuDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-contextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;img #img src="assets/showcase/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true"&gt;
 &lt;p-contextMenu [target]="img" [model]="items"&gt;&lt;/p-contextMenu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ContextMenuDemo &#123;
 
     items: MenuItem[];

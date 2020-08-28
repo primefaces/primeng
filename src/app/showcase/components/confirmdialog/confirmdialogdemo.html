@@ -40,7 +40,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ConfirmDialogModule&#125; from 'primeng/confirmdialog';
 import &#123;ConfirmationService&#125; from 'primeng/api';
 </app-code>
@@ -49,13 +49,13 @@ import &#123;ConfirmationService&#125; from 'primeng/api';
             <p>ConfirmDialog is defined using p-confirmDialog tag and an instance of ConfirmationService is required to display it by
                 calling confirm method.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"&gt;&lt;/p-confirmDialog&gt;
 
 &lt;button type="text" (click)="confirm()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ConfirmDialogDemo &#123;
 
     constructor(private confirmationService: ConfirmationService) &#123;&#125;
@@ -234,7 +234,7 @@ export class ConfirmDialogDemo &#123;
             <p>In addition, buttons at footer section can be customized by passing your own UI, important note to make confirmation work with
             a custom UI is defining a local ng-template variable for the dialog and assign accept()-reject() methods to your own buttons.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmDialog #cd header="Confirmation" icon="pi pi-exclamation-triangle"&gt;
     &lt;p-footer&gt;
         &lt;button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
@@ -246,7 +246,7 @@ export class ConfirmDialogDemo &#123;
             <h5>Animation Configuration</h5>
             <p>Transition of the ConfirmDialog open and hide animations can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.25, 0.8, 0.25, 1)</b>,
                 example below disables the animation altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmDialog [transitionOptions]="'0ms'"&gt;
 &lt;/p-confirmDialog&gt;
 </app-code>
@@ -446,7 +446,7 @@ export class ConfirmDialogDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-confirmdialog-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;&lt;/p-confirmDialog&gt;
 &lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
@@ -481,7 +481,7 @@ export class ConfirmDialogDemo &#123;
 &lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Component(&#123;
     templateUrl: './confirmdialogdemo.html',
     styles: [`

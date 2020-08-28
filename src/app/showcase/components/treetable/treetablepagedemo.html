@@ -37,7 +37,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -56,7 +56,7 @@
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTablePageDemo implements OnInit &#123;
 
     files: TreeNode[];

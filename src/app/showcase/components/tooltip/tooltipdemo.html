@@ -35,14 +35,14 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
                     <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TooltipModule&#125; from 'primeng/tooltip';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
             
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pTooltip="Enter your username"&gt;
 </app-code>
 
@@ -50,28 +50,28 @@ import &#123;TooltipModule&#125; from 'primeng/tooltip';
             <p>There are four choices to position the tooltip, default value is "right" and alternatives are "top", "bottom", "left". Position is 
             specified using <i>tooltipPosition</i> attribute.</p>
             
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pTooltip="Enter your username" tooltipPosition="top"&gt;
 </app-code>
 
             <h5>Events</h5>
             <p>Tooltip gets displayed on hover event of its target by default, other option is the focus event to display and blur to hide.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus"&gt;
 </app-code>
 
             <h5>Delay</h5>
             <p>Tooltip is displayed or hidden instantly by default however you may add delays using <i>showDelay</i> and <i>hideDelay</i> properties which accept a number value in terms of milliseconds.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus" showDelay="1000" hideDelay="500"&gt;
 </app-code>
 
             <h5>Scrolling Containers</h5>
             <p>When placed inside a scrolling container like an overflown div, tooltip must be appended to another element that has
                 relative positioning instead of document body which is the default.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div #container style="display:inline-block;position:relative"&gt;
     &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right" [appendTo]="container"&gt;
 &lt;/div&gt;
@@ -203,7 +203,7 @@ import &#123;TooltipModule&#125; from 'primeng/tooltip';
             <a href="https://stackblitz.com/edit/primeng-tooltip-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Positions&lt;/h5&gt;
 &lt;h5&gt;Positions&lt;/h5&gt;
 &lt;div class="p-grid p-fluid"&gt;

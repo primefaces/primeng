@@ -34,7 +34,7 @@
         is easy as configuring the font size of your document. Code below sets the scale of the components based on 16px. If you reqire bigger or smaller components, just
         change this variable and components will scale accordingly.</p>
     
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 html &#123;
     font-size: 16px;
 &#125;
@@ -43,7 +43,7 @@ html &#123;
     <p>Some commonly used components such as inputs, buttons and datatable also provide per component scaling with special classes. Components with specific scaling options
         are documented in their own documentation.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input pInputText type="text" class="p-inputtext-sm" /&gt;
 &lt;button pButton label="Button" class="p-button-lg" /&gt;
 </app-code>
@@ -52,11 +52,11 @@ html &#123;
     <p>Theming styles the components globally, in case you required to change the style of a certain component for a specific use case use the class property and override the defaults.
         Example below changes the background of the panel. Note that this is only for local styling, if you require to change the background color of all the panels, a custom theme is a far better choice.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panel header="Custom Header" styleClass="dark-panel"/&gt;
 </app-code>
             
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 .dark-panel.p-panel &#123;
     .p-panel-titlebar &#123;
         background: #212121;
@@ -66,7 +66,7 @@ html &#123;
      
     <p>If the style does not apply due to view encapsulation, try ng-deep scoping.</p>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 :host ::ng-deep .dark-panel.p-panel &#123;
     .p-panel-titlebar &#123;
         background: #212121;

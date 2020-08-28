@@ -34,14 +34,14 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;PickListModule&#125; from 'primeng/picklist';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>PickList requires two arrays as its lists and a ng-template for the item content where each item in the array
                 can be accessed inside the ng-template using a local <i>ng-template</i> variable.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="list1" [target]="list2"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div&gt;
@@ -52,7 +52,7 @@ import &#123;PickListModule&#125; from 'primeng/picklist';
 &lt;/p-pickList&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponent &#123;
 
     list1: any[];
@@ -67,13 +67,13 @@ export class MyComponent &#123;
 </app-code>
             <h5>Responsive</h5>
             <p>In responsive mode, picklist adjusts its controls based on screen size. To activate this mode, set <i>responsive</i> as true.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [responsive]="true"&gt;
 </app-code>
 
             <h5>Headers</h5>
             <p><i>sourceHeader</i> and <i>targetHeader</i> attributes are used to define captions for the lists.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList sourceHeader="Source List" targetHeader="Target List"&gt;
 </app-code>
 
@@ -84,14 +84,14 @@ export class MyComponent &#123;
             <h5>Filtering</h5>
             <p>Options can be filtered using an input field in the overlay by enabling the filterBy property.
                 This <i>filterBy</i> property decides which field to search(Accepts multiple fields with a comma).</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" filterBy="brand"&gt;&lt;/p-pickList&gt;
 </app-code>
 
 <h5>DragDrop</h5>
 <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property along with dragdropScope to avoid conflict with other drag drop events on view.
 This dragdrop property also supports cross list actions.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" dragdrop="true"&gt;&lt;/p-pickList&gt;
 </app-code>
 
@@ -390,7 +390,7 @@ This dragdrop property also supports cross list actions.</p>
                 </table>
             </div>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList #pl [source]="sourceCars" [target]="targetCars" filterBy="brand"&gt;&lt;/p-pickList&gt;
 
 &lt;button type="button" pButton (click)="pl.resetFilter()" label="Reset"&gt;&lt;/button&gt;
@@ -450,7 +450,7 @@ This dragdrop property also supports cross list actions.</p>
             <a href="https://stackblitz.com/edit/primeng-picklist-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" dragdrop="true"
     [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;" filterBy="name"
     sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name"&gt;
@@ -473,7 +473,7 @@ This dragdrop property also supports cross list actions.</p>
 &lt;/p-pickList&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class PickListDemo &#123;
 
     sourceProducts: Car[];
@@ -488,7 +488,7 @@ export class PickListDemo &#123;
     &#125;
 &#125;
 </app-code>
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 .product-item &#123;
     display: flex;
     align-items: center;

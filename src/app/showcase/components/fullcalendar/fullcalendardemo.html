@@ -15,19 +15,19 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;FullCalendarModule&#125; from 'primeng/fullcalendar';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.1.0+</a> so FullCalendar core needs to be included in your project. For complete documentation and samples please refer to the <a href="https://fullcalendar.io/">FullCalendar website</a>.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @fullcalendar/core --save
 </app-code>
     
             <h5>Plugins</h5>
             <p>FullCalendar is plugin based so install the plugins you require and define them with the options property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @fullcalendar/daygrid --save
 npm install @fullcalendar/timegrid --save
 npm install @fullcalendar/interaction --save
@@ -35,7 +35,7 @@ npm install @fullcalendar/interaction --save
 
             <p>Styles of the core and plugins required can be defined in angular.json or with CSS imports.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 "styles": [
     "node_modules/@fullcalendar/core/main.min.css",
     "node_modules/@fullcalendar/daygrid/main.min.css",
@@ -47,7 +47,7 @@ npm install @fullcalendar/interaction --save
             <p>Events should be an array and defined using the events property. In this example, we'll be utilizing a service to load our data. See the <a href="https://fullcalendar.io/docs">documentation</a> for 
             more information about the Event API.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class EventService &#123;
     
@@ -63,7 +63,7 @@ export class EventService &#123;
 </app-code>
 
             <p>Sample events data as JSON.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &#123;
     "data": [
         &#123;
@@ -88,11 +88,11 @@ export class EventService &#123;
         <h5>Putting It Together</h5>
         <p>FullCalendar has a long list of customization parameters that are defined with the options property. Example below customizes the views, defaultDate and header.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -126,7 +126,7 @@ export class FullCalendarDemo implements OnInit &#123;
             <p>Updates to the events or options are reflected to the UI whenever a change occurs. An important note here is that UI update only happens whenever a new instance is created
                 on these twp properties. Simply changing the events array without creating a new instance of the array or updating a property inside options will have no effect.
             </p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 update() &#123;
     //incorrect
     this.events.push(&#123;
@@ -152,7 +152,7 @@ update() &#123;
 
             <h5>Callbacks</h5>
             <p>Callbacks of the FullCalendar are also defined with the options property.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 this.options = &#123;
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     header: &#123;
@@ -168,11 +168,11 @@ this.options = &#123;
 
             <h5>Methods</h5>
             <p>Methods of the underlying calendar instance is accessible using the reference of the components getCalendar() API.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-fullCalendar #fc [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @ViewChild('fc') fc: FullCalendar;
 
 gotoDate(date: Date) &#123;
@@ -215,11 +215,11 @@ gotoDate(date: Date) &#123;
             <a href="https://stackblitz.com/edit/primeng-fullcalendar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -250,7 +250,7 @@ export class FullCalendarDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class EventService &#123;
     

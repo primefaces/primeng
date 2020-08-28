@@ -20,7 +20,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MenuModule&#125; from 'primeng/menu';
 import &#123;MenuItem&#125; from 'primeng/api';
 </app-code>
@@ -30,11 +30,11 @@ import &#123;MenuItem&#125; from 'primeng/api';
 
             <h5>Getting Started</h5>
             <p>Menu requires a collection of menuitems as its model.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
     
     items: MenuItem[];
@@ -51,7 +51,7 @@ export class MenuDemo &#123;
 
             <h5>SubMenus</h5>
             <p>Menu supports 1 level of nesting via subitems of an item.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
     
     items: MenuItem[];
@@ -78,7 +78,7 @@ export class MenuDemo &#123;
             <h5>Popup Mode</h5>
             <p>Menu is inline by default, popup mode is also supported by enabling popup property and calling toggle method by passing the event 
                     from the anchor element.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menu #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
 &lt;button type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </app-code>
@@ -86,7 +86,7 @@ export class MenuDemo &#123;
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
                 example below disables the animations altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
 &lt;button type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </app-code>       
@@ -261,7 +261,7 @@ export class MenuDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-menu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
 
@@ -270,7 +270,7 @@ export class MenuDemo &#123;
 &lt;p-menu #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
 
     items: MenuItem[];

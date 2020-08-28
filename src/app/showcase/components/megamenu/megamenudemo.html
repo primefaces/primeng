@@ -19,7 +19,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MegaMenuModule&#125; from 'primeng/megamenu';
 </app-code>
 
@@ -28,11 +28,11 @@ import &#123;MegaMenuModule&#125; from 'primeng/megamenu';
 
             <h5>Getting Started</h5>
             <p>MegaMenu requires nested menuitems as its model where the items of a root menuitem is a two dimensional array to define columns in an overlay submenu.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-megaMenu [model]="items"&gt;&lt;/p-megaMenu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MegaMenuItem,MenuItem&#125; from 'primeng/api';
 
 export class MegaMenuDemo &#123;
@@ -159,7 +159,7 @@ export class MegaMenuDemo &#123;
             <h5>Custom Content</h5>
             <p>Custom content can be placed between p-megaMenu tags. Megamenu should be horizontal for custom content.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-megaMenu [model]="items"&gt;
     &lt;input type="text" pInputText placeholder="Search"&gt;
     &lt;button pButton label="Logout" icon="pi pi-sign-out"&gt;&lt;/button&gt;
@@ -269,11 +269,11 @@ export class MegaMenuDemo &#123;
     <a href="https://stackblitz.com/edit/primeng-megamenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
         <span>Edit in StackBlitz</span>
     </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-megaMenu [model]="items"&gt;&lt;/p-megaMenu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MegaMenuItem,MenuItem&#125; from 'primeng/api';
 
 export class MegaMenuDemo &#123;

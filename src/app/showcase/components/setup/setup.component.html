@@ -4,7 +4,7 @@
 
     <h5>Download</h5>
     <p>PrimeNG is available at npm, if you have an existing application run the following command to download it to your project.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install primeng --save
 npm install primeicons --save
 </app-code>
@@ -15,7 +15,7 @@ npm install primeicons --save
     <h5>Import</h5>
     <p>UI components are configured as modules, once PrimeNG is downloaded and configured, modules and apis can be imported from <i>primeng/&#123;module&#125;</i> shorthand in your application code. Documentation
         of each component states the import path.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;AccordionModule&#125; from 'primeng/accordion';     //accordion and accordion tab
 import &#123;MenuItem&#125; from 'primeng/api';                  //api
 </app-code>
@@ -24,7 +24,7 @@ import &#123;MenuItem&#125; from 'primeng/api';                  //api
 
     <p>The css dependencies are as follows, Prime Icons, theme of your choice and structural css of components.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 node_modules/primeicons/primeicons.css
 node_modules/primeng/resources/themes/saga-blue/theme.css
 node_modules/primeng/resources/primeng.min.css
@@ -33,7 +33,7 @@ node_modules/primeng/resources/primeng.min.css
     <h5>Free Themes</h5>
 <p>PrimeNG ships with 32 free themes to choose from.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 primeng/resources/themes/bootstrap4-light-blue/theme.css
 primeng/resources/themes/bootstrap4-light-purple/theme.css
 primeng/resources/themes/bootstrap4-dark-blue/theme.css
@@ -109,7 +109,7 @@ primeng/resources/themes/rhea/theme.css
     <p>Ripple is an optional animation for the supported components such as buttons. It is disabled by default and needs to be enabled globally at your main component e.g. app.component.ts by injecting
         <i>PrimeNGConfig</i>.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; PrimeNGConfig &#125; from 'primeng/api';
 
 @Component(&#123;
@@ -131,11 +131,11 @@ export class AppComponent implements OnInit &#123;
     <p>Various components utilize angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need
     to import <i>BrowserAnimationsModule</i> to your application. If you prefer to disable animations globally, import <i>NoopAnimationsModule</i> instead.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @angular/animations --save
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;BrowserModule&#125; from '@angular/platform-browser';
 import &#123;BrowserAnimationsModule&#125; from '@angular/platform-browser/animations';
 
@@ -156,7 +156,7 @@ export class YourAppModule &#123; &#125;
     <h6>Dependencies</h6>
     <p>Add PrimeNG and PrimeIcons as dependencies.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 "dependencies": &#123;
     //...
     "primeng": "^10.0.0",
@@ -167,7 +167,7 @@ export class YourAppModule &#123; &#125;
     <h6>Styles Configuration</h6>
     <p>Configure required styles at the styles section, example below uses the Nova Light theme.</p>
     
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 "styles": [
   "node_modules/primeng/resources/themes/saga-blue/theme.css",
   "node_modules/primeng/resources/primeng.min.css",

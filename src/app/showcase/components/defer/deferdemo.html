@@ -40,14 +40,14 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DeferModule&#125; from 'primeng/defer';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div pDefer&gt;
     &lt;ng-template&gt;
        deferred content
@@ -58,7 +58,7 @@ import &#123;DeferModule&#125; from 'primeng/defer';
             <h5>Callback</h5>
             <p>onLoad callback is useful to initialize the content when it becomes visible on scroll such as loading data.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div pDefer (onLoad)="initData()"&gt;
     &lt;ng-template&gt;
         &lt;p-table [value]="cars"&gt;
@@ -83,7 +83,7 @@ import &#123;DeferModule&#125; from 'primeng/defer';
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 this.cars = //initialize
 </app-code>
 
@@ -125,7 +125,7 @@ this.cars = //initialize
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div style="height:1200px"&gt;
     Table is not loaded yet, scroll down to initialize it.
 &lt;/div&gt;
@@ -156,7 +156,7 @@ this.cars = //initialize
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DeferDemo &#123;
 
     cars: Car[];

@@ -19,18 +19,18 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ToggleButtonModule&#125; from 'primeng/togglebutton';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toggleButton [(ngModel)]="checked"&gt;&lt;/p-toggleButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     checked: boolean;
@@ -39,7 +39,7 @@ export class ModelComponent &#123;
 </app-code>
 
             <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
    checked: boolean = true;
@@ -49,20 +49,20 @@ export class ModelComponent &#123;
 
             <h5>Model Driven Forms</h5>
             <p>ToggleButton can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toggleButton formControlName="agreed"&gt;&lt;/p-toggleButton&gt;
 </app-code>
 
             <h5>Labels</h5>
             <p>Labels are customized using onLabel and <i>offLabel</i> properties.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject"
             onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
 </app-code>
 
             <h5>Icons</h5>
             <p>Icon on a ToggleButton is specified with the <i>onIcon</i> and <i>offIcon</i> properties and position is customized using the <i>iconPos</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject" 
             onIcon="pi pi-check" offIcon="pi pi-times" iconPos="right" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
 </app-code>
@@ -168,10 +168,10 @@ export class ModelComponent &#123;
                     </tbody>
                 </table>
             </div>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toggleButton (onChange)="handleChange($event)" [(ngModel)]="val"&gt;
 </app-code>
- <app-code lang="typescript" ngNonBindable>
+ <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     handleChange(e) &#123;
@@ -222,7 +222,7 @@ export class ModelComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-togglebutton-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-toggleButton [(ngModel)]="checked1" onIcon="pi pi-check" offIcon="pi pi-times"&gt;&lt;/p-toggleButton&gt;
 
@@ -230,7 +230,7 @@ export class ModelComponent &#123;
 &lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="&#123;'width': '10em'&#125;"&gt;&lt;/p-toggleButton&gt;&lt;/code&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ToggleButtonDemo &#123;
 
     checked1: boolean = false;

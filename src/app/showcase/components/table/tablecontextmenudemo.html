@@ -42,7 +42,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
@@ -69,7 +69,7 @@
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; Component, OnInit &#125; from '@angular/core';
 import &#123; Product &#125; from '../../domain/product';
 import &#123; ProductService &#125; from '../../service/productservice';

@@ -38,13 +38,13 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Content is defined with an ng-template and overlay is displayed using the <i>show</i> or <i>toggle</i> method of a local ng-template variable.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-overlayPanel #op&gt;
     &lt;ng-template pTemplate&gt;
         Content
@@ -57,7 +57,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
             <p><i>show</i> method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, 
             if you'd like to align it to another element, provide it as the second parameter. Similarly calling <i>hide()</i> hides the overlay panel and the <i>toggle</i> method 
             toggles the visibility of the panel. In example below, clicking the button displays the overlayPanel aligned to the actualTarget div, not the button itself.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-overlayPanel #op&gt;
     &lt;ng-template pTemplate&gt;
         Content
@@ -72,7 +72,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
             <h5>Dismissable and CloseIcon</h5>
             <p>Clicking outside the overlay hides the panel, setting <i>dismissable</i> to false disables this behavior. Additionally enabling <i>showCloseIcon</i> property 
             displays a close icon at the top right corner to close the panel</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true"&gt;
     &lt;ng-template pTemplate&gt;
         Content
@@ -83,7 +83,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
                 example below disables the animations altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true"&gt;
     &lt;ng-template pTemplate&gt;
         Content
@@ -270,7 +270,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
             <a href="https://stackblitz.com/edit/primeng-overlaypanel-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 
 &lt;p-button [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" icon="pi pi-search" (click)="op.toggle($event)"&gt;&lt;/p-button&gt;
@@ -297,7 +297,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 &lt;/p-overlayPanel&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class OverlayPanelDemo &#123;
     products: Product[];
     
@@ -316,7 +316,7 @@ export class OverlayPanelDemo &#123;
 
 </app-code>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 
 button &#123;
     min-width: 15rem;

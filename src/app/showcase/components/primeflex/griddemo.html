@@ -379,13 +379,13 @@
             <h5>Istall</h5>
             <p>PrimeFlex is available at npm, if you have an existing application run the following command to download it to your project.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install primeflex --save
 </app-code>
 
             <p>Then add the primeflex.css to your application, example below uses styles configuration of an Angular CLI project.</p>
 
-<app-code lang="javascript" ngNonBindable>
+<app-code lang="javascript" ngNonBindable ngPreserveWhitespaces>
 "styles": [
   "node_modules/primeflex/primeflex.css"
 ],
@@ -395,7 +395,7 @@ npm install primeflex --save
             <p>FlexGrid is a CSS utility based on flexbox. For more information about Flex, visit <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">A Complete Guide to Flexbox</a>. A basic grid is defined by giving
             a container <i>p-grid</i> class and children the <i>p-col</i> class. Children of the grid will have the same width and scale according to the width of the parent.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col"&gt;1&lt;/div&gt;
     &lt;div class="p-col"&gt;2&lt;/div&gt;
@@ -417,7 +417,7 @@ npm install primeflex --save
 
             <h5>Direction</h5>
             <p>Default direction is <b>row</b> and <i>p-dir-* </i> class at the container defines the other possible directions which can be row reverse, column and column reverse.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;!-- Row Reverse --&gt;
 &lt;div class="p-grid p-dir-rev"&gt;
     &lt;div class="p-col"&gt;1&lt;/div&gt;
@@ -485,7 +485,7 @@ npm install primeflex --save
                 in the second example, all three columns have explicit units.
             </p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-4"&gt;4&lt;/div&gt;
     &lt;div class="p-col"&gt;1 &lt;/div&gt;
@@ -550,7 +550,7 @@ npm install primeflex --save
             <h5>MultiLine</h5>
             <p>When the number of columns exceed 12, columns wrap to a new line.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-6"&gt;6&lt;/div&gt;
     &lt;div class="p-col-6"&gt;6&lt;/div&gt;
@@ -577,7 +577,7 @@ npm install primeflex --save
             <h5>Fixed Width Column</h5>
             <p>A column can have a fixed width while siblings having auto width. Apply <i>p-col-fixed</i> class to fix a column width.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-fixed" style="width:100px"&gt;Fixed&lt;/div&gt;
     &lt;div class="p-col"&gt;Auto&lt;/div&gt;
@@ -639,7 +639,7 @@ npm install primeflex --save
 
         <p>In example below, large screens display 4 columns, medium screens display 2 columns in 2 rows and finally on small devices, columns are stacked.</p>
         
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;A&lt;/div&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;B&lt;/div&gt;
@@ -703,7 +703,7 @@ npm install primeflex --save
             </table>
         </div>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid p-justify-between"&gt;
     &lt;div class="p-col-2"&gt;2&lt;/div&gt;
     &lt;div class="p-col-1"&gt;1&lt;/div&gt;
@@ -759,7 +759,7 @@ npm install primeflex --save
             </table>
         </div>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid p-align-center"&gt;
     &lt;div class="p-col"&gt;4&lt;/div&gt;
     &lt;div class="p-col"&gt;4&lt;/div&gt;
@@ -812,7 +812,7 @@ npm install primeflex --save
                 </table>
             </div>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col p-col-align-start"&gt;4&lt;/div&gt;
     &lt;div class="p-col p-col-align-center"&gt;4&lt;/div&gt;
@@ -835,7 +835,7 @@ npm install primeflex --save
             <h5>Offset</h5>
             <p>Offset classes allow defining a left margin on a column to avoid adding empty columns for spacing.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-6 p-offset-3"&gt;6&lt;/div&gt;
 &lt;/div&gt;
@@ -910,7 +910,7 @@ npm install primeflex --save
             <h5>Nested</h5>
             <p>Columns can be nested to create more complex layouts.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-8"&gt;
         &lt;div class="p-grid"&gt;
@@ -955,7 +955,7 @@ npm install primeflex --save
             <i>.p-nogutter</i> class to the container. Gutters can also be removed on an ndividual columns with the same class name.
         </p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid p-nogutter"&gt;
     &lt;div class="p-col"&gt;1&lt;/div&gt;
     &lt;div class="p-col p-nogutter"&gt;2&lt;/div&gt;
@@ -1022,7 +1022,7 @@ npm install primeflex --save
                 <span>View on GitHub</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col"&gt;
@@ -1390,7 +1390,7 @@ npm install primeflex --save
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;trigger,state,style,transition,animate&#125; from '@angular/animations';
 

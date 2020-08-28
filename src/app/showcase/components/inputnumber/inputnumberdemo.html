@@ -129,29 +129,29 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;InputNumberModule&#125; from 'primeng/inputnumber';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>InputNumber is used with the standard v-model directive. Component always provides a number type although formatting on the input is a string.</p>   
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputNumber [(ngModel)]="val"&gt;&lt;/p-inputNumber&gt;
 </app-code>
 
             <h5>Decimal Mode</h5>
             <p>Format is defined using the <i>mode</i> property, "decimal" is the default value allowing only integers when there is no other configuration.</p>   
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputNumber [(ngModel)]="val" mode="decimal"&gt;&lt;/p-inputNumber&gt;
 </app-code>
             <p>Fractions are configured with the <i>minFractionDigits</i> property. Optionally <i>maxFractionDigits</i> can be used to defined a boundary for the maximum digits.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputNumber [(ngModel)]="val" mode="decimal" [minFractionDigits]="2"&gt;&lt;/p-inputNumber&gt;
 &lt;p-inputNumber [(ngModel)]="val" mode="decimal" [minFractionDigits]="2" [maxFracionDigits]="2"&gt;&lt;/p-inputNumber&gt;
 </app-code>
 
             <p><i>locale</i> option is available to set the localization information such as grouping and decimal symbols where default value is the browser locale. Locales are defined per <a href="https://tools.ietf.org/html/rfc5646">BCP Language Tag</a>.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 User Locale
 &lt;p-inputNumber [(ngModel)]="value1" mode="decimal" [minFractionDigits]="2"&gt;&lt;/p-inputNumber&gt;
 
@@ -167,7 +167,7 @@ Indian Locale
             <h5>Currency</h5>
             <p>Currency formatting is specified by setting the <i>mode</i> option to currency and <i>currency</i> property. In addition <i>currencyDisplay</i> option
                 allows how the currency is displayed, valid values are "symbol" (default) or "code".</p> 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 User Locale
 &lt;p-inputNumber [(ngModel)]="value1" mode="currency"&gt;&lt;/p-inputNumber&gt;
 
@@ -183,7 +183,7 @@ Indian Locale
 
             <h5>Prefix and Suffix</h5>
             <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p> 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 Mile
 &lt;p-inputNumber [(ngModel)]="value1" suffix=" mi"&gt;&lt;/p-inputNumber&gt;
 
@@ -200,7 +200,7 @@ Temperature
             <h5>Buttons</h5>
             <p>Spinner buttons is enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default value is "stacked" whereas
                 "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down arrow keys can be used to spin the values with keyboard.</p> 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 Stacked
 &lt;p-inputNumber [(ngModel)]="value1" [showButtons]="true" mode="currency" currency="USD"&gt;&lt;/p-inputNumber&gt;
 
@@ -215,13 +215,13 @@ Vertical
 
             <h5>Step</h5>
             <p>Step factor is 1 by default and can be customized with <i>step</i> option.</p> 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputNumber [(ngModel)]="val" [step]="0.25"&gt;&lt;/p-inputNumber&gt;
 </app-code>
     
             <h5>Min and Max Boundaries</h5>
             <p>Value to be entered can be restricted by configuring the <i>min</i> and <i>max</i> options.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputNumber [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-inputNumber&gt;
 </app-code>
 
@@ -546,7 +546,7 @@ Vertical
             <a href="https://stackblitz.com/edit/primeng-inputnumber-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid p-fluid"&gt;
 &lt;h5>Numerals&lt;/h5>
 &lt;div class="p-grid p-fluid">
@@ -664,7 +664,7 @@ Vertical
 &lt;/div>
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class InputNumberDemo &#123;
     value1: number = 42723;
 

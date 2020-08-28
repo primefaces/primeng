@@ -42,7 +42,7 @@
             <a href="https://stackblitz.com/edit/primeng-treetabletoggle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="selectedColumns"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div style="text-align:left"&gt;
@@ -67,7 +67,7 @@
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableColToggleDemo &#123;
 
     files: TreeNode[];

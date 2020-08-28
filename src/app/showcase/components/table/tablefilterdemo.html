@@ -103,7 +103,7 @@
             <a href="https://stackblitz.com/edit/primeng-tablefilter-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table #dt [value]="customers" dataKey="id"
         [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
@@ -190,7 +190,7 @@
     &lt;/p-table&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; Component, OnInit, ViewChild &#125; from '@angular/core';
 import &#123; Customer, Representative &#125; from '../../domain/customer';
 import &#123; CustomerService &#125; from '../../service/customerservice';

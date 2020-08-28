@@ -166,7 +166,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
             <h5>Getting Started</h5>
             <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using <i>header</i> attribute.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -182,7 +182,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 
             <h5>Dynamic Tabs</h5>
             <p>p-tabPanel components can be generated dynamically using ngFor, note that in this case due to an Angular issue <i>selected</i> property must be enabled manually.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabView&gt;
     &lt;p-tabPanel [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 0"&gt;
         {{item.content}}
@@ -192,7 +192,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 
             <h5>Selection</h5>
             <p>First tab is selected by default, to customize this enable <i>selected</i> property on another panel.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -208,7 +208,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 
             <h5>Closable</h5>
             <p>When <i>closable</i> attribute is enabled, an icon is displayed to close the tab. <i>onClose</i> event is fired when a tab is closed.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
@@ -217,7 +217,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
             <p>If you'd like to control whether a tab can be closed, enable controlClose property which gives you the control
             to decide at <i>onClose</i> event. In this case, the event gets a 3rd parameter called close callback and invoking this function
             actually closes the tab.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabView [controlClose]="true" (onClose)="handleClose($event)"&gt;
     &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
         Content 1
@@ -234,7 +234,7 @@ handleClose(e) &#123;
 
             <h5>Disabled</h5>
             <p>A tab can be disabled to prevent the content to be displayed by setting the <i>disabled</i> property on a panel.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabPanel header="Header Text" [disabled]="true"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
@@ -242,7 +242,7 @@ handleClose(e) &#123;
 
             <h5>Icons</h5>
             <p>Icons can be placed at left and right of a header using <i>leftIcon</i> and <i>rightIcon</i> properties of tabPanel.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabPanel header="Header Text" leftIcon="pi-bell-" rightIcon="pi-bookmark"&gt;;
     Content
 &lt;/p-tabPanel&gt;
@@ -250,7 +250,7 @@ handleClose(e) &#123;
 
             <h5>Header Template</h5>
             <p>Header of a tab supports templating to place custom html content instead of strings as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabPanel&gt;
     &lt;ng-template pTemplate="header"&gt;Custom Content&lt;/ng-template&gt;
 &lt;/p-tabPanel&gt;
@@ -259,13 +259,13 @@ handleClose(e) &#123;
             <h5>Orientation</h5>
             <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
             and this can be changed using <i>orientation</i> attribute.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabView orientation="left"&gt;
 </app-code>
 
             <h5>Programmatic Control</h5>
             <p>Tabs can be controlled programmatically using <i>activeIndex</i> property that defines the index of the active tab.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-button icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/p-button&gt;
 &lt;p-button icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/p-button&gt;
 
@@ -302,7 +302,7 @@ export class TabViewDemo &#123;
             <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy
             loaded tabpanel contents are cached by default so that upon reselection, they are not created again. You may use cache property on TabPanel to
             configure this behavior. A TabPanel is specified as lazy when there is a ngTemplate with <i>pTemplate</i>="content" in it.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
         Content 1
@@ -479,7 +479,7 @@ export class TabViewDemo &#123;
                     </tbody>
                 </table>
             </div>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabView (onChange)="handleChange($event)"&gt;
 </app-code>
 
@@ -537,7 +537,7 @@ handleChange(e) &#123;
             <a href="https://stackblitz.com/edit/primeng-tabview-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 &lt;div class="card"&gt;
     &lt;h5&gt;Default&lt;/h5&gt;

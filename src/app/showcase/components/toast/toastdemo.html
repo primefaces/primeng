@@ -59,7 +59,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ToastModule&#125; from 'primeng/toast';
 </app-code>
 
@@ -135,11 +135,11 @@ import &#123;ToastModule&#125; from 'primeng/toast';
             </div>
 
             <p>A message is displayed using a MessageService, make sure your component has an injectable <i>MessageService</i> defined as a provider otherwise Toast cannot be utilized.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 </app-code>
        
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;MessageService&#125; from 'primeng/api';
 
@@ -167,7 +167,7 @@ export class MyComponent &#123;
 
             <h5>Positions</h5>
             <p>Toast supports various positions where default is "top-right".</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast position="top-left"&gt;&lt;/p-toast&gt;
 </app-code>
 
@@ -185,12 +185,12 @@ export class MyComponent &#123;
             <h5>Targeting Messages</h5>
             <p>A page may have multiple toast components, in case you'd like to target a specific message to a particular toast, use the <i>key</i> property so that toast and the message can match.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast key="myKey1"&gt;&lt;/p-toast&gt;
 &lt;p-toast key="myKey2"&gt;&lt;/p-toast&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 this.messageService.add(&#123;key: 'myKey1', severity:'success', summary: 'Summary Text', detail: 'Detail Text'&#125;);
 this.messageService.add(&#123;key: 'myKey2', severity:'success', summary: 'Summary Text', detail: 'Detail Text'&#125;);
 </app-code>
@@ -200,12 +200,12 @@ this.messageService.add(&#123;key: 'myKey2', severity:'success', summary: 'Summa
                 any arguments, removes all displayed messages whereas calling it with a key, removes the messages displayed on a toast having the same key.
             </p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast key="myKey1"&gt;&lt;/p-toast&gt;
 &lt;p-toast key="myKey2"&gt;&lt;/p-toast&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 this.messageService.clear();            //clears messages of both toast components
 this.messageService.clear('myKey1');    //clears messages of the first toast only
 </app-code>
@@ -213,7 +213,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
             <h5>Templating</h5>
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
         &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
@@ -239,12 +239,12 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
             <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties, 
                 example below disables the animations altogether.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-toast&gt;
 </app-code>
 
             <p>Another example is customizing the animation to appear from left to right.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [showTransformOptions]="'translateX(100%)'"&gt;&lt;/p-toast&gt;
 </app-code>
             
@@ -410,7 +410,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
             <a href="https://stackblitz.com/edit/primeng-toast-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 &lt;p-toast position="top-left" key="tl"&gt;&lt;/p-toast&gt;
 &lt;p-toast position="top-center" key="tc"&gt;&lt;/p-toast&gt;
@@ -460,7 +460,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;MessageService&#125; from 'primeng/api';
 

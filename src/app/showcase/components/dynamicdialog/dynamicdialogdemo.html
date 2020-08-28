@@ -17,7 +17,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DynamicDialogModule&#125; from 'primeng/dynamicdialog';
 </app-code>
 
@@ -27,7 +27,7 @@ import &#123;DynamicDialogModule&#125; from 'primeng/dynamicdialog';
                 using the CarsListDemo component so it needs to be configured at entryComponents along with the import of DynamicDialogModule. The configuration of the demo page is as follows;
             </p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @NgModule(&#123;
     imports: [
         CommonModule,
@@ -49,7 +49,7 @@ export class DynamicDialogDemoModule &#123;
 
             <p>Next step, is injecting an instance of a DialogService to the component that will open the dialog.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;DialogService&#125; from 'primeng/dynamicdialog';
 import &#123;CarsListDemo&#125; from './carslistdemo';
@@ -68,11 +68,11 @@ export class DynamicDialogDemo &#123;
 
             <p>Displaying a dialog is done with the open method where the first parameter is the type of component to load and the second parameter is the configuration of the Dialog such as header, width and more.</p>
                 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 show() &#123;
     const ref = this.dialogService.open(CarsListDemo, &#123;
         header: 'Choose a Car',
@@ -84,7 +84,7 @@ show() &#123;
             <p>In case you need to pass data to the component that is dynamically loaded, use the data property that can be access using the DynamicDialogConfig class. In additon, the loaded component can also control the Dialog using the DynamicDialogRef API.
                 Both the DynamicDialogConfig and DynamicDialogRef are injectable using the constructor.
             </p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 show() &#123;
     const ref = this.dialogService.open(CarsListDemo, &#123;
         data: &#123;
@@ -96,7 +96,7 @@ show() &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;Car&#125; from '../../components/domain/car';
 import &#123;CarService&#125; from '../../service/carservice';
@@ -122,7 +122,7 @@ export class CarsListDemo &#123;
 <p>Most of the time, requirement is returning a value from the dialog. DialogRef's close method is used for this purpose where the parameter passed will be available at the onClose
 event at the caller. Here is an example on how to close the dialog from the CarsListDemo by passing a selected car.
 </p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;Car&#125; from '../../components/domain/car';
 import &#123;CarService&#125; from '../../service/carservice';
@@ -150,7 +150,7 @@ export class CarsListDemo &#123;
 </app-code>
 
             <p>Now at the class that opens the dialog, the selected car gets passed to the Observable.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 show() &#123;
     const ref = this.dialogService.open(CarsListDemo, &#123;
         header: 'Choose a Car',
@@ -362,13 +362,13 @@ show() &#123;
             </a>
 
             <h5>DynamicDialogDemo</h5>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show">&lt;/button&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DynamicDialogDemo implements OnDestroy &#123;
 
     constructor(public dialogService: DialogService, public messageService: MessageService) &#123;&#125;
@@ -400,7 +400,7 @@ export class DynamicDialogDemo implements OnDestroy &#123;
 </app-code>
 
             <h5>CarsListDemo</h5>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [value]="products" [paginator]="true" [rows]="5" [responsive]="true"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -425,7 +425,7 @@ export class DynamicDialogDemo implements OnDestroy &#123;
 &lt;/p-table&gt;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 export class ProductListDemo &#123;
 
     products: Product[];

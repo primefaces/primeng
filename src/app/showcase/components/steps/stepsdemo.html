@@ -17,7 +17,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;StepsModule&#125; from 'primeng/steps';
 import &#123;MenuItem&#125; from 'primeng/api';
 </app-code>
@@ -27,11 +27,11 @@ import &#123;MenuItem&#125; from 'primeng/api';
 
             <h5>Getting Started</h5>
             <p>Steps requires a collection of menuitems as its model.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-steps [model]="items"&gt;&lt;/p-steps&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
 
     items: MenuItem[];
@@ -48,7 +48,7 @@ export class MenuDemo &#123;
 
             <h5>Readonly</h5>
             <p>Items are readonly by default, if you'd like to make them interactive then disable <i>readonly</i>.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-steps [model]="items" [readonly]="false"&gt;&lt;/p-steps&gt;
 </app-code>
 
@@ -172,7 +172,7 @@ export class MenuDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-steps-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;p-toast&gt;&lt;/p-toast&gt;
     &lt;p-steps [model]="items" [readonly]="true"&gt;&lt;/p-steps&gt;
@@ -180,7 +180,7 @@ export class MenuDemo &#123;
 &lt;router-outlet&gt;&lt;/router-outlet&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class StepsDemo implements OnInit &#123;
 
     items: MenuItem[];
@@ -222,7 +222,7 @@ export class StepsDemo implements OnInit &#123;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="Personal">
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="stepsdemo-content"&gt;
     &lt;p-card&gt;
         &lt;ng-template pTemplate="title"&gt;
@@ -259,7 +259,7 @@ export class StepsDemo implements OnInit &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class PersonalDemo implements OnInit &#123;
 
     personalInformation: any;
@@ -286,7 +286,7 @@ export class PersonalDemo implements OnInit &#123;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="Seat">
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="stepsdemo-content"&gt;
     &lt;p-card&gt;
         &lt;ng-template pTemplate="title"&gt;
@@ -321,7 +321,7 @@ export class PersonalDemo implements OnInit &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SeatDemo implements OnInit &#123;
     
     constructor(public ticketService: TicketService, private router: Router) &#123; &#125;
@@ -377,7 +377,7 @@ export class SeatDemo implements OnInit &#123;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="Payment">
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="stepsdemo-content"&gt;
     &lt;p-card&gt;
         &lt;ng-template pTemplate="title"&gt;
@@ -420,7 +420,7 @@ export class SeatDemo implements OnInit &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class PaymentDemo implements OnInit &#123;
 
     paymentInformation: any;
@@ -445,7 +445,7 @@ export class PaymentDemo implements OnInit &#123;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="Confirmation">
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="stepsdemo-content"&gt;
     &lt;p-card&gt;
         &lt;ng-template pTemplate="title"&gt;
@@ -502,7 +502,7 @@ export class PaymentDemo implements OnInit &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ConfirmationDemo implements OnInit &#123;
     
     ticketInformation: any;

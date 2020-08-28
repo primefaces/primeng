@@ -17,7 +17,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;BreadcrumbModule&#125; from 'primeng/breadcrumb';
 import &#123;MenuItem&#125; from 'primeng/api';
 </app-code>
@@ -28,7 +28,7 @@ import &#123;MenuItem&#125; from 'primeng/api';
             <h5>Getting Started</h5>
             <p>Breadcrumb requires a collection of menuitems connected to its model property.</p>
             
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class BreadcrumbDemo implements OnInit &#123;
 
     private items: MenuItem[];
@@ -48,7 +48,7 @@ export class BreadcrumbDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-breadcrumb [model]="items"&gt;&lt;/p-breadcrumb&gt;
 </app-code>
 
@@ -156,7 +156,7 @@ export class BreadcrumbDemo implements OnInit &#123;
             <a href="https://stackblitz.com/edit/primeng-breadcrumb-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class BreadcrumbDemo implements OnInit &#123;
 
     items: MenuItem[];
@@ -178,7 +178,7 @@ export class BreadcrumbDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-breadcrumb [model]="items" [home]="home"&gt;&lt;/p-breadcrumb&gt;
 </app-code>
         </p-tabPanel>

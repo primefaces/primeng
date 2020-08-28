@@ -86,7 +86,7 @@
                 <span>View on GitHub</span>
             </a>
                         
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;p-table [value]="products" styleClass="p-datatable-sm"&gt;
         &lt;ng-template pTemplate="caption"&gt;
@@ -160,7 +160,7 @@
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; Component, OnInit &#125; from '@angular/core';
 import &#123; Product &#125; from '../../domain/product';
 import &#123; ProductService &#125; from '../../service/productservice';

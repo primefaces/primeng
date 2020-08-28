@@ -125,7 +125,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ButtonModule&#125; from 'primeng/button';
 </app-code>
 
@@ -133,7 +133,7 @@ import &#123;ButtonModule&#125; from 'primeng/button';
             <p>Button is either applies as a component using p-button element or a directive using pButton attribute. Directive enhances an existing button whereas 
                 p-button is an element on its own.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Click" &gt;&lt;/button&gt;
 &lt;p-button label="Click" &gt;&lt;/p-button&gt;
 </app-code>
@@ -141,7 +141,7 @@ import &#123;ButtonModule&#125; from 'primeng/button';
 
 				<h5>Label</h5>
 				<p>Text of the button is defined using the <i>label</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Click" &gt;&lt;/button&gt;
 &lt;p-button label="Click" &gt;&lt;/p-button&gt;
 </app-code>
@@ -149,7 +149,7 @@ import &#123;ButtonModule&#125; from 'primeng/button';
             <h5>Icons</h5>
             <p>Icon on a button is specified with <i>icon</i> attribute and position is customized using <i>iconPos</i> attribute. Default
             icon position is left. To display only an icon, leave label as undefined.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" icon="pi pi-check" iconPos="left"&gt;&lt;/button&gt;
 &lt;p-button label="Click" icon="pi pi-check" iconPos="left"&gt;&lt;/p-button&gt;
 </app-code>
@@ -158,12 +158,12 @@ import &#123;ButtonModule&#125; from 'primeng/button';
             <h5>Events</h5>
             <p>Events are defined using standard notation in pButton and with on* prefix at p-button.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Click" (click)="handleClick($event)"&gt;&lt;/button&gt;
 &lt;p-button label="Click" (onClick)="handleClick($event)"&gt;&lt;/p-button&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class Model &#123;
 
     handleClick() &#123;
@@ -185,7 +185,7 @@ export class Model &#123;
                 <li>.p-button-danger</li>
             </ul>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" class="p-button-info"&gt;&lt;/button&gt;
 &lt;button pButton type="button" label="Primary"&gt;&lt;/button&gt;
 &lt;button pButton type="button" label="Secondary" class="p-button-secondary"&gt;&lt;/button&gt;
@@ -199,7 +199,7 @@ export class Model &#123;
                 <h5>Text Buttons</h5>
 				<p>Text buttons have transparent background and borders, use <i>p-button-text</i> to apply text button styling. In addition when used with <i>.p-button-plain</i>
                 text buttons ignore severity levels and displayed as a regular text.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Submit" class="p-button-text"&gt;&lt;/button&gt;
 &lt;button pButton type="button" icon="pi pi-check" class="p-button-text"&gt;&lt;/button&gt;
 &lt;button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-text"&gt;&lt;/button&gt;
@@ -207,33 +207,33 @@ export class Model &#123;
 </app-code>
             <h5>Raised and Rounded Buttons</h5>
 				<p>A button can be raised by having "p-button-raised" style class and similarly borders can be made rounded using "p-button-rounded" class.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" class="p-button-raised p-button-rounded"&gt;&lt;/button&gt;
 </app-code>
 
                 <h5>Outlined Buttons</h5>
                 <p>An alternate styling for a button is the outlined option where background becomes transparent. Apply "p-button-outlined" to style a button as outlined.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Primary" class="p-button-outlined"&gt;&lt;/button&gt;
 </app-code>
 
                 <h5>Link Buttons</h5>
                 <p>Use "p-button-link" class to render the button as a link.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Link" class="p-button-link"&gt;&lt;/button&gt;
 </app-code>
 
                 <h5>Badges</h5>
                 <p>Badge is a small status indicator for a button. Refer to the <a href="#" [routerLink]="['/badge']">badge</a>. documentation for available styling options.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Emails" badge="8"&gt;&lt;/button&gt;
 &lt;button pButton type="button" label="Messages" icon="pi pi-users" class="p-button-warning" badge="8" badgeClass="p-badge-info"&gt;&lt;/button&gt;
 </app-code>
 
                 <h5>ButtonSet</h5>
                 <p>Wrapping the buttons in a container having a <i>.p-buttonset</i> class, groups the buttons side to side.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;span class="p-buttonset"&gt;
     &lt;button pButton type="button" label="Save" icon="pi pi-check"&gt;&lt;/button&gt;
     &lt;button pButton type="button" label="Delete" icon="pi pi-trash"&gt;&lt;/button&gt;
@@ -244,7 +244,7 @@ export class Model &#123;
                 <h5>Sizes</h5>
                 <p>2 more sizes are available in addition to a regular button, for a smaller input add <i>p-button-sm</i> and for a larger one, use <i>p-button-lg</i>.
                 Note that these classes available to change the size of a particular button, for global scaling see the <a href="#" [routerLink]="['/theming']">theming</a>. page.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Small" icon="pi pi-check" class="p-button-sm"&gt;&lt;/button&gt;
 &lt;button pButton type="button" label="Normal" icon="pi pi-check" class="p-button"&gt;&lt;/button&gt;
 &lt;button pButton type="button" label="Large" icon="pi pi-check" class="p-button-lg"&gt;&lt;/button&gt;
@@ -399,7 +399,7 @@ export class Model &#123;
                 <a href="https://stackblitz.com/edit/primeng-button-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                     <span>Edit in StackBlitz</span>
                 </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-button label="Submit"&gt;&lt;/p-button&gt;
 &lt;p-button label="Disabled" disabled="true"&gt;&lt;/p-button&gt;
@@ -512,12 +512,12 @@ export class Model &#123;
     &lt;p-button label="Large" icon="pi pi-check" styleClass="p-button-lg"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ButtonDemo &#123;
 
 &#125;
 </app-code>
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
     :host ::ng-deep .p-button &#123;
         margin-right: .5rem;
     &#125;

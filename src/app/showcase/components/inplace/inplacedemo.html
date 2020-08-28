@@ -66,14 +66,14 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;InplaceModule&#125; from 'primeng/inplace';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Inplace requires two templates named <i>display</i> and <i>content</i> to represent the each state.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inplace &gt;
     &lt;ng-template pTemplate="display"&gt;
         Click to Edit
@@ -230,7 +230,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
             <a href="https://stackblitz.com/edit/primeng-inplace-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-inplace closable="closable" [style]="&#123;'min-height':'33px'&#125;"&gt;
     &lt;ng-template pTemplate="display"&gt;

@@ -22,7 +22,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MenubarModule&#125; from 'primeng/menubar';
 import &#123;MenuItem&#125; from 'primeng/api';
 </app-code>
@@ -32,11 +32,11 @@ import &#123;MenuItem&#125; from 'primeng/api';
 
             <h5>Getting Started</h5>
             <p>Menubar requires nested menuitems as its model.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menubar [model]="items"&gt;&lt;/p-menubar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenubarDemo &#123;
 
     items: MenuItem[];
@@ -73,7 +73,7 @@ export class MenubarDemo &#123;
 <h5>Custom Content</h5>
 <p>Custom content can be placed between p-menubar tags.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menubar [model]="items"&gt;
     &lt;input type="text" pInputText placeholder="Search"&gt;
     &lt;button pButton label="Logout" icon="pi pi-power-off"&gt;&lt;/button&gt;
@@ -176,7 +176,7 @@ export class MenubarDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-menubar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menubar [model]="items"&gt;
     &lt;div&gt;
         &lt;input type="text" pInputText placeholder="Search"&gt;
@@ -185,7 +185,7 @@ export class MenubarDemo &#123;
 &lt;/p-menubar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenubarDemo &#123;
 
     items: MenuItem[];

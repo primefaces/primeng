@@ -24,17 +24,17 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ProgressBarModule&#125; from 'primeng/progressbar';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>ProgressBar has two modes; "determinate" and "indeterminate". Former requires a value between 0 and 100 to display the progress.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     value: number = 0;
@@ -44,7 +44,7 @@ export class ModelComponent &#123;
 
             <p>Indeterminate has no such a requirement and is simple enabled using <i>mode</i> property.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-progressBar mode="indeterminate"&gt;&lt;/p-progressBar&gt;
 </app-code>
 
@@ -135,7 +135,7 @@ export class ModelComponent &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 
 &lt;div class="card"&gt;
@@ -150,7 +150,7 @@ export class ModelComponent &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ProgressBarDemo &#123;
 
     value: number = 0;

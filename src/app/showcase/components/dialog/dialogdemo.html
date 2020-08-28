@@ -105,14 +105,14 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DialogModule&#125; from 'primeng/dialog';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Dialog is used as a container and visibility is controlled with visible property.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
     Content
 &lt;/p-dialog&gt;
@@ -120,7 +120,7 @@ import &#123;DialogModule&#125; from 'primeng/dialog';
 &lt;button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     display: boolean = false;
@@ -137,7 +137,7 @@ export class ModelComponent &#123;
 
             <h5>Dimensions</h5>
             <p>Use style property to define the dimensions of the Dialog.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog header="Title" [(visible)]="display" [style]="&#123;width: '50vw'&#125;"&gt;
     Content
 &lt;/p-dialog&gt;
@@ -145,13 +145,13 @@ export class ModelComponent &#123;
 
             <h5>Responsive</h5>
             <p>Responsiveness can easily be implemented using media queries.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog header="Title" [(visible)]="display" styleClass="mydialog"&gt;
 Content
 &lt;/p-dialog&gt;
 </app-code>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 .mydialog &#123;
     width: 50vw;
 &#125;
@@ -166,7 +166,7 @@ Content
             <h5>Header and Footer</h5>
             <p>Header and Footer sections are useful to include custom content. Note that <i>Header</i> and <i>Footer</i> components should be imported and defined
             at directives section of your component for this to work.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog [(visible)]="display"&gt;
     &lt;p-header&gt;
         Header content here
@@ -180,7 +180,7 @@ Content
 
             <h5>Positioning</h5>
             <p>Dialog location is controlled with the <i>position</i> property whose default value is center. Other valid values are top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" and "bottom-right". You may also call the resetPosition() method of Dialog to re-position it after the content or position changes.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog position="top" [(visible)]="display"&gt;
 Content
 &lt;/p-dialog&gt;
@@ -189,7 +189,7 @@ Content
             <h5>Overlays Inside</h5>
             <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can
             either append the overlay to the body or allow overflow in dialog.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog&gt;
     &lt;p-dropdown appendTo="body"&gt;&lt;/p-dropdown&gt;
 &lt;/p-dialog&gt;
@@ -198,7 +198,7 @@ Content
 
             <h5>RTL Support</h5>
             <p>RTL orientation is enabled by adding "p-rtl" to an ancestor element of dialog in combination with standard dir="rtl" option.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-rtl" dir="rtl"&gt;
     &lt;p-dialog [(visible)]="display"&gt;
         &lt;p-header&gt;
@@ -215,7 +215,7 @@ Content
             <h5>Animation Configuration</h5>
             <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>,
                 example below disables the animation altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog [(visible)]="display" [transitionOptions]="'0ms'"&gt;&lt;/p-dialog&gt;
 </app-code>
 
@@ -515,7 +515,7 @@ Content
             <a href="https://stackblitz.com/edit/primeng-dialog-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
 &lt;p-dialog header="Header" [(visible)]="displayBasic" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
@@ -609,7 +609,7 @@ Content
 &lt;/p-dialog&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DialogDemo &#123;
 
     displayModal: boolean;
@@ -648,7 +648,7 @@ export class DialogDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 :host ::ng-deep .p-button &#123;
     margin: 0 .5rem 0 0;
     min-width: 10rem;

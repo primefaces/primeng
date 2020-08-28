@@ -21,7 +21,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SlideMenuModule&#125; from 'primeng/slidemenu';
 import &#123;MenuItem&#125; from 'primeng/api';
 </app-code>
@@ -31,11 +31,11 @@ import &#123;MenuItem&#125; from 'primeng/api';
 
             <h5>Getting Started</h5>
             <p>SlideMenu requires nested menuitems as its <i>model</i>.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slideMenu [model]="items"&gt;&lt;/p-slideMenu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SlideMenuDemo &#123;
 
     items: MenuItem[];
@@ -72,7 +72,7 @@ export class SlideMenuDemo &#123;
             <h5>Popup Mode</h5>
             <p>SlideMenu is inline by default, popup mode is also supported by enabling popup property and calling toggle method by passing the event 
                     from the anchor element.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slideMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </app-code>
@@ -80,14 +80,14 @@ export class SlideMenuDemo &#123;
             <h5>Effects</h5>
             <p>The easing function to use is "ease-out" by default and this can be customized using easing property. 
                 See <a href="http://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp">here</a> for possible alternative values.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slideMenu #menu [model]="items" effectDuration="1000" easing="ease-in"&gt;&lt;/p-slideMenu&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
                 example below disables the animations altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slideMenu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [model]="items" [popup]="true"&gt;&lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </app-code>
@@ -284,7 +284,7 @@ export class SlideMenuDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-slidemenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-slideMenu [model]="items" [viewportHeight]="250"&gt;&lt;/p-slideMenu&gt;
 
@@ -293,7 +293,7 @@ export class SlideMenuDemo &#123;
 &lt;p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"&gt;&lt;/p-slideMenu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SlideMenuDemo &#123;
 
     items: MenuItem[];

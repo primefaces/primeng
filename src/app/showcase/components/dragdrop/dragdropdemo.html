@@ -55,7 +55,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DragDropModule&#125; from 'primeng/dragdrop';
 </app-code>
 
@@ -63,7 +63,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
             <p>pDraggable and pDroppable are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required
             and it defines the scope to match draggables with droppables. Droppable scope can also be an array to accept multiple droppables.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div pDraggable="dd"&gt;Draggable Div&lt;/div&gt;
 
 &lt;div pDroppable="dd"&gt;Droppable Div&lt;/div&gt;
@@ -72,7 +72,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
             <h5>Drag Handle</h5>
             <p>Drag handle is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>
 
-            <app-code lang="markup" ngNonBindable>
+            <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div pDraggable="pnl"  dragHandle=".p-panel-titlebar"&gt;
     &lt;p-panel header="Drag Header"&gt;
         Content
@@ -227,7 +227,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dragdrop" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 <h5>Drag and Drop to Table</h5>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-12 p-md-6 drag-column"&gt;
@@ -271,7 +271,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DragDropDemo &#123;
 
     availableProducts: Product[];
@@ -317,7 +317,7 @@ export class DragDropDemo &#123;
 
 &#125;
 </app-code>
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 :host ::ng-deep .drag-column &#123;
     padding-right: .5em;
 &#125;

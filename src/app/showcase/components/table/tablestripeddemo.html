@@ -35,7 +35,7 @@
                 <span>View on GitHub</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [value]="products" styleClass="p-datatable-striped"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -56,7 +56,7 @@
 &lt;/p-table&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; Component, OnInit &#125; from '@angular/core';
 import &#123; Product &#125; from '../../domain/product';
 import &#123; ProductService &#125; from '../../service/productservice';

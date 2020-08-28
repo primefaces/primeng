@@ -36,22 +36,22 @@
     <p-tabView>
         <p-tabPanel header ="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;OrganizationChartModule&#125; from 'primeng/organizationchart';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>OrganizationChart requires a model of TreeNode as its <i>value</i>. More information about TreeNode API is available at documentation of <a href="#" [routerLink]="['/tree']">tree</a> component.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TreeNode&#125; from 'primeng/api';
 </app-code>
 
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-organizationChart [value]="data"&gt;&lt;/p-organizationChart&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponents implements OnInit &#123;
 
     data: TreeNode[];
@@ -91,7 +91,7 @@ export class MyComponents implements OnInit &#123;
             <p>Label of the treenode is displayed inside the node content by default and templating enables enhanced customization. TreeNode API has type property which is
             used to match the <i>pTemplate</i> type so templating can be done per node as well. In example below, nodes with type "leaf" are displayed with bold text. Note that a pTemplate
             whose type is "default" applies to all nodes that have no type property defined.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-organizationChart [value]="data"
     styleClass="company"&gt;
     &lt;ng-template let-node pTemplate="leaf"&gt;
@@ -103,7 +103,7 @@ export class MyComponents implements OnInit &#123;
 &lt;/p-organizationChart&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponents implements OnInit &#123;
 
     data: TreeNode[];
@@ -146,11 +146,11 @@ export class MyComponents implements OnInit &#123;
             <p>OrganizationChart supports 2 selection methods; single or multiple. Selection is enabled by setting <i>selectionMode</i> property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-organizationChart [value]="data" selectionMode="single" [(selection)]="selectedNode"&gt;&lt;/p-organizationChart&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponents implements OnInit &#123;
 
     data: TreeNode[];
@@ -332,7 +332,7 @@ export class MyComponents implements OnInit &#123;
             <a href="https://stackblitz.com/edit/primeng-organizationchart-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;h5&gt;Advanced&lt;/h5&gt;
@@ -356,7 +356,7 @@ export class MyComponents implements OnInit &#123;
 &lt;p-organizationChart [value]="data2"&gt;&lt;/p-organizationChart&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class OrganizationChartDemo implements OnInit &#123;
 
     data1: TreeNode[];
@@ -474,7 +474,7 @@ export class OrganizationChartDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 :host ::ng-deep .p-organizationchart &#123;
     .p-person &#123;
         padding: 0;

@@ -179,7 +179,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Vertical with Fixed Viewport&lt;/h5&gt;
 &lt;p-treeTable [value]="files1" [columns]="cols" [scrollable]="true" scrollHeight="200px"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -330,7 +330,7 @@
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; Component &#125; from '@angular/core';
 import &#123; TreeNode &#125; from 'primeng/api';
 import &#123; NodeService &#125; from '../../service/nodeservice';

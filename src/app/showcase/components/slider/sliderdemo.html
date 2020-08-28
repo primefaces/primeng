@@ -30,17 +30,17 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SliderModule&#125; from 'primeng/slider';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way binding is defined using the standard <i>ngModel</i> directive.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider [(ngModel)]="val"&gt;&lt;/p-slider&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyModel &#123;
 
     val: number;
@@ -50,29 +50,29 @@ export class MyModel &#123;
 
             <h5>Model Driven Forms</h5>
             <p>Slider can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider formControlName="age"&gt;&lt;/p-slider&gt;
 </app-code>
 
             <h5>Min-Max</h5>
             <p>Boundaries are specified with <i>min</i> and <i>max</i> attributes.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-slider&gt;
 </app-code>
 
             <h5>Step</h5>
             <p>Step factor is 1 by default and can be customized with <i>step</i> option.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider [(ngModel)]="val" [step]="10"&gt;&lt;/p-slider&gt;
 </app-code>
 
             <h5>Range</h5>
             <p>Range slider provides two handles to define two values. In this case, value binding should refer to an array.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider [(ngModel)]="rangeValues" [range]="true"&gt;&lt;/p-slider&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyModel &#123;
 
     rangeValues: number[];
@@ -82,7 +82,7 @@ export class MyModel &#123;
 
             <h5>Orientation</h5>
             <p>Sliders supports two <i>orientation</i>, horizontal is the default and other alternative is vertical.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider [(ngModel)]="val" orientation="vertical"&gt;&lt;/p-slider&gt;
 </app-code>
 
@@ -199,11 +199,11 @@ export class MyModel &#123;
                     </tbody>
                 </table>
             </div>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider [(ngModel)]="val" (onChange)="handleChange($event)"&gt;&lt;/p-slider&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 handleChange(e) &#123;
     //e.value is the new value
 &#125;
@@ -243,7 +243,7 @@ handleChange(e) &#123;
             <a href="https://stackblitz.com/edit/primeng-slider-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic: &#123;&#123;val1&#125;&#125;&lt;/h5&gt;
 &lt;p-slider [(ngModel)]="val1"&gt;&lt;/p-slider&gt;
 
@@ -261,7 +261,7 @@ handleChange(e) &#123;
 &lt;p-slider [(ngModel)]="val4" orientation="vertical"&gt;&lt;/p-slider&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SliderDemo &#123;
 
     val1: number;

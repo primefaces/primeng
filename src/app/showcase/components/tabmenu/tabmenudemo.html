@@ -15,7 +15,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TabMenuModule&#125; from 'primeng/tabmenu';
 import &#123;MenuItem&#125; from 'primeng/api';</app-code>
 
@@ -24,10 +24,10 @@ import &#123;MenuItem&#125; from 'primeng/api';</app-code>
 
             <h5>Getting Started</h5>
             <p>TabMenu requires a collection of menuitems as its <i>model</i>.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;</app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
     
     items: MenuItem[];
@@ -46,10 +46,10 @@ export class TabMenuDemo &#123;
 
             <h5>ActiveItem</h5>
             <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;</app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
     
     items: MenuItem[];
@@ -72,7 +72,7 @@ export class TabMenuDemo &#123;
 
             <h5>Templating</h5>
             <p>Menuitem content supports templating via the "item" template which gets the menuitem instance and the index.</p>
-            <app-code lang="typescript" ngNonBindable>
+            <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabMenu [model]="items"&gt;
     &lt;ng-template pTemplate="item" let-item let-i="index"&gt;
         //item content
@@ -171,11 +171,11 @@ export class TabMenuDemo &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabMenu [model]="items" [activeItem]="activeItem"&gt;&lt;/p-tabMenu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
     
     items: MenuItem[];

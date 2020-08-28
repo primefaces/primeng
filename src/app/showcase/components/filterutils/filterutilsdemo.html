@@ -38,13 +38,13 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;FilterUtils&#125; from 'primeng/utils';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>FilterUtils consists of static functions that implement various constraints.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 const value = 'PrimeNG';
 
 FilterUtils.equals(value, 'NG');                            //false
@@ -60,7 +60,7 @@ FilterUtils.in(value, ['PrimeFaces', 'PrimeNG']);           //true
 
             <h5>Custom Constraint</h5>
             <p>FilterUtils can be extended by adding new constraints.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 FilterUtils['isPrimeNumber'] = (value): boolean => &#123;
     for(var i = 2; i &lt; num; i++)
         if (num % i === 0) return false;
@@ -177,7 +177,7 @@ FilterUtils['isPrimeNumber'](568985673);              //false
             <a href="https://stackblitz.com/edit/primeng-filterutils-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -204,7 +204,7 @@ FilterUtils['isPrimeNumber'](568985673);              //false
 &lt;/p-table&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class FilterUtilsDemo &#123;
 
     cars: Car[];

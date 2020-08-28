@@ -10,17 +10,17 @@
     <p>Core of the api is MenuItem class that defines various options such as the label, icon and children of an item in a menu. Example below
     is a sample configuration with Menu component.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MenuModule&#125; from 'primeng/menu';
 import &#123;MenuItem&#125; from 'primeng/api';
 import &#123;MegaMenuItem&#125; from 'primeng/api';  //required when using MegaMenu
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
 
     private items: MenuItem[];
@@ -231,7 +231,7 @@ export class MenuDemo &#123;
 
     <h4>Command</h4>
     <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
 
     private items: MenuItem[];
@@ -253,7 +253,7 @@ export class MenuDemo &#123;
     <h4>Navigation</h4>
     <p>Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem has an active route, <i>ui-state-active</i> style class is added as an indicator. Active route link can be
     configured with <i>routerLinkActiveOptions</i> property of MenuItem API.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
 
     private items: MenuItem[];

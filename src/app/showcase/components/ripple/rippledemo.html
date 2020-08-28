@@ -18,7 +18,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;RippleModule&#125; from 'primeng/ripple';
 </app-code>
 
@@ -26,7 +26,7 @@ import &#123;RippleModule&#125; from 'primeng/ripple';
             <p>Ripple is an optional animation for the supported components such as buttons. It is disabled by default and needs to be enabled globally at your main component e.g. app.component.ts by injecting
                 <i>PrimeNGConfig</i>.</p>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; PrimeNGConfig &#125; from 'primeng/api';
 
 @Component(&#123;
@@ -47,11 +47,11 @@ export class AppComponent implements OnInit &#123;
             <h5>Directive</h5>
             <p>Ripple is applied by adding the <i>pRipple</i> directive to the host.</p>
                     
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div pRipple&gt;&lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     val: number;
@@ -62,11 +62,11 @@ export class ModelComponent &#123;
             <h5>Styling</h5>
             <p>Default styling of the animation adds a shade of white. This can easily be customized using css that changes the color of <i>.p-ink</i> element.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div pRipple class="purple" &gt;&lt;/div&gt;
 </app-code>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 .p-ripple.purple .p-ink &#123;
     background: rgba(256,39,176,.3);
 &#125;
@@ -109,7 +109,7 @@ export class ModelComponent &#123;
                     <a href="https://stackblitz.com/edit/primeng-ripple-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                         <span>Edit in StackBlitz</span>
                     </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card-container p-d-flex"&gt;
     &lt;div class="card primary-box" pRipple&gt;Default&lt;/div&gt;
     &lt;div class="card styled-box-green" pRipple&gt;Green&lt;/div&gt;
@@ -118,7 +118,7 @@ export class ModelComponent &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 :host ::ng-deep .card-container &#123;
     .card &#123;
         width: 75px;
@@ -161,7 +161,7 @@ export class ModelComponent &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class Ripple &#123;
 
 &#125;

@@ -90,13 +90,13 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
                     <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;CarouselModule&#125; from 'primeng/carousel';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
@@ -105,7 +105,7 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
 </app-code>
             <h5>Items Per Page and Scroll Items</h5>
             <p>Number of items per page is defined using the <i>numVisible</i> property whereas number of items to scroll is defined with the <i>numScroll</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars" [numVisible]="3" [numScroll]="1"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
@@ -115,7 +115,7 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
 
             <h5>Responsive</h5>
             <p>For responsive design, <i>numVisible</i> and <i>numScroll</i> can be defined using the <i>responsiveOptions</i> property that should be an array of objects whose breakpoint defines the max-width to apply the settings.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
@@ -123,7 +123,7 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
 &lt;/p-carousel&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class CarouselDemo &#123;
     constructor(private carService: CarService) &#123; 
         this.responsiveOptions = [
@@ -155,7 +155,7 @@ export class CarouselDemo &#123;
 
             <h5>Header and Footer</h5>
             <p>Custom content projection is available using the <i>p-header</i> and <i>p-footer</i> components.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars"&gt;
     &lt;p-header&gt;
         &lt;h5&gt;Vertical&lt;/h5&gt;
@@ -168,7 +168,7 @@ export class CarouselDemo &#123;
 
 <h5>Orientation</h5>
 <p>Default layout of the Carousel is horizontal, other possible option is the vertical mode that is configured with the <i>orientation</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars" orientation="vertical"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
@@ -178,7 +178,7 @@ export class CarouselDemo &#123;
 
             <h5>AutoPlay and Circular</h5>
             <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be enabled. Note that in autoplay mode, circular is enabled by default.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars" [autoplayInterval]="3000" [circular]="true"&gt;
     &lt;p-header&gt;
         &lt;h5&gt;Vertical&lt;/h5&gt;
@@ -362,7 +362,7 @@ export class CarouselDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-carousel-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;h5&gt;Basic&lt;/h5&gt;
@@ -437,7 +437,7 @@ export class CarouselDemo &#123;
 &lt;/p-carousel&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class CarouselDemo &#123;
 
     products: Product[];
@@ -473,7 +473,7 @@ export class CarouselDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="css" ngNonBindable>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 .product-item &#123;
     .product-item-content &#123;
         border: 1px solid var(--surface-d);

@@ -37,7 +37,7 @@
             <a href="https://stackblitz.com/edit/primeng-treetablestyle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -56,7 +56,7 @@
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Component(&#123;
     templateUrl: './treetablestyledemo.html',
     styles: [`

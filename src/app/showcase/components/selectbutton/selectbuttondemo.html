@@ -26,7 +26,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectButtonModule&#125; from 'primeng/selectbutton';
 </app-code>
 
@@ -34,13 +34,13 @@ import &#123;SelectButtonModule&#125; from 'primeng/selectbutton';
             <p>SelectButton requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
             instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how 
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-selectButton&gt;
 
 &lt;p-selectButton [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-selectButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
@@ -80,11 +80,11 @@ export class MyModel &#123;
             <h5>Multiple</h5>
             <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. 
                 In multiple case, model property should be an array instance that is not null or undefined.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" &gt;&lt;/p-selectButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
@@ -107,17 +107,17 @@ export class MyModel &#123;
 
             <h5>Model Driven Forms</h5>
             <p>SelectButton can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities" formControlName="selectedCity"&gt;&lt;/p-selectButton&gt;
 </app-code>
 
             <h5>Icons</h5>
             <p>Button options can display icons using the icon property of the SelectItem API.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SelectButtonDemo &#123;
 
     types: SelectItem[];
@@ -142,7 +142,7 @@ export class SelectButtonDemo &#123;
                 if an arbitrary object is used as the option instead of the SelectItem API, internally they are converted to SelectItems which means in the template
                 the arbitrary object can be access using the value property.
             </p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
     &lt;ng-template let-item&gt;
         &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" /&gt;
@@ -151,7 +151,7 @@ export class SelectButtonDemo &#123;
 &lt;/p-selectButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SelectButtonDemo &#123;
         
     countries: any[];
@@ -281,7 +281,7 @@ export class SelectButtonDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-selectbutton-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Single Selection&lt;/h5&gt;
 &lt;p-selectButton [options]="options" [(ngModel)]="value1"&gt;&lt;/p-selectButton&gt;
 
@@ -296,7 +296,7 @@ export class SelectButtonDemo &#123;
 &lt;/p-selectButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SelectButtonDemo &#123;
 
     options: SelectItem[];
