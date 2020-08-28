@@ -1396,7 +1396,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         };
     }
 
-    public reset() {
+    public clear() {
         this._sortField = null;
         this._sortOrder = this.defaultSortOrder;
         this._multiSortMeta = null;
@@ -1414,6 +1414,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         else {
             this.totalRecords = (this._value ? this._value.length : 0);
         }
+    }
+
+    public reset() {
+        console.warn("reset function is deprecated, use clear instead.");
+        this.clear();
     }
 
     public exportCSV(options?: any) {
