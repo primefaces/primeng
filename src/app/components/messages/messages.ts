@@ -47,7 +47,8 @@ import {RippleModule} from 'primeng/ripple';
                 animate('{{showTransitionParams}}')
             ]),
             transition(':leave', [
-                animate('{{hideTransitionParams}}', style({ height:0, margin: 0, overflow: 'hidden', opacity: 0 }))
+                animate('{{hideTransitionParams}}'),
+                style({height:0, opacity: 0, transform: 'translateY(-5%)'})
             ])
         ])
     ],
