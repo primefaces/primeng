@@ -49,6 +49,9 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
+                <div class="p-fileupload-empty" *ngIf="!hasFiles()">
+                    <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                </div>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
         </div>
@@ -189,6 +192,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     public toolbarTemplate: TemplateRef<any>;
 
+    public emptyTemplate: TemplateRef<any>;
+
     public uploadedFileCount: number = 0;
 
     focus: boolean;
@@ -212,6 +217,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyTemplate = item.template;
                 break;
 
                 default:
