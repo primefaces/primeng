@@ -18,6 +18,9 @@
                         <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
                     </ul>
                 </ng-template>
+                <ng-template pTemplate="empty">
+                    <p>Drag and drop files to here to upload.</p>
+                </ng-template>
         </p-fileUpload>
 
         <h5>Basic</h5>
