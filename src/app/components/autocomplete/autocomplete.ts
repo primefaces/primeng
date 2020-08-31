@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
@@ -81,7 +81,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     @Input() panelStyle: any;
 
     @Input() styleClass: string;
-    
+
     @Input() panelStyleClass: string;
 
     @Input() inputStyle: any;
@@ -113,7 +113,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     @Input() type: string = 'text';
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() ariaLabel: string;
@@ -227,7 +227,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     forceSelectionUpdateModelTimeout: any;
 
     listId: string;
-    
+
     itemClicked: boolean;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
@@ -291,7 +291,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     this.hide();
                 }
             }
-    
+
             this.loading = false;
         }
     }
@@ -417,8 +417,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     show() {
         if (this.multiInputEL || this.inputEL) {
-            let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
-            
+            let hasFocus = this.multiple ?
+                this.multiInputEL.nativeElement.ownerDocument.activeElement == this.multiInputEL.nativeElement :
+                this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement ;
+
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
             }
@@ -707,7 +709,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (event.which === 3) {
                     return;
                 }
@@ -743,7 +747,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);

@@ -239,7 +239,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     caret(first?: number, last?: number) {
         let range, begin, end;
 
-        if (!this.inputViewChild.nativeElement.offsetParent||this.inputViewChild.nativeElement !== document.activeElement) {
+        if (!this.inputViewChild.nativeElement.offsetParent||this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
             return;
         }
 
@@ -576,7 +576,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         pos = this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
-            if (this.inputViewChild.nativeElement !== document.activeElement){
+            if (this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement){
                 return;
             }
             this.writeBuffer();

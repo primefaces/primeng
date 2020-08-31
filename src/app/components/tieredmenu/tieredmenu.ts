@@ -147,7 +147,9 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+            const documentTarget: any = this.tieredMenu && this.tieredMenu.el ? this.tieredMenu.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                 if (!this.rootItemClick) {
                     this.parentActive = false;
                     this.activeItem = null;
@@ -301,7 +303,9 @@ export class TieredMenu implements OnDestroy {
     
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                 if (!this.preventDocumentDefault && this.popup) {
                     this.hide();
                 }

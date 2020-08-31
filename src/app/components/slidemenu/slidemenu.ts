@@ -287,7 +287,9 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                 if (!this.preventDocumentDefault) {
                     this.hide();
                     this.cd.detectChanges();

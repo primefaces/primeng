@@ -362,7 +362,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                 if (!this.selfClick) {
                     this.overlayVisible = false;
                     this.unbindDocumentClickListener();
@@ -383,7 +385,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     bindDocumentMousemoveListener() {
         if (!this.documentMousemoveListener) {
-            this.documentMousemoveListener = this.renderer.listen('document', 'mousemove', (event: MouseEvent) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentMousemoveListener = this.renderer.listen(documentTarget, 'mousemove', (event: MouseEvent) => {
                 if (this.colorDragging) {
                     this.pickColor(event);
                 }
@@ -404,7 +408,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     bindDocumentMouseupListener() {
         if (!this.documentMouseupListener) {
-            this.documentMouseupListener = this.renderer.listen('document', 'mouseup', () => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentMouseupListener = this.renderer.listen(documentTarget, 'mouseup', () => {
                 this.colorDragging = false;
                 this.hueDragging = false;
                 this.unbindDocumentMousemoveListener();
