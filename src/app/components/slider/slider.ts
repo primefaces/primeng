@@ -235,8 +235,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     bindDragListeners() {
         this.ngZone.runOutsideAngular(() => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
             if (!this.dragListener) {
-                this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
+                this.dragListener = this.renderer.listen(documentTarget, 'mousemove', (event) => {
                     if (this.dragging) {
                         this.ngZone.run(() => {
                             this.handleChange(event);
@@ -246,7 +248,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
             }
 
             if (!this.mouseupListener) {
-                this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
+                this.mouseupListener = this.renderer.listen(documentTarget, 'mouseup', (event) => {
                     if (this.dragging) {
                         this.dragging = false;
                         this.ngZone.run(() => {

@@ -359,7 +359,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 case 'selectedItems':
                     this.selectedItemsTemplate = item.template;
                 break;
-                
+
                 case 'header':
                     this.headerTemplate = item.template;
                 break;
@@ -851,7 +851,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (this.isOutsideClicked(event)) {
                     this.hide();
                 }

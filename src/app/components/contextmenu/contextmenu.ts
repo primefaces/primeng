@@ -185,7 +185,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         if (this.global) {
-            this.triggerEventListener = this.renderer.listen('document', this.triggerEvent, (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.triggerEventListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
                 this.show(event);
                 event.preventDefault();
             });
@@ -276,7 +278,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     bindGlobalListeners() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && event.button !== 2) {
                     this.hide();
                 }

@@ -5,7 +5,7 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 
 let idx: number = 0;
 
@@ -21,7 +21,7 @@ const hideAnimation = animation([
 @Component({
     selector: 'p-dialog',
     template: `
-        <div *ngIf="maskVisible" [class]="maskStyleClass" 
+        <div *ngIf="maskVisible" [class]="maskStyleClass"
             [ngClass]="{'p-dialog-mask': true, 'p-component-overlay': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
                 'p-dialog-left': position === 'left',
                 'p-dialog-right': position === 'right',
@@ -412,11 +412,11 @@ export class Dialog implements AfterContentInit,OnDestroy {
                 let focusableElements = DomHandler.getFocusableElements(this.container);
 
                 if (focusableElements && focusableElements.length > 0) {
-                    if (!document.activeElement) {
+                    if (!focusableElements[0].ownerDocument.activeElement) {
                         focusableElements[0].focus();
                     }
                     else {
-                        let focusedIndex = focusableElements.indexOf(document.activeElement);
+                        let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                         if (event.shiftKey) {
                             if (focusedIndex == -1 || focusedIndex === 0)
@@ -618,7 +618,9 @@ export class Dialog implements AfterContentInit,OnDestroy {
     }
 
     bindDocumentEscapeListener() {
-        this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
                 if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);

@@ -1537,11 +1537,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let focusableElements = DomHandler.getFocusableElements(this.contentViewChild.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
-            if (!document.activeElement) {
+            if (!focusableElements[0].ownerDocument.activeElement) {
                 focusableElements[0].focus();
             }
             else {
-                let focusedIndex = focusableElements.indexOf(document.activeElement);
+                let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                 if (event.shiftKey) {
                     if (focusedIndex == -1 || focusedIndex === 0) {
@@ -2462,7 +2462,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.zone.runOutsideAngular(() => {
-                this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+                this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
                         this.zone.run(() => {
                             this.hideOverlay();

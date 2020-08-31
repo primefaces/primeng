@@ -121,7 +121,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
         }
-        
+
         this.cd.markForCheck();
     }
 
@@ -363,7 +363,9 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     bindGlobalListeners() {
         if ((this.closeOnEscape && this.closable) || this.focusTrap && !this.documentEscapeListener) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which == 27 && (this.closeOnEscape && this.closable)) {
                     if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
@@ -376,11 +378,11 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                     let focusableElements = DomHandler.getFocusableElements(this.container);
 
                     if (focusableElements && focusableElements.length > 0) {
-                        if (!document.activeElement) {
+                        if (!focusableElements[0].ownerDocument.activeElement) {
                             focusableElements[0].focus();
                         }
                         else {
-                            let focusedIndex = focusableElements.indexOf(document.activeElement);
+                            let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                             if (event.shiftKey) {
                                 if (focusedIndex == -1 || focusedIndex === 0)
