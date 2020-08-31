@@ -2037,10 +2037,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let state: TableState = JSON.parse(stateString);
 
             if (this.paginator) {
-                this.first = state.first;
-                this.rows = state.rows;
-                this.firstChange.emit(this.first);
-                this.rowsChange.emit(this.rows);
+                if (this.first !== undefined) {
+                    this.first = state.first;
+                    this.firstChange.emit(this.first);
+                }
+
+                if (this.rows !== undefined) {
+                    this.rows = state.rows;
+                    this.rowsChange.emit(this.rows);
+                }
             }
 
             if (state.sortField) {
