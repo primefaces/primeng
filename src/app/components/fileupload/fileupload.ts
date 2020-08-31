@@ -49,7 +49,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate; context: {$implicit: files}"></ng-container>
             </div>
         </div>
         <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'">
