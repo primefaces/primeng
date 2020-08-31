@@ -22,10 +22,14 @@ import {SharedModule} from 'primeng/api';
                     class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
                 <span class="p-paginator-icon pi pi-angle-left"></span>
             </button>
-            <span class="p-paginator-pages">
+            <span class="p-paginator-pages" *ngIf="showPageLinks">
                 <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 == getPage())}"
                     (click)="onPageLinkClick($event, pageLink - 1)" pRipple>{{pageLink}}</button>
             </span>
+            <p-dropdown [options]="pageItems" [ngModel]="getPage()" *ngIf="showJumpToPageDropdown"  styleClass="p-paginator-page-options"
+                (onChange)="onPageDropdownChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight">
+                <ng-template pTemplate="selectedItem">{{currentPageReport}}</ng-template>
+            </p-dropdown>
             <button type="button" [disabled]="isLastPage()" (click)="changePageToNext($event)" pRipple
                     class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
                 <span class="p-paginator-icon pi pi-angle-right"></span>
@@ -34,7 +38,7 @@ import {SharedModule} from 'primeng/api';
                     class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
                 <span class="p-paginator-icon pi pi-angle-double-right"></span>
             </button>
-            <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions"
+            <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" styleClass="p-paginator-rpp-options"
                 (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"></p-dropdown>
             <div class="p-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
@@ -75,13 +79,21 @@ export class Paginator implements OnInit, OnChanges {
     
     @Input() rowsPerPageOptions: any[];
 
+    @Input() showJumpToPageDropdown: boolean;
+
+    @Input() showPageLinks: boolean = true;
+
     pageLinks: number[];
+
+    pageItems: SelectItem[];
 
     rowsPerPageItems: SelectItem[];
     
     paginatorState: any;
 
     _first: number = 0;
+
+    _page: number = 0;
 
     constructor(private cd: ChangeDetectorRef) {}
     
@@ -170,6 +182,13 @@ export class Paginator implements OnInit, OnChanges {
         for(let i = start; i <= end; i++) {
             this.pageLinks.push(i + 1);
         }
+
+        if (this.showJumpToPageDropdown) {
+            this.pageItems = [];
+            for (let i = 0; i < this.getPageCount(); i++) {
+                this.pageItems.push({label: String(i + 1), value: i});
+            }
+        }
     }
 
     changePage(p :number) {
@@ -234,6 +253,10 @@ export class Paginator implements OnInit, OnChanges {
 
     onRppChange(event) {
         this.changePage(this.getPage());
+    }
+
+    onPageDropdownChange(event) {
+        this.changePage(event.value);
     }
     
     updatePaginatorState() {

@@ -16,7 +16,8 @@
                 <p-button icon="pi pi-refresh" (onClick)="refresh()"></p-button>
             </div>
             <div class="p-col-10">
-                <p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"></p-paginator>
+                <p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
+                [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
             </div>
             <div class="p-col-1 p-grid p-justify-end">
                 <p-button icon="pi pi-search"></p-button>
@@ -172,6 +173,18 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>false</td>
                             <td>Whether to display current page report.</td>
                         </tr>
+                        <tr>
+                            <td>showJumpToPageDropdown</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display a dropdown to navigate to any page.</td>
+                        </tr>
+                        <tr>
+                            <td>showPageLinks</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show page links.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -259,6 +272,10 @@ export class MyComponent &#123;
                             <td>p-paginator-rpp-options</td>
                             <td>Rows per page dropdown.</td>
                         </tr>
+                        <tr>
+                            <td>p-paginator-page-options</td>
+                            <td>Jump to per page dropdown.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -285,7 +302,8 @@ export class MyComponent &#123;
             &lt;p-button icon="pi pi-refresh" (onClick)="refresh()"&gt;&lt;/p-button&gt;
         &lt;/div&gt;
         &lt;div class="p-col-10"&gt;
-            &lt;p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"&gt;&lt;/p-paginator&gt;
+            &lt;p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
+            [showJumpToPageDropdown]="true" [showPageLinks]="false"&gt;&lt;/p-paginator&gt;
         &lt;/div&gt;
         &lt;div class="p-col-1 p-grid p-justify-end"&gt;
             &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
