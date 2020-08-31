@@ -530,7 +530,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 
-    onBasicUploaderClick(event: Event) {
+    onBasicUploaderClick() {
         if (this.hasFiles())
             this.upload();
         else
