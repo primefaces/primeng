@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-message',
     template: `
-        <div aria-live="polite" class="p-inline-message p-component p-inline-message" *ngIf="severity"
+        <div aria-live="polite" class="p-inline-message p-component p-inline-message" *ngIf="severity" [ngStyle]="style" [class]="styleClass"
         [ngClass]="{'p-inline-message-info': (severity === 'info'),
                 'p-inline-message-warn': (severity === 'warn'),
                 'p-inline-message-error': (severity === 'error'),
@@ -30,6 +30,10 @@ export class UIMessage {
     @Input() text: string;
 
     @Input() escape: boolean = true;
+
+    @Input() style: any;
+
+    @Input() styleClass: string;
 
     get icon(): string {
         let icon: string = null;
