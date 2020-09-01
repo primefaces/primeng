@@ -43,8 +43,6 @@ export class MultiSelectItem {
 
     @Input() disabled: boolean;
 
-    @Input() visible: boolean;
-
     @Input() itemSize: number;
 
     @Input() template: TemplateRef<any>;
@@ -115,14 +113,14 @@ export class MultiSelectItem {
                         <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                             <ng-template ngFor let-option let-i="index" [ngForOf]="visibleOptions">
                                 <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)"
-                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate"></p-multiSelectItem>
+                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [template]="itemTemplate"></p-multiSelectItem>
                             </ng-template>
                         </ng-container>
                         <ng-template #virtualScrollList>
                             <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && visibleOptions && visibleOptions.length">
                                 <ng-container *cdkVirtualFor="let option of visibleOptions; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
                                     <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)"
-                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate" [itemSize]="itemSize"></p-multiSelectItem>
+                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [template]="itemTemplate" [itemSize]="itemSize"></p-multiSelectItem>
                                 </ng-container>
                             </cdk-virtual-scroll-viewport>
                         </ng-template>
@@ -821,19 +819,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             let searchFields: string[] = this.filterBy.split(',');
             this.visibleOptions = FilterUtils.filter(this.options, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
             this.filtered = true;
-        }
-    }
-
-    isItemVisible(option: SelectItem): boolean {
-        if (this.filterValue && this.filterValue.trim().length) {
-            for (let i = 0; i < this.visibleOptions.length; i++) {
-                if (this.visibleOptions[i].value == option.value) {
-                    return true;
-                }
-            }
-        }
-        else {
-            return true;
         }
     }
 
