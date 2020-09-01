@@ -110,6 +110,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     focused: boolean;
 
+    initialized: boolean;
+
     groupChar: string = '';
 
     isSpecialChar: boolean;
@@ -162,7 +164,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set locale(localeOption: string) {
         this._localeOption = localeOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get localeMatcher(): string {
@@ -171,7 +173,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set localeMatcher(localeMatcherOption: string) {
         this._localeMatcherOption = localeMatcherOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get mode(): string {
@@ -180,7 +182,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set mode(modeOption: string) {
         this._modeOption = modeOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get currency(): string {
@@ -189,7 +191,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set currency(currencyOption: string) {
         this._currencyOption = currencyOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get currencyDisplay(): string {
@@ -198,7 +200,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set currencyDisplay(currencyDisplayOption: string) {
         this._currencyDisplayOption = currencyDisplayOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get useGrouping(): boolean {
@@ -207,7 +209,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set useGrouping(useGroupingOption: boolean) {
         this._useGroupingOption = useGroupingOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get minFractionDigits(): number {
@@ -216,7 +218,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set minFractionDigits(minFractionDigitsOption: number) {
         this._minFractionDigitsOption = minFractionDigitsOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get maxFractionDigits(): number {
@@ -225,7 +227,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set maxFractionDigits(maxFractionDigitsOption: number) {
         this._maxFractionDigitsOption = maxFractionDigitsOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get prefix(): string {
@@ -234,7 +236,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set prefix(prefixOption: string) {
         this._prefixOption = prefixOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     @Input() get suffix(): string {
@@ -243,13 +245,15 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     set suffix(suffixOption: string) {
         this._suffixOption = suffixOption;
-        this.constructParser();
+        this.updateConstructParser();
     }
 
     constructor(public el: ElementRef, private cd: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.constructParser();
+
+        this.initialized = true;
     }
 
     getOptions() {
@@ -276,6 +280,12 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this._suffix = new RegExp(`[${this.suffix||''}]`, 'g');
         this._prefix = new RegExp(`[${this.prefix||''}]`, 'g');
         this._index = d => index.get(d);
+    }
+
+    updateConstructParser() {
+        if (this.initialized) {
+            this.constructParser();
+        }
     }
 
     getDecimalExpression() {
