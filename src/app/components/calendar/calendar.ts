@@ -1239,13 +1239,19 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     onInputKeydown(event) {
         this.isKeydown = true;
-        if (event.keyCode === 9 && this.contentViewChild) {
+        if (event.keyCode === 40 && this.contentViewChild) {
             this.trapFocus(event);
         }
         else if (event.keyCode === 27) {
             if (this.overlayVisible) {
                 this.overlayVisible = false;
                 event.preventDefault();
+            }
+        }
+        else if (event.keyCode === 9) {
+            DomHandler.getFocusableElements(this.contentViewChild.nativeElement).forEach(el => el.tabIndex = '-1');
+            if (this.overlayVisible) {
+                this.overlayVisible = false;
             }
         }
     }
