@@ -46,56 +46,58 @@ export interface LocaleSettings {
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="!timeOnly">
-                    <div class="p-datepicker-group" *ngFor="let month of months; let i = index;">
-                        <div class="p-datepicker-header">
-                            <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" (keydown.enter)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
-                                <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
-                            </button>
-                            <div class="p-datepicker-title">
-                                <span class="p-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
-                                <select tabindex="0" class="p-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
-                                    <option [value]="i" *ngFor="let monthName of locale.monthNames;let i = index" [selected]="i === month.month">{{monthName}}</option>
-                                </select>
-                                <select tabindex="0" class="p-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
-                                    <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
-                                </select>
-                                <span class="p-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
+                    <div class="p-datepicker-group-container">
+                        <div class="p-datepicker-group" *ngFor="let month of months; let i = index;">
+                            <div class="p-datepicker-header">
+                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" (keydown.enter)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
+                                    <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
+                                </button>
+                                <div class="p-datepicker-title">
+                                    <span class="p-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
+                                    <select tabindex="0" class="p-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
+                                        <option [value]="i" *ngFor="let monthName of locale.monthNames;let i = index" [selected]="i === month.month">{{monthName}}</option>
+                                    </select>
+                                    <select tabindex="0" class="p-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
+                                        <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
+                                    </select>
+                                    <span class="p-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
+                                </div>
+                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" (keydown.enter)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" type="button" pRipple>
+                                    <span class="p-datepicker-next-icon pi pi-chevron-right"></span>
+                                </button>
                             </div>
-                            <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" (keydown.enter)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" type="button" pRipple>
-                                <span class="p-datepicker-next-icon pi pi-chevron-right"></span>
-                            </button>
-                        </div>
-                        <div class="p-datepicker-calendar-container" *ngIf="view ==='date'">
-                            <table class="p-datepicker-calendar">
-                                <thead>
-                                    <tr>
-                                        <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
-                                            <span>{{locale['weekHeader']}}</span>
-                                        </th>
-                                        <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
-                                            <span>{{weekDay}}</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let week of month.dates; let j = index;">
-                                        <td *ngIf="showWeek" class="p-datepicker-weeknumber">
-                                            <span>
-                                                {{month.weekNumbers[j]}}
-                                            </span>
-                                        </td>
-                                        <td *ngFor="let date of week" [ngClass]="{'p-datepicker-other-month': date.otherMonth,'p-datepicker-today':date.today}">
-                                            <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                                <span [ngClass]="{'p-highlight':isSelected(date), 'p-disabled': !date.selectable}"
-                                                    (click)="onDateSelect($event,date)" draggable="false" (keydown)="onDateCellKeydown($event,date,i)" pRipple>
-                                                    <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
-                                                    <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
+                            <div class="p-datepicker-calendar-container" *ngIf="view ==='date'">
+                                <table class="p-datepicker-calendar">
+                                    <thead>
+                                        <tr>
+                                            <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
+                                                <span>{{locale['weekHeader']}}</span>
+                                            </th>
+                                            <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
+                                                <span>{{weekDay}}</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let week of month.dates; let j = index;">
+                                            <td *ngIf="showWeek" class="p-datepicker-weeknumber">
+                                                <span>
+                                                    {{month.weekNumbers[j]}}
                                                 </span>
-                                            </ng-container>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                            <td *ngFor="let date of week" [ngClass]="{'p-datepicker-other-month': date.otherMonth,'p-datepicker-today':date.today}">
+                                                <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
+                                                    <span [ngClass]="{'p-highlight':isSelected(date), 'p-disabled': !date.selectable}"
+                                                        (click)="onDateSelect($event,date)" draggable="false" (keydown)="onDateCellKeydown($event,date,i)" pRipple>
+                                                        <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
+                                                        <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
+                                                    </span>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="p-monthpicker" *ngIf="view === 'month'">
@@ -1239,13 +1241,19 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     onInputKeydown(event) {
         this.isKeydown = true;
-        if (event.keyCode === 9 && this.contentViewChild) {
+        if (event.keyCode === 40 && this.contentViewChild) {
             this.trapFocus(event);
         }
         else if (event.keyCode === 27) {
             if (this.overlayVisible) {
                 this.overlayVisible = false;
                 event.preventDefault();
+            }
+        }
+        else if (event.keyCode === 9) {
+            DomHandler.getFocusableElements(this.contentViewChild.nativeElement).forEach(el => el.tabIndex = '-1');
+            if (this.overlayVisible) {
+                this.overlayVisible = false;
             }
         }
     }

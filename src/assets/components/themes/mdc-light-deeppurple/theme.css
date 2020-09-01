@@ -555,6 +555,11 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   color: #000001;
   background: rgba(0, 0, 0, 0.04);
 }
+.p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
+  padding: 0.75rem 0.75rem;
+  color: #000001;
+  background: transparent;
+}
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
   margin: 0;
   padding: 0.75rem;
@@ -1051,6 +1056,11 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
   margin-right: 0.5rem;
+}
+.p-multiselect-panel .p-multiselect-items .p-multiselect-empty-message {
+  padding: 0.75rem 0.75rem;
+  color: #000001;
+  background: transparent;
 }
 
 p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
