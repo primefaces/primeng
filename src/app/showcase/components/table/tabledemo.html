@@ -2234,9 +2234,6 @@ export class TableVirtualScrollDemo implements OnInit &#123;
                 about the loading status of a scroll event.
             </p>
 
-            <p>Due to an issue in cdk scroller, change detection needs to be triggered manually when the bound value changes, read more at the <a href="https://github.com/primefaces/primeng/issues/8886">issue</a> ticket.</p>
-
-
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
     [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
