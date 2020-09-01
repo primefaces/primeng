@@ -108,7 +108,7 @@ export class DropdownItem {
                             </ng-container>
                             <ng-template #virtualScrollList>
                                 <cdk-virtual-scroll-viewport (scrolledIndexChange)="scrollToSelectedVirtualScrollElement()" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
-                                    <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
+                                    <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd; templateCacheSize: 0">
                                         <p-dropdownItem [option]="option" [selected]="selectedOption == option"
                                                                    (onClick)="onItemClick($event)"
                                                                    [template]="itemTemplate"></p-dropdownItem>

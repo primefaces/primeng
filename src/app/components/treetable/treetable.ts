@@ -1648,7 +1648,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             </ng-template>
         </ng-container>
         <ng-container *ngIf="tt.virtualScroll">
-            <ng-template cdkVirtualFor let-serializedNode let-rowIndex="index" [cdkVirtualForOf]="tt.serializedValue" [cdkVirtualForTrackBy]="tt.rowTrackBy">
+            <ng-template cdkVirtualFor let-serializedNode let-rowIndex="index" [cdkVirtualForOf]="tt.serializedValue" [cdkVirtualForTrackBy]="tt.rowTrackBy" [cdkVirtualForTemplateCacheSize]="0">
                 <ng-container *ngIf="serializedNode.visible">
                     <ng-container *ngTemplateOutlet="template; context: {$implicit: serializedNode, node: serializedNode.node, rowData: serializedNode.node.data, columns: columns}"></ng-container>
                 </ng-container>

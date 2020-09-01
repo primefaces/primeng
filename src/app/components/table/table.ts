@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit,
+import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Directive, Optional, AfterContentInit,
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -2183,7 +2183,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             </ng-template>
         </ng-container>
         <ng-container *ngIf="!dt.expandedRowTemplate && dt.virtualScroll">
-            <ng-template cdkVirtualFor let-rowData let-rowIndex="index" [cdkVirtualForOf]="dt.value" [cdkVirtualForTrackBy]="dt.rowTrackBy">
+            <ng-template cdkVirtualFor let-rowData let-rowIndex="index" [cdkVirtualForOf]="dt.value" [cdkVirtualForTrackBy]="dt.rowTrackBy" [cdkVirtualForTemplateCacheSize]="0">
                 <ng-container *ngTemplateOutlet="rowData ? template: dt.loadingBodyTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
             </ng-template>
         </ng-container>
