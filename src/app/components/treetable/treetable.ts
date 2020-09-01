@@ -1716,7 +1716,7 @@ export class TTBody {
     `,
     encapsulation: ViewEncapsulation.None
 })
-export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChecked {
+export class TTScrollableView implements AfterViewInit, OnDestroy {
 
     @Input("ttScrollableView") columns: any[];
 
@@ -1748,11 +1748,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     frozenSiblingBody: Element;
 
-    subscription: Subscription;
-
     totalRecordsSubscription: Subscription;
-
-    initialized: boolean;
 
     _scrollHeight: string;
 
@@ -1768,25 +1764,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         }
     }
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {
-        this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
-            this.zone.runOutsideAngular(() => {
-                setTimeout(() => {
-                    this.alignScrollBar();
-                    this.initialized = true;
-                }, 50);
-            });
-        });
-
-        this.initialized = false;
-     }
-
-    ngAfterViewChecked() {
-        if (!this.initialized && this.el.nativeElement.offsetParent) {
-            this.alignScrollBar();
-            this.initialized = true;
-        }
-    }
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (!this.frozen) {
@@ -1801,6 +1779,13 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
                 else
                     this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-treetable-scrollable-body');
             }
+
+            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
+            this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+
+            if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+            }
         }
         else {
             if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
@@ -1809,13 +1794,10 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         }
 
         this.bindEvents();
-        this.alignScrollBar();
     }
 
     bindEvents() {
         this.zone.runOutsideAngular(() => {
-            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
-
             if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
                 this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
@@ -1918,35 +1900,10 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         }
     }
 
-    hasVerticalOverflow() {
-        if (this.tt.virtualScroll)
-            return (this.virtualScrollBody.getDataLength() * this.tt.virtualRowHeight) > this.virtualScrollBody.getViewportSize();
-        else
-            return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
-    }
-
-    alignScrollBar() {
-        if (!this.frozen) {
-            let scrollBarWidth = this.hasVerticalOverflow() ? DomHandler.calculateScrollbarWidth() : 0;
-            this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-
-            if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-            }
-        }
-        this.initialized = false;
-    }
-
     ngOnDestroy() {
         this.unbindEvents();
 
         this.frozenSiblingBody = null;
-
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-
-        this.initialized = false;
     }
 }
 
