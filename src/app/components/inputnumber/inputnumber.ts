@@ -295,7 +295,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     getGroupingExpression() {
         const formatter = new Intl.NumberFormat(this.locale, {useGrouping: true});
-        this.groupChar = formatter.format(1000).trim().replace(this._numeral, '');
+        this.groupChar = formatter.format(1000000).trim().replace(this._numeral, '');
         return new RegExp(`[${this.groupChar}]`, 'g');
     }
 
