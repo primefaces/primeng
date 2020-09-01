@@ -2267,7 +2267,7 @@ export class TableBody {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None
 })
-export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked {
+export class ScrollableView implements AfterViewInit,OnDestroy {
 
     @Input("pScrollableView") columns: any[];
 
@@ -2297,10 +2297,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     frozenSiblingBody: HTMLDivElement;
 
-    subscription: Subscription;
-
-    initialized: boolean;
-
     preventBodyScrollPropagation: boolean;
 
     loadedPages: number[] = [];
@@ -2317,24 +2313,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
     }
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {
-        this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
-            this.zone.runOutsideAngular(() => {
-                setTimeout(() => {
-                    this.alignScrollBar();
-                }, 50);
-            });
-        });
-
-        this.initialized = false;
-     }
-
-    ngAfterViewChecked() {
-        if (!this.initialized && this.el.nativeElement.offsetParent) {
-            this.alignScrollBar();
-            this.initialized = true;
-        }
-    }
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (!this.frozen) {
@@ -2349,6 +2328,13 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 else
                     this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-scrollable-body');
             }
+
+            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
+            this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+
+            if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+            }
         }
         else {
             if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
@@ -2357,7 +2343,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
 
         this.bindEvents();
-        this.alignScrollBar();
     }
 
     bindEvents() {
@@ -2510,35 +2495,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
     }
 
-    hasVerticalOverflow() {
-        if (this.dt.virtualScroll)
-            return (this.virtualScrollBody.getDataLength() * this.dt.virtualRowHeight) > this.virtualScrollBody.getViewportSize();
-        else
-            return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
-    }
-
-    alignScrollBar() {
-        if (!this.frozen) {
-            let scrollBarWidth = this.hasVerticalOverflow() ? DomHandler.calculateScrollbarWidth() : 0;
-            this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
-
-            if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
-            }
-        }
-        this.initialized = false;
-    }
-
     ngOnDestroy() {
         this.unbindEvents();
-
         this.frozenSiblingBody = null;
-
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-
-        this.initialized = false;
     }
 }
 
