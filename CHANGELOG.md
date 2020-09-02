@@ -1,8 +1,76 @@
 # Changelog
 
+## [10.0.0-rc.4](https://github.com/primefaces/primeng/tree/10.0.0-rc.4) (2020-09-02)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.3...10.0.0-rc.4)
+
+**Implemented New Features and Enhancements:**
+
+- css theme body prefix makes primeng not compatible with shadowdom [\#8756](https://github.com/primefaces/primeng/issues/8756)
+- Prevent virtual device calendar on touchUI mode [\#9226](https://github.com/primefaces/primeng/issues/9226)
+- Add onInput event to InputNumber [\#9223](https://github.com/primefaces/primeng/issues/9223)
+- Add PrimeFlex Setup Documentation [\#9222](https://github.com/primefaces/primeng/issues/9222)
+- InputNumber: pasting doesn't work correctly [\#9219](https://github.com/primefaces/primeng/issues/9219)
+- Scrollable Table alignment improvement [\#9218](https://github.com/primefaces/primeng/issues/9218)
+- Improved visuals for empty message in dropdown and multiselect [\#9217](https://github.com/primefaces/primeng/issues/9217)
+- jumpToPageDropdown and showPageLinks for Paginator [\#9213](https://github.com/primefaces/primeng/issues/9213)
+- Add style and styleClass to message component [\#9212](https://github.com/primefaces/primeng/issues/9212)
+- Use `el.ownerDocument.activeElement` where possible, instead of `document.activeElement` [\#9181](https://github.com/primefaces/primeng/issues/9181)
+- Enhance Steps RouterNavigation [\#9174](https://github.com/primefaces/primeng/issues/9174)
+- fileUpload chooseIcon always set to default in mode="basic" [\#9173](https://github.com/primefaces/primeng/issues/9173)
+- StepsDemo Update [\#9171](https://github.com/primefaces/primeng/issues/9171)
+- Sort and Filter support for VirtualScrolling [\#9154](https://github.com/primefaces/primeng/issues/9154)
+- Improve calendar tabbing behavior [\#9139](https://github.com/primefaces/primeng/issues/9139)
+- Pass files to fileupload content template [\#9121](https://github.com/primefaces/primeng/issues/9121)
+- Add Del key support to InputNumber [\#8981](https://github.com/primefaces/primeng/issues/8981)
+- Negative sign with InputNumber [\#8919](https://github.com/primefaces/primeng/issues/8919)
+- Inputnumber, decimal numbers [\#8900](https://github.com/primefaces/primeng/issues/8900)
+- Remove primeng/primeng imports [\#7096](https://github.com/primefaces/primeng/issues/7096)
+
+**Fixed bugs:**
+
+- Warnings after upgrade to Angular 10 [\#9210](https://github.com/primefaces/primeng/issues/9210)
+- FileUploadModule - types error in 10+ version [\#9209](https://github.com/primefaces/primeng/issues/9209)
+- MenuBar Showcase demo has incorrectly formated SelectItem [\#9203](https://github.com/primefaces/primeng/issues/9203)
+- TimePicker broken in 10.0.0-rc.3 [\#9195](https://github.com/primefaces/primeng/issues/9195)
+- Pill Text not centered [\#9193](https://github.com/primefaces/primeng/issues/9193)
+- Slider handle not working correctly with model driven forms [\#9192](https://github.com/primefaces/primeng/issues/9192)
+- In calendar, \<p-footer\> with custom buttons not showing in calendar in v10 [\#9191](https://github.com/primefaces/primeng/issues/9191)
+- p-fieldset flickers when it's initialized collapsed \[10.0.0-rc.3\] [\#9179](https://github.com/primefaces/primeng/issues/9179)
+- Calendar misplaced layout if more than one month is shown [\#9168](https://github.com/primefaces/primeng/issues/9168)
+- Carousel - set page does not work for first and last page [\#9153](https://github.com/primefaces/primeng/issues/9153)
+- Menubar not working on mobile devices [\#9127](https://github.com/primefaces/primeng/issues/9127)
+- Unable to close p-messages on Firefox [\#9123](https://github.com/primefaces/primeng/issues/9123)
+- Showcase does not show active menu [\#9109](https://github.com/primefaces/primeng/issues/9109)
+- Redirect to data.com when dropping on datapoint with TreeComponent with Firefox [\#9108](https://github.com/primefaces/primeng/issues/9108)
+- \[TriStateCheckbox\] Keyboard gets opened on mobile devices on use [\#9085](https://github.com/primefaces/primeng/issues/9085)
+- Table component tries to restore non-existing state [\#9076](https://github.com/primefaces/primeng/issues/9076)
+- disabled p-slider still reacts to keyboard input [\#9066](https://github.com/primefaces/primeng/issues/9066)
+- p-inputNumber cannot set value bigger than 99.999 for an ES locale [\#9027](https://github.com/primefaces/primeng/issues/9027)
+- Table erratic row selection with virtual scroll [\#8952](https://github.com/primefaces/primeng/issues/8952)
+- Table scrollHeight="flex" messes columns' width [\#8921](https://github.com/primefaces/primeng/issues/8921)
+- VirtualScroll ExpressionChangedAfterItHasBeenCheckedError [\#8886](https://github.com/primefaces/primeng/issues/8886)
+- Turbo Table Column Resize Is Ignored If Smaller Than minWidth \[expand mode\] [\#8262](https://github.com/primefaces/primeng/issues/8262)
+- sub menu of p-contextMenu in p-table go off screen when right click on the bottom of screen [\#8077](https://github.com/primefaces/primeng/issues/8077)
+- Table cell editor not switching correctly from input to output with OnPush [\#8046](https://github.com/primefaces/primeng/issues/8046)
+- Frozen Columns and Rows should be exportable to CSV as well [\#7916](https://github.com/primefaces/primeng/issues/7916)
+
+**Deprecated:**
+
+- Deprecate reset\(\) method in favor of new clear\(\) [\#8636](https://github.com/primefaces/primeng/issues/8636)
+
+**Breaking changes:**
+
+- Dialog position property and position classes needs rename [\#9177](https://github.com/primefaces/primeng/issues/9177)
+
+**Unit Tests:**
+
+- Fixed broken tests [\#9116](https://github.com/primefaces/primeng/issues/9116)
+
 ## [10.0.0-rc.3](https://github.com/primefaces/primeng/tree/10.0.0-rc.3)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.2...10.0.0-rc.3)
+
 **Fixed bugs:**
 
 - Padding for Fieldset content [\#9146](https://github.com/primefaces/primeng/issues/9146)
@@ -15,6 +83,7 @@
 ## [10.0.0-rc.2](https://github.com/primefaces/primeng/tree/10.0.0-rc.2)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.1...10.0.0-rc.2)
+
 **Fixed bugs:**
 
 - Ripple effect is not working [\#9111](https://github.com/primefaces/primeng/issues/9111)
