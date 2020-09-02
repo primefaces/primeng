@@ -75,9 +75,9 @@ export class ContextMenuSub {
         if (menuitem.disabled) {
             return;
         }
-        
+
         this.activeItem = item;
-        
+
         let nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
             let sublist = nextElement.children[0];
@@ -119,9 +119,11 @@ export class ContextMenuSub {
         let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
 
         if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
+            sublist.style.removeProperty('top');
             sublist.style.bottom = '0px';
         }
         else {
+            sublist.style.removeProperty('bottom');
             sublist.style.top = '0px';
         }
 
@@ -168,7 +170,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     @Input() triggerEvent: string = 'contextmenu';
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
