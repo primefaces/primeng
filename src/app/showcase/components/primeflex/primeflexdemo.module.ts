@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule}  from '@angular/forms';
+import {PrimeFlexSetup} from './primeflexsetup';
 import {DisplayDemo} from './displaydemo';
 import {ElevationDemo} from './elevationdemo';
 import {FlexBoxDemo} from './flexboxdemo';
@@ -39,6 +40,7 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
         AppInputStyleSwitchModule
 	],
 	declarations: [
+        PrimeFlexSetup,
         DisplayDemo,
         ElevationDemo,
         FlexBoxDemo,

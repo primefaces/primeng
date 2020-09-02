@@ -29,6 +29,7 @@ declare let gtag: Function;
 
                 <div class="menu-category">PrimeFlex</div>
                 <div class="menu-items">
+                    <a [routerLink]=" ['/primeflex']" routerLinkActive="router-link-exact-active">Setup</a>
                     <a [routerLink]=" ['/primeflex/display']" routerLinkActive="router-link-exact-active">Display</a>
                     <a [routerLink]=" ['/primeflex/elevation']" routerLinkActive="router-link-exact-active">Elevation</a>
                     <a [routerLink]=" ['/primeflex/flexbox']" routerLinkActive="router-link-exact-active">FlexBox</a>
