@@ -1695,7 +1695,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
             else if (this.columnResizeMode === 'expand') {
-                if (newColumnWidth > minWidth) {
+                if (newColumnWidth >= minWidth) {
                     if (this.scrollable) {
                         this.setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta);
                     }
