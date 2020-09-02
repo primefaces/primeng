@@ -19,7 +19,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <input #input [ngClass]="'p-inputnumber-input'" [ngStyle]="inputStyle" [class]="inputStyleClass" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
                 [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel"
                 [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.aria-valumin]="min" [attr.aria-valuemax]="max"
-                (input)="onInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
+                (input)="onUserInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
                 (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
                 <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" [disabled]="disabled"
@@ -97,6 +97,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     @Input() inputStyleClass: string;
 
     @ViewChild('input') input: ElementRef;
+
+    @Output() onInput: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
@@ -382,6 +384,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
         this.updateInput(newValue, null, 'spin');
         this.updateModel(event, newValue);
+
+        this.handleOnInput(event, currentValue, newValue);
     }
 
     onUpButtonMouseDown(event) {
@@ -432,7 +436,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         }
     }
 
-    onInput(event) {
+    onUserInput(event) {
         if (this.isSpecialChar) {
             event.target.value = this.lastValue;
         }
@@ -749,10 +753,34 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     updateValue(event, valueStr, insertedValueStr, operation) {
+        let currentValue = this.input.nativeElement.value;
+        let newValue = null;
+
         if (valueStr != null) {
-            let newValue = this.parseValue(valueStr);
+            newValue = this.parseValue(valueStr);
             this.updateInput(newValue, insertedValueStr, operation);
         }
+
+        this.handleOnInput(event, currentValue, newValue);
+    }
+
+    handleOnInput(event, currentValue, newValue) {
+        if (this.isValueChanged(currentValue, newValue)) {
+            this.onInput.emit({ originalEvent: event, value: newValue });
+        }
+    }
+
+    isValueChanged(currentValue, newValue) {
+        if (newValue === null && currentValue !== null) {
+            return true;
+        }
+
+        if (newValue != null) {
+            let parsedCurrentValue = (typeof currentValue === 'string') ? this.parseValue(currentValue) : currentValue;
+            return newValue !== parsedCurrentValue;
+        }
+
+        return false;
     }
 
     validateValue(value) {
