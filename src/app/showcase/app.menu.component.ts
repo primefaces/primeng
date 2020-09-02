@@ -29,14 +29,14 @@ declare let gtag: Function;
 
                 <div class="menu-category">PrimeFlex</div>
                 <div class="menu-items">
-                    <a [routerLink]=" ['/primeflex']" routerLinkActive="router-link-exact-active">Setup</a>
-                    <a [routerLink]=" ['/primeflex/display']" routerLinkActive="router-link-exact-active">Display</a>
-                    <a [routerLink]=" ['/primeflex/elevation']" routerLinkActive="router-link-exact-active">Elevation</a>
-                    <a [routerLink]=" ['/primeflex/flexbox']" routerLinkActive="router-link-exact-active">FlexBox</a>
-                    <a [routerLink]=" ['/primeflex/formlayout']" routerLinkActive="router-link-exact-active">Form Layout</a>
-                    <a [routerLink]=" ['/primeflex/grid']" routerLinkActive="router-link-exact-active">Grid System</a>
-                    <a [routerLink]=" ['/primeflex/spacing']" routerLinkActive="router-link-exact-active">Spacing</a>
-                    <a [routerLink]=" ['/primeflex/text']" routerLinkActive="router-link-exact-active">Text</a>
+                    <a [routerLink]=" ['/primeflex']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Setup</a>
+                    <a [routerLink]=" ['/primeflex/display']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Display</a>
+                    <a [routerLink]=" ['/primeflex/elevation']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Elevation</a>
+                    <a [routerLink]=" ['/primeflex/flexbox']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">FlexBox</a>
+                    <a [routerLink]=" ['/primeflex/formlayout']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Form Layout</a>
+                    <a [routerLink]=" ['/primeflex/grid']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Grid System</a>
+                    <a [routerLink]=" ['/primeflex/spacing']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Spacing</a>
+                    <a [routerLink]=" ['/primeflex/text']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Text</a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
