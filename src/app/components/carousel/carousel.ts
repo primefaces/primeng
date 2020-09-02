@@ -71,10 +71,10 @@ export class Carousel implements AfterContentInit {
 				this.allowAutoplay = false;
 			}
 
-			if (val > this._page && val < (this.totalDots() - 1)) {
+			if (val > this._page && val <= (this.totalDots() - 1)) {
 				this.step(-1, val);
 			}
-			else if (val < this._page && val !== 0) {
+			else if (val < this._page ) {
 				this.step(1, val);
 			}
 		} 

@@ -1550,6 +1550,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.editingCellData = null;
                     this.editingCellRowIndex = null;
                     this.unbindDocumentEditListener();
+                    this.cd.markForCheck();
                 }
 
                 this.editingCellClick = false;
@@ -1695,7 +1696,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
             else if (this.columnResizeMode === 'expand') {
-                if (newColumnWidth > minWidth) {
+                if (newColumnWidth >= minWidth) {
                     if (this.scrollable) {
                         this.setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta);
                     }
