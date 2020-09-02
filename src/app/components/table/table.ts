@@ -1426,20 +1426,28 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     public exportCSV(options?: any) {
-        let data = this.filteredValue || this.value;
+        let data;
         let csv = '';
+        let columns = this.frozenColumns ? [...this.frozenColumns, ...this.columns] : this.columns;
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
         }
+        else {
+            data = this.filteredValue || this.value;
+
+            if (this.frozenValue) {
+                data = data ? [...this.frozenValue, ...data] : this.frozenValue;
+            }
+        }
 
         //headers
-        for (let i = 0; i < this.columns.length; i++) {
-            let column = this.columns[i];
+        for (let i = 0; i < columns.length; i++) {
+            let column = columns[i];
             if (column.exportable !== false && column.field) {
                 csv += '"' + (column.header || column.field) + '"';
 
-                if (i < (this.columns.length - 1)) {
+                if (i < (columns.length - 1)) {
                     csv += this.csvSeparator;
                 }
             }
@@ -1448,8 +1456,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         //body
         data.forEach((record, i) => {
             csv += '\n';
-            for (let i = 0; i < this.columns.length; i++) {
-                let column = this.columns[i];
+            for (let i = 0; i < columns.length; i++) {
+                let column = columns[i];
                 if (column.exportable !== false && column.field) {
                     let cellData = ObjectUtils.resolveFieldData(record, column.field);
 
@@ -1466,10 +1474,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     else
                         cellData = '';
 
-
                     csv += '"' + cellData + '"';
 
-                    if (i < (this.columns.length - 1)) {
+                    if (i < (columns.length - 1)) {
                         csv += this.csvSeparator;
                     }
                 }
