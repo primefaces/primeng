@@ -2213,7 +2213,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None
 })
-export class TableBody {
+export class TableBody implements OnDestroy {
 
     @Input("pTableBody") columns: any[];
 
@@ -2221,7 +2221,21 @@ export class TableBody {
 
     @Input() frozen: boolean;
 
-    constructor(public dt: Table) {}
+    subscription: Subscription;
+
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
+        this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
+            if (this.dt.virtualScroll) {
+                this.cd.detectChanges();
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 }
 
 @Component({
