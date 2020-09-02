@@ -657,18 +657,25 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     insertText(value, text, start, end) {
-        let newValueStr;
+        let textSplit = text.split('.');
 
-        if ((end - start) === value.length)
-            newValueStr = text;
-        else if (start === 0)
-            newValueStr = text + value.slice(end);
-        else if (end === value.length)
-            newValueStr = value.slice(0, start) + text;
-        else
-            newValueStr = value.slice(0, start) + text + value.slice(end);
-
-        return newValueStr;
+        if (textSplit.length == 2) {
+            const decimalCharIndex = value.slice(start, end).search(this._decimal);
+            this._decimal.lastIndex = 0;
+            return (decimalCharIndex > 0) ? value.slice(0, start) + this.formatValue(text) + value.slice(end) : value;
+        }
+        else if ((end - start) === value.length) {
+            return this.formatValue(text);
+        }
+        else if (start === 0) {
+            return text + value.slice(end);
+        }
+        else if (end === value.length) {
+            return value.slice(0, start) + text;
+        }
+        else {
+            return value.slice(0, start) + text + value.slice(end);
+        }
     }
 
     deleteRange(value, start, end) {
@@ -821,18 +828,23 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             let newLength = newValue.length;
 
             if (operation === 'range-insert') {
-                const startValue = this.parseValue((inputValue || '').slice(0, selectionStart));
-                const startValueStr = startValue !== null ? startValue.toString() : '';
-                const startExpr = startValueStr.split('').join(`(${this.groupChar})?`);
-                const sRegex = new RegExp(startExpr, 'g');
-                sRegex.test(newValue);
+                if ((selectionEnd - selectionStart) === currentLength) {
+                    this.input.nativeElement.setSelectionRange(newLength, newLength);
+                }
+                else {
+                    const startValue = this.parseValue((inputValue || '').slice(0, selectionStart));
+                    const startValueStr = startValue !== null ? startValue.toString() : '';
+                    const startExpr = startValueStr.split('').join(`(${this.groupChar})?`);
+                    const sRegex = new RegExp(startExpr, 'g');
+                    sRegex.test(newValue);
 
-                const tExpr = insertedValueStr.split('').join(`(${this.groupChar})?`);
-                const tRegex = new RegExp(tExpr, 'g');
-                tRegex.test(newValue.slice(sRegex.lastIndex));
+                    const tExpr = insertedValueStr.split('').join(`(${this.groupChar})?`);
+                    const tRegex = new RegExp(tExpr, 'g');
+                    tRegex.test(newValue.slice(sRegex.lastIndex));
 
-                selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                    selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
+                    this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                }
             }
             else if (newLength === currentLength) {
                 if (operation === 'insert' || operation === 'delete-back-single')
