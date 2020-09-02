@@ -311,8 +311,6 @@ export class UITreeNode implements OnInit {
 
     onDropNode(event) {
         if (this.tree.droppableNodes && this.node.droppable !== false) {
-            event.preventDefault();
-            event.stopPropagation();
             let dragNode = this.tree.dragNode;
 
             if (this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
@@ -341,6 +339,8 @@ export class UITreeNode implements OnInit {
             }
         }
 
+        event.preventDefault();
+        event.stopPropagation();
         this.draghoverNode = false;
     }
 
@@ -367,8 +367,6 @@ export class UITreeNode implements OnInit {
             subNodes: event.dropNode.parent ? event.dropNode.parent.children : this.tree.value,
             index: dragNodeIndex
         });
-
-
     }
 
     onDropNodeDragEnter(event) {
