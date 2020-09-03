@@ -279,8 +279,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this._group = this.getGroupingExpression();
         this._minusSign = this.getMinusSignExpression();
         this._currency = this.getCurrencyExpression();
-        this._suffix = new RegExp(`[${this.suffix||''}]`, 'g');
-        this._prefix = new RegExp(`[${this.prefix||''}]`, 'g');
+        this._suffix = new RegExp(`${this.escapeRegExp(this.suffix||'')}`, 'g');
+        this._prefix = new RegExp(`${this.escapeRegExp(this.prefix||'')}`, 'g');
         this._index = d => index.get(d);
     }
 
@@ -288,6 +288,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         if (this.initialized) {
             this.constructParser();
         }
+    }
+
+    escapeRegExp(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
 
     getDecimalExpression() {
@@ -342,12 +346,13 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     parseValue(text) {
-        let filteredText = text.trim()
+        let filteredText = text
+                            .replace(this._suffix, '')
+                            .replace(this._prefix, '')
+                            .trim()
                             .replace(/\s/g, '')
                             .replace(this._currency, '')
                             .replace(this._group, '')
-                            .replace(this._suffix, '')
-                            .replace(this._prefix, '')
                             .replace(this._minusSign, '-')
                             .replace(this._decimal, '.')
                             .replace(this._numeral, this._index);
@@ -815,7 +820,9 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             this.input.nativeElement.value = newValue;
             this.input.nativeElement.setSelectionRange(0, 0);
             this.initCursor();
-            this.input.nativeElement.setSelectionRange(this.input.nativeElement.selectionStart + 1, this.input.nativeElement.selectionStart + 1);
+            const prefixLength = (this.prefix || '').length;
+            const selectionEnd = prefixLength + insertedValueStr.length;
+            this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
         }
         else {
             let selectionStart = this.input.nativeElement.selectionStart;
