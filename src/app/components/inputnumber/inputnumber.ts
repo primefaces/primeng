@@ -297,7 +297,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     getGroupingExpression() {
         const formatter = new Intl.NumberFormat(this.locale, {useGrouping: true});
-        this.groupChar = formatter.format(1000000).trim().replace(this._numeral, '');
+        this.groupChar = formatter.format(1000000).trim().replace(this._numeral, '').charAt(0);
         return new RegExp(`[${this.groupChar}]`, 'g');
     }
 
@@ -828,23 +828,18 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             let newLength = newValue.length;
 
             if (operation === 'range-insert') {
-                if ((selectionEnd - selectionStart) === currentLength) {
-                    this.input.nativeElement.setSelectionRange(newLength, newLength);
-                }
-                else {
-                    const startValue = this.parseValue((inputValue || '').slice(0, selectionStart));
-                    const startValueStr = startValue !== null ? startValue.toString() : '';
-                    const startExpr = startValueStr.split('').join(`(${this.groupChar})?`);
-                    const sRegex = new RegExp(startExpr, 'g');
-                    sRegex.test(newValue);
+                const startValue = this.parseValue((inputValue || '').slice(0, selectionStart));
+                const startValueStr = startValue !== null ? startValue.toString() : '';
+                const startExpr = startValueStr.split('').join(`(${this.groupChar})?`);
+                const sRegex = new RegExp(startExpr, 'g');
+                sRegex.test(newValue);
 
-                    const tExpr = insertedValueStr.split('').join(`(${this.groupChar})?`);
-                    const tRegex = new RegExp(tExpr, 'g');
-                    tRegex.test(newValue.slice(sRegex.lastIndex));
+                const tExpr = insertedValueStr.split('').join(`(${this.groupChar})?`);
+                const tRegex = new RegExp(tExpr, 'g');
+                tRegex.test(newValue.slice(sRegex.lastIndex));
 
-                    selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
-                    this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
-                }
+                selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
+                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             }
             else if (newLength === currentLength) {
                 if (operation === 'insert' || operation === 'delete-back-single')
