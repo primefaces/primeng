@@ -902,8 +902,12 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     updateModel(event, value) {
-        this.value = value;
-        this.onModelChange(value);
+        if (this.value !== value) {
+            this.value = value;
+            this.onModelChange(value);
+        }
+
+        this.onModelTouched();
     }
 
     writeValue(value: any) : void {
