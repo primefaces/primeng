@@ -11,15 +11,15 @@
     <div class="card">
         <h5>Default</h5>
         <p-accordion>
-            <p-accordionTab header="Header I" [selected]="true">
+            <p-accordionTab [selected]="true">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>    
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-accordionTab>
             <p-accordionTab header="Header II">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
             </p-accordionTab>
             <p-accordionTab header="Header III">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
@@ -31,64 +31,68 @@
         <h5>Multiple</h5>
         <p-accordion [multiple]="true">
             <p-accordionTab header="Header I">
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-accordionTab>
             <p-accordionTab header="Header II">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
            </p-accordionTab>
             <p-accordionTab header="Header III">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-accordionTab>
         </p-accordion>
             
         <h5>Programmatic</h5>
-        <div style="padding: .5em 0 1em 0">
-            <p-button [icon]="index === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"></p-button>
-            <p-button [icon]="index === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text" label="Toggle 2st" [style]="{'margin-left': '.5em'}"></p-button>
-            <p-button [icon]="index === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text" label="Toggle 3st" [style]="{'margin-left': '.5em'}"></p-button>
+        <div class="p-py-3">
+            <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"></p-button>
+            <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"></p-button>
+            <p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"></p-button>
         </div>
             
-        <p-accordion [(activeIndex)]="index">
-            <p-accordionTab header="Header I">
-                The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        <p-accordion>
+            <p-accordionTab header="Header I" [(selected)]="activeState[0]">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-accordionTab>
-            <p-accordionTab header="Header II">
+            <p-accordionTab header="Header II" [(selected)]="activeState[1]">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
             </p-accordionTab>
-            <p-accordionTab header="Header III">
+            <p-accordionTab header="Header III" [(selected)]="activeState[2]">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-accordionTab>
         </p-accordion>
     
         <h5>Tab Change Event</h5>
         <p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)">
             <p-accordionTab header="Header I">
-                The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-accordionTab>
             <p-accordionTab header="Header II">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
             </p-accordionTab>
             <p-accordionTab header="Header III">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-accordionTab>
             <p-accordionTab header="Header IV" [disabled]="true">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-accordionTab>
         </p-accordion>
     </div>
@@ -169,35 +173,53 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
 </app-code>
 
             <h5>Custom Content at Headers</h5>
-            <p>Custom content can be placed at an accordion header with header element.</p>
+            <p>Custom content can be placed at an accordion header with header template.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordionTab&gt;
-    &lt;p-header&gt;
-        Header Content
-    &lt;/p-header&gt;
-    Body Content
+    &lt;ng-template pTemplate="header"&gt;Header Content&lt;/ng-template&gt;
+    &lt;ng-template pTemplate="content"&gt;Body Content&lt;/ng-template&gt;
 &lt;/p-accordionTab&gt;
 </app-code>
 
-            <h5>Programmatic Control</h5>
-            <p>Tabs can be controlled programmatically using activeIndex property, in single mode it should be a number and in multiple mode an array of numbers
-            that define the indexes of active tabs.</p>
+<h5>Programmatic Control</h5>
+<p>Tabs can be controlled programmatically using <i>selected</i> property of p-accordionTab.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-button icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/p-button&gt;
+&lt;h5&gt;Programmatic&lt;/h5&gt;
+&lt;div class="p-py-3"&gt;
+    &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
+&lt;/div&gt;
         
-&lt;p-accordion [activeIndex]="index"&gt;
-    &lt;p-accordionTab header="Header 1"&gt;
-       Content 1
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header I" [(selected)]="activeState[0]"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        Content 2
+    &lt;p-accordionTab header="Header II" [(selected)]="activeState[1]"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        Content 3    
+    &lt;p-accordionTab header="Header III" [(selected)]="activeState[2]"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
+</app-code>
+    
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class AccordionDemo &#123;
+    
+    activeState: boolean[] = [true, false, false];
+
+    toggle(index: number) &#123;
+        this.activeState[index] = !this.activeState[index];
+    &#125;
+&#125;
 </app-code>
 
             <h5>Lazy Loading</h5>
@@ -241,11 +263,9 @@ export class AccordionDemo &#123;
             <p>Transition of the toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
                 example below disables the animation altogether.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordion [activeIndex]="index"&gt;
-    &lt;p-accordionTab [transitionOptions]="'0ms'" header="Header 1"&gt;
-        Content 1
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
+&lt;p-accordionTab [transitionOptions]="'0ms'" header="Header 1"&gt;
+    Content
+&lt;/p-accordionTab&gt;
 </app-code>
             <h5>Properties for Accordion</h5>
             <div class="doc-tablewrapper">
@@ -281,7 +301,9 @@ export class AccordionDemo &#123;
                             <td>activeIndex</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Index of the active tab or an array of indexes to change selected tab programmatically.</td>
+                            <td>Index of the active tab or an array of indexes to change selected tab programmatically.
+                                <br>(Deprecated: Use selected property of accordion tab instead)
+                            </td>
                         </tr>
                         <tr>
                             <td>expandIcon</td>
@@ -426,19 +448,17 @@ onTabOpen(e) &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
-
 &lt;h5&gt;Default&lt;/h5&gt;
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header I" [selected]="true"&gt;
         &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
             ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;    
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
     &lt;p-accordionTab header="Header II"&gt;
         &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
     &lt;p-accordionTab header="Header III"&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
@@ -450,64 +470,68 @@ onTabOpen(e) &#123;
 &lt;h5&gt;Multiple&lt;/h5&gt;
 &lt;p-accordion [multiple]="true"&gt;
     &lt;p-accordionTab header="Header I"&gt;
-        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
     &lt;p-accordionTab header="Header II"&gt;
         &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
     &lt;p-accordionTab header="Header III"&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
     
 &lt;h5&gt;Programmatic&lt;/h5&gt;
-&lt;div style="padding: .5em 0 1em 0"&gt;
-    &lt;p-button [icon]="index === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="index === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text" label="Toggle 2st" [style]="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="index === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text" label="Toggle 3st" [style]="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
+&lt;div class="p-py-3"&gt;
+    &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
     
-&lt;p-accordion [(activeIndex)]="index"&gt;
-    &lt;p-accordionTab header="Header I"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header I" [(selected)]="activeState[0]"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header II"&gt;
+    &lt;p-accordionTab header="Header II" [(selected)]="activeState[1]"&gt;
         &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header III"&gt;
+    &lt;p-accordionTab header="Header III" [(selected)]="activeState[2]"&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
 
 &lt;h5&gt;Tab Change Event&lt;/h5&gt;
 &lt;p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)"&gt;
     &lt;p-accordionTab header="Header I"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
     &lt;p-accordionTab header="Header II"&gt;
         &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
     &lt;p-accordionTab header="Header III"&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
     &lt;p-accordionTab header="Header IV" [disabled]="true"&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
 </app-code>
@@ -518,11 +542,12 @@ import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
     templateUrl: './accordiondemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styleUrls: ['./accordiondemo.scss']
 &#125;)
 export class AccordionDemo &#123;
-
-    index: number = -1;
+    
+    activeState: boolean[] = [true, false, false];
 
     constructor(private messageService: MessageService) &#123;&#125;
 
@@ -535,7 +560,7 @@ export class AccordionDemo &#123;
     &#125;
 
     toggle(index: number) &#123;
-        this.index = index === this.index ? -1 : index;
+        this.activeState[index] = !this.activeState[index];
     &#125;
 &#125;
 </app-code>

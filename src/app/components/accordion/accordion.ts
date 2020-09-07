@@ -103,7 +103,7 @@ export class AccordionTab implements AfterContentInit,OnDestroy {
                 break;
 
                 case 'header':
-                    this.header = item.template;
+                    this.headerTemplate = item.template;
                 break;
                 
                 default:
