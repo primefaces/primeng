@@ -77,7 +77,7 @@ export class AccordionTab implements AfterContentInit,OnDestroy {
         this._selected = val;
         
         if (!this.loaded) {
-            this.changeDetector.markForCheck();
+            this.changeDetector.detectChanges();
         }
     }
 
