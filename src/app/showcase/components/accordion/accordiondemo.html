@@ -183,7 +183,7 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
 </app-code>
 
 <h5>Programmatic Control</h5>
-<p>Tabs can be controlled programmatically using <i>selected</i> property of p-accordionTab.</p>
+<p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Programmatic&lt;/h5&gt;
 &lt;div class="p-py-3"&gt;
@@ -301,9 +301,7 @@ export class AccordionDemo &#123;
                             <td>activeIndex</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Index of the active tab or an array of indexes to change selected tab programmatically.
-                                <br>(Deprecated: Use selected property of accordion tab instead)
-                            </td>
+                            <td>Index of the active tab or an array of indexes to change selected tab programmatically.</td>
                         </tr>
                         <tr>
                             <td>expandIcon</td>
