@@ -355,7 +355,7 @@ describe('FileUpload', () => {
         fileupload.onFileSelect(event);
         fixture.detectChanges();
 
-        fileupload.onBasicUploaderClick(event);
+        fileupload.onBasicUploaderClick();
         fixture.detectChanges();
 
         expect(uploadSpy).toHaveBeenCalled();

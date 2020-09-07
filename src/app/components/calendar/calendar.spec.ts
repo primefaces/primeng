@@ -441,10 +441,10 @@ describe('Calendar', () => {
 		const timers = fixture.debugElement.query(By.css('.p-timepicker')).queryAll(By.css('div'));
 		const hourPicker = timers[0];
 		const minutePicker = timers[2];
-		const incrementHourEl = hourPicker.children[0];
-		const decrementHourEl = hourPicker.children[3];
-		const incrementMinuteEl = minutePicker.children[0];
-		const decrementMinuteEl = minutePicker.children[3];
+		const incrementHourEl = hourPicker.queryAll(By.css('.p-link'))[0];
+		const decrementHourEl = hourPicker.queryAll(By.css('.p-link'))[1];
+		const incrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[0];
+		const decrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[1];
 		const monthDropdownEl = navigators[0];
 		const yearDropdownEl = navigators[1];
 		const event = new Event('change');
@@ -466,10 +466,10 @@ describe('Calendar', () => {
 		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultHour.toString());
-		expect(minutePicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultMinute.toString());
-		expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).toEqual(calendar.currentHour.toString());
-		expect(minutePicker.queryAll(By.css('span'))[2].nativeElement.textContent).toEqual(calendar.currentMinute.toString());
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultMinute.toString());
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentHour.toString());
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentMinute.toString());
 		expect(calendar.currentMinute).toEqual(13);
 		expect(calendar.currentHour).toEqual(16);
 		const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
@@ -512,10 +512,10 @@ describe('Calendar', () => {
 		const timers = fixture.debugElement.query(By.css('.p-timepicker')).queryAll(By.css('div'));
 		const hourPicker = timers[0];
 		const minutePicker = timers[2];
-		const incrementHourEl = hourPicker.children[0];
-		const decrementHourEl = hourPicker.children[3];
-		const incrementMinuteEl = minutePicker.children[0];
-		const decrementMinuteEl = minutePicker.children[3];
+		const incrementHourEl = hourPicker.queryAll(By.css('.p-link'))[0];
+		const decrementHourEl = hourPicker.queryAll(By.css('.p-link'))[1];
+		const incrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[0];
+		const decrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[1];
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
@@ -530,10 +530,10 @@ describe('Calendar', () => {
 		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultHour.toString());
-		expect(minutePicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultMinute.toString());
-		expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).toEqual(calendar.currentHour.toString());
-		expect(minutePicker.queryAll(By.css('span'))[2].nativeElement.textContent).toEqual(calendar.currentMinute.toString());
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultMinute.toString());
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentHour.toString());
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentMinute.toString());
 		expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toEqual(calendar.inputFieldValue);
 	});
 
@@ -934,10 +934,8 @@ describe('Calendar', () => {
 		expect(calendar.pm).toEqual(true);
 		expect(amPmEl).toBeTruthy();
 		expect(amPmEl.children[1].nativeElement.textContent).toEqual("PM");
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual("3");
-		expect(hourPicker.children[1].nativeElement.style.display).toEqual("inline");
-		expect(minutePicker.children[2].nativeElement.textContent).toEqual("12");
-		expect(minutePicker.children[1].nativeElement.style.display).toEqual("none");
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("03");
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("12");
 	});
 
 	it('should change hourFormat', () => {
@@ -972,14 +970,14 @@ describe('Calendar', () => {
 
 		expect(calendar.pm).toEqual(true);
 		expect(amPmEl.children[1].nativeElement.textContent).toEqual("PM");
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual("12");
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("12");
 		decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
 		decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
 		expect(calendar.pm).toEqual(false);
 		expect(amPmEl.children[1].nativeElement.textContent).toEqual("AM");
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual("11");
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("11");
 	});
 
 	it('should change hourFormat with ampm buttons', () => {
@@ -1036,8 +1034,8 @@ describe('Calendar', () => {
 		const minutePicker = fixture.debugElement.query(By.css('.p-minute-picker'));
 		const yearEl = fixture.debugElement.query(By.css('.p-datepicker-year'));
 		const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual('11');
-		expect(minutePicker.children[2].nativeElement.textContent).toEqual('12');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
 		expect(yearEl.nativeElement.textContent).toEqual("2017");
 		expect(monthEl.nativeElement.textContent).toEqual("September");
 		expect(calendar.currentMonth).toEqual(8);
@@ -1070,7 +1068,7 @@ describe('Calendar', () => {
 		expect(seperatorEl[0].children[0].nativeElement.textContent).toEqual(":");
 		expect(seperatorEl[1].children[0].nativeElement.textContent).toEqual(":");
 		expect(secondPicker).toBeTruthy();
-		expect(secondPicker.children[2].nativeElement.textContent).toEqual('21');
+		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
 	});
 
 	it('should change seconds', () => {
@@ -1097,7 +1095,7 @@ describe('Calendar', () => {
 		incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(secondPicker.children[2].nativeElement.textContent).toEqual('22');
+		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
 		expect(incrementSecondSpy).toHaveBeenCalled();
 		fixture.detectChanges();
 
@@ -1105,7 +1103,7 @@ describe('Calendar', () => {
 		decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(secondPicker.children[2].nativeElement.textContent).toEqual('21');
+		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
 		expect(decrementSecondSpy).toHaveBeenCalled();
 	});
 
@@ -1144,9 +1142,9 @@ describe('Calendar', () => {
 		incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual('13');
-		expect(minutePicker.children[2].nativeElement.textContent).toEqual('14');
-		expect(secondPicker.children[2].nativeElement.textContent).toEqual('23');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('13');
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('14');
+		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('23');
 		expect(calendar.currentHour).toEqual(13);
 		expect(calendar.currentMinute).toEqual(14);
 		expect(calendar.currentSecond).toEqual(23);
@@ -1158,9 +1156,9 @@ describe('Calendar', () => {
 		decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual('11');
-		expect(minutePicker.children[2].nativeElement.textContent).toEqual('12');
-		expect(secondPicker.children[2].nativeElement.textContent).toEqual('21');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
+		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
 		expect(calendar.currentHour).toEqual(11);
 		expect(calendar.currentMinute).toEqual(12);
 		expect(calendar.currentSecond).toEqual(21);
@@ -1201,9 +1199,9 @@ describe('Calendar', () => {
 		incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual('3');
-		expect(minutePicker.children[2].nativeElement.textContent).toEqual('3');
-		expect(secondPicker.children[2].nativeElement.textContent).toEqual('3');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
+		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
 		expect(calendar.currentHour).toEqual(3);
 		expect(calendar.currentMinute).toEqual(3);
 		expect(calendar.currentSecond).toEqual(3);
@@ -1215,9 +1213,9 @@ describe('Calendar', () => {
 		decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(hourPicker.children[2].nativeElement.textContent).toEqual('22');
-		expect(minutePicker.children[2].nativeElement.textContent).toEqual('58');
-		expect(secondPicker.children[2].nativeElement.textContent).toEqual('58');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('58');
+		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('58');
 		expect(calendar.currentHour).toEqual(22);
 		expect(calendar.currentMinute).toEqual(58);
 		expect(calendar.currentSecond).toEqual(58);
@@ -1798,10 +1796,10 @@ describe('Calendar', () => {
 		const timers = fixture.debugElement.query(By.css('.p-timepicker')).queryAll(By.css('div'));
 		const hourPicker = timers[0];
 		const minutePicker = timers[2];
-		const incrementHourEl = hourPicker.children[0];
-		const decrementHourEl = hourPicker.children[3];
-		const incrementMinuteEl = minutePicker.children[0];
-		const decrementMinuteEl = minutePicker.children[3];
+		const incrementHourEl = hourPicker.queryAll(By.css('.p-link'))[0];
+		const decrementHourEl = hourPicker.queryAll(By.css('.p-link'))[1];
+		const incrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[0];
+		const decrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[1];
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
 		decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
@@ -1820,10 +1818,10 @@ describe('Calendar', () => {
 		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
-		expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultHour.toString());
-		expect(minutePicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultMinute.toString());
-		expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).toEqual('22');
-		expect(minutePicker.queryAll(By.css('span'))[2].nativeElement.textContent).toEqual('58');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultMinute.toString());
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('58');
 		expect(calendar.currentHour).toEqual(22);
 		expect(calendar.currentMinute).toEqual(58);
 	});
