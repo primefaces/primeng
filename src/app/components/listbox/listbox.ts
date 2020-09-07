@@ -195,6 +195,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     onOptionClick(event, option) {

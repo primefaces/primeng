@@ -163,6 +163,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     resolveFieldData(data: any, field: string): any {

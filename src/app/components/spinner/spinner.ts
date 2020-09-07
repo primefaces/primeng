@@ -357,6 +357,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
     
     updateFilledState() {

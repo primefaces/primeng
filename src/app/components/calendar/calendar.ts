@@ -2122,6 +2122,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     getDateFormat() {

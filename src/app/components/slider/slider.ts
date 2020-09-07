@@ -340,6 +340,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
     
     get rangeStartLeft() {

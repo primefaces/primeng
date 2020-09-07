@@ -107,6 +107,7 @@ export class InputSwitch implements ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 }
 

@@ -120,6 +120,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
 
     setDisabledState(disabled: boolean): void {
         this.disabled = disabled;
+        this.cd.markForCheck();
     }
 }
 

@@ -501,6 +501,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     onMouseclick(event) {
