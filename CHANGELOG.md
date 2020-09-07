@@ -1,5 +1,22 @@
 # Changelog
 
+## [10.0.0](https://github.com/primefaces/primeng/tree/10.0.0) (2020-09-07)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.4...10.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Progress Spinner doesn't have a customization example [\#9232](https://github.com/primefaces/primeng/issues/9232)
+- Trigger onClose event when click close button in the DynamicDialog [\#9083](https://github.com/primefaces/primeng/issues/9083)
+
+**Fixed bugs:**
+
+- 10.0.0-rc.4 accordion displays error message in browser developer tool [\#9244](https://github.com/primefaces/primeng/issues/9244)
+- InputNumber gets dirty but not touched [\#9239](https://github.com/primefaces/primeng/issues/9239)
+- UI doesn't update when control is disabled via Reactive Forms [\#9233](https://github.com/primefaces/primeng/issues/9233)
+- InputNumber: overwriting doesn't work correctly [\#9229](https://github.com/primefaces/primeng/issues/9229)
+- inputNumber with numeric prefix is not working as expected [\#9125](https://github.com/primefaces/primeng/issues/9125)
+
 ## [10.0.0-rc.4](https://github.com/primefaces/primeng/tree/10.0.0-rc.4) (2020-09-02)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0-rc.3...10.0.0-rc.4)
