@@ -330,6 +330,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     onInput(event: Event) {

@@ -358,6 +358,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
     
     bindDocumentClickListener() {

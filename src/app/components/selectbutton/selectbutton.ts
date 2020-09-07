@@ -97,6 +97,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
     
     onItemClick(event, option: SelectItem, index: number) {

@@ -91,6 +91,7 @@ export class ToggleButton implements ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
     
     get hasOnLabel():boolean {

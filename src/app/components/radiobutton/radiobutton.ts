@@ -112,6 +112,7 @@ export class RadioButton implements ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
     
     onInputFocus(event) {
