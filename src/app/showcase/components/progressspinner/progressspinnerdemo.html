@@ -11,7 +11,7 @@
         <p-progressSpinner></p-progressSpinner>
     
         <h5>Custom</h5>
-        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
     </div>
 </div>
 
@@ -32,7 +32,7 @@ import &#123;ProgressSpinnerModule&#125; from 'primeng/progressspinner';
             <p>Colors of the spinner can be changed by overriding the keyframes animation</p>
 
 <app-code lang="css" ngNonBindable ngPreserveWhitespaces>
-@keyframes ui-progress-spinner-color &#123;
+@keyframes p-progress-spinner-color &#123;
     100%,
     0% &#123;
         stroke: #d62d20;
@@ -129,7 +129,44 @@ import &#123;ProgressSpinnerModule&#125; from 'primeng/progressspinner';
 &lt;p-progressSpinner&gt;&lt;/p-progressSpinner&gt;
 
 &lt;h5&gt;Custom&lt;/h5&gt;
-&lt;p-progressSpinner [style]="&#123;width: '50px', height: '50px'&#125;" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"&gt;&lt;/p-progressSpinner&gt;
+&lt;p-progressSpinner [style]="&#123;width: '50px', height: '50px'&#125;" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"&gt;&lt;/p-progressSpinner&gt;
+</app-code>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+:host ::ng-deep .custom-spinner .p-progress-spinner-circle &#123;
+    animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
+&#125;
+
+@keyframes custom-progress-spinner-color &#123;
+    100%,
+    0% &#123;
+        stroke: #16697A;
+    &#125;
+    40% &#123;
+        stroke: #489FB5;
+    &#125;
+    66% &#123;
+        stroke: #82C0CC;
+    &#125;
+    80%,
+    90% &#123;
+        stroke: #FFA62B;
+    &#125;
+&#125;
+
+@keyframes custom-progress-spinner-dash &#123;
+    0% &#123;
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    &#125;
+    50% &#123;
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+    &#125;
+    100% &#123;
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+    &#125;
+&#125;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
