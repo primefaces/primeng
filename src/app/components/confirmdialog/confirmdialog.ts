@@ -40,8 +40,8 @@ const hideAnimation = animation([
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="!footer">
-                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="option('acceptLabel')" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')"></button>
-                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="option('rejectLabel')" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')"></button>
+                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="option('acceptLabel')" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
+                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="option('rejectLabel')" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
                 </div>
             </div>
         </div>
@@ -78,11 +78,15 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     @Input() acceptLabel: string = 'Yes';
 
+    @Input() acceptAriaLabel: string;
+
     @Input() acceptVisible: boolean = true;
 
     @Input() rejectIcon: string = 'pi pi-times';
 
     @Input() rejectLabel: string = 'No';
+
+    @Input() rejectAriaLabel: string;
 
     @Input() rejectVisible: boolean = true;
 
