@@ -26,7 +26,7 @@ const hideAnimation = animation([
                 <div class="p-dialog-header" *ngIf="config.showHeader === false ? false: true">
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons">
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="close()" (keydown.enter)="close()" *ngIf="config.closable !== false">
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
                             <span class="p-dialog-header-close-icon pi pi-times"></span>
                         </button>
                     </div>
@@ -145,11 +145,17 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.cd.markForCheck();
 	}
 
+    hide() {
+        if (this.dialogRef) {
+            this.dialogRef.close();
+        }
+    }
+
     enableModality() {
         if (this.config.closable !== false && this.config.dismissableMask) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
-                    this.close();
+                    this.hide();
                 }
             });
         }
@@ -247,7 +253,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
                 if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + (this.config.baseZIndex ? this.config.baseZIndex : 0))) {
-					this.close();
+					this.hide();
 				}
             }
         });
