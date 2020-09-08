@@ -141,6 +141,22 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.5) (2020-09-08)
+
+**Fixed bugs:**
+
+- OverlayPanel doesn't disappear in OnPush components. [\#8804](https://github.com/primefaces/primeng/issues/8804)
+- fileUpload chooseIcon always set to default in mode="basic" [\#9173](https://github.com/primefaces/primeng/issues/9173)
+- Improve calendar tabbing behavior [\#9139](https://github.com/primefaces/primeng/issues/9139)
+- InputNumber gets dirty but not touched [\#9239](https://github.com/primefaces/primeng/issues/9239)
+- Prevent virtual device calendar on touchUI mode [\#9226](https://github.com/primefaces/primeng/issues/9226)
+- Sort and Filter support for VirtualScrolling [\#9154](https://github.com/primefaces/primeng/issues/9154)
+- Redirect to data.com when dropping on datapoint with TreeComponent with Firefox [\#9108](https://github.com/primefaces/primeng/issues/9108)
+- Table erratic row selection with virtual scroll [\#8952](https://github.com/primefaces/primeng/issues/8952)
+- VirtualScroll ExpressionChangedAfterItHasBeenCheckedError [\#8886](https://github.com/primefaces/primeng/issues/8886)
+- VirtualScroll ExpressionChangedAfterItHasBeenCheckedError on TreeTable [\#9254](https://github.com/primefaces/primeng/issues/9254)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.4) (2020-08-18)
 
 **Fixed bugs:**
@@ -594,6 +610,21 @@ Invalid release, use 9.1.2 instead.
 **Unit Tests:**
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.7-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.7) (2020-09-08)
+
+**Fixed bugs:**
+
+- fileUpload chooseIcon always set to default in mode="basic" [\#9173](https://github.com/primefaces/primeng/issues/9173)
+- Customizable FileUpload Icons [\#7611](https://github.com/primefaces/primeng/issues/7611)
+- Prevent virtual device calendar on touchUI mode [\#9226](https://github.com/primefaces/primeng/issues/9226)
+- Redirect to data.com when dropping on datapoint with TreeComponent with Firefox [\#9108](https://github.com/primefaces/primeng/issues/9108)
+- OverlayPanel doesn't disappear in OnPush components. [\#8804](https://github.com/primefaces/primeng/issues/8804)
+- Carousel - Button inside carousel-item is not clickable in mobile phones [\#8377](https://github.com/primefaces/primeng/issues/8377)
+- multiselect applies disabled UI state to all items when selectionLimit is reached and selection is reset [\#8374](https://github.com/primefaces/primeng/issues/8374)
+- Paginator showAll - Pre-Selecting All Inconsistent [\#8360](https://github.com/primefaces/primeng/issues/8360)
+- Dropdowns and MultiSelects open inconsistently or not at all when using a wrapped-label layout [\#8455](https://github.com/primefaces/primeng/issues/8455)
+- Bug in dialog.ts - variable naming and improvement [\#8964](https://github.com/primefaces/primeng/issues/8964)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.6-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.6) (2020-07-03)
 
