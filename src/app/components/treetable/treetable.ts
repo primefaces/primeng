@@ -1668,7 +1668,21 @@ export class TTBody {
 
     @Input() frozen: boolean;
 
-    constructor(public tt: TreeTable) {}
+    subscription: Subscription;
+
+    constructor(public tt: TreeTable, public treeTableService: TreeTableService, public cd: ChangeDetectorRef) {
+        this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
+            if (this.tt.virtualScroll) {
+                this.cd.detectChanges();
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 }
 
 @Component({
