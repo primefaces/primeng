@@ -324,6 +324,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     frozenRowsTemplate: TemplateRef<any>;
 
+    frozenColumnsFrozenRowsTemplate: TemplateRef<any>;
+
     footerTemplate: TemplateRef<any>;
 
     summaryTemplate: TemplateRef<any>;
@@ -461,6 +463,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 case 'frozenrows':
                     this.frozenRowsTemplate = item.template;
+                break;
+
+                case 'frozencolumnsfrozenrows':
+                    this.frozenColumnsFrozenRowsTemplate = item.template;
                 break;
 
                 case 'frozenheader':
@@ -2254,7 +2260,7 @@ export class TableBody implements OnDestroy {
                     </thead>
                     <tbody class="p-datatable-tbody">
                         <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
-                            <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                            <ng-container *ngTemplateOutlet="frozen? dt.frozenColumnsFrozenRowsTemplate||dt.frozenRowsTemplate : dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
                         </ng-template>
                     </tbody>
                 </table>
