@@ -67,7 +67,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ScrollPanelModule&#125; from 'primeng/scrollpanel';
 </app-code>
 
@@ -86,7 +86,7 @@ import &#123;ScrollPanelModule&#125; from 'primeng/scrollpanel';
 &lt;/p-scrollPanel&gt;
 </app-code>
 
-<app-code lang="css">
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 .p-scrollpanel &#123;
     p &#123;
         padding: .5rem;
@@ -287,44 +287,43 @@ import &#123;ScrollPanelModule&#125; from 'primeng/scrollpanel';
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript">
-@Component(&#123;
-    templateUrl: './scrollpaneldemo.html',
-    styles: [`
-        .custombar1 .p-scrollpanel-wrapper &#123;
-            border-right: 9px solid #f4f4f4;
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+.p-scrollpanel &#123;
+    p &#123;
+        padding: .5rem;
+        line-height: 1.5;
+        margin: 0;
+    &#125;
+
+    &.custombar1 &#123;
+        .p-scrollpanel-wrapper &#123;
+            border-right: 9px solid var(--layer-1);
         &#125;
-            
-        .custombar1 .p-scrollpanel-bar &#123;
-            background-color: #1976d2;
+
+        .p-scrollpanel-bar &#123;
+            background-color: var(--primary-color);
             opacity: 1;
-            transition: background-color .3s;
+            transition: background-color .2s;
+
+            &:hover &#123;
+                background-color: #007ad9;
+            &#125;
         &#125;
-            
-        .custombar1 .p-scrollpanel-bar:hover &#123;
-            background-color: #135ba1;
+    &#125;
+
+    &.custombar2 &#123;
+        .p-scrollpanel-wrapper &#123;
+            border-right: 9px solid var(--layer-1);
+            border-bottom: 9px solid var(--layer-1);
         &#125;
-            
-        .custombar2 .p-scrollpanel-wrapper &#123;
-            border-right: 9px solid #757575;
-            border-bottom: 9px solid #757575;
-        &#125;
-            
-        .custombar2 .p-scrollpanel-bar &#123;
-            background-color: #68C77D;
+
+        .p-scrollpanel-bar &#123;
+            background-color: var(--layer-2);
             border-radius: 0;
             opacity: 1;
-            transition: background-color .3s;
+            transition: background-color .2s;
         &#125;
-            
-        .custombar2:hover .p-scrollpanel-bar &#123;
-            background-color: #46A55A;
-        &#125;
-    `],
-    encapsulation: ViewEncapsulation.None
-&#125;)
-export class ScrollPanelDemo &#123;
-            
+    &#125;
 &#125;    
 </app-code>
         </p-tabPanel>

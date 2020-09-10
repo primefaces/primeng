@@ -159,7 +159,7 @@
     <p-tabView>
         <p-tabPanel header ="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TabViewModule&#125; from 'primeng/tabview';
 </app-code>
 
@@ -225,7 +225,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 &lt;/p-tabView&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 handleClose(e) &#123;
    if (condition)
        e.close();
@@ -282,7 +282,7 @@ handleClose(e) &#123;
 &lt;/p-tabView&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabViewDemo &#123;
 
     index: number = 0;
@@ -483,7 +483,7 @@ export class TabViewDemo &#123;
 &lt;p-tabView (onChange)="handleChange($event)"&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 handleChange(e) &#123;
     var index = e.index;
 &#125;
@@ -687,7 +687,7 @@ handleChange(e) &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabViewDemo &#123;
 
     activeIndex: number = 0;

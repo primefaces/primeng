@@ -33,7 +33,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;AutoCompleteModule&#125; from 'primeng/autocomplete';
 </app-code>
 
@@ -44,7 +44,7 @@ import &#123;AutoCompleteModule&#125; from 'primeng/autocomplete';
 &lt;p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class AutoCompleteDemo &#123;
 
     text: string;
@@ -83,7 +83,7 @@ export class AutoCompleteDemo &#123;
             [dropdown]="true"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class AutoCompleteDemo &#123;
 
     text: string;
@@ -110,7 +110,7 @@ export class AutoCompleteDemo &#123;
 &lt;p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class AutoCompleteDemo &#123;
 
     texts: string[];
@@ -134,7 +134,7 @@ export class AutoCompleteDemo &#123;
 &lt;p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)" field="name"&gt;&lt;/p-autoComplete&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class AutoCompleteDemo &#123;
 
     val: country;
@@ -647,7 +647,7 @@ export class AutoCompleteDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class CountryService &#123;
 

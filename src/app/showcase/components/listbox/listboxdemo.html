@@ -27,7 +27,7 @@
   <p-tabView>
     <p-tabPanel header="Documentation">
       <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ListboxModule&#125; from 'primeng/listbox';
 </app-code>
 
@@ -42,7 +42,7 @@ import &#123;ListboxModule&#125; from 'primeng/listbox';
 
 &lt;p-listbox [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-listbox&gt;
 </app-code>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
@@ -89,7 +89,7 @@ export class MyModel &#123;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
@@ -115,7 +115,7 @@ export class MyModel &#123;
 
         <h5>Updating Options</h5>
         <p>When itemLabel property is used, Listbox does not detect changes in the options so provide a new reference when you need to update the options such as adding a new option.</p>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 addOption() &#123;
     //fails
     this.options.push(&#123;name:'New York', code: 'NY'&#125;);
@@ -163,7 +163,7 @@ addOption() &#123;
 &lt;/p-listbox&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;

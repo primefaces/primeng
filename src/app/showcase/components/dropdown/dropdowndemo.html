@@ -56,7 +56,7 @@ npm install @angular/cdk --save
 </app-code>
 
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DropdownModule&#125; from 'primeng/dropdown';
 </app-code>
 
@@ -71,7 +71,7 @@ import &#123;DropdownModule&#125; from 'primeng/dropdown';
 &lt;p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-dropdown&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 interface City &#123;
@@ -134,7 +134,7 @@ export class MyModel &#123;
 </app-code>
 
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 import &#123;SelectItemGroup&#125; from 'primeng/api';
 
@@ -198,7 +198,7 @@ export class GroupDemo &#123;
 </app-code>
 
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
