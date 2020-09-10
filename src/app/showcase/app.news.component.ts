@@ -9,7 +9,7 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
                 <span class="layout-news-details">
                 </span>
                 <a href="https://www.primefaces.org/layouts/diamond-ng" target="_blank"  style="text-decoration: none" class="layout-news-button">
-                    SHOP NOW<i class="pi pi-angle-right"></i>
+                    LEARN MORE<i class="pi pi-angle-right"></i>
                 </a>
                 <a tabindex="0" class="layout-news-close" (click)="hideNews($event)">
                     <i class="pi pi-times"></i>
