@@ -8,7 +8,7 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
                 <img class="layouts-news-mockup-image" src="assets/showcase/images/topbar-diamond-mockup.png">
                 <span class="layout-news-details">
                 </span>
-                <a href="https://www.primefaces.org/layouts/diamond-ng" target="_blank"  style="text-decoration: none"  class="layout-news-button p-button p-button-outlined">
+                <a href="https://www.primefaces.org/layouts/diamond-ng" target="_blank"  style="text-decoration: none" class="layout-news-button">
                     SHOP NOW<i class="pi pi-angle-right"></i>
                 </a>
                 <a tabindex="0" class="layout-news-close" (click)="hideNews($event)">
