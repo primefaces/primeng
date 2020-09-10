@@ -5,10 +5,11 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
     template: `
         <div class="layout-news">
             <div class="layout-news-container">
+                <img class="layouts-news-mockup-image" src="assets/showcase/images/topbar-diamond-mockup.png">
                 <span class="layout-news-details">
-                    Introducing PRIME<span style="color: #DD0031;">NG</span>&nbsp;LTS
+                    Introducing Diamond
                 </span>
-                <a [routerLink]="['/lts']" target="_blank" class="layout-news-button">
+                <a href="https://www.primefaces.org/layouts/diamond-ng" target="_blank"  style="text-decoration: none"  class="layout-news-button p-button p-button-text">
                     LEARN MORE<i class="pi pi-angle-right"></i>
                 </a>
                 <a tabindex="0" class="layout-news-close" (click)="hideNews($event)">

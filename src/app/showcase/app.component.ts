@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     menuActive: boolean;
 
-    newsActive: boolean = false;
+    newsActive: boolean = true;
 
     config: AppConfig;
 

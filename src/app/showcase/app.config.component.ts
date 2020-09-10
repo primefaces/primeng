@@ -250,6 +250,11 @@ import { Subscription } from 'rxjs';
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/diamond-ng">
+                                    <img alt="Mirage" src="assets/showcase/images/layouts/diamond-ng.png">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/mirage-ng">
                                     <img alt="Mirage" src="assets/showcase/images/layouts/mirage-ng.jpg">
                                 </a>

@@ -77,6 +77,12 @@ import { Subscription } from 'rxjs';
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
                         <li>
+                            <a href="https://www.primefaces.org/layouts/diamond-ng">
+                                <img alt="Diamond" src="assets/showcase/images/layouts/diamond-logo.png">
+                                <span>Diamond</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="https://www.primefaces.org/layouts/mirage-ng">
                                 <img alt="Mirage" src="assets/showcase/images/layouts/mirage-logo.png">
                                 <span>Mirage</span><span class="theme-badge bootstrap">bootstrap</span>
