@@ -67,7 +67,7 @@ import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
 &lt;p-multiSelect [options]="cities2" [(ngModel)]="selectedCities2" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 interface City &#123;
@@ -561,7 +561,6 @@ export class MyModel &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
 
 &lt;h5&gt;Templating&lt;/h5&gt;
@@ -594,7 +593,7 @@ export class MyModel &#123;
 &lt;/p-multiSelect&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MultiSelectDemo &#123;
 
     selectedCities: string[] = [];
@@ -642,7 +641,7 @@ export class MultiSelectDemo &#123;
     &#125;
 &#125;
 </app-code>
-<app-code lang="css">
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
     :host ::ng-deep .p-multiselect &#123;
         min-width: 15rem;
     &#125;
@@ -675,7 +674,7 @@ export class MultiSelectDemo &#123;
         &#125;
     &#125;
 </app-code>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class CountryService &#123;
 

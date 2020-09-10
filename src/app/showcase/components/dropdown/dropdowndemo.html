@@ -695,7 +695,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DropdownDemo &#123;
 
     cities: City[];
@@ -776,7 +776,7 @@ export class DropdownDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="css">
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 :host ::ng-deep .p-dropdown &#123;
     width: 14rem;
 &#125;
@@ -788,7 +788,7 @@ export class DropdownDemo &#123;
 &#125;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class CountryService &#123;
 
