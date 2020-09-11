@@ -423,6 +423,16 @@ export class DomHandler {
         else
             throw 'Cannot remove ' + element + ' from ' + target;
     }
+
+    public static remove(element) {
+        // Create Element.remove() function if not exist
+        if (!('remove' in Element.prototype)) {
+            element.parentNode.removeChild(element);
+        }
+        else {
+            element.remove();
+        }
+    }
     
     public static isElement(obj: any) {
         return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :

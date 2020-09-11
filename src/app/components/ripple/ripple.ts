@@ -84,7 +84,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
         if (ink) {
             this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
             ink.removeEventListener('animationend', this.animationListener);
-            ink.remove();
+            DomHandler.remove(ink);
         }
     }
 
