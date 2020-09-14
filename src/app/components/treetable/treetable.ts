@@ -2601,6 +2601,7 @@ export class TTEditableColumn implements AfterViewInit {
         this.tt.updateEditingCell(this.el.nativeElement);
         DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         this.tt.onEditInit.emit({ field: this.field, data: this.data});
+        this.tt.editingCellClick = true;
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 let focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea');
