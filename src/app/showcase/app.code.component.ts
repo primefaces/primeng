@@ -17,8 +17,8 @@ export class AppCodeComponent implements AfterViewInit {
     constructor(public el: ElementRef) { }
 
     ngAfterViewInit() {
-        if (window.Prism) {
-            window.Prism.highlightElement(this.codeViewChild.nativeElement);
+        if (window['Prism']) {
+            window['Prism'].highlightElement(this.codeViewChild.nativeElement);
         }
     }
 }
