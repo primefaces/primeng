@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {DragDropDemo} from './dragdropdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: DragDropDemo}
+			{path: '', component: DragDropDemo}
 		])
 	],
 	exports: [

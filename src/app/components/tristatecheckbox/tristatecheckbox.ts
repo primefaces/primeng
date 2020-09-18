@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -82,18 +82,19 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
 
     toggle(event: Event) {
-        if (this.value == null || this.value == undefined)
+        if (this.value == null || this.value == undefined) {
             this.value = true;
-        else if (this.value == true)
+        } else if (this.value == true) {
             this.value = false;
-        else if (this.value == false)
+ } else if (this.value == false) {
             this.value = null;
+ }
 
         this.onModelChange(this.value);
         this.onChange.emit({
             originalEvent: event,
             value: this.value
-        })
+        });
     }
 
     onFocus() {
@@ -113,7 +114,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
         this.onModelTouched = fn;
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
         this.cd.markForCheck();
     }

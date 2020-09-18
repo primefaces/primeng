@@ -9,7 +9,7 @@ import { CountryService } from '../../service/countryservice';
 export class MultiSelectDemo {
 
     selectedCities: string[] = [];
-    
+
     selectedCountries1: string[] = [];
 
     selectedCountries2: string[] = [];
@@ -23,7 +23,7 @@ export class MultiSelectDemo {
     countries: any[];
 
     constructor(private countryService: CountryService) {
-        
+
         this.items = [];
 
         this.countryService.getCountries().then(countries => {

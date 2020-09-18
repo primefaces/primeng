@@ -14,18 +14,18 @@ import { MessageService } from 'primeng/api';
 class TestToastComponent {
     constructor(private messageService: MessageService) {}
 
-    showDefaultToast(severity){
-        this.messageService.add({severity: severity, summary: "summary", detail: "detail"});
+    showDefaultToast(severity) {
+        this.messageService.add({severity, summary: 'summary', detail: 'detail'});
     }
-    
+
     showWithKey(key) {
-        this.messageService.add({key: key, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
+        this.messageService.add({key, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed'});
     }
 
     showMultipleToast() {
         this.messageService.addAll([
-            {severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'},
-            {severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'}
+            {severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed'},
+            {severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed'}
         ]);
     }
 
@@ -63,34 +63,34 @@ describe('Toast', () => {
 
     it('should create container', () => {
         fixture.detectChanges();
-  
+
         const toastContainer = fixture.debugElement.query(By.css('.p-toast'));
         expect(toastContainer.nativeElement).toBeTruthy();
     });
 
     it('should create success toast', () => {
         fixture.detectChanges();
-  
+
         component.showDefaultToast('success');
         fixture.detectChanges();
 
         const toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
         expect(toastMessage.nativeElement).toBeTruthy();
-        expect(toastMessage.nativeElement.classList).toContain("p-toast-message-success");
+        expect(toastMessage.nativeElement.classList).toContain('p-toast-message-success');
     });
 
     it('should close toast', () => {
         fixture.detectChanges();
-  
+
         component.showDefaultToast('success');
         fixture.detectChanges();
 
         let toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
         expect(toastMessage.nativeElement).toBeTruthy();
-        expect(toastMessage.nativeElement.classList).toContain("p-toast-message-success");
-        const closeEl = fixture.debugElement.query(By.css(".p-toast-icon-close"));
-        toastMessage.nativeElement.dispatchEvent(new Event("mouseenter"));
-        toastMessage.nativeElement.dispatchEvent(new Event("mouseleave"));
+        expect(toastMessage.nativeElement.classList).toContain('p-toast-message-success');
+        const closeEl = fixture.debugElement.query(By.css('.p-toast-icon-close'));
+        toastMessage.nativeElement.dispatchEvent(new Event('mouseenter'));
+        toastMessage.nativeElement.dispatchEvent(new Event('mouseleave'));
         closeEl.nativeElement.click();
         fixture.detectChanges();
 
@@ -98,30 +98,30 @@ describe('Toast', () => {
             toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
             expect(toastMessage).toBeFalsy();
         });
-        
+
     });
 
     it('should create warn toast with key', () => {
-        toast.key = "vv";
+        toast.key = 'vv';
         fixture.detectChanges();
-  
+
         component.showWithKey('vv');
         fixture.detectChanges();
 
-        let toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
+        const toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
         expect(toastMessage.nativeElement).toBeTruthy();
-        expect(toastMessage.nativeElement.classList).toContain("p-toast-message-warn");
+        expect(toastMessage.nativeElement.classList).toContain('p-toast-message-warn');
     });
 
     it('should clear toast', () => {
         fixture.detectChanges();
-  
+
         component.showDefaultToast('success');
         fixture.detectChanges();
 
         let toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
         expect(toastMessage.nativeElement).toBeTruthy();
-        expect(toastMessage.nativeElement.classList).toContain("p-toast-message-success");
+        expect(toastMessage.nativeElement.classList).toContain('p-toast-message-success');
         component.onClear();
         fixture.detectChanges();
 
@@ -132,15 +132,15 @@ describe('Toast', () => {
     });
 
     it('should clear toast with key', () => {
-        toast.key = "vv";
+        toast.key = 'vv';
         fixture.detectChanges();
-  
+
         component.showWithKey('vv');
         fixture.detectChanges();
 
         let toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
         expect(toastMessage.nativeElement).toBeTruthy();
-        expect(toastMessage.nativeElement.classList).toContain("p-toast-message-warn");
+        expect(toastMessage.nativeElement.classList).toContain('p-toast-message-warn');
         component.onClearWithKey('vv');
         fixture.detectChanges();
 
@@ -152,7 +152,7 @@ describe('Toast', () => {
 
     it('should create multiple toast', () => {
         fixture.detectChanges();
-  
+
         component.showMultipleToast();
         fixture.detectChanges();
 

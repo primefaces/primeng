@@ -10,11 +10,11 @@ import {MessageService} from 'primeng/api';
 export class DeferDemo {
 
     cars: Car[];
-    
+
     constructor(private carService: CarService, private messageService: MessageService) {}
-    
+
     initData() {
-        this.messageService.add({severity:'success', summary:'Data Initialized', detail:'Render Completed'});
+        this.messageService.add({severity: 'success', summary: 'Data Initialized', detail: 'Render Completed'});
         this.carService.getCarsSmall().then(cars => this.cars = cars);
     }
 }

@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -17,15 +17,15 @@ import {CommonModule} from '@angular/common';
 export class ProgressSpinner {
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
-    @Input() strokeWidth: string = "2";
-    
-    @Input() fill: string = "none";
-    
-    @Input() animationDuration: string = "2s";
-    
+
+    @Input() strokeWidth = '2';
+
+    @Input() fill = 'none';
+
+    @Input() animationDuration = '2s';
+
 }
 
 @NgModule({

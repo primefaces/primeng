@@ -4,7 +4,7 @@ import { Directive, ViewContainerRef } from '@angular/core';
   selector: '[pDynamicDialogContent]'
 })
 export class DynamicDialogContent {
-  
+
 	constructor(public viewContainerRef: ViewContainerRef) {}
 
 }

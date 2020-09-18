@@ -14,5 +14,5 @@ export class FocusTrapDemo {
         {name: 'Istanbul', code: 'IST'},
         {name: 'Paris', code: 'PRS'}
     ];
-    
+
 }

@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
 export class OverlayPanelDemo {
 
     products: Product[];
-    
+
     selectedProduct: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService) { }

@@ -5,9 +5,9 @@ import {LTSComponent} from './lts.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
-            {path:'',component: LTSComponent}
+            {path: '', component: LTSComponent}
         ])
-    ], 
+    ],
     exports: [
         RouterModule
     ]

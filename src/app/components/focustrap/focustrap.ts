@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener, Input} from '@angular/core';
+import {NgModule, Directive, ElementRef, HostListener, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
@@ -16,25 +16,25 @@ export class FocusTrap {
     onkeydown(e) {
         if (this.pFocusTrapDisabled !== true) {
             e.preventDefault();
-            let focusableElements = DomHandler.getFocusableElements(this.el.nativeElement);
+            const focusableElements = DomHandler.getFocusableElements(this.el.nativeElement);
             if (focusableElements && focusableElements.length > 0) {
                 if (!focusableElements[0].ownerDocument.activeElement) {
                     focusableElements[0].focus();
-                }
-                else {
-                    let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+                } else {
+                    const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                     if (e.shiftKey) {
-                        if (focusedIndex == -1 || focusedIndex === 0)
+                        if (focusedIndex == -1 || focusedIndex === 0) {
                             focusableElements[focusableElements.length - 1].focus();
-                        else
+                        } else {
                             focusableElements[focusedIndex - 1].focus();
-                    }
-                    else {
-                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                        }
+                    } else {
+                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
                             focusableElements[0].focus();
-                        else
+                        } else {
                             focusableElements[focusedIndex + 1].focus();
+                        }
                     }
                 }
             }

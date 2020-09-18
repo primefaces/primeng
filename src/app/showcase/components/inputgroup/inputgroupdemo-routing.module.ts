@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {InputGroupDemo} from './inputgroupdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: InputGroupDemo}
+			{path: '', component: InputGroupDemo}
 		])
 	],
 	exports: [

@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {InputSwitchDemo} from './inputswitchdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: InputSwitchDemo}
+			{path: '', component: InputSwitchDemo}
 		])
 	],
 	exports: [

@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
     styleUrls: ['./formlayoutdemo.scss']
 })
 export class FormLayoutDemo {
-    
+
     selectedState: any = null;
 
     states: any[] = [
@@ -17,11 +17,11 @@ export class FormLayoutDemo {
     ];
 
     cities1: any[] = [];
-    
-    cities2: any[] = [];
-    
-    city1:any = null;
 
-    city2:any = null;
-    
+    cities2: any[] = [];
+
+    city1: any = null;
+
+    city2: any = null;
+
 }

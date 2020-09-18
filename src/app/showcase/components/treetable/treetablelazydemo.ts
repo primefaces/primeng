@@ -6,7 +6,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetablelazydemo.html'
 })
 export class TreeTableLazyDemo {
-    
+
     files: TreeNode[];
 
     cols: any[];
@@ -24,7 +24,7 @@ export class TreeTableLazyDemo {
             { field: 'type', header: 'Type' }
         ];
 
-        //in a production application, retrieve the logical number of rows from a remote datasource
+        // in a production application, retrieve the logical number of rows from a remote datasource
         this.totalRecords = 1000;
 
         this.loading = true;
@@ -33,21 +33,21 @@ export class TreeTableLazyDemo {
     loadNodes(event) {
         this.loading = true;
 
-        //in a production application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-        //event.sortField = Field name to sort with
-        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+        // in a production application, make a remote request to load data using state metadata from event
+        // event.first = First row offset
+        // event.rows = Number of rows per page
+        // event.sortField = Field name to sort with
+        // event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+        // filters: FilterMetadata object having field as key and filter value, filter matchMode as value
 
-        //imitate db connection over a network
+        // imitate db connection over a network
         setTimeout(() => {
             this.loading = false;
             this.files = [];
 
-            for(let i = 0; i < event.rows; i++) {
-                let node = {
-                    data: {  
+            for (let i = 0; i < event.rows; i++) {
+                const node = {
+                    data: {
                         name: 'Item ' + (event.first + i),
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'Type ' + (event.first + i)
@@ -69,14 +69,14 @@ export class TreeTableLazyDemo {
 
             node.children = [
                 {
-                    data: {  
+                    data: {
                         name: node.data.name + ' - 0',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'File'
                     },
                 },
                 {
-                    data: {  
+                    data: {
                         name: node.data.name + ' - 1',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'File'
@@ -86,6 +86,6 @@ export class TreeTableLazyDemo {
 
             this.files = [...this.files];
         }, 250);
-        
+
     }
 }

@@ -37,13 +37,13 @@ describe('Menubar', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		menubar.style = { 'height': '300px' };
-		menubar.styleClass = "Primeng ROCKS!";
+		menubar.style = { height: '300px' };
+		menubar.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const menuEl = fixture.debugElement.query(By.css('.p-menubar'));
-		expect(menuEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(menuEl.nativeElement.style.height).toContain("300px");
+		expect(menuEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(menuEl.nativeElement.style.height).toContain('300px');
 	});
 
 	it('should change autoDisplay baseZIndex and autoZIndex', () => {
@@ -89,12 +89,12 @@ describe('Menubar', () => {
 		expect(menuEl.children.length).toEqual(menubar.model.length);
 		const parentMenuEls = menuEl.queryAll(By.css('.p-menu-parent'));
 		let i = 0;
-		for (let parentMenu of parentMenuEls) {
+		for (const parentMenu of parentMenuEls) {
 			if (menubar.model[i].label) {
-				expect(parentMenu.query(By.css('.p-menuitem-text')).nativeElement.textContent).toEqual(menubar.model[i].label)
+				expect(parentMenu.query(By.css('.p-menuitem-text')).nativeElement.textContent).toEqual(menubar.model[i].label);
 			}
 			if (menubar.model[i].icon) {
-				expect(parentMenu.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain(menubar.model[i].icon)
+				expect(parentMenu.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain(menubar.model[i].icon);
 			}
 			i++;
 		}
@@ -404,8 +404,8 @@ describe('Menubar', () => {
 			{
 				label: 'File',
 				icon: 'pi pi-fw pi-file',
-				style: { 'height': '300px' },
-				styleClass: "Primeng ROCKS!",
+				style: { height: '300px' },
+				styleClass: 'Primeng ROCKS!',
 				items: [{
 					label: 'New',
 					icon: 'pi pi-fw pi-plus',
@@ -431,8 +431,8 @@ describe('Menubar', () => {
 		firstParentEl.nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
-		expect(firstParentEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(firstParentEl.nativeElement.style.height).toContain("300px");
+		expect(firstParentEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(firstParentEl.nativeElement.style.height).toContain('300px');
 	});
 
 	it('should change item disable', () => {

@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, OnInit, Input, Output, ChangeDetectorRef, EventEmitter, TemplateRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
@@ -51,7 +51,7 @@ import {SharedModule} from 'primeng/api';
 })
 export class Paginator implements OnInit, OnChanges {
 
-    @Input() pageLinkSize: number = 5;
+    @Input() pageLinkSize = 5;
 
     @Output() onPageChange: EventEmitter<any> = new EventEmitter();
 
@@ -59,44 +59,44 @@ export class Paginator implements OnInit, OnChanges {
 
     @Input() styleClass: string;
 
-    @Input() alwaysShow: boolean = true;
-    
+    @Input() alwaysShow = true;
+
     @Input() templateLeft: TemplateRef<any>;
-    
+
     @Input() templateRight: TemplateRef<any>;
 
     @Input() dropdownAppendTo: any;
 
-    @Input() dropdownScrollHeight: string = '200px';
+    @Input() dropdownScrollHeight = '200px';
 
-    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+    @Input() currentPageReportTemplate = '{currentPage} of {totalPages}';
 
     @Input() showCurrentPageReport: boolean;
 
-    @Input() totalRecords: number = 0;
+    @Input() totalRecords = 0;
 
-    @Input() rows: number = 0;
-    
+    @Input() rows = 0;
+
     @Input() rowsPerPageOptions: any[];
 
     @Input() showJumpToPageDropdown: boolean;
 
-    @Input() showPageLinks: boolean = true;
+    @Input() showPageLinks = true;
 
     pageLinks: number[];
 
     pageItems: SelectItem[];
 
     rowsPerPageItems: SelectItem[];
-    
+
     paginatorState: any;
 
-    _first: number = 0;
+    _first = 0;
 
-    _page: number = 0;
+    _page = 0;
 
     constructor(private cd: ChangeDetectorRef) {}
-    
+
     ngOnInit() {
         this.updatePaginatorState();
     }
@@ -128,18 +128,17 @@ export class Paginator implements OnInit, OnChanges {
     @Input() get first(): number {
         return this._first;
     }
-    set first(val:number) {
+    set first(val: number) {
         this._first = val;
     }
 
     updateRowsPerPageOptions() {
         if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
-            for (let opt of this.rowsPerPageOptions) {
-                if (typeof opt == 'object' && opt['showAll']) {
-                    this.rowsPerPageItems.unshift({label: opt['showAll'], value: this.totalRecords});
-                }
-                else {
+            for (const opt of this.rowsPerPageOptions) {
+                if (typeof opt == 'object' && opt.showAll) {
+                    this.rowsPerPageItems.unshift({label: opt.showAll, value: this.totalRecords});
+                } else {
                     this.rowsPerPageItems.push({label: String(opt), value: opt});
                 }
             }
@@ -155,19 +154,19 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     getPageCount() {
-        return Math.ceil(this.totalRecords/this.rows)||1;
+        return Math.ceil(this.totalRecords / this.rows) || 1;
     }
 
     calculatePageLinkBoundaries() {
-        let numberOfPages = this.getPageCount(),
+        const numberOfPages = this.getPageCount(),
         visiblePages = Math.min(this.pageLinkSize, numberOfPages);
 
-        //calculate range, keep current in middle if necessary
+        // calculate range, keep current in middle if necessary
         let start = Math.max(0, Math.ceil(this.getPage() - ((visiblePages) / 2))),
         end = Math.min(numberOfPages - 1, start + visiblePages - 1);
 
-        //check when approaching to last page
-        var delta = this.pageLinkSize - (end - start + 1);
+        // check when approaching to last page
+        const delta = this.pageLinkSize - (end - start + 1);
         start = Math.max(0, start - delta);
 
         return [start, end];
@@ -175,11 +174,11 @@ export class Paginator implements OnInit, OnChanges {
 
     updatePageLinks() {
         this.pageLinks = [];
-        let boundaries = this.calculatePageLinkBoundaries(),
+        const boundaries = this.calculatePageLinkBoundaries(),
         start = boundaries[0],
         end = boundaries[1];
 
-        for(let i = start; i <= end; i++) {
+        for (let i = start; i <= end; i++) {
             this.pageLinks.push(i + 1);
         }
 
@@ -191,12 +190,12 @@ export class Paginator implements OnInit, OnChanges {
         }
     }
 
-    changePage(p :number) {
-        var pc = this.getPageCount();
+    changePage(p: number) {
+        const pc = this.getPageCount();
 
         if (p >= 0 && p < pc) {
             this._first = this.rows * p;
-            var state = {
+            const state = {
                 page: p,
                 first: this.first,
                 rows: this.rows,
@@ -221,7 +220,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToFirst(event) {
-      if (!this.isFirstPage()){
+      if (!this.isFirstPage()) {
           this.changePage(0);
       }
 
@@ -239,7 +238,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToLast(event) {
-      if (!this.isLastPage()){
+      if (!this.isLastPage()) {
           this.changePage(this.getPageCount() - 1);
       }
 
@@ -258,7 +257,7 @@ export class Paginator implements OnInit, OnChanges {
     onPageDropdownChange(event) {
         this.changePage(event.value);
     }
-    
+
     updatePaginatorState() {
         this.paginatorState = {
             page: this.getPage(),
@@ -266,23 +265,23 @@ export class Paginator implements OnInit, OnChanges {
             rows: this.rows,
             first: this.first,
             totalRecords: this.totalRecords
-        }
+        };
     }
 
     get currentPageReport() {
         return this.currentPageReportTemplate
-                .replace("{currentPage}", String(this.getPage() + 1))
-                .replace("{totalPages}", String(this.getPageCount()))
-                .replace("{first}", String(this._first + 1))
-                .replace("{last}", String(Math.min(this._first + this.rows, this.totalRecords)))
-                .replace("{rows}", String(this.rows))
-                .replace("{totalRecords}", String(this.totalRecords));
+                .replace('{currentPage}', String(this.getPage() + 1))
+                .replace('{totalPages}', String(this.getPageCount()))
+                .replace('{first}', String(this._first + 1))
+                .replace('{last}', String(Math.min(this._first + this.rows, this.totalRecords)))
+                .replace('{rows}', String(this.rows))
+                .replace('{totalRecords}', String(this.totalRecords));
     }
 }
 
 @NgModule({
-    imports: [CommonModule,DropdownModule,FormsModule,SharedModule,RippleModule],
-    exports: [Paginator,DropdownModule,FormsModule,SharedModule],
+    imports: [CommonModule, DropdownModule, FormsModule, SharedModule, RippleModule],
+    exports: [Paginator, DropdownModule, FormsModule, SharedModule],
     declarations: [Paginator]
 })
 export class PaginatorModule { }

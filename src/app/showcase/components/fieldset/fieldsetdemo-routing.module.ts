@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {FieldsetDemo} from './fieldsetdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: FieldsetDemo}
+			{path: '', component: FieldsetDemo}
 		])
 	],
 	exports: [

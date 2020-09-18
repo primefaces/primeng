@@ -11,7 +11,7 @@ export const KEYFILTER_VALIDATOR: any = {
 
 const DEFAULT_MASKS = {
     pint: /[\d]/,
-    'int': /[\d\-]/,
+    int: /[\d\-]/,
     pnum: /[\d\.]/,
     money: /[\d\.\s,]/,
     num: /[\d\-\.]/,
@@ -77,18 +77,18 @@ export class KeyFilter implements Validator {
         k = DomHandler.getBrowser().safari ? (SAFARI_KEYS[k] || k) : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
-    };
+    }
 
     isSpecialKey(e: KeyboardEvent) {
-        let k = e.keyCode || e.charCode;
+        const k = e.keyCode || e.charCode;
 
-        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 ||(k >= 18 && k <= 20) ||
+        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) ||
             (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
     }
 
 
     getKey(e: KeyboardEvent) {
-        let k = e.keyCode || e.charCode;
+        const k = e.keyCode || e.charCode;
         return DomHandler.getBrowser().safari ? (SAFARI_KEYS[k] || k) : k;
     }
 
@@ -100,10 +100,11 @@ export class KeyFilter implements Validator {
         let delta = '';
 
         for (let i = 0; i < value.length; i++) {
-            let str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
+            const str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
 
-            if (str === prevValue)
+            if (str === prevValue) {
                 delta = value.substr(i, value.length - prevValue.length);
+            }
         }
 
         return delta;
@@ -127,19 +128,18 @@ export class KeyFilter implements Validator {
     onInput(e: KeyboardEvent) {
         if (this.isAndroid && !this.pValidateOnly) {
             let val = this.el.nativeElement.value;
-            let lastVal = this.lastValue || '';
+            const lastVal = this.lastValue || '';
 
-            let inserted = this.findDelta(val, lastVal);
-            let removed = this.findDelta(lastVal, val);
-            let pasted = inserted.length > 1 || (!inserted && !removed);
+            const inserted = this.findDelta(val, lastVal);
+            const removed = this.findDelta(lastVal, val);
+            const pasted = inserted.length > 1 || (!inserted && !removed);
 
             if (pasted) {
                 if (!this.isValidString(val)) {
                     this.el.nativeElement.value = lastVal;
                     this.ngModelChange.emit(lastVal);
                 }
-            }
-            else if (!removed) {
+            } else if (!removed) {
                 if (!this.isValidChar(inserted)) {
                     this.el.nativeElement.value = lastVal;
                     this.ngModelChange.emit(lastVal);
@@ -159,18 +159,17 @@ export class KeyFilter implements Validator {
             return;
         }
 
-        let browser = DomHandler.getBrowser();
-        let k = this.getKey(e);
+        const browser = DomHandler.getBrowser();
+        const k = this.getKey(e);
 
         if (browser.mozilla && (e.ctrlKey || e.altKey)) {
             return;
-        }
-        else if (k == 17 || k == 18) {
+        } else if (k == 17 || k == 18) {
             return;
         }
 
-        let c = this.getCharCode(e);
-        let cc = String.fromCharCode(c);
+        const c = this.getCharCode(e);
+        const cc = String.fromCharCode(c);
         let ok = true;
 
         if (!browser.mozilla && (this.isSpecialKey(e) || !cc)) {
@@ -186,10 +185,10 @@ export class KeyFilter implements Validator {
 
     @HostListener('paste', ['$event'])
     onPaste(e) {
-        const clipboardData = e.clipboardData || (<any>window).clipboardData.getData('text');
+        const clipboardData = e.clipboardData || (window as any).clipboardData.getData('text');
         if (clipboardData) {
             const pastedText = clipboardData.getData('text');
-            for (let char of pastedText.toString()) {
+            for (const char of pastedText.toString()) {
                 if (!this.regex.test(char)) {
                     e.preventDefault();
                     return;
@@ -200,11 +199,11 @@ export class KeyFilter implements Validator {
 
     validate(c: AbstractControl): { [key: string]: any } {
         if (this.pValidateOnly) {
-            let value = this.el.nativeElement.value;
+            const value = this.el.nativeElement.value;
             if (value && !this.regex.test(value)) {
                 return {
                     validatePattern: false
-                }
+                };
             }
         }
     }

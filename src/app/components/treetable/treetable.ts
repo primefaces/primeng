@@ -53,11 +53,11 @@ export class TreeTableService {
     selector: 'p-treeTable',
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
-                [ngClass]="{'p-treetable p-component': true, 
+                [ngClass]="{'p-treetable p-component': true,
                 'p-treetable-hoverable-rows': (rowHover||(selectionMode === 'single' || selectionMode === 'multiple')),
-                'p-treetable-auto-layout': autoLayout, 
-                'p-treetable-resizable': resizableColumns, 
-                'p-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'), 
+                'p-treetable-auto-layout': autoLayout,
+                'p-treetable-resizable': resizableColumns,
+                'p-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'p-treetable-flex-scrollable': (scrollable && scrollHeight === 'flex')}">
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
                 <div class="p-treetable-loading-overlay p-component-overlay">
@@ -110,6 +110,54 @@ export class TreeTableService {
 })
 export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
 
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
+
+    @Input() get value(): any[] {
+        return this._value;
+    }
+    set value(val: any[]) {
+        this._value = val;
+    }
+
+    @Input() get totalRecords(): number {
+        return this._totalRecords;
+    }
+    set totalRecords(val: number) {
+        this._totalRecords = val;
+        this.tableService.onTotalRecordsChange(this._totalRecords);
+    }
+
+    @Input() get sortField(): string {
+        return this._sortField;
+    }
+
+    set sortField(val: string) {
+        this._sortField = val;
+    }
+
+    @Input() get sortOrder(): number {
+        return this._sortOrder;
+    }
+    set sortOrder(val: number) {
+        this._sortOrder = val;
+    }
+
+    @Input() get multiSortMeta(): SortMeta[] {
+        return this._multiSortMeta;
+    }
+
+    set multiSortMeta(val: SortMeta[]) {
+        this._multiSortMeta = val;
+    }
+
+    @Input() get selection(): any {
+        return this._selection;
+    }
+
+    set selection(val: any) {
+        this._selection = val;
+    }
+
     @Input() columns: any[];
 
     @Input() style: any;
@@ -122,39 +170,39 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() autoLayout: boolean;
 
-    @Input() lazy: boolean = false;
+    @Input() lazy = false;
 
-    @Input() lazyLoadOnInit: boolean = true;
+    @Input() lazyLoadOnInit = true;
 
     @Input() paginator: boolean;
 
     @Input() rows: number;
 
-    @Input() first: number = 0;
+    @Input() first = 0;
 
-    @Input() pageLinks: number = 5;
+    @Input() pageLinks = 5;
 
     @Input() rowsPerPageOptions: any[];
 
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input() alwaysShowPaginator = true;
 
-    @Input() paginatorPosition: string = 'bottom';
+    @Input() paginatorPosition = 'bottom';
 
     @Input() paginatorDropdownAppendTo: any;
 
-    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+    @Input() currentPageReportTemplate = '{currentPage} of {totalPages}';
 
     @Input() showCurrentPageReport: boolean;
 
     @Input() showJumpToPageDropdown: boolean;
 
-    @Input() showPageLinks: boolean = true;
+    @Input() showPageLinks = true;
 
-    @Input() defaultSortOrder: number = 1;
+    @Input() defaultSortOrder = 1;
 
-    @Input() sortMode: string = 'single';
+    @Input() sortMode = 'single';
 
-    @Input() resetPageOnSort: boolean = true;
+    @Input() resetPageOnSort = true;
 
     @Input() customSort: boolean;
 
@@ -166,21 +214,21 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
 
-    @Input() contextMenuSelectionMode: string = "separate";
+    @Input() contextMenuSelectionMode = 'separate';
 
     @Input() dataKey: string;
 
     @Input() metaKeySelection: boolean;
 
-    @Input() compareSelectionBy: string = 'deepEquals';
+    @Input() compareSelectionBy = 'deepEquals';
 
     @Input() rowHover: boolean;
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'pi pi-spinner';
+    @Input() loadingIcon = 'pi pi-spinner';
 
-    @Input() showLoader: boolean = true;
+    @Input() showLoader = true;
 
     @Input() scrollable: boolean;
 
@@ -188,9 +236,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() virtualScroll: boolean;
 
-    @Input() virtualScrollDelay: number = 150;
+    @Input() virtualScrollDelay = 150;
 
-    @Input() virtualRowHeight: number = 28;
+    @Input() virtualRowHeight = 28;
 
     @Input() minBufferPx: number;
 
@@ -202,21 +250,19 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() resizableColumns: boolean;
 
-    @Input() columnResizeMode: string = 'fit';
+    @Input() columnResizeMode = 'fit';
 
     @Input() reorderableColumns: boolean;
 
     @Input() contextMenu: any;
 
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
-
     @Input() filters: { [s: string]: FilterMetadata; } = {};
 
     @Input() globalFilterFields: string[];
 
-    @Input() filterDelay: number = 300;
+    @Input() filterDelay = 300;
 
-    @Input() filterMode: string = 'lenient';
+    @Input() filterMode = 'lenient';
 
     @Input() filterLocale: string;
 
@@ -272,13 +318,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     serializedValue: any[];
 
-    _totalRecords: number = 0;
+    _totalRecords = 0;
 
     _multiSortMeta: SortMeta[];
 
     _sortField: string;
 
-    _sortOrder: number = 1;
+    _sortOrder = 1;
 
     filteredNodes: any[];
 
@@ -340,6 +386,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     toggleRowIndex: number;
 
+    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -352,64 +400,62 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             switch (item.getType()) {
                 case 'caption':
                     this.captionTemplate = item.template;
-                break;
+                    break;
 
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'body':
                     this.bodyTemplate = item.template;
-                break;
+                    break;
 
                 case 'loadingbody':
                     this.loadingBodyTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
 
                 case 'summary':
                     this.summaryTemplate = item.template;
-                break;
+                    break;
 
                 case 'colgroup':
                     this.colGroupTemplate = item.template;
-                break;
+                    break;
 
                 case 'emptymessage':
                     this.emptyMessageTemplate = item.template;
-                break;
+                    break;
 
                 case 'paginatorleft':
                     this.paginatorLeftTemplate = item.template;
-                break;
+                    break;
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
-                break;
+                    break;
 
                 case 'frozenheader':
                     this.frozenHeaderTemplate = item.template;
-                break;
+                    break;
 
                 case 'frozenbody':
                     this.frozenBodyTemplate = item.template;
-                break;
+                    break;
 
                 case 'frozenfooter':
                     this.frozenFooterTemplate = item.template;
-                break;
+                    break;
 
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
-
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
@@ -418,12 +464,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             if (!this.lazy) {
                 this.totalRecords = (this._value ? this._value.length : 0);
 
-                if (this.sortMode == 'single' && this.sortField)
+                if (this.sortMode == 'single' && this.sortField) {
                     this.sortSingle();
-                else if (this.sortMode == 'multiple' && this.multiSortMeta)
+                } else if (this.sortMode == 'multiple' && this.multiSortMeta) {
                     this.sortMultiple();
-                else if (this.hasFilter())       //sort already filters
+ } else if (this.hasFilter()) {       // sort already filters
                     this._filter();
+ }
             }
 
             this.updateSerializedValue();
@@ -433,7 +480,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (simpleChange.sortField) {
             this._sortField = simpleChange.sortField.currentValue;
 
-            //avoid triggering lazy load prior to lazy initialization at onInit
+            // avoid triggering lazy load prior to lazy initialization at onInit
             if ( !this.lazy || this.initialized ) {
                 if (this.sortMode === 'single') {
                     this.sortSingle();
@@ -444,7 +491,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (simpleChange.sortOrder) {
             this._sortOrder = simpleChange.sortOrder.currentValue;
 
-            //avoid triggering lazy load prior to lazy initialization at onInit
+            // avoid triggering lazy load prior to lazy initialization at onInit
             if ( !this.lazy || this.initialized ) {
                 if (this.sortMode === 'single') {
                     this.sortSingle();
@@ -470,30 +517,24 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
-    @Input() get value(): any[] {
-        return this._value;
-    }
-    set value(val: any[]) {
-        this._value = val;
-    }
-
     updateSerializedValue() {
         this.serializedValue = [];
 
-        if (this.paginator)
+        if (this.paginator) {
             this.serializePageNodes();
-        else
-            this.serializeNodes(null, this.filteredNodes||this.value, 0, true);
+        } else {
+            this.serializeNodes(null, this.filteredNodes || this.value, 0, true);
+        }
     }
 
     serializeNodes(parent, nodes, level, visible) {
         if (nodes && nodes.length) {
-            for(let node of nodes) {
+            for (const node of nodes) {
                 node.parent = parent;
                 const rowNode = {
-                    node: node,
-                    parent: parent,
-                    level: level,
+                    node,
+                    parent,
+                    level,
                     visible: visible && (parent ? parent.expanded : true)
                 };
                 this.serializedValue.push(rowNode);
@@ -506,16 +547,16 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     serializePageNodes() {
-        let data = this.filteredNodes || this.value;
+        const data = this.filteredNodes || this.value;
         this.serializedValue = [];
         if (data && data.length) {
             const first = this.lazy ? 0 : this.first;
 
-            for(let i = first; i < (first + this.rows); i++) {
-                let node = data[i];
+            for (let i = first; i < (first + this.rows); i++) {
+                const node = data[i];
                 if (node) {
                     this.serializedValue.push({
-                        node: node,
+                        node,
                         parent: null,
                         level: 0,
                         visible: true
@@ -527,54 +568,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
-    @Input() get totalRecords(): number {
-        return this._totalRecords;
-    }
-    set totalRecords(val: number) {
-        this._totalRecords = val;
-        this.tableService.onTotalRecordsChange(this._totalRecords);
-    }
-
-    @Input() get sortField(): string {
-        return this._sortField;
-    }
-
-    set sortField(val: string) {
-        this._sortField = val;
-    }
-
-    @Input() get sortOrder(): number {
-        return this._sortOrder;
-    }
-    set sortOrder(val: number) {
-        this._sortOrder = val;
-    }
-
-    @Input() get multiSortMeta(): SortMeta[] {
-        return this._multiSortMeta;
-    }
-
-    set multiSortMeta(val: SortMeta[]) {
-        this._multiSortMeta = val;
-    }
-
-    @Input() get selection(): any {
-        return this._selection;
-    }
-
-    set selection(val: any) {
-        this._selection = val;
-    }
-
     updateSelectionKeys() {
         if (this.dataKey && this._selection) {
             this.selectionKeys = {};
             if (Array.isArray(this._selection)) {
-                for(let node of this._selection) {
+                for (const node of this._selection) {
                     this.selectionKeys[String(ObjectUtils.resolveFieldData(node.data, this.dataKey))] = 1;
                 }
-            }
-            else {
+            } else {
                 this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection.data, this.dataKey))] = 1;
             }
         }
@@ -584,10 +585,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this.first = event.first;
         this.rows = event.rows;
 
-        if (this.lazy)
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        else
+        } else {
             this.serializePageNodes();
+        }
 
         this.onPage.emit({
             first: this.first,
@@ -602,7 +604,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     sort(event) {
-        let originalEvent = event.originalEvent;
+        const originalEvent = event.originalEvent;
 
         if (this.sortMode === 'single') {
             this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
@@ -614,22 +616,20 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             }
         }
         if (this.sortMode === 'multiple') {
-            let metaKey = originalEvent.metaKey || originalEvent.ctrlKey;
-            let sortMeta = this.getSortMeta(event.field);
+            const metaKey = originalEvent.metaKey || originalEvent.ctrlKey;
+            const sortMeta = this.getSortMeta(event.field);
 
             if (sortMeta) {
                 if (!metaKey) {
-                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
-                
+                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }];
+
                     if (this.resetPageOnSort && this.scrollable) {
                         this.resetScrollTop();
                     }
-                }
-                else {
+                } else {
                     sortMeta.order = sortMeta.order * -1;
                 }
-            }
-            else {
+            } else {
                 if (!metaKey || !this.multiSortMeta) {
                     this._multiSortMeta = [];
 
@@ -648,8 +648,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (this.sortField && this.sortOrder) {
             if (this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            }
-            else if (this.value) {
+            } else if (this.value) {
                 this.sortNodes(this.value);
 
                 if (this.hasFilter()) {
@@ -657,7 +656,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 }
             }
 
-            let sortMeta: SortMeta = {
+            const sortMeta: SortMeta = {
                 field: this.sortField,
                 order: this.sortOrder
             };
@@ -680,29 +679,29 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 field: this.sortField,
                 order: this.sortOrder
             });
-        }
-        else {
+        } else {
             nodes.sort((node1, node2) => {
-                let value1 = ObjectUtils.resolveFieldData(node1.data, this.sortField);
-                let value2 = ObjectUtils.resolveFieldData(node2.data, this.sortField);
+                const value1 = ObjectUtils.resolveFieldData(node1.data, this.sortField);
+                const value2 = ObjectUtils.resolveFieldData(node2.data, this.sortField);
                 let result = null;
 
-                if (value1 == null && value2 != null)
+                if (value1 == null && value2 != null) {
                     result = -1;
-                else if (value1 != null && value2 == null)
+                } else if (value1 != null && value2 == null) {
                     result = 1;
-                else if (value1 == null && value2 == null)
+ } else if (value1 == null && value2 == null) {
                     result = 0;
-                else if (typeof value1 === 'string' && typeof value2 === 'string')
+ } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                     result = value1.localeCompare(value2, undefined, {numeric: true});
-                else
+ } else {
                     result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+ }
 
                 return (this.sortOrder * result);
             });
         }
 
-        for(let node of nodes) {
+        for (const node of nodes) {
             this.sortNodes(node.children);
         }
     }
@@ -711,11 +710,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (this.multiSortMeta) {
             if (this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            }
-            else if (this.value) {
+            } else if (this.value) {
                this.sortMultipleNodes(this.value);
 
-                if (this.hasFilter()) {
+               if (this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -739,35 +737,34 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 mode: this.sortMode,
                 multiSortMeta: this.multiSortMeta
             });
-        }
-        else {
+        } else {
             nodes.sort((node1, node2) => {
                 return this.multisortField(node1, node2, this.multiSortMeta, 0);
             });
         }
 
-        for(let node of nodes) {
+        for (const node of nodes) {
             this.sortMultipleNodes(node.children);
         }
     }
 
     multisortField(node1, node2, multiSortMeta, index) {
-        let value1 = ObjectUtils.resolveFieldData(node1.data, multiSortMeta[index].field);
-        let value2 = ObjectUtils.resolveFieldData(node2.data, multiSortMeta[index].field);
+        const value1 = ObjectUtils.resolveFieldData(node1.data, multiSortMeta[index].field);
+        const value2 = ObjectUtils.resolveFieldData(node2.data, multiSortMeta[index].field);
         let result = null;
 
-        if (value1 == null && value2 != null)
+        if (value1 == null && value2 != null) {
             result = -1;
-        else if (value1 != null && value2 == null)
+        } else if (value1 != null && value2 == null) {
             result = 1;
-        else if (value1 == null && value2 == null)
+ } else if (value1 == null && value2 == null) {
             result = 0;
+ }
         if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2, undefined, {numeric: true}));
             }
-        }
-        else {
+        } else {
             result = (value1 < value2) ? -1 : 1;
         }
 
@@ -793,11 +790,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     isSorted(field: string) {
         if (this.sortMode === 'single') {
             return (this.sortField && this.sortField === field);
-        }
-        else if (this.sortMode === 'multiple') {
+        } else if (this.sortMode === 'multiple') {
             let sorted = false;
             if (this.multiSortMeta) {
-                for(let i = 0; i < this.multiSortMeta.length; i++) {
+                for (let i = 0; i < this.multiSortMeta.length; i++) {
                     if (this.multiSortMeta[i].field == field) {
                         sorted = true;
                         break;
@@ -815,16 +811,17 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
+            globalFilter: this.filters && this.filters.global ? this.filters.global.value : null,
             multiSortMeta: this.multiSortMeta
         };
     }
 
     public resetScrollTop() {
-        if (this.virtualScroll)
+        if (this.virtualScroll) {
             this.scrollToVirtualIndex(0);
-        else
+        } else {
             this.scrollTo({top: 0});
+        }
     }
 
     public scrollToVirtualIndex(index: number) {
@@ -848,7 +845,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     isEmpty() {
-        let data = this.filteredNodes||this.value;
+        const data = this.filteredNodes || this.value;
         return data == null || data.length == 0;
     }
 
@@ -857,13 +854,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     onColumnResizeBegin(event) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
+        const containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
         event.preventDefault();
     }
 
     onColumnResize(event) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
+        const containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
         DomHandler.addClass(this.containerViewChild.nativeElement, 'p-unselectable-text');
         this.resizeHelperViewChild.nativeElement.style.height = this.containerViewChild.nativeElement.offsetHeight + 'px';
         this.resizeHelperViewChild.nativeElement.style.top = 0 + 'px';
@@ -873,10 +870,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     onColumnResizeEnd(event, column) {
-        let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
-        let columnWidth = column.offsetWidth;
-        let newColumnWidth = columnWidth + delta;
-        let minWidth = column.style.minWidth || 15;
+        const delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
+        const columnWidth = column.offsetWidth;
+        const newColumnWidth = columnWidth + delta;
+        const minWidth = column.style.minWidth || 15;
 
         if (columnWidth + delta > parseInt(minWidth)) {
             if (this.columnResizeMode === 'fit') {
@@ -886,22 +883,21 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 }
 
                 if (nextColumn) {
-                    let nextColumnWidth = nextColumn.offsetWidth - delta;
-                    let nextColumnMinWidth = nextColumn.style.minWidth || 15;
+                    const nextColumnWidth = nextColumn.offsetWidth - delta;
+                    const nextColumnMinWidth = nextColumn.style.minWidth || 15;
 
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
-                            let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table');
-                            let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
-                            let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
-                            let resizeColumnIndex = DomHandler.index(column);
+                            const scrollableView = this.findParentScrollableView(column);
+                            const scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table');
+                            const scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
+                            const scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
+                            const resizeColumnIndex = DomHandler.index(column);
 
                             this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
                             this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
                             this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
-                        }
-                        else {
+                        } else {
                             column.style.width = newColumnWidth + 'px';
                             if (nextColumn) {
                                 nextColumn.style.width = nextColumnWidth + 'px';
@@ -909,34 +905,33 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         }
                     }
                 }
-            }
-            else if (this.columnResizeMode === 'expand') {
+            } else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
-                    let scrollableView = this.findParentScrollableView(column);
-                    let scrollableBody = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body');
-                    let scrollableHeader = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-header');
-                    let scrollableFooter = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-footer');
-                    let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table');
-                    let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
-                    let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
+                    const scrollableView = this.findParentScrollableView(column);
+                    const scrollableBody = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body');
+                    const scrollableHeader = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-header');
+                    const scrollableFooter = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-footer');
+                    const scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table');
+                    const scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
+                    const scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
                     scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     if (scrollableFooterTable) {
                         scrollableFooterTable.style.width = scrollableFooterTable.offsetWidth + delta + 'px';
                     }
-                    let resizeColumnIndex = DomHandler.index(column);
+                    const resizeColumnIndex = DomHandler.index(column);
 
                     const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
                     const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
                     const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth >= scrollableBodyTableWidth;
 
-                    let setWidth = (container, table, width, isContainerInViewport) => {
+                    const setWidth = (container, table, width, isContainerInViewport) => {
                         if (container && table) {
-                            container.style.width = isContainerInViewport ? width + DomHandler.calculateScrollbarWidth(scrollableBody) + 'px' : 'auto'
+                            container.style.width = isContainerInViewport ? width + DomHandler.calculateScrollbarWidth(scrollableBody) + 'px' : 'auto';
                             table.style.width = width + 'px';
                         }
                     };
-            
+
                     setWidth(scrollableBody, scrollableBodyTable, scrollableBodyTableWidth, isContainerInViewport);
                     setWidth(scrollableHeader, scrollableHeaderTable, scrollableHeaderTableWidth, isContainerInViewport);
                     setWidth(scrollableFooter, scrollableFooterTable, scrollableHeaderTableWidth, isContainerInViewport);
@@ -944,18 +939,17 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
                     this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
                     this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
-                }
-                else {
+                } else {
                     this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
                     column.style.width = newColumnWidth + 'px';
-                    let containerWidth = this.tableViewChild.nativeElement.style.width;
+                    const containerWidth = this.tableViewChild.nativeElement.style.width;
                     this.containerViewChild.nativeElement.style.width = containerWidth + 'px';
                 }
             }
 
             this.onColResize.emit({
                 element: column,
-                delta: delta
+                delta
             });
         }
 
@@ -971,27 +965,25 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             }
 
             return parent;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     resizeColGroup(table, resizeColumnIndex, newColumnWidth, nextColumnWidth) {
         if (table) {
-            let colGroup = table.children[0].nodeName === 'COLGROUP' ? table.children[0] : null;
+            const colGroup = table.children[0].nodeName === 'COLGROUP' ? table.children[0] : null;
 
             if (colGroup) {
-                let col = colGroup.children[resizeColumnIndex];
-                let nextCol = col.nextElementSibling;
+                const col = colGroup.children[resizeColumnIndex];
+                const nextCol = col.nextElementSibling;
                 col.style.width = newColumnWidth + 'px';
 
                 if (nextCol && nextColumnWidth) {
                     nextCol.style.width = nextColumnWidth + 'px';
                 }
-            }
-            else {
-                throw "Scrollable tables require a colgroup to support resizable columns";
+            } else {
+                throw new Error('Scrollable tables require a colgroup to support resizable columns');
             }
         }
     }
@@ -1006,13 +998,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     onColumnDragEnter(event, dropHeader) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
-            let containerOffset = DomHandler.getOffset(this.containerViewChild.nativeElement);
-            let dropHeaderOffset = DomHandler.getOffset(dropHeader);
+            const containerOffset = DomHandler.getOffset(this.containerViewChild.nativeElement);
+            const dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
-                let targetLeft = dropHeaderOffset.left - containerOffset.left;
-                let targetTop = containerOffset.top - dropHeaderOffset.top;
-                let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
+                const targetLeft = dropHeaderOffset.left - containerOffset.left;
+                const targetTop = containerOffset.top - dropHeaderOffset.top;
+                const columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
                 this.reorderIndicatorUpViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (this.reorderIconHeight - 1) + 'px';
                 this.reorderIndicatorDownViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
@@ -1021,8 +1013,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.reorderIndicatorUpViewChild.nativeElement.style.left = (targetLeft + dropHeader.offsetWidth - Math.ceil(this.reorderIconWidth / 2)) + 'px';
                     this.reorderIndicatorDownViewChild.nativeElement.style.left = (targetLeft + dropHeader.offsetWidth - Math.ceil(this.reorderIconWidth / 2)) + 'px';
                     this.dropPosition = 1;
-                }
-                else {
+                } else {
                     this.reorderIndicatorUpViewChild.nativeElement.style.left = (targetLeft - Math.ceil(this.reorderIconWidth / 2)) + 'px';
                     this.reorderIndicatorDownViewChild.nativeElement.style.left = (targetLeft - Math.ceil(this.reorderIconWidth / 2)) + 'px';
                     this.dropPosition = -1;
@@ -1030,8 +1021,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
                 this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
                 this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
-            }
-            else {
+            } else {
                 event.dataTransfer.dropEffect = 'none';
             }
         }
@@ -1048,7 +1038,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     onColumnDrop(event, dropColumn) {
         event.preventDefault();
         if (this.draggedColumn) {
-            let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'ttreorderablecolumn');
+            const dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'ttreorderablecolumn');
             let dropIndex = DomHandler.indexWithinGroup(dropColumn, 'ttreorderablecolumn');
             let allowDrop = (dragIndex != dropIndex);
             if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
@@ -1067,8 +1057,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 ObjectUtils.reorderArray(this.columns, dragIndex, dropIndex);
 
                 this.onColReorder.emit({
-                    dragIndex: dragIndex,
-                    dropIndex: dropIndex,
+                    dragIndex,
+                    dropIndex,
                     columns: this.columns
                 });
             }
@@ -1082,30 +1072,29 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     handleRowClick(event) {
-        let targetNode = (<HTMLElement> event.originalEvent.target).nodeName;
+        const targetNode = (event.originalEvent.target as HTMLElement).nodeName;
         if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (DomHandler.hasClass(event.originalEvent.target, 'p-clickable'))) {
             return;
         }
 
         if (this.selectionMode) {
             this.preventSelectionSetterPropagation = true;
-            let rowNode = event.rowNode;
-            let selected = this.isSelected(rowNode.node);
-            let metaSelection = this.rowTouched ? false : this.metaKeySelection;
-            let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowNode.node.data, this.dataKey)) : null;
+            const rowNode = event.rowNode;
+            const selected = this.isSelected(rowNode.node);
+            const metaSelection = this.rowTouched ? false : this.metaKeySelection;
+            const dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowNode.node.data, this.dataKey)) : null;
 
             if (metaSelection) {
-                let metaKey = event.originalEvent.metaKey||event.originalEvent.ctrlKey;
+                const metaKey = event.originalEvent.metaKey || event.originalEvent.ctrlKey;
 
                 if (selected && metaKey) {
                     if (this.isSingleSelectionMode()) {
                         this._selection = null;
                         this.selectionKeys = {};
                         this.selectionChange.emit(null);
-                    }
-                    else {
-                        let selectionIndex = this.findIndexInSelection(rowNode.node);
-                        this._selection = this.selection.filter((val,i) => i != selectionIndex);
+                    } else {
+                        const selectionIndex = this.findIndexInSelection(rowNode.node);
+                        this._selection = this.selection.filter((val, i) => i != selectionIndex);
                         this.selectionChange.emit(this.selection);
                         if (dataKeyValue) {
                             delete this.selectionKeys[dataKeyValue];
@@ -1113,8 +1102,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     }
 
                     this.onNodeUnselect.emit({originalEvent: event.originalEvent, node: rowNode.node, type: 'row'});
-                }
-                else {
+                } else {
                     if (this.isSingleSelectionMode()) {
                         this._selection = rowNode.node;
                         this.selectionChange.emit(rowNode.node);
@@ -1122,12 +1110,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             this.selectionKeys = {};
                             this.selectionKeys[dataKeyValue] = 1;
                         }
-                    }
-                    else if (this.isMultipleSelectionMode()) {
+                    } else if (this.isMultipleSelectionMode()) {
                         if (metaKey) {
-                            this._selection = this.selection||[];
-                        }
-                        else {
+                            this._selection = this.selection || [];
+                        } else {
                             this._selection = [];
                             this.selectionKeys = {};
                         }
@@ -1141,16 +1127,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
                     this.onNodeSelect.emit({originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex});
                 }
-            }
-            else {
+            } else {
                 if (this.selectionMode === 'single') {
                     if (selected) {
                         this._selection = null;
                         this.selectionKeys = {};
                         this.selectionChange.emit(this.selection);
                         this.onNodeUnselect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row' });
-                    }
-                    else {
+                    } else {
                         this._selection = rowNode.node;
                         this.selectionChange.emit(this.selection);
                         this.onNodeSelect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex });
@@ -1159,18 +1143,16 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             this.selectionKeys[dataKeyValue] = 1;
                         }
                     }
-                }
-                else if (this.selectionMode === 'multiple') {
+                } else if (this.selectionMode === 'multiple') {
                     if (selected) {
-                        let selectionIndex = this.findIndexInSelection(rowNode.node);
+                        const selectionIndex = this.findIndexInSelection(rowNode.node);
                         this._selection = this.selection.filter((val, i) => i != selectionIndex);
                         this.selectionChange.emit(this.selection);
                         this.onNodeUnselect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row' });
                         if (dataKeyValue) {
                             delete this.selectionKeys[dataKeyValue];
                         }
-                    }
-                    else {
+                    } else {
                         this._selection = this.selection ? [...this.selection, rowNode.node] : [rowNode.node];
                         this.selectionChange.emit(this.selection);
                         this.onNodeSelect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex });
@@ -1198,21 +1180,19 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = node;
                 this.contextMenuSelectionChange.emit(node);
-                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node: node});
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node});
                 this.contextMenu.show(event.originalEvent);
                 this.tableService.onContextMenu(node);
-            }
-            else if (this.contextMenuSelectionMode === 'joint') {
+            } else if (this.contextMenuSelectionMode === 'joint') {
                 this.preventSelectionSetterPropagation = true;
-                let selected = this.isSelected(node);
-                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+                const selected = this.isSelected(node);
+                const dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
 
                 if (!selected) {
                     if (this.isSingleSelectionMode()) {
                         this.selection = node;
                         this.selectionChange.emit(node);
-                    }
-                    else if (this.isMultipleSelectionMode()) {
+                    } else if (this.isMultipleSelectionMode()) {
                         this.selection = [node];
                         this.selectionChange.emit(this.selection);
                     }
@@ -1223,16 +1203,16 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 }
 
                 this.contextMenu.show(event.originalEvent);
-                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node: node});
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node});
             }
         }
     }
 
     toggleNodeWithCheckbox(event) {
-        this.selection = this.selection||[];
+        this.selection = this.selection || [];
         this.preventSelectionSetterPropagation = true;
-        let node = event.rowNode.node;
-        let selected = this.isSelected(node);
+        const node = event.rowNode.node;
+        const selected = this.isSelected(node);
 
         if (selected) {
             this.propagateSelectionDown(node, false);
@@ -1240,31 +1220,29 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 this.propagateSelectionUp(node.parent, false);
             }
             this.selectionChange.emit(this.selection);
-            this.onNodeUnselect.emit({originalEvent: event, node: node});
-        }
-        else {
+            this.onNodeUnselect.emit({originalEvent: event, node});
+        } else {
             this.propagateSelectionDown(node, true);
             if (event.rowNode.parent) {
                 this.propagateSelectionUp(node.parent, true);
             }
             this.selectionChange.emit(this.selection);
-            this.onNodeSelect.emit({originalEvent: event, node: node});
+            this.onNodeSelect.emit({originalEvent: event, node});
         }
 
         this.tableService.onSelectionChange();
     }
 
     toggleNodesWithCheckbox(event: Event, check: boolean) {
-        let data = this.filteredNodes || this.value;
+        const data = this.filteredNodes || this.value;
         this._selection = check && data ? data.slice() : [];
         if (check) {
             if (data && data.length) {
-                for (let node of data) {
+                for (const node of data) {
                     this.propagateSelectionDown(node, true);
                 }
             }
-        }
-        else {
+        } else {
             this._selection = [];
             this.selectionKeys = {};
         }
@@ -1277,29 +1255,29 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     propagateSelectionUp(node: TreeNode, select: boolean) {
         if (node.children && node.children.length) {
-            let selectedChildCount: number = 0;
-            let childPartialSelected: boolean = false;
-            let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+            let selectedChildCount = 0;
+            let childPartialSelected = false;
+            const dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
 
-            for (let child of node.children) {
-                if (this.isSelected(child))
+            for (const child of node.children) {
+                if (this.isSelected(child)) {
                 selectedChildCount++;
-                else if (child.partialSelected)
+                } else if (child.partialSelected) {
                     childPartialSelected = true;
+ }
             }
 
             if (select && selectedChildCount == node.children.length) {
-                this._selection =  [...this.selection||[], node];
+                this._selection =  [...this.selection || [], node];
                 node.partialSelected = false;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
                 }
-            }
-            else {
+            } else {
                 if (!select) {
-                    let index = this.findIndexInSelection(node);
+                    const index = this.findIndexInSelection(node);
                     if (index >= 0) {
-                        this._selection =  this.selection.filter((val,i) => i!=index);
+                        this._selection =  this.selection.filter((val, i) => i != index);
 
                         if (dataKeyValue) {
                             delete this.selectionKeys[dataKeyValue];
@@ -1307,31 +1285,31 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     }
                 }
 
-                if (childPartialSelected || selectedChildCount > 0 && selectedChildCount != node.children.length)
+                if (childPartialSelected || selectedChildCount > 0 && selectedChildCount != node.children.length) {
                     node.partialSelected = true;
-                else
+                } else {
                     node.partialSelected = false;
+                }
             }
         }
 
-        let parent = node.parent;
+        const parent = node.parent;
         if (parent) {
             this.propagateSelectionUp(parent, select);
         }
     }
 
     propagateSelectionDown(node: TreeNode, select: boolean) {
-        let index = this.findIndexInSelection(node);
-        let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+        const index = this.findIndexInSelection(node);
+        const dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
 
         if (select && index == -1) {
-            this._selection =  [...this.selection||[],node]
+            this._selection =  [...this.selection || [], node];
             if (dataKeyValue) {
                 this.selectionKeys[dataKeyValue] = 1;
             }
-        }
-        else if (!select && index > -1) {
-            this._selection =  this.selection.filter((val,i) => i!=index);
+        } else if (!select && index > -1) {
+            this._selection =  this.selection.filter((val, i) => i != index);
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
@@ -1340,7 +1318,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         node.partialSelected = false;
 
         if (node.children && node.children.length) {
-            for (let child of node.children) {
+            for (const child of node.children) {
                 this.propagateSelectionDown(child, select);
             }
         }
@@ -1350,12 +1328,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (node && this.selection) {
             if (this.dataKey) {
                 return this.selectionKeys[ObjectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
-            }
-            else {
-                if (this.selection instanceof Array)
+            } else {
+                if (this.selection instanceof Array) {
                     return this.findIndexInSelection(node) > -1;
-                else
+                } else {
                     return this.equals(node, this.selection);
+                }
             }
         }
 
@@ -1363,7 +1341,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     findIndexInSelection(node: any) {
-        let index: number = -1;
+        let index = -1;
         if (this.selection && this.selection.length) {
             for (let i = 0; i < this.selection.length; i++) {
                 if (this.equals(node, this.selection[i])) {
@@ -1394,7 +1372,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
 
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode };
+            this.filters[field] = { value, matchMode };
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -1411,10 +1389,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0)) {
                 return true;
-            else
+            } else {
                 return false;
+            }
         }
         return true;
     }
@@ -1422,8 +1401,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     _filter() {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else {
+        } else {
             if (!this.value) {
                 return;
             }
@@ -1433,33 +1411,33 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 if (this.paginator) {
                     this.totalRecords = this.value ? this.value.length : 0;
                 }
-            }
-            else {
+            } else {
                 let globalFilterFieldsArray;
-                if (this.filters['global']) {
-                    if (!this.columns && !this.globalFilterFields)
+                if (this.filters.global) {
+                    if (!this.columns && !this.globalFilterFields) {
                         throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
-                    else
-                        globalFilterFieldsArray = this.globalFilterFields||this.columns;
+                    } else {
+                        globalFilterFieldsArray = this.globalFilterFields || this.columns;
+                    }
                 }
 
                 this.filteredNodes = [];
                 const isStrictMode = this.filterMode === 'strict';
                 let isValueChanged = false;
 
-                for (let node of this.value) {
+                for (const node of this.value) {
                     let copyNode = {...node};
                     let localMatch = true;
                     let globalMatch = false;
                     let paramsWithoutNode;
 
-                    for (let prop in this.filters) {
+                    for (const prop in this.filters) {
                         if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
-                            let filterMeta = this.filters[prop];
-                            let filterField = prop;
-                            let filterValue = filterMeta.value;
-                            let filterMatchMode = filterMeta.matchMode || 'startsWith';
-                            let filterConstraint = FilterUtils[filterMatchMode];
+                            const filterMeta = this.filters[prop];
+                            const filterField = prop;
+                            const filterValue = filterMeta.value;
+                            const filterMatchMode = filterMeta.matchMode || 'startsWith';
+                            const filterConstraint = FilterUtils[filterMatchMode];
                             paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
                             if ((isStrictMode && !(this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
                                 (!isStrictMode && !(this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
@@ -1472,12 +1450,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         }
                     }
 
-                    if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
-                        for(let j = 0; j < globalFilterFieldsArray.length; j++) {
-                            let copyNodeForGlobal = {...copyNode};
-                            let filterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            let filterValue = this.filters['global'].value;
-                            let filterConstraint = FilterUtils[this.filters['global'].matchMode];
+                    if (this.filters.global && !globalMatch && globalFilterFieldsArray) {
+                        for (let j = 0; j < globalFilterFieldsArray.length; j++) {
+                            const copyNodeForGlobal = {...copyNode};
+                            const filterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
+                            const filterValue = this.filters.global.value;
+                            const filterConstraint = FilterUtils[this.filters.global.matchMode];
                             paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
 
                             if ((isStrictMode && (this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode) || this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode))) ||
@@ -1489,7 +1467,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     }
 
                     let matches = localMatch;
-                    if (this.filters['global']) {
+                    if (this.filters.global) {
                         matches = localMatch && globalMatch;
                     }
 
@@ -1497,7 +1475,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         this.filteredNodes.push(copyNode);
                     }
 
-                    isValueChanged = isValueChanged || !localMatch || globalMatch || (localMatch && this.filteredNodes.length > 0) || (!globalMatch && this.filteredNodes.length === 0)
+                    isValueChanged = isValueChanged || !localMatch || globalMatch || (localMatch && this.filteredNodes.length > 0) || (!globalMatch && this.filteredNodes.length === 0);
                 }
 
                 if (!isValueChanged) {
@@ -1516,7 +1494,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
         this.onFilter.emit({
             filters: this.filters,
-            filteredValue: filteredValue
+            filteredValue
         });
 
         this.tableService.onUIUpdate(filteredValue);
@@ -1531,10 +1509,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (node) {
             let matched = false;
             if (node.children) {
-                let childNodes = [...node.children];
+                const childNodes = [...node.children];
                 node.children = [];
-                for (let childNode of childNodes) {
-                    let copyChildNode = {...childNode};
+                for (const childNode of childNodes) {
+                    const copyChildNode = {...childNode};
                     if (this.isFilterMatched(copyChildNode, paramsWithoutNode)) {
                         matched = true;
                         node.children.push(copyChildNode);
@@ -1550,7 +1528,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     isFilterMatched(node, {filterField, filterValue, filterConstraint, isStrictMode}) {
         let matched = false;
-        let dataFieldValue = ObjectUtils.resolveFieldData(node.data, filterField);
+        const dataFieldValue = ObjectUtils.resolveFieldData(node.data, filterField);
         if (filterConstraint(dataFieldValue, filterValue, this.filterLocale)) {
             matched = true;
         }
@@ -1568,7 +1546,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     hasFilter() {
         let empty = true;
-        for (let prop in this.filters) {
+        for (const prop in this.filters) {
             if (this.filters.hasOwnProperty(prop)) {
                 empty = false;
                 break;
@@ -1591,8 +1569,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else {
+        } else {
             this.totalRecords = (this._value ? this._value.length : 0);
         }
     }
@@ -1662,9 +1639,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 })
 export class TTBody {
 
-    @Input("pTreeTableBody") columns: any[];
+    @Input('pTreeTableBody') columns: any[];
 
-    @Input("pTreeTableBodyTemplate") template: TemplateRef<any>;
+    @Input('pTreeTableBodyTemplate') template: TemplateRef<any>;
 
     @Input() frozen: boolean;
 
@@ -1708,7 +1685,7 @@ export class TTBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="tt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
+            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="tt.scrollHeight !== 'flex' ? scrollHeight : undefined"
                     [minBufferPx]="tt.minBufferPx" [maxBufferPx]="tt.maxBufferPx" class="p-treetable-virtual-scrollable-body">
                 <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -1732,7 +1709,7 @@ export class TTBody {
 })
 export class TTScrollableView implements AfterViewInit, OnDestroy {
 
-    @Input("ttScrollableView") columns: any[];
+    @Input('ttScrollableView') columns: any[];
 
     @Input() frozen: boolean;
 
@@ -1774,7 +1751,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     set scrollHeight(val: string) {
         this._scrollHeight = val;
         if (val != null && (val.includes('%') || val.includes('calc'))) {
-            console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.')
+            console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.');
         }
     }
 
@@ -1786,22 +1763,22 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
                 DomHandler.addClass(this.el.nativeElement, 'p-treetable-unfrozen-view');
             }
 
-            let frozenView = this.el.nativeElement.previousElementSibling;
+            const frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
-                if (this.tt.virtualScroll)
+                if (this.tt.virtualScroll) {
                     this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-treetable-virtual-scrollable-body');
-                else
+                } else {
                     this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-treetable-scrollable-body');
+                }
             }
 
-            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
+            const scrollBarWidth = DomHandler.calculateScrollbarWidth();
             this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
 
             if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
                 this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
             }
-        }
-        else {
+        } else {
             if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
                 this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
             }
@@ -1825,10 +1802,11 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
             if (!this.frozen) {
                 this.bodyScrollListener = this.onBodyScroll.bind(this);
 
-                if (this.tt.virtualScroll)
+                if (this.tt.virtualScroll) {
                     this.virtualScrollBody.getElementRef().nativeElement.addEventListener('scroll', this.bodyScrollListener);
-                else
+                } else {
                     this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+                }
             }
         });
     }
@@ -1902,12 +1880,10 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     scrollTo(options): void {
         if (this.virtualScrollBody) {
             this.virtualScrollBody.scrollTo(options);
-        }
-        else {
+        } else {
             if (this.scrollBodyViewChild.nativeElement.scrollTo) {
                 this.scrollBodyViewChild.nativeElement.scrollTo(options);
-            }
-            else {
+            } else {
                 this.scrollBodyViewChild.nativeElement.scrollLeft = options.left;
                 this.scrollBodyViewChild.nativeElement.scrollTop = options.top;
             }
@@ -1932,7 +1908,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 })
 export class TTSortableColumn implements OnInit, OnDestroy {
 
-    @Input("ttSortableColumn") field: string;
+    @Input('ttSortableColumn') field: string;
 
     @Input() ttSortableColumnDisabled: boolean;
 
@@ -2018,17 +1994,16 @@ export class TTSortIcon implements OnInit, OnDestroy {
         this.updateSortState();
     }
 
-    onClick(event){
+    onClick(event) {
         event.preventDefault();
     }
 
     updateSortState() {
         if (this.tt.sortMode === 'single') {
             this.sortOrder = this.tt.isSorted(this.field) ? this.tt.sortOrder : 0;
-        }
-        else if (this.tt.sortMode === 'multiple') {
-            let sortMeta = this.tt.getSortMeta(this.field);
-            this.sortOrder = sortMeta ? sortMeta.order: 0;
+        } else if (this.tt.sortMode === 'multiple') {
+            const sortMeta = this.tt.getSortMeta(this.field);
+            this.sortOrder = sortMeta ? sortMeta.order : 0;
         }
     }
 
@@ -2191,10 +2166,11 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     onMouseDown(event) {
-        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'p-column-resizer'))
+        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'p-column-resizer')) {
             this.el.nativeElement.draggable = false;
-        else
+        } else {
             this.el.nativeElement.draggable = true;
+        }
     }
 
     onDragStart(event) {
@@ -2238,7 +2214,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 })
 export class TTSelectableRow implements OnInit, OnDestroy {
 
-    @Input("ttSelectableRow") rowNode: any;
+    @Input('ttSelectableRow') rowNode: any;
 
     @Input() ttSelectableRowDisabled: boolean;
 
@@ -2304,7 +2280,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 })
 export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 
-    @Input("ttSelectableRowDblClick") rowNode: any;
+    @Input('ttSelectableRowDblClick') rowNode: any;
 
     @Input() ttSelectableRowDisabled: boolean;
 
@@ -2357,7 +2333,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 })
 export class TTContextMenuRow {
 
-    @Input("ttContextMenuRow") rowNode: any;
+    @Input('ttContextMenuRow') rowNode: any;
 
     @Input() ttContextMenuRowDisabled: boolean;
 
@@ -2419,7 +2395,7 @@ export class TTCheckbox  {
 
     @Input() disabled: boolean;
 
-    @Input("value") rowNode: any;
+    @Input('value') rowNode: any;
 
     @ViewChild('box') boxViewChild: ElementRef;
 
@@ -2535,20 +2511,18 @@ export class TTHeaderCheckbox  {
     updateCheckedState() {
         this.cd.markForCheck();
         let checked: boolean;
-        const data = this.tt.filteredNodes||this.tt.value;
+        const data = this.tt.filteredNodes || this.tt.value;
 
         if (data) {
-            for (let node of data) {
+            for (const node of data) {
                 if (this.tt.isSelected(node)) {
                     checked = true;
-                }
-                else  {
+                } else  {
                     checked = false;
                     break;
                 }
             }
-        }
-        else {
+        } else {
             checked = false;
         }
 
@@ -2562,9 +2536,9 @@ export class TTHeaderCheckbox  {
 })
 export class TTEditableColumn implements AfterViewInit {
 
-    @Input("ttEditableColumn") data: any;
+    @Input('ttEditableColumn') data: any;
 
-    @Input("ttEditableColumnField") field: any;
+    @Input('ttEditableColumnField') field: any;
 
     @Input() ttEditableColumnDisabled: boolean;
 
@@ -2590,8 +2564,7 @@ export class TTEditableColumn implements AfterViewInit {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.openCell();
                 }
-            }
-            else {
+            } else {
                 this.openCell();
             }
         }
@@ -2604,7 +2577,7 @@ export class TTEditableColumn implements AfterViewInit {
         this.tt.editingCellClick = true;
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                let focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea');
+                const focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea');
                 if (focusable) {
                     focusable.focus();
                 }
@@ -2621,7 +2594,7 @@ export class TTEditableColumn implements AfterViewInit {
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
-            //enter
+            // enter
             if (event.keyCode == 13) {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
@@ -2630,10 +2603,7 @@ export class TTEditableColumn implements AfterViewInit {
                 }
 
                 event.preventDefault();
-            }
-
-            //escape
-            else if (event.keyCode == 27) {
+            } else if (event.keyCode == 27) {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
@@ -2641,16 +2611,14 @@ export class TTEditableColumn implements AfterViewInit {
                 }
 
                 event.preventDefault();
-            }
-
-            //tab
-            else if (event.keyCode == 9) {
+            } else if (event.keyCode == 9) {
                 this.tt.onEditComplete.emit({ field: this.field, data: this.data });
 
-                if (event.shiftKey)
+                if (event.shiftKey) {
                     this.moveToPreviousCell(event);
-                else
+                } else {
                     this.moveToNextCell(event);
+                }
             }
         }
     }
@@ -2663,16 +2631,15 @@ export class TTEditableColumn implements AfterViewInit {
             }
 
             return cell;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     moveToPreviousCell(event: KeyboardEvent) {
-        let currentCell = this.findCell(event.target);
-        let row = currentCell.parentElement;
-        let targetCell = this.findPreviousEditableColumn(currentCell);
+        const currentCell = this.findCell(event.target);
+        const row = currentCell.parentElement;
+        const targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {
             DomHandler.invokeElementMethod(targetCell, 'click');
@@ -2681,9 +2648,9 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     moveToNextCell(event: KeyboardEvent) {
-        let currentCell = this.findCell(event.target);
-        let row = currentCell.parentElement;
-        let targetCell = this.findNextEditableColumn(currentCell);
+        const currentCell = this.findCell(event.target);
+        const row = currentCell.parentElement;
+        const targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {
             DomHandler.invokeElementMethod(targetCell, 'click');
@@ -2695,19 +2662,19 @@ export class TTEditableColumn implements AfterViewInit {
         let prevCell = cell.previousElementSibling;
 
         if (!prevCell) {
-            let previousRow = cell.parentElement ? cell.parentElement.previousElementSibling : null;
+            const previousRow = cell.parentElement ? cell.parentElement.previousElementSibling : null;
             if (previousRow) {
                 prevCell = previousRow.lastElementChild;
             }
         }
 
         if (prevCell) {
-            if (DomHandler.hasClass(prevCell, 'p-editable-column'))
+            if (DomHandler.hasClass(prevCell, 'p-editable-column')) {
                 return prevCell;
-            else
+            } else {
                 return this.findPreviousEditableColumn(prevCell);
-        }
-        else {
+            }
+        } else {
             return null;
         }
     }
@@ -2716,19 +2683,19 @@ export class TTEditableColumn implements AfterViewInit {
         let nextCell = cell.nextElementSibling;
 
         if (!nextCell) {
-            let nextRow = cell.parentElement ? cell.parentElement.nextElementSibling : null;
+            const nextRow = cell.parentElement ? cell.parentElement.nextElementSibling : null;
             if (nextRow) {
                 nextCell = nextRow.firstElementChild;
             }
         }
 
         if (nextCell) {
-            if (DomHandler.hasClass(nextCell, 'p-editable-column'))
+            if (DomHandler.hasClass(nextCell, 'p-editable-column')) {
                 return nextCell;
-            else
+            } else {
                 return this.findNextEditableColumn(nextCell);
-        }
-        else {
+            }
+        } else {
             return null;
         }
     }
@@ -2791,27 +2758,27 @@ export class TTRow {
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         switch (event.which) {
-            //down arrow
+            // down arrow
             case 40:
-                let nextRow = this.el.nativeElement.nextElementSibling;
+                const nextRow = this.el.nativeElement.nextElementSibling;
                 if (nextRow) {
                     nextRow.focus();
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
-            //down arrow
+            // down arrow
             case 38:
-                let prevRow = this.el.nativeElement.previousElementSibling;
+                const prevRow = this.el.nativeElement.previousElementSibling;
                 if (prevRow) {
                     prevRow.focus();
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
-            //left arrow
+            // left arrow
             case 37:
                 if (this.rowNode.node.expanded) {
                     this.tt.toggleRowIndex = DomHandler.index(this.el.nativeElement);
@@ -2826,9 +2793,9 @@ export class TTRow {
                     this.tt.tableService.onUIUpdate(this.tt.value);
                     this.restoreFocus();
                 }
-            break;
+                break;
 
-            //right arrow
+            // right arrow
             case 39:
                 if (!this.rowNode.node.expanded) {
                     this.tt.toggleRowIndex = DomHandler.index(this.el.nativeElement);
@@ -2843,14 +2810,14 @@ export class TTRow {
                     this.tt.tableService.onUIUpdate(this.tt.value);
                     this.restoreFocus();
                 }
-            break;
+                break;
         }
     }
 
     restoreFocus() {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                let row = DomHandler.findSingle(this.tt.containerViewChild.nativeElement, '.p-treetable-tbody').children[this.tt.toggleRowIndex];
+                const row = DomHandler.findSingle(this.tt.containerViewChild.nativeElement, '.p-treetable-tbody').children[this.tt.toggleRowIndex];
                 if (row) {
                     row.focus();
                 }
@@ -2883,8 +2850,7 @@ export class TreeTableToggler {
                 originalEvent: event,
                 node: this.rowNode.node
             });
-        }
-        else {
+        } else {
             this.tt.onNodeCollapse.emit({
                 originalEvent: event,
                 node: this.rowNode.node
@@ -2899,8 +2865,8 @@ export class TreeTableToggler {
 }
 
 @NgModule({
-    imports: [CommonModule,PaginatorModule,ScrollingModule,RippleModule],
-    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor,ScrollingModule],
-    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
+    imports: [CommonModule, PaginatorModule, ScrollingModule, RippleModule],
+    exports: [TreeTable, SharedModule, TreeTableToggler, TTSortableColumn, TTSortIcon, TTResizableColumn, TTRow, TTReorderableColumn, TTSelectableRow, TTSelectableRowDblClick, TTContextMenuRow, TTCheckbox, TTHeaderCheckbox, TTEditableColumn, TreeTableCellEditor, ScrollingModule],
+    declarations: [TreeTable, TreeTableToggler, TTScrollableView, TTBody, TTSortableColumn, TTSortIcon, TTResizableColumn, TTRow, TTReorderableColumn, TTSelectableRow, TTSelectableRowDblClick, TTContextMenuRow, TTCheckbox, TTHeaderCheckbox, TTEditableColumn, TreeTableCellEditor]
 })
 export class TreeTableModule { }

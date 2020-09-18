@@ -11,7 +11,7 @@ export class PolarAreaChartDemo {
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -29,22 +29,22 @@ export class PolarAreaChartDemo {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    '#FF6384',
+                    '#4BC0C0',
+                    '#FFCE56',
+                    '#E7E9ED',
+                    '#36A2EB'
                 ],
                 label: 'My dataset'
             }],
             labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+                'Red',
+                'Green',
+                'Yellow',
+                'Grey',
+                'Blue'
             ]
-        }
+        };
 
         this.config = this.configService.config;
         this.updateChartOptions();
@@ -70,7 +70,7 @@ export class PolarAreaChartDemo {
                     color: '#ebedef'
                 }
             }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -85,6 +85,6 @@ export class PolarAreaChartDemo {
                     color: 'rgba(255,255,255,0.2)'
                 }
             }
-        }
+        };
     }
 }

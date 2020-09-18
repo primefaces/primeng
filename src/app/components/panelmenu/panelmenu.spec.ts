@@ -33,13 +33,13 @@ describe('PanelMenu', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		panelmenu.style = { 'height': '300px' };
-		panelmenu.styleClass = "Primeng ROCKS!";
+		panelmenu.style = { height: '300px' };
+		panelmenu.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const panelMenuEl = fixture.debugElement.query(By.css('.p-panelmenu'));
-		expect(panelMenuEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(panelMenuEl.nativeElement.style.height).toContain("300px");
+		expect(panelMenuEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(panelMenuEl.nativeElement.style.height).toContain('300px');
 	});
 
 	it('should change item visible ', () => {
@@ -65,7 +65,7 @@ describe('PanelMenu', () => {
 		fixture.detectChanges();
 
 		const panelEl = fixture.debugElement.query(By.css('.p-panelmenu-panel'));
-		expect(panelEl.nativeElement.className).toContain("p-hidden");
+		expect(panelEl.nativeElement.className).toContain('p-hidden');
 	});
 
 	it('should change item style styleClass and disable ', () => {
@@ -85,17 +85,17 @@ describe('PanelMenu', () => {
 				{ separator: true },
 				{ label: 'Quit', icon: 'pi pi-fw pi-times' }
 				],
-				style: { 'height': '300px' },
-				styleClass: "Primeng ROCKS!",
+				style: { height: '300px' },
+				styleClass: 'Primeng ROCKS!',
 				disabled: true
 			}
 		];
 		fixture.detectChanges();
 
 		const panelHeaderEl = fixture.debugElement.query(By.css('.p-panelmenu-header'));
-		expect(panelHeaderEl.nativeElement.className).toContain("p-disabled");
-		expect(panelHeaderEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(panelHeaderEl.nativeElement.style.height).toContain("300px");
+		expect(panelHeaderEl.nativeElement.className).toContain('p-disabled');
+		expect(panelHeaderEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(panelHeaderEl.nativeElement.style.height).toContain('300px');
 	});
 
 	it('should change item url target item and title', () => {
@@ -115,9 +115,9 @@ describe('PanelMenu', () => {
 				{ separator: true },
 				{ label: 'Quit', icon: 'pi pi-fw pi-times' }
 				],
-				title: "primeng",
-				target: "primeng",
-				url: "primeng",
+				title: 'primeng',
+				target: 'primeng',
+				url: 'primeng',
 			}
 		];
 		fixture.detectChanges();
@@ -126,7 +126,7 @@ describe('PanelMenu', () => {
 		expect(panelHeaderLinkEl.nativeElement.href).toContain('primeng');
 		expect(panelHeaderLinkEl.nativeElement.title).toEqual('primeng');
 		expect(panelHeaderLinkEl.nativeElement.target).toEqual('primeng');
-		expect(panelHeaderLinkEl.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain("Primeng ROCKS!");
+		expect(panelHeaderLinkEl.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain('Primeng ROCKS!');
 	});
 
 	it('should change child visible ', () => {
@@ -148,8 +148,9 @@ describe('PanelMenu', () => {
 		fixture.detectChanges();
 
 		const menuItems = fixture.debugElement.queryAll(By.css('.p-menuitem'));
-		for (let menuItem of menuItems)
-			expect(menuItem.nativeElement.className).toContain("p-hidden");
+		for (const menuItem of menuItems) {
+			expect(menuItem.nativeElement.className).toContain('p-hidden');
+		}
 	});
 
 	it('should change child style and styleClass', () => {
@@ -160,21 +161,21 @@ describe('PanelMenu', () => {
 				items: [{
 					label: 'New',
 					icon: 'pi pi-fw pi-plus',
-					style: { 'height': '300px' },
-					styleClass: "Primeng ROCKS!",
+					style: { height: '300px' },
+					styleClass: 'Primeng ROCKS!',
 				},
-				{ label: 'Open', icon: 'pi pi-fw pi-external-link', style: { 'height': '300px' }, styleClass: "Primeng ROCKS!" },
+				{ label: 'Open', icon: 'pi pi-fw pi-external-link', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' },
 				{ separator: true },
-				{ label: 'Quit', icon: 'pi pi-fw pi-times', style: { 'height': '300px' }, styleClass: "Primeng ROCKS!" }
+				{ label: 'Quit', icon: 'pi pi-fw pi-times', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' }
 				],
 			}
 		];
 		fixture.detectChanges();
 
 		const menuItemLinks = fixture.debugElement.queryAll(By.css('.p-menuitem'));
-		for (let menuItemLink of menuItemLinks) {
-			expect(menuItemLink.nativeElement.className).toContain("Primeng ROCKS!");
-			expect(menuItemLink.nativeElement.style.height).toContain("300px");
+		for (const menuItemLink of menuItemLinks) {
+			expect(menuItemLink.nativeElement.className).toContain('Primeng ROCKS!');
+			expect(menuItemLink.nativeElement.style.height).toContain('300px');
 		}
 	});
 
@@ -186,25 +187,25 @@ describe('PanelMenu', () => {
 				items: [{
 					label: 'New',
 					icon: 'Primeng ROCKS!',
-					title: "primeng",
-					target: "primeng",
-					url: "primeng",
+					title: 'primeng',
+					target: 'primeng',
+					url: 'primeng',
 					disabled: true
 				},
 				{
 					label: 'Open',
 					icon: 'Primeng ROCKS!',
-					title: "primeng",
-					target: "primeng",
-					url: "primeng",
+					title: 'primeng',
+					target: 'primeng',
+					url: 'primeng',
 					disabled: true
 				},
 				{
 					label: 'Quit',
 					icon: 'Primeng ROCKS!',
-					title: "primeng",
-					target: "primeng",
-					url: "primeng",
+					title: 'primeng',
+					target: 'primeng',
+					url: 'primeng',
 					disabled: true
 				}
 				],
@@ -216,7 +217,7 @@ describe('PanelMenu', () => {
 		expect(panelHeaderLinkEl.nativeElement.href).toContain('primeng');
 		expect(panelHeaderLinkEl.nativeElement.title).toEqual('primeng');
 		expect(panelHeaderLinkEl.nativeElement.target).toEqual('primeng');
-		expect(panelHeaderLinkEl.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain("Primeng ROCKS!");
+		expect(panelHeaderLinkEl.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain('Primeng ROCKS!');
 	});
 
 	it('should show items and call toggle', () => {
@@ -289,7 +290,7 @@ describe('PanelMenu', () => {
 		const activeEls = fixture.debugElement.queryAll(By.css('.p-highlight'));
 		expect(activeEls.length).toEqual(2);
 		let x = 0;
-		for (let activeEl of activeEls) {
+		for (const activeEl of activeEls) {
 			expect(activeEl.query(By.css('.p-menuitem-text')).nativeElement.textContent).toEqual(panelmenu.model[x].label);
 			x++;
 		}

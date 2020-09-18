@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -29,7 +29,7 @@ export class UIMessage {
 
     @Input() text: string;
 
-    @Input() escape: boolean = true;
+    @Input() escape = true;
 
     @Input() style: any;
 
@@ -39,26 +39,26 @@ export class UIMessage {
         let icon: string = null;
 
         if (this.severity) {
-            switch(this.severity) {
+            switch (this.severity) {
                 case 'success':
                     icon = 'pi pi-check';
-                break;
+                    break;
 
                 case 'info':
                     icon = 'pi pi-info-circle';
-                break;
+                    break;
 
                 case 'error':
                     icon = 'pi pi-times-circle';
-                break;
+                    break;
 
                 case 'warn':
                     icon = 'pi pi-exclamation-triangle';
-                break;
+                    break;
 
                 default:
                     icon = 'pi pi-info-circle';
-                break;
+                    break;
             }
         }
 

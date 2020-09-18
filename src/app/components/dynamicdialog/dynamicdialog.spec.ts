@@ -36,63 +36,63 @@ export class TestDynamicDialogComponent {
         this.dialogService.open(TestComponent, {
             header: 'Demo Header',
             width: '70%',
-            contentStyle: {"max-height": "350px", "overflow": "auto"},
-            dismissableMask:true,
+            contentStyle: {'max-height': '350px', overflow: 'auto'},
+            dismissableMask: true,
             baseZIndex: 0
         });
     }
 }
 @NgModule({
-    imports: [CommonModule,DynamicDialogModule],
+    imports: [CommonModule, DynamicDialogModule],
     declarations: [
         TestComponent,
         TestDynamicDialogComponent
     ],
     entryComponents: [TestComponent],
-    exports:[TestComponent],
-    providers:[DialogService]
+    exports: [TestComponent],
+    providers: [DialogService]
   })
   export class FakeTestDialogModule {}
 
 
 describe('DynamicDialog', () => {
-    
+
     let fixture: ComponentFixture<TestDynamicDialogComponent>;
     let testDynamicDialogComponent: TestDynamicDialogComponent;
-    
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 NoopAnimationsModule,
-                FakeTestDialogModule    
+                FakeTestDialogModule
             ],
             declarations: [
                 Footer,
             ],
-        })
+        });
         fixture = TestBed.createComponent(TestDynamicDialogComponent);
         testDynamicDialogComponent = fixture.debugElement.componentInstance;
     });
 
     it('should open dialog and close dialog', fakeAsync(() => {
         fixture.detectChanges();
-  
+
         testDynamicDialogComponent.show();
         fixture.detectChanges();
-        
+
         tick(300);
-        let dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
+        let dynamicDialogEl = document.getElementsByClassName('p-dialog')[0];
         expect(dynamicDialogEl).toBeTruthy();
-        const titleEl = dynamicDialogEl.getElementsByClassName("p-dialog-title")[0];
-        const testComponentHeader = dynamicDialogEl.getElementsByTagName("h2")[0];
-        expect(titleEl.textContent).toEqual("Demo Header");
-        expect(testComponentHeader.textContent).toEqual(" PrimeNG ROCKS! ");
-        let dynamicDialogTitlebarIconEl = document.querySelector(".p-dialog-header-icon") as HTMLElement;
+        const titleEl = dynamicDialogEl.getElementsByClassName('p-dialog-title')[0];
+        const testComponentHeader = dynamicDialogEl.getElementsByTagName('h2')[0];
+        expect(titleEl.textContent).toEqual('Demo Header');
+        expect(testComponentHeader.textContent).toEqual(' PrimeNG ROCKS! ');
+        const dynamicDialogTitlebarIconEl = document.querySelector('.p-dialog-header-icon') as HTMLElement;
         dynamicDialogTitlebarIconEl.click();
         fixture.detectChanges();
         tick(700);
 
-        dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
+        dynamicDialogEl = document.getElementsByClassName('p-dialog')[0];
         expect(dynamicDialogEl).toBeUndefined();
         testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
         fixture.detectChanges();
@@ -100,17 +100,17 @@ describe('DynamicDialog', () => {
 
     it('should close dialog with esc key', fakeAsync(() => {
         fixture.detectChanges();
-  
+
         testDynamicDialogComponent.show();
         fixture.detectChanges();
-        
+
         tick(300);
-        let dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
+        let dynamicDialogEl = document.getElementsByClassName('p-dialog')[0];
         expect(dynamicDialogEl).toBeTruthy();
-        const titleEl = dynamicDialogEl.getElementsByClassName("p-dialog-title")[0];
-        const testComponentHeader = dynamicDialogEl.getElementsByTagName("h2")[0];
-        expect(titleEl.textContent).toEqual("Demo Header");
-        expect(testComponentHeader.textContent).toEqual(" PrimeNG ROCKS! ");
+        const titleEl = dynamicDialogEl.getElementsByClassName('p-dialog-title')[0];
+        const testComponentHeader = dynamicDialogEl.getElementsByTagName('h2')[0];
+        expect(titleEl.textContent).toEqual('Demo Header');
+        expect(testComponentHeader.textContent).toEqual(' PrimeNG ROCKS! ');
         const escapeEvent: any = document.createEvent('CustomEvent');
         escapeEvent.which = 27;
         escapeEvent.initEvent('keydown');
@@ -119,7 +119,7 @@ describe('DynamicDialog', () => {
         fixture.detectChanges();
         tick(700);
 
-        dynamicDialogEl = document.getElementsByClassName("p-dialog")[0] as HTMLDivElement;
+        dynamicDialogEl = document.getElementsByClassName('p-dialog')[0] as HTMLDivElement;
         expect(dynamicDialogEl).toBeUndefined();
         testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
         fixture.detectChanges();
@@ -127,23 +127,23 @@ describe('DynamicDialog', () => {
 
     it('should close dialog with mask click', fakeAsync(() => {
         fixture.detectChanges();
-  
+
         testDynamicDialogComponent.show();
         fixture.detectChanges();
-        
+
         tick(300);
-        let dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
+        let dynamicDialogEl = document.getElementsByClassName('p-dialog')[0];
         expect(dynamicDialogEl).toBeTruthy();
-        const titleEl = dynamicDialogEl.getElementsByClassName("p-dialog-title")[0];
-        const testComponentHeader = dynamicDialogEl.getElementsByTagName("h2")[0];
-        expect(titleEl.textContent).toEqual("Demo Header");
-        expect(testComponentHeader.textContent).toEqual(" PrimeNG ROCKS! ");
-        let maskEl = document.querySelector(".p-dialog-mask") as HTMLElement;
+        const titleEl = dynamicDialogEl.getElementsByClassName('p-dialog-title')[0];
+        const testComponentHeader = dynamicDialogEl.getElementsByTagName('h2')[0];
+        expect(titleEl.textContent).toEqual('Demo Header');
+        expect(testComponentHeader.textContent).toEqual(' PrimeNG ROCKS! ');
+        const maskEl = document.querySelector('.p-dialog-mask') as HTMLElement;
         maskEl.click();
         fixture.detectChanges();
         tick(700);
 
-        dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
+        dynamicDialogEl = document.getElementsByClassName('p-dialog')[0];
         expect(dynamicDialogEl).toBeUndefined();
         testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
         fixture.detectChanges();

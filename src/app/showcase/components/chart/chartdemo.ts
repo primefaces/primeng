@@ -4,5 +4,5 @@ import {Component} from '@angular/core';
     templateUrl: './chartdemo.html'
 })
 export class ChartDemo {
-    
+
 }

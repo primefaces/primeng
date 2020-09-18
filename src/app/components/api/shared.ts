@@ -1,4 +1,4 @@
-import {NgModule,EventEmitter,Directive,Input,Output,ContentChildren,ContentChild,TemplateRef,AfterContentInit,QueryList} from '@angular/core';
+import {NgModule, EventEmitter, Directive, Input, Output, ContentChildren, ContentChild, TemplateRef, AfterContentInit, QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 
@@ -20,13 +20,13 @@ export class Footer {}
     }
 })
 export class PrimeTemplate {
-    
+
     @Input() type: string;
-    
+
     @Input('pTemplate') name: string;
-    
+
     constructor(public template: TemplateRef<any>) {}
-    
+
     getType(): string {
         return this.name;
     }
@@ -34,7 +34,7 @@ export class PrimeTemplate {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Header,Footer,PrimeTemplate],
-    declarations: [Header,Footer,PrimeTemplate]
+    exports: [Header, Footer, PrimeTemplate],
+    declarations: [Header, Footer, PrimeTemplate]
 })
 export class SharedModule { }

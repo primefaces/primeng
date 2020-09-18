@@ -1,4 +1,4 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
+import {NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple';
@@ -40,13 +40,13 @@ import {PrimeTemplate} from 'primeng/api';
 })
 export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
 
-    @Input() position: string = 'left';
+    @Input() position = 'left';
 
     @Input() fullScreen: boolean;
 
     @Input() appendTo: string;
 
-    @Input() blockScroll: boolean = false;
+    @Input() blockScroll = false;
 
     @Input() style: any;
 
@@ -54,17 +54,17 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     @Input() ariaCloseLabel: string;
 
-    @Input() autoZIndex: boolean = true;
+    @Input() autoZIndex = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input() baseZIndex = 0;
 
-    @Input() modal: boolean = true;
+    @Input() modal = true;
 
-    @Input() dismissible: boolean = true;
+    @Input() dismissible = true;
 
-    @Input() showCloseIcon: boolean = true;
+    @Input() showCloseIcon = true;
 
-    @Input() closeOnEscape: boolean = true;
+    @Input() closeOnEscape = true;
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -74,7 +74,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @Output() visibleChange:EventEmitter<any> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
 
@@ -98,10 +98,11 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
         this.initialized = true;
 
         if (this.appendTo) {
-            if (this.appendTo === 'body')
+            if (this.appendTo === 'body') {
                 document.body.appendChild(this.containerViewChild.nativeElement);
-            else
+            } else {
                 DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            }
         }
 
         if (this.visible) {
@@ -111,14 +112,14 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -127,17 +128,18 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
         return this._visible;
     }
 
-    set visible(val:boolean) {
+    set visible(val: boolean) {
         this._visible = val;
 
         if (this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
-            if (this._visible)
+            if (this._visible) {
                 this.show();
-            else {
-                if (this.preventVisibleChangePropagation)
+            } else {
+                if (this.preventVisibleChangePropagation) {
                     this.preventVisibleChangePropagation = false;
-                else
+                } else {
                     this.hide();
+                }
             }
         }
     }
@@ -181,7 +183,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask');
 
-            if (this.dismissible){
+            if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                     if (this.dismissible) {
                         this.close(event);
@@ -207,17 +209,17 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
         }
     }
 
-    onAnimationStart(event){
-        switch(event.toState) {
+    onAnimationStart(event) {
+        switch (event.toState) {
             case 'visible':
                 if (this.closeOnEscape) {
                     this.bindDocumentEscapeListener();
                 }
-            break;
+                break;
 
             case 'hidden':
                 this.unbindGlobalListeners();
-            break;
+                break;
         }
     }
 
@@ -263,12 +265,12 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
             this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
 
-		this.unbindGlobalListeners();
+		      this.unbindGlobalListeners();
     }
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
+    imports: [CommonModule, RippleModule],
     exports: [Sidebar],
     declarations: [Sidebar]
 })

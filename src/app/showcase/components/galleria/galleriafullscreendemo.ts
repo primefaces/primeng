@@ -4,10 +4,10 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleriafullscreendemo.html'
 })
 export class GalleriaFullscreenDemo implements OnInit {
-    
+
     images: any[];
 
-    responsiveOptions:any[] = [
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5
@@ -22,7 +22,7 @@ export class GalleriaFullscreenDemo implements OnInit {
         }
     ];
 
-    responsiveOptions2:any[] = [
+    responsiveOptions2: any[] = [
         {
             breakpoint: '1500px',
             numVisible: 5
@@ -47,14 +47,14 @@ export class GalleriaFullscreenDemo implements OnInit {
 
     displayCustom: boolean;
 
-    activeIndex: number = 0;
+    activeIndex = 0;
 
     constructor(private photoService: PhotoService) { }
 
     ngOnInit() {
-        this.photoService.getImages().then(images =>{ 
-            this.images = images
-        })
+        this.photoService.getImages().then(images => {
+            this.images = images;
+        });
     }
 
     imageClick(index: number) {

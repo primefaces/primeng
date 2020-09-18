@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {TriStateCheckboxDemo} from './tristatecheckboxdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: TriStateCheckboxDemo}
+			{path: '', component: TriStateCheckboxDemo}
 		])
 	],
 	exports: [

@@ -64,15 +64,15 @@ describe('TabView', () => {
 	it('should change the header', () => {
 		fixture.detectChanges();
 
-		firstTabPanel.header = "Primeng ROCKS!";
-		secondTabPanel.header = "Primeng ROCKS!";
+		firstTabPanel.header = 'Primeng ROCKS!';
+		secondTabPanel.header = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
 		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
 		const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
-		expect(firstTabViewNavEl.textContent).toContain("Primeng ROCKS!");
-		expect(secondTabViewNavEl.textContent).toContain("Primeng ROCKS!");
+		expect(firstTabViewNavEl.textContent).toContain('Primeng ROCKS!');
+		expect(secondTabViewNavEl.textContent).toContain('Primeng ROCKS!');
 	});
 
 	it('should disabled', () => {
@@ -83,7 +83,7 @@ describe('TabView', () => {
 
 		tabview.cd.detectChanges();
 		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-		expect(firstTabViewNavEl.className).toContain("p-disabled");
+		expect(firstTabViewNavEl.className).toContain('p-disabled');
 	});
 
 	it('should closable and element count should be 2', () => {
@@ -94,7 +94,7 @@ describe('TabView', () => {
 
 		tabview.cd.detectChanges();
 		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('.p-tabview-close')).nativeElement;
-		expect(firstTabViewNavEl.className).toContain("p-tabview-close");
+		expect(firstTabViewNavEl.className).toContain('p-tabview-close');
 		firstTabViewNavEl.click();
 		fixture.detectChanges();
 
@@ -107,41 +107,41 @@ describe('TabView', () => {
 	it('should change left and right icon', () => {
 		fixture.detectChanges();
 
-		firstTabPanel.leftIcon = "PrimeNg ROCKS!";
-		firstTabPanel.rightIcon = "ALWAYS BET ON PRIME";
+		firstTabPanel.leftIcon = 'PrimeNg ROCKS!';
+		firstTabPanel.rightIcon = 'ALWAYS BET ON PRIME';
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
 		const firstTabViewLeftIconEl = fixture.debugElement.query(By.css('.p-tabview-left-icon')).nativeElement;
 		const firstTabViewRightIconEl = fixture.debugElement.query(By.css('.p-tabview-right-icon')).nativeElement;
-		expect(firstTabViewLeftIconEl.className).toContain("PrimeNg ROCKS!");
-		expect(firstTabViewRightIconEl.className).toContain("ALWAYS BET ON PRIME");
+		expect(firstTabViewLeftIconEl.className).toContain('PrimeNg ROCKS!');
+		expect(firstTabViewRightIconEl.className).toContain('ALWAYS BET ON PRIME');
 	});
 
 	it('should change headerStyle and headerStyleClass', () => {
 		fixture.detectChanges();
 
-		firstTabPanel.headerStyle = { "height": "300px" };
-		firstTabPanel.headerStyleClass = "Primeng ROCKS!";
+		firstTabPanel.headerStyle = { height: '300px' };
+		firstTabPanel.headerStyleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
 		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-		expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
-		expect(firstTabViewNavEl.style.height).toContain("300px");
+		expect(firstTabViewNavEl.className).toContain('Primeng ROCKS!');
+		expect(firstTabViewNavEl.style.height).toContain('300px');
 	});
 
 	it('should change style and styleClass', () => {
 		fixture.detectChanges();
 
-		tabview.style = { "height": "300px" };
-		tabview.styleClass = "Primeng ROCKS!";
+		tabview.style = { height: '300px' };
+		tabview.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
 		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].nativeElement;
-		expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
-		expect(firstTabViewNavEl.style.height).toContain("300px");
+		expect(firstTabViewNavEl.className).toContain('Primeng ROCKS!');
+		expect(firstTabViewNavEl.style.height).toContain('300px');
 	});
 
 	it('should cache true by default', () => {
@@ -181,6 +181,6 @@ describe('TabView', () => {
 		fixture.detectChanges();
 
 		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
-		expect(thirdTabViewNavEl.textContent).toContain("Godfather III");
+		expect(thirdTabViewNavEl.textContent).toContain('Godfather III');
 	});
 });

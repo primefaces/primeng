@@ -11,7 +11,7 @@ export class BarChartDemo {
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -35,8 +35,8 @@ export class BarChartDemo {
                     data: [28, 48, 40, 19, 86, 27, 90]
                 }
             ]
-        }
-        
+        };
+
         this.config = this.configService.config;
         this.updateChartOptions();
         this.subscription = this.configService.configUpdate$.subscribe(config => {
@@ -68,7 +68,7 @@ export class BarChartDemo {
                     }
                 }]
             }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -96,6 +96,6 @@ export class BarChartDemo {
                     }
                 }]
             }
-        }
+        };
     }
 }

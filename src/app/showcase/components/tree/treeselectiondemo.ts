@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NodeService} from '../../service/nodeservice';
 import {TreeNode} from 'primeng/api';
 import {MessageService} from 'primeng/api';
@@ -20,7 +20,7 @@ export class TreeSelectionDemo implements OnInit {
     selectedFiles1: TreeNode;
 
     selectedFiles2: TreeNode;
-    
+
     constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
     ngOnInit() {
@@ -32,7 +32,7 @@ export class TreeSelectionDemo implements OnInit {
     nodeSelect(event) {
         this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.label});
     }
-    
+
     nodeUnselect(event) {
         this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
     }

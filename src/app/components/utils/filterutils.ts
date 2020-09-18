@@ -3,13 +3,13 @@ import { ObjectUtils } from './objectutils';
 export class FilterUtils {
 
     public static filter(value: any[], fields: any[], filterValue: string, filterMatchMode: string, filterLocale?: string) {
-        let filteredItems: any[] = [];
-        let filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(filterLocale);
+        const filteredItems: any[] = [];
+        const filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(filterLocale);
 
         if (value) {
-            for (let item of value) {
-                for (let field of fields) {
-                    let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(item, field))).toLocaleLowerCase(filterLocale);
+            for (const item of value) {
+                for (const field of fields) {
+                    const fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(item, field))).toLocaleLowerCase(filterLocale);
 
                     if (FilterUtils[filterMatchMode](fieldValue, filterText, filterLocale)) {
                         filteredItems.push(item);
@@ -31,8 +31,8 @@ export class FilterUtils {
             return false;
         }
 
-        let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
-        let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
+        const filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+        const stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
 
         return stringValue.slice(0, filterValue.length) === filterValue;
     }
@@ -46,8 +46,8 @@ export class FilterUtils {
             return false;
         }
 
-        let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
-        let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
+        const filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+        const stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
 
         return stringValue.indexOf(filterValue) !== -1;
     }
@@ -61,8 +61,8 @@ export class FilterUtils {
             return false;
         }
 
-        let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
-        let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
+        const filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+        const stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
 
         return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
     }
@@ -76,10 +76,11 @@ export class FilterUtils {
             return false;
         }
 
-        if (value.getTime && filter.getTime)
+        if (value.getTime && filter.getTime) {
             return value.getTime() === filter.getTime();
-        else
+        } else {
             return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) == ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+        }
     }
 
     public static notEquals(value, filter, filterLocale?): boolean {
@@ -91,10 +92,11 @@ export class FilterUtils {
             return true;
         }
 
-        if (value.getTime && filter.getTime)
+        if (value.getTime && filter.getTime) {
             return value.getTime() !== filter.getTime();
-        else
+        } else {
             return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) != ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+        }
     }
 
     public static in(value, filter: any[], filterLocale?): boolean {
@@ -124,10 +126,11 @@ export class FilterUtils {
             return false;
         }
 
-        if (value.getTime && filter.getTime)
+        if (value.getTime && filter.getTime) {
             return value.getTime() < filter.getTime();
-        else
+        } else {
             return value < filter;
+        }
     }
 
     public static lte(value, filter, filterLocale?): boolean {
@@ -139,10 +142,11 @@ export class FilterUtils {
             return false;
         }
 
-        if (value.getTime && filter.getTime)
+        if (value.getTime && filter.getTime) {
             return value.getTime() <= filter.getTime();
-        else
+        } else {
             return value <= filter;
+        }
     }
 
     public static gt(value, filter, filterLocale?): boolean {
@@ -154,10 +158,11 @@ export class FilterUtils {
             return false;
         }
 
-        if (value.getTime && filter.getTime)
+        if (value.getTime && filter.getTime) {
             return value.getTime() > filter.getTime();
-        else
+        } else {
             return value > filter;
+        }
     }
 
     public static gte(value, filter, filterLocale?): boolean {
@@ -169,9 +174,10 @@ export class FilterUtils {
             return false;
         }
 
-        if (value.getTime && filter.getTime)
+        if (value.getTime && filter.getTime) {
             return value.getTime() >= filter.getTime();
-        else
+        } else {
             return value >= filter;
+        }
     }
 }

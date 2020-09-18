@@ -30,25 +30,25 @@ describe('Chips', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		chips.style = { 'height': '300px' };
-		chips.styleClass = "Primeng ROCKS!";
+		chips.style = { height: '300px' };
+		chips.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const chipsEl = fixture.debugElement.query(By.css('div'));
-		expect(chipsEl.nativeElement.className).toContain("Primeng ROCKS!");
+		expect(chipsEl.nativeElement.className).toContain('Primeng ROCKS!');
 		expect(chipsEl.nativeElement.style.height).toEqual('300px');
 	});
 
 	it('should change inputStyle inputStyleClass inputId placeholder and tabIndex', () => {
-		chips.inputStyle = { 'height': '300px' };
-		chips.inputStyleClass = "Primeng ROCKS!";
-		chips.inputId = "primeng";
+		chips.inputStyle = { height: '300px' };
+		chips.inputStyleClass = 'Primeng ROCKS!';
+		chips.inputId = 'primeng';
 		chips.tabindex = 13;
-		chips.placeholder = "rocks!";
+		chips.placeholder = 'rocks!';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input'));
-		expect(inputEl.nativeElement.className).toContain("Primeng ROCKS!");
+		expect(inputEl.nativeElement.className).toContain('Primeng ROCKS!');
 		expect(inputEl.nativeElement.style.height).toEqual('300px');
 		expect(inputEl.nativeElement.id).toEqual('primeng');
 		expect(inputEl.nativeElement.tabIndex).toEqual(13);
@@ -62,13 +62,13 @@ describe('Chips', () => {
 		const listEl = fixture.debugElement.query(By.css('ul'));
 		const inputEl = fixture.debugElement.query(By.css('input'));
 		const tokenIconEl = fixture.debugElement.query(By.css('.p-chips-token-icon'));
-		expect(listEl.nativeElement.className).toContain("p-disabled");
+		expect(listEl.nativeElement.className).toContain('p-disabled');
 		expect(tokenIconEl).toBeFalsy();
 		expect(inputEl.nativeElement.disabled).toEqual(true);
 	});
 
 	it('should call onInputFocus and onInputBlur', () => {
-		chips.placeholder = "rocks!";
+		chips.placeholder = 'rocks!';
 		fixture.detectChanges();
 
 		chips.cd.detectChanges();
@@ -94,7 +94,7 @@ describe('Chips', () => {
 	});
 
 	it('should add item and change placeholder "rocks!" to null', () => {
-		chips.placeholder = "rocks!";
+		chips.placeholder = 'rocks!';
 		fixture.detectChanges();
 
 		let data;
@@ -103,10 +103,10 @@ describe('Chips', () => {
 		const onKeydownSpy = spyOn(chips, 'onKeydown').and.callThrough();
 		const updateMaxedOutSpy = spyOn(chips, 'updateMaxedOut').and.callThrough();
 		const inputEl = fixture.debugElement.query(By.css('input'));
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
-		let event = { 'which': 13, preventDefault() { } }
+		const event = { which: 13, preventDefault() { } };
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
@@ -116,7 +116,7 @@ describe('Chips', () => {
 		expect(onKeydownSpy).toHaveBeenCalled();
 		expect(updateMaxedOutSpy).toHaveBeenCalled();
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 		expect(inputEl.nativeElement.placeholder).toEqual('');
 	});
 
@@ -124,22 +124,22 @@ describe('Chips', () => {
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input'));
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
-		let event = { 'which': 13, preventDefault() { } }
+		const event = { which: 13, preventDefault() { } };
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
 		expect(chips.value.length).toEqual(2);
-		expect(chips.value[0]).toEqual("primeng");
-		expect(chips.value[1]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
+		expect(chips.value[1]).toEqual('primeng');
 	});
 
 	it('should not add duplicate item', () => {
@@ -147,21 +147,21 @@ describe('Chips', () => {
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input'));
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
-		let event = { 'which': 13, preventDefault() { } }
+		const event = { which: 13, preventDefault() { } };
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 	});
 
 	it('should add item with tab key', () => {
@@ -172,10 +172,10 @@ describe('Chips', () => {
 		const onKeydownSpy = spyOn(chips, 'onKeydown').and.callThrough();
 		const updateMaxedOutSpy = spyOn(chips, 'updateMaxedOut').and.callThrough();
 		const inputEl = fixture.debugElement.query(By.css('input'));
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
-		let event = { 'which': 9, preventDefault() { } }
+		const event = { which: 9, preventDefault() { } };
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
@@ -183,7 +183,7 @@ describe('Chips', () => {
 		expect(onKeydownSpy).toHaveBeenCalled();
 		expect(updateMaxedOutSpy).toHaveBeenCalled();
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 	});
 
 	it('should add item with blur', () => {
@@ -193,7 +193,7 @@ describe('Chips', () => {
 		const addItemSpy = spyOn(chips, 'addItem').and.callThrough();
 		const updateMaxedOutSpy = spyOn(chips, 'updateMaxedOut').and.callThrough();
 		const inputEl = fixture.debugElement.query(By.css('input'));
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
 		inputEl.nativeElement.dispatchEvent(new Event('blur'));
@@ -202,7 +202,7 @@ describe('Chips', () => {
 		expect(addItemSpy).toHaveBeenCalled();
 		expect(updateMaxedOutSpy).toHaveBeenCalled();
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 	});
 
 	it('should change max', () => {
@@ -210,14 +210,14 @@ describe('Chips', () => {
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input'));
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
-		let event = { 'which': 13, preventDefault() { } }
+		const event = { which: 13, preventDefault() { } };
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "primeng";
+		inputEl.nativeElement.value = 'primeng';
 		fixture.detectChanges();
 
 		chips.onKeydown(event as KeyboardEvent);
@@ -228,8 +228,8 @@ describe('Chips', () => {
 		fixture.detectChanges();
 
 		expect(chips.value.length).toEqual(2);
-		expect(chips.value[0]).toEqual("primeng");
-		expect(chips.value[1]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
+		expect(chips.value[1]).toEqual('primeng');
 		expect(inputEl.nativeElement.disabled).toEqual(true);
 		event.which = 8;
 		chips.onKeydown(event as KeyboardEvent);
@@ -240,16 +240,16 @@ describe('Chips', () => {
 	});
 
 	it('should delete item', () => {
-		chips.value = ["primeng"];
+		chips.value = ['primeng'];
 		fixture.detectChanges();
 
 		let data;
 		chips.onRemove.subscribe(value => data = value);
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 		fixture.detectChanges();
 
-		let event = { 'which': 8, preventDefault() { } }
+		const event = { which: 8, preventDefault() { } };
 		chips.onKeydown(event as KeyboardEvent);
 		fixture.detectChanges();
 
@@ -259,13 +259,13 @@ describe('Chips', () => {
 	});
 
 	it('should delete item with icon', () => {
-		chips.value = ["primeng"];
+		chips.value = ['primeng'];
 		fixture.detectChanges();
 
 		let data;
 		chips.onRemove.subscribe(value => data = value);
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 		fixture.detectChanges();
 
 		const tokenIconEl = fixture.debugElement.query(By.css('.p-chips-token-icon'));
@@ -278,11 +278,11 @@ describe('Chips', () => {
 	});
 
 	it('should not delete item', () => {
-		chips.value = ["primeng"];
+		chips.value = ['primeng'];
 		fixture.detectChanges();
 
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 		fixture.detectChanges();
 
 		chips.disabled = true;
@@ -292,32 +292,32 @@ describe('Chips', () => {
 		fixture.detectChanges();
 
 		expect(chips.value.length).toEqual(1);
-		expect(chips.value[0]).toEqual("primeng");
+		expect(chips.value[0]).toEqual('primeng');
 	});
 
 	it('should use field varaible', () => {
-		chips.field = "name";
-		chips.value = [{ 'name': 'primeng' }];
+		chips.field = 'name';
+		chips.value = [{ name: 'primeng' }];
 		fixture.detectChanges();
 
 
 		const labelEl = fixture.debugElement.query(By.css('.p-chips-token-label'));
-		expect(labelEl.nativeElement.textContent).toEqual("primeng")
-		expect(chips.value[0].name).toEqual("primeng");
+		expect(labelEl.nativeElement.textContent).toEqual('primeng');
+		expect(chips.value[0].name).toEqual('primeng');
 	});
 
 	it('should use field varaible (2)', () => {
-		chips.field = "name.primeng";
+		chips.field = 'name.primeng';
 		chips.value = [{
-			'name': {
-				'primeng': 'rocks'
+			name: {
+				primeng: 'rocks'
 			}
 		}];
 		fixture.detectChanges();
 
 
 		const labelEl = fixture.debugElement.query(By.css('.p-chips-token-label'));
-		expect(labelEl.nativeElement.textContent).toEqual("rocks");
-		expect(chips.value[0].name.primeng).toEqual("rocks");
+		expect(labelEl.nativeElement.textContent).toEqual('rocks');
+		expect(chips.value[0].name.primeng).toEqual('rocks');
 	});
 });

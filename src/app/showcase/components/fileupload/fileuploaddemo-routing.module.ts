@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {FileUploadDemo} from './fileuploaddemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: FileUploadDemo}
+			{path: '', component: FileUploadDemo}
 		])
 	],
 	exports: [

@@ -29,22 +29,22 @@ export class TableRowGroupDemo implements OnInit {
 
         if (this.customers) {
             for (let i = 0; i < this.customers.length; i++) {
-                let rowData = this.customers[i];
-                let representativeName = rowData.representative.name;
-                
+                const rowData = this.customers[i];
+                const representativeName = rowData.representative.name;
+
                 if (i == 0) {
                     this.rowGroupMetadata[representativeName] = { index: 0, size: 1 };
-                }
-                else {
-                    let previousRowData = this.customers[i - 1];
-                    let previousRowGroup = previousRowData.representative.name;
-                    if (representativeName === previousRowGroup)
+                } else {
+                    const previousRowData = this.customers[i - 1];
+                    const previousRowGroup = previousRowData.representative.name;
+                    if (representativeName === previousRowGroup) {
                         this.rowGroupMetadata[representativeName].size++;
-                    else
+                    } else {
                         this.rowGroupMetadata[representativeName] = { index: i, size: 1 };
+                    }
                 }
             }
         }
     }
-   
+
 }

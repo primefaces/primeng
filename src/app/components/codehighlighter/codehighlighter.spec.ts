@@ -20,7 +20,7 @@ class TestCodeHighlighterComponent {
 }
 
 describe('CodeHighlighter', () => {
-  
+
     let codehighlighter: CodeHighlighter;
     let fixture: ComponentFixture<TestCodeHighlighterComponent>;
 
@@ -41,7 +41,7 @@ describe('CodeHighlighter', () => {
 
     it('should display by default', () => {
         fixture.detectChanges();
-  
+
         const codeEl = fixture.debugElement.query(By.css('code'));
         expect(codeEl.nativeElement).toBeTruthy();
       });

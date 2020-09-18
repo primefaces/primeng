@@ -10,7 +10,7 @@ export class TableScrollDemo implements OnInit {
     customers: Customer[];
 
     frozenValue: Customer[];
-    
+
     dialogVisible: boolean;
 
     scrollableCols: any[];
@@ -25,34 +25,34 @@ export class TableScrollDemo implements OnInit {
         this.frozenValue = [
             {
                 id: 1255,
-                name: "James McAdams",
+                name: 'James McAdams',
                 country: {
-                    name: "United States",
-                    code: "us"
+                    name: 'United States',
+                    code: 'us'
                 },
-                company: "McAdams Consulting Ltd",
-                date: "2014-02-13",
-                status: "qualified",
+                company: 'McAdams Consulting Ltd',
+                date: '2014-02-13',
+                status: 'qualified',
                 activity: 23,
                 representative: {
-                    name: "Ioni Bowcher",
-                    image: "ionibowcher.png"
+                    name: 'Ioni Bowcher',
+                    image: 'ionibowcher.png'
                 }
             },
             {
                 id: 5135,
-                name: "Geraldine Bisset",
+                name: 'Geraldine Bisset',
                 country: {
-                    name: "France",
-                    code: "fr"
+                    name: 'France',
+                    code: 'fr'
                 },
-                company: "Bisset Group",
-                status: "proposal",
-                date: "2019-05-05",
+                company: 'Bisset Group',
+                status: 'proposal',
+                date: '2019-05-05',
                 activity: 0,
                 representative: {
-                    name: "Amy Elsner",
-                    image: "amyelsner.png"
+                    name: 'Amy Elsner',
+                    image: 'amyelsner.png'
                 }
             }
         ];

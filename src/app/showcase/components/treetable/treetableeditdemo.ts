@@ -6,7 +6,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetableeditdemo.html'
 })
 export class TreeTableEditDemo {
-    
+
     files: TreeNode[];
 
     cols: any[];

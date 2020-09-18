@@ -6,7 +6,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetablecoltoggledemo.html'
 })
 export class TreeTableColToggleDemo {
-    
+
     files: TreeNode[];
 
     cols: any[];

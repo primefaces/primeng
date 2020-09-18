@@ -5,7 +5,7 @@ import {MenuItem} from 'primeng/api';
     templateUrl: './tabmenudemo.html'
 })
 export class TabMenuDemo {
-    
+
     items: MenuItem[];
 
     activeItem: MenuItem;

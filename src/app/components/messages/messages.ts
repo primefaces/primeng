@@ -1,7 +1,7 @@
-import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,AfterContentInit,Optional,ElementRef,ChangeDetectionStrategy,ContentChildren,QueryList,TemplateRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule, Component, OnDestroy, Input, Output, EventEmitter, AfterContentInit, Optional, ElementRef, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Message,PrimeTemplate,MessageService} from 'primeng/api';
+import {trigger, state, style, transition, animate} from '@angular/animations';
+import {Message, PrimeTemplate, MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {RippleModule} from 'primeng/ripple';
 
@@ -10,10 +10,10 @@ import {RippleModule} from 'primeng/ripple';
     template: `
         <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div *ngFor="let msg of value; let i=index" [ngClass]="'p-message p-message-' + msg.severity" role="alert" 
+                <div *ngFor="let msg of value; let i=index" [ngClass]="'p-message p-message-' + msg.severity" role="alert"
                     [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
                     <div class="p-message-wrapper">
-                        <span class="p-message-icon pi" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
+                        <span class="p-message-icon pi" [ngClass]="{'pi-info-circle': msg.severity === 'info',
                             'pi-check': msg.severity === 'success',
                             'pi-exclamation-triangle': msg.severity === 'warn',
                             'pi-times-circle': msg.severity === 'error'}"></span>
@@ -59,23 +59,23 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     @Input() value: Message[];
 
-    @Input() closable: boolean = true;
+    @Input() closable = true;
 
     @Input() style: any;
 
     @Input() styleClass: string;
 
-    @Input() enableService: boolean = true;
+    @Input() enableService = true;
 
     @Input() key: string;
 
-    @Input() escape: boolean = true;
+    @Input() escape = true;
 
     @Input() severity: string;
 
-    @Input() showTransitionOptions: string = '300ms ease-out';
+    @Input() showTransitionOptions = '300ms ease-out';
 
-    @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
+    @Input() hideTransitionOptions = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -91,14 +91,14 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
 
@@ -106,10 +106,9 @@ export class Messages implements AfterContentInit, OnDestroy {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
                 if (messages) {
                     if (messages instanceof Array) {
-                        let filteredMessages = messages.filter(m => this.key === m.key);
+                        const filteredMessages = messages.filter(m => this.key === m.key);
                         this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
-                    }
-                    else if (this.key === messages.key) {
+                    } else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
                     }
 
@@ -122,8 +121,7 @@ export class Messages implements AfterContentInit, OnDestroy {
                     if (this.key === key) {
                         this.value = null;
                     }
-                }
-                else {
+                } else {
                     this.value = null;
                 }
 
@@ -133,7 +131,7 @@ export class Messages implements AfterContentInit, OnDestroy {
     }
 
     hasMessages() {
-        let parentEl = this.el.nativeElement.parentElement;
+        const parentEl = this.el.nativeElement.parentElement;
         if (parentEl && parentEl.offsetParent) {
             return this.contentTemplate != null || this.value && this.value.length > 0;
         }
@@ -154,26 +152,26 @@ export class Messages implements AfterContentInit, OnDestroy {
         const severity = this.severity || (this.hasMessages() ? this.value[0].severity : null);
 
         if (this.hasMessages()) {
-            switch(severity) {
+            switch (severity) {
                 case 'success':
                     return 'pi-check';
-                break;
+                    break;
 
                 case 'info':
                     return 'pi-info-circle';
-                break;
+                    break;
 
                 case 'error':
                     return 'pi-times';
-                break;
+                    break;
 
                 case 'warn':
                     return 'pi-exclamation-triangle';
-                break;
+                    break;
 
                 default:
                     return 'pi-info-circle';
-                break;
+                    break;
             }
         }
 
@@ -192,7 +190,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
+    imports: [CommonModule, RippleModule],
     exports: [Messages],
     declarations: [Messages]
 })

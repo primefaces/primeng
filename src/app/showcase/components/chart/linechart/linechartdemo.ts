@@ -13,7 +13,7 @@ export class LineChartDemo {
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -37,8 +37,8 @@ export class LineChartDemo {
                     borderColor: '#565656'
                 }
             ]
-        }
-        
+        };
+
         this.config = this.configService.config;
         this.updateChartOptions();
         this.subscription = this.configService.configUpdate$.subscribe(config => {
@@ -70,7 +70,7 @@ export class LineChartDemo {
                         }
                     }]
                 }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -98,10 +98,10 @@ export class LineChartDemo {
                     }
                 }]
             }
-        }
+        };
     }
 
     selectData(event) {
-        this.messageService.add({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
+        this.messageService.add({severity: 'info', summary: 'Data Selected', detail: this.data.datasets[event.element._datasetIndex].data[event.element._index]});
     }
 }

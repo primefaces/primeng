@@ -8,7 +8,7 @@ import { ProductService } from '../../service/productservice';
 export class TableColToggleDemo implements OnInit {
 
     products: Product[];
-    
+
     cols: any[];
 
     _selectedColumns: any[];
@@ -32,7 +32,7 @@ export class TableColToggleDemo implements OnInit {
     }
 
     set selectedColumns(val: any[]) {
-        //restore original order
+        // restore original order
         this._selectedColumns = this.cols.filter(col => val.includes(col));
     }
 }

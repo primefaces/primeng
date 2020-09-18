@@ -30,15 +30,15 @@ export class TableSelectionDemo implements OnInit {
     }
 
     selectProduct(product: Product) {
-        this.messageService.add({severity:'info', summary:'Product Selected', detail: product.name});
+        this.messageService.add({severity: 'info', summary: 'Product Selected', detail: product.name});
     }
 
     onRowSelect(event) {
-        this.messageService.add({severity:'info', summary:'Product Selected', detail: event.data.name});
+        this.messageService.add({severity: 'info', summary: 'Product Selected', detail: event.data.name});
     }
 
     onRowUnselect(event) {
-        this.messageService.add({severity:'info', summary:'Product Unselected',  detail: event.data.name});
+        this.messageService.add({severity: 'info', summary: 'Product Unselected',  detail: event.data.name});
     }
 
 }

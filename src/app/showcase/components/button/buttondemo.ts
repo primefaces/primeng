@@ -5,5 +5,5 @@ import {Component} from '@angular/core';
     styleUrls: ['./buttondemo.scss']
 })
 export class ButtonDemo {
-    
+
 }

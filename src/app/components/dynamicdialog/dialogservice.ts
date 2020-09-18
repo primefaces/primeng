@@ -6,7 +6,7 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 
 @Injectable()
 export class DialogService {
-    
+
     dialogComponentRef: ComponentRef<DynamicDialogComponent>;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) { }

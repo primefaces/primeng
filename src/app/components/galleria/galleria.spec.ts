@@ -22,5 +22,5 @@ describe('Galleria', () => {
         galleria = fixture.componentInstance;
     });
 
-    
+
 });

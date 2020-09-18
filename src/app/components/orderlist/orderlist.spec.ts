@@ -21,16 +21,16 @@ class TestOrderListComponent {
 
 	ngOnInit() {
 		this.cars = [
-			{ "brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff" },
-			{ "brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345" },
-			{ "brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr" },
-			{ "brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh" },
-			{ "brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34" },
-			{ "brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj" },
-			{ "brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr" },
-			{ "brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34" },
-			{ "brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5" },
-			{ "brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s" }
+			{ brand: 'VW', year: 2012, color: 'Orange', vin: 'dsad231ff' },
+			{ brand: 'Audi', year: 2011, color: 'Black', vin: 'gwregre345' },
+			{ brand: 'Renault', year: 2005, color: 'Gray', vin: 'h354htr' },
+			{ brand: 'BMW', year: 2003, color: 'Blue', vin: 'j6w54qgh' },
+			{ brand: 'Mercedes', year: 1995, color: 'Orange', vin: 'hrtwy34' },
+			{ brand: 'Volvo', year: 2005, color: 'Black', vin: 'jejtyj' },
+			{ brand: 'Honda', year: 2012, color: 'Yellow', vin: 'g43gr' },
+			{ brand: 'Jaguar', year: 2013, color: 'Orange', vin: 'greg34' },
+			{ brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
+			{ brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
 		];
 	}
 }
@@ -68,30 +68,30 @@ describe('OrderList', () => {
 	});
 
 	it('should change listStyle', () => {
-		orderlist.listStyle = { 'height': '300px' };
+		orderlist.listStyle = { height: '300px' };
 		fixture.detectChanges();
 
 		const contentEl = fixture.debugElement.query(By.css('ul'));
-		expect(contentEl.nativeElement.style.height).toEqual("300px");
+		expect(contentEl.nativeElement.style.height).toEqual('300px');
 	});
 
 	it('should change header', () => {
-		orderlist.header = "Primeng ROCKS!";
+		orderlist.header = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const headerEl = fixture.debugElement.query(By.css('.p-orderlist-header'));
 		expect(headerEl).toBeTruthy();
-		expect(headerEl.nativeElement.textContent).toEqual("Primeng ROCKS!");
+		expect(headerEl.nativeElement.textContent).toEqual('Primeng ROCKS!');
 	});
 
 	it('should show filter input', () => {
-		orderlist.filterBy = "brand";
-		orderlist.filterPlaceholder = "Primeng ROCKS!";
+		orderlist.filterBy = 'brand';
+		orderlist.filterPlaceholder = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const filterInputEl = fixture.debugElement.query(By.css('.p-inputtext'));
 		expect(filterInputEl).toBeTruthy();
-		expect(filterInputEl.nativeElement.placeholder).toEqual("Primeng ROCKS!");
+		expect(filterInputEl.nativeElement.placeholder).toEqual('Primeng ROCKS!');
 	});
 
 	it('should add droppoints when dragdrop is enabled', () => {
@@ -114,7 +114,7 @@ describe('OrderList', () => {
 	});
 
 	it('should have selections by default', () => {
-		orderlist.selection = [{ "brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh" }];
+		orderlist.selection = [{ brand: 'BMW', year: 2003, color: 'Blue', vin: 'j6w54qgh' }];
 		fixture.detectChanges();
 
 		const itemListEl = fixture.debugElement.query(By.css('ul'));
@@ -122,7 +122,7 @@ describe('OrderList', () => {
 		fixture.detectChanges();
 
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 	});
 
 	it('should call onItem click and select a item', () => {
@@ -143,7 +143,7 @@ describe('OrderList', () => {
 		expect(onItemTouchEndSpy).toHaveBeenCalled();
 		expect(orderlist.itemTouched).toEqual(false);
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
 	});
 
@@ -156,7 +156,7 @@ describe('OrderList', () => {
 		bmwEl.nativeElement.click();
 		fixture.detectChanges();
 
-		const ctrlClickEvent = { 'ctrlKey': true };
+		const ctrlClickEvent = { ctrlKey: true };
 		orderlist.onItemClick(ctrlClickEvent, orderlist.selection[0], 3);
 		fixture.detectChanges();
 
@@ -178,7 +178,7 @@ describe('OrderList', () => {
 
 		expect(onItemClickSpy).toHaveBeenCalled();
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
 	});
 
@@ -192,7 +192,7 @@ describe('OrderList', () => {
 		bmwEl.nativeElement.click();
 		fixture.detectChanges();
 
-		const ctrlClickEvent = { 'ctrlKey': true };
+		const ctrlClickEvent = { ctrlKey: true };
 		orderlist.onItemClick(ctrlClickEvent, orderlist.selection[0], 3);
 		fixture.detectChanges();
 
@@ -216,10 +216,10 @@ describe('OrderList', () => {
 
 		expect(moveUpSpy).toHaveBeenCalled();
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[2].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual('Renault');
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[2].context.$implicit.brand).toEqual('BMW');
 	});
 
 	it('should call moveDown', () => {
@@ -236,10 +236,10 @@ describe('OrderList', () => {
 
 		expect(moveUpSpy).toHaveBeenCalled();
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[4].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual('Mercedes');
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[4].context.$implicit.brand).toEqual('BMW');
 	});
 
 	it('should call MoveTop', () => {
@@ -256,10 +256,10 @@ describe('OrderList', () => {
 
 		expect(moveTopSpy).toHaveBeenCalled();
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[0].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual('Renault');
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[0].context.$implicit.brand).toEqual('BMW');
 	});
 
 	it('should call moveBottom', () => {
@@ -276,51 +276,55 @@ describe('OrderList', () => {
 
 		expect(moveBottomSpy).toHaveBeenCalled();
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[9].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual('Mercedes');
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[9].context.$implicit.brand).toEqual('BMW');
 	});
 
 	it('should show filter items by default', () => {
-		orderlist.filterBy = "brand";
-		orderlist.filterValue = "v";
+		orderlist.filterBy = 'brand';
+		orderlist.filterValue = 'v';
 		fixture.detectChanges();
 
 		const filterEl = fixture.debugElement.query(By.css('input'));
 		fixture.detectChanges();
 
-		const itemsEl = fixture.debugElement.queryAll(By.css(".p-orderlist-item"));
+		const itemsEl = fixture.debugElement.queryAll(By.css('.p-orderlist-item'));
 		expect(orderlist.visibleOptions.length).toEqual(2);
-		expect(orderlist.visibleOptions[0].brand).toEqual("VW");
-		expect(orderlist.visibleOptions[1].brand).toEqual("Volvo");
+		expect(orderlist.visibleOptions[0].brand).toEqual('VW');
+		expect(orderlist.visibleOptions[1].brand).toEqual('Volvo');
 		for (let i = 0; i < itemsEl.length; i++) {
-			if (i == 0 || i == 5)
-				expect(itemsEl[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(itemsEl[i].nativeElement.style.display).not.toEqual("block");
+			if (i == 0 || i == 5) {
+				expect(itemsEl[i].nativeElement.style.display).toEqual('block');
+			}
+			else {
+				expect(itemsEl[i].nativeElement.style.display).not.toEqual('block');
+			}
 		}
 	});
 
 	it('should show filter items', () => {
-		orderlist.filterBy = "brand";
+		orderlist.filterBy = 'brand';
 		fixture.detectChanges();
 
 		const filterEl = fixture.debugElement.query(By.css('input'));
 		expect(filterEl).toBeTruthy();
-		filterEl.nativeElement.value = "v";
+		filterEl.nativeElement.value = 'v';
 		filterEl.nativeElement.dispatchEvent(new Event('keyup'));
 		fixture.detectChanges();
 
-		const itemsEl = fixture.debugElement.queryAll(By.css(".p-orderlist-item"));
+		const itemsEl = fixture.debugElement.queryAll(By.css('.p-orderlist-item'));
 		expect(orderlist.visibleOptions.length).toEqual(2);
-		expect(orderlist.visibleOptions[0].brand).toEqual("VW");
-		expect(orderlist.visibleOptions[1].brand).toEqual("Volvo");
+		expect(orderlist.visibleOptions[0].brand).toEqual('VW');
+		expect(orderlist.visibleOptions[1].brand).toEqual('Volvo');
 		for (let i = 0; i < itemsEl.length; i++) {
-			if (i == 0 || i == 5)
-				expect(itemsEl[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(itemsEl[i].nativeElement.style.display).not.toEqual("block");
+			if (i == 0 || i == 5) {
+				expect(itemsEl[i].nativeElement.style.display).toEqual('block');
+			}
+			else {
+				expect(itemsEl[i].nativeElement.style.display).not.toEqual('block');
+			}
 		}
 	});
 
@@ -471,30 +475,30 @@ describe('OrderList', () => {
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
-		expect(data.value[0].brand).toEqual("BMW");
+		expect(data.value[0].brand).toEqual('BMW');
 	});
 
 	it('should listen onFilterEvent', () => {
-		orderlist.filterBy = "brand";
+		orderlist.filterBy = 'brand';
 		fixture.detectChanges();
 
 		let data;
 		orderlist.onFilterEvent.subscribe(value => data = value);
 		const filterEl = fixture.debugElement.query(By.css('input'));
 		expect(filterEl).toBeTruthy();
-		filterEl.nativeElement.value = "v";
+		filterEl.nativeElement.value = 'v';
 		filterEl.nativeElement.dispatchEvent(new Event('keyup'));
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
 		expect(data.value.length).toEqual(2);
-		expect(data.value[0].brand).toEqual("VW");
-		expect(data.value[1].brand).toEqual("Volvo");
+		expect(data.value[0].brand).toEqual('VW');
+		expect(data.value[1].brand).toEqual('Volvo');
 	});
 
 	it('should select item with keyboard navigation', () => {
-		const findNextItemSpy = spyOn(orderlist, "findNextItem").and.callThrough();
-		const findPrevItemSpy = spyOn(orderlist, "findPrevItem").and.callThrough();
+		const findNextItemSpy = spyOn(orderlist, 'findNextItem').and.callThrough();
+		const findPrevItemSpy = spyOn(orderlist, 'findPrevItem').and.callThrough();
 		fixture.detectChanges();
 
 		const itemListEl = fixture.debugElement.query(By.css('ul'));
@@ -514,7 +518,7 @@ describe('OrderList', () => {
 		fixture.detectChanges();
 
 		expect(orderlist.selection.length).toEqual(1);
-		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(orderlist.selection[0].brand).toEqual('BMW');
 		expect(findNextItemSpy).toHaveBeenCalled();
 		expect(findPrevItemSpy).toHaveBeenCalled();
 		expect(bmwEl.className).toContain('p-highlight');

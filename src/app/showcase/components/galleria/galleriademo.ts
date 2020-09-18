@@ -1,16 +1,16 @@
 import {Component, OnInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
-import { PhotoService } from '../../service/photoservice';import { Galleria } from 'primeng/galleria';
+import { PhotoService } from '../../service/photoservice'; import { Galleria } from 'primeng/galleria';
 
 @Component({
     templateUrl: './galleriademo.html'
 })
 export class GalleriaDemo implements OnInit {
-    
+
     images: any[];
 
     constructor(private photoService: PhotoService) { }
 
-    responsiveOptions:any[] = [
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5

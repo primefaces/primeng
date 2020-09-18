@@ -9,9 +9,9 @@ import {ProductService} from '../../service/productservice';
 export class PickListDemo {
 
     sourceProducts: Product[];
-    
+
     targetProducts: Product[];
-    
+
     constructor(private carService: ProductService) { }
 
     ngOnInit() {

@@ -45,25 +45,25 @@ describe('InputSwitch', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		inputswitch.style = { 'height': '300px' };
-		inputswitch.styleClass = "Primeng ROCKS!";
+		inputswitch.style = { height: '300px' };
+		inputswitch.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(inputSwitchEl.className).toContain("Primeng ROCKS!");
-		expect(inputSwitchEl.style.height).toContain("300px")
+		expect(inputSwitchEl.className).toContain('Primeng ROCKS!');
+		expect(inputSwitchEl.style.height).toContain('300px');
 	});
 
 	it('should get a name inputId and tabindex', () => {
 		inputswitch.tabindex = 5;
-		inputswitch.inputId = "Primeng!";
-		inputswitch.name = "Primeng ROCKS!";
+		inputswitch.inputId = 'Primeng!';
+		inputswitch.name = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const inputSwitchEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		expect(inputSwitchEl.tabIndex).toEqual(5);
-		expect(inputSwitchEl.name).toEqual("Primeng ROCKS!");
-		expect(inputSwitchEl.id).toEqual("Primeng!");
+		expect(inputSwitchEl.name).toEqual('Primeng ROCKS!');
+		expect(inputSwitchEl.id).toEqual('Primeng!');
 	});
 
 	it('should checked when click', () => {
@@ -98,22 +98,22 @@ describe('InputSwitch', () => {
 	it('should change focused', () => {
 		fixture.detectChanges();
 
-		const onFocusSpy = spyOn(inputswitch, "onFocus").and.callThrough();
-		const onBlurSpy = spyOn(inputswitch, "onBlur").and.callThrough();
-		const onModelTouchedSpy = spyOn(inputswitch, "onModelTouched").and.callThrough();
+		const onFocusSpy = spyOn(inputswitch, 'onFocus').and.callThrough();
+		const onBlurSpy = spyOn(inputswitch, 'onBlur').and.callThrough();
+		const onModelTouchedSpy = spyOn(inputswitch, 'onModelTouched').and.callThrough();
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		inputEl.dispatchEvent(new Event('focus'));
 		fixture.detectChanges();
 
-		expect(inputSwitchEl.className).toContain("p-focus");
+		expect(inputSwitchEl.className).toContain('p-focus');
 		expect(inputswitch.focused).toEqual(true);
 		expect(onFocusSpy).toHaveBeenCalled();
 		inputEl.dispatchEvent(new Event('blur'));
 		fixture.detectChanges();
 
 		expect(inputswitch.focused).toEqual(false);
-		expect(inputSwitchEl.className).not.toContain("p-focus");
+		expect(inputSwitchEl.className).not.toContain('p-focus');
 		expect(onBlurSpy).toHaveBeenCalled();
 		expect(onModelTouchedSpy).toHaveBeenCalled();
 	});
@@ -121,8 +121,8 @@ describe('InputSwitch', () => {
 	it('should call onInputChange', () => {
 		fixture.detectChanges();
 
-		const updateModelSpy = spyOn(inputswitch, "updateModel").and.callThrough();
-		const onInputChangeSpy = spyOn(inputswitch, "onInputChange").and.callThrough();
+		const updateModelSpy = spyOn(inputswitch, 'updateModel').and.callThrough();
+		const onInputChangeSpy = spyOn(inputswitch, 'onInputChange').and.callThrough();
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		inputEl.checked = true;
 		inputEl.dispatchEvent(new Event('change'));

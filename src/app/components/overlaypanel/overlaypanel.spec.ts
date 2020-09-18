@@ -40,15 +40,15 @@ describe('OverlayPanel', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		overlaypanel.style = { 'height': '300px' };
-		overlaypanel.styleClass = "Primeng rocks!";
+		overlaypanel.style = { height: '300px' };
+		overlaypanel.styleClass = 'Primeng rocks!';
 		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		buttonEl.click();
 		fixture.detectChanges();
 
 		const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(containerEl.className).toContain("Primeng rocks!");
-		expect(containerEl.style.height).toContain('300px')
+		expect(containerEl.className).toContain('Primeng rocks!');
+		expect(containerEl.style.height).toContain('300px');
 	});
 
 	it('should show icon', () => {
@@ -68,7 +68,7 @@ describe('OverlayPanel', () => {
 		buttonEl.click();
 		fixture.detectChanges();
 
-		let overlaypanelEl = fixture.debugElement.query(By.css('div'));
+		const overlaypanelEl = fixture.debugElement.query(By.css('div'));
 		expect(toggleSpy).toHaveBeenCalled();
 		expect(overlaypanelEl).toBeTruthy();
 	});
@@ -80,7 +80,7 @@ describe('OverlayPanel', () => {
 		buttonEls[0].nativeElement.click();
 		fixture.detectChanges();
 
-		let overlaypanelEl = fixture.debugElement.query(By.css('div'));
+		const overlaypanelEl = fixture.debugElement.query(By.css('div'));
 		expect(toggleSpy).toHaveBeenCalled();
 		expect(overlaypanelEl).toBeTruthy();
 		buttonEls[1].nativeElement.click();
@@ -114,7 +114,7 @@ describe('OverlayPanel', () => {
 
 		const outsideEl = fixture.debugElement.query(By.css('a')).nativeElement;
 		outsideEl.click();
-		document.dispatchEvent(new Event('click'))
+		document.dispatchEvent(new Event('click'));
 		fixture.detectChanges();
 
 		overlaypanel.cd.detectChanges();

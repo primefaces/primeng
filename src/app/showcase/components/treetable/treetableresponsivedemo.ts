@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 @Component({
     templateUrl: './treetableresponsivedemo.html',
     styles: [`
-        :host ::ng-deep .priority-2, 
+        :host ::ng-deep .priority-2,
         :host ::ng-deep .priority-3,
         :host ::ng-deep .visibility-sm {
             display: none;

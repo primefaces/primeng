@@ -38,54 +38,54 @@ describe('Calendar', () => {
 	});
 
 	it('should change styleClass', () => {
-		calendar.styleClass = "Primeng ROCKS!"
+		calendar.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const calenderEl = fixture.debugElement.query(By.css('span'));
-		expect(calenderEl.nativeElement.className).toContain("Primeng ROCKS!");
+		expect(calenderEl.nativeElement.className).toContain('Primeng ROCKS!');
 	});
 
 	it('should change inputStyleClass', () => {
-		calendar.inputStyleClass = "Primeng ROCKS!"
+		calendar.inputStyleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const calenderEl = fixture.debugElement.query(By.css('input'));
-		expect(calenderEl.nativeElement.className).toContain("Primeng ROCKS!");
+		expect(calenderEl.nativeElement.className).toContain('Primeng ROCKS!');
 	});
 
 	it('should change panelStyle and panelStyleClass', () => {
-		calendar.panelStyleClass = "Primeng ROCKS!";
-		calendar.panelStyle = { 'height': '300px' };
+		calendar.panelStyleClass = 'Primeng ROCKS!';
+		calendar.panelStyle = { height: '300px' };
 		calendar.overlayVisible = true;
 		fixture.detectChanges();
 
 		const panelEl = fixture.debugElement.query(By.css('div'));
-		expect(panelEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(panelEl.nativeElement.style.height).toContain("300px");
+		expect(panelEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(panelEl.nativeElement.style.height).toContain('300px');
 	});
 
 	it('should change inputId', () => {
-		calendar.inputId = "PRIMENG";
+		calendar.inputId = 'PRIMENG';
 		fixture.detectChanges();
 
 		const calenderEl = fixture.debugElement.query(By.css('input'));
-		expect(calenderEl.nativeElement.id).toContain("PRIMENG");
+		expect(calenderEl.nativeElement.id).toContain('PRIMENG');
 	});
 
 	it('should change name', () => {
-		calendar.name = "PRIMENG";
+		calendar.name = 'PRIMENG';
 		fixture.detectChanges();
 
 		const calenderEl = fixture.debugElement.query(By.css('input'));
-		expect(calenderEl.nativeElement.name).toContain("PRIMENG");
+		expect(calenderEl.nativeElement.name).toContain('PRIMENG');
 	});
 
 	it('should change placeholder', () => {
-		calendar.placeholder = "PRIMENG";
+		calendar.placeholder = 'PRIMENG';
 		fixture.detectChanges();
 
 		const calenderEl = fixture.debugElement.query(By.css('input'));
-		expect(calenderEl.nativeElement.placeholder).toContain("PRIMENG");
+		expect(calenderEl.nativeElement.placeholder).toContain('PRIMENG');
 	});
 
 	it('should show icon', () => {
@@ -95,16 +95,16 @@ describe('Calendar', () => {
 		const calenderEl = fixture.debugElement.query(By.css('span'));
 		const buttonEl = fixture.debugElement.query(By.css('button'));
 		expect(calenderEl.nativeElement.className).toContain('p-calendar-w-btn');
-		expect(buttonEl.nativeNode.outerHTML).toContain("pi pi-calendar");
+		expect(buttonEl.nativeNode.outerHTML).toContain('pi pi-calendar');
 	});
 
 	it('should change icon', () => {
 		calendar.showIcon = true;
-		calendar.icon = "Primeng ROCKS!";
+		calendar.icon = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const buttonEl = fixture.debugElement.query(By.css('button'));
-		expect(buttonEl.nativeNode.outerHTML).toContain("Primeng ROCKS!");
+		expect(buttonEl.nativeNode.outerHTML).toContain('Primeng ROCKS!');
 	});
 
 	it('should show panel and call onInputClick when inputClick', () => {
@@ -146,7 +146,7 @@ describe('Calendar', () => {
 
 		const panelEl = fixture.debugElement.query(By.css('div'));
 		expect(panelEl).toBeTruthy();
-		expect(panelEl.nativeElement.className).toContain('p-datepicker-inline')
+		expect(panelEl.nativeElement.className).toContain('p-datepicker-inline');
 	});
 
 	it('should spanish', () => {
@@ -154,11 +154,11 @@ describe('Calendar', () => {
 		const createMonthsSpy = spyOn(calendar, 'createMonths').and.callThrough();
 		calendar.locale = {
 			firstDayOfWeek: 1,
-			dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
-			dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-			dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-			monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-			monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+			dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+			dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+			dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+			monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+			monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
 			today: 'Hoy',
 			clear: 'Borrar'
 		};
@@ -178,14 +178,14 @@ describe('Calendar', () => {
 
 	it('should change locale (view month)', () => {
 		const createMonthPickerValuesSpy = spyOn(calendar, 'createMonthPickerValues').and.callThrough();
-		calendar.view = "month";
+		calendar.view = 'month';
 		calendar.locale = {
 			firstDayOfWeek: 1,
-			dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
-			dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-			dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-			monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-			monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+			dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+			dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+			dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+			monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+			monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
 			today: 'Hoy',
 			clear: 'Borrar'
 		};
@@ -263,10 +263,11 @@ describe('Calendar', () => {
 		expect(calendar.inputFieldValue).toEqual(inputEl.value);
 		expect(onDateSelectSpy).toHaveBeenCalled();
 		for (let x = 0; x < datesEl.length; x++) {
-			if (x == 7)
-				expect(datesEl[x].nativeElement.className).toContain("p-highlight");
-			else
-				expect(datesEl[x].nativeElement.className).not.toContain("p-highlight");
+			if (x == 7) {
+				expect(datesEl[x].nativeElement.className).toContain('p-highlight');
+			} else {
+				expect(datesEl[x].nativeElement.className).not.toContain('p-highlight');
+			}
 		}
 		expect(calendar.isSingleSelection()).toEqual(true);
 		tick(150);
@@ -274,7 +275,7 @@ describe('Calendar', () => {
 	}));
 
 	it('should change date format', () => {
-		calendar.dateFormat = "dd/mm/yy"
+		calendar.dateFormat = 'dd/mm/yy';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -290,23 +291,24 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		expect(calendar.inputFieldValue).toEqual(inputEl.value);
-		if (calendar.currentMonth < 9)
-			expect(calendar.inputFieldValue).toEqual("08/0" + (calendar.currentMonth + 1) + "/" + calendar.currentYear);
-		else
-			expect(calendar.inputFieldValue).toEqual("08/" + (calendar.currentMonth + 1) + "/" + calendar.currentYear);
+		if (calendar.currentMonth < 9) {
+			expect(calendar.inputFieldValue).toEqual('08/0' + (calendar.currentMonth + 1) + '/' + calendar.currentYear);
+		} else {
+			expect(calendar.inputFieldValue).toEqual('08/' + (calendar.currentMonth + 1) + '/' + calendar.currentYear);
+		}
 		expect(onDateSelectSpy).toHaveBeenCalled();
 	});
 
 	it('should use min and max date', () => {
 		let minDate: Date;
 		let maxDate: Date;
-		let today = new Date();
-		let month = today.getMonth();
-		let year = today.getFullYear();
-		let prevMonth = (month === 0) ? 11 : month - 1;
-		let prevYear = (prevMonth === 11) ? year - 1 : year;
-		let nextMonth = (month === 11) ? 0 : month + 1;
-		let nextYear = (nextMonth === 0) ? year + 1 : year;
+		const today = new Date();
+		const month = today.getMonth();
+		const year = today.getFullYear();
+		const prevMonth = (month === 0) ? 11 : month - 1;
+		const prevYear = (prevMonth === 11) ? year - 1 : year;
+		const nextMonth = (month === 11) ? 0 : month + 1;
+		const nextYear = (nextMonth === 0) ? year + 1 : year;
 		minDate = new Date();
 		minDate.setMonth(prevMonth);
 		minDate.setFullYear(prevYear);
@@ -337,9 +339,9 @@ describe('Calendar', () => {
 	it('should use invalidDates', () => {
 
 		let invalidDates: Array<Date>;
-		let invalidDate = new Date();
+		const invalidDate = new Date();
 		invalidDate.setDate(15);
-		let invalidDate2 = new Date();
+		const invalidDate2 = new Date();
 		invalidDate2.setDate(invalidDate.getDate() - 1);
 		invalidDates = [invalidDate, invalidDate2];
 		calendar.disabledDates = invalidDates;
@@ -353,8 +355,8 @@ describe('Calendar', () => {
 
 		const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
 		const unselectableEls = containerEl.queryAll(By.css('.p-disabled'));
-		let invalidDateArray = [];
-		for (let el of unselectableEls) {
+		const invalidDateArray = [];
+		for (const el of unselectableEls) {
 			if (el.nativeElement.textContent == invalidDate.getDate() || el.nativeElement.textContent == invalidDate2.getDate()) {
 				invalidDateArray.push(el.nativeElement.textContent);
 			}
@@ -372,7 +374,7 @@ describe('Calendar', () => {
 		inputEl.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
-		for (let week of calendar.months[0].dates) {
+		for (const week of calendar.months[0].dates) {
 			expect(week[0].selectable).toEqual(false);
 			expect(week[6].selectable).toEqual(false);
 		}
@@ -382,7 +384,7 @@ describe('Calendar', () => {
 
 		calendar.monthNavigator = true;
 		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2030";
+		calendar.yearRange = '2000:2030';
 		fixture.detectChanges();
 
 		const onMonthDropdownChangeSpy = spyOn(calendar, 'onMonthDropdownChange').and.callThrough();
@@ -397,9 +399,9 @@ describe('Calendar', () => {
 		const monthDropdownEl = navigators[0];
 		const yearDropdownEl = navigators[1];
 		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "1";
+		monthDropdownEl.nativeElement.value = '1';
 		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2019";
+		yearDropdownEl.nativeElement.value = '2019';
 		yearDropdownEl.nativeElement.dispatchEvent(event);
 		fixture.detectChanges();
 
@@ -409,7 +411,7 @@ describe('Calendar', () => {
 		const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
 		dates[17].nativeElement.click();
 		fixture.detectChanges();
-		expect(calendar.inputFieldValue).toEqual("02/18/2019");
+		expect(calendar.inputFieldValue).toEqual('02/18/2019');
 		expect(onMonthDropdownChangeSpy).toHaveBeenCalled();
 	});
 
@@ -421,7 +423,7 @@ describe('Calendar', () => {
 		calendar.showTime = true;
 		calendar.monthNavigator = true;
 		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2030";
+		calendar.yearRange = '2000:2030';
 		fixture.detectChanges();
 
 		expect(updateInputfieldSpy).toHaveBeenCalled();
@@ -431,8 +433,8 @@ describe('Calendar', () => {
 		inputEl.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
-		let defaultHour = calendar.currentHour;
-		let defaultMinute = calendar.currentMinute;
+		const defaultHour = calendar.currentHour;
+		const defaultMinute = calendar.currentMinute;
 		const incrementHourSpy = spyOn(calendar, 'incrementHour').and.callThrough();
 		const decrementHourSpy = spyOn(calendar, 'decrementHour').and.callThrough();
 		const incrementMinuteSpy = spyOn(calendar, 'incrementMinute').and.callThrough();
@@ -448,9 +450,9 @@ describe('Calendar', () => {
 		const monthDropdownEl = navigators[0];
 		const yearDropdownEl = navigators[1];
 		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "7";
+		monthDropdownEl.nativeElement.value = '7';
 		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2008";
+		yearDropdownEl.nativeElement.value = '2008';
 		yearDropdownEl.nativeElement.dispatchEvent(event);
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
@@ -482,14 +484,15 @@ describe('Calendar', () => {
 		expect(decrementMinuteSpy).toHaveBeenCalled();
 		expect(incrementMinuteSpy).toHaveBeenCalled();
 		expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toEqual(calendar.inputFieldValue);
-		if (calendar.currentHour < 10 && calendar.currentMinute < 10)
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " 0" + calendar.currentHour + ":0" + calendar.currentMinute);
-		else if (calendar.currentHour < 10)
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " 0" + calendar.currentHour + ":" + calendar.currentMinute);
-		else if (calendar.currentMinute < 10)
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " " + calendar.currentHour + ":0" + calendar.currentMinute);
-		else
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " " + calendar.currentHour + ":" + calendar.currentMinute);
+		if (calendar.currentHour < 10 && calendar.currentMinute < 10) {
+			expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' 0' + calendar.currentHour + ':0' + calendar.currentMinute);
+		} else if (calendar.currentHour < 10) {
+			expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' 0' + calendar.currentHour + ':' + calendar.currentMinute);
+ } else if (calendar.currentMinute < 10) {
+			expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' ' + calendar.currentHour + ':0' + calendar.currentMinute);
+ } else {
+			expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' ' + calendar.currentHour + ':' + calendar.currentMinute);
+ }
 	});
 
 	it('should only time', () => {
@@ -507,8 +510,8 @@ describe('Calendar', () => {
 		const panelEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		expect(spanEl.className).toContain('p-calendar-timeonly');
 		expect(panelEl.className).toContain('p-datepicker-timeonly');
-		let defaultHour = calendar.currentHour;
-		let defaultMinute = calendar.currentMinute;
+		const defaultHour = calendar.currentHour;
+		const defaultMinute = calendar.currentMinute;
 		const timers = fixture.debugElement.query(By.css('.p-timepicker')).queryAll(By.css('div'));
 		const hourPicker = timers[0];
 		const minutePicker = timers[2];
@@ -538,10 +541,10 @@ describe('Calendar', () => {
 	});
 
 	it('should select multiple', () => {
-		calendar.selectionMode = "multiple";
+		calendar.selectionMode = 'multiple';
 		calendar.monthNavigator = true;
 		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2030";
+		calendar.yearRange = '2000:2030';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -550,15 +553,15 @@ describe('Calendar', () => {
 		inputEl.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
-		let defaultHour = calendar.currentHour;
-		let defaultMinute = calendar.currentMinute;
+		const defaultHour = calendar.currentHour;
+		const defaultMinute = calendar.currentMinute;
 		const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
 		const monthDropdownEl = navigators[0];
 		const yearDropdownEl = navigators[1];
 		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "7";
+		monthDropdownEl.nativeElement.value = '7';
 		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2008";
+		yearDropdownEl.nativeElement.value = '2008';
 		yearDropdownEl.nativeElement.dispatchEvent(event);
 		fixture.detectChanges();
 
@@ -579,15 +582,15 @@ describe('Calendar', () => {
 
 		expect(inputEl.value).toEqual(calendar.inputFieldValue);
 		expect(calendar.value.length).toEqual(2);
-		expect(calendar.inputFieldValue).toEqual("08/08/2008, 08/09/2008");
+		expect(calendar.inputFieldValue).toEqual('08/08/2008, 08/09/2008');
 	});
 
 	it('should select multiple with dataType string', () => {
-		calendar.selectionMode = "multiple";
-		calendar.dataType = "string";
+		calendar.selectionMode = 'multiple';
+		calendar.dataType = 'string';
 		calendar.monthNavigator = true;
 		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2030";
+		calendar.yearRange = '2000:2030';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -596,15 +599,15 @@ describe('Calendar', () => {
 		inputEl.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
-		let defaultHour = calendar.currentHour;
-		let defaultMinute = calendar.currentMinute;
+		const defaultHour = calendar.currentHour;
+		const defaultMinute = calendar.currentMinute;
 		const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
 		const monthDropdownEl = navigators[0];
 		const yearDropdownEl = navigators[1];
 		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "7";
+		monthDropdownEl.nativeElement.value = '7';
 		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2008";
+		yearDropdownEl.nativeElement.value = '2008';
 		yearDropdownEl.nativeElement.dispatchEvent(event);
 		fixture.detectChanges();
 
@@ -625,7 +628,7 @@ describe('Calendar', () => {
 
 		expect(inputEl.value).toEqual(calendar.inputFieldValue);
 		expect(calendar.value.length).toEqual(2);
-		expect(calendar.inputFieldValue).toEqual("08/08/2008, 08/09/2008");
+		expect(calendar.inputFieldValue).toEqual('08/08/2008, 08/09/2008');
 	});
 
 	it('should select today and clear input with button bar', fakeAsync(() => {
@@ -644,8 +647,8 @@ describe('Calendar', () => {
 		const todayButtonEl = buttonbar.queryAll(By.css('button'))[0];
 		const clearButtonEl = buttonbar.queryAll(By.css('button'))[1];
 		expect(buttonbar).toBeTruthy();
-		expect(todayButtonEl.attributes["ng-reflect-label"]).toEqual(calendar.locale.today);
-		expect(clearButtonEl.attributes["ng-reflect-label"]).toEqual(calendar.locale.clear);
+		expect(todayButtonEl.attributes['ng-reflect-label']).toEqual(calendar.locale.today);
+		expect(clearButtonEl.attributes['ng-reflect-label']).toEqual(calendar.locale.clear);
 		todayButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -668,8 +671,8 @@ describe('Calendar', () => {
 
 	it('should change today & clear button styleClass', () => {
 		calendar.showButtonBar = true;
-		calendar.clearButtonStyleClass = "Primeng ROCKS!";
-		calendar.todayButtonStyleClass = "Primeng ROCKS!";
+		calendar.clearButtonStyleClass = 'Primeng ROCKS!';
+		calendar.todayButtonStyleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -681,8 +684,8 @@ describe('Calendar', () => {
 		const buttonbar = fixture.debugElement.query(By.css('.p-datepicker-buttonbar'));
 		const todayButtonEl = buttonbar.queryAll(By.css('button'))[0];
 		const clearButtonEl = buttonbar.queryAll(By.css('button'))[1];
-		expect(todayButtonEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(clearButtonEl.nativeElement.className).toContain("Primeng ROCKS!");
+		expect(todayButtonEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(clearButtonEl.nativeElement.className).toContain('Primeng ROCKS!');
 	});
 
 	it('should show multiple months', () => {
@@ -698,15 +701,15 @@ describe('Calendar', () => {
 		const panelEl = fixture.debugElement.query(By.css('div'));
 		const contentEls = fixture.debugElement.queryAll(By.css('.p-datepicker-group'));
 		const selectEls = fixture.debugElement.queryAll(By.css('select'));
-		expect(panelEl.nativeElement.className).toContain("p-datepicker-multiple-month");
+		expect(panelEl.nativeElement.className).toContain('p-datepicker-multiple-month');
 		expect(contentEls.length).toEqual(3);
 		expect(selectEls.length).toEqual(0);
 	});
 
 	it('should show month picker', fakeAsync(() => {
 
-		calendar.view = "month";
-		calendar.dateFormat = "mm";
+		calendar.view = 'month';
+		calendar.dateFormat = 'mm';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -720,7 +723,7 @@ describe('Calendar', () => {
 		const monthpickerEl = fixture.debugElement.query(By.css('.p-monthpicker'));
 		const janEl = monthpickerEl.query(By.css('span')).nativeElement;
 		expect(monthpickerEl).toBeTruthy();
-		expect(panelEl.className).toContain("p-datepicker-monthpicker");
+		expect(panelEl.className).toContain('p-datepicker-monthpicker');
 		expect(janEl.textContent).toContain(calendar.monthPickerValues[0]);
 		janEl.click();
 		fixture.detectChanges();
@@ -747,16 +750,17 @@ describe('Calendar', () => {
 		const panelEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
 		const firstDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
-		expect(panelEl.className).toContain("p-datepicker-touch-ui");
+		expect(panelEl.className).toContain('p-datepicker-touch-ui');
 		firstDayEl.click();
 		fixture.detectChanges();
 
 		tick(150);
 		expect(calendar.overlayVisible).toEqual(false);
-		if (calendar.currentMonth < 9)
-			expect(calendar.inputFieldValue).toEqual("0" + (calendar.currentMonth + 1) + "/01/" + calendar.currentYear);
-		else
-			expect(calendar.inputFieldValue).toEqual((calendar.currentMonth + 1) + "/01/" + calendar.currentYear);
+		if (calendar.currentMonth < 9) {
+			expect(calendar.inputFieldValue).toEqual('0' + (calendar.currentMonth + 1) + '/01/' + calendar.currentYear);
+		} else {
+			expect(calendar.inputFieldValue).toEqual((calendar.currentMonth + 1) + '/01/' + calendar.currentYear);
+		}
 		expect(inputEl.value).toEqual(calendar.inputFieldValue);
 		expect(onDateSelectSpy).toHaveBeenCalled();
 		expect(onOverlayAnimationStartSpy).toHaveBeenCalled();
@@ -774,7 +778,7 @@ describe('Calendar', () => {
 
 		const updateModelSpy = spyOn(calendar, 'updateModel').and.callThrough();
 		const updateUISpy = spyOn(calendar, 'updateUI').and.callThrough();
-		const event = { 'target': { 'value': '07/01/2008' } };
+		const event = { target: { value: '07/01/2008' } };
 		calendar.onUserInput(event);
 		fixture.detectChanges();
 
@@ -787,9 +791,9 @@ describe('Calendar', () => {
 		expect(updateModelSpy).toHaveBeenCalled();
 		expect(calendar.currentMonth).toEqual(6);
 		expect(calendar.currentYear).toEqual(2008);
-		expect(firstEl.className).toContain("p-highlight");
-		expect(monthSpanEl.textContent).toEqual("July");
-		expect(yearSpanEl.textContent).toEqual("2008");
+		expect(firstEl.className).toContain('p-highlight');
+		expect(monthSpanEl.textContent).toEqual('July');
+		expect(yearSpanEl.textContent).toEqual('2008');
 	});
 
 	it('should listen onfocus', () => {
@@ -838,7 +842,7 @@ describe('Calendar', () => {
 		inputEl.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
-		const event = { 'target': { 'value': '07/01/2008' } };
+		const event = { target: { value: '07/01/2008' } };
 		calendar.onUserInput(event);
 		fixture.detectChanges();
 
@@ -905,7 +909,7 @@ describe('Calendar', () => {
 		const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
 		const yearDropdownEl = navigators[0];
 		const event = new Event('change');
-		yearDropdownEl.nativeElement.value = "2019";
+		yearDropdownEl.nativeElement.value = '2019';
 		yearDropdownEl.nativeElement.dispatchEvent(event);
 		fixture.detectChanges();
 
@@ -933,9 +937,9 @@ describe('Calendar', () => {
 		const minutePicker = fixture.debugElement.query(By.css('.p-minute-picker'));
 		expect(calendar.pm).toEqual(true);
 		expect(amPmEl).toBeTruthy();
-		expect(amPmEl.children[1].nativeElement.textContent).toEqual("PM");
-		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("03");
-		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("12");
+		expect(amPmEl.children[1].nativeElement.textContent).toEqual('PM');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
 	});
 
 	it('should change hourFormat', () => {
@@ -963,21 +967,21 @@ describe('Calendar', () => {
 		expect(decrementHour).toBeTruthy();
 		expect(incrementHour).toBeTruthy();
 		expect(calendar.pm).toEqual(false);
-		expect(amPmEl.children[1].nativeElement.textContent).toEqual("AM");
+		expect(amPmEl.children[1].nativeElement.textContent).toEqual('AM');
 		incrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
 		incrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
 		expect(calendar.pm).toEqual(true);
-		expect(amPmEl.children[1].nativeElement.textContent).toEqual("PM");
-		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("12");
+		expect(amPmEl.children[1].nativeElement.textContent).toEqual('PM');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
 		decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
 		decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
 		fixture.detectChanges();
 
 		expect(calendar.pm).toEqual(false);
-		expect(amPmEl.children[1].nativeElement.textContent).toEqual("AM");
-		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("11");
+		expect(amPmEl.children[1].nativeElement.textContent).toEqual('AM');
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
 	});
 
 	it('should change hourFormat with ampm buttons', () => {
@@ -1001,18 +1005,18 @@ describe('Calendar', () => {
 		const changeFormatEl = amPmEl.query(By.css('button'));
 		const toggleAMPMSpy = spyOn(calendar, 'toggleAMPM').and.callThrough();
 		expect(calendar.pm).toEqual(false);
-		expect(amPmEl.children[1].nativeElement.textContent).toEqual("AM");
+		expect(amPmEl.children[1].nativeElement.textContent).toEqual('AM');
 		changeFormatEl.nativeElement.click();
 		fixture.detectChanges();
 
 		expect(calendar.pm).toEqual(true);
-		expect(amPmEl.children[1].nativeElement.textContent).toEqual("PM");
+		expect(amPmEl.children[1].nativeElement.textContent).toEqual('PM');
 		expect(toggleAMPMSpy).toHaveBeenCalled();
 		changeFormatEl.nativeElement.click();
 		fixture.detectChanges();
 
 		expect(calendar.pm).toEqual(false);
-		expect(amPmEl.children[1].nativeElement.textContent).toEqual("AM");
+		expect(amPmEl.children[1].nativeElement.textContent).toEqual('AM');
 		expect(toggleAMPMSpy).toHaveBeenCalledTimes(2);
 	});
 
@@ -1036,8 +1040,8 @@ describe('Calendar', () => {
 		const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
 		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
-		expect(yearEl.nativeElement.textContent).toEqual("2017");
-		expect(monthEl.nativeElement.textContent).toEqual("September");
+		expect(yearEl.nativeElement.textContent).toEqual('2017');
+		expect(monthEl.nativeElement.textContent).toEqual('September');
 		expect(calendar.currentMonth).toEqual(8);
 		expect(calendar.currentHour).toEqual(11);
 		expect(calendar.currentMinute).toEqual(12);
@@ -1065,8 +1069,8 @@ describe('Calendar', () => {
 		expect(calendar.showSeconds).toBeTruthy();
 		expect(seperatorEl[0]).toBeTruthy();
 		expect(seperatorEl[1]).toBeTruthy();
-		expect(seperatorEl[0].children[0].nativeElement.textContent).toEqual(":");
-		expect(seperatorEl[1].children[0].nativeElement.textContent).toEqual(":");
+		expect(seperatorEl[0].children[0].nativeElement.textContent).toEqual(':');
+		expect(seperatorEl[1].children[0].nativeElement.textContent).toEqual(':');
 		expect(secondPicker).toBeTruthy();
 		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
 	});
@@ -1260,7 +1264,7 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		expect(formatDateTimeSpy).toHaveBeenCalled();
-		expect(calendar.dataType).toEqual("string");
+		expect(calendar.dataType).toEqual('string');
 	});
 
 	it('should single select ', () => {
@@ -1292,7 +1296,7 @@ describe('Calendar', () => {
 		jasmine.clock().mockDate(date);
 		const onDateSelectSpy = spyOn(calendar, 'onDateSelect').and.callThrough();
 		calendar.maxDateCount = 2;
-		calendar.selectionMode = "multiple";
+		calendar.selectionMode = 'multiple';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
@@ -1330,7 +1334,7 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const datePicker = fixture.debugElement.query(By.css('.p-datepicker'));
-		expect(datePicker.nativeElement.className).toContain("p-disabled");
+		expect(datePicker.nativeElement.className).toContain('p-disabled');
 
 		const incrementYearSpy = spyOn(calendar, 'incrementYear').and.callThrough();
 		const decrementYearSpy = spyOn(calendar, 'decrementYear').and.callThrough();
@@ -1422,7 +1426,7 @@ describe('Calendar', () => {
 		const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
 		const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
 		const otherMonthDates = datesContainer.queryAll(By.css('.p-datepicker-other-month'));
-		for (let otherMonthDate of otherMonthDates) {
+		for (const otherMonthDate of otherMonthDates) {
 			expect(otherMonthDate.children.length).toEqual(0);
 			expect(otherMonthDate.children).toEqual([]);
 		}
@@ -1535,7 +1539,7 @@ describe('Calendar', () => {
 	});
 
 	it('should change appendto', () => {
-		calendar.appendTo = "body";
+		calendar.appendTo = 'body';
 		const date = new Date(2017, 8, 23);
 		calendar.defaultDate = date;
 		jasmine.clock().mockDate(date);
@@ -1610,7 +1614,7 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const currentMonthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(currentMonthEl.nativeElement.textContent).toEqual("January");
+		expect(currentMonthEl.nativeElement.textContent).toEqual('January');
 		expect(calendar.currentMonth).toEqual(0);
 		expect(calendar.currentYear).toEqual(2018);
 		expect(navForwardSpy).toHaveBeenCalled();
@@ -1636,16 +1640,16 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const currentMonthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(currentMonthEl.nativeElement.textContent).toEqual("December");
+		expect(currentMonthEl.nativeElement.textContent).toEqual('December');
 		expect(calendar.currentMonth).toEqual(11);
 		expect(calendar.currentYear).toEqual(2016);
 		expect(navBackwardSpy).toHaveBeenCalled();
 	});
 
 	it('should change yearRange', () => {
-		calendar.dateFormat = "mm/yy";
+		calendar.dateFormat = 'mm/yy';
 		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2019";
+		calendar.yearRange = '2000:2019';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1657,7 +1661,7 @@ describe('Calendar', () => {
 		const yearSelectEl = fixture.debugElement.query(By.css('.p-datepicker-year'));
 		const yearsEls = yearSelectEl.queryAll(By.css('option'));
 		expect(yearsEls.length).toEqual(20);
-		expect(yearsEls[19].nativeElement.textContent).toEqual("2019");
+		expect(yearsEls[19].nativeElement.textContent).toEqual('2019');
 	});
 
 	it('should change tabindex', () => {
@@ -1674,7 +1678,7 @@ describe('Calendar', () => {
 		jasmine.clock().mockDate(date);
 		calendar.yearNavigator = true;
 		calendar.monthNavigator = true;
-		calendar.yearRange = "2000:2030";
+		calendar.yearRange = '2000:2030';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1697,7 +1701,7 @@ describe('Calendar', () => {
 		jasmine.clock().mockDate(date);
 		calendar.yearNavigator = true;
 		calendar.monthNavigator = true;
-		calendar.yearRange = "2000:2030";
+		calendar.yearRange = '2000:2030';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1719,7 +1723,7 @@ describe('Calendar', () => {
 		calendar.defaultDate = date;
 		jasmine.clock().mockDate(date);
 		calendar.touchUI = true;
-		calendar.selectionMode = "range";
+		calendar.selectionMode = 'range';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1732,7 +1736,7 @@ describe('Calendar', () => {
 		const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
 		const firstDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
 		const thirdDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[2].nativeElement;
-		expect(panelEl.className).toContain("p-datepicker-touch-ui");
+		expect(panelEl.className).toContain('p-datepicker-touch-ui');
 		firstDayEl.click();
 		fixture.detectChanges();
 
@@ -1748,7 +1752,7 @@ describe('Calendar', () => {
 		calendar.defaultDate = date;
 		jasmine.clock().mockDate(date);
 		calendar.touchUI = true;
-		calendar.selectionMode = "multiple";
+		calendar.selectionMode = 'multiple';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1762,7 +1766,7 @@ describe('Calendar', () => {
 		const firstDayEl = containerEl.query(By.css('tbody')).query(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)')).nativeElement;
 		const secondDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[1].nativeElement;
 		const thirdDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[2].nativeElement;
-		expect(panelEl.className).toContain("p-datepicker-touch-ui");
+		expect(panelEl.className).toContain('p-datepicker-touch-ui');
 		firstDayEl.click();
 		fixture.detectChanges();
 
@@ -1791,8 +1795,8 @@ describe('Calendar', () => {
 		calendar.currentMinute = 0;
 		fixture.detectChanges();
 
-		let defaultHour = calendar.currentHour;
-		let defaultMinute = calendar.currentMinute;
+		const defaultHour = calendar.currentHour;
+		const defaultMinute = calendar.currentMinute;
 		const timers = fixture.debugElement.query(By.css('.p-timepicker')).queryAll(By.css('div'));
 		const hourPicker = timers[0];
 		const minutePicker = timers[2];
@@ -1829,7 +1833,7 @@ describe('Calendar', () => {
 	it('should call navForward and pick the next year', () => {
 		fixture.detectChanges();
 
-		calendar.view = "month";
+		calendar.view = 'month';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1855,8 +1859,8 @@ describe('Calendar', () => {
 	it('should call navForward and go to out of year range(increment)', () => {
 		fixture.detectChanges();
 
-		calendar.view = "month";
-		calendar.yearRange = (calendar.currentYear - 1).toString() + ":" + (calendar.currentYear + 1).toString();
+		calendar.view = 'month';
+		calendar.yearRange = (calendar.currentYear - 1).toString() + ':' + (calendar.currentYear + 1).toString();
 		calendar.yearNavigator = true;
 		calendar.yearOptions = [2017, 2018];
 		fixture.detectChanges();
@@ -1885,8 +1889,8 @@ describe('Calendar', () => {
 	it('should call navForward and go to out of year range (decrement)', () => {
 		fixture.detectChanges();
 
-		calendar.view = "month";
-		calendar.yearRange = (calendar.currentYear - 1).toString() + ":" + (calendar.currentYear + 1).toString();
+		calendar.view = 'month';
+		calendar.yearRange = (calendar.currentYear - 1).toString() + ':' + (calendar.currentYear + 1).toString();
 		calendar.yearNavigator = true;
 		calendar.yearOptions = [2017, 2018];
 		fixture.detectChanges();
@@ -1937,7 +1941,7 @@ describe('Calendar', () => {
 
 		const parseValueFromStringSpy = spyOn(calendar, 'parseValueFromString').and.callThrough();
 		const onUserInputSpy = spyOn(calendar, 'onUserInput').and.callThrough();
-		const event = { 'target': { 'value': '10:10 AM' } };
+		const event = { target: { value: '10:10 AM' } };
 		calendar.onInputKeydown(event);
 		fixture.detectChanges();
 

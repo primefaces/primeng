@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, TemplateRef, QueryList, ContentChildren} from '@angular/core';
+import {NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, TemplateRef, QueryList, ContentChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {PrimeTemplate} from 'primeng/api';
@@ -19,7 +19,7 @@ export class InplaceContent {}
     selector: 'p-inplace',
     template: `
         <div [ngClass]="{'p-inplace p-component': true, 'p-inplace-closable': closable}" [ngStyle]="style" [class]="styleClass">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"   
+            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"
                 [ngClass]="{'p-disabled':disabled}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
                 <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
@@ -49,7 +49,7 @@ export class Inplace implements AfterContentInit {
 
     @Input() styleClass: string;
 
-    @Input() closeIcon: string = 'pi pi-times';
+    @Input() closeIcon = 'pi pi-times';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -67,26 +67,28 @@ export class Inplace implements AfterContentInit {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'display':
                     this.displayTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
 
     onActivateClick(event) {
-        if (!this.preventClick)
+        if (!this.preventClick) {
             this.activate(event);
+        }
     }
 
     onDeactivateClick(event) {
-        if (!this.preventClick)
+        if (!this.preventClick) {
             this.deactivate(event);
+        }
     }
 
     activate(event?: Event) {
@@ -115,8 +117,8 @@ export class Inplace implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
-    exports: [Inplace,InplaceDisplay,InplaceContent,ButtonModule],
-    declarations: [Inplace,InplaceDisplay,InplaceContent]
+    imports: [CommonModule, ButtonModule],
+    exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule],
+    declarations: [Inplace, InplaceDisplay, InplaceContent]
 })
 export class InplaceModule { }

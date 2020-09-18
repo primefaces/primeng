@@ -8,18 +8,18 @@ import { InputText } from 'primeng/inputtext';
 @Component({
     template: `
         <div style="margin:50px;">
-            <input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position"> 
+            <input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position">
         </div>
         `
 })
 class TestTooltipComponent {
-    position: string ="right";
+    position = 'right';
 
-    event: string = "hover";
-    
-    positionStyle: string = "absolute";
-    
-    disabled: boolean = false;
+    event = 'hover';
+
+    positionStyle = 'absolute';
+
+    disabled = false;
 
     appendTo: any = 'body';
 }
@@ -45,5 +45,5 @@ describe('Tooltip', () => {
         fixture = TestBed.createComponent(TestTooltipComponent);
         tooltip = fixture.debugElement.children[0].componentInstance;
         component = fixture.componentInstance;
-    }); 
+    });
 });

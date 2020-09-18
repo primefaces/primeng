@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 
 @Component ({
     templateUrl: './griddemo.html',
-    styles:[`
+    styles: [`
         .box {
             background-color: var(--surface-e);
             text-align: center;

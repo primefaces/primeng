@@ -31,7 +31,7 @@ export class TableColGroupDemo implements OnInit {
 
     calculateLastYearTotal() {
         let total = 0;
-        for(let sale of this.sales) {
+        for (const sale of this.sales) {
             total += sale.lastYearProfit;
         }
 
@@ -40,7 +40,7 @@ export class TableColGroupDemo implements OnInit {
 
     calculateThisYearTotal() {
         let total = 0;
-        for(let sale of this.sales) {
+        for (const sale of this.sales) {
             total += sale.thisYearProfit;
         }
 

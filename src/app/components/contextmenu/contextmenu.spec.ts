@@ -18,7 +18,7 @@ class TestContextMenuTest {
             label: 'File',
             icon: 'pi pi-fw pi-file',
             items: [{
-                    label: 'New', 
+                    label: 'New',
                     icon: 'pi pi-fw pi-plus',
                     items: [
                         {label: 'Project'},
@@ -26,7 +26,7 @@ class TestContextMenuTest {
                     ]
                 },
                 {label: 'Open'},
-                {separator:true},
+                {separator: true},
                 {label: 'Quit'}
             ]
         },
@@ -46,11 +46,11 @@ class TestContextMenuTest {
                     label: 'Contents'
                 },
                 {
-                    label: 'Search', 
-                    icon: 'pi pi-fw pi-search', 
+                    label: 'Search',
+                    icon: 'pi pi-fw pi-search',
                     items: [
                         {
-                            label: 'Text', 
+                            label: 'Text',
                             items: [
                                 {
                                     label: 'Workspace'
@@ -84,7 +84,7 @@ class TestContextMenuTest {
                 }
             ]
         },
-        {separator:true},
+        {separator: true},
         {
             label: 'Quit', icon: 'pi pi-fw pi-times'
         }
@@ -92,11 +92,11 @@ class TestContextMenuTest {
 }
 
 describe('ConextMenu', () => {
-  
+
   let contextmenu: ContextMenu;
   let contextmenuP: ContextMenu;
   let fixture: ComponentFixture<TestContextMenuTest>;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
         imports: [
@@ -112,24 +112,24 @@ describe('ConextMenu', () => {
             ]
         });
 
-        fixture = TestBed.createComponent(TestContextMenuTest);
-        contextmenu = fixture.debugElement.children[0].componentInstance;
-        contextmenuP = fixture.debugElement.children[1].componentInstance;
+    fixture = TestBed.createComponent(TestContextMenuTest);
+    contextmenu = fixture.debugElement.children[0].componentInstance;
+    contextmenuP = fixture.debugElement.children[1].componentInstance;
     });
 
-    it('should create container by default', () => {
+  it('should create container by default', () => {
         fixture.detectChanges();
 
         const containerEls = fixture.debugElement.queryAll(By.css('.p-contextmenu'));
         expect(containerEls.length).toEqual(2);
     });
 
-    it('should open contextmenu (global)', () => {
+  it('should open contextmenu (global)', () => {
         fixture.detectChanges();
 
-        const showSpy = spyOn(contextmenu,"show").and.callThrough();
+        const showSpy = spyOn(contextmenu, 'show').and.callThrough();
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         document.dispatchEvent(contextmenuEvent);
@@ -138,63 +138,63 @@ describe('ConextMenu', () => {
         expect(showSpy).toHaveBeenCalled();
     });
 
-    it('should close contextmenu when outside click (global)', () => {
+  it('should close contextmenu when outside click (global)', () => {
         fixture.detectChanges();
 
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         document.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
 
-        const closeSpy = spyOn(contextmenu,"hide").and.callThrough();
-        document.dispatchEvent(new Event("click"));
+        const closeSpy = spyOn(contextmenu, 'hide').and.callThrough();
+        document.dispatchEvent(new Event('click'));
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();
     });
 
-    it('should close contextmenu when outside window resize (global)', () => {
-        contextmenu.appendTo = "body";
+  it('should close contextmenu when outside window resize (global)', () => {
+        contextmenu.appendTo = 'body';
         fixture.detectChanges();
 
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         document.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
-        
-        const hideSpy = spyOn(contextmenu,"hide").and.callThrough();
-        window.dispatchEvent(new Event("resize"));
+
+        const hideSpy = spyOn(contextmenu, 'hide').and.callThrough();
+        window.dispatchEvent(new Event('resize'));
         fixture.detectChanges();
 
         expect(hideSpy).toHaveBeenCalled();
     });
 
-    it('should open and close programmaticlaly', () => {
+  it('should open and close programmaticlaly', () => {
         fixture.detectChanges();
 
-        const showSpy = spyOn(contextmenu,"show").and.callThrough();
+        const showSpy = spyOn(contextmenu, 'show').and.callThrough();
         contextmenu.toggle();
         fixture.detectChanges();
-        
+
         expect(showSpy).toHaveBeenCalled();
-        const hideSpy = spyOn(contextmenu,"hide").and.callThrough();
+        const hideSpy = spyOn(contextmenu, 'hide').and.callThrough();
         contextmenu.toggle();
         fixture.detectChanges();
 
         expect(hideSpy).toHaveBeenCalled();
     });
 
-    it('should open contextmenu (target)', () => {
+  it('should open contextmenu (target)', () => {
         fixture.detectChanges();
 
-        const showSpy = spyOn(contextmenuP,"show").and.callThrough();
+        const showSpy = spyOn(contextmenuP, 'show').and.callThrough();
         const target = fixture.debugElement.query(By.css('p'));
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         target.nativeElement.dispatchEvent(contextmenuEvent);
@@ -203,38 +203,38 @@ describe('ConextMenu', () => {
         expect(showSpy).toHaveBeenCalled();
     });
 
-    it('should close contextmenu when outside click (target)', () => {
+  it('should close contextmenu when outside click (target)', () => {
         fixture.detectChanges();
 
         const target = fixture.debugElement.query(By.css('p'));
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         target.nativeElement.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
 
-        const closeSpy = spyOn(contextmenuP,"hide").and.callThrough();
-        document.dispatchEvent(new Event("click"));
+        const closeSpy = spyOn(contextmenuP, 'hide').and.callThrough();
+        document.dispatchEvent(new Event('click'));
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();
     });
 
-    it('should close contextmenu when outside window resize (target)', () => {
-        contextmenu.appendTo = "body";
+  it('should close contextmenu when outside window resize (target)', () => {
+        contextmenu.appendTo = 'body';
         fixture.detectChanges();
 
         const target = fixture.debugElement.query(By.css('p'));
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         target.nativeElement.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
-        
-        const hideSpy = spyOn(contextmenuP,"hide").and.callThrough();
-        window.dispatchEvent(new Event("resize"));
+
+        const hideSpy = spyOn(contextmenuP, 'hide').and.callThrough();
+        window.dispatchEvent(new Event('resize'));
         fixture.detectChanges();
 
         expect(hideSpy).toHaveBeenCalled();

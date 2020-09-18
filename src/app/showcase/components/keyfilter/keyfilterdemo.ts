@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 
 @Component({
     templateUrl: './keyfilterdemo.html',
@@ -18,8 +18,8 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 })
 export class KeyFilterDemo {
 
-    blockSpecial: RegExp = /^[^<>*#!]+$/
-    
+    blockSpecial: RegExp = /^[^<>*#!]+$/;
+
     blockSpace: RegExp = /[^\s]/;
 
     ccRegex: RegExp = /[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/;

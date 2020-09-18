@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,AfterViewInit,OnDestroy,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, ElementRef, Input, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
@@ -19,7 +19,7 @@ import {DomHandler} from 'primeng/dom';
            <div class="ui-lightbox-content-wrapper">
               <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
                 [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="ui-lightbox-nav-icon pi pi-chevron-left"></span></a>
-              <div #content class="ui-lightbox-content ui-corner-all" 
+              <div #content class="ui-lightbox-content ui-corner-all"
                 [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                 <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,content)" style="display:none">
                 <ng-content></ng-content>
@@ -40,53 +40,53 @@ import {DomHandler} from 'primeng/dom';
         '../dialog/dialog.css'
     ]
 })
-export class Lightbox implements AfterViewInit,OnDestroy {
+export class Lightbox implements AfterViewInit, OnDestroy {
 
     @Input() images: any[];
-    
-    @Input() type: string = 'image';
+
+    @Input() type = 'image';
 
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() easing: 'ease-out';
-    
+
     @Input() effectDuration: any = '500ms';
 
-    @Input() autoZIndex: boolean = true;
-    
-    @Input() baseZIndex: number = 0;
-                
-    @Input() closeOnEscape: boolean = true;
+    @Input() autoZIndex = true;
+
+    @Input() baseZIndex = 0;
+
+    @Input() closeOnEscape = true;
 
     public visible: boolean;
-    
+
     public loading: boolean;
-        
+
     public currentImage: any;
-    
+
     public captionText: string;
-    
+
     public zindex: any;
-    
+
     public panel: any;
-    
+
     public index: number;
-    
+
     public mask: any;
-    
+
     public preventDocumentClickListener: boolean;
-    
+
     public documentClickListener: any;
 
     public documentEscapeListener: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
-                
-    onImageClick(event,image,i,content) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
+
+    onImageClick(event, image, i, content) {
         this.index = i;
         this.loading = true;
         content.style.width = 32 + 'px';
@@ -96,24 +96,25 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.displayImage(image);
         event.preventDefault();
     }
-    
+
     ngAfterViewInit() {
         this.panel = DomHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
-        
+
         if (this.appendTo) {
-            if (this.appendTo === 'body')
+            if (this.appendTo === 'body') {
                 document.body.appendChild(this.panel);
-            else
+            } else {
                 DomHandler.appendChild(this.panel, this.appendTo);
+            }
         }
     }
-    
-    onLinkClick(event,content) {
+
+    onLinkClick(event, content) {
         this.preventDocumentClickListener = true;
         this.show();
         event.preventDefault();
     }
-    
+
     displayImage(image) {
         setTimeout(() => {
             this.cd.markForCheck();
@@ -122,10 +123,10 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.center();
         }, 1000);
     }
-    
+
     show() {
         this.mask = document.createElement('div');
-        
+
         DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
         document.body.appendChild(this.mask);
         if (this.autoZIndex) {
@@ -136,22 +137,22 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.visible = true;
         this.bindGlobalListeners();
     }
-    
+
     hide(event) {
         this.captionText = null;
         this.index = null;
         this.currentImage = null;
         this.visible = false;
-        
+
         if (this.mask) {
             document.body.removeChild(this.mask);
             this.mask = null;
         }
-        
+
         this.unbindGlobalListeners();
         event.preventDefault();
     }
-    
+
     center() {
         let elementWidth = DomHandler.getOuterWidth(this.panel);
         let elementHeight = DomHandler.getOuterHeight(this.panel);
@@ -164,13 +165,13 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.panel.style.visibility = 'visible';
         }
     }
-        
-    onImageLoad(event,content) {
-        let image = event.target;
+
+    onImageLoad(event, content) {
+        const image = event.target;
         image.style.visibility = 'hidden';
         image.style.display = 'block';
-        let imageWidth = DomHandler.getOuterWidth(image);
-        let imageHeight = DomHandler.getOuterHeight(image);
+        const imageWidth = DomHandler.getOuterWidth(image);
+        const imageHeight = DomHandler.getOuterHeight(image);
         image.style.display = 'none';
         image.style.visibility = 'visible';
 
@@ -183,11 +184,11 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.cd.markForCheck();
             DomHandler.fadeIn(image, 500);
             image.style.display = 'block';
-            //this.captionText = this.currentImage.title;
+            // this.captionText = this.currentImage.title;
             this.loading = false;
         }, parseInt(this.effectDuration));
     }
-    
+
     prev(placeholder: any) {
         this.captionText = null;
         this.loading = true;
@@ -196,7 +197,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.displayImage(this.images[--this.index]);
         }
     }
-    
+
     next(placeholder: any) {
         this.captionText = null;
         this.loading = true;
@@ -228,7 +229,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     }
 
     unbindGlobalListeners() {
-        if (this.documentEscapeListener){
+        if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
@@ -238,23 +239,23 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.documentClickListener = null;
         }
     }
-        
-    get leftVisible():boolean {
-        return this.images && this.images.length && this.index != 0 && !this.loading; 
+
+    get leftVisible(): boolean {
+        return this.images && this.images.length && this.index != 0 && !this.loading;
     }
-    
-    get rightVisible():boolean {
-        return this.images && this.images.length && this.index < (this.images.length - 1) && !this.loading; 
+
+    get rightVisible(): boolean {
+        return this.images && this.images.length && this.index < (this.images.length - 1) && !this.loading;
     }
-    
+
     ngOnDestroy() {
         this.unbindGlobalListeners();
-        
+
         if (this.appendTo) {
             this.el.nativeElement.appendChild(this.panel);
         }
     }
-        
+
 }
 
 @NgModule({

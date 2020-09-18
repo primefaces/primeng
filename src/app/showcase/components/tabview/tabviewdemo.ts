@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';;
+import {Component} from '@angular/core';
 
 @Component({
     templateUrl: './tabviewdemo.html',
     styleUrls: ['./tabviewdemo.scss']
 })
 export class TabViewDemo {
-    activeIndex: number = 0;
+    activeIndex = 0;
 }

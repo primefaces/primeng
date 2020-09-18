@@ -5,9 +5,9 @@ import {ThemingComponent} from './theming.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
-            {path:'',component: ThemingComponent}
+            {path: '', component: ThemingComponent}
         ])
-    ], 
+    ],
     exports: [
         RouterModule
     ]

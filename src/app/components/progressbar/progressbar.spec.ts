@@ -45,8 +45,8 @@ describe('ProgressBar', () => {
 
 	it('should change style and styleClass', () => {
 		progressbar.value = 50;
-		progressbar.style = { 'height': '300px' };
-		progressbar.styleClass = "Primeng";
+		progressbar.style = { height: '300px' };
+		progressbar.styleClass = 'Primeng';
 		fixture.detectChanges();
 
 		const progressbarEl = fixture.debugElement.query(By.css('div')).nativeElement;

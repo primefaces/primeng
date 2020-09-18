@@ -1,9 +1,9 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
+import {NgModule, Component, ElementRef, AfterViewInit, Input, Output, EventEmitter, ContentChild, forwardRef, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
+import {SharedModule, Header, PrimeTemplate} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import * as Quill from "quill";
+import * as Quill from 'quill';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -67,20 +67,38 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor {
-        
+export class Editor implements AfterViewInit, AfterContentInit, ControlValueAccessor {
+
+    constructor(public el: ElementRef) {}
+
+    @Input() get readonly(): boolean {
+        return this._readonly;
+    }
+
+    set readonly(val: boolean) {
+        this._readonly = val;
+
+        if (this.quill) {
+            if (this._readonly) {
+                this.quill.disable();
+            } else {
+                this.quill.enable();
+            }
+        }
+    }
+
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Header) toolbar;
-    
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Input() placeholder: string;
-    
+
     @Input() formats: string[];
 
     @Input() modules: any;
@@ -90,33 +108,31 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
     @Input() scrollingContainer: any;
 
     @Input() debug: string;
-    
+
     @Output() onInit: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     value: string;
-    
+
     _readonly: boolean;
-    
-    onModelChange: Function = () => {};
-    
-    onModelTouched: Function = () => {};
-    
+
     quill: any;
 
     toolbarTemplate: TemplateRef<any>;
-    
-    constructor(public el: ElementRef) {}
+
+    onModelChange: Function = () => {};
+
+    onModelTouched: Function = () => {};
 
     ngAfterViewInit() {
-        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-content'); 
-        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-toolbar'); 
-        let defaultModule  = {toolbar: toolbarElement};
-        let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
+        const editorElement = DomHandler.findSingle(this.el.nativeElement , 'div.p-editor-content');
+        const toolbarElement = DomHandler.findSingle(this.el.nativeElement , 'div.p-editor-toolbar');
+        const defaultModule  = {toolbar: toolbarElement};
+        const modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
 
         this.quill = new Quill(editorElement, {
-            modules: modules,
+            modules,
             placeholder: this.placeholder,
             readOnly: this.readonly,
             theme: 'snow',
@@ -125,15 +141,15 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
             debug: this.debug,
             scrollingContainer: this.scrollingContainer
         });
-                
+
         if (this.value) {
             this.quill.pasteHTML(this.value);
         }
-        
+
         this.quill.on('text-change', (delta, oldContents, source) => {
             if (source === 'user') {
                 let html = editorElement.children[0].innerHTML;
-                let text = this.quill.getText().trim();
+                const text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;
                 }
@@ -141,23 +157,23 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
                 this.onTextChange.emit({
                     htmlValue: html,
                     textValue: text,
-                    delta: delta,
-                    source: source
+                    delta,
+                    source
                 });
-                
+
                 this.onModelChange(html);
                 this.onModelTouched();
             }
         });
-        
+
         this.quill.on('selection-change', (range, oldRange, source) => {
             this.onSelectionChange.emit({
-                range: range,
-                oldRange: oldRange,
-                source: source
+                range,
+                oldRange,
+                source
             });
         });
-        
+
         this.onInit.emit({
             editor: this.quill
         });
@@ -165,25 +181,26 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
-        
-    writeValue(value: any) : void {
+
+    writeValue(value: any): void {
         this.value = value;
-                
+
         if (this.quill) {
-            if (value)
+            if (value) {
                 this.quill.pasteHTML(value);
-            else
+            } else {
                 this.quill.setText('');
+            }
         }
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -191,30 +208,15 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     getQuill() {
         return this.quill;
-    }
-    
-    @Input() get readonly(): boolean {
-        return this._readonly;
-    }
-
-    set readonly(val:boolean) {
-        this._readonly = val;
-        
-        if (this.quill) {
-            if (this._readonly)
-                this.quill.disable();
-            else
-                this.quill.enable();
-        }
     }
 }
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Editor,SharedModule],
+    exports: [Editor, SharedModule],
     declarations: [Editor]
 })
 export class EditorModule { }

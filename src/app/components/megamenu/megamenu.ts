@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
+import {NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MegaMenuItem,MenuItem, PrimeTemplate} from 'primeng/api';
+import {MegaMenuItem, MenuItem, PrimeTemplate} from 'primeng/api';
 import {RouterModule} from '@angular/router';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: 'p-megaMenu',
@@ -23,7 +23,7 @@ import {RippleModule} from 'primeng/ripple';
                             <span class="p-menuitem-text">{{category.label}}</span>
                             <span *ngIf="category.items" class="p-submenu-icon pi" [ngClass]="{'pi-angle-down':orientation=='horizontal','pi-angle-right':orientation=='vertical'}"></span>
                         </a>
-                        <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" [attr.tabindex]="category.tabindex ? category.tabindex : '0'" 
+                        <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" [attr.tabindex]="category.tabindex ? category.tabindex : '0'"
                             [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
                             (click)="onCategoryClick($event, category)" [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass"
                             [fragment]="category.fragment" [queryParamsHandling]="category.queryParamsHandling" [preserveFragment]="category.preserveFragment" [skipLocationChange]="category.skipLocationChange" [replaceUrl]="category.replaceUrl" [state]="category.state" pRipple>
@@ -46,7 +46,7 @@ import {RippleModule} from 'primeng/ripple';
                                                             <span class="p-menuitem-text">{{item.label}}</span>
                                                         </a>
                                                         <a *ngIf="item.routerLink" role="menuitem" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
-                                                            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" 
+                                                            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link"
                                                              [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                                             [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)"
                                                             [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
@@ -85,15 +85,15 @@ export class MegaMenu implements AfterContentInit {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
-    @Input() orientation: string = 'horizontal';
 
-    @Input() autoZIndex: boolean = true;
+    @Input() orientation = 'horizontal';
 
-    @Input() baseZIndex: number = 0;
+    @Input() autoZIndex = true;
+
+    @Input() baseZIndex = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     activeItem: any;
 
     documentClickListener: any;
@@ -101,19 +101,19 @@ export class MegaMenu implements AfterContentInit {
     startTemplate: TemplateRef<any>;
 
     endTemplate: TemplateRef<any>;
-                
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'start':
                     this.startTemplate = item.template;
-                break;
+                    break;
 
                 case 'end':
                     this.endTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -142,7 +142,7 @@ export class MegaMenu implements AfterContentInit {
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item
             });
         }
 
@@ -150,59 +150,58 @@ export class MegaMenu implements AfterContentInit {
             if (this.activeItem && this.activeItem === item) {
                 this.activeItem = null;
                 this.unbindDocumentClickListener();
-            }
-            else {
+            } else {
                 this.activeItem = item;
                 this.bindDocumentClickListener();
             }
         }
     }
-    
+
     itemClick(event, item: MenuItem | MegaMenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if (!item.url) {
             event.preventDefault();
         }
-        
+
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item
             });
         }
-                        
+
         this.activeItem = null;
     }
-    
+
     getColumnClass(menuitem: MegaMenuItem) {
-        let length = menuitem.items ? menuitem.items.length: 0;
+        const length = menuitem.items ? menuitem.items.length : 0;
         let columnClass;
-        switch(length) {
+        switch (length) {
             case 2:
-                columnClass= 'p-megamenu-col-6';
-            break;
-            
+                columnClass = 'p-megamenu-col-6';
+                break;
+
             case 3:
-                columnClass= 'p-megamenu-col-4';
-            break;
-            
+                columnClass = 'p-megamenu-col-4';
+                break;
+
             case 4:
-                columnClass= 'p-megamenu-col-3';
-            break;
-            
+                columnClass = 'p-megamenu-col-3';
+                break;
+
             case 6:
-                columnClass= 'p-megamenu-col-2';
-            break;
-                        
+                columnClass = 'p-megamenu-col-2';
+                break;
+
             default:
-                columnClass= 'p-megamenu-col-12';
-            break;
+                columnClass = 'p-megamenu-col-12';
+                break;
         }
-        
+
         return columnClass;
     }
 
@@ -229,8 +228,8 @@ export class MegaMenu implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [MegaMenu,RouterModule],
+    imports: [CommonModule, RouterModule, RippleModule],
+    exports: [MegaMenu, RouterModule],
     declarations: [MegaMenu]
 })
 export class MegaMenuModule { }

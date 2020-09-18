@@ -213,7 +213,7 @@ import { Subscription } from 'rxjs';
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 2)">Resources</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
-                        
+
                         <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
                         <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
                         <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>
@@ -246,7 +246,7 @@ import { Subscription } from 'rxjs';
               transition(':leave', [
                 animate('.1s linear', style({ opacity: 0 }))
               ])
-        ]) 
+        ])
     ]
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
@@ -288,7 +288,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'arya-green': 'arya-green.png',
         'arya-orange': 'arya-orange.png',
         'arya-purple': 'arya-purple.png',
-        'nova': 'nova.png',
+        nova: 'nova.png',
         'nova-alt': 'nova-alt.png',
         'nova-accent': 'nova-accent.png',
         'nova-vue': 'nova-vue.png',
@@ -296,7 +296,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'luna-green': 'luna-green.png',
         'luna-pink': 'luna-pink.png',
         'luna-amber': 'luna-amber.png',
-        'rhea': 'rhea.png'
+        rhea: 'rhea.png'
     };
 
     versions: any[];
@@ -321,7 +321,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        let themeElement = document.getElementById('theme-link');
+        const themeElement = document.getElementById('theme-link');
         themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
         this.configService.updateConfig({...this.config, ...{theme, dark}});
         this.activeMenuIndex = null;
@@ -357,14 +357,14 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     onOverlayMenuEnter(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 this.bindOutsideClickListener();
-            break;
+                break;
 
             case 'void':
                 this.unbindOutsideClickListener();
-            break;
+                break;
         }
     }
 

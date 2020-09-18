@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone} from '@angular/core';
+import {NgModule, Directive, ElementRef, HostListener, Input, OnDestroy, DoCheck, NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
@@ -10,41 +10,41 @@ import {DomHandler} from 'primeng/dom';
         '[class.p-filled]': 'filled'
     }
 })
-export class Password implements OnDestroy,DoCheck {
+export class Password implements OnDestroy, DoCheck {
 
-    @Input() promptLabel: string = 'Enter a password';
+    @Input() promptLabel = 'Enter a password';
 
-    @Input() weakLabel: string = 'Weak';
+    @Input() weakLabel = 'Weak';
 
-    @Input() mediumLabel: string = 'Medium';
+    @Input() mediumLabel = 'Medium';
 
-    @Input() strongLabel: string = 'Strong';
-    
-    @Input() feedback: boolean = true;
+    @Input() strongLabel = 'Strong';
+
+    @Input() feedback = true;
 
     @Input() set showPassword(show: boolean) {
         this.el.nativeElement.type = show ? 'text' : 'password';
     }
-    
+
     panel: HTMLDivElement;
-    
+
     meter: any;
-    
+
     info: any;
-    
+
     filled: boolean;
-    
+
     constructor(public el: ElementRef, public zone: NgZone) {}
-    
+
     ngDoCheck() {
         this.updateFilledState();
     }
-    
-    @HostListener('input', ['$event']) 
+
+    @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();
     }
-    
+
     updateFilledState() {
         this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
@@ -62,18 +62,18 @@ export class Password implements OnDestroy,DoCheck {
         this.panel.style.minWidth = DomHandler.getOuterWidth(this.el.nativeElement) + 'px';
         document.body.appendChild(this.panel);
     }
-        
-    @HostListener('focus') 
+
+    @HostListener('focus')
     onFocus() {
         if (this.feedback) {
             if (!this.panel) {
                 this.createPanel();
             }
-    
+
             this.panel.style.zIndex = String(++DomHandler.zindex);
             this.panel.style.display = 'block';
             this.zone.runOutsideAngular(() => {
-                
+
                 setTimeout(() => {
                     DomHandler.addClass(this.panel, 'p-connected-overlay-visible');
                 }, 1);
@@ -81,9 +81,9 @@ export class Password implements OnDestroy,DoCheck {
             DomHandler.absolutePosition(this.panel, this.el.nativeElement);
         }
     }
-    
-    @HostListener('blur') 
-    onBlur() {   
+
+    @HostListener('blur')
+    onBlur() {
         if (this.feedback) {
             DomHandler.addClass(this.panel, 'p-connected-overlay-hidden');
             DomHandler.removeClass(this.panel, 'p-connected-overlay-visible');
@@ -93,9 +93,9 @@ export class Password implements OnDestroy,DoCheck {
                     this.ngOnDestroy();
                 }, 150);
             });
-        }     
+        }
     }
-    
+
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
         if (this.feedback) {
@@ -106,19 +106,16 @@ export class Password implements OnDestroy,DoCheck {
             if (value.length === 0) {
                 label = this.promptLabel;
                 meterPos = '0px 0px';
-            }
-            else {
-                var score = this.testStrength(value);
+            } else {
+                const score = this.testStrength(value);
 
                 if (score < 30) {
                     label = this.weakLabel;
                     meterPos = '0px -10px';
-                }
-                else if (score >= 30 && score < 80) {
+                } else if (score >= 30 && score < 80) {
                     label = this.mediumLabel;
                     meterPos = '0px -20px';
-                } 
-                else if (score >= 80) {
+                } else if (score >= 80) {
                     label = this.strongLabel;
                     meterPos = '0px -30px';
                 }
@@ -128,41 +125,42 @@ export class Password implements OnDestroy,DoCheck {
             this.info.textContent = label;
         }
     }
-    
+
     testStrength(str: string) {
-        let grade: number = 0;
+        let grade = 0;
         let val: RegExpMatchArray;
 
         val = str.match('[0-9]');
-        grade += this.normalize(val ? val.length : 1/4, 1) * 25;
+        grade += this.normalize(val ? val.length : 1 / 4, 1) * 25;
 
         val = str.match('[a-zA-Z]');
-        grade += this.normalize(val ? val.length : 1/2, 3) * 10;
+        grade += this.normalize(val ? val.length : 1 / 2, 3) * 10;
 
         val = str.match('[!@#$%^&*?_~.,;=]');
-        grade += this.normalize(val ? val.length : 1/6, 1) * 35;
+        grade += this.normalize(val ? val.length : 1 / 6, 1) * 35;
 
         val = str.match('[A-Z]');
-        grade += this.normalize(val ? val.length : 1/6, 1) * 30;
+        grade += this.normalize(val ? val.length : 1 / 6, 1) * 30;
 
         grade *= str.length / 8;
 
         return grade > 100 ? 100 : grade;
     }
-    
-    normalize(x, y) {
-        let diff = x - y;
 
-        if (diff <= 0)
+    normalize(x, y) {
+        const diff = x - y;
+
+        if (diff <= 0) {
             return x / y;
-        else
-            return 1 + 0.5 * (x / (x + y/4));
+        } else {
+            return 1 + 0.5 * (x / (x + y / 4));
+        }
     }
-    
+
     get disabled(): boolean {
         return this.el.nativeElement.disabled;
     }
-    
+
     ngOnDestroy() {
         if (this.panel) {
             document.body.removeChild(this.panel);

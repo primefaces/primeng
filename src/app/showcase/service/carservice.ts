@@ -15,22 +15,22 @@ export class CarService {
     getCarsSmall() {
         return this.http.get<any>('assets/showcase/data/cars-small.json')
         .toPromise()
-        .then(res => <Car[]>res.data)
-        .then(data => { return data; });
+        .then(res => res.data as Car[])
+        .then(data => data);
     }
 
     getCarsMedium() {
         return this.http.get<any>('assets/showcase/data/cars-medium.json')
         .toPromise()
-        .then(res => <Car[]>res.data)
-        .then(data => { return data; });
+        .then(res => res.data as Car[])
+        .then(data => data);
     }
 
     getCarsLarge() {
         return this.http.get<any>('assets/showcase/data/cars-large.json')
         .toPromise()
-        .then(res => <Car[]>res.data)
-        .then(data => { return data; });
+        .then(res => res.data as Car[])
+        .then(data => data);
     }
 
     generateCar(): Car {
@@ -39,17 +39,17 @@ export class CarService {
             brand: this.generateBrand(),
             color: this.generateColor(),
             year: this.generateYear()
-        }
+        };
     }
 
     generateVin() {
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        
-        for (var i = 0; i < 5; i++) {
+        let text = '';
+        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        for (let i = 0; i < 5; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
-        
+
         return text;
     }
 

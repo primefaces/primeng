@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { TicketService } from './ticketservice';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12">
                             <label for="class">Card Holder Name</label>
-                            <input type="text" required pInputText [(ngModel)]="paymentInformation.cardholderName"> 
+                            <input type="text" required pInputText [(ngModel)]="paymentInformation.cardholderName">
                         </div>
                         <div class="p-field p-col-8">
                             <label id="number" for="lastname">Number</label>
@@ -53,7 +53,7 @@ export class PaymentDemo implements OnInit {
 
     constructor(public ticketService: TicketService, private router: Router) { }
 
-    ngOnInit() { 
+    ngOnInit() {
         this.paymentInformation = this.ticketService.ticketInformation.paymentInformation;
     }
 

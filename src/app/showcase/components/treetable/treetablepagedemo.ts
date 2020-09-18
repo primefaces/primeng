@@ -15,16 +15,16 @@ export class TreeTablePageDemo implements OnInit {
 
     ngOnInit() {
         this.files = [];
-        for(let i = 0; i < 50; i++) {
-            let node = {
-                data:{  
+        for (let i = 0; i < 50; i++) {
+            const node = {
+                data: {
                     name: 'Item ' + i,
                     size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
                     {
-                        data: {  
+                        data: {
                             name: 'Item ' + i + ' - 0',
                             size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                             type: 'Type ' + i

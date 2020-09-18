@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
-import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
+import {NgModule, Component, ElementRef, OnDestroy, Input, EventEmitter, Renderer2, ContentChild, NgZone, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
+import {trigger, style, transition, animate, AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule, PrimeTemplate} from 'primeng/api';
+import {Footer, SharedModule, PrimeTemplate} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
@@ -60,62 +60,12 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class ConfirmDialog implements AfterContentInit,OnDestroy {
-
-    @Input() header: string;
-
-    @Input() icon: string;
-
-    @Input() message: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() maskStyleClass: string;
-
-    @Input() acceptIcon: string = 'pi pi-check';
-
-    @Input() acceptLabel: string = 'Yes';
-
-    @Input() acceptVisible: boolean = true;
-
-    @Input() rejectIcon: string = 'pi pi-times';
-
-    @Input() rejectLabel: string = 'No';
-
-    @Input() rejectVisible: boolean = true;
-
-    @Input() acceptButtonStyleClass: string;
-
-    @Input() rejectButtonStyleClass: string;
-
-    @Input() closeOnEscape: boolean = true;
-
-    @Input() blockScroll: boolean = true;
-
-    @Input() rtl: boolean;
-
-    @Input() closable: boolean = true;
-
-    @Input() appendTo: any;
-
-    @Input() key: string;
-
-    @Input() autoZIndex: boolean = true;
-
-    @Input() baseZIndex: number = 0;
-
-    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-
-    @Input() focusTrap: boolean = true;
-
-    @Input() defaultFocus: string = 'accept';
+export class ConfirmDialog implements AfterContentInit, OnDestroy {
 
     @Input() get visible(): any {
         return this._visible;
     }
-    set visible(value:any) {
+    set visible(value: any) {
         this._visible = value;
 
         if (this._visible && !this.maskVisible) {
@@ -127,7 +77,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     @Input() get position(): string {
         return this._position;
-    };
+    }
 
     set position(value: string) {
         this._position = value;
@@ -136,66 +86,24 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             case 'topleft':
             case 'bottomleft':
             case 'left':
-                this.transformOptions = "translate3d(-100%, 0px, 0px)";
-            break;
+                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                break;
             case 'topright':
             case 'bottomright':
             case 'right':
-                this.transformOptions = "translate3d(100%, 0px, 0px)";
-            break;
+                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                break;
             case 'bottom':
-                this.transformOptions = "translate3d(0px, 100%, 0px)";
-            break;
+                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                break;
             case 'top':
-                this.transformOptions = "translate3d(0px, -100%, 0px)";
-            break;
+                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                break;
             default:
-                this.transformOptions = "scale(0.7)";
-            break;
+                this.transformOptions = 'scale(0.7)';
+                break;
         }
     }
-
-    @ContentChild(Footer) footer;
-
-    @ViewChild('content') contentViewChild: ElementRef;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch(item.getType()) {
-                case 'footerTemplate':
-                    this.footerTemplate = item.template;
-                break;
-            }
-        });
-    }
-
-    footerTemplate: TemplateRef<any>;
-
-    confirmation: Confirmation;
-
-    _visible: boolean;
-
-    maskVisible: boolean;
-
-    documentEscapeListener: any;
-
-    container: HTMLDivElement;
-
-    wrapper: HTMLElement;
-
-    contentContainer: HTMLDivElement;
-
-    subscription: Subscription;
-
-    preWidth: number;
-
-    _position: string = "center";
-
-    transformOptions: any = "scale(0.7)";
-
-    confirmationOptions: Confirmation;
 
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
@@ -207,13 +115,13 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
                 this.confirmationOptions = {
-                    message: this.confirmation.message||this.message,
-                    icon: this.confirmation.icon||this.icon,
-                    header: this.confirmation.header||this.header,
+                    message: this.confirmation.message || this.message,
+                    icon: this.confirmation.icon || this.icon,
+                    header: this.confirmation.header || this.header,
                     rejectVisible: this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible,
                     acceptVisible: this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible,
-                    acceptLabel: this.confirmation.acceptLabel||this.acceptLabel,
-                    rejectLabel: this.confirmation.rejectLabel||this.rejectLabel,
+                    acceptLabel: this.confirmation.acceptLabel || this.acceptLabel,
+                    rejectLabel: this.confirmation.rejectLabel || this.rejectLabel,
                     acceptIcon: this.confirmation.acceptIcon || this.acceptIcon,
                     rejectIcon: this.confirmation.rejectIcon || this.rejectIcon,
                     acceptButtonStyleClass: this.confirmation.acceptButtonStyleClass || this.acceptButtonStyleClass,
@@ -237,6 +145,98 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         });
     }
 
+    @Input() header: string;
+
+    @Input() icon: string;
+
+    @Input() message: string;
+
+    @Input() style: any;
+
+    @Input() styleClass: string;
+
+    @Input() maskStyleClass: string;
+
+    @Input() acceptIcon = 'pi pi-check';
+
+    @Input() acceptLabel = 'Yes';
+
+    @Input() acceptVisible = true;
+
+    @Input() rejectIcon = 'pi pi-times';
+
+    @Input() rejectLabel = 'No';
+
+    @Input() rejectVisible = true;
+
+    @Input() acceptButtonStyleClass: string;
+
+    @Input() rejectButtonStyleClass: string;
+
+    @Input() closeOnEscape = true;
+
+    @Input() blockScroll = true;
+
+    @Input() rtl: boolean;
+
+    @Input() closable = true;
+
+    @Input() appendTo: any;
+
+    @Input() key: string;
+
+    @Input() autoZIndex = true;
+
+    @Input() baseZIndex = 0;
+
+    @Input() transitionOptions = '150ms cubic-bezier(0, 0, 0.2, 1)';
+
+    @Input() focusTrap = true;
+
+    @Input() defaultFocus = 'accept';
+
+    @ContentChild(Footer) footer;
+
+    @ViewChild('content') contentViewChild: ElementRef;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    footerTemplate: TemplateRef<any>;
+
+    confirmation: Confirmation;
+
+    _visible: boolean;
+
+    maskVisible: boolean;
+
+    documentEscapeListener: any;
+
+    container: HTMLDivElement;
+
+    wrapper: HTMLElement;
+
+    contentContainer: HTMLDivElement;
+
+    subscription: Subscription;
+
+    preWidth: number;
+
+    _position = 'center';
+
+    transformOptions: any = 'scale(0.7)';
+
+    confirmationOptions: Confirmation;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'footerTemplate':
+                    this.footerTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     option(name: string) {
         const source = this.confirmationOptions || this;
         if (source.hasOwnProperty(name)) {
@@ -246,7 +246,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     }
 
     onAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
@@ -261,20 +261,20 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                 this.moveOnTop();
                 this.bindGlobalListeners();
                 this.enableModality();
-            break;
+                break;
         }
     }
 
     onAnimationEnd(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'void':
                 this.onOverlayHide();
-            break;
+                break;
         }
     }
 
     getElementToFocus() {
-        switch(this.option('defaultFocus')) {
+        switch (this.option('defaultFocus')) {
             case 'accept':
                 return DomHandler.findSingle(this.container, '.p-confirm-dialog-accept');
 
@@ -287,7 +287,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             case 'none':
                 return null;
 
-            //backward compatibility
+            // backward compatibility
             default:
                 return DomHandler.findSingle(this.container, '.p-confirm-dialog-accept');
         }
@@ -295,10 +295,11 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
+            if (this.appendTo === 'body') {
                 document.body.appendChild(this.wrapper);
-            else
+            } else {
                 DomHandler.appendChild(this.wrapper, this.appendTo);
+            }
         }
     }
 
@@ -349,7 +350,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     }
 
     getMaskClass() {
-        let maskClass = {'p-dialog-mask p-component-overlay': true, 'p-dialog-mask-scrollblocker': this.blockScroll};
+        const maskClass = {'p-dialog-mask p-component-overlay': true, 'p-dialog-mask-scrollblocker': this.blockScroll};
         maskClass[this.getPositionClass().toString()] = true;
         return maskClass;
     }
@@ -375,26 +376,26 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                 if (event.which === 9 && this.focusTrap) {
                     event.preventDefault();
 
-                    let focusableElements = DomHandler.getFocusableElements(this.container);
+                    const focusableElements = DomHandler.getFocusableElements(this.container);
 
                     if (focusableElements && focusableElements.length > 0) {
                         if (!focusableElements[0].ownerDocument.activeElement) {
                             focusableElements[0].focus();
-                        }
-                        else {
-                            let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+                        } else {
+                            const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                             if (event.shiftKey) {
-                                if (focusedIndex == -1 || focusedIndex === 0)
+                                if (focusedIndex == -1 || focusedIndex === 0) {
                                     focusableElements[focusableElements.length - 1].focus();
-                                else
+                                } else {
                                     focusableElements[focusedIndex - 1].focus();
-                            }
-                            else {
-                                if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                                }
+                            } else {
+                                if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
                                     focusableElements[0].focus();
-                                else
+                                } else {
                                     focusableElements[focusedIndex + 1].focus();
+                                }
                             }
                         }
                     }
@@ -440,8 +441,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
-    exports: [ConfirmDialog,ButtonModule,SharedModule],
+    imports: [CommonModule, ButtonModule],
+    exports: [ConfirmDialog, ButtonModule, SharedModule],
     declarations: [ConfirmDialog]
 })
 export class ConfirmDialogModule { }

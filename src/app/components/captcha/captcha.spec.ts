@@ -4,10 +4,10 @@ import { Captcha } from './captcha';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Captcha', () => {
-  
+
   let captcha: Captcha;
   let fixture: ComponentFixture<Captcha>;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -17,7 +17,7 @@ describe('Captcha', () => {
         Captcha
       ]
     });
-    
+
     fixture = TestBed.createComponent(Captcha);
     captcha = fixture.componentInstance;
   });

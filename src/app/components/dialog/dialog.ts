@@ -1,13 +1,13 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild} from '@angular/core';
-import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
+import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2,
+    ContentChildren, QueryList, ViewChild, NgZone, ChangeDetectorRef, ViewRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild} from '@angular/core';
+import {trigger, style, transition, animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
+import {Header, Footer, SharedModule, PrimeTemplate} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
 import {RippleModule} from 'primeng/ripple';
 
-let idx: number = 0;
+let idx = 0;
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -75,28 +75,28 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class Dialog implements AfterContentInit,OnDestroy {
+export class Dialog implements AfterContentInit, OnDestroy {
 
     @Input() header: string;
 
-    @Input() draggable: boolean = true;
+    @Input() draggable = true;
 
-    @Input() resizable: boolean = true;
+    @Input() resizable = true;
 
     @Input() get positionLeft(): number {
         return 0;
-    };
+    }
 
     set positionLeft(_positionLeft: number) {
-        console.log("positionLeft property is deprecated.");
+        console.log('positionLeft property is deprecated.');
     }
 
     @Input() get positionTop(): number {
         return 0;
-    };
+    }
 
     set positionTop(_positionTop: number) {
-        console.log("positionTop property is deprecated.");
+        console.log('positionTop property is deprecated.');
     }
 
     @Input() contentStyle: any;
@@ -105,20 +105,20 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     @Input() modal: boolean;
 
-    @Input() closeOnEscape: boolean = true;
+    @Input() closeOnEscape = true;
 
     @Input() dismissableMask: boolean;
 
     @Input() rtl: boolean;
 
-    @Input() closable: boolean = true;
+    @Input() closable = true;
 
     @Input() get responsive(): boolean {
         return false;
-    };
+    }
 
     set responsive(_responsive: boolean) {
-        console.log("Responsive property is deprecated.");
+        console.log('Responsive property is deprecated.');
     }
 
     @Input() appendTo: any;
@@ -127,41 +127,41 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     @Input() maskStyleClass: string;
 
-    @Input() showHeader: boolean = true;
+    @Input() showHeader = true;
 
     @Input() get breakpoint(): number {
         return 649;
-    };
-
-    set breakpoint(_breakpoint: number) {
-        console.log("Breakpoint property is not utilized and deprecated, use CSS media queries instead.");
     }
 
-    @Input() blockScroll: boolean = false;
+    set breakpoint(_breakpoint: number) {
+        console.log('Breakpoint property is not utilized and deprecated, use CSS media queries instead.');
+    }
 
-    @Input() autoZIndex: boolean = true;
+    @Input() blockScroll = false;
 
-    @Input() baseZIndex: number = 0;
+    @Input() autoZIndex = true;
 
-    @Input() minX: number = 0;
+    @Input() baseZIndex = 0;
 
-    @Input() minY: number = 0;
+    @Input() minX = 0;
 
-    @Input() focusOnShow: boolean = true;
+    @Input() minY = 0;
+
+    @Input() focusOnShow = true;
 
     @Input() maximizable: boolean;
 
-    @Input() keepInViewport: boolean = true;
+    @Input() keepInViewport = true;
 
-    @Input() focusTrap: boolean = true;
+    @Input() focusTrap = true;
 
-    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+    @Input() transitionOptions = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
-    @Input() closeIcon: string = 'pi pi-times';
+    @Input() closeIcon = 'pi pi-times';
 
-    @Input() minimizeIcon: string = 'pi pi-window-minimize';
+    @Input() minimizeIcon = 'pi pi-window-minimize';
 
-    @Input() maximizeIcon: string = 'pi pi-window-maximize';
+    @Input() maximizeIcon = 'pi pi-window-maximize';
 
     @ContentChild(Header) headerFacet: QueryList<Header>;
 
@@ -179,7 +179,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @Output() visibleChange:EventEmitter<any> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onResizeInit: EventEmitter<any> = new EventEmitter();
 
@@ -235,36 +235,36 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     preMaximizePageY: number;
 
-    id: string = `p-dialog-${idx++}`;
+    id = `p-dialog-${idx++}`;
 
     _style: any = {};
 
-    _position: string = "center";
+    _position = 'center';
 
     originalStyle: any;
 
-    transformOptions: any = "scale(0.7)";
+    transformOptions: any = 'scale(0.7)';
 
     constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -272,7 +272,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
     @Input() get visible(): any {
         return this._visible;
     }
-    set visible(value:any) {
+    set visible(value: any) {
         this._visible = value;
 
         if (this._visible && !this.maskVisible) {
@@ -283,7 +283,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
     @Input() get style(): any {
         return this._style;
     }
-    set style(value:any) {
+    set style(value: any) {
         if (value) {
             this._style = {...value};
             this.originalStyle = value;
@@ -292,7 +292,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     @Input() get position(): string {
         return this._position;
-    };
+    }
 
     set position(value: string) {
         this._position = value;
@@ -301,27 +301,27 @@ export class Dialog implements AfterContentInit,OnDestroy {
             case 'topleft':
             case 'bottomleft':
             case 'left':
-                this.transformOptions = "translate3d(-100%, 0px, 0px)";
-            break;
+                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                break;
             case 'topright':
             case 'bottomright':
             case 'right':
-                this.transformOptions = "translate3d(100%, 0px, 0px)";
-            break;
+                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                break;
             case 'bottom':
-                this.transformOptions = "translate3d(0px, 100%, 0px)";
-            break;
+                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                break;
             case 'top':
-                this.transformOptions = "translate3d(0px, -100%, 0px)";
-            break;
+                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                break;
             default:
-                this.transformOptions = "scale(0.7)";
-            break;
+                this.transformOptions = 'scale(0.7)';
+                break;
         }
     }
 
     focus() {
-        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+        const focusable = DomHandler.findSingle(this.container, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
@@ -368,10 +368,11 @@ export class Dialog implements AfterContentInit,OnDestroy {
         this.maximized = !this.maximized;
 
         if (!this.modal && !this.blockScroll) {
-            if (this.maximized)
+            if (this.maximized) {
                 DomHandler.addClass(document.body, 'p-overflow-hidden');
-            else
+            } else {
                 DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            }
         }
     }
 
@@ -390,7 +391,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((<HTMLElement> event.target).parentElement, 'p-dialog-header-icon')) {
+        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((event.target as HTMLElement).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -409,26 +410,26 @@ export class Dialog implements AfterContentInit,OnDestroy {
             if (event.which === 9) {
                 event.preventDefault();
 
-                let focusableElements = DomHandler.getFocusableElements(this.container);
+                const focusableElements = DomHandler.getFocusableElements(this.container);
 
                 if (focusableElements && focusableElements.length > 0) {
                     if (!focusableElements[0].ownerDocument.activeElement) {
                         focusableElements[0].focus();
-                    }
-                    else {
-                        let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+                    } else {
+                        const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                         if (event.shiftKey) {
-                            if (focusedIndex == -1 || focusedIndex === 0)
+                            if (focusedIndex == -1 || focusedIndex === 0) {
                                 focusableElements[focusableElements.length - 1].focus();
-                            else
+                            } else {
                                 focusableElements[focusedIndex - 1].focus();
-                        }
-                        else {
-                            if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                            }
+                        } else {
+                            if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
                                 focusableElements[0].focus();
-                            else
+                            } else {
                                 focusableElements[focusedIndex + 1].focus();
+                            }
                         }
                     }
                 }
@@ -438,14 +439,14 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let deltaX = event.pageX - this.lastPageX;
-            let deltaY = event.pageY - this.lastPageY;
-            let offset = DomHandler.getOffset(this.container);
-            let leftPos = offset.left + deltaX;
-            let topPos = offset.top + deltaY;
-            let viewport = DomHandler.getViewport();
+            const containerWidth = DomHandler.getOuterWidth(this.container);
+            const containerHeight = DomHandler.getOuterHeight(this.container);
+            const deltaX = event.pageX - this.lastPageX;
+            const deltaY = event.pageY - this.lastPageY;
+            const offset = DomHandler.getOffset(this.container);
+            const leftPos = offset.left + deltaX;
+            const topPos = offset.top + deltaY;
+            const viewport = DomHandler.getViewport();
 
             this.container.style.position = 'fixed';
 
@@ -461,8 +462,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
                     this.lastPageY = event.pageY;
                     this.container.style.top = topPos + 'px';
                 }
-            }
-            else {
+            } else {
                 this.lastPageX = event.pageX;
                 this.container.style.left = leftPos + 'px';
                 this.lastPageY = event.pageY;
@@ -487,7 +487,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
         this.container.style.margin = '';
     }
 
-    //backward compatibility
+    // backward compatibility
     center() {
         this.resetPosition();
     }
@@ -504,18 +504,18 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     onResize(event: MouseEvent) {
         if (this.resizing) {
-            let deltaX = event.pageX - this.lastPageX;
-            let deltaY = event.pageY - this.lastPageY;
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let contentHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement);
+            const deltaX = event.pageX - this.lastPageX;
+            const deltaY = event.pageY - this.lastPageY;
+            const containerWidth = DomHandler.getOuterWidth(this.container);
+            const containerHeight = DomHandler.getOuterHeight(this.container);
+            const contentHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
-            let minWidth = this.container.style.minWidth;
-            let minHeight = this.container.style.minHeight;
-            let offset = DomHandler.getOffset(this.container);
-            let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
+            const minWidth = this.container.style.minWidth;
+            const minHeight = this.container.style.minHeight;
+            const offset = DomHandler.getOffset(this.container);
+            const viewport = DomHandler.getViewport();
+            const hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -638,10 +638,11 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
+            if (this.appendTo === 'body') {
                 document.body.appendChild(this.wrapper);
-            else
+            } else {
                 DomHandler.appendChild(this.wrapper, this.appendTo);
+            }
         }
     }
 
@@ -652,7 +653,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
     }
 
     onAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
@@ -672,16 +673,16 @@ export class Dialog implements AfterContentInit,OnDestroy {
                 if (this.focusOnShow) {
                     this.focus();
                 }
-            break;
+                break;
         }
     }
 
     onAnimationEnd(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'void':
                 this.onContainerDestroy();
                 this.onHide.emit({});
-            break;
+                break;
         }
     }
 
@@ -720,8 +721,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,FocusTrapModule,RippleModule],
-    exports: [Dialog,SharedModule],
+    imports: [CommonModule, FocusTrapModule, RippleModule],
+    exports: [Dialog, SharedModule],
     declarations: [Dialog]
 })
 export class DialogModule { }

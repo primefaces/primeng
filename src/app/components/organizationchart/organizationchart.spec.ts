@@ -55,26 +55,26 @@ describe('OrganizationChart', () => {
 
     it('should display by default', () => {
         fixture.detectChanges();
-  
+
         const organizationchartEl = fixture.debugElement.query(By.css('.p-organizationchart'));
         expect(organizationchartEl.nativeElement).toBeTruthy();
     });
 
     it('should select single', () => {
-        organizationchart.selectionMode = "single";
+        organizationchart.selectionMode = 'single';
         fixture.detectChanges();
-  
+
         const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         const chelseaEl = nodeEls[2];
         barcelonaEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(organizationchart.selection.label).toEqual("F.C Barcelona");
+        expect(organizationchart.selection.label).toEqual('F.C Barcelona');
         chelseaEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(organizationchart.selection.label).toEqual("Chelsea FC");
+        expect(organizationchart.selection.label).toEqual('Chelsea FC');
         chelseaEl.nativeElement.click();
         fixture.detectChanges();
 
@@ -82,21 +82,21 @@ describe('OrganizationChart', () => {
     });
 
     it('should select single', () => {
-        organizationchart.selectionMode = "multiple";
+        organizationchart.selectionMode = 'multiple';
         fixture.detectChanges();
-  
+
         const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         const chelseaEl = nodeEls[2];
         barcelonaEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(organizationchart.selection[0].label).toEqual("F.C Barcelona");
+        expect(organizationchart.selection[0].label).toEqual('F.C Barcelona');
         chelseaEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(organizationchart.selection.length).toEqual(2);
-        expect(organizationchart.selection[1].label).toEqual("Chelsea FC");
+        expect(organizationchart.selection[1].label).toEqual('Chelsea FC');
         chelseaEl.nativeElement.click();
         fixture.detectChanges();
 
@@ -104,9 +104,9 @@ describe('OrganizationChart', () => {
     });
 
     it('should toggle the node', () => {
-        organizationchart.selectionMode = "single";
+        organizationchart.selectionMode = 'single';
         fixture.detectChanges();
-  
+
         const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         barcelonaEl.nativeElement.click();
@@ -116,12 +116,12 @@ describe('OrganizationChart', () => {
         toggelEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(organizationchart.selection.label).toEqual("F.C Barcelona");
+        expect(organizationchart.selection.label).toEqual('F.C Barcelona');
         expect(toggelEl.componentInstance.node.expanded).toEqual(false);
     });
 
     it('should not select when node is non selectable', () => {
-        organizationchart.selectionMode = "single";
+        organizationchart.selectionMode = 'single';
         organizationchart.value = organizationchart.value = [{
             label: 'F.C Barcelona',
             expanded: true,
@@ -135,10 +135,10 @@ describe('OrganizationChart', () => {
                         },
                         {
                             label: 'F.C. Barcelona',
-                            selectable:false
+                            selectable: false
                         }
                     ],
-                    selectable:false
+                    selectable: false
                 },
                 {
                     label: 'Real Madrid',
@@ -153,10 +153,10 @@ describe('OrganizationChart', () => {
                     ]
                 }
             ],
-            selectable:false
+            selectable: false
         }];
         fixture.detectChanges();
-  
+
         const nodeEls = fixture.debugElement.queryAll(By.css('.p-organizationchart-node-content'));
         const barcelonaEl = nodeEls[0];
         barcelonaEl.nativeElement.click();

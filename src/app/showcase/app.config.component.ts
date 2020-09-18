@@ -370,9 +370,9 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     active: boolean;
 
-    scale: number = 14;;
-    
-    scales: number[] = [12,13,14,15,16];
+    scale = 14;
+
+    scales: number[] = [12, 13, 14, 15, 16];
 
     outsideClickListener: any;
 
@@ -388,7 +388,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                this.active = false
+                this.active = false;
              }
         });
     }
@@ -397,10 +397,11 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         this.active = !this.active;
         event.preventDefault();
 
-        if (this.active)
+        if (this.active) {
             this.bindOutsideClickListener();
-        else
+        } else {
             this.unbindOutsideClickListener();
+        }
     }
 
     hideConfigurator(event) {
@@ -410,7 +411,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        let themeElement = document.getElementById('theme-link');
+        const themeElement = document.getElementById('theme-link');
         themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
         this.configService.updateConfig({...this.config, ...{theme, dark}});
         event.preventDefault();
@@ -457,5 +458,5 @@ export class AppConfigComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
         }
     }
-    
+
 }

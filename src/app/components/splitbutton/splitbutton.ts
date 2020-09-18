@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ViewChild,ChangeDetectionStrategy,ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, ElementRef, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
@@ -24,36 +24,36 @@ export class SplitButton {
 
     @Input() icon: string;
 
-    @Input() iconPos: string = 'left';
-        
+    @Input() iconPos = 'left';
+
     @Input() label: string;
-    
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() menuStyle: any;
-    
+
     @Input() menuStyleClass: string;
-    
+
     @Input() disabled: boolean;
 
     @Input() tabindex: number;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() dir: string;
 
-    @Input() showTransitionOptions: string = '225ms ease-out';
+    @Input() showTransitionOptions = '225ms ease-out';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() hideTransitionOptions = '195ms ease-in';
 
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
     @ViewChild('menu') menu: Menu;
@@ -61,7 +61,7 @@ export class SplitButton {
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
-          
+
     onDropdownButtonClick(event: Event) {
         this.menu.toggle({currentTarget: this.containerViewChild.nativeElement, relativeAlign: this.appendTo == null});
     }
@@ -69,8 +69,8 @@ export class SplitButton {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,MenuModule],
-    exports: [SplitButton,ButtonModule],
+    imports: [CommonModule, ButtonModule, MenuModule],
+    exports: [SplitButton, ButtonModule],
     declarations: [SplitButton]
 })
 export class SplitButtonModule { }

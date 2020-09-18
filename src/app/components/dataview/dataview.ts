@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, ElementRef, OnInit, AfterContentInit, Input, Output, EventEmitter, ContentChild, ContentChildren, QueryList, TemplateRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
-import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
+import {Header, Footer, PrimeTemplate, SharedModule} from 'primeng/api';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockableUI} from 'primeng/api';
 import {FilterUtils} from 'primeng/utils';
@@ -47,9 +47,11 @@ import {FilterUtils} from 'primeng/utils';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./dataview.css']
 })
-export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
+export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChanges {
 
-    @Input() layout: string = 'list';
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+
+    @Input() layout = 'list';
 
     @Input() paginator: boolean;
 
@@ -57,29 +59,29 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     @Input() totalRecords: number;
 
-    @Input() pageLinks: number = 5;
+    @Input() pageLinks = 5;
 
     @Input() rowsPerPageOptions: any[];
 
-    @Input() paginatorPosition: string = 'bottom';
+    @Input() paginatorPosition = 'bottom';
 
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input() alwaysShowPaginator = true;
 
     @Input() paginatorDropdownAppendTo: any;
 
-    @Input() paginatorDropdownScrollHeight: string = '200px';
+    @Input() paginatorDropdownScrollHeight = '200px';
 
-    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+    @Input() currentPageReportTemplate = '{currentPage} of {totalPages}';
 
     @Input() showCurrentPageReport: boolean;
 
     @Input() showJumpToPageDropdown: boolean;
 
-    @Input() showPageLinks: boolean = true;
+    @Input() showPageLinks = true;
 
     @Input() lazy: boolean;
 
-    @Input() emptyMessage: string = 'No records found';
+    @Input() emptyMessage = 'No records found';
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -87,17 +89,15 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     @Input() styleClass: string;
 
-    @Input() trackBy: Function = (index: number, item: any) => item;
-
     @Input() filterBy: string;
 
     @Input() filterLocale: string;
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'pi pi-spinner';
+    @Input() loadingIcon = 'pi pi-spinner';
 
-    @Input() first: number = 0;
+    @Input() first = 0;
 
     @Input() sortField: string;
 
@@ -139,7 +139,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     initialized: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    @Input() trackBy: Function = (index: number, item: any) => item;
 
     ngOnInit() {
         if (this.lazy) {
@@ -159,7 +159,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         }
 
         if (simpleChanges.sortField || simpleChanges.sortOrder) {
-            //avoid triggering lazy load prior to lazy initialization at onInit
+            // avoid triggering lazy load prior to lazy initialization at onInit
             if (!this.lazy || this.initialized) {
                 this.sort();
             }
@@ -168,30 +168,30 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'listItem':
                     this.listItemTemplate = item.template;
-                break;
+                    break;
 
                 case 'gridItem':
                     this.gridItemTemplate = item.template;
-                break;
+                    break;
 
                 case 'paginatorleft':
                     this.paginatorLeftTemplate = item.template;
-                break;
+                    break;
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
-                break;
+                    break;
 
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
             }
         });
 
@@ -199,14 +199,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     }
 
     updateItemTemplate() {
-        switch(this.layout) {
+        switch (this.layout) {
             case 'list':
                 this.itemTemplate = this.listItemTemplate;
-            break;
+                break;
 
             case 'grid':
                 this.itemTemplate = this.gridItemTemplate;
-            break;
+                break;
         }
     }
 
@@ -243,23 +243,23 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else if (this.value) {
+        } else if (this.value) {
             this.value.sort((data1, data2) => {
-                let value1 = ObjectUtils.resolveFieldData(data1, this.sortField);
-                let value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
+                const value1 = ObjectUtils.resolveFieldData(data1, this.sortField);
+                const value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
                 let result = null;
 
-                if (value1 == null && value2 != null)
+                if (value1 == null && value2 != null) {
                     result = -1;
-                else if (value1 != null && value2 == null)
+                } else if (value1 != null && value2 == null) {
                     result = 1;
-                else if (value1 == null && value2 == null)
+ } else if (value1 == null && value2 == null) {
                     result = 0;
-                else if (typeof value1 === 'string' && typeof value2 === 'string')
+ } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                     result = value1.localeCompare(value2);
-                else
+ } else {
                     result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+ }
 
                 return (this.sortOrder * result);
             });
@@ -276,7 +276,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     }
 
     isEmpty() {
-        let data = this.filteredValue||this.value;
+        const data = this.filteredValue || this.value;
         return data == null || data.length == 0;
     }
 
@@ -293,11 +293,11 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         return this.el.nativeElement.children[0];
     }
 
-    filter(filter: string, filterMatchMode:string ="contains") {
+    filter(filter: string, filterMatchMode: string = 'contains') {
         this.filterValue = filter;
 
         if (this.value && this.value.length) {
-            let searchFields = this.filterBy.split(',');
+            const searchFields = this.filterBy.split(',');
             this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
 
             if (this.filteredValue.length === this.value.length ) {
@@ -345,8 +345,8 @@ export class DataViewLayoutOptions  {
     }
 }
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule],
-    exports: [DataView,SharedModule,DataViewLayoutOptions],
-    declarations: [DataView,DataViewLayoutOptions]
+    imports: [CommonModule, SharedModule, PaginatorModule],
+    exports: [DataView, SharedModule, DataViewLayoutOptions],
+    declarations: [DataView, DataViewLayoutOptions]
 })
 export class DataViewModule { }

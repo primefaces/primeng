@@ -33,26 +33,26 @@ describe('UIChart', () => {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    '#FF6384',
+                    '#4BC0C0',
+                    '#FFCE56',
+                    '#E7E9ED',
+                    '#36A2EB'
                 ],
                 label: 'My dataset'
             }],
             labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+                'Red',
+                'Green',
+                'Yellow',
+                'Grey',
+                'Blue'
             ]
         };
-        chart.type = "polarArea";
+        chart.type = 'polarArea';
         fixture.detectChanges();
 
-        expect(fixture.debugElement.query(By.css("canvas"))).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('canvas'))).toBeTruthy();
     });
 
     it('should call onCanvasClick', () => {
@@ -66,28 +66,28 @@ describe('UIChart', () => {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    '#FF6384',
+                    '#4BC0C0',
+                    '#FFCE56',
+                    '#E7E9ED',
+                    '#36A2EB'
                 ],
                 label: 'My dataset'
             }],
             labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+                'Red',
+                'Green',
+                'Yellow',
+                'Grey',
+                'Blue'
             ],
-            responsive:true
+            responsive: true
         };
         chart.height = '200px';
         chart.width = '200px';
-        chart.type = "polarArea";
-        const canvasOnClickSpy = spyOn(chart,"onCanvasClick").and.callThrough();
-        const canvas = fixture.debugElement.query(By.css("canvas"));
+        chart.type = 'polarArea';
+        const canvasOnClickSpy = spyOn(chart, 'onCanvasClick').and.callThrough();
+        const canvas = fixture.debugElement.query(By.css('canvas'));
         fixture.detectChanges();
 
         canvas.nativeElement.click();
@@ -105,25 +105,25 @@ describe('UIChart', () => {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    '#FF6384',
+                    '#4BC0C0',
+                    '#FFCE56',
+                    '#E7E9ED',
+                    '#36A2EB'
                 ],
                 label: 'My dataset'
             }],
             labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+                'Red',
+                'Green',
+                'Yellow',
+                'Grey',
+                'Blue'
             ],
         };
-        chart.type = "polarArea";
+        chart.type = 'polarArea';
         fixture.detectChanges();
-        const updateSpy = spyOn(chart.chart,"update").and.callThrough();
+        const updateSpy = spyOn(chart.chart, 'update').and.callThrough();
 
         chart.refresh();
         expect(updateSpy).toHaveBeenCalled();
@@ -140,26 +140,26 @@ describe('UIChart', () => {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    '#FF6384',
+                    '#4BC0C0',
+                    '#FFCE56',
+                    '#E7E9ED',
+                    '#36A2EB'
                 ],
                 label: 'My dataset'
             }],
             labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+                'Red',
+                'Green',
+                'Yellow',
+                'Grey',
+                'Blue'
             ],
         };
-        chart.type = "polarArea";
+        chart.type = 'polarArea';
         fixture.detectChanges();
-        const destroySpy = spyOn(chart.chart,"destroy").and.callThrough();
-        const initChartSpy = spyOn(chart,"initChart").and.callThrough();
+        const destroySpy = spyOn(chart.chart, 'destroy').and.callThrough();
+        const initChartSpy = spyOn(chart, 'initChart').and.callThrough();
 
         chart.reinit();
         expect(destroySpy).toHaveBeenCalled();
@@ -177,31 +177,31 @@ describe('UIChart', () => {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    '#FF6384',
+                    '#4BC0C0',
+                    '#FFCE56',
+                    '#E7E9ED',
+                    '#36A2EB'
                 ],
                 label: 'My dataset'
             }],
             labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+                'Red',
+                'Green',
+                'Yellow',
+                'Grey',
+                'Blue'
             ],
         };
-        chart.type = "polarArea";
+        chart.type = 'polarArea';
         fixture.detectChanges();
 
         const legend = chart.generateLegend();
         const image = chart.getBase64Image();
         const canvas = chart.getCanvas();
 
-        expect(canvas.tagName).toEqual("CANVAS");
-        expect(image).toContain("data");
-        expect(legend).toContain("legend");
+        expect(canvas.tagName).toEqual('CANVAS');
+        expect(image).toContain('data');
+        expect(legend).toContain('legend');
     });
 });

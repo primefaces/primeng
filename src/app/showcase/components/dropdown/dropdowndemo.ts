@@ -3,8 +3,8 @@ import {SelectItem} from 'primeng/api';
 import {SelectItemGroup} from 'primeng/api';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
@@ -47,7 +47,7 @@ export class DropdownDemo {
 
         this.groupedCities = [
             {
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     {label: 'Berlin', value: 'Berlin'},
                     {label: 'Frankfurt', value: 'Frankfurt'},
@@ -56,7 +56,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     {label: 'Chicago', value: 'Chicago'},
                     {label: 'Los Angeles', value: 'Los Angeles'},
@@ -65,7 +65,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     {label: 'Kyoto', value: 'Kyoto'},
                     {label: 'Osaka', value: 'Osaka'},

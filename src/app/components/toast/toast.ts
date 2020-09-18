@@ -1,12 +1,12 @@
-import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, Input, Output, OnInit, AfterViewInit, AfterContentInit, OnDestroy, ElementRef, ViewChild, EventEmitter, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate,SharedModule} from 'primeng/api';
+import {PrimeTemplate, SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {Subscription} from 'rxjs';
-import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
+import {trigger, state, style, transition, animate, query, animateChild, AnimationEvent} from '@angular/animations';
 
 @Component({
     selector: 'p-toastItem',
@@ -74,7 +74,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     timeout: any;
 
     constructor(private zone: NgZone) {}
-    
+
     ngAfterViewInit() {
         this.initTimeout();
     }
@@ -98,7 +98,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
             this.timeout = null;
         }
     }
-    
+
     onMouseEnter() {
         this.clearTimeout();
     }
@@ -106,10 +106,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     onMouseLeave() {
         this.initTimeout();
     }
- 
+
     onCloseIconClick(event) {
         this.clearTimeout();
-        
+
         this.onClose.emit({
             index: this.index,
             message: this.message
@@ -128,8 +128,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     template: `
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
             <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" 
-                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions" 
+                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)"
+                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
                     [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
         </div>
     `,
@@ -144,31 +144,31 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./toast.css']
 })
-export class Toast implements OnInit,AfterContentInit,OnDestroy {
+export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     @Input() key: string;
 
-    @Input() autoZIndex: boolean = true;
-    
-    @Input() baseZIndex: number = 0;
+    @Input() autoZIndex = true;
+
+    @Input() baseZIndex = 0;
 
     @Input() style: any;
-        
+
     @Input() styleClass: string;
 
-    @Input() position: string = 'top-right';
+    @Input() position = 'top-right';
 
-    @Input() preventOpenDuplicates: boolean = false;
+    @Input() preventOpenDuplicates = false;
 
-    @Input() preventDuplicates: boolean = false;
-    
-    @Input() showTransformOptions: string = 'translateY(100%)';
+    @Input() preventDuplicates = false;
 
-    @Input() hideTransformOptions: string = 'translateY(-100%)';
+    @Input() showTransformOptions = 'translateY(100%)';
 
-    @Input() showTransitionOptions: string = '300ms ease-out';
+    @Input() hideTransformOptions = 'translateY(-100%)';
 
-    @Input() hideTransitionOptions: string = '250ms ease-in';
+    @Input() showTransitionOptions = '300ms ease-out';
+
+    @Input() hideTransitionOptions = '250ms ease-in';
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
@@ -185,7 +185,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     messagesArchieve: Message[];
 
     template: TemplateRef<any>;
-    
+
     constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
@@ -194,8 +194,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
                 if (messages instanceof Array) {
                     const filteredMessages = messages.filter(m => this.canAdd(m));
                     this.add(filteredMessages);
-                }
-                else if (this.canAdd(messages)) {
+                } else if (this.canAdd(messages)) {
                     this.add([messages]);
                 }
             }
@@ -206,13 +205,12 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
                 if (this.key === key) {
                     this.messages = null;
                 }
-            }
-            else {
+            } else {
                 this.messages = null;
             }
 
             this.cd.markForCheck();
-        });       
+        });
     }
 
     add(messages: Message[]): void {
@@ -251,14 +249,14 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'message':
                     this.template = item.template;
-                break;
+                    break;
 
                 default:
                     this.template = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -279,11 +277,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         }
     }
 
-    ngOnDestroy() {        
+    ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
@@ -291,8 +289,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
-    exports: [Toast,SharedModule],
-    declarations: [Toast,ToastItem]
+    imports: [CommonModule, RippleModule],
+    exports: [Toast, SharedModule],
+    declarations: [Toast, ToastItem]
 })
 export class ToastModule { }

@@ -252,7 +252,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/dragdrop']" routerLinkActive="router-link-exact-active">Drag&amp;Drop</a>
                 </div>
-                
+
                 <div class="menu-category">Misc</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/blockui']" routerLinkActive="router-link-exact-active">BlockUI</a>
@@ -294,15 +294,14 @@ export class AppMenuComponent {
     constructor(private router: Router) {}
 
     toggleSubmenu(event: Event, name: string) {
-        this.activeSubmenus[name] = this.activeSubmenus[name] ? false: true;
+        this.activeSubmenus[name] = this.activeSubmenus[name] ? false : true;
         event.preventDefault();
     }
 
     isSubmenuActive(name: string) {
         if (this.activeSubmenus.hasOwnProperty(name)) {
             return this.activeSubmenus[name];
-        }
-        else if (this.router.isActive(name, false)) {
+        } else if (this.router.isActive(name, false)) {
             this.activeSubmenus[name] = true;
             return true;
         }

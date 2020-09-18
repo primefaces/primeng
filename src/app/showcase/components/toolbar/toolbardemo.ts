@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 
 @Component({
@@ -7,7 +7,7 @@ import {MenuItem} from 'primeng/api';
 export class ToolbarDemo implements OnInit {
 
     items: MenuItem[];
-    
+
     ngOnInit() {
         this.items = [
             {

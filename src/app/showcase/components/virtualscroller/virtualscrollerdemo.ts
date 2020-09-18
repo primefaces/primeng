@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CarService} from '../../service/carservice';
-import {LazyLoadEvent,SelectItem} from 'primeng/api';
+import {LazyLoadEvent, SelectItem} from 'primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -94,33 +94,34 @@ export class VirtualScrollerDemo implements OnInit {
         ];
     }
 
-    loadCarsLazy(event: LazyLoadEvent) {       
-        // simulate remote connection with a timeout 
+    loadCarsLazy(event: LazyLoadEvent) {
+        // simulate remote connection with a timeout
         setTimeout(() => {
-            //load data of required page
-            let loadedProducts = this.products.slice(event.first, (event.first + event.rows));
+            // load data of required page
+            const loadedProducts = this.products.slice(event.first, (event.first + event.rows));
 
-            //populate page of virtual cars
+            // populate page of virtual cars
             Array.prototype.splice.apply(this.virtualProducts, [...[event.first, event.rows], ...loadedProducts]);
-            
-            //trigger change detection
+
+            // trigger change detection
             this.virtualProducts = [...this.virtualProducts];
         }, 1000);
     }
 
     onSortChange() {
-        if (this.sortKey.indexOf('!') === 0)
+        if (this.sortKey.indexOf('!') === 0) {
             this.sort(-1);
-        else
+        } else {
             this.sort(1);
+        }
     }
 
     sort(order: number): void {
-        let products = [...this.products];
+        const products = [...this.products];
         products.sort((data1, data2) => {
-            let value1 = data1.price;
-            let value2 = data2.price;
-            let result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+            const value1 = data1.price;
+            const value2 = data2.price;
+            const result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
 
             return (order * result);
         });

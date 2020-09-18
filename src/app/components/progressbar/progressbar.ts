@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -20,17 +20,17 @@ import {CommonModule} from '@angular/common';
 export class ProgressBar {
 
     @Input() value: any;
-    
-    @Input() showValue: boolean = true;
-    
+
+    @Input() showValue = true;
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
-    @Input() unit: string = '%';
-    
-    @Input() mode: string = 'determinate';
-    
+    @Input() unit = '%';
+
+    @Input() mode = 'determinate';
+
 }
 
 @NgModule({

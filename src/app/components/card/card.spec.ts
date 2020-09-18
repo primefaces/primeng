@@ -48,7 +48,7 @@ describe('Card', () => {
 				Header,
 				Footer
 			],
-		})
+		});
 	}));
 	beforeEach(() => {
 		fixture = TestBed.createComponent(TestCardComponent);
@@ -65,29 +65,29 @@ describe('Card', () => {
 	});
 
 	it('should display the title', () => {
-		fixture.componentInstance.header = "Primeng ROCKS!";
+		fixture.componentInstance.header = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const cardEl = fixture.debugElement.query(By.css('.p-card-title')).nativeElement;
-		expect(cardEl.textContent).toEqual(" Primeng ROCKS! ");
+		expect(cardEl.textContent).toEqual(' Primeng ROCKS! ');
 	});
 
 	it('should display the subtitle', () => {
-		fixture.componentInstance.subheader = "Primeng ROCKS!";
+		fixture.componentInstance.subheader = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const cardEl = fixture.debugElement.query(By.css('.p-card-subtitle')).nativeElement;
-		expect(cardEl.textContent).toEqual(" Primeng ROCKS! ");
+		expect(cardEl.textContent).toEqual(' Primeng ROCKS! ');
 	});
 
 	it('should change style and styleClass', () => {
-		fixture.componentInstance.styleClass = "Primeng ROCKS!";
-		fixture.componentInstance.style = { 'height': '300px' };
+		fixture.componentInstance.styleClass = 'Primeng ROCKS!';
+		fixture.componentInstance.style = { height: '300px' };
 		fixture.detectChanges();
 
 		const cardEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(cardEl.className).toContain("Primeng ROCKS!");
-		expect(cardEl.style.height).toEqual("300px");
+		expect(cardEl.className).toContain('Primeng ROCKS!');
+		expect(cardEl.style.height).toEqual('300px');
 	});
 
 	it('should have a header', () => {

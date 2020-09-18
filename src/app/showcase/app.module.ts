@@ -55,7 +55,7 @@ import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CarService,CountryService,EventService,NodeService,IconService,CustomerService,PhotoService,VersionService,AppConfigService, ProductService
+        CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, VersionService, AppConfigService, ProductService
     ],
     bootstrap: [AppComponent]
 })

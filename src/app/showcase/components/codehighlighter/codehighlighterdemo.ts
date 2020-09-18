@@ -4,5 +4,5 @@ import {Component} from '@angular/core';
     templateUrl: './codehighlighterdemo.html'
 })
 export class CodeHighlighterDemo {
-    
+
 }

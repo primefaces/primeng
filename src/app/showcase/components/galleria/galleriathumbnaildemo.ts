@@ -4,10 +4,10 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleriathumbnaildemo.html'
 })
 export class GalleriaThumbnailDemo implements OnInit {
-    
+
     images: any[];
 
-    responsiveOptions:any[] = [
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5
@@ -25,8 +25,8 @@ export class GalleriaThumbnailDemo implements OnInit {
     constructor(private photoService: PhotoService) { }
 
     ngOnInit() {
-        this.photoService.getImages().then(images =>{ 
-            this.images = images
-        })
+        this.photoService.getImages().then(images => {
+            this.images = images;
+        });
     }
 }

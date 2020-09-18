@@ -34,13 +34,13 @@ describe('Breadcrumb', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		breadcrumb.style = { 'height': '300px' };
-		breadcrumb.styleClass = "Primeng ROCKS!";
+		breadcrumb.style = { height: '300px' };
+		breadcrumb.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const breadcrumbEl = fixture.debugElement.query(By.css('div'));
-		expect(breadcrumbEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(breadcrumbEl.styles.height).toEqual("300px")
+		expect(breadcrumbEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(breadcrumbEl.styles.height).toEqual('300px');
 	});
 
 	it('should display the home', () => {
@@ -69,7 +69,7 @@ describe('Breadcrumb', () => {
 
 		const itemsEl = fixture.debugElement.query(By.css('ul'));
 		expect(itemsEl.children[2].children[0]).toBeTruthy();
-		expect(itemsEl.children[2].children[0].nativeElement.textContent).toEqual("Squad");
+		expect(itemsEl.children[2].children[0].nativeElement.textContent).toEqual('Squad');
 		expect(itemsEl.children.length).toEqual(5);
 	});
 
@@ -81,7 +81,7 @@ describe('Breadcrumb', () => {
 		];
 		fixture.detectChanges();
 
-		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
 		const homeEl = fixture.debugElement.query(By.css('.p-breadcrumb-home')).query(By.css('a')).nativeElement;
 		homeEl.click();
 		fixture.detectChanges();
@@ -97,7 +97,7 @@ describe('Breadcrumb', () => {
 		];
 		fixture.detectChanges();
 
-		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
 		const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
 		squadEl.click();
 		fixture.detectChanges();
@@ -113,7 +113,7 @@ describe('Breadcrumb', () => {
 		];
 		fixture.detectChanges();
 
-		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
 		const messiEl = fixture.debugElement.query(By.css('ul')).children[4].children[0].nativeElement;
 		messiEl.click();
 		fixture.detectChanges();
@@ -129,7 +129,7 @@ describe('Breadcrumb', () => {
 		];
 		fixture.detectChanges();
 
-		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
 		const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
 		squadEl.click();
 		fixture.detectChanges();
@@ -140,30 +140,30 @@ describe('Breadcrumb', () => {
 	it('should run command', () => {
 		breadcrumb.home = { icon: 'pi pi-home' };
 		breadcrumb.model = [
-			{ label: 'Squad', command: () => { breadcrumb.styleClass = "primengRocks!" } },
+			{ label: 'Squad', command: () => { breadcrumb.styleClass = 'primengRocks!'; } },
 			{ label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }
 		];
 		fixture.detectChanges();
 
-		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
 		const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
 		squadEl.click();
 		fixture.detectChanges();
 
 		expect(itemClickSpy).toHaveBeenCalled();
-		expect(breadcrumb.styleClass).toEqual("primengRocks!");
+		expect(breadcrumb.styleClass).toEqual('primengRocks!');
 	});
 
 	it('should call itemClick with home item', () => {
 		breadcrumb.home = { icon: 'pi pi-home' };
 		breadcrumb.model = [
-			{ label: 'Squad', command: () => { breadcrumb.styleClass = "primengRocks!" } },
+			{ label: 'Squad', command: () => { breadcrumb.styleClass = 'primengRocks!'; } },
 			{ label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }
 		];
 		fixture.detectChanges();
 
-		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
-		let event = new Event("click");
+		const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
+		const event = new Event('click');
 		breadcrumb.onHomeClick(event);
 		fixture.detectChanges();
 

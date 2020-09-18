@@ -6,10 +6,10 @@ import { ButtonModule } from 'primeng/button';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SplitButton', () => {
-  
+
     let splitbutton: SplitButton;
     let fixture: ComponentFixture<SplitButton>;
-    
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -21,7 +21,7 @@ describe('SplitButton', () => {
           SplitButton,
         ],
       });
-      
+
       fixture = TestBed.createComponent(SplitButton);
       splitbutton = fixture.componentInstance;
     });

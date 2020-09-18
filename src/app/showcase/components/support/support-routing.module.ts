@@ -5,9 +5,9 @@ import {SupportComponent} from './support.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
-            {path:'',component: SupportComponent}
+            {path: '', component: SupportComponent}
         ])
-    ], 
+    ],
     exports: [
         RouterModule
     ]

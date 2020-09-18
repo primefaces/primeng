@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
+import {NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BlockableUI, PrimeTemplate} from 'primeng/api';
 
@@ -19,7 +19,7 @@ import {BlockableUI, PrimeTemplate} from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./toolbar.css']
 })
-export class Toolbar implements AfterContentInit,BlockableUI {
+export class Toolbar implements AfterContentInit, BlockableUI {
 
     @Input() style: any;
 
@@ -39,14 +39,14 @@ export class Toolbar implements AfterContentInit,BlockableUI {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'left':
                     this.leftTemplate = item.template;
-                break;
+                    break;
 
                 case 'right':
                     this.rightTemplate = item.template;
-                break;
+                    break;
             }
         });
     }

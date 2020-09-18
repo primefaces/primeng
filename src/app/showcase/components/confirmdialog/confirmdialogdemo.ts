@@ -12,11 +12,11 @@ import {Message} from 'primeng/api';
     providers: [ConfirmationService]
 })
 export class ConfirmDialogDemo {
-    
+
     msgs: Message[] = [];
 
     position: string;
-    
+
     constructor(private confirmationService: ConfirmationService) {}
 
     confirm1() {
@@ -25,24 +25,24 @@ export class ConfirmDialogDemo {
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
+                this.msgs = [{severity: 'info', summary: 'Confirmed', detail: 'You have accepted'}];
             },
             reject: () => {
-                this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+                this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'You have rejected'}];
             }
         });
     }
-    
+
     confirm2() {
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.msgs = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}];
+                this.msgs = [{severity: 'info', summary: 'Confirmed', detail: 'Record deleted'}];
             },
             reject: () => {
-                this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+                this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'You have rejected'}];
             }
         });
     }
@@ -55,12 +55,12 @@ export class ConfirmDialogDemo {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.msgs = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}];
+                this.msgs = [{severity: 'info', summary: 'Confirmed', detail: 'Record deleted'}];
             },
             reject: () => {
-                this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+                this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'You have rejected'}];
             },
-            key: "positionDialog"
+            key: 'positionDialog'
         });
     }
 }

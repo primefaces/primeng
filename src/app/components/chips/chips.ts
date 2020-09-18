@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, QueryList, TemplateRef, forwardRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule, PrimeTemplate} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -36,7 +36,9 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./chips.css']
 })
-export class Chips implements AfterContentInit,ControlValueAccessor {
+export class Chips implements AfterContentInit, ControlValueAccessor {
+
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     @Input() style: any;
 
@@ -56,7 +58,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() inputId: string;
 
-    @Input() allowDuplicate: boolean = true;
+    @Input() allowDuplicate = true;
 
     @Input() inputStyle: any;
 
@@ -86,28 +88,26 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     value: any;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     valueChanged: boolean;
 
     focus: boolean;
 
     filled: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    onModelChange: Function = () => {};
+
+    onModelTouched: Function = () => {};
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.itemTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -122,7 +122,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     onPaste(event) {
         if (this.separator) {
-            let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
+            const pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
             pastedData.split(this.separator).forEach(val => {
                 this.addItem(event, val, true);
             });
@@ -134,8 +134,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     updateFilledState() {
         if (!this.value || this.value.length === 0) {
             this.filled = (this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '');
-        }
-        else {
+        } else {
             this.filled = true;
         }
     }
@@ -147,7 +146,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         });
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
         this.updateMaxedOut();
         this.cd.markForCheck();
@@ -170,17 +169,15 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         if (data && field) {
             if (field.indexOf('.') == -1) {
                 return data[field];
-            }
-            else {
-                let fields: string[] = field.split('.');
+            } else {
+                const fields: string[] = field.split('.');
                 let value = data;
-                for(var i = 0, len = fields.length; i < len; ++i) {
+                for (let i = 0, len = fields.length; i < len; ++i) {
                     value = value[fields[i]];
                 }
                 return value;
             }
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -204,8 +201,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             return;
         }
 
-        let removedItem = this.value[index];
-        this.value = this.value.filter((val, i) => i!=index);
+        const removedItem = this.value[index];
+        this.value = this.value.filter((val, i) => i != index);
         this.onModelChange(this.value);
         this.onRemove.emit({
             originalEvent: event,
@@ -216,7 +213,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
 
     addItem(event: Event, item: string, preventDefault: boolean): void {
-        this.value = this.value||[];
+        this.value = this.value || [];
         if (item && item.trim().length) {
             if (this.allowDuplicate || this.value.indexOf(item) === -1) {
                 this.value = [...this.value, item];
@@ -237,12 +234,12 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
 
     onKeydown(event: KeyboardEvent): void {
-        switch(event.which) {
-            //backspace
+        switch (event.which) {
+            // backspace
             case 8:
                 if (this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
                     this.value = [...this.value];
-                    let removedItem = this.value.pop();
+                    const removedItem = this.value.pop();
                     this.onModelChange(this.value);
                     this.onRemove.emit({
                         originalEvent: event,
@@ -250,45 +247,45 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                     });
                     this.updateFilledState();
                 }
-            break;
+                break;
 
-            //enter
+            // enter
             case 13:
                 this.addItem(event, this.inputViewChild.nativeElement.value, true);
-            break;
+                break;
 
             case 9:
                 if (this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
                     this.addItem(event, this.inputViewChild.nativeElement.value, true);
                 }
-            break;
+                break;
 
             default:
                 if (this.max && this.value && this.max === this.value.length) {
                     event.preventDefault();
-                }
-                else if (this.separator) {
+                } else if (this.separator) {
                     if (this.separator === ',' && event.which === 188) {
                         this.addItem(event, this.inputViewChild.nativeElement.value, true);
                     }
                 }
-            break;
+                break;
         }
     }
 
     updateMaxedOut() {
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.max && this.value && this.max === this.value.length)
+            if (this.max && this.value && this.max === this.value.length) {
                 this.inputViewChild.nativeElement.disabled = true;
-            else
+            } else {
                 this.inputViewChild.nativeElement.disabled = this.disabled || false;
+            }
         }
     }
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule,SharedModule],
-    exports: [Chips,InputTextModule,SharedModule],
+    imports: [CommonModule, InputTextModule, SharedModule],
+    exports: [Chips, InputTextModule, SharedModule],
     declarations: [Chips]
 })
 export class ChipsModule { }

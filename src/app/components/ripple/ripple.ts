@@ -21,7 +21,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
         if (this.config && this.config.ripple) {
             this.zone.runOutsideAngular(() => {
                 this.create();
-    
+
                 this.mouseDownListener = this.onMouseDown.bind(this);
                 this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
             });
@@ -29,27 +29,27 @@ export class Ripple implements AfterViewInit, OnDestroy {
     }
 
     onMouseDown(event: MouseEvent) {
-        let ink = this.getInk();
+        const ink = this.getInk();
         if (!ink || getComputedStyle(ink, null).display === 'none') {
             return;
         }
-    
+
         DomHandler.removeClass(ink, 'p-ink-active');
         if (!DomHandler.getHeight(ink) && !DomHandler.getWidth(ink)) {
-            let d = Math.max(DomHandler.getOuterWidth(this.el.nativeElement), DomHandler.getOuterHeight(this.el.nativeElement));
+            const d = Math.max(DomHandler.getOuterWidth(this.el.nativeElement), DomHandler.getOuterHeight(this.el.nativeElement));
             ink.style.height = d + 'px';
             ink.style.width = d + 'px';
         }
-    
-        let offset = DomHandler.getOffset(this.el.nativeElement);
-        let x = event.pageX - offset.left + document.body.scrollTop - DomHandler.getWidth(ink) / 2;
-        let y = event.pageY - offset.top + document.body.scrollLeft - DomHandler.getHeight(ink) / 2;
-    
+
+        const offset = DomHandler.getOffset(this.el.nativeElement);
+        const x = event.pageX - offset.left + document.body.scrollTop - DomHandler.getWidth(ink) / 2;
+        const y = event.pageY - offset.top + document.body.scrollLeft - DomHandler.getHeight(ink) / 2;
+
         ink.style.top = y + 'px';
         ink.style.left = x + 'px';
         DomHandler.addClass(ink, 'p-ink-active');
     }
-    
+
     getInk() {
         for (let i = 0; i < this.el.nativeElement.children.length; i++) {
             if (this.el.nativeElement.children[i].className.indexOf('p-ink') !== -1) {
@@ -60,7 +60,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
     }
 
     resetInk() {
-        let ink = this.getInk();
+        const ink = this.getInk();
         if (ink) {
             DomHandler.removeClass(ink, 'p-ink-active');
         }
@@ -71,16 +71,16 @@ export class Ripple implements AfterViewInit, OnDestroy {
     }
 
     create() {
-        let ink = document.createElement('span');
+        const ink = document.createElement('span');
         ink.className = 'p-ink';
         this.el.nativeElement.appendChild(ink);
-    
+
         this.animationListener = this.onAnimationEnd.bind(this);
         ink.addEventListener('animationend', this.animationListener);
     }
 
     remove() {
-        let ink = this.getInk();
+        const ink = this.getInk();
         if (ink) {
             this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
             ink.removeEventListener('animationend', this.animationListener);

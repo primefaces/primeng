@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import * as Chart from 'chart.js';
 
@@ -17,17 +17,17 @@ export class UIChart implements AfterViewInit, OnDestroy {
     @Input() type: string;
 
     @Input() plugins: any[] = [];
-    
+
     @Input() width: string;
-    
+
     @Input() height: string;
 
-    @Input() responsive: boolean = true;
-    
+    @Input() responsive = true;
+
     @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
-    
+
     _data: any;
 
     _options: any = {};
@@ -35,12 +35,12 @@ export class UIChart implements AfterViewInit, OnDestroy {
     chart: any;
 
     constructor(public el: ElementRef) {}
-    
+
     @Input() get data(): any {
         return this._data;
     }
 
-    set data(val:any) {
+    set data(val: any) {
         this._data = val;
         this.reinit();
     }
@@ -49,7 +49,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
         return this._options;
     }
 
-    set options(val:any) {
+    set options(val: any) {
         this._options = val;
         this.reinit();
     }
@@ -61,20 +61,20 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     onCanvasClick(event) {
         if (this.chart) {
-            let element = this.chart.getElementAtEvent(event);
-            let dataset = this.chart.getDatasetAtEvent(event);
+            const element = this.chart.getElementAtEvent(event);
+            const dataset = this.chart.getDatasetAtEvent(event);
             if (element && element[0] && dataset) {
-                this.onDataSelect.emit({originalEvent: event, element: element[0], dataset: dataset});
+                this.onDataSelect.emit({originalEvent: event, element: element[0], dataset});
             }
         }
     }
 
     initChart() {
-        let opts = this.options||{};
+        const opts = this.options || {};
         opts.responsive = this.responsive;
 
         // allows chart to resize in responsive mode
-        if (opts.responsive&&(this.height||this.width)) {
+        if (opts.responsive && (this.height || this.width)) {
             opts.maintainAspectRatio = false;
         }
 
@@ -85,34 +85,34 @@ export class UIChart implements AfterViewInit, OnDestroy {
             plugins: this.plugins
         });
     }
-    
+
     getCanvas() {
         return this.el.nativeElement.children[0].children[0];
     }
-    
+
     getBase64Image() {
         return this.chart.toBase64Image();
     }
-    
+
     generateLegend() {
         if (this.chart) {
             return this.chart.generateLegend();
         }
     }
-    
+
     refresh() {
         if (this.chart) {
             this.chart.update();
         }
     }
-    
+
     reinit() {
         if (this.chart) {
             this.chart.destroy();
             this.initChart();
         }
     }
-    
+
     ngOnDestroy() {
         if (this.chart) {
             this.chart.destroy();

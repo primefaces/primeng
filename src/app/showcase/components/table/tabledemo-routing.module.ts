@@ -1,5 +1,5 @@
 import { NgModule }     from '@angular/core';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
 import { TableDemo } from './tabledemo';
 import { TableTemplatingDemo } from './tabletemplatingdemo';
 import { TableSizeDemo } from './tablesizedemo';

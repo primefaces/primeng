@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {SidebarDemo} from './sidebardemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: SidebarDemo}
+			{path: '', component: SidebarDemo}
 		])
 	],
 	exports: [

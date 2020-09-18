@@ -35,13 +35,13 @@ describe('Paginator', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		paginator.style = { 'height': '250px' };
-		paginator.styleClass = "Primeng ROCKS!";
+		paginator.style = { height: '250px' };
+		paginator.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const paginatorEl = fixture.debugElement.query(By.css('.p-paginator'));
-		expect(paginatorEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(paginatorEl.nativeElement.style.height).toEqual("250px");
+		expect(paginatorEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(paginatorEl.nativeElement.style.height).toEqual('250px');
 	});
 
 	it('should use alwaysShow false', () => {
@@ -74,7 +74,7 @@ describe('Paginator', () => {
 			rows: new SimpleChange(null, 10, false),
 			totalRecords: new SimpleChange(null, 120, false),
 			rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
-		})
+		});
 		fixture.detectChanges();
 
 		const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
@@ -112,7 +112,7 @@ describe('Paginator', () => {
 			rows: new SimpleChange(null, 10, false),
 			totalRecords: new SimpleChange(null, 120, false),
 			rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
-		})
+		});
 		const onPageLinkClickSpy = spyOn(paginator, 'onPageLinkClick').and.callThrough();
 		fixture.detectChanges();
 
@@ -124,10 +124,10 @@ describe('Paginator', () => {
 		const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
 		const activePage = fixture.debugElement.query(By.css('.p-highlight'));
 		expect(onPageLinkClickSpy);
-		expect(activePage.nativeElement.textContent).toEqual("4");
+		expect(activePage.nativeElement.textContent).toEqual('4');
 		expect((paginator.getPage() + 1).toString()).toEqual(pickedPage.nativeElement.textContent);
 		let pageValue = paginator.getPage() - 1;
-		for (let link of paginator.pageLinks) {
+		for (const link of paginator.pageLinks) {
 			expect(link).toEqual(pageValue);
 			pageValue++;
 		}
@@ -155,10 +155,10 @@ describe('Paginator', () => {
 		const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
 		const activePage = fixture.debugElement.query(By.css('.p-highlight'));
 		expect(changePageToNextSpy);
-		expect(activePage.nativeElement.textContent).toEqual("2");
+		expect(activePage.nativeElement.textContent).toEqual('2');
 		expect((paginator.getPage() + 1).toString()).toEqual(nextPageEl.nativeElement.textContent);
 		let pageValue = paginator.getPage();
-		for (let link of paginator.pageLinks) {
+		for (const link of paginator.pageLinks) {
 			expect(link).toEqual(pageValue);
 			pageValue++;
 		}
@@ -190,10 +190,10 @@ describe('Paginator', () => {
 		const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
 		const activePage = fixture.debugElement.query(By.css('.p-highlight'));
 		expect(changePageToPrevSpy);
-		expect(activePage.nativeElement.textContent).toEqual("1");
+		expect(activePage.nativeElement.textContent).toEqual('1');
 		expect((paginator.getPage() + 1).toString()).toEqual(prevPageEl.nativeElement.textContent);
 		let pageValue = paginator.getPage() + 1;
-		for (let link of paginator.pageLinks) {
+		for (const link of paginator.pageLinks) {
 			expect(link).toEqual(pageValue);
 			pageValue++;
 		}
@@ -219,9 +219,9 @@ describe('Paginator', () => {
 		const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
 		const activePage = fixture.debugElement.query(By.css('.p-highlight'));
 		expect(changePageToLastSpy);
-		expect(activePage.nativeElement.textContent).toEqual("12");
+		expect(activePage.nativeElement.textContent).toEqual('12');
 		let pageValue = paginator.getPage() - 3;
-		for (let link of paginator.pageLinks) {
+		for (const link of paginator.pageLinks) {
 			expect(link).toEqual(pageValue);
 			pageValue++;
 		}
@@ -252,9 +252,9 @@ describe('Paginator', () => {
 		const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
 		const activePage = fixture.debugElement.query(By.css('.p-highlight'));
 		expect(changePageToFirstSpy);
-		expect(activePage.nativeElement.textContent).toEqual("1");
+		expect(activePage.nativeElement.textContent).toEqual('1');
 		let pageValue = paginator.getPage() + 1;
-		for (let link of paginator.pageLinks) {
+		for (const link of paginator.pageLinks) {
 			expect(link).toEqual(pageValue);
 			pageValue++;
 		}

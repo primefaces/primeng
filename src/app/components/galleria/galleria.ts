@@ -1,9 +1,9 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-galleria',
@@ -26,49 +26,49 @@ export class Galleria implements OnChanges, OnDestroy {
 
     @Input() get activeIndex(): number {
         return this._activeIndex;
-    };
+    }
 
     set activeIndex(activeIndex) {
         this._activeIndex = activeIndex;
     }
 
-    @Input() fullScreen: boolean = false;
+    @Input() fullScreen = false;
 
     @Input() id: string;
 
     @Input() value: any[];
 
-    @Input() numVisible: number = 3;
+    @Input() numVisible = 3;
 
     @Input() responsiveOptions: any[];
 
-    @Input() showItemNavigators: boolean = false;
+    @Input() showItemNavigators = false;
 
-    @Input() showThumbnailNavigators: boolean = true;
+    @Input() showThumbnailNavigators = true;
 
-    @Input() showItemNavigatorsOnHover: boolean = false;
+    @Input() showItemNavigatorsOnHover = false;
 
-    @Input() changeItemOnIndicatorHover: boolean = false;
+    @Input() changeItemOnIndicatorHover = false;
 
-    @Input() circular: boolean = false;
+    @Input() circular = false;
 
-    @Input() autoPlay: boolean = false;
+    @Input() autoPlay = false;
 
-    @Input() transitionInterval: number = 4000;
+    @Input() transitionInterval = 4000;
 
-    @Input() showThumbnails: boolean = true;
+    @Input() showThumbnails = true;
 
-    @Input() thumbnailsPosition: string = "bottom";
+    @Input() thumbnailsPosition = 'bottom';
 
-    @Input() verticalThumbnailViewPortHeight: string = "300px";
+    @Input() verticalThumbnailViewPortHeight = '300px';
 
-    @Input() showIndicators: boolean = false;
+    @Input() showIndicators = false;
 
-    @Input() showIndicatorsOnItem: boolean = false;
+    @Input() showIndicatorsOnItem = false;
 
-    @Input() indicatorsPosition: string = "bottom";
+    @Input() indicatorsPosition = 'bottom';
 
-    @Input() baseZIndex: number = 0;
+    @Input() baseZIndex = 0;
 
     @Input() maskClass: string;
 
@@ -80,7 +80,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     @Input() get visible(): boolean {
         return this._visible;
-    };
+    }
 
     set visible(visible: boolean) {
         this._visible = visible;
@@ -89,13 +89,13 @@ export class Galleria implements OnChanges, OnDestroy {
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
     @Output() visibleChange: EventEmitter<any> = new EventEmitter();
-    
+
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
 
-    _visible: boolean = false;
+    _visible = false;
 
-    _activeIndex: number = 0;
+    _activeIndex = 0;
 
     headerFacet: any;
 
@@ -111,19 +111,19 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerFacet = item.template;
-                break;
+                    break;
                 case 'footer':
                     this.footerFacet = item.template;
-                break;
+                    break;
                 case 'indicator':
                     this.indicatorFacet = item.template;
-                break;
+                    break;
                 case 'caption':
                     this.captionFacet = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -133,14 +133,13 @@ export class Galleria implements OnChanges, OnDestroy {
             if (simpleChanges.visible.currentValue) {
                 DomHandler.addClass(document.body, 'p-overflow-hidden');
 
-                this.zIndex = String(this.baseZIndex + ++DomHandler.zindex)
-            }
-            else {
+                this.zIndex = String(this.baseZIndex + ++DomHandler.zindex);
+            } else {
                 DomHandler.removeClass(document.body, 'p-overflow-hidden');
             }
         }
     }
-    
+
     onMaskHide() {
         this.visible = false;
         this.visibleChange.emit(false);
@@ -163,7 +162,7 @@ export class Galleria implements OnChanges, OnDestroy {
 @Component({
     selector: 'p-galleriaContent',
     template: `
-        <div [attr.id]="id" *ngIf="value && value.length > 0" [ngClass]="{'p-galleria p-component': true, 'p-galleria-fullscreen': this.galleria.fullScreen, 
+        <div [attr.id]="id" *ngIf="value && value.length > 0" [ngClass]="{'p-galleria p-component': true, 'p-galleria-fullscreen': this.galleria.fullScreen,
             'p-galleria-indicator-onitem': this.galleria.showIndicatorsOnItem, 'p-galleria-item-nav-onhover': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen}"
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" [class]="galleriaClass()">
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple>
@@ -173,7 +172,7 @@ export class Galleria implements OnChanges, OnDestroy {
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
             <div class="p-galleria-content">
-                <p-galleriaItem [value]="value" [activeIndex]="activeIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
+                <p-galleriaItem [value]="value" [activeIndex]="activeIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)"
                     [showIndicators]="galleria.showIndicators" [changeItemOnIndicatorHover]="galleria.changeItemOnIndicatorHover" [indicatorFacet]="galleria.indicatorFacet"
                     [captionFacet]="galleria.captionFacet" [showItemNavigators]="galleria.showItemNavigators" [autoPlay]="galleria.autoPlay" [slideShowActive]="slideShowActive"
                     (startSlideShow)="startSlideShow()" (stopSlideShow)="stopSlideShow()"></p-galleriaItem>
@@ -194,7 +193,7 @@ export class GalleriaContent {
 
     @Input() get activeIndex(): number {
         return this._activeIndex;
-    };
+    }
 
     set activeIndex(activeIndex: number) {
         this._activeIndex = activeIndex;
@@ -208,11 +207,11 @@ export class GalleriaContent {
 
     id: string = this.galleria.id || UniqueComponentId();
 
-    slideShowActicve: boolean = false;
+    slideShowActicve = false;
 
-    _activeIndex: number = 0;
+    _activeIndex = 0;
 
-    slideShowActive: boolean = true;
+    slideShowActive = true;
 
     interval: any;
 
@@ -224,12 +223,12 @@ export class GalleriaContent {
         const thumbnailsPosClass = this.galleria.showThumbnails && this.getPositionClass('p-galleria-thumbnails', this.galleria.thumbnailsPosition);
         const indicatorPosClass = this.galleria.showIndicators && this.getPositionClass('p-galleria-indicators', this.galleria.indicatorsPosition);
 
-        return (this.galleria.containerClass ? this.galleria.containerClass + " " : '') + (thumbnailsPosClass ? thumbnailsPosClass + " " : '') + (indicatorPosClass ? indicatorPosClass + " " : '');
+        return (this.galleria.containerClass ? this.galleria.containerClass + ' ' : '') + (thumbnailsPosClass ? thumbnailsPosClass + ' ' : '') + (indicatorPosClass ? indicatorPosClass + ' ' : '');
     }
 
     startSlideShow() {
         this.interval = setInterval(() => {
-            let activeIndex = (this.galleria.circular && (this.value.length - 1) === this.activeIndex) ? 0 : (this.activeIndex + 1);
+            const activeIndex = (this.galleria.circular && (this.value.length - 1) === this.activeIndex) ? 0 : (this.activeIndex + 1);
             this.onActiveIndexChange(activeIndex);
             this.activeIndex = activeIndex;
         }, this.galleria.transitionInterval);
@@ -280,20 +279,20 @@ export class GalleriaItemSlot {
 
     @Input() get item(): any {
         return this._item;
-    };
+    }
 
-    set item(item:any) {
+    set item(item: any) {
         this._item = item;
         if (this.templates) {
             this.templates.forEach((item) => {
                 if (item.getType() === this.type) {
-                    switch(this.type) {
+                    switch (this.type) {
                         case 'item':
                         case 'caption':
                         case 'thumbnail':
                             this.context = {$implicit: this.item};
                             this.contentTemplate = item.template;
-                        break;
+                            break;
                     }
                 }
             });
@@ -304,28 +303,28 @@ export class GalleriaItemSlot {
 
     contentTemplate: TemplateRef<any>;
 
-    context:any;
+    context: any;
 
-    _item:any;
+    _item: any;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             if (item.getType() === this.type) {
-                switch(this.type) {
+                switch (this.type) {
                     case 'item':
                     case 'caption':
                     case 'thumbnail':
                         this.context = {$implicit: this.item};
                         this.contentTemplate = item.template;
-                    break;
+                        break;
                     case 'indicator':
                         this.context = {$implicit: this.index};
                         this.contentTemplate = item.template;
-                    break;
+                        break;
                     default:
                         this.context = {};
                         this.contentTemplate = item.template;
-                    break;
+                        break;
                 }
             }
         });
@@ -363,19 +362,19 @@ export class GalleriaItemSlot {
 })
 export class GalleriaItem implements OnInit {
 
-    @Input() circular: boolean = false;
+    @Input() circular = false;
 
     @Input() value: any[];
 
-    @Input() showItemNavigators: boolean = false;
+    @Input() showItemNavigators = false;
 
-    @Input() showIndicators: boolean = true;
+    @Input() showIndicators = true;
 
-    @Input() slideShowActive: boolean = true;
+    @Input() slideShowActive = true;
 
-    @Input() changeItemOnIndicatorHover: boolean = true;
+    @Input() changeItemOnIndicatorHover = true;
 
-    @Input() autoPlay: boolean = false;
+    @Input() autoPlay = false;
 
     @Input() templates: QueryList<any>;
 
@@ -386,19 +385,19 @@ export class GalleriaItem implements OnInit {
     @Output() startSlideShow: EventEmitter<any> = new EventEmitter();
 
     @Output() stopSlideShow: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onActiveIndexChange: EventEmitter<any> = new EventEmitter();
 
     @Input() get activeIndex(): number {
         return this._activeIndex;
-    };
+    }
 
     set activeIndex(activeIndex) {
         this._activeIndex = activeIndex;
         this.activeItem = this.value[this._activeIndex];
     }
 
-    _activeIndex: number = 0;
+    _activeIndex = 0;
 
     activeItem: any;
 
@@ -409,18 +408,18 @@ export class GalleriaItem implements OnInit {
     }
 
     next() {
-        let nextItemIndex = this.activeIndex + 1;
-        let activeIndex = this.circular && this.value.length - 1 === this.activeIndex
+        const nextItemIndex = this.activeIndex + 1;
+        const activeIndex = this.circular && this.value.length - 1 === this.activeIndex
                     ? 0
                     : nextItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
     }
 
     prev() {
-        let prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
-        let activeIndex = this.circular && this.activeIndex === 0
+        const prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
+        const activeIndex = this.circular && this.activeIndex === 0
                 ? this.value.length - 1
-                : prevItemIndex
+                : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
     }
 
@@ -511,15 +510,15 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     @Input() value: any[];
 
-    @Input() isVertical: boolean = false;
+    @Input() isVertical = false;
 
-    @Input() slideShowActive: boolean = false;
+    @Input() slideShowActive = false;
 
-    @Input() circular: boolean = false;
+    @Input() circular = false;
 
     @Input() responsiveOptions: any[];
 
-    @Input() contentHeight: string = "300px";
+    @Input() contentHeight = '300px';
 
     @Input() showThumbnailNavigators = true;
 
@@ -533,7 +532,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     @Input() get numVisible(): number {
         return this._numVisible;
-    };
+    }
 
     set numVisible(numVisible) {
         this._numVisible = numVisible;
@@ -543,42 +542,42 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     @Input() get activeIndex(): number {
         return this._activeIndex;
-    };
+    }
 
     set activeIndex(activeIndex) {
         this._oldactiveIndex = this._activeIndex;
         this._activeIndex = activeIndex;
     }
-    
+
     index: number;
 
     startPos = null;
-    
+
     thumbnailsStyle = null;
 
     sortedResponsiveOptions = null;
 
-    totalShiftedItems: number = 0;
+    totalShiftedItems = 0;
 
-    page: number = 0;
+    page = 0;
 
     documentResizeListener: any;
 
-    _numVisible:number = 0;
+    _numVisible = 0;
 
-    d_numVisible: number = 0;
+    d_numVisible = 0;
 
-    _oldNumVisible: number = 0;
+    _oldNumVisible = 0;
 
-    _activeIndex: number = 0;
-    
-    _oldactiveIndex: number = 0;
+    _activeIndex = 0;
+
+    _oldactiveIndex = 0;
 
     ngOnInit() {
         this.createStyle();
-		this.calculatePosition();
+		      this.calculatePosition();
 
-		if (this.responsiveOptions) {
+		      if (this.responsiveOptions) {
 			this.bindDocumentListeners();
 		}
     }
@@ -589,14 +588,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
         if ((this._oldNumVisible !== this.d_numVisible || this._oldactiveIndex !== this._activeIndex) && this.itemsContainer) {
             if (this._activeIndex <= this.getMedianItemIndex()) {
                 totalShiftedItems = 0;
-            }
-            else if (this.value.length - this.d_numVisible + this.getMedianItemIndex() < this._activeIndex) {
+            } else if (this.value.length - this.d_numVisible + this.getMedianItemIndex() < this._activeIndex) {
                 totalShiftedItems = this.d_numVisible - this.value.length;
-            }
-            else if (this.value.length - this.d_numVisible < this._activeIndex && this.d_numVisible % 2 === 0) {
+            } else if (this.value.length - this.d_numVisible < this._activeIndex && this.d_numVisible % 2 === 0) {
                 totalShiftedItems = (this._activeIndex * -1) + this.getMedianItemIndex() + 1;
-            }
-            else {
+            } else {
                 totalShiftedItems = (this._activeIndex * -1) + this.getMedianItemIndex();
             }
 
@@ -605,7 +601,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
             }
 
             if (this.itemsContainer && this.itemsContainer.nativeElement) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100/ this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this.d_numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             }
 
             if (this._oldactiveIndex !== this._activeIndex) {
@@ -627,7 +623,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
         let innerHTML = `
             #${this.containerId} .p-galleria-thumbnail-item {
-                flex: 1 0 ${ (100/ this.d_numVisible) }%
+                flex: 1 0 ${ (100 / this.d_numVisible) }%
             }
         `;
 
@@ -638,30 +634,31 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
                 const value2 = data2.breakpoint;
                 let result = null;
 
-                if (value1 == null && value2 != null)
+                if (value1 == null && value2 != null) {
                     result = -1;
-                else if (value1 != null && value2 == null)
+                } else if (value1 != null && value2 == null) {
                     result = 1;
-                else if (value1 == null && value2 == null)
+ } else if (value1 == null && value2 == null) {
                     result = 0;
-                else if (typeof value1 === 'string' && typeof value2 === 'string')
+ } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                     result = value1.localeCompare(value2, undefined, { numeric: true });
-                else
+ } else {
                     result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+ }
 
                 return -1 * result;
             });
 
             for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
-                let res = this.sortedResponsiveOptions[i];
+                const res = this.sortedResponsiveOptions[i];
 
                 innerHTML += `
                     @media screen and (max-width: ${res.breakpoint}) {
                         #${this.containerId} .p-galleria-thumbnail-item {
-                            flex: 1 0 ${ (100/ res.numVisible) }%
+                            flex: 1 0 ${ (100 / res.numVisible) }%
                         }
                     }
-                `
+                `;
             }
         }
 
@@ -670,13 +667,13 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     calculatePosition() {
         if (this.itemsContainer && this.sortedResponsiveOptions) {
-            let windowWidth = window.innerWidth;
+            const windowWidth = window.innerWidth;
             let matchedResponsiveData = {
                 numVisible: this._numVisible
             };
 
             for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
-                let res = this.sortedResponsiveOptions[i];
+                const res = this.sortedResponsiveOptions[i];
 
                 if (parseInt(res.breakpoint, 10) >= windowWidth) {
                     matchedResponsiveData = res;
@@ -696,12 +693,12 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     navForward(e) {
         this.stopTheSlideShow();
 
-        let nextItemIndex = this._activeIndex + 1;
+        const nextItemIndex = this._activeIndex + 1;
         if (nextItemIndex + this.totalShiftedItems > this.getMedianItemIndex() && ((-1 * this.totalShiftedItems) < this.getTotalPageNumber() - 1 || this.circular)) {
             this.step(-1);
         }
 
-        let activeIndex = this.circular && (this.value.length - 1) === this._activeIndex ? 0 : nextItemIndex;
+        const activeIndex = this.circular && (this.value.length - 1) === this._activeIndex ? 0 : nextItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
 
         if (e.cancelable) {
@@ -712,13 +709,13 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     navBackward(e) {
         this.stopTheSlideShow();
 
-        let prevItemIndex = this._activeIndex !== 0 ? this._activeIndex - 1 : 0;
-        let diff = prevItemIndex + this.totalShiftedItems;
+        const prevItemIndex = this._activeIndex !== 0 ? this._activeIndex - 1 : 0;
+        const diff = prevItemIndex + this.totalShiftedItems;
         if ((this.d_numVisible - diff - 1) > this.getMedianItemIndex() && ((-1 * this.totalShiftedItems) !== 0 || this.circular)) {
             this.step(1);
         }
 
-        let activeIndex = this.circular && this._activeIndex === 0 ? this.value.length - 1 : prevItemIndex;
+        const activeIndex = this.circular && this._activeIndex === 0 ? this.value.length - 1 : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
 
         if (e.cancelable) {
@@ -729,7 +726,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     onItemClick(index) {
         this.stopTheSlideShow();
 
-        let selectedItemIndex = index;
+        const selectedItemIndex = index;
         if (selectedItemIndex !== this._activeIndex) {
             const diff = selectedItemIndex + this.totalShiftedItems;
             let dir = 0;
@@ -738,8 +735,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
                 if (dir > 0 && (-1 * this.totalShiftedItems) !== 0) {
                     this.step(dir);
                 }
-            }
-            else {
+            } else {
                 dir = this.getMedianItemIndex() - diff;
                 if (dir < 0 && (-1 * this.totalShiftedItems) < this.getTotalPageNumber() - 1) {
                     this.step(dir);
@@ -756,23 +752,21 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
         if (dir < 0 && (-1 * totalShiftedItems) + this.d_numVisible > (this.value.length - 1)) {
             totalShiftedItems = this.d_numVisible - this.value.length;
-        }
-        else if (dir > 0 && totalShiftedItems > 0) {
+        } else if (dir > 0 && totalShiftedItems > 0) {
             totalShiftedItems = 0;
         }
 
         if (this.circular) {
             if (dir < 0 && this.value.length - 1 === this._activeIndex) {
                 totalShiftedItems = 0;
-            }
-            else if (dir > 0 && this._activeIndex === 0) {
+            } else if (dir > 0 && this._activeIndex === 0) {
                 totalShiftedItems = this.d_numVisible - this.value.length;
             }
         }
 
         if (this.itemsContainer) {
             DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
-            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100/ this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this.d_numVisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
@@ -788,18 +782,17 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     changePageOnTouch(e, diff) {
         if (diff < 0) {           // left
             this.navForward(e);
-        }
-        else {                    // right
+        } else {                    // right
             this.navBackward(e);
         }
     }
-    
+
     getTotalPageNumber() {
         return this.value.length > this.d_numVisible ? (this.value.length - this.d_numVisible) + 1 : 0;
     }
 
     getMedianItemIndex() {
-        let index = Math.floor(this.d_numVisible / 2);
+        const index = Math.floor(this.d_numVisible / 2);
 
         return (this.d_numVisible % 2) ? index : index - 1;
     }
@@ -812,12 +805,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     }
 
     onTouchEnd(e) {
-        let touchobj = e.changedTouches[0];
+        const touchobj = e.changedTouches[0];
 
         if (this.isVertical) {
             this.changePageOnTouch(e, (touchobj.pageY - this.startPos.y));
-        }
-        else {
+        } else {
             this.changePageOnTouch(e, (touchobj.pageX - this.startPos.x));
         }
     }
@@ -829,7 +821,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     }
 
     onTouchStart(e) {
-        let touchobj = e.changedTouches[0];
+        const touchobj = e.changedTouches[0];
 
         this.startPos = {
             x: touchobj.pageX,
@@ -868,7 +860,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     }
 
     unbindDocumentListeners() {
-        if(this.documentResizeListener) {
+        if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }

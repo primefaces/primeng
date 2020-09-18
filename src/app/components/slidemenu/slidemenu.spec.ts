@@ -71,14 +71,14 @@ describe('SlideMenu', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		slidemenu.style = { 'height': '300px' };
-		slidemenu.styleClass = "Primeng ROCKS!";
+		slidemenu.style = { height: '300px' };
+		slidemenu.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		slidemenu.cd.detectChanges();
 		const containerEl = fixture.debugElement.query(By.css('.p-slidemenu'));
-		expect(containerEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(containerEl.nativeElement.style.height).toEqual("300px");
+		expect(containerEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(containerEl.nativeElement.style.height).toEqual('300px');
 	});
 
 	it('should change viewportHeight', () => {
@@ -86,16 +86,16 @@ describe('SlideMenu', () => {
 		fixture.detectChanges();
 
 		const wrapperEl = fixture.debugElement.query(By.css('.p-slidemenu-wrapper'));
-		expect(wrapperEl.nativeElement.style.height).toEqual("auto");
+		expect(wrapperEl.nativeElement.style.height).toEqual('auto');
 	});
 
 	it('should change backlabel', () => {
-		slidemenu.backLabel = "ALWAYS BET ON PRIME";
+		slidemenu.backLabel = 'ALWAYS BET ON PRIME';
 		fixture.detectChanges();
 
 		slidemenu.cd.detectChanges();
 		const backwardSpanEl = fixture.debugElement.query(By.css('.p-slidemenu-backward')).queryAll(By.css('span'))[1];
-		expect(backwardSpanEl.nativeElement.textContent).toEqual("ALWAYS BET ON PRIME");
+		expect(backwardSpanEl.nativeElement.textContent).toEqual('ALWAYS BET ON PRIME');
 	});
 
 	it('should change menuWidth effectDuration and easing', () => {
@@ -110,8 +110,8 @@ describe('SlideMenu', () => {
 		expect(slidemenuSub.effectDuration).toEqual(slidemenu.effectDuration);
 		expect(slidemenuSub.easing).toEqual(slidemenu.easing);
 		expect(slideMenuSubEl.nativeElement.style.transitionTimingFunction).toEqual(slidemenu.easing);
-		expect(slideMenuSubEl.nativeElement.style.transitionDuration).toEqual(slidemenu.effectDuration + "ms");
-		expect(slideMenuSubEl.nativeElement.style.width).toEqual(slidemenu.menuWidth + "px");
+		expect(slideMenuSubEl.nativeElement.style.transitionDuration).toEqual(slidemenu.effectDuration + 'ms');
+		expect(slideMenuSubEl.nativeElement.style.width).toEqual(slidemenu.menuWidth + 'px');
 	});
 
 	it('should show items', () => {
@@ -122,13 +122,14 @@ describe('SlideMenu', () => {
 		expect(firstSlidemenuSubEl.children.length).toEqual(slidemenu.model.length);
 		expect(itemsEl.length).toEqual(6);
 		let i = 0;
-		for (let item of slidemenu.model) {
+		for (const item of slidemenu.model) {
 			expect(item.label).toEqual(itemsEl[i].query(By.css('.p-menuitem-text')).nativeElement.textContent);
 			i++;
 			if (item.items) {
-				for (let child of item.items as MenuItem[]) {
-					if (child.label)
+				for (const child of item.items as MenuItem[]) {
+					if (child.label) {
 						expect(child.label).toEqual(itemsEl[i].query(By.css('.p-menuitem-text')).nativeElement.textContent);
+					}
 					i++;
 				}
 			}
@@ -220,7 +221,7 @@ describe('SlideMenu', () => {
 	}));
 
 	it('should use appendTo', fakeAsync(() => {
-		slidemenu.appendTo = "body";
+		slidemenu.appendTo = 'body';
 		fixture.detectChanges();
 
 		const toggleButton = fixture.debugElement.children[1].nativeElement;

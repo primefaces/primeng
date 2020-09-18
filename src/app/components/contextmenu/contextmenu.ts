@@ -1,8 +1,8 @@
-import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, Renderer2, Inject, forwardRef, ViewChild, NgZone, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -78,9 +78,9 @@ export class ContextMenuSub {
 
         this.activeItem = item;
 
-        let nextElement = item.children[0].nextElementSibling;
+        const nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
-            let sublist = nextElement.children[0];
+            const sublist = nextElement.children[0];
             sublist.style.zIndex = ++DomHandler.zindex;
             this.position(sublist, item);
         }
@@ -95,15 +95,16 @@ export class ContextMenuSub {
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item
             });
             event.preventDefault();
         }
 
-        if (item.items)
+        if (item.items) {
             event.preventDefault();
-        else
+        } else {
             this.contextMenu.hide();
+        }
     }
 
     listClick(event) {
@@ -111,26 +112,24 @@ export class ContextMenuSub {
     }
 
     position(sublist, item) {
-        this.containerOffset = DomHandler.getOffset(item.parentElement)
-        let viewport = DomHandler.getViewport();
-        let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
-        let itemOuterWidth = DomHandler.getOuterWidth(item.children[0]);
-        let itemOuterHeight = DomHandler.getOuterHeight(item.children[0]);
-        let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
+        this.containerOffset = DomHandler.getOffset(item.parentElement);
+        const viewport = DomHandler.getViewport();
+        const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
+        const itemOuterWidth = DomHandler.getOuterWidth(item.children[0]);
+        const itemOuterHeight = DomHandler.getOuterHeight(item.children[0]);
+        const sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
 
         if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
             sublist.style.removeProperty('top');
             sublist.style.bottom = '0px';
-        }
-        else {
+        } else {
             sublist.style.removeProperty('bottom');
             sublist.style.top = '0px';
         }
 
         if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
             sublist.style.left = -sublistWidth + 'px';
-        }
-        else {
+        } else {
             sublist.style.left = itemOuterWidth + 'px';
         }
     }
@@ -163,11 +162,11 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @Input() appendTo: any;
 
-    @Input() autoZIndex: boolean = true;
+    @Input() autoZIndex = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input() baseZIndex = 0;
 
-    @Input() triggerEvent: string = 'contextmenu';
+    @Input() triggerEvent = 'contextmenu';
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
@@ -193,8 +192,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                 this.show(event);
                 event.preventDefault();
             });
-        }
-        else if (this.target) {
+        } else if (this.target) {
             this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
                 this.show(event);
                 event.preventDefault();
@@ -203,10 +201,11 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            if (this.appendTo === 'body')
+            if (this.appendTo === 'body') {
                 document.body.appendChild(this.containerViewChild.nativeElement);
-            else
+            } else {
                 DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            }
         }
     }
 
@@ -239,36 +238,37 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     toggle(event?: MouseEvent) {
-        if (this.containerViewChild.nativeElement.offsetParent)
+        if (this.containerViewChild.nativeElement.offsetParent) {
             this.hide();
-        else
+        } else {
             this.show(event);
+        }
     }
 
     position(event?: MouseEvent) {
         if (event) {
             let left = event.pageX + 1;
             let top = event.pageY + 1;
-            let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
-            let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
-            let viewport = DomHandler.getViewport();
+            const width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
+            const height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
+            const viewport = DomHandler.getViewport();
 
-            //flip
+            // flip
             if (left + width - document.body.scrollLeft > viewport.width) {
                 left -= width;
             }
 
-            //flip
+            // flip
             if (top + height - document.body.scrollTop > viewport.height) {
                 top -= height;
             }
 
-            //fit
+            // fit
             if (left < document.body.scrollLeft) {
                 left = document.body.scrollLeft;
             }
 
-            //fit
+            // fit
             if (top < document.body.scrollTop) {
                 top = document.body.scrollTop;
             }
@@ -334,8 +334,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [ContextMenu,RouterModule],
-    declarations: [ContextMenu,ContextMenuSub]
+    imports: [CommonModule, RouterModule, RippleModule],
+    exports: [ContextMenu, RouterModule],
+    declarations: [ContextMenu, ContextMenuSub]
 })
 export class ContextMenuModule { }

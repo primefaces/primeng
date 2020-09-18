@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { TicketService } from './ticketservice';
 import { Router } from '@angular/router';
 
@@ -40,25 +40,25 @@ import { Router } from '@angular/router';
     `,
 })
 export class SeatDemo implements OnInit {
-    
+
     constructor(public ticketService: TicketService, private router: Router) { }
 
     classes: any[];
 
     vagons: any[];
-    
+
     seats: any[];
 
     seatInformation: any;
 
-    ngOnInit() { 
+    ngOnInit() {
         this.seatInformation = this.ticketService.ticketInformation.seatInformation;
 
         this.classes = [
             {name: 'First Class', code: 'A', factor: 1},
             {name: 'Second Class', code: 'B', factor: 2},
             {name: 'Third Class', code: 'C', factor: 3}
-        ];    
+        ];
     }
 
     setVagons(event) {
@@ -70,7 +70,7 @@ export class SeatDemo implements OnInit {
             }
         }
     }
-    
+
     setSeats(event) {
         if (this.seatInformation.wagon && event.value) {
             this.seats = [];

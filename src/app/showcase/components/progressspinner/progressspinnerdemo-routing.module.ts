@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {ProgressSpinnerDemo} from './progressspinnerdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: ProgressSpinnerDemo}
+			{path: '', component: ProgressSpinnerDemo}
 		])
 	],
 	exports: [

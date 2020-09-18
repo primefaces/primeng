@@ -50,9 +50,9 @@ export class TreeTableSelectionDemo {
     nodeSelect(event) {
         this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.data.name});
     }
-    
+
     nodeUnselect(event) {
         this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.data.name});
     }
-    
+
 }

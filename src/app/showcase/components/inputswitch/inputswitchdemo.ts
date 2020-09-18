@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
 })
 export class InputSwitchDemo {
 
-    checked1: boolean = false;
+    checked1 = false;
 
-    checked2: boolean = true;
+    checked2 = true;
 }

@@ -15,7 +15,7 @@ import { MenuItem } from 'primeng/api';
 class TestStpesComponent {
 	items: MenuItem[];
 
-	activeIndex: number = 1;
+	activeIndex = 1;
 
 	constructor() { }
 
@@ -74,13 +74,13 @@ describe('Steps', () => {
 	});
 
 	it('should change style & styleClass', () => {
-		steps.style = { 'height': '300px' };
-		steps.styleClass = "Primeng ROCKS!";
+		steps.style = { height: '300px' };
+		steps.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
-		expect(stepsEl.className).toContain("Primeng ROCKS!");
-		expect(stepsEl.style.height).toContain("300px");
+		expect(stepsEl.className).toContain('Primeng ROCKS!');
+		expect(stepsEl.style.height).toContain('300px');
 	});
 
 	it('should readonly by default', () => {
@@ -90,10 +90,12 @@ describe('Steps', () => {
 		const items = fixture.debugElement.children[0].queryAll(By.css('li'));
 
 		for (let x = 0; x < testComponent.items.length; x++) {
-			if (x == 0)
-				expect(items[x].nativeElement.className).not.toContain("p-disabled");
-			else
-				expect(items[x].nativeElement.className).toContain("p-disabled");
+			if (x == 0) {
+				expect(items[x].nativeElement.className).not.toContain('p-disabled');
+			}
+			else {
+				expect(items[x].nativeElement.className).toContain('p-disabled');
+			}
 		}
 	});
 
@@ -103,9 +105,9 @@ describe('Steps', () => {
 
 		const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
 		const items = fixture.debugElement.children[0].queryAll(By.css('li'));
-		expect(stepsEl.className).not.toContain("p-steps-readonly");
+		expect(stepsEl.className).not.toContain('p-steps-readonly');
 		for (let x = 0; x < testComponent.items.length; x++) {
-			expect(items[x].nativeElement.className).not.toContain("p-disabled");
+			expect(items[x].nativeElement.className).not.toContain('p-disabled');
 		}
 	});
 
@@ -124,8 +126,9 @@ describe('Steps', () => {
 
 		const items = fixture.debugElement.children[0].queryAll(By.css('li'));
 		for (let x = 0; x < testComponent.items.length; x++) {
-			if (x == 0)
-				expect(items[x].nativeElement.className).toContain("p-highlight p-steps-current");
+			if (x == 0) {
+				expect(items[x].nativeElement.className).toContain('p-highlight p-steps-current');
+			}
 		}
 	});
 
@@ -135,8 +138,9 @@ describe('Steps', () => {
 
 		const items = fixture.debugElement.children[0].queryAll(By.css('li'));
 		for (let x = 0; x < testComponent.items.length; x++) {
-			if (x == 2)
-				expect(items[x].nativeElement.className).toContain("p-highlight p-steps-current");
+			if (x == 2) {
+				expect(items[x].nativeElement.className).toContain('p-highlight p-steps-current');
+			}
 		}
 	});
 
@@ -146,14 +150,15 @@ describe('Steps', () => {
 		fixture.detectChanges();
 
 		const items = fixture.debugElement.children[0].queryAll(By.css('li'));
-		steps.activeIndexChange.subscribe(value => steps.activeIndex = value)
+		steps.activeIndexChange.subscribe(value => steps.activeIndex = value);
 		items[2].query(By.css('a')).nativeElement.click();
 		fixture.detectChanges();
 
 		expect(itemClickSpy).toHaveBeenCalled();
 		for (let x = 0; x < testComponent.items.length; x++) {
-			if (x == 2)
-				expect(items[x].nativeElement.className).toContain("p-highlight p-steps-current");
+			if (x == 2) {
+				expect(items[x].nativeElement.className).toContain('p-highlight p-steps-current');
+			}
 		}
 	});
 
@@ -163,7 +168,7 @@ describe('Steps', () => {
 		fixture.detectChanges();
 
 		const items = fixture.debugElement.children[0].queryAll(By.css('li'));
-		steps.activeIndexChange.subscribe(value => data = value)
+		steps.activeIndexChange.subscribe(value => data = value);
 		items[2].query(By.css('a')).nativeElement.click();
 		fixture.detectChanges();
 

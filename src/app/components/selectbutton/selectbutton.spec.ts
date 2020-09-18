@@ -31,7 +31,7 @@ describe('SelectButton', () => {
 
 		selectButton.cd.detectChanges();
 		const labelEl = fixture.debugElement.query(By.css('.p-selectbutton')).children[0];
-		expect(labelEl.nativeElement.querySelector('.p-button-label').textContent).toContain('Apartment')
+		expect(labelEl.nativeElement.querySelector('.p-button-label').textContent).toContain('Apartment');
 	});
 
 	it('should display the preselected button', () => {

@@ -1,4 +1,4 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -27,44 +27,44 @@ import {Subscription}   from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./terminal.css']
 })
-export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     @Input() welcomeMessage: string;
 
     @Input() prompt: string;
-        
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-            
+
     commands: any[] = [];
-    
+
     command: string;
-    
+
     container: Element;
-    
+
     commandProcessed: boolean;
-    
+
     subscription: Subscription;
-    
+
     constructor(public el: ElementRef, public terminalService: TerminalService, public cd: ChangeDetectorRef) {
         this.subscription = terminalService.responseHandler.subscribe(response => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;
         });
     }
-    
+
     ngAfterViewInit() {
         this.container = DomHandler.find(this.el.nativeElement, '.p-terminal')[0];
     }
-    
+
     ngAfterViewChecked() {
         if (this.commandProcessed) {
             this.container.scrollTop = this.container.scrollHeight;
             this.commandProcessed = false;
         }
     }
-                
+
     @Input()
     set response(value: string) {
         if (value) {
@@ -72,7 +72,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.commandProcessed = true;
         }
     }
-    
+
     handleCommand(event: KeyboardEvent) {
         if (event.keyCode == 13) {
             this.commands.push({text: this.command});
@@ -80,21 +80,21 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.command = '';
         }
     }
-    
+
     focus(element: HTMLElement) {
         element.focus();
     }
-    
+
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
-    
+
 }
 
 @NgModule({
-    imports: [CommonModule,FormsModule],
+    imports: [CommonModule, FormsModule],
     exports: [Terminal],
     declarations: [Terminal]
 })

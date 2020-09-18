@@ -1,9 +1,9 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-menubarSub',
@@ -13,7 +13,7 @@ import { RippleModule } from 'primeng/ripple';
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" (mouseenter)="onItemMouseEnter($event,child)">
                     <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="onItemClick($event, child)"
-                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" 
+                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass"
                          [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="p-menuitem-text">{{child.label}}</span>
@@ -42,22 +42,22 @@ export class MenubarSub implements OnDestroy {
 
     @Input() autoDisplay: boolean;
 
-    @Input() autoZIndex: boolean = true;
+    @Input() autoZIndex = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input() baseZIndex = 0;
 
     @Input() mobileActive: boolean;
 
-    @Input() get parentActive():boolean 
-    {
+    @Input() get parentActive(): boolean {
         return this._parentActive;
     }
     set parentActive(value) {
         if (!this.root) {
             this._parentActive = value;
 
-            if (!value)
+            if (!value) {
                 this.activeItem = null;
+            }
         }
     }
 
@@ -67,8 +67,8 @@ export class MenubarSub implements OnDestroy {
 
     documentClickListener: any;
 
-  
-    menuHoverActive: boolean = false;
+
+    menuHoverActive = false;
 
     activeItem: any;
 
@@ -84,8 +84,7 @@ export class MenubarSub implements OnDestroy {
             if (this.activeItem) {
                 this.activeItem = item;
             }
-        }
-        else {
+        } else {
             this.activeItem = item;
         }
     }
@@ -104,16 +103,16 @@ export class MenubarSub implements OnDestroy {
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item
             });
         }
 
         if (item.items) {
-            if (this.activeItem && item === this.activeItem)
+            if (this.activeItem && item === this.activeItem) {
                 this.activeItem = null;
-            else {
+            } else {
                this.activeItem = item;
-                if (this.root) {
+               if (this.root) {
                     this.bindDocumentClickListener();
                 }
             }
@@ -192,9 +191,9 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    @Input() autoZIndex: boolean = true;
+    @Input() autoZIndex = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input() baseZIndex = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -204,7 +203,7 @@ export class Menubar implements AfterContentInit, OnDestroy {
         return this._autoDisplay;
     }
     set autoDisplay(_autoDisplay: boolean) {
-        console.log("AutoDisplay property is deprecated and functionality is not available.");
+        console.log('AutoDisplay property is deprecated and functionality is not available.');
     }
 
     @ViewChild('menubutton') menubutton: ElementRef;
@@ -223,21 +222,21 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'start':
                     this.startTemplate = item.template;
-                break;
+                    break;
 
                 case 'end':
                     this.endTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
 
     toggle(event) {
         this.mobileActive = !this.mobileActive;
-        let rootmenu = DomHandler.findSingle(this.el.nativeElement,".p-menubar-root-list")
+        const rootmenu = DomHandler.findSingle(this.el.nativeElement, '.p-menubar-root-list');
         rootmenu.style.zIndex = String(DomHandler.generateZIndex());
         this.bindOutsideClickListener();
         event.preventDefault();
@@ -274,8 +273,8 @@ export class Menubar implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [Menubar,RouterModule],
-    declarations: [Menubar,MenubarSub]
+    imports: [CommonModule, RouterModule, RippleModule],
+    exports: [Menubar, RouterModule],
+    declarations: [Menubar, MenubarSub]
 })
 export class MenubarModule { }

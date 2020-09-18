@@ -1,11 +1,11 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
+import {NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Footer, PrimeTemplate} from 'primeng/api';
+import {SharedModule, Footer, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 
-let idx: number = 0;
+let idx = 0;
 
 @Component({
     selector: 'p-panel',
@@ -29,7 +29,7 @@ let idx: number = 0;
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
-                
+
                 <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
@@ -58,40 +58,40 @@ let idx: number = 0;
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./panel.css']
 })
-export class Panel implements AfterContentInit,BlockableUI {
+export class Panel implements AfterContentInit, BlockableUI {
 
     @Input() toggleable: boolean;
 
     @Input() header: string;
 
-    @Input() collapsed: boolean = false;
-    
-    @Input() style: any;
-    
-    @Input() styleClass: string;
-    
-    @Input() expandIcon: string = 'pi pi-plus';
-    
-    @Input() collapseIcon: string = 'pi pi-minus';
-  
-    @Input() showHeader: boolean = true;
+    @Input() collapsed = false;
 
-    @Input() toggler: string = "icon";
-    
+    @Input() style: any;
+
+    @Input() styleClass: string;
+
+    @Input() expandIcon = 'pi pi-plus';
+
+    @Input() collapseIcon = 'pi pi-minus';
+
+    @Input() showHeader = true;
+
+    @Input() toggler = 'icon';
+
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-    
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
+    @Input() transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChild(Footer) footerFacet;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public iconTemplate: TemplateRef<any>;
-    
+
     animating: boolean;
 
     headerTemplate: TemplateRef<any>;
@@ -99,33 +99,33 @@ export class Panel implements AfterContentInit,BlockableUI {
     contentTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
-    
-    id: string = `p-panel-${idx++}`;
-    
+
+    id = `p-panel-${idx++}`;
+
     constructor(private el: ElementRef) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
 
                 case 'icons':
                     this.iconTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -141,39 +141,40 @@ export class Panel implements AfterContentInit,BlockableUI {
             this.toggle(event);
         }
     }
-    
+
     toggle(event: Event) {
         if (this.animating) {
             return false;
         }
-        
+
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
-        
+
         if (this.toggleable) {
-            if (this.collapsed)
+            if (this.collapsed) {
                 this.expand(event);
-            else
+            } else {
                 this.collapse(event);
+            }
         }
-        
+
         event.preventDefault();
     }
-    
+
     expand(event) {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
     }
-    
+
     collapse(event) {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-    
+
     onToggleDone(event: Event) {
         this.animating = false;
         this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});
@@ -182,8 +183,8 @@ export class Panel implements AfterContentInit,BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,RippleModule],
-    exports: [Panel,SharedModule],
+    imports: [CommonModule, SharedModule, RippleModule],
+    exports: [Panel, SharedModule],
     declarations: [Panel]
 })
 export class PanelModule { }

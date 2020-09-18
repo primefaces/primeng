@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {InputTextareaDemo} from './inputtextareademo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: InputTextareaDemo}
+			{path: '', component: InputTextareaDemo}
 		])
 	],
 	exports: [

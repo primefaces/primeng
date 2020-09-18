@@ -55,12 +55,12 @@ describe('Rating', () => {
 
 	it('should change styles and icons', () => {
 		rating.value = 2;
-		rating.iconOnClass = "icon on";
-		rating.iconOffClass = "icon off";
-		rating.iconCancelClass = "Primeng Rocks!";
-		rating.iconOnStyle = { 'height': '300px' };
-		rating.iconOffStyle = { 'height': '300px' };
-		rating.iconCancelStyle = { 'height': '300px' };
+		rating.iconOnClass = 'icon on';
+		rating.iconOffClass = 'icon off';
+		rating.iconCancelClass = 'Primeng Rocks!';
+		rating.iconOnStyle = { height: '300px' };
+		rating.iconOffStyle = { height: '300px' };
+		rating.iconCancelStyle = { height: '300px' };
 		fixture.detectChanges();
 
 		const starElements = fixture.debugElement.queryAll(By.css('span'));

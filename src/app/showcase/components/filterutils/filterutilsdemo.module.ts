@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';;
+import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import { FilterUtilsDemo } from './filterutilsdemo';
 import { FilterUtilsDemoRoutingModule } from './filterutils-routing.module';

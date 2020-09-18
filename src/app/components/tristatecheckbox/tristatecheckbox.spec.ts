@@ -31,7 +31,7 @@ describe('TriStateCheckbox', () => {
 
 	it('should disabled', () => {
 		tristate.disabled = true;
-		tristate.label = "Primeng!";
+		tristate.label = 'Primeng!';
 		fixture.detectChanges();
 
 		const toggleSpy = spyOn(tristate, 'toggle').and.callThrough();
@@ -42,46 +42,46 @@ describe('TriStateCheckbox', () => {
 		fixture.detectChanges();
 
 		expect(helperInputEl.disabled).toEqual(true);
-		expect(checkBoxEl.className).toContain("p-disabled");
-		expect(labelEl.className).toContain("p-disabled");
+		expect(checkBoxEl.className).toContain('p-disabled');
+		expect(labelEl.className).toContain('p-disabled');
 		expect(toggleSpy).not.toHaveBeenCalled();
 	});
 
 	it('should get a label', () => {
-		tristate.label = "Primeng!";
+		tristate.label = 'Primeng!';
 		fixture.detectChanges();
 
 		const labelEl = fixture.debugElement.query(By.css('label')).nativeElement;
-		expect(labelEl.textContent).toContain("Primeng!");
+		expect(labelEl.textContent).toContain('Primeng!');
 	});
 
 	it('should change stlye and styleClass', () => {
-		tristate.styleClass = "Primeng ROCKS!";
-		tristate.style = { 'height': '300px' };
+		tristate.styleClass = 'Primeng ROCKS!';
+		tristate.style = { height: '300px' };
 		fixture.detectChanges();
 
 		const tristatecheckboxEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(tristatecheckboxEl.className).toContain("Primeng ROCKS!");
-		expect(tristatecheckboxEl.style.height).toContain("300px");
+		expect(tristatecheckboxEl.className).toContain('Primeng ROCKS!');
+		expect(tristatecheckboxEl.style.height).toContain('300px');
 	});
 
 	it('should get a name inputId and tabIndex', () => {
-		tristate.label = "Primeng!";
+		tristate.label = 'Primeng!';
 		tristate.tabindex = 5;
-		tristate.inputId = "Primeng";
-		tristate.name = "Primeng ROCKS!";
+		tristate.inputId = 'Primeng';
+		tristate.name = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const helperInputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const labelEl = fixture.debugElement.query(By.css('label')).nativeElement;
 		expect(helperInputEl.tabIndex).toEqual(5);
-		expect(helperInputEl.id).toEqual("Primeng");
-		expect(helperInputEl.name).toEqual("Primeng ROCKS!");
-		expect(labelEl.htmlFor).toEqual("Primeng");
+		expect(helperInputEl.id).toEqual('Primeng');
+		expect(helperInputEl.name).toEqual('Primeng ROCKS!');
+		expect(labelEl.htmlFor).toEqual('Primeng');
 	});
 
 	it('should value is true when click and listen onChange', () => {
-		tristate.label = "Primeng";
+		tristate.label = 'Primeng';
 		fixture.detectChanges();
 
 		let value;
@@ -95,14 +95,14 @@ describe('TriStateCheckbox', () => {
 
 		expect(tristate.value).toEqual(true);
 		expect(value.value).toEqual(tristate.value);
-		expect(checkBoxEl.className).toContain("p-highlight");
-		expect(checkBoxIconEl.className).toContain("pi-check");
-		expect(labeEl.className).toContain("p-checkbox-label-active");
+		expect(checkBoxEl.className).toContain('p-highlight');
+		expect(checkBoxIconEl.className).toContain('pi-check');
+		expect(labeEl.className).toContain('p-checkbox-label-active');
 		expect(onClickSpy).toHaveBeenCalled();
 	});
 
 	it('should value is true when click to label', () => {
-		tristate.label = "Primeng";
+		tristate.label = 'Primeng';
 		fixture.detectChanges();
 
 		let value;
@@ -116,14 +116,14 @@ describe('TriStateCheckbox', () => {
 
 		expect(tristate.value).toEqual(true);
 		expect(value.value).toEqual(tristate.value);
-		expect(checkBoxEl.className).toContain("p-highlight");
-		expect(checkBoxIconEl.className).toContain("pi-check");
-		expect(labeEl.className).toContain("p-checkbox-label-active");
+		expect(checkBoxEl.className).toContain('p-highlight');
+		expect(checkBoxIconEl.className).toContain('pi-check');
+		expect(labeEl.className).toContain('p-checkbox-label-active');
 		expect(onClickSpy).toHaveBeenCalled();
 	});
 
 	it('should value is false when click twice', () => {
-		tristate.label = "Primeng";
+		tristate.label = 'Primeng';
 		fixture.detectChanges();
 
 		let value;
@@ -138,14 +138,14 @@ describe('TriStateCheckbox', () => {
 
 		expect(tristate.value).toEqual(false);
 		expect(value.value).toEqual(tristate.value);
-		expect(checkBoxEl.className).toContain("p-highlight");
-		expect(checkBoxIconEl.className).toContain("pi-times");
-		expect(labeEl.className).toContain("p-checkbox-label-active");
+		expect(checkBoxEl.className).toContain('p-highlight');
+		expect(checkBoxIconEl.className).toContain('pi-times');
+		expect(labeEl.className).toContain('p-checkbox-label-active');
 		expect(onClickSpy).toHaveBeenCalledTimes(2);
 	});
 
 	it('should value is null when click three time', () => {
-		tristate.label = "Primeng";
+		tristate.label = 'Primeng';
 		fixture.detectChanges();
 
 		let value;
@@ -161,13 +161,13 @@ describe('TriStateCheckbox', () => {
 
 		expect(tristate.value).toEqual(null);
 		expect(value.value).toEqual(tristate.value);
-		expect(checkBoxEl.className).not.toContain("p-highlight");
-		expect(labeEl.className).not.toContain("p-checkbox-label-active");
+		expect(checkBoxEl.className).not.toContain('p-highlight');
+		expect(labeEl.className).not.toContain('p-checkbox-label-active');
 		expect(onClickSpy).toHaveBeenCalledTimes(3);
 	});
 
 	it('should call onFocus', () => {
-		tristate.label = "Primeng";
+		tristate.label = 'Primeng';
 		fixture.detectChanges();
 
 		let value;
@@ -180,16 +180,16 @@ describe('TriStateCheckbox', () => {
 		fixture.detectChanges();
 
 		expect(onFocusSpy).toHaveBeenCalled();
-		expect(checkBoxEl.nativeElement.className).toContain("p-focus");
+		expect(checkBoxEl.nativeElement.className).toContain('p-focus');
 		inputEl.nativeElement.dispatchEvent(new Event('blur'));
 		fixture.detectChanges();
 
 		expect(onBlurSpy).toHaveBeenCalled();
-		expect(checkBoxEl.nativeElement.className).not.toContain("p-focus");
+		expect(checkBoxEl.nativeElement.className).not.toContain('p-focus');
 	});
 
 	it('should call onKeydown', () => {
-		tristate.label = "Primeng";
+		tristate.label = 'Primeng';
 		fixture.detectChanges();
 
 		let value;
@@ -204,7 +204,7 @@ describe('TriStateCheckbox', () => {
 	});
 
 	it('should call onKeydown', () => {
-		tristate.label = "Primeng";
+		tristate.label = 'Primeng';
 		fixture.detectChanges();
 
 		let value;

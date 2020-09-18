@@ -12,9 +12,9 @@ import { FormsModule } from '@angular/forms';
     `
 })
     class TestCheckboxComponent {
-        checked: boolean = false;
+        checked = false;
     }
-  
+
 describe('Checkbox', () => {
 
     let checkbox: Checkbox;
@@ -40,7 +40,7 @@ describe('Checkbox', () => {
 
     it('should check the input on click', () => {
         fixture.detectChanges();
-        
+
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
         boxEl.click();
         fixture.detectChanges();
@@ -51,10 +51,10 @@ describe('Checkbox', () => {
 
     it('should disabled', () => {
         checkbox.disabled = true;
-        checkbox.label = "primeng"
+        checkbox.label = 'primeng';
         fixture.detectChanges();
 
-        const onClickSpy = spyOn(checkbox,'onClick').and.callThrough();
+        const onClickSpy = spyOn(checkbox, 'onClick').and.callThrough();
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
         const labelEl = fixture.nativeElement.querySelector('.p-checkbox-label');
         boxEl.click();
@@ -70,13 +70,13 @@ describe('Checkbox', () => {
     });
 
     it('should get a label name inputId tabindex style styleClass and labelStyleClass', () => {
-        checkbox.label = "Primeng ROCKS!";
-        checkbox.name = "primeng";
-        checkbox.inputId = "primeng";
+        checkbox.label = 'Primeng ROCKS!';
+        checkbox.name = 'primeng';
+        checkbox.inputId = 'primeng';
         checkbox.tabindex = 13;
-        checkbox.style = {'height': '300px'};
-        checkbox.styleClass = "Primeng Rocks!";
-        checkbox.labelStyleClass = "Primeng ROCKS";
+        checkbox.style = {height: '300px'};
+        checkbox.styleClass = 'Primeng Rocks!';
+        checkbox.labelStyleClass = 'Primeng ROCKS';
         fixture.detectChanges();
 
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
@@ -87,10 +87,10 @@ describe('Checkbox', () => {
 
         const input = fixture.nativeElement.querySelector('input');
         expect(labelEl).toBeTruthy();
-        expect(labelEl.className).toContain("Primeng ROCKS");
-        expect(labelEl.className).toContain("p-checkbox-label-active");
-        expect(input.name).toEqual("primeng");
-        expect(input.id).toEqual("primeng");
+        expect(labelEl.className).toContain('Primeng ROCKS');
+        expect(labelEl.className).toContain('p-checkbox-label-active');
+        expect(input.name).toEqual('primeng');
+        expect(input.id).toEqual('primeng');
         expect(input.tabIndex).toEqual(13);
         expect(containerEl.className).toContain('Primeng Rocks!');
         expect(containerEl.style.height).toContain('300px');
@@ -100,7 +100,7 @@ describe('Checkbox', () => {
         fixture.detectChanges();
 
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
-        const onClickSpy = spyOn(checkbox,'onClick').and.callThrough();
+        const onClickSpy = spyOn(checkbox, 'onClick').and.callThrough();
         boxEl.click();
         fixture.detectChanges();
 
@@ -124,14 +124,14 @@ describe('Checkbox', () => {
     });
 
     it('should call onBlur and onFocus', () => {
-        checkbox.label = "primeng";
+        checkbox.label = 'primeng';
         fixture.detectChanges();
 
         const input = fixture.nativeElement.querySelector('input');
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
         const labelEl = fixture.nativeElement.querySelector('.p-checkbox-label');
-        const onBlurSpy = spyOn(checkbox,'onBlur').and.callThrough();
-        const onFocusSpy = spyOn(checkbox,'onFocus').and.callThrough();
+        const onBlurSpy = spyOn(checkbox, 'onBlur').and.callThrough();
+        const onFocusSpy = spyOn(checkbox, 'onFocus').and.callThrough();
         input.dispatchEvent(new Event('focus'));
         fixture.detectChanges();
 
@@ -175,9 +175,9 @@ describe('Checkbox', () => {
 
     it('should call handleChange', () => {
         fixture.detectChanges();
-        
+
         checkbox.binary = true;
-        const handleChangeSpy = spyOn(checkbox,"handleChange").and.callThrough();
+        const handleChangeSpy = spyOn(checkbox, 'handleChange').and.callThrough();
         const input = fixture.nativeElement.querySelector('input');
         input.dispatchEvent(new Event('change'));
         fixture.detectChanges();

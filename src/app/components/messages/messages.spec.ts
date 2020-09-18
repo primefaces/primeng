@@ -25,40 +25,40 @@ import { Message } from 'primeng/api';
   })
   class TestMessagesComponent {
     msgs: Message[] = [];
-    
+
     constructor(private messageService: MessageService) {}
 
     showSuccess() {
         this.msgs = [];
-        this.msgs.push({severity:'success', summary:'Success Message', detail:'Order submitted'});
+        this.msgs.push({severity: 'success', summary: 'Success Message', detail: 'Order submitted'});
     }
 
     showInfo() {
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
+        this.msgs.push({severity: 'info', summary: 'Info Message', detail: 'PrimeNG rocks'});
     }
 
     showWarn() {
         this.msgs = [];
-        this.msgs.push({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
+        this.msgs.push({severity: 'warn', summary: 'Warn Message', detail: 'There are unsaved changes'});
     }
 
     showError() {
         this.msgs = [];
-        this.msgs.push({severity:'error', summary:'Error Message', detail:'Validation failed'});
+        this.msgs.push({severity: 'error', summary: 'Error Message', detail: 'Validation failed'});
     }
 
     showDefault() {
         this.msgs = [];
-        this.msgs.push({summary:'Default Message', detail:'Default detail'});
+        this.msgs.push({summary: 'Default Message', detail: 'Default detail'});
     }
-    
+
     showViaService() {
-        this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+        this.messageService.add({severity: 'success', summary: 'Service Message', detail: 'Via MessageService'});
     }
 
     showAllViaService() {
-        this.messageService.addAll([{severity:'success',key:'primeng', summary:'Service Message', detail:'Via MessageService'},{severity:'success', summary:'Service Message', detail:'Via MessageService'}]);
+        this.messageService.addAll([{severity: 'success', key: 'primeng', summary: 'Service Message', detail: 'Via MessageService'}, {severity: 'success', summary: 'Service Message', detail: 'Via MessageService'}]);
     }
 
     clearWithService() {
@@ -66,12 +66,12 @@ import { Message } from 'primeng/api';
     }
 
     clearWithServiceAndKey() {
-        this.messageService.clear("primeng");
+        this.messageService.clear('primeng');
     }
   }
-  
+
 describe('Messages', () => {
-  
+
     let messages: Messages;
     let fixture: ComponentFixture<TestMessagesComponent>;
 
@@ -86,7 +86,7 @@ describe('Messages', () => {
         Button,
         TestMessagesComponent
         ],
-        providers:[MessageService]
+        providers: [MessageService]
     });
 
     fixture = TestBed.createComponent(TestMessagesComponent);
@@ -102,7 +102,7 @@ describe('Messages', () => {
 
     it('should show success', () => {
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.query(By.css('button'));
         successButton.nativeElement.click();
         fixture.detectChanges();
@@ -122,7 +122,7 @@ describe('Messages', () => {
 
     it('should show info', () => {
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.queryAll(By.css('button'))[1];
         successButton.nativeElement.click();
         fixture.detectChanges();
@@ -142,7 +142,7 @@ describe('Messages', () => {
 
     it('should show warning', () => {
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.queryAll(By.css('button'))[2];
         successButton.nativeElement.click();
         fixture.detectChanges();
@@ -162,7 +162,7 @@ describe('Messages', () => {
 
     it('should show error', () => {
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.queryAll(By.css('button'))[3];
         successButton.nativeElement.click();
         fixture.detectChanges();
@@ -182,7 +182,7 @@ describe('Messages', () => {
 
     it('should show with service', () => {
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.queryAll(By.css('button'))[5];
         successButton.nativeElement.click();
         fixture.detectChanges();
@@ -201,9 +201,9 @@ describe('Messages', () => {
     });
 
     it('should show multiple with service', () => {
-        messages.key = "primeng";
+        messages.key = 'primeng';
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.queryAll(By.css('button'))[6];
         successButton.nativeElement.click();
         fixture.detectChanges();
@@ -213,14 +213,14 @@ describe('Messages', () => {
     });
 
     it('should clear with service', () => {
-        messages.key = "primeng";
+        messages.key = 'primeng';
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.queryAll(By.css('button'))[6];
         const clearButton = fixture.debugElement.queryAll(By.css('button'))[7];
         successButton.nativeElement.click();
         fixture.detectChanges();
-        
+
         clearButton.nativeElement.click();
         fixture.detectChanges();
 
@@ -229,14 +229,14 @@ describe('Messages', () => {
     });
 
     it('should clear with service and key', () => {
-        messages.key = "primeng";
+        messages.key = 'primeng';
         fixture.detectChanges();
-        
+
         const successButton = fixture.debugElement.queryAll(By.css('button'))[6];
         const clearButton = fixture.debugElement.queryAll(By.css('button'))[8];
         successButton.nativeElement.click();
         fixture.detectChanges();
-        
+
         clearButton.nativeElement.click();
         fixture.detectChanges();
 

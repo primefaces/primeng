@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
 
@@ -61,10 +61,10 @@ import { UniqueComponentId } from 'primeng/utils';
 })
 export class Carousel implements AfterContentInit {
 
-	@Input() get page():number {
+	@Input() get page(): number {
 		return this._page;
 	}
-	set page(val:number) {
+	set page(val: number) {
 		if (this.isCreated && val !== this._page) {
 			if (this.autoplayInterval) {
 				this.stopAutoplay();
@@ -73,57 +73,56 @@ export class Carousel implements AfterContentInit {
 
 			if (val > this._page && val <= (this.totalDots() - 1)) {
 				this.step(-1, val);
-			}
-			else if (val < this._page ) {
+			} else if (val < this._page ) {
 				this.step(1, val);
 			}
-		} 
+		}
 
 		this._page = val;
 	}
-		
-	@Input() get numVisible():number {
+
+	@Input() get numVisible(): number {
 		return this._numVisible;
 	}
-	set numVisible(val:number) {
+	set numVisible(val: number) {
 		this._numVisible = val;
 	}
-		
-	@Input() get numScroll():number {
+
+	@Input() get numScroll(): number {
 		return this._numVisible;
 	}
-	set numScroll(val:number) {
+	set numScroll(val: number) {
 		this._numScroll = val;
 	}
-	
+
 	@Input() responsiveOptions: any[];
-	
-	@Input() orientation = "horizontal";
-	
-	@Input() verticalViewPortHeight = "300px";
-	
-	@Input() contentClass: String = "";
 
-	@Input() indicatorsContentClass: String = "";
+	@Input() orientation = 'horizontal';
 
-	@Input() get value() :any[] {
+	@Input() verticalViewPortHeight = '300px';
+
+	@Input() contentClass: String = '';
+
+	@Input() indicatorsContentClass: String = '';
+
+	@Input() get value(): any[] {
 		return this._value;
-	};
+	}
 	set value(val) {
 		this._value = val;
 		if (this.circular && this._value) {
 			this.setCloneItems();
 		}
 	}
-	
-	@Input() circular:boolean = false;
 
-	@Input() autoplayInterval:number = 0;
+	@Input() circular = false;
+
+	@Input() autoplayInterval = 0;
 
 	@Input() style: any;
 
 	@Input() styleClass: string;
-	
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
 	@ViewChild('itemsContainer') itemsContainer: ElementRef;
@@ -134,39 +133,39 @@ export class Carousel implements AfterContentInit {
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-	_numVisible: number = 1;
+	_numVisible = 1;
 
-	_numScroll: number = 1;
+	_numScroll = 1;
 
-	_oldNumScroll: number = 0;
+	_oldNumScroll = 0;
 
 	prevState: any = {
-		numScroll:0,
-		numVisible:0,
+		numScroll: 0,
+		numVisible: 0,
 		value: []
 	};
 
-	defaultNumScroll:number = 1;
+	defaultNumScroll = 1;
 
-	defaultNumVisible:number = 1;
+	defaultNumVisible = 1;
 
-	_page: number = 0;
+	_page = 0;
 
 	_value: any[];
 
-	carouselStyle:any;
+	carouselStyle: any;
 
-	id:string;
+	id: string;
 
 	totalShiftedItems;
 
-	isRemainingItemsAdded:boolean = false;
+	isRemainingItemsAdded = false;
 
-	animationTimeout:any;
+	animationTimeout: any;
 
-	translateTimeout:any;
+	translateTimeout: any;
 
-	remainingItems: number = 0;
+	remainingItems = 0;
 
 	_items: any[];
 
@@ -184,16 +183,16 @@ export class Carousel implements AfterContentInit {
 
 	isCreated: boolean;
 
-	swipeThreshold: number = 20;
+	swipeThreshold = 20;
 
     itemTemplate: TemplateRef<any>;
-    
+
     headerTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
 
-	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) { 
-		this.totalShiftedItems = this.page * this.numScroll * -1; 
+	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) {
+		this.totalShiftedItems = this.page * this.numScroll * -1;
 	}
 
 	ngAfterContentInit() {
@@ -220,19 +219,19 @@ export class Carousel implements AfterContentInit {
 			switch (item.getType()) {
 				case 'item':
 					this.itemTemplate = item.template;
-                break;
+     break;
 
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
 
 				default:
 					this.itemTemplate = item.template;
-                break;
+     break;
 			}
 		});
 	}
@@ -240,33 +239,32 @@ export class Carousel implements AfterContentInit {
 	ngAfterContentChecked() {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
-		
+
 		if (this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
 			if (this.autoplayInterval) {
 				this.stopAutoplay();
 			}
-			
+
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
 			let page = this._page;
 			if (this.totalDots() !== 0 && page >= this.totalDots()) {
                 page = this.totalDots() - 1;
-				this._page = page;
-				this.onPage.emit({
+				            this._page = page;
+				            this.onPage.emit({
 					page: this.page
 				});
 			}
-			
+
 			totalShiftedItems = (page * this._numScroll) * -1;
-            if (isCircular) {
+   if (isCircular) {
                 totalShiftedItems -= this._numVisible;
             }
 
 			if (page === (this.totalDots() - 1) && this.remainingItems > 0) {
 				totalShiftedItems += (-1 * this.remainingItems) + this._numScroll;
 				this.isRemainingItemsAdded = true;
-			}
-			else {
+			} else {
 				this.isRemainingItemsAdded = false;
 			}
 
@@ -280,9 +278,9 @@ export class Carousel implements AfterContentInit {
 			this.prevState.value = this._value;
 
 			if (this.totalDots() > 0 && this.itemsContainer && this.itemsContainer.nativeElement) {
-				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
 			}
-			
+
 			this.isCreated = true;
 
 			if (this.autoplayInterval && this.isAutoplay()) {
@@ -293,8 +291,7 @@ export class Carousel implements AfterContentInit {
 		if (isCircular) {
             if (this.page === 0) {
                 totalShiftedItems = -1 * this._numVisible;
-            }
-            else if (totalShiftedItems === 0) {
+            } else if (totalShiftedItems === 0) {
                 totalShiftedItems = -1 * this.value.length;
                 if (this.remainingItems > 0) {
                     this.isRemainingItemsAdded = true;
@@ -316,7 +313,7 @@ export class Carousel implements AfterContentInit {
 
 			let innerHTML = `
             #${this.id} .p-carousel-item {
-				flex: 1 0 ${ (100/ this.numVisible) }%
+				flex: 1 0 ${ (100 / this.numVisible) }%
 			}
         `;
 
@@ -326,30 +323,31 @@ export class Carousel implements AfterContentInit {
 					const value2 = data2.breakpoint;
 					let result = null;
 
-					if (value1 == null && value2 != null)
+					if (value1 == null && value2 != null) {
 						result = -1;
-					else if (value1 != null && value2 == null)
+					} else if (value1 != null && value2 == null) {
 						result = 1;
-					else if (value1 == null && value2 == null)
+ } else if (value1 == null && value2 == null) {
 						result = 0;
-					else if (typeof value1 === 'string' && typeof value2 === 'string')
+ } else if (typeof value1 === 'string' && typeof value2 === 'string') {
 						result = value1.localeCompare(value2, undefined, { numeric: true });
-					else
+ } else {
 						result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+ }
 
 					return -1 * result;
 				});
 
 				for (let i = 0; i < this.responsiveOptions.length; i++) {
-					let res = this.responsiveOptions[i];
+					const res = this.responsiveOptions[i];
 
 					innerHTML += `
                     @media screen and (max-width: ${res.breakpoint}) {
                         #${this.id} .p-carousel-item {
-                            flex: 1 0 ${ (100/ res.numVisible) }%
+                            flex: 1 0 ${ (100 / res.numVisible) }%
                         }
                     }
-                `
+                `;
 				}
 			}
 
@@ -358,14 +356,14 @@ export class Carousel implements AfterContentInit {
 
 	calculatePosition() {
 		if (this.itemsContainer && this.responsiveOptions) {
-			let windowWidth = window.innerWidth;
+			const windowWidth = window.innerWidth;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,
 				numScroll: this.defaultNumScroll
 			};
 
 			for (let i = 0; i < this.responsiveOptions.length; i++) {
-				let res = this.responsiveOptions[i];
+				const res = this.responsiveOptions[i];
 
 				if (parseInt(res.breakpoint, 10) >= windowWidth) {
 					matchedResponsiveData = res;
@@ -399,7 +397,7 @@ export class Carousel implements AfterContentInit {
 			this.cd.markForCheck();
 		}
 	}
-	
+
 	setCloneItems() {
 		this.clonedItemsForStarting = [];
 		this.clonedItemsForFinishing = [];
@@ -450,7 +448,7 @@ export class Carousel implements AfterContentInit {
 		return !this.value || this.value.length === 0;
 	}
 
-	navForward(e,index?) {
+	navForward(e, index?) {
 		if (this.isCircular() || this._page < (this.totalDots() - 1)) {
 			this.step(-1, index);
 		}
@@ -465,7 +463,7 @@ export class Carousel implements AfterContentInit {
 		}
 	}
 
-	navBackward(e,index?) {
+	navBackward(e, index?) {
 		if (this.isCircular() || this._page !== 0) {
 			this.step(1, index);
 		}
@@ -474,24 +472,23 @@ export class Carousel implements AfterContentInit {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
-		
+
 		if (e && e.cancelable) {
 			e.preventDefault();
 		}
 	}
 
 	onDotClick(e, index) {
-		let page = this._page;
+		const page = this._page;
 
 		if (this.autoplayInterval) {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
-		
+
 		if (index > page) {
 			this.navForward(e, index);
-		}
-		else if (index < page) {
+		} else if (index < page) {
 			this.navBackward(e, index);
 		}
 	}
@@ -508,33 +505,30 @@ export class Carousel implements AfterContentInit {
 			}
 
 			this.isRemainingItemsAdded = false;
-		}
-		else {
+		} else {
 			totalShiftedItems += (this._numScroll * dir);
 			if (this.isRemainingItemsAdded) {
 				totalShiftedItems += this.remainingItems - (this._numScroll * dir);
 				this.isRemainingItemsAdded = false;
 			}
 
-			let originalShiftedItems = isCircular ? (totalShiftedItems + this._numVisible) : totalShiftedItems;
+			const originalShiftedItems = isCircular ? (totalShiftedItems + this._numVisible) : totalShiftedItems;
 			page = Math.abs(Math.floor((originalShiftedItems / this._numScroll)));
 		}
 
 		if (isCircular && this.page === (this.totalDots() - 1) && dir === -1) {
 			totalShiftedItems = -1 * (this.value.length + this._numVisible);
 			page = 0;
-		}
-		else if (isCircular && this.page === 0 && dir === 1) {
+		} else if (isCircular && this.page === 0 && dir === 1) {
 			totalShiftedItems = 0;
 			page = (this.totalDots() - 1);
-		}
-		else if (page === (this.totalDots() - 1) && this.remainingItems > 0) {
+		} else if (page === (this.totalDots() - 1) && this.remainingItems > 0) {
 			totalShiftedItems += ((this.remainingItems * -1) - (this._numScroll * dir));
 			this.isRemainingItemsAdded = true;
 		}
 
 		if (this.itemsContainer) {
-			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
 			this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
 		}
 
@@ -550,12 +544,11 @@ export class Carousel implements AfterContentInit {
 			if (this.totalDots() > 0) {
 				if (this.page === (this.totalDots() - 1)) {
 					this.step(-1, 0);
-				}
-				else {
+				} else {
 					this.step(-1, this.page + 1);
 				}
 			}
-		}, 
+		},
 		this.autoplayInterval);
 	}
 
@@ -570,13 +563,13 @@ export class Carousel implements AfterContentInit {
 			this.itemsContainer.nativeElement.style.transition = '';
 
 			if ((this.page === 0 || this.page === (this.totalDots() - 1)) && this.isCircular()) {
-				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
 			}
 		}
 	}
 
 	onTouchStart(e) {
-		let touchobj = e.changedTouches[0];
+		const touchobj = e.changedTouches[0];
 
 		this.startPos = {
 			x: touchobj.pageX,
@@ -590,12 +583,11 @@ export class Carousel implements AfterContentInit {
 		}
 	}
 	onTouchEnd(e) {
-		let touchobj = e.changedTouches[0];
+		const touchobj = e.changedTouches[0];
 
 		if (this.isVertical()) {
 			this.changePageOnTouch(e, (touchobj.pageY - this.startPos.y));
-		}
-		else {
+		} else {
 			this.changePageOnTouch(e, (touchobj.pageX - this.startPos.x));
 		}
 	}
@@ -604,8 +596,7 @@ export class Carousel implements AfterContentInit {
 		if (Math.abs(diff) > this.swipeThreshold) {
 			if (diff < 0) {
 				this.navForward(e);
-			}
-			else {
+			} else {
 				this.navBackward(e);
 
 			}

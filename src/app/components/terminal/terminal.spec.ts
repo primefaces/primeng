@@ -12,14 +12,14 @@ import { Subscription } from 'rxjs';
   })
   class TestTerminalComponent {
     subscription: Subscription;
-    
+
     constructor(private terminalService: TerminalService) {
         this.terminalService.commandHandler.subscribe(command => {
-            let response = (command === 'd') ? "Command succeed": 'Unknown command: ' + command;
+            const response = (command === 'd') ? 'Command succeed' : 'Unknown command: ' + command;
             this.terminalService.sendResponse(response);
         });
     }
-    
+
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
   }
 
 describe('Terminal', () => {
-  
+
     let terminal: Terminal;
     let fixture: ComponentFixture<TestTerminalComponent>;
 
@@ -42,7 +42,7 @@ describe('Terminal', () => {
         Terminal,
         TestTerminalComponent
         ],
-        providers:[TerminalService]
+        providers: [TerminalService]
     });
 
     fixture = TestBed.createComponent(TestTerminalComponent);
@@ -51,7 +51,7 @@ describe('Terminal', () => {
 
     it('should display by default', () => {
         fixture.detectChanges();
-  
+
         const terminalEl = fixture.debugElement.query(By.css('div'));
         expect(terminalEl.nativeElement).toBeTruthy();
     });
@@ -60,7 +60,7 @@ describe('Terminal', () => {
         fixture.detectChanges();
 
         terminal.command = 'd';
-        let event = {'keyCode': 13};
+        const event = {keyCode: 13};
         terminal.handleCommand(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -76,7 +76,7 @@ describe('Terminal', () => {
         fixture.detectChanges();
 
         terminal.command = 'dd';
-        let event = {'keyCode': 13};
+        const event = {keyCode: 13};
         terminal.handleCommand(event as KeyboardEvent);
         fixture.detectChanges();
 

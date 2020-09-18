@@ -1,10 +1,10 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {trigger, state, style, transition, animate, AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: '[pMenuItemContent]',
@@ -15,7 +15,7 @@ import {RippleModule} from 'primeng/ripple';
             <span class="p-menuitem-text">{{item.label}}</span>
         </a>
         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'"
-            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'" 
+            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'"
             [attr.title]="item.title" [ngClass]="{'p-disabled':item.disabled}" (click)="menu.itemClick($event, item)" role="menuitem" pRipple
             [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
@@ -26,10 +26,10 @@ import {RippleModule} from 'primeng/ripple';
 })
 export class MenuItemContent {
 
-    @Input("pMenuItemContent") item: MenuItem;
+    @Input('pMenuItemContent') item: MenuItem;
 
     menu: Menu;
-    
+
     constructor(@Inject(forwardRef(() => Menu)) menu) {
         this.menu = menu as Menu;
     }
@@ -81,29 +81,29 @@ export class Menu implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
 
-    @Input() autoZIndex: boolean = true;
-    
-    @Input() baseZIndex: number = 0;
+    @Input() autoZIndex = true;
 
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
+    @Input() baseZIndex = 0;
 
-    @Input() hideTransitionOptions: string = '.1s linear';
+    @Input() showTransitionOptions = '.12s cubic-bezier(0, 0, 0.2, 1)';
+
+    @Input() hideTransitionOptions = '.1s linear';
 
     @ViewChild('container') containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onHide: EventEmitter<any> = new EventEmitter();
-    
+
     container: HTMLDivElement;
-    
+
     documentClickListener: any;
 
     documentResizeListener: any;
-    
+
     preventDocumentDefault: boolean;
 
     target: any;
@@ -111,14 +111,15 @@ export class Menu implements OnDestroy {
     visible: boolean;
 
     relativeAlign: boolean;
-    
+
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     toggle(event) {
-        if (this.visible)
+        if (this.visible) {
             this.hide();
-        else
+        } else {
             this.show(event);
+        }
 
         this.preventDocumentDefault = true;
     }
@@ -132,7 +133,7 @@ export class Menu implements OnDestroy {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 if (this.popup) {
                     this.container = event.element;
@@ -143,28 +144,30 @@ export class Menu implements OnDestroy {
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                 }
-            break;
+                break;
 
             case 'void':
                 this.onOverlayHide();
                 this.onHide.emit({});
-            break;
+                break;
         }
     }
 
     alignOverlay() {
-        if (this.relativeAlign)
+        if (this.relativeAlign) {
             DomHandler.relativePosition(this.container, this.target);
-        else
+        } else {
             DomHandler.absolutePosition(this.container, this.target);
+        }
     }
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
+            if (this.appendTo === 'body') {
                 document.body.appendChild(this.container);
-            else
+            } else {
                 DomHandler.appendChild(this.container, this.appendTo);
+            }
         }
     }
 
@@ -173,13 +176,13 @@ export class Menu implements OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
     }
-    
+
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     hide() {
         this.visible = false;
         this.relativeAlign = false;
@@ -189,24 +192,24 @@ export class Menu implements OnDestroy {
     onWindowResize() {
         this.hide();
     }
-    
+
     itemClick(event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if (!item.url) {
             event.preventDefault();
         }
-        
+
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item
             });
         }
-        
+
         if (this.popup) {
             this.hide();
         }
@@ -237,7 +240,7 @@ export class Menu implements OnDestroy {
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
@@ -251,17 +254,17 @@ export class Menu implements OnDestroy {
         this.preventDocumentDefault = false;
         this.target = null;
     }
-    
+
     ngOnDestroy() {
         if (this.popup) {
             this.restoreOverlayAppend();
             this.onOverlayHide();
         }
     }
-    
+
     hasSubMenu(): boolean {
         if (this.model) {
-            for (var item of this.model) {
+            for (const item of this.model) {
                 if (item.items) {
                     return true;
                 }
@@ -272,8 +275,8 @@ export class Menu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [Menu,RouterModule],
-    declarations: [Menu,MenuItemContent]
+    imports: [CommonModule, RouterModule, RippleModule],
+    exports: [Menu, RouterModule],
+    declarations: [Menu, MenuItemContent]
 })
 export class MenuModule { }

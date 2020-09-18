@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {FullCalendarDemo} from './fullcalendardemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: FullCalendarDemo}
+			{path: '', component: FullCalendarDemo}
 		])
 	],
 	exports: [

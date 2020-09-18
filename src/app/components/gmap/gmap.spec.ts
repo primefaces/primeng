@@ -4,10 +4,10 @@ import { GMap } from './gmap';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('GMap', () => {
-  
+
   let gmap: GMap;
   let fixture: ComponentFixture<GMap>;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -17,7 +17,7 @@ describe('GMap', () => {
         GMap
       ]
     });
-    
+
     fixture = TestBed.createComponent(GMap);
     gmap = fixture.componentInstance;
   });

@@ -16,16 +16,16 @@ export class TicketService {
             seat: null
         },
         paymentInformation: {
-            cardholderName:'',
-            cardholderNumber:'',
-            date:'',
-            cvv:'',
-            remember:false
+            cardholderName: '',
+            cardholderNumber: '',
+            date: '',
+            cvv: '',
+            remember: false
         }
     };
 
     private paymentComplete = new Subject<any>();
-    
+
     paymentComplete$ = this.paymentComplete.asObservable();
 
     getTicketInformation() {

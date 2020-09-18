@@ -17,7 +17,7 @@ export class TableDemo implements OnInit {
 
     statuses: any[];
 
-    loading: boolean = true;
+    loading = true;
 
     @ViewChild('dt') table: Table;
 
@@ -30,16 +30,16 @@ export class TableDemo implements OnInit {
         });
 
         this.representatives = [
-            {name: "Amy Elsner", image: 'amyelsner.png'},
-            {name: "Anna Fali", image: 'annafali.png'},
-            {name: "Asiya Javayant", image: 'asiyajavayant.png'},
-            {name: "Bernardo Dominic", image: 'bernardodominic.png'},
-            {name: "Elwin Sharvill", image: 'elwinsharvill.png'},
-            {name: "Ioni Bowcher", image: 'ionibowcher.png'},
-            {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
-            {name: "Onyama Limba", image: 'onyamalimba.png'},
-            {name: "Stephen Shaw", image: 'stephenshaw.png'},
-            {name: "XuXue Feng", image: 'xuxuefeng.png'}
+            {name: 'Amy Elsner', image: 'amyelsner.png'},
+            {name: 'Anna Fali', image: 'annafali.png'},
+            {name: 'Asiya Javayant', image: 'asiyajavayant.png'},
+            {name: 'Bernardo Dominic', image: 'bernardodominic.png'},
+            {name: 'Elwin Sharvill', image: 'elwinsharvill.png'},
+            {name: 'Ioni Bowcher', image: 'ionibowcher.png'},
+            {name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png'},
+            {name: 'Onyama Limba', image: 'onyamalimba.png'},
+            {name: 'Stephen Shaw', image: 'stephenshaw.png'},
+            {name: 'XuXue Feng', image: 'xuxuefeng.png'}
         ];
 
         this.statuses = [
@@ -49,7 +49,7 @@ export class TableDemo implements OnInit {
             {label: 'Negotiation', value: 'negotiation'},
             {label: 'Renewal', value: 'renewal'},
             {label: 'Proposal', value: 'proposal'}
-        ]
+        ];
     }
 
     onActivityChange(event) {
@@ -64,7 +64,7 @@ export class TableDemo implements OnInit {
     }
 
     onDateSelect(value) {
-        this.table.filter(this.formatDate(value), 'date', 'equals')
+        this.table.filter(this.formatDate(value), 'date', 'equals');
     }
 
     formatDate(date) {
@@ -83,6 +83,6 @@ export class TableDemo implements OnInit {
     }
 
     onRepresentativeChange(event) {
-        this.table.filter(event.value, 'representative', 'in')
+        this.table.filter(event.value, 'representative', 'in');
     }
 }

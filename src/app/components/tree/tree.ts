@@ -1,5 +1,5 @@
-import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,OnChanges,
-    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy,SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, Input, AfterContentInit, OnDestroy, Output, EventEmitter, OnInit, OnChanges,
+    ContentChildren, QueryList, TemplateRef, Inject, ElementRef, forwardRef, ChangeDetectionStrategy, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -91,7 +91,7 @@ import {RippleModule} from 'primeng/ripple';
 })
 export class UITreeNode implements OnInit {
 
-    static ICON_CLASS: string = 'p-treenode-icon ';
+    static ICON_CLASS = 'p-treenode-icon ';
 
     @Input() rowNode: any;
 
@@ -119,7 +119,7 @@ export class UITreeNode implements OnInit {
 
     draghoverNext: boolean;
 
-    draghoverNode: boolean
+    draghoverNode: boolean;
 
     ngOnInit() {
         this.node.parent = this.parentNode;
@@ -132,10 +132,11 @@ export class UITreeNode implements OnInit {
     getIcon() {
         let icon: string;
 
-        if (this.node.icon)
+        if (this.node.icon) {
             icon = this.node.icon;
-        else
+        } else {
             icon = this.node.expanded && this.node.children && this.node.children.length ? this.node.expandedIcon : this.node.collapsedIcon;
+        }
 
         return UITreeNode.ICON_CLASS + ' ' + icon;
     }
@@ -145,10 +146,11 @@ export class UITreeNode implements OnInit {
     }
 
     toggle(event: Event) {
-        if (this.node.expanded)
+        if (this.node.expanded) {
             this.collapse(event);
-        else
+        } else {
             this.expand(event);
+        }
     }
 
     expand(event: Event) {
@@ -191,30 +193,29 @@ export class UITreeNode implements OnInit {
 
     onDropPoint(event: Event, position: number) {
         event.preventDefault();
-        let dragNode = this.tree.dragNode;
-        let dragNodeIndex = this.tree.dragNodeIndex;
-        let dragNodeScope = this.tree.dragNodeScope;
-        let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? (position === 1 || dragNodeIndex !== this.index - 1) : true;
+        const dragNode = this.tree.dragNode;
+        const dragNodeIndex = this.tree.dragNodeIndex;
+        const dragNodeScope = this.tree.dragNodeScope;
+        const isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? (position === 1 || dragNodeIndex !== this.index - 1) : true;
 
         if (this.tree.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
-            let dropParams = {...this.createDropPointEventMetadata(position)};
+            const dropParams = {...this.createDropPointEventMetadata(position)};
 
             if (this.tree.validateDrop) {
                 this.tree.onNodeDrop.emit({
                     originalEvent: event,
-                    dragNode: dragNode,
+                    dragNode,
                     dropNode: this.node,
                     dropIndex: this.index,
                     accept: () => {
                         this.processPointDrop(dropParams);
                     }
                 });
-            }
-            else {
+            } else {
                 this.processPointDrop(dropParams);
                 this.tree.onNodeDrop.emit({
                     originalEvent: event,
-                    dragNode: dragNode,
+                    dragNode,
                     dropNode: this.node,
                     dropIndex: this.index
                 });
@@ -226,15 +227,14 @@ export class UITreeNode implements OnInit {
     }
 
     processPointDrop(event) {
-        let newNodeList = event.dropNode.parent ? event.dropNode.parent.children : this.tree.value;
+        const newNodeList = event.dropNode.parent ? event.dropNode.parent.children : this.tree.value;
         event.dragNodeSubNodes.splice(event.dragNodeIndex, 1);
         let dropIndex = this.index;
 
         if (event.position < 0) {
             dropIndex = (event.dragNodeSubNodes === newNodeList) ? ((event.dragNodeIndex > event.index) ? event.index : event.index - 1) : event.index;
             newNodeList.splice(dropIndex, 0, event.dragNode);
-        }
-        else {
+        } else {
             dropIndex = newNodeList.length;
             newNodeList.push(event.dragNode);
         }
@@ -253,7 +253,7 @@ export class UITreeNode implements OnInit {
             dragNodeSubNodes: this.tree.dragNodeSubNodes,
             dropNode: this.node,
             index: this.index,
-            position: position
+            position
         };
     }
 
@@ -264,10 +264,11 @@ export class UITreeNode implements OnInit {
 
     onDropPointDragEnter(event: Event, position: number) {
         if (this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
-            if (position < 0)
+            if (position < 0) {
                 this.draghoverPrev = true;
-            else
+            } else {
                 this.draghoverNext = true;
+            }
         }
     }
 
@@ -278,7 +279,7 @@ export class UITreeNode implements OnInit {
 
     onDragStart(event) {
         if (this.tree.draggableNodes && this.node.draggable !== false) {
-            event.dataTransfer.setData("text", "data");
+            event.dataTransfer.setData('text', 'data');
 
             this.tree.dragDropService.startDrag({
                 tree: this,
@@ -287,8 +288,7 @@ export class UITreeNode implements OnInit {
                 index: this.index,
                 scope: this.tree.draggableScope
             });
-        }
-        else {
+        } else {
             event.preventDefault();
         }
     }
@@ -311,27 +311,26 @@ export class UITreeNode implements OnInit {
 
     onDropNode(event) {
         if (this.tree.droppableNodes && this.node.droppable !== false) {
-            let dragNode = this.tree.dragNode;
+            const dragNode = this.tree.dragNode;
 
             if (this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
-                let dropParams = {...this.createDropNodeEventMetadata()};
+                const dropParams = {...this.createDropNodeEventMetadata()};
 
                 if (this.tree.validateDrop) {
                     this.tree.onNodeDrop.emit({
                         originalEvent: event,
-                        dragNode: dragNode,
+                        dragNode,
                         dropNode: this.node,
                         index: this.index,
                         accept: () => {
                             this.processNodeDrop(dropParams);
                         }
                     });
-                }
-                else {
+                } else {
                     this.processNodeDrop(dropParams);
                     this.tree.onNodeDrop.emit({
                         originalEvent: event,
-                        dragNode: dragNode,
+                        dragNode,
                         dropNode: this.node,
                         index: this.index
                     });
@@ -354,13 +353,14 @@ export class UITreeNode implements OnInit {
     }
 
     processNodeDrop(event) {
-        let dragNodeIndex = event.dragNodeIndex;
+        const dragNodeIndex = event.dragNodeIndex;
         event.dragNodeSubNodes.splice(dragNodeIndex, 1);
 
-        if (event.dropNode.children)
+        if (event.dropNode.children) {
             event.dropNode.children.push(event.dragNode);
-        else
+        } else {
             event.dropNode.children = [event.dragNode];
+        }
 
         this.tree.dragDropService.stopDrag({
             node: event.dragNode,
@@ -377,7 +377,7 @@ export class UITreeNode implements OnInit {
 
     onDropNodeDragLeave(event) {
         if (this.tree.droppableNodes) {
-            let rect = event.currentTarget.getBoundingClientRect();
+            const rect = event.currentTarget.getBoundingClientRect();
             if (event.x > rect.left + rect.width || event.x < rect.left || event.y >= Math.floor(rect.top + rect.height) || event.y < rect.top) {
                this.draghoverNode = false;
             }
@@ -385,26 +385,24 @@ export class UITreeNode implements OnInit {
     }
 
     onKeyDown(event: KeyboardEvent) {
-        const nodeElement = (<HTMLDivElement> event.target).parentElement.parentElement;
+        const nodeElement = (event.target as HTMLDivElement).parentElement.parentElement;
 
         if (nodeElement.nodeName !== 'P-TREENODE') {
             return;
         }
 
         switch (event.which) {
-            //down arrow
+            // down arrow
             case 40:
                 const listElement = (this.tree.droppableNodes) ? nodeElement.children[1].children[1] : nodeElement.children[0].children[1];
                 if (listElement && listElement.children.length > 0) {
                     this.focusNode(listElement.children[0]);
-                }
-                else {
+                } else {
                     const nextNodeElement = nodeElement.nextElementSibling;
                     if (nextNodeElement) {
                         this.focusNode(nextNodeElement);
-                    }
-                    else {
-                        let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement);
+                    } else {
+                        const nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement);
                         if (nextSiblingAncestor) {
                             this.focusNode(nextSiblingAncestor);
                         }
@@ -412,81 +410,78 @@ export class UITreeNode implements OnInit {
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
-            //up arrow
+            // up arrow
             case 38:
                 if (nodeElement.previousElementSibling) {
                     this.focusNode(this.findLastVisibleDescendant(nodeElement.previousElementSibling));
-                }
-                else {
-                    let parentNodeElement = this.getParentNodeElement(nodeElement);
+                } else {
+                    const parentNodeElement = this.getParentNodeElement(nodeElement);
                     if (parentNodeElement) {
                         this.focusNode(parentNodeElement);
                     }
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
-            //right arrow
+            // right arrow
             case 39:
                 if (!this.node.expanded && !this.tree.isNodeLeaf(this.node)) {
                     this.expand(event);
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
-            //left arrow
+            // left arrow
             case 37:
                 if (this.node.expanded) {
                     this.collapse(event);
-                }
-                else {
-                    let parentNodeElement = this.getParentNodeElement(nodeElement);
+                } else {
+                    const parentNodeElement = this.getParentNodeElement(nodeElement);
                     if (parentNodeElement) {
                         this.focusNode(parentNodeElement);
                     }
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
-            //enter
+            // enter
             case 13:
                 this.tree.onNodeClick(event, this.node);
                 event.preventDefault();
-            break;
+                break;
 
             default:
-                //no op
+                // no op
             break;
         }
     }
 
     findNextSiblingOfAncestor(nodeElement) {
-        let parentNodeElement = this.getParentNodeElement(nodeElement);
+        const parentNodeElement = this.getParentNodeElement(nodeElement);
         if (parentNodeElement) {
-            if (parentNodeElement.nextElementSibling)
+            if (parentNodeElement.nextElementSibling) {
                 return parentNodeElement.nextElementSibling;
-            else
+            } else {
                 return this.findNextSiblingOfAncestor(parentNodeElement);
-        }
-        else {
+            }
+        } else {
             return null;
         }
     }
 
     findLastVisibleDescendant(nodeElement) {
-        const listElement = <HTMLElement> Array.from(nodeElement.children).find(el => DomHandler.hasClass(el, 'p-treenode'));
+        const listElement = Array.from(nodeElement.children).find(el => DomHandler.hasClass(el, 'p-treenode')) as HTMLElement;
         const childrenListElement = listElement.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
 
             return this.findLastVisibleDescendant(lastChildElement);
-        }
-        else {
+        } else {
             return nodeElement;
         }
     }
@@ -498,10 +493,11 @@ export class UITreeNode implements OnInit {
     }
 
     focusNode(element) {
-        if (this.tree.droppableNodes)
+        if (this.tree.droppableNodes) {
             element.children[1].children[0].focus();
-        else
+        } else {
             element.children[0].children[0].focus();
+        }
     }
 }
 
@@ -509,7 +505,7 @@ export class UITreeNode implements OnInit {
     selector: 'p-tree',
     template: `
         <div [ngClass]="{'p-tree p-component':true,'p-tree-selectable':selectionMode,
-                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
+                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}"
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
@@ -552,7 +548,13 @@ export class UITreeNode implements OnInit {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./tree.css']
 })
-export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,BlockableUI {
+export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
+
+    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
+
+    get horizontal(): boolean {
+        return this.layout == 'horizontal';
+    }
 
     @Input() value: TreeNode[];
 
@@ -580,7 +582,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() contextMenu: any;
 
-    @Input() layout: string = 'vertical';
+    @Input() layout = 'vertical';
 
     @Input() draggableScope: any;
 
@@ -590,17 +592,17 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() droppableNodes: boolean;
 
-    @Input() metaKeySelection: boolean = true;
+    @Input() metaKeySelection = true;
 
-    @Input() propagateSelectionUp: boolean = true;
+    @Input() propagateSelectionUp = true;
 
-    @Input() propagateSelectionDown: boolean = true;
+    @Input() propagateSelectionDown = true;
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'pi pi-spinner';
+    @Input() loadingIcon = 'pi pi-spinner';
 
-    @Input() emptyMessage: string = 'No records found';
+    @Input() emptyMessage = 'No records found';
 
     @Input() ariaLabel: string;
 
@@ -610,9 +612,9 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() filter: boolean;
 
-    @Input() filterBy: string = 'label';
+    @Input() filterBy = 'label';
 
-    @Input() filterMode: string = 'lenient';
+    @Input() filterMode = 'lenient';
 
     @Input() filterPlaceholder: string;
 
@@ -627,8 +629,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     @Input() minBufferPx: number;
 
     @Input() maxBufferPx: number;
-
-    @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
@@ -658,7 +658,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     public filteredNodes: TreeNode[];
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
+    @Input() trackBy: Function = (index: number, item: any) => item;
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -689,10 +689,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
     }
 
-    get horizontal(): boolean {
-        return this.layout == 'horizontal';
-    }
-
     ngAfterContentInit() {
         if (this.templates.length) {
             this.templateMap = {};
@@ -710,12 +706,12 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     serializeNodes(parent, nodes, level, visible) {
         if (nodes && nodes.length) {
-            for(let node of nodes) {
+            for (const node of nodes) {
                 node.parent = parent;
                 const rowNode = {
-                    node: node,
-                    parent: parent,
-                    level: level,
+                    node,
+                    parent,
+                    level,
                     visible: visible && (parent ? parent.expanded : true)
                 };
                 this.serializedValue.push(rowNode);
@@ -728,12 +724,11 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 
     onNodeClick(event, node: TreeNode) {
-        let eventTarget = (<Element> event.target);
+        const eventTarget = (event.target as Element);
 
         if (DomHandler.hasClass(eventTarget, 'p-tree-toggler') || DomHandler.hasClass(eventTarget, 'p-tree-toggler-icon')) {
             return;
-        }
-        else if (this.selectionMode) {
+        } else if (this.selectionMode) {
             if (node.selectable === false) {
                 return;
             }
@@ -746,86 +741,79 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 }
             }
 
-            let index = this.findIndexInSelection(node);
-            let selected = (index >= 0);
+            const index = this.findIndexInSelection(node);
+            const selected = (index >= 0);
 
             if (this.isCheckboxSelectionMode()) {
                 if (selected) {
-                    if (this.propagateSelectionDown)
+                    if (this.propagateSelectionDown) {
                         this.propagateDown(node, false);
-                    else
-                        this.selection = this.selection.filter((val,i) => i!=index);
+                    } else {
+                        this.selection = this.selection.filter((val, i) => i != index);
+                    }
 
                     if (this.propagateSelectionUp && node.parent) {
                         this.propagateUp(node.parent, false);
                     }
 
                     this.selectionChange.emit(this.selection);
-                    this.onNodeUnselect.emit({originalEvent: event, node: node});
-                }
-                else {
-                    if (this.propagateSelectionDown)
+                    this.onNodeUnselect.emit({originalEvent: event, node});
+                } else {
+                    if (this.propagateSelectionDown) {
                         this.propagateDown(node, true);
-                    else
-                        this.selection = [...this.selection||[],node];
+                    } else {
+                        this.selection = [...this.selection || [], node];
+                    }
 
                     if (this.propagateSelectionUp && node.parent) {
                         this.propagateUp(node.parent, true);
                     }
 
                     this.selectionChange.emit(this.selection);
-                    this.onNodeSelect.emit({originalEvent: event, node: node});
+                    this.onNodeSelect.emit({originalEvent: event, node});
                 }
-            }
-            else {
-                let metaSelection = this.nodeTouched ? false : this.metaKeySelection;
+            } else {
+                const metaSelection = this.nodeTouched ? false : this.metaKeySelection;
 
                 if (metaSelection) {
-                    let metaKey = (event.metaKey||event.ctrlKey);
+                    const metaKey = (event.metaKey || event.ctrlKey);
 
                     if (selected && metaKey) {
                         if (this.isSingleSelectionMode()) {
                             this.selectionChange.emit(null);
-                        }
-                        else {
-                            this.selection = this.selection.filter((val,i) => i!=index);
+                        } else {
+                            this.selection = this.selection.filter((val, i) => i != index);
                             this.selectionChange.emit(this.selection);
                         }
 
-                        this.onNodeUnselect.emit({originalEvent: event, node: node});
-                    }
-                    else {
+                        this.onNodeUnselect.emit({originalEvent: event, node});
+                    } else {
                         if (this.isSingleSelectionMode()) {
                             this.selectionChange.emit(node);
-                        }
-                        else if (this.isMultipleSelectionMode()) {
-                            this.selection = (!metaKey) ? [] : this.selection||[];
-                            this.selection = [...this.selection,node];
+                        } else if (this.isMultipleSelectionMode()) {
+                            this.selection = (!metaKey) ? [] : this.selection || [];
+                            this.selection = [...this.selection, node];
                             this.selectionChange.emit(this.selection);
                         }
 
-                        this.onNodeSelect.emit({originalEvent: event, node: node});
+                        this.onNodeSelect.emit({originalEvent: event, node});
                     }
-                }
-                else {
+                } else {
                     if (this.isSingleSelectionMode()) {
                         if (selected) {
                             this.selection = null;
-                            this.onNodeUnselect.emit({originalEvent: event, node: node});
-                        }
-                        else {
+                            this.onNodeUnselect.emit({originalEvent: event, node});
+                        } else {
                             this.selection = node;
-                            this.onNodeSelect.emit({originalEvent: event, node: node});
+                            this.onNodeSelect.emit({originalEvent: event, node});
                         }
-                    }
-                    else {
+                    } else {
                         if (selected) {
-                            this.selection = this.selection.filter((val,i) => i!=index);
-                            this.onNodeUnselect.emit({originalEvent: event, node: node});
-                        }
-                        else {
-                            this.selection = [...this.selection||[],node];
-                            this.onNodeSelect.emit({originalEvent: event, node: node});
+                            this.selection = this.selection.filter((val, i) => i != index);
+                            this.onNodeUnselect.emit({originalEvent: event, node});
+                        } else {
+                            this.selection = [...this.selection || [], node];
+                            this.onNodeSelect.emit({originalEvent: event, node});
                         }
                     }
 
@@ -843,40 +831,39 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     onNodeRightClick(event: MouseEvent, node: TreeNode) {
         if (this.contextMenu) {
-            let eventTarget = (<Element> event.target);
+            const eventTarget = (event.target as Element);
 
             if (eventTarget.className && eventTarget.className.indexOf('p-tree-toggler') === 0) {
                 return;
-            }
-            else {
-                let index = this.findIndexInSelection(node);
-                let selected = (index >= 0);
+            } else {
+                const index = this.findIndexInSelection(node);
+                const selected = (index >= 0);
 
                 if (!selected) {
-                    if (this.isSingleSelectionMode())
+                    if (this.isSingleSelectionMode()) {
                         this.selectionChange.emit(node);
-                    else
+                    } else {
                         this.selectionChange.emit([node]);
+                    }
                 }
 
                 this.contextMenu.show(event);
-                this.onNodeContextMenuSelect.emit({originalEvent: event, node: node});
+                this.onNodeContextMenuSelect.emit({originalEvent: event, node});
             }
         }
     }
 
     findIndexInSelection(node: TreeNode) {
-        let index: number = -1;
+        let index = -1;
 
         if (this.selectionMode && this.selection) {
             if (this.isSingleSelectionMode()) {
-                let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
+                const areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
                 index = areNodesEqual ? 0 : - 1;
-            }
-            else {
-                for(let i = 0; i  < this.selection.length; i++) {
-                    let selectedNode = this.selection[i];
-                    let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
+            } else {
+                for (let i = 0; i  < this.selection.length; i++) {
+                    const selectedNode = this.selection[i];
+                    const areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
                     if (areNodesEqual) {
                         index = i;
                         break;
@@ -892,7 +879,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         // to synchronize the node option between the filtered nodes and the original nodes(this.value)
         const _node = this.hasFilteredNodes() ? this.getNodeWithKey(node.key, parentNodes) : null;
         if (_node) {
-            _node[option] = value||node[option];
+            _node[option] = value || node[option];
         }
     }
 
@@ -901,13 +888,13 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 
     getNodeWithKey(key: string, nodes: TreeNode[]) {
-        for (let node of nodes) {
+        for (const node of nodes) {
             if (node.key === key) {
                 return node;
             }
 
             if (node.children) {
-                let matchedNode = this.getNodeWithKey(key, node.children);
+                const matchedNode = this.getNodeWithKey(key, node.children);
                 if (matchedNode) {
                     return matchedNode;
                 }
@@ -917,52 +904,50 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     propagateUp(node: TreeNode, select: boolean) {
         if (node.children && node.children.length) {
-            let selectedCount: number = 0;
-            let childPartialSelected: boolean = false;
-            for(let child of node.children) {
+            let selectedCount = 0;
+            let childPartialSelected = false;
+            for (const child of node.children) {
                 if (this.isSelected(child)) {
                     selectedCount++;
-                }
-                else if (child.partialSelected) {
+                } else if (child.partialSelected) {
                     childPartialSelected = true;
                 }
             }
 
             if (select && selectedCount == node.children.length) {
-                this.selection = [...this.selection||[],node];
+                this.selection = [...this.selection || [], node];
                 node.partialSelected = false;
-            }
-            else {
+            } else {
                 if (!select) {
-                    let index = this.findIndexInSelection(node);
+                    const index = this.findIndexInSelection(node);
                     if (index >= 0) {
-                        this.selection = this.selection.filter((val,i) => i!=index);
+                        this.selection = this.selection.filter((val, i) => i != index);
                     }
                 }
 
-                if (childPartialSelected || selectedCount > 0 && selectedCount != node.children.length)
+                if (childPartialSelected || selectedCount > 0 && selectedCount != node.children.length) {
                     node.partialSelected = true;
-                else
+                } else {
                     node.partialSelected = false;
+                }
             }
 
             this.syncNodeOption(node, this.filteredNodes, 'partialSelected');
         }
 
-        let parent = node.parent;
+        const parent = node.parent;
         if (parent) {
             this.propagateUp(parent, select);
         }
     }
 
     propagateDown(node: TreeNode, select: boolean) {
-        let index = this.findIndexInSelection(node);
+        const index = this.findIndexInSelection(node);
 
         if (select && index == -1) {
-            this.selection = [...this.selection||[],node];
-        }
-        else if (!select && index > -1) {
-            this.selection = this.selection.filter((val,i) => i!=index);
+            this.selection = [...this.selection || [], node];
+        } else if (!select && index > -1) {
+            this.selection = this.selection.filter((val, i) => i != index);
         }
 
         node.partialSelected = false;
@@ -970,7 +955,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         this.syncNodeOption(node, this.filteredNodes, 'partialSelected');
 
         if (node.children && node.children.length) {
-            for(let child of node.children) {
+            for (const child of node.children) {
                 this.propagateDown(child, select);
             }
         }
@@ -1001,10 +986,11 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
-        if (this.templateMap)
-            return node.type ? this.templateMap[node.type] : this.templateMap['default'];
-        else
+        if (this.templateMap) {
+            return node.type ? this.templateMap[node.type] : this.templateMap.default;
+        } else {
             return null;
+        }
     }
 
     onDragOver(event) {
@@ -1017,11 +1003,11 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     onDrop(event) {
         if (this.droppableNodes && (!this.value || this.value.length === 0)) {
             event.preventDefault();
-            let dragNode = this.dragNode;
+            const dragNode = this.dragNode;
             if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
-                let dragNodeIndex = this.dragNodeIndex;
+                const dragNodeIndex = this.dragNodeIndex;
                 this.dragNodeSubNodes.splice(dragNodeIndex, 1);
-                this.value = this.value||[];
+                this.value = this.value || [];
                 this.value.push(dragNode);
 
                 this.dragDropService.stopDrag({
@@ -1039,7 +1025,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     onDragLeave(event) {
         if (this.droppableNodes) {
-            let rect = event.currentTarget.getBoundingClientRect();
+            const rect = event.currentTarget.getBoundingClientRect();
             if (event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
                this.dragHover = false;
             }
@@ -1048,18 +1034,16 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
         if (!dragNode) {
-            //prevent random html elements to be dragged
+            // prevent random html elements to be dragged
             return false;
-        }
-        else if (this.isValidDragScope(dragNodeScope)) {
-            let allow: boolean = true;
+        } else if (this.isValidDragScope(dragNodeScope)) {
+            let allow = true;
             if (dropNode) {
                 if (dragNode === dropNode) {
                     allow = false;
-                }
-                else {
+                } else {
                     let parent = dropNode.parent;
-                    while(parent != null) {
+                    while (parent != null) {
                         if (parent === dragNode) {
                             allow = false;
                             break;
@@ -1070,29 +1054,27 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
             }
 
             return allow;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     isValidDragScope(dragScope: any): boolean {
-        let dropScope = this.droppableScope;
+        const dropScope = this.droppableScope;
 
         if (dropScope) {
             if (typeof dropScope === 'string') {
-                if (typeof dragScope === 'string')
-                    return dropScope === dragScope;
-                else if (dragScope instanceof Array)
-                    return (<Array<any>>dragScope).indexOf(dropScope) != -1;
-            }
-            else if (dropScope instanceof Array) {
                 if (typeof dragScope === 'string') {
-                    return (<Array<any>>dropScope).indexOf(dragScope) != -1;
-                }
-                else if (dragScope instanceof Array) {
-                    for(let s of dropScope) {
-                        for(let ds of dragScope) {
+                    return dropScope === dragScope;
+                } else if (dragScope instanceof Array) {
+                    return (dragScope as Array<any>).indexOf(dropScope) != -1;
+ }
+            } else if (dropScope instanceof Array) {
+                if (typeof dragScope === 'string') {
+                    return (dropScope as Array<any>).indexOf(dragScope) != -1;
+                } else if (dragScope instanceof Array) {
+                    for (const s of dropScope) {
+                        for (const ds of dragScope) {
                             if (s === ds) {
                                 return true;
                             }
@@ -1101,25 +1083,23 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 }
             }
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
     _filter(event) {
-        let filterValue = event.target.value;
+        const filterValue = event.target.value;
         if (filterValue === '') {
             this.filteredNodes = null;
-        }
-        else {
+        } else {
             this.filteredNodes = [];
             const searchFields: string[] = this.filterBy.split(',');
             const filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(this.filterLocale);
             const isStrictMode = this.filterMode === 'strict';
-            for(let node of this.value) {
-                let copyNode = {...node};
-                let paramsWithoutNode = {searchFields, filterText, isStrictMode};
+            for (const node of this.value) {
+                const copyNode = {...node};
+                const paramsWithoutNode = {searchFields, filterText, isStrictMode};
                 if ((isStrictMode && (this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
                     (!isStrictMode && (this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
                     this.filteredNodes.push(copyNode);
@@ -1138,10 +1118,10 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         if (node) {
             let matched = false;
             if (node.children) {
-                let childNodes = [...node.children];
+                const childNodes = [...node.children];
                 node.children = [];
-                for (let childNode of childNodes) {
-                    let copyChildNode = {...childNode};
+                for (const childNode of childNodes) {
+                    const copyChildNode = {...childNode};
                     if (this.isFilterMatched(copyChildNode, paramsWithoutNode)) {
                         matched = true;
                         node.children.push(copyChildNode);
@@ -1158,8 +1138,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     isFilterMatched(node, {searchFields, filterText, isStrictMode}) {
         let matched = false;
-        for(let field of searchFields) {
-            let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLocaleLowerCase(this.filterLocale);
+        for (const field of searchFields) {
+            const fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLocaleLowerCase(this.filterLocale);
             if (fieldValue.indexOf(filterText) > -1) {
                 matched = true;
             }
@@ -1187,8 +1167,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 }
 @NgModule({
-    imports: [CommonModule,ScrollingModule,RippleModule],
-    exports: [Tree,SharedModule,ScrollingModule],
-    declarations: [Tree,UITreeNode]
+    imports: [CommonModule, ScrollingModule, RippleModule],
+    exports: [Tree, SharedModule, ScrollingModule],
+    declarations: [Tree, UITreeNode]
 })
 export class TreeModule { }

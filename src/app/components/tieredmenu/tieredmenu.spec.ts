@@ -42,14 +42,14 @@ describe('TieredMenu', () => {
 
 
 	it('should change style and styleClass', () => {
-		tieredmenu.styleClass = "Primeng ROCKS!";
-		tieredmenu.style = { 'height': '300px' };
+		tieredmenu.styleClass = 'Primeng ROCKS!';
+		tieredmenu.style = { height: '300px' };
 		fixture.detectChanges();
 
 		const tieredmenuEl = fixture.debugElement.query(By.css('div'));
 		const styleEl = tieredmenuEl.styles.height;
-		expect(tieredmenuEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(styleEl).toEqual("300px");
+		expect(tieredmenuEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(styleEl).toEqual('300px');
 	});
 
 	it('should change autoZindex', () => {
@@ -215,12 +215,12 @@ describe('TieredMenu', () => {
 			}
 		];
 		tieredmenu.popup = true;
-		tieredmenu.appendTo = "body";
+		tieredmenu.appendTo = 'body';
 		fixture.detectChanges();
 
 		const showSpy = spyOn(tieredmenu, 'show').and.callThrough();
 		const hideSpy = spyOn(tieredmenu, 'hide').and.callThrough();
-		let event = { 'currentTarget': document.body };
+		const event = { currentTarget: document.body };
 		tieredmenu.toggle(event);
 		fixture.detectChanges();
 
@@ -265,7 +265,7 @@ describe('TieredMenu', () => {
 
 		const showSpy = spyOn(tieredmenu, 'show').and.callThrough();
 		const hideSpy = spyOn(tieredmenu, 'hide').and.callThrough();
-		let event = { 'currentTarget': document.body };
+		const event = { currentTarget: document.body };
 		tieredmenu.toggle(event);
 		fixture.detectChanges();
 
@@ -314,7 +314,7 @@ describe('TieredMenu', () => {
 		const onItemMouseEnter = spyOn(subMenuComponent, 'onItemMouseEnter').and.callThrough();
 		const items = fixture.debugElement.query(By.css('ul'));
 		const fileItemEl = items.children[0].nativeElement;
-		const secondSubMenu = items.children[0].query(By.css("p-tieredMenuSub")).query(By.css('ul'));
+		const secondSubMenu = items.children[0].query(By.css('p-tieredMenuSub')).query(By.css('ul'));
 		const event = new Event('mouseenter');
 		fileItemEl.dispatchEvent(event);
 		fixture.detectChanges();
@@ -361,7 +361,7 @@ describe('TieredMenu', () => {
 		fixture.detectChanges();
 
 		expect(onItemMouseEnter).toHaveBeenCalled();
-		expect(fileItemEl.className).not.toContain("p-menuitem-active");
+		expect(fileItemEl.className).not.toContain('p-menuitem-active');
 		expect(subMenuComponent.activeItem).toBeNull();
 	});
 
@@ -401,12 +401,12 @@ describe('TieredMenu', () => {
 		fileItemEl.nativeElement.dispatchEvent(mouseenter);
 		fixture.detectChanges();
 
-		expect(fileItemEl.nativeElement.className).not.toContain("p-menuitem-active");
+		expect(fileItemEl.nativeElement.className).not.toContain('p-menuitem-active');
 		expect(subMenuComponent.activeItem).toEqual(null);
 		fileItemEl.children[0].nativeElement.dispatchEvent(new Event('click'));
 		fixture.detectChanges();
 
-		expect(fileItemEl.nativeElement.className).toContain("p-menuitem-active");
+		expect(fileItemEl.nativeElement.className).toContain('p-menuitem-active');
 		expect(subMenuComponent.activeItem).toBeTruthy();
 	}));
 

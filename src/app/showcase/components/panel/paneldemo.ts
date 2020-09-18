@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
 import {MenuItem} from 'primeng/api';
 
@@ -8,11 +8,11 @@ import {MenuItem} from 'primeng/api';
     styleUrls: ['./paneldemo.scss']
 })
 export class PanelDemo implements OnInit {
-    
+
     items: MenuItem[];
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.items = [
             {
@@ -49,11 +49,11 @@ export class PanelDemo implements OnInit {
     }
 
     update() {
-        this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Data Updated'});
     }
 
     delete() {
-        this.messageService.add({severity:'warn', summary:'Delete', detail:'Data Deleted'});
+        this.messageService.add({severity: 'warn', summary: 'Delete', detail: 'Data Deleted'});
     }
 
 }

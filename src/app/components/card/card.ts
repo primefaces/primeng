@@ -35,7 +35,7 @@ import { BlockableUI } from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./card.css']
 })
-export class Card implements AfterContentInit,BlockableUI {
+export class Card implements AfterContentInit, BlockableUI {
 
     @Input() header: string;
 
@@ -52,43 +52,43 @@ export class Card implements AfterContentInit,BlockableUI {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     headerTemplate: TemplateRef<any>;
-    
+
     titleTemplate: TemplateRef<any>;
-    
+
     subtitleTemplate: TemplateRef<any>;
-    
+
     contentTemplate: TemplateRef<any>;
-    
+
     footerTemplate: TemplateRef<any>;
 
     constructor(private el: ElementRef) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'title':
                     this.titleTemplate = item.template;
-                break;
+                    break;
 
                 case 'subtitle':
                     this.subtitleTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
-                
+                    break;
+
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }

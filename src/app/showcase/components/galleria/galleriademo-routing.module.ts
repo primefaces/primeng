@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {GalleriaDemo} from './galleriademo';
 import {GalleriaIndicatorDemo} from './galleriaindicatordemo';
 import {GalleriaThumbnailDemo} from './galleriathumbnaildemo';
@@ -14,16 +14,16 @@ import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: GalleriaDemo},
-			{path:'programmatic', component: GalleriaProgrammaticDemo},
-			{path:'indicator', component: GalleriaIndicatorDemo},
-			{path:'thumbnail', component: GalleriaThumbnailDemo},
-			{path:'navigator', component: GalleriaNavigatorDemo},
-			{path:'responsive', component: GalleriaResponsiveDemo},
-			{path:'fullscreen', component: GalleriaFullscreenDemo},
-			{path:'autoplay', component: GalleriaAutoPlayDemo},
-			{path:'caption', component: GalleriaCaptionDemo},
-			{path:'advanced', component: GalleriaAdvancedDemo}
+			{path: '', component: GalleriaDemo},
+			{path: 'programmatic', component: GalleriaProgrammaticDemo},
+			{path: 'indicator', component: GalleriaIndicatorDemo},
+			{path: 'thumbnail', component: GalleriaThumbnailDemo},
+			{path: 'navigator', component: GalleriaNavigatorDemo},
+			{path: 'responsive', component: GalleriaResponsiveDemo},
+			{path: 'fullscreen', component: GalleriaFullscreenDemo},
+			{path: 'autoplay', component: GalleriaAutoPlayDemo},
+			{path: 'caption', component: GalleriaCaptionDemo},
+			{path: 'advanced', component: GalleriaAdvancedDemo}
 		])
 	],
 	exports: [

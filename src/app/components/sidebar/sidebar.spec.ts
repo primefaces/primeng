@@ -38,13 +38,13 @@ describe('Sidebar', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		sidebar.style = { 'height': '300px' };
-		sidebar.styleClass = "Primeng rocks!";
+		sidebar.style = { height: '300px' };
+		sidebar.styleClass = 'Primeng rocks!';
 		fixture.detectChanges();
 
 		const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(containerEl.className).toContain("Primeng rocks!");
-		expect(containerEl.style.height).toContain('300px')
+		expect(containerEl.className).toContain('Primeng rocks!');
+		expect(containerEl.style.height).toContain('300px');
 	});
 
 	it('should not show icon', () => {
@@ -121,19 +121,19 @@ describe('Sidebar', () => {
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
 		let visibleChangeCount = 0;
 		let visibleOption;
-		sidebar.onShow.subscribe(value => visibleOption = "visible");
-		sidebar.onHide.subscribe(value => visibleOption = "hide");
+		sidebar.onShow.subscribe(value => visibleOption = 'visible');
+		sidebar.onHide.subscribe(value => visibleOption = 'hide');
 		sidebar.visibleChange.subscribe(value => visibleChangeCount++);
 		buttonEl.click();
 		fixture.detectChanges();
 
-		expect(visibleOption).toEqual("visible");
+		expect(visibleOption).toEqual('visible');
 		expect(visibleChangeCount).toEqual(0);
 		const closeEl = fixture.debugElement.query(By.css('div')).query(By.css('button')).nativeElement;
 		closeEl.click();
 		fixture.detectChanges();
 
-		expect(visibleOption).toEqual("hide");
+		expect(visibleOption).toEqual('hide');
 		expect(visibleChangeCount).toEqual(1);
 	});
 

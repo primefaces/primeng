@@ -33,14 +33,14 @@ describe('Password', () => {
     it('should created', () => {
         fixture.detectChanges();
 
-        expect(fixture.debugElement.query(By.css("input"))).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('input'))).toBeTruthy();
     });
 
     it('should create panel', fakeAsync(() => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
-        inputEl.triggerEventHandler('focus',null);
+        inputEl.triggerEventHandler('focus', null);
         tick(300);
         fixture.detectChanges();
 
@@ -52,13 +52,13 @@ describe('Password', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
-        inputEl.triggerEventHandler('focus',null);
+        inputEl.triggerEventHandler('focus', null);
         tick(300);
         fixture.detectChanges();
 
         let panelEl = document.getElementsByClassName('p-password-panel')[0];
         expect(panelEl).toBeTruthy();
-        inputEl.triggerEventHandler('blur',null);
+        inputEl.triggerEventHandler('blur', null);
         tick(300);
         fixture.detectChanges();
 
@@ -70,51 +70,51 @@ describe('Password', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
-        inputEl.triggerEventHandler('focus',null);
+        inputEl.triggerEventHandler('focus', null);
         tick(300);
         fixture.detectChanges();
 
-        inputEl.triggerEventHandler('keyup',{'target':{'value':''}});
+        inputEl.triggerEventHandler('keyup', {target: {value: ''}});
         const panelEl = document.getElementsByClassName('p-password-panel')[0];
-        expect(panelEl.children[1].textContent).toEqual("Enter a password");
+        expect(panelEl.children[1].textContent).toEqual('Enter a password');
     }));
 
     it('should be weak', fakeAsync(() => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
-        inputEl.triggerEventHandler('focus',null);
+        inputEl.triggerEventHandler('focus', null);
         tick(300);
         fixture.detectChanges();
 
-        inputEl.triggerEventHandler('keyup',{'target':{'value':'t'}});
+        inputEl.triggerEventHandler('keyup', {target: {value: 't'}});
         const panelEl = document.getElementsByClassName('p-password-panel')[0];
-        expect(panelEl.children[1].textContent).toEqual("Weak");
+        expect(panelEl.children[1].textContent).toEqual('Weak');
     }));
 
     it('should be medium', fakeAsync(() => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
-        inputEl.triggerEventHandler('focus',null);
+        inputEl.triggerEventHandler('focus', null);
         tick(300);
         fixture.detectChanges();
 
-        inputEl.triggerEventHandler('keyup',{'target':{'value':'t23et23'}});
+        inputEl.triggerEventHandler('keyup', {target: {value: 't23et23'}});
         const panelEl = document.getElementsByClassName('p-password-panel')[0];
-        expect(panelEl.children[1].textContent).toEqual("Medium");
+        expect(panelEl.children[1].textContent).toEqual('Medium');
     }));
 
     it('should be strong', fakeAsync(() => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
-        inputEl.triggerEventHandler('focus',null);
+        inputEl.triggerEventHandler('focus', null);
         tick(300);
         fixture.detectChanges();
 
-        inputEl.triggerEventHandler('keyup',{'target':{'value':'t23eaviciit2with3out4you'}});
+        inputEl.triggerEventHandler('keyup', {target: {value: 't23eaviciit2with3out4you'}});
         const panelEl = document.getElementsByClassName('p-password-panel')[0];
-        expect(panelEl.children[1].textContent).toEqual("Strong");
+        expect(panelEl.children[1].textContent).toEqual('Strong');
     }));
 });

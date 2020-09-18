@@ -26,7 +26,7 @@ describe('ToggleButton', () => {
         toggleButton.offLabel = 'NO';
         fixture.detectChanges();
 
-        const clickEl = fixture.nativeElement.querySelector('.p-togglebutton')
+        const clickEl = fixture.nativeElement.querySelector('.p-togglebutton');
         clickEl.click();
         fixture.detectChanges();
 

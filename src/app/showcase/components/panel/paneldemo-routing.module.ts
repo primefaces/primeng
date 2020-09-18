@@ -5,7 +5,7 @@ import {PanelDemo} from './paneldemo';
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: PanelDemo}
+			{path: '', component: PanelDemo}
 		])
 	],
 	exports: [

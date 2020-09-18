@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
             display: block;
         }
     `],
-    providers: [MessageService,ConfirmationService]
+    providers: [MessageService, ConfirmationService]
 })
 export class TableCrudDemo implements OnInit {
 
@@ -48,7 +48,7 @@ export class TableCrudDemo implements OnInit {
             accept: () => {
                 this.products = this.products.filter(val => !this.selectedProducts.includes(val));
                 this.selectedProducts = null;
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+                this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
             }
         });
     }
@@ -66,7 +66,7 @@ export class TableCrudDemo implements OnInit {
             accept: () => {
                 this.products = this.products.filter(val => val.id !== product.id);
                 this.product = {};
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+                this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
             }
         });
     }
@@ -75,20 +75,19 @@ export class TableCrudDemo implements OnInit {
         this.productDialog = false;
         this.submitted = false;
     }
-    
+
     saveProduct() {
         this.submitted = true;
 
         if (this.product.name.trim()) {
             if (this.product.id) {
-                this.products[this.findIndexById(this.product.id)] = this.product;                
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-            }
-            else {
+                this.products[this.findIndexById(this.product.id)] = this.product;
+                this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+            } else {
                 this.product.id = this.createId();
                 this.product.image = 'product-placeholder.svg';
                 this.products.push(this.product);
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+                this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
             }
 
             this.products = [...this.products];
@@ -111,8 +110,8 @@ export class TableCrudDemo implements OnInit {
 
     createId(): string {
         let id = '';
-        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for ( var i = 0; i < 5; i++ ) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for ( let i = 0; i < 5; i++ ) {
             id += chars.charAt(Math.floor(Math.random() * chars.length));
         }
         return id;

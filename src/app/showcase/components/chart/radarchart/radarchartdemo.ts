@@ -11,7 +11,7 @@ export class RadarChartDemo {
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -69,7 +69,7 @@ export class RadarChartDemo {
                     color: '#ebedef'
                 }
             }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -84,6 +84,6 @@ export class RadarChartDemo {
                     color: 'rgba(255,255,255,0.2)'
                 }
             }
-        }
+        };
     }
 }

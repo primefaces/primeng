@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     menuActive: boolean;
 
-    newsActive: boolean = true;
+    newsActive = true;
 
     config: AppConfig;
 
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
             if (event instanceof NavigationEnd) {
                 gtag('config', 'UA-93461466-1',
                       {
-                        'page_path': '/primeng' + event.urlAfterRedirects
+                        page_path: '/primeng' + event.urlAfterRedirects
                       }
                 );
 
@@ -59,17 +59,19 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     addClass(element: any, className: string) {
-        if (element.classList)
+        if (element.classList) {
             element.classList.add(className);
-        else
+        } else {
             element.className += ' ' + className;
+        }
     }
 
     removeClass(element: any, className: string) {
-        if (element.classList)
+        if (element.classList) {
             element.classList.remove(className);
-        else
+        } else {
             element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
     }
 
     hideNews() {

@@ -39,7 +39,7 @@ import {Product} from '../../domain/product';
 export class ProductListDemo {
 
     products: Product[];
-            
+
     constructor(private productService: ProductService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
     ngOnInit() {

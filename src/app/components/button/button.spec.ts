@@ -25,7 +25,7 @@ describe('Button', () => {
 	it('should disabled when disabled is true', () => {
 		button.disabled = true;
 		fixture.detectChanges();
-		
+
 		const buttonEl = fixture.debugElement.query(By.css('.p-button'));
 		expect(buttonEl.nativeElement.disabled).toBeTruthy();
 	});
@@ -69,7 +69,7 @@ describe('Button', () => {
 
 	it('should display the icon on the right', () => {
 		button.icon = 'pi pi-times';
-		button.label = "PRIMENG";
+		button.label = 'PRIMENG';
 		button.iconPos = 'right';
 		fixture.detectChanges();
 

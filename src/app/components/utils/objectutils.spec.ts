@@ -2,21 +2,21 @@ import { ObjectUtils } from './objectutils';
 
 describe('ObjectUtils Suite', () => {
 
-    let data: any = [
-        {brand: "VW", year: 2012, color: {name:"Orange"}, vin: "dsad231ff"},
-        {brand: "Audi", year: 2011, color: {name:"Black"}, vin: "gwregre345"},
-        {brand: "Renault", year: 2005, color: {name:"Black"}, vin: "h354htr"},
-        {brand: "BMW", year: 2003, color: {name:"Blue"}, vin: "j6w54qgh"},
-        {brand: "Mercedes", year: 1995, color: {name:"Red"}, vin: "hrtwy34"},
-        {brand: "Volvo", year: 2005, color: {name:"Orange"}, vin: "jejtyj"},
-        {brand: "Honda", year: 2012, color: {name:"Blue"}, vin: "g43gr"},
-        {brand: "Jaguar", year: 2013,color: {name:"Black"}, vin: "greg34"},
-        {brand: "Ford", year: 2000, color: {name:"White"}, vin: "h54hw5"},
-        {brand: "Fiat", year: 2013, color: {name:"Yellow"}, vin: "245t2s"}
+    const data: any = [
+        {brand: 'VW', year: 2012, color: {name: 'Orange'}, vin: 'dsad231ff'},
+        {brand: 'Audi', year: 2011, color: {name: 'Black'}, vin: 'gwregre345'},
+        {brand: 'Renault', year: 2005, color: {name: 'Black'}, vin: 'h354htr'},
+        {brand: 'BMW', year: 2003, color: {name: 'Blue'}, vin: 'j6w54qgh'},
+        {brand: 'Mercedes', year: 1995, color: {name: 'Red'}, vin: 'hrtwy34'},
+        {brand: 'Volvo', year: 2005, color: {name: 'Orange'}, vin: 'jejtyj'},
+        {brand: 'Honda', year: 2012, color: {name: 'Blue'}, vin: 'g43gr'},
+        {brand: 'Jaguar', year: 2013, color: {name: 'Black'}, vin: 'greg34'},
+        {brand: 'Ford', year: 2000, color: {name: 'White'}, vin: 'h54hw5'},
+        {brand: 'Fiat', year: 2013, color: {name: 'Yellow'}, vin: '245t2s'}
     ];
 
     it('Should resolve field data', () => {
-        let obj = {
+        const obj = {
             firstname: 'Silvio',
             lastname: 'Andolini',
             address: {
@@ -25,7 +25,7 @@ describe('ObjectUtils Suite', () => {
                 },
                 city: 'Corleone'
             }
-        }
+        };
 
         expect(ObjectUtils.resolveFieldData(obj, 'firstname')).toBe('Silvio');
         expect(ObjectUtils.resolveFieldData(obj, 'lastname')).toBe('Andolini');
@@ -35,14 +35,14 @@ describe('ObjectUtils Suite', () => {
     });
 
     it('Should relocate an item in array', () => {
-        let arr: string[] = ['New York', 'Istanbul', 'Paris', 'Barcelona', 'London'];
+        const arr: string[] = ['New York', 'Istanbul', 'Paris', 'Barcelona', 'London'];
         ObjectUtils.reorderArray(arr, 3, 1);
         expect(arr).toEqual(['New York', 'Barcelona', 'Istanbul', 'Paris', 'London']);
     });
 
     it('Should inject an item as indexed', () => {
-        let sourceArr: string[] = ['New York', 'Istanbul', 'Paris', 'Barcelona', 'London'];
-        let arr: string[] = [];
+        const sourceArr: string[] = ['New York', 'Istanbul', 'Paris', 'Barcelona', 'London'];
+        const arr: string[] = [];
 
         ObjectUtils.insertIntoOrderedArray('Istanbul', 1, arr, sourceArr);
         expect(arr).toEqual(['Istanbul']);

@@ -1,5 +1,5 @@
 import { NgModule}     from '@angular/core';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
 import { TreeTableDemo } from './treetabledemo';
 import { TreeTablePageDemo } from './treetablepagedemo';
 import { TreeTableSortDemo } from './treetablesortdemo';
@@ -21,7 +21,7 @@ import { TreeTableFilterDemo } from './treetablefilterdemo';
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-            {path:'',component: TreeTableDemo},
+            {path: '', component: TreeTableDemo},
             { path: 'page', component: TreeTablePageDemo },
 			{ path: 'sort', component: TreeTableSortDemo },
 			{ path: 'selection', component: TreeTableSelectionDemo },

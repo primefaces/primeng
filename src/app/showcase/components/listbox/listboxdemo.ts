@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {SelectItem} from 'primeng/api';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
@@ -41,5 +41,5 @@ export class ListboxDemo {
             {name: 'United States', code: 'US'}
         ];
     }
-    
+
 }

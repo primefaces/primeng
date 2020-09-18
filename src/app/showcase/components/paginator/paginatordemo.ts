@@ -5,11 +5,11 @@ import {Component} from '@angular/core';
     styleUrls: ['./paginatordemo.scss']
 })
 export class PaginatorDemo {
-    first: number = 0;
+    first = 0;
 
-    totalRecords: number = 120;
+    totalRecords = 120;
 
-    totalRecords2: number = 12;
+    totalRecords2 = 12;
 
     onPageChange(event) {
         this.first = event.first;

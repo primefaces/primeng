@@ -22,16 +22,16 @@ class TestPickListComponent {
 
 	ngOnInit() {
 		this.sourceCars = [
-			{ "brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff" },
-			{ "brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345" },
-			{ "brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr" },
-			{ "brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh" },
-			{ "brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34" },
-			{ "brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj" },
-			{ "brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr" },
-			{ "brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34" },
-			{ "brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5" },
-			{ "brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s" }
+			{ brand: 'VW', year: 2012, color: 'Orange', vin: 'dsad231ff' },
+			{ brand: 'Audi', year: 2011, color: 'Black', vin: 'gwregre345' },
+			{ brand: 'Renault', year: 2005, color: 'Gray', vin: 'h354htr' },
+			{ brand: 'BMW', year: 2003, color: 'Blue', vin: 'j6w54qgh' },
+			{ brand: 'Mercedes', year: 1995, color: 'Orange', vin: 'hrtwy34' },
+			{ brand: 'Volvo', year: 2005, color: 'Black', vin: 'jejtyj' },
+			{ brand: 'Honda', year: 2012, color: 'Yellow', vin: 'g43gr' },
+			{ brand: 'Jaguar', year: 2013, color: 'Orange', vin: 'greg34' },
+			{ brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
+			{ brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
 		];
 		this.targetCars = [];
 	}
@@ -71,32 +71,32 @@ describe('PickList', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		picklist.style = { 'height': '300px' };
-		picklist.styleClass = "Primeng ROCKS!";
+		picklist.style = { height: '300px' };
+		picklist.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const picklistEl = fixture.debugElement.query(By.css('div'));
-		expect(picklistEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(picklistEl.nativeElement.style.height).toEqual("300px");
+		expect(picklistEl.nativeElement.className).toContain('Primeng ROCKS!');
+		expect(picklistEl.nativeElement.style.height).toEqual('300px');
 	});
 
 	it('should show sourceHeader and targetHeader', () => {
 		fixture.detectChanges();
 
-		picklist.sourceHeader = "Primeng";
-		picklist.targetHeader = "ROCKS!";
+		picklist.sourceHeader = 'Primeng';
+		picklist.targetHeader = 'ROCKS!';
 		fixture.detectChanges();
 
 		picklist.cd.detectChanges();
 		const headerEls = fixture.debugElement.queryAll(By.css('.p-picklist-header'));
 		expect(headerEls).toBeTruthy();
 		expect(headerEls.length).toEqual(2);
-		expect(headerEls[0].nativeElement.textContent).toEqual("Primeng");
-		expect(headerEls[1].nativeElement.textContent).toEqual("ROCKS!");
+		expect(headerEls[0].nativeElement.textContent).toEqual('Primeng');
+		expect(headerEls[1].nativeElement.textContent).toEqual('ROCKS!');
 	});
 
 	it('should show filter input', () => {
-		picklist.filterBy = "brand";
+		picklist.filterBy = 'brand';
 		fixture.detectChanges();
 
 		picklist.cd.detectChanges();
@@ -107,29 +107,31 @@ describe('PickList', () => {
 	});
 
 	it('should filtered source', () => {
-		picklist.filterBy = "brand";
+		picklist.filterBy = 'brand';
 		fixture.detectChanges();
 
 		const sourceFilterEl = fixture.debugElement.query(By.css('input'));
-		sourceFilterEl.nativeElement.value = "v";
+		sourceFilterEl.nativeElement.value = 'v';
 		sourceFilterEl.nativeElement.dispatchEvent(new Event('keyup'));
 		fixture.detectChanges();
 
 		const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(picklist.visibleOptionsSource.length).toEqual(2);
-		expect(picklist.visibleOptionsSource[0].brand).toEqual("VW");
-		expect(picklist.visibleOptionsSource[1].brand).toEqual("Volvo");
+		expect(picklist.visibleOptionsSource[0].brand).toEqual('VW');
+		expect(picklist.visibleOptionsSource[1].brand).toEqual('Volvo');
 		for (let i = 0; i < sourceListItems.length; i++) {
-			if (i == 0 || i == 5)
-				expect(sourceListItems[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(sourceListItems[i].nativeElement.style.display).not.toEqual("block");
+			if (i == 0 || i == 5) {
+				expect(sourceListItems[i].nativeElement.style.display).toEqual('block');
+			}
+			else {
+				expect(sourceListItems[i].nativeElement.style.display).not.toEqual('block');
+			}
 		}
 
 	});
 
 	it('should filtered target', () => {
-		picklist.filterBy = "brand";
+		picklist.filterBy = 'brand';
 		fixture.detectChanges();
 
 		picklist.cd.detectChanges();
@@ -138,35 +140,37 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		const targetFilterEl = fixture.debugElement.queryAll(By.css('input'))[1];
-		targetFilterEl.nativeElement.value = "v";
+		targetFilterEl.nativeElement.value = 'v';
 		targetFilterEl.nativeElement.dispatchEvent(new Event('keyup'));
 		fixture.detectChanges();
 
 		picklist.cd.detectChanges();
 		const targetListItems = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(picklist.visibleOptionsTarget.length).toEqual(2);
-		expect(picklist.visibleOptionsTarget[0].brand).toEqual("VW");
-		expect(picklist.visibleOptionsTarget[1].brand).toEqual("Volvo");
+		expect(picklist.visibleOptionsTarget[0].brand).toEqual('VW');
+		expect(picklist.visibleOptionsTarget[1].brand).toEqual('Volvo');
 		for (let i = 0; i < targetListItems.length; i++) {
-			if (i == 0 || i == 5)
-				expect(targetListItems[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(targetListItems[i].nativeElement.style.display).not.toEqual("block");
+			if (i == 0 || i == 5) {
+				expect(targetListItems[i].nativeElement.style.display).toEqual('block');
+			}
+			else {
+				expect(targetListItems[i].nativeElement.style.display).not.toEqual('block');
+			}
 		}
 
 	});
 
 	it('should use input placeholders', () => {
-		picklist.filterBy = "brand";
-		picklist.sourceFilterPlaceholder = "Primeng";
-		picklist.targetFilterPlaceholder = "ROCKS!";
+		picklist.filterBy = 'brand';
+		picklist.sourceFilterPlaceholder = 'Primeng';
+		picklist.targetFilterPlaceholder = 'ROCKS!';
 		fixture.detectChanges();
 
 		picklist.cd.detectChanges();
 		const headerEls = fixture.debugElement.queryAll(By.css('.p-picklist-filter'));
 		expect(headerEls.length).toEqual(2);
-		expect(headerEls[0].query(By.css('input')).nativeElement.placeholder).toEqual("Primeng");
-		expect(headerEls[1].query(By.css('input')).nativeElement.placeholder).toEqual("ROCKS!");
+		expect(headerEls[0].query(By.css('input')).nativeElement.placeholder).toEqual('Primeng');
+		expect(headerEls[1].query(By.css('input')).nativeElement.placeholder).toEqual('ROCKS!');
 	});
 
 	it('should not show filter input', () => {
@@ -194,14 +198,14 @@ describe('PickList', () => {
 	});
 
 	it('should change sourceStyle and targetStyle', () => {
-		picklist.sourceStyle = { 'height': '300px' };
-		picklist.targetStyle = { 'height': '300px' };
+		picklist.sourceStyle = { height: '300px' };
+		picklist.targetStyle = { height: '300px' };
 		fixture.detectChanges();
 
 		picklist.cd.detectChanges();
 		const headerEls = fixture.debugElement.queryAll(By.css('.p-picklist-list'));
-		expect(headerEls[0].nativeElement.style.height).toContain("300px");
-		expect(headerEls[1].nativeElement.style.height).toContain("300px");
+		expect(headerEls[0].nativeElement.style.height).toContain('300px');
+		expect(headerEls[1].nativeElement.style.height).toContain('300px');
 	});
 
 	it('should not show controls', () => {
@@ -217,20 +221,20 @@ describe('PickList', () => {
 
 	it('should disabled', () => {
 		picklist.disabled = true;
-		picklist.filterBy = "brand";
+		picklist.filterBy = 'brand';
 		fixture.detectChanges();
 
 		const buttonsEls = fixture.debugElement.queryAll(By.css('button'));
 		const inputEls = fixture.debugElement.queryAll(By.css('input'));
 		const itemEls = fixture.debugElement.queryAll(By.css('li'));
-		for (let button of buttonsEls) {
+		for (const button of buttonsEls) {
 			expect(button.nativeElement.disabled).toEqual(true);
 		}
-		for (let input of inputEls) {
+		for (const input of inputEls) {
 			expect(input.nativeElement.disabled).toEqual(true);
 		}
-		for (let item of itemEls) {
-			expect(item.nativeElement.className).toContain("p-disabled");
+		for (const item of itemEls) {
+			expect(item.nativeElement.className).toContain('p-disabled');
 		}
 	});
 
@@ -243,9 +247,9 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(onItemClickSpy).toHaveBeenCalled();
-		expect(sourceListItems[0].nativeElement.className).toContain("p-highlight");
+		expect(sourceListItems[0].nativeElement.className).toContain('p-highlight');
 		expect(picklist.selectedItemsSource.length).toEqual(1);
-		expect(picklist.selectedItemsSource[0].brand).toEqual("VW");
+		expect(picklist.selectedItemsSource[0].brand).toEqual('VW');
 	});
 
 	it('should not select item', () => {
@@ -258,7 +262,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(onItemClickSpy).toHaveBeenCalled();
-		expect(sourceListItems[0].nativeElement.className).not.toContain("p-highlight");
+		expect(sourceListItems[0].nativeElement.className).not.toContain('p-highlight');
 		expect(picklist.selectedItemsSource.length).toEqual(0);
 		expect(picklist.selectedItemsSource[0]).toBeUndefined();
 	});
@@ -271,14 +275,14 @@ describe('PickList', () => {
 		sourceListItems[0].nativeElement.click();
 		fixture.detectChanges();
 
-		let event = { 'ctrlKey': true };
-		let callback = new EventEmitter();
+		const event = { ctrlKey: true };
+		const callback = new EventEmitter();
 		picklist.onItemClick(event, picklist.source[0], picklist.selectedItemsSource, callback);
 		fixture.detectChanges();
 
 		picklist.cd.detectChanges();
 		expect(onItemClickSpy).toHaveBeenCalled();
-		expect(sourceListItems[0].nativeElement.className).not.toContain("p-highlight");
+		expect(sourceListItems[0].nativeElement.className).not.toContain('p-highlight');
 		expect(picklist.selectedItemsSource.length).toEqual(0);
 	});
 
@@ -292,9 +296,9 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(onItemClickSpy).toHaveBeenCalled();
-		expect(sourceListItems[0].nativeElement.className).toContain("p-highlight");
+		expect(sourceListItems[0].nativeElement.className).toContain('p-highlight');
 		expect(picklist.selectedItemsSource.length).toEqual(1);
-		expect(picklist.selectedItemsSource[0].brand).toEqual("VW");
+		expect(picklist.selectedItemsSource[0].brand).toEqual('VW');
 	});
 
 	it('should unselect item without metakey', () => {
@@ -310,7 +314,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(onItemClickSpy).toHaveBeenCalled();
-		expect(sourceListItems[0].nativeElement.className).not.toContain("p-highlight");
+		expect(sourceListItems[0].nativeElement.className).not.toContain('p-highlight');
 		expect(picklist.selectedItemsSource.length).toEqual(0);
 	});
 
@@ -328,9 +332,9 @@ describe('PickList', () => {
 
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveUpSpy).toHaveBeenCalled();
-		expect(sourceListItemsAfterChange[2].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[2].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Renault");
+		expect(sourceListItemsAfterChange[2].nativeElement.className).toContain('p-highlight');
+		expect(sourceListItemsAfterChange[2].context.$implicit.brand).toEqual('BMW');
+		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual('Renault');
 	});
 
 	it('should call moveUp and do nothing', () => {
@@ -346,7 +350,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(moveUpSpy).toHaveBeenCalled();
-		let callback = new EventEmitter();
+		const callback = new EventEmitter();
 		expect(picklist.moveBottom(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
 	});
 
@@ -364,9 +368,9 @@ describe('PickList', () => {
 
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveDownSpy).toHaveBeenCalled();
-		expect(sourceListItemsAfterChange[4].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[4].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
+		expect(sourceListItemsAfterChange[4].nativeElement.className).toContain('p-highlight');
+		expect(sourceListItemsAfterChange[4].context.$implicit.brand).toEqual('BMW');
+		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual('Mercedes');
 	});
 
 	it('should call moveDown and do nothing', () => {
@@ -382,7 +386,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(moveDownSpy).toHaveBeenCalled();
-		let callback = new EventEmitter();
+		const callback = new EventEmitter();
 		expect(picklist.moveDown(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
 	});
 
@@ -400,9 +404,9 @@ describe('PickList', () => {
 
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveTopSpy).toHaveBeenCalled();
-		expect(sourceListItemsAfterChange[0].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[0].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Renault");
+		expect(sourceListItemsAfterChange[0].nativeElement.className).toContain('p-highlight');
+		expect(sourceListItemsAfterChange[0].context.$implicit.brand).toEqual('BMW');
+		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual('Renault');
 	});
 
 	it('should call movetop and do nothing', () => {
@@ -418,7 +422,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(moveTopSpy).toHaveBeenCalled();
-		let callback = new EventEmitter();
+		const callback = new EventEmitter();
 		expect(picklist.moveTop(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
 	});
 
@@ -436,9 +440,9 @@ describe('PickList', () => {
 
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveBottomSpy).toHaveBeenCalled();
-		expect(sourceListItemsAfterChange[9].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[9].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
+		expect(sourceListItemsAfterChange[9].nativeElement.className).toContain('p-highlight');
+		expect(sourceListItemsAfterChange[9].context.$implicit.brand).toEqual('BMW');
+		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual('Mercedes');
 	});
 
 	it('should call moveBottom and do nothing', () => {
@@ -454,7 +458,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(moveBottomSpy).toHaveBeenCalled();
-		let callback = new EventEmitter();
+		const callback = new EventEmitter();
 		expect(picklist.moveBottom(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
 	});
 
@@ -473,11 +477,11 @@ describe('PickList', () => {
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		const targetListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveRightSpy).toHaveBeenCalled();
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
-		expect(targetListItemsAfterChange[0].context.$implicit.brand).toEqual("BMW");
+		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual('Mercedes');
+		expect(targetListItemsAfterChange[0].context.$implicit.brand).toEqual('BMW');
 		expect(targetListItemsAfterChange.length).toEqual(1);
 		expect(picklist.target.length).toEqual(1);
-		expect(picklist.target[0].brand).toEqual("BMW");
+		expect(picklist.target[0].brand).toEqual('BMW');
 	});
 
 	it('should call moveLeft', () => {
@@ -506,7 +510,7 @@ describe('PickList', () => {
 		expect(targetListItemsAfterChange.length).toEqual(0);
 		expect(picklist.target.length).toEqual(0);
 		expect(picklist.source.length).toEqual(10);
-		expect(sourceListItemsAfterChange[9].context.$implicit.brand).toEqual("BMW");
+		expect(sourceListItemsAfterChange[9].context.$implicit.brand).toEqual('BMW');
 	});
 
 	it('should call moveAllRight', () => {
@@ -555,13 +559,13 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		let data;
-		picklist.onSourceSelect.subscribe(value => data = value)
+		picklist.onSourceSelect.subscribe(value => data = value);
 		const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		sourceListItems[0].nativeElement.click();
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
-		expect(data.items[0].brand).toEqual("VW");
+		expect(data.items[0].brand).toEqual('VW');
 	});
 
 	it('should listen onTargetSelect', () => {
@@ -576,13 +580,13 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		let data;
-		picklist.onTargetSelect.subscribe(value => data = value)
+		picklist.onTargetSelect.subscribe(value => data = value);
 		const targetListItems = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
 		targetListItems[0].nativeElement.click();
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
-		expect(data.items[0].brand).toEqual("VW");
+		expect(data.items[0].brand).toEqual('VW');
 	});
 
 	it('should listen onSourceReorder', () => {
@@ -599,7 +603,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
-		expect(data.items[0].brand).toEqual("BMW");
+		expect(data.items[0].brand).toEqual('BMW');
 	});
 
 	it('should listen onTargetReorder', () => {
@@ -620,7 +624,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
-		expect(data.items[0].brand).toEqual("BMW");
+		expect(data.items[0].brand).toEqual('BMW');
 	});
 
 	it('should listen onMoveToTarget', () => {
@@ -637,7 +641,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
-		expect(data.items[0].brand).toEqual("BMW");
+		expect(data.items[0].brand).toEqual('BMW');
 	});
 
 	it('should listen onMoveToSource', () => {
@@ -662,7 +666,7 @@ describe('PickList', () => {
 		fixture.detectChanges();
 
 		expect(data).toBeTruthy();
-		expect(data.items[0].brand).toEqual("BMW");
+		expect(data.items[0].brand).toEqual('BMW');
 	});
 
 	it('should listen onMoveAllToTarget', () => {
@@ -779,7 +783,7 @@ describe('PickList', () => {
 	it('should move items(source) with dragging with reorder', () => {
 		fixture.detectChanges();
 
-		let dragEvent = new DragEvent('drag');
+		const dragEvent = new DragEvent('drag');
 		picklist.dragging = true;
 		picklist.fromListType = -1;
 		fixture.detectChanges();
@@ -789,8 +793,8 @@ describe('PickList', () => {
 		picklist.onDragEnd(dragEvent);
 		fixture.detectChanges();
 
-		expect(picklist.source[0].brand).toEqual("Audi");
-		expect(picklist.source[1].brand).toEqual("VW");
+		expect(picklist.source[0].brand).toEqual('Audi');
+		expect(picklist.source[1].brand).toEqual('VW');
 	});
 
 	it('should move items(target) with dragging', () => {
@@ -800,7 +804,7 @@ describe('PickList', () => {
 		controlAllRightButton.nativeElement.click();
 		fixture.detectChanges();
 
-		let dragEvent = new DragEvent('drag');
+		const dragEvent = new DragEvent('drag');
 		picklist.dragging = true;
 		picklist.fromListType = 1;
 		fixture.detectChanges();
@@ -810,14 +814,14 @@ describe('PickList', () => {
 		picklist.onDragEnd(dragEvent);
 		fixture.detectChanges();
 
-		expect(picklist.target[0].brand).toEqual("Audi");
-		expect(picklist.target[1].brand).toEqual("VW");
+		expect(picklist.target[0].brand).toEqual('Audi');
+		expect(picklist.target[1].brand).toEqual('VW');
 	});
 
 	it('should move item to right with dragging', () => {
 		fixture.detectChanges();
 
-		let dragEvent = new DragEvent('drag');
+		const dragEvent = new DragEvent('drag');
 		picklist.dragging = true;
 		picklist.fromListType = -1;
 		fixture.detectChanges();
@@ -830,7 +834,7 @@ describe('PickList', () => {
 
 		expect(picklist.source.length).toEqual(9);
 		expect(picklist.target.length).toEqual(1);
-		expect(picklist.target[0].brand).toEqual("VW");
+		expect(picklist.target[0].brand).toEqual('VW');
 	});
 
 	it('should move item to left with dragging', () => {
@@ -840,7 +844,7 @@ describe('PickList', () => {
 		controlAllRightButton.nativeElement.click();
 		fixture.detectChanges();
 
-		let dragEvent = new DragEvent('drag');
+		const dragEvent = new DragEvent('drag');
 		picklist.dragging = true;
 		picklist.fromListType = 1;
 		fixture.detectChanges();
@@ -853,20 +857,20 @@ describe('PickList', () => {
 
 		expect(picklist.target.length).toEqual(9);
 		expect(picklist.source.length).toEqual(1);
-		expect(picklist.source[0].brand).toEqual("VW");
+		expect(picklist.source[0].brand).toEqual('VW');
 	});
 
 	it('should change focused item with up and down arrows', () => {
 		fixture.detectChanges();
 
-		let items = fixture.debugElement.queryAll(By.css(".p-picklist-item"));
+		const items = fixture.debugElement.queryAll(By.css('.p-picklist-item'));
 		items[0].nativeElement.click();
 		fixture.detectChanges();
 
 		expect(picklist.selectedItemsSource.length).toEqual(1);
-		expect(picklist.selectedItemsSource[0].brand).toBe("VW");
+		expect(picklist.selectedItemsSource[0].brand).toBe('VW');
 		const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
+  keydownEvent.which = 40;
 		keydownEvent.initEvent('keydown', true, true);
 		items[0].nativeElement.dispatchEvent(keydownEvent);
 		fixture.detectChanges();
@@ -881,6 +885,6 @@ describe('PickList', () => {
 		items[1].nativeElement.dispatchEvent(keydownEvent);
 		fixture.detectChanges();
 
-		expect(picklist.selectedItemsSource[0].brand).toBe("Audi");
+		expect(picklist.selectedItemsSource[0].brand).toBe('Audi');
 	});
 });

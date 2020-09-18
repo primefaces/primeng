@@ -12,7 +12,7 @@ export class SelectButtonDemo {
 
     justifyOptions: any[];
 
-    value1: string = "off";
+    value1 = 'off';
 
     value2: string;
 

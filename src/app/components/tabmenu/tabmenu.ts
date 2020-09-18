@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
+import {NgModule, Component, Input, ContentChildren, QueryList, AfterContentInit, AfterViewInit, AfterViewChecked, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
@@ -40,7 +40,7 @@ import {DomHandler} from 'primeng/dom';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./tabmenu.css']
 })
-export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked {
+export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecked {
 
     @Input() model: MenuItem[];
 
@@ -64,14 +64,14 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-                break;
-                
+                    break;
+
                 default:
                     this.itemTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -96,7 +96,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item
             });
         }
 
@@ -105,7 +105,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
     }
 
     updateInkBar() {
-        let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        const tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
         if (tabHeader) {
             this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
             this.inkbar.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
@@ -114,8 +114,8 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,SharedModule,RippleModule],
-    exports: [TabMenu,RouterModule,SharedModule],
+    imports: [CommonModule, RouterModule, SharedModule, RippleModule],
+    exports: [TabMenu, RouterModule, SharedModule],
     declarations: [TabMenu]
 })
 export class TabMenuModule { }

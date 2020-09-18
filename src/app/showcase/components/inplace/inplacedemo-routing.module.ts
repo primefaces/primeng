@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {InplaceDemo} from './inplacedemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: InplaceDemo}
+			{path: '', component: InplaceDemo}
 		])
 	],
 	exports: [

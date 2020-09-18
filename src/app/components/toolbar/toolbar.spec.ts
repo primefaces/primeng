@@ -11,7 +11,7 @@ import { ButtonModule } from '../button/button';
       <button  type="button" label="New" icon="pi pi-plus"></button>
       <button  type="button" label="Upload" icon="pi pi-upload" class="p-button-success"></button>
   </div>
-  
+
   <div class="p-toolbar-group-right">
       <button  type="button" icon="pi pi-search"></button>
       <button  type="button" icon="pi pi-calendar" class="p-button-success"></button>
@@ -52,13 +52,13 @@ describe('Toolbar', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		toolbar.style = { 'height': '300px' };
-		toolbar.styleClass = "Primeng ROCKS!";
+		toolbar.style = { height: '300px' };
+		toolbar.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const toolbarEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(toolbarEl.className).toContain("Primeng ROCKS!");
-		expect(toolbarEl.style.height).toEqual("300px");
+		expect(toolbarEl.className).toContain('Primeng ROCKS!');
+		expect(toolbarEl.style.height).toEqual('300px');
 	});
 
 	it('should show ng-content', () => {

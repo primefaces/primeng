@@ -4,7 +4,7 @@ import { ProgressSpinner } from './progressspinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ProgressSpinner', () => {
-  
+
     let progressspinner: ProgressSpinner;
     let fixture: ComponentFixture<ProgressSpinner>;
 
@@ -23,18 +23,18 @@ describe('ProgressSpinner', () => {
     });
     it('should created by default', () => {
         fixture.detectChanges();
-  
+
         const progressSpinnerEl = fixture.debugElement.query(By.css('.p-progress-spinner'));
         expect(progressSpinnerEl.nativeElement).toBeTruthy();
     });
 
     it('should get style and styleClass', () => {
-        progressspinner.style = {'height':'300px'};
-        progressspinner.styleClass = "PrimeNG ROCKS!"
+        progressspinner.style = {height: '300px'};
+        progressspinner.styleClass = 'PrimeNG ROCKS!';
         fixture.detectChanges();
-  
+
         const progressSpinnerEl = fixture.debugElement.query(By.css('.p-progress-spinner'));
-        expect(progressSpinnerEl.nativeElement.className).toContain("PrimeNG ROCKS!");
-        expect(progressSpinnerEl.nativeElement.style.height).toEqual("300px");
+        expect(progressSpinnerEl.nativeElement.className).toContain('PrimeNG ROCKS!');
+        expect(progressSpinnerEl.nativeElement.style.height).toEqual('300px');
     });
 });

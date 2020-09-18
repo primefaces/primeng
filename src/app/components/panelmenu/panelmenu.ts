@@ -1,5 +1,5 @@
-import {NgModule,Component,Input,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {NgModule, Component, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
@@ -7,24 +7,24 @@ import {RouterModule} from '@angular/router';
 export class BasePanelMenuItem {
 
     constructor(private ref: ChangeDetectorRef) {}
-        
+
     handleClick(event, item) {
         if (item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         item.expanded = !item.expanded;
         this.ref.detectChanges();
-        
+
         if (!item.url) {
             event.preventDefault();
         }
-                   
+
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item
             });
         }
     }
@@ -44,7 +44,7 @@ export class BasePanelMenuItem {
                         ><span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="p-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" 
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link"
                         [ngClass]="{'p-disabled':child.disabled}" [attr.tabindex]="!item.expanded ? null : child.disabled ? null : '0'" [attr.id]="child.id" role="treeitem" [attr.aria-expanded]="child.expanded"
                         (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title"
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
@@ -73,9 +73,9 @@ export class BasePanelMenuItem {
     encapsulation: ViewEncapsulation.None
 })
 export class PanelMenuSub extends BasePanelMenuItem {
-    
+
     @Input() item: MenuItem;
-    
+
     @Input() expanded: boolean;
 
     @Input() transitionOptions: string;
@@ -135,25 +135,25 @@ export class PanelMenuSub extends BasePanelMenuItem {
     styleUrls: ['./panelmenu.css']
 })
 export class PanelMenu extends BasePanelMenuItem {
-    
+
     @Input() model: MenuItem[];
 
     @Input() style: any;
 
     @Input() styleClass: string;
 
-    @Input() multiple: boolean = true;
+    @Input() multiple = true;
 
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    
+    @Input() transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
     public animating: boolean;
 
     constructor(ref: ChangeDetectorRef) {
         super(ref);
     }
-                
+
     collapseAll() {
-    	for(let item of this.model) {
+    	for (const item of this.model) {
     		if (item.expanded) {
     			item.expanded = false;
     		}
@@ -162,17 +162,17 @@ export class PanelMenu extends BasePanelMenuItem {
 
     handleClick(event, item) {
     	if (!this.multiple) {
-            for(let modelItem of this.model) {
+            for (const modelItem of this.model) {
         		if (item !== modelItem && modelItem.expanded) {
         			modelItem.expanded = false;
         		}
         	}
     	}
-        
-        this.animating = true;
-        super.handleClick(event, item);
+
+     this.animating = true;
+     super.handleClick(event, item);
     }
-    
+
     onToggleDone() {
         this.animating = false;
     }
@@ -180,8 +180,8 @@ export class PanelMenu extends BasePanelMenuItem {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
-    exports: [PanelMenu,RouterModule],
-    declarations: [PanelMenu,PanelMenuSub]
+    imports: [CommonModule, RouterModule],
+    exports: [PanelMenu, RouterModule],
+    declarations: [PanelMenu, PanelMenuSub]
 })
 export class PanelMenuModule { }

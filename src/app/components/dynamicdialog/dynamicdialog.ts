@@ -1,5 +1,5 @@
 import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, ViewEncapsulation } from '@angular/core';
-import { trigger,style,transition,animate,AnimationEvent, animation, useAnimation } from '@angular/animations';
+import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
@@ -56,7 +56,7 @@ const hideAnimation = animation([
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
-	visible: boolean = true;
+	visible = true;
 
 	componentRef: ComponentRef<any>;
 
@@ -78,10 +78,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     maskClickListener: Function;
 
-    transformOptions: string = "scale(0.7)";
+    transformOptions = 'scale(0.7)';
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
+			          public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
 
 	ngAfterViewInit() {
 		this.loadChildComponent(this.childComponentType);
@@ -89,9 +89,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	}
 
 	loadChildComponent(componentType: Type<any>) {
-		let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+		const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
 
-		let viewContainerRef = this.insertionPoint.viewContainerRef;
+		const viewContainerRef = this.insertionPoint.viewContainerRef;
 		viewContainerRef.clear();
 
 		this.componentRef = viewContainerRef.createComponent(componentFactory);
@@ -99,29 +99,29 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	moveOnTop() {
         if (this.config.autoZIndex !== false) {
-			const zIndex = (this.config.baseZIndex||0) + (++DomHandler.zindex);
+			const zIndex = (this.config.baseZIndex || 0) + (++DomHandler.zindex);
 			this.container.style.zIndex = String(zIndex);
 			this.maskViewChild.nativeElement.style.zIndex = String(zIndex - 1);
 		}
     }
 
 	onAnimationStart(event: AnimationEvent) {
-		switch(event.toState) {
+		switch (event.toState) {
 			case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
-				this.moveOnTop();
+				            this.moveOnTop();
                 this.bindGlobalListeners();
 
                 if (this.config.modal !== false) {
                     this.enableModality();
                 }
                 this.focus();
-			break;
+			             break;
 
 			case 'void':
 				this.onContainerDestroy();
-			break;
+			 break;
 		}
 	}
 
@@ -134,10 +134,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	onContainerDestroy() {
 		this.unbindGlobalListeners();
 
-        if (this.config.modal !== false) {
+  if (this.config.modal !== false) {
             this.disableModality();
         }
-        this.container = null;
+  this.container = null;
 	}
 
 	close() {
@@ -185,26 +185,26 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         if (event.which === 9) {
             event.preventDefault();
 
-            let focusableElements = DomHandler.getFocusableElements(this.container);
+            const focusableElements = DomHandler.getFocusableElements(this.container);
 
             if (focusableElements && focusableElements.length > 0) {
                 if (!focusableElements[0].ownerDocument.activeElement) {
                     focusableElements[0].focus();
-                }
-                else {
-                    let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+                } else {
+                    const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                     if (event.shiftKey) {
-                        if (focusedIndex == -1 || focusedIndex === 0)
+                        if (focusedIndex == -1 || focusedIndex === 0) {
                             focusableElements[focusableElements.length - 1].focus();
-                        else
+                        } else {
                             focusableElements[focusedIndex - 1].focus();
-                    }
-                    else {
-                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                        }
+                    } else {
+                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
                             focusableElements[0].focus();
-                        else
+                        } else {
                             focusableElements[focusedIndex + 1].focus();
+                        }
                     }
                 }
             }
@@ -212,7 +212,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     focus() {
-        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+        const focusable = DomHandler.findSingle(this.container, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);

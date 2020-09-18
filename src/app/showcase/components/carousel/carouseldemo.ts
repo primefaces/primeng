@@ -9,10 +9,10 @@ import { Product } from '../../domain/product';
 export class CarouselDemo {
 
 	products: Product[];
-	
+
 	responsiveOptions;
 
-	constructor(private productService: ProductService) { 
+	constructor(private productService: ProductService) {
 		this.responsiveOptions = [
             {
                 breakpoint: '1024px',

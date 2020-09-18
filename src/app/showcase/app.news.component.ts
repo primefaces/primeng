@@ -28,5 +28,5 @@ export class AppNewsComponent {
         this.onNewsHide.emit();
         event.preventDefault();
     }
-    
+
 }

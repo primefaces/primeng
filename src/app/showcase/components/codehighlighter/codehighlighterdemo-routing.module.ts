@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {CodeHighlighterDemo} from './codehighlighterdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: CodeHighlighterDemo}
+			{path: '', component: CodeHighlighterDemo}
 		])
 	],
 	exports: [

@@ -6,7 +6,7 @@ import {MenuItem, MessageService} from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuDemo {
-    
+
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}
@@ -46,10 +46,10 @@ export class MenuDemo {
     }
 
     update() {
-        this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Data Updated'});
     }
 
     delete() {
-        this.messageService.add({severity:'warn', summary:'Delete', detail:'Data Deleted'});
+        this.messageService.add({severity: 'warn', summary: 'Delete', detail: 'Data Deleted'});
     }
 }

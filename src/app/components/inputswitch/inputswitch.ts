@@ -1,6 +1,6 @@
-import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule, Component, Input, forwardRef, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,7 +11,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked, 'p-disabled': disabled, 'p-focus': focused}" 
+        <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked, 'p-disabled': disabled, 'p-focus': focused}"
             [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
@@ -42,12 +42,12 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() readonly: boolean;
 
     @Input() ariaLabelledBy: string;
-    
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    checked: boolean = false;
+    checked = false;
 
-    focused: boolean = false;
+    focused = false;
 
     onModelChange: Function = () => {};
 
@@ -65,7 +65,7 @@ export class InputSwitch implements ControlValueAccessor {
 
     onInputChange(event: Event) {
         if (!this.readonly) {
-            const inputChecked = (<HTMLInputElement> event.target).checked;
+            const inputChecked = (event.target as HTMLInputElement).checked;
             this.updateModel(event, inputChecked);
         }
     }
@@ -92,7 +92,7 @@ export class InputSwitch implements ControlValueAccessor {
         this.onModelTouched();
     }
 
-    writeValue(checked: any) : void {
+    writeValue(checked: any): void {
         this.checked = checked;
         this.cd.markForCheck();
     }
@@ -104,7 +104,7 @@ export class InputSwitch implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();

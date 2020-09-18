@@ -6,15 +6,15 @@ import {Component, ViewEncapsulation} from '@angular/core';
 })
 export class InputTextDemo {
 
-    disabled: boolean = true;
+    disabled = true;
 
     value1: string;
-    
+
     value2: string;
 
     value3: string;
 
     value4: string;
 
-    value5: string = 'Disabled';
+    value5 = 'Disabled';
 }

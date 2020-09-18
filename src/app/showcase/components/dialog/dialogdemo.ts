@@ -29,7 +29,7 @@ export class DialogDemo {
     showBasicDialog2() {
         this.displayBasic2 = true;
     }
-    
+
     showMaximizableDialog() {
         this.displayMaximizable = true;
     }

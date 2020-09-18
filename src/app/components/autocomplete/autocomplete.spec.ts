@@ -15,7 +15,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 })
 class TestAutocompleteComponent {
 	brands: string[] = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
-	cars: any[] = [{ 'brand': 'Volvo' }, { 'brand': 'VW' }];
+	cars: any[] = [{ brand: 'Volvo' }, { brand: 'VW' }];
 	filteredBrands: any[];
 	filteredCars: any[];
 	brand: string;
@@ -24,7 +24,7 @@ class TestAutocompleteComponent {
 	filterBrands(event) {
 		this.filteredBrands = [];
 		for (let i = 0; i < this.brands.length; i++) {
-			let brand = this.brands[i];
+			const brand = this.brands[i];
 			if (brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
 				this.filteredBrands.push(brand);
 			}
@@ -34,7 +34,7 @@ class TestAutocompleteComponent {
 	filterBrandsWithField(event) {
 		this.filteredCars = [];
 		for (let i = 0; i < this.cars.length; i++) {
-			let car = this.cars[i];
+			const car = this.cars[i];
 			if (car.brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
 				this.filteredCars.push(car);
 			}
@@ -107,10 +107,10 @@ describe('AutoComplete', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		autocomplete.style = { 'height': '300px' };
-		autocomplete.styleClass = "Primeng Rocks!";
-		autocomplete.inputStyle = { 'height': '300px' };
-		autocomplete.inputStyleClass = "Primeng Rocks!";
+		autocomplete.style = { height: '300px' };
+		autocomplete.styleClass = 'Primeng Rocks!';
+		autocomplete.inputStyle = { height: '300px' };
+		autocomplete.inputStyleClass = 'Primeng Rocks!';
 		fixture.detectChanges();
 
 		autocomplete.cd.detectChanges();
@@ -130,33 +130,33 @@ describe('AutoComplete', () => {
 	});
 
 	it('should change inputId size readonly tabindex maxlength type and placeholder', () => {
-		autocomplete.inputId = "Primeng";
-		autocomplete.placeholder = "Primeng ROCKS!";
+		autocomplete.inputId = 'Primeng';
+		autocomplete.placeholder = 'Primeng ROCKS!';
 		autocomplete.size = 12;
 		autocomplete.required = true;
 		autocomplete.readonly = true;
 		autocomplete.tabindex = 13;
-		autocomplete.type = "password";
+		autocomplete.type = 'password';
 		autocomplete.maxlength = 5;
 		fixture.detectChanges();
 
 		autocomplete.cd.detectChanges();
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		expect(inputEl.id).toEqual("Primeng");
-		expect(inputEl.placeholder).toEqual("Primeng ROCKS!");
+		expect(inputEl.id).toEqual('Primeng');
+		expect(inputEl.placeholder).toEqual('Primeng ROCKS!');
 		expect(inputEl.size).toEqual(12);
 		expect(inputEl.required).toEqual(true);
 		expect(inputEl.tabIndex).toEqual(13);
 		expect(inputEl.maxLength).toEqual(5);
 		expect(inputEl.readOnly).toEqual(true);
-		expect(inputEl.type).toEqual("password");
+		expect(inputEl.type).toEqual('password');
 		autocomplete.multiple = true;
 		fixture.detectChanges();
 
 		autocomplete.cd.detectChanges();
 		const inputMultipleEl = fixture.debugElement.query(By.css('ul')).query(By.css('input')).nativeElement;
-		expect(inputMultipleEl.id).toEqual("Primeng");
-		expect(inputMultipleEl.placeholder).toEqual("Primeng ROCKS!");
+		expect(inputMultipleEl.id).toEqual('Primeng');
+		expect(inputMultipleEl.placeholder).toEqual('Primeng ROCKS!');
 	});
 
 	it('should show filtered brands and change autoZIndex', fakeAsync(() => {
@@ -177,7 +177,7 @@ describe('AutoComplete', () => {
 		const handleSuggestionsChangeSpy = spyOn(autocomplete, 'handleSuggestionsChange').and.callThrough();
 		const filterBrandsSpy = spyOn(testComponent, 'filterBrands').and.callThrough();
 
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -198,7 +198,7 @@ describe('AutoComplete', () => {
 	}));
 
 	it('should change immutable and scrollHeight', fakeAsync(() => {
-		autocomplete.scrollHeight = "450px";
+		autocomplete.scrollHeight = '450px';
 		fixture.detectChanges();
 
 		const deleteLastEl = fixture.debugElement.query(By.css('a'));
@@ -212,7 +212,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -221,7 +221,7 @@ describe('AutoComplete', () => {
 
 		const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
 		const panelEl = fixture.debugElement.query(By.css('div'));
-		expect(panelEl.nativeElement.style.maxHeight).toEqual("450px")
+		expect(panelEl.nativeElement.style.maxHeight).toEqual('450px');
 		expect(autocomplete.suggestions.length).toEqual(1);
 		expect(suggestionsEls.length).toEqual(1);
 		expect(testComponent.filteredBrands.length).toEqual(1);
@@ -229,7 +229,7 @@ describe('AutoComplete', () => {
 	}));
 
 	it('should change appendTo', fakeAsync(() => {
-		autocomplete.appendTo = "body";
+		autocomplete.appendTo = 'body';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('.p-inputtext.p-component'));
@@ -239,7 +239,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -264,7 +264,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -287,7 +287,7 @@ describe('AutoComplete', () => {
 		inputEl.nativeElement.click();
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "vxc";
+		inputEl.nativeElement.value = 'vxc';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -301,7 +301,7 @@ describe('AutoComplete', () => {
 	}));
 
 	it('should show emptyMessage', fakeAsync(() => {
-		autocomplete.emptyMessage = "Primeng ROCKS!";
+		autocomplete.emptyMessage = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('.p-inputtext.p-component'));
@@ -310,15 +310,15 @@ describe('AutoComplete', () => {
 		inputEl.nativeElement.click();
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
-		inputEl.nativeElement.value = "x";
+		inputEl.nativeElement.value = 'x';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
-		inputEl.nativeElement.value = "c";
+		inputEl.nativeElement.value = 'c';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -343,7 +343,7 @@ describe('AutoComplete', () => {
 		inputEl.nativeElement.click();
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -365,7 +365,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		inputEl.nativeElement.value = "vsa";
+		inputEl.nativeElement.value = 'vsa';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -387,7 +387,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -397,7 +397,7 @@ describe('AutoComplete', () => {
 		const firstItemEl = fixture.debugElement.query(By.css('li')).nativeElement;
 		firstItemEl.click();
 		fixture.detectChanges();
-		expect(autocomplete.value).toEqual("Volvo");
+		expect(autocomplete.value).toEqual('Volvo');
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(inputEl.nativeElement.value).toEqual(autocomplete.value);
 		expect(testComponent.brand).toEqual(autocomplete.value);
@@ -421,7 +421,7 @@ describe('AutoComplete', () => {
 
 	it('should change dropdownMode', () => {
 		autocomplete.dropdown = true;
-		autocomplete.dropdownMode = "current";
+		autocomplete.dropdownMode = 'current';
 		fixture.detectChanges();
 
 		const dropdownOpenEl = fixture.debugElement.query(By.css('.p-autocomplete-dropdown'));
@@ -434,7 +434,7 @@ describe('AutoComplete', () => {
 	});
 
 	it('should use field', fakeAsync(() => {
-		autocomplete2.field = "brand";
+		autocomplete2.field = 'brand';
 		autocomplete2.forceSelection = true;
 		fixture.detectChanges();
 
@@ -445,7 +445,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete2, 'selectItem').and.callThrough();
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -455,7 +455,7 @@ describe('AutoComplete', () => {
 		const firstItemEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('li')).nativeElement;
 		firstItemEl.click();
 		fixture.detectChanges();
-		expect(autocomplete2.value.brand).toEqual("Volvo");
+		expect(autocomplete2.value.brand).toEqual('Volvo');
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(inputEl.nativeElement.value).toEqual(autocomplete2.value.brand);
 		expect(testComponent.car).toEqual(autocomplete2.value);
@@ -470,7 +470,7 @@ describe('AutoComplete', () => {
 		inputEl.nativeElement.click();
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -502,7 +502,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -513,7 +513,7 @@ describe('AutoComplete', () => {
 		const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
 		firstItemEl.click();
 		fixture.detectChanges();
-		expect(autocomplete.value[0]).toEqual("Volvo");
+		expect(autocomplete.value[0]).toEqual('Volvo');
 		expect(autocomplete.value.length).toEqual(1);
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(testComponent.brand).toEqual(autocomplete.value);
@@ -529,7 +529,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -540,7 +540,7 @@ describe('AutoComplete', () => {
 		firstItemEl.click();
 		fixture.detectChanges();
 
-		expect(autocomplete.value[0]).toEqual("Volvo");
+		expect(autocomplete.value[0]).toEqual('Volvo');
 		expect(autocomplete.value.length).toEqual(1);
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(testComponent.brand).toEqual(autocomplete.value);
@@ -556,7 +556,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -566,11 +566,11 @@ describe('AutoComplete', () => {
 		const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
 		firstItemEl.click();
 		fixture.detectChanges();
-		expect(autocomplete.value[0]).toEqual("Volvo");
+		expect(autocomplete.value[0]).toEqual('Volvo');
 		expect(autocomplete.value.length).toEqual(1);
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(testComponent.brand).toEqual(autocomplete.value);
-		let backspaceEvent = { 'which': 8, preventDefault() { } };
+		const backspaceEvent = { which: 8, preventDefault() { } };
 		autocomplete.onKeydown(backspaceEvent);
 		fixture.detectChanges();
 
@@ -588,7 +588,7 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.value = 'v';
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -598,7 +598,7 @@ describe('AutoComplete', () => {
 		const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
 		firstItemEl.click();
 		fixture.detectChanges();
-		expect(autocomplete.value[0]).toEqual("Volvo");
+		expect(autocomplete.value[0]).toEqual('Volvo');
 		expect(autocomplete.value.length).toEqual(1);
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(testComponent.brand).toEqual(autocomplete.value);
@@ -619,9 +619,9 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		autocomplete.suggestions = ["Volvo", "VW"]
+		autocomplete.suggestions = ['Volvo', 'VW'];
 		autocomplete.overlayVisible = true;
-		let event = { 'which': 40, preventDefault() { } };
+		const event = { which: 40, preventDefault() { } };
 		autocomplete.onKeydown(event);
 		fixture.detectChanges();
 
@@ -631,7 +631,7 @@ describe('AutoComplete', () => {
 		autocomplete.onKeydown(event);
 		fixture.detectChanges();
 
-		expect(autocomplete.value).toEqual("Volvo");
+		expect(autocomplete.value).toEqual('Volvo');
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(testComponent.brand).toEqual(autocomplete.value);
 	}));
@@ -645,15 +645,15 @@ describe('AutoComplete', () => {
 		fixture.detectChanges();
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-		autocomplete.suggestions = ["Volvo", "VW"]
+		autocomplete.suggestions = ['Volvo', 'VW'];
 		autocomplete.overlayVisible = true;
-		let event = { 'which': 40, preventDefault() { } };
+		const event = { which: 40, preventDefault() { } };
 		autocomplete.onKeydown(event);
 		event.which = 9;
 		autocomplete.onKeydown(event);
 		fixture.detectChanges();
 
-		expect(autocomplete.value).toEqual("Volvo");
+		expect(autocomplete.value).toEqual('Volvo');
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(testComponent.brand).toEqual(autocomplete.value);
 	}));
@@ -668,9 +668,9 @@ describe('AutoComplete', () => {
 
 		const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
 		const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
-		autocomplete.suggestions = ["Volvo", "VW"]
+		autocomplete.suggestions = ['Volvo', 'VW'];
 		autocomplete.overlayVisible = true;
-		let event = { 'which': 27, preventDefault() { } };
+		const event = { which: 27, preventDefault() { } };
 		autocomplete.onKeydown(event);
 		fixture.detectChanges();
 

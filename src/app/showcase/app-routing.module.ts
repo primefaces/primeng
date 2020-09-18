@@ -92,7 +92,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'treetable', loadChildren: () => import('./components/treetable/treetabledemo.module').then(m => m.TreeTableDemoModule)},
             {path: 'tristatecheckbox', loadChildren: () => import('./components/tristatecheckbox/tristatecheckboxdemo.module').then(m => m.TriStateCheckboxDemoModule)},
             {path: 'virtualscroller', loadChildren: () => import('./components/virtualscroller/virtualscrollerdemo.module').then(m => m.VirtualScrollerDemoModule)}
-        ], {scrollPositionRestoration: 'enabled'})    
+        ], {scrollPositionRestoration: 'enabled'})
     ],
     exports: [RouterModule]
 })

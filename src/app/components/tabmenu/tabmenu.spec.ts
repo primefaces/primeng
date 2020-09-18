@@ -34,13 +34,13 @@ describe('TabMenu', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		tabmenu.style = { 'height': '300px' };
-		tabmenu.styleClass = "Primeng ROCKS!";
+		tabmenu.style = { height: '300px' };
+		tabmenu.styleClass = 'Primeng ROCKS!';
 		fixture.detectChanges();
 
 		const tabmenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(tabmenuEl.className).toContain("Primeng ROCKS!");
-		expect(tabmenuEl.style.height).toContain("300px");
+		expect(tabmenuEl.className).toContain('Primeng ROCKS!');
+		expect(tabmenuEl.style.height).toContain('300px');
 	});
 
 	it('should not show items ', () => {
@@ -51,8 +51,8 @@ describe('TabMenu', () => {
 		fixture.detectChanges();
 
 		const itemList = fixture.debugElement.query(By.css('ul'));
-		expect(itemList.children[0].nativeElement.className).toContain("p-hidden");
-		expect(itemList.children[1].nativeElement.className).toContain("p-hidden");
+		expect(itemList.children[0].nativeElement.className).toContain('p-hidden');
+		expect(itemList.children[1].nativeElement.className).toContain('p-hidden');
 	});
 
 	it('should show disabled items ', () => {
@@ -63,8 +63,8 @@ describe('TabMenu', () => {
 		fixture.detectChanges();
 
 		const itemList = fixture.debugElement.query(By.css('ul'));
-		expect(itemList.children[0].nativeElement.className).toContain("p-disabled");
-		expect(itemList.children[1].nativeElement.className).toContain("p-disabled");
+		expect(itemList.children[0].nativeElement.className).toContain('p-disabled');
+		expect(itemList.children[1].nativeElement.className).toContain('p-disabled');
 	});
 
 	it('should show items and icons (url)', () => {
@@ -78,7 +78,7 @@ describe('TabMenu', () => {
 		fixture.detectChanges();
 
 		const itemList = fixture.debugElement.query(By.css('ul'));
-		const itemEls = itemList.queryAll(By.css('li:not(.p-tabmenu-ink-bar)'))
+		const itemEls = itemList.queryAll(By.css('li:not(.p-tabmenu-ink-bar)'));
 		expect(itemEls.length).toEqual(5);
 		expect(itemList.query(By.css('.p-menuitem-icon'))).toBeTruthy();
 		expect(itemList.query(By.css('.p-menuitem-text'))).toBeTruthy();
@@ -95,10 +95,10 @@ describe('TabMenu', () => {
 		fixture.detectChanges();
 
 		const itemList = fixture.debugElement.query(By.css('ul'));
-		const itemEls = itemList.queryAll(By.css('li:not(.p-tabmenu-ink-bar)'))
+		const itemEls = itemList.queryAll(By.css('li:not(.p-tabmenu-ink-bar)'));
 		expect(itemEls.length).toEqual(5);
 		for (let x = 0; x < 5; x++) {
-			expect(itemList.children[x].nativeElement.innerHTML).toContain("ng-reflect-router-link");
+			expect(itemList.children[x].nativeElement.innerHTML).toContain('ng-reflect-router-link');
 		}
 		expect(itemList.query(By.css('.p-menuitem-icon'))).toBeTruthy();
 		expect(itemList.query(By.css('.p-menuitem-text'))).toBeTruthy();
@@ -120,7 +120,7 @@ describe('TabMenu', () => {
 		calenderItem.click();
 		fixture.detectChanges();
 
-		expect(itemList.children[1].nativeElement.className).toContain("p-highlight")
+		expect(itemList.children[1].nativeElement.className).toContain('p-highlight');
 		expect(tabmenu.activeItem.label).toEqual('Calendar');
 		expect(tabmenu.activeItem.icon).toContain('pi-calendar');
 		expect(itemClickSpy).toHaveBeenCalled();
@@ -142,7 +142,7 @@ describe('TabMenu', () => {
 		calenderItem.click();
 		fixture.detectChanges();
 
-		expect(itemList.children[1].nativeElement.className).toContain("p-highlight")
+		expect(itemList.children[1].nativeElement.className).toContain('p-highlight');
 		expect(tabmenu.activeItem.label).toEqual('Calendar');
 		expect(tabmenu.activeItem.icon).toContain('pi-calendar');
 		expect(itemClickSpy).toHaveBeenCalled();
@@ -156,13 +156,13 @@ describe('TabMenu', () => {
 		fixture.detectChanges();
 
 		const itemList = fixture.debugElement.query(By.css('ul'));
-		expect(itemList.children[0].nativeElement.className).toContain("p-disabled");
-		expect(itemList.children[1].nativeElement.className).toContain("p-disabled");
+		expect(itemList.children[0].nativeElement.className).toContain('p-disabled');
+		expect(itemList.children[1].nativeElement.className).toContain('p-disabled');
 		const calenderItem = itemList.children[1].children[0].nativeElement;
 		calenderItem.click();
 		fixture.detectChanges();
 
-		expect(itemList.children[1].nativeElement.className).not.toContain("p-highlight")
+		expect(itemList.children[1].nativeElement.className).not.toContain('p-highlight');
 	});
 
 	it('should use command', () => {
@@ -171,7 +171,7 @@ describe('TabMenu', () => {
 			{ label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled: true },
 			{
 				label: 'Calendar', icon: 'pi pi-fw pi-calendar', command: () => {
-					x = "PRIMENG!"
+					x = 'PRIMENG!';
 				}
 			}
 		];
@@ -182,6 +182,6 @@ describe('TabMenu', () => {
 		calenderItem.click();
 		fixture.detectChanges();
 
-		expect(x).toEqual("PRIMENG!");
+		expect(x).toEqual('PRIMENG!');
 	});
 });

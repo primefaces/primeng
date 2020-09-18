@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {PaginatorDemo} from './paginatordemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: PaginatorDemo}
+			{path: '', component: PaginatorDemo}
 		])
 	],
 	exports: [

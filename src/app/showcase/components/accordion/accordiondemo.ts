@@ -7,17 +7,17 @@ import {MessageService} from 'primeng/api';
     styleUrls: ['./accordiondemo.scss']
 })
 export class AccordionDemo {
-    
+
     activeState: boolean[] = [true, false, false];
 
     constructor(private messageService: MessageService) {}
 
     onTabClose(event) {
-        this.messageService.add({severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index})
+        this.messageService.add({severity: 'info', summary: 'Tab Closed', detail: 'Index: ' + event.index});
     }
-    
+
     onTabOpen(event) {
-        this.messageService.add({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
+        this.messageService.add({severity: 'info', summary: 'Tab Expanded', detail: 'Index: ' + event.index});
     }
 
     toggle(index: number) {

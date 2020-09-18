@@ -10,29 +10,29 @@ export class CustomerService {
     getCustomersSmall() {
         return this.http.get<any>('assets/showcase/data/customers-small.json')
             .toPromise()
-            .then(res => <Customer[]>res.data)
-            .then(data => { return data; });
+            .then(res => res.data as Customer[])
+            .then(data => data);
     }
 
     getCustomersMedium() {
         return this.http.get<any>('assets/showcase/data/customers-medium.json')
             .toPromise()
-            .then(res => <Customer[]>res.data)
-            .then(data => { return data; });
+            .then(res => res.data as Customer[])
+            .then(data => data);
     }
 
     getCustomersLarge() {
         return this.http.get<any>('assets/showcase/data/customers-large.json')
             .toPromise()
-            .then(res => <Customer[]>res.data)
-            .then(data => { return data; });
+            .then(res => res.data as Customer[])
+            .then(data => data);
     }
 
     getCustomersXLarge() {
         return this.http.get<any>('assets/showcase/data/customers-xlarge.json')
             .toPromise()
-            .then(res => <Customer[]>res.data)
-            .then(data => { return data; });
+            .then(res => res.data as Customer[])
+            .then(data => data);
     }
 
 }

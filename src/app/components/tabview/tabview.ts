@@ -1,13 +1,13 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
-        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, AfterViewChecked} from '@angular/core';
+import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, AfterContentInit,
+        ContentChildren, QueryList, TemplateRef, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {RippleModule} from 'primeng/ripple';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 
-let idx: number = 0;
+let idx = 0;
 
 @Component({
     selector: 'p-tabPanel',
@@ -21,82 +21,82 @@ let idx: number = 0;
         </div>
     `
 })
-export class TabPanel implements AfterContentInit,OnDestroy {
+export class TabPanel implements AfterContentInit, OnDestroy {
 
     @Input() header: string;
-    
+
     @Input() disabled: boolean;
-    
+
     @Input() closable: boolean;
-    
+
     @Input() headerStyle: any;
-    
+
     @Input() headerStyleClass: string;
-    
+
     @Input() leftIcon: string;
-    
+
     @Input() rightIcon: string;
-    
-    @Input() cache: boolean = true;
+
+    @Input() cache = true;
 
     @Input() tooltip: any;
-    
-    @Input() tooltipPosition: string = 'top';
 
-    @Input() tooltipPositionStyle: string = 'absolute';
+    @Input() tooltipPosition = 'top';
+
+    @Input() tooltipPositionStyle = 'absolute';
 
     @Input() tooltipStyleClass: string;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     constructor(public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {}
-    
+
     closed: boolean;
-    
+
     view: EmbeddedViewRef<any>;
-    
+
     _selected: boolean;
-    
+
     loaded: boolean;
-    
-    id: string = `p-tabpanel-${idx++}`;
-    
+
+    id = `p-tabpanel-${idx++}`;
+
     contentTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
-                
+                    break;
+
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
-    
+
     @Input() get selected(): boolean {
         return this._selected;
     }
 
     set selected(val: boolean) {
         this._selected = val;
-        
+
         if (!this.loaded) {
             this.cd.detectChanges();
         }
 
         this.loaded = true;
     }
-    
+
     ngOnDestroy() {
         this.view = null;
     }
@@ -133,20 +133,20 @@ export class TabPanel implements AfterContentInit,OnDestroy {
    encapsulation: ViewEncapsulation.None,
    styleUrls: ['./tabview.css']
 })
-export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
+export class TabView implements AfterContentInit, AfterViewChecked, BlockableUI {
 
-    @Input() orientation: string = 'top';
-    
+    @Input() orientation = 'top';
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() controlClose: boolean;
 
     @ViewChild('navbar') navbar: ElementRef;
 
     @ViewChild('inkbar') inkbar: ElementRef;
-    
+
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -154,22 +154,22 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
-    
+
     initialized: boolean;
-    
+
     tabs: TabPanel[];
-    
+
     _activeIndex: number;
-    
+
     preventActiveIndexPropagation: boolean;
 
     tabChanged: boolean;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
-      
+
     ngAfterContentInit() {
         this.initTabs();
-        
+
         this.tabPanels.changes.subscribe(_ => {
             this.initTabs();
         });
@@ -181,20 +181,21 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             this.tabChanged = false;
         }
     }
-    
+
     initTabs(): void {
         this.tabs = this.tabPanels.toArray();
-        let selectedTab: TabPanel = this.findSelectedTab();
+        const selectedTab: TabPanel = this.findSelectedTab();
         if (!selectedTab && this.tabs.length) {
-            if (this.activeIndex != null && this.tabs.length > this.activeIndex)
+            if (this.activeIndex != null && this.tabs.length > this.activeIndex) {
                 this.tabs[this.activeIndex].selected = true;
-            else
+            } else {
                 this.tabs[0].selected = true;
+            }
 
             this.tabChanged = true;
         }
     }
-    
+
     open(event: Event, tab: TabPanel) {
         if (tab.disabled) {
             if (event) {
@@ -202,26 +203,26 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             }
             return;
         }
-        
+
         if (!tab.selected) {
-            let selectedTab: TabPanel = this.findSelectedTab();
+            const selectedTab: TabPanel = this.findSelectedTab();
             if (selectedTab) {
-                selectedTab.selected = false
+                selectedTab.selected = false;
             }
-            
+
             this.tabChanged = true;
             tab.selected = true;
-            let selectedTabIndex = this.findTabIndex(tab);
+            const selectedTabIndex = this.findTabIndex(tab);
             this.preventActiveIndexPropagation = true;
             this.activeIndexChange.emit(selectedTabIndex);
             this.onChange.emit({originalEvent: event, index: selectedTabIndex});
         }
-        
+
         if (event) {
             event.preventDefault();
         }
     }
-    
+
     close(event: Event, tab: TabPanel) {
         if (this.controlClose) {
             this.onClose.emit({
@@ -231,18 +232,17 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
                     this.closeTab(tab);
                 }}
             );
-        }
-        else {
+        } else {
             this.closeTab(tab);
             this.onClose.emit({
                 originalEvent: event,
                 index: this.findTabIndex(tab)
             });
         }
-        
+
         event.stopPropagation();
     }
-    
+
     closeTab(tab: TabPanel) {
         if (tab.disabled) {
             return;
@@ -250,30 +250,30 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         if (tab.selected) {
             this.tabChanged = true;
             tab.selected = false;
-            for(let i = 0; i < this.tabs.length; i++) {
-                let tabPanel = this.tabs[i];
-                if (!tabPanel.closed&&!tab.disabled) {
+            for (let i = 0; i < this.tabs.length; i++) {
+                const tabPanel = this.tabs[i];
+                if (!tabPanel.closed && !tab.disabled) {
                     tabPanel.selected = true;
                     break;
                 }
             }
         }
-        
+
         tab.closed = true;
     }
-    
+
     findSelectedTab() {
-        for(let i = 0; i < this.tabs.length; i++) {
+        for (let i = 0; i < this.tabs.length; i++) {
             if (this.tabs[i].selected) {
                 return this.tabs[i];
             }
         }
         return null;
     }
-    
+
     findTabIndex(tab: TabPanel) {
         let index = -1;
-        for(let i = 0; i < this.tabs.length; i++) {
+        for (let i = 0; i < this.tabs.length; i++) {
             if (this.tabs[i] == tab) {
                 index = i;
                 break;
@@ -281,16 +281,16 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         }
         return index;
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-    
+
     @Input() get activeIndex(): number {
         return this._activeIndex;
     }
 
-    set activeIndex(val:number) {
+    set activeIndex(val: number) {
         this._activeIndex = val;
         if (this.preventActiveIndexPropagation) {
             this.preventActiveIndexPropagation = false;
@@ -304,7 +304,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
     }
 
     updateInkBar() {
-        let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        const tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
         this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
         this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
     }
@@ -312,8 +312,8 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
 
 @NgModule({
-    imports: [CommonModule,SharedModule,TooltipModule,RippleModule],
-    exports: [TabView,TabPanel,SharedModule],
-    declarations: [TabView,TabPanel]
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule],
+    exports: [TabView, TabPanel, SharedModule],
+    declarations: [TabView, TabPanel]
 })
 export class TabViewModule { }

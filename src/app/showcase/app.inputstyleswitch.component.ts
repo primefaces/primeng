@@ -26,9 +26,9 @@ import { AppConfig } from './domain/appconfig';
 export class AppInputStyleSwitchComponent implements OnInit, OnDestroy {
 
     value: string;
-    
+
     config: AppConfig;
-    
+
     public subscription: Subscription;
 
     constructor(private configService: AppConfigService) {}

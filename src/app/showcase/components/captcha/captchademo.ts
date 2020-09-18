@@ -6,11 +6,11 @@ import {MessageService} from 'primeng/api';
     providers: [MessageService]
 })
 export class CaptchaDemo {
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     showResponse(event) {
-        this.messageService.add({severity:'info', summary:'Success', detail: 'User Responsed',sticky: true});
+        this.messageService.add({severity: 'info', summary: 'Success', detail: 'User Responsed', sticky: true});
     }
 
 }

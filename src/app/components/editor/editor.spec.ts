@@ -4,7 +4,7 @@ import { Editor } from './editor';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Editor', () => {
-  
+
     let editor: Editor;
     let fixture: ComponentFixture<Editor>;
 
@@ -30,27 +30,27 @@ describe('Editor', () => {
     });
 
     it('should show value', () => {
-        editor.value = "V";
+        editor.value = 'V';
         fixture.detectChanges();
-        
+
         fixture.detectChanges();
 
         const paragraphEl = fixture.debugElement.query(By.css('.p-editor-content')).nativeElement.children[0].children[0];
-        expect(paragraphEl.textContent).toEqual("V");
+        expect(paragraphEl.textContent).toEqual('V');
     });
 
     it('should call quill paste event and setText event', () => {
         fixture.detectChanges();
-        
-        const quillPasteSpy = spyOn(editor.quill,"pasteHTML").and.callThrough();
-        const setTextSpy = spyOn(editor.quill,"setText").and.callThrough();
-        editor.writeValue("V");
+
+        const quillPasteSpy = spyOn(editor.quill, 'pasteHTML').and.callThrough();
+        const setTextSpy = spyOn(editor.quill, 'setText').and.callThrough();
+        editor.writeValue('V');
         fixture.detectChanges();
 
         const paragraphEl = fixture.debugElement.query(By.css('.p-editor-content')).nativeElement.children[0].children[0];
-        expect(paragraphEl.textContent).toEqual("V");
+        expect(paragraphEl.textContent).toEqual('V');
         expect(quillPasteSpy).toHaveBeenCalled();
-        editor.writeValue("");
+        editor.writeValue('');
         fixture.detectChanges();
 
         expect(setTextSpy).toHaveBeenCalled();
@@ -58,9 +58,9 @@ describe('Editor', () => {
 
     it('should call enable and disable', () => {
         fixture.detectChanges();
-        
-        const disableSpy = spyOn(editor.quill,"disable").and.callThrough();
-        const enableSpy = spyOn(editor.quill,"enable").and.callThrough();
+
+        const disableSpy = spyOn(editor.quill, 'disable').and.callThrough();
+        const enableSpy = spyOn(editor.quill, 'enable').and.callThrough();
         editor.readonly = true;
         fixture.detectChanges();
 
@@ -73,8 +73,8 @@ describe('Editor', () => {
 
     it('should get quill', () => {
         fixture.detectChanges();
-        
+
         const quill = editor.getQuill();
-        expect(quill.container.className).toContain("p-editor-content");
+        expect(quill.container.className).toContain('p-editor-content');
     });
 });

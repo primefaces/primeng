@@ -14,5 +14,5 @@ export class TableRowExpansionDemo implements OnInit {
     ngOnInit() {
         this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
     }
-    
+
 }

@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TreeNode} from 'primeng/api';
 
 @Component({
@@ -8,7 +8,7 @@ import {TreeNode} from 'primeng/api';
 export class TreeTemplatingDemo implements OnInit {
 
     nodes: TreeNode[];
-    
+
     constructor() { }
 
     ngOnInit() {
@@ -17,9 +17,9 @@ export class TreeTemplatingDemo implements OnInit {
                 key: '0',
                 label: 'Introduction',
                 children: [
-                    {key: '0-0', label: 'What is Angular', data:'https://angular.io', type: 'url'},
+                    {key: '0-0', label: 'What is Angular', data: 'https://angular.io', type: 'url'},
                     {key: '0-1', label: 'Getting Started', data: 'https://angular.io/guide/setup-local', type: 'url'},
-                    {key: '0-2', label: 'Learn and Explore', data:'https://angular.io/guide/architecture', type: 'url'},
+                    {key: '0-2', label: 'Learn and Explore', data: 'https://angular.io/guide/architecture', type: 'url'},
                     {key: '0-3', label: 'Take a Look', data: 'https://angular.io/start', type: 'url'}
                 ]
             },

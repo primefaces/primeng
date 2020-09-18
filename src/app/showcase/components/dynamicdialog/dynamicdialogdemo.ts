@@ -1,4 +1,4 @@
-import {Component,OnDestroy} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {DialogService} from '../../../components/dynamicdialog/dialogservice';
 import {MessageService} from 'primeng/api';
 import {ProductListDemo} from './productlistdemo';
@@ -19,13 +19,13 @@ export class DynamicDialogDemo implements OnDestroy {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Choose a Product',
             width: '70%',
-            contentStyle: {"max-height": "500px", "overflow": "auto"},
+            contentStyle: {'max-height': '500px', overflow: 'auto'},
             baseZIndex: 10000
         });
 
-        this.ref.onClose.subscribe((product: Product) =>{
+        this.ref.onClose.subscribe((product: Product) => {
             if (product) {
-                this.messageService.add({severity:'info', summary: 'Product Selected', detail: product.name});
+                this.messageService.add({severity: 'info', summary: 'Product Selected', detail: product.name});
             }
         });
     }

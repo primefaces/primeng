@@ -30,7 +30,7 @@ export class TableEditDemo implements OnInit {
         this.productService.getProductsSmall().then(data => this.products1 = data);
         this.productService.getProductsSmall().then(data => this.products2 = data);
 
-        this.statuses = [{label: 'In Stock', value: 'INSTOCK'},{label: 'Low Stock', value: 'LOWSTOCK'},{label: 'Out of Stock', value: 'OUTOFSTOCK'}]
+        this.statuses = [{label: 'In Stock', value: 'INSTOCK'}, {label: 'Low Stock', value: 'LOWSTOCK'}, {label: 'Out of Stock', value: 'OUTOFSTOCK'}];
     }
 
     onRowEditInit(product: Product) {
@@ -40,10 +40,9 @@ export class TableEditDemo implements OnInit {
     onRowEditSave(product: Product) {
         if (product.price > 0) {
             delete this.clonedProducts[product.id];
-            this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'});
-        }  
-        else {
-            this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
+            this.messageService.add({severity: 'success', summary: 'Success', detail: 'Product is updated'});
+        } else {
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Invalid Price'});
         }
     }
 

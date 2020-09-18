@@ -9,7 +9,7 @@ export class EventService {
     getEvents() {
     return this.http.get<any>('assets/showcase/data/scheduleevents.json')
       .toPromise()
-      .then(res => <any[]>res.data)
-      .then(data => { return data; });
+      .then(res => res.data as any[])
+      .then(data => data);
     }
 }

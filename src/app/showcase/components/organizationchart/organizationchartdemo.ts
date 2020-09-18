@@ -1,4 +1,4 @@
-import {Component,OnInit,ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {TreeNode} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 
@@ -10,28 +10,28 @@ import {MessageService} from 'primeng/api';
 export class OrganizationChartDemo implements OnInit {
 
     data1: TreeNode[];
-    
+
     data2: TreeNode[];
-    
+
     selectedNode: TreeNode;
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.data1 = [{
             label: 'CEO',
             type: 'person',
             styleClass: 'ui-person',
             expanded: true,
-            data: {name:'Walter White', 'avatar': 'walter.jpg'},
+            data: {name: 'Walter White', avatar: 'walter.jpg'},
             children: [
                 {
                     label: 'CFO',
                     type: 'person',
                     styleClass: 'ui-person',
                     expanded: true,
-                    data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
-                    children:[{
+                    data: {name: 'Saul Goodman', avatar: 'saul.jpg'},
+                    children: [{
                         label: 'Tax',
                         styleClass: 'department-cfo'
                     },
@@ -45,8 +45,8 @@ export class OrganizationChartDemo implements OnInit {
                     type: 'person',
                     styleClass: 'ui-person',
                     expanded: true,
-                    data: {name:'Mike E.', 'avatar': 'mike.jpg'},
-                    children:[{
+                    data: {name: 'Mike E.', avatar: 'mike.jpg'},
+                    children: [{
                         label: 'Operations',
                         styleClass: 'department-coo'
                     }]
@@ -56,12 +56,12 @@ export class OrganizationChartDemo implements OnInit {
                     type: 'person',
                     styleClass: 'ui-person',
                     expanded: true,
-                    data: {name:'Jesse Pinkman', 'avatar': 'jesse.jpg'},
-                    children:[{
+                    data: {name: 'Jesse Pinkman', avatar: 'jesse.jpg'},
+                    children: [{
                         label: 'Development',
                         styleClass: 'department-cto',
                         expanded: true,
-                        children:[{
+                        children: [{
                             label: 'Analysis',
                             styleClass: 'department-cto'
                         },
@@ -85,7 +85,7 @@ export class OrganizationChartDemo implements OnInit {
                 }
             ]
         }];
-        
+
         this.data2 = [{
             label: 'F.C Barcelona',
             expanded: true,
@@ -117,7 +117,7 @@ export class OrganizationChartDemo implements OnInit {
             ]
         }];
     }
-    
+
     onNodeSelect(event) {
         this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
     }

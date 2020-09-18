@@ -9,7 +9,7 @@ import { Product } from '../../domain/product';
 export class OrderListDemo {
 
     products: Product[];
-    
+
     constructor(private productService: ProductService) { }
 
     ngOnInit() {

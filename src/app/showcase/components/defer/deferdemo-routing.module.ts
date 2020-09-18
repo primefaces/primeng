@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import {DeferDemo} from './deferdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: DeferDemo}
+			{path: '', component: DeferDemo}
 		])
 	],
 	exports: [
