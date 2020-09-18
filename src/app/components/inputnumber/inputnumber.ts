@@ -709,7 +709,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
             }
         }
 
-        if (index !== null) {
+        if (index != null) {
             this.input.nativeElement.setSelectionRange(index + 1, index + 1);
         } else {
             i = selectionStart + 1;
@@ -723,7 +723,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                 }
             }
 
-            if (index !== null) {
+            if (index != null) {
                 this.input.nativeElement.setSelectionRange(index, index);
             }
         }
@@ -768,7 +768,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     isValueChanged(currentValue, newValue) {
-        if (newValue === null && currentValue !== null) {
+        if (newValue === null && currentValue != null) {
             return true;
         }
 
@@ -781,11 +781,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     validateValue(value) {
-        if (this.min !== null && value < this.min) {
+        if (this.min != null && value < this.min) {
             return this.min;
         }
 
-        if (this.max !== null && value > this.max) {
+        if (this.max != null && value > this.max) {
             return this.max;
         }
 
@@ -820,7 +820,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
             if (operation === 'range-insert') {
                 const startValue = this.parseValue((inputValue || '').slice(0, selectionStart));
-                const startValueStr = startValue !== null ? startValue.toString() : '';
+                const startValueStr = startValue != null ? startValue.toString() : '';
                 const startExpr = startValueStr.split('').join(`(${this.groupChar})?`);
                 const sRegex = new RegExp(startExpr, 'g');
                 sRegex.test(newValue);

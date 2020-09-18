@@ -749,7 +749,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                     if (this.propagateSelectionDown) {
                         this.propagateDown(node, false);
                     } else {
-                        this.selection = this.selection.filter((val, i) => i != index);
+                        this.selection = this.selection.filter((val, i) => i !== index);
                     }
 
                     if (this.propagateSelectionUp && node.parent) {
@@ -782,7 +782,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                         if (this.isSingleSelectionMode()) {
                             this.selectionChange.emit(null);
                         } else {
-                            this.selection = this.selection.filter((val, i) => i != index);
+                            this.selection = this.selection.filter((val, i) => i !== index);
                             this.selectionChange.emit(this.selection);
                         }
 
@@ -809,7 +809,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                         }
                     } else {
                         if (selected) {
-                            this.selection = this.selection.filter((val, i) => i != index);
+                            this.selection = this.selection.filter((val, i) => i !== index);
                             this.onNodeUnselect.emit({originalEvent: event, node});
                         } else {
                             this.selection = [...this.selection || [], node];
@@ -921,11 +921,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                 if (!select) {
                     const index = this.findIndexInSelection(node);
                     if (index >= 0) {
-                        this.selection = this.selection.filter((val, i) => i != index);
+                        this.selection = this.selection.filter((val, i) => i !== index);
                     }
                 }
 
-                if (childPartialSelected || selectedCount > 0 && selectedCount != node.children.length) {
+                if (childPartialSelected || selectedCount > 0 && selectedCount !== node.children.length) {
                     node.partialSelected = true;
                 } else {
                     node.partialSelected = false;
@@ -947,7 +947,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         if (select && index === -1) {
             this.selection = [...this.selection || [], node];
         } else if (!select && index > -1) {
-            this.selection = this.selection.filter((val, i) => i != index);
+            this.selection = this.selection.filter((val, i) => i !== index);
         }
 
         node.partialSelected = false;
@@ -962,7 +962,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     isSelected(node: TreeNode) {
-        return this.findIndexInSelection(node) != -1;
+        return this.findIndexInSelection(node) !== -1;
     }
 
     isSingleSelectionMode() {
@@ -1067,11 +1067,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                 if (typeof dragScope === 'string') {
                     return dropScope === dragScope;
                 } else if (dragScope instanceof Array) {
-                    return (dragScope as Array<any>).indexOf(dropScope) != -1;
+                    return (dragScope as Array<any>).indexOf(dropScope) !== -1;
  }
             } else if (dropScope instanceof Array) {
                 if (typeof dragScope === 'string') {
-                    return (dropScope as Array<any>).indexOf(dragScope) != -1;
+                    return (dropScope as Array<any>).indexOf(dragScope) !== -1;
                 } else if (dragScope instanceof Array) {
                     for (const s of dropScope) {
                         for (const ds of dragScope) {

@@ -280,7 +280,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
 
         const index = this.findIndexInSelection(item, selectedItems);
-        const selected = (index != -1);
+        const selected = (index !== -1);
         const metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
         if (metaSelection) {
@@ -382,7 +382,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = selectedItems[i];
                 const selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-                if (selectedItemIndex != 0) {
+                if (selectedItemIndex !== 0) {
                     const movedItem = list[selectedItemIndex];
                     const temp = list[selectedItemIndex - 1];
                     list[selectedItemIndex - 1] = movedItem;
@@ -405,7 +405,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = selectedItems[i];
                 const selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-                if (selectedItemIndex != 0) {
+                if (selectedItemIndex !== 0) {
                     const movedItem = list.splice(selectedItemIndex, 1)[0];
                     list.unshift(movedItem);
                 } else {
@@ -425,7 +425,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = selectedItems[i];
                 const selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-                if (selectedItemIndex != (list.length - 1)) {
+                if (selectedItemIndex !== (list.length - 1)) {
                     const movedItem = list[selectedItemIndex];
                     const temp = list[selectedItemIndex + 1];
                     list[selectedItemIndex + 1] = movedItem;
@@ -448,7 +448,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = selectedItems[i];
                 const selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-                if (selectedItemIndex != (list.length - 1)) {
+                if (selectedItemIndex !== (list.length - 1)) {
                     const movedItem = list.splice(selectedItemIndex, 1)[0];
                     list.push(movedItem);
                 } else {
@@ -559,7 +559,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     isSelected(item: any, selectedItems: any[]) {
-        return this.findIndexInSelection(item, selectedItems) != -1;
+        return this.findIndexInSelection(item, selectedItems) !== -1;
     }
 
     findIndexInSelection(item: any, selectedItems: any[]): number {

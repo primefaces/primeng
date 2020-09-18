@@ -47,7 +47,7 @@ export class GMapDemo implements OnInit {
     }
 
     handleOverlayClick(event) {
-        const isMarker = event.overlay.getTitle != undefined;
+        const isMarker = event.overlay.getTitle !== undefined;
 
         if (isMarker) {
             const title = event.overlay.getTitle();

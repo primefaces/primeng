@@ -477,8 +477,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         const max = Math.max(rgb.r, rgb.g, rgb.b);
         const delta = max - min;
         hsb.b = max;
-        hsb.s = max != 0 ? 255 * delta / max : 0;
-        if (hsb.s != 0) {
+        hsb.s = max !== 0 ? 255 * delta / max : 0;
+        if (hsb.s !== 0) {
             if (rgb.r === max) {
                 hsb.h = (rgb.g - rgb.b) / delta;
             } else if (rgb.g === max) {

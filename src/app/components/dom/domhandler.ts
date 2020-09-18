@@ -436,7 +436,7 @@ export class DomHandler {
 
     public static isElement(obj: any) {
         return (typeof HTMLElement === 'object' ? obj instanceof HTMLElement :
-            obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string'
+            obj && typeof obj === 'object' && obj != null && obj.nodeType === 1 && typeof obj.nodeName === 'string'
         );
     }
 
@@ -445,7 +445,7 @@ export class DomHandler {
             const style = getComputedStyle(el);
             return (el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth));
         } else {
-            if (this.calculatedScrollbarWidth !== null) {
+            if (this.calculatedScrollbarWidth != null) {
                 return this.calculatedScrollbarWidth;
             }
 
@@ -463,7 +463,7 @@ export class DomHandler {
     }
 
     public static calculateScrollbarHeight(): number {
-        if (this.calculatedScrollbarHeight !== null) {
+        if (this.calculatedScrollbarHeight != null) {
             return this.calculatedScrollbarHeight;
         }
 
@@ -556,7 +556,7 @@ export class DomHandler {
 
         const visibleFocusableElements = [];
         for (const focusableElement of focusableElements) {
-                if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') {
+                if (getComputedStyle(focusableElement).display !== 'none' && getComputedStyle(focusableElement).visibility !== 'hidden') {
                     visibleFocusableElements.push(focusableElement);
                 }
             }

@@ -409,7 +409,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     selectItem(event, option) {
-        if (this.selectedOption != option) {
+        if (this.selectedOption !== option) {
             this.selectedOption = option;
             this.value = option.value;
             this.filled = true;
@@ -976,7 +976,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             return opt;
         } else {
             const index: number = this.findOptionIndex(val, opts);
-            return (index != -1) ? opts[index] : null;
+            return (index !== -1) ? opts[index] : null;
         }
     }
 

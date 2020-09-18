@@ -761,7 +761,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             result = 0;
  }
         if (typeof value1 === 'string' || value1 instanceof String) {
-            if (value1.localeCompare && (value1 != value2)) {
+            if (value1.localeCompare && (value1 !== value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2, undefined, {numeric: true}));
             }
         } else {
@@ -1001,7 +1001,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             const containerOffset = DomHandler.getOffset(this.containerViewChild.nativeElement);
             const dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
-            if (this.draggedColumn != dropHeader) {
+            if (this.draggedColumn !== dropHeader) {
                 const targetLeft = dropHeaderOffset.left - containerOffset.left;
                 const targetTop = containerOffset.top - dropHeaderOffset.top;
                 const columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
@@ -1040,7 +1040,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (this.draggedColumn) {
             const dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'ttreorderablecolumn');
             let dropIndex = DomHandler.indexWithinGroup(dropColumn, 'ttreorderablecolumn');
-            let allowDrop = (dragIndex != dropIndex);
+            let allowDrop = (dragIndex !== dropIndex);
             if (allowDrop && ((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dragIndex - dropIndex === 1 && this.dropPosition === 1))) {
                 allowDrop = false;
             }
@@ -1094,7 +1094,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         this.selectionChange.emit(null);
                     } else {
                         const selectionIndex = this.findIndexInSelection(rowNode.node);
-                        this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                        this._selection = this.selection.filter((val, i) => i !== selectionIndex);
                         this.selectionChange.emit(this.selection);
                         if (dataKeyValue) {
                             delete this.selectionKeys[dataKeyValue];
@@ -1146,7 +1146,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 } else if (this.selectionMode === 'multiple') {
                     if (selected) {
                         const selectionIndex = this.findIndexInSelection(rowNode.node);
-                        this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                        this._selection = this.selection.filter((val, i) => i !== selectionIndex);
                         this.selectionChange.emit(this.selection);
                         this.onNodeUnselect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row' });
                         if (dataKeyValue) {
@@ -1277,7 +1277,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 if (!select) {
                     const index = this.findIndexInSelection(node);
                     if (index >= 0) {
-                        this._selection =  this.selection.filter((val, i) => i != index);
+                        this._selection =  this.selection.filter((val, i) => i !== index);
 
                         if (dataKeyValue) {
                             delete this.selectionKeys[dataKeyValue];
@@ -1285,7 +1285,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     }
                 }
 
-                if (childPartialSelected || selectedChildCount > 0 && selectedChildCount != node.children.length) {
+                if (childPartialSelected || selectedChildCount > 0 && selectedChildCount !== node.children.length) {
                     node.partialSelected = true;
                 } else {
                     node.partialSelected = false;
@@ -1309,7 +1309,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 this.selectionKeys[dataKeyValue] = 1;
             }
         } else if (!select && index > -1) {
-            this._selection =  this.selection.filter((val, i) => i != index);
+            this._selection =  this.selection.filter((val, i) => i !== index);
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
@@ -1388,7 +1388,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     isFilterBlank(filter: any): boolean {
-        if (filter !== null && filter !== undefined) {
+        if (filter != null && filter !== undefined) {
             if ((typeof filter === 'string' && filter.trim().length === 0) || (filter instanceof Array && filter.length === 0)) {
                 return true;
             } else {

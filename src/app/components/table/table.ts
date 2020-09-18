@@ -849,7 +849,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
  } else if (value1 === null && value2 === null) {
             result = 0;
  } else if (typeof value1 === 'string' || value1 instanceof String) {
-            if (value1.localeCompare && (value1 != value2)) {
+            if (value1.localeCompare && (value1 !== value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));
             }
         } else {
@@ -930,7 +930,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             this.selectionChange.emit(null);
                         } else {
                             const selectionIndex = this.findIndexInSelection(rowData);
-                            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                            this._selection = this.selection.filter((val, i) => i !== selectionIndex);
                             this.selectionChange.emit(this.selection);
                             if (dataKeyValue) {
                                 delete this.selectionKeys[dataKeyValue];
@@ -982,7 +982,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     } else if (this.selectionMode === 'multiple') {
                         if (selected) {
                             const selectionIndex = this.findIndexInSelection(rowData);
-                            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                            this._selection = this.selection.filter((val, i) => i !== selectionIndex);
                             this.selectionChange.emit(this.selection);
                             this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
                             if (dataKeyValue) {
@@ -1100,7 +1100,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         for (let i = rangeStart; i <= rangeEnd; i++) {
             const rangeRowData = this.value[i];
             const selectionIndex = this.findIndexInSelection(rangeRowData);
-            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+            this._selection = this.selection.filter((val, i) => i !== selectionIndex);
             const dataKeyValue: string = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
@@ -1142,7 +1142,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     toggleRowWithRadio(event: any, rowData: any) {
         this.preventSelectionSetterPropagation = true;
 
-        if (this.selection != rowData) {
+        if (this.selection !== rowData) {
             this._selection = rowData;
             this.selectionChange.emit(this.selection);
             this.onRowSelect.emit({originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton'});
@@ -1172,7 +1172,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (selected) {
             const selectionIndex = this.findIndexInSelection(rowData);
-            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+            this._selection = this.selection.filter((val, i) => i !== selectionIndex);
             this.selectionChange.emit(this.selection);
             this.onRowUnselect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'checkbox' });
             if (dataKeyValue) {
@@ -1235,7 +1235,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isFilterBlank(filter: any): boolean {
-        if (filter !== null && filter !== undefined) {
+        if (filter != null && filter !== undefined) {
             if ((typeof filter === 'string' && filter.trim().length === 0) || (filter instanceof Array && filter.length === 0)) {
                 return true;
             } else {
@@ -1779,7 +1779,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             const containerOffset = DomHandler.getOffset(this.containerViewChild.nativeElement);
             const dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
-            if (this.draggedColumn != dropHeader) {
+            if (this.draggedColumn !== dropHeader) {
                 const dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
                 const dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
                 const targetLeft = dropHeaderOffset.left - containerOffset.left;
@@ -1825,7 +1825,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.draggedColumn) {
             const dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
             let dropIndex = DomHandler.indexWithinGroup(dropColumn, 'preorderablecolumn');
-            let allowDrop = (dragIndex != dropIndex);
+            let allowDrop = (dragIndex !== dropIndex);
             if (allowDrop && ((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dragIndex - dropIndex === 1 && this.dropPosition === 1))) {
                 allowDrop = false;
             }

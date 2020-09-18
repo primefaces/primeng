@@ -133,7 +133,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     updateFilledState() {
         if (!this.value || this.value.length === 0) {
-            this.filled = (this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '');
+            this.filled = (this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value !== '');
         } else {
             this.filled = true;
         }
@@ -202,7 +202,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         }
 
         const removedItem = this.value[index];
-        this.value = this.value.filter((val, i) => i != index);
+        this.value = this.value.filter((val, i) => i !== index);
         this.onModelChange(this.value);
         this.onRemove.emit({
             originalEvent: event,

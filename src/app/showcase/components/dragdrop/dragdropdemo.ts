@@ -29,7 +29,7 @@ export class DragDropDemo {
         if (this.draggedProduct) {
             const draggedProductIndex = this.findIndex(this.draggedProduct);
             this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
-            this.availableProducts = this.availableProducts.filter((val, i) => i != draggedProductIndex);
+            this.availableProducts = this.availableProducts.filter((val, i) => i !== draggedProductIndex);
             this.draggedProduct = null;
         }
     }

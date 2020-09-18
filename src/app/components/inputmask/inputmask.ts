@@ -197,7 +197,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
         this.buffer = [];
         for (let i = 0; i < maskTokens.length; i++) {
             const c = maskTokens[i];
-            if (c != '?') {
+            if (c !== '?') {
                 if (this.defs[c]) {
                     this.buffer.push(this.getPlaceholder(i));
                 } else {
@@ -382,7 +382,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
         this.updateFilledState();
         this.onBlur.emit(e);
 
-        if (this.inputViewChild.nativeElement.value != this.focusText || this.inputViewChild.nativeElement.value != this.value) {
+        if (this.inputViewChild.nativeElement.value !== this.focusText || this.inputViewChild.nativeElement.value !== this.value) {
             this.updateModel(e);
             const event = document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
@@ -614,7 +614,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
         const unmaskedBuffer = [];
         for (let i = 0; i < this.buffer.length; i++) {
             const c = this.buffer[i];
-            if (this.tests[i] && c != this.getPlaceholder(i)) {
+            if (this.tests[i] && c !== this.getPlaceholder(i)) {
                 unmaskedBuffer.push(c);
             }
         }
@@ -624,14 +624,14 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
 
     updateModel(e) {
         const updatedValue = this.unmask ? this.getUnmaskedValue() : e.target.value;
-        if (updatedValue !== null || updatedValue !== undefined) {
+        if (updatedValue != null || updatedValue !== undefined) {
             this.value = updatedValue;
             this.onModelChange(this.value);
         }
     }
 
     updateFilledState() {
-        this.filled = this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '';
+        this.filled = this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value !== '';
     }
 
     focus() {

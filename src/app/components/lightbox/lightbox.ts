@@ -241,7 +241,7 @@ export class Lightbox implements AfterViewInit, OnDestroy {
     }
 
     get leftVisible(): boolean {
-        return this.images && this.images.length && this.index != 0 && !this.loading;
+        return this.images && this.images.length && this.index !== 0 && !this.loading;
     }
 
     get rightVisible(): boolean {

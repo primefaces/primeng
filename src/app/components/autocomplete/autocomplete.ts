@@ -314,7 +314,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     writeValue(value: any): void {
         this.value = value;
-        this.filled = this.value && this.value != '';
+        this.filled = this.value && this.value !== '';
         this.updateInputField();
     }
 
@@ -518,7 +518,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     removeItem(item: any) {
         const itemIndex = DomHandler.index(item);
         const removedValue = this.value[itemIndex];
-        this.value = this.value.filter((val, i) => i != itemIndex);
+        this.value = this.value.filter((val, i) => i !== itemIndex);
         this.onModelChange(this.value);
         this.updateFilledState();
         this.onUnselect.emit(removedValue);
@@ -531,9 +531,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             switch (event.which) {
                 // down
                 case 40:
-                    if (highlightItemIndex != -1) {
+                    if (highlightItemIndex !== -1) {
                         const nextItemIndex = highlightItemIndex + 1;
-                        if (nextItemIndex != (this.suggestions.length)) {
+                        if (nextItemIndex !== (this.suggestions.length)) {
                             this.highlightOption = this.suggestions[nextItemIndex];
                             this.highlightOptionChanged = true;
                         }
@@ -689,9 +689,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     updateFilledState() {
         if (this.multiple) {
-            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value !== '');
         } else {
-            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');
+            this.filled = (this.inputFieldValue && this.inputFieldValue !== '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value !== '');
         }
     }
 

@@ -223,7 +223,7 @@ export class OrganizationChart implements AfterContentInit {
                 }
             } else if (this.selectionMode === 'multiple') {
                 if (selected) {
-                    this.selection = this.selection.filter((val, i) => i != index);
+                    this.selection = this.selection.filter((val, i) => i !== index);
                     this.onNodeUnselect.emit({originalEvent: event, node});
                 } else {
                     this.selection = [...this.selection || [], node];
@@ -256,7 +256,7 @@ export class OrganizationChart implements AfterContentInit {
     }
 
     isSelected(node: TreeNode) {
-        return this.findIndexInSelection(node) != -1;
+        return this.findIndexInSelection(node) !== -1;
     }
 }
 

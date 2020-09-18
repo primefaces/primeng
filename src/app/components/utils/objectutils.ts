@@ -22,23 +22,23 @@ export class ObjectUtils {
 
             if (arrA && arrB) {
                 length = obj1.length;
-                if (length != obj2.length) { return false; }
+                if (length !== obj2.length) { return false; }
                 for (i = length; i-- !== 0;) {
                     if (!this.equalsByValue(obj1[i], obj2[i])) { return false; }
                 }
                 return true;
             }
 
-            if (arrA != arrB) { return false; }
+            if (arrA !== arrB) { return false; }
 
             const dateA = obj1 instanceof Date
                 , dateB = obj2 instanceof Date;
-            if (dateA != dateB) { return false; }
+            if (dateA !== dateB) { return false; }
             if (dateA && dateB) { return obj1.getTime() === obj2.getTime(); }
 
             const regexpA = obj1 instanceof RegExp
                 , regexpB = obj2 instanceof RegExp;
-            if (regexpA != regexpB) { return false; }
+            if (regexpA !== regexpB) { return false; }
             if (regexpA && regexpB) { return obj1.toString() === obj2.toString(); }
 
             const keys = Object.keys(obj1);

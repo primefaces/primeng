@@ -95,7 +95,7 @@ export class FilterUtils {
         if (value.getTime && filter.getTime) {
             return value.getTime() !== filter.getTime();
         } else {
-            return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) != ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+            return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) !== ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
         }
     }
 

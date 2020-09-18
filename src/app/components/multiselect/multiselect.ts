@@ -430,8 +430,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
         const optionValue = option.value;
         const selectionIndex = this.findSelectionIndex(optionValue);
-        if (selectionIndex != -1) {
-            this.value = this.value.filter((val, i) => i != selectionIndex);
+        if (selectionIndex !== -1) {
+            this.value = this.value.filter((val, i) => i !== selectionIndex);
 
             if (this.selectionLimit) {
                 this.maxSelectionLimitReached = false;
@@ -451,7 +451,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isSelected(value) {
-        return this.findSelectionIndex(value) != -1;
+        return this.findSelectionIndex(value) !== -1;
     }
 
     findSelectionIndex(val: any): number {

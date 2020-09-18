@@ -283,11 +283,11 @@ export class Spinner implements OnInit, ControlValueAccessor {
             }
 
             if (!isNaN(value)) {
-                if (this.max !== null && value > this.max) {
+                if (this.max != null && value > this.max) {
                     value = this.max;
                 }
 
-                if (this.min !== null && value < this.min) {
+                if (this.min != null && value < this.min) {
                     value = this.min;
                 }
             } else {

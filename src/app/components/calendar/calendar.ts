@@ -216,7 +216,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     set minDate(date: Date) {
         this._minDate = date;
 
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+        if (this.currentMonth !== undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
@@ -228,7 +228,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     set maxDate(date: Date) {
         this._maxDate = date;
 
-        if (this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
+        if (this.currentMonth !== undefined && this.currentMonth != null  && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
@@ -239,7 +239,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
-        if (this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
+        if (this.currentMonth !== undefined && this.currentMonth != null  && this.currentYear) {
 
             this.createMonths(this.currentMonth, this.currentYear);
         }
@@ -252,7 +252,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     set disabledDays(disabledDays: number[]) {
         this._disabledDays = disabledDays;
 
-        if (this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
+        if (this.currentMonth !== undefined && this.currentMonth != null  && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
@@ -1522,7 +1522,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     }
                 } else {
                     if (focusedIndex === -1 || focusedIndex === (focusableElements.length - 1)) {
-                        if (!this.focusTrap && focusedIndex != -1) {
+                        if (!this.focusTrap && focusedIndex !== -1) {
                             return this.hideOverlay();
                         } else {
                             focusableElements[0].focus();
@@ -2173,7 +2173,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
 
-        if (this.hourFormat === '12' && hours > 11 && hours != 12) {
+        if (this.hourFormat === '12' && hours > 11 && hours !== 12) {
             hours -= 12;
         }
 
@@ -2400,7 +2400,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     updateFilledState() {
-        this.filled = this.inputFieldValue && this.inputFieldValue != '';
+        this.filled = this.inputFieldValue && this.inputFieldValue !== '';
     }
 
     onTodayButtonClick(event) {

@@ -170,7 +170,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     onItemClick(event, item, index) {
         this.itemTouched = false;
         const selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
-        const selected = (selectedIndex != -1);
+        const selected = (selectedIndex !== -1);
         const metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
         if (metaSelection) {
@@ -230,7 +230,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     isSelected(item: any) {
-        return ObjectUtils.findIndexInList(item, this.selection) != -1;
+        return ObjectUtils.findIndexInList(item, this.selection) !== -1;
     }
 
     moveUp(event) {
@@ -239,7 +239,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = this.selection[i];
                 const selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != 0) {
+                if (selectedItemIndex !== 0) {
                     const movedItem = this.value[selectedItemIndex];
                     const temp = this.value[selectedItemIndex - 1];
                     this.value[selectedItemIndex - 1] = movedItem;
@@ -260,7 +260,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = this.selection[i];
                 const selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != 0) {
+                if (selectedItemIndex !== 0) {
                     const movedItem = this.value.splice(selectedItemIndex, 1)[0];
                     this.value.unshift(movedItem);
                 } else {
@@ -279,7 +279,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = this.selection[i];
                 const selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != (this.value.length - 1)) {
+                if (selectedItemIndex !== (this.value.length - 1)) {
                     const movedItem = this.value[selectedItemIndex];
                     const temp = this.value[selectedItemIndex + 1];
                     this.value[selectedItemIndex + 1] = movedItem;
@@ -300,7 +300,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 const selectedItem = this.selection[i];
                 const selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != (this.value.length - 1)) {
+                if (selectedItemIndex !== (this.value.length - 1)) {
                     const movedItem = this.value.splice(selectedItemIndex, 1)[0];
                     this.value.push(movedItem);
                 } else {
