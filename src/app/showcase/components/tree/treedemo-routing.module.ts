@@ -11,8 +11,8 @@ import {TreeDragDropDemo} from './treedragdropdemo';
 import {TreeHorizontalDemo} from './treehorizontaldemo';
 
 @NgModule({
-	imports: [
-		RouterModule.forChild([
+    imports: [
+        RouterModule.forChild([
             {path: '', component: TreeDemo},
             {path: 'templating', component: TreeTemplatingDemo},
             {path: 'selection', component: TreeSelectionDemo},
@@ -22,10 +22,10 @@ import {TreeHorizontalDemo} from './treehorizontaldemo';
             {path: 'contextmenu', component: TreeContextMenuDemo},
             {path: 'dragdrop', component: TreeDragDropDemo},
             {path: 'horizontal', component: TreeHorizontalDemo}
-		])
-	],
-	exports: [
-		RouterModule
-	]
+        ])
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class TreeDemoRoutingModule {}

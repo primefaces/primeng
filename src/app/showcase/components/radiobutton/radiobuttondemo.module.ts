@@ -9,17 +9,17 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		RadioButtonDemoRoutingModule,
+        RadioButtonDemoRoutingModule,
         RadioButtonModule,
-		TabViewModule,
-		AppCodeModule,
-		AppInputStyleSwitchModule
-	],
-	declarations: [
-		RadioButtonDemo
-	]
+        TabViewModule,
+        AppCodeModule,
+        AppInputStyleSwitchModule
+    ],
+    declarations: [
+        RadioButtonDemo
+    ]
 })
 export class RadioButtonDemoModule {}

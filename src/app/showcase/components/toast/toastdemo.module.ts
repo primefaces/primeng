@@ -9,17 +9,17 @@ import {RippleModule} from 'primeng/ripple';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ToastDemoRoutingModule,
+    imports: [
+        CommonModule,
+        ToastDemoRoutingModule,
         ToastModule,
         ButtonModule,
         TabViewModule,
         RippleModule,
         AppCodeModule
-	],
-	declarations: [
-		ToastDemo
-	]
+    ],
+    declarations: [
+        ToastDemo
+    ]
 })
 export class ToastDemoModule {}

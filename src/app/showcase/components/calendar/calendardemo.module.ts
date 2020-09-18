@@ -9,17 +9,17 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		CalendarDemoRoutingModule,
+        CalendarDemoRoutingModule,
         CalendarModule,
-		TabViewModule,
-		AppInputStyleSwitchModule,
-		AppCodeModule
-	],
-	declarations: [
-		CalendarDemo
-	]
+        TabViewModule,
+        AppInputStyleSwitchModule,
+        AppCodeModule
+    ],
+    declarations: [
+        CalendarDemo
+    ]
 })
 export class CalendarDemoModule {}

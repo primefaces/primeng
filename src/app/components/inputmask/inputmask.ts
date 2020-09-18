@@ -179,19 +179,19 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
         for (let i = 0; i < maskTokens.length; i++) {
             const c = maskTokens[i];
             if (c == '?') {
-				this.len--;
-				this.partialPosition = i;
-			} else if (this.defs[c]) {
-				this.tests.push(new RegExp(this.defs[c]));
-				if (this.firstNonMaskPos === null) {
-	                this.firstNonMaskPos = this.tests.length - 1;
-				}
+                this.len--;
+                this.partialPosition = i;
+            } else if (this.defs[c]) {
+                this.tests.push(new RegExp(this.defs[c]));
+                if (this.firstNonMaskPos === null) {
+                    this.firstNonMaskPos = this.tests.length - 1;
+                }
     if (i < this.partialPosition) {
                     this.lastRequiredNonMaskPos = this.tests.length - 1;
                 }
-			} else {
-				this.tests.push(null);
-			}
+            } else {
+                this.tests.push(null);
+            }
         }
 
         this.buffer = [];
@@ -258,15 +258,15 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
             }
         } else {
             if (this.inputViewChild.nativeElement.setSelectionRange) {
-    			begin = this.inputViewChild.nativeElement.selectionStart;
-    			end = this.inputViewChild.nativeElement.selectionEnd;
-    		} else if (document['selection'] && document['selection'].createRange) {
-    			range = document['selection'].createRange();
-    			begin = 0 - range.duplicate().moveStart('character', -100000);
-    			end = begin + range.text.length;
-    		}
+                begin = this.inputViewChild.nativeElement.selectionStart;
+                end = this.inputViewChild.nativeElement.selectionEnd;
+            } else if (document['selection'] && document['selection'].createRange) {
+                range = document['selection'].createRange();
+                begin = 0 - range.duplicate().moveStart('character', -100000);
+                end = begin + range.text.length;
+            }
 
-    		      return {begin, end};
+                  return {begin, end};
         }
     }
 
@@ -415,7 +415,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             this.clearBuffer(begin, end);
-			         this.shiftL(begin, end - 1);
+                     this.shiftL(begin, end - 1);
             this.updateModel(e);
             this.onInput.emit(e);
 

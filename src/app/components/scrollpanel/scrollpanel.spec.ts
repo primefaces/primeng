@@ -5,8 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 
 @Component({
-	template: `
-	<div style="width: 300px;">
+    template: `
+    <div style="width: 300px;">
         <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custombar1">
             <div style="padding:1em;line-height:1.5;width:600px;">
                 The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved
@@ -21,98 +21,98 @@ import { Component } from '@angular/core';
                 good of the family.
             </div>
         </p-scrollPanel>
-	</div>
-	`
+    </div>
+    `
 })
 class TestScrollPanelComponent {
 }
 
 describe('ScrollPanel', () => {
 
-	let scrollpanel: ScrollPanel;
-	let fixture: ComponentFixture<TestScrollPanelComponent>;
+    let scrollpanel: ScrollPanel;
+    let fixture: ComponentFixture<TestScrollPanelComponent>;
 
-	beforeEach(() => {
-	TestBed.configureTestingModule({
-		imports: [
-			NoopAnimationsModule
-		],
-		declarations: [
-			ScrollPanel,
-			TestScrollPanelComponent
-		]
-	});
+    beforeEach(() => {
+    TestBed.configureTestingModule({
+        imports: [
+            NoopAnimationsModule
+        ],
+        declarations: [
+            ScrollPanel,
+            TestScrollPanelComponent
+        ]
+    });
 
-	fixture = TestBed.createComponent(TestScrollPanelComponent);
-	scrollpanel = fixture.debugElement.children[0].children[0].children[0].componentInstance;
-	});
+    fixture = TestBed.createComponent(TestScrollPanelComponent);
+    scrollpanel = fixture.debugElement.children[0].children[0].children[0].componentInstance;
+    });
 
-	it('should created by default', () => {
-		fixture.detectChanges();
+    it('should created by default', () => {
+        fixture.detectChanges();
 
-		const scrollPanelEl = fixture.debugElement.query(By.css('.p-scrollpanel'));
-		expect(scrollPanelEl.nativeElement).toBeTruthy();
-	});
+        const scrollPanelEl = fixture.debugElement.query(By.css('.p-scrollpanel'));
+        expect(scrollPanelEl.nativeElement).toBeTruthy();
+    });
 
-	it('should scroll when mousedown and move (y)', fakeAsync(() => {
-		fixture.detectChanges();
+    it('should scroll when mousedown and move (y)', fakeAsync(() => {
+        fixture.detectChanges();
 
-		const scrollTopVal = scrollpanel.contentViewChild.nativeElement.scrollTop;
-		const barYEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
-		const mousedownEvent: any = document.createEvent('CustomEvent');
-		mousedownEvent.pageY = 201;
-		mousedownEvent.initEvent('mousedown', true, true);
-		const mouseMoveEvent: any = document.createEvent('CustomEvent');
-		mouseMoveEvent.pageY = 250;
+        const scrollTopVal = scrollpanel.contentViewChild.nativeElement.scrollTop;
+        const barYEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+        const mousedownEvent: any = document.createEvent('CustomEvent');
+        mousedownEvent.pageY = 201;
+        mousedownEvent.initEvent('mousedown', true, true);
+        const mouseMoveEvent: any = document.createEvent('CustomEvent');
+        mouseMoveEvent.pageY = 250;
   mouseMoveEvent.initEvent('mousemove', true, true);
-		barYEl.nativeElement.dispatchEvent(mousedownEvent);
-		fixture.detectChanges();
+        barYEl.nativeElement.dispatchEvent(mousedownEvent);
+        fixture.detectChanges();
 
-		expect(document.body.className).toContain('p-scrollpanel-grabbed');
-		document.dispatchEvent(mouseMoveEvent);
-		tick(150);
-		fixture.detectChanges();
+        expect(document.body.className).toContain('p-scrollpanel-grabbed');
+        document.dispatchEvent(mouseMoveEvent);
+        tick(150);
+        fixture.detectChanges();
 
-		expect(scrollTopVal).not.toEqual(scrollpanel.contentViewChild.nativeElement.scrollTop);
-		const mouseUpEvent: any = document.createEvent('CustomEvent');
-		mouseUpEvent.pageY = 201;
-		mouseUpEvent.initEvent('mouseup', true, true);
-		barYEl.nativeElement.dispatchEvent(mouseUpEvent);
-	}));
+        expect(scrollTopVal).not.toEqual(scrollpanel.contentViewChild.nativeElement.scrollTop);
+        const mouseUpEvent: any = document.createEvent('CustomEvent');
+        mouseUpEvent.pageY = 201;
+        mouseUpEvent.initEvent('mouseup', true, true);
+        barYEl.nativeElement.dispatchEvent(mouseUpEvent);
+    }));
 
-	it('should scroll when mousedown and move (x)', fakeAsync(() => {
-		fixture.detectChanges();
+    it('should scroll when mousedown and move (x)', fakeAsync(() => {
+        fixture.detectChanges();
 
-		const scrollLeftVal = scrollpanel.contentViewChild.nativeElement.scrollLeft;
-		const barXEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
-		const mousedownEvent: any = document.createEvent('CustomEvent');
-		mousedownEvent.pageX = 201;
-		mousedownEvent.initEvent('mousedown', true, true);
-		const mouseMoveEvent: any = document.createEvent('CustomEvent');
-		mouseMoveEvent.pageX = 250;
+        const scrollLeftVal = scrollpanel.contentViewChild.nativeElement.scrollLeft;
+        const barXEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+        const mousedownEvent: any = document.createEvent('CustomEvent');
+        mousedownEvent.pageX = 201;
+        mousedownEvent.initEvent('mousedown', true, true);
+        const mouseMoveEvent: any = document.createEvent('CustomEvent');
+        mouseMoveEvent.pageX = 250;
   mouseMoveEvent.initEvent('mousemove', true, true);
-		barXEl.nativeElement.dispatchEvent(mousedownEvent);
-		fixture.detectChanges();
+        barXEl.nativeElement.dispatchEvent(mousedownEvent);
+        fixture.detectChanges();
 
-		expect(document.body.className).toContain('p-scrollpanel-grabbed');
-		document.dispatchEvent(mouseMoveEvent);
-		tick(150);
-		fixture.detectChanges();
+        expect(document.body.className).toContain('p-scrollpanel-grabbed');
+        document.dispatchEvent(mouseMoveEvent);
+        tick(150);
+        fixture.detectChanges();
 
-		expect(scrollLeftVal).not.toEqual(scrollpanel.contentViewChild.nativeElement.scrollLeft);
-		const mouseUpEvent: any = document.createEvent('CustomEvent');
-		mouseUpEvent.pageY = 201;
-		mouseUpEvent.initEvent('mouseup', true, true);
-		barXEl.nativeElement.dispatchEvent(mouseUpEvent);
-	}));
+        expect(scrollLeftVal).not.toEqual(scrollpanel.contentViewChild.nativeElement.scrollLeft);
+        const mouseUpEvent: any = document.createEvent('CustomEvent');
+        mouseUpEvent.pageY = 201;
+        mouseUpEvent.initEvent('mouseup', true, true);
+        barXEl.nativeElement.dispatchEvent(mouseUpEvent);
+    }));
 
-	it('should scroll with scrollTop', fakeAsync(() => {
-		fixture.detectChanges();
+    it('should scroll with scrollTop', fakeAsync(() => {
+        fixture.detectChanges();
 
-		const scrollTopVal = scrollpanel.contentViewChild.nativeElement.scrollTop;
-		scrollpanel.scrollTop(150);
-		fixture.detectChanges();
+        const scrollTopVal = scrollpanel.contentViewChild.nativeElement.scrollTop;
+        scrollpanel.scrollTop(150);
+        fixture.detectChanges();
 
-		expect(scrollTopVal).not.toEqual(scrollpanel.contentViewChild.nativeElement.scrollTop);
-	}));
+        expect(scrollTopVal).not.toEqual(scrollpanel.contentViewChild.nativeElement.scrollTop);
+    }));
 });

@@ -6,14 +6,14 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		CodeHighlighterDemoRoutingModule,
+    imports: [
+        CommonModule,
+        CodeHighlighterDemoRoutingModule,
         TabViewModule,
         CodeHighlighterModule
-	],
-	declarations: [
-		CodeHighlighterDemo
-	]
+    ],
+    declarations: [
+        CodeHighlighterDemo
+    ]
 })
 export class CodeHighlighterDemoModule {}

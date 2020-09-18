@@ -90,7 +90,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     @Output() visibleChange: EventEmitter<any> = new EventEmitter();
 
-	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
 
     _visible = false;
@@ -575,11 +575,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     ngOnInit() {
         this.createStyle();
-		      this.calculatePosition();
+              this.calculatePosition();
 
-		      if (this.responsiveOptions) {
-			this.bindDocumentListeners();
-		}
+              if (this.responsiveOptions) {
+            this.bindDocumentListeners();
+        }
     }
 
     ngAfterContentChecked() {
@@ -868,7 +868,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     ngOnDestroy() {
         if (this.responsiveOptions) {
-			this.unbindDocumentListeners();
+            this.unbindDocumentListeners();
         }
 
         if (this.thumbnailsStyle) {

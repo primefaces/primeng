@@ -8,16 +8,16 @@ import {ButtonModule} from 'primeng/button';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		PaginatorDemoRoutingModule,
+    imports: [
+        CommonModule,
+        PaginatorDemoRoutingModule,
         PaginatorModule,
-		TabViewModule,
-		AppCodeModule,
-		ButtonModule
-	],
-	declarations: [
-		PaginatorDemo
-	]
+        TabViewModule,
+        AppCodeModule,
+        ButtonModule
+    ],
+    declarations: [
+        PaginatorDemo
+    ]
 })
 export class PaginatorDemoModule {}

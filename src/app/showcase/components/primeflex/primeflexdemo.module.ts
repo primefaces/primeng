@@ -23,8 +23,8 @@ import {AppCodeModule} from '../../app.code.component';
 import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
         InputTextModule,
         ButtonModule,
@@ -34,12 +34,12 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
         DropdownModule,
         InputTextareaModule,
         RippleModule,
-		PrimeFlexDemoRoutingModule,
-		TabViewModule,
-		AppCodeModule,
+        PrimeFlexDemoRoutingModule,
+        TabViewModule,
+        AppCodeModule,
         AppInputStyleSwitchModule
-	],
-	declarations: [
+    ],
+    declarations: [
         PrimeFlexSetup,
         DisplayDemo,
         ElevationDemo,
@@ -48,6 +48,6 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
         GridDemo,
         SpacingDemo,
         TextDemo
-	]
+    ]
 })
 export class PrimeFlexDemoModule {}

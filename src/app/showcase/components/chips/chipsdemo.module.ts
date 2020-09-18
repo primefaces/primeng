@@ -10,18 +10,18 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		ChipsDemoRoutingModule,
+        ChipsDemoRoutingModule,
         ChipsModule,
         ButtonModule,
-		TabViewModule,
-		AppInputStyleSwitchModule,
-		AppCodeModule
-	],
-	declarations: [
-		ChipsDemo
-	]
+        TabViewModule,
+        AppInputStyleSwitchModule,
+        AppCodeModule
+    ],
+    declarations: [
+        ChipsDemo
+    ]
 })
 export class ChipsDemoModule {}

@@ -10,17 +10,17 @@ import { AppCodeModule } from '../../app.code.component';
 
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		MultiSelectDemoRoutingModule,
+        MultiSelectDemoRoutingModule,
         MultiSelectModule,
-		TabViewModule,
-		AppInputStyleSwitchModule,
-		AppCodeModule
-	],
-	declarations: [
-		MultiSelectDemo
-	]
+        TabViewModule,
+        AppInputStyleSwitchModule,
+        AppCodeModule
+    ],
+    declarations: [
+        MultiSelectDemo
+    ]
 })
 export class MultiSelectDemoModule {}

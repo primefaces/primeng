@@ -19,29 +19,29 @@ import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
 
 @NgModule({
-	imports: [
-		RouterModule.forChild([
+    imports: [
+        RouterModule.forChild([
             {path: '', component: TreeTableDemo},
             { path: 'page', component: TreeTablePageDemo },
-			{ path: 'sort', component: TreeTableSortDemo },
-			{ path: 'selection', component: TreeTableSelectionDemo },
-			{ path: 'templating', component: TreeTableTemplatingDemo },
-			{ path: 'style', component: TreeTableStyleDemo },
-			{ path: 'lazy', component: TreeTableLazyDemo },
-			{ path: 'colgroup', component: TreeTableColGroupDemo },
+            { path: 'sort', component: TreeTableSortDemo },
+            { path: 'selection', component: TreeTableSelectionDemo },
+            { path: 'templating', component: TreeTableTemplatingDemo },
+            { path: 'style', component: TreeTableStyleDemo },
+            { path: 'lazy', component: TreeTableLazyDemo },
+            { path: 'colgroup', component: TreeTableColGroupDemo },
             { path: 'scroll', component: TreeTableScrollDemo },
             { path: 'flexscroll', component: TreeTableFlexScrollDemo },
-			{ path: 'coltoggle', component: TreeTableColToggleDemo },
-			{ path: 'responsive', component: TreeTableResponsiveDemo },
-			{ path: 'contextmenu', component: TreeTableContextMenuDemo },
-			{ path: 'colresize', component: TreeTableColResizeDemo },
-			{ path: 'reorder', component: TreeTableReorderDemo },
-			{ path: 'edit', component: TreeTableEditDemo },
-			{ path: 'filter', component: TreeTableFilterDemo }
-		])
-	],
-	exports: [
-		RouterModule
-	]
+            { path: 'coltoggle', component: TreeTableColToggleDemo },
+            { path: 'responsive', component: TreeTableResponsiveDemo },
+            { path: 'contextmenu', component: TreeTableContextMenuDemo },
+            { path: 'colresize', component: TreeTableColResizeDemo },
+            { path: 'reorder', component: TreeTableReorderDemo },
+            { path: 'edit', component: TreeTableEditDemo },
+            { path: 'filter', component: TreeTableFilterDemo }
+        ])
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class TreeTableDemoRoutingModule {}

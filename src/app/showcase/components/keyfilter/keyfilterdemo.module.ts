@@ -11,19 +11,19 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FormsModule,
-		KeyFilterDemoRoutingModule,
-		KeyFilterModule,
-		InputTextModule,
-		MessageModule,
-		TabViewModule,
-		AppInputStyleSwitchModule,
-		AppCodeModule
-	],
-	declarations: [
-		KeyFilterDemo
-	]
+    imports: [
+        CommonModule,
+        FormsModule,
+        KeyFilterDemoRoutingModule,
+        KeyFilterModule,
+        InputTextModule,
+        MessageModule,
+        TabViewModule,
+        AppInputStyleSwitchModule,
+        AppCodeModule
+    ],
+    declarations: [
+        KeyFilterDemo
+    ]
 })
 export class KeyFilterDemoModule {}

@@ -9,17 +9,17 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ConfirmDialogDemoRoutingModule,
+    imports: [
+        CommonModule,
+        ConfirmDialogDemoRoutingModule,
         ConfirmDialogModule,
         ButtonModule,
         MessagesModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		ConfirmDialogDemo
-	]
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        ConfirmDialogDemo
+    ]
 })
 export class ConfirmDialogDemoModule {}

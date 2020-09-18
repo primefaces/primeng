@@ -49,7 +49,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.keyCode = 100;
         keydownEvent.initEvent('keypress', true, true);
         const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault').and.callThrough();
@@ -64,7 +64,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.keyCode = 53;
         keydownEvent.initEvent('keypress', true, true);
         inputEl.dispatchEvent(keydownEvent as KeyboardEvent);
@@ -77,7 +77,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.keyCode = 13;
         keydownEvent.initEvent('keypress', true, true);
         const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault').and.callThrough();
@@ -91,7 +91,7 @@ describe('KeyFilter', () => {
     it('should recognize special and nav keys', () => {
         fixture.detectChanges();
 
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.keyCode = 13;
         keydownEvent.initEvent('keypress', true, true);
         fixture.detectChanges();
@@ -113,7 +113,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.keyCode = 13;
         keydownEvent.initEvent('keypress', true, true);
         const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault').and.callThrough();
@@ -128,7 +128,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.keyCode = 53;
         keydownEvent.ctrlKey = true;
         keydownEvent.initEvent('keypress', true, true);
@@ -144,7 +144,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.clipboardData = {
             getData: (type) => {
                 return '53';
@@ -163,7 +163,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const keydownEvent: any = document.createEvent('CustomEvent');
+              const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.initEvent('paste', true, true);
         keydownEvent.clipboardData = {
             getData: (type) => {
@@ -186,7 +186,7 @@ describe('KeyFilter', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		      const inputEvent: any = document.createEvent('CustomEvent');
+              const inputEvent: any = document.createEvent('CustomEvent');
 
         inputEvent.initEvent('input', true, true);
         inputEl.dispatchEvent(inputEvent);

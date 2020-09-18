@@ -8,16 +8,16 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		PasswordDemoRoutingModule,
+    imports: [
+        CommonModule,
+        PasswordDemoRoutingModule,
         PasswordModule,
-		TabViewModule,
-		AppInputStyleSwitchModule,
-		AppCodeModule
-	],
-	declarations: [
-		PasswordDemo
-	]
+        TabViewModule,
+        AppInputStyleSwitchModule,
+        AppCodeModule
+    ],
+    declarations: [
+        PasswordDemo
+    ]
 })
 export class PasswordDemoModule {}

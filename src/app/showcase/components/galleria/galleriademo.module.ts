@@ -18,25 +18,25 @@ import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		GalleriaDemoRoutingModule,
+    imports: [
+        CommonModule,
+        GalleriaDemoRoutingModule,
         GalleriaModule,
         TabViewModule,
-		AppCodeModule,
-		ButtonModule
-	],
-	declarations: [
-		GalleriaDemo,
-		GalleriaProgrammaticDemo,
-		GalleriaIndicatorDemo,
-		GalleriaThumbnailDemo,
-		GalleriaNavigatorDemo,
-		GalleriaResponsiveDemo,
-		GalleriaFullscreenDemo,
-		GalleriaAutoPlayDemo,
-		GalleriaCaptionDemo,
-		GalleriaAdvancedDemo
-	]
+        AppCodeModule,
+        ButtonModule
+    ],
+    declarations: [
+        GalleriaDemo,
+        GalleriaProgrammaticDemo,
+        GalleriaIndicatorDemo,
+        GalleriaThumbnailDemo,
+        GalleriaNavigatorDemo,
+        GalleriaResponsiveDemo,
+        GalleriaFullscreenDemo,
+        GalleriaAutoPlayDemo,
+        GalleriaCaptionDemo,
+        GalleriaAdvancedDemo
+    ]
 })
 export class GalleriaDemoModule {}

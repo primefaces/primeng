@@ -9,17 +9,17 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		CheckboxDemoRoutingModule,
+        CheckboxDemoRoutingModule,
         CheckboxModule,
-		AppInputStyleSwitchModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		CheckboxDemo
-	]
+        AppInputStyleSwitchModule,
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        CheckboxDemo
+    ]
 })
 export class CheckboxDemoModule {}

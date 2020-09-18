@@ -8,16 +8,16 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		TieredMenuDemoRoutingModule,
+    imports: [
+        CommonModule,
+        TieredMenuDemoRoutingModule,
         TieredMenuModule,
         ButtonModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		TieredMenuDemo
-	]
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        TieredMenuDemo
+    ]
 })
 export class TieredMenuDemoModule {}

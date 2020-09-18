@@ -10,18 +10,18 @@ import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		TooltipDemoRoutingModule,
+    imports: [
+        CommonModule,
+        TooltipDemoRoutingModule,
         TooltipModule,
         InputTextModule,
-		TabViewModule,
-		AppCodeModule,
-		ButtonModule,
-		RippleModule
-	],
-	declarations: [
-		TooltipDemo
-	]
+        TabViewModule,
+        AppCodeModule,
+        ButtonModule,
+        RippleModule
+    ],
+    declarations: [
+        TooltipDemo
+    ]
 })
 export class TooltipDemoModule {}

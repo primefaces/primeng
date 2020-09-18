@@ -9,14 +9,14 @@ export class IconsComponent implements OnInit {
 
     icons: any [];
 
-	filteredIcons: any [];
+    filteredIcons: any [];
 
     selectedIcon: any;
 
     constructor(private iconService: IconService) {}
 
-	ngOnInit() {
-		this.iconService.getIcons().subscribe(data => {
+    ngOnInit() {
+        this.iconService.getIcons().subscribe(data => {
             const icons = data;
             icons.sort((icon1, icon2) => {
                 if (icon1.properties.name < icon2.properties.name) {
@@ -29,14 +29,14 @@ export class IconsComponent implements OnInit {
             });
 
             this.icons = icons;
-			         this.filteredIcons = data;
-		});
-	}
+            this.filteredIcons = data;
+        });
+    }
 
     onFilter(event: KeyboardEvent): void {
         const searchText = (event.target as HTMLInputElement).value;
 
-		      if (!searchText) {
+        if (!searchText) {
             this.filteredIcons = this.icons;
         } else {
             this.filteredIcons = this.icons.filter( it => {

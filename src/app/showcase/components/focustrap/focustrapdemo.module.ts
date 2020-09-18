@@ -17,9 +17,9 @@ import { FocusTrapModule } from 'primeng/focustrap';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FocusTrapDemoRoutingModule,
+    imports: [
+        CommonModule,
+        FocusTrapDemoRoutingModule,
         FormsModule,
         DialogModule,
         ButtonModule,
@@ -28,14 +28,14 @@ import { AppCodeModule } from '../../app.code.component';
         TabViewModule,
         AppCodeModule,
         FocusTrapModule,
-		AutoCompleteModule,
-		CalendarModule,
-		MultiSelectModule,
-		DropdownModule,
-		EditorModule
-	],
-	declarations: [
-		FocusTrapDemo
-	]
+        AutoCompleteModule,
+        CalendarModule,
+        MultiSelectModule,
+        DropdownModule,
+        EditorModule
+    ],
+    declarations: [
+        FocusTrapDemo
+    ]
 })
 export class FocusTrapDemoModule {}

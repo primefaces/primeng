@@ -12,22 +12,22 @@ import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
 import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 
 @NgModule({
-	imports: [
-		RouterModule.forChild([
-			{path: '', component: GalleriaDemo},
-			{path: 'programmatic', component: GalleriaProgrammaticDemo},
-			{path: 'indicator', component: GalleriaIndicatorDemo},
-			{path: 'thumbnail', component: GalleriaThumbnailDemo},
-			{path: 'navigator', component: GalleriaNavigatorDemo},
-			{path: 'responsive', component: GalleriaResponsiveDemo},
-			{path: 'fullscreen', component: GalleriaFullscreenDemo},
-			{path: 'autoplay', component: GalleriaAutoPlayDemo},
-			{path: 'caption', component: GalleriaCaptionDemo},
-			{path: 'advanced', component: GalleriaAdvancedDemo}
-		])
-	],
-	exports: [
-		RouterModule
-	]
+    imports: [
+        RouterModule.forChild([
+            {path: '', component: GalleriaDemo},
+            {path: 'programmatic', component: GalleriaProgrammaticDemo},
+            {path: 'indicator', component: GalleriaIndicatorDemo},
+            {path: 'thumbnail', component: GalleriaThumbnailDemo},
+            {path: 'navigator', component: GalleriaNavigatorDemo},
+            {path: 'responsive', component: GalleriaResponsiveDemo},
+            {path: 'fullscreen', component: GalleriaFullscreenDemo},
+            {path: 'autoplay', component: GalleriaAutoPlayDemo},
+            {path: 'caption', component: GalleriaCaptionDemo},
+            {path: 'advanced', component: GalleriaAdvancedDemo}
+        ])
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class GalleriaDemoRoutingModule {}

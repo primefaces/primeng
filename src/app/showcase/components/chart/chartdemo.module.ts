@@ -14,22 +14,22 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ChartDemoRoutingModule,
+    imports: [
+        CommonModule,
+        ChartDemoRoutingModule,
         ChartModule,
         ToastModule,
         TabViewModule,
         AppCodeModule
-	],
-	declarations: [
-		ChartDemo,
+    ],
+    declarations: [
+        ChartDemo,
         PieChartDemo,
         DoughnutChartDemo,
         BarChartDemo,
         LineChartDemo,
         PolarAreaChartDemo,
         RadarChartDemo
-	]
+    ]
 })
 export class ChartDemoModule {}

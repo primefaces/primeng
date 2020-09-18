@@ -9,17 +9,17 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		AutoCompleteDemoRoutingModule,
+        AutoCompleteDemoRoutingModule,
         AutoCompleteModule,
-		TabViewModule,
-		AppInputStyleSwitchModule,
-		AppCodeModule
-	],
-	declarations: [
-		AutoCompleteDemo
-	]
+        TabViewModule,
+        AppInputStyleSwitchModule,
+        AppCodeModule
+    ],
+    declarations: [
+        AutoCompleteDemo
+    ]
 })
 export class AutoCompleteDemoModule {}

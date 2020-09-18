@@ -153,21 +153,21 @@ export class PanelMenu extends BasePanelMenuItem {
     }
 
     collapseAll() {
-    	for (const item of this.model) {
-    		if (item.expanded) {
-    			item.expanded = false;
-    		}
-    	}
+        for (const item of this.model) {
+            if (item.expanded) {
+                item.expanded = false;
+            }
+        }
     }
 
     handleClick(event, item) {
-    	if (!this.multiple) {
+        if (!this.multiple) {
             for (const modelItem of this.model) {
-        		if (item !== modelItem && modelItem.expanded) {
-        			modelItem.expanded = false;
-        		}
-        	}
-    	}
+                if (item !== modelItem && modelItem.expanded) {
+                    modelItem.expanded = false;
+                }
+            }
+        }
 
      this.animating = true;
      super.handleClick(event, item);

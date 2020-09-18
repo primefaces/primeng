@@ -7,15 +7,15 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		RippleDemoRoutingModule,
+    imports: [
+        CommonModule,
+        RippleDemoRoutingModule,
         RippleModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		RippleDemo
-	]
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        RippleDemo
+    ]
 })
 export class RippleDemoModule {}

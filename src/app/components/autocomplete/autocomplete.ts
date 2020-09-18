@@ -152,7 +152,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
 
-	@Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
 
@@ -349,7 +349,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         if (value.length === 0 && !this.multiple) {
             this.hide();
             this.onClear.emit(event);
-	           this.onModelChange(value);
+               this.onModelChange(value);
         }
 
         if (value.length >= this.minLength) {

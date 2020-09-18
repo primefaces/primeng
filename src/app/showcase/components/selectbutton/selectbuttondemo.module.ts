@@ -9,17 +9,17 @@ import {TabViewModule} from 'primeng/tabview';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		SelectButtonDemoRoutingModule,
+    imports: [
+        CommonModule,
+        SelectButtonDemoRoutingModule,
         FormsModule,
         SelectButtonModule,
         ButtonModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		SelectButtonDemo
-	]
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        SelectButtonDemo
+    ]
 })
 export class SelectButtonDemoModule {}

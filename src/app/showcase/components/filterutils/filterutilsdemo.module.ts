@@ -11,19 +11,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FilterUtilsDemoRoutingModule,
+    imports: [
+        CommonModule,
+        FilterUtilsDemoRoutingModule,
         ButtonModule,
         TabViewModule,
         AppCodeModule,
-		AutoCompleteModule,
-		FormsModule,
-		TableModule,
-		InputTextModule
-	],
-	declarations: [
-		FilterUtilsDemo
-	]
+        AutoCompleteModule,
+        FormsModule,
+        TableModule,
+        InputTextModule
+    ],
+    declarations: [
+        FilterUtilsDemo
+    ]
 })
 export class FilterUtilsDemoModule {}

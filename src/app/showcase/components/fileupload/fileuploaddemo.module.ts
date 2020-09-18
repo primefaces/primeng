@@ -9,17 +9,17 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FileUploadDemoRoutingModule,
+    imports: [
+        CommonModule,
+        FileUploadDemoRoutingModule,
         FileUploadModule,
         ToastModule,
         ButtonModule,
         TabViewModule,
         AppCodeModule
-	],
-	declarations: [
-		FileUploadDemo
-	]
+    ],
+    declarations: [
+        FileUploadDemo
+    ]
 })
 export class FileUploadDemoModule {}

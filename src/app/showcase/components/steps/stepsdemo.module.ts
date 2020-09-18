@@ -20,30 +20,30 @@ import { FormsModule } from '@angular/forms';
 import { TicketService } from './ticketservice';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		StepsDemoRoutingModule,
+    imports: [
+        CommonModule,
+        StepsDemoRoutingModule,
         StepsModule,
-		TabViewModule,
-		AppCodeModule,
-		ButtonModule,
-		CardModule,
-		InputTextModule,
-		DropdownModule,
-		InputMaskModule,
-		CheckboxModule,
-		ToastModule,
-		FormsModule
-	],
-	declarations: [
-		StepsDemo,
-		SeatDemo,
-		ConfirmationDemo,
-		PersonalDemo,
-		PaymentDemo
-	],
-	providers: [
-		TicketService
-	]
+        TabViewModule,
+        AppCodeModule,
+        ButtonModule,
+        CardModule,
+        InputTextModule,
+        DropdownModule,
+        InputMaskModule,
+        CheckboxModule,
+        ToastModule,
+        FormsModule
+    ],
+    declarations: [
+        StepsDemo,
+        SeatDemo,
+        ConfirmationDemo,
+        PersonalDemo,
+        PaymentDemo
+    ],
+    providers: [
+        TicketService
+    ]
 })
 export class StepsDemoModule {}

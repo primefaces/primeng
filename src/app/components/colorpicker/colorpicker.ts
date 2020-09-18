@@ -35,12 +35,12 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                style({ opacity: 0, transform: 'scaleY(0.8)' }),
                 animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
+            ]),
+            transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ],
     providers: [COLORPICKER_VALUE_ACCESSOR],
@@ -50,7 +50,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) { }
 
     @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
@@ -130,9 +130,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     hueHandleViewChild: ElementRef;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     onHueMousedown(event: MouseEvent) {
         if (this.disabled) {
@@ -157,7 +157,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.updateColorSelector();
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
+        this.onChange.emit({ originalEvent: event, value: this.getValueToUpdate() });
     }
 
     onColorMousedown(event: MouseEvent) {
@@ -186,7 +186,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
+        this.onChange.emit({ originalEvent: event, value: this.getValueToUpdate() });
     }
 
     getValueToUpdate() {
@@ -249,8 +249,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     updateUI() {
         if (this.colorHandleViewChild && this.hueHandleViewChild.nativeElement) {
-            this.colorHandleViewChild.nativeElement.style.left =  Math.floor(150 * this.value.s / 100) + 'px';
-            this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px';
+            this.colorHandleViewChild.nativeElement.style.left = Math.floor(150 * this.value.s / 100) + 'px';
+            this.colorHandleViewChild.nativeElement.style.top = Math.floor(150 * (100 - this.value.b) / 100) + 'px';
             this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
 
         }
@@ -460,7 +460,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     HEXtoRGB(hex) {
         const hexValue = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
-        return {r: hexValue >> 16, g: (hexValue & 0x00FF00) >> 8, b: (hexValue & 0x0000FF)};
+        return { r: hexValue >> 16, g: (hexValue & 0x00FF00) >> 8, b: (hexValue & 0x0000FF) };
     }
 
     HEXtoHSB(hex) {
@@ -516,9 +516,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             const t2: number = (255 - s) * v / 255;
             const t3: number = (t1 - t2) * (h % 60) / 60;
             if (h == 360) { h = 0; }
-            if (h < 60) {rgb.r = t1;	rgb.b = t2; rgb.g = t2 + t3; } else if (h < 120) {rgb.g = t1; rgb.b = t2;	rgb.r = t1 - t3; } else if (h < 180) {rgb.g = t1; rgb.r = t2;	rgb.b = t2 + t3; } else if (h < 240) {rgb.b = t1; rgb.r = t2;	rgb.g = t1 - t3; } else if (h < 300) {rgb.b = t1; rgb.g = t2;	rgb.r = t2 + t3; } else if (h < 360) {rgb.r = t1; rgb.g = t2;	rgb.b = t1 - t3; } else {rgb.r = 0; rgb.g = 0;	rgb.b = 0; }
+            if (h < 60) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3; } else if (h < 120) { rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3; } else if (h < 180) { rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3; } else if (h < 240) { rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3; } else if (h < 300) { rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3; } else if (h < 360) { rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3; } else { rgb.r = 0; rgb.g = 0; rgb.b = 0; }
         }
-        return {r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b)};
+        return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
     }
 
     RGBtoHEX(rgb) {

@@ -4,16 +4,16 @@ import { Product } from '../../domain/product';
 
 @Component({
     templateUrl: './carouseldemo.html',
-	styleUrls: ['./carouseldemo.scss']
+    styleUrls: ['./carouseldemo.scss']
 })
 export class CarouselDemo {
 
-	products: Product[];
+    products: Product[];
 
-	responsiveOptions;
+    responsiveOptions;
 
-	constructor(private productService: ProductService) {
-		this.responsiveOptions = [
+    constructor(private productService: ProductService) {
+        this.responsiveOptions = [
             {
                 breakpoint: '1024px',
                 numVisible: 3,
@@ -30,11 +30,11 @@ export class CarouselDemo {
                 numScroll: 1
             }
         ];
-	}
+    }
 
-	ngOnInit() {
-		this.productService.getProductsSmall().then(products => {
-			this.products = products;
-		});
-	}
+    ngOnInit() {
+        this.productService.getProductsSmall().then(products => {
+            this.products = products;
+        });
+    }
 }

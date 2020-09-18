@@ -16,8 +16,8 @@ const hideAnimation = animation([
 ]);
 
 @Component({
-	selector: 'p-dynamicDialog',
-	template: `
+    selector: 'p-dynamicDialog',
+    template: `
         <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-dialog-mask-scrollblocker': config.modal !== false}">
             <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
@@ -39,8 +39,8 @@ const hideAnimation = animation([
                 </div>
             </div>
         </div>
-	`,
-	animations: [
+    `,
+    animations: [
         trigger('animation', [
             transition('void => visible', [
                 useAnimation(showAnimation)
@@ -56,17 +56,17 @@ const hideAnimation = animation([
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
-	visible = true;
+    visible = true;
 
-	componentRef: ComponentRef<any>;
+    componentRef: ComponentRef<any>;
 
-	mask: HTMLDivElement;
+    mask: HTMLDivElement;
 
-	@ViewChild(DynamicDialogContent) insertionPoint: DynamicDialogContent;
+    @ViewChild(DynamicDialogContent) insertionPoint: DynamicDialogContent;
 
-	@ViewChild('mask') maskViewChild: ElementRef;
+    @ViewChild('mask') maskViewChild: ElementRef;
 
-	childComponentType: Type<any>;
+    childComponentType: Type<any>;
 
     container: HTMLDivElement;
 
@@ -80,70 +80,70 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     transformOptions = 'scale(0.7)';
 
-	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-			          public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
+                      public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
 
-	ngAfterViewInit() {
-		this.loadChildComponent(this.childComponentType);
-		this.cd.detectChanges();
-	}
-
-	loadChildComponent(componentType: Type<any>) {
-		const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-
-		const viewContainerRef = this.insertionPoint.viewContainerRef;
-		viewContainerRef.clear();
-
-		this.componentRef = viewContainerRef.createComponent(componentFactory);
-	}
-
-	moveOnTop() {
-        if (this.config.autoZIndex !== false) {
-			const zIndex = (this.config.baseZIndex || 0) + (++DomHandler.zindex);
-			this.container.style.zIndex = String(zIndex);
-			this.maskViewChild.nativeElement.style.zIndex = String(zIndex - 1);
-		}
+    ngAfterViewInit() {
+        this.loadChildComponent(this.childComponentType);
+        this.cd.detectChanges();
     }
 
-	onAnimationStart(event: AnimationEvent) {
-		switch (event.toState) {
-			case 'visible':
+    loadChildComponent(componentType: Type<any>) {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+
+        const viewContainerRef = this.insertionPoint.viewContainerRef;
+        viewContainerRef.clear();
+
+        this.componentRef = viewContainerRef.createComponent(componentFactory);
+    }
+
+    moveOnTop() {
+        if (this.config.autoZIndex !== false) {
+            const zIndex = (this.config.baseZIndex || 0) + (++DomHandler.zindex);
+            this.container.style.zIndex = String(zIndex);
+            this.maskViewChild.nativeElement.style.zIndex = String(zIndex - 1);
+        }
+    }
+
+    onAnimationStart(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
-				            this.moveOnTop();
+                            this.moveOnTop();
                 this.bindGlobalListeners();
 
                 if (this.config.modal !== false) {
                     this.enableModality();
                 }
                 this.focus();
-			             break;
+                         break;
 
-			case 'void':
-				this.onContainerDestroy();
-			 break;
-		}
-	}
+            case 'void':
+                this.onContainerDestroy();
+             break;
+        }
+    }
 
-	onAnimationEnd(event: AnimationEvent) {
-		if (event.toState === 'void') {
-			this.dialogRef.destroy();
-		}
-	}
+    onAnimationEnd(event: AnimationEvent) {
+        if (event.toState === 'void') {
+            this.dialogRef.destroy();
+        }
+    }
 
-	onContainerDestroy() {
-		this.unbindGlobalListeners();
+    onContainerDestroy() {
+        this.unbindGlobalListeners();
 
   if (this.config.modal !== false) {
             this.disableModality();
         }
   this.container = null;
-	}
+    }
 
-	close() {
+    close() {
         this.visible = false;
         this.cd.markForCheck();
-	}
+    }
 
     hide() {
         if (this.dialogRef) {
@@ -220,7 +220,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-	bindGlobalListeners() {
+    bindGlobalListeners() {
         this.bindDocumentKeydownListener();
 
         if (this.config.closeOnEscape !== false && this.config.closable !== false) {
@@ -247,14 +247,14 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-	bindDocumentEscapeListener() {
+    bindDocumentEscapeListener() {
         const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
                 if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + (this.config.baseZIndex ? this.config.baseZIndex : 0))) {
-					this.hide();
-				}
+                    this.hide();
+                }
             }
         });
     }
@@ -273,18 +273,18 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-	ngOnDestroy() {
-		this.onContainerDestroy();
+    ngOnDestroy() {
+        this.onContainerDestroy();
 
-		if (this.componentRef) {
-			this.componentRef.destroy();
-		}
-	}
+        if (this.componentRef) {
+            this.componentRef.destroy();
+        }
+    }
 }
 
 @NgModule({
-	imports: [CommonModule],
-	declarations: [DynamicDialogComponent, DynamicDialogContent],
-	entryComponents: [DynamicDialogComponent]
+    imports: [CommonModule],
+    declarations: [DynamicDialogComponent, DynamicDialogContent],
+    entryComponents: [DynamicDialogComponent]
 })
 export class DynamicDialogModule { }

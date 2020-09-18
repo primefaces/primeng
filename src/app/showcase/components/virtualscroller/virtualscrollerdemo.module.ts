@@ -11,19 +11,19 @@ import {TabViewModule} from 'primeng/tabview';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
+    imports: [
         CommonModule,
         FormsModule,
-		VirtualScrollerDemoRoutingModule,
+        VirtualScrollerDemoRoutingModule,
         VirtualScrollerModule,
         ButtonModule,
         InputTextModule,
         DropdownModule,
         TabViewModule,
         AppCodeModule
-	],
-	declarations: [
-		VirtualScrollerDemo
-	]
+    ],
+    declarations: [
+        VirtualScrollerDemo
+    ]
 })
 export class VirtualScrollerDemoModule {}

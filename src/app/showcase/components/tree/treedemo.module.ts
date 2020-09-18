@@ -20,10 +20,10 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		TreeDemoRoutingModule,
+        TreeDemoRoutingModule,
         TreeModule,
         ToastModule,
         ButtonModule,
@@ -31,8 +31,8 @@ import {AppCodeModule} from '../../app.code.component';
         ContextMenuModule,
         TabViewModule,
         AppCodeModule
-	],
-	declarations: [
+    ],
+    declarations: [
         TreeDemo,
         TreeTemplatingDemo,
         TreeSelectionDemo,
@@ -42,6 +42,6 @@ import {AppCodeModule} from '../../app.code.component';
         TreeContextMenuDemo,
         TreeDragDropDemo,
         TreeHorizontalDemo
-	]
+    ]
 })
 export class TreeDemoModule {}

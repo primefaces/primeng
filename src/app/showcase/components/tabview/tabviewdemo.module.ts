@@ -7,15 +7,15 @@ import {ButtonModule} from 'primeng/button';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		TabViewDemoRoutingModule,
-		TabViewModule,
-		AppCodeModule,
-		ButtonModule
-	],
-	declarations: [
-		TabViewDemo
-	]
+    imports: [
+        CommonModule,
+        TabViewDemoRoutingModule,
+        TabViewModule,
+        AppCodeModule,
+        ButtonModule
+    ],
+    declarations: [
+        TabViewDemo
+    ]
 })
 export class TabViewDemoModule {}

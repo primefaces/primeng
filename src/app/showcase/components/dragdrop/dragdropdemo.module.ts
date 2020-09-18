@@ -10,17 +10,17 @@ import {AppCodeModule} from '../../app.code.component';
 
 
 @NgModule({
-	imports: [
-		CommonModule,
-		DragDropDemoRoutingModule,
+    imports: [
+        CommonModule,
+        DragDropDemoRoutingModule,
         DragDropModule,
         PanelModule,
         TableModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		DragDropDemo
-	]
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        DragDropDemo
+    ]
 })
 export class DragDropDemoModule {}

@@ -30,10 +30,10 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		TreeTableDemoRoutingModule,
+        TreeTableDemoRoutingModule,
         TreeTableModule,
         ToastModule,
         DialogModule,
@@ -43,8 +43,8 @@ import { AppCodeModule } from '../../app.code.component';
         InputTextModule,
         ContextMenuModule,
         AppCodeModule
-	],
-	declarations: [
+    ],
+    declarations: [
         TreeTableDemo,
         TreeTablePageDemo,
         TreeTableSortDemo,
@@ -62,6 +62,6 @@ import { AppCodeModule } from '../../app.code.component';
         TreeTableReorderDemo,
         TreeTableEditDemo,
         TreeTableFilterDemo
-	]
+    ]
 })
 export class TreeTableDemoModule {}

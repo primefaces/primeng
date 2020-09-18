@@ -7,15 +7,15 @@ import {TabViewModule} from 'primeng/tabview';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		OrderListDemoRoutingModule,
+    imports: [
+        CommonModule,
+        OrderListDemoRoutingModule,
         OrderListModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		OrderListDemo
-	]
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        OrderListDemo
+    ]
 })
 export class OrderListDemoModule {}

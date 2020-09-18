@@ -8,16 +8,16 @@ import {ButtonModule} from 'primeng/button';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		CardDemoRoutingModule,
-		CardModule,
-		ButtonModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		CardDemo
-	]
+    imports: [
+        CommonModule,
+        CardDemoRoutingModule,
+        CardModule,
+        ButtonModule,
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        CardDemo
+    ]
 })
 export class CardDemoModule {}

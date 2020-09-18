@@ -9,17 +9,17 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         CarouselDemoRoutingModule,
         CarouselModule,
         ButtonModule,
         ToastModule,
         TabViewModule,
         AppCodeModule
-	],
-	declarations: [
-		CarouselDemo
-	]
+    ],
+    declarations: [
+        CarouselDemo
+    ]
 })
 export class CarouselDemoModule {}

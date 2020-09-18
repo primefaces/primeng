@@ -4,26 +4,26 @@ import { Draggable, DragDropModule, Droppable } from './dragdrop';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 @Component({
-	template: `
-		<ul style="margin:0;padding:0">
-			<li *ngFor="let car of availableCars" pDraggable="cars"
-				(onDragStart)="dragStart($event,car)" (onDrag)="onDrag()" (onDragEnd)="dragEnd($event)">
-				<h3>{{car.vin}} - {{car.year}}</h3>
-			</li>
-		</ul>
-		<div pDroppable="cars"  style="height: 250px;"
-		(onDrop)="drop($event)" [ngClass]="{'ui-highlight-car':draggedCar}">
-			<div *ngFor="let car of selectedCars">
-				<h4>
-					{{car.brand}}
-				</h4>
-			</div>
-		</div>
-	`
+    template: `
+        <ul style="margin:0;padding:0">
+            <li *ngFor="let car of availableCars" pDraggable="cars"
+                (onDragStart)="dragStart($event,car)" (onDrag)="onDrag()" (onDragEnd)="dragEnd($event)">
+                <h3>{{car.vin}} - {{car.year}}</h3>
+            </li>
+        </ul>
+        <div pDroppable="cars"  style="height: 250px;"
+        (onDrop)="drop($event)" [ngClass]="{'ui-highlight-car':draggedCar}">
+            <div *ngFor="let car of selectedCars">
+                <h4>
+                    {{car.brand}}
+                </h4>
+            </div>
+        </div>
+    `
 })
 class TestDragDropComponent {
 
-	availableCars: any[] = [
+    availableCars: any[] = [
         {brand: 'VW', year: 2012, color: 'Orange', vin: 'dsad231ff'},
         {brand: 'Audi', year: 2011, color: 'Black', vin: 'gwregre345'},
         {brand: 'Renault', year: 2005, color: 'Gray', vin: 'h354htr'},
@@ -51,11 +51,11 @@ class TestDragDropComponent {
             this.availableCars = this.availableCars.filter((val, i) => i != draggedCarIndex);
             this.draggedCar = null;
         }
-	}
+    }
 
-	onDrag() {
+    onDrag() {
 
-	}
+    }
 
     dragEnd(event) {
         this.draggedCar = null;
@@ -76,144 +76,144 @@ class TestDragDropComponent {
 
 describe('Draggable', () => {
 
-	let testComponent: TestDragDropComponent;
-	let fixture: ComponentFixture<TestDragDropComponent>;
+    let testComponent: TestDragDropComponent;
+    let fixture: ComponentFixture<TestDragDropComponent>;
 
-	beforeEach(() => {
-		TestBed.configureTestingModule({
-			imports: [
-				NoopAnimationsModule,
-				DragDropModule
-			],
-			declarations: [
-				TestDragDropComponent
-			]
-		});
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                NoopAnimationsModule,
+                DragDropModule
+            ],
+            declarations: [
+                TestDragDropComponent
+            ]
+        });
 
-		fixture = TestBed.createComponent(TestDragDropComponent);
-		testComponent = fixture.componentInstance;
-	});
+        fixture = TestBed.createComponent(TestDragDropComponent);
+        testComponent = fixture.componentInstance;
+    });
 
-	it('should display by default', () => {
-		fixture.detectChanges();
+    it('should display by default', () => {
+        fixture.detectChanges();
 
-		const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-		const dropEl = fixture.debugElement.query(By.css('div'));
-		expect(dropEl.nativeElement).toBeTruthy();
-		expect(draggableEls.length).toEqual(10);
-	});
+        const draggableEls = fixture.debugElement.queryAll(By.css('li'));
+        const dropEl = fixture.debugElement.query(By.css('div'));
+        expect(dropEl.nativeElement).toBeTruthy();
+        expect(draggableEls.length).toEqual(10);
+    });
 
-	it('should emit onDragStart', () => {
-		fixture.detectChanges();
+    it('should emit onDragStart', () => {
+        fixture.detectChanges();
 
-		const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-		const dropEl = fixture.debugElement.query(By.css('div'));
-		const dragStartSpy = spyOn(testComponent, 'dragStart').and.callThrough();
-		const dragEvent: any = document.createEvent('CustomEvent');
-		dragEvent.initEvent('dragstart', true, true);
+        const draggableEls = fixture.debugElement.queryAll(By.css('li'));
+        const dropEl = fixture.debugElement.query(By.css('div'));
+        const dragStartSpy = spyOn(testComponent, 'dragStart').and.callThrough();
+        const dragEvent: any = document.createEvent('CustomEvent');
+        dragEvent.initEvent('dragstart', true, true);
   dragEvent.dataTransfer = {setData(val1, val2) {}};
-		draggableEls[0].nativeElement.dispatchEvent(dragEvent);
-		fixture.detectChanges();
+        draggableEls[0].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
 
-		expect(dragStartSpy).toHaveBeenCalled();
-		expect(testComponent.draggedCar.brand).toEqual('VW');
-	});
+        expect(dragStartSpy).toHaveBeenCalled();
+        expect(testComponent.draggedCar.brand).toEqual('VW');
+    });
 
-	it('should emit onDrag and dragEnd', () => {
-		fixture.detectChanges();
+    it('should emit onDrag and dragEnd', () => {
+        fixture.detectChanges();
 
-		const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-		const dropEl = fixture.debugElement.query(By.css('div'));
-		const dragEndSpy = spyOn(testComponent, 'dragEnd').and.callThrough();
-		const dragSpy = spyOn(testComponent, 'onDrag').and.callThrough();
-		const event: any = document.createEvent('CustomEvent');
-		event.initEvent('dragstart', true, true);
+        const draggableEls = fixture.debugElement.queryAll(By.css('li'));
+        const dropEl = fixture.debugElement.query(By.css('div'));
+        const dragEndSpy = spyOn(testComponent, 'dragEnd').and.callThrough();
+        const dragSpy = spyOn(testComponent, 'onDrag').and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.initEvent('dragstart', true, true);
   event.dataTransfer = {setData(val1, val2) {}};
-		draggableEls[0].nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        draggableEls[0].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		event.initEvent('drag', true, true);
-		draggableEls[0].nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        event.initEvent('drag', true, true);
+        draggableEls[0].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		expect(dragSpy).toHaveBeenCalled();
-		expect(testComponent.draggedCar.brand).toEqual('VW');
-		event.initEvent('dragend', true, true);
-		draggableEls[0].nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        expect(dragSpy).toHaveBeenCalled();
+        expect(testComponent.draggedCar.brand).toEqual('VW');
+        event.initEvent('dragend', true, true);
+        draggableEls[0].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		expect(dragEndSpy).toHaveBeenCalled();
-		expect(testComponent.draggedCar).toBeNull();
-	});
+        expect(dragEndSpy).toHaveBeenCalled();
+        expect(testComponent.draggedCar).toBeNull();
+    });
 
-	it('should set handle when mousedown', () => {
-		fixture.detectChanges();
+    it('should set handle when mousedown', () => {
+        fixture.detectChanges();
 
-		const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-		const event: any = document.createEvent('CustomEvent');
-		event.initEvent('mousedown', true, true);
-		draggableEls[0].nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        const draggableEls = fixture.debugElement.queryAll(By.css('li'));
+        const event: any = document.createEvent('CustomEvent');
+        event.initEvent('mousedown', true, true);
+        draggableEls[0].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		const draggable = fixture.debugElement.query(By.directive(Draggable)).injector.get(Draggable);
-		expect(draggable.handle).toBeTruthy();
-	});
+        const draggable = fixture.debugElement.query(By.directive(Draggable)).injector.get(Draggable);
+        expect(draggable.handle).toBeTruthy();
+    });
 
-	it('should reset handle when mouseup', () => {
-		fixture.detectChanges();
+    it('should reset handle when mouseup', () => {
+        fixture.detectChanges();
 
-		const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-		const event: any = document.createEvent('CustomEvent');
-		event.initEvent('mousedown', true, true);
-		draggableEls[0].nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        const draggableEls = fixture.debugElement.queryAll(By.css('li'));
+        const event: any = document.createEvent('CustomEvent');
+        event.initEvent('mousedown', true, true);
+        draggableEls[0].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		const draggable = fixture.debugElement.query(By.directive(Draggable)).injector.get(Draggable);
-		expect(draggable.handle).toBeTruthy();
-		event.initEvent('mouseup', true, true);
-		draggableEls[0].nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        const draggable = fixture.debugElement.query(By.directive(Draggable)).injector.get(Draggable);
+        expect(draggable.handle).toBeTruthy();
+        event.initEvent('mouseup', true, true);
+        draggableEls[0].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		expect(draggable.handle).toBeNull();
-	});
+        expect(draggable.handle).toBeNull();
+    });
 
-	it('should emit onDrop and onDragEnd', () => {
-		fixture.detectChanges();
+    it('should emit onDrop and onDragEnd', () => {
+        fixture.detectChanges();
 
-		const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-		const dropEl = fixture.debugElement.query(By.css('div'));
-		const dropSpy = spyOn(testComponent, 'drop').and.callThrough();
-		const event: any = document.createEvent('CustomEvent');
-		event.initEvent('dragstart', true, true);
+        const draggableEls = fixture.debugElement.queryAll(By.css('li'));
+        const dropEl = fixture.debugElement.query(By.css('div'));
+        const dropSpy = spyOn(testComponent, 'drop').and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.initEvent('dragstart', true, true);
   event.dataTransfer = {setData(val1, val2) {}};
-		draggableEls[0].nativeElement.dispatchEvent(event);
-		const droppable = fixture.debugElement.query(By.directive(Droppable)).injector.get(Droppable);
-		fixture.detectChanges();
+        draggableEls[0].nativeElement.dispatchEvent(event);
+        const droppable = fixture.debugElement.query(By.directive(Droppable)).injector.get(Droppable);
+        fixture.detectChanges();
 
-		const onDragEnterSpy = spyOn(droppable, 'dragEnter').and.callThrough();
-		event.initEvent('dragenter', true, true);
-		dropEl.nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        const onDragEnterSpy = spyOn(droppable, 'dragEnter').and.callThrough();
+        event.initEvent('dragenter', true, true);
+        dropEl.nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		const onDragLeaveSpy = spyOn(droppable, 'dragLeave').and.callThrough();
-		expect(onDragEnterSpy).toHaveBeenCalled();
-		event.initEvent('dragleave', true, true);
-		dropEl.nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        const onDragLeaveSpy = spyOn(droppable, 'dragLeave').and.callThrough();
+        expect(onDragEnterSpy).toHaveBeenCalled();
+        event.initEvent('dragleave', true, true);
+        dropEl.nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		expect(onDragLeaveSpy).toHaveBeenCalled();
-		event.initEvent('dragenter', true, true);
-		dropEl.nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        expect(onDragLeaveSpy).toHaveBeenCalled();
+        event.initEvent('dragenter', true, true);
+        dropEl.nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
 
-		event.initEvent('drop', true, true);
+        event.initEvent('drop', true, true);
   event.dataTransfer = {getData(type) {return 'cars'; }};
-		dropEl.nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
+        dropEl.nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
 
-		expect(dropSpy).toHaveBeenCalled();
-		expect(testComponent.selectedCars.length).toEqual(1);
-		expect(testComponent.selectedCars[0].brand).toEqual('VW');
-	});
+        expect(dropSpy).toHaveBeenCalled();
+        expect(testComponent.selectedCars.length).toEqual(1);
+        expect(testComponent.selectedCars[0].brand).toEqual('VW');
+    });
 });

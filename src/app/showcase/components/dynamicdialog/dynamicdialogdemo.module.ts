@@ -11,22 +11,22 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		DynamicDialogDemoRoutingModule,
-		DynamicDialogModule,
-		ToastModule,
-		TableModule,
+    imports: [
+        CommonModule,
+        DynamicDialogDemoRoutingModule,
+        DynamicDialogModule,
+        ToastModule,
+        TableModule,
         ButtonModule,
-		TabViewModule,
-		AppCodeModule
-	],
-	declarations: [
-		DynamicDialogDemo,
-		ProductListDemo
-	],
-	entryComponents: [
-		ProductListDemo
-	]
+        TabViewModule,
+        AppCodeModule
+    ],
+    declarations: [
+        DynamicDialogDemo,
+        ProductListDemo
+    ],
+    entryComponents: [
+        ProductListDemo
+    ]
 })
 export class DynamicDialogDemoModule {}

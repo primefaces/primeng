@@ -13,9 +13,9 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		InputGroupDemoRoutingModule,
+    imports: [
+        CommonModule,
+        InputGroupDemoRoutingModule,
         FormsModule,
         InputTextModule,
         ButtonModule,
@@ -25,9 +25,9 @@ import {AppCodeModule} from '../../app.code.component';
         TabViewModule,
         AppInputStyleSwitchModule,
         AppCodeModule
-	],
-	declarations: [
-		InputGroupDemo
-	]
+    ],
+    declarations: [
+        InputGroupDemo
+    ]
 })
 export class InputGroupDemoModule {}

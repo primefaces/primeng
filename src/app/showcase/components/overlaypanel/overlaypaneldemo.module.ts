@@ -10,18 +10,18 @@ import {ToastModule} from 'primeng/toast';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		OverlayPanelDemoRoutingModule,
+    imports: [
+        CommonModule,
+        OverlayPanelDemoRoutingModule,
         OverlayPanelModule,
         ButtonModule,
         TableModule,
-		TabViewModule,
-		AppCodeModule,
-		ToastModule
-	],
-	declarations: [
-		OverlayPanelDemo
-	]
+        TabViewModule,
+        AppCodeModule,
+        ToastModule
+    ],
+    declarations: [
+        OverlayPanelDemo
+    ]
 })
 export class OverlayPanelDemoModule {}

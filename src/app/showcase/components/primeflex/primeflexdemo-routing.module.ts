@@ -10,8 +10,8 @@ import {SpacingDemo} from './spacingdemo';
 import {TextDemo} from './textdemo';
 
 @NgModule({
-	imports: [
-		RouterModule.forChild([
+    imports: [
+        RouterModule.forChild([
             {path: '', component: PrimeFlexSetup},
             {path: 'display', component: DisplayDemo},
             {path: 'elevation', component: ElevationDemo},
@@ -20,10 +20,10 @@ import {TextDemo} from './textdemo';
             {path: 'grid', component: GridDemo},
             {path: 'spacing', component: SpacingDemo},
             {path: 'text', component: TextDemo}
-		])
-	],
-	exports: [
-		RouterModule
-	]
+        ])
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class PrimeFlexDemoRoutingModule {}

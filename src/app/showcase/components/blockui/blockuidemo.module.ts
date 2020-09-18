@@ -9,17 +9,17 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		BlockUIDemoRoutingModule,
+    imports: [
+        CommonModule,
+        BlockUIDemoRoutingModule,
         BlockUIModule,
         ButtonModule,
         PanelModule,
         TabViewModule,
         AppCodeModule
-	],
-	declarations: [
-		BlockUIDemo
-	]
+    ],
+    declarations: [
+        BlockUIDemo
+    ]
 })
 export class BlockUIDemoModule {}

@@ -9,17 +9,17 @@ import {RippleModule} from 'primeng/ripple';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ButtonDemoRoutingModule,
+    imports: [
+        CommonModule,
+        ButtonDemoRoutingModule,
         ButtonModule,
         TabViewModule,
-		AppCodeModule,
+        AppCodeModule,
         ProgressSpinnerModule,
         RippleModule
-	],
-	declarations: [
-		ButtonDemo
-	]
+    ],
+    declarations: [
+        ButtonDemo
+    ]
 })
 export class ButtonDemoModule {}

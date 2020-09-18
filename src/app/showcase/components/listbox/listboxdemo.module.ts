@@ -10,18 +10,18 @@ import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		ListboxDemoRoutingModule,
+        ListboxDemoRoutingModule,
         ListboxModule,
         ButtonModule,
-		TabViewModule,
-		AppInputStyleSwitchModule,
-		AppCodeModule
-	],
-	declarations: [
-		ListboxDemo
-	]
+        TabViewModule,
+        AppInputStyleSwitchModule,
+        AppCodeModule
+    ],
+    declarations: [
+        ListboxDemo
+    ]
 })
 export class ListboxDemoModule {}

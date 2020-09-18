@@ -13,10 +13,10 @@ import {AppCodeModule} from '../../app.code.component';
 import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
-	imports: [
+    imports: [
         CommonModule,
         FormsModule,
-		DataViewDemoRoutingModule,
+        DataViewDemoRoutingModule,
         DataViewModule,
         PanelModule,
         DropdownModule,
@@ -25,9 +25,9 @@ import {TabViewModule} from 'primeng/tabview';
         RatingModule,
         ButtonModule,
         AppCodeModule
-	],
-	declarations: [
-		DataViewDemo
-	]
+    ],
+    declarations: [
+        DataViewDemo
+    ]
 })
 export class DataViewDemoModule {}

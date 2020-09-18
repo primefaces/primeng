@@ -22,27 +22,27 @@ import { AppCodeModule } from '../../app.code.component';
 import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FloatLabelDemoRoutingModule,
+    imports: [
+        CommonModule,
+        FloatLabelDemoRoutingModule,
         ButtonModule,
         PanelModule,
-		TabViewModule,
-		InputTextModule,
-		AutoCompleteModule,
-		CalendarModule,
-		ChipsModule,
-		InputMaskModule,
-		InputNumberModule,
-		DropdownModule,
-		MultiSelectModule,
-		InputTextareaModule,
-		FormsModule,
-		AppInputStyleSwitchModule,
+        TabViewModule,
+        InputTextModule,
+        AutoCompleteModule,
+        CalendarModule,
+        ChipsModule,
+        InputMaskModule,
+        InputNumberModule,
+        DropdownModule,
+        MultiSelectModule,
+        InputTextareaModule,
+        FormsModule,
+        AppInputStyleSwitchModule,
         AppCodeModule
-	],
-	declarations: [
-		FloatLabelDemo
-	]
+    ],
+    declarations: [
+        FloatLabelDemo
+    ]
 })
 export class FloatLabelDemoModule {}

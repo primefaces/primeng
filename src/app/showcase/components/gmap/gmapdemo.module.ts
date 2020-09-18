@@ -13,10 +13,10 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
+    imports: [
+        CommonModule,
         FormsModule,
-		GMapDemoRoutingModule,
+        GMapDemoRoutingModule,
         GMapModule,
         ToastModule,
         InputTextModule,
@@ -25,9 +25,9 @@ import {AppCodeModule} from '../../app.code.component';
         ButtonModule,
         TabViewModule,
         AppCodeModule
-	],
-	declarations: [
-		GMapDemo
-	]
+    ],
+    declarations: [
+        GMapDemo
+    ]
 })
 export class GMapDemoModule {}

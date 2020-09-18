@@ -9,17 +9,17 @@ import {ToastModule} from 'primeng/toast';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		AccordionDemoRoutingModule,
+    imports: [
+        CommonModule,
+        AccordionDemoRoutingModule,
         AccordionModule,
         ButtonModule,
         TabViewModule,
-		ToastModule,
-		AppCodeModule
-	],
-	declarations: [
-		AccordionDemo
-	]
+        ToastModule,
+        AppCodeModule
+    ],
+    declarations: [
+        AccordionDemo
+    ]
 })
 export class AccordionDemoModule {}
