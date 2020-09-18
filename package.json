@@ -9,6 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:fix": "ng lint -- --fix",
     "e2e": "ng e2e",
     "build-lib": "ng build primeng-library && gulp build-assets"
   },
