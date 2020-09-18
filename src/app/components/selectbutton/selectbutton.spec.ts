@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SelectButton } from './selectbutton';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

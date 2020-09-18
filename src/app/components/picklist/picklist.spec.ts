@@ -122,8 +122,7 @@ describe('PickList', () => {
         for (let i = 0; i < sourceListItems.length; i++) {
             if (i == 0 || i == 5) {
                 expect(sourceListItems[i].nativeElement.style.display).toEqual('block');
-            }
-            else {
+            } else {
                 expect(sourceListItems[i].nativeElement.style.display).not.toEqual('block');
             }
         }
@@ -152,8 +151,7 @@ describe('PickList', () => {
         for (let i = 0; i < targetListItems.length; i++) {
             if (i == 0 || i == 5) {
                 expect(targetListItems[i].nativeElement.style.display).toEqual('block');
-            }
-            else {
+            } else {
                 expect(targetListItems[i].nativeElement.style.display).not.toEqual('block');
             }
         }
@@ -870,7 +868,7 @@ describe('PickList', () => {
         expect(picklist.selectedItemsSource.length).toEqual(1);
         expect(picklist.selectedItemsSource[0].brand).toBe('VW');
         const keydownEvent: any = document.createEvent('CustomEvent');
-  keydownEvent.which = 40;
+        keydownEvent.which = 40;
         keydownEvent.initEvent('keydown', true, true);
         items[0].nativeElement.dispatchEvent(keydownEvent);
         fixture.detectChanges();

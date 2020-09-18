@@ -81,7 +81,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     transformOptions = 'scale(0.7)';
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-                      public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
+                public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType);
@@ -110,18 +110,18 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
-                            this.moveOnTop();
+                this.moveOnTop();
                 this.bindGlobalListeners();
 
                 if (this.config.modal !== false) {
                     this.enableModality();
                 }
                 this.focus();
-                         break;
+                break;
 
             case 'void':
                 this.onContainerDestroy();
-             break;
+                break;
         }
     }
 
@@ -134,10 +134,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     onContainerDestroy() {
         this.unbindGlobalListeners();
 
-  if (this.config.modal !== false) {
+        if (this.config.modal !== false) {
             this.disableModality();
         }
-  this.container = null;
+        this.container = null;
     }
 
     close() {

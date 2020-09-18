@@ -111,7 +111,7 @@ describe('Draggable', () => {
         const dragStartSpy = spyOn(testComponent, 'dragStart').and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
-  dragEvent.dataTransfer = {setData(val1, val2) {}};
+        dragEvent.dataTransfer = {setData(val1, val2) {}};
         draggableEls[0].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
 
@@ -128,7 +128,7 @@ describe('Draggable', () => {
         const dragSpy = spyOn(testComponent, 'onDrag').and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.initEvent('dragstart', true, true);
-  event.dataTransfer = {setData(val1, val2) {}};
+        event.dataTransfer = {setData(val1, val2) {}};
         draggableEls[0].nativeElement.dispatchEvent(event);
         fixture.detectChanges();
 
@@ -185,7 +185,7 @@ describe('Draggable', () => {
         const dropSpy = spyOn(testComponent, 'drop').and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.initEvent('dragstart', true, true);
-  event.dataTransfer = {setData(val1, val2) {}};
+        event.dataTransfer = {setData(val1, val2) {}};
         draggableEls[0].nativeElement.dispatchEvent(event);
         const droppable = fixture.debugElement.query(By.directive(Droppable)).injector.get(Droppable);
         fixture.detectChanges();
@@ -208,7 +208,7 @@ describe('Draggable', () => {
 
 
         event.initEvent('drop', true, true);
-  event.dataTransfer = {getData(type) {return 'cars'; }};
+        event.dataTransfer = {getData(type) {return 'cars'; }};
         dropEl.nativeElement.dispatchEvent(event);
         fixture.detectChanges();
 

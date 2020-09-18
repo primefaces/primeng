@@ -258,7 +258,7 @@ describe('Slider', () => {
         fixture.detectChanges();
     });
 
-       it('should increment value with decimal step and decimal max', () => {
+    it('should increment value with decimal step and decimal max', () => {
         slider.value = 0.02;
         slider.step = 0.01;
         slider.max = 2.5;
@@ -312,7 +312,7 @@ describe('Slider', () => {
         fixture.detectChanges();
     });
 
-       it('should decrement value with decimal step and decimal max', () => {
+    it('should decrement value with decimal step and decimal max', () => {
         slider.value = 2.4;
         slider.step = 0.01;
         slider.max = 2.5;
@@ -331,7 +331,7 @@ describe('Slider', () => {
         fixture.detectChanges();
 
         expect(slider.value).toBeGreaterThan(0);
-              expect(slider.value).toBeLessThan(2.4);
+        expect(slider.value).toBeLessThan(2.4);
         document.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 

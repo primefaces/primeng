@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 import { LazyLoadEvent } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
 
 @Component({
     templateUrl: './tablelazydemo.html'

@@ -1,6 +1,6 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TreeTable, TreeTableModule, TTScrollableView } from './treetable';
+import { TreeTable, TreeTableModule } from './treetable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -743,9 +743,9 @@ describe('TreeTable', () => {
 
         const basicTreeTableEl = fixture.debugElement.query(By.css('.basicTreeTable'));
         let rowEls = basicTreeTableEl.queryAll(By.css('tr'));
-              const keydownEvent: any = document.createEvent('CustomEvent');
+        const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 40;
-              keydownEvent.initEvent('keydown', true, true);
+        keydownEvent.initEvent('keydown', true, true);
         rowEls[2].nativeElement.dispatchEvent(keydownEvent);
 
         fixture.detectChanges();
@@ -758,9 +758,9 @@ describe('TreeTable', () => {
 
         const basicTreeTableEl = fixture.debugElement.query(By.css('.basicTreeTable'));
         let rowEls = basicTreeTableEl.queryAll(By.css('tr'));
-              const keydownEvent: any = document.createEvent('CustomEvent');
+        const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 38;
-              keydownEvent.initEvent('keydown', true, true);
+        keydownEvent.initEvent('keydown', true, true);
         rowEls[3].nativeElement.dispatchEvent(keydownEvent);
 
         fixture.detectChanges();
@@ -774,9 +774,9 @@ describe('TreeTable', () => {
         const basicTreeTableEl = fixture.debugElement.query(By.css('.basicTreeTable'));
         let rowEls = basicTreeTableEl.queryAll(By.css('tr'));
         expect(rowEls.length).toEqual(11);
-              const keydownEvent: any = document.createEvent('CustomEvent');
+        const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 39;
-              keydownEvent.initEvent('keydown', true, true);
+        keydownEvent.initEvent('keydown', true, true);
         rowEls[0].nativeElement.dispatchEvent(keydownEvent);
 
         fixture.detectChanges();
@@ -864,8 +864,8 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         const clickEvent: any = document.createEvent('CustomEvent');
-              clickEvent.initEvent('click', true, true);
-              clickEvent.ctrlKey = true;
+        clickEvent.initEvent('click', true, true);
+        clickEvent.ctrlKey = true;
         sortableHeaders[1].nativeElement.dispatchEvent(clickEvent);
         fixture.detectChanges();
 
@@ -1193,12 +1193,12 @@ describe('TreeTable', () => {
         const firstResizer = document.querySelector('.p-column-resizer');
         const event: any = document.createEvent('CustomEvent');
         event.pageX = firstWidth + 200;
-              event.initEvent('mousedown', true, true);
+        event.initEvent('mousedown', true, true);
         firstResizer.dispatchEvent(event);
 
         expect(onColumnResizeBeginSpy).toHaveBeenCalled();
         event.pageX = firstWidth + 150;
-              event.initEvent('mousemove', true, true);
+        event.initEvent('mousemove', true, true);
         firstResizer.dispatchEvent(event);
         fixture.detectChanges();
 
@@ -1212,12 +1212,12 @@ describe('TreeTable', () => {
         expect(headerEls[0].nativeElement.clientWidth).toBeLessThan(firstWidth);
         firstWidth = headerEls[0].nativeElement.clientWidth;
         event.pageX = firstWidth + 200;
-              event.initEvent('mousedown', true, true);
+        event.initEvent('mousedown', true, true);
         firstResizer.dispatchEvent(event);
 
         expect(onColumnResizeBeginSpy).toHaveBeenCalled();
         event.pageX = 0;
-              event.initEvent('mousemove', true, true);
+        event.initEvent('mousemove', true, true);
         firstResizer.dispatchEvent(event);
         fixture.detectChanges();
 
@@ -1244,12 +1244,12 @@ describe('TreeTable', () => {
         const firstResizer = document.querySelector('.p-column-resizer');
         const event: any = document.createEvent('CustomEvent');
         event.pageX = firstWidth + 200;
-              event.initEvent('mousedown', true, true);
+        event.initEvent('mousedown', true, true);
         firstResizer.dispatchEvent(event);
 
         expect(onColumnResizeBeginSpy).toHaveBeenCalled();
         event.pageX = firstWidth + 150;
-              event.initEvent('mousemove', true, true);
+        event.initEvent('mousemove', true, true);
         firstResizer.dispatchEvent(event);
         fixture.detectChanges();
 
@@ -1263,12 +1263,12 @@ describe('TreeTable', () => {
         expect(headerEls[0].nativeElement.clientWidth).toBeLessThan(firstWidth);
         firstWidth = headerEls[0].nativeElement.clientWidth;
         event.pageX = firstWidth + 200;
-              event.initEvent('mousedown', true, true);
+        event.initEvent('mousedown', true, true);
         firstResizer.dispatchEvent(event);
 
         expect(onColumnResizeBeginSpy).toHaveBeenCalled();
         event.pageX = 0;
-              event.initEvent('mousemove', true, true);
+        event.initEvent('mousemove', true, true);
         firstResizer.dispatchEvent(event);
         fixture.detectChanges();
 

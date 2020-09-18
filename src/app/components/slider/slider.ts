@@ -428,7 +428,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                 this.handleValue = 100;
             }
 
-                     this.value = this.getNormalizedValue(val);
+            this.value = this.getNormalizedValue(val);
 
             this.onModelChange(this.value);
             this.onChange.emit({event, value: this.value});

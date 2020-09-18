@@ -169,8 +169,8 @@ export class PanelMenu extends BasePanelMenuItem {
             }
         }
 
-     this.animating = true;
-     super.handleClick(event, item);
+        this.animating = true;
+        super.handleClick(event, item);
     }
 
     onToggleDone() {

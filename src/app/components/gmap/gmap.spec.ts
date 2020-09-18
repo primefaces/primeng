@@ -1,5 +1,4 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { GMap } from './gmap';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 

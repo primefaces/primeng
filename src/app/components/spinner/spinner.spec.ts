@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Spinner } from './spinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 

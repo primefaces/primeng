@@ -122,7 +122,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     onPaste(event) {
         if (this.separator) {
-            const pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
+            const pastedData = (event.clipboardData || window[`clipboardData`]).getData('Text');
             pastedData.split(this.separator).forEach(val => {
                 this.addItem(event, val, true);
             });

@@ -9,8 +9,8 @@ export class CodeHighlighter implements AfterViewInit {
     constructor(public el: ElementRef) { }
 
     ngAfterViewInit() {
-        if (window['Prism']) {
-            window['Prism'].highlightElement(this.el.nativeElement);
+        if (window[`Prism`]) {
+            window[`Prism`].highlightElement(this.el.nativeElement);
         }
     }
 }

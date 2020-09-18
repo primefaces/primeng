@@ -27,7 +27,7 @@ describe('MultiSelect', () => {
       multiselect = fixture.componentInstance;
     });
 
-       it('should disabled', () => {
+    it('should disabled', () => {
         multiselect.disabled = true;
         const showSpy = spyOn(multiselect, 'onMouseclick').and.callThrough();
         fixture.detectChanges();
@@ -43,7 +43,7 @@ describe('MultiSelect', () => {
         expect(multiselect.overlayVisible).toEqual(undefined);
     });
 
-       it('should get a name', () => {
+    it('should get a name', () => {
         multiselect.name = 'PrimeNG';
         fixture.detectChanges();
 
@@ -51,7 +51,7 @@ describe('MultiSelect', () => {
         expect(inputReadOnlyEl.name).toContain('PrimeNG');
     });
 
-       it('should set dropdown icon by default and able to change', () => {
+    it('should set dropdown icon by default and able to change', () => {
         fixture.detectChanges();
 
         const dropdownIcon = fixture.debugElement.query(By.css('.p-multiselect-trigger-icon')).nativeElement;
@@ -65,7 +65,7 @@ describe('MultiSelect', () => {
         expect(dropdownIcon.className).toContain('Primeng Rocks!');
     });
 
-       it('should change style and styleClass', () => {
+    it('should change style and styleClass', () => {
         fixture.detectChanges();
 
         multiselect.style = {height: '300px'};
@@ -78,7 +78,7 @@ describe('MultiSelect', () => {
         expect(multiselectEl.style.height).toContain('300px');
     });
 
-       it('should change panelstyle and panelStyleClass', () => {
+    it('should change panelstyle and panelStyleClass', () => {
         multiselect.disabledSelectedOptions = [];
         fixture.detectChanges();
 
@@ -93,7 +93,7 @@ describe('MultiSelect', () => {
         expect(multiselectPanelEl.style.height).toContain('300px');
     });
 
-       it('should open when click', () => {
+    it('should open when click', () => {
         multiselect.disabledSelectedOptions = [];
         fixture.detectChanges();
 
@@ -109,20 +109,20 @@ describe('MultiSelect', () => {
         expect(clickSpy).toHaveBeenCalled();
     });
 
-       it('should open and close with keydown', () => {
+    it('should open and close with keydown', () => {
         multiselect.disabledSelectedOptions = [];
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
         const onKeydownSpy = spyOn(multiselect, 'onKeydown').and.callThrough();
         const keydownEvent: any = document.createEvent('CustomEvent');
-  keydownEvent.which = 40;
-  keydownEvent.altKey = true;
+        keydownEvent.which = 40;
+        keydownEvent.altKey = true;
         keydownEvent.initEvent('keydown', true, true);
         inputEl.nativeElement.dispatchEvent(keydownEvent);
         fixture.detectChanges();
 
-  const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
+        const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
         let multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel'));
         expect(multiselect.overlayVisible).toEqual(true);
         expect(multiselectPanelEl).toBeTruthy();
@@ -142,7 +142,7 @@ describe('MultiSelect', () => {
         expect(multiselectPanelEl).toBeTruthy();
     });
 
-       it('should close when double click', () => {
+    it('should close when double click', () => {
         fixture.detectChanges();
 
         const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -160,7 +160,7 @@ describe('MultiSelect', () => {
         expect(hideSpy).toHaveBeenCalled();
     });
 
-       it('should select item', () => {
+    it('should select item', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -191,7 +191,7 @@ describe('MultiSelect', () => {
         expect(onOptionClickSpy).toBeTruthy();
     });
 
-       it('should select item and navigate with keydown', () => {
+    it('should select item and navigate with keydown', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -213,7 +213,7 @@ describe('MultiSelect', () => {
         fixture.detectChanges();
 
         const keydownEvent: any = document.createEvent('CustomEvent');
-  keydownEvent.which = 13;
+        keydownEvent.which = 13;
         keydownEvent.initEvent('keydown', true, true);
         const multiselectItemEl = fixture.debugElement.queryAll(By.css('.p-multiselect-item'));
         const bmwEl = multiselectItemEl[1];
@@ -226,7 +226,7 @@ describe('MultiSelect', () => {
 
         expect(onOptionKeydownSpy).toBeTruthy();
         expect(multiselect.value.length).toEqual(0);
-  keydownEvent.which = 40;
+        keydownEvent.which = 40;
         bmwEl.nativeElement.dispatchEvent(keydownEvent);
         fixture.detectChanges();
 
@@ -238,7 +238,7 @@ describe('MultiSelect', () => {
         expect(document.activeElement).toEqual(multiselectItemEl[0].nativeElement);
     });
 
-       it('should unselect item', () => {
+    it('should unselect item', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -278,7 +278,7 @@ describe('MultiSelect', () => {
         expect(multiselect.value.length).toEqual(1);
     });
 
-       it('should not select disabled item', () => {
+    it('should not select disabled item', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'Fiat', value: 'Fiat'},
@@ -316,7 +316,7 @@ describe('MultiSelect', () => {
         expect(onOptionClickSpy).toBeTruthy();
     });
 
-       it('should select multiple', () => {
+    it('should select multiple', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -350,7 +350,7 @@ describe('MultiSelect', () => {
         expect(onOptionClickSpy).toHaveBeenCalledTimes(2);
     });
 
-       it('should select multiple with selection limit', () => {
+    it('should select multiple with selection limit', () => {
         multiselect.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -388,7 +388,7 @@ describe('MultiSelect', () => {
         expect(onOptionClickSpy).toHaveBeenCalledTimes(3);
     });
 
-       it('should select all', () => {
+    it('should select all', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -419,7 +419,7 @@ describe('MultiSelect', () => {
         expect(itemClickSpy).toHaveBeenCalled();
     });
 
-       it('should select all when filtered', () => {
+    it('should select all when filtered', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -458,7 +458,7 @@ describe('MultiSelect', () => {
         expect(onInputBlur).toHaveBeenCalled();
     });
 
-       it('should unselect all', () => {
+    it('should unselect all', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -496,7 +496,7 @@ describe('MultiSelect', () => {
 
     });
 
-       it('should filtered', () => {
+    it('should filtered', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -524,7 +524,7 @@ describe('MultiSelect', () => {
         expect(multiselect.visibleOptions.length).toEqual(2);
     });
 
-       it('should reapply filter on options change', () => {
+    it('should reapply filter on options change', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -561,7 +561,7 @@ describe('MultiSelect', () => {
         expect(multiselect.visibleOptions.length).toEqual(1);
     });
 
-       it('should close with close icon and reset filter input', () => {
+    it('should close with close icon and reset filter input', () => {
         multiselect.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
@@ -595,7 +595,7 @@ describe('MultiSelect', () => {
         expect(fixture.debugElement.query(By.css('div')).nativeElement.className).not.toContain('p-multiselect-open');
     });
 
-       it('should display not found message when filter returns 0 results', () => {
+    it('should display not found message when filter returns 0 results', () => {
         multiselect.options = [
                 {label: 'Audi', value: 'Audi'},
                 {label: 'BMW', value: 'BMW'},

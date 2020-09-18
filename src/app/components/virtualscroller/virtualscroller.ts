@@ -1,4 +1,4 @@
-import {NgModule, Component, ElementRef, AfterContentInit, Input, Output, ViewChild, EventEmitter, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, OnChanges, SimpleChanges, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule, Component, ElementRef, AfterContentInit, Input, Output, ViewChild, EventEmitter, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header, Footer, PrimeTemplate, SharedModule} from 'primeng/api';
 import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';

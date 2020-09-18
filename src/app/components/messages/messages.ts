@@ -1,6 +1,6 @@
 import {NgModule, Component, OnDestroy, Input, Output, EventEmitter, AfterContentInit, Optional, ElementRef, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import {trigger, style, transition, animate} from '@angular/animations';
 import {Message, PrimeTemplate, MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {RippleModule} from 'primeng/ripple';

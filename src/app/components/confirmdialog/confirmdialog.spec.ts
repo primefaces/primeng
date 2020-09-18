@@ -155,7 +155,7 @@ describe('ConfirmDialog', () => {
         expect(fixture.componentInstance.header).toEqual('reject');
     });
 
-     it('should close when click close icon', fakeAsync(() => {
+  it('should close when click close icon', fakeAsync(() => {
         const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
         buttonEl.click();
         fixture.detectChanges();
@@ -169,7 +169,7 @@ describe('ConfirmDialog', () => {
         expect(confirmDialogEl).toBeFalsy();
     }));
 
-     it('should close with esc', fakeAsync(() => {
+  it('should close with esc', fakeAsync(() => {
         const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
         buttonEl.click();
         const closeSpy = spyOn(confirmDialog, 'close').and.callThrough();
@@ -177,9 +177,9 @@ describe('ConfirmDialog', () => {
 
         tick(300);
         const escapeEvent: any = document.createEvent('CustomEvent');
-  escapeEvent.which = 27;
-  escapeEvent.initEvent('keydown', true, true);
-  document.dispatchEvent(escapeEvent as KeyboardEvent);
+        escapeEvent.which = 27;
+        escapeEvent.initEvent('keydown', true, true);
+        document.dispatchEvent(escapeEvent as KeyboardEvent);
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();

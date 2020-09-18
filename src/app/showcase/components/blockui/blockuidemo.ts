@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
     templateUrl: './blockuidemo.html',

@@ -1,5 +1,5 @@
-import {Component, OnInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
-import { PhotoService } from '../../service/photoservice'; import { Galleria } from 'primeng/galleria';
+import {Component, OnInit} from '@angular/core';
+import { PhotoService } from '../../service/photoservice';
 
 @Component({
     templateUrl: './galleriademo.html'

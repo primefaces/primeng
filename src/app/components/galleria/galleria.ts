@@ -575,9 +575,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     ngOnInit() {
         this.createStyle();
-              this.calculatePosition();
+        this.calculatePosition();
 
-              if (this.responsiveOptions) {
+        if (this.responsiveOptions) {
             this.bindDocumentListeners();
         }
     }

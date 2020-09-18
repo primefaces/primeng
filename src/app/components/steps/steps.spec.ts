@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Steps } from './steps';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NO_ERRORS_SCHEMA, ViewEncapsulation } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
@@ -92,8 +92,7 @@ describe('Steps', () => {
         for (let x = 0; x < testComponent.items.length; x++) {
             if (x == 0) {
                 expect(items[x].nativeElement.className).not.toContain('p-disabled');
-            }
-            else {
+            } else {
                 expect(items[x].nativeElement.className).toContain('p-disabled');
             }
         }

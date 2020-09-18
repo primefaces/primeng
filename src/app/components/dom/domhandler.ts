@@ -259,7 +259,7 @@ export class DomHandler {
 
     public static matches(element, selector: string): boolean {
         const p = Element.prototype;
-        const f = p.matches || p.webkitMatchesSelector || p['mozMatchesSelector'] || p['msMatchesSelector'] || function(s) {
+        const f = p.matches || p.webkitMatchesSelector || p[`mozMatchesSelector`] || p[`msMatchesSelector`] || function(s) {
             return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
         };
         return f.call(element, selector);
@@ -490,9 +490,9 @@ export class DomHandler {
             } else if (window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
                 window.getSelection().removeAllRanges();
             }
-        } else if (document['selection'] && document['selection'].empty) {
+        } else if (document[`selection`] && document[`selection`].empty) {
             try {
-                document['selection'].empty();
+                document[`selection`].empty();
             } catch (error) {
                 // ignore IE bug
             }

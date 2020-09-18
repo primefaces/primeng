@@ -265,7 +265,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
             this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
 
-              this.unbindGlobalListeners();
+        this.unbindGlobalListeners();
     }
 }
 

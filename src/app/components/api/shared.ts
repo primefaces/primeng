@@ -1,4 +1,4 @@
-import {NgModule, EventEmitter, Directive, Input, Output, ContentChildren, ContentChild, TemplateRef, AfterContentInit, QueryList} from '@angular/core';
+import {NgModule, Directive, Input, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 

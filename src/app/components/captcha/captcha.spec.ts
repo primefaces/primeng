@@ -1,5 +1,4 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { Captcha } from './captcha';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 

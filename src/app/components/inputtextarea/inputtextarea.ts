@@ -1,4 +1,4 @@
-import {NgModule, Directive, ElementRef, HostListener, Input, Output, DoCheck, EventEmitter, Optional, AfterViewInit, AfterContentInit, OnInit, OnDestroy, AfterViewChecked} from '@angular/core';
+import {NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy} from '@angular/core';
 import {NgModel, NgControl} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import { Subscription } from 'rxjs';

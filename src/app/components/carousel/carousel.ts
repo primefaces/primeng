@@ -219,7 +219,7 @@ export class Carousel implements AfterContentInit {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-     break;
+                    break;
 
                 case 'header':
                     this.headerTemplate = item.template;
@@ -231,7 +231,7 @@ export class Carousel implements AfterContentInit {
 
                 default:
                     this.itemTemplate = item.template;
-     break;
+                    break;
             }
         });
     }
@@ -250,14 +250,14 @@ export class Carousel implements AfterContentInit {
             let page = this._page;
             if (this.totalDots() !== 0 && page >= this.totalDots()) {
                 page = this.totalDots() - 1;
-                            this._page = page;
-                            this.onPage.emit({
+                this._page = page;
+                this.onPage.emit({
                     page: this.page
                 });
             }
 
             totalShiftedItems = (page * this._numScroll) * -1;
-   if (isCircular) {
+            if (isCircular) {
                 totalShiftedItems -= this._numVisible;
             }
 

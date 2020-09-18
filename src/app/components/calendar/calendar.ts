@@ -616,11 +616,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     getWeekNumber(date: Date) {
         const checkDate = new Date(date.getTime());
-              checkDate.setDate(checkDate.getDate() + 4 - ( checkDate.getDay() || 7 ));
-              const time = checkDate.getTime();
-              checkDate.setMonth( 0 );
-              checkDate.setDate( 1 );
-              return Math.floor( Math.round((time - checkDate.getTime()) / 86400000 ) / 7 ) + 1;
+        checkDate.setDate(checkDate.getDate() + 4 - ( checkDate.getDay() || 7 ));
+        const time = checkDate.getTime();
+        checkDate.setMonth( 0 );
+        checkDate.setDate( 1 );
+        return Math.floor( Math.round((time - checkDate.getTime()) / 86400000 ) / 7 ) + 1;
     }
 
     createMonth(month: number, year: number) {
@@ -2015,7 +2015,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             const maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
-                     this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
+            this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
             document.body.appendChild(this.mask);

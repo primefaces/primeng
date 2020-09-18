@@ -297,8 +297,7 @@ describe('OrderList', () => {
         for (let i = 0; i < itemsEl.length; i++) {
             if (i == 0 || i == 5) {
                 expect(itemsEl[i].nativeElement.style.display).toEqual('block');
-            }
-            else {
+            } else {
                 expect(itemsEl[i].nativeElement.style.display).not.toEqual('block');
             }
         }
@@ -321,8 +320,7 @@ describe('OrderList', () => {
         for (let i = 0; i < itemsEl.length; i++) {
             if (i == 0 || i == 5) {
                 expect(itemsEl[i].nativeElement.style.display).toEqual('block');
-            }
-            else {
+            } else {
                 expect(itemsEl[i].nativeElement.style.display).not.toEqual('block');
             }
         }

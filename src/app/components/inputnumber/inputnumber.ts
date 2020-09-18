@@ -583,7 +583,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     onPaste(event) {
         event.preventDefault();
-        const data = (event.clipboardData || window['clipboardData']).getData('Text');
+        const data = (event.clipboardData || window[`clipboardData`]).getData('Text');
         if (data) {
             const filteredData = this.parseValue(data);
             if (filteredData != null) {

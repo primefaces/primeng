@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { PhotoService } from '../../service/photoservice'; import { Galleria } from 'primeng/galleria';
 
 @Component({
@@ -74,15 +74,16 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
         this.cd.reattach();
     }
 
+
     closePreviewFullScreen() {
         if (document.exitFullscreen) {
             document.exitFullscreen();
-        } else if (document['mozCancelFullScreen']) {
-            document['mozCancelFullScreen']();
-        } else if (document['webkitExitFullscreen']) {
-            document['webkitExitFullscreen']();
-        } else if (document['msExitFullscreen']) {
-            document['msExitFullscreen']();
+        } else if (document[`mozCancelFullScreen`]) {
+            document[`mozCancelFullScreen`]();
+        } else if (document[`webkitExitFullscreen`]) {
+            document[`webkitExitFullscreen`]();
+        } else if (document[`msExitFullscreen`]) {
+            document[`msExitFullscreen`]();
         }
     }
 

@@ -289,7 +289,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnDestroy, B
     }
 
     isIE11() {
-        return !!window.MSInputMethodContext && !!document['documentMode'];
+        return !!window.MSInputMethodContext && !!document[`documentMode`];
     }
 
     validate(file: File): boolean {

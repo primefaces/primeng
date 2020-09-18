@@ -64,7 +64,7 @@ describe('ScrollPanel', () => {
         mousedownEvent.initEvent('mousedown', true, true);
         const mouseMoveEvent: any = document.createEvent('CustomEvent');
         mouseMoveEvent.pageY = 250;
-  mouseMoveEvent.initEvent('mousemove', true, true);
+        mouseMoveEvent.initEvent('mousemove', true, true);
         barYEl.nativeElement.dispatchEvent(mousedownEvent);
         fixture.detectChanges();
 
@@ -90,7 +90,7 @@ describe('ScrollPanel', () => {
         mousedownEvent.initEvent('mousedown', true, true);
         const mouseMoveEvent: any = document.createEvent('CustomEvent');
         mouseMoveEvent.pageX = 250;
-  mouseMoveEvent.initEvent('mousemove', true, true);
+        mouseMoveEvent.initEvent('mousemove', true, true);
         barXEl.nativeElement.dispatchEvent(mousedownEvent);
         fixture.detectChanges();
 
