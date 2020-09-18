@@ -1,9 +1,9 @@
-import {NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger, style, transition, animate, AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {MenuItem} from 'primeng/api';
-import {RouterModule} from '@angular/router';
+import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
+import { MenuItem } from 'primeng/api';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'p-slideMenuSub',

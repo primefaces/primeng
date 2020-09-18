@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {MultiSelectDemo} from './multiselectdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MultiSelectDemo } from './multiselectdemo';
 
 @NgModule({
     imports: [

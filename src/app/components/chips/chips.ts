@@ -1,8 +1,8 @@
-import {NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, QueryList, TemplateRef, forwardRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SharedModule, PrimeTemplate} from 'primeng/api';
-import {InputTextModule} from 'primeng/inputtext';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, QueryList, TemplateRef, forwardRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SharedModule, PrimeTemplate } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

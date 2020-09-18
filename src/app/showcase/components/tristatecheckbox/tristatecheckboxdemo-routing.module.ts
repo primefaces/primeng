@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {TriStateCheckboxDemo} from './tristatecheckboxdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TriStateCheckboxDemo } from './tristatecheckboxdemo';
 
 @NgModule({
     imports: [

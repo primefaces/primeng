@@ -1,8 +1,8 @@
-import {NgModule, Component, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
-import {RouterModule} from '@angular/router';
+import { NgModule, Component, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { MenuItem } from 'primeng/api';
+import { RouterModule } from '@angular/router';
 
 export class BasePanelMenuItem {
 

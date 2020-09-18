@@ -1,17 +1,17 @@
-import {NgModule, Component, Input, AfterContentInit, OnDestroy, Output, EventEmitter, OnInit, OnChanges,
-    ContentChildren, QueryList, TemplateRef, Inject, ElementRef, forwardRef, ChangeDetectionStrategy, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {Optional} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TreeNode} from 'primeng/api';
-import {SharedModule} from 'primeng/api';
-import {PrimeTemplate} from 'primeng/api';
-import {TreeDragDropService} from 'primeng/api';
-import {Subscription} from 'rxjs';
-import {BlockableUI} from 'primeng/api';
-import {ObjectUtils} from 'primeng/utils';
-import {DomHandler} from 'primeng/dom';
-import {RippleModule} from 'primeng/ripple';
+import { NgModule, Component, Input, AfterContentInit, OnDestroy, Output, EventEmitter, OnInit, OnChanges,
+    ContentChildren, QueryList, TemplateRef, Inject, ElementRef, forwardRef, ChangeDetectionStrategy, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { Optional } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TreeNode } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
+import { PrimeTemplate } from 'primeng/api';
+import { TreeDragDropService } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { BlockableUI } from 'primeng/api';
+import { ObjectUtils } from 'primeng/utils';
+import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-treeNode',

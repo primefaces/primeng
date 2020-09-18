@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MenuItem, MessageService} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TicketService } from './ticketservice';
 import { Subscription } from 'rxjs';
 

@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {DialogDemo} from './dialogdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DialogDemo } from './dialogdemo';
 
 @NgModule({
     imports: [

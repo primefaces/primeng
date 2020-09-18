@@ -1,8 +1,8 @@
-import {NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MegaMenuItem, MenuItem, PrimeTemplate} from 'primeng/api';
-import {RouterModule} from '@angular/router';
-import {RippleModule} from 'primeng/ripple';
+import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MegaMenuItem, MenuItem, PrimeTemplate } from 'primeng/api';
+import { RouterModule } from '@angular/router';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-megaMenu',

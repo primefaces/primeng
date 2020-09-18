@@ -1,5 +1,5 @@
-import {NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-message',

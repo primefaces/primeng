@@ -1,16 +1,16 @@
-import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter, ContentChildren,
-        QueryList, ViewChild, TemplateRef, forwardRef, ChangeDetectorRef, NgZone, ViewRef, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger, style, transition, animate, AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {SelectItem} from 'primeng/api';
-import {SharedModule, PrimeTemplate} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
-import {ObjectUtils} from 'primeng/utils';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {FilterUtils} from 'primeng/utils';
-import {TooltipModule} from 'primeng/tooltip';
-import {RippleModule} from 'primeng/ripple';
+import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter, ContentChildren,
+        QueryList, ViewChild, TemplateRef, forwardRef, ChangeDetectorRef, NgZone, ViewRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { SelectItem } from 'primeng/api';
+import { SharedModule, PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { ObjectUtils } from 'primeng/utils';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { FilterUtils } from 'primeng/utils';
+import { TooltipModule } from 'primeng/tooltip';
+import { RippleModule } from 'primeng/ripple';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

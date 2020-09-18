@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {BreadcrumbDemo} from './breadcrumbdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BreadcrumbDemo } from './breadcrumbdemo';
 
 @NgModule({
     imports: [

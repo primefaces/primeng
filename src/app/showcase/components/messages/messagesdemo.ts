@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Message, MessageService} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { Message, MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './messagesdemo.html',

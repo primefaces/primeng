@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {FocusTrapDemo} from './focustrapdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { FocusTrapDemo } from './focustrapdemo';
 
 @NgModule({
     imports: [

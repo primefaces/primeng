@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {EventService} from '../../service/eventservice';
+import { Component, OnInit } from '@angular/core';
+import { EventService } from '../../service/eventservice';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';

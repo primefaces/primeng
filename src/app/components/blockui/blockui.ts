@@ -1,7 +1,7 @@
-import {NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate} from 'primeng/api';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-blockUI',

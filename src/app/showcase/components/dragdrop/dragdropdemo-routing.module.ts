@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {DragDropDemo} from './dragdropdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DragDropDemo } from './dragdropdemo';
 
 @NgModule({
     imports: [

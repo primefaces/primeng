@@ -1,6 +1,6 @@
-import {NgModule, Directive, Input, TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
+import { NgModule, Directive, Input, TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'p-header',

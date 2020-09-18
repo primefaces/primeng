@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ToggleButtonDemo} from './togglebuttondemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ToggleButtonDemo } from './togglebuttondemo';
 
 @NgModule({
     imports: [

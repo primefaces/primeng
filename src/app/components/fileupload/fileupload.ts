@@ -1,16 +1,16 @@
-import {NgModule, Component, OnDestroy, Input, Output, EventEmitter, TemplateRef, AfterViewInit, AfterContentInit,
-            ContentChildren, QueryList, ViewChild, ElementRef, NgZone, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ButtonModule} from 'primeng/button';
-import {MessagesModule} from 'primeng/messages';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {DomHandler} from 'primeng/dom';
-import {Message} from 'primeng/api';
-import {PrimeTemplate, SharedModule} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
-import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from '@angular/common/http';
+import { NgModule, Component, OnDestroy, Input, Output, EventEmitter, TemplateRef, AfterViewInit, AfterContentInit,
+            ContentChildren, QueryList, ViewChild, ElementRef, NgZone, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { DomHandler } from 'primeng/dom';
+import { Message } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 
 @Component({
     selector: 'p-fileUpload',

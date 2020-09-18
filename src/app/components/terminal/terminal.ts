@@ -1,9 +1,9 @@
-import {NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {TerminalService} from './terminalservice';
-import {Subscription}   from 'rxjs';
+import { NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
+import { TerminalService } from './terminalservice';
+import { Subscription }   from 'rxjs';
 
 @Component({
     selector: 'p-terminal',

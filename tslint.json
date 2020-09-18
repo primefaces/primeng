@@ -92,7 +92,8 @@
     "use-pipe-transform-interface": true,
     "no-unused-variable": [
       true
-    ]
+    ],
+    "whitespace": [true, "check-module"]
   },
   "rulesDirectory": [
     "codelyzer"

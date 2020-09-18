@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     templateUrl: './panelmenudemo.html'

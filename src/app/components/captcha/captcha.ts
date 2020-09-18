@@ -1,5 +1,5 @@
-import {NgModule, AfterViewInit, Component, EventEmitter, Input, NgZone, OnDestroy, Output, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, AfterViewInit, Component, EventEmitter, Input, NgZone, OnDestroy, Output, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-captcha',

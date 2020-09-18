@@ -1,7 +1,7 @@
 import { Component, NgModule, OnInit, OnDestroy } from '@angular/core';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
-import { AppConfigService} from './service/appconfigservice';
+import { AppConfigService } from './service/appconfigservice';
 import { Subscription } from 'rxjs';
 import { AppConfig } from './domain/appconfig';
 

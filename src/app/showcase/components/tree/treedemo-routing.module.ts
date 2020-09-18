@@ -1,14 +1,14 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {TreeDemo} from './treedemo';
-import {TreeTemplatingDemo} from './treetemplatingdemo';
-import {TreeSelectionDemo} from './treeselectiondemo';
-import {TreeFilterDemo} from './treefilterdemo';
-import {TreeLazyDemo} from './treelazydemo';
-import {TreeScrollDemo} from './treescrolldemo';
-import {TreeContextMenuDemo} from './treecontextmenudemo';
-import {TreeDragDropDemo} from './treedragdropdemo';
-import {TreeHorizontalDemo} from './treehorizontaldemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TreeDemo } from './treedemo';
+import { TreeTemplatingDemo } from './treetemplatingdemo';
+import { TreeSelectionDemo } from './treeselectiondemo';
+import { TreeFilterDemo } from './treefilterdemo';
+import { TreeLazyDemo } from './treelazydemo';
+import { TreeScrollDemo } from './treescrolldemo';
+import { TreeContextMenuDemo } from './treecontextmenudemo';
+import { TreeDragDropDemo } from './treedragdropdemo';
+import { TreeHorizontalDemo } from './treehorizontaldemo';
 
 @NgModule({
     imports: [

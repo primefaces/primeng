@@ -1,7 +1,7 @@
-import {NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RippleModule} from 'primeng/ripple';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RippleModule } from 'primeng/ripple';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

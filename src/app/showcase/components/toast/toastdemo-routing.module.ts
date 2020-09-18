@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ToastDemo} from './toastdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ToastDemo } from './toastdemo';
 
 @NgModule({
     imports: [

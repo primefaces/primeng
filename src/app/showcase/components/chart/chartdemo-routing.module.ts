@@ -1,12 +1,12 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ChartDemo} from './chartdemo';
-import {PieChartDemo} from './piechart/piechartdemo';
-import {DoughnutChartDemo} from './doughnutchart/doughnutchartdemo';
-import {BarChartDemo} from './barchart/barchartdemo';
-import {LineChartDemo} from './linechart/linechartdemo';
-import {PolarAreaChartDemo} from './polarareachart/polarareachartdemo';
-import {RadarChartDemo} from './radarchart/radarchartdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ChartDemo } from './chartdemo';
+import { PieChartDemo } from './piechart/piechartdemo';
+import { DoughnutChartDemo } from './doughnutchart/doughnutchartdemo';
+import { BarChartDemo } from './barchart/barchartdemo';
+import { LineChartDemo } from './linechart/linechartdemo';
+import { PolarAreaChartDemo } from './polarareachart/polarareachartdemo';
+import { RadarChartDemo } from './radarchart/radarchartdemo';
 
 @NgModule({
     imports: [

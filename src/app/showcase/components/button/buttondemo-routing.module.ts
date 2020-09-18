@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ButtonDemo} from './buttondemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ButtonDemo } from './buttondemo';
 
 @NgModule({
     imports: [

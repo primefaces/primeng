@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ConfirmDialogDemo} from './confirmdialogdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ConfirmDialogDemo } from './confirmdialogdemo';
 
 @NgModule({
     imports: [

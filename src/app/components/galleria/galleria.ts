@@ -1,5 +1,5 @@
-import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';

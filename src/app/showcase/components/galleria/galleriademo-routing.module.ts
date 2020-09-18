@@ -1,15 +1,15 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {GalleriaDemo} from './galleriademo';
-import {GalleriaIndicatorDemo} from './galleriaindicatordemo';
-import {GalleriaThumbnailDemo} from './galleriathumbnaildemo';
-import {GalleriaNavigatorDemo} from './gallerianavigatordemo';
-import {GalleriaResponsiveDemo} from './galleriaresponsivedemo';
-import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
-import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
-import {GalleriaCaptionDemo} from './galleriacaptiondemo';
-import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
-import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { GalleriaDemo } from './galleriademo';
+import { GalleriaIndicatorDemo } from './galleriaindicatordemo';
+import { GalleriaThumbnailDemo } from './galleriathumbnaildemo';
+import { GalleriaNavigatorDemo } from './gallerianavigatordemo';
+import { GalleriaResponsiveDemo } from './galleriaresponsivedemo';
+import { GalleriaFullscreenDemo } from './galleriafullscreendemo';
+import { GalleriaAutoPlayDemo } from './galleriaautoplaydemo';
+import { GalleriaCaptionDemo } from './galleriacaptiondemo';
+import { GalleriaProgrammaticDemo } from './galleriaprogrammaticdemo';
+import { GalleriaAdvancedDemo } from './galleriaadvanceddemo';
 
 @NgModule({
     imports: [

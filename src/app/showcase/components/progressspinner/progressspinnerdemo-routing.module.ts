@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ProgressSpinnerDemo} from './progressspinnerdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ProgressSpinnerDemo } from './progressspinnerdemo';
 
 @NgModule({
     imports: [

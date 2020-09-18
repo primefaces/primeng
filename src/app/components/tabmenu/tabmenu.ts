@@ -1,10 +1,10 @@
-import {NgModule, Component, Input, ContentChildren, QueryList, AfterContentInit, AfterViewInit, AfterViewChecked, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
-import {PrimeTemplate, SharedModule} from 'primeng/api';
-import {RouterModule} from '@angular/router';
-import {DomHandler} from 'primeng/dom';
+import { NgModule, Component, Input, ContentChildren, QueryList, AfterContentInit, AfterViewInit, AfterViewChecked, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MenuItem } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { RouterModule } from '@angular/router';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-tabMenu',

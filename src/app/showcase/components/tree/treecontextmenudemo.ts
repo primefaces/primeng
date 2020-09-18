@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {NodeService} from '../../service/nodeservice';
-import {MenuItem, TreeNode} from 'primeng/api';
-import {MessageService} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { NodeService } from '../../service/nodeservice';
+import { MenuItem, TreeNode } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './treecontextmenudemo.html',

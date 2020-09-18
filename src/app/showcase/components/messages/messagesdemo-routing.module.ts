@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {MessagesDemo} from './messagesdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MessagesDemo } from './messagesdemo';
 
 @NgModule({
     imports: [

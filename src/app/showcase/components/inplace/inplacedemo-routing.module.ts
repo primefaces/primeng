@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {InplaceDemo} from './inplacedemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { InplaceDemo } from './inplacedemo';
 
 @NgModule({
     imports: [

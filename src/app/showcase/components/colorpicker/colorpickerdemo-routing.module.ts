@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ColorPickerDemo} from './colorpickerdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ColorPickerDemo } from './colorpickerdemo';
 
 @NgModule({
     imports: [

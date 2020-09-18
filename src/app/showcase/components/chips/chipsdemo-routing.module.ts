@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ChipsDemo} from './chipsdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ChipsDemo } from './chipsdemo';
 
 @NgModule({
     imports: [

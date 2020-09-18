@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {MenuModelDemo} from './menumodeldemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MenuModelDemo } from './menumodeldemo';
 
 @NgModule({
     imports: [

@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CheckboxDemo} from './checkboxdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CheckboxDemo } from './checkboxdemo';
 
 @NgModule({
     imports: [

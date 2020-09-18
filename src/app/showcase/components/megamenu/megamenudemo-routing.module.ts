@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {MegaMenuDemo} from './megamenudemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MegaMenuDemo } from './megamenudemo';
 
 @NgModule({
     imports: [

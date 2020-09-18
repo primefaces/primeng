@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {  Injectabl e } from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class PrimeNGConfig {

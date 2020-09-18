@@ -1,11 +1,11 @@
-import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2,
-    ContentChildren, QueryList, ViewChild, NgZone, ChangeDetectorRef, ViewRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild} from '@angular/core';
-import {trigger, style, transition, animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {Header, Footer, SharedModule, PrimeTemplate} from 'primeng/api';
-import {FocusTrapModule} from 'primeng/focustrap';
-import {RippleModule} from 'primeng/ripple';
+import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2,
+    ContentChildren, QueryList, ViewChild, NgZone, ChangeDetectorRef, ViewRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild } from '@angular/core';
+import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
+import { Header, Footer, SharedModule, PrimeTemplate } from 'primeng/api';
+import { FocusTrapModule } from 'primeng/focustrap';
+import { RippleModule } from 'primeng/ripple';
 
 let idx = 0;
 

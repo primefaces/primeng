@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AppConfigService} from '../../../service/appconfigservice';
-import {AppConfig} from '../../../domain/appconfig';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../../service/appconfigservice';
+import { AppConfig } from '../../../domain/appconfig';
 
 @Component({
     templateUrl: './piechartdemo.html'

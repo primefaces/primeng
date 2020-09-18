@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {StepsDemo} from './stepsdemo';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StepsDemo } from './stepsdemo';
 import { StepsDemoRoutingModule } from './stepsdemo-routing.module';
 import { StepsModule } from 'primeng/steps';
 import { TabViewModule } from 'primeng/tabview';

@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {DynamicDialogDemo} from './dynamicdialogdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DynamicDialogDemo } from './dynamicdialogdemo';
 
 @NgModule({
     imports: [

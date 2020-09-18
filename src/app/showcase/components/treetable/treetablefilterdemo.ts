@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {NodeService} from '../../service/nodeservice';
-import {TreeNode} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { NodeService } from '../../service/nodeservice';
+import { TreeNode } from 'primeng/api';
 
 @Component({
     templateUrl: './treetablefilterdemo.html'

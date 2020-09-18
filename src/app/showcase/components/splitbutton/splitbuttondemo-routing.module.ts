@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {SplitButtonDemo} from './splitbuttondemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SplitButtonDemo } from './splitbuttondemo';
 
 @NgModule({
     imports: [

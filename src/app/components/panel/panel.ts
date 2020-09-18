@@ -1,9 +1,9 @@
-import {NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SharedModule, Footer, PrimeTemplate} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
+import { BlockableUI } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 let idx = 0;
 

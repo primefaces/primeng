@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CodeHighlighterDemo} from './codehighlighterdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CodeHighlighterDemo } from './codehighlighterdemo';
 
 @NgModule({
     imports: [

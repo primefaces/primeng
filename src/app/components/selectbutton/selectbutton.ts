@@ -1,9 +1,9 @@
-import {NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ContentChild, TemplateRef, SimpleChanges, OnChanges, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SelectItem} from 'primeng/api';
-import {ObjectUtils} from 'primeng/utils';
-import {RippleModule} from 'primeng/ripple';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ContentChild, TemplateRef, SimpleChanges, OnChanges, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SelectItem } from 'primeng/api';
+import { ObjectUtils } from 'primeng/utils';
+import { RippleModule } from 'primeng/ripple';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

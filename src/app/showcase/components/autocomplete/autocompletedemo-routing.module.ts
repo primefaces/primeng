@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {AutoCompleteDemo} from './autocompletedemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AutoCompleteDemo } from './autocompletedemo';
 
 @NgModule({
     imports: [

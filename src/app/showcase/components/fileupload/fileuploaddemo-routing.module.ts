@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {FileUploadDemo} from './fileuploaddemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { FileUploadDemo } from './fileuploaddemo';
 
 @NgModule({
     imports: [

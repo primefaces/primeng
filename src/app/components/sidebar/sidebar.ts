@@ -1,9 +1,9 @@
-import {NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {RippleModule} from 'primeng/ripple';
-import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate} from 'primeng/api';
+import { NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { RippleModule } from 'primeng/ripple';
+import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-sidebar',

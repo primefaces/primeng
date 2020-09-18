@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {MessageService} from 'primeng/api';
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './progressbardemo.html',

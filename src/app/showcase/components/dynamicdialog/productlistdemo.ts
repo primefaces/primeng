@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {DynamicDialogRef} from '../../../components/dynamicdialog/dynamicdialog-ref';
-import {DynamicDialogConfig} from '../../../components/dynamicdialog/dynamicdialog-config';
-import {ProductService} from '../../service/productservice';
-import {Product} from '../../domain/product';
+import { Component } from '@angular/core';
+import { DynamicDialogRef } from '../../../components/dynamicdialog/dynamicdialog-ref';
+import { DynamicDialogConfig } from '../../../components/dynamicdialog/dynamicdialog-config';
+import { ProductService } from '../../service/productservice';
+import { Product } from '../../domain/product';
 
 @Component({
     template: `

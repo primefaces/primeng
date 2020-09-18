@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CardDemo} from './carddemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CardDemo } from './carddemo';
 
 @NgModule({
     imports: [

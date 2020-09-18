@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CalendarDemo} from './calendardemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CalendarDemo } from './calendardemo';
 
 @NgModule({
     imports: [

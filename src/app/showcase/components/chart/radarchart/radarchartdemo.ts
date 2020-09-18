@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AppConfigService} from '../../../service/appconfigservice';
-import {AppConfig} from '../../../domain/appconfig';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../../service/appconfigservice';
+import { AppConfig } from '../../../domain/appconfig';
 
 @Component({
     templateUrl: './radarchartdemo.html'

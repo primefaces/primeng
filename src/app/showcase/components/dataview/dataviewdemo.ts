@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductService} from '../../service/productservice';
-import {SelectItem} from 'primeng/api';
-import {Product} from '../../domain/product';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../service/productservice';
+import { SelectItem } from 'primeng/api';
+import { Product } from '../../domain/product';
 
 @Component({
     templateUrl: './dataviewdemo.html',

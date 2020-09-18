@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {EditorDemo} from './editordemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { EditorDemo } from './editordemo';
 
 @NgModule({
     imports: [

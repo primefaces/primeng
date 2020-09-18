@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {TooltipDemo} from './tooltipdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TooltipDemo } from './tooltipdemo';
 
 @NgModule({
     imports: [

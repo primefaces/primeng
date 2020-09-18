@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { StepsDemo } from './stepsdemo';
 import { ConfirmationDemo } from './confirmationdemo';
 import { SeatDemo } from './seatdemo';

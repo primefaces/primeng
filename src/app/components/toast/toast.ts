@@ -1,12 +1,12 @@
-import {NgModule, Component, Input, Output, OnInit, AfterViewInit, AfterContentInit, OnDestroy, ElementRef, ViewChild, EventEmitter, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Message} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate, SharedModule} from 'primeng/api';
-import {MessageService} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
-import {Subscription} from 'rxjs';
-import {trigger, state, style, transition, animate, query, animateChild, AnimationEvent} from '@angular/animations';
+import { NgModule, Component, Input, Output, OnInit, AfterViewInit, AfterContentInit, OnDestroy, ElementRef, ViewChild, EventEmitter, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Message } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { Subscription } from 'rxjs';
+import { trigger, state, style, transition, animate, query, animateChild, AnimationEvent } from '@angular/animations';
 
 @Component({
     selector: 'p-toastItem',

@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {InputSwitchDemo} from './inputswitchdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { InputSwitchDemo } from './inputswitchdemo';
 
 @NgModule({
     imports: [

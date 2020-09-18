@@ -1,6 +1,6 @@
-import {NgModule, Directive, ElementRef, HostListener, DoCheck, Optional} from '@angular/core';
-import {NgModel} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import { NgModule, Directive, ElementRef, HostListener, DoCheck, Optional } from '@angular/core';
+import { NgModel } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Directive({
     selector: '[pInputText]',

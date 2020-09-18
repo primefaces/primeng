@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IconService } from '../../service/iconservice';
 
 @Component({
@@ -7,13 +7,13 @@ import { IconService } from '../../service/iconservice';
 })
 export class IconsComponent implements OnInit {
 
-    icons: any [];
+    icons: any[];
 
-    filteredIcons: any [];
+    filteredIcons: any[];
 
     selectedIcon: any;
 
-    constructor(private iconService: IconService) {}
+    constructor(private iconService: IconService) { }
 
     ngOnInit() {
         this.iconService.getIcons().subscribe(data => {
@@ -23,9 +23,9 @@ export class IconsComponent implements OnInit {
                     return -1;
                 } else if (icon1.properties.name < icon2.properties.name) {
                     return 1;
- } else {
+                } else {
                     return 0;
- }
+                }
             });
 
             this.icons = icons;
@@ -39,7 +39,7 @@ export class IconsComponent implements OnInit {
         if (!searchText) {
             this.filteredIcons = this.icons;
         } else {
-            this.filteredIcons = this.icons.filter( it => {
+            this.filteredIcons = this.icons.filter(it => {
                 return it.icon.tags[0].includes(searchText);
             });
         }

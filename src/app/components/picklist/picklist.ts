@@ -1,11 +1,11 @@
-import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {SharedModule, PrimeTemplate} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
-import {RippleModule} from 'primeng/ripple';
-import {ObjectUtils} from 'primeng/utils';
-import {FilterUtils} from 'primeng/utils';
+import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { SharedModule, PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
+import { ObjectUtils } from 'primeng/utils';
+import { FilterUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-pickList',

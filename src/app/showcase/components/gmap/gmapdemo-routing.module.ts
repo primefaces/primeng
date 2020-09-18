@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {GMapDemo} from './gmapdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { GMapDemo } from './gmapdemo';
 
 @NgModule({
     imports: [

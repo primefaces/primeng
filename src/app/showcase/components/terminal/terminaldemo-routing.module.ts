@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {TerminalDemo} from './terminaldemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TerminalDemo } from './terminaldemo';
 
 @NgModule({
     imports: [

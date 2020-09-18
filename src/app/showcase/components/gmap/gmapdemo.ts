@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 declare var google: any;
 

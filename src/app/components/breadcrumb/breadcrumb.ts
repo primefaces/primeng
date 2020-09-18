@@ -1,7 +1,7 @@
-import {NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
-import {RouterModule} from '@angular/router';
+import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MenuItem } from 'primeng/api';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'p-breadcrumb',

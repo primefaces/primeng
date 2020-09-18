@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {TabViewDemo} from './tabviewdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TabViewDemo } from './tabviewdemo';
 
 @NgModule({
     imports: [

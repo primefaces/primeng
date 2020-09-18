@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {VirtualScrollerDemo} from './virtualscrollerdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { VirtualScrollerDemo } from './virtualscrollerdemo';
 
 @NgModule({
     imports: [

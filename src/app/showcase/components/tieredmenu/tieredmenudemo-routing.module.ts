@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {TieredMenuDemo} from './tieredmenudemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TieredMenuDemo } from './tieredmenudemo';
 
 @NgModule({
     imports: [

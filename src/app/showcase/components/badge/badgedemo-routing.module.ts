@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {BadgeDemo} from './badgedemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BadgeDemo } from './badgedemo';
 
 @NgModule({
     imports: [

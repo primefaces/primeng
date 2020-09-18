@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 @Component({
     templateUrl: './galleriacaptiondemo.html'

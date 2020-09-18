@@ -1,13 +1,13 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {PrimeFlexSetup} from './primeflexsetup';
-import {DisplayDemo} from './displaydemo';
-import {ElevationDemo} from './elevationdemo';
-import {FlexBoxDemo} from './flexboxdemo';
-import {FormLayoutDemo} from './formlayoutdemo';
-import {GridDemo} from './griddemo';
-import {SpacingDemo} from './spacingdemo';
-import {TextDemo} from './textdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { PrimeFlexSetup } from './primeflexsetup';
+import { DisplayDemo } from './displaydemo';
+import { ElevationDemo } from './elevationdemo';
+import { FlexBoxDemo } from './flexboxdemo';
+import { FormLayoutDemo } from './formlayoutdemo';
+import { GridDemo } from './griddemo';
+import { SpacingDemo } from './spacingdemo';
+import { TextDemo } from './textdemo';
 
 @NgModule({
     imports: [

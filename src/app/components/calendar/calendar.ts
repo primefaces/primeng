@@ -1,12 +1,12 @@
-import {NgModule, Component, ElementRef, OnDestroy, OnInit, Input, Output, EventEmitter, forwardRef, Renderer2,
-        ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, NgZone, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger, state, style, transition, animate, AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {RippleModule} from 'primeng/ripple';
-import {DomHandler} from 'primeng/dom';
-import {SharedModule, PrimeTemplate} from 'primeng/api';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, ElementRef, OnDestroy, OnInit, Input, Output, EventEmitter, forwardRef, Renderer2,
+        ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, NgZone, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { DomHandler } from 'primeng/dom';
+import { SharedModule, PrimeTemplate } from 'primeng/api';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
