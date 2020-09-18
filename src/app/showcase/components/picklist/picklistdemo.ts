@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Car} from '../../components/domain/car';
+import { Product } from '../../domain/product';
 import {ProductService} from '../../service/productservice';
 
 @Component({
@@ -8,9 +8,9 @@ import {ProductService} from '../../service/productservice';
 })
 export class PickListDemo {
 
-    sourceProducts: Car[];
+    sourceProducts: Product[];
     
-    targetProducts: Car[];
+    targetProducts: Product[];
     
     constructor(private carService: ProductService) { }
 
