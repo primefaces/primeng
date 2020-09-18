@@ -589,7 +589,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let dayIndex = this.locale.firstDayOfWeek;
         for (let i = 0; i < 7; i++) {
             this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
-            dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
+            dayIndex = (dayIndex === 6) ? 0 : ++dayIndex;
         }
     }
 
@@ -636,7 +636,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         for (let i = 0; i < monthRows; i++) {
             const week = [];
 
-            if (i == 0) {
+            if (i === 0) {
                 for (let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     const prev = this.getPreviousMonthAndYear(month, year);
                     week.push({day: j, month: prev.month, year: prev.year, otherMonth: true,
@@ -870,12 +870,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     setCurrentHourPM(hours: number) {
-        if (this.hourFormat == '12') {
+        if (this.hourFormat === '12') {
             this.pm = hours > 11;
             if (hours >= 12) {
-                this.currentHour = (hours == 12) ? 12 : hours - 12;
+                this.currentHour = (hours === 12) ? 12 : hours - 12;
             } else {
-                this.currentHour = (hours == 0) ? 12 : hours;
+                this.currentHour = (hours === 0) ? 12 : hours;
             }
         } else {
             this.currentHour = hours;
@@ -886,7 +886,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
 
         if (this.showTime) {
-            if (this.hourFormat == '12') {
+            if (this.hourFormat === '12') {
                 if (this.currentHour === 12) {
                     date.setHours(this.pm ? 12 : 0);
                 } else {
@@ -942,9 +942,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     updateModel(value) {
         this.value = value;
 
-        if (this.dataType == 'date') {
+        if (this.dataType === 'date') {
             this.onModelChange(this.value);
-        } else if (this.dataType == 'string') {
+        } else if (this.dataType === 'string') {
             if (this.isSingleSelection()) {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
@@ -1507,7 +1507,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                 if (event.shiftKey) {
-                    if (focusedIndex == -1 || focusedIndex === 0) {
+                    if (focusedIndex === -1 || focusedIndex === 0) {
                         if (this.focusTrap) {
                             focusableElements[focusableElements.length - 1].focus();
                         } else {
@@ -1521,7 +1521,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                         focusableElements[focusedIndex - 1].focus();
                     }
                 } else {
-                    if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                    if (focusedIndex === -1 || focusedIndex === (focusableElements.length - 1)) {
                         if (!this.focusTrap && focusedIndex != -1) {
                             return this.hideOverlay();
                         } else {
@@ -1550,7 +1550,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     convertTo24Hour = function(hours: number, pm: boolean) {
-        if (this.hourFormat == '12') {
+        if (this.hourFormat === '12') {
             if (hours === 12) {
                 return (pm ? 12 : 0);
             } else {
@@ -1610,9 +1610,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let newHour = this.currentHour + this.stepHour;
         let newPM = this.pm;
 
-        if (this.hourFormat == '24') {
+        if (this.hourFormat === '24') {
             newHour = (newHour >= 24) ? (newHour - 24) : newHour;
-        } else if (this.hourFormat == '12') {
+        } else if (this.hourFormat === '12') {
             // Before the AM/PM break, now after
             if (prevHour < 12 && newHour > 11) {
                 newPM = !this.pm;
@@ -1696,9 +1696,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let newHour = this.currentHour - this.stepHour;
         let newPM = this.pm;
 
-        if (this.hourFormat == '24') {
+        if (this.hourFormat === '24') {
             newHour = (newHour < 0) ? (24 + newHour) : newHour;
-        } else if (this.hourFormat == '12') {
+        } else if (this.hourFormat === '12') {
             // If we were at noon/midnight, then switch
             if (this.currentHour === 12) {
                 newPM = !this.pm;
@@ -1764,7 +1764,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
         value = value ? new Date(value.getTime()) : new Date();
 
-        if (this.hourFormat == '12') {
+        if (this.hourFormat === '12') {
             if (this.currentHour === 12) {
                 value.setHours(this.pm ? 12 : 0);
             } else {
@@ -1875,7 +1875,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else {
             const dateFormat = this.getDateFormat();
             if (this.showTime) {
-                const ampm = this.hourFormat == '12' ? parts.pop() : null;
+                const ampm = this.hourFormat === '12' ? parts.pop() : null;
                 const timeString = parts.pop();
 
                 date = this.parseDate(parts.join(' '), dateFormat);
@@ -1889,7 +1889,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     populateTime(value, timeString, ampm) {
-        if (this.hourFormat == '12' && !ampm) {
+        if (this.hourFormat === '12' && !ampm) {
             throw new Error('Invalid Time');
         }
 
@@ -2173,11 +2173,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
 
-        if (this.hourFormat == '12' && hours > 11 && hours != 12) {
+        if (this.hourFormat === '12' && hours > 11 && hours != 12) {
             hours -= 12;
         }
 
-        if (this.hourFormat == '12') {
+        if (this.hourFormat === '12') {
             output += hours === 0 ? 12 : (hours < 10) ? '0' + hours : hours;
         } else {
             output += (hours < 10) ? '0' + hours : hours;
@@ -2190,7 +2190,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             output += (seconds < 10) ? '0' + seconds : seconds;
         }
 
-        if (this.hourFormat == '12') {
+        if (this.hourFormat === '12') {
             output += date.getHours() > 11 ? ' PM' : ' AM';
         }
 
@@ -2209,10 +2209,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const m = parseInt(tokens[1]);
         const s = this.showSeconds ? parseInt(tokens[2]) : null;
 
-        if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
+        if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat === '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
             throw new Error('Invalid time');
         } else {
-            if (this.hourFormat == '12') {
+            if (this.hourFormat === '12') {
                 if (h !== 12 && this.pm) {
                     h += 12;
                 } else if (!this.pm && h === 12) {
@@ -2226,7 +2226,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     // Ported from jquery-ui datepicker parseDate
     parseDate(value, format) {
-        if (format == null || value == null) {
+        if (format === null || value === null) {
             throw new Error('Invalid arguments');
         }
 

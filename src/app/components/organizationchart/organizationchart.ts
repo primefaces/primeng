@@ -88,7 +88,7 @@ export class OrganizationChartNode implements OnDestroy {
     }
 
     get leaf(): boolean {
-        return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
+        return this.node.leaf === false ? false : !(this.node.children && this.node.children.length);
     }
 
     get colspan() {
@@ -241,10 +241,10 @@ export class OrganizationChart implements AfterContentInit {
 
         if (this.selectionMode && this.selection) {
             if (this.selectionMode === 'single') {
-                index = (this.selection == node) ? 0 : - 1;
+                index = (this.selection === node) ? 0 : - 1;
             } else if (this.selectionMode === 'multiple') {
                 for (let i = 0; i  < this.selection.length; i++) {
-                    if (this.selection[i] == node) {
+                    if (this.selection[i] === node) {
                         index = i;
                         break;
                     }

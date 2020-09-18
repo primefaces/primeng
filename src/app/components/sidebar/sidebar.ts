@@ -227,7 +227,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
         const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.which == 27) {
+            if (event.which === 27) {
                 if (parseInt(this.containerViewChild.nativeElement.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);
                 }

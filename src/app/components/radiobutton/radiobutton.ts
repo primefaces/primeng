@@ -93,7 +93,7 @@ export class RadioButton implements ControlValueAccessor {
     }
 
     writeValue(value: any): void {
-        this.checked = (value == this.value);
+        this.checked = (value === this.value);
 
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
             this.inputViewChild.nativeElement.checked = this.checked;

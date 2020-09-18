@@ -509,7 +509,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             const optionCount = this.getEnabledOptionCount();
             const disabledSelectedOptionCount = this.disabledSelectedOptions.length;
 
-            return this.value && this.options && (this.value.length > 0 && this.value.length == optionCount + disabledSelectedOptionCount);
+            return this.value && this.options && (this.value.length > 0 && this.value.length === optionCount + disabledSelectedOptionCount);
         }
     }
 
@@ -788,7 +788,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         let label = null;
         for (let i = 0; i < this.options.length; i++) {
             const option = this.options[i];
-            if (val == null && option.value == null || ObjectUtils.equals(val, option.value, this.dataKey)) {
+            if (val === null && option.value === null || ObjectUtils.equals(val, option.value, this.dataKey)) {
                 label = option.label;
                 break;
             }

@@ -464,9 +464,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             if (!this.lazy) {
                 this.totalRecords = (this._value ? this._value.length : 0);
 
-                if (this.sortMode == 'single' && this.sortField) {
+                if (this.sortMode === 'single' && this.sortField) {
                     this.sortSingle();
-                } else if (this.sortMode == 'multiple' && this.multiSortMeta) {
+                } else if (this.sortMode === 'multiple' && this.multiSortMeta) {
                     this.sortMultiple();
  } else if (this.hasFilter()) {       // sort already filters
                     this._filter();
@@ -685,11 +685,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 const value2 = ObjectUtils.resolveFieldData(node2.data, this.sortField);
                 let result = null;
 
-                if (value1 == null && value2 != null) {
+                if (value1 === null && value2 != null) {
                     result = -1;
-                } else if (value1 != null && value2 == null) {
+                } else if (value1 != null && value2 === null) {
                     result = 1;
- } else if (value1 == null && value2 == null) {
+ } else if (value1 === null && value2 === null) {
                     result = 0;
  } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                     result = value1.localeCompare(value2, undefined, {numeric: true});
@@ -753,14 +753,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         const value2 = ObjectUtils.resolveFieldData(node2.data, multiSortMeta[index].field);
         let result = null;
 
-        if (value1 == null && value2 != null) {
+        if (value1 === null && value2 != null) {
             result = -1;
-        } else if (value1 != null && value2 == null) {
+        } else if (value1 != null && value2 === null) {
             result = 1;
- } else if (value1 == null && value2 == null) {
+ } else if (value1 === null && value2 === null) {
             result = 0;
  }
-        if (typeof value1 == 'string' || value1 instanceof String) {
+        if (typeof value1 === 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2, undefined, {numeric: true}));
             }
@@ -768,7 +768,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             result = (value1 < value2) ? -1 : 1;
         }
 
-        if (value1 == value2) {
+        if (value1 === value2) {
             return (multiSortMeta.length - 1) > (index) ? (this.multisortField(node1, node2, multiSortMeta, index + 1)) : 0;
         }
 
@@ -794,7 +794,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             let sorted = false;
             if (this.multiSortMeta) {
                 for (let i = 0; i < this.multiSortMeta.length; i++) {
-                    if (this.multiSortMeta[i].field == field) {
+                    if (this.multiSortMeta[i].field === field) {
                         sorted = true;
                         break;
                     }
@@ -846,7 +846,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     isEmpty() {
         const data = this.filteredNodes || this.value;
-        return data == null || data.length == 0;
+        return data === null || data.length === 0;
     }
 
     getBlockableElement(): HTMLElement {
@@ -1041,7 +1041,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             const dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'ttreorderablecolumn');
             let dropIndex = DomHandler.indexWithinGroup(dropColumn, 'ttreorderablecolumn');
             let allowDrop = (dragIndex != dropIndex);
-            if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
+            if (allowDrop && ((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dragIndex - dropIndex === 1 && this.dropPosition === 1))) {
                 allowDrop = false;
             }
 
@@ -1073,7 +1073,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     handleRowClick(event) {
         const targetNode = (event.originalEvent.target as HTMLElement).nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (DomHandler.hasClass(event.originalEvent.target, 'p-clickable'))) {
+        if (targetNode === 'INPUT' || targetNode === 'BUTTON' || targetNode === 'A' || (DomHandler.hasClass(event.originalEvent.target, 'p-clickable'))) {
             return;
         }
 
@@ -1267,7 +1267,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
  }
             }
 
-            if (select && selectedChildCount == node.children.length) {
+            if (select && selectedChildCount === node.children.length) {
                 this._selection =  [...this.selection || [], node];
                 node.partialSelected = false;
                 if (dataKeyValue) {
@@ -1303,7 +1303,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         const index = this.findIndexInSelection(node);
         const dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
 
-        if (select && index == -1) {
+        if (select && index === -1) {
             this._selection =  [...this.selection || [], node];
             if (dataKeyValue) {
                 this.selectionKeys[dataKeyValue] = 1;
@@ -1389,7 +1389,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0)) {
+            if ((typeof filter === 'string' && filter.trim().length === 0) || (filter instanceof Array && filter.length === 0)) {
                 return true;
             } else {
                 return false;
@@ -2595,7 +2595,7 @@ export class TTEditableColumn implements AfterViewInit {
     onKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             // enter
-            if (event.keyCode == 13) {
+            if (event.keyCode === 13) {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
@@ -2603,7 +2603,7 @@ export class TTEditableColumn implements AfterViewInit {
                 }
 
                 event.preventDefault();
-            } else if (event.keyCode == 27) {
+            } else if (event.keyCode === 27) {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
@@ -2611,7 +2611,7 @@ export class TTEditableColumn implements AfterViewInit {
                 }
 
                 event.preventDefault();
-            } else if (event.keyCode == 9) {
+            } else if (event.keyCode === 9) {
                 this.tt.onEditComplete.emit({ field: this.field, data: this.data });
 
                 if (event.shiftKey) {

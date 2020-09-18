@@ -149,7 +149,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     findTabIndex() {
         let index = -1;
         for (let i = 0; i < this.accordion.tabs.length; i++) {
-            if (this.accordion.tabs[i] == this) {
+            if (this.accordion.tabs[i] === this) {
                 index = i;
                 break;
             }

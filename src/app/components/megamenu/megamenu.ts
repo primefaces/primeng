@@ -8,7 +8,7 @@ import { RippleModule } from 'primeng/ripple';
     selector: 'p-megaMenu',
     template: `
         <div [class]="styleClass" [ngStyle]="style"
-            [ngClass]="{'p-megamenu p-component':true,'p-megamenu-horizontal': orientation == 'horizontal','p-megamenu-vertical': orientation == 'vertical'}">
+            [ngClass]="{'p-megamenu p-component':true,'p-megamenu-horizontal': orientation === 'horizontal','p-megamenu-vertical': orientation === 'vertical'}">
             <div class="p-megamenu-start" *ngIf="startTemplate">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>

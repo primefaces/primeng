@@ -13,14 +13,14 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     selector: 'p-slider',
     template: `
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'p-slider p-component':true,'p-disabled':disabled,
-            'p-slider-horizontal':orientation == 'horizontal','p-slider-vertical':orientation == 'vertical','p-slider-animate':animate}"
+            'p-slider-horizontal':orientation === 'horizontal','p-slider-vertical':orientation === 'vertical','p-slider-animate':animate}"
             (click)="onBarClick($event)">
-            <span *ngIf="range && orientation == 'horizontal'" class="p-slider-range" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
-            <span *ngIf="range && orientation == 'vertical'" class="p-slider-range" [ngStyle]="{'bottom':handleValues[0] + '%',height: (handleValues[1] - handleValues[0] + '%')}"></span>
+            <span *ngIf="range && orientation === 'horizontal'" class="p-slider-range" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
+            <span *ngIf="range && orientation === 'vertical'" class="p-slider-range" [ngStyle]="{'bottom':handleValues[0] + '%',height: (handleValues[1] - handleValues[0] + '%')}"></span>
             <span *ngIf="!range && orientation=='vertical'" class="p-slider-range" [ngStyle]="{'height': handleValue + '%'}"></span>
             <span *ngIf="!range && orientation=='horizontal'" class="p-slider-range" [ngStyle]="{'width': handleValue + '%'}"></span>
             <span #sliderHandle *ngIf="!range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event)" class="p-slider-handle" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)"
-                [style.transition]="dragging ? 'none': null" [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"
+                [style.transition]="dragging ? 'none': null" [ngStyle]="{'left': orientation === 'horizontal' ? handleValue + '%' : null,'bottom': orientation === 'vertical' ? handleValue + '%' : null}"
                 [attr.aria-valuemin]="min" [attr.aria-valuenow]="value" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy"></span>
             <span #sliderHandleStart *ngIf="range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event,0)" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="onTouchEnd($event)" [style.transition]="dragging ? 'none': null" class="p-slider-handle"
                 [ngStyle]="{'left': rangeStartLeft, 'bottom': rangeStartBottom}" [ngClass]="{'p-slider-handle-active':handleIndex==0}"
@@ -222,9 +222,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         if (this.disabled) {
             return;
         }
-        if (event.which == 38 || event.which == 39) {
+        if (event.which === 38 || event.which === 39) {
             this.spin(event, 1, handleIndex);
-        } else if (event.which == 37 || event.which == 40) {
+        } else if (event.which === 37 || event.which === 40) {
             this.spin(event, -1, handleIndex);
         }
     }
@@ -393,7 +393,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         if (this.range) {
             let value = val;
 
-            if (this.handleIndex == 0) {
+            if (this.handleIndex === 0) {
                 if (value < this.min) {
                     value = this.min;
                     this.handleValues[0] = 0;

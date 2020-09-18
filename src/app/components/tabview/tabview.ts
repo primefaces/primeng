@@ -274,7 +274,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, BlockableUI 
     findTabIndex(tab: TabPanel) {
         let index = -1;
         for (let i = 0; i < this.tabs.length; i++) {
-            if (this.tabs[i] == tab) {
+            if (this.tabs[i] === tab) {
                 index = i;
                 break;
             }

@@ -90,7 +90,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             const optionCount = this.getEnabledOptionCount();
             const disabledSelectedOptionCount = this.disabledSelectedOptions.length;
 
-            return this.value && this.options && (this.value.length > 0 && this.value.length == optionCount + disabledSelectedOptionCount);
+            return this.value && this.options && (this.value.length > 0 && this.value.length === optionCount + disabledSelectedOptionCount);
         }
     }
 

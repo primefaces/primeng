@@ -178,7 +178,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
         const maskTokens = this.mask.split('');
         for (let i = 0; i < maskTokens.length; i++) {
             const c = maskTokens[i];
-            if (c == '?') {
+            if (c === '?') {
                 this.len--;
                 this.partialPosition = i;
             } else if (this.defs[c]) {
@@ -212,7 +212,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
         this.value = value;
 
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.value == undefined || this.value == null) {
+            if (this.value === undefined || this.value === null) {
                 this.inputViewChild.nativeElement.value = '';
             } else {
                 this.inputViewChild.nativeElement.value = this.value;
@@ -244,7 +244,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
             return;
         }
 
-        if (typeof first == 'number') {
+        if (typeof first === 'number') {
             begin = first;
             end = (typeof last === 'number') ? last : begin;
             if (this.inputViewChild.nativeElement.setSelectionRange) {
@@ -575,7 +575,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
                 return;
             }
             this.writeBuffer();
-            if (pos == this.mask.replace('?', '').length) {
+            if (pos === this.mask.replace('?', '').length) {
                 this.caret(0, pos);
             } else {
                 this.caret(pos);

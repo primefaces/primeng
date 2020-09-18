@@ -77,8 +77,8 @@ export class DomHandler {
         const children = element.parentNode.childNodes;
         let num = 0;
         for (let i = 0; i < children.length; i++) {
-            if (children[i] == element) { return num; }
-            if (children[i].nodeType == 1) { num++; }
+            if (children[i] === element) { return num; }
+            if (children[i].nodeType === 1) { num++; }
         }
         return -1;
     }
@@ -87,8 +87,8 @@ export class DomHandler {
         const children = element.parentNode ? element.parentNode.childNodes : [];
         let num = 0;
         for (let i = 0; i < children.length; i++) {
-            if (children[i] == element) { return num; }
-            if (children[i].attributes && children[i].attributes[attributeName] && children[i].nodeType == 1) { num++; }
+            if (children[i] === element) { return num; }
+            if (children[i].attributes && children[i].attributes[attributeName] && children[i].nodeType === 1) { num++; }
         }
         return -1;
     }

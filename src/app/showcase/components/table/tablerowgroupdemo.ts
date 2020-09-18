@@ -32,7 +32,7 @@ export class TableRowGroupDemo implements OnInit {
                 const rowData = this.customers[i];
                 const representativeName = rowData.representative.name;
 
-                if (i == 0) {
+                if (i === 0) {
                     this.rowGroupMetadata[representativeName] = { index: 0, size: 1 };
                 } else {
                     const previousRowData = this.customers[i - 1];

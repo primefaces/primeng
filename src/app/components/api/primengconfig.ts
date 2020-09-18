@@ -1,6 +1,6 @@
-import {  Injectabl e } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
     ripple = false;
 }

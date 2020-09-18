@@ -655,7 +655,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     insertText(value, text, start, end) {
         const textSplit = text.split('.');
 
-        if (textSplit.length == 2) {
+        if (textSplit.length === 2) {
             const decimalCharIndex = value.slice(start, end).search(this._decimal);
             this._decimal.lastIndex = 0;
             return (decimalCharIndex > 0) ? value.slice(0, start) + this.formatValue(text) + value.slice(end) : value;

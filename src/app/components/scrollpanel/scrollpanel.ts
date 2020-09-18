@@ -101,7 +101,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         xBarStyles = getComputedStyle(xBar),
         pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles.height, 10);
 
-        if (containerStyles['max-height'] != 'none' && pureContainerHeight == 0) {
+        if (containerStyles['max-height'] != 'none' && pureContainerHeight === 0) {
             if (content.offsetHeight + parseInt(xBarStyles.height, 10) > parseInt(containerStyles['max-height'], 10)) {
                 container.style.height = containerStyles['max-height'];
             } else {

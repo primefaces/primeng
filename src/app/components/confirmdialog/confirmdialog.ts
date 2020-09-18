@@ -367,7 +367,7 @@ export class ConfirmDialog implements AfterContentInit, OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-                if (event.which == 27 && (this.closeOnEscape && this.closable)) {
+                if (event.which === 27 && (this.closeOnEscape && this.closable)) {
                     if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
                     }
@@ -385,13 +385,13 @@ export class ConfirmDialog implements AfterContentInit, OnDestroy {
                             const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                             if (event.shiftKey) {
-                                if (focusedIndex == -1 || focusedIndex === 0) {
+                                if (focusedIndex === -1 || focusedIndex === 0) {
                                     focusableElements[focusableElements.length - 1].focus();
                                 } else {
                                     focusableElements[focusedIndex - 1].focus();
                                 }
                             } else {
-                                if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                                if (focusedIndex === -1 || focusedIndex === (focusableElements.length - 1)) {
                                     focusableElements[0].focus();
                                 } else {
                                     focusableElements[focusedIndex + 1].focus();

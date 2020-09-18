@@ -24,13 +24,13 @@ export class FocusTrap {
                     const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                     if (e.shiftKey) {
-                        if (focusedIndex == -1 || focusedIndex === 0) {
+                        if (focusedIndex === -1 || focusedIndex === 0) {
                             focusableElements[focusableElements.length - 1].focus();
                         } else {
                             focusableElements[focusedIndex - 1].focus();
                         }
                     } else {
-                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                        if (focusedIndex === -1 || focusedIndex === (focusableElements.length - 1)) {
                             focusableElements[0].focus();
                         } else {
                             focusableElements[focusedIndex + 1].focus();

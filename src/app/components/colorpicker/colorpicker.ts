@@ -479,9 +479,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         hsb.b = max;
         hsb.s = max != 0 ? 255 * delta / max : 0;
         if (hsb.s != 0) {
-            if (rgb.r == max) {
+            if (rgb.r === max) {
                 hsb.h = (rgb.g - rgb.b) / delta;
-            } else if (rgb.g == max) {
+            } else if (rgb.g === max) {
                 hsb.h = 2 + (rgb.b - rgb.r) / delta;
             } else {
                 hsb.h = 4 + (rgb.r - rgb.g) / delta;
@@ -505,7 +505,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         let h: number = hsb.h;
         const s: number = hsb.s * 255 / 100;
         const v: number = hsb.b * 255 / 100;
-        if (s == 0) {
+        if (s === 0) {
             rgb = {
                 r: v,
                 g: v,
@@ -515,7 +515,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             const t1: number = v;
             const t2: number = (255 - s) * v / 255;
             const t3: number = (t1 - t2) * (h % 60) / 60;
-            if (h == 360) { h = 0; }
+            if (h === 360) { h = 0; }
             if (h < 60) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3; } else if (h < 120) { rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3; } else if (h < 180) { rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3; } else if (h < 240) { rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3; } else if (h < 300) { rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3; } else if (h < 360) { rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3; } else { rgb.r = 0; rgb.g = 0; rgb.b = 0; }
         }
         return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
@@ -529,7 +529,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         ];
 
         for (const key in hex) {
-            if (hex[key].length == 1) {
+            if (hex[key].length === 1) {
                 hex[key] = '0' + hex[key];
             }
         }

@@ -74,7 +74,7 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
     }
 
     handleCommand(event: KeyboardEvent) {
-        if (event.keyCode == 13) {
+        if (event.keyCode === 13) {
             this.commands.push({text: this.command});
             this.terminalService.sendCommand(this.command);
             this.command = '';

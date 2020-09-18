@@ -15,8 +15,8 @@ import { trigger, state, style, transition, animate, query, animateChild, Animat
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true">
                 <ng-container *ngIf="!template">
-                    <span class="p-toast-message-icon pi" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
-                        'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
+                    <span class="p-toast-message-icon pi" [ngClass]="{'pi-info-circle': message.severity === 'info', 'pi-exclamation-triangle': message.severity === 'warn',
+                        'pi-times-circle': message.severity === 'error', 'pi-check' :message.severity === 'success'}"></span>
                     <div class="p-toast-message-text">
                         <div class="p-toast-summary">{{message.summary}}</div>
                         <div class="p-toast-detail">{{message.detail}}</div>
@@ -243,7 +243,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
         }
 
         return collection.find(m => {
-           return ((m.summary === message.summary) && (m.detail == message.detail) && (m.severity === message.severity));
+           return ((m.summary === message.summary) && (m.detail === message.detail) && (m.severity === message.severity));
         }) != null;
     }
 

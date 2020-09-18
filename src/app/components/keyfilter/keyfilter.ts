@@ -76,14 +76,14 @@ export class KeyFilter implements Validator {
         let k = e.keyCode;
         k = DomHandler.getBrowser().safari ? (SAFARI_KEYS[k] || k) : k;
 
-        return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
+        return (k >= 33 && k <= 40) || k === KEYS.RETURN || k === KEYS.TAB || k === KEYS.ESC;
     }
 
     isSpecialKey(e: KeyboardEvent) {
         const k = e.keyCode || e.charCode;
 
-        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) ||
-            (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
+        return k === 9 || k === 13 || k === 27 || k === 16 || k === 17 || (k >= 18 && k <= 20) ||
+            (DomHandler.getBrowser().opera && !e.shiftKey && (k === 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
     }
 
 
@@ -164,7 +164,7 @@ export class KeyFilter implements Validator {
 
         if (browser.mozilla && (e.ctrlKey || e.altKey)) {
             return;
-        } else if (k == 17 || k == 18) {
+        } else if (k === 17 || k === 18) {
             return;
         }
 

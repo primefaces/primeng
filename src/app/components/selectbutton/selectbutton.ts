@@ -146,7 +146,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
         let index = -1;
         if (this.value) {
             for (let i = 0; i < this.value.length; i++) {
-                if (this.value[i] == option.value) {
+                if (this.value[i] === option.value) {
                     index = i;
                     break;
                 }

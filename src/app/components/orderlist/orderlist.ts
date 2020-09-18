@@ -216,7 +216,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     isItemVisible(item: any): boolean {
         if (this.filterValue && this.filterValue.trim().length) {
             for (let i = 0; i < this.visibleOptions.length; i++) {
-                if (item == this.visibleOptions[i]) {
+                if (item === this.visibleOptions[i]) {
                     return true;
                 }
             }

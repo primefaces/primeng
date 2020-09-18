@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
                 'p-inline-message-warn': (severity === 'warn'),
                 'p-inline-message-error': (severity === 'error'),
                 'p-inline-message-success': (severity === 'success'),
-                'p-inline-message-icon-only': this.text == null}">
+                'p-inline-message-icon-only': this.text === null}">
             <span class="p-inline-message-icon" [ngClass]="icon"></span>
             <div *ngIf="!escape; else escapeOut">
                 <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>

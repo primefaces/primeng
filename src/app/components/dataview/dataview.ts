@@ -249,11 +249,11 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
                 const value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
                 let result = null;
 
-                if (value1 == null && value2 != null) {
+                if (value1 === null && value2 != null) {
                     result = -1;
-                } else if (value1 != null && value2 == null) {
+                } else if (value1 != null && value2 === null) {
                     result = 1;
- } else if (value1 == null && value2 == null) {
+ } else if (value1 === null && value2 === null) {
                     result = 0;
  } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                     result = value1.localeCompare(value2);
@@ -277,7 +277,7 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
 
     isEmpty() {
         const data = this.filteredValue || this.value;
-        return data == null || data.length == 0;
+        return data === null || data.length === 0;
     }
 
     createLazyLoadMetadata(): any {

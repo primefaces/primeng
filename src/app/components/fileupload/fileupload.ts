@@ -263,7 +263,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnDestroy, B
 
         this.onSelect.emit({originalEvent: event, files, currentFiles: this.files});
 
-        if (this.fileLimit && this.mode == 'advanced') {
+        if (this.fileLimit && this.mode === 'advanced') {
             this.checkFileLimit();
         }
 
@@ -318,7 +318,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnDestroy, B
         const acceptableTypes = this.accept.split(',').map(type => type.trim());
         for (const type of acceptableTypes) {
             const acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type)
-                                                    : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
+                                                    : file.type === type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
 
             if (acceptable) {
                 return true;
@@ -519,7 +519,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnDestroy, B
     }
 
     formatSize(bytes) {
-        if (bytes == 0) {
+        if (bytes === 0) {
             return '0 B';
         }
         const k = 1024,

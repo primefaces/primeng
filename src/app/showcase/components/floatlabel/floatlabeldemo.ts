@@ -54,7 +54,7 @@ export class FloatLabelDemo {
         const query = event.query;
         for (let i = 0; i < this.countries.length; i++) {
             const country = this.countries[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            if (country.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
                 filtered.push(country);
             }
         }

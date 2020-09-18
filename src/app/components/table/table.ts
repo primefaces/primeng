@@ -591,9 +591,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.clearCache();
                 this.totalRecords = (this._value ? this._value.length : 0);
 
-                if (this.sortMode == 'single' && this.sortField) {
+                if (this.sortMode === 'single' && this.sortField) {
                     this.sortSingle();
-                } else if (this.sortMode == 'multiple' && this.multiSortMeta) {
+                } else if (this.sortMode === 'multiple' && this.multiSortMeta) {
                     this.sortMultiple();
  } else if (this.hasFilter()) {       // sort already filters
                     this._filter();
@@ -773,11 +773,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         const value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
                         let result = null;
 
-                        if (value1 == null && value2 != null) {
+                        if (value1 === null && value2 != null) {
                             result = -1;
-                        } else if (value1 != null && value2 == null) {
+                        } else if (value1 != null && value2 === null) {
                             result = 1;
- } else if (value1 == null && value2 == null) {
+ } else if (value1 === null && value2 === null) {
                             result = 0;
  } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                             result = value1.localeCompare(value2);
@@ -842,13 +842,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         const value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
         let result = null;
 
-        if (value1 == null && value2 != null) {
+        if (value1 === null && value2 != null) {
             result = -1;
-        } else if (value1 != null && value2 == null) {
+        } else if (value1 != null && value2 === null) {
             result = 1;
- } else if (value1 == null && value2 == null) {
+ } else if (value1 === null && value2 === null) {
             result = 0;
- } else if (typeof value1 == 'string' || value1 instanceof String) {
+ } else if (typeof value1 === 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));
             }
@@ -856,7 +856,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             result = (value1 < value2) ? -1 : 1;
         }
 
-        if (value1 == value2) {
+        if (value1 === value2) {
             return (multiSortMeta.length - 1) > (index) ? (this.multisortField(data1, data2, multiSortMeta, index + 1)) : 0;
         }
 
@@ -882,7 +882,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let sorted = false;
             if (this.multiSortMeta) {
                 for (let i = 0; i < this.multiSortMeta.length; i++) {
-                    if (this.multiSortMeta[i].field == field) {
+                    if (this.multiSortMeta[i].field === field) {
                         sorted = true;
                         break;
                     }
@@ -896,8 +896,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         const target = (event.originalEvent.target as HTMLElement);
         const targetNode = target.nodeName;
         const parentNode = target.parentElement && target.parentElement.nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' ||
-            parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' ||
+        if (targetNode === 'INPUT' || targetNode === 'BUTTON' || targetNode === 'A' ||
+            parentNode === 'INPUT' || parentNode === 'BUTTON' || parentNode === 'A' ||
             (DomHandler.hasClass(event.originalEvent.target, 'p-clickable'))) {
             return;
         }
@@ -1236,7 +1236,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0)) {
+            if ((typeof filter === 'string' && filter.trim().length === 0) || (filter instanceof Array && filter.length === 0)) {
                 return true;
             } else {
                 return false;
@@ -1826,7 +1826,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             const dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
             let dropIndex = DomHandler.indexWithinGroup(dropColumn, 'preorderablecolumn');
             let allowDrop = (dragIndex != dropIndex);
-            if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
+            if (allowDrop && ((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dragIndex - dropIndex === 1 && this.dropPosition === 1))) {
                 allowDrop = false;
             }
 
@@ -1932,7 +1932,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     isEmpty() {
         const data = this.filteredValue || this.value;
-        return data == null || data.length == 0;
+        return data === null || data.length === 0;
     }
 
     getBlockableElement(): HTMLElement {

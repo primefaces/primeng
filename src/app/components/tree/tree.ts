@@ -28,7 +28,7 @@ import { RippleModule } from 'primeng/ripple';
                     <button type="button" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple>
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!node.expanded,'pi-chevron-down':node.expanded}"></span>
                     </button>
-                    <div class="p-checkbox p-component" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
+                    <div class="p-checkbox p-component" *ngIf="tree.selectionMode === 'checkbox'" [attr.aria-checked]="isSelected()">
                         <div class="p-checkbox-box" [ngClass]="{'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected}">
                             <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span>
                         </div>
@@ -532,7 +532,7 @@ export class UITreeNode implements OnInit {
                     </ul>
                 </cdk-virtual-scroll-viewport>
             </ng-template>
-            <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <div class="p-tree-empty-message" *ngIf="!loading && (value === null || value.length === 0)">{{emptyMessage}}</div>
         </div>
         <div [ngClass]="{'p-tree p-tree-horizontal p-component':true,'p-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
             <div class="p-tree-loading-mask p-component-overlay" *ngIf="loading">
@@ -541,7 +541,7 @@ export class UITreeNode implements OnInit {
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
-            <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <div class="p-tree-empty-message" *ngIf="!loading && (value === null || value.length === 0)">{{emptyMessage}}</div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -553,7 +553,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
 
     get horizontal(): boolean {
-        return this.layout == 'horizontal';
+        return this.layout === 'horizontal';
     }
 
     @Input() value: TreeNode[];
@@ -858,12 +858,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
         if (this.selectionMode && this.selection) {
             if (this.isSingleSelectionMode()) {
-                const areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
+                const areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection === node;
                 index = areNodesEqual ? 0 : - 1;
             } else {
                 for (let i = 0; i  < this.selection.length; i++) {
                     const selectedNode = this.selection[i];
-                    const areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
+                    const areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode === node;
                     if (areNodesEqual) {
                         index = i;
                         break;
@@ -914,7 +914,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                 }
             }
 
-            if (select && selectedCount == node.children.length) {
+            if (select && selectedCount === node.children.length) {
                 this.selection = [...this.selection || [], node];
                 node.partialSelected = false;
             } else {
@@ -944,7 +944,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     propagateDown(node: TreeNode, select: boolean) {
         const index = this.findIndexInSelection(node);
 
-        if (select && index == -1) {
+        if (select && index === -1) {
             this.selection = [...this.selection || [], node];
         } else if (!select && index > -1) {
             this.selection = this.selection.filter((val, i) => i != index);
@@ -966,19 +966,19 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     isSingleSelectionMode() {
-        return this.selectionMode && this.selectionMode == 'single';
+        return this.selectionMode && this.selectionMode === 'single';
     }
 
     isMultipleSelectionMode() {
-        return this.selectionMode && this.selectionMode == 'multiple';
+        return this.selectionMode && this.selectionMode === 'multiple';
     }
 
     isCheckboxSelectionMode() {
-        return this.selectionMode && this.selectionMode == 'checkbox';
+        return this.selectionMode && this.selectionMode === 'checkbox';
     }
 
     isNodeLeaf(node) {
-        return node.leaf == false ? false : !(node.children && node.children.length);
+        return node.leaf === false ? false : !(node.children && node.children.length);
     }
 
     getRootNode() {

@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
              }
         });
 
-        this.newsActive = this.newsActive && sessionStorage.getItem('primenews-hidden') == null;
+        this.newsActive = this.newsActive && sessionStorage.getItem('primenews-hidden') === null;
     }
 
     onMenuButtonClick() {

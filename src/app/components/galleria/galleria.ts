@@ -76,7 +76,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     @Input() containerStyle: any;
 
-    @ViewChild('mask', {static: false}) mask: ElementRef;
+    @ViewChild('mask', { static: false }) mask: ElementRef;
 
     @Input() get visible(): boolean {
         return this._visible;
@@ -187,7 +187,7 @@ export class Galleria implements OnChanges, OnDestroy {
             </div>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaContent {
 
@@ -270,7 +270,7 @@ export class GalleriaContent {
             <ng-container *ngTemplateOutlet="contentTemplate; context: context"></ng-container>
         </ng-container>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaItemSlot {
     @Input() templates: QueryList<any>;
@@ -290,7 +290,7 @@ export class GalleriaItemSlot {
                         case 'item':
                         case 'caption':
                         case 'thumbnail':
-                            this.context = {$implicit: this.item};
+                            this.context = { $implicit: this.item };
                             this.contentTemplate = item.template;
                             break;
                     }
@@ -314,11 +314,11 @@ export class GalleriaItemSlot {
                     case 'item':
                     case 'caption':
                     case 'thumbnail':
-                        this.context = {$implicit: this.item};
+                        this.context = { $implicit: this.item };
                         this.contentTemplate = item.template;
                         break;
                     case 'indicator':
-                        this.context = {$implicit: this.index};
+                        this.context = { $implicit: this.index };
                         this.contentTemplate = item.template;
                         break;
                     default:
@@ -358,7 +358,7 @@ export class GalleriaItemSlot {
             </ul>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaItem implements OnInit {
 
@@ -410,16 +410,16 @@ export class GalleriaItem implements OnInit {
     next() {
         const nextItemIndex = this.activeIndex + 1;
         const activeIndex = this.circular && this.value.length - 1 === this.activeIndex
-                    ? 0
-                    : nextItemIndex;
+            ? 0
+            : nextItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
     }
 
     prev() {
         const prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
         const activeIndex = this.circular && this.activeIndex === 0
-                ? this.value.length - 1
-                : prevItemIndex;
+            ? this.value.length - 1
+            : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
     }
 
@@ -502,7 +502,7 @@ export class GalleriaItem implements OnInit {
             </div>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestroy {
 
@@ -623,7 +623,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
         let innerHTML = `
             #${this.containerId} .p-galleria-thumbnail-item {
-                flex: 1 0 ${ (100 / this.d_numVisible) }%
+                flex: 1 0 ${(100 / this.d_numVisible)}%
             }
         `;
 
@@ -634,17 +634,17 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
                 const value2 = data2.breakpoint;
                 let result = null;
 
-                if (value1 == null && value2 != null) {
+                if (value1 === null && value2 != null) {
                     result = -1;
-                } else if (value1 != null && value2 == null) {
+                } else if (value1 != null && value2 === null) {
                     result = 1;
- } else if (value1 == null && value2 == null) {
+                } else if (value1 === null && value2 === null) {
                     result = 0;
- } else if (typeof value1 === 'string' && typeof value2 === 'string') {
+                } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                     result = value1.localeCompare(value2, undefined, { numeric: true });
- } else {
+                } else {
                     result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
- }
+                }
 
                 return -1 * result;
             });
@@ -655,7 +655,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
                 innerHTML += `
                     @media screen and (max-width: ${res.breakpoint}) {
                         #${this.containerId} .p-galleria-thumbnail-item {
-                            flex: 1 0 ${ (100 / res.numVisible) }%
+                            flex: 1 0 ${(100 / res.numVisible)}%
                         }
                     }
                 `;

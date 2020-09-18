@@ -5,12 +5,12 @@ import { DomHandler } from 'primeng/dom';
 @Component({
     selector: 'p-lightbox',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'image')">
+        <div [ngStyle]="style" [class]="styleClass" *ngIf="(type === 'image')">
             <a *ngFor="let image of images; let i = index;" [href]="image.source" (click)="onImageClick($event,image,i,content)">
                 <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt">
             </a>
         </div>
-        <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content)">
+        <span [ngStyle]="style" [class]="styleClass" *ngIf="(type === 'content')" (click)="onLinkClick($event,content)">
             <ng-content select="a"></ng-content>
         </span>
         <div class="ui-lightbox ui-widget ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
@@ -156,7 +156,7 @@ export class Lightbox implements AfterViewInit, OnDestroy {
     center() {
         let elementWidth = DomHandler.getOuterWidth(this.panel);
         let elementHeight = DomHandler.getOuterHeight(this.panel);
-        if (elementWidth == 0 && elementHeight == 0) {
+        if (elementWidth === 0 && elementHeight === 0) {
             this.panel.style.visibility = 'hidden';
             this.panel.style.display = 'block';
             elementWidth = DomHandler.getOuterWidth(this.panel);
@@ -219,7 +219,7 @@ export class Lightbox implements AfterViewInit, OnDestroy {
         });
         if (this.closeOnEscape && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-                    if (event.which == 27) {
+                    if (event.which === 27) {
                     if (parseInt(this.panel.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                         this.hide(event);
                     }

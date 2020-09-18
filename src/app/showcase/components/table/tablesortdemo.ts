@@ -28,11 +28,11 @@ export class TableSortDemo implements OnInit {
             const value2 = data2[event.field];
             let result = null;
 
-            if (value1 == null && value2 != null) {
+            if (value1 === null && value2 != null) {
                 result = -1;
-            } else if (value1 != null && value2 == null) {
+            } else if (value1 != null && value2 === null) {
                 result = 1;
-            } else if (value1 == null && value2 == null) {
+            } else if (value1 === null && value2 === null) {
                 result = 0;
             } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                 result = value1.localeCompare(value2);

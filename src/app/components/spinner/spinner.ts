@@ -233,10 +233,10 @@ export class Spinner implements OnInit, ControlValueAccessor {
     }
 
     onInputKeydown(event: KeyboardEvent) {
-        if (event.which == 38) {
+        if (event.which === 38) {
             this.spin(event, 1);
             event.preventDefault();
-        } else if (event.which == 40) {
+        } else if (event.which === 40) {
             this.spin(event, -1);
             event.preventDefault();
         }

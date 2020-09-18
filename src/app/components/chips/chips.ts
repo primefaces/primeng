@@ -167,7 +167,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     resolveFieldData(data: any, field: string): any {
         if (data && field) {
-            if (field.indexOf('.') == -1) {
+            if (field.indexOf('.') === -1) {
                 return data[field];
             } else {
                 const fields: string[] = field.split('.');

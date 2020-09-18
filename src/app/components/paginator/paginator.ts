@@ -23,7 +23,7 @@ import { SharedModule } from 'primeng/api';
                 <span class="p-paginator-icon pi pi-angle-left"></span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
-                <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 == getPage())}"
+                <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 === getPage())}"
                     (click)="onPageLinkClick($event, pageLink - 1)" pRipple>{{pageLink}}</button>
             </span>
             <p-dropdown [options]="pageItems" [ngModel]="getPage()" *ngIf="showJumpToPageDropdown"  styleClass="p-paginator-page-options"
@@ -136,7 +136,7 @@ export class Paginator implements OnInit, OnChanges {
         if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
             for (const opt of this.rowsPerPageOptions) {
-                if (typeof opt == 'object' && opt.showAll) {
+                if (typeof opt === 'object' && opt.showAll) {
                     this.rowsPerPageItems.unshift({label: opt.showAll, value: this.totalRecords});
                 } else {
                     this.rowsPerPageItems.push({label: String(opt), value: opt});

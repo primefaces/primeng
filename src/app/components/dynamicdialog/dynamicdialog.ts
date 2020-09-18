@@ -194,13 +194,13 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                     const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                     if (event.shiftKey) {
-                        if (focusedIndex == -1 || focusedIndex === 0) {
+                        if (focusedIndex === -1 || focusedIndex === 0) {
                             focusableElements[focusableElements.length - 1].focus();
                         } else {
                             focusableElements[focusedIndex - 1].focus();
                         }
                     } else {
-                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                        if (focusedIndex === -1 || focusedIndex === (focusableElements.length - 1)) {
                             focusableElements[0].focus();
                         } else {
                             focusableElements[focusedIndex + 1].focus();
@@ -251,8 +251,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + (this.config.baseZIndex ? this.config.baseZIndex : 0))) {
+            if (event.which === 27) {
+                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + (this.config.baseZIndex ? this.config.baseZIndex : 0))) {
                     this.hide();
                 }
             }
