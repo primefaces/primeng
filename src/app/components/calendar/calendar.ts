@@ -268,8 +268,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         if (yearRange) {
             const years = yearRange.split(':');
-            const yearStart = parseInt(years[0]);
-            const yearEnd = parseInt(years[1]);
+            const yearStart = parseInt(years[0], 10);
+            const yearEnd = parseInt(years[1], 10);
 
             this.populateYearOptions(yearStart, yearEnd);
         }
@@ -1559,7 +1559,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createMonths(this.currentMonth, this.currentYear);
     }
 
-    convertTo24Hour = function(hours: number, pm: boolean) {
+    convertTo24Hour(hours: number, pm: boolean) {
         if (this.hourFormat === '12') {
             if (hours === 12) {
                 return (pm ? 12 : 0);
@@ -2021,7 +2021,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     enableModality(element) {
         if (!this.mask) {
             this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
+            this.mask.style.zIndex = String(parseInt(element.style.zIndex, 10) - 1);
             const maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
@@ -2215,9 +2215,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             throw new Error('Invalid time');
         }
 
-        let h = parseInt(tokens[0]);
-        const m = parseInt(tokens[1]);
-        const s = this.showSeconds ? parseInt(tokens[2]) : null;
+        let h = parseInt(tokens[0], 10);
+        const m = parseInt(tokens[1], 10);
+        const s = this.showSeconds ? parseInt(tokens[2], 10) : null;
 
         if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat === '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
             throw new Error('Invalid time');
@@ -2245,68 +2245,70 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             return null;
         }
 
-        let iFormat, dim, extra,
-            iValue = 0,
-            shortYearCutoff = (typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : new Date().getFullYear() % 100 + parseInt(this.shortYearCutoff, 10)),
-            year = -1,
-            month = -1,
-            day = -1,
-            doy = -1,
-            literal = false,
-            date,
-            lookAhead = (match) => {
-                const matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
-                if (matches) {
-                    iFormat++;
-                }
-                return matches;
-            },
-            getNumber = (match) => {
-                const isDoubled = lookAhead(match),
-                    size = (match === '@' ? 14 : (match === '!' ? 20 :
-                        (match === 'y' && isDoubled ? 4 : (match === 'o' ? 3 : 2)))),
-                    minSize = (match === 'y' ? size : 1),
-                    digits = new RegExp('^\\d{' + minSize + ',' + size + '}'),
-                    num = value.substring(iValue).match(digits);
-                if (!num) {
-                    throw new Error('Missing number at position ' + iValue);
-                }
-                iValue += num[0].length;
-                return parseInt(num[0], 10);
-            },
-            getName = (match, shortNames, longNames) => {
-                let index = -1;
-                const arr = lookAhead(match) ? longNames : shortNames;
-                const names = [];
+        let iFormat;
+        let dim;
+        let extra;
+        let iValue = 0;
+        const shortYearCutoff = (typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : new Date().getFullYear() % 100 + parseInt(this.shortYearCutoff, 10));
+        let year = -1;
+        let month = -1;
+        let day = -1;
+        let doy = -1;
+        let literal = false;
+        let date;
+        const lookAhead = (match) => {
+            const matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
+            if (matches) {
+                iFormat++;
+            }
+            return matches;
+        };
+        const getNumber = (match) => {
+            const isDoubled = lookAhead(match),
+                size = (match === '@' ? 14 : (match === '!' ? 20 :
+                    (match === 'y' && isDoubled ? 4 : (match === 'o' ? 3 : 2)))),
+                minSize = (match === 'y' ? size : 1),
+                digits = new RegExp('^\\d{' + minSize + ',' + size + '}'),
+                num = value.substring(iValue).match(digits);
+            if (!num) {
+                throw new Error('Missing number at position ' + iValue);
+            }
+            iValue += num[0].length;
+            return parseInt(num[0], 10);
+        };
+        const getName = (match, shortNames, longNames) => {
+            let index = -1;
+            const arr = lookAhead(match) ? longNames : shortNames;
+            const names = [];
 
-                for (let i = 0; i < arr.length; i++) {
-                    names.push([i, arr[i]]);
-                }
-                names.sort((a, b) => {
-                    return -(a[1].length - b[1].length);
-                });
+            for (let i = 0; i < arr.length; i++) {
+                names.push([i, arr[i]]);
+            }
+            names.sort((a, b) => {
+                return -(a[1].length - b[1].length);
+            });
 
-                for (let i = 0; i < names.length; i++) {
-                    const name = names[i][1];
-                    if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
-                        index = names[i][0];
-                        iValue += name.length;
-                        break;
-                    }
+            for (let i = 0; i < names.length; i++) {
+                const name = names[i][1];
+                if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
+                    index = names[i][0];
+                    iValue += name.length;
+                    break;
                 }
+            }
 
-                if (index !== -1) {
-                    return index + 1;
-                } else {
-                    throw new Error('Unknown name at position ' + iValue);
-                }
-            },
-            checkLiteral = () => {
-                if (value.charAt(iValue) !== format.charAt(iFormat)) {
-                    throw new Error('Unexpected literal at position ' + iValue);
-                }
-                iValue++;
-            };
+            if (index !== -1) {
+                return index + 1;
+            } else {
+                throw new Error('Unknown name at position ' + iValue);
+            }
+        };
+        const checkLiteral = () => {
+            if (value.charAt(iValue) !== format.charAt(iFormat)) {
+                throw new Error('Unexpected literal at position ' + iValue);
+            }
+            iValue++;
+        };
 
         if (this.view === 'month') {
             day = 1;

@@ -925,9 +925,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
                     const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth >= scrollableBodyTableWidth;
 
-                    const setWidth = (container, table, width, isContainerInViewport) => {
+                    const setWidth = (container, table, width, isContainerInViewportLocal) => {
                         if (container && table) {
-                            container.style.width = isContainerInViewport ? width + DomHandler.calculateScrollbarWidth(scrollableBody) + 'px' : 'auto';
+                            container.style.width = isContainerInViewportLocal ? width + DomHandler.calculateScrollbarWidth(scrollableBody) + 'px' : 'auto';
                             table.style.width = width + 'px';
                         }
                     };
@@ -1636,7 +1636,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     `,
     encapsulation: ViewEncapsulation.None
 })
-export class TTBody {
+export class TTBody implements OnDestroy {
 
     @Input('pTreeTableBody') columns: any[];
 

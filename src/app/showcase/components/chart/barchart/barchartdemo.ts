@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '../../../service/appconfigservice';
 import { AppConfig } from '../../../domain/appconfig';
@@ -6,7 +6,7 @@ import { AppConfig } from '../../../domain/appconfig';
 @Component({
     templateUrl: './barchartdemo.html'
 })
-export class BarChartDemo {
+export class BarChartDemo implements OnInit {
 
     data: any;
 
@@ -16,7 +16,7 @@ export class BarChartDemo {
 
     config: AppConfig;
 
-    constructor(private configService: AppConfigService) {}
+    constructor(private configService: AppConfigService) { }
 
     ngOnInit() {
         this.data = {
