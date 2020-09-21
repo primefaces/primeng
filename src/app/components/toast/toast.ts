@@ -10,7 +10,6 @@ import { trigger, state, style, transition, animate, query, animateChild, Animat
 
 @Component({
     selector: 'p-toastItem',
-       // tslint:disable:max-line-length
     template: `
         <div #container [attr.id]="message.id" class="p-toast-message" [ngClass]="'p-toast-message-' + message.severity" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
@@ -30,7 +29,6 @@ import { trigger, state, style, transition, animate, query, animateChild, Animat
             </div>
         </div>
     `,
-       // tslint:enable:max-line-length
     animations: [
         trigger('messageState', [
             state('visible', style({

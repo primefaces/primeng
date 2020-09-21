@@ -56,7 +56,6 @@ export class DropdownItem {
 
 @Component({
     selector: 'p-dropdown',
-    // tslint:disable:max-line-length
     template: `
          <div #container [ngClass]="{'p-dropdown p-component':true,
             'p-disabled':disabled, 'p-dropdown-open':overlayVisible, 'p-focus':focused, 'p-dropdown-clearable': showClear && !disabled}"
@@ -123,7 +122,6 @@ export class DropdownItem {
             </div>
         </div>
     `,
-    // tslint:enable:max-line-length
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [

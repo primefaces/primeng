@@ -11,7 +11,6 @@ export const SLIDER_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-slider',
-      // tslint:disable:max-line-length
     template: `
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'p-slider p-component':true,'p-disabled':disabled,
             'p-slider-horizontal':orientation === 'horizontal','p-slider-vertical':orientation === 'vertical','p-slider-animate':animate}"
@@ -31,7 +30,6 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-valuemin]="min" [attr.aria-valuenow]="value ? value[1] : null" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy"></span>
         </div>
     `,
-      // tslint:enable:max-line-length
     providers: [SLIDER_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

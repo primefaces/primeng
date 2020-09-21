@@ -17,15 +17,7 @@
     ],
     "interface-name": false,
     "max-classes-per-file": false,
-    "max-line-length": [
-      true,
-      {
-        "limit": 300,
-        "ignore-pattern": "^import |^export {(.*?)}",
-        "check-strings": false,
-        "check-regex": true
-      }
-    ],
+    "max-line-length": false,
     "member-access": false,
     "member-ordering": [
       true,
