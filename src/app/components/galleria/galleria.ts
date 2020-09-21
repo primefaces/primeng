@@ -565,6 +565,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     _numVisible = 0;
 
+    // tslint:disable-next-line:variable-name
     d_numVisible = 0;
 
     _oldNumVisible = 0;

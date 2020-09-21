@@ -1,6 +1,6 @@
 import {
     NgModule, Component, ElementRef, OnDestroy, OnInit, Input, Output, EventEmitter, forwardRef, Renderer2,
-    ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, NgZone, ChangeDetectionStrategy, ViewEncapsulation
+    ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, NgZone, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit
 } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
@@ -196,7 +196,7 @@ export interface LocaleSettings {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./calendar.css']
 })
-export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
+export class Calendar implements OnInit, OnDestroy, ControlValueAccessor, AfterContentInit {
 
     @ViewChild('contentWrapper', { static: false }) set content(content: ElementRef) {
         this.contentViewChild = content;
@@ -987,7 +987,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getPreviousMonthAndYear(month: number, year: number) {
-        let m, y;
+        let m;
+        let y;
 
         if (month === 0) {
             m = 11;
@@ -1001,7 +1002,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getNextMonthAndYear(month: number, year: number) {
-        let m, y;
+        let m;
+        let y;
 
         if (month === 11) {
             m = 0;
@@ -1483,12 +1485,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.view === 'month') {
             const cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
             const selectedCell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-highlight');
-            cells.forEach(cell => cell.tabIndex = -1);
+            cells.forEach(cl => cl.tabIndex = -1);
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
                 const disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
-                disabledCells.forEach(cell => cell.tabIndex = -1);
+                disabledCells.forEach(cl => cl.tabIndex = -1);
             }
         } else {
             cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'span.p-highlight');
@@ -2263,12 +2265,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             return matches;
         };
         const getNumber = (match) => {
-            const isDoubled = lookAhead(match),
-                size = (match === '@' ? 14 : (match === '!' ? 20 :
-                    (match === 'y' && isDoubled ? 4 : (match === 'o' ? 3 : 2)))),
-                minSize = (match === 'y' ? size : 1),
-                digits = new RegExp('^\\d{' + minSize + ',' + size + '}'),
-                num = value.substring(iValue).match(digits);
+            const isDoubled = lookAhead(match);
+            const size = (match === '@' ? 14 : (match === '!' ? 20 :
+                (match === 'y' && isDoubled ? 4 : (match === 'o' ? 3 : 2))));
+            const minSize = (match === 'y' ? size : 1);
+            const digits = new RegExp('^\\d{' + minSize + ',' + size + '}');
+            const num = value.substring(iValue).match(digits);
             if (!num) {
                 throw new Error('Missing number at position ' + iValue);
             }

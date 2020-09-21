@@ -29,7 +29,7 @@ export class Captcha implements AfterViewInit, OnDestroy {
 
     private _instance: any = null;
 
-    constructor(public el: ElementRef, public _zone: NgZone, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public _zone: NgZone, public cd: ChangeDetectorRef) { }
 
     ngAfterViewInit() {
         if ((window as any).grecaptcha) {
@@ -42,12 +42,12 @@ export class Captcha implements AfterViewInit, OnDestroy {
             }
         } else {
             (window as any)[this.initCallback] = () => {
-              this.init();
+                this.init();
             };
         }
     }
 
-    init() {
+    init() {
         this._instance = (window as any).grecaptcha.render(this.el.nativeElement.children[0], {
             sitekey: this.siteKey,
             theme: this.theme,
@@ -55,8 +55,8 @@ export class Captcha implements AfterViewInit, OnDestroy {
             size: this.size,
             tabindex: this.tabindex,
             hl: this.language,
-            callback: (response: string) => {this._zone.run(() => this.recaptchaCallback(response)); },
-            'expired-callback': () => {this._zone.run(() => this.recaptchaExpiredCallback()); }
+            callback: (response: string) => { this._zone.run(() => this.recaptchaCallback(response)); },
+            'expired-callback': () => { this._zone.run(() => this.recaptchaExpiredCallback()); }
         });
     }
 
@@ -69,7 +69,7 @@ export class Captcha implements AfterViewInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    getResponse(): String {
+    getResponse(): string {
         if (this._instance === null) {
             return null;
         }
@@ -89,7 +89,7 @@ export class Captcha implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         if (this._instance != null) {
-          (window as any).grecaptcha.reset(this._instance);
+            (window as any).grecaptcha.reset(this._instance);
         }
     }
 }

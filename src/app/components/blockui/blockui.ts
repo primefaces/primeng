@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
@@ -15,7 +15,7 @@ import { PrimeTemplate } from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./blockui.css']
 })
-export class BlockUI implements AfterViewInit, OnDestroy {
+export class BlockUI implements AfterViewInit, OnDestroy, AfterContentInit {
 
     @Input() target: any;
 
