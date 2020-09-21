@@ -96,6 +96,7 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
     value: any;
 
+    // tslint:disable-next-line:variable-name
     _step = 1;
 
     formattedValue: string;

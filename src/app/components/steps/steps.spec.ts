@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Steps } from './steps';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
@@ -12,7 +12,7 @@ import { MenuItem } from 'primeng/api';
   `,
 
 })
-class TestStpesComponent {
+class TestStpesComponent implements OnInit {
     items: MenuItem[];
 
     activeIndex = 1;
@@ -90,7 +90,7 @@ describe('Steps', () => {
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
 
         for (let x = 0; x < testComponent.items.length; x++) {
-            if (x == 0) {
+            if (x === 0) {
                 expect(items[x].nativeElement.className).not.toContain('p-disabled');
             } else {
                 expect(items[x].nativeElement.className).toContain('p-disabled');
@@ -125,7 +125,7 @@ describe('Steps', () => {
 
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
         for (let x = 0; x < testComponent.items.length; x++) {
-            if (x == 0) {
+            if (x === 0) {
                 expect(items[x].nativeElement.className).toContain('p-highlight p-steps-current');
             }
         }
@@ -137,7 +137,7 @@ describe('Steps', () => {
 
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
         for (let x = 0; x < testComponent.items.length; x++) {
-            if (x == 2) {
+            if (x === 2) {
                 expect(items[x].nativeElement.className).toContain('p-highlight p-steps-current');
             }
         }
@@ -155,7 +155,7 @@ describe('Steps', () => {
 
         expect(itemClickSpy).toHaveBeenCalled();
         for (let x = 0; x < testComponent.items.length; x++) {
-            if (x == 2) {
+            if (x === 2) {
                 expect(items[x].nativeElement.className).toContain('p-highlight p-steps-current');
             }
         }

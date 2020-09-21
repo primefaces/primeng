@@ -317,8 +317,8 @@ describe('Dialog', () => {
         dialog.resizeEnd(event as MouseEvent);
         fixture.detectChanges();
 
-        expect(parseInt(dialog.container.style.width)).not.toEqual(firstWidth);
-        expect(parseInt(dialog.container.style.height)).not.toEqual(firstHeight);
+        expect(parseInt(dialog.container.style.width, 10)).not.toEqual(firstWidth);
+        expect(parseInt(dialog.container.style.height, 10)).not.toEqual(firstHeight);
         expect(dialog.resizing).toEqual(false);
     }));
 

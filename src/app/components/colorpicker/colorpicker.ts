@@ -459,7 +459,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     HEXtoRGB(hex) {
-        const hexValue = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
+        const hexValue = parseInt(((hex.indexOf('#', 10) > -1) ? hex.substring(1) : hex), 16);
         return { r: hexValue >> 16, g: (hexValue & 0x00FF00) >> 8, b: (hexValue & 0x0000FF) };
     }
 

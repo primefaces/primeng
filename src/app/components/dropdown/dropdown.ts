@@ -56,6 +56,7 @@ export class DropdownItem {
 
 @Component({
     selector: 'p-dropdown',
+    // tslint:disable:max-line-length
     template: `
          <div #container [ngClass]="{'p-dropdown p-component':true,
             'p-disabled':disabled, 'p-dropdown-open':overlayVisible, 'p-focus':focused, 'p-dropdown-clearable': showClear && !disabled}"
@@ -122,6 +123,7 @@ export class DropdownItem {
             </div>
         </div>
     `,
+    // tslint:enable:max-line-length
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
@@ -148,6 +150,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this._disabled;
     }
 
+    // tslint:disable-next-line:variable-name
     set disabled(_disabled: boolean) {
         if (_disabled) {
             this.focused = false;
@@ -290,6 +293,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    // tslint:disable-next-line:variable-name
     private _disabled: boolean;
 
     overlay: HTMLDivElement;
@@ -304,6 +308,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     selectedOption: any;
 
+    // tslint:disable-next-line:variable-name
     _options: any[];
 
     value: any;
@@ -900,7 +905,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     searchOptionWithinGroup(index) {
-        let option;
+        // let option;
 
         if (this.searchValue) {
             for (let i = index.groupIndex; i < this.optionsToDisplay.length; i++) {
@@ -912,6 +917,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 }
             }
 
+            /* this code is never run because `options` is never defined
             if (!option) {
                 for (let i = 0; i <= index.groupIndex; i++) {
                     for (let j = 0; j < ((index.groupIndex === i) ? index.itemIndex : this.optionsToDisplay[i].items.length); j++) {
@@ -922,6 +928,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                     }
                 }
             }
+            */
         }
 
         return null;
@@ -942,7 +949,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     findOptionGroupIndex(val: any, opts: any[]): any {
-        let groupIndex, itemIndex;
+        let groupIndex;
+        let itemIndex;
 
         if (opts) {
             for (let i = 0; i < opts.length; i++) {

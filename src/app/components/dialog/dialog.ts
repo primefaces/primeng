@@ -1,5 +1,7 @@
-import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2,
-    ContentChildren, QueryList, ViewChild, NgZone, ChangeDetectorRef, ViewRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild } from '@angular/core';
+import {
+    NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2,
+    ContentChildren, QueryList, ViewChild, NgZone, ChangeDetectorRef, ViewRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild
+} from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
@@ -71,7 +73,7 @@ const hideAnimation = animation([
             ])
         ])
     ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
@@ -87,7 +89,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
         return 0;
     }
 
-    set positionLeft(_positionLeft: number) {
+    set positionLeft(posLeft: number) {
         console.log('positionLeft property is deprecated.');
     }
 
@@ -95,7 +97,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
         return 0;
     }
 
-    set positionTop(_positionTop: number) {
+    set positionTop(posTop: number) {
         console.log('positionTop property is deprecated.');
     }
 
@@ -117,7 +119,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
         return false;
     }
 
-    set responsive(_responsive: boolean) {
+    set responsive(isResponsive: boolean) {
         console.log('Responsive property is deprecated.');
     }
 
@@ -133,7 +135,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
         return 649;
     }
 
-    set breakpoint(_breakpoint: number) {
+    set breakpoint(brkpoint: number) {
         console.log('Breakpoint property is not utilized and deprecated, use CSS media queries instead.');
     }
 
@@ -193,6 +195,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
 
     footerTemplate: TemplateRef<any>;
 
+    // tslint:disable-next-line:variable-name
     _visible: boolean;
 
     maskVisible: boolean;
@@ -213,9 +216,9 @@ export class Dialog implements AfterContentInit, OnDestroy {
 
     documentResizeEndListener: any;
 
-    documentEscapeListener: Function;
+    documentEscapeListener: () => void;
 
-    maskClickListener: Function;
+    maskClickListener: () => void;
 
     lastPageX: number;
 
@@ -237,8 +240,10 @@ export class Dialog implements AfterContentInit, OnDestroy {
 
     id = `p-dialog-${idx++}`;
 
+    // tslint:disable-next-line:variable-name
     _style: any = {};
 
+    // tslint:disable-next-line:variable-name
     _position = 'center';
 
     originalStyle: any;
@@ -285,7 +290,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
     }
     set style(value: any) {
         if (value) {
-            this._style = {...value};
+            this._style = { ...value };
             this.originalStyle = value;
         }
     }
@@ -391,7 +396,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((event.target as HTMLElement).parentElement, 'p-dialog-header-icon')) {
+        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((event.target as HTMLElement).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -515,19 +520,19 @@ export class Dialog implements AfterContentInit, OnDestroy {
             const minHeight = this.container.style.minHeight;
             const offset = DomHandler.getOffset(this.container);
             const viewport = DomHandler.getViewport();
-            const hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
+            const hasBeenDragged = !parseInt(this.container.style.top, 10) || !parseInt(this.container.style.left, 10);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
                 newHeight += deltaY;
             }
 
-            if ((!minWidth || newWidth > parseInt(minWidth)) && (offset.left + newWidth) < viewport.width) {
+            if ((!minWidth || newWidth > parseInt(minWidth, 10)) && (offset.left + newWidth) < viewport.width) {
                 this._style.width = newWidth + 'px';
                 this.container.style.width = this._style.width;
             }
 
-            if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
+            if ((!minHeight || newHeight > parseInt(minHeight, 10)) && (offset.top + newHeight) < viewport.height) {
                 this.contentViewChild.nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
@@ -622,7 +627,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which === 27) {
-                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                if (parseInt(this.container.style.zIndex, 10) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);
                 }
             }
@@ -708,7 +713,7 @@ export class Dialog implements AfterContentInit, OnDestroy {
         this.container = null;
         this.wrapper = null;
 
-        this._style = this.originalStyle ? {...this.originalStyle} : {};
+        this._style = this.originalStyle ? { ...this.originalStyle } : {};
     }
 
     ngOnDestroy() {

@@ -35,6 +35,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
+    // tslint:disable-next-line:variable-name
     _disabled: boolean;
 
     container: any;
@@ -49,17 +50,18 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     active: boolean;
 
+    // tslint:disable-next-line:variable-name
     _text: string;
 
-    mouseEnterListener: Function;
+    mouseEnterListener: () => void;
 
-    mouseLeaveListener: Function;
+    mouseLeaveListener: () => void;
 
-    clickListener: Function;
+    clickListener: () => void;
 
-    focusListener: Function;
+    focusListener: () => void;
 
-    blurListener: Function;
+    blurListener: () => void;
 
     resizeListener: any;
 
@@ -180,9 +182,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             document.body.appendChild(this.container);
         } else if (this.appendTo === 'target') {
             DomHandler.appendChild(this.container, this.el.nativeElement);
- } else {
+        } else {
             DomHandler.appendChild(this.container, this.appendTo);
- }
+        }
 
         this.container.style.display = 'inline-block';
     }
@@ -386,9 +388,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 document.body.removeChild(this.container);
             } else if (this.appendTo === 'target') {
                 this.el.nativeElement.removeChild(this.container);
- } else {
+            } else {
                 DomHandler.removeChild(this.container, this.appendTo);
- }
+            }
         }
 
         this.unbindDocumentResizeListener();

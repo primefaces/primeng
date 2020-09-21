@@ -177,8 +177,8 @@ export class Lightbox implements AfterViewInit, OnDestroy {
 
         content.style.width = imageWidth + 'px';
         content.style.height = imageHeight + 'px';
-        this.panel.style.left = parseInt(this.panel.style.left) + (DomHandler.getOuterWidth(this.panel) - imageWidth) / 2 + 'px';
-        this.panel.style.top = parseInt(this.panel.style.top) + (DomHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
+        this.panel.style.left = parseInt(this.panel.style.left, 10) + (DomHandler.getOuterWidth(this.panel) - imageWidth) / 2 + 'px';
+        this.panel.style.top = parseInt(this.panel.style.top, 10) + (DomHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
 
         setTimeout(() => {
             this.cd.markForCheck();
@@ -186,7 +186,7 @@ export class Lightbox implements AfterViewInit, OnDestroy {
             image.style.display = 'block';
             // this.captionText = this.currentImage.title;
             this.loading = false;
-        }, parseInt(this.effectDuration));
+        }, parseInt(this.effectDuration, 10));
     }
 
     prev(placeholder: any) {
@@ -220,7 +220,7 @@ export class Lightbox implements AfterViewInit, OnDestroy {
         if (this.closeOnEscape && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                     if (event.which === 27) {
-                    if (parseInt(this.panel.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                    if (parseInt(this.panel.style.zIndex, 10) === (DomHandler.zindex + this.baseZIndex)) {
                         this.hide(event);
                     }
                 }

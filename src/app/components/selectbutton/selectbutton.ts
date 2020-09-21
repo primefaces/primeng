@@ -60,6 +60,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
 
     value: any;
 
+    // tslint:disable-next-line:variable-name
     _options: any[];
 
     onModelChange: (arg: any) => void = () => {};

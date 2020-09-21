@@ -314,16 +314,21 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
+    // tslint:disable-next-line:variable-name
     _value: TreeNode[] = [];
 
     serializedValue: any[];
 
+    // tslint:disable-next-line:variable-name
     _totalRecords = 0;
 
+    // tslint:disable-next-line:variable-name
     _multiSortMeta: SortMeta[];
 
+    // tslint:disable-next-line:variable-name
     _sortField: string;
 
+    // tslint:disable-next-line:variable-name
     _sortOrder = 1;
 
     filteredNodes: any[];
@@ -370,6 +375,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     preventSelectionSetterPropagation: boolean;
 
+    // tslint:disable-next-line:variable-name
     _selection: any;
 
     selectionKeys: any = {};
@@ -386,7 +392,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     toggleRowIndex: number;
 
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    @Input() rowTrackBy: (index: number, item: any) => any = (index: number, item: any) => item;
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -1740,6 +1746,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 
     totalRecordsSubscription: Subscription;
 
+    // tslint:disable-next-line:variable-name
     _scrollHeight: string;
 
     preventBodyScrollPropagation: boolean;
@@ -2330,7 +2337,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
-export class TTContextMenuRow {
+export class TTContextMenuRow implements OnDestroy {
 
     @Input('ttContextMenuRow') rowNode: any;
 

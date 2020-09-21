@@ -1548,13 +1548,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     onMonthDropdownChange(m: string) {
-        this.currentMonth = parseInt(m);
+        this.currentMonth = parseInt(m, 10);
         this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonths(this.currentMonth, this.currentYear);
     }
 
     onYearDropdownChange(y: string) {
-        this.currentYear = parseInt(y);
+        this.currentYear = parseInt(y, 10);
         this.onYearChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonths(this.currentMonth, this.currentYear);
     }

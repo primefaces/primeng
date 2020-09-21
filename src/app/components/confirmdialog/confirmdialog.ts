@@ -205,6 +205,7 @@ export class ConfirmDialog implements AfterContentInit, OnDestroy {
 
     confirmation: Confirmation;
 
+    // tslint:disable-next-line:variable-name
     _visible: boolean;
 
     maskVisible: boolean;
@@ -221,6 +222,7 @@ export class ConfirmDialog implements AfterContentInit, OnDestroy {
 
     preWidth: number;
 
+    // tslint:disable-next-line:variable-name
     _position = 'center';
 
     transformOptions: any = 'scale(0.7)';
@@ -368,7 +370,7 @@ export class ConfirmDialog implements AfterContentInit, OnDestroy {
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which === 27 && (this.closeOnEscape && this.closable)) {
-                    if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
+                    if (parseInt(this.container.style.zIndex, 10) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
                     }
                 }

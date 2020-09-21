@@ -119,7 +119,7 @@ export class ContextMenuSub {
         const itemOuterHeight = DomHandler.getOuterHeight(item.children[0]);
         const sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
 
-        if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
+        if ((parseInt(this.containerOffset.top, 10) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
             sublist.style.removeProperty('top');
             sublist.style.bottom = '0px';
         } else {
@@ -127,7 +127,7 @@ export class ContextMenuSub {
             sublist.style.top = '0px';
         }
 
-        if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
+        if ((parseInt(this.containerOffset.left, 10) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
             sublist.style.left = -sublistWidth + 'px';
         } else {
             sublist.style.left = itemOuterWidth + 'px';

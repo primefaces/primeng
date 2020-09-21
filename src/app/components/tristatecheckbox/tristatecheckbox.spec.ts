@@ -152,7 +152,6 @@ describe('TriStateCheckbox', () => {
         tristate.onChange.subscribe(data => value = data);
         const onClickSpy = spyOn(tristate, 'onClick').and.callThrough();
         const checkBoxEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
-        const checkBoxIconEl = fixture.debugElement.query(By.css('span')).nativeElement;
         const labeEl = fixture.debugElement.query(By.css('label')).nativeElement;
         checkBoxEl.click();
         checkBoxEl.click();

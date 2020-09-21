@@ -214,9 +214,10 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     lastValue: string;
 
-    _numeral: any;
-
     numberFormat: any;
+
+    // tslint:disable:variable-name
+    _numeral: any;
 
     _decimal: any;
 
@@ -251,6 +252,9 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     _prefixOption: string;
 
     _suffixOption: string;
+
+    // tslint:enable:variable-name
+
 
     onModelChange: (arg: any) => void = () => {};
 

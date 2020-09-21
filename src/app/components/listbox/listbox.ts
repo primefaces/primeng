@@ -148,6 +148,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public footerTemplate: TemplateRef<any>;
 
+    // tslint:disable-next-line:variable-name
     public _filterValue: string;
 
     public filtered: boolean;
@@ -158,13 +159,14 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public focus: boolean;
 
+    // tslint:disable-next-line:variable-name
     public _options: any[];
 
     public headerCheckboxFocus: boolean;
 
     public disabledSelectedOptions: SelectItem[] = [];
 
-    public onModelChange: Function = () => { };
+    public onModelChange: (args: any) => void = () => { };
 
     public onModelTouched: () => void = () => { };
 
@@ -384,7 +386,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let allSelected: boolean;
         const options = this.filterValue ? this.getFilteredOptions() : this.options;
 
-        if (this.value && options && options.length)  {
+        if (this.value && options && options.length) {
             allSelected = true;
             for (const opt of this.options) {
                 if (this.isItemVisible(opt)) {

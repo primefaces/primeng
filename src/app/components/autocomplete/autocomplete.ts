@@ -202,6 +202,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     value: any;
 
+    // tslint:disable-next-line:variable-name
     _suggestions: any[];
 
     timeout: any;

@@ -78,15 +78,16 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     initialized: boolean;
 
+    // tslint:disable-next-line:variable-name
     _visible: boolean;
 
     preventVisibleChangePropagation: boolean;
 
     mask: HTMLDivElement;
 
-    maskClickListener: Function;
+    maskClickListener: () => void;
 
-    documentEscapeListener: Function;
+    documentEscapeListener: () => void;
 
     executePostDisplayActions: boolean;
 
@@ -180,7 +181,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
     enableModality() {
         if (!this.mask) {
             this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
+            this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex, 10) - 1);
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask');
 
             if (this.dismissible) {
@@ -228,7 +229,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which === 27) {
-                if (parseInt(this.containerViewChild.nativeElement.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                if (parseInt(this.containerViewChild.nativeElement.style.zIndex, 10) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);
                 }
             }

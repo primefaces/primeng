@@ -171,8 +171,8 @@ export class Slider implements OnDestroy, ControlValueAccessor {
             return;
         }
 
-        let touchobj = event.changedTouches[0],
-        handleValue = 0;
+        const touchobj = event.changedTouches[0];
+        let handleValue = 0;
 
         if (this.orientation === 'horizontal') {
             handleValue = Math.floor(((parseInt(touchobj.clientX, 10) - this.startx) * 100) / (this.barWidth)) + this.startHandleValue;
