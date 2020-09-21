@@ -280,8 +280,8 @@ describe('MegaMenu', () => {
                 [
                     {
                         label: 'TV 1',
-                        items: [{label: 'TV 1.1', command: (event) => {
-                            item = event.item;
+                        items: [{label: 'TV 1.1', command: (evnt) => {
+                            item = evnt.item;
                         }}, {label: 'TV 1.2'}]
                     },
                     {

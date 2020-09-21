@@ -99,9 +99,9 @@ export class Password implements OnDestroy, DoCheck {
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
         if (this.feedback) {
-            let value = e.target.value,
-            label = null,
-            meterPos = null;
+            const value = e.target.value;
+            let label = null;
+            let meterPos = null;
 
             if (value.length === 0) {
                 label = this.promptLabel;

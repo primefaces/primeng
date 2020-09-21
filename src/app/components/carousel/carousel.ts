@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentChecked, OnDestroy } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { CommonModule } from '@angular/common';
@@ -59,7 +59,7 @@ import { UniqueComponentId } from 'primeng/utils';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./carousel.css']
 })
-export class Carousel implements AfterContentInit {
+export class Carousel implements AfterContentInit, AfterContentChecked, OnDestroy {
 
     @Input() get page(): number {
         return this._page;
@@ -73,7 +73,7 @@ export class Carousel implements AfterContentInit {
 
             if (val > this._page && val <= (this.totalDots() - 1)) {
                 this.step(-1, val);
-            } else if (val < this._page ) {
+            } else if (val < this._page) {
                 this.step(1, val);
             }
         }
@@ -101,9 +101,9 @@ export class Carousel implements AfterContentInit {
 
     @Input() verticalViewPortHeight = '300px';
 
-    @Input() contentClass: String = '';
+    @Input() contentClass = '';
 
-    @Input() indicatorsContentClass: String = '';
+    @Input() indicatorsContentClass = '';
 
     @Input() get value(): any[] {
         return this._value;
@@ -133,10 +133,13 @@ export class Carousel implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    // tslint:disable-next-line:variable-name
     _numVisible = 1;
 
+    // tslint:disable-next-line:variable-name
     _numScroll = 1;
 
+    // tslint:disable-next-line:variable-name
     _oldNumScroll = 0;
 
     prevState: any = {
@@ -149,8 +152,10 @@ export class Carousel implements AfterContentInit {
 
     defaultNumVisible = 1;
 
+    // tslint:disable-next-line:variable-name
     _page = 0;
 
+    // tslint:disable-next-line:variable-name
     _value: any[];
 
     carouselStyle: any;
@@ -167,6 +172,7 @@ export class Carousel implements AfterContentInit {
 
     remainingItems = 0;
 
+    // tslint:disable-next-line:variable-name
     _items: any[];
 
     startPos: any;
@@ -305,54 +311,54 @@ export class Carousel implements AfterContentInit {
     }
 
     createStyle() {
-            if (!this.carouselStyle) {
-                this.carouselStyle = document.createElement('style');
-                this.carouselStyle.type = 'text/css';
-                document.body.appendChild(this.carouselStyle);
-            }
+        if (!this.carouselStyle) {
+            this.carouselStyle = document.createElement('style');
+            this.carouselStyle.type = 'text/css';
+            document.body.appendChild(this.carouselStyle);
+        }
 
-            let innerHTML = `
+        let innerHTML = `
             #${this.id} .p-carousel-item {
-                flex: 1 0 ${ (100 / this.numVisible) }%
+                flex: 1 0 ${(100 / this.numVisible)}%
             }
         `;
 
-            if (this.responsiveOptions) {
-                this.responsiveOptions.sort((data1, data2) => {
-                    const value1 = data1.breakpoint;
-                    const value2 = data2.breakpoint;
-                    let result = null;
+        if (this.responsiveOptions) {
+            this.responsiveOptions.sort((data1, data2) => {
+                const value1 = data1.breakpoint;
+                const value2 = data2.breakpoint;
+                let result = null;
 
-                    if (value1 === null && value2 != null) {
-                        result = -1;
-                    } else if (value1 != null && value2 === null) {
-                        result = 1;
- } else if (value1 === null && value2 === null) {
-                        result = 0;
- } else if (typeof value1 === 'string' && typeof value2 === 'string') {
-                        result = value1.localeCompare(value2, undefined, { numeric: true });
- } else {
-                        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
- }
+                if (value1 === null && value2 != null) {
+                    result = -1;
+                } else if (value1 != null && value2 === null) {
+                    result = 1;
+                } else if (value1 === null && value2 === null) {
+                    result = 0;
+                } else if (typeof value1 === 'string' && typeof value2 === 'string') {
+                    result = value1.localeCompare(value2, undefined, { numeric: true });
+                } else {
+                    result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+                }
 
-                    return -1 * result;
-                });
+                return -1 * result;
+            });
 
-                for (let i = 0; i < this.responsiveOptions.length; i++) {
-                    const res = this.responsiveOptions[i];
+            for (let i = 0; i < this.responsiveOptions.length; i++) {
+                const res = this.responsiveOptions[i];
 
-                    innerHTML += `
+                innerHTML += `
                     @media screen and (max-width: ${res.breakpoint}) {
                         #${this.id} .p-carousel-item {
-                            flex: 1 0 ${ (100 / res.numVisible) }%
+                            flex: 1 0 ${(100 / res.numVisible)}%
                         }
                     }
                 `;
-                }
             }
-
-            this.carouselStyle.innerHTML = innerHTML;
         }
+
+        this.carouselStyle.innerHTML = innerHTML;
+    }
 
     calculatePosition() {
         if (this.itemsContainer && this.responsiveOptions) {
@@ -441,7 +447,7 @@ export class Carousel implements AfterContentInit {
     }
 
     isBackwardNavDisabled() {
-        return this.isEmpty() || (this._page <= 0  && !this.isCircular());
+        return this.isEmpty() || (this._page <= 0 && !this.isCircular());
     }
 
     isEmpty() {
@@ -549,7 +555,7 @@ export class Carousel implements AfterContentInit {
                 }
             }
         },
-        this.autoplayInterval);
+            this.autoplayInterval);
     }
 
     stopAutoplay() {

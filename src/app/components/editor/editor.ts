@@ -115,6 +115,7 @@ export class Editor implements AfterViewInit, AfterContentInit, ControlValueAcce
 
     value: string;
 
+    // tslint:disable-next-line:variable-name
     _readonly: boolean;
 
     quill: any;

@@ -53,6 +53,7 @@ export class KeyFilter implements Validator {
 
     regex: RegExp;
 
+    // tslint:disable-next-line:variable-name
     _pattern: any;
 
     isAndroid: boolean;
@@ -67,8 +68,8 @@ export class KeyFilter implements Validator {
         return this._pattern;
     }
 
-    @Input('pKeyFilter') set pattern(_pattern: any) {
-        this._pattern = _pattern;
+    @Input('pKeyFilter') set pattern(ptrn: any) {
+        this._pattern = ptrn;
         this.regex = DEFAULT_MASKS[this._pattern] || this._pattern;
     }
 

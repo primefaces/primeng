@@ -197,12 +197,13 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    // tslint:disable-next-line:variable-name
     private _autoDisplay: boolean;
 
     @Input() get autoDisplay(): boolean {
         return this._autoDisplay;
     }
-    set autoDisplay(_autoDisplay: boolean) {
+    set autoDisplay(pAutoDisplay: boolean) {
         console.log('AutoDisplay property is deprecated and functionality is not available.');
     }
 

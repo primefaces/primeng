@@ -20,11 +20,13 @@ export class FullCalendar implements OnDestroy, OnInit, AfterViewChecked {
 
     config: any;
 
+    // tslint:disable-next-line:variable-name
     _options: any;
 
+    // tslint:disable-next-line:variable-name
     _events: any[];
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
     ngOnInit() {
         this.config = {
@@ -33,7 +35,9 @@ export class FullCalendar implements OnDestroy, OnInit, AfterViewChecked {
 
         if (this.options) {
             for (const prop in this.options) {
-                this.config[prop] = this.options[prop];
+                if (prop) {
+                    this.config[prop] = this.options[prop];
+                }
             }
         }
     }
@@ -66,9 +70,11 @@ export class FullCalendar implements OnDestroy, OnInit, AfterViewChecked {
 
         if (this._options && this.calendar) {
             for (const prop in this._options) {
-                const optionValue = this._options[prop];
-                this.config[prop] = optionValue;
-                this.calendar.setOption(prop, optionValue);
+                if (prop) {
+                    const optionValue = this._options[prop];
+                    this.config[prop] = optionValue;
+                    this.calendar.setOption(prop, optionValue);
+                }
             }
         }
     }

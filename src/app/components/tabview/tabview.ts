@@ -55,6 +55,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     view: EmbeddedViewRef<any>;
 
+    // tslint:disable-next-line:variable-name
     _selected: boolean;
 
     loaded: boolean;
@@ -159,6 +160,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, BlockableUI 
 
     tabs: TabPanel[];
 
+    // tslint:disable-next-line:variable-name
     _activeIndex: number;
 
     preventActiveIndexPropagation: boolean;

@@ -294,7 +294,7 @@ describe('Listbox', () => {
         fixture.detectChanges();
 
         for (let x = 0; x < 10; x++ ) {
-        if (x == 2 || x == 3) {
+        if (x === 2 || x === 3) {
             expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual('flex');
         } else {
             expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual('none');
@@ -567,7 +567,7 @@ describe('Listbox', () => {
         fixture.detectChanges();
 
         for (let x = 0; x < 10; x++ ) {
-            if (x == 1) {
+            if (x === 1) {
                 expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual('flex');
             } else {
                 expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual('none');

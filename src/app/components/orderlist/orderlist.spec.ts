@@ -117,10 +117,6 @@ describe('OrderList', () => {
         orderlist.selection = [{ brand: 'BMW', year: 2003, color: 'Blue', vin: 'j6w54qgh' }];
         fixture.detectChanges();
 
-        const itemListEl = fixture.debugElement.query(By.css('ul'));
-        const bmwEl = itemListEl.queryAll(By.css('.p-orderlist-item'))[3];
-        fixture.detectChanges();
-
         expect(orderlist.selection.length).toEqual(1);
         expect(orderlist.selection[0].brand).toEqual('BMW');
     });
@@ -295,7 +291,7 @@ describe('OrderList', () => {
         expect(orderlist.visibleOptions[0].brand).toEqual('VW');
         expect(orderlist.visibleOptions[1].brand).toEqual('Volvo');
         for (let i = 0; i < itemsEl.length; i++) {
-            if (i == 0 || i == 5) {
+            if (i === 0 || i === 5) {
                 expect(itemsEl[i].nativeElement.style.display).toEqual('block');
             } else {
                 expect(itemsEl[i].nativeElement.style.display).not.toEqual('block');
@@ -318,7 +314,7 @@ describe('OrderList', () => {
         expect(orderlist.visibleOptions[0].brand).toEqual('VW');
         expect(orderlist.visibleOptions[1].brand).toEqual('Volvo');
         for (let i = 0; i < itemsEl.length; i++) {
-            if (i == 0 || i == 5) {
+            if (i === 0 || i === 5) {
                 expect(itemsEl[i].nativeElement.style.display).toEqual('block');
             } else {
                 expect(itemsEl[i].nativeElement.style.display).not.toEqual('block');
@@ -327,7 +323,6 @@ describe('OrderList', () => {
     });
 
     it('should listen onReorder in moveUp', () => {
-        const moveUpSpy = spyOn(orderlist, 'moveUp').and.callThrough();
         fixture.detectChanges();
 
         let data;
@@ -361,7 +356,6 @@ describe('OrderList', () => {
     });
 
     it('should listen onReorder in MoveTop', () => {
-        const moveTopSpy = spyOn(orderlist, 'moveTop').and.callThrough();
         fixture.detectChanges();
 
         let data;
@@ -412,7 +406,6 @@ describe('OrderList', () => {
     });
 
     it('should listen onReorder in moveBottom', () => {
-        const moveBottomSpy = spyOn(orderlist, 'moveBottom').and.callThrough();
         fixture.detectChanges();
 
         let data;

@@ -48,7 +48,7 @@ class TestDragDropComponent {
         if (this.draggedCar) {
             const draggedCarIndex = this.findIndex(this.draggedCar);
             this.selectedCars = [...this.selectedCars, this.draggedCar];
-            this.availableCars = this.availableCars.filter((val, i) => i != draggedCarIndex);
+            this.availableCars = this.availableCars.filter((val, i) => i !== draggedCarIndex);
             this.draggedCar = null;
         }
     }
@@ -107,7 +107,6 @@ describe('Draggable', () => {
         fixture.detectChanges();
 
         const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-        const dropEl = fixture.debugElement.query(By.css('div'));
         const dragStartSpy = spyOn(testComponent, 'dragStart').and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
