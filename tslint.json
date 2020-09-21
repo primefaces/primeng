@@ -55,7 +55,7 @@
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
-    "no-use-before-declare": true,
+    "no-use-before-declare": false,
     "no-var-requires": false,
     "object-literal-key-quotes": [
       true,
@@ -83,8 +83,12 @@
     "no-unused-variable": [
       true
     ],
-    "whitespace": [true, "check-module"],
-    "prefer-for-of": false
+    "whitespace": [
+      true,
+      "check-module"
+    ],
+    "prefer-for-of": false,
+    "no-bitwise": false
   },
   "rulesDirectory": [
     "codelyzer"
