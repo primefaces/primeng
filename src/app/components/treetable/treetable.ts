@@ -2394,7 +2394,6 @@ export class TTCheckbox implements OnInit, OnDestroy {
 
     @Input() disabled: boolean;
 
-    // tslint:disable-next-line:no-input-rename
     @Input('value') rowNode: any;
 
     @ViewChild('box') boxViewChild: ElementRef;
@@ -2638,7 +2637,6 @@ export class TTEditableColumn implements AfterViewInit {
 
     moveToPreviousCell(event: KeyboardEvent) {
         const currentCell = this.findCell(event.target);
-        const row = currentCell.parentElement;
         const targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {

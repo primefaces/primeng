@@ -240,9 +240,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     itemClicked: boolean;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     ngAfterViewChecked() {
         // Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
@@ -318,11 +318,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.updateInputField();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

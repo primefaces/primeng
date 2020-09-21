@@ -119,9 +119,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     public starty: number;
 
-    public onModelChange: Function = () => {};
+    public onModelChange: (arg: any) => void = () => {};
 
-    public onModelTouched: Function = () => {};
+    public onModelTouched: () => void = () => {};
 
     onMouseDown(event, index?: number) {
         if (this.disabled) {
@@ -341,11 +341,11 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

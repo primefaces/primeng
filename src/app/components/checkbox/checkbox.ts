@@ -74,9 +74,9 @@ export class Checkbox implements ControlValueAccessor {
 
     checked = false;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     onClick(event, checkbox, focus: boolean) {
         event.preventDefault();
@@ -159,11 +159,11 @@ export class Checkbox implements ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

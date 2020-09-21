@@ -94,9 +94,9 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     filled: boolean;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -152,11 +152,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

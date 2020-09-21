@@ -65,9 +65,9 @@ export class RadioButton implements ControlValueAccessor {
 
     public focused: boolean;
 
-    public onModelChange: Function = () => {};
+    public onModelChange: (arg: any) => void = () => {};
 
-    public onModelTouched: Function = () => {};
+    public onModelTouched: () => void = () => {};
 
     handleClick(event, radioButton, focus) {
         event.preventDefault();
@@ -102,11 +102,11 @@ export class RadioButton implements ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

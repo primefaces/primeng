@@ -52,9 +52,9 @@ export class ToggleButton implements ControlValueAccessor {
 
     checked = false;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     constructor(public cd: ChangeDetectorRef) { }
 
@@ -81,11 +81,11 @@ export class ToggleButton implements ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

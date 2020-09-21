@@ -55,9 +55,9 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     public starsArray: number[];
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     ngOnInit() {
         this.starsArray = [];
@@ -94,11 +94,11 @@ export class Rating implements OnInit, ControlValueAccessor {
         this.cd.detectChanges();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

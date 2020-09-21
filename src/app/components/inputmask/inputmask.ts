@@ -121,6 +121,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
 
     value: any;
 
+    // tslint:disable-next-line:variable-name
     _mask: string;
 
     input: HTMLInputElement;
@@ -153,9 +154,9 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
 
     focused: boolean;
 
-    onModelChange: Function = () => { };
+    onModelChange: (args: any) => void = () => { };
 
-    onModelTouched: Function = () => { };
+    onModelTouched: () => void = () => { };
 
     ngOnInit() {
         const ua = DomHandler.getUserAgent();
@@ -224,11 +225,11 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 
@@ -238,7 +239,9 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     caret(first?: number, last?: number) {
-        let range, begin, end;
+        let range;
+        let begin;
+        let end;
 
         if (!this.inputViewChild.nativeElement.offsetParent || this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
             return;
@@ -270,7 +273,6 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isCompleted(): boolean {
-        let completed: boolean;
         for (let i = this.firstNonMaskPos; i <= this.lastRequiredNonMaskPos; i++) {
             if (this.tests[i] && this.buffer[i] === this.getPlaceholder(i)) {
                 return false;
@@ -298,7 +300,8 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     shiftL(begin: number, end: number) {
-        let i, j;
+        let i;
+        let j;
 
         if (begin < 0) {
             return;

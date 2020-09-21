@@ -166,7 +166,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public onModelChange: Function = () => { };
 
-    public onModelTouched: Function = () => { };
+    public onModelTouched: () => void = () => { };
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -196,11 +196,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

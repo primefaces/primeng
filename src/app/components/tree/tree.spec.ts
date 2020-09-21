@@ -275,7 +275,6 @@ describe('Tree', () => {
         firstEl.triggerEventHandler('keydown', {which: 39, target: firstEl.nativeElement, preventDefault() {}});
         fixture.detectChanges();
 
-        const firstElComponent = firstEl.componentInstance;
         expect(documentsNode.node.expanded).toBeTruthy();
         firstEl.triggerEventHandler('keydown', {which: 37, target: firstEl.nativeElement, preventDefault() {}});
         fixture.detectChanges();

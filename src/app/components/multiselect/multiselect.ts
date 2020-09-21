@@ -331,6 +331,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     public headerCheckboxFocus: boolean;
 
+    // tslint:disable-next-line:variable-name
     _options: any[];
 
     maxSelectionLimitReached: boolean;
@@ -339,9 +340,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     preventModelTouched: boolean;
 
-    public onModelChange: Function = () => {};
+    public onModelChange: (arg: any) => void = () => {};
 
-    public onModelTouched: Function = () => {};
+    public onModelTouched: () => void = () => {};
 
     ngOnInit() {
         this.updateLabel();
@@ -409,11 +410,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.filled = (this.value && this.value.length > 0);
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

@@ -49,9 +49,9 @@ export class InputSwitch implements ControlValueAccessor {
 
     focused = false;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     constructor(private cd: ChangeDetectorRef) {}
 
@@ -97,11 +97,11 @@ export class InputSwitch implements ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

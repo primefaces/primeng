@@ -120,9 +120,9 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     ngOnInit() {
         if (this.formatInput) {
@@ -344,11 +344,11 @@ export class Spinner implements OnInit, ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

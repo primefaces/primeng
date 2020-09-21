@@ -252,9 +252,9 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     _suffixOption: string;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     ngOnInit() {
         this.constructParser();
@@ -896,11 +896,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

@@ -121,9 +121,9 @@ export class Editor implements AfterViewInit, AfterContentInit, ControlValueAcce
 
     toolbarTemplate: TemplateRef<any>;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     ngAfterViewInit() {
         const editorElement = DomHandler.findSingle(this.el.nativeElement , 'div.p-editor-content');
@@ -201,11 +201,11 @@ export class Editor implements AfterViewInit, AfterContentInit, ControlValueAcce
         }
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

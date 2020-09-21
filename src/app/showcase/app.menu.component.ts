@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 
+// tslint:disable-next-line:ban-types
 declare let gtag: Function;
 
 @Component({

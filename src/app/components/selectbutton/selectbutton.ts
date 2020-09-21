@@ -62,9 +62,9 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
 
     _options: any[];
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => {};
 
     constructor(public cd: ChangeDetectorRef) {}
 
@@ -87,11 +87,11 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

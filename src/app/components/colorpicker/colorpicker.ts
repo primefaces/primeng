@@ -132,7 +132,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => { };
+    onModelTouched: () => void = () => { };
 
     onHueMousedown(event: MouseEvent) {
         if (this.disabled) {
@@ -350,11 +350,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.selfClick = true;
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 
