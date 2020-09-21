@@ -5,6 +5,7 @@ import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 import { PrimeNGConfig } from 'primeng/api';
 
+// tslint:disable-next-line:ban-types
 declare let gtag: Function;
 
 @Component({

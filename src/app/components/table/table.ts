@@ -369,14 +369,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
+    // tslint:disable-next-line:variable-name
     _value: any[] = [];
 
+    // tslint:disable-next-line:variable-name
     _columns: any[];
 
+    // tslint:disable-next-line:variable-name
     _totalRecords = 0;
 
+    // tslint:disable-next-line:variable-name
     _first = 0;
 
+    // tslint:disable-next-line:variable-name
     _rows: number;
 
     filteredValue: any[];
@@ -443,14 +448,18 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     documentEditListener: any;
 
+    // tslint:disable-next-line:variable-name
     _multiSortMeta: SortMeta[];
 
+    // tslint:disable-next-line:variable-name
     _sortField: string;
 
+    // tslint:disable-next-line:variable-name
     _sortOrder = 1;
 
     preventSelectionSetterPropagation: boolean;
 
+    // tslint:disable-next-line:variable-name
     _selection: any;
 
     anchorRowIndex: number;

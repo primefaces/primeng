@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule }  from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ToggleButtonDemo } from './togglebuttondemo';
 import { ToggleButtonDemoRoutingModule } from './togglebuttondemo-routing.module';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -20,4 +20,4 @@ import { AppCodeModule } from '../../app.code.component';
         ToggleButtonDemo
     ]
 })
-export class ToggleButtonDemoModule {}
+export class ToggleButtonDemoModule { }

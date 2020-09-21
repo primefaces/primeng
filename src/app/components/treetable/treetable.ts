@@ -875,7 +875,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         const newColumnWidth = columnWidth + delta;
         const minWidth = column.style.minWidth || 15;
 
-        if (columnWidth + delta > parseInt(minWidth)) {
+        if (columnWidth + delta > parseInt(minWidth, 10)) {
             if (this.columnResizeMode === 'fit') {
                 let nextColumn = column.nextElementSibling;
                 while (!nextColumn.offsetParent) {
@@ -886,7 +886,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     const nextColumnWidth = nextColumn.offsetWidth - delta;
                     const nextColumnMinWidth = nextColumn.style.minWidth || 15;
 
-                    if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
+                    if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth, 10)) {
                         if (this.scrollable) {
                             const scrollableView = this.findParentScrollableView(column);
                             const scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table');
@@ -1003,7 +1003,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
             if (this.draggedColumn !== dropHeader) {
                 const targetLeft = dropHeaderOffset.left - containerOffset.left;
-                const targetTop = containerOffset.top - dropHeaderOffset.top;
                 const columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
                 this.reorderIndicatorUpViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (this.reorderIconHeight - 1) + 'px';
@@ -2391,10 +2390,11 @@ export class TTContextMenuRow {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TTCheckbox  {
+export class TTCheckbox implements OnInit, OnDestroy {
 
     @Input() disabled: boolean;
 
+    // tslint:disable-next-line:no-input-rename
     @Input('value') rowNode: any;
 
     @ViewChild('box') boxViewChild: ElementRef;
@@ -2456,7 +2456,7 @@ export class TTCheckbox  {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TTHeaderCheckbox  {
+export class TTHeaderCheckbox implements OnInit, OnDestroy  {
 
     @ViewChild('box') boxViewChild: ElementRef;
 
@@ -2649,7 +2649,6 @@ export class TTEditableColumn implements AfterViewInit {
 
     moveToNextCell(event: KeyboardEvent) {
         const currentCell = this.findCell(event.target);
-        const row = currentCell.parentElement;
         const targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {

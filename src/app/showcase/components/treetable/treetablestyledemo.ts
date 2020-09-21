@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../../service/nodeservice';
 import { TreeNode } from 'primeng/api';
 
@@ -20,7 +20,7 @@ import { TreeNode } from 'primeng/api';
         }
     `]
 })
-export class TreeTableStyleDemo {
+export class TreeTableStyleDemo implements OnInit {
 
     files: TreeNode[];
 

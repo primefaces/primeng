@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     templateUrl: './treetablereorderdemo.html'
 })
-export class TreeTableReorderDemo {
+export class TreeTableReorderDemo implements OnInit {
 
     files: TreeNode[];
 

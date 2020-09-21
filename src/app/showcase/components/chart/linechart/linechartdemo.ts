@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '../../../service/appconfigservice';
@@ -8,7 +8,7 @@ import { AppConfig } from '../../../domain/appconfig';
     templateUrl: './linechartdemo.html',
     providers: [MessageService]
 })
-export class LineChartDemo {
+export class LineChartDemo implements OnInit {
 
     data: any;
 
@@ -18,7 +18,7 @@ export class LineChartDemo {
 
     config: AppConfig;
 
-    constructor(private messageService: MessageService, private configService: AppConfigService) {}
+    constructor(private messageService: MessageService, private configService: AppConfigService) { }
 
     ngOnInit() {
         this.data = {
@@ -54,22 +54,22 @@ export class LineChartDemo {
     getLightTheme() {
         return {
             legend: {
-                    labels: {
+                labels: {
+                    fontColor: '#495057'
+                }
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
                         fontColor: '#495057'
                     }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontColor: '#495057'
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            fontColor: '#495057'
-                        }
-                    }]
-                }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontColor: '#495057'
+                    }
+                }]
+            }
         };
     }
 
@@ -102,6 +102,6 @@ export class LineChartDemo {
     }
 
     selectData(event) {
-        this.messageService.add({severity: 'info', summary: 'Data Selected', detail: this.data.datasets[event.element._datasetIndex].data[event.element._index]});
+        this.messageService.add({ severity: 'info', summary: 'Data Selected', detail: this.data.datasets[event.element._datasetIndex].data[event.element._index] });
     }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule }  from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TreeDemo } from './treedemo';
 import { TreeTemplatingDemo } from './treetemplatingdemo';
 import { TreeSelectionDemo } from './treeselectiondemo';
@@ -44,4 +44,4 @@ import { AppCodeModule } from '../../app.code.component';
         TreeHorizontalDemo
     ]
 })
-export class TreeDemoModule {}
+export class TreeDemoModule { }

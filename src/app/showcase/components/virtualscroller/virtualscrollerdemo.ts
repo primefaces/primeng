@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CarService } from '../../service/carservice';
 import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -82,15 +81,15 @@ export class VirtualScrollerDemo implements OnInit {
 
     sortOptions: SelectItem[];
 
-    constructor(private carService: CarService, private productService: ProductService) {}
+    constructor(private productService: ProductService) { }
 
     ngOnInit() {
-        this.products = Array.from({length: 10000}).map(() => this.productService.generatePrduct());
-        this.virtualProducts = Array.from({length: 10000});
+        this.products = Array.from({ length: 10000 }).map(() => this.productService.generatePrduct());
+        this.virtualProducts = Array.from({ length: 10000 });
 
         this.sortOptions = [
-            {label: 'Cheapest First', value: 'price'},
-            {label: 'Expensive First', value: '!price'}
+            { label: 'Cheapest First', value: 'price' },
+            { label: 'Expensive First', value: '!price' }
         ];
     }
 

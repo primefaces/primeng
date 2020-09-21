@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TerminalService } from '../../../components/terminal/terminalservice';
-import { Subscription }   from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
     templateUrl: './terminaldemo.html',

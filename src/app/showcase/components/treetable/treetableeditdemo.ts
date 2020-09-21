@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     templateUrl: './treetableeditdemo.html'
 })
-export class TreeTableEditDemo {
+export class TreeTableEditDemo implements OnInit {
 
     files: TreeNode[];
 

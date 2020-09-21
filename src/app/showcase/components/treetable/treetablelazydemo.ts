@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
 
 @Component({
     templateUrl: './treetablelazydemo.html'
 })
-export class TreeTableLazyDemo {
+export class TreeTableLazyDemo implements OnInit {
 
     files: TreeNode[];
 
@@ -15,7 +14,7 @@ export class TreeTableLazyDemo {
 
     loading: boolean;
 
-    constructor(private nodeService: NodeService) { }
+    constructor() { }
 
     ngOnInit() {
         this.cols = [

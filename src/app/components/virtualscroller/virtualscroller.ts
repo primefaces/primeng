@@ -96,17 +96,20 @@ export class VirtualScroller implements AfterContentInit, BlockableUI, OnChanges
 
     loadingItemTemplate: TemplateRef<any>;
 
+    // tslint:disable-next-line:variable-name
     _totalRecords = 0;
 
     page = 0;
 
+    // tslint:disable-next-line:variable-name
     _first = 0;
 
     loadedPages: number[] = [];
 
+    // tslint:disable-next-line:variable-name
     _cache: boolean;
 
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (index: number, item: any) => any = (index: number, item: any) => item;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

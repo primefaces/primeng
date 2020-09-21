@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule }  from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RatingDemo } from './ratingdemo';
 import { RatingDemoRoutingModule } from './ratingdemo-routing.module';
 import { RatingModule } from 'primeng/rating';
@@ -20,4 +20,4 @@ import { AppCodeModule } from '../../app.code.component';
         RatingDemo
     ]
 })
-export class RatingDemoModule {}
+export class RatingDemoModule { }

@@ -57,7 +57,7 @@ export class DomHandler {
     }
 
     public static siblings(element: any): any {
-        return Array.prototype.filter.call(element.parentNode.children, function(child) {
+        return Array.prototype.filter.call(element.parentNode.children, child=> {
             return child !== element;
         });
     }
@@ -98,7 +98,8 @@ export class DomHandler {
         const targetHeight = target.offsetHeight;
         const targetOffset = target.getBoundingClientRect();
         const viewport = this.getViewport();
-        let top: number, left: number;
+        let top: number;
+        let left: number;
 
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
@@ -216,12 +217,13 @@ export class DomHandler {
 
         let last = +new Date();
         let opacity = 0;
-        const tick = function() {
+        const tick = () => {
             opacity = +element.style.opacity.replace(',', '.') + (new Date().getTime() - last) / duration;
             element.style.opacity = opacity;
             last = +new Date();
 
             if (+opacity < 1) {
+                // tslint:disable-next-line:no-unused-expression
                 (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
             }
         };
@@ -230,10 +232,10 @@ export class DomHandler {
     }
 
     public static fadeOut(element, ms) {
-        let opacity = 1,
-            interval = 50,
-            duration = ms,
-            gap = interval / duration;
+        let opacity = 1;
+        const interval = 50;
+        const duration = ms;
+        const gap = interval / duration;
 
         const fading = setInterval(() => {
             opacity = opacity - gap;
@@ -340,12 +342,12 @@ export class DomHandler {
     }
 
     public static getViewport(): any {
-        const win = window,
-            d = document,
-            e = d.documentElement,
-            g = d.getElementsByTagName('body')[0],
-            w = win.innerWidth || e.clientWidth || g.clientWidth,
-            h = win.innerHeight || e.clientHeight || g.clientHeight;
+        const win = window;
+        const d = document;
+        const e = d.documentElement;
+        const g = d.getElementsByTagName('body')[0];
+        const w = win.innerWidth || e.clientWidth || g.clientWidth;
+        const h = win.innerHeight || e.clientHeight || g.clientHeight;
 
         return { width: w, height: h };
     }
@@ -371,7 +373,7 @@ export class DomHandler {
         return navigator.userAgent;
     }
 
-    public static  isIE() {
+    public static isIE() {
         const ua = window.navigator.userAgent;
 
         const msie = ua.indexOf('MSIE ');
@@ -389,8 +391,8 @@ export class DomHandler {
 
         const edge = ua.indexOf('Edge/');
         if (edge > 0) {
-           // Edge (IE 12+) => return version number
-           return true;
+            // Edge (IE 12+) => return version number
+            return true;
         }
 
         // other browser
@@ -410,9 +412,9 @@ export class DomHandler {
             target.appendChild(element);
         } else if (target.el && target.el.nativeElement) {
             target.el.nativeElement.appendChild(element);
- } else {
+        } else {
             throw new Error('Cannot append ' + target + ' to ' + element);
- }
+        }
     }
 
     public static removeChild(element: any, target: any) {
@@ -420,9 +422,9 @@ export class DomHandler {
             target.removeChild(element);
         } else if (target.el && target.el.nativeElement) {
             target.el.nativeElement.removeChild(element);
- } else {
+        } else {
             throw new Error('Cannot remove ' + element + ' from ' + target);
- }
+        }
     }
 
     public static remove(element) {
@@ -538,7 +540,7 @@ export class DomHandler {
         if (Number.isInteger) {
             return Number.isInteger(value);
         } else {
-            return typeof value === 'number' && isFinite(value) &&  Math.floor(value) === value;
+            return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
         }
     }
 
@@ -552,14 +554,14 @@ export class DomHandler {
                 input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
-            );
+        );
 
         const visibleFocusableElements = [];
         for (const focusableElement of focusableElements) {
-                if (getComputedStyle(focusableElement).display !== 'none' && getComputedStyle(focusableElement).visibility !== 'hidden') {
-                    visibleFocusableElements.push(focusableElement);
-                }
+            if (getComputedStyle(focusableElement).display !== 'none' && getComputedStyle(focusableElement).visibility !== 'hidden') {
+                visibleFocusableElements.push(focusableElement);
             }
+        }
         return visibleFocusableElements;
     }
 

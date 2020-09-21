@@ -9,18 +9,8 @@
     "component-class-suffix": false,
     "contextual-lifecycle": true,
     "directive-class-suffix": false,
-    "directive-selector": [
-      true,
-      "attribute",
-      "app",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "app",
-      "kebab-case"
-    ],
+    "directive-selector": false,
+    "component-selector": false,
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -30,7 +20,7 @@
     "max-line-length": [
       true,
       {
-        "limit": 200,
+        "limit": 300,
         "ignore-pattern": "^import |^export {(.*?)}",
         "check-strings": false,
         "check-regex": true
@@ -93,7 +83,8 @@
     "no-unused-variable": [
       true
     ],
-    "whitespace": [true, "check-module"]
+    "whitespace": [true, "check-module"],
+    "prefer-for-of": false
   },
   "rulesDirectory": [
     "codelyzer"

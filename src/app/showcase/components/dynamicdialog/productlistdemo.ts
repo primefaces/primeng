@@ -36,7 +36,7 @@ import { Product } from '../../domain/product';
         }
     `]
 })
-export class ProductListDemo {
+export class ProductListDemo implements OnInit {
 
     products: Product[];
 

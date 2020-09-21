@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     templateUrl: './radiobuttondemo.html'
 })
-export class RadioButtonDemo {
+export class RadioButtonDemo implements OnInit {
 
     city: string;
 
     selectedCategory: any = null;
 
-    categories: any[] = [{name: 'Accounting', key: 'A'}, {name: 'Marketing', key: 'M'}, {name: 'Production', key: 'P'}, {name: 'Research', key: 'R'}];
+    categories: any[] = [{ name: 'Accounting', key: 'A' }, { name: 'Marketing', key: 'M' }, { name: 'Production', key: 'P' }, { name: 'Research', key: 'R' }];
 
     ngOnInit() {
         this.selectedCategory = this.categories[1];

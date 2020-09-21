@@ -1,4 +1,4 @@
-import { NgModule }     from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TableDemo } from './tabledemo';
 import { TableTemplatingDemo } from './tabletemplatingdemo';
@@ -68,4 +68,4 @@ import { TableDynamicDemo } from './tabledynamicdemo';
         RouterModule
     ]
 })
-export class TableDemoRoutingModule {}
+export class TableDemoRoutingModule { }

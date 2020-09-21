@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TicketService } from './ticketservice';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['stepsdemo.scss'],
     providers: [MessageService]
 })
-export class StepsDemo implements OnInit {
+export class StepsDemo implements OnInit, OnDestroy {
 
     items: MenuItem[];
 

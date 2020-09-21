@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 import { MessageService } from 'primeng/api';
@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
     templateUrl: './treetableselectiondemo.html',
     providers: [MessageService]
 })
-export class TreeTableSelectionDemo {
+export class TreeTableSelectionDemo implements OnInit {
 
     files1: TreeNode[];
 

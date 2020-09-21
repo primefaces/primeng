@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './progressbardemo.html',
     providers: [MessageService]
 })
-export class ProgressBarDemo {
+export class ProgressBarDemo implements OnInit {
 
     value = 0;
 

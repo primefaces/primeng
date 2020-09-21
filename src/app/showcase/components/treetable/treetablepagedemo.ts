@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
 import { TreeNode } from 'primeng/api';
 
 @Component({
@@ -11,7 +10,7 @@ export class TreeTablePageDemo implements OnInit {
 
     cols: any[];
 
-    constructor(private nodeService: NodeService) { }
+    constructor() { }
 
     ngOnInit() {
         this.files = [];

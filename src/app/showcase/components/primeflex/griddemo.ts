@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component ({
@@ -48,7 +48,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         ])
     ]
 })
-export class GridDemo {
+export class GridDemo implements OnInit {
 
     columns: number[];
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CalendarDemo } from './calendardemo';
 import { CalendarDemoRoutingModule } from './calendardemo-routing.module';
 import { CalendarModule } from 'primeng/calendar';
@@ -22,4 +22,4 @@ import { AppCodeModule } from '../../app.code.component';
         CalendarDemo
     ]
 })
-export class CalendarDemoModule {}
+export class CalendarDemoModule { }

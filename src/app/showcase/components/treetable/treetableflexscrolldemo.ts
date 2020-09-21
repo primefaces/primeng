@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 @Component({
     templateUrl: './treetableflexscrolldemo.html'
 })
-export class TreeTableFlexScrollDemo {
+export class TreeTableFlexScrollDemo implements OnInit {
 
     virtualFiles: TreeNode[];
 

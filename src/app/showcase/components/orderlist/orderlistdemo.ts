@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../service/productservice';
 import { Product } from '../../domain/product';
 
@@ -6,7 +6,7 @@ import { Product } from '../../domain/product';
     templateUrl: './orderlistdemo.html',
     styleUrls: ['./orderlistdemo.scss']
 })
-export class OrderListDemo {
+export class OrderListDemo implements OnInit {
 
     products: Product[];
 

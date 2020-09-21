@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
     templateUrl: './tieredmenudemo.html'
 })
-export class TieredMenuDemo {
+export class TieredMenuDemo implements OnInit {
 
     items: MenuItem[];
 

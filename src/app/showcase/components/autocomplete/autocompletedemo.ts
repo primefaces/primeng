@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../../service/countryservice';
 
 @Component({
     templateUrl: './autocompletedemo.html'
 })
-export class AutoCompleteDemo {
+export class AutoCompleteDemo implements OnInit {
 
     selectedCountry: any;
 

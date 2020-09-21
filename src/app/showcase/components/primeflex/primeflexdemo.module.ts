@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule }  from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { PrimeFlexSetup } from './primeflexsetup';
 import { DisplayDemo } from './displaydemo';
 import { ElevationDemo } from './elevationdemo';
@@ -50,4 +50,4 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
         TextDemo
     ]
 })
-export class PrimeFlexDemoModule {}
+export class PrimeFlexDemoModule { }

@@ -17,6 +17,7 @@ export class GalleriaProgrammaticDemo implements OnInit {
         }
     }
 
+    // tslint:disable-next-line:variable-name
     _activeIndex = 2;
 
     responsiveOptions: any[] = [

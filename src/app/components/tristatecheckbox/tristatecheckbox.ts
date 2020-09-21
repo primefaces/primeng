@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TriStateCheckbox),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TriStateCheckbox),
+    multi: true
 };
 
 @Component({
@@ -28,9 +28,9 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TriStateCheckbox implements ControlValueAccessor  {
+export class TriStateCheckbox implements ControlValueAccessor {
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef) { }
 
     @Input() disabled: boolean;
 
@@ -56,9 +56,9 @@ export class TriStateCheckbox implements ControlValueAccessor  {
 
     value: any;
 
-    onModelChange: Function = () => {};
+    onModelChange: (arg: any) => void = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: () => void = () => { };
 
     onClick(event: Event, input: HTMLInputElement) {
         if (!this.disabled && !this.readonly) {
@@ -86,9 +86,9 @@ export class TriStateCheckbox implements ControlValueAccessor  {
             this.value = true;
         } else if (this.value === true) {
             this.value = false;
- } else if (this.value === false) {
+        } else if (this.value === false) {
             this.value = null;
- }
+        }
 
         this.onModelChange(this.value);
         this.onChange.emit({
@@ -106,11 +106,11 @@ export class TriStateCheckbox implements ControlValueAccessor  {
         this.onModelTouched();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange(fn: () => void): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched(fn: () => void): void {
         this.onModelTouched = fn;
     }
 

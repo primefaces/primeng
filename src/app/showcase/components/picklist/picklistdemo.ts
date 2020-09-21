@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './picklistdemo.html',
     styleUrls: ['./picklistdemo.scss']
 })
-export class PickListDemo {
+export class PickListDemo implements OnInit {
 
     sourceProducts: Product[];
 

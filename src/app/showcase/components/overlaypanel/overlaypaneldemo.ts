@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
     styleUrls: ['./overlaypanel.scss'],
     providers: [MessageService]
 })
-export class OverlayPanelDemo {
+export class OverlayPanelDemo implements OnInit {
 
     products: Product[];
 
