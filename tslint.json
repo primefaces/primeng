@@ -80,7 +80,12 @@
       "check-module"
     ],
     "prefer-for-of": false,
-    "no-bitwise": false
+    "no-bitwise": false,
+    "variable-name": {
+      "options": [
+        "allow-leading-underscore"
+      ]
+    }
   },
   "rulesDirectory": [
     "codelyzer"
