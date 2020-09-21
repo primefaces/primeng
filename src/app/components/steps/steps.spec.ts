@@ -113,7 +113,6 @@ describe('Steps', () => {
     it('should show the step number', () => {
         fixture.detectChanges();
 
-        const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
         for (let x = 0; x < testComponent.items.length; x++) {
             expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual((x + 1).toString());

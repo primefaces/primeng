@@ -658,7 +658,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public filteredNodes: TreeNode[];
 
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (index: number, item: any) => any = (index: number, item: any) => item;
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -877,6 +877,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     syncNodeOption(node, parentNodes, option, value?: any) {
         // to synchronize the node option between the filtered nodes and the original nodes(this.value)
+        // tslint:disable-next-line:variable-name
         const _node = this.hasFilteredNodes() ? this.getNodeWithKey(node.key, parentNodes) : null;
         if (_node) {
             _node[option] = value || node[option];

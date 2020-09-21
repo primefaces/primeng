@@ -100,7 +100,7 @@ import { FilterUtils } from 'primeng/utils';
 })
 export class PickList implements AfterViewChecked, AfterContentInit {
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     @Input() source: any[];
 
@@ -116,9 +116,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     @Input() filterLocale: string;
 
-    @Input() sourceTrackBy: Function;
+    @Input() sourceTrackBy: (index: number, item: any) => any;
 
-    @Input() targetTrackBy: Function;
+    @Input() targetTrackBy: (index: number, item: any) => any;
 
     @Input() showSourceFilter = true;
 
@@ -232,7 +232,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (index: number, item: any) => any = (index: number, item: any) => item;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -302,7 +302,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
         }
 
-        callback.emit({originalEvent: event, items: selectedItems});
+        callback.emit({ originalEvent: event, items: selectedItems });
 
         this.itemTouched = false;
     }
@@ -334,11 +334,11 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         if (listType === this.SOURCE_LIST) {
             this.filterValueSource = query;
             this.visibleOptionsSource = FilterUtils.filter(data, searchFields, this.filterValueSource, this.filterMatchMode, this.filterLocale);
-            this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
+            this.onSourceFilter.emit({ query: this.filterValueSource, value: this.visibleOptionsSource });
         } else if (listType === this.TARGET_LIST) {
             this.filterValueTarget = query;
             this.visibleOptionsTarget = FilterUtils.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode, this.filterLocale);
-            this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
+            this.onTargetFilter.emit({ query: this.filterValueTarget, value: this.visibleOptionsTarget });
         }
     }
 
@@ -394,7 +394,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
             this.movedUp = true;
             this.reorderedListElement = listElement;
-            callback.emit({items: selectedItems});
+            callback.emit({ items: selectedItems });
         }
     }
 
@@ -414,7 +414,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
 
             listElement.scrollTop = 0;
-            callback.emit({items: selectedItems});
+            callback.emit({ items: selectedItems });
         }
     }
 
@@ -437,7 +437,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
             this.movedDown = true;
             this.reorderedListElement = listElement;
-            callback.emit({items: selectedItems});
+            callback.emit({ items: selectedItems });
         }
     }
 
@@ -457,7 +457,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
 
             listElement.scrollTop = listElement.scrollHeight;
-            callback.emit({items: selectedItems});
+            callback.emit({ items: selectedItems });
         }
     }
 
@@ -597,12 +597,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     onDragOver(event: DragEvent, index: number, listType: number) {
         if (this.dragging) {
             if (listType === this.SOURCE_LIST) {
-                if (this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === this.TARGET_LIST)) {
+                if (this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === this.TARGET_LIST)) {
                     this.dragOverItemIndexSource = index;
                     event.preventDefault();
                 }
             } else {
-                if (this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index || (this.fromListType === this.SOURCE_LIST)) {
+                if (this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index || (this.fromListType === this.SOURCE_LIST)) {
                     this.dragOverItemIndexTarget = index;
                     event.preventDefault();
                 }
@@ -624,7 +624,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     this.insert(this.draggedItemIndexTarget, this.target, index, this.source, this.onMoveToSource);
                 } else {
                     ObjectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
-                    this.onSourceReorder.emit({items: this.source[this.draggedItemIndexSource]});
+                    this.onSourceReorder.emit({ items: this.source[this.draggedItemIndexSource] });
                 }
 
                 this.dragOverItemIndexSource = null;
@@ -633,7 +633,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     this.insert(this.draggedItemIndexSource, this.source, index, this.target, this.onMoveToTarget);
                 } else {
                     ObjectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
-                    this.onTargetReorder.emit({items: this.target[this.draggedItemIndexTarget]});
+                    this.onTargetReorder.emit({ items: this.target[this.draggedItemIndexTarget] });
                 }
 
                 this.dragOverItemIndexTarget = null;
@@ -692,7 +692,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 moveListType.nativeElement.scrollTop += 15;
             } else if (topDiff < 25 && topDiff > 0) {
                 moveListType.nativeElement.scrollTop -= 15;
- }
+            }
 
             if (listType === this.SOURCE_LIST) {
                 if (this.fromListType === this.TARGET_LIST) {

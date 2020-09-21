@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { PickList } from './picklist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Button } from 'primeng/button';
 
 @Component({
@@ -15,7 +15,7 @@ import { Button } from 'primeng/button';
     </ng-template>
 </p-pickList>`
 })
-class TestPickListComponent {
+class TestPickListComponent implements OnInit {
     sourceCars: any[];
     targetCars: any[];
 
@@ -120,7 +120,7 @@ describe('PickList', () => {
         expect(picklist.visibleOptionsSource[0].brand).toEqual('VW');
         expect(picklist.visibleOptionsSource[1].brand).toEqual('Volvo');
         for (let i = 0; i < sourceListItems.length; i++) {
-            if (i == 0 || i == 5) {
+            if (i === 0 || i === 5) {
                 expect(sourceListItems[i].nativeElement.style.display).toEqual('block');
             } else {
                 expect(sourceListItems[i].nativeElement.style.display).not.toEqual('block');
@@ -149,7 +149,7 @@ describe('PickList', () => {
         expect(picklist.visibleOptionsTarget[0].brand).toEqual('VW');
         expect(picklist.visibleOptionsTarget[1].brand).toEqual('Volvo');
         for (let i = 0; i < targetListItems.length; i++) {
-            if (i == 0 || i == 5) {
+            if (i === 0 || i === 5) {
                 expect(targetListItems[i].nativeElement.style.display).toEqual('block');
             } else {
                 expect(targetListItems[i].nativeElement.style.display).not.toEqual('block');

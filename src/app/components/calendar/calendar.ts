@@ -1568,8 +1568,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
         }
         return hours;
-    };
-
+    }
     validateTime(hour: number, minute: number, second: number, pm: boolean) {
         let value = this.value;
         const convertedHour = this.convertTo24Hour(hour, pm);

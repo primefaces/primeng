@@ -4,7 +4,7 @@ import { TreeTable, TreeTableModule } from './treetable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
 
 @Component({
@@ -278,7 +278,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
         </p-treeTable>
 `
 })
-class TestTreeTableComponent {
+class TestTreeTableComponent implements OnInit {
     selectedNode: any;
     filterMode = 'contains';
     cols = [
@@ -682,7 +682,7 @@ describe('TreeTable', () => {
         multipleSelectionTreeTable = fixture.debugElement.children[5].componentInstance;
         checkboxSelectionTreeTable = fixture.debugElement.children[6].componentInstance;
         editableTreeTable = fixture.debugElement.children[7].componentInstance;
-        basicScrollTable = fixture.debugElement.children[8].componentInstance; resizableTreeTable;
+        basicScrollTable = fixture.debugElement.children[8].componentInstance;
         resizableTreeTable = fixture.debugElement.children[9].componentInstance;
         reorderableTreeTable = fixture.debugElement.children[10].componentInstance;
         contextMenuTreeTable = fixture.debugElement.children[11].componentInstance;
@@ -723,8 +723,6 @@ describe('TreeTable', () => {
         let rowEls = basicTreeTableEl.queryAll(By.css('tr'));
         expect(rowEls.length).toEqual(11 );
         let toggleEls = basicTreeTableEl.queryAll(By.css('.p-treetable-toggler'));
-        const firstToggleComp = toggleEls[0].componentInstance;
-        const onClickSpy = spyOn(firstToggleComp, 'onClick').and.callThrough();
         toggleEls[0].nativeElement.click();
         fixture.detectChanges();
 

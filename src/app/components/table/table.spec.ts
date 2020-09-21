@@ -700,7 +700,6 @@ describe('Table', () => {
         sortTable.sortMode = 'multiple';
         fixture.detectChanges();
 
-        const yearSortEl = fixture.debugElement.queryAll(By.css('.sortableColumn'))[1];
         const colorSortEl = fixture.debugElement.queryAll(By.css('.sortableColumn'))[3];
         colorSortEl.nativeElement.click();
         fixture.detectChanges();

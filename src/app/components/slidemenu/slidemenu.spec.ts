@@ -139,7 +139,6 @@ describe('SlideMenu', () => {
     it('should call itemClick when click and change menu from root to submenu', () => {
         fixture.detectChanges();
 
-        const listsEl = fixture.debugElement.queryAll(By.css('ul'));
         const itemsEl = fixture.debugElement.query(By.css('p-slideMenuSub')).queryAll(By.css('li'));
         const fileItemEl = itemsEl[0].query(By.css('a'));
         const itemClickSpy = spyOn(slidemenuSub, 'itemClick').and.callThrough();

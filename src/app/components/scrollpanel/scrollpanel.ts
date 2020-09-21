@@ -17,13 +17,13 @@ import { PrimeTemplate } from 'primeng/api';
             <div #yBar class="p-scrollpanel-bar p-scrollpanel-bar-y"></div>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./scrollpanel.css']
 })
 export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) { }
 
     @Input() style: any;
 
@@ -97,9 +97,9 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         const content = this.contentViewChild.nativeElement;
         const xBar = this.xBarViewChild.nativeElement;
 
-        const containerStyles = getComputedStyle(container),
-        xBarStyles = getComputedStyle(xBar),
-        pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles.height, 10);
+        const containerStyles = getComputedStyle(container);
+        const xBarStyles = getComputedStyle(xBar);
+        const pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles.height, 10);
 
         if (containerStyles['max-height'] !== 'none' && pureContainerHeight === 0) {
             if (content.offsetHeight + parseInt(xBarStyles.height, 10) > parseInt(containerStyles['max-height'], 10)) {
@@ -222,8 +222,8 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         this.isYBarClicked = false;
     }
 
-    requestAnimationFrame(f: Function) {
-        const frame = window.requestAnimationFrame || this.timeoutFrame;
+    requestAnimationFrame(f: () => unknown) {
+        const frame = window.requestAnimationFrame || this.timeoutFrame;
         frame(f);
     }
 

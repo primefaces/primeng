@@ -91,11 +91,13 @@ export class Paginator implements OnInit, OnChanges {
 
     paginatorState: any;
 
+    // tslint:disable-next-line:variable-name
     _first = 0;
 
+    // tslint:disable-next-line:variable-name
     _page = 0;
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.updatePaginatorState();
@@ -137,9 +139,9 @@ export class Paginator implements OnInit, OnChanges {
             this.rowsPerPageItems = [];
             for (const opt of this.rowsPerPageOptions) {
                 if (typeof opt === 'object' && opt.showAll) {
-                    this.rowsPerPageItems.unshift({label: opt.showAll, value: this.totalRecords});
+                    this.rowsPerPageItems.unshift({ label: opt.showAll, value: this.totalRecords });
                 } else {
-                    this.rowsPerPageItems.push({label: String(opt), value: opt});
+                    this.rowsPerPageItems.push({ label: String(opt), value: opt });
                 }
             }
         }
@@ -158,12 +160,12 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     calculatePageLinkBoundaries() {
-        const numberOfPages = this.getPageCount(),
-        visiblePages = Math.min(this.pageLinkSize, numberOfPages);
+        const numberOfPages = this.getPageCount();
+        const visiblePages = Math.min(this.pageLinkSize, numberOfPages);
 
         // calculate range, keep current in middle if necessary
-        let start = Math.max(0, Math.ceil(this.getPage() - ((visiblePages) / 2))),
-        end = Math.min(numberOfPages - 1, start + visiblePages - 1);
+        let start = Math.max(0, Math.ceil(this.getPage() - ((visiblePages) / 2)));
+        const end = Math.min(numberOfPages - 1, start + visiblePages - 1);
 
         // check when approaching to last page
         const delta = this.pageLinkSize - (end - start + 1);
@@ -174,9 +176,9 @@ export class Paginator implements OnInit, OnChanges {
 
     updatePageLinks() {
         this.pageLinks = [];
-        const boundaries = this.calculatePageLinkBoundaries(),
-        start = boundaries[0],
-        end = boundaries[1];
+        const boundaries = this.calculatePageLinkBoundaries();
+        const start = boundaries[0];
+        const end = boundaries[1];
 
         for (let i = start; i <= end; i++) {
             this.pageLinks.push(i + 1);
@@ -185,7 +187,7 @@ export class Paginator implements OnInit, OnChanges {
         if (this.showJumpToPageDropdown) {
             this.pageItems = [];
             for (let i = 0; i < this.getPageCount(); i++) {
-                this.pageItems.push({label: String(i + 1), value: i});
+                this.pageItems.push({ label: String(i + 1), value: i });
             }
         }
     }
@@ -220,11 +222,11 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToFirst(event) {
-      if (!this.isFirstPage()) {
-          this.changePage(0);
-      }
+        if (!this.isFirstPage()) {
+            this.changePage(0);
+        }
 
-      event.preventDefault();
+        event.preventDefault();
     }
 
     changePageToPrev(event) {
@@ -233,16 +235,16 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToNext(event) {
-        this.changePage(this.getPage()  + 1);
+        this.changePage(this.getPage() + 1);
         event.preventDefault();
     }
 
     changePageToLast(event) {
-      if (!this.isLastPage()) {
-          this.changePage(this.getPageCount() - 1);
-      }
+        if (!this.isLastPage()) {
+            this.changePage(this.getPageCount() - 1);
+        }
 
-      event.preventDefault();
+        event.preventDefault();
     }
 
     onPageLinkClick(event, page) {
@@ -270,12 +272,12 @@ export class Paginator implements OnInit, OnChanges {
 
     get currentPageReport() {
         return this.currentPageReportTemplate
-                .replace('{currentPage}', String(this.getPage() + 1))
-                .replace('{totalPages}', String(this.getPageCount()))
-                .replace('{first}', String(this._first + 1))
-                .replace('{last}', String(Math.min(this._first + this.rows, this.totalRecords)))
-                .replace('{rows}', String(this.rows))
-                .replace('{totalRecords}', String(this.totalRecords));
+            .replace('{currentPage}', String(this.getPage() + 1))
+            .replace('{totalPages}', String(this.getPageCount()))
+            .replace('{first}', String(this._first + 1))
+            .replace('{last}', String(Math.min(this._first + this.rows, this.totalRecords)))
+            .replace('{rows}', String(this.rows))
+            .replace('{totalRecords}', String(this.totalRecords));
     }
 }
 
