@@ -337,7 +337,6 @@ describe('Calendar', () => {
     });
 
     it('should use invalidDates', () => {
-
         let invalidDates: Array<Date>;
         const invalidDate = new Date();
         invalidDate.setDate(15);
@@ -357,7 +356,7 @@ describe('Calendar', () => {
         const unselectableEls = containerEl.queryAll(By.css('.p-disabled'));
         const invalidDateArray = [];
         for (const el of unselectableEls) {
-            if (el.nativeElement.textContent === invalidDate.getDate() || el.nativeElement.textContent === invalidDate2.getDate()) {
+            if (el.nativeElement.textContent == invalidDate.getDate() || el.nativeElement.textContent == invalidDate2.getDate()) {
                 invalidDateArray.push(el.nativeElement.textContent);
             }
         }

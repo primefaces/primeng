@@ -130,7 +130,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     hueHandleViewChild: ElementRef;
 
-    onModelChange: () => void = () => { };
+    onModelChange: (args: any) => void = () => { };
 
     onModelTouched: () => void = () => { };
 
