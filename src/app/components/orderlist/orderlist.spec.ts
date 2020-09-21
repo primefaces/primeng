@@ -283,9 +283,6 @@ describe('OrderList', () => {
         orderlist.filterValue = 'v';
         fixture.detectChanges();
 
-        const filterEl = fixture.debugElement.query(By.css('input'));
-        fixture.detectChanges();
-
         const itemsEl = fixture.debugElement.queryAll(By.css('.p-orderlist-item'));
         expect(orderlist.visibleOptions.length).toEqual(2);
         expect(orderlist.visibleOptions[0].brand).toEqual('VW');
@@ -339,7 +336,6 @@ describe('OrderList', () => {
     });
 
     it('should listen onReorder in moveDown', () => {
-        const moveUpSpy = spyOn(orderlist, 'moveDown').and.callThrough();
         fixture.detectChanges();
 
         let data;

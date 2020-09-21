@@ -553,8 +553,6 @@ describe('Calendar', () => {
         inputEl.dispatchEvent(focusEvent);
         fixture.detectChanges();
 
-        const defaultHour = calendar.currentHour;
-        const defaultMinute = calendar.currentMinute;
         const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
         const monthDropdownEl = navigators[0];
         const yearDropdownEl = navigators[1];
@@ -599,8 +597,6 @@ describe('Calendar', () => {
         inputEl.dispatchEvent(focusEvent);
         fixture.detectChanges();
 
-        const defaultHour = calendar.currentHour;
-        const defaultMinute = calendar.currentMinute;
         const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
         const monthDropdownEl = navigators[0];
         const yearDropdownEl = navigators[1];
@@ -1549,7 +1545,6 @@ describe('Calendar', () => {
 
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         const focusEvent = new Event('focus');
-        const blurEvent = new Event('blur');
         inputEl.nativeElement.click();
         inputEl.nativeElement.dispatchEvent(focusEvent);
         fixture.detectChanges();

@@ -122,7 +122,6 @@ describe('Draggable', () => {
         fixture.detectChanges();
 
         const draggableEls = fixture.debugElement.queryAll(By.css('li'));
-        const dropEl = fixture.debugElement.query(By.css('div'));
         const dragEndSpy = spyOn(testComponent, 'dragEnd').and.callThrough();
         const dragSpy = spyOn(testComponent, 'onDrag').and.callThrough();
         const event: any = document.createEvent('CustomEvent');
