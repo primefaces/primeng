@@ -63,6 +63,7 @@ export class MenubarSub implements OnDestroy {
 
     @Output() leafClick: EventEmitter<any> = new EventEmitter();
 
+    // tslint:disable-next-line:variable-name
     _parentActive: boolean;
 
     documentClickListener: any;

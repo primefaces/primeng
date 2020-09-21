@@ -324,9 +324,10 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     shiftR(pos) {
-        let i, c, j, t;
+        let j;
+        let t;
 
-        for (i = pos, c = this.getPlaceholder(pos); i < this.len; i++) {
+        for (let i = pos, c = this.getPlaceholder(pos); i < this.len; i++) {
             if (this.tests[i]) {
                 j = this.seekNext(i);
                 t = this.buffer[i];
@@ -398,10 +399,10 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
             return;
         }
 
-        let k = e.which || e.keyCode,
-            pos,
-            begin,
-            end;
+        const k = e.which || e.keyCode;
+        let pos;
+        let begin;
+        let end;
         const iPhone = /iphone/i.test(DomHandler.getUserAgent());
         this.oldVal = this.inputViewChild.nativeElement.value;
 
@@ -439,12 +440,12 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
             return;
         }
 
-        let k = e.which || e.keyCode,
-            pos = this.caret(),
-            p,
-            c,
-            next,
-            completed;
+        const k = e.which || e.keyCode;
+        const pos = this.caret();
+        let p;
+        let c;
+        let next;
+        let completed;
 
         if (e.ctrlKey || e.altKey || e.metaKey || k < 32 || (k > 34 && k < 41)) {// Ignore
             return;
@@ -509,11 +510,11 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
 
     checkVal(allow?: boolean) {
         // try to place characters where they belong
-        let test = this.inputViewChild.nativeElement.value,
-            lastMatch = -1,
-            i,
-            c,
-            pos;
+        const test = this.inputViewChild.nativeElement.value;
+        let lastMatch = -1;
+        let i;
+        let c;
+        let pos;
 
         for (i = 0, pos = 0; i < this.len; i++) {
             if (this.tests[i]) {

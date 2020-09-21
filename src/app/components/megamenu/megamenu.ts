@@ -6,6 +6,7 @@ import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-megaMenu',
+    // tslint:disable:max-line-length
     template: `
         <div [class]="styleClass" [ngStyle]="style"
             [ngClass]="{'p-megamenu p-component':true,'p-megamenu-horizontal': orientation === 'horizontal','p-megamenu-vertical': orientation === 'vertical'}">
@@ -74,6 +75,8 @@ import { RippleModule } from 'primeng/ripple';
             </ul>
         </div>
     `,
+    // tslint:enable:max-line-length
+
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./megamenu.css']

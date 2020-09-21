@@ -1796,7 +1796,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 const dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
                 const dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
                 const targetLeft = dropHeaderOffset.left - containerOffset.left;
-                const targetTop = containerOffset.top - dropHeaderOffset.top;
                 const columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
                 this.reorderIndicatorUpViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (this.reorderIconHeight - 1) + 'px';

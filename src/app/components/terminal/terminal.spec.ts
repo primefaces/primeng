@@ -4,13 +4,13 @@ import { Terminal } from './terminal';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TerminalService } from './terminalservice';
 import { FormsModule } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
     template: `<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>`
   })
-  class TestTerminalComponent {
+  class TestTerminalComponent implements OnDestroy {
     subscription: Subscription;
 
     constructor(private terminalService: TerminalService) {

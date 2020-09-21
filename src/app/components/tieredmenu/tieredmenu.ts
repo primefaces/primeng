@@ -65,6 +65,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
 
     tieredMenu: TieredMenu;
 
+    // tslint:disable-next-line:variable-name
     _parentActive: boolean;
 
     rootItemClick: boolean;

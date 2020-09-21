@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { TerminalService } from './terminalservice';
-import { Subscription }   from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-terminal',
@@ -75,7 +75,7 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     handleCommand(event: KeyboardEvent) {
         if (event.keyCode === 13) {
-            this.commands.push({text: this.command});
+            this.commands.push({ text: this.command });
             this.terminalService.sendCommand(this.command);
             this.command = '';
         }

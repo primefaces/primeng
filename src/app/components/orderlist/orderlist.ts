@@ -51,7 +51,7 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class OrderList implements AfterViewChecked, AfterContentInit {
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     get selection(): any[] {
         return this._selection;
@@ -112,6 +112,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public itemTemplate: TemplateRef<any>;
 
+    // tslint:disable-next-line:variable-name
     _selection: any[];
 
     movedUp: boolean;
@@ -130,9 +131,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public visibleOptions: any[];
 
+    // tslint:disable-next-line:variable-name
     public _value: any[];
 
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (index: number, item: any) => any = (index: number, item: any) => item;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -177,14 +179,14 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             const metaKey = (event.metaKey || event.ctrlKey || event.shiftKey);
 
             if (selected && metaKey) {
-                this._selection = this._selection.filter((val, index) => index !== selectedIndex);
+                this._selection = this._selection.filter((val, i) => i !== selectedIndex);
             } else {
                 this._selection = (metaKey) ? this._selection ? [...this._selection] : [] : [];
                 ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);
             }
         } else {
             if (selected) {
-                this._selection = this._selection.filter((val, index) => index !== selectedIndex);
+                this._selection = this._selection.filter((val, i) => i !== selectedIndex);
             } else {
                 this._selection = this._selection ? [...this._selection] : [];
                 ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);
@@ -195,7 +197,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         this.selectionChange.emit(this._selection);
 
         // event
-        this.onSelectionChange.emit({originalEvent: event, value: this._selection});
+        this.onSelectionChange.emit({ originalEvent: event, value: this._selection });
     }
 
     onFilterKeyup(event) {
@@ -352,11 +354,11 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 this.listViewChild.nativeElement.scrollTop += 15;
             } else if (topDiff < 25 && topDiff > 0) {
                 this.listViewChild.nativeElement.scrollTop -= 15;
- }
+            }
         }
     }
 
-    onItemKeydown(event: KeyboardEvent, item, index: Number) {
+    onItemKeydown(event: KeyboardEvent, item, index: number) {
         const listItem = event.currentTarget as HTMLLIElement;
 
         switch (event.which) {

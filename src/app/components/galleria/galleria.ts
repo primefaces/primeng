@@ -93,8 +93,10 @@ export class Galleria implements OnChanges, OnDestroy, AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
 
+    // tslint:disable-next-line:variable-name
     _visible = false;
 
+    // tslint:disable-next-line:variable-name
     _activeIndex = 0;
 
     headerFacet: any;
@@ -272,7 +274,7 @@ export class GalleriaContent {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleriaItemSlot {
+export class GalleriaItemSlot implements AfterContentInit {
     @Input() templates: QueryList<any>;
 
     @Input() index: number;
@@ -284,14 +286,14 @@ export class GalleriaItemSlot {
     set item(item: any) {
         this._item = item;
         if (this.templates) {
-            this.templates.forEach((item) => {
-                if (item.getType() === this.type) {
+            this.templates.forEach((itm) => {
+                if (itm.getType() === this.type) {
                     switch (this.type) {
                         case 'item':
                         case 'caption':
                         case 'thumbnail':
                             this.context = { $implicit: this.item };
-                            this.contentTemplate = item.template;
+                            this.contentTemplate = itm.template;
                             break;
                     }
                 }
@@ -305,6 +307,7 @@ export class GalleriaItemSlot {
 
     context: any;
 
+    // tslint:disable-next-line:variable-name
     _item: any;
 
     ngAfterContentInit() {
@@ -397,6 +400,7 @@ export class GalleriaItem implements OnInit {
         this.activeItem = this.value[this._activeIndex];
     }
 
+    // tslint:disable-next-line:variable-name
     _activeIndex = 0;
 
     activeItem: any;
@@ -563,14 +567,19 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     documentResizeListener: any;
 
+    // tslint:disable-next-line:variable-name
     _numVisible = 0;
 
+    // tslint:disable-next-line:variable-name
     d_numVisible = 0;
 
+    // tslint:disable-next-line:variable-name
     _oldNumVisible = 0;
 
+    // tslint:disable-next-line:variable-name
     _activeIndex = 0;
 
+    // tslint:disable-next-line:variable-name
     _oldactiveIndex = 0;
 
     ngOnInit() {

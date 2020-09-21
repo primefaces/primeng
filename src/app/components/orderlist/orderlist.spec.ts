@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { OrderList } from './orderlist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Button } from 'primeng/button';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     template: `<p-orderList [value]="cars">
@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
   </ng-template>
 </p-orderList>`
 })
-class TestOrderListComponent {
+class TestOrderListComponent implements OnInit {
     cars: any[];
 
 

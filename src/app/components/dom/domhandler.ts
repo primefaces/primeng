@@ -137,7 +137,8 @@ export class DomHandler {
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
-        let top, left;
+        let top;
+        let left;
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;

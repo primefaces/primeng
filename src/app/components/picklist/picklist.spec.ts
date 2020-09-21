@@ -741,7 +741,6 @@ describe('PickList', () => {
     it('should not send item to left', () => {
         fixture.detectChanges();
 
-        const onItemTouchEndSpy = spyOn(picklist, 'onItemTouchEnd').and.callThrough();
         const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
         sourceListItems[0].nativeElement.click();
         sourceListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));

@@ -117,6 +117,7 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    // tslint:disable-next-line:variable-name
     _value: any[];
 
     listItemTemplate: TemplateRef<any>;
@@ -139,7 +140,7 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
 
     initialized: boolean;
 
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (index: number, item: any) => any = (index: number, item: any) => item;
 
     ngOnInit() {
         if (this.lazy) {

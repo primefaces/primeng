@@ -97,7 +97,7 @@ export class Paginator implements OnInit, OnChanges {
     // tslint:disable-next-line:variable-name
     _page = 0;
 
-    constructor(private cd: ChangeDetectorRef) { }
+    constructor(public cd: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.updatePaginatorState();

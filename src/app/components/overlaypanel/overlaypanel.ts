@@ -1,5 +1,7 @@
-import { NgModule, Component, Input, Output, OnDestroy, EventEmitter, Renderer2, ElementRef, ChangeDetectorRef, NgZone,
-        ContentChildren, TemplateRef, AfterContentInit, QueryList, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+    NgModule, Component, Input, Output, OnDestroy, EventEmitter, Renderer2, ElementRef, ChangeDetectorRef, NgZone,
+    ContentChildren, TemplateRef, AfterContentInit, QueryList, ChangeDetectionStrategy, ViewEncapsulation
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
@@ -90,9 +92,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    destroyCallback: Function;
+    destroyCallback: () => void;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
