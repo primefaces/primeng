@@ -19,3 +19,4 @@ install:
 
 script:
    - ./node_modules/.bin/ng test --watch=false # run the test
+   - npm run lint
