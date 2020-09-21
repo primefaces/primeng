@@ -65,7 +65,6 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
 
     tieredMenu: TieredMenu;
 
-    // tslint:disable-next-line:variable-name
     _parentActive: boolean;
 
     rootItemClick: boolean;
@@ -87,7 +86,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
             }
 
             this.activeItem = item;
-            const nextElement: HTMLElement =  item.children[0].nextElementSibling as HTMLElement;
+            const nextElement: HTMLElement = item.children[0].nextElementSibling as HTMLElement;
             if (nextElement) {
                 const sublist: HTMLElement = nextElement.children[0] as HTMLElement;
                 if (this.autoZIndex) {
@@ -101,7 +100,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
         }
     }
 
-    itemClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
+    itemClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (menuitem.disabled) {
             event.preventDefault();
             return true;
@@ -118,9 +117,9 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
             });
         }
 
-        if (this.root && !this.activeItem && !this.tieredMenu.popup ) {
+        if (this.root && !this.activeItem && !this.tieredMenu.popup) {
             this.activeItem = item;
-            const nextElement: HTMLElement =  item.children[0].nextElementSibling as HTMLElement;
+            const nextElement: HTMLElement = item.children[0].nextElementSibling as HTMLElement;
             if (nextElement) {
                 const sublist: HTMLElement = nextElement.children[0] as HTMLElement;
                 if (this.autoZIndex) {
@@ -188,12 +187,12 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                style({ opacity: 0, transform: 'scaleY(0.8)' }),
                 animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
+            ]),
+            transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -233,7 +232,7 @@ export class TieredMenu implements OnDestroy {
 
     visible: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) { }
 
     toggle(event) {
         if (this.visible) {

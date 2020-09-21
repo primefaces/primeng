@@ -6,9 +6,9 @@ import { RippleModule } from 'primeng/ripple';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SelectButton),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => SelectButton),
+    multi: true
 };
 
 @Component({
@@ -60,14 +60,13 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
 
     value: any;
 
-    // tslint:disable-next-line:variable-name
     _options: any[];
 
-    onModelChange: (arg: any) => void = () => {};
+    onModelChange: (arg: any) => void = () => { };
 
-    onModelTouched: () => void = () => {};
+    onModelTouched: () => void = () => { };
 
-    constructor(public cd: ChangeDetectorRef) {}
+    constructor(public cd: ChangeDetectorRef) { }
 
     @Input() get options(): any[] {
         return this._options;

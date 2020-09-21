@@ -53,7 +53,6 @@ export class KeyFilter implements Validator {
 
     regex: RegExp;
 
-    // tslint:disable-next-line:variable-name
     _pattern: any;
 
     isAndroid: boolean;

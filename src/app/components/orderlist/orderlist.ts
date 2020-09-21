@@ -112,7 +112,6 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public itemTemplate: TemplateRef<any>;
 
-    // tslint:disable-next-line:variable-name
     _selection: any[];
 
     movedUp: boolean;
@@ -131,7 +130,6 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public visibleOptions: any[];
 
-    // tslint:disable-next-line:variable-name
     public _value: any[];
 
     @Input() trackBy: (index: number, item: any) => any = (index: number, item: any) => item;

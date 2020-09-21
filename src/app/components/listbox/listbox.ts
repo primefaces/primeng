@@ -148,7 +148,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public footerTemplate: TemplateRef<any>;
 
-    // tslint:disable-next-line:variable-name
     public _filterValue: string;
 
     public filtered: boolean;
@@ -159,7 +158,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public focus: boolean;
 
-    // tslint:disable-next-line:variable-name
     public _options: any[];
 
     public headerCheckboxFocus: boolean;

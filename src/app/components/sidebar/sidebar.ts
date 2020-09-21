@@ -78,7 +78,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     initialized: boolean;
 
-    // tslint:disable-next-line:variable-name
     _visible: boolean;
 
     preventVisibleChangePropagation: boolean;
@@ -93,7 +92,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     contentTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) { }
 
     ngAfterViewInit() {
         this.initialized = true;

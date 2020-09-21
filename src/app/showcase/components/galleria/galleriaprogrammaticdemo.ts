@@ -9,7 +9,7 @@ export class GalleriaProgrammaticDemo implements OnInit {
 
     get activeIndex(): number {
         return this._activeIndex;
-      }
+    }
 
     set activeIndex(newValue) {
         if (this.images && 0 <= newValue && newValue <= (this.images.length - 1)) {
@@ -17,7 +17,6 @@ export class GalleriaProgrammaticDemo implements OnInit {
         }
     }
 
-    // tslint:disable-next-line:variable-name
     _activeIndex = 2;
 
     responsiveOptions: any[] = [

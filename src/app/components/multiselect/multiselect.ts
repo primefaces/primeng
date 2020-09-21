@@ -1,5 +1,7 @@
-import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter,
-    forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+    NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter,
+    forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, ChangeDetectionStrategy, ViewEncapsulation
+} from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SelectItem } from 'primeng/api';
@@ -13,9 +15,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MultiSelect),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => MultiSelect),
+    multi: true
 };
 
 @Component({
@@ -137,12 +139,12 @@ export class MultiSelectItem {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                style({ opacity: 0, transform: 'scaleY(0.8)' }),
                 animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
+            ]),
+            transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ],
     host: {
@@ -174,7 +176,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this._placeholder;
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) { }
 
     @Input() get options(): any[] {
         return this._options;
@@ -195,7 +197,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     _defaultLabel: string;
 
-    _placeholder: string;
+    private _placeholder: string;
 
     @Input() style: any;
 
@@ -331,7 +333,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     public headerCheckboxFocus: boolean;
 
-    // tslint:disable-next-line:variable-name
     _options: any[];
 
     maxSelectionLimitReached: boolean;
@@ -340,9 +341,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     preventModelTouched: boolean;
 
-    public onModelChange: (arg: any) => void = () => {};
+    public onModelChange: (arg: any) => void = () => { };
 
-    public onModelTouched: () => void = () => {};
+    public onModelTouched: () => void = () => { };
 
     ngOnInit() {
         this.updateLabel();
@@ -446,7 +447,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
 
         this.onModelChange(this.value);
-        this.onChange.emit({originalEvent: event.originalEvent, value: this.value, itemValue: optionValue});
+        this.onChange.emit({ originalEvent: event.originalEvent, value: this.value, itemValue: optionValue });
         this.updateLabel();
         this.updateFilledState();
     }
@@ -455,7 +456,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this.findSelectionIndex(value) !== -1;
     }
 
-    findSelectionIndex(val: any): number {
+    findSelectionIndex(val: any): number {
         let index = -1;
 
         if (this.value) {
@@ -498,7 +499,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
 
         this.onModelChange(this.value);
-        this.onChange.emit({originalEvent: event, value: this.value});
+        this.onChange.emit({ originalEvent: event, value: this.value });
         this.updateFilledState();
         this.updateLabel();
     }
@@ -664,12 +665,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     onInputFocus(event) {
         this.focus = true;
-        this.onFocus.emit({originalEvent: event});
+        this.onFocus.emit({ originalEvent: event });
     }
 
     onInputBlur(event) {
         this.focus = false;
-        this.onBlur.emit({originalEvent: event});
+        this.onBlur.emit({ originalEvent: event });
 
         if (!this.preventModelTouched) {
             this.onModelTouched();

@@ -11,7 +11,6 @@ export class TableColToggleDemo implements OnInit {
 
     cols: any[];
 
-    // tslint:disable-next-line:variable-name
     _selectedColumns: any[];
 
     constructor(private productService: ProductService) { }

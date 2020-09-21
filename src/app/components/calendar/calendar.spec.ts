@@ -263,7 +263,7 @@ describe('Calendar', () => {
         expect(calendar.inputFieldValue).toEqual(inputEl.value);
         expect(onDateSelectSpy).toHaveBeenCalled();
         for (let x = 0; x < datesEl.length; x++) {
-            if (x == 7) {
+            if (x === 7) {
                 expect(datesEl[x].nativeElement.className).toContain('p-highlight');
             } else {
                 expect(datesEl[x].nativeElement.className).not.toContain('p-highlight');
@@ -357,7 +357,7 @@ describe('Calendar', () => {
         const unselectableEls = containerEl.queryAll(By.css('.p-disabled'));
         const invalidDateArray = [];
         for (const el of unselectableEls) {
-            if (el.nativeElement.textContent == invalidDate.getDate() || el.nativeElement.textContent == invalidDate2.getDate()) {
+            if (el.nativeElement.textContent === invalidDate.getDate() || el.nativeElement.textContent === invalidDate2.getDate()) {
                 invalidDateArray.push(el.nativeElement.textContent);
             }
         }
@@ -488,11 +488,11 @@ describe('Calendar', () => {
             expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' 0' + calendar.currentHour + ':0' + calendar.currentMinute);
         } else if (calendar.currentHour < 10) {
             expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' 0' + calendar.currentHour + ':' + calendar.currentMinute);
- } else if (calendar.currentMinute < 10) {
+        } else if (calendar.currentMinute < 10) {
             expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' ' + calendar.currentHour + ':0' + calendar.currentMinute);
- } else {
+        } else {
             expect(calendar.inputFieldValue).toEqual('08/08/2008' + ' ' + calendar.currentHour + ':' + calendar.currentMinute);
- }
+        }
     });
 
     it('should only time', () => {
@@ -1420,7 +1420,6 @@ describe('Calendar', () => {
         fixture.detectChanges();
 
         const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
         const otherMonthDates = datesContainer.queryAll(By.css('.p-datepicker-other-month'));
         for (const otherMonthDate of otherMonthDates) {
             expect(otherMonthDate.children.length).toEqual(0);

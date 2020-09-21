@@ -121,7 +121,6 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
 
     value: any;
 
-    // tslint:disable-next-line:variable-name
     _mask: string;
 
     input: HTMLInputElement;

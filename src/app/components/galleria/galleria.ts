@@ -93,10 +93,8 @@ export class Galleria implements OnChanges, OnDestroy, AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
 
-    // tslint:disable-next-line:variable-name
     _visible = false;
 
-    // tslint:disable-next-line:variable-name
     _activeIndex = 0;
 
     headerFacet: any;
@@ -307,7 +305,6 @@ export class GalleriaItemSlot implements AfterContentInit {
 
     context: any;
 
-    // tslint:disable-next-line:variable-name
     _item: any;
 
     ngAfterContentInit() {
@@ -400,7 +397,6 @@ export class GalleriaItem implements OnInit {
         this.activeItem = this.value[this._activeIndex];
     }
 
-    // tslint:disable-next-line:variable-name
     _activeIndex = 0;
 
     activeItem: any;
@@ -567,19 +563,14 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     documentResizeListener: any;
 
-    // tslint:disable-next-line:variable-name
     _numVisible = 0;
 
-    // tslint:disable-next-line:variable-name
     d_numVisible = 0;
 
-    // tslint:disable-next-line:variable-name
     _oldNumVisible = 0;
 
-    // tslint:disable-next-line:variable-name
     _activeIndex = 0;
 
-    // tslint:disable-next-line:variable-name
     _oldactiveIndex = 0;
 
     ngOnInit() {

@@ -106,13 +106,13 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     defaultColor = 'ff0000';
 
-    documentClickListener: Function;
+    documentClickListener: () => void;
 
-    documentMousemoveListener: Function;
+    documentMousemoveListener: () => void;
 
-    documentMouseupListener: Function;
+    documentMouseupListener: () => void;
 
-    documentHueMoveListener: Function;
+    documentHueMoveListener: () => void;
 
     selfClick: boolean;
 
@@ -130,7 +130,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     hueHandleViewChild: ElementRef;
 
-    onModelChange: Function = () => { };
+    onModelChange: () => void = () => { };
 
     onModelTouched: () => void = () => { };
 

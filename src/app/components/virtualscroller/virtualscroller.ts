@@ -34,7 +34,7 @@ import { BlockableUI } from 'primeng/api';
 })
 export class VirtualScroller implements AfterContentInit, BlockableUI, OnChanges {
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
     @Input() get totalRecords(): number {
         return this._totalRecords;
@@ -96,17 +96,14 @@ export class VirtualScroller implements AfterContentInit, BlockableUI, OnChanges
 
     loadingItemTemplate: TemplateRef<any>;
 
-    // tslint:disable-next-line:variable-name
     _totalRecords = 0;
 
     page = 0;
 
-    // tslint:disable-next-line:variable-name
     _first = 0;
 
     loadedPages: number[] = [];
 
-    // tslint:disable-next-line:variable-name
     _cache: boolean;
 
     @Input() trackBy: (index: number, item: any) => any = (index: number, item: any) => item;
@@ -160,12 +157,12 @@ export class VirtualScroller implements AfterContentInit, BlockableUI, OnChanges
 
     loadPage(page: number) {
         if (!this.loadedPages.includes(page)) {
-            this.onLazyLoad.emit({first: this.rows * page, rows: this.rows});
+            this.onLazyLoad.emit({ first: this.rows * page, rows: this.rows });
             this.loadedPages.push(page);
         }
     }
 
-    getBlockableElement(): HTMLElement {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 

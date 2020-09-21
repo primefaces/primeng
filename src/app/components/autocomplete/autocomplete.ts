@@ -10,9 +10,9 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => AutoComplete),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => AutoComplete),
+    multi: true
 };
 
 @Component({
@@ -53,12 +53,12 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                style({ opacity: 0, transform: 'scaleY(0.8)' }),
                 animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
+            ]),
+            transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ],
     host: {
@@ -202,7 +202,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     value: any;
 
-    // tslint:disable-next-line:variable-name
     _suggestions: any[];
 
     timeout: any;
@@ -241,9 +240,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     itemClicked: boolean;
 
-    onModelChange: (arg: any) => void = () => {};
+    onModelChange: (arg: any) => void = () => { };
 
-    onModelTouched: () => void = () => {};
+    onModelTouched: () => void = () => { };
 
     ngAfterViewChecked() {
         // Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
@@ -373,16 +372,16 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     search(event: any, query: string) {
         // allow empty string but not undefined or null
-       if (query === undefined || query === null) {
-           return;
-       }
+        if (query === undefined || query === null) {
+            return;
+        }
 
-       this.loading = true;
+        this.loading = true;
 
-       this.completeMethod.emit({
-           originalEvent: event,
-           query
-       });
+        this.completeMethod.emit({
+            originalEvent: event,
+            query
+        });
     }
 
     selectItem(option: any, focus: boolean = true) {
@@ -417,7 +416,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         if (this.multiInputEL || this.inputEL) {
             const hasFocus = this.multiple ?
                 this.multiInputEL.nativeElement.ownerDocument.activeElement === this.multiInputEL.nativeElement :
-                this.inputEL.nativeElement.ownerDocument.activeElement === this.inputEL.nativeElement ;
+                this.inputEL.nativeElement.ownerDocument.activeElement === this.inputEL.nativeElement;
 
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
@@ -497,7 +496,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                 this.search(event, '');
             } else if (this.dropdownMode === 'current') {
                 this.search(event, queryValue);
- }
+            }
 
             this.onDropdownClick.emit({
                 originalEvent: event,
@@ -609,7 +608,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     onInputFocus(event) {
-        if (!this.itemClicked && this.completeOnFocus ) {
+        if (!this.itemClicked && this.completeOnFocus) {
             const queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
             this.search(event, queryValue);
         }
@@ -630,7 +629,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             let valid = false;
             const inputValue = event.target.value.trim();
 
-            if (this.suggestions)  {
+            if (this.suggestions) {
                 for (const suggestion of this.suggestions) {
                     const itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if (itemValue && inputValue === itemValue.trim()) {
@@ -690,9 +689,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     updateFilledState() {
         if (this.multiple) {
-            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value !== '');
+            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value !== '');
         } else {
-            this.filled = (this.inputFieldValue && this.inputFieldValue !== '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value !== '');
+            this.filled = (this.inputFieldValue && this.inputFieldValue !== '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value !== '');
         }
     }
 

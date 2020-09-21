@@ -195,7 +195,6 @@ export class Dialog implements AfterContentInit, OnDestroy {
 
     footerTemplate: TemplateRef<any>;
 
-    // tslint:disable-next-line:variable-name
     _visible: boolean;
 
     maskVisible: boolean;
@@ -240,10 +239,8 @@ export class Dialog implements AfterContentInit, OnDestroy {
 
     id = `p-dialog-${idx++}`;
 
-    // tslint:disable-next-line:variable-name
     _style: any = {};
 
-    // tslint:disable-next-line:variable-name
     _position = 'center';
 
     originalStyle: any;

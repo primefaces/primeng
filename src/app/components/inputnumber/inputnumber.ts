@@ -216,7 +216,6 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     numberFormat: any;
 
-    // tslint:disable:variable-name
     _numeral: any;
 
     _decimal: any;
@@ -253,12 +252,9 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     _suffixOption: string;
 
-    // tslint:enable:variable-name
+    onModelChange: (arg: any) => void = () => { };
 
-
-    onModelChange: (arg: any) => void = () => {};
-
-    onModelTouched: () => void = () => {};
+    onModelTouched: () => void = () => { };
 
     ngOnInit() {
         this.constructParser();
@@ -280,7 +276,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     constructParser() {
         this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
-        const numerals = [...new Intl.NumberFormat(this.locale, {useGrouping: false}).format(9876543210)].reverse();
+        const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [d, i]));
         this._numeral = new RegExp(`[${numerals.join('')}]`, 'g');
         this._decimal = this.getDecimalExpression();
@@ -303,24 +299,24 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     getDecimalExpression() {
-        const formatter = new Intl.NumberFormat(this.locale, {useGrouping: false});
+        const formatter = new Intl.NumberFormat(this.locale, { useGrouping: false });
         return new RegExp(`[${formatter.format(1.1).trim().replace(this._numeral, '')}]`, 'g');
     }
 
     getGroupingExpression() {
-        const formatter = new Intl.NumberFormat(this.locale, {useGrouping: true});
+        const formatter = new Intl.NumberFormat(this.locale, { useGrouping: true });
         this.groupChar = formatter.format(1000000).trim().replace(this._numeral, '').charAt(0);
         return new RegExp(`[${this.groupChar}]`, 'g');
     }
 
     getMinusSignExpression() {
-        const formatter = new Intl.NumberFormat(this.locale, {useGrouping: false});
+        const formatter = new Intl.NumberFormat(this.locale, { useGrouping: false });
         return new RegExp(`[${formatter.format(-1).trim().replace(this._numeral, '')}]`, 'g');
     }
 
     getCurrencyExpression() {
         if (this.currency) {
-            const formatter = new Intl.NumberFormat(this.locale, {style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay});
+            const formatter = new Intl.NumberFormat(this.locale, { style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay });
             return new RegExp(`[${formatter.format(1).replace(/\s/g, '').replace(this._numeral, '').replace(this._decimal, '').replace(this._group, '')}]`, 'g');
         }
 
@@ -355,15 +351,15 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     parseValue(text) {
         const filteredText = text
-                            .replace(this._suffix, '')
-                            .replace(this._prefix, '')
-                            .trim()
-                            .replace(/\s/g, '')
-                            .replace(this._currency, '')
-                            .replace(this._group, '')
-                            .replace(this._minusSign, '-')
-                            .replace(this._decimal, '.')
-                            .replace(this._numeral, this._index);
+            .replace(this._suffix, '')
+            .replace(this._prefix, '')
+            .trim()
+            .replace(/\s/g, '')
+            .replace(this._currency, '')
+            .replace(this._group, '')
+            .replace(this._minusSign, '-')
+            .replace(this._decimal, '.')
+            .replace(this._numeral, this._index);
 
         if (filteredText) {
             if (filteredText === '-') { // Minus sign
@@ -569,7 +565,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                 break;
 
             default:
-            break;
+                break;
         }
     }
 
@@ -681,11 +677,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
             newValueStr = '';
         } else if (start === 0) {
             newValueStr = value.slice(end);
- } else if (end === value.length) {
+        } else if (end === value.length) {
             newValueStr = value.slice(0, start);
- } else {
+        } else {
             newValueStr = value.slice(0, start) + value.slice(end);
- }
+        }
 
         return newValueStr;
     }
@@ -747,10 +743,10 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     resetRegex() {
-        this._numeral.lastIndex =  0;
-        this._decimal.lastIndex =  0;
-        this._group.lastIndex =  0;
-        this._minusSign.lastIndex =  0;
+        this._numeral.lastIndex = 0;
+        this._decimal.lastIndex = 0;
+        this._group.lastIndex = 0;
+        this._minusSign.lastIndex = 0;
     }
 
     updateValue(event, valueStr, insertedValueStr, operation) {
@@ -840,9 +836,9 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                     this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
                 } else if (operation === 'delete-single') {
                     this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
- } else if (operation === 'delete-range' || operation === 'spin') {
+                } else if (operation === 'delete-range' || operation === 'spin') {
                     this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
- }
+                }
             } else if (operation === 'delete-back-single') {
                 const prevChar = inputValue.charAt(selectionEnd - 1);
                 const nextChar = inputValue.charAt(selectionEnd);

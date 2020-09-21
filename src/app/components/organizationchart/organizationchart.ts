@@ -1,5 +1,7 @@
-import { NgModule, Component, ElementRef, Input, Output, AfterContentInit, EventEmitter, TemplateRef,
-        Inject, forwardRef, ContentChildren, QueryList, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import {
+    NgModule, Component, ElementRef, Input, Output, AfterContentInit, EventEmitter, TemplateRef,
+    Inject, forwardRef, ContentChildren, QueryList, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, OnDestroy
+} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api';
@@ -52,14 +54,14 @@ import { Subject, Subscription } from 'rxjs';
     `,
     animations: [
         trigger('childState', [
-            state('in', style({opacity: 1})),
-           transition('void => *', [
-             style({opacity: 0}),
-             animate(150)
-           ]),
-           transition('* => void', [
-             animate(150, style({opacity: 0}))
-           ])
+            state('in', style({ opacity: 1 })),
+            transition('void => *', [
+                style({ opacity: 0 }),
+                animate(150)
+            ]),
+            transition('* => void', [
+                animate(150, style({ opacity: 0 }))
+            ])
         ])
     ],
     encapsulation: ViewEncapsulation.None,
@@ -102,9 +104,9 @@ export class OrganizationChartNode implements OnDestroy {
     toggleNode(event: Event, node: TreeNode) {
         node.expanded = !node.expanded;
         if (node.expanded) {
-            this.chart.onNodeExpand.emit({originalEvent: event, node: this.node});
+            this.chart.onNodeExpand.emit({ originalEvent: event, node: this.node });
         } else {
-            this.chart.onNodeCollapse.emit({originalEvent: event, node: this.node});
+            this.chart.onNodeCollapse.emit({ originalEvent: event, node: this.node });
         }
 
         event.preventDefault();
@@ -126,7 +128,7 @@ export class OrganizationChartNode implements OnDestroy {
             <table class="p-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrganizationChart implements AfterContentInit {
 
@@ -140,7 +142,7 @@ export class OrganizationChart implements AfterContentInit {
 
     @Input() preserveSpace = true;
 
-    @Input()  get selection(): any {
+    @Input() get selection(): any {
         return this._selection;
     }
 
@@ -174,7 +176,7 @@ export class OrganizationChart implements AfterContentInit {
 
     selectionSource$ = this.selectionSource.asObservable();
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     get root(): TreeNode {
         return this.value && this.value.length ? this.value[0] : null;
@@ -203,7 +205,7 @@ export class OrganizationChart implements AfterContentInit {
     onNodeClick(event: Event, node: TreeNode) {
         const eventTarget = (event.target as Element);
 
-        if (eventTarget.className && (eventTarget.className.indexOf('p-node-toggler') !== -1 || eventTarget.className.indexOf('p-node-toggler-icon') !== -1)) {
+        if (eventTarget.className && (eventTarget.className.indexOf('p-node-toggler') !== -1 || eventTarget.className.indexOf('p-node-toggler-icon') !== -1)) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
@@ -216,18 +218,18 @@ export class OrganizationChart implements AfterContentInit {
             if (this.selectionMode === 'single') {
                 if (selected) {
                     this.selection = null;
-                    this.onNodeUnselect.emit({originalEvent: event, node});
+                    this.onNodeUnselect.emit({ originalEvent: event, node });
                 } else {
                     this.selection = node;
-                    this.onNodeSelect.emit({originalEvent: event, node});
+                    this.onNodeSelect.emit({ originalEvent: event, node });
                 }
             } else if (this.selectionMode === 'multiple') {
                 if (selected) {
                     this.selection = this.selection.filter((val, i) => i !== index);
-                    this.onNodeUnselect.emit({originalEvent: event, node});
+                    this.onNodeUnselect.emit({ originalEvent: event, node });
                 } else {
                     this.selection = [...this.selection || [], node];
-                    this.onNodeSelect.emit({originalEvent: event, node});
+                    this.onNodeSelect.emit({ originalEvent: event, node });
                 }
             }
 
@@ -243,7 +245,7 @@ export class OrganizationChart implements AfterContentInit {
             if (this.selectionMode === 'single') {
                 index = (this.selection === node) ? 0 : - 1;
             } else if (this.selectionMode === 'multiple') {
-                for (let i = 0; i  < this.selection.length; i++) {
+                for (let i = 0; i < this.selection.length; i++) {
                     if (this.selection[i] === node) {
                         index = i;
                         break;

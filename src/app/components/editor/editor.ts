@@ -6,9 +6,9 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as Quill from 'quill';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => Editor),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => Editor),
+    multi: true
 };
 
 @Component({
@@ -69,7 +69,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
 })
 export class Editor implements AfterViewInit, AfterContentInit, ControlValueAccessor {
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
     @Input() get readonly(): boolean {
         return this._readonly;
@@ -115,22 +115,21 @@ export class Editor implements AfterViewInit, AfterContentInit, ControlValueAcce
 
     value: string;
 
-    // tslint:disable-next-line:variable-name
     _readonly: boolean;
 
     quill: any;
 
     toolbarTemplate: TemplateRef<any>;
 
-    onModelChange: (arg: any) => void = () => {};
+    onModelChange: (arg: any) => void = () => { };
 
-    onModelTouched: () => void = () => {};
+    onModelTouched: () => void = () => { };
 
     ngAfterViewInit() {
-        const editorElement = DomHandler.findSingle(this.el.nativeElement , 'div.p-editor-content');
-        const toolbarElement = DomHandler.findSingle(this.el.nativeElement , 'div.p-editor-toolbar');
-        const defaultModule  = {toolbar: toolbarElement};
-        const modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
+        const editorElement = DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content');
+        const toolbarElement = DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar');
+        const defaultModule = { toolbar: toolbarElement };
+        const modules = this.modules ? { ...defaultModule, ...this.modules } : defaultModule;
 
         this.quill = new Quill(editorElement, {
             modules,

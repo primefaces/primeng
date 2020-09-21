@@ -133,13 +133,10 @@ export class Carousel implements AfterContentInit, AfterContentChecked, OnDestro
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    // tslint:disable-next-line:variable-name
     _numVisible = 1;
 
-    // tslint:disable-next-line:variable-name
     _numScroll = 1;
 
-    // tslint:disable-next-line:variable-name
     _oldNumScroll = 0;
 
     prevState: any = {
@@ -152,10 +149,8 @@ export class Carousel implements AfterContentInit, AfterContentChecked, OnDestro
 
     defaultNumVisible = 1;
 
-    // tslint:disable-next-line:variable-name
     _page = 0;
 
-    // tslint:disable-next-line:variable-name
     _value: any[];
 
     carouselStyle: any;
@@ -172,7 +167,6 @@ export class Carousel implements AfterContentInit, AfterContentChecked, OnDestro
 
     remainingItems = 0;
 
-    // tslint:disable-next-line:variable-name
     _items: any[];
 
     startPos: any;

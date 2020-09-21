@@ -20,10 +20,8 @@ export class FullCalendar implements OnDestroy, OnInit, AfterViewChecked {
 
     config: any;
 
-    // tslint:disable-next-line:variable-name
     _options: any;
 
-    // tslint:disable-next-line:variable-name
     _events: any[];
 
     constructor(public el: ElementRef) { }

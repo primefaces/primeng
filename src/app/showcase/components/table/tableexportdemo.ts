@@ -50,13 +50,13 @@ export class TableExportDemo implements OnInit {
     }
 
     saveAsExcelFile(buffer: any, fileName: string): void {
-        import('file-saver').then(FileSaver => {
+        import('file-saver').then(fileSaver => {
             const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
             const EXCEL_EXTENSION = '.xlsx';
             const data: Blob = new Blob([buffer], {
                 type: EXCEL_TYPE
             });
-            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+            fileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
         });
     }
 }

@@ -1,6 +1,8 @@
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter, ContentChildren,
-        QueryList, ViewChild, TemplateRef, forwardRef, ChangeDetectorRef, NgZone, ViewRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+    NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter, ContentChildren,
+    QueryList, ViewChild, TemplateRef, forwardRef, ChangeDetectorRef, NgZone, ViewRef, ChangeDetectionStrategy, ViewEncapsulation
+} from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SelectItem } from 'primeng/api';
@@ -13,9 +15,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => Dropdown),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => Dropdown),
+    multi: true
 };
 
 @Component({
@@ -125,7 +127,7 @@ export class DropdownItem {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                style({ opacity: 0, transform: 'scaleY(0.8)' }),
                 animate('{{showTransitionParams}}')
             ]),
             transition(':leave', [
@@ -148,7 +150,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this._disabled;
     }
 
-    // tslint:disable-next-line:variable-name
     set disabled(_disabled: boolean) {
         if (_disabled) {
             this.focused = false;
@@ -160,7 +161,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone) { }
 
     @Input() get options(): any[] {
         return this._options;
@@ -291,7 +292,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    // tslint:disable-next-line:variable-name
     private _disabled: boolean;
 
     overlay: HTMLDivElement;
@@ -306,7 +306,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     selectedOption: any;
 
-    // tslint:disable-next-line:variable-name
     _options: any[];
 
     value: any;
@@ -355,9 +354,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     preventModelTouched: boolean;
 
-    onModelChange: (arg: any) => void = () => {};
+    onModelChange: (arg: any) => void = () => { };
 
-    onModelTouched: () => void = () => {};
+    onModelTouched: () => void = () => { };
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -386,7 +385,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.updateSelectedOption(null);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit() {
         if (this.editable) {
             this.updateEditableLabel();
         }
@@ -696,7 +695,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
 
             if (!prevEnabledOption) {
-                for (let i = this.optionsToDisplay.length - 1; i >= index ; i--) {
+                for (let i = this.optionsToDisplay.length - 1; i >= index; i--) {
                     const option = this.optionsToDisplay[i];
                     if (option.disabled) {
                         continue;
@@ -860,7 +859,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         let newOption;
         if (this.group) {
-            const searchIndex = this.selectedOption ? this.findOptionGroupIndex(this.selectedOption.value, this.optionsToDisplay) : {groupIndex: 0, itemIndex: 0};
+            const searchIndex = this.selectedOption ? this.findOptionGroupIndex(this.selectedOption.value, this.optionsToDisplay) : { groupIndex: 0, itemIndex: 0 };
             newOption = this.searchOptionWithinGroup(searchIndex);
         } else {
             let searchIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
@@ -936,7 +935,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         let index = -1;
         if (opts) {
             for (let i = 0; i < opts.length; i++) {
-                if ((val === null && opts[i].value === null) || ObjectUtils.equals(val, opts[i].value, this.dataKey)) {
+                if ((val === null && opts[i].value === null) || ObjectUtils.equals(val, opts[i].value, this.dataKey)) {
                     index = i;
                     break;
                 }
@@ -962,7 +961,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
 
         if (itemIndex !== -1) {
-            return {groupIndex, itemIndex};
+            return { groupIndex, itemIndex };
         } else {
             return -1;
         }

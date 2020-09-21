@@ -50,7 +50,7 @@ export class Spinner implements OnInit, ControlValueAccessor {
         }
     }
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -96,7 +96,6 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
     value: any;
 
-    // tslint:disable-next-line:variable-name
     _step = 1;
 
     formattedValue: string;
@@ -121,9 +120,9 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
 
-    onModelChange: (arg: any) => void = () => {};
+    onModelChange: (arg: any) => void = () => { };
 
-    onModelTouched: () => void = () => {};
+    onModelTouched: () => void = () => { };
 
     ngOnInit() {
         if (this.formatInput) {
@@ -305,7 +304,7 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
         if (value != null) {
             if (this.formatInput) {
-                value = value.toLocaleString(undefined, {maximumFractionDigits: 20});
+                value = value.toLocaleString(undefined, { maximumFractionDigits: 20 });
 
                 if (this.decimalSeparator && this.thousandSeparator) {
                     value = value.split(this.localeDecimalSeparator);

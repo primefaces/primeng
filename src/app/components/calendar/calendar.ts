@@ -475,7 +475,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     mask: HTMLDivElement;
 
-    maskClickListener: Function;
+    maskClickListener: () => void;
 
     overlay: HTMLDivElement;
 

@@ -35,7 +35,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
-    // tslint:disable-next-line:variable-name
     _disabled: boolean;
 
     container: any;
@@ -50,7 +49,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     active: boolean;
 
-    // tslint:disable-next-line:variable-name
     _text: string;
 
     mouseEnterListener: () => void;

@@ -63,7 +63,6 @@ export class MenubarSub implements OnDestroy {
 
     @Output() leafClick: EventEmitter<any> = new EventEmitter();
 
-    // tslint:disable-next-line:variable-name
     _parentActive: boolean;
 
     documentClickListener: any;
@@ -112,8 +111,8 @@ export class MenubarSub implements OnDestroy {
             if (this.activeItem && item === this.activeItem) {
                 this.activeItem = null;
             } else {
-               this.activeItem = item;
-               if (this.root) {
+                this.activeItem = item;
+                if (this.root) {
                     this.bindDocumentClickListener();
                 }
             }
@@ -198,7 +197,6 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    // tslint:disable-next-line:variable-name
     private _autoDisplay: boolean;
 
     @Input() get autoDisplay(): boolean {

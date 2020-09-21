@@ -5,8 +5,8 @@ export interface Confirmation {
     key?: string;
     icon?: string;
     header?: string;
-    accept?: Function;
-    reject?: Function;
+    accept?: () => void;
+    reject?: () => void;
     acceptLabel?: string;
     rejectLabel?: string;
     acceptIcon?: string;

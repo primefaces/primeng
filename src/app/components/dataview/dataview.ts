@@ -49,7 +49,7 @@ import { FilterUtils } from 'primeng/utils';
 })
 export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChanges {
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     @Input() layout = 'list';
 
@@ -117,7 +117,6 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    // tslint:disable-next-line:variable-name
     _value: any[];
 
     listItemTemplate: TemplateRef<any>;
@@ -254,13 +253,13 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
                     result = -1;
                 } else if (value1 != null && value2 === null) {
                     result = 1;
- } else if (value1 === null && value2 === null) {
+                } else if (value1 === null && value2 === null) {
                     result = 0;
- } else if (typeof value1 === 'string' && typeof value2 === 'string') {
+                } else if (typeof value1 === 'string' && typeof value2 === 'string') {
                     result = value1.localeCompare(value2);
- } else {
+                } else {
                     result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
- }
+                }
 
                 return (this.sortOrder * result);
             });
@@ -290,7 +289,7 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
         };
     }
 
-    getBlockableElement(): HTMLElement {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
@@ -301,7 +300,7 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
             const searchFields = this.filterBy.split(',');
             this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
 
-            if (this.filteredValue.length === this.value.length ) {
+            if (this.filteredValue.length === this.value.length) {
                 this.filteredValue = null;
             }
 
@@ -332,13 +331,13 @@ export class DataView implements OnInit, AfterContentInit, BlockableUI, OnChange
     `,
     encapsulation: ViewEncapsulation.None
 })
-export class DataViewLayoutOptions  {
+export class DataViewLayoutOptions {
 
     @Input() style: any;
 
     @Input() styleClass: string;
 
-    constructor(public dv: DataView) {}
+    constructor(public dv: DataView) { }
 
     changeLayout(event: Event, layout: string) {
         this.dv.changeLayout(layout);

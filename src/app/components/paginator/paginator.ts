@@ -91,10 +91,8 @@ export class Paginator implements OnInit, OnChanges {
 
     paginatorState: any;
 
-    // tslint:disable-next-line:variable-name
     _first = 0;
 
-    // tslint:disable-next-line:variable-name
     _page = 0;
 
     constructor(public cd: ChangeDetectorRef) { }
