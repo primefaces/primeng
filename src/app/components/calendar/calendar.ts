@@ -218,6 +218,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor, AfterC
     set minDate(date: Date) {
         this._minDate = date;
 
+        // tslint:disable-next-line:triple-equals
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
@@ -230,6 +231,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor, AfterC
     set maxDate(date: Date) {
         this._maxDate = date;
 
+        // tslint:disable-next-line:triple-equals
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
@@ -241,6 +243,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor, AfterC
 
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
+        // tslint:disable-next-line:triple-equals
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
 
             this.createMonths(this.currentMonth, this.currentYear);
@@ -254,6 +257,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor, AfterC
     set disabledDays(disabledDays: number[]) {
         this._disabledDays = disabledDays;
 
+        // tslint:disable-next-line:triple-equals
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
@@ -2415,7 +2419,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor, AfterC
     }
 
     updateFilledState() {
-        this.filled = this.inputFieldValue && this.inputFieldValue != '';
+        this.filled = this.inputFieldValue && this.inputFieldValue !== '';
     }
 
     onTodayButtonClick(event) {
