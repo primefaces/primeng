@@ -141,6 +141,22 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.6-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.6) (2020-09-23)
+
+**Fixed bugs:**
+
+- TreeTable openCell() not working [\#9279](https://github.com/primefaces/primeng/issues/9279)
+- Turbo Table Column Resize Is Ignored If Smaller Than minWidth [expand mode] [\#8262](https://github.com/primefaces/primeng/issues/8262)
+- Frozen Columns and Rows should be exportable to CSV as well [\#7916](https://github.com/primefaces/primeng/issues/7916)
+- Table cell editor not switching correctly from input to output with OnPush [\#8046](https://github.com/primefaces/primeng/issues/8046)
+- sub menu of p-contextMenu in p-table go off screen when right click on the bottom of screen [\#8077](https://github.com/primefaces/primeng/issues/8077)
+- InputNumber: overwriting doesn't work correctly [\#9229](https://github.com/primefaces/primeng/issues/9229)
+- Add onInput event to InputNumber [\#9223](https://github.com/primefaces/primeng/issues/9223)
+- InputNumber: pasting doesn't work correctly [\#9219](https://github.com/primefaces/primeng/issues/9219)
+- inputNumber with numeric prefix is not working as expected [\#9125](https://github.com/primefaces/primeng/issues/9125)
+- p-inputNumber cannot set value bigger than 99.999 for an ES locale [\#9027](https://github.com/primefaces/primeng/issues/9027)
+- Add Del key support to InputNumber [\#8981](https://github.com/primefaces/primeng/issues/8981)
+- Inputnumber, decimal numbers [\#8900](https://github.com/primefaces/primeng/issues/8900)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.5) (2020-09-08)
 
@@ -610,6 +626,21 @@ Invalid release, use 9.1.2 instead.
 **Unit Tests:**
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.8-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.8) (2020-09-23)
+
+**Fixed bugs:**
+
+- TreeTable openCell() not working [\#9279](https://github.com/primefaces/primeng/issues/9279)
+- Turbo Table Column Resize Is Ignored If Smaller Than minWidth [expand mode] [\#8262](https://github.com/primefaces/primeng/issues/8262)
+- sub menu of p-contextMenu in p-table go off screen when right click on the bottom of screen [\#8077](https://github.com/primefaces/primeng/issues/8077)
+- Table cell editor not switching correctly from input to output with OnPush [\#8046](https://github.com/primefaces/primeng/issues/8046)
+- Frozen Columns and Rows should be exportable to CSV as well [\#8046](https://github.com/primefaces/primeng/issues/8046)
+- p-tree validateDrop throws error in subscribe [\#8827](https://github.com/primefaces/primeng/issues/8827)
+- 9.1.0 Popup slidemenu item doubleclick causes page to reload [\#8976](https://github.com/primefaces/primeng/issues/8976)
+- Filter in p-tree is not working with virtual scroll in primeng 9.1.0 [\#8941](https://github.com/primefaces/primeng/issues/8941)
+- Don't close menu components when clicking the disabled option [\#8950](https://github.com/primefaces/primeng/issues/8950)
+- Tabview: disabled tab control can be focused [\#8939](https://github.com/primefaces/primeng/issues/8939)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.7-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.7) (2020-09-08)
 
