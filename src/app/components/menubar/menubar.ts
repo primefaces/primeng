@@ -10,7 +10,7 @@ import { RippleModule } from 'primeng/ripple';
     template: `
         <ul [ngClass]="{'p-submenu-list': !root, 'p-menubar-root-list': root}">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
+                <li *ngIf="child.separator" [class]="child.styleClass" [ngClass]="{'p-menu-separator': true, 'p-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" (mouseenter)="onItemMouseEnter($event,child)">
                     <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="onItemClick($event, child)"
                          [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" 
