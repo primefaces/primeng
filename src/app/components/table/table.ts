@@ -2354,7 +2354,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
             let frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
                 if (this.dt.virtualScroll)
-                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatabe-virtual-scrollable-body');
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-virtual-scrollable-body');
                 else
                     this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-scrollable-body');
             }

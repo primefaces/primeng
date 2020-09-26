@@ -532,6 +532,19 @@ export class ToastDemo &#123;
     &#125;
 &#125;
 </app-code>
+<app-code ngNonBindable ngPreserveWhitespaces>
+button &#123;
+    min-width: 10rem;
+    margin-right: .5rem;
+&#125;
+
+@media screen and (max-width: 960px) &#123;
+    button &#123;
+        width: 100%;
+        margin-bottom: .5rem;
+    &#125;
+&#125;
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
