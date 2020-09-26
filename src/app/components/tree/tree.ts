@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,OnChanges,
-    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy,SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy,SimpleChanges, ViewEncapsulation, ViewChild} from '@angular/core';
+import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from 'primeng/api';
@@ -634,6 +634,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
+
     serializedValue: any[];
 
     public templateMap: any;
@@ -686,6 +688,10 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
             this.updateSerializedValue();
+        }
+
+        if (simpleChange.scrollHeight && this.virtualScrollBody) {
+            this.virtualScrollBody.checkViewportSize();
         }
     }
 
