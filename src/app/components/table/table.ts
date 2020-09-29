@@ -59,8 +59,8 @@ export class TableService {
 @Component({
     selector: 'p-table',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass"
-            [ngClass]="{'p-datatable p-component': true, 
+        <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-datatable-scrollable-body, .p-datatable-unfrozen-view .p-datatable-scrollable-body"
+            [ngClass]="{'p-datatable p-component': true,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
                 'p-datatable-auto-layout': autoLayout,
                 'p-datatable-resizable': resizableColumns,
@@ -415,7 +415,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (!this.virtualScroll) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
-            
+
             if (this.restoringFilter) {
                 this.restoringFilter = false;
             }
@@ -721,7 +721,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.resetPageOnSort) {
                         this._first = 0;
                         this.firstChange.emit(this._first);
-                        
+
                         if (this.scrollable) {
                             this.resetScrollTop();
                         }
@@ -2270,7 +2270,7 @@ export class TableBody implements OnDestroy {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
+            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined"
                     [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -2482,7 +2482,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     loadPage(page: number) {
         if (!this.loadedPages.includes(page)) {
             this.dt.onLazyLoad.emit({
-                first: this.dt.rows * page, 
+                first: this.dt.rows * page,
                 rows: this.dt.rows,
                 sortField: this.dt.sortField,
                 sortOrder: this.dt.sortOrder,

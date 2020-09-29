@@ -52,12 +52,12 @@ export class TreeTableService {
 @Component({
     selector: 'p-treeTable',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass"
-                [ngClass]="{'p-treetable p-component': true, 
+        <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-treetable-scrollable-body"
+                [ngClass]="{'p-treetable p-component': true,
                 'p-treetable-hoverable-rows': (rowHover||(selectionMode === 'single' || selectionMode === 'multiple')),
-                'p-treetable-auto-layout': autoLayout, 
-                'p-treetable-resizable': resizableColumns, 
-                'p-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'), 
+                'p-treetable-auto-layout': autoLayout,
+                'p-treetable-resizable': resizableColumns,
+                'p-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'p-treetable-flex-scrollable': (scrollable && scrollHeight === 'flex')}">
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
                 <div class="p-treetable-loading-overlay p-component-overlay">
@@ -620,7 +620,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             if (sortMeta) {
                 if (!metaKey) {
                     this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
-                
+
                     if (this.resetPageOnSort && this.scrollable) {
                         this.resetScrollTop();
                     }
@@ -936,7 +936,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             table.style.width = width + 'px';
                         }
                     };
-            
+
                     setWidth(scrollableBody, scrollableBodyTable, scrollableBodyTableWidth, isContainerInViewport);
                     setWidth(scrollableHeader, scrollableHeaderTable, scrollableHeaderTableWidth, isContainerInViewport);
                     setWidth(scrollableFooter, scrollableFooterTable, scrollableHeaderTableWidth, isContainerInViewport);
@@ -1708,7 +1708,7 @@ export class TTBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="tt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
+            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="tt.scrollHeight !== 'flex' ? scrollHeight : undefined"
                     [minBufferPx]="tt.minBufferPx" [maxBufferPx]="tt.maxBufferPx" class="p-treetable-virtual-scrollable-body">
                 <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
