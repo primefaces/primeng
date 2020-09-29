@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef,ChangeDetectorRef,AfterViewInit,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
+import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {MenuItem} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {RouterModule} from '@angular/router';
@@ -15,7 +15,7 @@ import {RouterModule} from '@angular/router';
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true,'p-menuitem-active':listItem==activeItem,'p-hidden': child.visible === false}"
                     [class]="child.styleClass" [ngStyle]="child.style" role="none"
                     (mouseenter)="onItemMouseEnter($event, listItem, child)">
-                    <a *ngIf="!child.routerLink" [attr.href]="child.url" class="p-menuitem-link" [attr.target]="child.target" [attr.tabindex]="child.disabled ? null : '0'" [attr.title]="child.title" [attr.id]="child.id" 
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url" class="p-menuitem-link" [attr.target]="child.target" [attr.tabindex]="child.disabled ? null : '0'" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'p-disabled':child.disabled}" (click)="itemClick($event, listItem, child)" role="menuitem" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="p-menuitem-text">{{child.label}}</span>
@@ -41,11 +41,11 @@ import {RouterModule} from '@angular/router';
 export class TieredMenuSub implements AfterViewInit, OnDestroy {
 
     @Input() item: MenuItem;
-    
+
     @Input() root: boolean;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() get parentActive(): boolean {
@@ -72,7 +72,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
             this.bindDocumentClickListener();
         }
     }
-    
+
     constructor(@Inject(forwardRef(() => TieredMenu)) tieredMenu, private cf: ChangeDetectorRef, public renderer: Renderer2) {
         this.tieredMenu = tieredMenu as TieredMenu;
     }
@@ -93,24 +93,24 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
                     sublist.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                 }
                 sublist.style.zIndex = String(++DomHandler.zindex);
-                            
+
                 sublist.style.top = '0px';
                 sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
             }
         }
     }
-    
+
     itemClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (menuitem.disabled) {
             event.preventDefault();
             return true;
         }
-        
+
         if (!menuitem.url) {
             event.preventDefault();
         }
-        
-        if (menuitem.command) {            
+
+        if (menuitem.command) {
             menuitem.command({
                 originalEvent: event,
                 item: menuitem
@@ -126,7 +126,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
                     sublist.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                 }
                 sublist.style.zIndex = String(++DomHandler.zindex);
-                            
+
                 sublist.style.top = '0px';
                 sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
 
@@ -138,7 +138,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
             this.tieredMenu.hide();
         }
     }
-    
+
     listClick(event: Event) {
         if (!this.rootItemClick) {
             this.activeItem = null;
@@ -179,7 +179,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
     selector: 'p-tieredMenu',
     template: `
         <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-overlay':popup}" [class]="styleClass" [ngStyle]="style"
-            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" 
+            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)" (click)="preventDocumentDefault=true" *ngIf="!popup || visible">
             <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-tieredMenuSub>
         </div>
@@ -207,11 +207,11 @@ export class TieredMenu implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
@@ -221,19 +221,21 @@ export class TieredMenu implements OnDestroy {
     parentActive: boolean;
 
     container: HTMLDivElement;
-    
+
     documentClickListener: any;
 
     documentResizeListener: any;
-    
+
     preventDocumentDefault: boolean;
+
+    scrollHandler: any;
 
     target: any;
 
     visible: boolean;
-    
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
-    
+
     toggle(event) {
         if (this.visible)
             this.hide();
@@ -242,7 +244,7 @@ export class TieredMenu implements OnDestroy {
 
         this.preventDocumentDefault = true;
     }
-    
+
     show(event) {
         this.target = event.currentTarget;
         this.visible = true;
@@ -261,6 +263,7 @@ export class TieredMenu implements OnDestroy {
                     DomHandler.absolutePosition(this.container, this.target);
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
+                    this.bindScrollListener();
                 }
             break;
 
@@ -269,7 +272,7 @@ export class TieredMenu implements OnDestroy {
             break;
         }
     }
-    
+
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
@@ -284,7 +287,7 @@ export class TieredMenu implements OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
     }
-    
+
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
@@ -300,7 +303,7 @@ export class TieredMenu implements OnDestroy {
     onWindowResize() {
         this.hide();
     }
-    
+
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
@@ -326,7 +329,7 @@ export class TieredMenu implements OnDestroy {
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
@@ -334,15 +337,39 @@ export class TieredMenu implements OnDestroy {
         }
     }
 
+    bindScrollListener() {
+        if (!this.scrollHandler) {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
+                if (this.visible) {
+                    this.hide();
+                }
+            });
+        }
+
+        this.scrollHandler.bindScrollListener();
+    }
+
+    unbindScrollListener() {
+        if (this.scrollHandler) {
+            this.scrollHandler.unbindScrollListener();
+        }
+    }
+
     onOverlayHide() {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
+        this.unbindScrollListener();
         this.preventDocumentDefault = false;
         this.target = null;
     }
-    
+
     ngOnDestroy() {
         if (this.popup) {
+            if (this.scrollHandler) {
+                this.scrollHandler.destroy();
+                this.scrollHandler = null;
+            }
+
             this.restoreOverlayAppend();
             this.onOverlayHide();
         }
