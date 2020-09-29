@@ -1,10 +1,10 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
+import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: '[pMenuItemContent]',
@@ -15,7 +15,7 @@ import {RippleModule} from 'primeng/ripple';
             <span class="p-menuitem-text">{{item.label}}</span>
         </a>
         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'"
-            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'" 
+            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'"
             [attr.title]="item.title" [ngClass]="{'p-disabled':item.disabled}" (click)="menu.itemClick($event, item)" role="menuitem" pRipple
             [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
@@ -29,7 +29,7 @@ export class MenuItemContent {
     @Input("pMenuItemContent") item: MenuItem;
 
     menu: Menu;
-    
+
     constructor(@Inject(forwardRef(() => Menu)) menu) {
         this.menu = menu as Menu;
     }
@@ -81,11 +81,11 @@ export class Menu implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
@@ -95,15 +95,17 @@ export class Menu implements OnDestroy {
     @ViewChild('container') containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onHide: EventEmitter<any> = new EventEmitter();
-    
+
     container: HTMLDivElement;
-    
+
+    scrollHandler: any;
+
     documentClickListener: any;
 
     documentResizeListener: any;
-    
+
     preventDocumentDefault: boolean;
 
     target: any;
@@ -111,7 +113,7 @@ export class Menu implements OnDestroy {
     visible: boolean;
 
     relativeAlign: boolean;
-    
+
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     toggle(event) {
@@ -142,6 +144,7 @@ export class Menu implements OnDestroy {
                     this.alignOverlay();
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
+                    this.bindScrollListener();
                 }
             break;
 
@@ -173,13 +176,13 @@ export class Menu implements OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
     }
-    
+
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     hide() {
         this.visible = false;
         this.relativeAlign = false;
@@ -189,24 +192,24 @@ export class Menu implements OnDestroy {
     onWindowResize() {
         this.hide();
     }
-    
+
     itemClick(event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if (!item.url) {
             event.preventDefault();
         }
-        
+
         if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         if (this.popup) {
             this.hide();
         }
@@ -237,7 +240,7 @@ export class Menu implements OnDestroy {
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
@@ -245,20 +248,44 @@ export class Menu implements OnDestroy {
         }
     }
 
+    bindScrollListener() {
+        if (!this.scrollHandler) {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
+                if (this.visible) {
+                    this.hide();
+                }
+            });
+        }
+
+        this.scrollHandler.bindScrollListener();
+    }
+
+    unbindScrollListener() {
+        if (this.scrollHandler) {
+            this.scrollHandler.unbindScrollListener();
+        }
+    }
+
     onOverlayHide() {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
+        this.unbindScrollListener();
         this.preventDocumentDefault = false;
         this.target = null;
     }
-    
+
     ngOnDestroy() {
         if (this.popup) {
+            if (this.scrollHandler) {
+                this.scrollHandler.destroy();
+                this.scrollHandler = null;
+            }
+
             this.restoreOverlayAppend();
             this.onOverlayHide();
         }
     }
-    
+
     hasSubMenu(): boolean {
         if (this.model) {
             for (var item of this.model) {
