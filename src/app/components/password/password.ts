@@ -36,6 +36,8 @@ export class Password implements OnDestroy,DoCheck {
 
     scrollHandler: any;
 
+    documentResizeListener: any;
+
     constructor(public el: ElementRef, public zone: NgZone) {}
 
     ngDoCheck() {
@@ -78,6 +80,7 @@ export class Password implements OnDestroy,DoCheck {
                 setTimeout(() => {
                     DomHandler.addClass(this.panel, 'p-connected-overlay-visible');
                     this.bindScrollListener();
+                    this.bindDocumentResizeListener();
                 }, 1);
             });
             DomHandler.absolutePosition(this.panel, this.el.nativeElement);
@@ -89,6 +92,7 @@ export class Password implements OnDestroy,DoCheck {
             DomHandler.addClass(this.panel, 'p-connected-overlay-hidden');
             DomHandler.removeClass(this.panel, 'p-connected-overlay-visible');
             this.unbindScrollListener();
+            this.unbindDocumentResizeListener();
 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
@@ -197,12 +201,30 @@ export class Password implements OnDestroy,DoCheck {
         }
     }
 
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        this.hideOverlay();
+    }
+
     ngOnDestroy() {
         if (this.panel) {
             if (this.scrollHandler) {
                 this.scrollHandler.destroy();
                 this.scrollHandler = null;
             }
+
+            this.unbindDocumentResizeListener();
 
             document.body.removeChild(this.panel);
             this.panel = null;

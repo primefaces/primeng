@@ -96,6 +96,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     documentClickListener: Function;
 
+    documentResizeListener: any;
+
     documentMousemoveListener: Function;
 
     documentMouseupListener: Function;
@@ -282,6 +284,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
                     }
                     this.alignOverlay();
                     this.bindDocumentClickListener();
+                    this.bindDocumentResizeListener();
                     this.bindScrollListener();
 
                     this.updateColorSelector();
@@ -433,6 +436,22 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         }
     }
 
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        this.hide();
+    }
+
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild.nativeElement, () => {
@@ -572,6 +591,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     onOverlayHide() {
         this.unbindScrollListener();
+        this.unbindDocumentResizeListener();
         this.unbindDocumentClickListener();
         this.overlay = null;
     }
