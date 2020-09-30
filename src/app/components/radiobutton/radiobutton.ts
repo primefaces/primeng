@@ -18,7 +18,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
             </div>
             <div (click)="handleClick($event, rb, true)" role="radio" [attr.aria-checked]="checked"
                 [ngClass]="{'p-radiobutton-box':true,
-                'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused}">
+                'p-highlight': rb.checked, 'p-disabled': disabled, 'p-focus': focused}">
                 <span class="p-radiobutton-icon"></span>
             </div>
         </div>
