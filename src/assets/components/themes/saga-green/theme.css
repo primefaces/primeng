@@ -2073,10 +2073,20 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   display: flex;
   align-items: center;
 }
-.fc .fc-toolbar .fc-button:hover {
+.fc .fc-toolbar .fc-button:enabled:hover {
   background: #449e48;
   color: #ffffff;
   border-color: #449e48;
+}
+.fc .fc-toolbar .fc-button:enabled:active {
+  background: #3d8c40;
+  color: #ffffff;
+  border-color: #3d8c40;
+}
+.fc .fc-toolbar .fc-button:enabled:active:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #b7e0b8;
 }
 .fc .fc-toolbar .fc-button .fc-icon-chevron-left {
   font-family: "PrimeIcons" !important;
