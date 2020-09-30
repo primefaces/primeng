@@ -1,4 +1,34 @@
 # Changelog
+## [10.0.1](https://github.com/primefaces/primeng/tree/10.0.1) (2020-09-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0...10.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- RTL support for Steps [\#3774](https://github.com/primefaces/primeng/issues/3774)
+- Lighter Highlight Color for PrimeOne Themes [\#9333](https://github.com/primefaces/primeng/issues/9333)
+- Improvement in behavior of components that have overlay panels in scrollable containers [\#9324](https://github.com/primefaces/primeng/issues/9324)
+- Add inputId to table radio and checkbox components [\#9225](https://github.com/primefaces/primeng/issues/9225)
+- Html support for Menu Components [\#4370](https://github.com/primefaces/primeng/issues/4370)
+- Typed TreeNode and SelectItem [\#2876](https://github.com/primefaces/primeng/issues/2876)
+
+**Fixed bugs:**
+
+- DataTable style classes documentation is wrong [\#9336](https://github.com/primefaces/primeng/issues/9336)
+- Fullcalendar button styling issues [\#9334](https://github.com/primefaces/primeng/issues/9334)
+- TabView-Accordion changes due to \*ngIf do not take place [\#9331](https://github.com/primefaces/primeng/issues/9331)
+- Alignment issue on Scrollable Datatable [\#9326](https://github.com/primefaces/primeng/issues/9326)
+- Alignment issue on Scrollable TreeTable [\#9325](https://github.com/primefaces/primeng/issues/9325)
+- TabView tab close does not work when using ripple effect with PrimeNG 10 [\#9323](https://github.com/primefaces/primeng/issues/9323)
+- Dynamic scrollHeight support for Table/Tree Virtual Scrolling [\#9322](https://github.com/primefaces/primeng/issues/9322)
+- Typo in InputNumber documentation: maxFracionDigits [\#9315](https://github.com/primefaces/primeng/issues/9315)
+- After upgrading from 9 to 10 frozen columns ceased to be synchronized with scrollable columns in case on virtual scroll [\#9294](https://github.com/primefaces/primeng/issues/9294)
+- TreeTable openCell\(\) not working [\#9279](https://github.com/primefaces/primeng/issues/9279)
+- InputNumber: css issue for ng-invalid [\#9271](https://github.com/primefaces/primeng/issues/9271)
+- Ripple not working on IE [\#9268](https://github.com/primefaces/primeng/issues/9268)
+- Dialog with Long Content does not scroll in IE11 [\#9255](https://github.com/primefaces/primeng/issues/9255)
+- VirtualScroll ExpressionChangedAfterItHasBeenCheckedError on TreeTable [\#9254](https://github.com/primefaces/primeng/issues/9254)
+- Items in PanelMenu are highlighted wrongly with Material dark themes [\#9253](https://github.com/primefaces/primeng/issues/9253)
 
 ## [10.0.0](https://github.com/primefaces/primeng/tree/10.0.0) (2020-09-07)
 
