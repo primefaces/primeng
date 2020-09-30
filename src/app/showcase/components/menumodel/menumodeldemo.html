@@ -178,6 +178,12 @@ export class MenuDemo &#123;
                     <td>Specifies where to open the linked document.</td>
                 </tr>
                 <tr>
+                    <td>escape</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Whether to escape the label or not. Set to false to display html content.</td>
+                </tr>
+                <tr>
                     <td>separator</td>
                     <td>boolean</td>
                     <td>false</td>
@@ -266,6 +272,23 @@ export class MenuDemo &#123;
                 &#123;label: 'Open', icon: 'pi pi-download', routerLink: ['/pagename']&#125;
                 &#123;label: 'Recent Files', icon: 'pi pi-download', routerLink: ['/pagename'], queryParams: &#123;'recent': 'true'&#125;&#125;
             ]
+        &#125;
+    &#125;
+&#125;
+</app-code>
+
+    <h4>Custom Content</h4>
+    <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class MenuDemo &#123;
+
+    private items: MenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [&#123;
+            label: '&lt;h2&gt;File&lt;/h2&gt;',
+            escape: false,
+            //...
         &#125;
     &#125;
 &#125;

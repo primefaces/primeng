@@ -10,6 +10,7 @@ export interface MenuItem {
     disabled?: boolean;
     visible?: boolean;
     target?: string;
+    escape?: boolean;
     routerLinkActiveOptions?: any;
     separator?: boolean;
     badge?: string;
