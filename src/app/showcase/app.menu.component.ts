@@ -12,11 +12,16 @@ declare let gtag: Function;
                 <div class="menu-category">General</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/setup']" routerLinkActive="router-link-exact-active">Get Started</a>
-                    <a href="https://forum.primefaces.org/viewforum.php?f=35" target="_blank">Community Forum</a>
-                    <a [routerLink]=" ['/lts']" routerLinkActive="router-link-exact-active">LTS</a>
+                    <a href="https://github.com/primefaces/primeng/wiki/Migration-Guide" target="_blank">Migration Guide</a>
                     <a href="https://github.com/primefaces/primeng" target="_blank">Source Code</a>
-                    <a [routerLink]=" ['/support']" routerLinkActive="router-link-exact-active">Support</a>
                     <a href="https://www.primefaces.org/store">Store</a>
+                </div>
+
+                <div class="menu-category">Support</div>
+                <div class="menu-items">
+                    <a href="https://forum.primefaces.org/viewforum.php?f=35" target="_blank">Community Forum</a>
+                    <a [routerLink]=" ['/lts']" routerLinkActive="router-link-exact-active">Long Term Support</a>
+                    <a [routerLink]=" ['/support']" routerLinkActive="router-link-exact-active">PRO Support</a>
                 </div>
 
                 <div class="menu-category">Theming</div>
