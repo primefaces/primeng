@@ -193,6 +193,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
             this.tabChanged = true;
         }
+        this.cd.markForCheck();
     }
     
     open(event: Event, tab: TabPanel) {
