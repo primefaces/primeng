@@ -728,7 +728,7 @@ p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
   border-color: #a80000;
 }
 
-p-inputnumber.ng-dirty.ng-invalid > .p-inputtext {
+p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   border-color: #a80000;
 }
 
