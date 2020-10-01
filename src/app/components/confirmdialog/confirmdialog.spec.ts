@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { ConfirmDialog } from './confirmdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConfirmationService} from 'primeng/api';
+import {ConfirmationService, SharedModule} from 'primeng/api';
 
 @Component({
   template: `<p-confirmDialog></p-confirmDialog>
@@ -33,10 +33,10 @@ class TestConfirmDialogComponent {
 }
 
 describe('ConfirmDialog', () => {
-  
+
   let confirmDialog: ConfirmDialog;
   let fixture: ComponentFixture<TestConfirmDialogComponent>;
-  
+
   beforeEach(() => {
       TestBed.configureTestingModule({
         schemas: [NO_ERRORS_SCHEMA],
@@ -51,7 +51,7 @@ describe('ConfirmDialog', () => {
         ConfirmationService
       ]
       });
-      
+
       fixture = TestBed.createComponent(TestConfirmDialogComponent);
       confirmDialog = fixture.debugElement.query(By.css('p-confirmDialog')).componentInstance;
     });
@@ -139,22 +139,22 @@ describe('ConfirmDialog', () => {
 		const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		confirmEl.click();
 		fixture.detectChanges();
-		
+
 		const acceptButtonEl = fixture.debugElement.query(By.css('.p-dialog-footer')).children[0].nativeElement;
 		acceptButtonEl.click();
-		expect(fixture.componentInstance.header).toEqual("accept");      
+		expect(fixture.componentInstance.header).toEqual("accept");
     });
 
     it('should run reject', () => {
 		const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		confirmEl.click();
 		fixture.detectChanges();
-		
+
 		const rejectButtonEl = fixture.debugElement.query(By.css('.p-dialog-footer')).children[1].nativeElement;
 		rejectButtonEl.click();
 		expect(fixture.componentInstance.header).toEqual("reject");
 	});
-	
+
 	it('should close when click close icon', fakeAsync(() => {
 		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		buttonEl.click();
@@ -164,7 +164,7 @@ describe('ConfirmDialog', () => {
 		closeEl.click();
 		tick(300);
 		fixture.detectChanges();
-		
+
 		const confirmDialogEl = fixture.debugElement.query(By.css(".iui-dialog"));
 		expect(confirmDialogEl).toBeFalsy();
 	}));
@@ -174,14 +174,81 @@ describe('ConfirmDialog', () => {
 		buttonEl.click();
 		const closeSpy = spyOn(confirmDialog,"close").and.callThrough();
 		fixture.detectChanges();
-		
+
 		tick(300);
 		const escapeEvent: any = document.createEvent('CustomEvent');
         escapeEvent.which = 27;
         escapeEvent.initEvent('keydown', true, true);
         document.dispatchEvent(escapeEvent as KeyboardEvent);
 		fixture.detectChanges();
-		
+
 		expect(closeSpy).toHaveBeenCalled();
 	}));
+});
+
+
+@Component({
+    template: `<p-confirmDialog key="confirmDialogTemplates">
+    <p-header>
+        <b>PrimengRocks!</b>
+    </p-header>
+    <ng-template pTemplate="contentTemplate">
+        <span class="p-confirm-dialog-message">Are you really sure?</span>
+    </ng-template>
+    </p-confirmDialog>
+
+  <button type="button" (click)="confirmTemplates()" pButton icon="pi pi-check" label="Confirm"></button>`
+})
+class TestConfirmDialogTemplateComponent {
+
+    constructor(private confirmationService: ConfirmationService) {}
+
+    confirmTemplates() {
+        this.confirmationService.confirm({});
+    }
+
+}
+
+describe('ConfirmDialogWithTemplates', () => {
+
+    let confirmDialog: ConfirmDialog;
+    let fixture: ComponentFixture<TestConfirmDialogTemplateComponent>;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            schemas: [NO_ERRORS_SCHEMA],
+            imports: [
+                NoopAnimationsModule,
+                SharedModule
+            ],
+            declarations: [
+                ConfirmDialog,
+                TestConfirmDialogTemplateComponent
+            ],
+            providers:[
+                ConfirmationService
+            ]
+        });
+
+        fixture = TestBed.createComponent(TestConfirmDialogTemplateComponent);
+        confirmDialog = fixture.debugElement.query(By.css('p-confirmDialog')).componentInstance;
+    });
+
+    it('should display the header template', () => {
+        confirmDialog.visible = true;
+        fixture.detectChanges();
+
+        const confirmDialogEl = fixture.debugElement.query(By.css('.p-dialog-header')).nativeElement;
+        expect(confirmDialogEl).toBeTruthy();
+        expect(confirmDialogEl.innerHTML).toContain('PrimengRocks!');
+    });
+
+    it('should display the content template', () => {
+        confirmDialog.visible = true;
+        fixture.detectChanges();
+
+        const confirmDialogEl = fixture.debugElement.query(By.css('.p-dialog-content')).nativeElement;
+        expect(confirmDialogEl).toBeTruthy();
+        expect(confirmDialogEl.innerHTML).toContain('Are you really sure?');
+    });
 });

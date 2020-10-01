@@ -12,11 +12,11 @@ import {Message} from 'primeng/api';
     providers: [ConfirmationService]
 })
 export class ConfirmDialogDemo {
-    
+
     msgs: Message[] = [];
 
     position: string;
-    
+
     constructor(private confirmationService: ConfirmationService) {}
 
     confirm1() {
@@ -29,10 +29,11 @@ export class ConfirmDialogDemo {
             },
             reject: () => {
                 this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
-            }
+            },
+            key: "confirmDialog"
         });
     }
-    
+
     confirm2() {
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
@@ -43,7 +44,8 @@ export class ConfirmDialogDemo {
             },
             reject: () => {
                 this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
-            }
+            },
+            key: "confirmDialog"
         });
     }
 
@@ -61,6 +63,18 @@ export class ConfirmDialogDemo {
                 this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
             },
             key: "positionDialog"
+        });
+    }
+
+    confirmTemplates() {
+        this.confirmationService.confirm({
+            accept: () => {
+                this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
+            },
+            reject: () => {
+                this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+            },
+            key: "templatesDialog"
         });
     }
 }

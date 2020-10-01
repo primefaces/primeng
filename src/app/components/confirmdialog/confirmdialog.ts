@@ -24,6 +24,8 @@ const hideAnimation = animation([
             <div [ngClass]="{'p-dialog p-confirm-dialog p-component':true,'p-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
                 <div class="p-dialog-header">
+                    <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <span class="p-dialog-title" *ngIf="option('header')">{{option('header')}}</span>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
@@ -34,6 +36,7 @@ const hideAnimation = animation([
                 <div #content class="p-dialog-content">
                     <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="option('icon')"></i>
                     <span class="p-confirm-dialog-message" [innerHTML]="option('message')"></span>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
@@ -167,11 +170,21 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                 case 'footerTemplate':
                     this.footerTemplate = item.template;
                 break;
+                case 'headerTemplate':
+                    this.headerTemplate = item.template;
+                break;
+                case 'contentTemplate':
+                    this.contentTemplate = item.template;
+                break;
             }
         });
     }
 
     footerTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
+
+    contentTemplate: TemplateRef<any>;
 
     confirmation: Confirmation;
 

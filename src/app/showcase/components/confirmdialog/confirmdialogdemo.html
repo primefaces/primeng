@@ -9,10 +9,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" key="confirmDialog"></p-confirmDialog>
         <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
         <p-button (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
-    
+
         <h5>Position</h5>
         <div class="p-grid p-dir-col">
             <div class="p-col">
@@ -31,6 +31,19 @@
             </div>
         </div>
         <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"></p-confirmDialog>
+
+        <h5>Templating</h5>
+        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" key="templatesDialog">
+            <p-header>
+                <b>Confirmation</b>
+            </p-header>
+            <ng-template pTemplate="contentTemplate">
+                <i [ngClass]="'p-confirm-dialog-icon pi pi-info-circle'"></i>
+                <span class="p-confirm-dialog-message">Are you really sure?</span>
+            </ng-template>
+        </p-confirmDialog>
+        <p-button (click)="confirmTemplates()" icon="pi pi-check" label="Confirm"></p-button>
+
     </div>
 
     <p-messages [value]="msgs"></p-messages>
