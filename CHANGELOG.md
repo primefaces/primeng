@@ -1,4 +1,14 @@
 # Changelog
+## [10.0.2](https://github.com/primefaces/primeng/tree/10.0.2) (2020-10-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.1...10.0.2)
+
+**Fixed bugs:**
+
+- Invalid falsey value in menu components [\#9349](https://github.com/primefaces/primeng/issues/9349)
+- ColumnResize not working with Table VirtualScroll [\#9347](https://github.com/primefaces/primeng/issues/9347)
+- Galleria navigator icons not showing on Bootstrap Ligh [\#9343](https://github.com/primefaces/primeng/issues/9343)
+
 ## [10.0.1](https://github.com/primefaces/primeng/tree/10.0.1) (2020-09-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.0...10.0.1)
