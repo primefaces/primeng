@@ -1688,7 +1688,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table');
+                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table') || DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table');
                             let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-header-table');
                             let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-footer-table');
                             let resizeColumnIndex = DomHandler.index(column);
@@ -1736,10 +1736,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta) {
         let scrollableView = column ? this.findParentScrollableView(column) : this.containerViewChild.nativeElement;
-        let scrollableBody = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body');
+        let scrollableBody = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport');
         let scrollableHeader = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-header');
         let scrollableFooter = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-footer');
-        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.p-datatable-scrollable-body table');
+        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.p-datatable-scrollable-body table') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport table');
         let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.p-datatable-scrollable-header-table');
         let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.p-datatable-scrollable-footer-table');
 
