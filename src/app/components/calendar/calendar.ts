@@ -85,7 +85,7 @@ export interface LocaleSettings {
                                                     {{month.weekNumbers[j]}}
                                                 </span>
                                             </td>
-                                            <td *ngFor="let date of week" [ngClass]="{'p-datepicker-other-month': date.otherMonth,'p-datepicker-today':date.today}">
+                                            <td *ngFor="let date of week" [ngClass]="{'p-datepicker-other-month': date.otherMonth,'p-datepicker-today':date.today, 'p-datepicker-start-date':isStartDate(date), 'p-datepicker-end-date':isEndDate(date)}">
                                                 <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                     <span [ngClass]="{'p-highlight':isSelected(date), 'p-disabled': !date.selectable}"
                                                         (click)="onDateSelect($event,date)" draggable="false" (keydown)="onDateCellKeydown($event,date,i)" pRipple>
@@ -1062,6 +1062,25 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             return false;
         }
     }
+
+    isStartDate(dateMeta): boolean {
+        if (this.value) {
+            if (this.isRangeSelection()) {
+                return this.isDateEquals(this.value[0], dateMeta);
+            }
+        }
+        return false;
+    }
+
+    isEndDate(dateMeta): boolean {
+        if (this.value) {
+            if (this.isRangeSelection()) {
+                return this.isDateEquals(this.value[1], dateMeta);
+            }
+        }
+        return false;
+    }
+
 
     isMonthSelected(month: number): boolean {
         let day = this.value ? (Array.isArray(this.value) ? this.value[0].getDate() : this.value.getDate()) : 1;
