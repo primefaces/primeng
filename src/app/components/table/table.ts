@@ -412,9 +412,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
-            if (!this.virtualScroll) {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            }
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
 
             if (this.restoringFilter) {
                 this.restoringFilter = false;
@@ -760,6 +758,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             if (this.lazy) {
+                this.clearCache();
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else if (this.value) {
@@ -812,6 +811,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     sortMultiple() {
         if (this.multiSortMeta) {
             if (this.lazy) {
+                this.clearCache();
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else if (this.value) {
@@ -1275,6 +1275,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (this.lazy) {
+            this.clearCache();
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
@@ -1417,6 +1418,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.firstChange.emit(this.first);
 
         if (this.lazy) {
+            this.clearCache();
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
@@ -2325,7 +2327,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     preventBodyScrollPropagation: boolean;
 
-    loadedPages: number[] = [];
+    loadedPages: number[] = [0];
 
     _scrollHeight: string;
 
@@ -2495,7 +2497,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     }
 
     clearCache() {
-        this.loadedPages = [];
+        this.loadedPages = [0];
     }
 
     getPageCount() {
