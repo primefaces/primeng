@@ -372,6 +372,28 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
+        if (this.droppableNodes) {
+			this.dragStartSubscription = this.dragDropService.dragStart$.subscribe(
+				event => {
+					this.dragNodeTreeTable = event.tree;
+					this.dragNode = event.node;
+					this.dragNodeSubNodes = event.subNodes;
+					this.dragNodeIndex = event.index;
+					this.dragNodeScope = event.scope;
+				},
+			);
+
+			this.dragStopSubscription = this.dragDropService.dragStop$.subscribe(
+				event => {
+					this.dragNodeTreeTable = null;
+					this.dragNode = null;
+					this.dragNodeSubNodes = null;
+					this.dragNodeIndex = null;
+					this.dragNodeScope = null;
+					this.dragHover = false;
+				},
+			);
+		}
         this.initialized = true;
     }
 
@@ -437,7 +459,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService, @Optional() public dragDropService: TreeDragDropService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
