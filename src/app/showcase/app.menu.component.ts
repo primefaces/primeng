@@ -161,6 +161,7 @@ declare let gtag: Function;
                                 <li><a [routerLink]=" ['/treetable/scroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
                                 <li><a [routerLink]=" ['/treetable/colresize']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Resize</a></li>
                                 <li><a [routerLink]=" ['/treetable/reorder']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Reorder</a></li>
+                                <li><a [routerLink]=" ['/treetable/dragdrop']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">DragDrop</a></li>
                                 <li><a [routerLink]=" ['/treetable/coltoggle']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Toggle</a></li>
                                 <li><a [routerLink]=" ['/treetable/style']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Style</a></li>
                                 <li><a [routerLink]=" ['/treetable/contextmenu']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">ContextMenu</a></li>
