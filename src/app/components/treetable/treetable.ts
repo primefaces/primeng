@@ -1,6 +1,6 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Optional} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TreeNode } from 'primeng/api';
+import { TreeNode, TreeDragDropService } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { DomHandler } from 'primeng/dom';
 import { PaginatorModule } from 'primeng/paginator';
@@ -220,6 +220,16 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() filterLocale: string;
 
+    @Input() validateDrop: boolean;
+
+	@Input() draggableScope: any;
+
+	@Input() droppableScope: any;
+
+	@Input() draggableNodes: boolean;
+
+	@Input() droppableNodes: boolean;
+
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
@@ -251,6 +261,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeDrop: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -339,6 +351,22 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     initialized: boolean;
 
     toggleRowIndex: number;
+
+    dragNodeTreeTable: TreeTable;
+
+	dragNode: TreeNode;
+
+	dragNodeSubNodes: TreeNode[];
+
+	dragNodeIndex: number;
+
+	dragNodeScope: any;
+
+	dragHover: boolean;
+
+	dragStartSubscription: Subscription;
+
+	dragStopSubscription: Subscription;
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
