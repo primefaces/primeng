@@ -18,6 +18,7 @@ import { TreeTableResponsiveDemo } from './treetableresponsivedemo';
 import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
 import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
+import { TreeTableDragDropDemo } from './treetabledragdropdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
 import { ToastModule } from 'primeng/toast';
@@ -60,6 +61,7 @@ import { AppCodeModule } from '../../app.code.component';
         TreeTableContextMenuDemo,
         TreeTableColResizeDemo,
         TreeTableReorderDemo,
+        TreeTableDragDropDemo,
         TreeTableEditDemo,
         TreeTableFilterDemo
 	]
