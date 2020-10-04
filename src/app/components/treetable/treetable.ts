@@ -1046,6 +1046,103 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
+    onDragOver(event) {
+		if (this.droppableNodes && (!this.value || this.value.length === 0)) {
+			event.dataTransfer.dropEffect = 'move';
+			event.preventDefault();
+		}
+	}
+
+	onDrop(event) {
+		if (this.droppableNodes && (!this.value || this.value.length === 0)) {
+			event.preventDefault();
+			let dragNode = this.dragNode;
+			if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
+				let dragNodeIndex = this.dragNodeIndex;
+				this.dragNodeSubNodes.splice(dragNodeIndex, 1);
+				this.value = this.value || [];
+				this.value.push(dragNode);
+
+				this.dragDropService.stopDrag({
+					node: dragNode,
+				});
+			}
+		}
+	}
+
+    onDragEnter(event) {
+        if (this.droppableNodes && this.allowDrop(this.dragNode, null, this.dragNodeScope)) {
+            this.dragHover = true;
+        }
+    }
+
+    onDragLeave(event) {
+        if (this.droppableNodes) {
+            let rect = event.currentTarget.getBoundingClientRect();
+            if (event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
+               this.dragHover = false;
+            }
+        }
+    }
+
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
+        if (!dragNode) {
+            //prevent random html elements to be dragged
+            return false;
+        }
+        else if (this.isValidDragScope(dragNodeScope)) {
+            let allow: boolean = true;
+            if (dropNode) {
+                if (dragNode === dropNode) {
+                    allow = false;
+                }
+                else {
+                    let parent = dropNode.parent;
+                    while(parent != null) {
+                        if (parent === dragNode) {
+                            allow = false;
+                            break;
+                        }
+                        parent = parent.parent;
+                    }
+                }
+            }
+
+            return allow;
+        }
+        else {
+            return false;
+        }
+    }
+
+	isValidDragScope(dragScope: any): boolean {
+		let dropScope = this.droppableScope;
+
+		if (dropScope) {
+			if (typeof dropScope === 'string') {
+				if (typeof dragScope === 'string')
+					return dropScope === dragScope;
+				else if (dragScope instanceof Array)
+					return dragScope.indexOf(dropScope) != -1;
+			} else if (dropScope instanceof Array) {
+				if (typeof dragScope === 'string') {
+					return dropScope.indexOf(dragScope) != -1;
+				} else if (dragScope instanceof Array) {
+					for (let s of dropScope) {
+						for (let ds of dragScope) {
+							if (s === ds) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+			return false;
+		} else {
+			return true;
+		}
+	}
+
     onColumnDragStart(event, columnElement) {
         this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild.nativeElement);
         this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild.nativeElement);
