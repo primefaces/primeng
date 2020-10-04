@@ -1780,6 +1780,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this.unbindDocumentEditListener();
         this.editingCell = null;
         this.initialized = null;
+
+        if (this.dragStartSubscription) {
+			this.dragStartSubscription.unsubscribe();
+		}
+
+		if (this.dragStopSubscription) {
+			this.dragStopSubscription.unsubscribe();
+		}
     }
 
 }
