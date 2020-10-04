@@ -3014,6 +3014,165 @@ export class TTRow {
     }
 }
 
+@Directive({
+	selector: '[ttDraggableRow]',
+	host: {},
+})
+export class TTDraggableRow implements OnInit, OnDestroy {
+	@Input('ttDraggableRow') rowNode: any;
+
+	draghoverNode: boolean;
+
+	subscription: Subscription;
+
+	get node(): TreeNode {
+		return this.rowNode.node || undefined;
+	}
+	get siblings(): TreeNode[] {
+		return this.rowNode.parent
+			? this.rowNode.parent.children
+			: this.tt.value;
+	}
+
+	constructor(public tt: TreeTable) {}
+
+	ngOnInit() {}
+
+	@HostListener('dragstart', ['$event'])
+	onDragStart(event) {
+		if (this.tt.draggableNodes && this.node.draggable !== false) {
+			event.dataTransfer.setData('text', 'data');
+
+			this.tt.dragDropService.startDrag({
+				tree: this,
+				node: this.node,
+				subNodes: this.node.parent
+					? this.node.parent.children
+					: this.tt.value,
+				index: this.getIndex(),
+				scope: this.tt.draggableScope,
+			});
+		} else {
+			event.preventDefault();
+		}
+	}
+
+	@HostListener('dragend', ['$event'])
+	onDragStop(event) {
+		this.tt.dragDropService.stopDrag({
+			node: this.node,
+			subNodes: this.node.parent
+				? this.node.parent.children
+				: this.tt.value,
+			index: this.getIndex(),
+		});
+	}
+
+	@HostListener('dragover', ['$event'])
+	onDropNodeDragOver(event) {
+		event.dataTransfer.dropEffect = 'move';
+		if (this.tt.droppableNodes) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+	}
+
+	@HostListener('drop', ['$event'])
+	onDropNode(event) {
+		if (this.tt.droppableNodes && this.node.droppable !== false) {
+			event.preventDefault();
+			event.stopPropagation();
+			let dragNode = this.tt.dragNode;
+			if (this.tt.allowDrop(dragNode, this.node, this.tt.dragNodeScope)) {
+				if (this.tt.validateDrop) {
+					this.tt.onNodeDrop.emit({
+						originalEvent: event,
+						dragNode: dragNode,
+						dropNode: this.node,
+						index: this.getIndex(),
+						accept: () => {
+							this.processNodeDrop(dragNode);
+						},
+					});
+				} else {
+					this.processNodeDrop(dragNode);
+					this.tt.onNodeDrop.emit({
+						originalEvent: event,
+						dragNode: dragNode,
+						dropNode: this.node,
+						index: this.getIndex(),
+					});
+				}
+			}
+		}
+
+		this.draghoverNode = false;
+	}
+
+	processNodeDrop(dragNode) {
+		let dragNodeIndex = this.tt.dragNodeIndex;
+		if (dragNodeIndex == -1) {
+			console.log('Error: DragNodeIndex is -1');
+			return;
+		}
+		this.tt.dragNodeSubNodes.splice(dragNodeIndex, 1);
+
+		if (this.node.children) this.node.children.push(dragNode);
+		else this.node.children = [dragNode];
+
+		this.tt.dragDropService.stopDrag({
+			node: dragNode,
+			subNodes: this.node.parent
+				? this.node.parent.children
+				: this.tt.value,
+			index: this.tt.dragNodeIndex,
+		});
+
+		this.tt.updateSerializedValue();
+		this.tt.tableService.onUIUpdate(this.tt.value);
+	}
+
+	@HostListener('dragenter', ['$event'])
+	onDropNodeDragEnter(event) {
+		if (
+			this.tt.droppableNodes &&
+			this.node.droppable !== false &&
+			this.tt.allowDrop(
+				this.tt.dragNode,
+				this.node,
+				this.tt.dragNodeScope,
+			)
+		) {
+			this.draghoverNode = true;
+		}
+	}
+
+	@HostListener('dragleave', ['$event'])
+	onDropNodeDragLeave(event) {
+		if (this.tt.droppableNodes) {
+			let rect = event.currentTarget.getBoundingClientRect();
+			if (
+				event.x > rect.left + rect.width ||
+				event.x < rect.left ||
+				event.y >= Math.floor(rect.top + rect.height) ||
+				event.y < rect.top
+			) {
+				this.draghoverNode = false;
+			}
+		}
+	}
+
+	getIndex(): number {
+		return this.siblings.indexOf(this.node);
+	}
+
+	ngOnDestroy() {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
+	}
+}
+
 @Component({
     selector: 'p-treeTableToggler',
     template: `
@@ -3055,7 +3214,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule,ScrollingModule,RippleModule],
-    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor,ScrollingModule],
-    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
+    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TTDraggableRow,TreeTableCellEditor,ScrollingModule],
+    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TTDraggableRow,TreeTableCellEditor]
 })
 export class TreeTableModule { }
