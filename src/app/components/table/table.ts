@@ -2737,6 +2737,8 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     @HostListener('keydown.enter', ['$event'])
+    @HostListener('keydown.shift.enter', ['$event'])
+    @HostListener('keydown.meta.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
@@ -2752,7 +2754,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let nextRow = <HTMLTableRowElement> row.nextElementSibling;
         if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-datatable-selectable-row'))
+            if (DomHandler.hasClass(nextRow, 'p-selectable-row'))
                 return nextRow;
             else
                 return this.findNextSelectableRow(nextRow);
@@ -2765,7 +2767,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let prevRow = <HTMLTableRowElement> row.previousElementSibling;
         if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-datatable-selectable-row'))
+            if (DomHandler.hasClass(prevRow, 'p-selectable-row'))
                 return prevRow;
             else
                 return this.findPrevSelectableRow(prevRow);
@@ -2790,7 +2792,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRowDblClick]',
     host: {
-        '[class.p-datatable-selectable-row]': 'isEnabled()',
+        '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected'
     }
 })
