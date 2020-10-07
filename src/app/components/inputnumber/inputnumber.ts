@@ -821,7 +821,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             this.input.nativeElement.setSelectionRange(0, 0);
             this.initCursor();
             const prefixLength = (this.prefix || '').length;
-            const selectionEnd = prefixLength + insertedValueStr.length;
+            const selectionEnd = prefixLength + insertedValueStr?.length;
             this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
         }
         else {
