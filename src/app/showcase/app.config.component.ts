@@ -125,12 +125,6 @@ import { Subscription } from 'rxjs';
                                 </button>
                                 <span>Light</span>
                             </div>
-                            <div class="p-col-3">
-                                <button class="p-link" (click)="changeTheme($event, 'fluent-dark', true)">
-                                <img src="assets/showcase/images/themes/fluent-dark.png" alt="Fluent Dark"/>
-                                </button>
-                                <span>Dark</span>
-                            </div>
                         </div>
 
                         <h5>PrimeOne Design</h5>
