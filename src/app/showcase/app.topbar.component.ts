@@ -49,7 +49,6 @@ import { Subscription } from 'rxjs';
 
                         <li class="topbar-submenu-header">Fluent UI</li>
                         <li><a (click)="changeTheme($event, 'fluent-light', false)"><img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light" /><span>Fluent Light</span></a></li>
-                        <li><a (click)="changeTheme($event, 'fluent-dark', true)"><img src="assets/showcase/images/themes/fluent-dark.png" alt="SFluentoho Dark" /><span>Fluent Dark</span></a></li>
 
                         <li class="topbar-submenu-header">PRIMEONE</li>
                         <li><a (click)="changeTheme($event, 'saga-blue', false)"><img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" /><span>Saga Blue</span></a></li>
@@ -304,7 +303,10 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'luna-green': 'luna-green.png',
         'luna-pink': 'luna-pink.png',
         'luna-amber': 'luna-amber.png',
-        'rhea': 'rhea.png'
+        'rhea': 'rhea.png',
+        'fluent-light': 'fluent-light.png',
+        'soho-light': 'soho-light.png',
+        'soho-dark': 'soho-dark.png'
     };
 
     versions: any[];
