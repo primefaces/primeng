@@ -368,7 +368,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
                 return formattedValue;
             }
 
-            return value;
+            return value.toString();
         }
 
         return '';
