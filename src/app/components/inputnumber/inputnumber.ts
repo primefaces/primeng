@@ -841,6 +841,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     updateInput(value, insertedValueStr, operation) {
+        insertedValueStr = insertedValueStr || '';
+
         let inputValue = this.input.nativeElement.value;
         let newValue = this.formatValue(value);
         let currentLength = inputValue.length;
