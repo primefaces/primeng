@@ -843,7 +843,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
                 const tExpr = insertedValueStr.split('').join(`(${this.groupChar})?`);
                 const tRegex = new RegExp(tExpr, 'g');
-                tRegex.test(newValue.slice(sRegex.lastIndex));
+                const newValueStr = newValue !== null ? newValue.toString() : '';
+                tRegex.test(newValueStr.slice(sRegex.lastIndex));
 
                 selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
