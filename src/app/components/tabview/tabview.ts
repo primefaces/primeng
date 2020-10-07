@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
-        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, AfterViewChecked} from '@angular/core';
+        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, AfterViewChecked, forwardRef, Inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {RippleModule} from 'primeng/ripple';
@@ -25,8 +25,6 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     @Input() header: string;
     
-    @Input() disabled: boolean;
-    
     @Input() closable: boolean;
     
     @Input() headerStyle: any;
@@ -49,13 +47,13 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    constructor(public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {}
-    
     closed: boolean;
     
     view: EmbeddedViewRef<any>;
     
     _selected: boolean;
+
+    _disabled: boolean;
     
     loaded: boolean;
     
@@ -64,7 +62,13 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     contentTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
-    
+
+    tabView: TabView;
+
+    constructor(@Inject(forwardRef(() => TabView)) tabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
+        this.tabView = tabView as TabView;
+    }
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
@@ -95,6 +99,15 @@ export class TabPanel implements AfterContentInit,OnDestroy {
         }
 
         this.loaded = true;
+    }
+
+    @Input() get disabled(): boolean {
+        return this._disabled;
+    };
+
+    set disabled(disabled: boolean) {
+        this._disabled = disabled;
+        this.tabView.cd.markForCheck();
     }
     
     ngOnDestroy() {
@@ -193,6 +206,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
             this.tabChanged = true;
         }
+
         this.cd.markForCheck();
     }
     

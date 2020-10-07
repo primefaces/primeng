@@ -1254,7 +1254,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 event.preventDefault();
             }
         }
-        else if (event.keyCode === 9) {
+        else if (event.keyCode === 9 && this.contentViewChild) {
             DomHandler.getFocusableElements(this.contentViewChild.nativeElement).forEach(el => el.tabIndex = '-1');
             if (this.overlayVisible) {
                 this.overlayVisible = false;

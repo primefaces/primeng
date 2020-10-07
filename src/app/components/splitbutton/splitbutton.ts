@@ -63,6 +63,7 @@ export class SplitButton {
     }
           
     onDropdownButtonClick(event: Event) {
+        this.onDropdownClick.emit(event);
         this.menu.toggle({currentTarget: this.containerViewChild.nativeElement, relativeAlign: this.appendTo == null});
     }
 

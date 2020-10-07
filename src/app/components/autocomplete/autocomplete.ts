@@ -322,6 +322,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.value = value;
         this.filled = this.value && this.value != '';
         this.updateInputField();
+        this.cd.markForCheck();
     }
 
     registerOnChange(fn: Function): void {
