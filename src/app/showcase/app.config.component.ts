@@ -204,25 +204,24 @@ import { Subscription } from 'rxjs';
                         </div>
 
                         <h4>Premium Themes</h4>
-                        <p>Premium themes are not included in PriemNG and only available exclusively for <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a> subscribers.</p>
+                        <p>Premium themes are only available exclusively for <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a> subscribers and therefore not included in PrimeNG core.</p>
                         
-                        <h5>Soho</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'soho-light', false)">
                                     <img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light"/>
                                 </button>
-                                <span>Light</span>
+                                <span>Soho Light</span>
                             </div>
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'soho-dark', true)">
                                 <img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark"/>
                                 </button>
-                                <span>Dark</span>
+                                <span>Soho Dark</span>
                             </div>
                         </div>
 
-                        <h4>Legacy</h4>
+                        <h4>Legacy Themes</h4>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'nova', false)">
