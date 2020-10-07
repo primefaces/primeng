@@ -1342,6 +1342,18 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #FFE082;
   border: 1px solid;
 }
+.p-button.p-button-outlined.p-button-plain {
+  color: #888888;
+  border-color: #888888;
+}
+.p-button.p-button-outlined.p-button-plain:enabled:hover {
+  background: #4c4c4c;
+  color: #888888;
+}
+.p-button.p-button-outlined.p-button-plain:enabled:active {
+  background: #3c3c3c;
+  color: #888888;
+}
 .p-button.p-button-text {
   background-color: transparent;
   color: #FFE082;
