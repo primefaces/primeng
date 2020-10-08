@@ -69,7 +69,6 @@ export class MenubarSub implements OnDestroy {
 
     documentClickListener: any;
 
-  
     menuHoverActive: boolean = false;
 
     activeItem: any;
@@ -92,14 +91,13 @@ export class MenubarSub implements OnDestroy {
         }
     }
 
-
     onItemClick(event, item) {
         if (item.disabled) {
             event.preventDefault();
             return;
         }
 
-        if (!item.url && !item.to) {
+        if (!item.url && !item.routerLink) {
             event.preventDefault();
         }
 
@@ -109,12 +107,14 @@ export class MenubarSub implements OnDestroy {
                 item: item
             });
         }
-
+        
         if (item.items) {
-            if (this.activeItem && item === this.activeItem)
+            if (this.activeItem && item === this.activeItem) {
                 this.activeItem = null;
+                this.unbindDocumentClickListener();
+            }
             else {
-               this.activeItem = item;
+                this.activeItem = item;
                 if (this.root) {
                     this.bindDocumentClickListener();
                 }
