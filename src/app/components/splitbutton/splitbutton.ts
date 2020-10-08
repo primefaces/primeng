@@ -48,9 +48,9 @@ export class SplitButton {
     
     @Input() dir: string;
 
-    @Input() showTransitionOptions: string = '225ms ease-out';
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() hideTransitionOptions: string = '.1s linear';
 
     @ViewChild('container') containerViewChild: ElementRef;
     
