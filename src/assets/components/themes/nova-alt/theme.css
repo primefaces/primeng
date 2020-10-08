@@ -1887,6 +1887,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
   color: #ffffff;
 }
+.p-datatable .p-sortable-column.p-highlight:hover {
+  background: #007ad9;
+  color: #ffffff;
+}
+.p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon {
+  color: #ffffff;
+}
 .p-datatable .p-sortable-column:focus {
   box-shadow: inset 0 0 0 0.2rem #8dcdff;
   outline: 0 none;
