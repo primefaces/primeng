@@ -346,20 +346,20 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   color: #ffffff;
   font-size: 14px;
 }
-.p-checkbox .p-checkbox-box:not(.p-disabled):hover {
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #007ad9;
+  background: #007ad9;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   border-color: #212121;
 }
-.p-checkbox .p-checkbox-box:not(.p-disabled).p-focus {
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #8dcdff;
   border-color: #007ad9;
 }
-.p-checkbox .p-checkbox-box.p-highlight {
-  border-color: #007ad9;
-  background: #007ad9;
-}
-.p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled):hover {
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
   border-color: #005b9f;
   background: #005b9f;
   color: #ffffff;
@@ -375,13 +375,19 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #f4f4f4;
 }
-.p-input-filled .p-checkbox .p-checkbox-box:not(.p-disabled):hover {
+.p-input-filled .p-checkbox .p-checkbox-box:not(.p-checkbox-disabled):hover {
   background-color: #f4f4f4;
 }
 .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
   background: #007ad9;
 }
-.p-input-filled .p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled):hover {
+.p-input-filled .p-checkbox .p-checkbox-box.p-highlight:not(.p-checkbox-disabled):hover {
+  background: #005b9f;
+}
+.p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  background-color: #f4f4f4;
+}
+.p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
   background: #005b9f;
 }
 

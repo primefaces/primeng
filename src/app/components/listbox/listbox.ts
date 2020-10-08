@@ -17,15 +17,15 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox',
     template: `
-    <div [ngClass]="'p-listbox p-component'" [ngStyle]="style" [class]="styleClass">
+    <div [ngClass]="{'p-listbox p-component': true, 'p-disabled': disabled}" [ngStyle]="style" [class]="styleClass">
       <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate">
         <ng-content select="p-header"></ng-content>
         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
       </div>
       <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter">
-        <div class="p-checkbox p-component" *ngIf="checkbox && multiple && showToggleAll">
+        <div class="p-checkbox p-component" *ngIf="checkbox && multiple && showToggleAll" [ngClass]="{'p-checkbox-disabled': disabled}">
           <div class="p-hidden-accessible">
-            <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
+            <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)" [attr.disabled]="disabled">
           </div>
           <div #headerchkbox class="p-checkbox-box" [ngClass]="{'p-highlight': allChecked, 'p-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
             <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
@@ -38,10 +38,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       </div>
       <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass">
         <ul class="p-listbox-list" role="listbox" aria-multiselectable="multiple">
-          <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'flex' : 'none'" [attr.tabindex]="option.disabled ? null : '0'" pRipple
+          <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'flex' : 'none'" [attr.tabindex]="disabled || option.disabled ? null : '0'" pRipple
               [ngClass]="{'p-listbox-item':true,'p-highlight':isSelected(option), 'p-disabled': option.disabled}" role="option" [attr.aria-label]="option.label"
               [attr.aria-selected]="isSelected(option)" (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)" (keydown)="onOptionKeyDown($event,option)">
-            <div class="p-checkbox p-component" *ngIf="checkbox && multiple">
+            <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{'p-checkbox-disabled': disabled || option.disabled}">
               <div class="p-checkbox-box" [ngClass]="{'p-highlight':isSelected(option)}">
                 <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
               </div>
