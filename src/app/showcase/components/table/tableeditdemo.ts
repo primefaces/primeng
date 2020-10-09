@@ -49,7 +49,7 @@ export class TableEditDemo implements OnInit {
 
     onRowEditCancel(product: Product, index: number) {
         this.products2[index] = this.clonedProducts[product.id];
-        delete this.products2[product.id];
+        delete this.clonedProducts[product.id];
     }
 
 }
