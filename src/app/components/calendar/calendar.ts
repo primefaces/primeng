@@ -1,11 +1,13 @@
-import {NgModule,Component,ElementRef,OnDestroy,OnInit,Input,Output,EventEmitter,forwardRef,Renderer2,
-        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,NgZone,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {
+    NgModule, Component, ElementRef, OnDestroy, OnInit, Input, Output, EventEmitter, forwardRef, Renderer2,
+    ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, NgZone, ChangeDetectionStrategy, ViewEncapsulation, Optional
+} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule, PrimeTemplate, PrimeNGConfig} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -539,7 +541,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
        }
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, @Optional() public config: PrimeNGConfig) {
+        if (this.config && this.config.locale) {
+            this.locale = this.config.locale;
+            if (this.config.locale.dateFormat) {
+                this.dateFormat = this.config.locale.dateFormat;
+            }
+        }
+    }
 
     ngOnInit() {
         const date = this.defaultDate||new Date();
