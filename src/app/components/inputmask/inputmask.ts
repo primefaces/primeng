@@ -344,6 +344,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     handleAndroidInput(e) {
         var curVal = this.inputViewChild.nativeElement.value;
         var pos = this.caret();
+        if(!pos) return;
         if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length ) {
             // a deletion or backspace happened
             this.checkVal(true);
