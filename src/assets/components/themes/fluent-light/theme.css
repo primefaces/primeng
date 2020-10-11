@@ -375,14 +375,8 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #faf9f8;
 }
-.p-input-filled .p-checkbox .p-checkbox-box:not(.p-checkbox-disabled):hover {
-  background-color: #faf9f8;
-}
 .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
   background: #0078d4;
-}
-.p-input-filled .p-checkbox .p-checkbox-box.p-highlight:not(.p-checkbox-disabled):hover {
-  background: #005a9e;
 }
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   background-color: #faf9f8;
@@ -1396,8 +1390,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   min-width: 1rem;
   height: 1rem;
   line-height: 1rem;
-  color: #ffffff;
-  background-color: #0078d4;
+  color: #0078d4;
+  background-color: #ffffff;
 }
 .p-button.p-button-raised {
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -1851,9 +1845,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #323130;
   background: #ffffff;
 }
-.p-datatable .p-sortable-column {
-  outline-color: #605e5c;
-}
 .p-datatable .p-sortable-column .p-sortable-column-icon {
   color: #605e5c;
   margin-left: 0.5rem;
@@ -1889,7 +1880,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #323130;
 }
 .p-datatable .p-sortable-column:focus {
-  box-shadow: inset inset 0 0 0 1px #605e5c;
+  box-shadow: inset 0 0 0 1px #605e5c;
   outline: 0 none;
 }
 .p-datatable .p-datatable-tbody > tr {
@@ -2522,6 +2513,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler,
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
+  color: #323130;
+}
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover,
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon:hover {
   color: #323130;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {

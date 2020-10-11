@@ -399,13 +399,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: rgba(255, 255, 255, 0.06);
 }
-.p-input-filled .p-checkbox .p-checkbox-box:not(.p-checkbox-disabled):hover {
-  background-color: rgba(255, 255, 255, 0.08);
-}
 .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
-  background: #9FA8DA;
-}
-.p-input-filled .p-checkbox .p-checkbox-box.p-highlight:not(.p-checkbox-disabled):hover {
   background: #9FA8DA;
 }
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
@@ -1420,8 +1414,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   min-width: 1rem;
   height: 1rem;
   line-height: 1rem;
-  color: #121212;
-  background-color: #9FA8DA;
+  color: #9FA8DA;
+  background-color: #121212;
 }
 .p-button.p-button-raised {
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -1875,9 +1869,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: rgba(255, 255, 255, 0.87);
   background: #1e1e1e;
 }
-.p-datatable .p-sortable-column {
-  outline-color: transparent;
-}
 .p-datatable .p-sortable-column .p-sortable-column-icon {
   color: rgba(255, 255, 255, 0.6);
   margin-left: 0.5rem;
@@ -1913,7 +1904,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: rgba(255, 255, 255, 0.87);
 }
 .p-datatable .p-sortable-column:focus {
-  box-shadow: inset none;
+  box-shadow: none;
   outline: 0 none;
 }
 .p-datatable .p-datatable-tbody > tr {
@@ -2546,6 +2537,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler,
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
+  color: #9FA8DA;
+}
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover,
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon:hover {
   color: #9FA8DA;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
@@ -4947,7 +4942,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled).p-focus {
   border-color: #9FA8DA;
 }
-.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon:before {
+.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon.pi-check:before {
   content: "";
   position: absolute;
   top: 6px;

@@ -375,14 +375,8 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #f4f4f4;
 }
-.p-input-filled .p-checkbox .p-checkbox-box:not(.p-checkbox-disabled):hover {
-  background-color: #f4f4f4;
-}
 .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
   background: #007ad9;
-}
-.p-input-filled .p-checkbox .p-checkbox-box.p-highlight:not(.p-checkbox-disabled):hover {
-  background: #005b9f;
 }
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   background-color: #f4f4f4;
@@ -1396,8 +1390,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   min-width: 1rem;
   height: 1rem;
   line-height: 1rem;
-  color: #ffffff;
-  background-color: #007ad9;
+  color: #007ad9;
+  background-color: #ffffff;
 }
 .p-button.p-button-raised {
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
@@ -1850,9 +1844,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-weight: 700;
   color: #333333;
   background: #f4f4f4;
-}
-.p-datatable .p-sortable-column {
-  outline-color: #8dcdff;
 }
 .p-datatable .p-sortable-column .p-sortable-column-icon {
   color: #848484;
@@ -2522,6 +2513,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler,
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
+  color: #ffffff;
+}
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover,
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon:hover {
   color: #ffffff;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {

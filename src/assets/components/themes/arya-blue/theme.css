@@ -375,14 +375,8 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #383838;
 }
-.p-input-filled .p-checkbox .p-checkbox-box:not(.p-checkbox-disabled):hover {
-  background-color: #383838;
-}
 .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
   background: #64B5F6;
-}
-.p-input-filled .p-checkbox .p-checkbox-box.p-highlight:not(.p-checkbox-disabled):hover {
-  background: #2396f2;
 }
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   background-color: #383838;
@@ -1396,8 +1390,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   min-width: 1rem;
   height: 1rem;
   line-height: 1rem;
-  color: #212529;
-  background-color: #64B5F6;
+  color: #64B5F6;
+  background-color: #212529;
 }
 .p-button.p-button-raised {
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
@@ -1801,7 +1795,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 0;
 }
 .p-carousel .p-carousel-indicators .p-carousel-indicator button:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: #4c4c4c;
 }
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
   background: rgba(100, 181, 246, 0.16);
@@ -1850,9 +1844,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.87);
   background: #1e1e1e;
-}
-.p-datatable .p-sortable-column {
-  outline-color: #93cbf9;
 }
 .p-datatable .p-sortable-column .p-sortable-column-icon {
   color: rgba(255, 255, 255, 0.6);
@@ -2522,6 +2513,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler,
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover,
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon:hover {
   color: rgba(255, 255, 255, 0.87);
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
@@ -4413,7 +4408,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 50%;
 }
 .p-galleria .p-galleria-indicators .p-galleria-indicator button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #4c4c4c;
 }
 .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
   background: rgba(100, 181, 246, 0.16);
@@ -4584,3 +4579,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 /* Customizations to the designer theme should be defined here */
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+  background-color: #64B5F6;
+}
+
+.p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
+  background-color: #64B5F6;
+}
+.p-galleria.p-galleria-indicator-onitem .p-galleria-indicators .p-galleria-indicator.p-highlight button {
+  background: #64B5F6;
+}
