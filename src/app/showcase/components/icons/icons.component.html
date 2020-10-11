@@ -22,7 +22,7 @@ npm install primeicons --save
 &lt;i class="pi pi-times"&gt;&lt;/i&gt;
 </app-code>
 
-<i class="pi pi-check"></i>
+<i class="pi pi-check p-mr-2"></i>
 <i class="pi pi-times"></i>
 
     <h5>Size</h5>
@@ -48,6 +48,38 @@ npm install primeicons --save
 </app-code>
 
     <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+
+    <h5>Constants</h5>
+    <p>PrimeIcons constants API is provided to easily choose an icon with typescript e.g. when defining a menu model.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;MenuItem, PrimeIcons&#125; from 'primeng/api';
+
+export class MenuDemo &#123;
+
+    private items: MenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [&#123;
+            label: 'File',
+            items: [
+                &#123;label: 'New', icon: PrimeIcons.PLUS&#125;,
+                &#123;label: 'Open', icon: PrimeIcons.DOWNLOAD&#125;
+            ]
+        &#125;,
+        &#123;
+            label: 'Edit',
+            items: [
+                &#123;label: 'Undo', icon: PrimeIcons.REFRESH&#125;,
+                &#123;label: 'Redo', icon: PrimeIcons.REPEAT&#125;
+            ]
+        &#125;];
+    &#125;
+&#125;
+</app-code>
 
     <h5>List of Icons</h5>
     <p>Here is the current list of PrimeIcons, more icons will be added periodically. You may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
