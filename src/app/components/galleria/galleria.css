@@ -136,13 +136,13 @@
     flex-direction: row;
 }
 
-.p-galleria-thumbnails-left .p-galleria-item-wrapper,
-.p-galleria-thumbnails-top .p-galleria-item-wrapper {
+.p-galleria-thumbnails-left p-galleriaitem,
+.p-galleria-thumbnails-top p-galleriaitem {
     order: 2;
 }
 
-.p-galleria-thumbnails-left .p-galleria-thumbnail-wrapper,
-.p-galleria-thumbnails-top .p-galleria-thumbnail-wrapper {
+.p-galleria-thumbnails-left p-galleriathumbnails,
+.p-galleria-thumbnails-top p-galleriathumbnails {
     order: 1;
 }
 

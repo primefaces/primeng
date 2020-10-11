@@ -1,4 +1,35 @@
 # Changelog
+
+## [10.0.3](https://github.com/primefaces/primeng/tree/10.0.3) (2020-10-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.2...10.0.3)
+
+**Implemented New Features and Enhancements:**
+
+- Tooltip doesn't close in scrollable containers [\#9353](https://github.com/primefaces/primeng/issues/9353)
+
+**Fixed bugs:**
+
+- Align tiered menu behavior with menubar [\#9379](https://github.com/primefaces/primeng/issues/9379)
+- Listbox disabled visuals broken [\#9377](https://github.com/primefaces/primeng/issues/9377)
+- SplitButton menu animation not aligned with rest of the overlays [\#9376](https://github.com/primefaces/primeng/issues/9376)
+- Primeng 10 breadcrumb doesn't set p-disabled class for disabled menuitems [\#9374](https://github.com/primefaces/primeng/issues/9374)
+- Problems when typing or pasting numbers into InputNumber [\#9372](https://github.com/primefaces/primeng/issues/9372)
+-  If virtual scroll property is enabled, Tree nodes are rendering with no hierarchy even if nested/children nodes are available [\#9368](https://github.com/primefaces/primeng/issues/9368)
+- tabView: progomatically changing tabPanel disabled does not have visual affect until tabs are clicked  [\#9367](https://github.com/primefaces/primeng/issues/9367)
+- Table Keyboard metaSelections not working [\#9366](https://github.com/primefaces/primeng/issues/9366)
+- Table arrow keys not working [\#9365](https://github.com/primefaces/primeng/issues/9365)
+- InputNumber cannot set value when format property is false [\#9364](https://github.com/primefaces/primeng/issues/9364)
+- Table MetaKeySelection Demo not working with shift [\#9363](https://github.com/primefaces/primeng/issues/9363)
+- Accordion activeIndex not affecting manually opened tabs,  those tabs get in confused state. [\#9355](https://github.com/primefaces/primeng/issues/9355)
+- P-autoComplete component not showing the values in Primeng version 10.0.1 [\#9352](https://github.com/primefaces/primeng/issues/9352)
+- onDropdownClick not working on Splitbutton in PrimeNG v10 [\#9351](https://github.com/primefaces/primeng/issues/9351)
+- DialogService onclose event not fired when you click close button after v9.0.3\(include\) [\#9345](https://github.com/primefaces/primeng/issues/9345)
+- InputNumber with spinner mode throws a JS exception [\#9337](https://github.com/primefaces/primeng/issues/9337)
+- Angular PrimeNG FocusTrap Tabbing Fix Issue [\#9332](https://github.com/primefaces/primeng/issues/9332)
+- p-calendar combination \[showIcon\]="true" \[showOnFocus\]="false" produces an error on using tab-key [\#9257](https://github.com/primefaces/primeng/issues/9257)
+- Multiple DynamicDialogs are not closing programmatically [\#8801](https://github.com/primefaces/primeng/issues/8801)
+
 ## [10.0.2](https://github.com/primefaces/primeng/tree/10.0.2) (2020-10-01)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.1...10.0.2)
