@@ -221,7 +221,7 @@ import { Subscription } from 'rxjs';
                             </div>
                         </div>
 
-                        <h4>Legacy Themes</h4>
+                        <h4>Legacy Free Themes</h4>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'nova', false)">

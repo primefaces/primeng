@@ -47,7 +47,7 @@ import { Subscription } from 'rxjs';
                         <li><a (click)="changeTheme($event, 'mdc-dark-indigo', true)"><img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Indigo Dark" /><span>Indigo Dark</span></a></li>
                         <li><a (click)="changeTheme($event, 'mdc-dark-deeppurple', true)"><img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Deep Purple Dark" /><span>Deep Purple Dark</span></a></li>
 
-                        <li class="topbar-submenu-header">Fluent UI</li>
+                        <li class="topbar-submenu-header">FLUENT UI</li>
                         <li><a (click)="changeTheme($event, 'fluent-light', false)"><img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light" /><span>Fluent Light</span></a></li>
 
                         <li class="topbar-submenu-header">PRIMEONE</li>
