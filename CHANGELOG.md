@@ -212,6 +212,22 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.7) (2020-10-12)
+- DialogService onclose event not fired when you click close button after v9.0.3(include) [\#9279](https://github.com/primefaces/primeng/issues/9345)
+- Align tiered menu behavior with menubar [\#9379](https://github.com/primefaces/primeng/issues/9379)
+- Problems when typing or pasting numbers into InputNumber [\#9372](https://github.com/primefaces/primeng/issues/9372)
+- Table Keyboard metaSelections not working [\#9366](https://github.com/primefaces/primeng/issues/9366)
+- InputNumber cannot set value when format property is false [\#9364](https://github.com/primefaces/primeng/issues/9364)
+- ColumnResize not working with Table VirtualScroll [\#9347](https://github.com/primefaces/primeng/issues/9347)
+- InputNumber with spinner mode throws a JS exception [\#9337](https://github.com/primefaces/primeng/issues/9337)
+- Angular PrimeNG FocusTrap Tabbing Fix Issue [\#9332](https://github.com/primefaces/primeng/issues/9332)
+- p-calendar combination [showIcon]="true" [showOnFocus]="false" produces an error on using tab-key [\#9257](https://github.com/primefaces/primeng/issues/9257)
+- Multiple DynamicDialogs are not closing programmatically [\#8801](https://github.com/primefaces/primeng/issues/8801)
+
+**Fixed bugs:**
+
+- TreeTable openCell() not working [\#9279](https://github.com/primefaces/primeng/issues/9279)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.6-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.6) (2020-09-23)
 
 **Fixed bugs:**
@@ -697,6 +713,21 @@ Invalid release, use 9.1.2 instead.
 **Unit Tests:**
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.9-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.9) (2020-10-12)
+
+**Fixed bugs:**
+
+- Align tiered menu behavior with menubar [\#9379](https://github.com/primefaces/primeng/issues/9379)
+- DialogService onclose event not fired when you click close button after v9.0.3(include) [\#9345](https://github.com/primefaces/primeng/issues/9345)
+- VirtualScroll ExpressionChangedAfterItHasBeenCheckedError on TreeTable [\#9254](https://github.com/primefaces/primeng/issues/9254)
+- Slider handle not working correctly with model driven forms [\#9192](https://github.com/primefaces/primeng/issues/9192)
+- Carousel - set page does not work for first and last page [\#9153](https://github.com/primefaces/primeng/issues/9153)
+- TriStateCheckbox Keyboard gets opened on mobile devices on use [\#9085](https://github.com/primefaces/primeng/issues/9085)
+- Table component tries to restore non-existing state [\#9076](https://github.com/primefaces/primeng/issues/9076)
+- disabled p-slider still reacts to keyboard input  [\#9066](https://github.com/primefaces/primeng/issues/9066)
+- Multiple DynamicDialogs are not closing programmatically [\#8801](https://github.com/primefaces/primeng/issues/8801)
+- SelectButton - reactive form and disabled control [\#8788](https://github.com/primefaces/primeng/issues/8788)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.8-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.8) (2020-09-23)
 
