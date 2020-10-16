@@ -20,6 +20,7 @@ import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
+import { TreeTableSizeDemo } from './treetablesizedemo';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -61,7 +62,8 @@ import { AppCodeModule } from '../../app.code.component';
         TreeTableColResizeDemo,
         TreeTableReorderDemo,
         TreeTableEditDemo,
-        TreeTableFilterDemo
+        TreeTableFilterDemo,
+        TreeTableSizeDemo
 	]
 })
 export class TreeTableDemoModule {}

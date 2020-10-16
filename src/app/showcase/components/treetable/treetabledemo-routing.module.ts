@@ -17,6 +17,7 @@ import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
+import { TreeTableSizeDemo } from './treetablesizedemo';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,8 @@ import { TreeTableFilterDemo } from './treetablefilterdemo';
 			{ path: 'colresize', component: TreeTableColResizeDemo },
 			{ path: 'reorder', component: TreeTableReorderDemo },
 			{ path: 'edit', component: TreeTableEditDemo },
-			{ path: 'filter', component: TreeTableFilterDemo }
+			{ path: 'filter', component: TreeTableFilterDemo },
+			{ path: 'size', component: TreeTableSizeDemo }
 		])
 	],
 	exports: [

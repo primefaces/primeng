@@ -1,6 +1,6 @@
-export interface SelectItem {
+export interface SelectItem<T = any> {
     label?: string;
-    value: any;
+    value: T;
     styleClass?: string;
     icon?: string;
     title?: string;

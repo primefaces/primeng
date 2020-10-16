@@ -43,3 +43,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Themes
+src/assets/components/themes/soho-light/
+src/assets/components/themes/soho-dark/

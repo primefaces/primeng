@@ -52,12 +52,12 @@ export class TreeTableService {
 @Component({
     selector: 'p-treeTable',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass"
-                [ngClass]="{'p-treetable p-component': true, 
+        <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-treetable-scrollable-body"
+                [ngClass]="{'p-treetable p-component': true,
                 'p-treetable-hoverable-rows': (rowHover||(selectionMode === 'single' || selectionMode === 'multiple')),
-                'p-treetable-auto-layout': autoLayout, 
-                'p-treetable-resizable': resizableColumns, 
-                'p-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'), 
+                'p-treetable-auto-layout': autoLayout,
+                'p-treetable-resizable': resizableColumns,
+                'p-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'p-treetable-flex-scrollable': (scrollable && scrollHeight === 'flex')}">
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
                 <div class="p-treetable-loading-overlay p-component-overlay">
@@ -620,7 +620,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             if (sortMeta) {
                 if (!metaKey) {
                     this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
-                
+
                     if (this.resetPageOnSort && this.scrollable) {
                         this.resetScrollTop();
                     }
@@ -936,7 +936,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             table.style.width = width + 'px';
                         }
                     };
-            
+
                     setWidth(scrollableBody, scrollableBodyTable, scrollableBodyTableWidth, isContainerInViewport);
                     setWidth(scrollableHeader, scrollableHeaderTable, scrollableHeaderTableWidth, isContainerInViewport);
                     setWidth(scrollableFooter, scrollableFooterTable, scrollableHeaderTableWidth, isContainerInViewport);
@@ -1668,7 +1668,21 @@ export class TTBody {
 
     @Input() frozen: boolean;
 
-    constructor(public tt: TreeTable) {}
+    subscription: Subscription;
+
+    constructor(public tt: TreeTable, public treeTableService: TreeTableService, public cd: ChangeDetectorRef) {
+        this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
+            if (this.tt.virtualScroll) {
+                this.cd.detectChanges();
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 }
 
 @Component({
@@ -1685,7 +1699,7 @@ export class TTBody {
             </div>
         </div>
         <ng-container *ngIf="!tt.virtualScroll; else virtualScrollTemplate">
-            <div #scrollBody class="p-treetable-scrollable-body" [ngStyle]="{'max-height': tt.scrollHeight !== 'flex' ? scrollHeight : undefined}">
+            <div #scrollBody class="p-treetable-scrollable-body" [ngStyle]="{'max-height': tt.scrollHeight !== 'flex' ? scrollHeight : undefined, 'overflow-y': !frozen && tt.scrollHeight ? 'scroll' : undefined}">
                 <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="p-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate" [frozen]="frozen"></tbody>
@@ -1694,7 +1708,7 @@ export class TTBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="tt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
+            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="tt.scrollHeight !== 'flex' ? scrollHeight : undefined"
                     [minBufferPx]="tt.minBufferPx" [maxBufferPx]="tt.maxBufferPx" class="p-treetable-virtual-scrollable-body">
                 <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -2587,6 +2601,7 @@ export class TTEditableColumn implements AfterViewInit {
         this.tt.updateEditingCell(this.el.nativeElement);
         DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         this.tt.onEditInit.emit({ field: this.field, data: this.data});
+        this.tt.editingCellClick = true;
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 let focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea');

@@ -28,3 +28,7 @@
 .p-tabview-title {
     line-height: 1;
 }
+
+.p-tabview-close {
+    z-index: 1;
+}

@@ -1,12 +1,10 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import { CarService } from '../../service/carservice';
 import { ProductService } from '../../service/productservice';
 import { Product } from '../../domain/product';
 
 @Component({
     templateUrl: './carouseldemo.html',
-	styleUrls: ['./carouseldemo.scss'],
-	encapsulation: ViewEncapsulation.None
+	styleUrls: ['./carouseldemo.scss']
 })
 export class CarouselDemo {
 
@@ -14,7 +12,7 @@ export class CarouselDemo {
 	
 	responsiveOptions;
 
-	constructor(private carService: CarService, private productService: ProductService) { 
+	constructor(private productService: ProductService) { 
 		this.responsiveOptions = [
             {
                 breakpoint: '1024px',

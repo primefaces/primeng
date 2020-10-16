@@ -17,7 +17,8 @@ import {DomHandler} from 'primeng/dom';
                         [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                         <ng-container *ngIf="!itemTemplate">
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
-                            <span class="p-menuitem-text">{{item.label}}</span>
+                            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
+                            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                     </a>
@@ -27,7 +28,8 @@ import {DomHandler} from 'primeng/dom';
                         [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
                         <ng-container *ngIf="!itemTemplate">
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
-                            <span class="p-menuitem-text">{{item.label}}</span>
+                            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
+                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                     </a>

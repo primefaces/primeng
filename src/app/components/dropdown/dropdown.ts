@@ -5,7 +5,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 import {CommonModule} from '@angular/common';
 import {SelectItem} from 'primeng/api';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
+import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {FilterUtils} from 'primeng/utils';
@@ -300,6 +300,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     documentClickListener: any;
 
+    scrollHandler: any;
+
     optionsChanged: boolean;
 
     panel: HTMLDivElement;
@@ -567,6 +569,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.alignOverlay();
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
+                this.bindScrollListener();
 
                 if (this.options && this.options.length) {
                     if (!this.virtualScroll) {
@@ -1081,6 +1084,24 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
+    bindScrollListener() {
+        if (!this.scrollHandler) {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild.nativeElement, (event: any) => {
+                if (this.overlayVisible) {
+                    this.hide(event);
+                }
+            });
+        }
+
+        this.scrollHandler.bindScrollListener();
+    }
+
+    unbindScrollListener() {
+        if (this.scrollHandler) {
+            this.scrollHandler.unbindScrollListener();
+        }
+    }
+
     updateFilledState() {
         this.filled = (this.selectedOption != null);
     }
@@ -1100,12 +1121,18 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     onOverlayHide() {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
+        this.unbindScrollListener();
         this.overlay = null;
         this.itemsWrapper = null;
         this.onModelTouched();
     }
 
     ngOnDestroy() {
+        if (this.scrollHandler) {
+            this.scrollHandler.destroy();
+            this.scrollHandler = null;
+        }
+
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }

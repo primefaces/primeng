@@ -178,10 +178,12 @@ export class MenubarDemo &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menubar [model]="items"&gt;
-    &lt;div&gt;
+    &lt;ng-template pTemplate="start"&gt;
+        &lt;img src="assets/showcase/images/primeng.svg" height="40" class="p-mr-2"&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="end"&gt;
         &lt;input type="text" pInputText placeholder="Search"&gt;
-        &lt;button type="button" pButton label="Logout" icon="pi pi-power-off" style="margin-left:.25em"&gt;&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;/ng-template&gt;
 &lt;/p-menubar&gt;
 </app-code>
 

@@ -287,15 +287,16 @@ export class ModelComponent &#123;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-city: string;
+export class RadioButtonDemo &#123;
+    city: string;
 
-selectedCategory: any = null;
+    selectedCategory: any = null;
 
-categories: any[] = [&#123;name: 'Accounting', key: 'A'&#125;, &#123;name: 'Marketing', key: 'M'&#125;, &#123;name: 'Production', key: 'P'&#125;, &#123;name: 'Research', key: 'R'&#125;];
+    categories: any[] = [&#123;name: 'Accounting', key: 'A'&#125;, &#123;name: 'Marketing', key: 'M'&#125;, &#123;name: 'Production', key: 'P'&#125;, &#123;name: 'Research', key: 'R'&#125;];
 
-ngOnInit() &#123;
-    this.selectedCategory = this.categories[1];
-&#125;
+    ngOnInit() &#123;
+        this.selectedCategory = this.categories[1];
+    &#125;
 &#125;
 </app-code>
         </p-tabPanel>

@@ -8,10 +8,7 @@
             top: 0;
             height: 100%;
         }
-        .layout-news-container {
-            background-image: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, #FFFFFF 100%);
-        }
-        img.layouts-news-mockup-image {
+        .layout-news-button {
             display: none;
         }
     }
@@ -88,6 +85,21 @@
                 .app-inputstyleswitch {
                     margin-top: 1.5rem;
                 }
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+    
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
             }
         }
     }

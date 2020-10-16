@@ -59,8 +59,8 @@ export class TableService {
 @Component({
     selector: 'p-table',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass"
-            [ngClass]="{'p-datatable p-component': true, 
+        <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-datatable-scrollable-body, .p-datatable-unfrozen-view .p-datatable-scrollable-body"
+            [ngClass]="{'p-datatable p-component': true,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
                 'p-datatable-auto-layout': autoLayout,
                 'p-datatable-resizable': resizableColumns,
@@ -415,7 +415,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (!this.virtualScroll) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
-            
+
             if (this.restoringFilter) {
                 this.restoringFilter = false;
             }
@@ -721,7 +721,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.resetPageOnSort) {
                         this._first = 0;
                         this.firstChange.emit(this._first);
-                        
+
                         if (this.scrollable) {
                             this.resetScrollTop();
                         }
@@ -1688,7 +1688,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table');
+                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table') || DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table');
                             let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-header-table');
                             let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-footer-table');
                             let resizeColumnIndex = DomHandler.index(column);
@@ -1736,10 +1736,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta) {
         let scrollableView = column ? this.findParentScrollableView(column) : this.containerViewChild.nativeElement;
-        let scrollableBody = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body');
+        let scrollableBody = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport');
         let scrollableHeader = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-header');
         let scrollableFooter = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-footer');
-        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.p-datatable-scrollable-body table');
+        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.p-datatable-scrollable-body table') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport table');
         let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.p-datatable-scrollable-header-table');
         let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.p-datatable-scrollable-footer-table');
 
@@ -2261,7 +2261,7 @@ export class TableBody implements OnDestroy {
             </div>
         </div>
         <ng-container *ngIf="!dt.virtualScroll; else virtualScrollTemplate">
-            <div #scrollBody class="p-datatable-scrollable-body" [ngStyle]="{'max-height': dt.scrollHeight !== 'flex' ? scrollHeight : undefined}">
+            <div #scrollBody class="p-datatable-scrollable-body" [ngStyle]="{'max-height': dt.scrollHeight !== 'flex' ? scrollHeight : undefined, 'overflow-y': !frozen && dt.scrollHeight ? 'scroll' : undefined}">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
@@ -2270,7 +2270,7 @@ export class TableBody implements OnDestroy {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
+            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined"
                     [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -2337,6 +2337,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         if (val != null && (val.includes('%') || val.includes('calc'))) {
             console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.')
         }
+
+        if (this.dt.virtualScroll && this.virtualScrollBody) {
+            this.virtualScrollBody.checkViewportSize();
+        }
     }
 
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
@@ -2350,7 +2354,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
             let frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
                 if (this.dt.virtualScroll)
-                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatabe-virtual-scrollable-body');
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-virtual-scrollable-body');
                 else
                     this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-scrollable-body');
             }
@@ -2478,7 +2482,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     loadPage(page: number) {
         if (!this.loadedPages.includes(page)) {
             this.dt.onLazyLoad.emit({
-                first: this.dt.rows * page, 
+                first: this.dt.rows * page,
                 rows: this.dt.rows,
                 sortField: this.dt.sortField,
                 sortOrder: this.dt.sortOrder,
@@ -2733,6 +2737,8 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     @HostListener('keydown.enter', ['$event'])
+    @HostListener('keydown.shift.enter', ['$event'])
+    @HostListener('keydown.meta.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
@@ -2748,7 +2754,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let nextRow = <HTMLTableRowElement> row.nextElementSibling;
         if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-datatable-selectable-row'))
+            if (DomHandler.hasClass(nextRow, 'p-selectable-row'))
                 return nextRow;
             else
                 return this.findNextSelectableRow(nextRow);
@@ -2761,7 +2767,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let prevRow = <HTMLTableRowElement> row.previousElementSibling;
         if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-datatable-selectable-row'))
+            if (DomHandler.hasClass(prevRow, 'p-selectable-row'))
                 return prevRow;
             else
                 return this.findPrevSelectableRow(prevRow);
@@ -2786,7 +2792,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRowDblClick]',
     host: {
-        '[class.p-datatable-selectable-row]': 'isEnabled()',
+        '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected'
     }
 })

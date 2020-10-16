@@ -8,6 +8,7 @@ export * from './megamenuitem';
 export * from './menuitem';
 export * from './message';
 export * from './messageservice';
+export * from './primeicons';
 export * from './selectitem';
 export * from './selectitemgroup';
 export * from './shared';

@@ -117,6 +117,16 @@ import { Subscription } from 'rxjs';
                             </div>
                         </div>
 
+                        <h5>Fluent UI</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'fluent-light', false)">
+                                    <img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light"/>
+                                </button>
+                                <span>Light</span>
+                            </div>
+                        </div>
+
                         <h5>PrimeOne Design</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
@@ -193,7 +203,25 @@ import { Subscription } from 'rxjs';
                             </div>
                         </div>
 
-                        <h5>Legacy</h5>
+                        <h4>Premium Themes</h4>
+                        <p>Premium themes are only available exclusively for <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a> subscribers and therefore not included in PrimeNG core.</p>
+                        
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'soho-light', false)">
+                                    <img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light"/>
+                                </button>
+                                <span>Soho Light</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'soho-dark', true)">
+                                <img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark"/>
+                                </button>
+                                <span>Soho Dark</span>
+                            </div>
+                        </div>
+
+                        <h4>Legacy Free Themes</h4>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'nova', false)">
@@ -249,6 +277,11 @@ import { Subscription } from 'rxjs';
                         <h4>Premium Angular-CLI Templates</h4>
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/diamond-ng">
+                                    <img alt="Mirage" src="assets/showcase/images/layouts/diamond-ng.png">
+                                </a>
+                            </div>
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/mirage-ng">
                                     <img alt="Mirage" src="assets/showcase/images/layouts/mirage-ng.jpg">

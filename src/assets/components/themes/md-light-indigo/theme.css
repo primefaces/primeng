@@ -370,20 +370,20 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   color: #ffffff;
   font-size: 14px;
 }
-.p-checkbox .p-checkbox-box:not(.p-disabled):hover {
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #3F51B5;
+  background: #3F51B5;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   border-color: #000001;
 }
-.p-checkbox .p-checkbox-box:not(.p-disabled).p-focus {
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
   border-color: #3F51B5;
 }
-.p-checkbox .p-checkbox-box.p-highlight {
-  border-color: #3F51B5;
-  background: #3F51B5;
-}
-.p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled):hover {
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
   border-color: #3F51B5;
   background: #3F51B5;
   color: #ffffff;
@@ -399,13 +399,13 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #f5f5f5;
 }
-.p-input-filled .p-checkbox .p-checkbox-box:not(.p-disabled):hover {
-  background-color: #ececec;
-}
 .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
   background: #3F51B5;
 }
-.p-input-filled .p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled):hover {
+.p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  background-color: #ececec;
+}
+.p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
   background: #3F51B5;
 }
 
@@ -748,7 +748,7 @@ p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
   border-color: #B00020;
 }
 
-p-inputnumber.ng-dirty.ng-invalid > .p-inputtext {
+p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   border-color: #B00020;
 }
 
@@ -1354,6 +1354,18 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #3F51B5;
   border: 1px solid;
 }
+.p-button.p-button-outlined.p-button-plain {
+  color: rgba(0, 0, 0, 0.6);
+  border-color: rgba(0, 0, 0, 0.6);
+}
+.p-button.p-button-outlined.p-button-plain:enabled:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.6);
+}
+.p-button.p-button-outlined.p-button-plain:enabled:active {
+  background: rgba(0, 0, 0, 0.16);
+  color: rgba(0, 0, 0, 0.6);
+}
 .p-button.p-button-text {
   background-color: transparent;
   color: #3F51B5;
@@ -1857,9 +1869,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   background: #ffffff;
 }
-.p-datatable .p-sortable-column {
-  outline-color: transparent;
-}
 .p-datatable .p-sortable-column .p-sortable-column-icon {
   color: rgba(0, 0, 0, 0.6);
   margin-left: 0.5rem;
@@ -1886,6 +1895,17 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
   color: #000001;
+}
+.p-datatable .p-sortable-column.p-highlight:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #000001;
+}
+.p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon {
+  color: #000001;
+}
+.p-datatable .p-sortable-column:focus {
+  box-shadow: none;
+  outline: 0 none;
 }
 .p-datatable .p-datatable-tbody > tr {
   background: #ffffff;
@@ -2097,10 +2117,20 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   display: flex;
   align-items: center;
 }
-.fc .fc-toolbar .fc-button:hover {
+.fc .fc-toolbar .fc-button:enabled:hover {
   background: rgba(63, 81, 181, 0.92);
   color: #ffffff;
   border-color: transparent;
+}
+.fc .fc-toolbar .fc-button:enabled:active {
+  background: rgba(63, 81, 181, 0.68);
+  color: #ffffff;
+  border-color: transparent;
+}
+.fc .fc-toolbar .fc-button:enabled:active:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
 }
 .fc .fc-toolbar .fc-button .fc-icon-chevron-left {
   font-family: "PrimeIcons" !important;
@@ -2509,6 +2539,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
   color: #3F51B5;
 }
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover,
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon:hover {
+  color: #3F51B5;
+}
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
   background: rgba(0, 0, 0, 0.04);
   color: #000001;
@@ -2561,9 +2595,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-checkbox {
   margin-right: 0.5rem;
-}
-.p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-checkbox .p-checkbox-icon {
-  color: #3F51B5;
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-treenode-label:not(.p-highlight):hover {
   background-color: inherit;
@@ -4911,7 +4942,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled).p-focus {
   border-color: #3F51B5;
 }
-.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon:before {
+.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon.pi-check:before {
   content: "";
   position: absolute;
   top: 6px;

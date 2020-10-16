@@ -17,7 +17,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
-                    <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'ui-toggler-column': i === 0}">
+                    <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'p-toggler-column': i === 0}">
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                         <p-treeTableCellEditor>
                             <ng-template pTemplate="input">
@@ -52,7 +52,7 @@
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="&#123;'ui-toggler-column': i === 0&#125;"&gt;
+            &lt;td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="&#123;'p-toggler-column': i === 0&#125;"&gt;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"&gt;&lt;/p-treeTableToggler&gt;
                 &lt;p-treeTableCellEditor&gt;
                     &lt;ng-template pTemplate="input"&gt;
@@ -67,16 +67,7 @@
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Component(&#123;
-    templateUrl: './treetableeditdemo.html',
-    styles: [`
-        :host ::ng-deep .ui-editing-cell &#123;
-            padding: 0 !important;
-            &#125;
-
-        :host ::ng-deep .ui-toggler-column.ui-editing-cell &#123;
-            padding-left: 0.857em !important;
-            &#125;
-    `]
+    templateUrl: './treetableeditdemo.html'
 &#125;)
 export class TreeTableEditDemo &#123;
 
