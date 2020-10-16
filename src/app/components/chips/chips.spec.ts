@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Chips } from './chips';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('Chips', () => {
+describe('Chips', () => {
 
 	let chips: Chips;
 	let fixture: ComponentFixture<Chips>;
