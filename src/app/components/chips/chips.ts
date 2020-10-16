@@ -66,6 +66,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() addOnBlur: boolean;
 
+    @Input() deleteOnBackspace: boolean = true;
+
     @Input() separator: string;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
@@ -240,7 +242,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         switch(event.which) {
             //backspace
             case 8:
-                if (this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
+                if (this.deleteOnBackspace && this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
                     this.value = [...this.value];
                     let removedItem = this.value.pop();
                     this.onModelChange(this.value);
