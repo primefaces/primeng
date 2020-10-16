@@ -258,6 +258,26 @@ describe('Chips', () => {
 		expect(chips.value[0]).toEqual(undefined);
 	});
 
+    it('should not delete item if deleteOnBackspace = false', () => {
+        chips.value = ["primeng"];
+        chips.deleteOnBackspace = false;
+        fixture.detectChanges();
+
+        let data;
+        chips.onRemove.subscribe(value => data = value);
+        expect(chips.value.length).toEqual(1);
+        expect(chips.value[0]).toEqual("primeng");
+        fixture.detectChanges();
+
+        let event = { 'which': 8, preventDefault() { } }
+        chips.onKeydown(event as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(data).toBeTruthy();
+        expect(chips.value.length).toEqual(1);
+        expect(chips.value[0]).toEqual("primeng");
+    });
+
 	it('should delete item with icon', () => {
 		chips.value = ["primeng"];
 		fixture.detectChanges();
