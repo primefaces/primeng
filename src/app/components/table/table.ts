@@ -1,8 +1,17 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Directive, Optional, AfterContentInit,
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { SortMeta } from 'primeng/api';
@@ -13,6 +22,7 @@ import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { FilterUtils } from 'primeng/utils';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Injectable()
 export class TableService {
@@ -184,7 +194,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata; } = {};
+    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
 
     @Input() globalFilterFields: string[];
 
@@ -1235,11 +1245,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return this.compareSelectionBy === 'equals' ? (data1 === data2) : ObjectUtils.equals(data1, data2, this.dataKey);
     }
 
-    filter(value, field, matchMode) {
+    /* Legacy Filtering for custom elements */
+    filter(value: any, field: string, matchMode: string) {
         if (this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
-
         if (!this.isFilterBlank(value)) {
             this.filters[field] = { value: value, matchMode: matchMode };
         } else if (this.filters[field]) {
@@ -1307,17 +1317,22 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     for (let prop in this.filters) {
                         if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
                             localFiltered = true;
-                            let filterMeta = this.filters[prop];
                             let filterField = prop;
-                            let filterValue = filterMeta.value;
-                            let filterMatchMode = filterMeta.matchMode || 'startsWith';
-                            let dataFieldValue = ObjectUtils.resolveFieldData(this.value[i], filterField);
-                            let filterConstraint = FilterUtils[filterMatchMode];
+                            let filterMeta = this.filters[filterField];
 
-                            if (!filterConstraint(dataFieldValue, filterValue, this.filterLocale)) {
-                                localMatch = false;
+                            if (Array.isArray(filterMeta)) {
+                                for (let meta of filterMeta) {
+                                    localMatch = this.executeLocalFilter(filterField, this.value[i], meta);
+
+                                    if ((meta.operator === 'or' && localMatch) || (meta.operator === 'and' && !localMatch)) {
+                                        break;
+                                    }
+                                }
                             }
-
+                            else {
+                                localMatch = this.executeLocalFilter(filterField, this.value[i], filterMeta);
+                            }
+                            
                             if (!localMatch) {
                                 break;
                             }
@@ -1327,7 +1342,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = FilterUtils[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value, this.filterLocale);
+                            globalMatch = FilterUtils[(<FilterMetadata> this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata> this.filters['global']).value, this.filterLocale);
 
                             if (globalMatch) {
                                 break;
@@ -1380,6 +1395,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    executeLocalFilter(field: string, rowData: any, filterMeta: FilterMetadata): boolean {
+        let filterValue = filterMeta.value;
+        let filterMatchMode = filterMeta.matchMode || 'startsWith';
+        let dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
+        let filterConstraint = FilterUtils[filterMatchMode];
+
+        return filterConstraint(dataFieldValue, filterValue, this.filterLocale);
+    }
+
     hasFilter() {
         let empty = true;
         for (let prop in this.filters) {
@@ -1399,7 +1423,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
+            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata> this.filters['global']).value : null,
             multiSortMeta: this.multiSortMeta
         };
     }
@@ -2487,7 +2511,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 sortField: this.dt.sortField,
                 sortOrder: this.dt.sortOrder,
                 filters: this.dt.filters,
-                globalFilter: this.dt.filters && this.dt.filters['global'] ? this.dt.filters['global'].value : null,
+                globalFilter: this.dt.filters && this.dt.filters['global'] ? (<FilterMetadata> this.dt.filters['global']).value : null,
                 multiSortMeta: this.dt.multiSortMeta
             });
             this.loadedPages.push(page);
@@ -3811,9 +3835,310 @@ export class ReorderableRow implements AfterViewInit {
     }
 }
 
+@Component({
+    selector: 'p-columnFilterFormElement',
+    template: `
+        <ng-container *ngIf="filterTemplate; else builtInElement">
+            <ng-container *ngTemplateOutlet="filterTemplate; context: {$implicit: filterCallback}"></ng-container>
+        </ng-container>
+        <ng-template #builtInElement>
+            <ng-container [ngSwitch]="type">
+                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterMetadata?.value" (input)="onModelChange($event.target.value)" class="p-column-filter" (keydown.enter)="onTextInputEnterKeyDown($event)">
+                <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" class="p-column-filter" [showButtons]="true"></p-inputNumber>
+                <p-checkbox [binary]="true" *ngSwitchCase="'checkbox'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-checkbox>
+                <p-inputSwitch *ngSwitchCase="'switch'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-inputSwitch>
+                <p-calendar *ngSwitchCase="'date'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
+            </ng-container>
+        </ng-template>
+    `,
+    encapsulation: ViewEncapsulation.None
+})
+export class ColumnFilterFormElement implements OnInit {
+    
+    @Input() field: string;
+
+    @Input() type: string;
+
+    @Input() filterMetadata: FilterMetadata;
+
+    @Input() filterTemplate: TemplateRef<any>;
+
+    filterCallback: Function;
+
+    constructor(public dt: Table) {}
+
+    ngOnInit() {
+        this.filterCallback = value => {
+            this.filterMetadata.value = value;
+
+            if (this.type !== 'text') {
+                this.dt._filter();
+            }
+        };
+    }
+
+    onModelChange(value: any) {
+        this.filterMetadata.value = value;
+
+        if (this.type === 'boolean') {
+            this.dt._filter();
+        }
+    }
+
+    onTextInputEnterKeyDown(event: KeyboardEvent) {
+        this.dt._filter();
+        event.preventDefault();
+    }
+
+    onNumericInputKeyDown(event: KeyboardEvent) {
+        if (event.which === 13) {
+            this.dt._filter();
+            event.preventDefault();
+        }
+    }
+}
+
+@Component({
+    selector: 'p-columnFilter',
+    template: `
+        <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterMetadata]="dt.filters[field]" [filterTemplate]="filterTemplate"></p-columnFilterFormElement>
+        <button #icon *ngIf="showMenu" type="button" class="p-link" (click)="toggleMenu()"><span class="pi pi-filter"></span></button>
+        <div *ngIf="showMenu && overlayVisible" [ngClass]="'p-filtermenu p-component'" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+            <ul *ngIf="display === 'row'; else menu" class="p-filtermenu-row-items">
+                <li class="p-filtermenu-row-item" *ngFor="let constraint of constraintOptions[type]" (click)="onRowConstraintChange(constraint.value)" 
+                    [ngClass]="{'p-highlight': isRowConstraintSelected(constraint.value)}">{{constraint.label}}</li>
+            </ul>
+            <ng-template #menu>
+                <p-selectButton [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)"></p-selectButton>
+                <div *ngFor="let filterMeta of fieldFilters;let i = index">
+                    <button *ngIf="i !== 0" type="button" class="p-link" (click)="removeFilterMeta(filterMeta)" pRipple>
+                        <span class="pi pi-trash"></span>
+                    </button>
+                    <p-dropdown [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)"></p-dropdown>
+                    <p-columnFilterFormElement [type]="type" [field]="field" [filterMetadata]="filterMeta" [filterTemplate]="filterTemplate"></p-columnFilterFormElement>
+                </div>
+                <button type="button" pButton label="Add Filter" icon="pi pi-plus" class="p-button-text" (click)="addFilter()"></button>
+                <div class="p-filtermenu-buttonbar">
+                    <button type="button" pButton class="p-button-text" (click)="clearFilter()" label="Clear"></button>
+                    <button type="button" pButton (click)="applyFilter()" label="Apply"></button>
+                </div>
+            </ng-template>
+        </div>
+    `,
+    animations: [
+        trigger('overlayAnimation', [
+            transition(':enter', [
+                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                animate('.12s cubic-bezier(0, 0, 0.2, 1)')
+            ]),
+            transition(':leave', [
+                animate('.1s linear', style({ opacity: 0 }))
+            ])
+        ])
+    ],
+    encapsulation: ViewEncapsulation.None
+})
+export class ColumnFilter implements AfterContentInit {
+
+    @Input() field: string;
+
+    @Input() type: string = 'text';
+
+    @Input() display: string = 'row';
+
+    @Input() showMenu: boolean = true;
+
+    @Input() defaultConstraint: string;
+
+    @Input() defaultOperator: string = 'and';
+
+    @Input() showClearButton: boolean = true;
+
+    @Input() showApplyButton: boolean = true;
+
+    @ViewChild('icon') icon: ElementRef;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    constructor(public el: ElementRef, public dt: Table) {}
+
+    constraint: string;
+
+    filterTemplate: TemplateRef<any>;
+
+    constraintOptions: any;
+
+    operatorOptions: any[];
+
+    overlayVisible: boolean;
+
+    overlay: HTMLElement;
+
+    ngOnInit() {
+        if (!this.dt.filters[this.field]) {
+            this.initFieldFilterMetadata();
+        }
+        
+        this.constraintOptions = {
+            text: [
+                {label: 'starts with', value: 'startsWith'},
+                {label: 'contains', value: 'contains'},
+                {label: 'ends with', value: 'endsWith'},
+                {label: 'equal to', value: 'equals'},
+                {label: 'not equal to', value: 'notEquals'}
+            ],
+            numeric: [
+                {label: 'equal to', value: 'equals'},
+                {label: 'not equal to', value: 'notEquals'},
+                {label: 'less than', value: 'lt'},
+                {label: 'less than or equal to', value: 'lte'},
+                {label: 'greater than', value: 'gt'},
+                {label: 'greater than or equal to', value: 'gte'}
+            ],
+            date: [
+                {label: 'equal to', value: 'equals'},
+                {label: 'not equal to', value: 'notEquals'},
+                {label: 'less than', value: 'lt'},
+                {label: 'less than or equal to', value: 'lte'},
+                {label: 'greater than', value: 'gt'},
+                {label: 'greater than or equal to', value: 'gte'}
+            ]
+        };
+
+        this.operatorOptions = [
+            {label: 'AND', value: 'and'},
+            {label: 'OR', value: 'or'}
+        ];
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'filter':
+                    this.filterTemplate = item.template;
+                break;
+
+                default:
+                    this.filterTemplate = item.template;
+                break;
+            }
+        });
+    }
+
+    initFieldFilterMetadata() {
+        let defaultConstraint = this.getDefaultConstraint();
+        this.dt.filters[this.field] = this.display == 'row' ? {value: null, matchMode: defaultConstraint} : [{value: null, matchMode: defaultConstraint, operator: this.defaultOperator}];
+    }
+
+    onOptionConstraintChange(value: any, filterMeta: FilterMetadata, ) {
+        filterMeta.matchMode = value;
+
+        if (!this.showApplyButton) {
+            this.dt._filter();
+        }
+    }
+
+    onRowConstraintChange(constraint: string) {
+        (<FilterMetadata> this.dt.filters[this.field]).matchMode = constraint;
+        this.dt._filter();
+    }
+
+    isRowConstraintSelected(constraint: string) {
+        return (<FilterMetadata> this.dt.filters[this.field]).matchMode === constraint;
+    }
+
+    addFilter() {
+        (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultConstraint(), operator: this.operator});
+    }
+
+    onOperatorChange(value) {
+        (<FilterMetadata[]> this.dt.filters[this.field]).forEach(filterMeta => {
+            filterMeta.operator = value;
+        });
+
+        if (!this.showApplyButton) {
+            this.dt._filter();
+        }
+    }
+
+    toggleMenu() {
+        this.overlayVisible = !this.overlayVisible;
+    }
+
+    removeFilterMeta(filterMeta: FilterMetadata) {
+        this.dt.filters[this.field] = (<FilterMetadata[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
+
+        if (!this.showApplyButton) {
+            this.dt._filter();
+        }
+    }
+
+    onOverlayAnimationStart(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'visible':
+                this.overlay = event.element;
+                
+                document.body.appendChild(this.overlay);
+                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                DomHandler.absolutePosition(this.overlay, this.icon.nativeElement);
+            break;
+
+            case 'void':
+                this.onOverlayHide();
+            break;
+        }
+    }
+
+    getDefaultConstraint(): string {
+        if (this.defaultConstraint) {
+            return this.defaultConstraint;
+        }
+        else {
+            if (this.type === 'text')
+                return 'startsWith';
+            else if (this.type === 'numeric')
+                return 'equals';
+            else if (this.type === 'date')
+                return 'equals';
+            else
+                return 'contains';
+        }
+    }
+ 
+    get fieldFilters(): FilterMetadata[] {
+        return this.dt.filters ? <FilterMetadata[]> this.dt.filters[this.field] : null;
+    }
+
+    get operator(): string {
+        return this.dt.filters ? (<FilterMetadata[]> this.dt.filters[this.field])[0].operator: null;
+    }
+
+    onOverlayHide() {
+        this.overlay = null;
+    }
+
+    clearFilter() {
+        this.initFieldFilterMetadata();
+        this.dt._filter();
+    }
+
+    applyFilter() {
+        this.dt._filter();
+    }
+
+    ngOnDestroy() {
+        if (this.overlay) {
+            this.el.nativeElement.appendChild(this.overlay);
+            this.onOverlayHide();
+        }
+    }
+}
+
 @NgModule({
-    imports: [CommonModule,PaginatorModule,ScrollingModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow,ScrollingModule],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow]
+    imports: [CommonModule,PaginatorModule,InputTextModule,DropdownModule,ScrollingModule,FormsModule,ButtonModule,SelectButtonModule,CalendarModule,InputNumberModule,InputSwitchModule,CheckboxModule],
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,
+            TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow,ScrollingModule,ColumnFilter],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,
+            TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow,ColumnFilter,ColumnFilterFormElement]
 })
 export class TableModule { }
