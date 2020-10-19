@@ -281,7 +281,7 @@ export class ModelComponent &#123;
 
 &lt;h5&gt;Dynamic Values, Preselection, Value Binding and Disabled Option&lt;/h5&gt;
 &lt;div *ngFor="let category of categories" class="p-field-checkbox"&gt;
-    &lt;p-radioButton inpudIt="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" [disabled]="category.key === 'R'"&gt;&lt;/p-radioButton&gt;
+    &lt;p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" [disabled]="category.key === 'R'"&gt;&lt;/p-radioButton&gt;
     &lt;label [for]="category.key"&gt;&#123;&#123;category.name&#125;&#125;&lt;/label&gt;
 &lt;/div&gt;
 </app-code>
