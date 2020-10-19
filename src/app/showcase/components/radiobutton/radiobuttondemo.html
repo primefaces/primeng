@@ -28,7 +28,7 @@
 
         <h5>Dynamic Values, Preselection, Value Binding and Disabled Option</h5>
         <div *ngFor="let category of categories" class="p-field-checkbox">
-            <p-radioButton inpudIt="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" [disabled]="category.key === 'R'"></p-radioButton>
+            <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" [disabled]="category.key === 'R'"></p-radioButton>
             <label [for]="category.key">{{category.name}}</label>
         </div>
     </div>
