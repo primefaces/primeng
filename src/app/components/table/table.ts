@@ -3907,6 +3907,7 @@ export class ColumnFilterFormElement implements OnInit {
             <button #icon *ngIf="showMenuButton" pButton type="button" class="p-column-filter-menu-button p-button-text p-button-plain" (click)="toggleMenu()" icon="pi pi-filter"></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" pButton type="button" class="p-column-filter-clear-button p-button-text p-button-plain" (click)="clearFilter()" icon="pi pi-times"></button>
             <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+                <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
                     <li class="p-column-filter-row-item" *ngFor="let constraint of constraintOptions[type]" (click)="onRowConstraintChange(constraint.value)" 
                         [ngClass]="{'p-highlight': isRowConstraintSelected(constraint.value)}">{{constraint.label}}</li>
@@ -3919,7 +3920,7 @@ export class ColumnFilterFormElement implements OnInit {
                     </div>
                     <div class="p-column-filter-constraints" [style.max-height]="scrollHeight">
                         <div *ngFor="let filterMeta of fieldFilters; let i = index" class="p-column-filter-constraint">
-                            <p-dropdown  *ngIf="constraintOptions[type]" [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)" styleClass="p-column-filter-constraint-dropdown"></p-dropdown>
+                            <p-dropdown  *ngIf="constraintOptions[type]" [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)" styleClass="p-column-filter-constraint-dropdown" appendTo="body"></p-dropdown>
                             <p-columnFilterFormElement [type]="type" [field]="field" [filterMetadata]="filterMeta" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
                             <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeRule(filterMeta)" pRipple label="Remove Rule"></button>
                         </div>
@@ -3932,6 +3933,7 @@ export class ColumnFilterFormElement implements OnInit {
                         <button type="button" pButton (click)="applyFilter()" label="Apply" pRipple></button>
                     </div>
                 </ng-template>
+                <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: field}"></ng-container>
             </div>
         </div>
     `,
@@ -3982,7 +3984,11 @@ export class ColumnFilter implements AfterContentInit {
 
     constraint: string;
 
+    headerTemplate: TemplateRef<any>;
+
     filterTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
 
     constraintOptions: any;
 
@@ -4038,8 +4044,16 @@ export class ColumnFilter implements AfterContentInit {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
                 case 'filter':
                     this.filterTemplate = item.template;
+                break;
+                
+                case 'footer':
+                    this.footerTemplate = item.template;
                 break;
 
                 default:

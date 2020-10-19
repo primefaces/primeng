@@ -40,7 +40,7 @@
                             Agent 
                             <p-columnFilter field="representative" defaultConstraint="in" display="menu">
                                 <ng-template pTemplate="filter" let-filter>
-                                    <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                    <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" appendTo="body">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-representative-option">
                                                 <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
@@ -63,7 +63,7 @@
                             Status
                             <p-columnFilter field="status" defaultConstraint="equals" display="menu">
                                 <ng-template pTemplate="filter" let-filter>
-                                    <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                    <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true" appendTo="body">
                                         <ng-template let-option pTemplate="item">
                                             <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
                                         </ng-template>
@@ -75,7 +75,7 @@
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Activity
-                            <p-columnFilter type="number" field="activity" display="menu"></p-columnFilter>
+                            <p-columnFilter type="numeric" field="activity" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th>
@@ -255,7 +255,7 @@
                         Agent 
                         &lt;p-columnFilter field="representative" defaultConstraint="in" display="menu"&gt;
                             &lt;ng-template pTemplate="filter" let-filter&gt;
-                                &lt;p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
+                                &lt;p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" appendTo="body"&gt;
                                     &lt;ng-template let-option pTemplate="item"&gt;
                                         &lt;div class="p-multiselect-representative-option"&gt;
                                             &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
@@ -278,7 +278,7 @@
                         Status
                         &lt;p-columnFilter field="status" defaultConstraint="equals" display="menu"&gt;
                             &lt;ng-template pTemplate="filter" let-filter&gt;
-                                &lt;p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true"&gt;
+                                &lt;p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true" appendTo="body"&gt;
                                     &lt;ng-template let-option pTemplate="item"&gt;
                                         &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
                                     &lt;/ng-template&gt;
