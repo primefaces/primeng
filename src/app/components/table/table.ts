@@ -3921,11 +3921,11 @@ export class ColumnFilterFormElement implements OnInit {
                         <div *ngFor="let filterMeta of fieldFilters; let i = index" class="p-column-filter-constraint">
                             <p-dropdown [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)" styleClass="p-column-filter-constraint-dropdown"></p-dropdown>
                             <p-columnFilterFormElement [type]="type" [field]="field" [filterMetadata]="filterMeta" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
-                            <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeFilterMeta(filterMeta)" pRipple label="Remove Rule"></button>
+                            <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeRule(filterMeta)" pRipple label="Remove Rule"></button>
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule">
-                        <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addFilter()" pRipple></button>
+                        <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addRule()" pRipple></button>
                     </div>
                     <div class="p-column-filter-buttonbar">
                         <button type="button" pButton class="p-button-outlined" (click)="clearFilter()" label="Clear" pRipple></button>
@@ -4071,8 +4071,14 @@ export class ColumnFilter implements AfterContentInit {
         return (<FilterMetadata> this.dt.filters[this.field]).matchMode === constraint;
     }
 
-    addFilter() {
+    addRule() {
         (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultConstraint(), operator: this.operator});
+        this.dt._filter();
+    }
+
+    removeRule(filterMeta: FilterMetadata) {
+        this.dt.filters[this.field] = (<FilterMetadata[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
+        this.dt._filter();
     }
 
     onOperatorChange(value) {
@@ -4087,11 +4093,6 @@ export class ColumnFilter implements AfterContentInit {
 
     toggleMenu() {
         this.overlayVisible = !this.overlayVisible;
-    }
-
-    removeFilterMeta(filterMeta: FilterMetadata) {
-        this.dt.filters[this.field] = (<FilterMetadata[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
-        this.dt._filter();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -4152,7 +4153,8 @@ export class ColumnFilter implements AfterContentInit {
     isOutsideClicked(event): boolean {
         return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
             || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
-            || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button'));
+            || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button')
+            || DomHandler.hasClass(event.target, 'p-column-filter-remove-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button'));
     }
 
     bindDocumentClickListener() {
@@ -4160,7 +4162,6 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', event => {
-                console.log(this.overlay.contains(event.target));
                 if (this.isOutsideClicked(event)) {
                     this.hide();
                 }
