@@ -1,4 +1,4 @@
-import {NgModule, Component, Input, Output, ElementRef, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, Injectable, OnInit, OnDestroy, Injector} from '@angular/core';
+import {NgModule,Component,Input,Output,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, Injectable, Injector, OnInit, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl} from '@angular/forms';
 
@@ -8,9 +8,6 @@ export const RADIO_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-/**
- * Internal class used by RadioButton to uncheck radio buttons with the matching name.
- */
 @Injectable({
     providedIn: 'root',
 })
@@ -39,6 +36,7 @@ export class RadioControlRegistry {
         if (!controlPair[0].control) {
             return false;
         }
+
         return controlPair[0].control.root === accessor.control.control.root && controlPair[1].name === accessor.name;
     }
 }
@@ -109,15 +107,13 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     constructor(public cd: ChangeDetectorRef, private injector: Injector, private registry: RadioControlRegistry) {}
 
     ngOnInit() {
-        this.control = this.injector.get(NgControl);
-        this.checkName();
-        this.registry.add(this.control, this);
+        if (this.formControlName) {
+            this.control = this.injector.get(NgControl);
+            this.checkName();
+            this.registry.add(this.control, this);
+        }
     }
-
-    ngOnDestroy() {
-        this.registry.remove(this);
-    }
-
+    
     handleClick(event, radioButton, focus) {
         event.preventDefault();
 
@@ -131,14 +127,18 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
             radioButton.focus();
         }
     }
-
+    
     select(event) {
         if (!this.disabled) {
             this.inputViewChild.nativeElement.checked = true;
             this.checked = true;
             this.onModelChange(this.value);
+            
+            if (this.formControlName) {
+                this.registry.select(this);
+            }
+
             this.onClick.emit(event);
-            this.registry.select(this);
         }
     }
 
@@ -182,6 +182,12 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
 
     focus() {
         this.inputViewChild.nativeElement.focus();
+    }
+
+    ngOnDestroy() {
+        if (this.formControlName) {
+            this.registry.remove(this);
+        }
     }
 
     private checkName() {
