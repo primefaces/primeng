@@ -3914,17 +3914,17 @@ export class ColumnFilterFormElement implements OnInit {
                     <li class="p-column-filter-row-item" (click)="onRowClearItemClick()">No filter</li>
                 </ul>
                 <ng-template #menu>
-                    <div class="p-column-filter-operator">
+                    <div class="p-column-filter-operator" *ngIf="isShowOperator">
                         <p-dropdown [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" styleClass="p-column-filter-operator-dropdown"></p-dropdown>
                     </div>
-                    <div class="p-column-filter-constraints">
+                    <div class="p-column-filter-constraints" [style.max-height]="scrollHeight">
                         <div *ngFor="let filterMeta of fieldFilters; let i = index" class="p-column-filter-constraint">
-                            <p-dropdown [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)" styleClass="p-column-filter-constraint-dropdown"></p-dropdown>
+                            <p-dropdown  *ngIf="constraintOptions[type]" [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)" styleClass="p-column-filter-constraint-dropdown"></p-dropdown>
                             <p-columnFilterFormElement [type]="type" [field]="field" [filterMetadata]="filterMeta" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
                             <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeRule(filterMeta)" pRipple label="Remove Rule"></button>
                         </div>
                     </div>
-                    <div class="p-column-filter-add-rule">
+                    <div class="p-column-filter-add-rule" *ngIf="isShowAddRule">
                         <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addRule()" pRipple></button>
                     </div>
                     <div class="p-column-filter-buttonbar">
@@ -3962,11 +3962,17 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() defaultOperator: string = 'and';
 
+    @Input() showOperator: boolean = true;
+
     @Input() showClearButton: boolean = true;
 
     @Input() showApplyButton: boolean = true;
 
+    @Input() multipleRules: boolean = true;
+
     @Input() placeholder: string;
+
+    @Input() scrollHeight: string;
 
     @ViewChild('icon') icon: ElementRef;
 
@@ -4150,6 +4156,14 @@ export class ColumnFilter implements AfterContentInit {
         return this.showMenu && (this.display === 'row' ? this.type !== 'switch' && this.type !== 'checkbox' : true);
     }
 
+    get isShowOperator(): boolean {
+        return this.showOperator && this.type !== 'switch' && this.type !== 'checkbox';
+    }
+
+    get isShowAddRule(): boolean {
+        return this.multipleRules && this.type !== 'switch' && this.type !== 'checkbox';
+    }
+
     isOutsideClicked(event): boolean {
         return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
             || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
@@ -4220,10 +4234,12 @@ export class ColumnFilter implements AfterContentInit {
     clearFilter() {
         this.initFieldFilterMetadata();
         this.dt._filter();
+        this.hide();
     }
 
     applyFilter() {
         this.dt._filter();
+        this.hide();
     }
 
     ngOnDestroy() {

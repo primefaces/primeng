@@ -218,6 +218,10 @@ p-columnfilterformelement > .p-inputtext,
     justify-content: center;
 }
 
+.p-column-filter-constraints {
+    overflow: auto;
+}
+
 .p-column-filter-constraint p-columnfilterformelement {
     width: 100%;
 }
