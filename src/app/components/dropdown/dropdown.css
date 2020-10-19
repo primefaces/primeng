@@ -77,6 +77,10 @@ input.p-dropdown-label  {
     margin-top: -.5rem;
 }
 
+.p-fluid p-dropdown {
+    width: 100%;
+}
+
 .p-fluid .p-dropdown {
     display: flex;
 }

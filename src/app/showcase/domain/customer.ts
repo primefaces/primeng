@@ -17,4 +17,5 @@ export interface Customer {
     status?: string;
     activity?: number;
     representative?: Representative;
+    verified?: boolean;
 }

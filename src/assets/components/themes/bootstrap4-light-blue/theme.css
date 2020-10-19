@@ -2070,6 +2070,72 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 1.25rem;
 }
 
+.p-column-filter-row .p-column-filter-menu-button {
+  margin-left: 0.5rem;
+}
+
+.p-column-filter-overlay {
+  background: #ffffff;
+  color: #212529;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: none;
+  min-width: 12.5rem;
+}
+.p-column-filter-overlay .p-column-filter-row-items {
+  padding: 0.5rem 0;
+}
+.p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item {
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+  border: 0 none;
+  color: #212529;
+  background: transparent;
+  transition: box-shadow 0.15s;
+  border-radius: 0;
+}
+.p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item.p-highlight {
+  color: #ffffff;
+  background: #007bff;
+}
+.p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item:not(.p-highlight):not(.p-disabled):hover {
+  color: #212529;
+  background: #e9ecef;
+}
+.p-column-filter-overlay .p-column-filter-row-items .p-column-filter-separator {
+  border-top: 1px solid #dee2e6;
+  margin: 0.5rem 0;
+}
+
+.p-column-filter-overlay-menu .p-column-filter-operator {
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  color: #212529;
+  background: #efefef;
+  margin: 0;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+.p-column-filter-overlay-menu .p-column-filter-constraint {
+  padding: 1.25rem;
+  border-bottom: 1px solid #dee2e6;
+}
+.p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-constraint-dropdown {
+  margin-bottom: 0.5rem;
+}
+.p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-remove-button {
+  margin-top: 0.5rem;
+}
+.p-column-filter-overlay-menu .p-column-filter-constraint:last-child {
+  border-bottom: 0 none;
+}
+.p-column-filter-overlay-menu .p-column-filter-add-rule {
+  padding: 0.5rem 1.25rem;
+}
+.p-column-filter-overlay-menu .p-column-filter-buttonbar {
+  padding: 1.25rem;
+}
+
 .fc .fc-view-container th {
   background: #efefef;
   border: 1px solid #dee2e6;

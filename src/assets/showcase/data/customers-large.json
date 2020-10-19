@@ -10,6 +10,7 @@
       "company": "Benton, John B Jr",
       "date": "2015-09-13",
       "status": "unqualified",
+      "verified": true,
       "activity": 17,
       "representative": {
         "name": "Ioni Bowcher",
@@ -26,6 +27,7 @@
       "company": "Chanay, Jeffrey A Esq",
       "date": "2019-02-09",
       "status": "proposal",
+      "verified": true,
       "activity": 0,
       "representative": {
         "name": "Amy Elsner",
@@ -42,6 +44,7 @@
       "company": "Chemel, James L Cpa",
       "date": "2017-05-13",
       "status": "qualified",
+      "verified": false,
       "activity": 63,
       "representative": {
         "name": "Asiya Javayant",
@@ -58,6 +61,7 @@
       "company": "Feltz Printing Service",
       "date": "2020-09-15",
       "status": "new",
+      "verified": false,
       "activity": 37,
       "representative": {
         "name": "Xuxue Feng",
@@ -74,6 +78,7 @@
       "company": "Printing Dimensions",
       "date": "2016-05-20",
       "status": "proposal",
+      "verified": true,
       "activity": 33,
       "representative": {
         "name": "Asiya Javayant",
@@ -90,6 +95,7 @@
       "company": "Chapman, Ross E Esq",
       "date": "2018-02-16",
       "status": "qualified",
+      "verified": false,
       "activity": 68,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -106,6 +112,7 @@
       "company": "Morlong Associates",
       "date": "2018-02-19",
       "status": "renewal",
+      "verified": true,
       "activity": 54,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -122,6 +129,7 @@
       "company": "Commercial Press",
       "date": "2019-08-13",
       "status": "renewal",
+      "verified": true,
       "activity": 69,
       "representative": {
         "name": "Onyama Limba",
@@ -138,6 +146,7 @@
       "company": "Truhlar And Truhlar Attys",
       "date": "2018-11-21",
       "status": "unqualified",
+      "verified": true,
       "activity": 76,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -154,6 +163,7 @@
       "company": "King, Christopher A Esq",
       "date": "2015-07-07",
       "status": "proposal",
+      "verified": false,
       "activity": 3,
       "representative": {
         "name": "Onyama Limba",
@@ -170,6 +180,7 @@
       "company": "Dorl, James J Esq",
       "date": "2018-11-07",
       "status": "qualified",
+      "verified": false,
       "activity": 38,
       "representative": {
         "name": "Anna Fali",
@@ -186,6 +197,7 @@
       "company": "Rangoni Of Florence",
       "date": "2017-03-11",
       "status": "qualified",
+      "verified": true,
       "activity": 87,
       "representative": {
         "name": "Bernardo Dominic",
@@ -202,6 +214,7 @@
       "company": "Feiner Bros",
       "date": "2015-10-20",
       "status": "unqualified",
+      "verified": false,
       "activity": 80,
       "representative": {
         "name": "Onyama Limba",
@@ -218,6 +231,7 @@
       "company": "Buckley Miller \u0026 Wright",
       "date": "2016-07-25",
       "status": "negotiation",
+      "verified": false,
       "activity": 59,
       "representative": {
         "name": "Amy Elsner",
@@ -234,6 +248,7 @@
       "company": "Rousseaux, Michael Esq",
       "date": "2019-06-25",
       "status": "new",
+      "verified": true,
       "activity": 90,
       "representative": {
         "name": "Asiya Javayant",
@@ -250,6 +265,7 @@
       "company": "Century Communications",
       "date": "2017-12-12",
       "status": "negotiation",
+      "verified": false,
       "activity": 52,
       "representative": {
         "name": "Anna Fali",
@@ -266,6 +282,7 @@
       "company": "Bolton, Wilbur Esq",
       "date": "2018-07-04",
       "status": "unqualified",
+      "verified": false,
       "activity": 31,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -282,6 +299,7 @@
       "company": "T M Byxbee Company Pc",
       "date": "2020-02-27",
       "status": "renewal",
+      "verified": true,
       "activity": 48,
       "representative": {
         "name": "Stephen Shaw",
@@ -298,6 +316,7 @@
       "company": "Farmers Insurance Group",
       "date": "2017-12-21",
       "status": "negotiation",
+      "verified": true,
       "activity": 16,
       "representative": {
         "name": "Bernardo Dominic",
@@ -314,6 +333,7 @@
       "company": "Post Box Services Plus",
       "date": "2016-01-04",
       "status": "renewal",
+      "verified": true,
       "activity": 19,
       "representative": {
         "name": "Xuxue Feng",
@@ -330,6 +350,7 @@
       "company": "Sport En Art",
       "date": "2016-10-21",
       "status": "renewal",
+      "verified": false,
       "activity": 100,
       "representative": {
         "name": "Onyama Limba",
@@ -346,6 +367,7 @@
       "company": "C 4 Network Inc",
       "date": "2017-03-24",
       "status": "renewal",
+      "verified": false,
       "activity": 72,
       "representative": {
         "name": "Ioni Bowcher",
@@ -362,6 +384,7 @@
       "company": "Ingalls, Donald R Esq",
       "date": "2017-04-15",
       "status": "renewal",
+      "verified": true,
       "activity": 94,
       "representative": {
         "name": "Asiya Javayant",
@@ -378,6 +401,7 @@
       "company": "Franklin, Peter L Esq",
       "date": "2017-03-11",
       "status": "qualified",
+      "verified": false,
       "activity": 56,
       "representative": {
         "name": "Elwin Sharvill",
@@ -394,6 +418,7 @@
       "company": "Wtlz Power 107 Fm",
       "date": "2018-03-27",
       "status": "qualified",
+      "verified": true,
       "activity": 7,
       "representative": {
         "name": "Stephen Shaw",
@@ -410,6 +435,7 @@
       "company": "Ledecky, David Esq",
       "date": "2016-02-20",
       "status": "qualified",
+      "verified": true,
       "activity": 1,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -426,6 +452,7 @@
       "company": "Professional Image Inc",
       "date": "2018-06-24",
       "status": "new",
+      "verified": true,
       "activity": 26,
       "representative": {
         "name": "Ioni Bowcher",
@@ -442,6 +469,7 @@
       "company": "Sider, Donald C Esq",
       "date": "2016-09-24",
       "status": "new",
+      "verified": false,
       "activity": 76,
       "representative": {
         "name": "Amy Elsner",
@@ -458,6 +486,7 @@
       "company": "U Pull It",
       "date": "2020-04-11",
       "status": "qualified",
+      "verified": true,
       "activity": 7,
       "representative": {
         "name": "Onyama Limba",
@@ -474,6 +503,7 @@
       "company": "Clark, Richard Cpa",
       "date": "2018-04-11",
       "status": "renewal",
+      "verified": true,
       "activity": 81,
       "representative": {
         "name": "Ioni Bowcher",
@@ -490,6 +520,7 @@
       "company": "Moskowitz, Barry S",
       "date": "2016-06-11",
       "status": "negotiation",
+      "verified": true,
       "activity": 56,
       "representative": {
         "name": "Asiya Javayant",
@@ -506,6 +537,7 @@
       "company": "Cascade Realty Advisors Inc",
       "date": "2017-08-02",
       "status": "qualified",
+      "verified": true,
       "activity": 94,
       "representative": {
         "name": "Ioni Bowcher",
@@ -522,6 +554,7 @@
       "company": "Knwz Newsradio",
       "date": "2018-06-06",
       "status": "renewal",
+      "verified": true,
       "activity": 68,
       "representative": {
         "name": "Xuxue Feng",
@@ -538,6 +571,7 @@
       "company": "Giampetro, Anthony D",
       "date": "2019-08-08",
       "status": "proposal",
+      "verified": true,
       "activity": 85,
       "representative": {
         "name": "Bernardo Dominic",
@@ -554,6 +588,7 @@
       "company": "Milford Enterprises Inc",
       "date": "2018-05-19",
       "status": "negotiation",
+      "verified": false,
       "activity": 46,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -570,6 +605,7 @@
       "company": "Mosocco, Ronald A",
       "date": "2015-02-12",
       "status": "qualified",
+      "verified": true,
       "activity": 32,
       "representative": {
         "name": "Onyama Limba",
@@ -586,6 +622,7 @@
       "company": "Tri State Refueler Co",
       "date": "2018-04-25",
       "status": "qualified",
+      "verified": true,
       "activity": 77,
       "representative": {
         "name": "Amy Elsner",
@@ -602,6 +639,7 @@
       "company": "Parkway Company",
       "date": "2016-02-27",
       "status": "unqualified",
+      "verified": true,
       "activity": 66,
       "representative": {
         "name": "Amy Elsner",
@@ -618,6 +656,7 @@
       "company": "Fbs Business Finance",
       "date": "2019-09-17",
       "status": "qualified",
+      "verified": true,
       "activity": 25,
       "representative": {
         "name": "Bernardo Dominic",
@@ -634,6 +673,7 @@
       "company": "Eder Assocs Consltng Engrs Pc",
       "date": "2016-12-03",
       "status": "renewal",
+      "verified": false,
       "activity": 51,
       "representative": {
         "name": "Ioni Bowcher",
@@ -650,6 +690,7 @@
       "company": "Tri M Tool Inc",
       "date": "2017-12-15",
       "status": "negotiation",
+      "verified": true,
       "activity": 49,
       "representative": {
         "name": "Xuxue Feng",
@@ -666,6 +707,7 @@
       "company": "International Eyelets Inc",
       "date": "2017-02-02",
       "status": "qualified",
+      "verified": false,
       "activity": 5,
       "representative": {
         "name": "Amy Elsner",
@@ -682,6 +724,7 @@
       "company": "Rapid Trading Intl",
       "date": "2018-12-25",
       "status": "unqualified",
+      "verified": false,
       "activity": 100,
       "representative": {
         "name": "Anna Fali",
@@ -698,6 +741,7 @@
       "company": "Abc Enterprises Inc",
       "date": "2018-04-10",
       "status": "qualified",
+      "verified": false,
       "activity": 71,
       "representative": {
         "name": "Stephen Shaw",
@@ -714,6 +758,7 @@
       "company": "Cindy Turner Associates",
       "date": "2018-05-06",
       "status": "unqualified",
+      "verified": true,
       "activity": 54,
       "representative": {
         "name": "Amy Elsner",
@@ -730,6 +775,7 @@
       "company": "Stanton, James D Esq",
       "date": "2019-07-10",
       "status": "renewal",
+      "verified": true,
       "activity": 93,
       "representative": {
         "name": "Onyama Limba",
@@ -746,6 +792,7 @@
       "company": "Grace Pastries Inc",
       "date": "2018-02-19",
       "status": "unqualified",
+      "verified": false,
       "activity": 97,
       "representative": {
         "name": "Xuxue Feng",
@@ -762,6 +809,7 @@
       "company": "Schroer, Gene E Esq",
       "date": "2019-11-27",
       "status": "new",
+      "verified": false,
       "activity": 80,
       "representative": {
         "name": "Xuxue Feng",
@@ -778,6 +826,7 @@
       "company": "Knights Inn",
       "date": "2018-11-24",
       "status": "new",
+      "verified": false,
       "activity": 63,
       "representative": {
         "name": "Stephen Shaw",
@@ -794,6 +843,7 @@
       "company": "Bollinger Mach Shp \u0026 Shipyard",
       "date": "2018-04-19",
       "status": "new",
+      "verified": true,
       "activity": 92,
       "representative": {
         "name": "Asiya Javayant",
@@ -810,6 +860,7 @@
       "company": "Orinda News",
       "date": "2019-09-06",
       "status": "renewal",
+      "verified": true,
       "activity": 72,
       "representative": {
         "name": "Onyama Limba",
@@ -826,6 +877,7 @@
       "company": "Ballard Spahr Andrews",
       "date": "2018-04-26",
       "status": "renewal",
+      "verified": false,
       "activity": 36,
       "representative": {
         "name": "Anna Fali",
@@ -842,6 +894,7 @@
       "company": "Lowy Limousine Service",
       "date": "2018-04-12",
       "status": "new",
+      "verified": false,
       "activity": 31,
       "representative": {
         "name": "Amy Elsner",
@@ -858,6 +911,7 @@
       "company": "Vicon Corporation",
       "date": "2018-01-24",
       "status": "negotiation",
+      "verified": false,
       "activity": 89,
       "representative": {
         "name": "Anna Fali",
@@ -874,6 +928,7 @@
       "company": "Rossi, Michael M",
       "date": "2017-04-17",
       "status": "unqualified",
+      "verified": true,
       "activity": 27,
       "representative": {
         "name": "Onyama Limba",
@@ -890,6 +945,7 @@
       "company": "Northwest Publishing",
       "date": "2019-04-14",
       "status": "qualified",
+      "verified": false,
       "activity": 27,
       "representative": {
         "name": "Elwin Sharvill",
@@ -906,6 +962,7 @@
       "company": "Branford Wire \u0026 Mfg Co",
       "date": "2019-09-09",
       "status": "new",
+      "verified": false,
       "activity": 79,
       "representative": {
         "name": "Bernardo Dominic",
@@ -922,6 +979,7 @@
       "company": "East Coast Marketing",
       "date": "2017-02-18",
       "status": "renewal",
+      "verified": true,
       "activity": 39,
       "representative": {
         "name": "Xuxue Feng",
@@ -938,6 +996,7 @@
       "company": "Wye Technologies Inc",
       "date": "2020-10-05",
       "status": "unqualified",
+      "verified": false,
       "activity": 55,
       "representative": {
         "name": "Anna Fali",
@@ -954,6 +1013,7 @@
       "company": "Healy, George W Iv",
       "date": "2018-09-28",
       "status": "negotiation",
+      "verified": false,
       "activity": 79,
       "representative": {
         "name": "Asiya Javayant",
@@ -970,6 +1030,7 @@
       "company": "Alpenlite Inc",
       "date": "2016-06-16",
       "status": "renewal",
+      "verified": false,
       "activity": 49,
       "representative": {
         "name": "Bernardo Dominic",
@@ -986,6 +1047,7 @@
       "company": "Hubbard, Bruce Esq",
       "date": "2017-05-25",
       "status": "proposal",
+      "verified": true,
       "activity": 87,
       "representative": {
         "name": "Ioni Bowcher",
@@ -1002,6 +1064,7 @@
       "company": "Arthur A Oliver \u0026 Son Inc",
       "date": "2020-05-09",
       "status": "negotiation",
+      "verified": true,
       "activity": 5,
       "representative": {
         "name": "Amy Elsner",
@@ -1018,6 +1081,7 @@
       "company": "George Jessop Carter Jewelers",
       "date": "2019-09-07",
       "status": "qualified",
+      "verified": true,
       "activity": 77,
       "representative": {
         "name": "Asiya Javayant",
@@ -1034,6 +1098,7 @@
       "company": "Schultz, Thomas C Md",
       "date": "2015-08-10",
       "status": "renewal",
+      "verified": false,
       "activity": 94,
       "representative": {
         "name": "Ioni Bowcher",
@@ -1050,6 +1115,7 @@
       "company": "H H H Enterprises Inc",
       "date": "2018-03-20",
       "status": "new",
+      "verified": false,
       "activity": 25,
       "representative": {
         "name": "Amy Elsner",
@@ -1066,6 +1132,7 @@
       "company": "Hawaiian King Hotel",
       "date": "2020-03-03",
       "status": "qualified",
+      "verified": false,
       "activity": 96,
       "representative": {
         "name": "Amy Elsner",
@@ -1082,6 +1149,7 @@
       "company": "Killion Industries",
       "date": "2018-09-18",
       "status": "qualified",
+      "verified": true,
       "activity": 38,
       "representative": {
         "name": "Xuxue Feng",
@@ -1098,6 +1166,7 @@
       "company": "Robinson, William J Esq",
       "date": "2019-06-08",
       "status": "new",
+      "verified": true,
       "activity": 49,
       "representative": {
         "name": "Anna Fali",
@@ -1114,6 +1183,7 @@
       "company": "Private Properties",
       "date": "2018-12-06",
       "status": "new",
+      "verified": false,
       "activity": 16,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -1130,6 +1200,7 @@
       "company": "Rowley Schlimgen Inc",
       "date": "2017-04-05",
       "status": "unqualified",
+      "verified": false,
       "activity": 25,
       "representative": {
         "name": "Amy Elsner",
@@ -1146,6 +1217,7 @@
       "company": "Forging Specialties",
       "date": "2015-02-02",
       "status": "new",
+      "verified": false,
       "activity": 16,
       "representative": {
         "name": "Elwin Sharvill",
@@ -1162,6 +1234,7 @@
       "company": "Smits, Patricia Garity",
       "date": "2018-08-17",
       "status": "qualified",
+      "verified": true,
       "activity": 85,
       "representative": {
         "name": "Xuxue Feng",
@@ -1178,6 +1251,7 @@
       "company": "H Lee Leonard Attorney At Law",
       "date": "2018-09-08",
       "status": "renewal",
+      "verified": true,
       "activity": 92,
       "representative": {
         "name": "Asiya Javayant",
@@ -1194,6 +1268,7 @@
       "company": "A K Construction Co",
       "date": "2018-11-13",
       "status": "proposal",
+      "verified": true,
       "activity": 22,
       "representative": {
         "name": "Asiya Javayant",
@@ -1210,6 +1285,7 @@
       "company": "Ambelang, Jessica M Md",
       "date": "2019-08-18",
       "status": "renewal",
+      "verified": false,
       "activity": 64,
       "representative": {
         "name": "Onyama Limba",
@@ -1226,6 +1302,7 @@
       "company": "Q A Service",
       "date": "2015-04-02",
       "status": "negotiation",
+      "verified": false,
       "activity": 80,
       "representative": {
         "name": "Amy Elsner",
@@ -1242,6 +1319,7 @@
       "company": "Wood \u0026 Whitacre Contractors",
       "date": "2017-09-15",
       "status": "unqualified",
+      "verified": false,
       "activity": 70,
       "representative": {
         "name": "Xuxue Feng",
@@ -1258,6 +1336,7 @@
       "company": "Mark Iv Press Ltd",
       "date": "2017-03-27",
       "status": "qualified",
+      "verified": false,
       "activity": 16,
       "representative": {
         "name": "Stephen Shaw",
@@ -1274,6 +1353,7 @@
       "company": "Museum Of Science \u0026 Industry",
       "date": "2017-06-01",
       "status": "proposal",
+      "verified": true,
       "activity": 90,
       "representative": {
         "name": "Elwin Sharvill",
@@ -1290,6 +1370,7 @@
       "company": "Garrison Ind",
       "date": "2017-03-14",
       "status": "proposal",
+      "verified": true,
       "activity": 96,
       "representative": {
         "name": "Asiya Javayant",
@@ -1306,6 +1387,7 @@
       "company": "Saronix Nymph Products",
       "date": "2018-07-09",
       "status": "renewal",
+      "verified": true,
       "activity": 77,
       "representative": {
         "name": "Asiya Javayant",
@@ -1322,6 +1404,7 @@
       "company": "Smc Inc",
       "date": "2018-09-11",
       "status": "proposal",
+      "verified": true,
       "activity": 46,
       "representative": {
         "name": "Amy Elsner",
@@ -1338,6 +1421,7 @@
       "company": "E A I Electronic Assocs Inc",
       "date": "2017-11-12",
       "status": "qualified",
+      "verified": true,
       "activity": 83,
       "representative": {
         "name": "Bernardo Dominic",
@@ -1354,6 +1438,7 @@
       "company": "Conte, Christopher A Esq",
       "date": "2016-03-01",
       "status": "qualified",
+      "verified": true,
       "activity": 83,
       "representative": {
         "name": "Bernardo Dominic",
@@ -1370,6 +1455,7 @@
       "company": "Anker Law Office",
       "date": "2016-05-21",
       "status": "unqualified",
+      "verified": true,
       "activity": 49,
       "representative": {
         "name": "Elwin Sharvill",
@@ -1386,6 +1472,7 @@
       "company": "Beutelschies \u0026 Company",
       "date": "2016-01-22",
       "status": "new",
+      "verified": true,
       "activity": 34,
       "representative": {
         "name": "Anna Fali",
@@ -1402,6 +1489,7 @@
       "company": "Fligg, Kenneth I Jr",
       "date": "2016-07-26",
       "status": "unqualified",
+      "verified": false,
       "activity": 64,
       "representative": {
         "name": "Onyama Limba",
@@ -1418,6 +1506,7 @@
       "company": "Sharp, J Daniel Esq",
       "date": "2020-07-24",
       "status": "renewal",
+      "verified": false,
       "activity": 51,
       "representative": {
         "name": "Elwin Sharvill",
@@ -1434,6 +1523,7 @@
       "company": "Assink, Anne H Esq",
       "date": "2019-11-10",
       "status": "negotiation",
+      "verified": false,
       "activity": 11,
       "representative": {
         "name": "Anna Fali",
@@ -1450,6 +1540,7 @@
       "company": "Jewel My Shop Inc",
       "date": "2016-06-05",
       "status": "renewal",
+      "verified": true,
       "activity": 64,
       "representative": {
         "name": "Xuxue Feng",
@@ -1466,6 +1557,7 @@
       "company": "Chinese Translation Resources",
       "date": "2016-02-28",
       "status": "new",
+      "verified": false,
       "activity": 44,
       "representative": {
         "name": "Anna Fali",
@@ -1482,6 +1574,7 @@
       "company": "Stevens, Charles T",
       "date": "2018-12-13",
       "status": "unqualified",
+      "verified": true,
       "activity": 62,
       "representative": {
         "name": "Stephen Shaw",
@@ -1498,6 +1591,7 @@
       "company": "Mclaughlin, Luther W Cpa",
       "date": "2017-06-16",
       "status": "new",
+      "verified": true,
       "activity": 79,
       "representative": {
         "name": "Asiya Javayant",
@@ -1514,6 +1608,7 @@
       "company": "Tree Musketeers",
       "date": "2019-02-17",
       "status": "proposal",
+      "verified": true,
       "activity": 50,
       "representative": {
         "name": "Onyama Limba",
@@ -1530,6 +1625,7 @@
       "company": "Springfield Div Oh Edison Co",
       "date": "2019-11-26",
       "status": "renewal",
+      "verified": false,
       "activity": 84,
       "representative": {
         "name": "Stephen Shaw",
@@ -1546,6 +1642,7 @@
       "company": "Logan Memorial Hospital",
       "date": "2016-07-06",
       "status": "new",
+      "verified": false,
       "activity": 88,
       "representative": {
         "name": "Asiya Javayant",
@@ -1562,6 +1659,7 @@
       "company": "Kelly, Charles G Esq",
       "date": "2019-10-02",
       "status": "proposal",
+      "verified": true,
       "activity": 44,
       "representative": {
         "name": "Amy Elsner",
@@ -1578,6 +1676,7 @@
       "company": "Industrial Paper Shredders Inc",
       "date": "2018-07-05",
       "status": "new",
+      "verified": true,
       "activity": 7,
       "representative": {
         "name": "Ioni Bowcher",
@@ -1594,6 +1693,7 @@
       "company": "Beck Horizon Builders",
       "date": "2018-05-14",
       "status": "proposal",
+      "verified": true,
       "activity": 99,
       "representative": {
         "name": "Elwin Sharvill",
@@ -1610,6 +1710,7 @@
       "company": "Porto Cayo At Hawks Cay",
       "date": "2018-03-14",
       "status": "unqualified",
+      "verified": true,
       "activity": 0,
       "representative": {
         "name": "Onyama Limba",
@@ -1626,6 +1727,7 @@
       "company": "Pacific Grove Museum Ntrl Hist",
       "date": "2018-09-23",
       "status": "qualified",
+      "verified": false,
       "activity": 3,
       "representative": {
         "name": "Anna Fali",
@@ -1642,6 +1744,7 @@
       "company": "Bender \u0026 Hatley Pc",
       "date": "2018-04-10",
       "status": "qualified",
+      "verified": false,
       "activity": 88,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -1658,6 +1761,7 @@
       "company": "Di Cristina J \u0026 Son",
       "date": "2017-09-18",
       "status": "unqualified",
+      "verified": false,
       "activity": 92,
       "representative": {
         "name": "Stephen Shaw",
@@ -1674,6 +1778,7 @@
       "company": "Green Goddess",
       "date": "2017-08-19",
       "status": "negotiation",
+      "verified": true,
       "activity": 19,
       "representative": {
         "name": "Asiya Javayant",
@@ -1690,6 +1795,7 @@
       "company": "American Arts \u0026 Graphics",
       "date": "2020-06-18",
       "status": "proposal",
+      "verified": true,
       "activity": 21,
       "representative": {
         "name": "Amy Elsner",
@@ -1706,6 +1812,7 @@
       "company": "Opryland Hotel",
       "date": "2016-11-18",
       "status": "negotiation",
+      "verified": false,
       "activity": 97,
       "representative": {
         "name": "Ioni Bowcher",
@@ -1722,6 +1829,7 @@
       "company": "Marking Devices Pubg Co",
       "date": "2017-06-25",
       "status": "unqualified",
+      "verified": false,
       "activity": 27,
       "representative": {
         "name": "Bernardo Dominic",
@@ -1738,6 +1846,7 @@
       "company": "W Tc Industries Inc",
       "date": "2019-02-16",
       "status": "new",
+      "verified": true,
       "activity": 35,
       "representative": {
         "name": "Onyama Limba",
@@ -1754,6 +1863,7 @@
       "company": "Whitehall Robbins Labs Divsn",
       "date": "2018-03-11",
       "status": "new",
+      "verified": true,
       "activity": 81,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -1770,6 +1880,7 @@
       "company": "Sampler",
       "date": "2017-10-15",
       "status": "renewal",
+      "verified": true,
       "activity": 54,
       "representative": {
         "name": "Asiya Javayant",
@@ -1786,6 +1897,7 @@
       "company": "Juno Chefs Incorporated",
       "date": "2017-03-17",
       "status": "proposal",
+      "verified": false,
       "activity": 31,
       "representative": {
         "name": "Onyama Limba",
@@ -1802,6 +1914,7 @@
       "company": "Carroccio, A Thomas Esq",
       "date": "2017-04-06",
       "status": "renewal",
+      "verified": false,
       "activity": 28,
       "representative": {
         "name": "Bernardo Dominic",
@@ -1818,6 +1931,7 @@
       "company": "Stanley, Richard L Esq",
       "date": "2019-02-03",
       "status": "qualified",
+      "verified": false,
       "activity": 45,
       "representative": {
         "name": "Onyama Limba",
@@ -1834,6 +1948,7 @@
       "company": "K Cs Cstm Mouldings Windows",
       "date": "2016-09-22",
       "status": "unqualified",
+      "verified": true,
       "activity": 34,
       "representative": {
         "name": "Ioni Bowcher",
@@ -1850,6 +1965,7 @@
       "company": "Comfort Inn",
       "date": "2017-09-27",
       "status": "unqualified",
+      "verified": true,
       "activity": 36,
       "representative": {
         "name": "Onyama Limba",
@@ -1866,6 +1982,7 @@
       "company": "Windsor, James L Esq",
       "date": "2017-06-25",
       "status": "unqualified",
+      "verified": true,
       "activity": 69,
       "representative": {
         "name": "Bernardo Dominic",
@@ -1882,6 +1999,7 @@
       "company": "Jackson Shields Yeiser",
       "date": "2016-07-13",
       "status": "proposal",
+      "verified": true,
       "activity": 55,
       "representative": {
         "name": "Anna Fali",
@@ -1898,6 +2016,7 @@
       "company": "Box, J Calvin Esq",
       "date": "2018-09-13",
       "status": "renewal",
+      "verified": false,
       "activity": 1,
       "representative": {
         "name": "Xuxue Feng",
@@ -1914,6 +2033,7 @@
       "company": "Custom Engineering Inc",
       "date": "2017-09-11",
       "status": "renewal",
+      "verified": false,
       "activity": 8,
       "representative": {
         "name": "Elwin Sharvill",
@@ -1930,6 +2050,7 @@
       "company": "Bresler Eitel Framg Gllry Ltd",
       "date": "2019-07-06",
       "status": "unqualified",
+      "verified": false,
       "activity": 50,
       "representative": {
         "name": "Anna Fali",
@@ -1946,6 +2067,7 @@
       "company": "Carol, Drake Sparks Esq",
       "date": "2018-05-22",
       "status": "proposal",
+      "verified": true,
       "activity": 77,
       "representative": {
         "name": "Amy Elsner",
@@ -1962,6 +2084,7 @@
       "company": "Biltmore Investors Bank",
       "date": "2017-07-18",
       "status": "renewal",
+      "verified": true,
       "activity": 65,
       "representative": {
         "name": "Amy Elsner",
@@ -1978,6 +2101,7 @@
       "company": "Desco Equipment Corp",
       "date": "2017-10-09",
       "status": "unqualified",
+      "verified": true,
       "activity": 30,
       "representative": {
         "name": "Onyama Limba",
@@ -1994,6 +2118,7 @@
       "company": "Merlin Electric Co",
       "date": "2019-05-23",
       "status": "proposal",
+      "verified": true,
       "activity": 10,
       "representative": {
         "name": "Asiya Javayant",
@@ -2010,6 +2135,7 @@
       "company": "Bailey Cntl Co Div Babcock",
       "date": "2019-03-02",
       "status": "qualified",
+      "verified": false,
       "activity": 22,
       "representative": {
         "name": "Anna Fali",
@@ -2026,6 +2152,7 @@
       "company": "Ford Brothers Wholesale Inc",
       "date": "2017-02-18",
       "status": "new",
+      "verified": false,
       "activity": 69,
       "representative": {
         "name": "Elwin Sharvill",
@@ -2042,6 +2169,7 @@
       "company": "Cambridge Inn",
       "date": "2020-05-12",
       "status": "new",
+      "verified": false,
       "activity": 4,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2058,6 +2186,7 @@
       "company": "Matricciani, Albert J Jr",
       "date": "2019-11-20",
       "status": "negotiation",
+      "verified": true,
       "activity": 11,
       "representative": {
         "name": "Xuxue Feng",
@@ -2074,6 +2203,7 @@
       "company": "Nelson Hawaiian Ltd",
       "date": "2016-11-10",
       "status": "proposal",
+      "verified": true,
       "activity": 41,
       "representative": {
         "name": "Asiya Javayant",
@@ -2090,6 +2220,7 @@
       "company": "Neland Travel Agency",
       "date": "2016-07-11",
       "status": "renewal",
+      "verified": true,
       "activity": 84,
       "representative": {
         "name": "Bernardo Dominic",
@@ -2106,6 +2237,7 @@
       "company": "Asendorf, J Alan Esq",
       "date": "2017-07-17",
       "status": "negotiation",
+      "verified": false,
       "activity": 22,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2122,6 +2254,7 @@
       "company": "Silberman, Arthur L Esq",
       "date": "2018-08-19",
       "status": "negotiation",
+      "verified": true,
       "activity": 63,
       "representative": {
         "name": "Onyama Limba",
@@ -2138,6 +2271,7 @@
       "company": "Honey Bee Breeding Genetics \u0026",
       "date": "2016-05-02",
       "status": "qualified",
+      "verified": true,
       "activity": 47,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -2154,6 +2288,7 @@
       "company": "Wells Kravitz Schnitzer",
       "date": "2018-04-13",
       "status": "unqualified",
+      "verified": true,
       "activity": 62,
       "representative": {
         "name": "Elwin Sharvill",
@@ -2170,6 +2305,7 @@
       "company": "Prohab Rehabilitation Servs",
       "date": "2020-01-04",
       "status": "renewal",
+      "verified": true,
       "activity": 55,
       "representative": {
         "name": "Stephen Shaw",
@@ -2186,6 +2322,7 @@
       "company": "Eldridge, Kristin K Esq",
       "date": "2016-02-05",
       "status": "unqualified",
+      "verified": false,
       "activity": 3,
       "representative": {
         "name": "Bernardo Dominic",
@@ -2202,6 +2339,7 @@
       "company": "Vlahos, John J Esq",
       "date": "2017-03-12",
       "status": "proposal",
+      "verified": false,
       "activity": 3,
       "representative": {
         "name": "Elwin Sharvill",
@@ -2218,6 +2356,7 @@
       "company": "Ninas Indian Grs \u0026 Videos",
       "date": "2019-03-27",
       "status": "unqualified",
+      "verified": false,
       "activity": 67,
       "representative": {
         "name": "Stephen Shaw",
@@ -2234,6 +2373,7 @@
       "company": "Schmid, Gayanne K Esq",
       "date": "2019-08-06",
       "status": "unqualified",
+      "verified": true,
       "activity": 14,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -2250,6 +2390,7 @@
       "company": "Moapa Valley Federal Credit Un",
       "date": "2018-03-20",
       "status": "qualified",
+      "verified": true,
       "activity": 8,
       "representative": {
         "name": "Onyama Limba",
@@ -2266,6 +2407,7 @@
       "company": "Kentucky Tennessee Clay Co",
       "date": "2016-02-15",
       "status": "qualified",
+      "verified": true,
       "activity": 17,
       "representative": {
         "name": "Bernardo Dominic",
@@ -2282,6 +2424,7 @@
       "company": "Admiral Party Rentals \u0026 Sales",
       "date": "2016-02-10",
       "status": "proposal",
+      "verified": false,
       "activity": 58,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2298,6 +2441,7 @@
       "company": "Nelson, Karolyn King Esq",
       "date": "2019-07-16",
       "status": "unqualified",
+      "verified": false,
       "activity": 82,
       "representative": {
         "name": "Bernardo Dominic",
@@ -2314,6 +2458,7 @@
       "company": "Panasystems",
       "date": "2015-07-23",
       "status": "negotiation",
+      "verified": false,
       "activity": 96,
       "representative": {
         "name": "Onyama Limba",
@@ -2330,6 +2475,7 @@
       "company": "Shank, Edward L Esq",
       "date": "2017-07-02",
       "status": "unqualified",
+      "verified": true,
       "activity": 92,
       "representative": {
         "name": "Xuxue Feng",
@@ -2346,6 +2492,7 @@
       "company": "Megibow \u0026 Edwards",
       "date": "2019-08-17",
       "status": "proposal",
+      "verified": true,
       "activity": 18,
       "representative": {
         "name": "Anna Fali",
@@ -2362,6 +2509,7 @@
       "company": "Benoff, Edward Esq",
       "date": "2019-07-04",
       "status": "new",
+      "verified": true,
       "activity": 9,
       "representative": {
         "name": "Onyama Limba",
@@ -2378,6 +2526,7 @@
       "company": "Woodbridge Free Public Library",
       "date": "2020-03-14",
       "status": "unqualified",
+      "verified": true,
       "activity": 44,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2394,6 +2543,7 @@
       "company": "New York Life John Thune",
       "date": "2018-04-03",
       "status": "new",
+      "verified": false,
       "activity": 55,
       "representative": {
         "name": "Elwin Sharvill",
@@ -2410,6 +2560,7 @@
       "company": "Alinabal Inc",
       "date": "2017-03-04",
       "status": "unqualified",
+      "verified": false,
       "activity": 21,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -2426,6 +2577,7 @@
       "company": "Poletto, Kim David Esq",
       "date": "2016-05-05",
       "status": "negotiation",
+      "verified": true,
       "activity": 91,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -2442,6 +2594,7 @@
       "company": "Chang, Carolyn Esq",
       "date": "2019-05-28",
       "status": "renewal",
+      "verified": false,
       "activity": 30,
       "representative": {
         "name": "Xuxue Feng",
@@ -2458,6 +2611,7 @@
       "company": "Silver Bros Inc",
       "date": "2016-08-19",
       "status": "proposal",
+      "verified": true,
       "activity": 14,
       "representative": {
         "name": "Bernardo Dominic",
@@ -2474,6 +2628,7 @@
       "company": "Newtec Inc",
       "date": "2020-02-09",
       "status": "proposal",
+      "verified": true,
       "activity": 77,
       "representative": {
         "name": "Elwin Sharvill",
@@ -2490,6 +2645,7 @@
       "company": "Creative Business Systems",
       "date": "2020-04-03",
       "status": "unqualified",
+      "verified": true,
       "activity": 58,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2506,6 +2662,7 @@
       "company": "Dal Tile Corporation",
       "date": "2015-01-27",
       "status": "renewal",
+      "verified": true,
       "activity": 78,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2522,6 +2679,7 @@
       "company": "Edward S Katz",
       "date": "2018-08-06",
       "status": "new",
+      "verified": false,
       "activity": 67,
       "representative": {
         "name": "Stephen Shaw",
@@ -2538,6 +2696,7 @@
       "company": "Oh My Goodknits Inc",
       "date": "2020-02-20",
       "status": "renewal",
+      "verified": false,
       "activity": 29,
       "representative": {
         "name": "Stephen Shaw",
@@ -2554,6 +2713,7 @@
       "company": "Redeker, Debbie",
       "date": "2015-05-28",
       "status": "qualified",
+      "verified": true,
       "activity": 13,
       "representative": {
         "name": "Asiya Javayant",
@@ -2570,6 +2730,7 @@
       "company": "Desert Sands Motel",
       "date": "2016-09-05",
       "status": "unqualified",
+      "verified": true,
       "activity": 75,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -2586,6 +2747,7 @@
       "company": "Cummins Southern Plains Inc",
       "date": "2016-12-20",
       "status": "negotiation",
+      "verified": true,
       "activity": 1,
       "representative": {
         "name": "Onyama Limba",
@@ -2602,6 +2764,7 @@
       "company": "Lehigh Furn Divsn Lehigh",
       "date": "2015-11-28",
       "status": "unqualified",
+      "verified": false,
       "activity": 13,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2618,6 +2781,7 @@
       "company": "United Van Lines Agent",
       "date": "2018-11-11",
       "status": "renewal",
+      "verified": false,
       "activity": 73,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2634,6 +2798,7 @@
       "company": "Capitol Reporters",
       "date": "2016-11-05",
       "status": "unqualified",
+      "verified": true,
       "activity": 76,
       "representative": {
         "name": "Amy Elsner",
@@ -2650,6 +2815,7 @@
       "company": "Kwik Kopy Printing",
       "date": "2020-08-13",
       "status": "qualified",
+      "verified": true,
       "activity": 60,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -2666,6 +2832,7 @@
       "company": "Centro Inc",
       "date": "2015-07-06",
       "status": "negotiation",
+      "verified": true,
       "activity": 24,
       "representative": {
         "name": "Stephen Shaw",
@@ -2682,6 +2849,7 @@
       "company": "Campbell, Jan Esq",
       "date": "2020-02-25",
       "status": "unqualified",
+      "verified": true,
       "activity": 93,
       "representative": {
         "name": "Anna Fali",
@@ -2698,6 +2866,7 @@
       "company": "Evans, C Kelly Esq",
       "date": "2017-12-19",
       "status": "unqualified",
+      "verified": false,
       "activity": 30,
       "representative": {
         "name": "Amy Elsner",
@@ -2714,6 +2883,7 @@
       "company": "Scat Enterprises",
       "date": "2016-02-22",
       "status": "negotiation",
+      "verified": false,
       "activity": 93,
       "representative": {
         "name": "Amy Elsner",
@@ -2730,6 +2900,7 @@
       "company": "Nagle, Daniel J Esq",
       "date": "2016-12-24",
       "status": "unqualified",
+      "verified": true,
       "activity": 88,
       "representative": {
         "name": "Bernardo Dominic",
@@ -2746,6 +2917,7 @@
       "company": "Serendiquity Bed \u0026 Breakfast",
       "date": "2020-10-18",
       "status": "negotiation",
+      "verified": true,
       "activity": 70,
       "representative": {
         "name": "Stephen Shaw",
@@ -2762,6 +2934,7 @@
       "company": "Ray Carolyne Realty",
       "date": "2018-02-12",
       "status": "qualified",
+      "verified": true,
       "activity": 61,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2778,6 +2951,7 @@
       "company": "Berg, Charles E",
       "date": "2018-06-10",
       "status": "unqualified",
+      "verified": false,
       "activity": 91,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2794,6 +2968,7 @@
       "company": "Ray, Milbern D",
       "date": "2017-04-11",
       "status": "renewal",
+      "verified": true,
       "activity": 98,
       "representative": {
         "name": "Asiya Javayant",
@@ -2810,6 +2985,7 @@
       "company": "Chadds Ford Winery",
       "date": "2019-07-27",
       "status": "unqualified",
+      "verified": true,
       "activity": 97,
       "representative": {
         "name": "Ioni Bowcher",
@@ -2826,6 +3002,7 @@
       "company": "A R Packaging",
       "date": "2020-04-23",
       "status": "renewal",
+      "verified": true,
       "activity": 56,
       "representative": {
         "name": "Elwin Sharvill",
@@ -2842,6 +3019,7 @@
       "company": "Corn Popper",
       "date": "2020-09-16",
       "status": "proposal",
+      "verified": true,
       "activity": 76,
       "representative": {
         "name": "Anna Fali",
@@ -2858,6 +3036,7 @@
       "company": "Birite Foodservice Distr",
       "date": "2016-05-14",
       "status": "negotiation",
+      "verified": true,
       "activity": 43,
       "representative": {
         "name": "Xuxue Feng",
@@ -2874,6 +3053,7 @@
       "company": "Anchorage Museum Of Hist \u0026 Art",
       "date": "2018-06-22",
       "status": "qualified",
+      "verified": true,
       "activity": 58,
       "representative": {
         "name": "Onyama Limba",
@@ -2890,6 +3070,7 @@
       "company": "Haber, George D Md",
       "date": "2018-10-25",
       "status": "qualified",
+      "verified": false,
       "activity": 72,
       "representative": {
         "name": "Anna Fali",
@@ -2906,6 +3087,7 @@
       "company": "Royal Pontiac Olds Inc",
       "date": "2018-07-19",
       "status": "proposal",
+      "verified": false,
       "activity": 24,
       "representative": {
         "name": "Xuxue Feng",
@@ -2922,6 +3104,7 @@
       "company": "Leonards Antiques Inc",
       "date": "2015-03-15",
       "status": "proposal",
+      "verified": true,
       "activity": 86,
       "representative": {
         "name": "Anna Fali",
@@ -2938,6 +3121,7 @@
       "company": "Meca",
       "date": "2017-04-14",
       "status": "unqualified",
+      "verified": true,
       "activity": 15,
       "representative": {
         "name": "Onyama Limba",
@@ -2954,6 +3138,7 @@
       "company": "Nercon Engineering \u0026 Mfg Inc",
       "date": "2015-02-19",
       "status": "proposal",
+      "verified": true,
       "activity": 9,
       "representative": {
         "name": "Asiya Javayant",
@@ -2970,6 +3155,7 @@
       "company": "Replica I",
       "date": "2016-03-25",
       "status": "unqualified",
+      "verified": true,
       "activity": 82,
       "representative": {
         "name": "Bernardo Dominic",
@@ -2986,6 +3172,7 @@
       "company": "20 20 Printing Inc",
       "date": "2020-10-13",
       "status": "unqualified",
+      "verified": true,
       "activity": 13,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -3002,6 +3189,7 @@
       "company": "Publishers Group West",
       "date": "2019-12-21",
       "status": "unqualified",
+      "verified": true,
       "activity": 57,
       "representative": {
         "name": "Bernardo Dominic",
@@ -3018,6 +3206,7 @@
       "company": "Nischwitz, Jeffrey L Esq",
       "date": "2016-02-26",
       "status": "renewal",
+      "verified": true,
       "activity": 45,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -3034,6 +3223,7 @@
       "company": "Payne Blades \u0026 Wellborn Pa",
       "date": "2018-10-11",
       "status": "new",
+      "verified": true,
       "activity": 64,
       "representative": {
         "name": "Elwin Sharvill",
@@ -3050,6 +3240,7 @@
       "company": "Coldwell Bnkr Wright Real Est",
       "date": "2015-10-18",
       "status": "negotiation",
+      "verified": false,
       "activity": 74,
       "representative": {
         "name": "Ivan Magalhaes",
@@ -3066,6 +3257,7 @@
       "company": "Computer Repair Service",
       "date": "2016-02-13",
       "status": "proposal",
+      "verified": false,
       "activity": 79,
       "representative": {
         "name": "Stephen Shaw",
@@ -3082,6 +3274,7 @@
       "company": "Fleetwood Building Block Inc",
       "date": "2018-03-08",
       "status": "negotiation",
+      "verified": false,
       "activity": 19,
       "representative": {
         "name": "Asiya Javayant",
@@ -3098,6 +3291,7 @@
       "company": "Colts Neck Medical Assocs Inc",
       "date": "2017-12-02",
       "status": "negotiation",
+      "verified": true,
       "activity": 11,
       "representative": {
         "name": "Onyama Limba",
@@ -3114,6 +3308,7 @@
       "company": "New England Taxidermy",
       "date": "2019-01-07",
       "status": "proposal",
+      "verified": true,
       "activity": 4,
       "representative": {
         "name": "Stephen Shaw",
@@ -3130,6 +3325,7 @@
       "company": "Ludcke, George O Esq",
       "date": "2016-08-14",
       "status": "qualified",
+      "verified": true,
       "activity": 62,
       "representative": {
         "name": "Elwin Sharvill",
@@ -3146,6 +3342,7 @@
       "company": "Mccorkle, Tom S Esq",
       "date": "2016-03-05",
       "status": "renewal",
+      "verified": true,
       "activity": 64,
       "representative": {
         "name": "Elwin Sharvill",
@@ -3162,6 +3359,7 @@
       "company": "Eagle Software Inc",
       "date": "2015-12-14",
       "status": "qualified",
+      "verified": true,
       "activity": 91,
       "representative": {
         "name": "Xuxue Feng",
@@ -3178,6 +3376,7 @@
       "company": "Juvenile \u0026 Adult Super",
       "date": "2019-06-01",
       "status": "unqualified",
+      "verified": true,
       "activity": 40,
       "representative": {
         "name": "Asiya Javayant",
@@ -3194,6 +3393,7 @@
       "company": "Perez, Joseph J Esq",
       "date": "2015-12-09",
       "status": "qualified",
+      "verified": true,
       "activity": 27,
       "representative": {
         "name": "Ivan Magalhaes",

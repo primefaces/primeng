@@ -1,63 +1,88 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Table <span>Filter</span></h1>
-        <p>Filtering reduces the data by running a search using column filters and an optional global filter.</p>
+        <p>Filtering feature provides advanced and flexible options to query the data.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table #dt [value]="customers" dataKey="id"
+        <h5>Filter Menu</h5>
+        <p>Filters are displayed in an overlay.</p>
+        <p-table [value]="customers" dataKey="id"
             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+            [globalFilterFields]="['name','country.name','representative.name','status']">
             <ng-template pTemplate="caption">
-                <div class="table-header">
-                    List of Customers
-                    <span class="p-input-icon-left">
+                <div class="p-d-flex">
+                    <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                     </span>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Representative</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Activity</th>
-                </tr>
-                <tr>
                     <th>
-                        <input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'startsWith')" placeholder="Search by Name" class="p-column-filter">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Name 
+                            <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                        </div>
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="p-column-filter">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Country 
+                            <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th class="p-fluid">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Agent 
+                            <p-columnFilter field="representative" defaultConstraint="in" display="menu">
+                                <ng-template pTemplate="filter" let-filter>
+                                    <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                        <ng-template let-option pTemplate="item">
+                                            <div class="p-multiselect-representative-option">
+                                                <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
+                                                <span class="p-ml-1">{{option.label}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-multiSelect>
+                                </ng-template>
+                            </p-columnFilter>
+                        </div>
                     </th>
                     <th>
-                        <p-multiSelect [options]="representatives" placeholder="All" (onChange)="onRepresentativeChange($event)" styleClass="p-column-filter" optionLabel="name">
-                            <ng-template let-option pTemplate="item">
-                                <div class="p-multiselect-representative-option">
-                                    <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
-                                    <span class="p-ml-1">{{option.label}}</span>
-                                </div>
-                            </ng-template>
-                        </p-multiSelect>
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Date
+                            <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th class="p-fluid">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Status
+                            <p-columnFilter field="status" defaultConstraint="equals" display="menu">
+                                <ng-template pTemplate="filter" let-filter>
+                                    <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </div>
                     </th>
                     <th>
-                        <p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'date', 'equals')" [showButtonBar]="true" styleClass="p-column-filter" placeholder="Registration Date" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Activity
+                            <p-columnFilter type="number" field="activity" display="menu"></p-columnFilter>
+                        </div>
                     </th>
                     <th>
-                        <p-dropdown [options]="statuses" (onChange)="dt.filter($event.value, 'status', 'equals')" styleClass="p-column-filter" placeholder="Select a Status" [showClear]="true">
-                            <ng-template let-option pTemplate="item">
-                                <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
-                            </ng-template>
-                        </p-dropdown>
-                    </th>
-                    <th>
-                        <input pInputText type="text" (input)="onActivityChange($event)" placeholder="Minimum" class="p-column-filter" >
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Verified
+                            <p-columnFilter type="switch" field="verified" display="menu"></p-columnFilter>
+                        </div>
                     </th>
                 </tr>
             </ng-template>
@@ -83,11 +108,103 @@
                     <td>
                         <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
                     </td>
+                    <td>
+                        <i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="6">No customers found.</td>
+                    <td colspan="7">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <h5>Filter Row</h5>
+        <p>Filters are displayed inline within a separate row.</p>
+        <p-table [value]="customers" dataKey="id"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name','country.name','representative.name','status']">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex">
+                    <span class="p-input-icon-left p-ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Agent</th>
+                    <th>Status</th>
+                    <th style="width: 6rem">Verified</th>
+                </tr>
+                <tr>
+                    <th>
+                        <p-columnFilter type="text" field="name"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                    </th>
+                    <th class="p-fluid">
+                        <p-columnFilter field="representative" defaultConstraint="in" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-filter>
+                                <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                    <ng-template let-option pTemplate="item">
+                                        <div class="p-multiselect-representative-option">
+                                            <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
+                                            <span class="p-ml-1">{{option.label}}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-multiSelect>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th class="p-fluid">
+                        <p-columnFilter field="status" defaultConstraint="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-filter>
+                                <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter type="checkbox" field="verified"></p-columnFilter>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>
+                        {{customer.name}}
+                    </td>
+                    <td>
+                        <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
+                        <span class="image-text">{{customer.country.name}}</span>
+                    </td>
+                    <td>
+                        <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                        <span class="image-text">{{customer.representative.name}}</span>
+                    </td>
+                    <td>
+                        <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    </td>
+                    <td>
+                        <i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No customers found.</td>
                 </tr>
             </ng-template>
         </p-table>
@@ -104,57 +221,83 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table #dt [value]="customers" dataKey="id"
+&lt;div class="card"&gt;
+    &lt;h5&gt;Filter Menu&lt;/h5&gt;
+    &lt;p&gt;Filters are displayed in an overlay.&lt;/p&gt;
+    &lt;p-table [value]="customers" dataKey="id"
         [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
-        [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
+        [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
         &lt;ng-template pTemplate="caption"&gt;
-            &lt;div class="table-header"&gt;
-                List of Customers
-                &lt;span class="p-input-icon-left"&gt;
+            &lt;div class="p-d-flex"&gt;
+                &lt;span class="p-input-icon-left p-ml-auto"&gt;
                     &lt;i class="pi pi-search"&gt;&lt;/i&gt;
-                    &lt;input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /&gt;
+                    &lt;input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" /&gt;
                 &lt;/span&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Representative&lt;/th&gt;
-                &lt;th&gt;Date&lt;/th&gt;
-                &lt;th&gt;Status&lt;/th&gt;
-                &lt;th&gt;Activity&lt;/th&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'startsWith')" placeholder="Search by Name" class="p-column-filter"&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Name 
+                        &lt;p-columnFilter type="text" field="name" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="p-column-filter"&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Country 
+                        &lt;p-columnFilter type="text" field="country.name" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Agent 
+                        &lt;p-columnFilter field="representative" defaultConstraint="in" display="menu"&gt;
+                            &lt;ng-template pTemplate="filter" let-filter&gt;
+                                &lt;p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
+                                    &lt;ng-template let-option pTemplate="item"&gt;
+                                        &lt;div class="p-multiselect-representative-option"&gt;
+                                            &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                            &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                        &lt;/div&gt;
+                                    &lt;/ng-template&gt;
+                                &lt;/p-multiSelect&gt;
+                            &lt;/ng-template&gt;
+                        &lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;p-multiSelect [options]="representatives" placeholder="All" (onChange)="onRepresentativeChange($event)" styleClass="p-column-filter" optionLabel="name"&gt;
-                        &lt;ng-template let-option pTemplate="item"&gt;
-                            &lt;div class="p-multiselect-representative-option"&gt;
-                                &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                                &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
-                            &lt;/div&gt;
-                        &lt;/ng-template&gt;
-                    &lt;/p-multiSelect&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Date
+                        &lt;p-columnFilter type="date" field="date" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Status
+                        &lt;p-columnFilter field="status" defaultConstraint="equals" display="menu"&gt;
+                            &lt;ng-template pTemplate="filter" let-filter&gt;
+                                &lt;p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true"&gt;
+                                    &lt;ng-template let-option pTemplate="item"&gt;
+                                        &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                    &lt;/ng-template&gt;
+                                &lt;/p-dropdown&gt;
+                            &lt;/ng-template&gt;
+                        &lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'date', 'equals')" [showButtonBar]="true" styleClass="p-column-filter" placeholder="Registration Date" [readonlyInput]="true" dateFormat="yy-mm-dd"&gt;&lt;/p-calendar&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Activity
+                        &lt;p-columnFilter type="number" field="activity" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;p-dropdown [options]="statuses" (onChange)="dt.filter($event.value, 'status', 'equals')" styleClass="p-column-filter" placeholder="Select a Status" [showClear]="true"&gt;
-                        &lt;ng-template let-option pTemplate="item"&gt;
-                            &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
-                        &lt;/ng-template&gt;
-                    &lt;/p-dropdown&gt;
-                &lt;/th&gt;
-                &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="onActivityChange($event)" placeholder="Minimum" class="p-column-filter" &gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Verified
+                        &lt;p-columnFilter type="switch" field="verified" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -180,14 +323,107 @@
                 &lt;td&gt;
                     &lt;p-progressBar [value]="customer.activity" [showValue]="false"&gt;&lt;/p-progressBar&gt;
                 &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;i class="pi" [ngClass]="&#123;'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified&#125;"&gt;&lt;/i&gt;
+                &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="emptymessage"&gt;
             &lt;tr&gt;
-                &lt;td colspan="6"&gt;No customers found.&lt;/td&gt;
+                &lt;td colspan="7"&gt;No customers found.&lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Filter Row&lt;/h5&gt;
+    &lt;p&gt;Filters are displayed inline within a separate row.&lt;/p&gt;
+    &lt;p-table [value]="customers" dataKey="id"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
+        [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            &lt;div class="p-d-flex"&gt;
+                &lt;span class="p-input-icon-left p-ml-auto"&gt;
+                    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+                    &lt;input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" /&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Agent&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th style="width: 6rem"&gt;Verified&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th&gt;
+                    &lt;p-columnFilter type="text" field="name"&gt;&lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;p-columnFilter type="text" field="country.name"&gt;&lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;p-columnFilter field="representative" defaultConstraint="in" [showMenu]="false"&gt;
+                        &lt;ng-template pTemplate="filter" let-filter&gt;
+                            &lt;p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
+                                &lt;ng-template let-option pTemplate="item"&gt;
+                                    &lt;div class="p-multiselect-representative-option"&gt;
+                                        &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                        &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                    &lt;/div&gt;
+                                &lt;/ng-template&gt;
+                            &lt;/p-multiSelect&gt;
+                        &lt;/ng-template&gt;
+                    &lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;p-columnFilter field="status" defaultConstraint="equals" [showMenu]="false"&gt;
+                        &lt;ng-template pTemplate="filter" let-filter&gt;
+                            &lt;p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true"&gt;
+                                &lt;ng-template let-option pTemplate="item"&gt;
+                                    &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                &lt;/ng-template&gt;
+                            &lt;/p-dropdown&gt;
+                        &lt;/ng-template&gt;
+                    &lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;p-columnFilter type="checkbox" field="verified"&gt;&lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;i class="pi" [ngClass]="&#123;'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified&#125;"&gt;&lt;/i&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="emptymessage"&gt;
+            &lt;tr&gt;
+                &lt;td colspan="5"&gt;No customers found.&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -243,40 +479,6 @@ export class TableFilterDemo implements OnInit &#123;
         ]
     &#125;
 
-    onActivityChange(event) &#123;
-        const value = event.target.value;
-        if (value && value.trim().length) &#123;
-            const activity = parseInt(value);
-
-            if (!isNaN(activity)) &#123;
-                this.table.filter(activity, 'activity', 'gte');
-            &#125;
-        &#125;
-    &#125;
-
-    onDateSelect(value) &#123;
-        this.table.filter(this.formatDate(value), 'date', 'equals')
-    &#125;
-
-    formatDate(date) &#123;
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-
-        if (month &lt; 10) &#123;
-            month = '0' + month;
-        &#125;
-
-        if (day &lt; 10) &#123;
-            day = '0' + day;
-        &#125;
-
-        return date.getFullYear() + '-' + month + '-' + day;
-    &#125;
-
-    onRepresentativeChange(event) &#123;
-        this.table.filter(event.value, 'representative', 'in')
-    &#125;
-    
 &#125;
 </app-code> 
         </p-tabPanel>

@@ -19,6 +19,10 @@
 }
 
 /* Fluid */
+.p-fluid p-calendar {
+    width: 100%;
+}
+
 .p-fluid .p-calendar {
     display: flex;
 }

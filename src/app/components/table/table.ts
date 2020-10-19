@@ -1,5 +1,5 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Directive, Optional, AfterContentInit,
-    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation} from '@angular/core';
+    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -12,7 +12,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { SortMeta } from 'primeng/api';
 import { TableState } from 'primeng/api';
@@ -3843,8 +3843,9 @@ export class ReorderableRow implements AfterViewInit {
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
-                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterMetadata?.value" (input)="onModelChange($event.target.value)" class="p-column-filter" (keydown.enter)="onTextInputEnterKeyDown($event)">
-                <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" class="p-column-filter" [showButtons]="true"></p-inputNumber>
+                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterMetadata?.value" (input)="onModelChange($event.target.value)"
+                    (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder">
+                <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" [showButtons]="true" [attr.placeholder]="placeholder"></p-inputNumber>
                 <p-checkbox [binary]="true" *ngSwitchCase="'checkbox'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-checkbox>
                 <p-inputSwitch *ngSwitchCase="'switch'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-inputSwitch>
                 <p-calendar *ngSwitchCase="'date'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
@@ -3863,6 +3864,8 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() filterTemplate: TemplateRef<any>;
 
+    @Input() placeholder: string;
+
     filterCallback: Function;
 
     constructor(public dt: Table) {}
@@ -3870,17 +3873,14 @@ export class ColumnFilterFormElement implements OnInit {
     ngOnInit() {
         this.filterCallback = value => {
             this.filterMetadata.value = value;
-
-            if (this.type !== 'text') {
-                this.dt._filter();
-            }
+            this.dt._filter();
         };
     }
 
     onModelChange(value: any) {
         this.filterMetadata.value = value;
 
-        if (this.type === 'boolean') {
+        if (this.type === 'switch' || this.type === 'checkbox') {
             this.dt._filter();
         }
     }
@@ -3901,28 +3901,38 @@ export class ColumnFilterFormElement implements OnInit {
 @Component({
     selector: 'p-columnFilter',
     template: `
-        <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterMetadata]="dt.filters[field]" [filterTemplate]="filterTemplate"></p-columnFilterFormElement>
-        <button #icon *ngIf="showMenu" type="button" class="p-link" (click)="toggleMenu()"><span class="pi pi-filter"></span></button>
-        <div *ngIf="showMenu && overlayVisible" [ngClass]="'p-filtermenu p-component'" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
-            <ul *ngIf="display === 'row'; else menu" class="p-filtermenu-row-items">
-                <li class="p-filtermenu-row-item" *ngFor="let constraint of constraintOptions[type]" (click)="onRowConstraintChange(constraint.value)" 
-                    [ngClass]="{'p-highlight': isRowConstraintSelected(constraint.value)}">{{constraint.label}}</li>
-            </ul>
-            <ng-template #menu>
-                <p-selectButton [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)"></p-selectButton>
-                <div *ngFor="let filterMeta of fieldFilters;let i = index">
-                    <button *ngIf="i !== 0" type="button" class="p-link" (click)="removeFilterMeta(filterMeta)" pRipple>
-                        <span class="pi pi-trash"></span>
-                    </button>
-                    <p-dropdown [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)"></p-dropdown>
-                    <p-columnFilterFormElement [type]="type" [field]="field" [filterMetadata]="filterMeta" [filterTemplate]="filterTemplate"></p-columnFilterFormElement>
-                </div>
-                <button type="button" pButton label="Add Filter" icon="pi pi-plus" class="p-button-text" (click)="addFilter()"></button>
-                <div class="p-filtermenu-buttonbar">
-                    <button type="button" pButton class="p-button-text" (click)="clearFilter()" label="Clear"></button>
-                    <button type="button" pButton (click)="applyFilter()" label="Apply"></button>
-                </div>
-            </ng-template>
+        <div class="p-column-filter" [ngClass]="{'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu'}">
+            <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterMetadata]="dt.filters[field]" [filterTemplate]="filterTemplate"
+                                    [placeholder]="placeholder"></p-columnFilterFormElement>
+            <button #icon *ngIf="showMenuButton" pButton type="button" class="p-column-filter-menu-button p-button-text p-button-plain" (click)="toggleMenu()" icon="pi pi-filter"></button>
+            <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" pButton type="button" class="p-column-filter-clear-button p-button-text p-button-plain" (click)="clearFilter()" icon="pi pi-times"></button>
+            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+                <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
+                    <li class="p-column-filter-row-item" *ngFor="let constraint of constraintOptions[type]" (click)="onRowConstraintChange(constraint.value)" 
+                        [ngClass]="{'p-highlight': isRowConstraintSelected(constraint.value)}">{{constraint.label}}</li>
+                    <li class="p-column-filter-separator"></li>
+                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()">No filter</li>
+                </ul>
+                <ng-template #menu>
+                    <div class="p-column-filter-operator">
+                        <p-dropdown [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" styleClass="p-column-filter-operator-dropdown"></p-dropdown>
+                    </div>
+                    <div class="p-column-filter-constraints">
+                        <div *ngFor="let filterMeta of fieldFilters; let i = index" class="p-column-filter-constraint">
+                            <p-dropdown [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)" styleClass="p-column-filter-constraint-dropdown"></p-dropdown>
+                            <p-columnFilterFormElement [type]="type" [field]="field" [filterMetadata]="filterMeta" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
+                            <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeFilterMeta(filterMeta)" pRipple label="Remove Rule"></button>
+                        </div>
+                    </div>
+                    <div class="p-column-filter-add-rule">
+                        <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addFilter()" pRipple></button>
+                    </div>
+                    <div class="p-column-filter-buttonbar">
+                        <button type="button" pButton class="p-button-outlined" (click)="clearFilter()" label="Clear" pRipple></button>
+                        <button type="button" pButton (click)="applyFilter()" label="Apply" pRipple></button>
+                    </div>
+                </ng-template>
+            </div>
         </div>
     `,
     animations: [
@@ -3956,11 +3966,13 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() showApplyButton: boolean = true;
 
+    @Input() placeholder: string;
+
     @ViewChild('icon') icon: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    constructor(public el: ElementRef, public dt: Table) {}
+    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2) {}
 
     constraint: string;
 
@@ -3974,6 +3986,12 @@ export class ColumnFilter implements AfterContentInit {
 
     overlay: HTMLElement;
 
+    scrollHandler: any;
+
+    documentClickListener: any;
+
+    documentResizeListener: any;
+
     ngOnInit() {
         if (!this.dt.filters[this.field]) {
             this.initFieldFilterMetadata();
@@ -3981,33 +3999,33 @@ export class ColumnFilter implements AfterContentInit {
         
         this.constraintOptions = {
             text: [
-                {label: 'starts with', value: 'startsWith'},
-                {label: 'contains', value: 'contains'},
-                {label: 'ends with', value: 'endsWith'},
-                {label: 'equal to', value: 'equals'},
-                {label: 'not equal to', value: 'notEquals'}
+                {label: 'Starts with', value: 'startsWith'},
+                {label: 'Contains', value: 'contains'},
+                {label: 'Ends with', value: 'endsWith'},
+                {label: 'Equal to', value: 'equals'},
+                {label: 'Not equal to', value: 'notEquals'}
             ],
             numeric: [
-                {label: 'equal to', value: 'equals'},
-                {label: 'not equal to', value: 'notEquals'},
-                {label: 'less than', value: 'lt'},
-                {label: 'less than or equal to', value: 'lte'},
-                {label: 'greater than', value: 'gt'},
-                {label: 'greater than or equal to', value: 'gte'}
+                {label: 'Equal to', value: 'equals'},
+                {label: 'Not equal to', value: 'notEquals'},
+                {label: 'Less than', value: 'lt'},
+                {label: 'Less than or equal to', value: 'lte'},
+                {label: 'Greater than', value: 'gt'},
+                {label: 'Greater than or equal to', value: 'gte'}
             ],
             date: [
-                {label: 'equal to', value: 'equals'},
-                {label: 'not equal to', value: 'notEquals'},
-                {label: 'less than', value: 'lt'},
-                {label: 'less than or equal to', value: 'lte'},
-                {label: 'greater than', value: 'gt'},
-                {label: 'greater than or equal to', value: 'gte'}
+                {label: 'Equal to', value: 'equals'},
+                {label: 'Not equal to', value: 'notEquals'},
+                {label: 'Less than', value: 'lt'},
+                {label: 'Less than or equal to', value: 'lte'},
+                {label: 'Greater than', value: 'gt'},
+                {label: 'Greater than or equal to', value: 'gte'}
             ]
         };
 
         this.operatorOptions = [
-            {label: 'AND', value: 'and'},
-            {label: 'OR', value: 'or'}
+            {label: 'Match All', value: 'and'},
+            {label: 'Match Any', value: 'or'}
         ];
     }
 
@@ -4030,7 +4048,7 @@ export class ColumnFilter implements AfterContentInit {
         this.dt.filters[this.field] = this.display == 'row' ? {value: null, matchMode: defaultConstraint} : [{value: null, matchMode: defaultConstraint, operator: this.defaultOperator}];
     }
 
-    onOptionConstraintChange(value: any, filterMeta: FilterMetadata, ) {
+    onOptionConstraintChange(value: any, filterMeta: FilterMetadata) {
         filterMeta.matchMode = value;
 
         if (!this.showApplyButton) {
@@ -4041,6 +4059,12 @@ export class ColumnFilter implements AfterContentInit {
     onRowConstraintChange(constraint: string) {
         (<FilterMetadata> this.dt.filters[this.field]).matchMode = constraint;
         this.dt._filter();
+        this.hide();
+    }
+
+    onRowClearItemClick() {
+        this.clearFilter();
+        this.hide();
     }
 
     isRowConstraintSelected(constraint: string) {
@@ -4067,10 +4091,7 @@ export class ColumnFilter implements AfterContentInit {
 
     removeFilterMeta(filterMeta: FilterMetadata) {
         this.dt.filters[this.field] = (<FilterMetadata[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
-
-        if (!this.showApplyButton) {
-            this.dt._filter();
-        }
+        this.dt._filter();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -4080,7 +4101,10 @@ export class ColumnFilter implements AfterContentInit {
                 
                 document.body.appendChild(this.overlay);
                 this.overlay.style.zIndex = String(++DomHandler.zindex);
-                DomHandler.absolutePosition(this.overlay, this.icon.nativeElement);
+                DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
+                this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
+                this.bindScrollListener();
             break;
 
             case 'void':
@@ -4104,16 +4128,91 @@ export class ColumnFilter implements AfterContentInit {
                 return 'contains';
         }
     }
- 
+
+    hasRowFilter() {
+        return this.dt.filters[this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[this.field]).value);
+    }
+
     get fieldFilters(): FilterMetadata[] {
         return this.dt.filters ? <FilterMetadata[]> this.dt.filters[this.field] : null;
+    }
+
+    get showRemoveIcon(): boolean {
+        return this.fieldFilters ? this.fieldFilters.length > 1 : false;
     }
 
     get operator(): string {
         return this.dt.filters ? (<FilterMetadata[]> this.dt.filters[this.field])[0].operator: null;
     }
 
+    get showMenuButton(): boolean {
+        return this.showMenu && (this.display === 'row' ? this.type !== 'switch' && this.type !== 'checkbox' : true);
+    }
+
+    isOutsideClicked(event): boolean {
+        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
+            || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
+            || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button'));
+    }
+
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', event => {
+                console.log(this.overlay.contains(event.target));
+                if (this.isOutsideClicked(event)) {
+                    this.hide();
+                }
+            });
+        }
+    }
+
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    bindDocumentResizeListener() {
+        this.documentResizeListener = () => this.hide();
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    bindScrollListener() {
+        if (!this.scrollHandler) {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.icon.nativeElement, () => {
+                if (this.overlayVisible) {
+                    this.hide();
+                }
+            });
+        }
+
+        this.scrollHandler.bindScrollListener();
+    }
+
+    unbindScrollListener() {
+        if (this.scrollHandler) {
+            this.scrollHandler.unbindScrollListener();
+        }
+    }
+
+    hide() {
+        this.overlayVisible = false;
+    }
+
     onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
+        this.unbindScrollListener();
         this.overlay = null;
     }
 
