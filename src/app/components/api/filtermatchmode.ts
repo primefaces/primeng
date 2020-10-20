@@ -9,4 +9,5 @@ export class FilterMatchMode {
     public static readonly LESS_THAN_OR_EQUAL_TO = 'lte';
     public static readonly GREATER_THAN = 'gt';
     public static readonly GREATER_THAN_OR_EQUAL_TOTE = 'gte';
+    public static readonly BETWEEN = 'between';
 }

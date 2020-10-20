@@ -17,6 +17,8 @@ export class TableFilterDemo implements OnInit {
 
     loading: boolean = true;
 
+    activityValues: number[] = [0, 100];
+
     @ViewChild('dt') table: Table;
 
     constructor(private customerService: CustomerService) { }

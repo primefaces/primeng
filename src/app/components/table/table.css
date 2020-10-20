@@ -218,8 +218,10 @@ p-columnfilterformelement > .p-inputtext,
     justify-content: center;
 }
 
-.p-column-filter-constraint p-columnfilterformelement {
+.p-column-filter-constraint p-columnfilterformelement,
+.p-column-filter-constraint p-slider {
     width: 100%;
+    display: block;
 }
 
 .p-column-filter-add-button,

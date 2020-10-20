@@ -86,7 +86,15 @@
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Activity
-                            <p-columnFilter type="numeric" field="activity" display="menu"></p-columnFilter>
+                            <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="filter" let-filter>
+                                    <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="p-m-3"></p-slider>
+                                    <div class="p-d-flex p-ai-center p-jc-between p-px-2">
+                                        <span>{{activityValues[0]}}</span>
+                                        <span>{{activityValues[1]}}</span>
+                                    </div>
+                                </ng-template>
+                            </p-columnFilter>
                         </div>
                     </th>
                     <th>
@@ -122,7 +130,7 @@
                     <td>
                         <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
                     </td>
-                    <td>
+                    <td class="p-text-center">
                         <i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
                     </td>
                 </tr>

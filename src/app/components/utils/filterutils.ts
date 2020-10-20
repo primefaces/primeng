@@ -115,6 +115,21 @@ export class FilterUtils {
         return false;
     }
 
+    public static between(value, filter: any[]): boolean {
+        if (filter == null || filter[0] == null || filter[0] == null) {
+            return true;
+        }
+
+        if (value === undefined || value === null) {
+            return false;
+        }
+
+        if (value.getTime)
+        return filter[0].getTime() >= value.getTime() && value.getTime() <= filter[1].getTime();
+        else
+            return filter[0] <= value && value <= filter[1];
+    }
+
     public static lt(value, filter, filterLocale?): boolean {
         if (filter === undefined || filter === null) {
             return true;
