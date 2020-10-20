@@ -9,7 +9,7 @@
     <div class="card">
         <h5>Filter Menu</h5>
         <p>Filters are displayed in an overlay.</p>
-        <p-table [value]="customers" dataKey="id"
+        <p-table #dt1 [value]="customers" dataKey="id"
             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [globalFilterFields]="['name','country.name','representative.name','status']">
@@ -17,7 +17,7 @@
                 <div class="p-d-flex">
                     <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                     </span>
                 </div>
             </ng-template>
@@ -124,7 +124,7 @@
     <div class="card">
         <h5>Filter Row</h5>
         <p>Filters are displayed inline within a separate row.</p>
-        <p-table [value]="customers" dataKey="id"
+        <p-table #dt2 [value]="customers" dataKey="id"
             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [globalFilterFields]="['name','country.name','representative.name','status']">
@@ -132,7 +132,7 @@
                 <div class="p-d-flex">
                     <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                        <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                     </span>
                 </div>
             </ng-template>
