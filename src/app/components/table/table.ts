@@ -7,8 +7,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { CheckboxModule } from 'primeng/checkbox';
+import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
@@ -3846,8 +3845,7 @@ export class ReorderableRow implements AfterViewInit {
                 <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterMetadata?.value" (input)="onModelChange($event.target.value)"
                     (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder">
                 <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" [showButtons]="true" [attr.placeholder]="placeholder"></p-inputNumber>
-                <p-checkbox [binary]="true" *ngSwitchCase="'checkbox'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-checkbox>
-                <p-inputSwitch *ngSwitchCase="'switch'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-inputSwitch>
+                <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
                 <p-calendar *ngSwitchCase="'date'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
             </ng-container>
         </ng-template>
@@ -3880,7 +3878,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         this.filterMetadata.value = value;
 
-        if (this.type === 'switch' || this.type === 'checkbox') {
+        if (this.type === 'boolean') {
             this.dt._filter();
         }
     }
@@ -4167,15 +4165,15 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get showMenuButton(): boolean {
-        return this.showMenu && (this.display === 'row' ? this.type !== 'switch' && this.type !== 'checkbox' : true);
+        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean': true);
     }
 
     get isShowOperator(): boolean {
-        return this.showOperator && this.type !== 'switch' && this.type !== 'checkbox';
+        return this.showOperator && this.type !== 'boolean';
     }
 
     get isShowAddRule(): boolean {
-        return this.multipleRules && this.type !== 'switch' && this.type !== 'checkbox';
+        return this.multipleRules && this.type !== 'boolean';
     }
 
     isOutsideClicked(event): boolean {
@@ -4248,7 +4246,6 @@ export class ColumnFilter implements AfterContentInit {
     clearFilter() {
         this.initFieldFilterMetadata();
         this.dt._filter();
-        this.hide();
     }
 
     applyFilter() {
@@ -4265,7 +4262,7 @@ export class ColumnFilter implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,PaginatorModule,InputTextModule,DropdownModule,ScrollingModule,FormsModule,ButtonModule,SelectButtonModule,CalendarModule,InputNumberModule,InputSwitchModule,CheckboxModule],
+    imports: [CommonModule,PaginatorModule,InputTextModule,DropdownModule,ScrollingModule,FormsModule,ButtonModule,SelectButtonModule,CalendarModule,InputNumberModule,TriStateCheckboxModule],
     exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,
             TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow,ScrollingModule,ColumnFilter],
     declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,
