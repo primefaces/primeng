@@ -3975,6 +3975,8 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() matchModeOptions: SelectItem[];
 
+    @Input() maxConstraints: number = 2;
+
     @ViewChild('icon') icon: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
@@ -4150,7 +4152,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get isShowAddConstraint(): boolean {
-        return this.showAddButton && this.type !== 'boolean';
+        return this.showAddButton && this.type !== 'boolean' && (this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints);
     }
 
     isOutsideClicked(event): boolean {
