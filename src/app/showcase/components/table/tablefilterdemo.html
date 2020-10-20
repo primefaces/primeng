@@ -119,7 +119,7 @@
                         <span class="image-text">{{customer.representative.name}}</span>
                     </td>
                     <td>
-                        {{customer.date}}
+                        {{customer.date | date: 'MM/dd/yyyy'}}
                     </td>
                     <td>
                         {{customer.balance | currency:'USD':'symbol'}}

@@ -27,6 +27,8 @@ export class TableFilterDemo implements OnInit {
         this.customerService.getCustomersLarge().then(customers => {
             this.customers = customers;
             this.loading = false;
+
+            this.customers.forEach(customer => customer.date = new Date(customer.date));
         });
 
         this.representatives = [

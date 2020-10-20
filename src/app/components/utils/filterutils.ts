@@ -52,6 +52,21 @@ export class FilterUtils {
         return stringValue.indexOf(filterValue) !== -1;
     }
 
+    public static notContains(value, filter, filterLocale?): boolean {
+        if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+            return true;
+        }
+
+        if (value === undefined || value === null) {
+            return false;
+        }
+
+        let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+        let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
+
+        return stringValue.indexOf(filterValue) === -1;
+    }
+
     public static endsWith(value, filter, filterLocale?): boolean {
         if (filter === undefined || filter === null || filter.trim() === '') {
             return true;

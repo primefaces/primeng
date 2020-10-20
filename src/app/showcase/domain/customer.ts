@@ -13,7 +13,7 @@ export interface Customer {
     name?: string;
     country?: Country;
     company?: string;
-    date?: string;
+    date?: string | Date;
     status?: string;
     activity?: number;
     representative?: Representative;
