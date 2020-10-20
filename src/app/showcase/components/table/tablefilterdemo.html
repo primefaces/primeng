@@ -63,6 +63,12 @@
                             <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                         </div>
                     </th>
+                    <th>
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Balance
+                            <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
+                        </div>
+                    </th>
                     <th class="p-fluid">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Status
@@ -106,6 +112,9 @@
                     </td>
                     <td>
                         {{customer.date}}
+                    </td>
+                    <td>
+                        {{customer.balance | currency:'USD':'symbol'}}
                     </td>
                     <td>
                         <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>

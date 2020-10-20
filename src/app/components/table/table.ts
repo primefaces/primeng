@@ -3843,7 +3843,9 @@ export class ReorderableRow implements AfterViewInit {
             <ng-container [ngSwitch]="type">
                 <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterConstraint?.value" (input)="onModelChange($event.target.value)"
                     (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder">
-                <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" [showButtons]="true" [attr.placeholder]="placeholder"></p-inputNumber>
+                <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" [showButtons]="true" [attr.placeholder]="placeholder"
+                    [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
+                    [mode]="currency ? 'currency' : 'decimal'" [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-inputNumber>
                 <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
                 <p-calendar *ngSwitchCase="'date'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
             </ng-container>
@@ -3862,6 +3864,24 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() filterTemplate: TemplateRef<any>;
 
     @Input() placeholder: string;
+
+    @Input() minFractionDigits: number
+    
+    @Input() maxFractionDigits: number;
+
+    @Input() prefix: string;
+
+    @Input() suffix: string;
+
+    @Input() locale: string;
+
+    @Input() localeMatcher: string;
+
+    @Input() currency: string;
+
+    @Input() currencyDisplay: string;
+
+    @Input() useGrouping: boolean = true;
 
     filterCallback: Function;
 
@@ -3899,8 +3919,8 @@ export class ColumnFilterFormElement implements OnInit {
     selector: 'p-columnFilter',
     template: `
         <div class="p-column-filter" [ngClass]="{'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu'}">
-            <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate"
-                                    [placeholder]="placeholder"></p-columnFilterFormElement>
+            <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
+                                    [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
             <button #icon *ngIf="showMenuButton" pButton type="button" class="p-column-filter-menu-button p-button-text p-button-plain" (click)="toggleMenu()" icon="pi pi-filter"></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" pButton type="button" class="p-column-filter-clear-button p-button-text p-button-plain" (click)="clearFilter()" icon="pi pi-times"></button>
             <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
@@ -3918,7 +3938,9 @@ export class ColumnFilterFormElement implements OnInit {
                     <div class="p-column-filter-constraints">
                         <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" class="p-column-filter-constraint">
                             <p-dropdown  *ngIf="showMatchModes && matchModes" [options]="matchModes" [ngModel]="fieldConstraint.matchMode" (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)" styleClass="p-column-filter-matchmode-dropdown"></p-dropdown>
-                            <p-columnFilterFormElement [type]="type" [field]="field" [filterConstraint]="fieldConstraint" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
+                            <p-columnFilterFormElement [type]="type" [field]="field" [filterConstraint]="fieldConstraint" [filterTemplate]="filterTemplate" [placeholder]="placeholder"
+                            [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
+                            [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
                             <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple label="Remove Rule"></button>
                         </div>
                     </div>
@@ -3976,6 +3998,24 @@ export class ColumnFilter implements AfterContentInit {
     @Input() matchModeOptions: SelectItem[];
 
     @Input() maxConstraints: number = 2;
+
+    @Input() minFractionDigits: number;
+    
+    @Input() maxFractionDigits: number;
+
+    @Input() prefix: string;
+
+    @Input() suffix: string;
+
+    @Input() locale: string;
+
+    @Input() localeMatcher: string;
+
+    @Input() currency: string;
+
+    @Input() currencyDisplay: string;
+
+    @Input() useGrouping: boolean = true;
 
     @ViewChild('icon') icon: ElementRef;
 

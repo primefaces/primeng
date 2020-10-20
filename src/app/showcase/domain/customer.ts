@@ -18,4 +18,5 @@ export interface Customer {
     activity?: number;
     representative?: Representative;
     verified?: boolean;
+    balance?: boolean;
 }
