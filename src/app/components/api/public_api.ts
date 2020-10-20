@@ -10,6 +10,7 @@ export * from './message';
 export * from './messageservice';
 export * from './primeicons';
 export * from './filtermatchmode';
+export * from './filteroperator';
 export * from './selectitem';
 export * from './selectitemgroup';
 export * from './shared';

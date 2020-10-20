@@ -2,7 +2,7 @@ import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Di
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -21,7 +21,7 @@ import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { FilterUtils } from 'primeng/utils';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Injectable()
 export class TableService {
@@ -1323,7 +1323,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                                 for (let meta of filterMeta) {
                                     localMatch = this.executeLocalFilter(filterField, this.value[i], meta);
 
-                                    if ((meta.operator === 'or' && localMatch) || (meta.operator === 'and' && !localMatch)) {
+                                    if ((meta.operator === FilterOperator.OR && localMatch) || (meta.operator === FilterOperator.AND && !localMatch)) {
                                         break;
                                     }
                                 }
@@ -1396,7 +1396,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     executeLocalFilter(field: string, rowData: any, filterMeta: FilterMetadata): boolean {
         let filterValue = filterMeta.value;
-        let filterMatchMode = filterMeta.matchMode || 'startsWith';
+        let filterMatchMode = filterMeta.matchMode || FilterMatchMode.STARTS_WITH;
         let dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
         let filterConstraint = FilterUtils[filterMatchMode];
 
@@ -1448,7 +1448,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     public reset() {
-        console.warn("reset function is deprecated, use clear instead.");
         this.clear();
     }
 
@@ -3842,11 +3841,11 @@ export class ReorderableRow implements AfterViewInit {
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
-                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterMetadata?.value" (input)="onModelChange($event.target.value)"
+                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterConstraint?.value" (input)="onModelChange($event.target.value)"
                     (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder">
-                <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" [showButtons]="true" [attr.placeholder]="placeholder"></p-inputNumber>
-                <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
-                <p-calendar *ngSwitchCase="'date'" [ngModel]="filterMetadata?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
+                <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" [showButtons]="true" [attr.placeholder]="placeholder"></p-inputNumber>
+                <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
+                <p-calendar *ngSwitchCase="'date'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
             </ng-container>
         </ng-template>
     `,
@@ -3858,7 +3857,7 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() type: string;
 
-    @Input() filterMetadata: FilterMetadata;
+    @Input() filterConstraint: FilterMetadata;
 
     @Input() filterTemplate: TemplateRef<any>;
 
@@ -3870,13 +3869,13 @@ export class ColumnFilterFormElement implements OnInit {
 
     ngOnInit() {
         this.filterCallback = value => {
-            this.filterMetadata.value = value;
+            this.filterConstraint.value = value;
             this.dt._filter();
         };
     }
 
     onModelChange(value: any) {
-        this.filterMetadata.value = value;
+        this.filterConstraint.value = value;
 
         if (this.type === 'boolean') {
             this.dt._filter();
@@ -3900,15 +3899,15 @@ export class ColumnFilterFormElement implements OnInit {
     selector: 'p-columnFilter',
     template: `
         <div class="p-column-filter" [ngClass]="{'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu'}">
-            <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterMetadata]="dt.filters[field]" [filterTemplate]="filterTemplate"
+            <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate"
                                     [placeholder]="placeholder"></p-columnFilterFormElement>
             <button #icon *ngIf="showMenuButton" pButton type="button" class="p-column-filter-menu-button p-button-text p-button-plain" (click)="toggleMenu()" icon="pi pi-filter"></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" pButton type="button" class="p-column-filter-clear-button p-button-text p-button-plain" (click)="clearFilter()" icon="pi pi-times"></button>
             <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
-                    <li class="p-column-filter-row-item" *ngFor="let constraint of constraintOptions[type]" (click)="onRowConstraintChange(constraint.value)" 
-                        [ngClass]="{'p-highlight': isRowConstraintSelected(constraint.value)}">{{constraint.label}}</li>
+                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes[type]" (click)="onRowMatchModeChange(matchMode.value)" 
+                        [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}">{{matchMode.label}}</li>
                     <li class="p-column-filter-separator"></li>
                     <li class="p-column-filter-row-item" (click)="onRowClearItemClick()">No filter</li>
                 </ul>
@@ -3916,15 +3915,15 @@ export class ColumnFilterFormElement implements OnInit {
                     <div class="p-column-filter-operator" *ngIf="isShowOperator">
                         <p-dropdown [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" styleClass="p-column-filter-operator-dropdown"></p-dropdown>
                     </div>
-                    <div class="p-column-filter-constraints" [style.max-height]="scrollHeight">
-                        <div *ngFor="let filterMeta of fieldFilters; let i = index" class="p-column-filter-constraint">
-                            <p-dropdown  *ngIf="constraintOptions[type]" [options]="constraintOptions[type]" [ngModel]="filterMeta.matchMode" (ngModelChange)="onOptionConstraintChange($event, filterMeta)" styleClass="p-column-filter-constraint-dropdown" appendTo="body"></p-dropdown>
-                            <p-columnFilterFormElement [type]="type" [field]="field" [filterMetadata]="filterMeta" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
-                            <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeRule(filterMeta)" pRipple label="Remove Rule"></button>
+                    <div class="p-column-filter-constraints">
+                        <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" class="p-column-filter-constraint">
+                            <p-dropdown  *ngIf="matchModes[type]" [options]="matchModes[type]" [ngModel]="fieldConstraint.matchMode" (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)" styleClass="p-column-filter-matchmode-dropdown"></p-dropdown>
+                            <p-columnFilterFormElement [type]="type" [field]="field" [filterConstraint]="fieldConstraint" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
+                            <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple label="Remove Rule"></button>
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddRule">
-                        <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addRule()" pRipple></button>
+                        <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
                     </div>
                     <div class="p-column-filter-buttonbar">
                         <button type="button" pButton class="p-button-outlined" (click)="clearFilter()" label="Clear" pRipple></button>
@@ -3958,9 +3957,9 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() showMenu: boolean = true;
 
-    @Input() defaultConstraint: string;
+    @Input() matchMode: string;
 
-    @Input() defaultOperator: string = 'and';
+    @Input() operator: string = FilterOperator.AND;
 
     @Input() showOperator: boolean = true;
 
@@ -3971,8 +3970,6 @@ export class ColumnFilter implements AfterContentInit {
     @Input() multipleRules: boolean = true;
 
     @Input() placeholder: string;
-
-    @Input() scrollHeight: string;
 
     @ViewChild('icon') icon: ElementRef;
 
@@ -3988,7 +3985,7 @@ export class ColumnFilter implements AfterContentInit {
 
     footerTemplate: TemplateRef<any>;
 
-    constraintOptions: any;
+    matchModes: any;
 
     operatorOptions: any[];
 
@@ -4004,38 +4001,38 @@ export class ColumnFilter implements AfterContentInit {
 
     ngOnInit() {
         if (!this.dt.filters[this.field]) {
-            this.initFieldFilterMetadata();
+            this.initFieldFilterConstraint();
         }
         
-        this.constraintOptions = {
+        this.matchModes = {
             text: [
-                {label: 'Starts with', value: 'startsWith'},
-                {label: 'Contains', value: 'contains'},
-                {label: 'Ends with', value: 'endsWith'},
-                {label: 'Equal to', value: 'equals'},
-                {label: 'Not equal to', value: 'notEquals'}
+                {label: 'Starts with', value: FilterMatchMode.STARTS_WITH},
+                {label: 'Contains', value: FilterMatchMode.CONTAINS},
+                {label: 'Ends with', value: FilterMatchMode.ENDS_WITH},
+                {label: 'Equal to', value: FilterMatchMode.EQUALS},
+                {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS}
             ],
             numeric: [
-                {label: 'Equal to', value: 'equals'},
-                {label: 'Not equal to', value: 'notEquals'},
-                {label: 'Less than', value: 'lt'},
-                {label: 'Less than or equal to', value: 'lte'},
-                {label: 'Greater than', value: 'gt'},
-                {label: 'Greater than or equal to', value: 'gte'}
+                {label: 'Equal to', value: FilterMatchMode.EQUALS},
+                {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS},
+                {label: 'Less than', value: FilterMatchMode.LESS_THAN},
+                {label: 'Less than or equal to', value: FilterMatchMode.LESS_THAN_OR_EQUAL_TO},
+                {label: 'Greater than', value: FilterMatchMode.GREATER_THAN},
+                {label: 'Greater than or equal to', value: FilterMatchMode.GREATER_THAN_OR_EQUAL_TOTE}
             ],
             date: [
-                {label: 'Equal to', value: 'equals'},
-                {label: 'Not equal to', value: 'notEquals'},
-                {label: 'Less than', value: 'lt'},
-                {label: 'Less than or equal to', value: 'lte'},
-                {label: 'Greater than', value: 'gt'},
-                {label: 'Greater than or equal to', value: 'gte'}
+                {label: 'Equal to', value: FilterMatchMode.EQUALS},
+                {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS},
+                {label: 'Less than', value: FilterMatchMode.LESS_THAN},
+                {label: 'Less than or equal to', value: FilterMatchMode.LESS_THAN_OR_EQUAL_TO},
+                {label: 'Greater than', value: FilterMatchMode.GREATER_THAN},
+                {label: 'Greater than or equal to', value: FilterMatchMode.GREATER_THAN_OR_EQUAL_TOTE}
             ]
         };
 
         this.operatorOptions = [
-            {label: 'Match All', value: 'and'},
-            {label: 'Match Any', value: 'or'}
+            {label: 'Match All', value: FilterOperator.AND},
+            {label: 'Match Any', value: FilterOperator.OR}
         ];
     }
 
@@ -4061,12 +4058,12 @@ export class ColumnFilter implements AfterContentInit {
         });
     }
 
-    initFieldFilterMetadata() {
-        let defaultConstraint = this.getDefaultConstraint();
-        this.dt.filters[this.field] = this.display == 'row' ? {value: null, matchMode: defaultConstraint} : [{value: null, matchMode: defaultConstraint, operator: this.defaultOperator}];
+    initFieldFilterConstraint() {
+        let defaultMatchMode = this.getDefaultMatchMode();
+        this.dt.filters[this.field] = this.display == 'row' ? {value: null, matchMode: defaultMatchMode} : [{value: null, matchMode: defaultMatchMode, operator: this.operator}];
     }
 
-    onOptionConstraintChange(value: any, filterMeta: FilterMetadata) {
+    onMenuMatchModeChange(value: any, filterMeta: FilterMetadata) {
         filterMeta.matchMode = value;
 
         if (!this.showApplyButton) {
@@ -4074,8 +4071,8 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 
-    onRowConstraintChange(constraint: string) {
-        (<FilterMetadata> this.dt.filters[this.field]).matchMode = constraint;
+    onRowMatchModeChange(matchMode: string) {
+        (<FilterMetadata> this.dt.filters[this.field]).matchMode = matchMode;
         this.dt._filter();
         this.hide();
     }
@@ -4085,16 +4082,16 @@ export class ColumnFilter implements AfterContentInit {
         this.hide();
     }
 
-    isRowConstraintSelected(constraint: string) {
-        return (<FilterMetadata> this.dt.filters[this.field]).matchMode === constraint;
+    isRowMatchModeSelected(matchMode: string) {
+        return (<FilterMetadata> this.dt.filters[this.field]).matchMode === matchMode;
     }
 
-    addRule() {
-        (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultConstraint(), operator: this.operator});
+    addConstraint() {
+        (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator()});
         this.dt._filter();
     }
 
-    removeRule(filterMeta: FilterMetadata) {
+    removeConstraint(filterMeta: FilterMetadata) {
         this.dt.filters[this.field] = (<FilterMetadata[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
         this.dt._filter();
     }
@@ -4132,36 +4129,36 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 
-    getDefaultConstraint(): string {
-        if (this.defaultConstraint) {
-            return this.defaultConstraint;
+    getDefaultMatchMode(): string {
+        if (this.matchMode) {
+            return this.matchMode;
         }
         else {
             if (this.type === 'text')
-                return 'startsWith';
+                return FilterMatchMode.STARTS_WITH;
             else if (this.type === 'numeric')
-                return 'equals';
+                return FilterMatchMode.EQUALS;
             else if (this.type === 'date')
-                return 'equals';
+                return FilterMatchMode.EQUALS;
             else
-                return 'contains';
+                return FilterMatchMode.CONTAINS;
         }
+    }
+
+    getDefaultOperator(): string {
+        return this.dt.filters ? (<FilterMetadata[]> this.dt.filters[this.field])[0].operator: this.operator;
     }
 
     hasRowFilter() {
         return this.dt.filters[this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[this.field]).value);
     }
 
-    get fieldFilters(): FilterMetadata[] {
+    get fieldConstraints(): FilterMetadata[] {
         return this.dt.filters ? <FilterMetadata[]> this.dt.filters[this.field] : null;
     }
 
     get showRemoveIcon(): boolean {
-        return this.fieldFilters ? this.fieldFilters.length > 1 : false;
-    }
-
-    get operator(): string {
-        return this.dt.filters ? (<FilterMetadata[]> this.dt.filters[this.field])[0].operator: null;
+        return this.fieldConstraints ? this.fieldConstraints.length > 1 : false;
     }
 
     get showMenuButton(): boolean {
@@ -4244,7 +4241,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     clearFilter() {
-        this.initFieldFilterMetadata();
+        this.initFieldFilterConstraint();
         this.dt._filter();
     }
 

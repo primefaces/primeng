@@ -2108,7 +2108,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 0.571rem 1rem;
   border-bottom: 1px solid #d8dae2;
 }
-.p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-constraint-dropdown {
+.p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-matchmode-dropdown {
   margin-bottom: 0.5rem;
 }
 .p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-remove-button {
