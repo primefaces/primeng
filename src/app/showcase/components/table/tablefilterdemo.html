@@ -38,9 +38,9 @@
                     <th class="p-fluid">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Agent 
-                            <p-columnFilter field="representative" defaultConstraint="in" display="menu">
+                            <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                 <ng-template pTemplate="filter" let-filter>
-                                    <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" appendTo="body">
+                                    <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-representative-option">
                                                 <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
@@ -61,9 +61,9 @@
                     <th class="p-fluid">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Status
-                            <p-columnFilter field="status" defaultConstraint="equals" display="menu">
+                            <p-columnFilter field="status" matchMode="equals" display="menu">
                                 <ng-template pTemplate="filter" let-filter>
-                                    <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true" appendTo="body">
+                                    <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
                                         </ng-template>

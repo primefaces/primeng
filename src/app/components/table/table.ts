@@ -2,7 +2,7 @@ import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Di
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -3906,7 +3906,7 @@ export class ColumnFilterFormElement implements OnInit {
             <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
-                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes[type]" (click)="onRowMatchModeChange(matchMode.value)" 
+                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes" (click)="onRowMatchModeChange(matchMode.value)" 
                         [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}">{{matchMode.label}}</li>
                     <li class="p-column-filter-separator"></li>
                     <li class="p-column-filter-row-item" (click)="onRowClearItemClick()">No filter</li>
@@ -3917,12 +3917,12 @@ export class ColumnFilterFormElement implements OnInit {
                     </div>
                     <div class="p-column-filter-constraints">
                         <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" class="p-column-filter-constraint">
-                            <p-dropdown  *ngIf="matchModes[type]" [options]="matchModes[type]" [ngModel]="fieldConstraint.matchMode" (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)" styleClass="p-column-filter-matchmode-dropdown"></p-dropdown>
+                            <p-dropdown  *ngIf="showMatchModes && matchModes" [options]="matchModes" [ngModel]="fieldConstraint.matchMode" (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)" styleClass="p-column-filter-matchmode-dropdown"></p-dropdown>
                             <p-columnFilterFormElement [type]="type" [field]="field" [filterConstraint]="fieldConstraint" [filterTemplate]="filterTemplate" [placeholder]="placeholder"></p-columnFilterFormElement>
                             <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple label="Remove Rule"></button>
                         </div>
                     </div>
-                    <div class="p-column-filter-add-rule" *ngIf="isShowAddRule">
+                    <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
                         <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
                     </div>
                     <div class="p-column-filter-buttonbar">
@@ -3967,25 +3967,25 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() showApplyButton: boolean = true;
 
-    @Input() multipleRules: boolean = true;
+    @Input() showMatchModes: boolean = true;
+
+    @Input() showAddButton: boolean = true;
 
     @Input() placeholder: string;
+
+    @Input() matchModeOptions: SelectItem[];
 
     @ViewChild('icon') icon: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2) {}
-
-    constraint: string;
+    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig) {}
 
     headerTemplate: TemplateRef<any>;
 
     filterTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
-
-    matchModes: any;
 
     operatorOptions: any[];
 
@@ -3999,36 +3999,16 @@ export class ColumnFilter implements AfterContentInit {
 
     documentResizeListener: any;
 
+    matchModes: SelectItem[];
+
     ngOnInit() {
         if (!this.dt.filters[this.field]) {
             this.initFieldFilterConstraint();
         }
+
+        this.matchModes = this.matchModeOptions || this.config.filterMatchModes[this.type];
         
-        this.matchModes = {
-            text: [
-                {label: 'Starts with', value: FilterMatchMode.STARTS_WITH},
-                {label: 'Contains', value: FilterMatchMode.CONTAINS},
-                {label: 'Ends with', value: FilterMatchMode.ENDS_WITH},
-                {label: 'Equal to', value: FilterMatchMode.EQUALS},
-                {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS}
-            ],
-            numeric: [
-                {label: 'Equal to', value: FilterMatchMode.EQUALS},
-                {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS},
-                {label: 'Less than', value: FilterMatchMode.LESS_THAN},
-                {label: 'Less than or equal to', value: FilterMatchMode.LESS_THAN_OR_EQUAL_TO},
-                {label: 'Greater than', value: FilterMatchMode.GREATER_THAN},
-                {label: 'Greater than or equal to', value: FilterMatchMode.GREATER_THAN_OR_EQUAL_TOTE}
-            ],
-            date: [
-                {label: 'Equal to', value: FilterMatchMode.EQUALS},
-                {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS},
-                {label: 'Less than', value: FilterMatchMode.LESS_THAN},
-                {label: 'Less than or equal to', value: FilterMatchMode.LESS_THAN_OR_EQUAL_TO},
-                {label: 'Greater than', value: FilterMatchMode.GREATER_THAN},
-                {label: 'Greater than or equal to', value: FilterMatchMode.GREATER_THAN_OR_EQUAL_TOTE}
-            ]
-        };
+        /*this.*/
 
         this.operatorOptions = [
             {label: 'Match All', value: FilterOperator.AND},
@@ -4169,8 +4149,8 @@ export class ColumnFilter implements AfterContentInit {
         return this.showOperator && this.type !== 'boolean';
     }
 
-    get isShowAddRule(): boolean {
-        return this.multipleRules && this.type !== 'boolean';
+    get isShowAddConstraint(): boolean {
+        return this.showAddButton && this.type !== 'boolean';
     }
 
     isOutsideClicked(event): boolean {
