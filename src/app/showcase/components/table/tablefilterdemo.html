@@ -39,6 +39,11 @@
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Agent 
                             <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                    <div class="p-px-3 p-pt-3 p-pb-0">
+                                        <span class="p-text-bold">Agent Picker</span>
+                                    </div>
+                                </ng-template>
                                 <ng-template pTemplate="filter" let-filter>
                                     <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                         <ng-template let-option pTemplate="item">
