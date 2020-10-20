@@ -6,7 +6,7 @@ export class PrimeNGConfig {
 
     ripple: boolean = false;
 
-    filteMatchModes = {
+    filterMatchModes = {
         text: [
             {label: 'Starts with', value: FilterMatchMode.STARTS_WITH},
             {label: 'Contains', value: FilterMatchMode.CONTAINS},
