@@ -3921,17 +3921,18 @@ export class ColumnFilterFormElement implements OnInit {
         <div class="p-column-filter" [ngClass]="{'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu'}">
             <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
                                     [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
-            <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" 
+            <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" aria-haspopup="true" [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}" 
-                (click)="toggleMenu()"><span class="pi pi-filter"></span></button>
+                (click)="toggleMenu()" (keydown)="onToggleButtonKeyDown($event)"><span class="pi pi-filter"></span></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-times"></span></button>
-            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" 
+                [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (keydown.escape)="onEscape()">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
-                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes" (click)="onRowMatchModeChange(matchMode.value)" 
-                        [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}">{{matchMode.label}}</li>
+                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event, matchMode.value)"
+                        [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}" [attr.tabindex]="i === 0 ? '0' : null">{{matchMode.label}}</li>
                     <li class="p-column-filter-separator"></li>
-                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()">No filter</li>
+                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)">No filter</li>
                 </ul>
                 <ng-template #menu>
                     <div class="p-column-filter-operator" *ngIf="isShowOperator">
@@ -4115,6 +4116,39 @@ export class ColumnFilter implements AfterContentInit {
         this.dt._filter();
         this.hide();
     }
+    
+    onRowMatchModeKeyDown(event: KeyboardEvent, matchMode: string) {
+        let item = <HTMLLIElement> event.target;
+
+        switch(event.key) {            
+            case 'ArrowDown':
+                var nextItem = this.findNextItem(item);
+                if (nextItem) {
+                    item.removeAttribute('tabindex');
+                    nextItem.tabIndex = '0';
+                    nextItem.focus();
+                }
+
+                event.preventDefault();
+            break;
+
+            case 'ArrowUp':
+                var prevItem = this.findPrevItem(item);
+                if (prevItem) {
+                    item.removeAttribute('tabindex');
+                    prevItem.tabIndex = '0';
+                    prevItem.focus();
+                }
+
+                event.preventDefault();
+            break;
+
+            case 'Enter':
+                this.onRowMatchModeChange(matchMode);
+                event.preventDefault();
+            break;
+        }
+    }
 
     onRowClearItemClick() {
         this.clearFilter();
@@ -4147,6 +4181,52 @@ export class ColumnFilter implements AfterContentInit {
 
     toggleMenu() {
         this.overlayVisible = !this.overlayVisible;
+    }
+
+    onToggleButtonKeyDown(event: KeyboardEvent) {
+        switch(event.key) {
+            case 'Escape':
+            case 'Tab':
+                this.overlayVisible = false;
+            break;
+            
+            case 'ArrowDown':
+                if (this.overlayVisible) {
+                    let focusable = DomHandler.getFocusableElements(this.overlay);
+                    if (focusable) {
+                        focusable[0].focus();
+                    }
+                    event.preventDefault();
+                }
+                else if (event.altKey) {
+                    this.overlayVisible = true;
+                    event.preventDefault();
+                }
+            break;
+        }
+    }
+
+    onEscape() {
+        this.overlayVisible = false;
+        this.icon.nativeElement.focus();
+    }
+
+    findNextItem(item: HTMLLIElement) {
+        let nextItem = <HTMLLIElement> item.nextElementSibling;
+
+        if (nextItem)
+            return DomHandler.hasClass(nextItem, 'p-column-filter-separator')  ? this.findNextItem(nextItem) : nextItem;
+        else
+            return item.parentElement.firstElementChild;
+    }
+
+    findPrevItem(item: HTMLLIElement) {
+        let prevItem = <HTMLLIElement> item.previousElementSibling;
+
+        if (prevItem)
+            return DomHandler.hasClass(prevItem, 'p-column-filter-separator')  ? this.findPrevItem(prevItem) : prevItem;
+        else
+        return item.parentElement.lastElementChild;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
