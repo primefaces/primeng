@@ -90,12 +90,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.setStyleClass();
         }
     }
-        
+    
     ngOnDestroy() {
-        while(this.el.nativeElement.hasChildNodes()) {
-            this.el.nativeElement.removeChild(this.el.nativeElement.lastChild);
-        }
-        
         this.initialized = false;
     }
 }
