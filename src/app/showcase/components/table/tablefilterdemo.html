@@ -243,11 +243,288 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Filter Menu&lt;/h5&gt;
+    &lt;p&gt;Filters are displayed in an overlay.&lt;/p&gt;
+    &lt;p-table #dt1 [value]="customers" dataKey="id"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
+        [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            &lt;div class="p-d-flex"&gt;
+                &lt;span class="p-input-icon-left p-ml-auto"&gt;
+                    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" /&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Name 
+                        &lt;p-columnFilter type="text" field="name" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Country 
+                        &lt;p-columnFilter type="text" field="country.name" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Agent 
+                        &lt;p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
+                            &lt;ng-template pTemplate="header"&gt;
+                                &lt;div class="p-px-3 p-pt-3 p-pb-0"&gt;
+                                    &lt;span class="p-text-bold"&gt;Agent Picker&lt;/span&gt;
+                                &lt;/div&gt;
+                            &lt;/ng-template&gt;
+                            &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
+                                &lt;p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
+                                    &lt;ng-template let-option pTemplate="item"&gt;
+                                        &lt;div class="p-multiselect-representative-option"&gt;
+                                            &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                            &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                        &lt;/div&gt;
+                                    &lt;/ng-template&gt;
+                                &lt;/p-multiSelect&gt;
+                            &lt;/ng-template&gt;
+                        &lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Date
+                        &lt;p-columnFilter type="date" field="date" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Balance
+                        &lt;p-columnFilter type="numeric" field="balance" display="menu" currency="USD"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Status
+                        &lt;p-columnFilter field="status" matchMode="equals" display="menu"&gt;
+                            &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
+                                &lt;p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any"&gt;
+                                    &lt;ng-template let-option pTemplate="item"&gt;
+                                        &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                    &lt;/ng-template&gt;
+                                &lt;/p-dropdown&gt;
+                            &lt;/ng-template&gt;
+                        &lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Activity
+                        &lt;p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
+                            &lt;ng-template pTemplate="filter" let-filter="filterCallback"&gt;
+                                &lt;p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="p-m-3"&gt;&lt;/p-slider&gt;
+                                &lt;div class="p-d-flex p-ai-center p-jc-between p-px-2"&gt;
+                                    &lt;span&gt;&#123;&#123;activityValues[0]&#125;&#125;&lt;/span&gt;
+                                    &lt;span&gt;&#123;&#123;activityValues[1]&#125;&#125;&lt;/span&gt;
+                                &lt;/div&gt;
+                            &lt;/ng-template&gt;
+                        &lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th style="width: 8rem"&gt;
+                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                        Verified
+                        &lt;p-columnFilter type="boolean" field="verified" display="menu"&gt;&lt;/p-columnFilter&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.date | date: 'MM/dd/yyyy'&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.balance | currency:'USD':'symbol'&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;p-progressBar [value]="customer.activity" [showValue]="false"&gt;&lt;/p-progressBar&gt;
+                &lt;/td&gt;
+                &lt;td class="p-text-center"&gt;
+                    &lt;i class="pi" [ngClass]="&#123;'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified&#125;"&gt;&lt;/i&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="emptymessage"&gt;
+            &lt;tr&gt;
+                &lt;td colspan="7"&gt;No customers found.&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
 
+&lt;div class="card"&gt;
+    &lt;h5&gt;Filter Row&lt;/h5&gt;
+    &lt;p&gt;Filters are displayed inline within a separate row.&lt;/p&gt;
+    &lt;p-table #dt2 [value]="customers" dataKey="id"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
+        [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            &lt;div class="p-d-flex"&gt;
+                &lt;span class="p-input-icon-left p-ml-auto"&gt;
+                    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" /&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Agent&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th style="width: 6rem"&gt;Verified&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th&gt;
+                    &lt;p-columnFilter type="text" field="name"&gt;&lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;p-columnFilter type="text" field="country.name"&gt;&lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;p-columnFilter field="representative" matchMode="in" [showMenu]="false"&gt;
+                        &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
+                            &lt;p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
+                                &lt;ng-template let-option pTemplate="item"&gt;
+                                    &lt;div class="p-multiselect-representative-option"&gt;
+                                        &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                        &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                    &lt;/div&gt;
+                                &lt;/ng-template&gt;
+                            &lt;/p-multiSelect&gt;
+                        &lt;/ng-template&gt;
+                    &lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th class="p-fluid"&gt;
+                    &lt;p-columnFilter field="status" matchMode="equals" [showMenu]="false"&gt;
+                        &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
+                            &lt;p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true"&gt;
+                                &lt;ng-template let-option pTemplate="item"&gt;
+                                    &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                &lt;/ng-template&gt;
+                            &lt;/p-dropdown&gt;
+                        &lt;/ng-template&gt;
+                    &lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;p-columnFilter type="boolean" field="verified"&gt;&lt;/p-columnFilter&gt;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;i class="pi" [ngClass]="&#123;'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified&#125;"&gt;&lt;/i&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="emptymessage"&gt;
+            &lt;tr&gt;
+                &lt;td colspan="5"&gt;No customers found.&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer, Representative &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
 
+@Component(&#123;
+    templateUrl: './tablefilterdemo.html',
+    styleUrls: ['./tabledemo.scss']
+&#125;)
+export class TableFilterDemo implements OnInit &#123;
+
+    customers: Customer[];
+
+    representatives: Representative[];
+
+    statuses: any[];
+
+    loading: boolean = true;
+
+    activityValues: number[] = [0, 100];
+
+    constructor(private customerService: CustomerService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.customerService.getCustomersLarge().then(customers => &#123;
+            this.customers = customers;
+            this.loading = false;
+
+            this.customers.forEach(customer => customer.date = new Date(customer.date));
+        &#125;);
+
+        this.representatives = [
+            &#123;name: "Amy Elsner", image: 'amyelsner.png'&#125;,
+            &#123;name: "Anna Fali", image: 'annafali.png'&#125;,
+            &#123;name: "Asiya Javayant", image: 'asiyajavayant.png'&#125;,
+            &#123;name: "Bernardo Dominic", image: 'bernardodominic.png'&#125;,
+            &#123;name: "Elwin Sharvill", image: 'elwinsharvill.png'&#125;,
+            &#123;name: "Ioni Bowcher", image: 'ionibowcher.png'&#125;,
+            &#123;name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'&#125;,
+            &#123;name: "Onyama Limba", image: 'onyamalimba.png'&#125;,
+            &#123;name: "Stephen Shaw", image: 'stephenshaw.png'&#125;,
+            &#123;name: "XuXue Feng", image: 'xuxuefeng.png'&#125;
+        ];
+
+        this.statuses = [
+            &#123;label: 'Unqualified', value: 'unqualified'&#125;,
+            &#123;label: 'Qualified', value: 'qualified'&#125;,
+            &#123;label: 'New', value: 'new'&#125;,
+            &#123;label: 'Negotiation', value: 'negotiation'&#125;,
+            &#123;label: 'Renewal', value: 'renewal'&#125;,
+            &#123;label: 'Proposal', value: 'proposal'&#125;
+        ]
+    &#125;
+
+&#125;
 </app-code> 
         </p-tabPanel>
 

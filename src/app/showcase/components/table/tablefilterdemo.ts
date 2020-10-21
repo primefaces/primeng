@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
-import { Table } from 'primeng/table';
 
 @Component({
     templateUrl: './tablefilterdemo.html',
@@ -18,8 +17,6 @@ export class TableFilterDemo implements OnInit {
     loading: boolean = true;
 
     activityValues: number[] = [0, 100];
-
-    @ViewChild('dt') table: Table;
 
     constructor(private customerService: CustomerService) { }
 
