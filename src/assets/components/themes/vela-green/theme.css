@@ -2062,6 +2062,34 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-left: 0.5rem;
 }
 
+.p-column-filter-menu-button {
+  width: 2rem;
+  height: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.p-column-filter-menu-button:hover {
+  color: rgba(255, 255, 255, 0.87);
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.03);
+}
+.p-column-filter-menu-button.p-column-filter-menu-button-open, .p-column-filter-menu-button.p-column-filter-menu-button-open:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-column-filter-menu-button.p-column-filter-menu-button-active, .p-column-filter-menu-button.p-column-filter-menu-button-active:hover {
+  background: rgba(129, 199, 132, 0.16);
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-column-filter-menu-button:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 1px #a7d8a9;
+}
+
 .p-column-filter-overlay {
   background: #1f2d40;
   color: rgba(255, 255, 255, 0.87);

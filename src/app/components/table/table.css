@@ -195,7 +195,13 @@ p-columnfilterformelement > .p-inputtext,
 
 .p-column-filter-menu-button,
 .p-column-filter-clear-button {
-    flex-shrink: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
 }
 
 .p-column-filter-overlay {

@@ -3921,8 +3921,10 @@ export class ColumnFilterFormElement implements OnInit {
         <div class="p-column-filter" [ngClass]="{'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu'}">
             <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
                                     [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
-            <button #icon *ngIf="showMenuButton" pButton type="button" class="p-column-filter-menu-button p-button-text p-button-plain" (click)="toggleMenu()" icon="pi pi-filter"></button>
-            <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" pButton type="button" class="p-column-filter-clear-button p-button-text p-button-plain" (click)="clearFilter()" icon="pi pi-times"></button>
+            <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" 
+                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}" 
+                (click)="toggleMenu()"><span class="pi pi-filter"></span></button>
+            <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-times"></span></button>
             <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
@@ -4224,6 +4226,18 @@ export class ColumnFilter implements AfterContentInit {
 
     get removeRuleButtonLabel(): string {
         return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
+    }
+
+    hasFilter(): boolean {
+        let fieldFilter = this.dt.filters[this.field];
+        if (fieldFilter) {
+            if (Array.isArray(fieldFilter))
+                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value); 
+            else
+                return !this.dt.isFilterBlank(fieldFilter.value);
+        }
+
+        return false;
     }
 
     isOutsideClicked(event): boolean {
