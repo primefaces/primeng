@@ -1331,7 +1331,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             else {
                                 localMatch = this.executeLocalFilter(filterField, this.value[i], filterMeta);
                             }
-                            
+
                             if (!localMatch) {
                                 break;
                             }
@@ -2628,7 +2628,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
+        <i class="p-sortable-column-icon pi pi-fw" [ngClass]="iconClass"></i>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -2636,6 +2636,14 @@ export class SortableColumn implements OnInit, OnDestroy {
 export class SortIcon implements OnInit, OnDestroy {
 
     @Input() field: string;
+
+    @Input() sortAscIcon: string = 'pi-sort-amount-up-alt';
+
+    @Input() sortDscIcon: string = 'pi-sort-amount-down-alt';
+
+    @Input() sortNoneIcon: string = 'pi-sort-alt';
+
+    iconClass: {[s: string]: boolean} = {};
 
     subscription: Subscription;
 
@@ -2663,6 +2671,12 @@ export class SortIcon implements OnInit, OnDestroy {
             let sortMeta = this.dt.getSortMeta(this.field);
             this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
+
+        this.iconClass = {
+            [this.sortAscIcon]: this.sortOrder === 1,
+            [this.sortDscIcon]: this.sortOrder === -1,
+            [this.sortNoneIcon]: this.sortOrder === 0
+        };
 
         this.cd.markForCheck();
     }
@@ -3854,7 +3868,7 @@ export class ReorderableRow implements AfterViewInit {
     encapsulation: ViewEncapsulation.None
 })
 export class ColumnFilterFormElement implements OnInit {
-    
+
     @Input() field: string;
 
     @Input() type: string;
@@ -3866,7 +3880,7 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() placeholder: string;
 
     @Input() minFractionDigits: number
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -3926,7 +3940,7 @@ export class ColumnFilterFormElement implements OnInit {
             <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
-                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes" (click)="onRowMatchModeChange(matchMode.value)" 
+                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes" (click)="onRowMatchModeChange(matchMode.value)"
                         [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}">{{matchMode.label}}</li>
                     <li class="p-column-filter-separator"></li>
                     <li class="p-column-filter-row-item" (click)="onRowClearItemClick()">No filter</li>
@@ -4000,7 +4014,7 @@ export class ColumnFilter implements AfterContentInit {
     @Input() maxConstraints: number = 2;
 
     @Input() minFractionDigits: number;
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -4049,7 +4063,7 @@ export class ColumnFilter implements AfterContentInit {
         }
 
         this.matchModes = this.matchModeOptions || this.config.filterMatchModes[this.type];
-        
+
         /*this.*/
 
         this.operatorOptions = [
@@ -4068,7 +4082,7 @@ export class ColumnFilter implements AfterContentInit {
                 case 'filter':
                     this.filterTemplate = item.template;
                 break;
-                
+
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
@@ -4136,7 +4150,7 @@ export class ColumnFilter implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                
+
                 document.body.appendChild(this.overlay);
                 this.overlay.style.zIndex = String(++DomHandler.zindex);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
@@ -4196,7 +4210,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isOutsideClicked(event): boolean {
-        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
+        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target)
             || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
             || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button')
             || DomHandler.hasClass(event.target, 'p-column-filter-remove-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button'));
