@@ -44,8 +44,8 @@
                                         <span class="p-text-bold">Agent Picker</span>
                                     </div>
                                 </ng-template>
-                                <ng-template pTemplate="filter" let-filter>
-                                    <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-representative-option">
                                                 <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
@@ -73,8 +73,8 @@
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Status
                             <p-columnFilter field="status" matchMode="equals" display="menu">
-                                <ng-template pTemplate="filter" let-filter>
-                                    <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                         <ng-template let-option pTemplate="item">
                                             <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
                                         </ng-template>
@@ -87,8 +87,8 @@
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Activity
                             <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                <ng-template pTemplate="filter" let-filter>
-                                    <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="p-m-3"></p-slider>
+                                <ng-template pTemplate="filter" let-filter="filterCallback">
+                                    <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="p-m-3"></p-slider>
                                     <div class="p-d-flex p-ai-center p-jc-between p-px-2">
                                         <span>{{activityValues[0]}}</span>
                                         <span>{{activityValues[1]}}</span>
@@ -175,8 +175,8 @@
                     </th>
                     <th class="p-fluid">
                         <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-filter>
-                                <p-multiSelect [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
                                         <div class="p-multiselect-representative-option">
                                             <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
@@ -189,8 +189,8 @@
                     </th>
                     <th class="p-fluid">
                         <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-filter>
-                                <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
                                     </ng-template>

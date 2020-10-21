@@ -3837,7 +3837,7 @@ export class ReorderableRow implements AfterViewInit {
     selector: 'p-columnFilterFormElement',
     template: `
         <ng-container *ngIf="filterTemplate; else builtInElement">
-            <ng-container *ngTemplateOutlet="filterTemplate; context: {$implicit: filterCallback}"></ng-container>
+            <ng-container *ngTemplateOutlet="filterTemplate; context: {$implicit: filterConstraint.value, filterCallback: filterCallback}"></ng-container>
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
