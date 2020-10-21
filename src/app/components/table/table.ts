@@ -2,7 +2,7 @@ import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Di
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -3845,7 +3845,7 @@ export class ReorderableRow implements AfterViewInit {
                     (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder">
                 <p-inputNumber *ngSwitchCase="'numeric'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" (onKeyDown)="onNumericInputKeyDown($event)" [showButtons]="true" [attr.placeholder]="placeholder"
                     [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
-                    [mode]="currency ? 'currency' : 'decimal'" [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-inputNumber>
+                    [mode]="currency ? 'currency' : 'decimal'" [locale]="locale" [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-inputNumber>
                 <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
                 <p-calendar *ngSwitchCase="'date'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
             </ng-container>
@@ -3941,15 +3941,15 @@ export class ColumnFilterFormElement implements OnInit {
                             <p-columnFilterFormElement [type]="type" [field]="field" [filterConstraint]="fieldConstraint" [filterTemplate]="filterTemplate" [placeholder]="placeholder"
                             [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
                             [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
-                            <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple label="Remove Rule"></button>
+                            <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [label]="removeRuleButtonLabel"></button>
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton label="Add Rule" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
+                        <button type="button" pButton [label]="addRuleButtonLabel" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button type="button" pButton class="p-button-outlined" (click)="clearFilter()" label="Clear" pRipple></button>
-                        <button type="button" pButton (click)="applyFilter()" label="Apply" pRipple></button>
+                        <button type="button" pButton class="p-button-outlined" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
+                        <button type="button" pButton (click)="applyFilter()" [label]="applyButtonLabel" pRipple></button>
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: field}"></ng-container>
@@ -4043,18 +4043,33 @@ export class ColumnFilter implements AfterContentInit {
 
     matchModes: SelectItem[];
 
+    translationSubscription: Subscription;
+
     ngOnInit() {
         if (!this.dt.filters[this.field]) {
             this.initFieldFilterConstraint();
         }
 
-        this.matchModes = this.matchModeOptions || this.config.filterMatchModes[this.type];
-        
-        /*this.*/
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.generateMatchModeOptions();
+            this.generateOperatorOptions();
+        });
 
+        this.generateMatchModeOptions();
+        this.generateOperatorOptions();
+    }
+
+    generateMatchModeOptions() {
+        this.matchModes = this.matchModeOptions || 
+        this.config.filterMatchModeOptions[this.type]?.map(key => {
+            return {label: this.config.getTranslation(key), value: key}
+        });
+    }
+
+    generateOperatorOptions() {
         this.operatorOptions = [
-            {label: 'Match All', value: FilterOperator.AND},
-            {label: 'Match Any', value: FilterOperator.OR}
+            {label: this.config.getTranslation(TranslationKeys.MATCH_ALL), value: FilterOperator.AND},
+            {label: this.config.getTranslation(TranslationKeys.MATCH_ANY), value: FilterOperator.OR}
         ];
     }
 
@@ -4195,6 +4210,22 @@ export class ColumnFilter implements AfterContentInit {
         return this.showAddButton && this.type !== 'boolean' && (this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints);
     }
 
+    get applyButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.APPLY);
+    }
+
+    get clearButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.CLEAR);
+    }
+
+    get addRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ADD_RULE);
+    }
+
+    get removeRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
+    }
+
     isOutsideClicked(event): boolean {
         return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
             || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
@@ -4276,6 +4307,10 @@ export class ColumnFilter implements AfterContentInit {
         if (this.overlay) {
             this.el.nativeElement.appendChild(this.overlay);
             this.onOverlayHide();
+        }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
         }
     }
 }

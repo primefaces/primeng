@@ -204,4 +204,20 @@ export class FilterUtils {
         else
             return value >= filter;
     }
+
+    public static is(value, filter, filterLocale?): boolean {
+        return FilterUtils.equals(value, filter, filterLocale);
+    }
+
+    public static isNot(value, filter, filterLocale?): boolean {
+        return FilterUtils.notEquals(value, filter, filterLocale);
+    }
+
+    public static before(value, filter, filterLocale?): boolean {
+        return FilterUtils.lt(value, filter, filterLocale);
+    }
+
+    public static after(value, filter, filterLocale?): boolean {
+        return FilterUtils.gt(value, filter, filterLocale);
+    }
 }

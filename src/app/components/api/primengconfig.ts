@@ -1,33 +1,71 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
+import { Translation } from './translation';
 
 @Injectable({providedIn: 'root'})
 export class PrimeNGConfig {
 
     ripple: boolean = false;
 
-    filterMatchModes = {
+    filterMatchModeOptions = {
         text: [
-            {label: 'Starts with', value: FilterMatchMode.STARTS_WITH},
-            {label: 'Contains', value: FilterMatchMode.CONTAINS},
-            {label: 'Not contains', value: FilterMatchMode.NOT_CONTAINS},
-            {label: 'Ends with', value: FilterMatchMode.ENDS_WITH},
-            {label: 'Equal to', value: FilterMatchMode.EQUALS},
-            {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS}
+            FilterMatchMode.STARTS_WITH,
+            FilterMatchMode.CONTAINS,
+            FilterMatchMode.NOT_CONTAINS,
+            FilterMatchMode.ENDS_WITH,
+            FilterMatchMode.EQUALS,
+            FilterMatchMode.NOT_EQUALS
         ],
         numeric: [
-            {label: 'Equal to', value: FilterMatchMode.EQUALS},
-            {label: 'Not equal to', value: FilterMatchMode.NOT_EQUALS},
-            {label: 'Less than', value: FilterMatchMode.LESS_THAN},
-            {label: 'Less than or equal to', value: FilterMatchMode.LESS_THAN_OR_EQUAL_TO},
-            {label: 'Greater than', value: FilterMatchMode.GREATER_THAN},
-            {label: 'Greater than or equal to', value: FilterMatchMode.GREATER_THAN_OR_EQUAL_TO}
+            FilterMatchMode.EQUALS,
+            FilterMatchMode.NOT_EQUALS,
+            FilterMatchMode.LESS_THAN,
+            FilterMatchMode.LESS_THAN_OR_EQUAL_TO,
+            FilterMatchMode.GREATER_THAN,
+            FilterMatchMode.GREATER_THAN_OR_EQUAL_TO
         ],
         date: [
-            {label: 'Is', value: FilterMatchMode.EQUALS},
-            {label: 'Is not', value: FilterMatchMode.NOT_EQUALS},
-            {label: 'Before', value: FilterMatchMode.LESS_THAN},
-            {label: 'After', value: FilterMatchMode.GREATER_THAN},
+            FilterMatchMode.IS,
+            FilterMatchMode.IS_NOT,
+            FilterMatchMode.BEFORE,
+            FilterMatchMode.AFTER
         ]
     };
+
+    private translation: Translation = {
+        startsWith: 'Starts with',
+        contains: 'Contains',
+        notContains: 'Not contains',
+        endsWith: 'Ends with',
+        equals: 'Equals',
+        notEquals: 'Not equals',
+        lt: 'Less than',
+        lte: 'Less than or equal to',
+        gt: 'Greater than',
+        gte: 'Great then or equals',
+        is: 'Is',
+        isNot: 'Is not',
+        before: 'Before',
+        after: 'After',
+        clear: 'Clear',
+        apply: 'Apply',
+        matchAll: 'Match All',
+        matchAny: 'Match Any',
+        addRule: 'Add Rule',
+        removeRule: 'Remove Rule'
+    }
+
+    private translationSource = new Subject<any>();
+    
+    translationObserver = this.translationSource.asObservable();
+    
+    getTranslation(key: string) {
+        return this.translation[key];
+    }
+
+    setTranslation(value: Translation) {
+        this.translation = {...this.translation, ...value};
+        this.translationSource.next(this.translation);
+    }
 }
