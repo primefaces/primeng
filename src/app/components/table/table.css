@@ -255,6 +255,12 @@ p-columnfilterformelement > .p-inputtext,
     display: none;
 }
 
+/* Virtual Scroll*/
+
+cdk-virtual-scroll-viewport {
+    outline: 0 none;
+}
+
 @media screen and (max-width: 40em) {
    .p-datatable.p-datatable-responsive .p-datatable-thead > tr > th,
    .p-datatable.p-datatable-responsive .p-datatable-tfoot > tr > td {

@@ -2292,7 +2292,7 @@ export class TableBody implements OnDestroy {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined"
+            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" tabindex="0" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined"
                     [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
