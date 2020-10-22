@@ -285,7 +285,7 @@ import { Subscription } from 'rxjs';
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/diamond-ng">
-                                    <img alt="Mirage" src="assets/showcase/images/layouts/diamond-ng.png">
+                                    <img alt="Diamond" src="assets/showcase/images/layouts/diamond-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
