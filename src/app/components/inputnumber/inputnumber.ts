@@ -104,6 +104,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
+    @Output() onKeyDown: EventEmitter<any> = new EventEmitter();
+
     value: number;
 
     onModelChange: Function = () => {};
@@ -520,6 +522,14 @@ export class InputNumber implements OnInit,ControlValueAccessor {
                 }
             break;
 
+            //enter
+            case 13:
+                let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
+                this.input.nativeElement.value = this.formatValue(newValue);
+                this.input.nativeElement.setAttribute('aria-valuenow', newValue);
+                this.updateModel(event, newValue);
+            break;
+
             //backspace
             case 8: {
                 event.preventDefault();
@@ -601,6 +611,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             default:
             break;
         }
+
+        this.onKeyDown.emit(event);
     }
 
     onInputKeyPress(event) {

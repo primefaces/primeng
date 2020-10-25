@@ -205,7 +205,7 @@ import { Subscription } from 'rxjs';
 
                         <h4>Premium Themes</h4>
                         <p>Premium themes are only available exclusively for <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a> subscribers and therefore not included in PrimeNG core.</p>
-                        
+
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'soho-light', false)">
@@ -219,9 +219,15 @@ import { Subscription } from 'rxjs';
                                 </button>
                                 <span>Soho Dark</span>
                             </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'mira', false)">
+                                    <img src="assets/showcase/images/themes/mira.jpg" alt="Mira"/>
+                                </button>
+                                <span>Mira</span>
+                            </div>
                         </div>
 
-                        <h4>Legacy Themes</h4>
+                        <h4>Legacy Free Themes</h4>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'nova', false)">
@@ -279,7 +285,7 @@ import { Subscription } from 'rxjs';
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/diamond-ng">
-                                    <img alt="Mirage" src="assets/showcase/images/layouts/diamond-ng.png">
+                                    <img alt="Diamond" src="assets/showcase/images/layouts/diamond-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
@@ -399,7 +405,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     active: boolean;
 
     scale: number = 14;;
-    
+
     scales: number[] = [12,13,14,15,16];
 
     outsideClickListener: any;
@@ -485,5 +491,5 @@ export class AppConfigComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
         }
     }
-    
+
 }

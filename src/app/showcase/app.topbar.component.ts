@@ -47,7 +47,7 @@ import { Subscription } from 'rxjs';
                         <li><a (click)="changeTheme($event, 'mdc-dark-indigo', true)"><img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Indigo Dark" /><span>Indigo Dark</span></a></li>
                         <li><a (click)="changeTheme($event, 'mdc-dark-deeppurple', true)"><img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Deep Purple Dark" /><span>Deep Purple Dark</span></a></li>
 
-                        <li class="topbar-submenu-header">Fluent UI</li>
+                        <li class="topbar-submenu-header">FLUENT UI</li>
                         <li><a (click)="changeTheme($event, 'fluent-light', false)"><img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light" /><span>Fluent Light</span></a></li>
 
                         <li class="topbar-submenu-header">PRIMEONE</li>
@@ -67,6 +67,7 @@ import { Subscription } from 'rxjs';
                         <li class="topbar-submenu-header">PREMIUM</li>
                         <li><a (click)="changeTheme($event, 'soho-light', false)"><img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light" /><span>Soho Light</span></a></li>
                         <li><a (click)="changeTheme($event, 'soho-dark', true)"><img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark" /><span>Soho Dark</span></a></li>
+                        <li><a (click)="changeTheme($event, 'mira', false)"><img src="assets/showcase/images/themes/mira.jpg" alt="Mira" /><span>Mira</span></a></li>
 
                         <li class="topbar-submenu-header">LEGACY</li>
                         <li><a (click)="changeTheme($event, 'nova', false)"><img src="assets/showcase/images/themes/nova.png" alt="Nova" /><span>Nova</span></a></li>
@@ -220,7 +221,7 @@ import { Subscription } from 'rxjs';
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 2)">Resources</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
-                        
+
                         <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
                         <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
                         <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>
@@ -253,7 +254,7 @@ import { Subscription } from 'rxjs';
               transition(':leave', [
                 animate('.1s linear', style({ opacity: 0 }))
               ])
-        ]) 
+        ])
     ]
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
@@ -306,7 +307,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'rhea': 'rhea.png',
         'fluent-light': 'fluent-light.png',
         'soho-light': 'soho-light.png',
-        'soho-dark': 'soho-dark.png'
+        'soho-dark': 'soho-dark.png',
+        'mira': 'mira.jpg',
     };
 
     versions: any[];

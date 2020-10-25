@@ -52,6 +52,21 @@ export class FilterUtils {
         return stringValue.indexOf(filterValue) !== -1;
     }
 
+    public static notContains(value, filter, filterLocale?): boolean {
+        if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+            return true;
+        }
+
+        if (value === undefined || value === null) {
+            return false;
+        }
+
+        let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+        let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
+
+        return stringValue.indexOf(filterValue) === -1;
+    }
+
     public static endsWith(value, filter, filterLocale?): boolean {
         if (filter === undefined || filter === null || filter.trim() === '') {
             return true;
@@ -115,6 +130,21 @@ export class FilterUtils {
         return false;
     }
 
+    public static between(value, filter: any[]): boolean {
+        if (filter == null || filter[0] == null || filter[0] == null) {
+            return true;
+        }
+
+        if (value === undefined || value === null) {
+            return false;
+        }
+
+        if (value.getTime)
+        return filter[0].getTime() >= value.getTime() && value.getTime() <= filter[1].getTime();
+        else
+            return filter[0] <= value && value <= filter[1];
+    }
+
     public static lt(value, filter, filterLocale?): boolean {
         if (filter === undefined || filter === null) {
             return true;
@@ -173,5 +203,21 @@ export class FilterUtils {
             return value.getTime() >= filter.getTime();
         else
             return value >= filter;
+    }
+
+    public static is(value, filter, filterLocale?): boolean {
+        return FilterUtils.equals(value, filter, filterLocale);
+    }
+
+    public static isNot(value, filter, filterLocale?): boolean {
+        return FilterUtils.notEquals(value, filter, filterLocale);
+    }
+
+    public static before(value, filter, filterLocale?): boolean {
+        return FilterUtils.lt(value, filter, filterLocale);
+    }
+
+    public static after(value, filter, filterLocale?): boolean {
+        return FilterUtils.gt(value, filter, filterLocale);
     }
 }

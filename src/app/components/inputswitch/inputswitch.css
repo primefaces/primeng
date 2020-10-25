@@ -1,6 +1,7 @@
 .p-inputswitch {
     position: relative;
     display: inline-block;
+    user-select: none;
 }
 
 .p-inputswitch-slider {
