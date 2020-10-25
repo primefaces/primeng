@@ -13,7 +13,7 @@ import { animate, style, transition, trigger, AnimationEvent } from '@angular/an
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" (mouseenter)="onItemMouseEnter($event,child)">
-                    <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="onItemClick($event, child)"
+                    <a *ngIf="!child.routerLink" (keydown)="onItemKeyDown($event, child)" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="onItemClick($event, child)"
                          [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" 
                          [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -21,7 +21,7 @@ import { animate, style, transition, trigger, AnimationEvent } from '@angular/an
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
+                    <a *ngIf="child.routerLink" (keydown)="onItemKeyDown($event, child)" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
                         [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" role="menuitem"
                         (click)="onItemClick($event, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass"
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state" pRipple>
@@ -30,7 +30,7 @@ import { animate, style, transition, trigger, AnimationEvent } from '@angular/an
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <p-tieredMenuSub [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="true" (leafClick)="onLeafClick()"></p-tieredMenuSub>
+                    <p-tieredMenuSub (keydownItem)="onChildItemKeyDown($event)" [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="true" (leafClick)="onLeafClick()"></p-tieredMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -65,6 +65,8 @@ export class TieredMenuSub implements OnDestroy {
     }
 
     @Output() leafClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() keydownItem: EventEmitter<any> = new EventEmitter();
 
     _parentActive: boolean;
 
@@ -134,6 +136,84 @@ export class TieredMenuSub implements OnDestroy {
         }
 
         this.leafClick.emit();
+    }
+
+    onItemKeyDown(event, item) {
+        let listItem = event.currentTarget.parentElement;
+
+        switch (event.key) {
+            case 'ArrowDown':
+                var nextItem = this.findNextItem(listItem);
+                if (nextItem) {
+                    nextItem.children[0].focus();
+                }
+
+                event.preventDefault();
+            break;
+
+            case 'ArrowUp':
+                var prevItem = this.findPrevItem(listItem);
+                if (prevItem) {
+                    prevItem.children[0].focus();
+                }
+
+                event.preventDefault();
+            break;
+
+            case 'ArrowRight':
+                if (item.items) {
+                    this.activeItem = item;
+
+                    if (this.root) {
+                        this.bindDocumentClickListener();
+                    }
+
+                    setTimeout(() => {
+                        listItem.children[1].children[0].children[0].children[0].focus();
+                    }, 50);
+                }
+
+                event.preventDefault();
+            break;
+
+            default:
+            break;
+        }
+
+        this.keydownItem.emit({
+            originalEvent: event,
+            element: listItem
+        });
+    }
+
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
+        else
+            return null;
+    }
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+
+        if (prevItem)
+            return DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
+        else
+            return null;
+    }
+
+    onChildItemKeyDown(event) {
+        if (event.originalEvent.key === 'ArrowLeft') {
+            this.activeItem = null;
+
+            if (this.root) {
+                this.unbindDocumentClickListener();
+            }
+
+            event.element.parentElement.parentElement.parentElement.children[0].focus();
+        }
     }
 
     bindDocumentClickListener() {
