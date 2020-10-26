@@ -70,7 +70,7 @@ export class TreeTableService {
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
+                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
 
             <div class="p-treetable-wrapper" *ngIf="!scrollable">
                 <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
@@ -93,7 +93,7 @@ export class TreeTableService {
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
+                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
             <div *ngIf="summaryTemplate" class="p-treetable-footer">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
@@ -147,6 +147,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Input() showCurrentPageReport: boolean;
 
     @Input() showJumpToPageDropdown: boolean;
+
+    @Input() showFirstLastIcon: boolean = true;
 
     @Input() showPageLinks: boolean = true;
 
@@ -304,6 +306,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     paginatorRightTemplate: TemplateRef<any>;
 
+    paginatorDropdownItemTemplate: TemplateRef<any>;
+
     frozenHeaderTemplate: TemplateRef<any>;
 
     frozenBodyTemplate: TemplateRef<any>;
@@ -388,6 +392,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
+                break;
+
+                case 'paginatordropdownitem':
+                    this.paginatorDropdownItemTemplate = item.template;
                 break;
 
                 case 'frozenheader':
