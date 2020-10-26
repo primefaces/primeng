@@ -13,7 +13,7 @@ import {RippleModule} from 'primeng/ripple';
                 <div *ngFor="let msg of value; let i=index" [ngClass]="'p-message p-message-' + msg.severity" role="alert" 
                     [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
                     <div class="p-message-wrapper">
-                        <span class="p-message-icon pi" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
+                       <span [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
                             'pi-check': msg.severity === 'success',
                             'pi-exclamation-triangle': msg.severity === 'warn',
                             'pi-times-circle': msg.severity === 'error'}"></span>

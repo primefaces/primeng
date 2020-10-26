@@ -27,6 +27,10 @@ export class ToastDemo {
         this.messageService.add({severity:'error', summary: 'Error', detail: 'Message Content'});
     }
 
+    showCustom() {
+        this.messageService.add({severity:'custom', summary: 'Custom', detail: 'Message Content', icon: 'pi-file'});
+    }
+
     showTopLeft() {
         this.messageService.add({key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'});
     }
