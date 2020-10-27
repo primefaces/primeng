@@ -11,11 +11,11 @@ import { RouterModule } from '@angular/router';
         <ul [ngClass]="{'p-submenu-list':!root}">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}" role="separator">
-                <li *ngIf="!child.separator" #item [ngClass]="{'p-menuitem':true,'p-menuitem-active':item==activeItem,'p-hidden': child.visible === false}"
+                <li *ngIf="!child.separator" #item [ngClass]="{'p-menuitem':true,'p-menuitem-active': child === activeItem,'p-hidden': child.visible === false}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" role="none">
-                    <a *ngIf="!child.routerLink" [attr.href]="child.url ? child.url : null" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" (click)="itemClick($event, child)"
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url ? child.url : null" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" (click)="onItemClick($event, child)"
                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" pRipple
-                        [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem">
+                        [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="child === activeItem">
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
@@ -23,7 +23,7 @@ import { RouterModule } from '@angular/router';
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" role="menuitem"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'"
-                        (click)="itemClick($event, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
+                        (click)="onItemClick($event, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
                         [ngStyle]="child.style" [class]="child.styleClass" pRipple
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -31,7 +31,7 @@ import { RouterModule } from '@angular/router';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <p-contextMenuSub [parentActive]="item==activeItem" [item]="child" *ngIf="child.items"></p-contextMenuSub>
+                    <p-contextMenuSub [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" (leafClick)="onLeafClick()"></p-contextMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -47,6 +47,9 @@ export class ContextMenuSub {
     @Input() get parentActive(): boolean {
         return this._parentActive;
     }
+
+    @Output() leafClick: EventEmitter<any> = new EventEmitter();
+
     set parentActive(value) {
         this._parentActive = value;
         if (!value) {
@@ -78,7 +81,7 @@ export class ContextMenuSub {
             return;
         }
 
-        this.activeItem = item;
+        this.activeItem = menuitem;
 
         let nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
@@ -88,10 +91,14 @@ export class ContextMenuSub {
         }
     }
 
-    itemClick(event, item: MenuItem)  {
+    onItemClick(event, item) {
         if (item.disabled) {
             event.preventDefault();
             return;
+        }
+
+        if (!item.url && !item.routerLink) {
+            event.preventDefault();
         }
 
         if (item.command) {
@@ -99,17 +106,29 @@ export class ContextMenuSub {
                 originalEvent: event,
                 item: item
             });
-            event.preventDefault();
         }
 
-        if (item.items)
-            event.preventDefault();
-        else
-            this.contextMenu.hide();
+        if (item.items) {
+            if (this.activeItem && item === this.activeItem) {
+                this.activeItem = null;
+            }
+            else {
+                this.activeItem = item;
+            }
+        }
+
+        if (!item.items) {
+            this.onLeafClick();
+        }
     }
 
-    listClick(event) {
+    onLeafClick() {
         this.activeItem = null;
+        if (this.root) {
+            this.contextMenu.hide();
+        }
+
+        this.leafClick.emit();
     }
 
     position(sublist, item) {
@@ -136,7 +155,6 @@ export class ContextMenuSub {
             sublist.style.left = itemOuterWidth + 'px';
         }
     }
-
 }
 
 @Component({
