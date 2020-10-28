@@ -38,7 +38,9 @@ export class Password implements OnDestroy,DoCheck {
 
     documentResizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone) {}
+    constructor(public el: ElementRef, public zone: NgZone) {
+        console.log(123, 'Test password');
+    }
 
     ngDoCheck() {
         this.updateFilledState();
