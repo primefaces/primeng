@@ -21,7 +21,9 @@ import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { FilterUtils } from 'primeng/utils';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {trigger,style,transition,animate,AnimationEvent, state} from '@angular/animations';
+
+let idx: number = 0;
 
 @Injectable()
 export class TableService {
@@ -80,46 +82,90 @@ export class TableService {
             <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
                 <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
-            <div *ngIf="captionTemplate" class="p-datatable-header">
-                <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
-            </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-top" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
-
-            <div class="p-datatable-wrapper" *ngIf="!scrollable">
-                <table role="grid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
-                    <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <thead class="p-datatable-thead">
-                        <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
-                    </thead>
-                    <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
-                    <tfoot *ngIf="footerTemplate" class="p-datatable-tfoot">
-                        <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
-                    </tfoot>
-                </table>
+            <div *ngIf="captionTemplate" class="p-datatable-header" (click)="onCaptionClick($event)" [attr.id]="id + '-header'">
+                <div class="p-datatable-header-container">
+                    <div class="p-datatable-header-content">
+                        <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+                    </div>
+                    <div class="p-datatable-header-icons">
+                        <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-datatable-header-icon p-datatable-toggler p-link" pRipple (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)"
+                            [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
+                            <span [class]="collapsed ? expandIcon : collapseIcon"></span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <div class="p-datatable-scrollable-wrapper" *ngIf="scrollable">
-               <div class="p-datatable-scrollable-view p-datatable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div class="p-datatable-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
+            <div class="p-toggleable-content" [@tableContent]="collapsed ? {value: 'hidden',params: {transitionParams: animating ? transitionOptions : '0ms',height: '0',opacity: '0'}} : {value: 'visible',params: {transitionParams: animating ? transitionOptions : '0ms',height: '*',opacity: '1'}}"
+              (@tableContent.done)="onToggleDone($event)" role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-caption'" [attr.id]="id + '-content'"
+            >
+                <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-top" [alwaysShow]="alwaysShowPaginator"
+                    (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+                    [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+                    [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
+
+                <div class="p-datatable-wrapper" *ngIf="!scrollable">
+                    <table role="grid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
+                        <thead class="p-datatable-thead">
+                            <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
+                        </thead>
+                        <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
+                        <tfoot *ngIf="footerTemplate" class="p-datatable-tfoot">
+                            <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="p-datatable-scrollable-wrapper" *ngIf="scrollable">
+                <div class="p-datatable-scrollable-view p-datatable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+                <div class="p-datatable-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
+                </div>
+
+                <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
+                    (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
+                    [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+                    [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
+
+                <div *ngIf="summaryTemplate" class="p-datatable-footer">
+                    <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
+                </div>
+
+                <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
+                <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display:none" *ngIf="reorderableColumns"></span>
+                <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display:none" *ngIf="reorderableColumns"></span>
             </div>
-
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
-
-            <div *ngIf="summaryTemplate" class="p-datatable-footer">
-                <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
-            </div>
-
-            <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display:none" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display:none" *ngIf="reorderableColumns"></span>
         </div>
     `,
+    animations: [
+      trigger('tableContent', [
+        state(
+          'hidden',
+          style({
+            height: '0',
+            overflow: 'hidden',
+          })
+        ),
+        state(
+          'void',
+          style({
+            height: '0',
+          })
+        ),
+        state(
+          'visible',
+          style({
+            height: '*',
+          })
+        ),
+        transition('visible <=> hidden', [
+          style({ overflow: 'hidden' }),
+          animate('{{transitionParams}}'),
+        ]),
+        transition('void => hidden', animate('{{transitionParams}}')),
+        transition('void => visible', animate('{{transitionParams}}')),
+      ]),
+    ],
     providers: [TableService],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
@@ -255,6 +301,18 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() maxBufferPx: number;
 
+    @Input() toggleable: boolean;
+
+    @Input() collapsed: boolean = false;
+
+    @Input() expandIcon: string = 'pi pi-plus';
+
+    @Input() collapseIcon: string = 'pi pi-minus';
+
+    @Input() toggler: string = 'icon';
+
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -296,6 +354,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() onStateSave: EventEmitter<any> = new EventEmitter();
 
     @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
+
+    @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
+
+    @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -420,6 +484,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     columnWidthsState: string;
 
     tableWidthState: string;
+
+    animating: boolean;
+
+    id: string = `p-table-${idx++}`;
 
     constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef) {}
 
@@ -1339,7 +1407,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             else {
                                 localMatch = this.executeLocalFilter(filterField, this.value[i], filterMeta);
                             }
-                            
+
                             if (!localMatch) {
                                 break;
                             }
@@ -2207,6 +2275,55 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         else {
             return null;
         }
+    }
+
+    onCaptionClick(event: Event) {
+      if (this.toggler === 'caption') {
+        this.toggle(event);
+      }
+    }
+
+    onIconClick(event: Event) {
+      if (this.toggler === 'icon') {
+        this.toggle(event);
+      }
+    }
+
+    toggle(event: Event) {
+      if (this.animating) {
+        return false;
+      }
+
+      this.animating = true;
+      this.onBeforeToggle.emit({
+        originalEvent: event,
+        collapsed: this.collapsed,
+      });
+
+      if (this.toggleable) {
+        if (this.collapsed) this.expand(event);
+        else this.collapse(event);
+      }
+
+      event.preventDefault();
+    }
+
+    expand(event) {
+      this.collapsed = false;
+      this.collapsedChange.emit(this.collapsed);
+    }
+
+    collapse(event) {
+      this.collapsed = true;
+      this.collapsedChange.emit(this.collapsed);
+    }
+
+    onToggleDone(event: Event) {
+      this.animating = false;
+      this.onAfterToggle.emit({
+        originalEvent: event,
+        collapsed: this.collapsed,
+      });
     }
 
     ngOnDestroy() {
@@ -3862,7 +3979,7 @@ export class ReorderableRow implements AfterViewInit {
     encapsulation: ViewEncapsulation.None
 })
 export class ColumnFilterFormElement implements OnInit {
-    
+
     @Input() field: string;
 
     @Input() type: string;
@@ -3874,7 +3991,7 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() placeholder: string;
 
     @Input() minFractionDigits: number
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -3930,10 +4047,10 @@ export class ColumnFilterFormElement implements OnInit {
             <p-columnFilterFormElement *ngIf="display === 'row'" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
                                     [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
             <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" aria-haspopup="true" [attr.aria-expanded]="overlayVisible"
-                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}" 
+                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}"
                 (click)="toggleMenu()" (keydown)="onToggleButtonKeyDown($event)"><span class="pi pi-filter"></span></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-times"></span></button>
-            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" 
+            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}"
                 [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (keydown.escape)="onEscape()">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
@@ -4011,7 +4128,7 @@ export class ColumnFilter implements AfterContentInit {
     @Input() maxConstraints: number = 2;
 
     @Input() minFractionDigits: number;
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -4071,7 +4188,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     generateMatchModeOptions() {
-        this.matchModes = this.matchModeOptions || 
+        this.matchModes = this.matchModeOptions ||
         this.config.filterMatchModeOptions[this.type]?.map(key => {
             return {label: this.config.getTranslation(key), value: key}
         });
@@ -4094,7 +4211,7 @@ export class ColumnFilter implements AfterContentInit {
                 case 'filter':
                     this.filterTemplate = item.template;
                 break;
-                
+
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
@@ -4124,11 +4241,11 @@ export class ColumnFilter implements AfterContentInit {
         this.dt._filter();
         this.hide();
     }
-    
+
     onRowMatchModeKeyDown(event: KeyboardEvent, matchMode: string) {
         let item = <HTMLLIElement> event.target;
 
-        switch(event.key) {            
+        switch(event.key) {
             case 'ArrowDown':
                 var nextItem = this.findNextItem(item);
                 if (nextItem) {
@@ -4197,7 +4314,7 @@ export class ColumnFilter implements AfterContentInit {
             case 'Tab':
                 this.overlayVisible = false;
             break;
-            
+
             case 'ArrowDown':
                 if (this.overlayVisible) {
                     let focusable = DomHandler.getFocusableElements(this.overlay);
@@ -4241,7 +4358,7 @@ export class ColumnFilter implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                
+
                 document.body.appendChild(this.overlay);
                 this.overlay.style.zIndex = String(++DomHandler.zindex);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
@@ -4320,7 +4437,7 @@ export class ColumnFilter implements AfterContentInit {
         let fieldFilter = this.dt.filters[this.field];
         if (fieldFilter) {
             if (Array.isArray(fieldFilter))
-                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value); 
+                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value);
             else
                 return !this.dt.isFilterBlank(fieldFilter.value);
         }
@@ -4329,7 +4446,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isOutsideClicked(event): boolean {
-        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
+        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target)
             || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
             || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button')
             || DomHandler.hasClass(event.target, 'p-column-filter-remove-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button'));

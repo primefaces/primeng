@@ -235,7 +235,7 @@ p-columnfilterformelement > .p-inputtext,
     justify-content: center;
 }
 
-.p-column-filter-add-button .p-button-label, 
+.p-column-filter-add-button .p-button-label,
 .p-column-filter-remove-button .p-button-label {
     flex-grow: 0;
 }
@@ -248,6 +248,31 @@ p-columnfilterformelement > .p-inputtext,
 
 .p-column-filter-buttonbar .p-button {
     width: auto;
+}
+
+/* Collapsible */
+.p-datatable-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p-datatable-header-content {
+    flex: 1;
+}
+
+.p-datatable-header-icons {
+    margin-left: 1rem;
+}
+
+.p-datatable-header-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
 }
 
 /* Responsive */
