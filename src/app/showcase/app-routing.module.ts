@@ -25,6 +25,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'codehighlighter', loadChildren: () => import('./components/codehighlighter/codehighlighterdemo.module').then(m => m.CodeHighlighterDemoModule)},
             {path: 'colorpicker', loadChildren: () => import('./components/colorpicker/colorpickerdemo.module').then(m => m.ColorPickerDemoModule)},
             {path: 'confirmdialog', loadChildren: () => import('./components/confirmdialog/confirmdialogdemo.module').then(m => m.ConfirmDialogDemoModule)},
+            {path: 'confirmpopup', loadChildren: () => import('./components/confirmpopup/confirmpopupdemo.module').then(m => m.ConfirmPopupDemoModule)},
             {path: 'contextmenu', loadChildren: () => import('./components/contextmenu/contextmenudemo.module').then(m => m.ContextMenuDemoModule)},
             {path: 'dataview', loadChildren: () => import('./components/dataview/dataviewdemo.module').then(m => m.DataViewDemoModule)},
             {path: 'defer', loadChildren: () => import('./components/defer/deferdemo.module').then(m => m.DeferDemoModule)},

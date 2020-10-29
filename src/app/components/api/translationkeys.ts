@@ -19,4 +19,6 @@ export class TranslationKeys {
     public static readonly MATCH_ANY = 'matchAny';
     public static readonly ADD_RULE = 'addRule';
     public static readonly REMOVE_RULE = 'removeRule';
+    public static readonly ACCEPT = 'accept';
+    public static readonly REJECT = 'reject';
 }

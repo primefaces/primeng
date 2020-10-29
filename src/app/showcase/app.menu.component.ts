@@ -190,6 +190,7 @@ declare let gtag: Function;
                 <div class="menu-category">Overlay</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/confirmdialog']" routerLinkActive="router-link-exact-active">ConfirmDialog</a>
+                    <a [routerLink]=" ['/confirmpopup']" routerLinkActive="router-link-exact-active">ConfirmPopup <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/dialog']" routerLinkActive="router-link-exact-active">Dialog</a>
                     <a [routerLink]=" ['/dynamicdialog']" routerLinkActive="router-link-exact-active">DynamicDialog</a>
                     <a [routerLink]=" ['/overlaypanel']" routerLinkActive="router-link-exact-active">OverlayPanel</a>

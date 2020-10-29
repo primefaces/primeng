@@ -53,7 +53,9 @@ export class PrimeNGConfig {
         matchAll: 'Match All',
         matchAny: 'Match Any',
         addRule: 'Add Rule',
-        removeRule: 'Remove Rule'
+        removeRule: 'Remove Rule',
+        accept: 'Yes',
+        reject: 'No'
     }
 
     private translationSource = new Subject<any>();

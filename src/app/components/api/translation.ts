@@ -19,4 +19,6 @@ export interface Translation {
     matchAny?: string;
     addRule?: string;
     removeRule?: string;
+    accept?: string;
+    reject?: string;
 }
