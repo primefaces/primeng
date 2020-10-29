@@ -129,6 +129,8 @@ declare let gtag: Function;
                         </div>
                     </div>
 
+                    <a [routerLink]=" ['/timeline']" routerLinkActive="router-link-exact-active">Timeline <span class="p-tag">New</span></a>
+
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, '/tree')">Tree</a>
                         <div [@submenu]="isSubmenuActive('/tree') ? 'visible': 'hidden'">
