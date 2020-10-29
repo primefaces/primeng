@@ -18,9 +18,9 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
             </div>
             <div class="p-confirm-popup-footer">
                 <button type="button" pButton [icon]="confirmation.rejectIcon" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-popup-reject p-button-sm'" 
-                    [class]="confirmation.rejectButtonStyleClass || 'p-button-text'" *ngIf="confirmation.rejectVisible !== false" [attr.aria-label]="rejectAriaLabel"></button>
+                    [class]="confirmation.rejectButtonStyleClass || 'p-button-text'" *ngIf="confirmation.rejectVisible !== false" [attr.aria-label]="rejectButtonLabel"></button>
                 <button type="button" pButton [icon]="confirmation.acceptIcon" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-popup-accept p-button-sm'" 
-                    [class]="confirmation.acceptButtonStyleClass" *ngIf="confirmation.acceptVisible !== false" [attr.aria-label]="acceptAriaLabel"></button>
+                    [class]="confirmation.acceptButtonStyleClass" *ngIf="confirmation.acceptVisible !== false" [attr.aria-label]="acceptButtonLabel"></button>
             </div>
         </div>
     `,
@@ -53,10 +53,6 @@ export class ConfirmPopup implements OnDestroy {
     @Input() autoZIndex: boolean = true;
 
     @Input() baseZIndex: number = 0;
-
-    @Input() acceptAriaLabel: string;
-
-    @Input() rejectAriaLabel: string;
 
     @Input() style: any;
 

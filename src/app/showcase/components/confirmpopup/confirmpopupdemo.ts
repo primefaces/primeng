@@ -6,8 +6,6 @@ import {ConfirmationService, MessageService} from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmPopupDemo {
-
-    position: string;
     
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
@@ -15,7 +13,6 @@ export class ConfirmPopupDemo {
         this.confirmationService.confirm({
             target: event.target,
             message: 'Are you sure that you want to proceed?',
-            header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
