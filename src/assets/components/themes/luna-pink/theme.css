@@ -952,6 +952,16 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: #9b9b9b;
 }
+.p-multiselect.p-multiselect-chip .p-multiselect-token {
+  padding: 0.2145rem 0.429rem;
+  margin-right: 0.5rem;
+  background: #F48FB1;
+  color: #212529;
+  border-radius: 3px;
+}
+.p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
+  margin-left: 0.5rem;
+}
 .p-multiselect .p-multiselect-trigger {
   background: transparent;
   color: #888888;
@@ -961,6 +971,10 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect.p-error, .p-multiselect.p-invalid {
   border-color: #e57373;
+}
+
+.p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
+  padding: 0.2145rem 0.429rem;
 }
 
 .p-multiselect-panel {

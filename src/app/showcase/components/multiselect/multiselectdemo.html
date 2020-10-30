@@ -9,7 +9,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
+
+        <h5>Chips</h5>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
     
         <h5>Templating</h5>
         <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
@@ -116,6 +119,12 @@ export class MyModel &#123;
 
             <h5>Disabled Options</h5>
             <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
+
+            <h5>Chips Display</h5>
+            <p>A comma separated list is used by default to display selected items whereas alternative chip mode is provided using the <i>display</i> property to visualize the items as tokens.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities1" [(ngModel)]="selectedCities" display="chip"&gt;&lt;/p-multiSelect&gt;
+</app-code>
 
             <h5>Templating</h5>
             <p>Label of a selectitem is displayed by default next to the checkbox in the overlay panel and it is possible to customize
@@ -561,7 +570,10 @@ export class MyModel &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
+
+&lt;h5&gt;Chips&lt;/h5&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name" display="chip"&gt;&lt;/p-multiSelect&gt;
 
 &lt;h5&gt;Templating&lt;/h5&gt;
 &lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
@@ -596,7 +608,9 @@ export class MyModel &#123;
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MultiSelectDemo &#123;
 
-    selectedCities: string[] = [];
+    selectedCities1: string[] = [];
+
+    selectedCities2: string[] = [];
     
     selectedCountries1: string[] = [];
 

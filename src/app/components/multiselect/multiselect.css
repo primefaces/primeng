@@ -31,6 +31,17 @@
     visibility: hidden;
 }
 
+.p-multiselect-token {
+    cursor: default;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.p-multiselect-token-icon {
+    cursor: pointer;
+}
+
 .p-multiselect .p-multiselect-panel {
     min-width: 100%;
 }

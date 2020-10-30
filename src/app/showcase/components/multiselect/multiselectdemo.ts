@@ -8,7 +8,9 @@ import { CountryService } from '../../service/countryservice';
 })
 export class MultiSelectDemo {
 
-    selectedCities: string[] = [];
+    selectedCities1: string[] = [];
+
+    selectedCities2: string[] = [];
     
     selectedCountries1: string[] = [];
 

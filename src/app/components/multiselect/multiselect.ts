@@ -23,7 +23,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     template: `
         <li class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)" [attr.aria-label]="option.label"
             [attr.tabindex]="option.disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
-            [ngClass]="{'p-highlight': selected, 'p-disabled': (option.disabled || (maxSelectionLimitReached && !selected))}">
+            [ngClass]="{'p-highlight': selected, 'p-disabled': (option.disabled || (maxSelectionLimitReached && !selected))}" pRipple>
             <div class="p-checkbox p-component">
                 <div class="p-checkbox-box" [ngClass]="{'p-highlight': selected}">
                     <span class="p-checkbox-icon" [ngClass]="{'pi pi-check': selected}"></span>
@@ -71,7 +71,11 @@ export class MultiSelectItem {
 @Component({
     selector: 'p-multiSelect',
     template: `
-        <div #container [ngClass]="{'p-multiselect p-component':true,'p-multiselect-open':overlayVisible,'p-focus':focus,'p-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
+        <div #container [ngClass]="{'p-multiselect p-component':true,
+            'p-multiselect-open':overlayVisible,
+            'p-multiselect-chip': display === 'chip',
+            'p-focus':focus,
+            'p-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="p-hidden-accessible">
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
@@ -80,7 +84,16 @@ export class MultiSelectItem {
             </div>
             <div class="p-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
                 <div class="p-multiselect-label" [ngClass]="{'p-placeholder': valuesAsString === (defaultLabel || placeholder), 'p-multiselect-label-empty': ((valuesAsString == null || valuesAsString.length === 0) && (placeholder == null || placeholder.length === 0))}">
-                    <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString || 'empty'}}</ng-container>
+                    <ng-container *ngIf="!selectedItemsTemplate">
+                        <ng-container *ngIf="display === 'comma'">{{valuesAsString || 'empty'}}</ng-container>
+                        <ng-container *ngIf="display === 'chip'">
+                            <div #token *ngFor="let item of value; let i = index;" class="p-multiselect-token">
+                                <span class="p-multiselect-token-label">{{findLabelByValue(item)}}</span>
+                                <span *ngIf="!disabled" class="p-multiselect-token-icon pi pi-times-circle" (click)="removeChip($event, item)"></span>
+                            </div>
+                            <ng-container *ngIf="!value || value.length === 0">{{placeholder || defaultLabel || 'empty'}}</ng-container>
+                        </ng-container>
+                    </ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
                 </div>
             </div>
@@ -155,30 +168,6 @@ export class MultiSelectItem {
     styleUrls: ['./multiselect.css']
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
-
-    @Input() scrollHeight: string = '200px';
-
-    _defaultLabel: string;
-
-    @Input() set defaultLabel(val: string) {
-        this._defaultLabel = val;
-        this.updateLabel();
-    }
-
-    get defaultLabel(): string {
-        return this._defaultLabel;
-    }
-
-    _placeholder: string;
-
-    @Input() set placeholder(val: string) {
-        this._placeholder = val;
-        this.updateLabel();
-    }
-
-    get placeholder(): string {
-        return this._placeholder;
-    }
 
     @Input() style: any;
 
@@ -260,6 +249,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() autofocusFilter: boolean = true;
 
+    @Input() display: string = 'comma';
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('filterInput') filterInputChild: ElementRef;
@@ -283,6 +274,30 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
+
+    @Input() scrollHeight: string = '200px';
+
+    _defaultLabel: string;
+
+    @Input() set defaultLabel(val: string) {
+        this._defaultLabel = val;
+        this.updateLabel();
+    }
+
+    get defaultLabel(): string {
+        return this._defaultLabel;
+    }
+
+    _placeholder: string;
+
+    @Input() set placeholder(val: string) {
+        this._placeholder = val;
+        this.updateLabel();
+    }
+
+    get placeholder(): string {
+        return this._placeholder;
+    }
 
     public value: any[];
 
@@ -644,14 +659,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         event.stopPropagation();
     }
 
-    onMouseclick(event,input) {
-        if (this.disabled || this.readonly || event.target.isSameNode(this.accessibleViewChild.nativeElement)) {
+    onMouseclick(event: MouseEvent, input) {
+        if (this.disabled || this.readonly || (<Node> event.target).isSameNode(this.accessibleViewChild.nativeElement)) {
             return;
         }
 
         this.onClick.emit(event);
 
-        if (!this.isOverlayClick(event)) {
+        if (!this.isOverlayClick(event) && !DomHandler.hasClass(event.target, 'p-multiselect-token-icon')) {
             if (this.overlayVisible) {
                 this.hide();
             }
@@ -662,11 +677,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
-    isOverlayClick(event) {
-        return (this.overlay && this.overlay.contains(<Node> event.target));
+    removeChip(event: MouseEvent, chip: any) {
+        this.value = this.value.filter(val => !ObjectUtils.equals(val, chip, this.dataKey));
+        this.updateFilledState();
     }
 
-    isOutsideClicked(event: Event): boolean {
+    isOverlayClick(event: MouseEvent) {
+        let targetNode = <Node> event.target;
+        return this.overlay ? (this.overlay.isSameNode(targetNode) || this.overlay.contains(targetNode)) : false;
+    }
+
+    isOutsideClicked(event: MouseEvent): boolean {
         return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || this.isOverlayClick(event));
     }
 
