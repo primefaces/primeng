@@ -226,12 +226,14 @@ export class ConfirmPopup implements OnDestroy {
     }
 
     unsubscribeConfirmationSubscriptions() {
-        if (this.confirmation.acceptEvent) {
-            this.confirmation.acceptEvent.unsubscribe();
-        }
-
-        if (this.confirmation.rejectEvent) {
-            this.confirmation.rejectEvent.unsubscribe();
+        if (this.confirmation) {
+            if (this.confirmation.acceptEvent) {
+                this.confirmation.acceptEvent.unsubscribe();
+            }
+    
+            if (this.confirmation.rejectEvent) {
+                this.confirmation.rejectEvent.unsubscribe();
+            }
         }
     }
 
