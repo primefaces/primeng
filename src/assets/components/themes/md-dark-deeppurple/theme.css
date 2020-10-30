@@ -5469,17 +5469,21 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-bottom: 0.25rem;
 }
 
-.p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect-chip .p-multiselect-label {
+.p-input-filled .p-float-label .p-multiselect .p-multiselect-label {
   padding-top: 1.5rem;
   padding-bottom: 0.5rem;
 }
-.p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect-chip .p-multiselect-label .p-multiselect-token {
+.p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect .p-multiselect-label {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+.p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding-top: 0;
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
 }
-.p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect-chip .p-multiselect-label .p-multiselect-token .p-multiselect-token-icon {
+.p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   font-size: 75%;
 }
 
