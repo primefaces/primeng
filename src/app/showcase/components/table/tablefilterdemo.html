@@ -10,7 +10,7 @@
         <h5>Filter Menu</h5>
         <p>Filters are displayed in an overlay.</p>
         <p-table #dt1 [value]="customers" dataKey="id"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [globalFilterFields]="['name','country.name','representative.name','status']">
             <ng-template pTemplate="caption">
@@ -247,7 +247,7 @@
     &lt;h5&gt;Filter Menu&lt;/h5&gt;
     &lt;p&gt;Filters are displayed in an overlay.&lt;/p&gt;
     &lt;p-table #dt1 [value]="customers" dataKey="id"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
         [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
         &lt;ng-template pTemplate="caption"&gt;
