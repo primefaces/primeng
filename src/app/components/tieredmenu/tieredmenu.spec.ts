@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TieredMenu, TieredMenuSub } from './tieredmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -176,7 +176,7 @@ describe('TieredMenu', () => {
 		fixture.detectChanges();
 
 		const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
-		const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+		const itemClickSpy = spyOn(subMenuComponent, 'onItemClick').and.callThrough();
 		const items = fixture.debugElement.query(By.css('ul'));
 		const fileItemEl = items.children[0].query(By.css('a')).nativeElement;
 		const editItemEl = items.children[1].query(By.css('a')).nativeElement;
@@ -219,7 +219,7 @@ describe('TieredMenu', () => {
 		fixture.detectChanges();
 
 		const showSpy = spyOn(tieredmenu, 'show').and.callThrough();
-		const hideSpy = spyOn(tieredmenu, 'hide').and.callThrough();
+		const leafClickSpy = spyOn(tieredmenu, 'onLeafClick').and.callThrough();
 		let event = { 'currentTarget': document.body };
 		tieredmenu.toggle(event);
 		fixture.detectChanges();
@@ -227,7 +227,7 @@ describe('TieredMenu', () => {
 		const tieredmenuEl = fixture.debugElement.query(By.css('div'));
 		expect(tieredmenuEl).toBeTruthy();
 		const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
-		const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+		const itemClickSpy = spyOn(subMenuComponent, 'onItemClick').and.callThrough();
 		const items = fixture.debugElement.query(By.css('ul'));
 		const editItemEl = items.children[1].query(By.css('a')).nativeElement;
 		editItemEl.click();
@@ -235,7 +235,7 @@ describe('TieredMenu', () => {
 
 		expect(itemClickSpy).toHaveBeenCalled();
 		expect(showSpy).toHaveBeenCalled();
-		expect(hideSpy).toHaveBeenCalled();
+		expect(leafClickSpy).toHaveBeenCalled();
 	});
 
 	it('should use popup with diffrent appendTo', () => {
@@ -264,7 +264,7 @@ describe('TieredMenu', () => {
 		fixture.detectChanges();
 
 		const showSpy = spyOn(tieredmenu, 'show').and.callThrough();
-		const hideSpy = spyOn(tieredmenu, 'hide').and.callThrough();
+		const leafClickSpy = spyOn(tieredmenu, 'onLeafClick').and.callThrough();
 		let event = { 'currentTarget': document.body };
 		tieredmenu.toggle(event);
 		fixture.detectChanges();
@@ -272,7 +272,7 @@ describe('TieredMenu', () => {
 		const tieredmenuEl = fixture.debugElement.query(By.css('div'));
 		expect(tieredmenuEl).toBeTruthy();
 		const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
-		const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+		const itemClickSpy = spyOn(subMenuComponent, 'onItemClick').and.callThrough();
 		const items = fixture.debugElement.query(By.css('ul'));
 		const editItemEl = items.children[1].query(By.css('a')).nativeElement;
 		editItemEl.click();
@@ -280,7 +280,7 @@ describe('TieredMenu', () => {
 
 		expect(itemClickSpy).toHaveBeenCalled();
 		expect(showSpy).toHaveBeenCalled();
-		expect(hideSpy).toHaveBeenCalled();
+		expect(leafClickSpy).toHaveBeenCalled();
 	});
 
 	it('should call onItemMouseEnter when mouseenter (on root)', () => {
@@ -321,7 +321,7 @@ describe('TieredMenu', () => {
 
 		expect(onItemMouseEnter).toHaveBeenCalled();
 		expect(secondSubMenu.children.length).toEqual(3);
-		expect(subMenuComponent.activeItem).toBeNull();
+		expect(subMenuComponent.activeItem).toBeUndefined();
 	});
 
 	it('should call onItemMouseEnter and do nothing', () => {
@@ -362,7 +362,7 @@ describe('TieredMenu', () => {
 
 		expect(onItemMouseEnter).toHaveBeenCalled();
 		expect(fileItemEl.className).not.toContain("p-menuitem-active");
-		expect(subMenuComponent.activeItem).toBeNull();
+		expect(subMenuComponent.activeItem).toBeUndefined();
 	});
 
 	it('should call onItemMouseLeave when mouseleave', fakeAsync(() => {
@@ -402,7 +402,7 @@ describe('TieredMenu', () => {
 		fixture.detectChanges();
 
 		expect(fileItemEl.nativeElement.className).not.toContain("p-menuitem-active");
-		expect(subMenuComponent.activeItem).toEqual(null);
+		expect(subMenuComponent.activeItem).toBeUndefined();
 		fileItemEl.children[0].nativeElement.dispatchEvent(new Event('click'));
 		fixture.detectChanges();
 

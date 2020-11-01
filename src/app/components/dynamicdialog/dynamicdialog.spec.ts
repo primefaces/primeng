@@ -94,7 +94,6 @@ describe('DynamicDialog', () => {
 
         dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
-        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
         fixture.detectChanges();
     }));
 
@@ -121,7 +120,6 @@ describe('DynamicDialog', () => {
 
         dynamicDialogEl = document.getElementsByClassName("p-dialog")[0] as HTMLDivElement;
         expect(dynamicDialogEl).toBeUndefined();
-        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
         fixture.detectChanges();
     }));
 
@@ -145,7 +143,6 @@ describe('DynamicDialog', () => {
 
         dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
-        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
         fixture.detectChanges();
     }));
 });
