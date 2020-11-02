@@ -81,7 +81,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() filter: boolean = false;
 
-    @Input() filterMode: string = 'contains';
+    @Input() filterMatchMode: string = 'contains';
 
     @Input() filterLocale: string;
 
@@ -426,7 +426,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     filterOptions() {
         if (this.hasFilter() && this._options)
-            this._filteredOptions = this._options.filter(option => FilterUtils[this.filterMode](this.getOptionLabel(option), this._filterValue, this.filterLocale));
+            this._filteredOptions = this._options.filter(option => FilterUtils[this.filterMatchMode](this.getOptionLabel(option), this._filterValue, this.filterLocale));
         else
             this._filteredOptions = null;
     }
