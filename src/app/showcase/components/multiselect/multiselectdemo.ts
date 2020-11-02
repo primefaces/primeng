@@ -1,6 +1,15 @@
 import {Component} from '@angular/core';
-import {SelectItem} from 'primeng/api';
-import { CountryService } from '../../service/countryservice';
+import {CountryService} from '../../service/countryservice';
+
+interface City {
+    name: string,
+    code: string
+}
+
+interface Country {
+    name: string,
+    code: string
+}
 
 @Component({
     templateUrl: './multiselectdemo.html',
@@ -8,29 +17,28 @@ import { CountryService } from '../../service/countryservice';
 })
 export class MultiSelectDemo {
 
-    selectedCities1: string[] = [];
+    selectedCities1: City[];
 
-    selectedCities2: string[] = [];
+    selectedCities2: City[];
     
-    selectedCountries1: string[] = [];
+    selectedCountries1: Country[];
 
-    selectedCountries2: string[] = [];
+    selectedCountries2: Country[];
 
-    items: SelectItem[];
+    cities: City[];
 
-    item: string;
+    countries: City[];
 
-    cities: any[];
-
-    countries: any[];
+    virtualCountries: Country[];
 
     constructor(private countryService: CountryService) {
-        
-        this.items = [];
-
-        this.countryService.getCountries().then(countries => {
-            this.items = countries;
-        });
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
 
         this.countries = [
             {name: 'Australia', code: 'AU'},
@@ -45,12 +53,8 @@ export class MultiSelectDemo {
             {name: 'United States', code: 'US'}
         ];
 
-        this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
-        ];
+        this.countryService.getCountries().then(countries => {
+            this.virtualCountries = countries;
+        });
     }
 }
