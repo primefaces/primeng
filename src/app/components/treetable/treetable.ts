@@ -1784,6 +1784,10 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
         if (val != null && (val.includes('%') || val.includes('calc'))) {
             console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.')
         }
+
+        if (this.tt.virtualScroll && this.virtualScrollBody) {
+            this.virtualScrollBody.ngOnInit();
+        }
     }
 
     constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}

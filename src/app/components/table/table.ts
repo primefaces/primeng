@@ -2369,7 +2369,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         }
 
         if (this.dt.virtualScroll && this.virtualScrollBody) {
-            this.virtualScrollBody.checkViewportSize();
+            this.virtualScrollBody.ngOnInit();
         }
     }
 

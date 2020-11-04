@@ -695,7 +695,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
 
         if (simpleChange.scrollHeight && this.virtualScrollBody) {
-            this.virtualScrollBody.checkViewportSize();
+            this.virtualScrollBody.ngOnInit();
         }
     }
 
