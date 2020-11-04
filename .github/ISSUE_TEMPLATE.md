@@ -1,4 +1,4 @@
-If you have a PrimeNG PRO Support subscription please post your issue at;
+If you have a PrimeNG PRO Support subscription please post your issue at:
 
 https://pro.primefaces.org 
 
@@ -9,9 +9,10 @@ your issue will be added to the waiting list of community issues and will be rev
 
 Current Queue Time for Review
 Without PRO Support: ~8-12 weeks.
-With PRO Support: 1 hour
+With PRO Support: 1 hour.
 
-**I'm submitting a ...**  (check one with "x")
+**I'm submitting a ...**
+<!-- Check one with "x". -->
 ```
 [ ] bug report => Search github for a similar issue or PR before submitting
 [ ] feature request => Please check if request is not on the roadmap already https://github.com/primefaces/primeng/wiki/Roadmap
@@ -19,7 +20,7 @@ With PRO Support: 1 hour
 ```
 
 **Plunkr Case (Bug Reports)**
-Please demonstrate your case at stackblitz by using the issue template below. Issues without a test case have much less possibility to be reviewd in detail and assisted.
+Please demonstrate your case at stackblitz by using the issue template below. Issues without a test case have much less possibility to be reviewed in detail and assisted.
 
 https://stackblitz.com/github/primefaces/primeng-issue-template
 
@@ -33,23 +34,23 @@ https://stackblitz.com/github/primefaces/primeng-issue-template
 <!--
 If the current behavior is a bug or you can illustrate your feature request better with an example, 
 please provide the *STEPS TO REPRODUCE* and if possible a *MINIMAL DEMO* of the problem via
-https://plnkr.co or similar (you can use this template as a starting point: http://plnkr.co/edit/tpl:AvJOMERrnz94ekVua0u5).
+https://plnkr.co or similar (you can use this template as a starting point: https://plnkr.co/edit/tpl:AvJOMERrnz94ekVua0u5).
 -->
 
 **What is the motivation / use case for changing the behavior?**
-<!-- Describe the motivation or the concrete use case -->
+<!-- Describe the motivation or the concrete use case. -->
 
 **Please tell us about your environment:**
 <!-- Operating system, IDE, package manager, HTTP server, ... -->
 
-* **Angular version:** 5.X
-<!-- Check whether this is still an issue in the most recent Angular version -->
+* **Angular version:** 10.X
+<!-- Check whether this is still an issue in the most recent Angular version. -->
 
-* **PrimeNG version:** 5.X
-<!-- Check whether this is still an issue in the most recent Angular version -->
+* **PrimeNG version:** 10.X
+<!-- Check whether this is still an issue in the most recent Angular version. -->
 
 * **Browser:** [all | Chrome XX | Firefox XX | IE XX | Safari XX | Mobile Chrome XX | Android X.X Web Browser | iOS XX Safari | iOS XX UIWebView | iOS XX WKWebView ]
-<!-- All browsers where this could be reproduced -->
+<!-- All browsers where this could be reproduced. -->
  
 * **Language:** [all | TypeScript X.X | ES6/7 | ES5]
 
