@@ -1,21 +1,23 @@
-import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, Renderer2, Inject, forwardRef, ViewChild, NgZone, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
-import { MenuItem } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';  
+import { MenuItem, ContextMenuService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
 import { RouterModule } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'p-contextMenuSub',
     template: `
-        <ul [ngClass]="{'p-submenu-list':!root}">
-            <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
+        <ul [ngClass]="{'p-submenu-list':!root}" (mouseleave)="onItemMouseLeave($event,item,child)">
+            <ng-template ngFor let-child let-index="index.toString()" [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}" role="separator">
-                <li *ngIf="!child.separator" #item [ngClass]="{'p-menuitem':true,'p-menuitem-active': child === activeItem,'p-hidden': child.visible === false}"
-                    (mouseenter)="onItemMouseEnter($event,item,child)" role="none">
-                    <a *ngIf="!child.routerLink" [attr.href]="child.url ? child.url : null" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" (click)="onItemClick($event, child)"
-                        [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" pRipple
-                        [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="child === activeItem">
+                <li *ngIf="!child.separator" #item [ngClass]="{'p-menuitem':true,'p-menuitem-active': isActive(index),'p-hidden': child.visible === false}"
+                    (mouseenter)="onItemMouseEnter($event,item,child)" role="none" [attr.data-itemindex]="root ? index : (level + '_' + index)">
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url ? child.url : null" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'"
+                        (click)="onItemClick($event, item, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" pRipple
+                        [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="isActive(index)">
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
@@ -23,7 +25,7 @@ import { RouterModule } from '@angular/router';
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" role="menuitem"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'"
-                        (click)="onItemClick($event, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
+                        (click)="onItemClick($event, item, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
                         [ngStyle]="child.style" [class]="child.styleClass" pRipple
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -31,7 +33,7 @@ import { RouterModule } from '@angular/router';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <p-contextMenuSub [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" (leafClick)="onLeafClick()"></p-contextMenuSub>
+                    <p-contextMenuSub [level]="level ? (level + '_' + index) : index"  [item]="child" *ngIf="child.items" (leafClick)="onLeafClick()"></p-contextMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -39,91 +41,96 @@ import { RouterModule } from '@angular/router';
     encapsulation: ViewEncapsulation.None
 })
 export class ContextMenuSub {
+    //`
 
     @Input() item: MenuItem;
 
     @Input() root: boolean;
 
-    @Input() get parentActive(): boolean {
-        return this._parentActive;
-    }
+    @Input() level: any;
 
     @Output() leafClick: EventEmitter<any> = new EventEmitter();
 
-    set parentActive(value) {
-        this._parentActive = value;
-        if (!value) {
-            this.activeItem = null;
-        }
-    }
-
     contextMenu: ContextMenu;
+
+    activeIndex: string;
+
+    activeIndexChangeSubscription: Subscription;
 
     constructor(@Inject(forwardRef(() => ContextMenu)) contextMenu) {
         this.contextMenu = contextMenu as ContextMenu;
     }
 
-    activeItem: any;
+    ngOnInit() {
+        this.activeIndexChangeSubscription = this.contextMenu.contextMenuService.activeIndexChange$.pipe(takeUntil(this.contextMenu.ngDestroy$)).subscribe((activeIndex) => {
+            if (activeIndex && activeIndex.startsWith(this.level)) {
+                this.position(this.contextMenu.contextMenuService.activeMenuItem);
+            }
+
+            this.activeIndex = activeIndex;
+            this.contextMenu.cd.markForCheck();
+        });
+    }
 
     containerOffset: any;
 
     hideTimeout: any;
 
-    _parentActive: boolean;
-
-    onItemMouseEnter(event, item, menuitem) {
+    onItemMouseEnter(event, item, menuItem) {
         if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
 
-        if (menuitem.disabled) {
+        if (menuItem.disabled) {
             return;
         }
 
-        this.activeItem = menuitem;
+        if (!this.activeIndex || !this.activeIndex.startsWith(item.getAttribute('data-itemindex')))
+            this.contextMenu.contextMenuService.changeActiveMenuItem(item);
+    }
 
-        let nextElement = item.children[0].nextElementSibling;
-        if (nextElement) {
-            let sublist = nextElement.children[0];
-            sublist.style.zIndex = ++DomHandler.zindex;
-            this.position(sublist, item);
+    onItemMouseLeave(event, item, menuItem) {
+        if (this.contextMenu.el.nativeElement.contains(<Node> event.toElement) && !this.root) {
+            this.contextMenu.contextMenuService.changeActiveMenuItem(this.contextMenu.contextMenuService.activeMenuItem.parentElement.parentElement.parentElement)
         }
     }
 
-    onItemClick(event, item) {
-        if (item.disabled) {
+    onItemClick(event, item, menuItem) {
+        if (menuItem.disabled) {
             event.preventDefault();
             return;
         }
 
-        if (!item.url && !item.routerLink) {
+        if (!menuItem.url && !menuItem.routerLink) {
             event.preventDefault();
         }
 
-        if (item.command) {
-            item.command({
+        if (menuItem.command) {
+            menuItem.command({
                 originalEvent: event,
-                item: item
+                item: menuItem
             });
         }
 
-        if (item.items) {
-            if (this.activeItem && item === this.activeItem) {
-                this.activeItem = null;
+        if (menuItem.items) {
+            let itemIndex = item.getAttribute('data-itemindex');
+            if (this.activeIndex && this.activeIndex.startsWith(itemIndex) && !DomHandler.hasClass(item, "p-submenu-closed")) {
+                this.contextMenu.contextMenuService.changeActiveMenuItem(item, true);
             }
             else {
-                this.activeItem = item;
+                this.contextMenu.contextMenuService.changeActiveMenuItem(item);
             }
         }
 
-        if (!item.items) {
+        if (!menuItem.items) {
             this.onLeafClick();
         }
     }
 
     onLeafClick() {
-        this.activeItem = null;
+        this.contextMenu.contextMenuService.resetActiveMenuItem();
+
         if (this.root) {
             this.contextMenu.hide();
         }
@@ -131,29 +138,39 @@ export class ContextMenuSub {
         this.leafClick.emit();
     }
 
-    position(sublist, item) {
-        this.containerOffset = DomHandler.getOffset(item.parentElement)
-        let viewport = DomHandler.getViewport();
-        let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
-        let itemOuterWidth = DomHandler.getOuterWidth(item.children[0]);
-        let itemOuterHeight = DomHandler.getOuterHeight(item.children[0]);
-        let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
+    position(item) {
+        let nextElement = item.children[0].nextElementSibling;
 
-        if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
-            sublist.style.removeProperty('top');
-            sublist.style.bottom = '0px';
-        }
-        else {
-            sublist.style.removeProperty('bottom');
-            sublist.style.top = '0px';
-        }
+        if (nextElement) {
+            let sublist = nextElement.children[0];
+            sublist.style.zIndex = ++DomHandler.zindex;
+            this.containerOffset = DomHandler.getOffset(item.parentElement)
+            let viewport = DomHandler.getViewport();
+            let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
+            let itemOuterWidth = DomHandler.getOuterWidth(item.children[0]);
+            let itemOuterHeight = DomHandler.getOuterHeight(item.children[0]);
+            let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
 
-        if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
-            sublist.style.left = -sublistWidth + 'px';
+            if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
+                sublist.style.removeProperty('top');
+                sublist.style.bottom = '0px';
+            }
+            else {
+                sublist.style.removeProperty('bottom');
+                sublist.style.top = '0px';
+            }
+
+            if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
+                sublist.style.left = -sublistWidth + 'px';
+            }
+            else {
+                sublist.style.left = itemOuterWidth + 'px';
+            }
         }
-        else {
-            sublist.style.left = itemOuterWidth + 'px';
-        }
+    }
+
+    isActive(index) {
+        return (this.activeIndex && this.activeIndex.startsWith(this.level ? this.level + '_' + index : index));
     }
 }
 
@@ -162,10 +179,10 @@ export class ContextMenuSub {
     template: `
         <div #container [ngClass]="'p-contextmenu p-component'"
             [class]="styleClass" [ngStyle]="style">
-            <p-contextMenuSub [item]="model" [parentActive]="parentActive" root="root"></p-contextMenuSub>
+            <p-contextMenuSub [item]="model" root="root"></p-contextMenuSub>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./contextmenu.css']
 })
@@ -195,15 +212,17 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef;
 
-    parentActive: boolean;
-
     documentClickListener: any;
 
     windowResizeListener: any;
 
     triggerEventListener: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) { }
+    keydownEventListener: any;
+
+    ngDestroy$ = new Subject();
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService) { }
 
     ngAfterViewInit() {
         if (this.global) {
@@ -234,7 +253,6 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.position(event);
         this.moveOnTop();
         this.containerViewChild.nativeElement.style.display = 'block';
-        this.parentActive = true;
         DomHandler.fadeIn(this.containerViewChild.nativeElement, 250);
         this.bindGlobalListeners();
 
@@ -247,8 +265,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     hide() {
         this.containerViewChild.nativeElement.style.display = 'none';
-        this.parentActive = false;
         this.unbindGlobalListeners();
+        this.contextMenuService.resetActiveMenuItem();
         this.onHide.emit();
     }
 
@@ -298,6 +316,24 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
     }
 
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return DomHandler.hasClass(nextItem, 'p-menu-separator') || DomHandler.hasClass(nextItem.children[0], 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
+        else
+            return null;
+    }
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+        if (prevItem){
+            return DomHandler.hasClass(prevItem, 'p-menu-separator') || DomHandler.hasClass(prevItem.children[0], 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
+        }
+        else
+            return null;
+    }
+
     bindGlobalListeners() {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
@@ -309,6 +345,93 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             });
         }
 
+        if (!this.keydownEventListener) {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.keydownEventListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
+                this.cd.markForCheck();
+                switch (event.key) {
+                    case 'ArrowDown':
+                        if (this.contextMenuService.activeMenuItem) {
+                            let nextElement = this.findNextItem(this.contextMenuService.activeMenuItem);
+
+                            if (nextElement) {
+                                this.contextMenuService.changeActiveMenuItem(nextElement);
+                            }
+                        }
+                        else {
+                            let firstElement = document.querySelector("[data-itemindex]");
+
+                            if (firstElement) {
+                                if (DomHandler.hasClass(firstElement.children[0], 'p-disabled')) {
+                                    firstElement = this.findNextItem(firstElement);
+                                }
+
+                                this.contextMenuService.changeActiveMenuItem(firstElement);
+                            }
+                        }
+                    break;
+        
+                    case 'ArrowUp':
+                        if (this.contextMenuService.activeMenuItem) {
+                            let prevElement = this.findPrevItem(this.contextMenuService.activeMenuItem);
+
+                            if (prevElement) {
+                                this.contextMenuService.changeActiveMenuItem(prevElement);
+                            }
+                        }
+                        else {
+                            let lastElement = document.querySelectorAll("[data-itemindex]")[document.querySelectorAll("[data-itemindex]").length - 1];
+                            if (lastElement) {
+                                if (DomHandler.hasClass(lastElement.children[0], 'p-disabled')) {
+                                    lastElement = this.findPrevItem(lastElement);
+                                }
+
+                                this.contextMenuService.changeActiveMenuItem(lastElement);
+                            }
+                        }
+                    break;
+        
+                    case 'ArrowRight':
+                        if (this.contextMenuService.activeMenuItem) {
+                            if (this.contextMenuService.activeMenuItem.parentElement &&this.contextMenuService.activeMenuItem.parentElement.style.left.startsWith('-')) {
+                                this.keydownLeft();
+                            }
+                            else {
+                                this.keydownRight();
+                            }
+                        }
+                    break;
+
+                    case 'ArrowLeft':
+                        if (this.contextMenuService.activeMenuItem) {
+                            if (this.contextMenuService.activeMenuItem.children[1] && this.contextMenuService.activeMenuItem.children[1].children[0].style.left.startsWith('-')) {
+                                this.keydownRight();
+                            }
+                            else {
+                                this.keydownLeft();
+                            }
+                        }
+                    break;
+
+                    case 'Escape':
+                        this.hide();
+                    break;
+
+                    case 'Enter':
+                        if (this.contextMenuService.activeMenuItem) {
+                            this.contextMenuService.activeMenuItem.children[0].click();
+                        }
+                    break;
+        
+                    default:
+                    break;
+                }
+
+                event.preventDefault();
+            });
+        }
+
         this.zone.runOutsideAngular(() => {
             if (!this.windowResizeListener) {
                 this.windowResizeListener = this.onWindowResize.bind(this);
@@ -317,10 +440,35 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         });
     }
 
+    keydownRight() {
+        if (this.contextMenuService.activeMenuItem && DomHandler.hasClass(this.contextMenuService.activeMenuItem, 'p-submenu-closed')) {
+            DomHandler.removeClass(this.contextMenuService.activeMenuItem, 'p-submenu-closed');
+            this.contextMenuService.changeActiveMenuItem(this.contextMenuService.activeMenuItem);
+        }
+        else if (this.contextMenuService.activeMenuItem.children.length >= 2) {
+            this.contextMenuService.changeActiveMenuItem(this.contextMenuService.activeMenuItem.children[1].children[0].children[0]);
+        }
+    }
+
+    keydownLeft() {
+        let parentItem = this.contextMenuService.activeMenuItem.parentElement.parentElement.parentElement;
+        let itemIndex = parentItem.getAttribute('data-itemindex');
+        if (itemIndex)
+            this.contextMenuService.changeActiveMenuItem(parentItem, true);
+        else{
+            this.contextMenuService.changeActiveMenuItem(this.contextMenuService.activeMenuItem, true);
+        }
+    }
+
     unbindGlobalListeners() {
         if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
+        }
+
+        if (this.keydownEventListener) {
+            this.keydownEventListener();
+            this.keydownEventListener = null;
         }
 
         if (this.windowResizeListener) {
@@ -349,13 +497,17 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.appendTo) {
             this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
+
+        this.ngDestroy$.next(true);
+        this.ngDestroy$.complete();
     }
 
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [ContextMenu,RouterModule],
-    declarations: [ContextMenu,ContextMenuSub]
+    imports: [CommonModule, RouterModule, RippleModule],
+    exports: [ContextMenu, RouterModule],
+    declarations: [ContextMenu, ContextMenuSub],
+    providers: [ContextMenuService]
 })
 export class ContextMenuModule { }

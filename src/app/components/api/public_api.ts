@@ -4,6 +4,7 @@ export * from './translationkeys';
 export * from './blockableui';
 export * from './confirmation';
 export * from './confirmationservice';
+export * from './contextmenuservice';
 export * from './filtermetadata';
 export * from './lazyloadevent';
 export * from './megamenuitem';

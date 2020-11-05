@@ -40,3 +40,8 @@
 .p-contextmenu .p-menuitem-active > p-contextmenusub > .p-submenu-list {
     display: block !important;
 }
+
+
+.p-contextmenu .p-submenu-closed > p-contextmenusub > .p-submenu-list {
+    display: none !important;
+}
