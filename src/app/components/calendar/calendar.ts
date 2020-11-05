@@ -196,8 +196,6 @@ export interface LocaleSettings {
 })
 export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
-    @Input() defaultDate: Date;
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -445,6 +443,27 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     isMonthNavigate: boolean;
 
+    initialized: boolean;
+
+    @Input() get defaultDate(): Date {
+        return this._defaultDate;
+    };
+
+    set defaultDate(defaultDate: Date) {
+        this._defaultDate = defaultDate;
+        
+        if (this.initialized) {
+            const date = defaultDate||new Date();
+            this.currentMonth = date.getMonth();
+            this.currentYear = date.getFullYear();
+            this.initTime(date);
+            this.createMonths(this.currentMonth, this.currentYear);
+        }
+    }
+
+    _defaultDate: Date;
+
+
     @Input() get minDate(): Date {
         return this._minDate;
     }
@@ -533,10 +552,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.view === 'date') {
             this.createWeekDays();
             this.createMonths(this.currentMonth, this.currentYear);
-       }
-       else if (this.view === 'month') {
+        }
+        else if (this.view === 'month') {
             this.createMonthPickerValues();
-       }
+        }
     }
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {}
@@ -555,6 +574,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else if (this.view === 'month') {
             this.createMonthPickerValues();
         }
+
+        this.initialized = true;
     }
 
     ngAfterContentInit() {
