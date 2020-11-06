@@ -682,31 +682,34 @@ export class TablePageDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-            <p>Paginator accepts custom content for the left and the right side via named templates.</p>
+            <p>To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p></p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [first]="first"&gt;
-&lt;ng-template pTemplate="header" let-columns&gt;
-    &lt;tr&gt;
-        &lt;th *ngFor="let col of columns"&gt;
-            &#123;&#123;col.header&#125;&#125;
-        &lt;/th&gt;
-    &lt;/tr&gt;
-&lt;/ng-template&gt;
-&lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-    &lt;tr&gt;
-        &lt;td *ngFor="let col of columns"&gt;
-            &#123;&#123;rowData[col.field]&#125;&#125;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/ng-template&gt;
-&lt;ng-template pTemplate="paginatorleft" let-state&gt;
-    &#123;&#123;state.first&#125;&#125;
-    &lt;button type="button" pButton icon="pi-refresh"&gt;&lt;/button&gt;
-&lt;/ng-template&gt;
-&lt;ng-template pTemplate="paginatorright"&gt;
-    &lt;button type="button" pButton icon="pi-cloud-upload"&gt;&lt;/button&gt;
-&lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="paginatorleft" let-state&gt;
+        &#123;&#123;state.first&#125;&#125;
+        &lt;button type="button" pButton icon="pi-refresh"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="paginatorright"&gt;
+        &lt;button type="button" pButton icon="pi-cloud-upload"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-item pTemplate="paginatordropdownitem"&gt;
+        &#123;&#123;item.value&#125;&#125; - per page
+    &lt;/ng-template&gt;
 &lt;/p-table&gt;
 </app-code>
 
@@ -2632,6 +2635,12 @@ export class TableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show it even there is only one page.</td>
+                        </tr>
+                        <tr>
+                            <td>showFirstLastIcon</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When enabled, icons are displayed on paginator to go first and last page.</td>
                         </tr>
                         <tr>
                             <td>paginatorPosition</td>

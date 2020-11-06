@@ -668,7 +668,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-            <p>Paginator accepts custom content for the left and the right side via named templates.</p>
+            <p>To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p></p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -692,6 +692,9 @@ export class TreeTableColGroupDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="paginatorright"&gt;
         &lt;button type="button" pButton icon="pi-cloud-upload"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-item pTemplate="paginatordropdownitem"&gt;
+        &#123;&#123;item.value&#125;&#125; - per page
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </app-code>
@@ -1792,6 +1795,12 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show it even there is only one page.</td>
+                        </tr>
+                        <tr>
+                            <td>showFirstLastIcon</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When enabled, icons are displayed on paginator to go first and last page.</td>
                         </tr>
                         <tr>
                             <td>paginatorPosition</td>
