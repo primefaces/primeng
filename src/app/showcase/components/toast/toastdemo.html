@@ -491,16 +491,20 @@ export class ToastDemo &#123;
         this.messageService.add(&#123;severity:'error', summary: 'Error', detail: 'Message Content'&#125;);
     &#125;
 
+    showCustom() &#123;
+        this.messageService.add(&#123;severity:'custom', summary: 'Custom', detail: 'Message Content', icon: 'pi-file'&#125;);
+    &#125;
+
     showTopLeft() &#123;
         this.messageService.add(&#123;key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'&#125;);
     &#125;
 
     showTopCenter() &#123;
-        this.messageService.add(&#123;key: 'tc', severity:'info', summary: 'Info', detail: 'Message Content'&#125;);
+        this.messageService.add(&#123;key: 'tc', severity:'warn', summary: 'Warn', detail: 'Message Content'&#125;);
     &#125;
 
     showBottomCenter() &#123;
-        this.messageService.add(&#123;key: 'bc', severity:'info', summary: 'Info', detail: 'Message Content'&#125;);
+        this.messageService.add(&#123;key: 'bc', severity:'success', summary: 'Success', detail: 'Message Content'&#125;);
     &#125;
 
     showConfirm() &#123;
@@ -510,9 +514,9 @@ export class ToastDemo &#123;
 
     showMultiple() &#123;
         this.messageService.addAll([
-            &#123;severity:'info', summary:'Message 1', detail:'Message Content'&#125;,
+            &#123;severity:'success', summary:'Message 1', detail:'Message Content'&#125;,
             &#123;severity:'info', summary:'Message 2', detail:'Message Content'&#125;,
-            &#123;severity:'info', summary:'Message 3', detail:'Message Content'&#125;
+            &#123;severity:'warn', summary:'Message 3', detail:'Message Content'&#125;
         ]);
     &#125;
 
@@ -533,7 +537,7 @@ export class ToastDemo &#123;
     &#125;
 &#125;
 </app-code>
-<app-code ngNonBindable ngPreserveWhitespaces>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
 button &#123;
     min-width: 10rem;
     margin-right: .5rem;
@@ -543,6 +547,19 @@ button &#123;
     button &#123;
         width: 100%;
         margin-bottom: .5rem;
+    &#125;
+&#125;
+
+:host ::ng-deep &#123;
+    .p-toast-message-custom &#123;
+        background-color: #E1CFE7;
+        border: solid #8A427A;
+        border-width: 0 0 0 6px;
+        color: #2c1e30;
+    &#125;
+
+    :host ::ng-deep .p-toast-icon-close &#123;
+        color: #2c1e30;
     &#125;
 &#125;
 </app-code>
