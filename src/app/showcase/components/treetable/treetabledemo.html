@@ -47,7 +47,7 @@
                     </td>
                 </tr>
             </ng-template>
-        </p-treeTable>   
+        </p-treeTable>
     </div>
 </div>
 
@@ -668,7 +668,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </app-code>
 
-            <p>To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p></p>
+            <p>To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -1249,13 +1249,13 @@ export class TreeTableSelectionDemo &#123;
                     &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
-            &lt;/tr&gt;            
+            &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-treeTable&gt;
     &lt;p-footer&gt;
         &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/button&gt;
         &lt;button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="p-button-secondary"&gt;&lt;/button&gt;
-    &lt;/p-footer&gt;        
+    &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 </app-code>
 
@@ -1267,7 +1267,7 @@ export class TreeTableSelectionDemo &#123;
     &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="flex"
         [virtualScroll]="true" [virtualRowHeight]="34"&gt;
         &lt;ng-template pTemplate="caption"&gt;
-            Virtual Scrolling with Full Page Viewport 
+            Virtual Scrolling with Full Page Viewport
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;

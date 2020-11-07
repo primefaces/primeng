@@ -682,7 +682,7 @@ export class TablePageDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-            <p>To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p></p>
+            <p>To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [first]="first"&gt;
@@ -1941,7 +1941,7 @@ export class TableExportDemo implements OnInit &#123;
     &lt;p-footer&gt;
         &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/button&gt;
         &lt;button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
-    &lt;/p-footer&gt;        
+    &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 </app-code>
 
@@ -1952,10 +1952,10 @@ export class TableExportDemo implements OnInit &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="page-content" style="height: calc(100vh - 100px)"&gt;
-    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="flex" 
+    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="flex"
         [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
         &lt;ng-template pTemplate="caption"&gt;
-            Virtual Scrolling with Lazy Loading and Full Page Viewport 
+            Virtual Scrolling with Lazy Loading and Full Page Viewport
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
@@ -2187,7 +2187,7 @@ export class TableExportDemo implements OnInit &#123;
             would be enough to enable this functionality. It is also suggested to use the same virtualRowHeight value on the tr element inside the body template.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
     [virtualScroll]="true" [virtualRowHeight]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -2238,7 +2238,7 @@ export class TableVirtualScrollDemo implements OnInit &#123;
             </p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px"
     [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -2287,15 +2287,15 @@ export class TableVirtualScrollDemo implements OnInit &#123;
         this.virtualCars = Array.from(&#123;length: 10000&#125;);
     &#125;
 
-    loadCarsLazy(event: LazyLoadEvent) &#123;       
-        //simulate remote connection with a timeout 
+    loadCarsLazy(event: LazyLoadEvent) &#123;
+        //simulate remote connection with a timeout
         setTimeout(() => &#123;
             //load data of required page
             let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
 
             //populate page of virtual cars
             Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
-            
+
             //trigger change detection
             this.virtualCars = [...this.virtualCars];
         &#125;, Math.random() * 1000 + 250);
@@ -2313,7 +2313,7 @@ export class TableVirtualScrollDemo implements OnInit &#123;
             that contains information about how the data should be loaded. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 
-            
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
