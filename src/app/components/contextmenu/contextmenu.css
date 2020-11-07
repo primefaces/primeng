@@ -37,6 +37,6 @@
     margin-left: auto;
 }
 
-.p-contextmenu .p-menuitem-active > p-contextmenusub > .p-submenu-list {
+.p-contextmenu .p-menuitem-active > p-contextmenusub > .p-submenu-list.p-submenu-list-active {
     display: block !important;
 }
