@@ -228,7 +228,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() baseZIndex: number = 0;
 
-    @Input() filterBy: string = 'label';
+    @Input() filterBy: string;
 
     @Input() virtualScroll: boolean;
 
@@ -870,7 +870,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     filterOptions() {
         if (this.hasFilter() && this._options) {
-            let searchFields: string[] = (this.optionLabel || this.filterBy).split(',');
+            let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
             this._filteredOptions = FilterUtils.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);        
         }
         else {
