@@ -21,4 +21,14 @@ export interface Translation {
     removeRule?: string;
     accept?: string;
     reject?: string;
+    choose?: string;
+    upload?: string;
+    cancel?: string;
+    dayNames?: string[];
+    dayNamesShort?: string[];
+    dayNamesMin?: string[];
+    monthNames?: string[];
+    monthNamesShort?: string[];
+    today?: string;
+    weekHeader?: string;
 }

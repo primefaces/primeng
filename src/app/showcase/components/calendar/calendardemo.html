@@ -16,8 +16,8 @@
             </div>
 
             <div class="p-field p-col-12 p-md-4">
-                <label for="spanish">Spanish</label>
-                <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy" inputId="spanish"></p-calendar>
+                <label for="dateformat">DateFormat</label>
+                <p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
@@ -138,7 +138,7 @@ export class MyModel &#123;
             is the end date.</p>
 
             <h5>DateFormat</h5>
-            <p>Default date format is mm/dd/yy, to customize this use <i>dateFormat</i> property or define it at locale settings. Note that standalone property overrides the value in locale settings.</p>
+            <p>Default date format is mm/dd/yy, to customize this use <i>dateFormat</i> property.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
 </app-code>
@@ -162,7 +162,10 @@ export class MyModel &#123;
     			<li>'...' - literal text</li>
     			<li>'' - single quote</li>
     			<li>anything else - literal text</li>
-		    </ul>
+            </ul>
+            
+            <h5>I18N</h5>
+            <p>Translations for the calendar are defined with the <a href="#" [routerLink]="['/i18n']">I18N API</a>.</p>
 
             <h5>Time</h5>
             <p>TimePicker is enabled with  <i>showTime</i> property and 24 (default) or 12 hour mode is configured using <i>hourFormat</i> option.</p>
@@ -194,34 +197,6 @@ export class MyModel &#123;
             <p>Displaying multiple months is enabled by setting <i>numberOfMonths</i> property to a value greater than 1.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
-</app-code>
-
-            <h5>Localization</h5>
-            <p>Localization for different languages and formats is defined by binding the locale settings object to the <i>locale</i> property. Following is the default values for English.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-calendar [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-calendar&gt;
-</app-code>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-export class MyModel &#123;
-
-    en: any;
-
-    ngOnInit() &#123;
-        this.en = &#123;
-            firstDayOfWeek: 0,
-            dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-            monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-            monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-            today: 'Today',
-            clear: 'Clear',
-            dateFormat: 'mm/dd/yy',
-            weekHeader: 'Wk'
-        &#125;;
-    &#125;
-&#125;
 </app-code>
 
             <h5>Custom Content</h5>
@@ -634,6 +609,12 @@ export class MyModel &#123;
                             <td>.1s linear</td>
                             <td>Transition options of the hide animation.</td>
                         </tr>
+                        <tr>
+                            <td>firstDayOfWeek</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Defines the first of the week for various date calculations.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -820,10 +801,10 @@ export class MyModel &#123;
         &lt;p-calendar inputId="basic" [(ngModel)]="date1"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;label for="spanish"&gt;Spanish&lt;/label&gt;
-        &lt;p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy" inputId="spanish"&gt;&lt;/p-calendar&gt;
-    &lt;/div&gt;
+    &gt;div class="p-field p-col-12 p-md-4"&lt;
+        &gt;label for="dateformat"&lt;DateFormat&gt;/label&lt;
+        &gt;p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"&lt;&gt;/p-calendar&lt;
+    &gt;/div&lt;
 
     &lt;div class="p-field p-col-12 p-md-4"&gt;
         &lt;label for="icon"&gt;Icon&lt;/label&gt;

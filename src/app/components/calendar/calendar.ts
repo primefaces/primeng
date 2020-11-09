@@ -5,7 +5,7 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -16,13 +16,13 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
 
 export interface LocaleSettings {
     firstDayOfWeek?: number;
-    dayNames: string[];
-    dayNamesShort: string[];
-    dayNamesMin: string[];
-    monthNames: string[];
-    monthNamesShort: string[];
-    today: string;
-    clear: string;
+    dayNames?: string[];
+    dayNamesShort?: string[];
+    dayNamesMin?: string[];
+    monthNames?: string[];
+    monthNamesShort?: string[];
+    today?: string;
+    clear?: string;
     dateFormat?: string;
     weekHeader?: string;
 }
@@ -53,9 +53,9 @@ export interface LocaleSettings {
                                     <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
                                 </button>
                                 <div class="p-datepicker-title">
-                                    <span class="p-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
+                                    <span class="p-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{getTranslation('monthNames')[month.month]}}</span>
                                     <select tabindex="0" class="p-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
-                                        <option [value]="i" *ngFor="let monthName of locale.monthNames;let i = index" [selected]="i === month.month">{{monthName}}</option>
+                                        <option [value]="i" *ngFor="let monthName of getTranslation('monthNames');let i = index" [selected]="i === month.month">{{monthName}}</option>
                                     </select>
                                     <select tabindex="0" class="p-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
                                         <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
@@ -71,7 +71,7 @@ export interface LocaleSettings {
                                     <thead>
                                         <tr>
                                             <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
-                                                <span>{{locale['weekHeader']}}</span>
+                                                <span>{{getTranslation('weekHeader')}}</span>
                                             </th>
                                             <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
                                                 <span>{{weekDay}}</span>
@@ -151,8 +151,8 @@ export interface LocaleSettings {
                     </div>
                 </div>
                 <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
-                    <button type="button" [label]="_locale.today" (keydown)="onContainerButtonKeydown($event)" (click)="onTodayButtonClick($event)" pButton pRipple [ngClass]="[todayButtonStyleClass]"></button>
-                    <button type="button" [label]="_locale.clear" (keydown)="onContainerButtonKeydown($event)" (click)="onClearButtonClick($event)" pButton pRipple [ngClass]="[clearButtonStyleClass]"></button>
+                    <button type="button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (click)="onTodayButtonClick($event)" pButton pRipple [ngClass]="[todayButtonStyleClass]"></button>
+                    <button type="button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (click)="onClearButtonClick($event)" pButton pRipple [ngClass]="[clearButtonStyleClass]"></button>
                 </div>
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
@@ -292,6 +292,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() focusTrap: boolean = true;
 
+    @Input() firstDayOfWeek: number = 0;
+
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
@@ -319,19 +321,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    _locale: LocaleSettings = {
-        firstDayOfWeek: 0,
-        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-        monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-        monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-        today: 'Today',
-        clear: 'Clear',
-        dateFormat: 'mm/dd/yy',
-        weekHeader: 'Wk'
-    };
 
     @Input() tabindex: number;
 
@@ -445,6 +434,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     initialized: boolean;
 
+    _locale: LocaleSettings;
+
     @Input() get defaultDate(): Date {
         return this._defaultDate;
     };
@@ -547,18 +538,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input()
     set locale(newLocale: LocaleSettings) {
-       this._locale = newLocale;
-
-        if (this.view === 'date') {
-            this.createWeekDays();
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-        else if (this.view === 'month') {
-            this.createMonthPickerValues();
-        }
+        console.warn("Locale property has no effect, use new i18n API instead.");
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig) {}
 
     ngOnInit() {
         const date = this.defaultDate||new Date();
@@ -604,6 +587,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         });
     }
 
+    getTranslation(option: string) {
+        return this.config.getTranslation(option);
+    }
+
     populateYearOptions(start, end) {
         this.yearOptions = [];
 
@@ -614,17 +601,19 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     createWeekDays() {
         this.weekDays = [];
-        let dayIndex = this.locale.firstDayOfWeek;
+        let dayIndex = this.firstDayOfWeek;
+        let dayLabels = this.getTranslation(TranslationKeys.DAY_NAMES_MIN);
         for (let i = 0; i < 7; i++) {
-            this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
+            this.weekDays.push(dayLabels[dayIndex]);
             dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
         }
     }
 
     createMonthPickerValues() {
         this.monthPickerValues = [];
+        let monthLabels = this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT);
         for (let i = 0; i <= 11; i++) {
-            this.monthPickerValues.push(this.locale.monthNamesShort[i]);
+            this.monthPickerValues.push(monthLabels[i]);
         }
     }
 
@@ -1053,7 +1042,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     getSundayIndex() {
-        return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
+        return this.firstDayOfWeek > 0 ? 7 - this.firstDayOfWeek : 0;
     }
 
     isSelected(dateMeta): boolean {
@@ -2152,7 +2141,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     getDateFormat() {
-        return this.dateFormat || this.locale.dateFormat;
+        return this.dateFormat;
     }
 
     // Ported from jquery-ui datepicker formatDate
@@ -2198,7 +2187,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                             output += formatNumber('d', date.getDate(), 2);
                             break;
                         case 'D':
-                            output += formatName('D', date.getDay(), this.locale.dayNamesShort, this.locale.dayNames);
+                            output += formatName('D', date.getDay(), this.getTranslation(TranslationKeys.DAY_NAMES_SHORT), this.getTranslation(TranslationKeys.DAY_NAMES));
                             break;
                         case 'o':
                             output += formatNumber('o',
@@ -2210,7 +2199,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                             output += formatNumber('m', date.getMonth() + 1, 2);
                             break;
                         case 'M':
-                            output += formatName('M',date.getMonth(), this.locale.monthNamesShort, this.locale.monthNames);
+                            output += formatName('M',date.getMonth(), this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
                             break;
                         case 'y':
                             output += lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
@@ -2391,7 +2380,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                         day = getNumber("d");
                         break;
                     case "D":
-                        getName("D", this.locale.dayNamesShort, this.locale.dayNames);
+                        getName("D", this.getTranslation(TranslationKeys.DAY_NAMES_SHORT), this.getTranslation(TranslationKeys.DAY_NAMES));
                         break;
                     case "o":
                         doy = getNumber("o");
@@ -2400,7 +2389,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                         month = getNumber("m");
                         break;
                     case "M":
-                        month = getName("M", this.locale.monthNamesShort, this.locale.monthNames);
+                        month = getName("M", this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
                         break;
                     case "y":
                         year = getNumber("y");

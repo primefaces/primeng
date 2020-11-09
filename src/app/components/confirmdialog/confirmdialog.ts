@@ -2,7 +2,7 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,Con
 import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule, PrimeTemplate} from 'primeng/api';
+import {Footer,SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
@@ -40,8 +40,8 @@ const hideAnimation = animation([
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="!footer">
-                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="option('acceptLabel')" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
-                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="option('rejectLabel')" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
+                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
+                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     @Input() acceptIcon: string = 'pi pi-check';
 
-    @Input() acceptLabel: string = 'Yes';
+    @Input() acceptLabel: string;
 
     @Input() acceptAriaLabel: string;
 
@@ -84,7 +84,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     @Input() rejectIcon: string = 'pi pi-times';
 
-    @Input() rejectLabel: string = 'No';
+    @Input() rejectLabel: string;
 
     @Input() rejectAriaLabel: string;
 
@@ -201,7 +201,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     confirmationOptions: Confirmation;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
                 this.hide();
@@ -440,6 +440,14 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         }
 
         this.hide();
+    }
+
+    get acceptButtonLabel(): string {
+        return this.option('acceptLabel') || this.config.getTranslation(TranslationKeys.ACCEPT);
+    }
+
+    get rejectButtonLabel(): string {
+        return this.option('rejectLabel') || this.config.getTranslation(TranslationKeys.REJECT);
     }
 }
 

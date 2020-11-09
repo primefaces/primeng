@@ -21,4 +21,14 @@ export class TranslationKeys {
     public static readonly REMOVE_RULE = 'removeRule';
     public static readonly ACCEPT = 'accept';
     public static readonly REJECT = 'reject';
+    public static readonly CHOOSE = 'choose';
+    public static readonly UPLOAD = 'upload';
+    public static readonly CANCEL = 'cancel';
+    public static readonly DAY_NAMES = 'dayNames';
+    public static readonly DAY_NAMES_SHORT = 'dayNamesShort';
+    public static readonly DAY_NAMES_MIN = 'dayNamesMin';
+    public static readonly MONTH_NAMES = 'monthNames';
+    public static readonly MONTH_NAMES_SHORT = 'monthNamesShort';
+    public static readonly TODAY = 'today';
+    public static readonly WEEK_HEADER = 'weekHeader';
 }

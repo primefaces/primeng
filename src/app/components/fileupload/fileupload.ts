@@ -6,8 +6,8 @@ import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {DomHandler} from 'primeng/dom';
-import {Message} from 'primeng/api';
-import {PrimeTemplate,SharedModule} from 'primeng/api';
+import {Message, TranslationKeys} from 'primeng/api';
+import {PrimeTemplate,SharedModule,PrimeNGConfig} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';  
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
@@ -21,11 +21,11 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                     (click)="choose()" (keydown.enter)="choose()" tabindex="0"> 
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
-                    <span class="p-button-label">{{chooseLabel}}</span>
+                    <span class="p-button-label">{{chooseButtonLabel}}</span>
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadButtonLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
+                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelButtonLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -57,7 +57,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
             <span [ngClass]="{'p-button p-component p-fileupload-choose': true, 'p-fil(eupload-choose-selected': hasFiles(),'p-focus': focus, 'p-disabled':disabled}"
                 [ngStyle]="style" [class]="styleClass" (mouseup)="onBasicUploaderClick()" (keydown)="onBasicUploaderClick()" tabindex="0" pRipple>
                 <span class="p-button-icon p-button-icon-left pi" [ngClass]="hasFiles()&&!auto ? uploadIcon : chooseIcon"></span>
-                <span class="p-button-label">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
+                <span class="p-button-label">{{auto ? chooseButtonLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
                 <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                     (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
             </span>
@@ -105,11 +105,11 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() previewWidth: number = 50;
 
-    @Input() chooseLabel: string = 'Choose';
+    @Input() chooseLabel: string;
 
-    @Input() uploadLabel: string = 'Upload';
+    @Input() uploadLabel: string;
 
-    @Input() cancelLabel: string = 'Cancel';
+    @Input() cancelLabel: string;
 
     @Input() chooseIcon: string = 'pi pi-plus';
 
@@ -197,7 +197,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
-    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef){}
+    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef, public config: PrimeNGConfig){}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -539,6 +539,18 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     getBlockableElement(): HTMLElement {
       return this.el.nativeElement.children[0];
+    }
+
+    get chooseButtonLabel(): string {
+        return this.chooseLabel || this.config.getTranslation(TranslationKeys.CHOOSE);
+    }
+
+    get uploadButtonLabel(): string {
+        return this.uploadLabel || this.config.getTranslation(TranslationKeys.UPLOAD);
+    }
+
+    get cancelButtonLabel(): string {
+        return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
     }
 
     ngOnDestroy() {
