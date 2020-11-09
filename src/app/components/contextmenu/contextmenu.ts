@@ -25,7 +25,7 @@ import { takeUntil } from 'rxjs/operators';
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" role="menuitem"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'"
-                        (click)="onItemClick($event, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
+                        (click)="onItemClick($event, child, menuitem, getKey(index))" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
                         [ngStyle]="child.style" [class]="child.styleClass" pRipple
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -58,8 +58,6 @@ export class ContextMenuSub {
 
     activeItemKey: string;
 
-    containerOffset: any;
-
     hideTimeout: any;
 
     activeItemKeyChangeSubscription: Subscription;
@@ -73,7 +71,7 @@ export class ContextMenuSub {
             this.activeItemKey = activeItemKey;
 
             if (this.isActive(this.parentItemKey) && DomHandler.hasClass(this.sublistViewChild.nativeElement, 'p-submenu-list-active')) {
-                this.position();
+                this.contextMenu.positionSubmenu(this.sublistViewChild.nativeElement);
             }
 
             this.contextMenu.cd.markForCheck();
@@ -103,12 +101,14 @@ export class ContextMenuSub {
             return;
         }
 
-        if (item.items) {
-            this.contextMenu.removeActiveFromSubLists(event.currentTarget);
-        }
+        if (this.contextMenu.el.nativeElement.contains(<Node> event.toElement)) {
+            if (item.items) {
+                this.contextMenu.removeActiveFromSubLists(event.currentTarget);
+            }
 
-        if (this.contextMenu.el.nativeElement.contains(<Node> event.toElement) && !this.root) {
-            this.contextMenu.contextMenuService.changeKey(this.parentItemKey);
+            if (!this.root) {
+                this.contextMenu.contextMenuService.changeKey(this.parentItemKey);
+            }
         }
     }
 
@@ -155,35 +155,6 @@ export class ContextMenuSub {
         }
 
         this.leafClick.emit();
-    }
-
-    position() {
-        let sublist = this.sublistViewChild.nativeElement;
-        let parentMenuItem = sublist.parentElement.parentElement;
-        let viewport = DomHandler.getViewport();
-        let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
-        let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
-        let itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem.children[0]);
-        let itemOuterHeight = DomHandler.getOuterHeight(parentMenuItem.children[0]);
-        this.containerOffset = DomHandler.getOffset(parentMenuItem.parentElement);
-
-        this.sublistViewChild.nativeElement.style.zIndex = ++DomHandler.zindex;
-
-        if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
-            sublist.style.removeProperty('top');
-            sublist.style.bottom = '0px';
-        }
-        else {
-            sublist.style.removeProperty('bottom');
-            sublist.style.top = '0px';
-        }
-
-        if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
-            sublist.style.left = -sublistWidth + 'px';
-        }
-        else {
-            sublist.style.left = itemOuterWidth + 'px';
-        }
     }
 
     getKey(index) {
@@ -333,6 +304,34 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
             this.containerViewChild.nativeElement.style.left = left + 'px';
             this.containerViewChild.nativeElement.style.top = top + 'px';
+        }
+    }
+
+    positionSubmenu(sublist) {
+        let parentMenuItem = sublist.parentElement.parentElement;
+        let viewport = DomHandler.getViewport();
+        let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
+        let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
+        let itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem.children[0]);
+        let itemOuterHeight = DomHandler.getOuterHeight(parentMenuItem.children[0]);
+        let containerOffset = DomHandler.getOffset(parentMenuItem.parentElement);
+
+        sublist.style.zIndex = ++DomHandler.zindex;
+
+        if ((parseInt(containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
+            sublist.style.removeProperty('top');
+            sublist.style.bottom = '0px';
+        }
+        else {
+            sublist.style.removeProperty('bottom');
+            sublist.style.top = '0px';
+        }
+
+        if ((parseInt(containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
+            sublist.style.left = -sublistWidth + 'px';
+        }
+        else {
+            sublist.style.left = itemOuterWidth + 'px';
         }
     }
 
@@ -501,7 +500,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
                     case 'Enter':
                         if (activeItem) {
-                            this.handleItemClick(event, this.findModelItemFromKey(this.contextMenuService.activeItemKey));
+                            this.handleItemClick(event, this.findModelItemFromKey(this.contextMenuService.activeItemKey), activeItem);
                         }
 
                         event.preventDefault();
@@ -525,7 +524,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }, null);
     }
 
-    handleItemClick(event, item) {
+    handleItemClick(event, item, menuitem) {
         if (!item || item.disabled) {
             return;
         }
@@ -535,6 +534,20 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                 originalEvent: event,
                 item: item
             });
+        }
+
+        if (item.items) {
+            let childSublist = DomHandler.findSingle(menuitem, '.p-submenu-list');
+
+            if (childSublist) {
+                if (DomHandler.hasClass(childSublist, 'p-submenu-list-active')) {
+                    this.removeActiveFromSubLists(menuitem);
+                }
+                else {
+                    DomHandler.addClass(childSublist, 'p-submenu-list-active');
+                    this.positionSubmenu(childSublist);
+                }
+            }
         }
 
         if (!item.items) {
