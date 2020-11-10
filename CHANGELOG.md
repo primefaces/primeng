@@ -212,8 +212,22 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.8-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.8) (2020-11-10)
+- Add keyboard support to ContextMenu [\#9499](https://github.com/primefaces/primeng/issues/9499)
+- p-accordion with lazy loaded content doesnt load when opened programattically[\#9496](https://github.com/primefaces/primeng/issues/9496)
+- scrollHeight doesn't change dynamically when using virtualScroll [\#9489](https://github.com/primefaces/primeng/issues/9489)
+- p-calendar Dynamic default date [\#9479](https://github.com/primefaces/primeng/issues/9479)
+- Align contextmenu menu behavior with menubar [\#9459](https://github.com/primefaces/primeng/issues/9459)
+- Visibility option for Paginator's first and last page icons [\#9456](https://github.com/primefaces/primeng/issues/9456)
+- Dropdown Item template support for Paginator [\#9455](https://github.com/primefaces/primeng/issues/9455)
+- Customizable Toast and Messages [\#9454](https://github.com/primefaces/primeng/issues/9454)
+- TieredMenu Keyboard Support [\#9451](https://github.com/primefaces/primeng/issues/9451)
+- The up and down arrow key stops working by the table virtualscrolling [\#9437](https://github.com/primefaces/primeng/issues/9437)
+- Model driven forms support for RadioButton [\#9162](https://github.com/primefaces/primeng/issues/9162)
+- Accessibility: Dialog close button needs aria-label [\#8947](https://github.com/primefaces/primeng/issues/8947)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.7) (2020-10-12)
-- DialogService onclose event not fired when you click close button after v9.0.3(include) [\#9279](https://github.com/primefaces/primeng/issues/9345)
+- DialogService onclose event not fired when you click close button after v9.0.3(include) [\#9345](https://github.com/primefaces/primeng/issues/9345)
 - Align tiered menu behavior with menubar [\#9379](https://github.com/primefaces/primeng/issues/9379)
 - Problems when typing or pasting numbers into InputNumber [\#9372](https://github.com/primefaces/primeng/issues/9372)
 - Table Keyboard metaSelections not working [\#9366](https://github.com/primefaces/primeng/issues/9366)
