@@ -2188,7 +2188,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let columnOrder = state.columnOrder;
             if (columnOrder) {
                 let reorderedColumns = [];
-                columnOrder.map(key => reorderedColumns.push(this.findColumnByKey(key)));
+
+                columnOrder.map(key =>  {
+                    let col = this.findColumnByKey(key);
+                    if (col) {
+                        reorderedColumns.push(col)
+                    }
+                });
                 this.columnOrderStateRestored = true;
                 this.columns = reorderedColumns;
             }
