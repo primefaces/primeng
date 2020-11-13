@@ -43,7 +43,7 @@ import { Subscription } from 'rxjs';
                             </div>
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'bootstrap4-light-purple', false)">
-                                    <img src="assets/showcase/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Blue" />
+                                    <img src="assets/showcase/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Purple" />
                                 </button>
                                 <span>Purple</span>
                             </div>
@@ -55,7 +55,7 @@ import { Subscription } from 'rxjs';
                             </div>
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'bootstrap4-dark-purple', true)">
-                                    <img src="assets/showcase/images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Blue" />
+                                    <img src="assets/showcase/images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Purple" />
                                 </button>
                                 <span>Purple</span>
                             </div>

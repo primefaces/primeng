@@ -13,7 +13,7 @@
                 "project": "src/app/components/ng-package.json",
                 "tsConfig": "src/app/components/tsconfig.lib.json"
             }
-            }
+          }
         }
       },
       "primeng": {
