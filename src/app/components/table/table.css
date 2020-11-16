@@ -187,10 +187,6 @@
     width: 1%;
 }
 
-.p-column-filter-row p-columnfilterformelement > .p-inputtext {
-    width: 100%;
-}
-
 .p-column-filter-menu-button,
 .p-column-filter-clear-button {
     display: inline-flex;
@@ -215,12 +211,6 @@
 .p-column-filter-row-item {
     cursor: pointer;
 }
-
-/*.p-column-filter-constraint p-columnfilterformelement,
-.p-column-filter-constraint p-slider {
-    width: 100%;
-    display: block;
-}*/
 
 .p-column-filter-add-button,
 .p-column-filter-remove-button {

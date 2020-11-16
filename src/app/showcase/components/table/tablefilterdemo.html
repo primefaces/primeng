@@ -164,6 +164,7 @@
                     <th>Country</th>
                     <th>Agent</th>
                     <th>Status</th>
+                    <th>Date</th>
                     <th style="width: 6rem">Verified</th>
                 </tr>
                 <tr>
@@ -173,7 +174,7 @@
                     <th>
                         <p-columnFilter type="text" field="country.name"></p-columnFilter>
                     </th>
-                    <th class="p-fluid">
+                    <th>
                         <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
@@ -187,7 +188,7 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th class="p-fluid">
+                    <th>
                         <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -197,6 +198,9 @@
                                 </p-dropdown>
                             </ng-template>
                         </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter field="date" type="date" [showMenu]="false"></p-columnFilter>
                     </th>
                     <th>
                         <p-columnFilter type="boolean" field="verified"></p-columnFilter>
@@ -219,6 +223,7 @@
                     <td>
                         <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
                     </td>
+                    <td></td>
                     <td>
                         <i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
                     </td>
@@ -410,7 +415,7 @@
                 &lt;th&gt;
                     &lt;p-columnFilter type="text" field="country.name"&gt;&lt;/p-columnFilter&gt;
                 &lt;/th&gt;
-                &lt;th class="p-fluid"&gt;
+                &lt;th&gt;
                     &lt;p-columnFilter field="representative" matchMode="in" [showMenu]="false"&gt;
                         &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
                             &lt;p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
@@ -424,7 +429,7 @@
                         &lt;/ng-template&gt;
                     &lt;/p-columnFilter&gt;
                 &lt;/th&gt;
-                &lt;th class="p-fluid"&gt;
+                &lt;th&gt;
                     &lt;p-columnFilter field="status" matchMode="equals" [showMenu]="false"&gt;
                         &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
                             &lt;p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true"&gt;
