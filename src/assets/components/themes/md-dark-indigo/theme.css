@@ -2096,7 +2096,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 1rem;
 }
 
-.p-column-filter-row .p-column-filter-menu-button {
+.p-column-filter-row .p-column-filter-menu-button,
+.p-column-filter-row .p-column-filter-clear-button {
   margin-left: 0.5rem;
 }
 
@@ -2123,6 +2124,26 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #9FA8DA;
 }
 .p-column-filter-menu-button:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+
+.p-column-filter-clear-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.p-column-filter-clear-button:hover {
+  color: rgba(255, 255, 255, 0.6);
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.04);
+}
+.p-column-filter-clear-button:focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
