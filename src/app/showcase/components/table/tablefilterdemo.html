@@ -48,8 +48,8 @@
                                     <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-representative-option">
-                                                <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
-                                                <span class="p-ml-1">{{option.label}}</span>
+                                                <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
+                                                <span class="p-ml-1">{{option.name}}</span>
                                             </div>
                                         </ng-template>
                                     </p-multiSelect>
@@ -76,7 +76,7 @@
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                         <ng-template let-option pTemplate="item">
-                                            <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
+                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
                                         </ng-template>
                                     </p-dropdown>
                                 </ng-template>
@@ -179,8 +179,8 @@
                                 <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
                                         <div class="p-multiselect-representative-option">
-                                            <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" />
-                                            <span class="p-ml-1">{{option.label}}</span>
+                                            <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
+                                            <span class="p-ml-1">{{option.name}}</span>
                                         </div>
                                     </ng-template>
                                 </p-multiSelect>
@@ -192,7 +192,7 @@
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
-                                        <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
+                                        <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
                                     </ng-template>
                                 </p-dropdown>
                             </ng-template>
@@ -285,8 +285,8 @@
                                 &lt;p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
                                     &lt;ng-template let-option pTemplate="item"&gt;
                                         &lt;div class="p-multiselect-representative-option"&gt;
-                                            &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                                            &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                            &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                            &lt;span class="p-ml-1"&gt;&#123;&#123;option.name&#125;&#125;&lt;/span&gt;
                                         &lt;/div&gt;
                                     &lt;/ng-template&gt;
                                 &lt;/p-multiSelect&gt;
@@ -416,8 +416,8 @@
                             &lt;p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
                                 &lt;ng-template let-option pTemplate="item"&gt;
                                     &lt;div class="p-multiselect-representative-option"&gt;
-                                        &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                                        &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                                        &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                        &lt;span class="p-ml-1"&gt;&#123;&#123;option.name&#125;&#125;&lt;/span&gt;
                                     &lt;/div&gt;
                                 &lt;/ng-template&gt;
                             &lt;/p-multiSelect&gt;
