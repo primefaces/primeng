@@ -182,14 +182,12 @@
     display: inline-flex;
 }
 
-p-columnfilterformelement {
-    display: flex;
+.p-column-filter-row p-columnfilterformelement {
     flex: 1 1 auto;
     width: 1%;
 }
 
-p-columnfilterformelement > .p-inputtext,
-.p-fluid p-columnfilterformelement > .p-inputtext {
+.p-column-filter-row p-columnfilterformelement > .p-inputtext {
     width: 100%;
 }
 
@@ -218,17 +216,11 @@ p-columnfilterformelement > .p-inputtext,
     cursor: pointer;
 }
 
-.p-column-filter-operator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.p-column-filter-constraint p-columnfilterformelement,
+/*.p-column-filter-constraint p-columnfilterformelement,
 .p-column-filter-constraint p-slider {
     width: 100%;
     display: block;
-}
+}*/
 
 .p-column-filter-add-button,
 .p-column-filter-remove-button {

@@ -100,10 +100,6 @@
     position: relative;
 }
 
-.p-fluid p-multiselect {
-    width: 100%;
-}
-
 .p-fluid .p-multiselect {
     display: flex;
 }
