@@ -59,19 +59,22 @@
                 "optimization": true,
                 "outputHashing": "all",
                 "sourceMap": false,
-                "extractCss": true,
                 "namedChunks": false,
-                "aot": true,
                 "extractLicenses": true,
                 "vendorChunk": false,
                 "buildOptimizer": true,
                 "budgets": [
-                    {
-                      "type": "initial",
-                      "maximumWarning": "2mb",
-                      "maximumError": "5mb"
-                    }
-                  ]
+                  {
+                    "type": "initial",
+                    "maximumWarning": "500kb",
+                    "maximumError": "1mb"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "2kb",
+                    "maximumError": "4kb"
+                  }
+                ]
               }
             }
           },
@@ -99,15 +102,15 @@
               "polyfills": "src/polyfills.ts",
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
-              "styles": [
-                "src/styles.scss"
-              ],
-              "scripts": [],
               "assets": [
                 "src/favicon.png",
                 "src/assets",
                 "src/upload.php"
-              ]
+              ],
+              "styles": [
+                "src/styles.scss"
+              ],
+              "scripts": []
             }
           },
           "lint": {
