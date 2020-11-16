@@ -176,7 +176,7 @@ describe('TieredMenu', () => {
 		fixture.detectChanges();
 
 		const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
-		const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+		const itemClickSpy = spyOn(subMenuComponent, 'onItemClick').and.callThrough();
 		const items = fixture.debugElement.query(By.css('ul'));
 		const fileItemEl = items.children[0].query(By.css('a')).nativeElement;
 		const editItemEl = items.children[1].query(By.css('a')).nativeElement;
@@ -227,7 +227,7 @@ describe('TieredMenu', () => {
 		const tieredmenuEl = fixture.debugElement.query(By.css('div'));
 		expect(tieredmenuEl).toBeTruthy();
 		const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
-		const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+		const itemClickSpy = spyOn(subMenuComponent, 'onItemClick').and.callThrough();
 		const items = fixture.debugElement.query(By.css('ul'));
 		const editItemEl = items.children[1].query(By.css('a')).nativeElement;
 		editItemEl.click();
@@ -272,7 +272,7 @@ describe('TieredMenu', () => {
 		const tieredmenuEl = fixture.debugElement.query(By.css('div'));
 		expect(tieredmenuEl).toBeTruthy();
 		const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
-		const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+		const itemClickSpy = spyOn(subMenuComponent, 'onItemClick').and.callThrough();
 		const items = fixture.debugElement.query(By.css('ul'));
 		const editItemEl = items.children[1].query(By.css('a')).nativeElement;
 		editItemEl.click();

@@ -404,11 +404,13 @@ describe('Listbox', () => {
         let data;
         listbox.onChange.subscribe(value => data=value);
         const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const ctrlClickEvent = {'ctrlKey':true};
+        const event: any = document.createEvent('CustomEvent');
+        event.metaKey = true;
+        event.ctrlKey = true;
         bmwEl.click();
         fixture.detectChanges();
 
-        listbox.onOptionClick(ctrlClickEvent,listbox.options[1]);
+        listbox.onOptionClick(event,listbox.options[1]);
         fixture.detectChanges();
         
         listbox.cd.detectChanges();
@@ -439,11 +441,13 @@ describe('Listbox', () => {
         let data;
         listbox.onChange.subscribe(value => data=value);
         const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const ctrlClickEvent = {'ctrlKey':true};
+        const event: any = document.createEvent('CustomEvent');
+        event.metaKey = true;
+        event.ctrlKey = true;
         bmwEl.click();
         fixture.detectChanges();
 
-        listbox.onOptionClick(ctrlClickEvent,listbox.options[1]);
+        listbox.onOptionClick(event,listbox.options[1]);
         fixture.detectChanges();
         
         listbox.cd.detectChanges();
@@ -562,7 +566,7 @@ describe('Listbox', () => {
             {label: 'VW', value: 'VW'},
             {label: 'Volvo', value: 'Volvo'}
         ];
-        listbox.filterMode = "startsWith";
+        listbox.filterMatchMode = "startsWith";
         listbox.filter = true;
         listbox.filterValue = "Bmw";
         fixture.detectChanges();

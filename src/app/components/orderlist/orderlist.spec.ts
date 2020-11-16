@@ -156,8 +156,10 @@ describe('OrderList', () => {
 		bmwEl.nativeElement.click();
 		fixture.detectChanges();
 
-		const ctrlClickEvent = { 'ctrlKey': true };
-		orderlist.onItemClick(ctrlClickEvent, orderlist.selection[0], 3);
+		const event: any = document.createEvent('CustomEvent');
+        event.metaKey = true;
+        event.ctrlKey = true;
+		orderlist.onItemClick(event, orderlist.selection[0], 3);
 		fixture.detectChanges();
 
 		orderlist.cd.detectChanges();
@@ -192,8 +194,10 @@ describe('OrderList', () => {
 		bmwEl.nativeElement.click();
 		fixture.detectChanges();
 
-		const ctrlClickEvent = { 'ctrlKey': true };
-		orderlist.onItemClick(ctrlClickEvent, orderlist.selection[0], 3);
+		const event: any = document.createEvent('CustomEvent');
+        event.metaKey = true;
+        event.ctrlKey = true;
+		orderlist.onItemClick(event, orderlist.selection[0], 3);
 		fixture.detectChanges();
 
 		orderlist.cd.detectChanges();

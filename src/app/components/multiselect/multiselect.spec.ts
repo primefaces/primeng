@@ -79,7 +79,6 @@ describe('MultiSelect', () => {
 	});
 
 	it('should change panelstyle and panelStyleClass', () => {
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		multiselect.panelStyle = {'height':'300px'};
@@ -94,7 +93,6 @@ describe('MultiSelect', () => {
 	});
 
 	it('should open when click', () => {
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -110,7 +108,6 @@ describe('MultiSelect', () => {
 	});
 
 	it('should open and close with keydown', () => {
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css("input"));
@@ -173,7 +170,6 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -204,7 +200,6 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		multiselect.writeValue(["BMW"]);
@@ -291,7 +286,6 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -329,7 +323,6 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -401,11 +394,10 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
-		const itemClickSpy = spyOn(multiselect,'isAllChecked').and.callThrough();
+		const itemClickSpy = spyOn(multiselect,'toggleAll').and.callThrough();
 		multiselectEl.click();
 		fixture.detectChanges();
 
@@ -432,7 +424,6 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const onInputFocusSpy = spyOn(multiselect,"onInputFocus").and.callThrough();
@@ -471,11 +462,10 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
-		const toggleSpy = spyOn(multiselect,'isAllChecked').and.callThrough();
+		const toggleSpy = spyOn(multiselect,'toggleAll').and.callThrough();
 		multiselectEl.click();
 		fixture.detectChanges();
 
@@ -509,7 +499,6 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -521,7 +510,7 @@ describe('MultiSelect', () => {
 		filterInputEl.dispatchEvent(new Event('input'));
 		fixture.detectChanges();
 
-		expect(multiselect.visibleOptions.length).toEqual(2);
+		expect(multiselect.optionsToRender.length).toEqual(2);
 	});
 
 	it('should reapply filter on options change', () => {
@@ -537,7 +526,6 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -558,7 +546,7 @@ describe('MultiSelect', () => {
 		];
 		fixture.detectChanges();
 
-		expect(multiselect.visibleOptions.length).toEqual(1);
+		expect(multiselect.optionsToRender.length).toEqual(1);
 	});
 
 	it('should close with close icon and reset filter input', () => {
@@ -574,7 +562,7 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-		multiselect.disabledSelectedOptions = [];
+	
 		fixture.detectChanges();
 
 		multiselect.resetFilterOnHide = true;
@@ -587,7 +575,7 @@ describe('MultiSelect', () => {
 		filterInputEl.dispatchEvent(new Event('input'));
 		fixture.detectChanges();
 
-		expect(multiselect.visibleOptions.length).toEqual(2);
+		expect(multiselect.optionsToRender.length).toEqual(2);
 		const closeEl = fixture.debugElement.query(By.css(".p-multiselect-close"));
 		closeEl.nativeElement.click();
 		fixture.detectChanges();
@@ -608,7 +596,6 @@ describe('MultiSelect', () => {
 				{label: 'VW', value: 'VW'},
 				{label: 'Volvo', value: 'Volvo'}
 			];
-			multiselect.disabledSelectedOptions = [];
 			fixture.detectChanges();
 
 			const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -624,7 +611,6 @@ describe('MultiSelect', () => {
 			const visibleItems = fixture.debugElement.queryAll(By.css('.p-multiselect-items li'))
 				.filter(el => el.styles.display !== 'none');
 			const emptyMesage = fixture.debugElement.query(By.css('.p-multiselect-empty-message')); 
-			expect(multiselect.visibleOptions.length).toEqual(0);
 			expect(visibleItems.length).toEqual(1);
 			expect(emptyMesage).toBeTruthy();
 			expect(emptyMesage.nativeElement.textContent).toEqual("No results found");
