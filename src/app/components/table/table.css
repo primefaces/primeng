@@ -174,7 +174,7 @@
 /* Filter */
 .p-column-filter-row {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     width: 100%;
 }
 
