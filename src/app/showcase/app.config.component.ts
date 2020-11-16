@@ -225,6 +225,12 @@ import { Subscription } from 'rxjs';
                                 </button>
                                 <span>Mira</span>
                             </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'nano', false)">
+                                    <img src="assets/showcase/images/themes/nano.jpg" alt="Nano"/>
+                                </button>
+                                <span>Nano</span>
+                            </div>
                         </div>
 
                         <h4>Legacy Free Themes</h4>

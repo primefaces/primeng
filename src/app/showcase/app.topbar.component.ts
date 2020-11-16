@@ -68,6 +68,7 @@ import { Subscription } from 'rxjs';
                         <li><a (click)="changeTheme($event, 'soho-light', false)"><img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light" /><span>Soho Light</span></a></li>
                         <li><a (click)="changeTheme($event, 'soho-dark', true)"><img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark" /><span>Soho Dark</span></a></li>
                         <li><a (click)="changeTheme($event, 'mira', false)"><img src="assets/showcase/images/themes/mira.jpg" alt="Mira" /><span>Mira</span></a></li>
+                        <li><a (click)="changeTheme($event, 'nano', false)"><img src="assets/showcase/images/themes/nano.jpg" alt="Nano" /><span>Nano</span></a></li>
 
                         <li class="topbar-submenu-header">LEGACY</li>
                         <li><a (click)="changeTheme($event, 'nova', false)"><img src="assets/showcase/images/themes/nova.png" alt="Nova" /><span>Nova</span></a></li>
@@ -309,6 +310,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'soho-light': 'soho-light.png',
         'soho-dark': 'soho-dark.png',
         'mira': 'mira.jpg',
+        'nano': 'nano.jpg',
     };
 
     versions: any[];
