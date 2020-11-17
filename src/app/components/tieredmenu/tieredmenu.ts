@@ -31,7 +31,7 @@ import { animate, style, transition, trigger, AnimationEvent } from '@angular/an
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <p-tieredMenuSub (keydownItem)="onChildItemKeyDown($event)" [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay" (leafClick)="onLeafClick()"></p-tieredMenuSub>
+                    <p-tieredMenuSub (keydownItem)="onChildItemKeyDown($event)" [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay" (leafClick)="onLeafClick()" [popup]="popup"></p-tieredMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -51,6 +51,8 @@ export class TieredMenuSub implements OnDestroy {
     @Input() baseZIndex: number = 0;
 
     @Input() mobileActive: boolean;
+
+    @Input() popup: boolean;
 
     @Input() get parentActive():boolean 
     {
@@ -121,7 +123,7 @@ export class TieredMenuSub implements OnDestroy {
         }
 
         if (this.root) {
-            if (this.activeItem || this.autoDisplay) {
+            if (this.activeItem || this.autoDisplay || this.popup) {
                 this.activeItem = item;
                 this.bindDocumentClickListener();
             }
@@ -251,7 +253,8 @@ export class TieredMenuSub implements OnDestroy {
         <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-overlay':popup}" [class]="styleClass" [ngStyle]="style"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)" (click)="preventDocumentDefault=true" *ngIf="!popup || visible">
-            <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" (leafClick)="onLeafClick()" [autoDisplay]="autoDisplay"></p-tieredMenuSub>
+            <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" (leafClick)="onLeafClick()" 
+                [autoDisplay]="autoDisplay" [popup]="popup"></p-tieredMenuSub>
         </div>
     `,
     animations: [
