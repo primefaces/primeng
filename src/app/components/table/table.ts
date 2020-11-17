@@ -517,18 +517,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    clearCache() {
-        if (this.scrollable) {
-            if (this.scrollableViewChild) {
-                this.scrollableViewChild.clearCache();
-            }
-
-            if (this.scrollableFrozenViewChild) {
-                this.scrollableViewChild.clearCache();
-            }
-        }
-    }
-
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored) {
@@ -538,7 +526,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._value = simpleChange.value.currentValue;
 
             if (!this.lazy) {
-                this.clearCache();
                 this.totalRecords = (this._value ? this._value.length : 0);
 
                 if (this.sortMode == 'single' && this.sortField)
