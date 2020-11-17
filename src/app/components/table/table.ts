@@ -3891,7 +3891,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         this.filterConstraint.value = value;
 
-        if (this.type === 'boolean') {
+        if (this.type === 'boolean' || value === '') {
             this.dt._filter();
         }
     }
@@ -3902,7 +3902,7 @@ export class ColumnFilterFormElement implements OnInit {
     }
 
     onNumericInputKeyDown(event: KeyboardEvent) {
-        if (event.which === 13) {
+        if (event.key === 'Enter') {
             this.dt._filter();
             event.preventDefault();
         }
