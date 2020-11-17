@@ -112,13 +112,9 @@ export class FilterUtils {
             return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) != ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
     }
 
-    public static in(value, filter: any[], filterLocale?): boolean {
+    public static in(value, filter: any[]): boolean {
         if (filter === undefined || filter === null || filter.length === 0) {
             return true;
-        }
-
-        if (value === undefined || value === null) {
-            return false;
         }
 
         for (let i = 0; i < filter.length; i++) {
