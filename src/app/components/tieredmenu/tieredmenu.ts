@@ -378,6 +378,10 @@ export class TieredMenu implements OnDestroy {
     }
 
     onLeafClick() {
+        if (this.popup) {
+            this.hide();
+        }
+
         this.unbindDocumentClickListener();
     }
 
