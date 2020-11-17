@@ -36,6 +36,12 @@
 	margin-left: -10px;
 }
 
+.p-overlaypanel-shifted:after, .p-overlaypanel-shifted:before {
+    left: auto;
+    right: 1.25em;
+    margin-left: auto;
+}
+
 .p-overlaypanel-flipped:after, .p-overlaypanel-flipped:before {
     bottom: auto;
     top: 100%;
