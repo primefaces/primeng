@@ -215,7 +215,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() virtualScroll: boolean;
 
-    @Input() virtualScrollDelay: number = 150;
+    @Input() virtualScrollDelay: number = 250;
 
     @Input() virtualRowHeight: number = 28;
 
@@ -2361,9 +2361,11 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     preventBodyScrollPropagation: boolean;
 
-    loadedPages: number[] = [];
-
     _scrollHeight: string;
+
+    virtualScrollTimeout: any;
+
+    virtualPage: number;
 
     @Input() get scrollHeight(): string {
         return this._scrollHeight;
@@ -2496,42 +2498,29 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     onScrollIndexChange(index: number) {
         if (this.dt.lazy) {
-            let pageRange = this.createPageRange(Math.floor(index / this.dt.rows));
-            pageRange.forEach(page => this.loadPage(page));
+            if (this.virtualScrollTimeout) {
+                clearTimeout(this.virtualScrollTimeout);
+            }
+
+            this.virtualScrollTimeout = setTimeout(() => {
+                let page = Math.floor(index / this.dt.rows);
+                let virtualScrollOffset = page === 0 ? 0 : (page - 1) * this.dt.rows;
+                let virtualScrollChunkSize = page === 0 ? this.dt.rows * 2 : this.dt.rows * 3;
+  
+                if (page !== this.virtualPage) {
+                    this.virtualPage = page;
+                    this.dt.onLazyLoad.emit({
+                        first: virtualScrollOffset,
+                        rows: virtualScrollChunkSize,
+                        sortField: this.dt.sortField,
+                        sortOrder: this.dt.sortOrder,
+                        filters: this.dt.filters,
+                        globalFilter: this.dt.filters && this.dt.filters['global'] ? (<FilterMetadata> this.dt.filters['global']).value : null,
+                        multiSortMeta: this.dt.multiSortMeta
+                    });
+                }
+            }, this.dt.virtualScrollDelay);
         }
-    }
-
-    createPageRange(page: number) {
-        let range: number[] = [];
-
-        if (page !== 0) {
-            range.push(page - 1);
-        }
-        range.push(page);
-        if (page !== (this.getPageCount() - 1)) {
-            range.push(page + 1);
-        }
-
-        return range;
-    }
-
-    loadPage(page: number) {
-        if (!this.loadedPages.includes(page)) {
-            this.dt.onLazyLoad.emit({
-                first: this.dt.rows * page,
-                rows: this.dt.rows,
-                sortField: this.dt.sortField,
-                sortOrder: this.dt.sortOrder,
-                filters: this.dt.filters,
-                globalFilter: this.dt.filters && this.dt.filters['global'] ? (<FilterMetadata> this.dt.filters['global']).value : null,
-                multiSortMeta: this.dt.multiSortMeta
-            });
-            this.loadedPages.push(page);
-        }
-    }
-
-    clearCache() {
-        this.loadedPages = [];
     }
 
     getPageCount() {
