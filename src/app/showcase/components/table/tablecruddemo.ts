@@ -28,10 +28,18 @@ export class TableCrudDemo implements OnInit {
 
     submitted: boolean;
 
+    statuses: any[];
+
     constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
         this.productService.getProducts().then(data => this.products = data);
+
+        this.statuses = [
+            {label: 'INSTOCK', value: 'instock'},
+            {label: 'LOWSTOCK', value: 'lowstock'},
+            {label: 'OUTOFSTOCK', value: 'outofstock'}
+        ];
     }
 
     openNew() {

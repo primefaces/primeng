@@ -50,6 +50,6 @@ export class TableDemo implements OnInit {
             {label: 'Negotiation', value: 'negotiation'},
             {label: 'Renewal', value: 'renewal'},
             {label: 'Proposal', value: 'proposal'}
-        ]
+        ];
     }
 }
