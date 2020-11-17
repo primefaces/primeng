@@ -11,7 +11,7 @@
     <div class="card">
         <h5>Session Storage</h5>
         <p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers"
-            [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+            [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
@@ -135,7 +135,7 @@
 &lt;div class="card"&gt;
     &lt;h5&gt;Session Storage&lt;/h5&gt;
     &lt;p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers"
-        [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local"&gt;
+        [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
