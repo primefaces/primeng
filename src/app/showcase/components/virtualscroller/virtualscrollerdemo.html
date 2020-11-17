@@ -14,27 +14,33 @@
                 List of Products
             </ng-template>
             <ng-template let-product pTemplate="item" let-i="index">
-                <div class="product-details">
-                    <div>
-                        <img class="product-item-image" src="assets/showcase/images/demo/product/{{product.image}}">
-                        <div>
-                            <b>{{product.name}} - ${{product.price}}</b>
-                            <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-                        </div>
+                <div class="product-item">
+                    <div class="image-container">
+                        <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                     </div>
-                    <p-button icon="pi pi-search"></p-button>
+                    <div class="product-list-detail">
+                        <h5 class="p-mb-2">{{product.name}}</h5>
+                        <i class="pi pi-tag product-category-icon"></i>
+                        <span class="product-category">{{product.category}}</span>
+                    </div>
+                    <div class="product-list-action">
+                        <h6 class="p-mb-2">${{product.price}}</h6>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                    </div>
                 </div>
             </ng-template>
             <ng-template let-product pTemplate="loadingItem">
-                <div class="product-details">
-                    <div>
-                        <div class="product-item-image empty-product-item-image"></div>
-                        <div>
-                            <b class="empty-product-item-text"></b>
-                            <div class="empty-product-item-text"></div> 
-                        </div>
+                <div class="product-item loading-item">
+                    <div class="image-container"></div>
+                    <div class="product-list-detail">
+                        <h5 class="p-mb-2"></h5>
+                        <i class="product-category-icon"></i>
+                        <span class="product-category"></span>
                     </div>
-                    <div class="empty-product-item-button"></div>
+                    <div class="product-list-action">
+                        <h6 class="p-mb-2"></h6>
+                        <span class="product-badge"></span>
+                    </div>
                 </div>
             </ng-template>
         </p-virtualScroller>
@@ -44,23 +50,25 @@
         <h5>Prepopulated List</h5>
         <p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100">
             <ng-template pTemplate="header">
-                <div class="list-header">
-                    <div class="title-container">
-                        List of Products
-                    </div>
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    List of Products
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width':'10em'}"></p-dropdown>
                 </div>
             </ng-template>
             <ng-template let-product pTemplate="item" let-i="index">
-                <div class="product-details">
-                    <div>
-                        <img class="product-item-image" src="assets/showcase/images/demo/product/{{product.image}}">
-                        <div>
-                            <b>{{product.name}} - ${{product.price}}</b>
-                            <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-                        </div>
+                <div class="product-item">
+                    <div class="image-container">
+                        <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                     </div>
-                    <p-button icon="pi pi-search" (click)="selectCar($event, product)"></p-button>
+                    <div class="product-list-detail">
+                        <h5 class="p-mb-2">{{product.name}}</h5>
+                        <i class="pi pi-tag product-category-icon"></i>
+                        <span class="product-category">{{product.category}}</span>
+                    </div>
+                    <div class="product-list-action">
+                        <h6 class="p-mb-2">${{product.price}}</h6>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                    </div>
                 </div>
             </ng-template>
         </p-virtualScroller>
@@ -337,11 +345,6 @@ reset() &#123;
                             </td>
                             <td>Scrolls to the item with the given index.</td>
                         </tr>
-                        <tr>
-                            <td>clearCache</td>
-                            <td>-</td>
-                            <td>Clears the loaded items in lazy mode.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -393,139 +396,85 @@ reset() &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Lazy Loading&lt;/h5&gt;
-&lt;p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
+&lt;div class="card"&gt;
+    &lt;h5&gt;Lazy Loading&lt;/h5&gt;
+    &lt;p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
         [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        List of Products
-    &lt;/ng-template&gt;
-    &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
-        &lt;div class="car-details"&gt;
-            &lt;div&gt;
-                &lt;img class="car-item-image" src="assets/showcase/images/demo/product/&#123;&#123;product.image&#123;&#123;"&gt;
-                &lt;div&gt;
-                    &lt;b&gt;&#123;&#123;product.name&#123;&#123; - $&#123;&#123;product.price&#123;&#123;&lt;/b&gt;
-                    &lt;span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#123;&#123;&lt;/span&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            List of Products
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
+            &lt;div class="product-item"&gt;
+                &lt;div class="image-container"&gt;
+                    &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-detail"&gt;
+                    &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                    &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
+                    &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-action"&gt;
+                    &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-            &lt;p-button icon="pi pi-search" (click)="selectCar($event, car)"&gt;&lt;/p-button&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template let-car pTemplate="loadingItem"&gt;
-        &lt;div class="car-details"&gt;
-            &lt;div&gt;
-                &lt;div class="car-item-image empty-car-item-image"&gt;&lt;/div&gt;
-                &lt;div&gt;
-                    &lt;b class="empty-car-item-text"&gt;&lt;/b&gt;
-                    &lt;div class="empty-car-item-text"&gt;&lt;/div&gt; 
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="loadingItem"&gt;
+            &lt;div class="product-item loading-item"&gt;
+                &lt;div class="image-container"&gt;&lt;/div&gt;
+                &lt;div class="product-list-detail"&gt;
+                    &lt;h5 class="p-mb-2"&gt;&lt;/h5&gt;
+                    &lt;i class="product-category-icon"&gt;&lt;/i&gt;
+                    &lt;span class="product-category"&gt;&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-action"&gt;
+                    &lt;h6 class="p-mb-2"&gt;&lt;/h6&gt;
+                    &lt;span class="product-badge"&gt;&lt;/span&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class="empty-car-item-button"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-virtualScroller&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-virtualScroller&gt;
+&lt;/div&gt;
 
-
-&lt;h5&gt;Prepopulated List&lt;/h5&gt;
-&lt;p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;div class="list-header"&gt;
-            &lt;div class="title-container"&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Prepopulated List&lt;/h5&gt;
+    &lt;p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
                 List of Products
+                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="&#123;'min-width':'10em'&#125;"&gt;&lt;/p-dropdown&gt;
             &lt;/div&gt;
-            &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="&#123;'min-width':'10em'&#123;"&gt;&lt;/p-dropdown&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
-        &lt;div class="car-details"&gt;
-            &lt;div&gt;
-                &lt;img class="car-item-image" src="assets/showcase/images/demo/product/&#123;&#123;product.image&#123;&#123;"&gt;
-                &lt;div&gt;
-                    &lt;b&gt;&#123;&#123;product.name&#123;&#123; - $&#123;&#123;product.price&#123;&#123;&lt;/b&gt;
-                    &lt;span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#123;&#123;&lt;/span&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
+            &lt;div class="product-item"&gt;
+                &lt;div class="image-container"&gt;
+                    &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-detail"&gt;
+                    &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                    &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
+                    &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-action"&gt;
+                    &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-            &lt;p-button icon="pi pi-search" (click)="selectCar($event, product)"&gt;&lt;/p-button&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-virtualScroller&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-virtualScroller&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;Component,OnInit} from '@angular/core';
-import &#123;CarService} from '../../service/carservice';
-import &#123;LazyLoadEvent,SelectItem} from 'primeng/api';
-import &#123; Product } from '../../domain/product';
-import &#123; ProductService } from '../../service/productservice';
+import &#123; Component,OnInit &#125; from '@angular/core';
+import &#123; LazyLoadEvent,SelectItem &#125; from 'primeng/api';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
 
 @Component(&#123;
     templateUrl: './virtualscrollerdemo.html',
-    styles: [`
-        .product-details &#123;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .product-details &gt; div &#123;
-            display: flex;
-            align-items: center;
-        }
-
-        .product-item-image &#123;
-            margin-right: 14px;
-            width: 60px;
-            height: 60px;
-        }
-
-        .empty-product-item-image &#123;
-            background-color: #f1f1f1;
-            animation: pulse 1s infinite ease-in-out;
-            margin-right: 14px;
-            border-radius: 3px;
-        }
-
-        .empty-product-item-text &#123;
-            background-color: #f1f1f1;
-            height: 19px;
-            animation: pulse 1s infinite ease-in-out;
-            display: block;
-            width: 100px;
-            margin-bottom: 2px;
-            border-radius: 3px;
-        }
-
-        .empty-product-item-button &#123;
-            background-color: #f1f1f1;
-            height: 33px;
-            width: 33px;
-            animation: pulse 1s infinite ease-in-out;
-            display: block;
-            border-radius: 3px;
-        }
-
-        .list-header &#123;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .title-container &#123;
-            text-align: left;
-        }
-
-        .sort-container &#123;
-            text-align: right;
-        }
-
-        @media (max-width: 40em) &#123;
-            .product-item &#123;
-                text-align: center;
-            }
-        }
-    `]
-})
+    styleUrls: ['./virtualscrollerdemo.scss']
+&#125;)
 export class VirtualScrollerDemo implements OnInit &#123;
 
     products: Product[];
@@ -536,21 +485,21 @@ export class VirtualScrollerDemo implements OnInit &#123;
 
     sortOptions: SelectItem[];
 
-    constructor(private carService: CarService, private productService: ProductService) &#123;}
+    constructor(private productService: ProductService) &#123;&#125;
 
     ngOnInit() &#123;
-        this.products = Array.from(&#123;length: 10000}).map(() =&gt; this.productService.generatePrduct());
-        this.virtualProducts = Array.from(&#123;length: 10000});
+        this.products = Array.from(&#123;length: 10000&#125;).map(() => this.productService.generatePrduct());
+        this.virtualProducts = Array.from(&#123;length: 10000&#125;);
 
         this.sortOptions = [
-            &#123;label: 'Cheapest First', value: 'price'},
-            &#123;label: 'Expensive First', value: '!price'}
+            &#123;label: 'Cheapest First', value: 'price'&#125;,
+            &#123;label: 'Expensive First', value: '!price'&#125;
         ];
-    }
+    &#125;
 
     loadCarsLazy(event: LazyLoadEvent) &#123;       
         // simulate remote connection with a timeout 
-        setTimeout(() =&gt; &#123;
+        setTimeout(() => &#123;
             //load data of required page
             let loadedProducts = this.products.slice(event.first, (event.first + event.rows));
 
@@ -559,29 +508,29 @@ export class VirtualScrollerDemo implements OnInit &#123;
             
             //trigger change detection
             this.virtualProducts = [...this.virtualProducts];
-        }, 1000);
-    }
+        &#125;, 1000);
+    &#125;
 
     onSortChange() &#123;
         if (this.sortKey.indexOf('!') === 0)
             this.sort(-1);
         else
             this.sort(1);
-    }
+    &#125;
 
     sort(order: number): void &#123;
         let products = [...this.products];
-        products.sort((data1, data2) =&gt; &#123;
+        products.sort((data1, data2) => &#123;
             let value1 = data1.price;
             let value2 = data2.price;
-            let result = (value1 &lt; value2) ? -1 : (value1 &gt; value2) ? 1 : 0;
+            let result = (value1 &lt; value2) ? -1 : (value1 > value2) ? 1 : 0;
 
             return (order * result);
-        });
+        &#125;);
 
         this.products = products;
-    }
-}
+    &#125;
+&#125;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
