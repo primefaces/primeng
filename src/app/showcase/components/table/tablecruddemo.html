@@ -57,7 +57,7 @@
                     <td>{{product.price | currency:'USD'}}</td>
                     <td>{{product.category}}</td>
                     <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                    <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+                    <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
                     <td>
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
@@ -83,6 +83,15 @@
             <div class="p-field">
                 <label for="description">Description</label>
                 <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
+            </div>
+
+            <div class="p-field">
+                <label for="inventoryStatus">Inventory Status</label>
+                <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select an Inventory Status">
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+                    </ng-template>
+                </p-dropdown>
             </div>
     
             <div class="p-field">
@@ -190,7 +199,7 @@
                 &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
-                &lt;td&gt;&lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
                 &lt;td&gt;
                     &lt;button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"&gt;&lt;/button&gt;
                     &lt;button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"&gt;&lt;/button&gt;
@@ -216,6 +225,14 @@
         &lt;div class="p-field"&gt;
             &lt;label for="description"&gt;Description&lt;/label&gt;
             &lt;textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div class="p-field"&gt;
+            &lt;label for="inventoryStatus"&gt;Inventory Status&lt;/label&gt;
+            &lt;p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select an Inventory Status"&gt;
+                &lt;ng-template let-option pTemplate="item"&gt;
+                    &lt;span [class]="'product-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                &lt;/ng-template&gt;
+            &lt;/p-dropdown&gt;
         &lt;/div&gt;
 
         &lt;div class="p-field"&gt;
@@ -292,10 +309,18 @@ export class TableCrudDemo implements OnInit &#123;
 
     submitted: boolean;
 
+    statuses: any[];
+
     constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) &#123; &#125;
 
     ngOnInit() &#123;
         this.productService.getProducts().then(data =&gt; this.products = data);
+
+        this.statuses = [
+            &#123;label: 'INSTOCK', value: 'instock'&#125;,
+            &#123;label: 'LOWSTOCK', value: 'lowstock'&#125;,
+            &#123;label: 'OUTOFSTOCK', value: 'outofstock'&#125;
+        ];
     &#125;
 
     openNew() &#123;
