@@ -9,31 +9,31 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-        <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+        <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"></p-button>
         <p-button (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
     
         <h5>Position</h5>
         <div class="p-grid p-dir-col">
             <div class="p-col">
-                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"></p-button>
-                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"></p-button>
+                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
             </div>
             <div class="p-col">
-                <p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
-                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
+                <p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning p-mr-2"></p-button>
                 <p-button (click)="confirmPosition('topright')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
             </div>
             <div class="p-col">
-                <p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"></p-button>
-                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"></p-button>
-                <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"></p-button>
+                <p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"></p-button>
             </div>
         </div>
-        <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"></p-confirmDialog>
+        <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+    
+        <p-toast></p-toast>
     </div>
-
-    <p-messages [value]="msgs"></p-messages>
 </div>
 
 <div class="content-section documentation">
@@ -460,50 +460,45 @@ export class ConfirmDialogDemo &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;&lt;/p-confirmDialog&gt;
-&lt;p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"&gt;&lt;/p-button&gt;
+&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"&gt;&lt;/p-button&gt;
 &lt;p-button (click)="confirm2()" icon="pi pi-times" label="Delete"&gt;&lt;/p-button&gt;
 
 &lt;h5&gt;Position&lt;/h5&gt;
 &lt;div class="p-grid p-dir-col"&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning p-mr-2"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="confirmPosition('topright')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" key="positionDialog" [position]="position" [baseZIndex]="10000"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"&gt;&lt;/p-confirmDialog&gt;
 
-
-&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-toast&gt;&lt;/p-toast&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component&#125; from '@angular/core';
+import &#123;ConfirmationService, MessageService&#125; from 'primeng/api';
+
 @Component(&#123;
     templateUrl: './confirmdialogdemo.html',
-    styles: [`
-        :host ::ng-deep button &#123;
-            margin-right: .25em;
-        &#125;
-    `],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService,MessageService]
 &#125;)
 export class ConfirmDialogDemo &#123;
-
-    msgs: Message[] = [];
-
+    
     position: string;
-
-    constructor(private confirmationService: ConfirmationService) &#123;&#125;
+    
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) &#123;&#125;
 
     confirm1() &#123;
         this.confirmationService.confirm(&#123;
@@ -511,24 +506,24 @@ export class ConfirmDialogDemo &#123;
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'You have accepted'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Confirmed', detail:'You have accepted'&#125;);
             &#125;,
             reject: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;);
             &#125;
         &#125;);
     &#125;
-
+    
     confirm2() &#123;
         this.confirmationService.confirm(&#123;
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;);
             &#125;,
             reject: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;);
             &#125;
         &#125;);
     &#125;
@@ -541,10 +536,10 @@ export class ConfirmDialogDemo &#123;
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;);
             &#125;,
             reject: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;);
             &#125;,
             key: "positionDialog"
         &#125;);
