@@ -336,7 +336,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     enableModality() {
         if (this.closable && this.dismissableMask) {
-            this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.close(event);
                 }
