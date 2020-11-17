@@ -424,7 +424,15 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+        this.subscription = this.configService.configUpdate$.subscribe(config => {
+            this.config = config;
+            if (this.config.theme === 'nano')
+                this.scale = 12;
+            else
+                this.scale = 14;
+
+            this.applyScale();
+        });
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
@@ -484,11 +492,15 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     decrementScale() {
         this.scale--;
-        document.documentElement.style.fontSize = this.scale + 'px';
+        this.applyScale();
     }
 
     incrementScale() {
         this.scale++;
+        this.applyScale();
+    }
+
+    applyScale() {
         document.documentElement.style.fontSize = this.scale + 'px';
     }
 
