@@ -26,7 +26,7 @@ export class DomHandler {
 
     public static addMultipleClasses(element: any, className: string): void {
         if (element.classList) {
-            let styles: string[] = className.split(' ');
+            let styles: string[] = className.trim().split(' ');
             for (let i = 0; i < styles.length; i++) {
                 element.classList.add(styles[i]);
             }

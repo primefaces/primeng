@@ -164,7 +164,6 @@
                     <th>Country</th>
                     <th>Agent</th>
                     <th>Status</th>
-                    <th>Date</th>
                     <th style="width: 6rem">Verified</th>
                 </tr>
                 <tr>
@@ -200,9 +199,6 @@
                         </p-columnFilter>
                     </th>
                     <th>
-                        <p-columnFilter field="date" type="date" [showMenu]="false"></p-columnFilter>
-                    </th>
-                    <th>
                         <p-columnFilter type="boolean" field="verified"></p-columnFilter>
                     </th>
                 </tr>
@@ -223,7 +219,6 @@
                     <td>
                         <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
                     </td>
-                    <td></td>
                     <td>
                         <i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
                     </td>

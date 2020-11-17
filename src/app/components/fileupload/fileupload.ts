@@ -73,7 +73,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() url: string;
 
-    @Input() method: string = 'POST';
+    @Input() method: string = 'post';
 
     @Input() multiple: boolean;
 
@@ -372,7 +372,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                 formData.append(this.name, this.files[i], this.files[i].name);
             }
 
-            this.http.post(this.url, formData, {
+            this.http[this.method](this.url, formData, {
                 headers: this.headers, reportProgress: true, observe: 'events', withCredentials: this.withCredentials
             }).subscribe( (event: HttpEvent<any>) => {
                     switch (event.type) {
