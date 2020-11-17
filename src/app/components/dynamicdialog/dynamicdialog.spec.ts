@@ -94,8 +94,6 @@ describe('DynamicDialog', () => {
 
         dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
-        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
-        fixture.detectChanges();
     }));
 
     it('should close dialog with esc key', fakeAsync(() => {
@@ -121,8 +119,6 @@ describe('DynamicDialog', () => {
 
         dynamicDialogEl = document.getElementsByClassName("p-dialog")[0] as HTMLDivElement;
         expect(dynamicDialogEl).toBeUndefined();
-        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
-        fixture.detectChanges();
     }));
 
     it('should close dialog with mask click', fakeAsync(() => {
@@ -145,7 +141,5 @@ describe('DynamicDialog', () => {
 
         dynamicDialogEl = document.getElementsByClassName("p-dialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
-        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
-        fixture.detectChanges();
     }));
 });
