@@ -389,7 +389,7 @@ export class UITreeNode implements OnInit {
     onKeyDown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement> event.target).parentElement.parentElement;
 
-        if (nodeElement.nodeName !== 'P-TREENODE') {
+        if (nodeElement.nodeName !== 'P-TREENODE' || (!this.tree.contextMenu || this.tree.contextMenu.containerViewChild.nativeElement.style.display === 'block')) {
             return;
         }
 
