@@ -21,7 +21,7 @@
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                         <p-treeTableCellEditor>
                             <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                                <input pInputText type="text" [(ngModel)]="rowData[col.field]">
                             </ng-template>
                             <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
                         </p-treeTableCellEditor>
@@ -56,7 +56,7 @@
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"&gt;&lt;/p-treeTableToggler&gt;
                 &lt;p-treeTableCellEditor&gt;
                     &lt;ng-template pTemplate="input"&gt;
-                        &lt;input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="&#123;'width': i == 0 ? '90%': '100%'&#125;"&gt;
+                        &lt;input pInputText type="text" [(ngModel)]="rowData[col.field]"&gt;
                     &lt;/ng-template&gt;
                     &lt;ng-template pTemplate="output"&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/ng-template&gt;
                 &lt;/p-treeTableCellEditor&gt;
