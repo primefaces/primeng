@@ -1,5 +1,70 @@
 # Changelog
 
+## [11.0.0-rc.1](https://github.com/primefaces/primeng/tree/11.0.0-rc.1) (2020-11-18)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/10.0.3...11.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Change yes-no button order in ConfirmDialog [\#9531](https://github.com/primefaces/primeng/issues/9531)
+- Remove clearCache method from Table and VirtualScroller [\#9530](https://github.com/primefaces/primeng/issues/9530)
+- Update to PrimeIcons 4.1.0 [\#9524](https://github.com/primefaces/primeng/issues/9524)
+- Remove functionality of locale property of Calendar [\#9504](https://github.com/primefaces/primeng/issues/9504)
+- Add keyboard support to ContextMenu [\#9499](https://github.com/primefaces/primeng/issues/9499)
+- p-accordion with lazy loaded content doesnt load when opened programattically [\#9496](https://github.com/primefaces/primeng/issues/9496)
+- Rename filterMode to filterMatchMode in Listbox [\#9481](https://github.com/primefaces/primeng/issues/9481)
+- p-calendar Dynamic default date [\#9479](https://github.com/primefaces/primeng/issues/9479)
+- Chips display for MultiSelect [\#9470](https://github.com/primefaces/primeng/issues/9470)
+- New Component: ConfirmPopıp [\#9468](https://github.com/primefaces/primeng/issues/9468)
+- Visibility option for Paginator's first and last page icons [\#9456](https://github.com/primefaces/primeng/issues/9456)
+- Dropdown Item template support for Paginator [\#9455](https://github.com/primefaces/primeng/issues/9455)
+- Customizable Toast and Messages [\#9454](https://github.com/primefaces/primeng/issues/9454)
+- TieredMenu Keyboard Support [\#9451](https://github.com/primefaces/primeng/issues/9451)
+- i18n API [\#9446](https://github.com/primefaces/primeng/issues/9446)
+- Advanced Filtering for Table [\#9420](https://github.com/primefaces/primeng/issues/9420)
+- Improve sortable column focus visuals [\#9396](https://github.com/primefaces/primeng/issues/9396)
+- Constants for PrimeIcons [\#9391](https://github.com/primefaces/primeng/issues/9391)
+- Model driven forms support for RadioButton [\#9162](https://github.com/primefaces/primeng/issues/9162)
+- Accessibility: Dialog close button needs aria- label [\#8947](https://github.com/primefaces/primeng/issues/8947)
+- Add autoDisplay to MenuBar and TieredMenu [\#8293](https://github.com/primefaces/primeng/issues/8293)
+- New Component: Timeline [\#7936](https://github.com/primefaces/primeng/issues/7936)
+- Turbo Table cannot filter empty values with "in" Filter [\#6808](https://github.com/primefaces/primeng/issues/6808)
+- Ability to define optionValue, optionDisabled, optionGroup in Select components [\#4295](https://github.com/primefaces/primeng/issues/4295)
+
+**Fixed bugs:**
+
+- Galleria Indicators aren't displayed in Firefox [\#9537](https://github.com/primefaces/primeng/issues/9537)
+- Popup TieredMenu not closing when click on leaf [\#9534](https://github.com/primefaces/primeng/issues/9534)
+- ContextMenu Keyboard Controls does not prevent Tree Keyboard Controls [\#9529](https://github.com/primefaces/primeng/issues/9529)
+- Table stored state does not match current columns [\#9510](https://github.com/primefaces/primeng/issues/9510)
+- DOM Exception trigger with ButtonDirective afterViewInit [\#9497](https://github.com/primefaces/primeng/issues/9497)
+- scrollHeight doesn't change dynamically when using virtualScroll [\#9489](https://github.com/primefaces/primeng/issues/9489)
+- Align contextmenu menu behavior with menubar [\#9459](https://github.com/primefaces/primeng/issues/9459)
+- TieredMenu initial hover is broken [\#9458](https://github.com/primefaces/primeng/issues/9458)
+- Can't upload file using PUT [\#9448](https://github.com/primefaces/primeng/issues/9448)
+- OverlayPanel target arrow points to the wrong position when target is on the right edge of the screen [\#9441](https://github.com/primefaces/primeng/issues/9441)
+- The up and down arrow key stops working by the table virtualscrolling [\#9437](https://github.com/primefaces/primeng/issues/9437)
+- Radiobutton stackblitz example dynamic radio label not clickable [\#9417](https://github.com/primefaces/primeng/issues/9417)
+- Table with scroll has misaligned headers if scrollbar is not visible [\#9413](https://github.com/primefaces/primeng/issues/9413)
+- pRipple working when disabled\(etc menuitem\) [\#9406](https://github.com/primefaces/primeng/issues/9406)
+- Button badge colors are wrong [\#9397](https://github.com/primefaces/primeng/issues/9397)
+- Material tristatecheckbox false state invisible [\#9395](https://github.com/primefaces/primeng/issues/9395)
+- Tree toggler icon visual issue with hover [\#9394](https://github.com/primefaces/primeng/issues/9394)
+- Galleria and Carousel highlight item visual improvement on PrimeOne Themes [\#9393](https://github.com/primefaces/primeng/issues/9393)
+- Galleria thumbnailsPosition top and left don't work [\#9381](https://github.com/primefaces/primeng/issues/9381)
+- P-multiselect component ignores disabled options if optionLabel property is used [\#9346](https://github.com/primefaces/primeng/issues/9346)
+- Table lazy virtual scroll triggers multiple separate calls to `onLazyLoad\(\)` function [\#9316](https://github.com/primefaces/primeng/issues/9316)
+- Again problem with twice load init in virtualscroll [\#9311](https://github.com/primefaces/primeng/issues/9311)
+-  wrong behavior of Dialog.maskClickListener [\#9282](https://github.com/primefaces/primeng/issues/9282)
+
+**Deprecated:**
+
+- Deprecate SelectItem [\#9506](https://github.com/primefaces/primeng/issues/9506)
+
+**Closed issues:**
+
+- Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
+
 ## [10.0.3](https://github.com/primefaces/primeng/tree/10.0.3) (2020-10-08)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.2...10.0.3)
