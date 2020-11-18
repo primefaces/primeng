@@ -38,7 +38,7 @@ export class TableFilterDemo implements OnInit {
             {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
             {name: "Onyama Limba", image: 'onyamalimba.png'},
             {name: "Stephen Shaw", image: 'stephenshaw.png'},
-            {name: "XuXue Feng", image: 'xuxuefeng.png'}
+            {name: "Xuxue Feng", image: 'xuxuefeng.png'}
         ];
 
         this.statuses = [
