@@ -47,7 +47,7 @@ declare let gtag: Function;
 
                 <div class="menu-category">PrimeIcons</div>
                 <div class="menu-items">
-                    <a [routerLink]=" ['/icons']" routerLinkActive="router-link-exact-active">Icons v4.0</a>
+                    <a [routerLink]=" ['/icons']" routerLinkActive="router-link-exact-active">Icons v4.1</a>
                 </div>
 
                 <div class="menu-category">Form</div>
