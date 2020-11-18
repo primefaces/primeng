@@ -5,7 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContextMenu, ContextMenuSub } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { TreeDragDropService } from 'primeng/api';
+import { ContextMenuService, TreeDragDropService } from 'primeng/api';
+import { first } from 'rxjs/operators';
 
 @Component({
 	template: `
@@ -128,7 +129,7 @@ describe('Tree', () => {
 				ContextMenuSub,
 				TestTreeComponent
 			],
-			providers: [TreeDragDropService]
+			providers: [TreeDragDropService, ContextMenuService]
 		});
 
 		fixture = TestBed.createComponent(TestTreeComponent);
@@ -230,41 +231,6 @@ describe('Tree', () => {
 		expect(collapseSpy).toHaveBeenCalled();
 	});
 
-	it('should focused with nav keys', () => {
-		fixture.detectChanges();
-		
-		const contentEls = fixture.debugElement.queryAll(By.css('.p-treenode-content'));
-		const firstEl = contentEls[0];
-		const secondEl = contentEls[1];
-		const thirdEl = contentEls[2];
-		firstEl.triggerEventHandler('keydown',{'which':40,'target':firstEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-
-		const secondNode = fixture.debugElement.queryAll(By.css('.p-treenode-content'))[1];
-		let focusElement = document.activeElement;
-		expect(focusElement).toEqual(secondNode.nativeElement);
-		secondEl.triggerEventHandler('keydown',{'which':38,'target':secondEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-		
-		const firstNode = fixture.debugElement.queryAll(By.css('.p-treenode-content'))[0];
-		focusElement = document.activeElement;
-		expect(focusElement).toEqual(firstNode.nativeElement);
-		firstEl.triggerEventHandler('keydown',{'which':38,'target':firstEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-
-		focusElement = document.activeElement;
-		expect(focusElement).toEqual(firstNode.nativeElement);
-		secondEl.triggerEventHandler('keydown',{'which':40,'target':secondEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-
-		thirdEl.triggerEventHandler('keydown',{'which':40,'target':thirdEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-		
-		const thirdNode = fixture.debugElement.queryAll(By.css('.p-treenode-content'))[2];
-		focusElement = document.activeElement;
-		expect(focusElement).toEqual(thirdNode.nativeElement);
-	});
-
 	it('should expand&collapse with right and left key', () => {
 		fixture.detectChanges();
 		
@@ -275,7 +241,6 @@ describe('Tree', () => {
 		firstEl.triggerEventHandler('keydown',{'which':39,'target':firstEl.nativeElement,preventDefault (){}});
 		fixture.detectChanges();
 
-		const firstElComponent = firstEl.componentInstance;
 		expect(documentsNode.node.expanded).toBeTruthy();
 		firstEl.triggerEventHandler('keydown',{'which':37,'target':firstEl.nativeElement,preventDefault (){}});
 		fixture.detectChanges();
