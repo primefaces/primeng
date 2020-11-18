@@ -451,17 +451,13 @@ describe('MultiSelect', () => {
 
 	it('should unselect all', () => {
 		multiselect.options = [
-			{label: 'Audi', value: 'Audi'},
-			{label: 'BMW', value: 'BMW'},
-			{label: 'Fiat', value: 'Fiat'},
-			{label: 'Ford', value: 'Ford'},
-			{label: 'Honda', value: 'Honda'},
-			{label: 'Jaguar', value: 'Jaguar'},
-			{label: 'Mercedes', value: 'Mercedes'},
-			{label: 'Renault', value: 'Renault'},
-			{label: 'VW', value: 'VW'},
-			{label: 'Volvo', value: 'Volvo'}
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
 		];
+		multiselect.optionLabel = 'name';
 		fixture.detectChanges();
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -473,7 +469,7 @@ describe('MultiSelect', () => {
 		allCheckedEl.click();
 		fixture.detectChanges();
 
-		expect(multiselect.value.length).toEqual(10);
+		expect(multiselect.value.length).toEqual(5);
 		expect(toggleSpy).toHaveBeenCalled();
 		multiselectEl.click();
 		fixture.detectChanges();
@@ -483,7 +479,6 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		expect(multiselect.value.length).toEqual(0);
-
 	});
 
 	it('should filtered', () => {
@@ -511,42 +506,6 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		expect(multiselect.optionsToRender.length).toEqual(2);
-	});
-
-	it('should reapply filter on options change', () => {
-		multiselect.options = [
-			{label: 'Audi', value: 'Audi'},
-			{label: 'BMW', value: 'BMW'},
-			{label: 'Fiat', value: 'Fiat'},
-			{label: 'Ford', value: 'Ford'},
-			{label: 'Honda', value: 'Honda'},
-			{label: 'Jaguar', value: 'Jaguar'},
-			{label: 'Mercedes', value: 'Mercedes'},
-			{label: 'Renault', value: 'Renault'},
-			{label: 'VW', value: 'VW'},
-			{label: 'Volvo', value: 'Volvo'}
-		];
-		fixture.detectChanges();
-
-		const multiselectEl = fixture.debugElement.children[0].nativeElement;
-		multiselectEl.click();
-		fixture.detectChanges();
-
-		const filterInputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
-		filterInputEl.value = "f";
-		filterInputEl.dispatchEvent(new Event('input'));
-		fixture.detectChanges();
-
-		multiselect.options = [
-			{label: 'Toyota', value: 'Toyota'},
-			{label: 'Hyundai', value: 'Hyundai'},
-			{label: 'Nissan', value: 'Nissan'},
-			{label: 'Suzuki', value: 'Suzuki'},
-			{label: 'Ford', value: 'Ford'},
-		];
-		fixture.detectChanges();
-
-		expect(multiselect.optionsToRender.length).toEqual(1);
 	});
 
 	it('should close with close icon and reset filter input', () => {

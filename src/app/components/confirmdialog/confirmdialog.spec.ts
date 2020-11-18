@@ -135,24 +135,24 @@ describe('ConfirmDialog', () => {
 		expect(fixture.debugElement.query(By.css('.p-dialog-footer')).children[1]).toBeFalsy();
     });
 
-    it('should run accept', () => {
+    it('should run reject', () => {
 		const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		confirmEl.click();
 		fixture.detectChanges();
 		
 		const acceptButtonEl = fixture.debugElement.query(By.css('.p-dialog-footer')).children[0].nativeElement;
 		acceptButtonEl.click();
-		expect(fixture.componentInstance.header).toEqual("accept");      
+		expect(fixture.componentInstance.header).toEqual("reject");      
     });
 
-    it('should run reject', () => {
+    it('should run accept', () => {
 		const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		confirmEl.click();
 		fixture.detectChanges();
 		
 		const rejectButtonEl = fixture.debugElement.query(By.css('.p-dialog-footer')).children[1].nativeElement;
 		rejectButtonEl.click();
-		expect(fixture.componentInstance.header).toEqual("reject");
+		expect(fixture.componentInstance.header).toEqual("accept");
 	});
 	
 	it('should close when click close icon', fakeAsync(() => {

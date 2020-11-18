@@ -293,14 +293,7 @@ describe('Listbox', () => {
         filterInputEl.dispatchEvent(new Event('input'));
         fixture.detectChanges();
 
-        for(let x =0; x<10; x++ ){
-        if (x == 2 || x==3){
-            expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("flex");
-        }
-        else {
-            expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("none");
-        }
-        }
+        expect(fixture.debugElement.query(By.css('ul')).nativeElement.children.length).toEqual(2);
     });
 
     it('should listen onChange', () => {
@@ -547,8 +540,8 @@ describe('Listbox', () => {
         selectAllEl.click();
         fixture.detectChanges();
 
-        expect(listbox.value).toEqual(undefined);
-        expect(listbox.allChecked).toEqual(undefined);
+        expect(listbox.value).toBeFalsy();
+        expect(listbox.allChecked).toBeFalsy();
         expect(selectAllEl.className).not.toContain('p-highlight');
         expect(toggleAllSpy).toHaveBeenCalledTimes(1);
     });
@@ -571,14 +564,7 @@ describe('Listbox', () => {
         listbox.filterValue = "Bmw";
         fixture.detectChanges();
 
-        for(let x =0; x<10; x++ ){
-            if (x == 1){
-                expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("flex");
-            }
-            else {
-                expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("none");
-            }
-        }
+        expect(fixture.debugElement.query(By.css('ul')).children.length).toEqual(1);
     });
 
     it('should select all filtered items', () => {

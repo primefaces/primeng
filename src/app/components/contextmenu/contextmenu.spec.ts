@@ -1,9 +1,10 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ContextMenu, ContextMenuSub } from './contextmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ContextMenuService } from 'primeng/api';
 
 @Component({
     template: `
@@ -109,6 +110,9 @@ describe('ConextMenu', () => {
             ContextMenu,
             ContextMenuSub,
             TestContextMenuTest
+            ],
+            providers: [
+                ContextMenuService
             ]
         });
 

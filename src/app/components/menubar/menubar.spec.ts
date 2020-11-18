@@ -240,7 +240,7 @@ describe('Menubar', () => {
 		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
 		const firstParentEl = parentEl.query(By.css('.p-menuitem'));
 		const onItemMouseEnterSpy = spyOn(firstParentEl.componentInstance, 'onItemMouseEnter').and.callThrough();
-		firstParentEl.nativeElement.dispatchEvent(new Event('mouseenter'));
+		firstParentEl.children[0].nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
 		expect(firstParentEl.componentInstance.activeItem).toBeFalsy();
