@@ -4,6 +4,13 @@
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.3...11.0.0-rc.1)
 
+**Breaking changes:**
+
+- Remove clearCache method from Table and VirtualScroller [\#9530](https://github.com/primefaces/primeng/issues/9530)
+- Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
+- Remove functionality of locale property of Calendar [\#9504](https://github.com/primefaces/primeng/issues/9504)
+- Rename filterMode to filterMatchMode in Listbox [\#9481](https://github.com/primefaces/primeng/issues/9481)
+
 **Implemented New Features and Enhancements:**
 
 - Change yes-no button order in ConfirmDialog [\#9531](https://github.com/primefaces/primeng/issues/9531)
