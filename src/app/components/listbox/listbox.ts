@@ -1,10 +1,9 @@
 import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { FilterUtils } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';  
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
@@ -141,7 +140,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerCheckboxFocus: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) { }
 
     @Input() get options(): any[] {
         return this._options;
@@ -426,7 +425,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     filterOptions() {
         if (this.hasFilter() && this._options)
-            this._filteredOptions = this._options.filter(option => FilterUtils[this.filterMatchMode](this.getOptionLabel(option), this._filterValue, this.filterLocale));
+            this._filteredOptions = this._options.filter(option => this.filterService.filters[this.filterMatchMode](this.getOptionLabel(option), this._filterValue, this.filterLocale));
         else
             this._filteredOptions = null;
     }

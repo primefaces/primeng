@@ -4,12 +4,11 @@ import { TreeNode } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { DomHandler } from 'primeng/dom';
 import { PaginatorModule } from 'primeng/paginator';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterService } from 'primeng/api';
 import { SortMeta } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
 import { FilterMetadata } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
-import { FilterUtils } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
@@ -417,7 +416,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
@@ -1467,7 +1466,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             let filterField = prop;
                             let filterValue = filterMeta.value;
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
-                            let filterConstraint = FilterUtils[filterMatchMode];
+                            let filterConstraint = this.filterService.filters[filterMatchMode];
                             paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
                             if ((isStrictMode && !(this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
                                 (!isStrictMode && !(this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
@@ -1485,7 +1484,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             let copyNodeForGlobal = {...copyNode};
                             let filterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
                             let filterValue = this.filters['global'].value;
-                            let filterConstraint = FilterUtils[this.filters['global'].matchMode];
+                            let filterConstraint = this.filterService.filters[this.filters['global'].matchMode];
                             paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
 
                             if ((isStrictMode && (this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode) || this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode))) ||

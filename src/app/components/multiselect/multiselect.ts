@@ -4,10 +4,9 @@ import { trigger,style,transition,animate,AnimationEvent} from '@angular/animati
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
-import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService } from 'primeng/api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { FilterUtils } from 'primeng/utils';
 import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
 
@@ -361,7 +360,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     preventModelTouched: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
         this.updateLabel();
@@ -871,7 +870,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     filterOptions() {
         if (this.hasFilter() && this._options) {
             let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
-            this._filteredOptions = FilterUtils.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);        
+            this._filteredOptions = this.filterService.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);        
         }
         else {
             this._filteredOptions = null;

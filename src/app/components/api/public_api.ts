@@ -5,6 +5,7 @@ export * from './blockableui';
 export * from './confirmation';
 export * from './confirmationservice';
 export * from './filtermetadata';
+export * from './filterservice';
 export * from './contextmenuservice';
 export * from './lazyloadevent';
 export * from './megamenuitem';

@@ -1,10 +1,9 @@
 import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
-import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
+import {Header,Footer,PrimeTemplate,SharedModule,FilterService} from 'primeng/api';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockableUI} from 'primeng/api';
-import {FilterUtils} from 'primeng/utils';
 
 @Component({
     selector: 'p-dataView',
@@ -143,7 +142,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     initialized: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
         if (this.lazy) {
@@ -306,7 +305,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
+            this.filteredValue = this.filterService.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
 
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;

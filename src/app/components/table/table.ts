@@ -2,7 +2,7 @@ import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Di
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -19,7 +19,6 @@ import { FilterMetadata } from 'primeng/api';
 import { Injectable } from '@angular/core';
 import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
-import { FilterUtils } from 'primeng/utils';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 
@@ -421,7 +420,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -1336,7 +1335,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = FilterUtils[(<FilterMetadata> this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata> this.filters['global']).value, this.filterLocale);
+                            globalMatch = this.filterService.filters[(<FilterMetadata> this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata> this.filters['global']).value, this.filterLocale);
 
                             if (globalMatch) {
                                 break;
@@ -1393,7 +1392,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let filterValue = filterMeta.value;
         let filterMatchMode = filterMeta.matchMode || FilterMatchMode.STARTS_WITH;
         let dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
-        let filterConstraint = FilterUtils[filterMatchMode];
+        let filterConstraint = this.filterService.filters[filterMatchMode];
 
         return filterConstraint(dataFieldValue, filterValue, this.filterLocale);
     }

@@ -1,11 +1,10 @@
 import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate,FilterService} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {RippleModule} from 'primeng/ripple';
 import {ObjectUtils} from 'primeng/utils';
-import {FilterUtils} from 'primeng/utils';
 
 @Component({
     selector: 'p-pickList',
@@ -232,7 +231,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -333,12 +332,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
         if (listType === this.SOURCE_LIST) {
             this.filterValueSource = query;
-            this.visibleOptionsSource = FilterUtils.filter(data, searchFields, this.filterValueSource, this.filterMatchMode, this.filterLocale);
+            this.visibleOptionsSource = this.filterService.filter(data, searchFields, this.filterValueSource, this.filterMatchMode, this.filterLocale);
             this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
         }
         else if (listType === this.TARGET_LIST) {
             this.filterValueTarget = query;
-            this.visibleOptionsTarget = FilterUtils.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode, this.filterLocale);
+            this.visibleOptionsTarget = this.filterService.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode, this.filterLocale);
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
     }

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';;
 import { TabViewModule } from 'primeng/tabview';
-import { FilterUtilsDemo } from './filterutilsdemo';
-import { FilterUtilsDemoRoutingModule } from './filterutils-routing.module';
+import { FilterServiceDemo } from './filterservicedemo';
+import { FilterServiceDemoRoutingModule } from './filterservice-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,7 +13,7 @@ import { AppCodeModule } from '../../app.code.component';
 @NgModule({
 	imports: [
 		CommonModule,
-		FilterUtilsDemoRoutingModule,
+		FilterServiceDemoRoutingModule,
         ButtonModule,
         TabViewModule,
         AppCodeModule,
@@ -23,7 +23,7 @@ import { AppCodeModule } from '../../app.code.component';
 		InputTextModule
 	],
 	declarations: [
-		FilterUtilsDemo
+		FilterServiceDemo
 	]
 })
-export class FilterUtilsDemoModule {}
+export class FilterServiceDemoModule {}

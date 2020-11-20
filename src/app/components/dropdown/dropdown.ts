@@ -4,11 +4,10 @@ import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,Afte
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from 'primeng/api';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate, FilterService} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {FilterUtils} from 'primeng/utils';
 import {TooltipModule} from 'primeng/tooltip';
 import {RippleModule} from 'primeng/ripple';
 
@@ -344,7 +343,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     preventModelTouched: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -1051,7 +1050,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             if (this.group) {
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
-                    let filteredSubOptions = FilterUtils.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+                    let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
                     if (filteredSubOptions && filteredSubOptions.length) {
                         filteredGroups.push({
                             label: optgroup.label,
@@ -1064,7 +1063,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.optionsToDisplay = filteredGroups;
             }
             else {
-                this.optionsToDisplay = FilterUtils.filter(this.options, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+                this.optionsToDisplay = this.filterService.filter(this.options, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
             }
 
             this.optionsChanged = true;

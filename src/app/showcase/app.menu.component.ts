@@ -268,14 +268,22 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/blockui']" routerLinkActive="router-link-exact-active">BlockUI</a>
                     <a [routerLink]=" ['/badge']" routerLinkActive="router-link-exact-active">Badge</a>
                     <a [routerLink]=" ['/captcha']" routerLinkActive="router-link-exact-active">Captcha</a>
-                    <a [routerLink]=" ['/defer']" routerLinkActive="router-link-exact-active">Defer</a>
-                    <a [routerLink]=" ['/filterutils']" routerLinkActive="router-link-exact-active">FilterUtils</a>
-                    <a [routerLink]=" ['/focustrap']" routerLinkActive="router-link-exact-active">FocusTrap</a>
                     <a [routerLink]=" ['/inplace']" routerLinkActive="router-link-exact-active">Inplace</a>
                     <a [routerLink]=" ['/progressbar']" routerLinkActive="router-link-exact-active">ProgressBar</a>
                     <a [routerLink]=" ['/progressspinner']" routerLinkActive="router-link-exact-active">ProgressSpinner</a>
-                    <a [routerLink]=" ['/ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
                     <a [routerLink]=" ['/terminal']" routerLinkActive="router-link-exact-active">Terminal</a>
+                </div>
+
+                <div class="menu-category">Directives</div>
+                <div class="menu-items">
+                    <a [routerLink]=" ['/defer']" routerLinkActive="router-link-exact-active">Defer</a>
+                    <a [routerLink]=" ['/focustrap']" routerLinkActive="router-link-exact-active">FocusTrap</a>
+                    <a [routerLink]=" ['/ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
+                </div>
+
+                <div class="menu-category">Utilities</div>
+                <div class="menu-items">
+                    <a [routerLink]=" ['/filterservice']" routerLinkActive="router-link-exact-active">FilterService <span class="p-tag">New</span></a>
                 </div>
             </div>
         </div>
