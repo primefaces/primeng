@@ -72,6 +72,31 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.4-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.4) (2020-11-20)
+- Galleria Indicators aren't displayed in Firefox [\#9537](https://github.com/primefaces/primeng/issues/9537)
+- Popup TieredMenu not closing when click on leaf  [\#9534](https://github.com/primefaces/primeng/issues/9534)
+- ContextMenu Keyboard Controls does not prevent Tree Keyboard Controls [\#9529](https://github.com/primefaces/primeng/issues/9529)
+- Table stored state does not match current columns [\#9510](https://github.com/primefaces/primeng/issues/9510)
+- Add keyboard support to ContextMenu [\#9499](https://github.com/primefaces/primeng/issues/9499)
+- DOM Exception trigger with ButtonDirective afterViewInit [\#9497](https://github.com/primefaces/primeng/issues/9497)
+- p-accordion with lazy loaded content doesnt load when opened programattically [\#9496](https://github.com/primefaces/primeng/issues/9496)
+- scrollHeight doesn't change dynamically when using virtualScroll [\#9489](https://github.com/primefaces/primeng/issues/9489)
+- p-calendar Dynamic default date [\#9479](https://github.com/primefaces/primeng/issues/9479)
+- Align contextmenu menu behavior with menubar [\#9459](https://github.com/primefaces/primeng/issues/9459)
+- TieredMenu initial hover is broken [\#9458](https://github.com/primefaces/primeng/issues/9458)
+- Visibility option for Paginator's first and last page icons [\#9456](https://github.com/primefaces/primeng/issues/9456)
+- Dropdown Item template support for Paginator [\#9455](https://github.com/primefaces/primeng/issues/9455)
+- Customizable Toast and Messages [\#9454](https://github.com/primefaces/primeng/issues/9454)
+- TieredMenu Keyboard Support [\#9451](https://github.com/primefaces/primeng/issues/9451)
+- OverlayPanel target arrow points to the wrong position when target is on the right edge of the screen [\#9441](https://github.com/primefaces/primeng/issues/9441)
+- The up and down arrow key stops working by the table virtualscrolling [\#9437](https://github.com/primefaces/primeng/issues/9437)
+- pRipple working when disabled(etc menuitem) [\#9406](https://github.com/primefaces/primeng/issues/9406)
+- Galleria thumbnailsPosition top and left don't work [\#9381](https://github.com/primefaces/primeng/issues/9381)
+- Table lazy virtual scroll triggers multiple separate calls to onLazyLoad() function [\#9316](https://github.com/primefaces/primeng/issues/9316)
+- wrong behavior of Dialog.maskClickListener [\#9282](https://github.com/primefaces/primeng/issues/9282)
+- Model driven forms support for RadioButton [\#9162](https://github.com/primefaces/primeng/issues/9162)
+- Accessibility: Dialog close button needs aria- label [\#8947](https://github.com/primefaces/primeng/issues/8947)
+
 ## [10.0.3](https://github.com/primefaces/primeng/tree/10.0.3) (2020-10-08)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.2...10.0.3)
@@ -283,6 +308,19 @@
 **Deprecated:**
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.9) (2020-11-20)
+- Galleria Indicators aren't displayed in Firefox [\#9537](https://github.com/primefaces/primeng/issues/9537)
+- Popup TieredMenu not closing when click on leaf [\#9534](https://github.com/primefaces/primeng/issues/9534)
+- ContextMenu Keyboard Controls does not prevent Tree Keyboard Controls [\#9529](https://github.com/primefaces/primeng/issues/9529)
+- Table stored state does not match current columns [\#9510](https://github.com/primefaces/primeng/issues/9510)
+- DOM Exception trigger with ButtonDirective afterViewInit [\#9497](https://github.com/primefaces/primeng/issues/9497)
+- TieredMenu initial hover is broken [\#9458](https://github.com/primefaces/primeng/issues/9458)
+- OverlayPanel target arrow points to the wrong position when target is on the right edge of the screen [\#9441](https://github.com/primefaces/primeng/issues/9441)
+- Table with scroll has misaligned headers if scrollbar is not visible [\#9413](https://github.com/primefaces/primeng/issues/9413)
+- Galleria thumbnailsPosition top and left don't work [\#9381](https://github.com/primefaces/primeng/issues/9381)
+- Table lazy virtual scroll triggers multiple separate calls to onLazyLoad() function [\#9316](https://github.com/primefaces/primeng/issues/9316)
+- wrong behavior of Dialog.maskClickListener [\#9282](https://github.com/primefaces/primeng/issues/9282)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.8-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.8) (2020-11-10)
 - Add keyboard support to ContextMenu [\#9499](https://github.com/primefaces/primeng/issues/9499)
