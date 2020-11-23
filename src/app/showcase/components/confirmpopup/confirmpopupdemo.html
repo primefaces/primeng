@@ -287,6 +287,8 @@ export class ConfirmPopupDemo &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast&gt;&lt;/p-toast&gt;
+
 &lt;p-confirmPopup&gt;&lt;/p-confirmPopup&gt;
 
 &lt;button (click)="confirm($event)" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
@@ -309,11 +311,11 @@ export class ConfirmPopupDemo &#123;
             target: event.target,
             message: 'Are you sure that you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
-            accept: () => &#123;
-                //confirm action
+            accept: () =&gt; &#123;
+                this.messageService.add(&#123;severity:'info', summary:'Confirmed', detail:'You have accepted'&#125;);
             &#125;,
-            reject: () => &#123;
-                //reject action
+            reject: () =&gt; &#123;
+                this.messageService.add(&#123;severity:'error', summary:'Rejected', detail:'You have rejected'&#125;);
             &#125;
         &#125;);
     &#125;
