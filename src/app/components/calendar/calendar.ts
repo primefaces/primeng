@@ -49,7 +49,7 @@ export interface LocaleSettings {
                     <div class="p-datepicker-group-container">
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index;">
                             <div class="p-datepicker-header">
-                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" (keydown.enter)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
+                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
                                     <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
                                 </button>
                                 <div class="p-datepicker-title">
@@ -62,7 +62,7 @@ export interface LocaleSettings {
                                     </select>
                                     <span class="p-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
                                 </div>
-                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" (keydown.enter)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" type="button" pRipple>
+                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" type="button" pRipple>
                                     <span class="p-datepicker-next-icon pi pi-chevron-right"></span>
                                 </button>
                             </div>
