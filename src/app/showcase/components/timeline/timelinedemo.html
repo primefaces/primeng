@@ -10,7 +10,7 @@
         <h5>Left Align</h5>
         <p-timeline [value]="events1">
             <ng-template pTemplate="content" let-event>
-                &#123;&#123;event.status&#125;&#125;
+                {{event.status}}
             </ng-template>
         </p-timeline>
     </div>
@@ -19,7 +19,7 @@
         <h5>Right Align</h5>
         <p-timeline [value]="events1" align="right">
             <ng-template pTemplate="content" let-event>
-                &#123;&#123;event.status&#125;&#125;
+                {{event.status}}
             </ng-template>
         </p-timeline>
     </div>
@@ -28,7 +28,7 @@
         <h5>Alternate Align</h5>
         <p-timeline [value]="events1" align="alternate">
             <ng-template pTemplate="content" let-event>
-                &#123;&#123;event.status&#125;&#125;
+                {{event.status}}
             </ng-template>
         </p-timeline>
     </div>
@@ -40,7 +40,7 @@
                 <small class="p-text-secondary">&#123;&#123;event.date&#125;&#125;</small>
             </ng-template>
             <ng-template pTemplate="opposite" let-event>
-                &#123;&#123;event.status&#125;&#125;
+                {{event.status}}
             </ng-template>
         </p-timeline>
     </div>
