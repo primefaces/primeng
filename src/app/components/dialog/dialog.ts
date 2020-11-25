@@ -656,7 +656,6 @@ export class Dialog implements AfterContentInit,OnDestroy {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
-                this.onShow.emit({});
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
@@ -681,6 +680,9 @@ export class Dialog implements AfterContentInit,OnDestroy {
             case 'void':
                 this.onContainerDestroy();
                 this.onHide.emit({});
+            break;
+            case 'visible':
+                this.onShow.emit({});
             break;
         }
     }
