@@ -86,7 +86,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @ViewChild('input') inputViewChild: ElementRef;
 
-    value: any;
+    value: any = {h:0, s: 100, b: 100};
 
     inputBgColor: string;
 
