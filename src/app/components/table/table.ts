@@ -3922,10 +3922,10 @@ export class ColumnFilterFormElement implements OnInit {
                 [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (keydown.escape)="onEscape()">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
-                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event, matchMode.value)"
+                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
                         [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}" [attr.tabindex]="i === 0 ? '0' : null">{{matchMode.label}}</li>
                     <li class="p-column-filter-separator"></li>
-                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)">No filter</li>
+                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">No filter</li>
                 </ul>
                 <ng-template #menu>
                     <div class="p-column-filter-operator" *ngIf="isShowOperator">
@@ -4110,7 +4110,7 @@ export class ColumnFilter implements AfterContentInit {
         this.hide();
     }
     
-    onRowMatchModeKeyDown(event: KeyboardEvent, matchMode: string) {
+    onRowMatchModeKeyDown(event: KeyboardEvent) {
         let item = <HTMLLIElement> event.target;
 
         switch(event.key) {            
@@ -4133,11 +4133,6 @@ export class ColumnFilter implements AfterContentInit {
                     prevItem.focus();
                 }
 
-                event.preventDefault();
-            break;
-
-            case 'Enter':
-                this.onRowMatchModeChange(matchMode);
                 event.preventDefault();
             break;
         }
