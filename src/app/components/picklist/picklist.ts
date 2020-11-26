@@ -497,10 +497,6 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            this.onMoveToTarget.emit({
-                items: movedItems
-            });
-
             this.onMoveAllToTarget.emit({
                 items: movedItems
             });
@@ -545,10 +541,6 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     i--;
                 }
             }
-
-            this.onMoveToSource.emit({
-                items: movedItems
-            });
 
             this.onMoveAllToSource.emit({
                 items: movedItems
