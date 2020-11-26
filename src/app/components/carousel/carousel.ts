@@ -384,7 +384,7 @@ export class Carousel implements AfterContentInit {
 		}
 
 	calculatePosition() {
-		if (this.itemsContainer && this.responsiveOptions) {
+		if (this.responsiveOptions) {
 			let windowWidth = window.innerWidth;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,
