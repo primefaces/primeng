@@ -241,7 +241,7 @@ export class Carousel implements AfterContentInit {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
 		
-		if (this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
+		if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
 			if (this.autoplayInterval) {
 				this.stopAutoplay();
 			}
@@ -279,7 +279,7 @@ export class Carousel implements AfterContentInit {
 			this.prevState.numVisible = this._numVisible;
 			this.prevState.value = this._value;
 
-			if (this.totalDots() > 0 && this.itemsContainer && this.itemsContainer.nativeElement) {
+			if (this.totalDots() > 0  && this.itemsContainer.nativeElement) {
 				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 			}
 			
