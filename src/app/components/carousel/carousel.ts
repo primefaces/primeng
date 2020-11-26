@@ -200,17 +200,26 @@ export class Carousel implements AfterContentInit {
 			}
 		}
 
-		if (simpleChange.numVisible && this.isCreated) {
-			if (this.responsiveOptions) {
-				this.defaultNumVisible = this.numVisible;
+		if (this.isCreated) {
+			
+			if (simpleChange.numVisible) {
+				if (this.responsiveOptions) {
+					this.defaultNumVisible = this.numVisible;
+				}
+
+				if (this.isCircular()) {
+					this.setCloneItems();
+				}
+
+				this.createStyle();
+				this.calculatePosition();
 			}
 
-			if (this.isCircular()) {
-				this.setCloneItems();
+			if (simpleChange.numScroll) {
+				if (this.responsiveOptions) {
+					this.defaultNumScroll = this.numScroll;
+				}
 			}
-
-			this.createStyle();
-			this.calculatePosition();
 		}
 	}
 
