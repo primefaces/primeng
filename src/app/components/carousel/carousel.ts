@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';  
 import { CommonModule } from '@angular/common';
@@ -111,9 +111,6 @@ export class Carousel implements AfterContentInit {
 	};
 	set value(val) {
 		this._value = val;
-		if (this.circular && this._value) {
-			this.setCloneItems();
-		}
 	}
 	
 	@Input() circular:boolean = false;
@@ -194,6 +191,27 @@ export class Carousel implements AfterContentInit {
 
 	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) { 
 		this.totalShiftedItems = this.page * this.numScroll * -1; 
+	}
+
+	ngOnChanges(simpleChange: SimpleChanges) {
+		if (simpleChange.value) {
+			if (this.circular && this._value) {
+				this.setCloneItems();
+			}
+		}
+
+		if (simpleChange.numVisible && this.isCreated) {
+			if (this.responsiveOptions) {
+				this.defaultNumVisible = this.numVisible;
+			}
+
+			if (this.isCircular()) {
+				this.setCloneItems();
+			}
+
+			this.createStyle();
+			this.calculatePosition();
+		}
 	}
 
 	ngAfterContentInit() {
