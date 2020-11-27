@@ -429,12 +429,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     checkSelectionLimit() {
-        if (this.selectionLimit && (this.value && this.value.length === this.selectionLimit)) {
-            this.maxSelectionLimitReached = true;
-        }
-        else {
-            this.maxSelectionLimitReached = false;
-        }
+        this.maxSelectionLimitReached = this.selectionLimit && (this.value && this.value.length === this.selectionLimit;
     }
 
     updateFilledState() {
@@ -702,7 +697,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
             //down
             case 40:
-                var nextItem = this.findNextItem(event.originalEvent.target.parentElement);
+                const nextItem = this.findNextItem(event.originalEvent.target.parentElement);
                 if (nextItem) {
                     nextItem.focus();
                 }
@@ -712,7 +707,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
             //up
             case 38:
-                var prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
+                const prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
                 if (prevItem) {
                     prevItem.focus();
                 }
