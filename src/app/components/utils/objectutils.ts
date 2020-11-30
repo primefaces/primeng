@@ -1,5 +1,3 @@
-import {SelectItem} from '../api/selectitem';
-
 export class ObjectUtils {
 
     public static equals(obj1: any, obj2: any, field?: string): boolean {
@@ -97,18 +95,6 @@ export class ObjectUtils {
             }
             value.splice(to, 0, value.splice(from, 1)[0]);
         }
-    }
-
-    public static generateSelectItems(val: any[], field: string): SelectItem[] {
-        let selectItems: SelectItem[];
-        if (val && val.length) {
-            selectItems = [];
-            for(let item of val) {
-                selectItems.push({label: this.resolveFieldData(item, field), value: item});
-            }
-        }
-
-        return selectItems;
     }
 
     public static insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
