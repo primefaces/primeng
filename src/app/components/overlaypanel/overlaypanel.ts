@@ -189,12 +189,18 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
         DomHandler.absolutePosition(this.container, this.target);
-        if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.target).top) {
-            DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
+
+        const containerOffset = DomHandler.getOffset(this.container);
+        const targetOffset = DomHandler.getOffset(this.target);
+        let arrowLeft = 0;
+
+        if (containerOffset.left < targetOffset.left) {
+            arrowLeft = targetOffset.left - containerOffset.left;
         }
-        if (Math.floor(DomHandler.getOffset(this.container).left) < Math.floor(DomHandler.getOffset(this.target).left) &&
-            DomHandler.getOffset(this.container).left > 0) {
-            DomHandler.addClass(this.container, 'p-overlaypanel-shifted');
+        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+
+        if (containerOffset.top < targetOffset.top) {
+            DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
         }
     }
 

@@ -17,9 +17,9 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
                 <span class="p-confirm-popup-message">{{confirmation.message}}</span>
             </div>
             <div class="p-confirm-popup-footer">
-                <button type="button" pButton [icon]="confirmation.rejectIcon" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-popup-reject p-button-sm'" 
+                <button type="button" pButton [icon]="confirmation.rejectIcon" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-popup-reject p-button-sm'"
                     [class]="confirmation.rejectButtonStyleClass || 'p-button-text'" *ngIf="confirmation.rejectVisible !== false" [attr.aria-label]="rejectButtonLabel"></button>
-                <button type="button" pButton [icon]="confirmation.acceptIcon" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-popup-accept p-button-sm'" 
+                <button type="button" pButton [icon]="confirmation.acceptIcon" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-popup-accept p-button-sm'"
                     [class]="confirmation.acceptButtonStyleClass" *ngIf="confirmation.acceptVisible !== false" [attr.aria-label]="acceptButtonLabel"></button>
             </div>
         </div>
@@ -93,12 +93,12 @@ export class ConfirmPopup implements OnDestroy {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
-    
+
                 if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
                 }
-    
+
                 this.visible = true;
             }
         });
@@ -127,16 +127,21 @@ export class ConfirmPopup implements OnDestroy {
         }
 
         DomHandler.absolutePosition(this.container, this.confirmation.target);
-        if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.confirmation.target).top) {
+
+        const containerOffset = DomHandler.getOffset(this.container);
+        const targetOffset = DomHandler.getOffset(this.confirmation.target);
+        let arrowLeft = 0;
+
+        if (containerOffset.left < targetOffset.left) {
+            arrowLeft = targetOffset.left - containerOffset.left;
+        }
+        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+
+        if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-confirm-popup-flipped');
         }
-
-        if (Math.floor(DomHandler.getOffset(this.container).left) < Math.floor(DomHandler.getOffset(this.confirmation.target).left) &&
-            DomHandler.getOffset(this.container).left > 0) {
-            DomHandler.addClass(this.container, 'p-confirm-popup-shifted');
-        }
     }
-   
+
     hide() {
         this.visible = false;
     }
@@ -176,7 +181,7 @@ export class ConfirmPopup implements OnDestroy {
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 let targetElement = <HTMLElement> this.confirmation.target;
-                if (this.container !== event.target && !this.container.contains(event.target) && 
+                if (this.container !== event.target && !this.container.contains(event.target) &&
                     targetElement !== event.target && !targetElement.contains(event.target)) {
                     this.hide();
                 }
@@ -230,7 +235,7 @@ export class ConfirmPopup implements OnDestroy {
             if (this.confirmation.acceptEvent) {
                 this.confirmation.acceptEvent.unsubscribe();
             }
-    
+
             if (this.confirmation.rejectEvent) {
                 this.confirmation.rejectEvent.unsubscribe();
             }
