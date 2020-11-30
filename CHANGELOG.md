@@ -1,5 +1,38 @@
 # Changelog
 
+## [11.0.0-rc.1](https://github.com/primefaces/primeng/tree/11.0.0-rc.2) (2020-11-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.0.0-rc.1...11.0.0-rc.2)
+
+**Breaking changes:**
+
+- Remove FilterUtils [\#9548](https://github.com/primefaces/primeng/issues/9548)
+
+**Implemented New Features and Enhancements:**
+
+- Tree toggle icon should not receive focus [\#9590](https://github.com/primefaces/primeng/issues/9590)
+- Add new icons of 4.1.0 to PrimeIcons Constants [\#9565](https://github.com/primefaces/primeng/issues/9565)
+- New FilterService API [\#9547](https://github.com/primefaces/primeng/issues/9547)
+- onShow and onHide event for colorPicker [\#8828](https://github.com/primefaces/primeng/issues/8828)
+- Overlay Panel / Confirm Popup The arrow shows wrong [\#8750](https://github.com/primefaces/primeng/issues/8750)
+- Dialog.onShow should occur when the animation ends [\#8747](https://github.com/primefaces/primeng/issues/8747)
+- Unable to navigate in p-tree when using NVDA or JAWS screen reader [\#8674](https://github.com/primefaces/primeng/issues/8674)
+- FilterUtils.filter only accepts filterValue of type string [\#8348](https://github.com/primefaces/primeng/issues/8348)
+
+**Fixed bugs:**
+
+- Clearing a p-columnFilter / p-dropdown using "showClear" X-button throws a TypeError [\#9578](https://github.com/primefaces/primeng/issues/9578)
+- ver. 11.0.0-rc.1 error with table when building in prod. [\#9567](https://github.com/primefaces/primeng/issues/9567)
+- MultiSelect not working when Objects contain property "value" [\#9561](https://github.com/primefaces/primeng/issues/9561)
+- PickList V11.00-rc-1 Both are triggered at the same time - onMoveAllToTarget, onMoveToTarget [\#9555](https://github.com/primefaces/primeng/issues/9555)
+- p-calendar: Pressing Enter key on prev or next month arrows calls onPrevButtonClick or onNextButtonClick twice respectively [\#9521](https://github.com/primefaces/primeng/issues/9521)
+- Carousel does not respond to change to numVisible   [\#9049](https://github.com/primefaces/primeng/issues/9049)
+- Carousel doesn't use 'responsiveOptions' on init [\#8833](https://github.com/primefaces/primeng/issues/8833)
+- p-colorPicker not working | Failing on click [\#8746](https://github.com/primefaces/primeng/issues/8746)
+- Autocomplete empty text when lost focus [\#8740](https://github.com/primefaces/primeng/issues/8740)
+- \[Bug\] Carousel displays last page when circular=true [\#8739](https://github.com/primefaces/primeng/issues/8739)
+- \[Bug\] Carousel does not recalculate the number of dots on refresh [\#8705](https://github.com/primefaces/primeng/issues/8705)
+
 ## [11.0.0-rc.1](https://github.com/primefaces/primeng/tree/11.0.0-rc.1) (2020-11-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/10.0.3...11.0.0-rc.1)
