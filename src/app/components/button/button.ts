@@ -69,7 +69,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._label = val;
         
         if (this.initialized) {
-            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
+            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label === undefined || this._label === null ? '': this._label;
             this.setStyleClass();
         }
     }
