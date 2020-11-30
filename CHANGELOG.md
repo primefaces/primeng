@@ -1,6 +1,6 @@
 # Changelog
 
-## [11.0.0-rc.1](https://github.com/primefaces/primeng/tree/11.0.0-rc.2) (2020-11-30)
+## [11.0.0-rc.2](https://github.com/primefaces/primeng/tree/11.0.0-rc.2) (2020-11-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.0.0-rc.1...11.0.0-rc.2)
 
