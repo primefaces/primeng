@@ -4,16 +4,15 @@ import { ObjectUtils } from '../utils/objectutils';
 @Injectable({providedIn: 'root'})
 export class FilterService {
 
-    filter(value: any[], fields: any[], filterValue: string, filterMatchMode: string, filterLocale?: string) {
+    filter(value: any[], fields: any[], filterValue: any, filterMatchMode: string, filterLocale?: string) {
         let filteredItems: any[] = [];
-        let filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(filterLocale);
 
         if (value) {
             for (let item of value) {
                 for (let field of fields) {
-                    let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(item, field))).toLocaleLowerCase(filterLocale);
+                    let fieldValue = ObjectUtils.resolveFieldData(item, field);
 
-                    if (this.filters[filterMatchMode](fieldValue, filterText, filterLocale)) {
+                    if (this.filters[filterMatchMode](fieldValue, filterValue, filterLocale)) {
                         filteredItems.push(item);
                         break;
                     }
