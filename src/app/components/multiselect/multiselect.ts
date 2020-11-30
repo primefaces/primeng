@@ -483,8 +483,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.updateFilledState();
     }
 
-    isSelected(value) {
-        return this.findSelectionIndex(value) != -1;
+    isSelected(option) {
+        return this.findSelectionIndex(this.getOptionValue(option)) != -1;
     }
 
     findSelectionIndex(val: any): number {
