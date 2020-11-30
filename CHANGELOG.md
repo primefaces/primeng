@@ -72,7 +72,7 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.4-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.4) (2020-11-20)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.5-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.5) (2020-11-24)
 - Galleria Indicators aren't displayed in Firefox [\#9537](https://github.com/primefaces/primeng/issues/9537)
 - Popup TieredMenu not closing when click on leaf  [\#9534](https://github.com/primefaces/primeng/issues/9534)
 - ContextMenu Keyboard Controls does not prevent Tree Keyboard Controls [\#9529](https://github.com/primefaces/primeng/issues/9529)
@@ -309,7 +309,7 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/9.1.9) (2020-11-20)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.0-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.0) (2020-11-24)
 - Galleria Indicators aren't displayed in Firefox [\#9537](https://github.com/primefaces/primeng/issues/9537)
 - Popup TieredMenu not closing when click on leaf [\#9534](https://github.com/primefaces/primeng/issues/9534)
 - ContextMenu Keyboard Controls does not prevent Tree Keyboard Controls [\#9529](https://github.com/primefaces/primeng/issues/9529)

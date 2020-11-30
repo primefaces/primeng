@@ -33,7 +33,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     providers: [SELECTBUTTON_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./selectbutton.css', '../button/button.css']
+    styleUrls: ['../button/button.css']
 })
 export class SelectButton implements ControlValueAccessor {
 

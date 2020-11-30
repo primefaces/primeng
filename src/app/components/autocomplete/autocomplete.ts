@@ -39,7 +39,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <i *ngIf="loading" class="p-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" class="p-autocomplete-dropdown" [disabled]="disabled" pRipple
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
             <div #panel *ngIf="overlayVisible" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" >
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items">
                     <li role="option" *ngFor="let option of suggestions; let idx = index" class="p-autocomplete-item" pRipple [ngClass]="{'p-highlight': (option === highlightOption)}" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
                         <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
@@ -365,7 +365,6 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             }, this.delay);
         }
         else {
-            this.suggestions = null;
             this.hide();
         }
         this.updateFilledState();
@@ -451,12 +450,6 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             case 'void':
                 this.onOverlayHide();
             break;
-        }
-    }
-
-    onOverlayAnimationDone(event: AnimationEvent) {
-        if (event.toState === 'void') {
-            this._suggestions = null;
         }
     }
 
