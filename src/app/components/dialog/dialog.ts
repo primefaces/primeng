@@ -187,6 +187,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
 
+    @Output() onMaximize: EventEmitter<any> = new EventEmitter();
+
     headerTemplate: TemplateRef<any>;
 
     contentTemplate: TemplateRef<any>;
@@ -373,6 +375,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
             else
                 DomHandler.removeClass(document.body, 'p-overflow-hidden');
         }
+
+        this.onMaximize.emit({'maximized': this.maximized});
     }
 
     unbindMaskClickListener() {
