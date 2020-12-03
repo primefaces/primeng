@@ -115,7 +115,13 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         this.dragging = true;
         this.updateDomData();
         this.sliderHandleClick = true;
-        this.handleIndex = index;
+        if (this.range && this.handleValues && this.handleValues[0] === this.max) {
+            this.handleIndex = 0;
+        }
+        else {
+            this.handleIndex = index;
+        }
+
         this.bindDragListeners();
         event.target.focus();
         event.preventDefault();
