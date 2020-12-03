@@ -209,7 +209,7 @@ import { Subscription } from 'rxjs';
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/poseidon-ng">
-                                <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-logo.png">
+                                <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-logo.svg">
                                 <span>Poseidon</span>
                             </a>
                         </li>
