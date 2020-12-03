@@ -14,6 +14,7 @@ export interface Confirmation {
     acceptVisible?: boolean;
     rejectVisible?: boolean;
     blockScroll?: boolean;
+    closeOnEscape?: boolean;
     defaultFocus?: string;
     acceptButtonStyleClass?: string;
     rejectButtonStyleClass?: string;

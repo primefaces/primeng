@@ -209,6 +209,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             }
 
             if (confirmation.key === this.key) {
+                console.log("hola?")
                 this.confirmation = confirmation;
                 this.confirmationOptions = {
                     message: this.confirmation.message||this.message,
@@ -223,7 +224,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                     acceptButtonStyleClass: this.confirmation.acceptButtonStyleClass || this.acceptButtonStyleClass,
                     rejectButtonStyleClass: this.confirmation.rejectButtonStyleClass || this.rejectButtonStyleClass,
                     defaultFocus: this.confirmation.defaultFocus || this.defaultFocus,
-                    blockScroll: (this.confirmation.blockScroll === false || this.confirmation.blockScroll === true) ? this.confirmation.blockScroll : this.blockScroll
+                    blockScroll: (this.confirmation.blockScroll === false || this.confirmation.blockScroll === true) ? this.confirmation.blockScroll : this.blockScroll,
+                    closeOnEscape: (this.confirmation.closeOnEscape === false || this.confirmation.closeOnEscape === true) ? this.confirmation.closeOnEscape : this.closeOnEscape
                 };
 
                 if (this.confirmation.accept) {
@@ -366,11 +368,11 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     }
 
     bindGlobalListeners() {
-        if ((this.closeOnEscape && this.closable) || this.focusTrap && !this.documentEscapeListener) {
+        if ((this.option('closeOnEscape') && this.closable) || this.focusTrap && !this.documentEscapeListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-                if (event.which == 27 && (this.closeOnEscape && this.closable)) {
+                if (event.which == 27 && (this.option('closeOnEscape') && this.closable)) {
                     if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
                     }
