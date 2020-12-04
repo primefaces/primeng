@@ -179,6 +179,10 @@ p-treetabletoggler + p-treetablecheckbox + span {
     display: none;
 }
 
+[ttReorderableColumn] {
+    cursor: move;
+}
+
 /* Loader */
 .p-treetable .p-treetable-loading-overlay {
     position: absolute;

@@ -27,6 +27,10 @@
     position: relative;
 }
 
+.p-picklist-item[draggable=true] {
+    cursor: move;
+}
+
 .p-picklist-filter {
     position: relative;
 }

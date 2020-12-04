@@ -27,6 +27,10 @@
     position: relative;
 }
 
+.p-orderlist-item[draggable=true] {
+    cursor: move;
+}
+
 .p-orderlist.p-state-disabled .p-orderlist-item,
 .p-orderlist.p-state-disabled .p-button {
     cursor: default;

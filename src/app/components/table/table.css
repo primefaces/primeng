@@ -162,6 +162,14 @@
     display: none;
 }
 
+.p-datatable-reorderablerow-handle {
+    cursor: move;
+}
+
+[pReorderableColumn] {
+    cursor: move;
+}
+
 /* Loader */
 .p-datatable .p-datatable-loading-overlay {
     position: absolute;
