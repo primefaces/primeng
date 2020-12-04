@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,Output,DoCheck,EventEmitter,Optional, AfterViewInit, AfterContentInit, OnInit, OnDestroy, AfterViewChecked} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,Output, EventEmitter,Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {NgModel, NgControl} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -27,7 +27,7 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
 
     ngControlSubscription: Subscription;
 
-    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control : NgControl) {}
+    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control : NgControl, private cd: ChangeDetectorRef) {}
         
     ngOnInit() {
         if (this.ngModel) {
@@ -46,6 +46,9 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
     ngAfterViewInit() {
         if (this.autoResize)
             this.resize();
+
+        this.updateFilledState();
+        this.cd.detectChanges();
     }
 
     @HostListener('input', ['$event'])
