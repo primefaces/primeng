@@ -139,13 +139,13 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         this._position = value;
 
         switch (value) {
-            case 'topleft':
-            case 'bottomleft':
+            case 'top-left':
+            case 'bottom-left':
             case 'left':
                 this.transformOptions = "translate3d(-100%, 0px, 0px)";
             break;
-            case 'topright':
-            case 'bottomright':
+            case 'top-right':
+            case 'bottom-right':
             case 'right':
                 this.transformOptions = "translate3d(100%, 0px, 0px)";
             break;
@@ -328,7 +328,6 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.close(event);
                 }
-                console.log("hey?")
             });
         }
     }
@@ -378,7 +377,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     }
 
     getPositionClass() {
-        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
+        const positions = ['left', 'right', 'top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right'];
         const pos = positions.find(item => item === this.position);
 
         return pos ? `p-dialog-${pos}` : '';
