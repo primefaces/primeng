@@ -96,6 +96,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     @Input() closeOnEscape: boolean = true;
 
+    @Input() dismissableMask: boolean;
+
     @Input() blockScroll: boolean = true;
 
     @Input() rtl: boolean;
@@ -193,6 +195,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     subscription: Subscription;
 
+    maskClickListener: Function;
+
     preWidth: number;
 
     _position: string = "center";
@@ -209,7 +213,6 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             }
 
             if (confirmation.key === this.key) {
-                console.log("hola?")
                 this.confirmation = confirmation;
                 this.confirmationOptions = {
                     message: this.confirmation.message||this.message,
@@ -225,7 +228,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                     rejectButtonStyleClass: this.confirmation.rejectButtonStyleClass || this.rejectButtonStyleClass,
                     defaultFocus: this.confirmation.defaultFocus || this.defaultFocus,
                     blockScroll: (this.confirmation.blockScroll === false || this.confirmation.blockScroll === true) ? this.confirmation.blockScroll : this.blockScroll,
-                    closeOnEscape: (this.confirmation.closeOnEscape === false || this.confirmation.closeOnEscape === true) ? this.confirmation.closeOnEscape : this.closeOnEscape
+                    closeOnEscape: (this.confirmation.closeOnEscape === false || this.confirmation.closeOnEscape === true) ? this.confirmation.closeOnEscape : this.closeOnEscape,
+                    dismissableMask: (this.confirmation.dismissableMask === false || this.confirmation.dismissableMask === true) ? this.confirmation.dismissableMask : this.dismissableMask
                 };
 
                 if (this.confirmation.accept) {
@@ -318,6 +322,15 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         if (this.option('blockScroll')) {
             DomHandler.addClass(document.body, 'p-overflow-hidden');
         }
+
+        if (this.option('dismissableMask')) {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
+                if (this.wrapper && this.wrapper.isSameNode(event.target)) {
+                    this.close(event);
+                }
+                console.log("hey?")
+            });
+        }
     }
 
     disableModality() {
@@ -325,6 +338,10 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
         if (this.option('blockScroll')) {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        }
+
+        if (this.dismissableMask) {
+            this.unbindMaskClickListener();
         }
 
         if (this.container) {
@@ -413,6 +430,13 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
+        }
+    }
+
+    unbindMaskClickListener() {
+        if (this.maskClickListener) {
+            this.maskClickListener();
+            this.maskClickListener = null;
         }
     }
 
