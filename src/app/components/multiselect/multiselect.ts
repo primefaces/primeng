@@ -666,6 +666,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     removeChip(chip: any) {
         this.value = this.value.filter(val => !ObjectUtils.equals(val, chip, this.dataKey));
+        this.onModelChange(this.value);
         this.updateFilledState();
     }
 
