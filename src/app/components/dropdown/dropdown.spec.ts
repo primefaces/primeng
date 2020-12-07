@@ -358,6 +358,8 @@ describe('Dropdown', () => {
 			{name: 'Paris', code: 'PRS'}
 		];
 		testDropdown.appendTo = document.body;
+		testDropdown.optionValue = "code";
+		testDropdown.optionLabel = "name";
 		testDropdown.filter = true;
 		testDropdown.filterValue = "n";
 		groupFixture.detectChanges();
@@ -378,7 +380,7 @@ describe('Dropdown', () => {
 		inputEl.dispatchEvent(keydownEvent);
 		groupFixture.detectChanges();
 
-		expect(testDropdown.selectedOption.name).toEqual("Rome");
+		expect(testDropdown.selectedOption.name).toEqual("London");
 	});
 
 	it('should select with enter key and close the overlay', () => {

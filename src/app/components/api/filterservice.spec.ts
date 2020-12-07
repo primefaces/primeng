@@ -75,7 +75,7 @@ describe('FilterService Suite', () => {
         filteredValue = filterService.filter(timeData,['date'],'','lt');
         expect(filteredValue.length).toEqual(0);
         filteredValue = filterService.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lt');
-        expect(filteredValue.length).toEqual(3);
+        expect(filteredValue.length).toEqual(0);
     });
 ​
     it('Should filter by lte', () => {
@@ -84,7 +84,7 @@ describe('FilterService Suite', () => {
         filteredValue = filterService.filter(timeData,['date'],'','lte');
         expect(filteredValue.length).toEqual(0);
         filteredValue = filterService.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lte');
-        expect(filteredValue.length).toEqual(3);
+        expect(filteredValue.length).toEqual(0);
     });
     ​
     it('Should filter by gt', () => {
