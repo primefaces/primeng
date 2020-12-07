@@ -28,7 +28,7 @@ import {RippleModule} from 'primeng/ripple';
                     <button type="button" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!node.expanded,'pi-chevron-down':node.expanded}"></span>
                     </button>
-                    <div class="p-checkbox p-component" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
+                    <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-disabled': node.selectable === false}" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
                         <div class="p-checkbox-box" [ngClass]="{'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected}">
                             <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span>
                         </div>
