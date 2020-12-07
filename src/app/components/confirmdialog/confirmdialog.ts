@@ -452,7 +452,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     }
 
     accept() {
-        if (this.confirmation.acceptEvent) {
+        if (this.confirmation && this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
 
@@ -460,7 +460,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     }
 
     reject() {
-        if (this.confirmation.rejectEvent) {
+        if (this.confirmation && this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
 
