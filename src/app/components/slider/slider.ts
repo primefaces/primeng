@@ -139,7 +139,12 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         var touchobj = event.changedTouches[0];
         this.startHandleValue = (this.range) ? this.handleValues[index] : this.handleValue;
         this.dragging = true;
-        this.handleIndex = index;
+        if (this.range && this.handleValues && this.handleValues[0] === this.max) {
+            this.handleIndex = 0;
+        }
+        else {
+            this.handleIndex = index;
+        }
 
         if (this.orientation === 'horizontal') {
             this.startx = parseInt(touchobj.clientX, 10);
