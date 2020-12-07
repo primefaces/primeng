@@ -33,11 +33,11 @@
     top: 100%;
 }
 
-.p-confirm-popup.p-overlaypanel-flipped:after {
+.p-confirm-popup.p-confirm-popup-flipped:after {
     border-bottom-color: transparent;
 }
 
-.p-confirm-popup.p-overlaypanel-flipped:before {
+.p-confirm-popup.p-confirm-popup-flipped:before {
     border-bottom-color: transparent
 }
 
