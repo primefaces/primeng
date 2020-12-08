@@ -1,5 +1,27 @@
 # Changelog
 
+## [11.0.0](https://github.com/primefaces/primeng/tree/11.0.0) (2020-12-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.0.0-rc.2...11.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- fileupload missing import in documentation [\#9618](https://github.com/primefaces/primeng/issues/9618)
+- InputText documentation wrong usage for i element [\#9614](https://github.com/primefaces/primeng/issues/9614)
+- Not all the selected items are visible in an autocomplete with multiple="true" [\#9602](https://github.com/primefaces/primeng/issues/9602)
+- Change mouse cursor on drag&drop events [\#9536](https://github.com/primefaces/primeng/issues/9536)
+- Add a maximize event on dialog [\#8861](https://github.com/primefaces/primeng/issues/8861)
+- ConfirmationService does not let specify closeOnEscape [\#8790](https://github.com/primefaces/primeng/issues/8790)
+- ConfirmDialog does not support dismissableMask [\#8791](https://github.com/primefaces/primeng/issues/8791)
+
+**Fixed bugs:**
+
+- Checkbox getting highlight when Tree item disabled [\#9619](https://github.com/primefaces/primeng/issues/9619)
+- Wrong layout in ConfirmPopup component [\#9617](https://github.com/primefaces/primeng/issues/9617)
+- ConfirmDialog top-left top-right bottom-left bottom-right positions not working [\#9612](https://github.com/primefaces/primeng/issues/9612)
+- InputTextArea, FloatLabel and Initial State [\#9607](https://github.com/primefaces/primeng/issues/9607)
+- Slider range issue when max values on the right [\#9538](https://github.com/primefaces/primeng/issues/9538)
+
 ## [11.0.0-rc.2](https://github.com/primefaces/primeng/tree/11.0.0-rc.2) (2020-11-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.0.0-rc.1...11.0.0-rc.2)
