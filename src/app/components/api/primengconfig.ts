@@ -43,7 +43,7 @@ export class PrimeNGConfig {
         lt: 'Less than',
         lte: 'Less than or equal to',
         gt: 'Greater than',
-        gte: 'Great then or equals',
+        gte: 'Greater than or equal to',
         is: 'Is',
         isNot: 'Is not',
         before: 'Before',
