@@ -127,6 +127,24 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.6-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.6) (2020-12-09)
+- Checkbox getting highlight when Tree item disabled [\#9619](https://github.com/primefaces/primeng/issues/9619)
+- ConfirmDialog top-left top-right bottom-left bottom-right positions not working [\#9612](https://github.com/primefaces/primeng/issues/9612)
+- InputTextArea, FloatLabel and Initial State [\#9607](https://github.com/primefaces/primeng/issues/9607)
+- Not all the selected items are visible in an autocomplete with multiple="true" [\#9602](https://github.com/primefaces/primeng/issues/9602)
+- Change mouse cursor on drag&drop events [\#9536](https://github.com/primefaces/primeng/issues/9536)
+- p-calendar: Pressing Enter key on prev or next month arrows calls onPrevButtonClick or onNextButtonClick twice respectively  [\#9521](https://github.com/primefaces/primeng/issues/9521)
+- Carousel does not respond to change to numVisible [\#9049](https://github.com/primefaces/primeng/issues/9049)
+- Add a maximize event on dialog [\#8861](https://github.com/primefaces/primeng/issues/8861)
+- Carousel doesn't use 'responsiveOptions' on init [\#8833](https://github.com/primefaces/primeng/issues/8833)
+- onShow and onHide event for colorPicker [\#8828](https://github.com/primefaces/primeng/issues/8828)
+- ConfirmDialog does not support dismissableMask [\#8791](https://github.com/primefaces/primeng/issues/8791)
+- ConfirmationService does not let specify closeOnEscape [\#8790](https://github.com/primefaces/primeng/issues/8790)
+- Dialog.onShow should occur when the animation ends [\#8747](https://github.com/primefaces/primeng/issues/8747)
+- p-colorPicker not working | Failing on click [\#8746](https://github.com/primefaces/primeng/issues/8746)
+- [Bug] Carousel displays last page when circular=true [\#8739](https://github.com/primefaces/primeng/issues/8739)
+- [Bug] Carousel does not recalculate the number of dots on refresh [\#8705](https://github.com/primefaces/primeng/issues/8705)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.5-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.5) (2020-11-24)
 - Galleria Indicators aren't displayed in Firefox [\#9537](https://github.com/primefaces/primeng/issues/9537)
 - Popup TieredMenu not closing when click on leaf  [\#9534](https://github.com/primefaces/primeng/issues/9534)
@@ -363,6 +381,20 @@
 **Deprecated:**
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.1) (2020-12-09)
+- InputTextArea, FloatLabel and Initial State [\#9607](https://github.com/primefaces/primeng/issues/9607)
+- Change mouse cursor on drag&drop events [\#9536](https://github.com/primefaces/primeng/issues/9536)
+- Carousel does not respond to change to numVisible [\#9049](https://github.com/primefaces/primeng/issues/9049)
+- Add a maximize event on dialog [\#8861](https://github.com/primefaces/primeng/issues/8861)
+- Carousel doesn't use 'responsiveOptions' on init  [\#8833](https://github.com/primefaces/primeng/issues/8833)
+- onShow and onHide event for colorPicker [\#8828](https://github.com/primefaces/primeng/issues/8828)
+- ConfirmationService does not let specify closeOnEscape [\#8790](https://github.com/primefaces/primeng/issues/8790)
+- Dialog.onShow should occur when the animation ends [\#8747](https://github.com/primefaces/primeng/issues/8747)
+- p-colorPicker not working | Failing on click [\#8746](https://github.com/primefaces/primeng/issues/8746)
+- Autocomplete empty text when lost focus [\#8740](https://github.com/primefaces/primeng/issues/8740)
+- [Bug] Carousel displays last page when circular=true [\#8739](https://github.com/primefaces/primeng/issues/8739)
+- [Bug] Carousel does not recalculate the number of dots on refresh [\#8705](https://github.com/primefaces/primeng/issues/8705)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.0-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.0) (2020-11-24)
 - Galleria Indicators aren't displayed in Firefox [\#9537](https://github.com/primefaces/primeng/issues/9537)
