@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, Injectable, Injector, OnInit, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, AbstractControl} from '@angular/forms';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -68,6 +68,8 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
 
     @Input() formControlName: string;
 
+    @Input() formControl: AbstractControl;
+
     @Input() name: string;
 
     @Input() disabled: boolean;
@@ -107,7 +109,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     constructor(public cd: ChangeDetectorRef, private injector: Injector, private registry: RadioControlRegistry) {}
 
     ngOnInit() {
-        if (this.formControlName) {
+        if (this.formControlName || this.formControl) {
             this.control = this.injector.get(NgControl);
             this.checkName();
             this.registry.add(this.control, this);
@@ -134,7 +136,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
             this.checked = true;
             this.onModelChange(this.value);
             
-            if (this.formControlName) {
+            if (this.formControlName || this.formControl) {
                 this.registry.select(this);
             }
 
@@ -185,7 +187,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.formControlName) {
+        if (this.formControlName || this.formControl) {
             this.registry.remove(this);
         }
     }
