@@ -6,6 +6,7 @@ import {ButtonModule} from 'primeng/button';
 import {PanelModule} from 'primeng/panel';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
 	imports: [
@@ -13,7 +14,8 @@ import {AppCodeModule} from '../../app.code.component';
 		BadgeDemoRoutingModule,
         ButtonModule,
         PanelModule,
-        TabViewModule,
+		TabViewModule,
+		BadgeModule,
         AppCodeModule
 	],
 	declarations: [

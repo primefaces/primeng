@@ -9,41 +9,18 @@
     <div class="card">
         <h5>Numbers</h5>
         <div class="badges">
-            <span class="p-badge">2</span>
-            <span class="p-badge p-badge-success">8</span>
-            <span class="p-badge p-badge-info">4</span>
-            <span class="p-badge p-badge-warning">12</span>
-            <span class="p-badge p-badge-danger">3</span>
-        </div>
-
-        <h5>Tags</h5>
-        <div class="badges">
-            <span class="p-tag">Primary</span>
-            <span class="p-tag p-tag-success">Success</span>
-            <span class="p-tag p-tag-info">Info</span>
-            <span class="p-tag p-tag-warning">Warning</span>
-            <span class="p-tag p-tag-danger">Danger</span>
-        </div>
-
-        <h5>Pills</h5>
-        <div class="badges">
-            <span class="p-tag p-tag-rounded">Primary</span>
-            <span class="p-tag p-tag-rounded p-tag-success">Success</span>
-            <span class="p-tag p-tag-rounded p-tag-info">Info</span>
-            <span class="p-tag p-tag-rounded p-tag-warning">Warning</span>
-            <span class="p-tag p-tag-rounded p-tag-danger">Danger</span>
+            <p-badge [value]="2" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="8" severity="success" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="4" severity="info" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="12" severity="warning" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="3" severity="danger"></p-badge>
         </div>
 
         <h5>Positioned Badge</h5>
-        <span class="p-overlay-badge p-mr-5">
-            <i class="pi pi-bell" style="font-size: 2em"></i>
-            <span class="p-badge">2</span>
-        </span>
+        <i class="pi pi-bell p-mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="value"></i>
+        <i class="pi pi-calendar p-mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
+        <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
 
-        <span class="p-overlay-badge">
-            <p-button label="New"></p-button>
-            <span class="p-badge p-badge-warning">5</span>
-        </span>
 
         <h5>Inline Button Badge</h5>
         <p-button label="Emails" badge="8" styleClass="p-mr-2" ></p-button>
@@ -51,9 +28,9 @@
 
         <h5>Sizes</h5>
         <div class="badges">
-            <span class="p-badge">2</span>
-            <span class="p-badge p-badge-lg p-badge-sucess">4</span>
-            <span class="p-badge p-badge-xl p-badge-warning">6</span>
+            <p-badge [value]="2" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="4" size="large" severity="warning" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="6" size="xlarge" severity="success" styleClass="p-mr-2"></p-badge>
         </div>
     </div>
 </div>
@@ -62,12 +39,12 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Getting Started</h5>
-				<p>A badge is offered as pure css rather than a component.</p>
+            <p>Content of the badge is specified using the <i>value</i> property.</p>
 
-				<h5>Numbers</h5>
-				<p>Use <i>.p-badge</i> class to display numbers inside badges.</p>
+            <h5>Positioning</h5>
+            <p>A badge can easily be positioned relative to another element by wrapping it.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;span class="p-badge"&gt;2&lt;/span&gt;
+&lt;p-badge [value]="2"&gt;&lt;/p-badge&gt;
 </app-code>
 
                 <h5>Tags</h5>

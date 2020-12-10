@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'theming', loadChildren: () => import('./components/theming/theming.module').then(m => m.ThemingModule)},
             {path: 'icons', loadChildren: () => import('./components/icons/icons.module').then(m => m.IconsModule)},
             {path: 'accordion', loadChildren: () => import('./components/accordion/accordiondemo.module').then(m => m.AccordionDemoModule)},
+            {path: 'avatar', loadChildren: () => import('./components/avatar/avatardemo.module').then(m => m.AvatarDemoModule)},
             {path: 'autocomplete', loadChildren: () => import('./components/autocomplete/autocompletedemo.module').then(m => m.AutoCompleteDemoModule)},
             {path: 'blockui', loadChildren: () => import('./components/blockui/blockuidemo.module').then(m => m.BlockUIDemoModule)},
             {path: 'badge', loadChildren: () => import('./components/badge/badgedemo.module').then(m => m.BadgeDemoModule)},
