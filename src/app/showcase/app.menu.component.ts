@@ -267,7 +267,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/avatar']" routerLinkActive="router-link-exact-active">Avatar <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/blockui']" routerLinkActive="router-link-exact-active">BlockUI</a>
-                    <a [routerLink]=" ['/badge']" routerLinkActive="router-link-exact-active">Badge</a>
+                    <a [routerLink]=" ['/badge']" routerLinkActive="router-link-exact-active">Badge <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/captcha']" routerLinkActive="router-link-exact-active">Captcha</a>
                     <a [routerLink]=" ['/inplace']" routerLinkActive="router-link-exact-active">Inplace</a>
                     <a [routerLink]=" ['/progressbar']" routerLinkActive="router-link-exact-active">ProgressBar</a>
