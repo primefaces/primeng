@@ -21,6 +21,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     
     ngAfterViewInit() {
         this.id = UniqueComponentId() + '_badge';
+        let el = this.el.nativeElement.nodeName.indexOf("-") != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement; 
 
         let badge = document.createElement('span');
         badge.id = this.id ;
@@ -41,8 +42,8 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             DomHandler.addClass(badge, 'p-badge-dot');
         }
 
-        DomHandler.addClass(this.el.nativeElement, 'p-overlay-badge');
-        this.el.nativeElement.appendChild(badge);
+        DomHandler.addClass(el, 'p-overlay-badge');
+        el.appendChild(badge);
 
         this.initialized = true;
     }
