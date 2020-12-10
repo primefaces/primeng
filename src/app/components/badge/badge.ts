@@ -90,13 +90,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     selector: 'p-badge',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <ng-container *ngIf="!contentTemplate;else content">
                 {{value}}
-            </ng-container>
-            <ng-template #content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                <span [ngClass]="badgeClass()">{{value}}</span>
-            </ng-template>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -114,30 +108,8 @@ export class Badge {
     @Input() severity: string;
     
     @Input() value: string;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
-    contentTemplate: TemplateRef<any>;
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch(item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                break;
-                
-                default:
-                    this.contentTemplate = item.template;
-                break;
-            }
-        });
-    }
     
     containerClass() {
-        return this.contentTemplate ? 'p-overlay-badge' : this.badgeClass();
-    }
-    
-    badgeClass() {
         return {
             'p-badge p-component': true,
             'p-badge-no-gutter': this.value && String(this.value).length === 1,
