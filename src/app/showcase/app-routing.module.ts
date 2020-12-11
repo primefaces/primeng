@@ -22,6 +22,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'carousel', loadChildren: () => import('./components/carousel/carouseldemo.module').then(m => m.CarouselDemoModule)},
             {path: 'chart', loadChildren: () => import('./components/chart/chartdemo.module').then(m => m.ChartDemoModule)},
             {path: 'checkbox', loadChildren: () => import('./components/checkbox/checkboxdemo.module').then(m => m.CheckboxDemoModule)},
+            {path: 'chip', loadChildren: () => import('./components/chip/chipdemo.module').then(m => m.ChipDemoModule)},
             {path: 'chips', loadChildren: () => import('./components/chips/chipsdemo.module').then(m => m.ChipsDemoModule)},
             {path: 'codehighlighter', loadChildren: () => import('./components/codehighlighter/codehighlighterdemo.module').then(m => m.CodeHighlighterDemoModule)},
             {path: 'colorpicker', loadChildren: () => import('./components/colorpicker/colorpickerdemo.module').then(m => m.ColorPickerDemoModule)},
