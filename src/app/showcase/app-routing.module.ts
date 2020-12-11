@@ -78,6 +78,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'scrollpanel', loadChildren: () => import('./components/scrollpanel/scrollpaneldemo.module').then(m => m.ScrollPanelDemoModule) },
             {path: 'selectbutton', loadChildren: () => import('./components/selectbutton/selectbuttondemo.module').then(m => m.SelectButtonDemoModule)},
             {path: 'sidebar', loadChildren: () => import('./components/sidebar/sidebardemo.module').then(m => m.SidebarDemoModule)},
+            {path: 'skeleton', loadChildren: () => import('./components/skeleton/skeletondemo.module').then(m => m.SkeletonDemoModule)},
             {path: 'slidemenu', loadChildren: () => import('./components/slidemenu/slidemenudemo.module').then(m => m.SlideMenuDemoModule)},
             {path: 'slider', loadChildren: () => import('./components/slider/sliderdemo.module').then(m => m.SliderDemoModule)},
             {path: 'splitbutton', loadChildren: () => import('./components/splitbutton/splitbuttondemo.module').then(m => m.SplitButtonDemoModule)},
