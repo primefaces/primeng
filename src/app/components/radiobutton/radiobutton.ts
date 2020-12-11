@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, Injectable, Injector, OnInit, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, AbstractControl} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl} from '@angular/forms';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -68,7 +68,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
 
     @Input() formControlName: string;
 
-    @Input() formControl: AbstractControl;
+    @Input() formControl: any;
 
     @Input() name: string;
 
