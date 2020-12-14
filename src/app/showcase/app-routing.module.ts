@@ -32,6 +32,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'dataview', loadChildren: () => import('./components/dataview/dataviewdemo.module').then(m => m.DataViewDemoModule)},
             {path: 'defer', loadChildren: () => import('./components/defer/deferdemo.module').then(m => m.DeferDemoModule)},
             {path: 'dialog', loadChildren: () => import('./components/dialog/dialogdemo.module').then(m => m.DialogDemoModule)},
+            {path: 'divider', loadChildren: () => import('./components/divider/dividerdemo.module').then(m => m.DividerDemoModule)},
             {path: 'dynamicdialog', loadChildren: () => import('./components/dynamicdialog/dynamicdialogdemo.module').then(m => m.DynamicDialogDemoModule)},
             {path: 'dragdrop', loadChildren: () => import('./components/dragdrop/dragdropdemo.module').then(m => m.DragDropDemoModule)},
             {path: 'dropdown', loadChildren: () => import('./components/dropdown/dropdowndemo.module').then(m => m.DropdownDemoModule)},

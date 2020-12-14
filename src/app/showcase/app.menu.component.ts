@@ -182,6 +182,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/accordion']" routerLinkActive="router-link-exact-active">Accordion</a>
                     <a [routerLink]=" ['/card']" routerLinkActive="router-link-exact-active">Card</a>
+                    <a [routerLink]=" ['/divider']" routerLinkActive="router-link-exact-active">Divider <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/fieldset']" routerLinkActive="router-link-exact-active">Fieldset</a>
                     <a [routerLink]=" ['/panel']" routerLinkActive="router-link-exact-active">Panel</a>
                     <a [routerLink]=" ['/scrollpanel']" routerLinkActive="router-link-exact-active">ScrollPanel</a>
