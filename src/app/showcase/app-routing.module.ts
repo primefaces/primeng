@@ -76,6 +76,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'rating', loadChildren: () => import('./components/rating/ratingdemo.module').then(m => m.RatingDemoModule)},
             {path: 'ripple', loadChildren: () => import('./components/ripple/rippledemo.module').then(m => m.RippleDemoModule)},
             {path: 'scrollpanel', loadChildren: () => import('./components/scrollpanel/scrollpaneldemo.module').then(m => m.ScrollPanelDemoModule) },
+            {path: 'scrolltop', loadChildren: () => import('./components/scrolltop/scrolltopdemo.module').then(m => m.ScrollTopDemoModule) },
             {path: 'selectbutton', loadChildren: () => import('./components/selectbutton/selectbuttondemo.module').then(m => m.SelectButtonDemoModule)},
             {path: 'sidebar', loadChildren: () => import('./components/sidebar/sidebardemo.module').then(m => m.SidebarDemoModule)},
             {path: 'skeleton', loadChildren: () => import('./components/skeleton/skeletondemo.module').then(m => m.SkeletonDemoModule)},
