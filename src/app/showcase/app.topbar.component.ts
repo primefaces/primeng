@@ -229,6 +229,7 @@ import { Subscription } from 'rxjs';
                         <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
                         <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>
                         <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Forum</span></a></li>
+                        <li><a href="https://discord.gg/gzKFYnpmCY"><span>Discord Chat</span></a></li>
                         <li><a [routerLink]="['/lts']"><span>LTS</span></a></li>
                         <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
                         <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>

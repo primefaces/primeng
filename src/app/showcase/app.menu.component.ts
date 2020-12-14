@@ -20,7 +20,8 @@ declare let gtag: Function;
 
                 <div class="menu-category">Support</div>
                 <div class="menu-items">
-                    <a href="https://forum.primefaces.org/viewforum.php?f=35" target="_blank">Community Forum</a>
+                    <a href="https://forum.primefaces.org/viewforum.php?f=35" target="_blank">Forum</a>
+                    <a href="https://discord.gg/gzKFYnpmCY" target="_blank">Discord Chat</a>
                     <a [routerLink]=" ['/lts']" routerLinkActive="router-link-exact-active">Long Term Support</a>
                     <a [routerLink]=" ['/support']" routerLinkActive="router-link-exact-active">PRO Support</a>
                 </div>
