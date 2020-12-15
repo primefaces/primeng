@@ -15,11 +15,13 @@ import {SharedModule} from 'primeng/api';
             </div>
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)" pRipple
-                    class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
+                    class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}"
+                    aria-label="Go to first page">
                 <span class="p-paginator-icon pi pi-angle-double-left"></span>
             </button>
             <button type="button" [disabled]="isFirstPage()" (click)="changePageToPrev($event)" pRipple
-                    class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
+                    class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}"
+                    aria-label="Go to previous page">
                 <span class="p-paginator-icon pi pi-angle-left"></span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
@@ -31,11 +33,13 @@ import {SharedModule} from 'primeng/api';
                 <ng-template pTemplate="selectedItem">{{currentPageReport}}</ng-template>
             </p-dropdown>
             <button type="button" [disabled]="isLastPage()" (click)="changePageToNext($event)" pRipple
-                    class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
+                    class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}"
+                    aria-label="Go to next page">
                 <span class="p-paginator-icon pi pi-angle-right"></span>
             </button>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage()" (click)="changePageToLast($event)" pRipple
-                    class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
+                    class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}"
+                    aria-label="Go to last page">
                 <span class="p-paginator-icon pi pi-angle-double-right"></span>
             </button>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" styleClass="p-paginator-rpp-options"
