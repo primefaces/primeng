@@ -55,6 +55,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/autocomplete']" routerLinkActive="router-link-exact-active">AutoComplete</a>
                     <a [routerLink]=" ['/calendar']" routerLinkActive="router-link-exact-active">Calendar</a>
+                    <a [routerLink]=" ['/cascadeselect']" routerLinkActive="router-link-exact-active">CascadeSelect <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/checkbox']" routerLinkActive="router-link-exact-active">Checkbox</a>
                     <a [routerLink]=" ['/chips']" routerLinkActive="router-link-exact-active">Chips</a>
                     <a [routerLink]=" ['/colorpicker']" routerLinkActive="router-link-exact-active">ColorPicker</a>

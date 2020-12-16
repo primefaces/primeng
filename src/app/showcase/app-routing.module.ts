@@ -19,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'calendar', loadChildren: () => import('./components/calendar/calendardemo.module').then(m => m.CalendarDemoModule)},
             {path: 'captcha', loadChildren: () => import('./components/captcha/captchademo.module').then(m => m.CaptchaDemoModule)},
             {path: 'card', loadChildren: () => import('./components/card/carddemo.module').then(m => m.CardDemoModule)},
+            {path: 'cascadeselect', loadChildren: () => import('./components/cascadeselect/cascadeselectdemo.module').then(m => m.CascadeSelectDemoModule)},
             {path: 'carousel', loadChildren: () => import('./components/carousel/carouseldemo.module').then(m => m.CarouselDemoModule)},
             {path: 'chart', loadChildren: () => import('./components/chart/chartdemo.module').then(m => m.ChartDemoModule)},
             {path: 'checkbox', loadChildren: () => import('./components/checkbox/checkboxdemo.module').then(m => m.CheckboxDemoModule)},

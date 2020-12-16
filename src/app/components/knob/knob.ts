@@ -6,7 +6,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Knob),
     multi: true
-  };
+};
 
 @Component({
     selector: 'p-knob',
