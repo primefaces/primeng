@@ -1,8 +1,8 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
-import { ObjectUtils } from '../utils/objectutils';
-import { DomHandler } from '../dom/domhandler';
+import { ObjectUtils } from 'primeng/utils';
+import { DomHandler } from 'primeng/dom';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
