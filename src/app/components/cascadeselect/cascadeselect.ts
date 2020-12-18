@@ -6,6 +6,7 @@ import { DomHandler } from '../dom/domhandler';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { RippleModule } from 'primeng/ripple';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -19,7 +20,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
         <ul class="p-cascadeselect-panel p-cascadeselect-items" role="listbox" aria-orientation="horizontal">
             <ng-template ngFor [ngForTrackBy]="trackBy" let-option [ngForOf]="options" let-i="index">
                 <li [ngClass]="getItemClass(option)" role="none">
-                    <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, option)" tabindex="0" (keydown)="onKeyDown($event, option, i)">
+                    <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, option)" tabindex="0" (keydown)="onKeyDown($event, option, i)" pRipple>
                         <ng-container *ngIf="optionTemplate;else defaultOptionTemplate">
                             <ng-container *ngTemplateOutlet="optionTemplate; context: {$implicit: option}"></ng-container>
                         </ng-container>
@@ -670,7 +671,7 @@ export class CascadeSelect {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule, RippleModule],
     exports: [CascadeSelect, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })

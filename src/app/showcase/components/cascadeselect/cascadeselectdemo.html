@@ -11,7 +11,6 @@
         <h5>Basic</h5>
         <p-cascadeSelect [(ngModel)]="selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '14rem'}" placeholder="Select a City"></p-cascadeSelect>
-        {{selectedCity1 ? (selectedCity1.cname || selectedCity1.name) : 'nope'}}
         <h5>Templating</h5>
         <p-cascadeSelect [(ngModel)]="selectedCity2" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '14rem'}" placeholder="Select a City">
@@ -24,7 +23,6 @@
                 </div>
             </ng-template>
         </p-cascadeSelect>
-        {{selectedCity2 ? (selectedCity2.cname || selectedCity2.name) : 'nope'}}
     </div>
 </div>
 
