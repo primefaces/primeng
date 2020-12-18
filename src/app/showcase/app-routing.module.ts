@@ -86,6 +86,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'slidemenu', loadChildren: () => import('./components/slidemenu/slidemenudemo.module').then(m => m.SlideMenuDemoModule)},
             {path: 'slider', loadChildren: () => import('./components/slider/sliderdemo.module').then(m => m.SliderDemoModule)},
             {path: 'splitbutton', loadChildren: () => import('./components/splitbutton/splitbuttondemo.module').then(m => m.SplitButtonDemoModule)},
+            {path: 'splitter', loadChildren: () => import('./components/splitter/splitterdemo.module').then(m => m.SplitterDemoModule)},
             {path: 'steps', loadChildren: () => import('./components/steps/stepsdemo.module').then(m => m.StepsDemoModule)},
             {path: 'support', loadChildren: () => import('./components/support/support.module').then(m => m.SupportModule)},
             {path: 'tag', loadChildren: () => import('./components/tag/tagdemo.module').then(m => m.TagDemoModule)},

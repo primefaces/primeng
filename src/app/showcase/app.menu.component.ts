@@ -187,6 +187,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/divider']" routerLinkActive="router-link-exact-active">Divider <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/fieldset']" routerLinkActive="router-link-exact-active">Fieldset</a>
                     <a [routerLink]=" ['/panel']" routerLinkActive="router-link-exact-active">Panel</a>
+                    <a [routerLink]=" ['/splitter']" routerLinkActive="router-link-exact-active">Splitter <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/scrollpanel']" routerLinkActive="router-link-exact-active">ScrollPanel</a>
                     <a [routerLink]=" ['/tabview']" routerLinkActive="router-link-exact-active">TabView</a>
                     <a [routerLink]=" ['/toolbar']" routerLinkActive="router-link-exact-active">Toolbar</a>
