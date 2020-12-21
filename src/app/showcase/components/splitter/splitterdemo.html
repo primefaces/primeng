@@ -7,7 +7,68 @@
 
 <div class="content-section implementation">
     <div class="card">
+        <h5>Horizontal</h5>
         <p-splitter [style]="{'height': '300px'}" styleClass="p-mb-5">
+            <ng-template>
+                <div class="p-col p-d-flex p-ai-center p-jc-center">
+                    Panel 1
+                </div>
+            </ng-template>
+            <ng-template>
+                <div class="p-col p-d-flex p-ai-center p-jc-center">
+                    Panel 2
+                </div>
+            </ng-template>
+        </p-splitter>
+    </div>
+
+    <div class="card">
+        <h5>Vertical</h5>
+        <p-splitter [style]="{'height': '300px'}" styleClass="p-mb-5" layout="vertical">
+            <ng-template>
+                <div class="p-col p-d-flex p-ai-center p-jc-center">
+                    Panel 1
+                </div>
+            </ng-template>
+            <ng-template>
+                <div class="p-col p-d-flex p-ai-center p-jc-center">
+                    Panel 2
+                </div>
+            </ng-template>
+        </p-splitter>
+    </div>
+
+    <div class="card">
+        <h5>Nested</h5>
+        <p-splitter [style]="{'height': '300px'}" [panelSizes]="[20,80]" [minSizes]="[20,0]" styleClass="p-mb-5">
+            <ng-template>
+                <div class="p-col p-d-flex p-ai-center p-jc-center">
+                    Panel 1
+                </div>
+            </ng-template>
+            <ng-template>
+                <p-splitter layout="vertical" [panelSizes]="[15,85]">
+                    <ng-template>
+                        <div style="flex-grow: 1;" class="p-d-flex p-ai-center p-jc-center">
+                            Panel 2
+                        </div>
+                    </ng-template>
+                    <ng-template>
+                        <p-splitter [panelSizes]="[20,80]">
+                            <ng-template>
+                                <div class="p-col p-d-flex p-ai-center p-jc-center">
+                                    Panel 3
+                                </div>
+                            </ng-template>
+                            <ng-template>
+                                <div class="p-col p-d-flex p-ai-center p-jc-center">
+                                    Panel 4
+                                </div>
+                            </ng-template>
+                        </p-splitter>
+                    </ng-template>
+                </p-splitter>
+            </ng-template>
         </p-splitter>
     </div>
 </div>

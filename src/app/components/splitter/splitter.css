@@ -15,6 +15,10 @@
     display: flex;
 }
 
+.p-splitter-panel p-splitter {
+    flex-grow: 1;
+}
+
 .p-splitter-panel .p-splitter {
     flex-grow: 1;
     border: 0 none;
