@@ -1,7 +1,7 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-scrollTop',

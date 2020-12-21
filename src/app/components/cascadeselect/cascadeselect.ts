@@ -2,7 +2,7 @@ import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input,
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { ObjectUtils } from '../utils/objectutils';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';

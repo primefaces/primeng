@@ -7,7 +7,6 @@ import { DialogService } from './dialogservice';
 import { DynamicDialogRef} from './dynamicdialog-ref';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from '../dom/domhandler';
 
 
 @Component({
