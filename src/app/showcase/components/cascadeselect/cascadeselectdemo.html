@@ -11,6 +11,7 @@
         <h5>Basic</h5>
         <p-cascadeSelect [(ngModel)]="selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '14rem'}" placeholder="Select a City"></p-cascadeSelect>
+
         <h5>Templating</h5>
         <p-cascadeSelect [(ngModel)]="selectedCity2" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '14rem'}" placeholder="Select a City">
@@ -29,167 +30,434 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;CascadeSelectModule&#125; from 'primeng/cascadeselect';
+</app-code>
             <h5>Getting Started</h5>
-            <p>Content of the badge is specified using the <i>value</i> property.</p>
-
-            <h5>Positioning</h5>
-            <p>A badge can easily be positioned relative to another element by wrapping it.</p>
+				<p>CascadeSelect requires a value to bind and a collection of arbitrary objects with a nested hierarchy. <i>optionGroupLabel</i>
+                    is used for the text of a category and <i>optionGroupChildren</i> is to define the children of the category. Note that order of the <i>optionGroupChildren</i>
+                    matters and it should correspond to the data hierarchy.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-badge [value]="2"&gt;&lt;/p-badge&gt;
+&lt;p-cascadeSelect [(ngModel)]="selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
+    [optionGroupChildren]="['states', 'cities']" [style]="&#123;'minWidth': '14rem'&#125;"&gt;&lt;/p-cascadeSelect&gt;
 </app-code>
 
-                <h5>Tags</h5>
-				<p>Tags are optimized for text rather than number and used with the <i>.p-tag</i> class. For more rounded styling like pills, add the <i>.p-tag-rounded</i> class</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;span class="p-tag"&gt;New&lt;/span&gt;
-&lt;span class="p-tag p-tag-rounded"&gt;New&lt;/span&gt;
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+countries: any[];
+
+selectedCity1: any;
+
+ngOnInit() &#123;
+    this.countries = [
+        &#123;
+            name: 'Australia',
+            code: 'AU',
+            states: [
+                &#123;
+                    name: 'New South Wales',
+                    cities: [
+                        &#123;cname: 'Sydney', code: 'A-SY'&#125;,
+                        &#123;cname: 'Newcastle', code: 'A-NE'&#125;,
+                        &#123;cname: 'Wollongong', code: 'A-WO'&#125;
+                    ]
+                &#125;,
+                &#123;
+                    name: 'Queensland',
+                    cities: [
+                        &#123;cname: 'Brisbane', code: 'A-BR'&#125;,
+                        &#123;cname: 'Townsville', code: 'A-TO'&#125;
+                    ]
+                &#125;,
+                
+            ]
+        &#125;,
+        &#123;
+            name: 'Canada', 
+            code: 'CA',
+            states: [
+                &#123;
+                    name: 'Quebec',
+                    cities: [
+                        &#123;cname: 'Montreal', code: 'C-MO'&#125;,
+                        &#123;cname: 'Quebec City', code: 'C-QU'&#125;
+                    ]
+                &#125;,
+                &#123;
+                    name: 'Ontario',
+                    cities: [
+                        &#123;cname: 'Ottawa', code: 'C-OT'&#125;,
+                        &#123;cname: 'Toronto', code: 'C-TO'&#125;
+                    ]
+                &#125;,
+                
+            ]
+        &#125;,
+        &#123;
+            name: 'United States',
+            code: 'US',
+            states: [
+                &#123;
+                    name: 'California',
+                    cities: [
+                        &#123;cname: 'Los Angeles', code: 'US-LA'&#125;,
+                        &#123;cname: 'San Diego', code: 'US-SD'&#125;,
+                        &#123;cname: 'San Francisco', code: 'US-SF'&#125;
+                    ]
+                &#125;,
+                &#123;
+                    name: 'Florida',
+                    cities: [
+                        &#123;cname: 'Jacksonville', code: 'US-JA'&#125;,
+                        &#123;cname: 'Miami', code: 'US-MI'&#125;,
+                        &#123;cname: 'Tampa', code: 'US-TA'&#125;,
+                        &#123;cname: 'Orlando', code: 'US-OR'&#125;
+                    ]
+                &#125;,
+                &#123;
+                    name: 'Texas',
+                    cities: [
+                        &#123;cname: 'Austin', code: 'US-AU'&#125;,
+                        &#123;cname: 'Dallas', code: 'US-DA'&#125;,
+                        &#123;cname: 'Houston', code: 'US-HO'&#125;
+                    ]
+                &#125;
+            ]
+        &#125;
+    ];
+&#125;
 </app-code>
 
-                <h5>Severities</h5>
-                <p>Different options are available as severity levels with.</p>
-
-				<ul>
-					<li>.p-badge-secondary</li>
-					<li>.p-badge-success</li>
-					<li>.p-badge-info</li>
-					<li>.p-badge-warning</li>
-					<li>.p-badge-danger</li>
-				</ul>
-
-                <h5>Positoning</h5>
-                <p>A badge can easily be positioned relative to another element when both are wrapped inside an element with <i>p-overlay-badge</i> class.</p>
+            <h5>Templating</h5>
+            <p>Content of an item can be customized with the <i>option</i> template.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;span class="p-overlay-badge"&gt;
-    &lt;i class="pi pi-bell" style="font-size: 2em"&gt;&lt;/i&gt;
-    &lt;span class="p-badge"&gt;2&lt;/span&gt;
-&lt;/span&gt;
-
-&lt;span class="p-overlay-badge"&gt;
-    &lt;p-button label="New"&gt;&lt;/p-button&gt;
-    &lt;span class="p-badge p-badge-warning"&gt;5&lt;/span&gt;
-&lt;/span&gt;
+&lt;p-cascadeSelect [(ngModel)]="selectedCity2" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
+    [optionGroupChildren]="['states', 'cities']" [style]="&#123;'minWidth': '14rem'&#125;" placeholder="Select a City"&gt;
+    &lt;ng-template pTemplate="option" let-option&gt;
+        &lt;div class="country-item"&gt;
+            &lt;img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
+            &lt;i class="pi pi-compass p-mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-map-marker p-mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
+            &lt;span&gt;&#123;&#123;option.cname || option.name&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-cascadeSelect&gt;
 </app-code>
 
-                <h5>Inline Button Badges</h5>
-                <p>Buttons provide integrated badge support with the <i>badge</i> and <i>badgeClass</i> properties.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-button label="Emails" badge="8"&gt;&lt;/p-button&gt;
-&lt;p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"&gt;&lt;/p-button&gt;
-</app-code>
-
-                <h5>Sizes</h5>
-                <p>Badge sizes are adjusted with additional classes.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;span class="p-badge"&gt;2&lt;/span&gt;
-&lt;span class="p-badge p-badge-l p-badge-sucess"&gt;4&lt;/span&gt;
-&lt;span class="p-badge p-badge-xl p-badge-warning"&gt;6&lt;/span&gt;
-</app-code>
-
-                <p>In addition, when placed inside another element, badge sizes can also derive their size from their parent.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h1&gt;Heading 1 &lt;span class="p-tag p-tag-success"&gt;New&lt;/span&gt;&lt;/h1&gt;
-&lt;h2&gt;Heading 2 &lt;span class="p-tag p-tag-success"&gt;New&lt;/span&gt;&lt;/h2&gt;
-</app-code>
-
-				<h5>Styling</h5>
-				<p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
-				<div class="doc-tablewrapper">
+            <h5>Properties</h5>
+            <p>Any property as style and class are passed to the main container element. Following are the additional properties to configure the component.</p>
+            <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Element</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>p-badge</td>
-                            <td>Badge element</td>
+                            <td>options</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of selectitems to display as the available options.</td>
                         </tr>
                         <tr>
-                            <td>p-tag</td>
-                            <td>Tag element</td>
+                            <td>optionLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property name or getter function to use as the label of an option.</td>
                         </tr>
                         <tr>
-                            <td>p-tag-rounded</td>
-                            <td>Rounded tag element</td>
+                            <td>optionValue</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property name or getter function to use as the value of an option, defaults to the option itself when not defined.</td>
                         </tr>
                         <tr>
-                            <td>p-overlay-badge</td>
-                            <td>Wrapper of a badge and its target.</td>
+                            <td>optionGroupLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property name or getter function to use as the label of an option group.</td>
                         </tr>
                         <tr>
-                            <td>p-badge-lg</td>
-                            <td>Large badge element</td>
+                            <td>optionGroupChildren</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property name or getter function to retrieve the items of a group.</td>
                         </tr>
                         <tr>
-                            <td>p-badge-xl</td>
-                            <td>Extra large badge element</td>
+                            <td>placeholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Default text to display when no option is selected.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>dataKey</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>A property to uniquely identify an option.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
+                        </tr>
+                        <tr>
+                            <td>inputId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the underlying input element.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
+                        </tr>
+                        <tr>
+                            <td>appendTo</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Id of the element or "body" for document where the overlay should be appended to.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>false</td>
+                            <td>Style class of the component.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
+            <h5>Events</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onChange</td>
+                            <td>event.originalEvent: Original event <br />
+                                event.value: Selected option value </td>
+                            <td>Callback to invoke on value change.</td>
+                        </tr>
+                        <tr>
+                            <td>onGroupChange</td>
+                            <td>event.originalEvent: Original event <br />
+                                event.value: Selected option group </td>
+                            <td>Callback to invoke when a group changes.</td>
+                        </tr>
+                        <tr>
+                            <td>onBeforeShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke before the overlay is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onBeforeHide</td>
+                            <td>-</td>
+                            <td>Callback to invoke before the overlay is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke when the overlay is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onHide</td>
+                            <td>-</td>
+                            <td>Callback to invoke when the overlay is hidden.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <h5>Styling</h5>
+            <p>Following is the list of structural style classes, for theming classes visit <router-link to="/theming">theming</router-link> page.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>p-cascadeselect</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>p-cascadeselect-label</td>
+                            <td>Element to display label of selected option.</td>
+                        </tr>
+                        <tr>
+                            <td>p-cascadeselect-trigger</td>
+                            <td>Icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>p-cascadeselect-panel</td>
+                            <td>Icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>p-cascadeselect-items-wrapper</td>
+                            <td>Wrapper element of items list.</td>
+                        </tr>
+                        <tr>
+                            <td>p-cascadeselect-items</td>
+                            <td>List element of items.</td>
+                        </tr>
+                        <tr>
+                            <td>p-cascadeselect-item</td>
+                            <td>An item in the list.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                
             <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/badge" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/cascadeselect" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-cascadeselect-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
             
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Numbers&lt;/h5&gt;
-&lt;div class="badges"&gt;
-    &lt;span class="p-badge"&gt;2&lt;/span&gt;
-    &lt;span class="p-badge p-badge-success"&gt;8&lt;/span&gt;
-    &lt;span class="p-badge p-badge-info"&gt;4&lt;/span&gt;
-    &lt;span class="p-badge p-badge-warning"&gt;12&lt;/span&gt;
-    &lt;span class="p-badge p-badge-danger"&gt;3&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;h5&gt;Tags&lt;/h5&gt;
-&lt;div class="badges"&gt;
-    &lt;span class="p-tag"&gt;Primary&lt;/span&gt;
-    &lt;span class="p-tag p-tag-success"&gt;Success&lt;/span&gt;
-    &lt;span class="p-tag p-tag-info"&gt;Info&lt;/span&gt;
-    &lt;span class="p-tag p-tag-warning"&gt;Warning&lt;/span&gt;
-    &lt;span class="p-tag p-tag-danger"&gt;Danger&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;h5&gt;Pills&lt;/h5&gt;
-&lt;div class="badges"&gt;
-    &lt;span class="p-tag p-tag-rounded"&gt;Primary&lt;/span&gt;
-    &lt;span class="p-tag p-tag-rounded p-tag-success"&gt;Success&lt;/span&gt;
-    &lt;span class="p-tag p-tag-rounded p-tag-info"&gt;Info&lt;/span&gt;
-    &lt;span class="p-tag p-tag-rounded p-tag-warning"&gt;Warning&lt;/span&gt;
-    &lt;span class="p-tag p-tag-rounded p-tag-danger"&gt;Danger&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;h5&gt;Positioned Badge&lt;/h5&gt;
-&lt;span class="p-overlay-badge p-mr-5"&gt;
-    &lt;i class="pi pi-bell" style="font-size: 2em"&gt;&lt;/i&gt;
-    &lt;span class="p-badge"&gt;2&lt;/span&gt;
-&lt;/span&gt;
-
-&lt;span class="p-overlay-badge"&gt;
-    &lt;p-button label="New"&gt;&lt;/p-button&gt;
-    &lt;span class="p-badge p-badge-warning"&gt;5&lt;/span&gt;
-&lt;/span&gt;
-
-&lt;h5&gt;Inline Button Badge&lt;/h5&gt;
-&lt;p-button label="Emails" badge="8" styleClass="p-mr-2" &gt;&lt;/p-button&gt;
-&lt;p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger" &gt;&lt;/p-button&gt;
-
-&lt;h5&gt;Sizes&lt;/h5&gt;
-&lt;div class="badges"&gt;
-    &lt;span class="p-badge"&gt;2&lt;/span&gt;
-    &lt;span class="p-badge p-badge-lg p-badge-sucess"&gt;4&lt;/span&gt;
-    &lt;span class="p-badge p-badge-xl p-badge-warning"&gt;6&lt;/span&gt;
-&lt;/div&gt;
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-cascadeSelect [(ngModel)]="selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
+    [optionGroupChildren]="['states', 'cities']" [style]="&#123;'minWidth': '14rem'&#125;" placeholder="Select a City"&gt;&lt;/p-cascadeSelect&gt;
+    
+&lt;h5&gt;Templating&lt;/h5&gt;
+&lt;p-cascadeSelect [(ngModel)]="selectedCity2" [options]="countries" optionLabel="cname" optionGroupLabel="name" 
+    [optionGroupChildren]="['states', 'cities']" [style]="&#123;'minWidth': '14rem'&#125;" placeholder="Select a City"&gt;
+    &lt;ng-template pTemplate="option" let-option&gt;
+        &lt;div class="country-item"&gt;
+            &lt;img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
+            &lt;i class="pi pi-compass p-mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-map-marker p-mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
+            &lt;span&gt;&#123;&#123;option.cname || option.name&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-cascadeSelect&gt;
 </app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class CascadeSelectDemo &#123;
+
+    countries: any[];
+
+    selectedCity1: any;
+
+    selectedCity2: any;
+
+    ngOnInit() &#123;
+        this.countries = [
+            &#123;
+                name: 'Australia',
+                code: 'AU',
+                states: [
+                    &#123;
+                        name: 'New South Wales',
+                        cities: [
+                            &#123;cname: 'Sydney', code: 'A-SY'&#125;,
+                            &#123;cname: 'Newcastle', code: 'A-NE'&#125;,
+                            &#123;cname: 'Wollongong', code: 'A-WO'&#125;
+                        ]
+                    &#125;,
+                    &#123;
+                        name: 'Queensland',
+                        cities: [
+                            &#123;cname: 'Brisbane', code: 'A-BR'&#125;,
+                            &#123;cname: 'Townsville', code: 'A-TO'&#125;
+                        ]
+                    &#125;,
+                    
+                ]
+            &#125;,
+            &#123;
+                name: 'Canada', 
+                code: 'CA',
+                states: [
+                    &#123;
+                        name: 'Quebec',
+                        cities: [
+                            &#123;cname: 'Montreal', code: 'C-MO'&#125;,
+                            &#123;cname: 'Quebec City', code: 'C-QU'&#125;
+                        ]
+                    &#125;,
+                    &#123;
+                        name: 'Ontario',
+                        cities: [
+                            &#123;cname: 'Ottawa', code: 'C-OT'&#125;,
+                            &#123;cname: 'Toronto', code: 'C-TO'&#125;
+                        ]
+                    &#125;,
+                    
+                ]
+            &#125;,
+            &#123;
+                name: 'United States',
+                code: 'US',
+                states: [
+                    &#123;
+                        name: 'California',
+                        cities: [
+                            &#123;cname: 'Los Angeles', code: 'US-LA'&#125;,
+                            &#123;cname: 'San Diego', code: 'US-SD'&#125;,
+                            &#123;cname: 'San Francisco', code: 'US-SF'&#125;
+                        ]
+                    &#125;,
+                    &#123;
+                        name: 'Florida',
+                        cities: [
+                            &#123;cname: 'Jacksonville', code: 'US-JA'&#125;,
+                            &#123;cname: 'Miami', code: 'US-MI'&#125;,
+                            &#123;cname: 'Tampa', code: 'US-TA'&#125;,
+                            &#123;cname: 'Orlando', code: 'US-OR'&#125;
+                        ]
+                    &#125;,
+                    &#123;
+                        name: 'Texas',
+                        cities: [
+                            &#123;cname: 'Austin', code: 'US-AU'&#125;,
+                            &#123;cname: 'Dallas', code: 'US-DA'&#125;,
+                            &#123;cname: 'Houston', code: 'US-HO'&#125;
+                        ]
+                    &#125;
+                ]
+            &#125;
+        ];
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-cascadeselect-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>
