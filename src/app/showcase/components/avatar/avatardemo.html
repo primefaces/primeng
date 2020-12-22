@@ -90,171 +90,59 @@
         <p-tabPanel header ="Documentation">
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;AccordionModule&#125; from 'primeng/accordion';
+import &#123;AvatarModule&#125; from 'primeng/avatar';
+import &#123;AvatarGroupModule&#125; from 'primeng/avatargroup';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>Accordion element consists of one or more p-accordionTab elements. Title of the tab is defined using header attribute.</p>
+            <p>Avatar has three built-in display modes; "label", "icon" and "image".</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header 1"&gt;
-       Content 1
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        Content 2
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        Content 3    
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
+&lt;p-avatar label="P"&gt;&lt;/p-avatar&gt;
+&lt;p-avatar icon="pi pi-search"&gt;&lt;/p-avatar&gt;
+&lt;p-avatar label="user.png"&gt;&lt;/p-avatar&gt;
 </app-code>
 
-            <h5>Selected</h5>
-            <p>Visibility of the content is specified with the selected property that supports one or two-way binding.</p>
+            <h5>Sizes</h5>
+            <p><i>size</i> property defines the size of the Avatar with "large" and "xlarge" as possible values.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header 1" [selected]="true"&gt;
-       Content 1
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        Content 2
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        Content 3    
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
+    &lt;p-avatar label="P" size="large"&gt;&lt;/p-avatar&gt;
 </app-code>
 
-        <h5>Multiple</h5>
-        <p>By default only one tab at a time can be active, enabling multiple property changes this behavior to allow multiple
-            tabs be active at the same time.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordion [multiple]="true"&gt;
-    &lt;p-accordionTab header="Header 1"&gt;
-        Content 1
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        Content 2
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        Content 3    
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-</app-code>
-
-        <h5>Disabled</h5>
-        <p>A tab can be disabled by setting the disabled property to true.</p>
+            <h5>AvatarGroup</h5>
+            <p>A set of Avatars can be displayed together using the <i>AvatarGroup</i> component.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header 1" [disabled]="true"&gt;
-       Content 1
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        Content 2
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        Content 3    
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
+&lt;p-avatarGroup label="P"&gt;
+    &lt;p-avatar label="P"&gt;&lt;/p-avatar&gt;
+    &lt;p-avatar icon="pi pi-search"&gt;&lt;/p-avatar&gt;
+    &lt;p-avatar label="user.png"&gt;&lt;/p-avatar&gt;
+    &lt;p-avatar label="+2"&gt;&lt;/p-avatar&gt;
+&lt;/p-avatarGroup&gt;
 </app-code>
 
-            <h5>Custom Content at Headers</h5>
-            <p>Custom content can be placed at an accordion header with header template.</p>
+            <h5>Shape</h5>
+            <p>Avatar comes in two different styles specified with the <i>shape</i> property, "square" is the default and "circle" is the alternative.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordionTab&gt;
-    &lt;ng-template pTemplate="header"&gt;Header Content&lt;/ng-template&gt;
-    &lt;ng-template pTemplate="content"&gt;Body Content&lt;/ng-template&gt;
-&lt;/p-accordionTab&gt;
+&lt;p-avatar label="P" shape="circle"&gt;&lt;/p-avatar&gt;
 </app-code>
 
-<h5>Programmatic Control</h5>
-<p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
+            <h5>Badge</h5>
+            <p>A badge can be added to an Avatar with the <router-link to="/badge">Badge</router-link> directive.</p>
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Programmatic&lt;/h5&gt;
-&lt;div class="p-py-3"&gt;
-    &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
-&lt;/div&gt;
-        
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header I" [(selected)]="activeState[0]"&gt;
-        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header II" [(selected)]="activeState[1]"&gt;
-        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header III" [(selected)]="activeState[2]"&gt;
-        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-</app-code>
-    
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-export class AccordionDemo &#123;
-    
-    activeState: boolean[] = [true, false, false];
-
-    toggle(index: number) &#123;
-        this.activeState[index] = !this.activeState[index];
-    &#125;
-&#125;
+&lt;p-avatar image="user.png" pBadge value="4" severity="danger" size="xlarge"&gt;&lt;/p-avatar&gt;
 </app-code>
 
-            <h5>Lazy Loading</h5>
-            <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy
-            loaded accordionTab contents are cached by default so that upon reselection, they are not created again. You may use cache property on AccordionTab to
-            configure this behavior. A AccordionTab is specified as lazy when there is a ngTemplate with pTemplate="content" in it.</p>
+            <h5>Templating</h5>
+            <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header 1"&gt;
-        Content 1
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        &lt;ng-template pTemplate="content"&gt;
-            Complex Content to Lazy Load
-        &lt;/ng-template&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        &lt;ng-template pTemplate="content"&gt;
-            Complex Content to Lazy Load
-        &lt;/ng-template&gt;
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-</app-code>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-export class AccordionDemo &#123;
-    
-    index: number = 0;
-
-    openNext() &#123;
-        this.index = (this.index === 2) ? 0 : this.index + 1;
-    &#125;
-    
-    openPrev() &#123;
-        this.index = (this.index === 0) ? 2 : this.index - 1;
-    &#125;
-&#125;
-</app-code>
-
-            <h5>Animation Configuration</h5>
-            <p>Transition of the toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
-                example below disables the animation altogether.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordionTab [transitionOptions]="'0ms'" header="Header 1"&gt;
+&lt;p-avatar&gt;
     Content
-&lt;/p-accordionTab&gt;
+&lt;/p-avatar&gt;
 </app-code>
-            <h5>Properties for Accordion</h5>
+
+            <h5>Properties of Avatar</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -267,10 +155,34 @@ export class AccordionDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>multiple</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When enabled, multiple tabs can be activated at the same time.</td>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines the text to display.</td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines the icon to display.</td>
+                        </tr>
+                        <tr>
+                            <td>image</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines the image to display.</td>
+                        </tr>
+                        <tr>
+                            <td>size</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Size of the element, valid options are "large" and "xlarge".</td>
+                        </tr>
+                        <tr>
+                            <td>shape</td>
+                            <td>string</td>
+                            <td>square</td>
+                            <td>Shape of the element, valid options are "square" and "circle".</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -284,29 +196,11 @@ export class AccordionDemo &#123;
                             <td>false</td>
                             <td>Style class of the component.</td>
                         </tr>
-                        <tr>
-                            <td>activeIndex</td>
-                            <td>any</td>
-                            <td>null</td>
-                            <td>Index of the active tab or an array of indexes to change selected tab programmatically.</td>
-                        </tr>
-                        <tr>
-                            <td>expandIcon</td>
-                            <td>string</td>
-                            <td>pi pi-fw pi-chevron-right</td>
-                            <td>Icon of a collapsed tab.</td>
-                        </tr>
-                        <tr>
-                            <td>collapseIcon</td>
-                            <td>string</td>
-                            <td>pi pi-fw pi-chevron-down</td>
-                            <td>Icon of an expanded tab.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
             
-            <h5>Properties for AccordionTab</h5>
+            <h5>Properties for AvatarGroup</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -319,82 +213,23 @@ export class AccordionDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>header</td>
+                            <td>style</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Title of the tab.</td>
+                            <td>Inline style of the component.</td>
                         </tr>
                         <tr>
-                            <td>selected</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines if the tab is active.</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines whether the tab can be selected.</td>
-                        </tr>
-                        <tr>
-                            <td>transitionOptions</td>
+                            <td>styleClass</td>
                             <td>string</td>
-                            <td>400ms cubic-bezier(0.86, 0, 0.07, 1)</td>
-                            <td>Transition options of the animation.</td>
-                        </tr>
-                        <tr>
-                            <td>cache</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Whether a lazy loaded panel should avoid getting loaded again on reselection.</td>
+                            <td>false</td>
+                            <td>Style class of the component.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h5>Events</h5>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Parameters</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>onClose</td>
-                            <td>
-                                event.originalEvent: Click object<br>
-                                event.index: Index of the tab
-                            </td>
-                            <td>Callback to invoke when an active tab is collapsed by clicking on the header.</td>
-                        </tr>
-                        <tr>
-                            <td>onOpen</td>
-                            <td>
-                                event.originalEvent: Click object<br>
-                                event.index: Index of the tab
-                            </td>
-                            <td>Callback to invoke when a tab gets expanded.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-accordion (onOpen)="onTabOpen($event)"&gt;
-</app-code>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-onTabOpen(e) &#123;
-    var index = e.index;
-&#125;
-</app-code>
-
-            <h5>Styling</h5>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
-
+            <h5>Styling of Avatar</h5>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -405,16 +240,50 @@ onTabOpen(e) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>p-accordion</td>
-                            <td>Container element</td>
+                            <td>p-avatar</td>
+                            <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>p-accordion-header</td>
-                            <td>Header of a tab.</td>
+                            <td>p-avatar-image</td>
+                            <td>Container element in image mode.</td>
                         </tr>
                         <tr>
-                            <td>p-accordion-content</td>
-                            <td>Content of a tab.</td>
+                            <td>p-avatar-circle</td>
+                            <td>Container element with a circle shape.</td>
+                        </tr>
+                        <tr>
+                            <td>p-avatar-text</td>
+                            <td>Text of the Avatar.</td>
+                        </tr>
+                        <tr>
+                            <td>p-avatar-icon</td>
+                            <td>Icon of the Avatar.</td>
+                        </tr>
+                        <tr>
+                            <td>p-avatar-lg</td>
+                            <td>Container element with a large size.</td>
+                        </tr>
+                        <tr>
+                            <td>p-avatar-xl</td>
+                            <td>Container element with an xlarge size.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Styling of AvatarGroup</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>p-avatar-group</td>
+                            <td>Container element.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -426,133 +295,106 @@ onTabOpen(e) &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/accordion" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/avatar" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-            <a href="https://stackblitz.com/edit/primeng-accordion-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+            <a href="https://stackblitz.com/edit/primeng-avatar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Default&lt;/h5&gt;
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header I" [selected]="true"&gt;
-        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header II"&gt;
-        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header III"&gt;
-        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-
-&lt;h5&gt;Multiple&lt;/h5&gt;
-&lt;p-accordion [multiple]="true"&gt;
-    &lt;p-accordionTab header="Header I"&gt;
-        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header II"&gt;
-        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header III"&gt;
-        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-    
-&lt;h5&gt;Programmatic&lt;/h5&gt;
-&lt;div class="p-py-3"&gt;
-    &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
+&lt;div class="p-grid"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Label&lt;/h5&gt;
+            &lt;p-avatar label="P" styleClass="p-mr-2" size="xlarge"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar label="V" styleClass="p-mr-2" size="large" [style]="&#123;'background-color':'#2196F3', 'color': '#ffffff'&#125;"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar label="U" styleClass="p-mr-2" [style]="&#123;'background-color': '#9c27b0', 'color': '#ffffff'&#125;"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Label - Circle&lt;/h5&gt;
+            &lt;p-avatar label="P" styleClass="p-mr-2" size="xlarge" shape="circle"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar label="V" styleClass="p-mr-2" size="large" [style]="&#123;'background-color':'#2196F3', 'color': '#ffffff'&#125;" shape="circle"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar label="U" styleClass="p-mr-2" [style]="&#123;'background-color': '#9c27b0', 'color': '#ffffff'&#125;" shape="circle"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Label - Badge&lt;/h5&gt;
+            &lt;p-avatar label="U" pBadge styleClass="p-mr-5" value="4" size="xlarge" [style]="&#123;'background-color': '#4caf4f', 'color': '#ffffff'&#125;"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
-    
-&lt;p-accordion&gt;
-    &lt;p-accordionTab header="Header I" [(selected)]="activeState[0]"&gt;
-        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header II" [(selected)]="activeState[1]"&gt;
-        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header III" [(selected)]="activeState[2]"&gt;
-        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-
-&lt;h5&gt;Tab Change Event&lt;/h5&gt;
-&lt;p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)"&gt;
-    &lt;p-accordionTab header="Header I"&gt;
-        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header II"&gt;
-        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header III"&gt;
-        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header IV" [disabled]="true"&gt;
-        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
+&lt;div class="p-grid"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Icon&lt;/h5&gt;
+            &lt;p-avatar icon="pi pi-user" styleClass="p-mr-2" size="xlarge"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar icon="pi pi-user" styleClass="p-mr-2" size="large" [style]="&#123;'background-color':'#2196F3', 'color': '#ffffff'&#125;"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar icon="pi pi-user" styleClass="p-mr-2" [style]="&#123;'background-color': '#9c27b0', 'color': '#ffffff'&#125;"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Icon - Circle&lt;/h5&gt;
+            &lt;p-avatar icon="pi pi-user" styleClass="p-mr-2" size="xlarge" shape="circle"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar icon="pi pi-user" styleClass="p-mr-2" size="large" [style]="&#123;'background-color':'#2196F3', 'color': '#ffffff'&#125;" shape="circle"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar icon="pi pi-user" styleClass="p-mr-2" [style]="&#123;'background-color': '#9c27b0', 'color': '#ffffff'&#125;" shape="circle"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Icon - Badge&lt;/h5&gt;
+                &lt;p-avatar icon="pi pi-user" pBadge value="4" severity="success" styleClass="p-mr-2" size="xlarge"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="p-grid"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Image&lt;/h5&gt;
+            &lt;p-avatar image="assets/showcase/images/demo/avatar/amyelsner.png" styleClass="p-mr-2" size="xlarge" shape="circle"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar image="assets/showcase/images/demo/avatar/asiyajavayant.png" styleClass="p-mr-2" size="large" shape="circle"&gt;&lt;/p-avatar&gt;
+            &lt;p-avatar image="assets/showcase/images/demo/avatar/onyamalimba.png" styleClass="p-mr-2" shape="circle"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Avatar Group&lt;/h5&gt;
+            &lt;p-avatarGroup styleClass="p-mb-3"&gt;
+                &lt;p-avatar image="assets/showcase/images/demo/avatar/amyelsner.png" size="large" shape="circle"&gt;&lt;/p-avatar&gt;
+                &lt;p-avatar image="assets/showcase/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"&gt;&lt;/p-avatar&gt;
+                &lt;p-avatar image="assets/showcase/images/demo/avatar/onyamalimba.png" size="large" shape="circle"&gt;&lt;/p-avatar&gt;
+                &lt;p-avatar image="assets/showcase/images/demo/avatar/ionibowcher.png" size="large" shape="circle"&gt;&lt;/p-avatar&gt;
+                &lt;p-avatar image="assets/showcase/images/demo/avatar/xuxuefeng.png" size="large"shape="circle"&gt;&lt;/p-avatar&gt;
+                &lt;p-avatar label="+2" shape="circle" size="large" [style]="&#123;'background-color':'#9c27b0', 'color': '#ffffff'&#125;"&gt;&lt;/p-avatar&gt;
+            &lt;/p-avatarGroup&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;div class="card"&gt;
+            &lt;h5&gt;Image - Badge&lt;/h5&gt;
+                &lt;p-avatar image="assets/showcase/images/demo/organization/walter.jpg" pBadge value="4" severity="danger" styleClass="p-mr-2" size="xlarge"&gt;&lt;/p-avatar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
-import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
-    templateUrl: './accordiondemo.html',
-    providers: [MessageService],
-    styleUrls: ['./accordiondemo.scss']
+    templateUrl: './avatardemo.html']
 &#125;)
-export class AccordionDemo &#123;
-    
-    activeState: boolean[] = [true, false, false];
+export class AvatarDemo &#123;
 
-    constructor(private messageService: MessageService) &#123;&#125;
-
-    onTabClose(event) &#123;
-        this.messageService.add(&#123;severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index&#125;)
-    &#125;
-    
-    onTabOpen(event) &#123;
-        this.messageService.add(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
-    &#125;
-
-    toggle(index: number) &#123;
-        this.activeState[index] = !this.activeState[index];
-    &#125;
 &#125;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
-                <iframe src="https://stackblitz.com/edit/primeng-accordion-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+                <iframe src="https://stackblitz.com/edit/primeng-avatar-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
             </ng-template>
         </p-tabPanel>
     </p-tabView>

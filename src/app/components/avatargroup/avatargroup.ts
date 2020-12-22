@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'p-avatarGroup',
     template: `
-        <div [ngClass]="'p-avatar-group p-component'" [class]="styleClass">
+        <div [ngClass]="'p-avatar-group p-component'" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
         </div>
     `,
@@ -16,6 +16,7 @@ export class AvatarGroup {
 
     @Input() styleClass: string;
     
+    @Input() style: any;
 }
 
 @NgModule({
