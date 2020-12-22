@@ -218,7 +218,7 @@ export class Knob {
     }
 
     valueRadians() {
-        return this.mapRange(this.value, this.min, this.max, this.minRadians, this.maxRadians);
+        return this.mapRange(this._value, this.min, this.max, this.minRadians, this.maxRadians);
     }
 
     minX() {
@@ -262,7 +262,11 @@ export class Knob {
     }
 
     valueToDisplay() {
-        return this.valueTemplate.replace("{value}", this.value.toString());
+        return this.valueTemplate.replace("{value}", this._value.toString());
+    }
+
+    get _value(): number {
+        return this.value != null ? this.value : this.min;
     }
 }
 
