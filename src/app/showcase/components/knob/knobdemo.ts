@@ -22,4 +22,5 @@ export class KnobDemo {
     value8: number = 60;
 
     value9: number = 50;
+    
 }
