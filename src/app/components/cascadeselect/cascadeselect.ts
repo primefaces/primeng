@@ -1,4 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy} from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy, OnInit, AfterContentInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
@@ -40,7 +40,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CascadeSelectSub {
+export class CascadeSelectSub implements OnInit {
 
     @Input() selectionPath: any[];
 
@@ -273,7 +273,7 @@ export class CascadeSelectSub {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./cascadeselect.css']
 })
-export class CascadeSelect {
+export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
