@@ -1,7 +1,7 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
-import { ObjectUtils } from '../utils/objectutils';
+import { ObjectUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -18,7 +18,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
     selector: 'p-cascadeSelectSub',
     template: `
         <ul class="p-cascadeselect-panel p-cascadeselect-items" role="listbox" aria-orientation="horizontal">
-            <ng-template ngFor [ngForTrackBy]="trackBy" let-option [ngForOf]="options" let-i="index">
+            <ng-template ngFor let-option [ngForOf]="options" let-i="index">
                 <li [ngClass]="getItemClass(option)" role="none">
                     <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, option)" tabindex="0" (keydown)="onKeyDown($event, option, i)" pRipple>
                         <ng-container *ngIf="optionTemplate;else defaultOptionTemplate">
@@ -238,7 +238,7 @@ export class CascadeSelectSub {
                     {{label()}}
                 </ng-template>
             </span>
-            <div class="p-cascadeselect-trigger" role="button" [attr.aria-haspopup]="listbox" [attr.aria-expanded]="overlayVisible">
+            <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
             <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" 
