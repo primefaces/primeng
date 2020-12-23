@@ -411,7 +411,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option;
+        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : (option.value !== undefined ? option.value : option);
     }
 
     isOptionDisabled(option: any) {
