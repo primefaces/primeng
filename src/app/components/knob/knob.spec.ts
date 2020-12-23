@@ -1,11 +1,11 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Tag, TagModule } from './tag';
+import { Knob, KnobModule } from './knob';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('Tag', () => {
+describe('Knob', () => {
 
-	let tag: Tag;
-	let fixture: ComponentFixture<Tag>;
+	let tag: Knob;
+	let fixture: ComponentFixture<Knob>;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
@@ -13,11 +13,11 @@ describe('Tag', () => {
 				NoopAnimationsModule
 			],
 			declarations: [
-				TagModule
+				KnobModule
 			]
 		});
 
-		fixture = TestBed.createComponent(Tag);
+		fixture = TestBed.createComponent(Knob);
 		tag = fixture.componentInstance;
 	});
 });
