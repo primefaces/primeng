@@ -106,6 +106,8 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
     quill: any;
 
     toolbarTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
     
     constructor(public el: ElementRef) {}
 
@@ -168,6 +170,9 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
             switch(item.getType()) {
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
+                break;
+                case 'header':
+                    this.headerTemplate = item.template;
                 break;
             }
         });
