@@ -190,21 +190,14 @@ Content
 &lt;/p-dialog&gt;
 </app-code>
 
-
-            <h5>RTL Support</h5>
-            <p>RTL orientation is enabled by adding "p-rtl" to an ancestor element of dialog in combination with standard dir="rtl" option.</p>
+            <h5>Initial Focus</h5>
+            <p>Adding <i>autofocus</i> to an element applies focus when the dialog is shown.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div class="p-rtl" dir="rtl"&gt;
-    &lt;p-dialog [(visible)]="display"&gt;
-        &lt;p-header&gt;
-            Header content here
-        &lt;/p-header&gt;
-        Content
-        &lt;p-footer&gt;
-            Footer content here
-        &lt;/p-footer&gt;
-    &lt;/p-dialog&gt;
-&lt;/div&gt;
+&lt;p-dialog [(visible)]="display"&gt;
+    &lt;input type="text" pInputText &gt;
+    &lt;input type="text" pInputText &gt;
+    &lt;button type="button" pButton autofocus&gt;&lt;/button&gt;
+&lt;/p-dialog&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
