@@ -6,7 +6,6 @@
 
 **Implemented New Features and Enhancements:**
 
-- PrimeNG mutliselect allow selection only on checkbox selection not on row selection [\#9642](https://github.com/primefaces/primeng/issues/9642)
 - Splitter Component [\#9677](https://github.com/primefaces/primeng/issues/9677)
 - CascadeSelect component [\#9665](https://github.com/primefaces/primeng/issues/9665)
 - Knob Component [\#9652](https://github.com/primefaces/primeng/issues/9652)
