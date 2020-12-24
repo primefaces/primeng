@@ -13,8 +13,12 @@ import {Component} from '@angular/core';
                 <a href="https://github.com/primefaces/primeng" class="p-mr-3">
                     <i class="pi pi-github"></i>
                 </a>
-                <a href="https://twitter.com/prime_ng">
+                <a href="https://twitter.com/prime_ng" class="p-mr-3">
                     <i class="pi pi-twitter"></i>
+                </a>
+
+                <a href="https://discord.gg/gzKFYnpmCY" target="_blank">
+                    <i class="pi pi-discord"></i>
                 </a>
             </div>
         </div>
