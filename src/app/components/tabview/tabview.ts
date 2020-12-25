@@ -22,8 +22,6 @@ let idx: number = 0;
     `
 })
 export class TabPanel implements AfterContentInit,OnDestroy {
-
-    @Input() header: string;
     
     @Input() closable: boolean;
     
@@ -54,6 +52,8 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     _selected: boolean;
 
     _disabled: boolean;
+    
+    _header: string;
     
     loaded: boolean;
     
@@ -107,6 +107,15 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     set disabled(disabled: boolean) {
         this._disabled = disabled;
+        this.tabView.cd.markForCheck();
+    }
+    
+    @Input() get header(): string {
+        return this._header;
+    }
+    
+    set header(header: string) {
+        this._header = header;
         this.tabView.cd.markForCheck();
     }
     
