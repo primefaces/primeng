@@ -87,7 +87,7 @@ export class MultiSelectItem {
                         <ng-container *ngIf="display === 'chip'">
                             <div #token *ngFor="let item of value; let i = index;" class="p-multiselect-token">
                                 <span class="p-multiselect-token-label">{{findLabelByValue(item)}}</span>
-                                <span *ngIf="!disabled" class="p-multiselect-token-icon pi pi-times-circle" (click)="removeChip(item)"></span>
+                                <span *ngIf="!disabled" class="p-multiselect-token-icon pi pi-times-circle" (click)="removeChip(item, $event)"></span>
                             </div>
                             <ng-container *ngIf="!value || value.length === 0">{{placeholder || defaultLabel || 'empty'}}</ng-container>
                         </ng-container>
@@ -664,8 +664,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
-    removeChip(chip: any) {
+    removeChip(chip: any, event: MouseEvent) {
         this.value = this.value.filter(val => !ObjectUtils.equals(val, chip, this.dataKey));
+        this.onModelChange(this.value);
+        this.onChange.emit({ originalEvent: event, value: this.value });
         this.updateFilledState();
     }
 
