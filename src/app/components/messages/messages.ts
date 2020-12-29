@@ -148,6 +148,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     removeMessage(i: number) {
         this.value = this.value.filter((msg, index) => index !== i);
+        this.valueChange.emit(this.value);
     }
 
     get icon(): string {
