@@ -129,7 +129,7 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
         });
                 
         if (this.value) {
-            this.quill.pasteHTML(this.value);
+            this.quill.setContents(this.quill.clipboard.convert(this.value));
         }
         
         this.quill.on('text-change', (delta, oldContents, source) => {
@@ -183,7 +183,7 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
                 
         if (this.quill) {
             if (value)
-                this.quill.pasteHTML(value);
+                this.quill.setContents(this.quill.clipboard.convert(value));
             else
                 this.quill.setText('');
         }
