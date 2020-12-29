@@ -65,6 +65,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     `,
     providers: [EDITOR_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./editor.css'],
     encapsulation: ViewEncapsulation.None
 })
 export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor {
