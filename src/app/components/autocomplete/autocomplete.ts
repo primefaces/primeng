@@ -654,6 +654,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
                 this.onClear.emit(event);
                 this.onModelChange(this.value);
+                this.updateFilledState();
             }
         }
     }

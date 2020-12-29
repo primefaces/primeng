@@ -57,7 +57,7 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
     }
     
     updateFilledState() {
-        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
     
     @HostListener('focus', ['$event'])
