@@ -33,10 +33,10 @@ class TestConfirmDialogComponent {
 }
 
 describe('ConfirmDialog', () => {
-  
+
   let confirmDialog: ConfirmDialog;
   let fixture: ComponentFixture<TestConfirmDialogComponent>;
-  
+
   beforeEach(() => {
       TestBed.configureTestingModule({
         schemas: [NO_ERRORS_SCHEMA],
@@ -51,13 +51,13 @@ describe('ConfirmDialog', () => {
         ConfirmationService
       ]
       });
-      
+
       fixture = TestBed.createComponent(TestConfirmDialogComponent);
       confirmDialog = fixture.debugElement.query(By.css('p-confirmDialog')).componentInstance;
     });
 
     it('should display the header', () => {
-		confirmDialog.header = "PrimengRocks!";
+		confirmDialog.headerText = "PrimengRocks!";
 		confirmDialog.visible = true;
 		fixture.detectChanges();
 
@@ -139,22 +139,22 @@ describe('ConfirmDialog', () => {
 		const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		confirmEl.click();
 		fixture.detectChanges();
-		
+
 		const acceptButtonEl = fixture.debugElement.query(By.css('.p-dialog-footer')).children[0].nativeElement;
 		acceptButtonEl.click();
-		expect(fixture.componentInstance.header).toEqual("reject");      
+		expect(fixture.componentInstance.header).toEqual("reject");
     });
 
     it('should run accept', () => {
 		const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		confirmEl.click();
 		fixture.detectChanges();
-		
+
 		const rejectButtonEl = fixture.debugElement.query(By.css('.p-dialog-footer')).children[1].nativeElement;
 		rejectButtonEl.click();
 		expect(fixture.componentInstance.header).toEqual("accept");
 	});
-	
+
 	it('should close when click close icon', fakeAsync(() => {
 		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		buttonEl.click();
@@ -164,7 +164,7 @@ describe('ConfirmDialog', () => {
 		closeEl.click();
 		tick(300);
 		fixture.detectChanges();
-		
+
 		const confirmDialogEl = fixture.debugElement.query(By.css(".iui-dialog"));
 		expect(confirmDialogEl).toBeFalsy();
 	}));
@@ -174,14 +174,14 @@ describe('ConfirmDialog', () => {
 		buttonEl.click();
 		const closeSpy = spyOn(confirmDialog,"close").and.callThrough();
 		fixture.detectChanges();
-		
+
 		tick(300);
 		const escapeEvent: any = document.createEvent('CustomEvent');
         escapeEvent.which = 27;
         escapeEvent.initEvent('keydown', true, true);
         document.dispatchEvent(escapeEvent as KeyboardEvent);
 		fixture.detectChanges();
-		
+
 		expect(closeSpy).toHaveBeenCalled();
 	}));
 });

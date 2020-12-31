@@ -2,7 +2,7 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,Con
 import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys} from 'primeng/api';
+import {Footer,SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys, Header} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
@@ -23,8 +23,12 @@ const hideAnimation = animation([
         <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
             <div [ngClass]="{'p-dialog p-confirm-dialog p-component':true,'p-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
-                <div class="p-dialog-header">
-                    <span class="p-dialog-title" *ngIf="option('header')">{{option('header')}}</span>
+                <div class="p-dialog-header" *ngIf="header || headerTemplate">
+                    <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                </div>
+                <div class="p-dialog-header"  *ngIf="!header">
+                    <span class="p-dialog-title" *ngIf="option('headerText')">{{option('headerText')}}</span>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
                             <span class="pi pi-times"></span>
@@ -62,7 +66,7 @@ const hideAnimation = animation([
 })
 export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
-    @Input() header: string;
+    @Input() headerText: string;
 
     @Input() icon: string;
 
@@ -162,6 +166,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     }
 
     @ContentChild(Footer) footer;
+    @ContentChild(Header) header;
 
     @ViewChild('content') contentViewChild: ElementRef;
 
@@ -173,11 +178,16 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                 case 'footerTemplate':
                     this.footerTemplate = item.template;
                 break;
+                case 'headerTemplate':
+                    this.headerTemplate = item.template;
+                break;
             }
         });
     }
 
     footerTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
 
     confirmation: Confirmation;
 
@@ -217,7 +227,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                 this.confirmationOptions = {
                     message: this.confirmation.message||this.message,
                     icon: this.confirmation.icon||this.icon,
-                    header: this.confirmation.header||this.header,
+                    header: this.confirmation.header||this.headerText,
                     rejectVisible: this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible,
                     acceptVisible: this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible,
                     acceptLabel: this.confirmation.acceptLabel||this.acceptLabel,
