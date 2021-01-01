@@ -15,7 +15,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true">
                 <ng-container *ngIf="!template">
-                    <span [class]="'p-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
+                    <span [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
                     <div class="p-toast-message-text">
                         <div class="p-toast-summary">{{message.summary}}</div>
