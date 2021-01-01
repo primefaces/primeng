@@ -1,5 +1,28 @@
 # Changelog
 
+## [11.1.0-rc.1](https://github.com/primefaces/primeng/tree/11.1.0-rc.1) (2020-12-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.0.0...11.1.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Splitter Component [\#9677](https://github.com/primefaces/primeng/issues/9677)
+- CascadeSelect component [\#9665](https://github.com/primefaces/primeng/issues/9665)
+- Knob Component [\#9652](https://github.com/primefaces/primeng/issues/9652)
+- Divider Component [\#9650](https://github.com/primefaces/primeng/issues/9650)
+- ScrollTop Component [\#9649](https://github.com/primefaces/primeng/issues/9649)
+- Skeleton Component [\#9643](https://github.com/primefaces/primeng/issues/9643)
+- Chip Component [\#9641](https://github.com/primefaces/primeng/issues/9641)
+- Tag Component [\#9640](https://github.com/primefaces/primeng/issues/9640)
+- Avatar Component [\#9639](https://github.com/primefaces/primeng/issues/9639)
+- Badge Component and Directive [\#9638](https://github.com/primefaces/primeng/issues/9638)
+
+**Fixed bugs:**
+
+- optionValue backward compatibility issue [\#9660](https://github.com/primefaces/primeng/issues/9660)
+- headerTemplate error in Editor [\#9659](https://github.com/primefaces/primeng/issues/9659)
+- PrimeNG 11 requires Angular \< 11 [\#9626](https://github.com/primefaces/primeng/issues/9626)
+
 ## [11.0.0](https://github.com/primefaces/primeng/tree/11.0.0) (2020-12-08)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.0.0-rc.2...11.0.0)

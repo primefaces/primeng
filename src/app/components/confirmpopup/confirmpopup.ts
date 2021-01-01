@@ -249,6 +249,14 @@ export class ConfirmPopup implements OnDestroy {
         this.container = null;
     }
 
+    restoreAppend() {
+        if (this.container) {
+            document.body.removeChild(this.container);
+        }
+
+        this.onContainerDestroy();
+    }
+
     get acceptButtonLabel(): string {
         return this.confirmation.acceptLabel || this.config.getTranslation(TranslationKeys.ACCEPT);
     }
@@ -258,7 +266,7 @@ export class ConfirmPopup implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.onContainerDestroy();
+        this.restoreAppend();
 
         if (this.subscription) {
             this.subscription.unsubscribe();
