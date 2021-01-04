@@ -2143,7 +2143,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (this.scrollable) {
                 let headerCols = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-scrollable-header-table > colgroup > col');
-                let bodyCols = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-scrollable-body table > colgroup > col');
+                let bodyCols = this.virtualScroll ? DomHandler.find(this.containerViewChild.nativeElement, 'cdk-virtual-scroll-viewport table > colgroup > col') : DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-scrollable-body table > colgroup > col');
 
                 headerCols.map((col, index) => col.style.width = widths[index] + 'px');
                 bodyCols.map((col, index) => col.style.width = widths[index] + 'px');
