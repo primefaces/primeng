@@ -149,13 +149,15 @@ export class MenubarSub implements OnDestroy {
                 }
             };
 
-            document.addEventListener('click', this.documentClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('click', this.documentClickListener);
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('click', this.documentClickListener);
             this.documentClickListener = null;
         }
     }
@@ -251,7 +253,8 @@ export class Menubar implements AfterContentInit, OnDestroy {
                     this.cd.markForCheck();
                 }
             };
-            document.addEventListener('click', this.outsideClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('click', this.outsideClickListener);
         }
     }
 
@@ -262,7 +265,8 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('click', this.outsideClickListener);
             this.outsideClickListener = null;
         }
     }

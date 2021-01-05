@@ -236,13 +236,15 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     bindDocumentKeydownListener() {
         this.zone.runOutsideAngular(() => {
             this.documentKeydownListener = this.onKeydown.bind(this);
-            window.document.addEventListener('keydown', this.documentKeydownListener);
+            const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('keydown', this.documentKeydownListener);
         });
     }
 
     unbindDocumentKeydownListener() {
         if (this.documentKeydownListener) {
-            window.document.removeEventListener('keydown', this.documentKeydownListener);
+            const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('keydown', this.documentKeydownListener);
             this.documentKeydownListener = null;
         }
     }

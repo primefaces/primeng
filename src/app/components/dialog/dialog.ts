@@ -578,13 +578,15 @@ export class Dialog implements AfterContentInit,OnDestroy {
     bindDocumentDragListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragListener = this.onDrag.bind(this);
-            window.document.addEventListener('mousemove', this.documentDragListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('mousemove', this.documentDragListener);
         });
     }
 
     unbindDocumentDragListener() {
         if (this.documentDragListener) {
-            window.document.removeEventListener('mousemove', this.documentDragListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('mousemove', this.documentDragListener);
             this.documentDragListener = null;
         }
     }
@@ -592,13 +594,15 @@ export class Dialog implements AfterContentInit,OnDestroy {
     bindDocumentDragEndListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragEndListener = this.endDrag.bind(this);
-            window.document.addEventListener('mouseup', this.documentDragEndListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('mouseup', this.documentDragEndListener);
         });
     }
 
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
-            window.document.removeEventListener('mouseup', this.documentDragEndListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('mouseup', this.documentDragEndListener);
             this.documentDragEndListener = null;
         }
     }
@@ -607,15 +611,17 @@ export class Dialog implements AfterContentInit,OnDestroy {
         this.zone.runOutsideAngular(() => {
             this.documentResizeListener = this.onResize.bind(this);
             this.documentResizeEndListener = this.resizeEnd.bind(this);
-            window.document.addEventListener('mousemove', this.documentResizeListener);
-            window.document.addEventListener('mouseup', this.documentResizeEndListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('mousemove', this.documentResizeListener);
+            documentTarget.addEventListener('mouseup', this.documentResizeEndListener);
         });
     }
 
     unbindDocumentResizeListeners() {
         if (this.documentResizeListener && this.documentResizeEndListener) {
-            window.document.removeEventListener('mousemove', this.documentResizeListener);
-            window.document.removeEventListener('mouseup', this.documentResizeEndListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('mousemove', this.documentResizeListener);
+            documentTarget.removeEventListener('mouseup', this.documentResizeEndListener);
             this.documentResizeListener = null;
             this.documentResizeEndListener = null;
         }

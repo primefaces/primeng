@@ -161,8 +161,9 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         
         DomHandler.addClass(document.body, 'p-scrollpanel-grabbed');
 
-        document.addEventListener('mousemove', this.onDocumentMouseMove);
-        document.addEventListener('mouseup', this.onDocumentMouseUp);
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+        documentTarget.addEventListener('mousemove', this.onDocumentMouseMove);
+        documentTarget.addEventListener('mouseup', this.onDocumentMouseUp);
         e.preventDefault();
     }
 
@@ -173,8 +174,9 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
         DomHandler.addClass(document.body, 'p-scrollpanel-grabbed');
 
-        document.addEventListener('mousemove', this.onDocumentMouseMove);
-        document.addEventListener('mouseup', this.onDocumentMouseUp);
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+        documentTarget.addEventListener('mousemove', this.onDocumentMouseMove);
+        documentTarget.addEventListener('mouseup', this.onDocumentMouseUp);
         e.preventDefault();
     }
 
@@ -221,8 +223,9 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         DomHandler.removeClass(this.xBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
         DomHandler.removeClass(document.body, 'p-scrollpanel-grabbed');
 
-        document.removeEventListener('mousemove', this.onDocumentMouseMove);
-        document.removeEventListener('mouseup', this.onDocumentMouseUp);
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+        documentTarget.removeEventListener('mousemove', this.onDocumentMouseMove);
+        documentTarget.removeEventListener('mouseup', this.onDocumentMouseUp);
         this.isXBarClicked = false;
         this.isYBarClicked = false;
     }

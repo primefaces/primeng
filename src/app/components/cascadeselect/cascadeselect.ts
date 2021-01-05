@@ -541,13 +541,15 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
                     this.hide();
                 }
             };
-            document.addEventListener('click', this.outsideClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('click', this.outsideClickListener);
         }
     }
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('click', this.outsideClickListener);
             this.outsideClickListener = null;
         }
     }

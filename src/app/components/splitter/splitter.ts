@@ -181,9 +181,10 @@ export class Splitter {
     }
 
     bindMouseListeners() {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
         if (!this.mouseMoveListener) {
             this.mouseMoveListener = event => this.onResize(event)
-            document.addEventListener('mousemove', this.mouseMoveListener);
+            documentTarget.addEventListener('mousemove', this.mouseMoveListener);
         }
 
         if (!this.mouseUpListener) {
@@ -191,18 +192,19 @@ export class Splitter {
                 this.resizeEnd(event);
                 this.unbindMouseListeners();
             }
-            document.addEventListener('mouseup', this.mouseUpListener);
+            documentTarget.addEventListener('mouseup', this.mouseUpListener);
         }
     }
 
     unbindMouseListeners() {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
         if (this.mouseMoveListener) {
-            document.removeEventListener('mousemove', this.mouseMoveListener);
+            documentTarget.removeEventListener('mousemove', this.mouseMoveListener);
             this.mouseMoveListener = null;
         }
 
         if (this.mouseUpListener) {
-            document.removeEventListener('mouseup', this.mouseUpListener);
+            documentTarget.removeEventListener('mouseup', this.mouseUpListener);
             this.mouseUpListener = null;
         }
     }

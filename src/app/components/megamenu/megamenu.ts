@@ -223,13 +223,15 @@ export class MegaMenu implements AfterContentInit {
                 }
             };
 
-            document.addEventListener('click', this.documentClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('click', this.documentClickListener);
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('click', this.documentClickListener);
             this.documentClickListener = null;
         }
     }

@@ -1625,13 +1625,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 this.editingCellClick = false;
             };
 
-            document.addEventListener('click', this.documentEditListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.addEventListener('click', this.documentEditListener);
         }
     }
 
     unbindDocumentEditListener() {
         if (this.documentEditListener) {
-            document.removeEventListener('click', this.documentEditListener);
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            documentTarget.removeEventListener('click', this.documentEditListener);
             this.documentEditListener = null;
         }
     }
@@ -2083,22 +2085,25 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     bindDocumentEvents() {
         this.zone.runOutsideAngular(() => {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            
             this.documentMouseMoveListener = this.onDocumentMouseMove.bind(this);
-            document.addEventListener('mousemove', this.documentMouseMoveListener);
+            documentTarget.addEventListener('mousemove', this.documentMouseMoveListener);
 
             this.documentMouseUpListener = this.onDocumentMouseUp.bind(this);
-            document.addEventListener('mouseup', this.documentMouseUpListener);
+            documentTarget.addEventListener('mouseup', this.documentMouseUpListener);
         });
     }
 
     unbindDocumentEvents() {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
         if (this.documentMouseMoveListener) {
-            document.removeEventListener('mousemove', this.documentMouseMoveListener);
+            documentTarget.removeEventListener('mousemove', this.documentMouseMoveListener);
             this.documentMouseMoveListener = null;
         }
 
         if (this.documentMouseUpListener) {
-            document.removeEventListener('mouseup', this.documentMouseUpListener);
+            documentTarget.removeEventListener('mouseup', this.documentMouseUpListener);
             this.documentMouseUpListener = null;
         }
     }
@@ -2176,27 +2181,27 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
     unbindEvents() {
         if (this.mouseDownListener) {
-            document.removeEventListener('mousedown', this.mouseDownListener);
+            this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
             this.mouseDownListener = null;
         }
 
         if (this.dragOverListener) {
-            document.removeEventListener('dragover', this.dragOverListener);
+            this.el.nativeElement.removeEventListener('dragover', this.dragOverListener);
             this.dragOverListener = null;
         }
 
         if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
+            this.el.nativeElement.removeEventListener('dragenter', this.dragEnterListener);
             this.dragEnterListener = null;
         }
 
         if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
+            this.el.nativeElement.removeEventListener('dragenter', this.dragEnterListener);
             this.dragEnterListener = null;
         }
 
         if (this.dragLeaveListener) {
-            document.removeEventListener('dragleave', this.dragLeaveListener);
+            this.el.nativeElement.removeEventListener('dragleave', this.dragLeaveListener);
             this.dragLeaveListener = null;
         }
     }
