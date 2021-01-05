@@ -98,7 +98,8 @@ export class TabPanel implements AfterContentInit,OnDestroy {
             this.cd.detectChanges();
         }
 
-        this.loaded = true;
+        if (val)
+            this.loaded = true;
     }
 
     @Input() get disabled(): boolean {
