@@ -253,7 +253,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
+                DomHandler.getDocument(this.el).body.appendChild(this.containerViewChild.nativeElement);
             else
                 DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
@@ -290,7 +290,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                 if (!this.preventDocumentDefault) {
@@ -312,12 +312,14 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     bindDocumentResizeListener() {
         this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        const windowTarget = DomHandler.getWindow(this.el);
+        windowTarget.addEventListener('resize', this.documentResizeListener);
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }

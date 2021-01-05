@@ -226,13 +226,14 @@ export class DomHandler {
     }
 
     public static scrollInView(container, item) {
+        const documentTarget = DomHandler.getDocument(item);
         let borderTopValue: string = getComputedStyle(container).getPropertyValue('borderTopWidth');
         let borderTop: number = borderTopValue ? parseFloat(borderTopValue) : 0;
         let paddingTopValue: string = getComputedStyle(container).getPropertyValue('paddingTop');
         let paddingTop: number = paddingTopValue ? parseFloat(paddingTopValue) : 0;
         let containerRect = container.getBoundingClientRect();
         let itemRect = item.getBoundingClientRect();
-        let offset = (itemRect.top + document.body.scrollTop) - (containerRect.top + document.body.scrollTop) - borderTop - paddingTop;
+        let offset = (itemRect.top + documentTarget.body.scrollTop) - (containerRect.top + documentTarget.body.scrollTop) - borderTop - paddingTop;
         let scroll = container.scrollTop;
         let elementHeight = container.clientHeight;
         let itemHeight = this.getOuterHeight(item);
@@ -256,7 +257,7 @@ export class DomHandler {
             last = +new Date();
 
             if (+opacity < 1) {
-                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                (DomHandler.getWindow(element).requestAnimationFrame && DomHandler.getWindow(element).requestAnimationFrame(tick)) || setTimeout(tick, 16);
             }
         };
 
@@ -282,19 +283,20 @@ export class DomHandler {
     }
 
     public static getWindowScrollTop(): number {
-        let doc = document.documentElement;
+        let doc = DomHandler.getDocument().documentElement;
         return (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     }
 
     public static getWindowScrollLeft(): number {
-        let doc = document.documentElement;
+        let doc = DomHandler.getDocument().documentElement;
         return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     }
 
     public static matches(element, selector: string): boolean {
+        const documentTarget = DomHandler.getDocument(element);
         var p = Element.prototype;
         var f = p['matches'] || p.webkitMatchesSelector || p['mozMatchesSelector'] || p['msMatchesSelector'] || function (s) {
-            return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+            return [].indexOf.call(documentTarget.querySelectorAll(s), this) !== -1;
         };
         return f.call(element, selector);
     }
@@ -386,10 +388,12 @@ export class DomHandler {
 
     public static getOffset(el) {
         var rect = el.getBoundingClientRect();
+        const windowTarget = DomHandler.getWindow(el);
+        const documentTarget = DomHandler.getDocument(el);
 
         return {
-            top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
+            top: rect.top + (windowTarget.pageYOffset || documentTarget.documentElement.scrollTop || documentTarget.body.scrollTop || 0),
+            left: rect.left + (windowTarget.pageXOffset || documentTarget.documentElement.scrollLeft || documentTarget.body.scrollLeft || 0),
         };
     }
 
@@ -478,12 +482,13 @@ export class DomHandler {
             if (this.calculatedScrollbarWidth !== null)
                 return this.calculatedScrollbarWidth;
 
-            let scrollDiv = document.createElement("div");
+            const documentTarget = DomHandler.getDocument(this.el);
+            let scrollDiv = documentTarget.createElement("div");
             scrollDiv.className = "p-scrollbar-measure";
-            document.body.appendChild(scrollDiv);
+            documentTarget.body.appendChild(scrollDiv);
 
             let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-            document.body.removeChild(scrollDiv);
+            documentTarget.body.removeChild(scrollDiv);
 
             this.calculatedScrollbarWidth = scrollbarWidth;
 
@@ -495,12 +500,13 @@ export class DomHandler {
         if (this.calculatedScrollbarHeight !== null)
             return this.calculatedScrollbarHeight;
 
-        let scrollDiv = document.createElement("div");
+        const documentTarget = DomHandler.getDocument();
+        let scrollDiv = documentTarget.createElement("div");
         scrollDiv.className = "p-scrollbar-measure";
-        document.body.appendChild(scrollDiv);
+        documentTarget.body.appendChild(scrollDiv);
 
         let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
-        document.body.removeChild(scrollDiv);
+        documentTarget.body.removeChild(scrollDiv);
 
         this.calculatedScrollbarWidth = scrollbarHeight;
 
@@ -595,5 +601,15 @@ export class DomHandler {
     static generateZIndex() {
         this.zindex = this.zindex||999;
         return ++this.zindex;
+    }
+
+    static getWindow( elementRef?: any ): Window {
+        const el = elementRef?.nativeElement ? elementRef.nativeElement : elementRef;
+        return el ? el.ownerDocument.defaultView : window;
+    }
+
+    static getDocument( elementRef?: any ): Document {
+        const el = elementRef?.nativeElement ? elementRef.nativeElement : elementRef;
+        return el ? el.ownerDocument : document;
     }
 }

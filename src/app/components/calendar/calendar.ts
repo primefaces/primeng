@@ -442,7 +442,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     set defaultDate(defaultDate: Date) {
         this._defaultDate = defaultDate;
-        
+
         if (this.initialized) {
             const date = defaultDate||new Date();
             this.currentMonth = date.getMonth();
@@ -2046,8 +2046,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+            if (this.appendTo === 'body') {
+                const documentTarget = DomHandler.getDocument(this.el);
+                documentTarget.body.appendChild( this.overlay );
+            }
             else
                 DomHandler.appendChild(this.overlay, this.appendTo);
         }
@@ -2073,7 +2075,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     enableModality(element) {
         if (!this.mask) {
-            this.mask = document.createElement('div');
+            const documentTarget = DomHandler.getDocument(this.el);
+            this.mask = documentTarget.createElement('div');
             this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
             let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
@@ -2081,15 +2084,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 			this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
-            document.body.appendChild(this.mask);
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            documentTarget.body.appendChild(this.mask);
+            DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
         }
     }
 
     disableModality() {
         if (this.mask) {
-            document.body.removeChild(this.mask);
-            let bodyChildren = document.body.children;
+            const documentTarget = DomHandler.getDocument(this.el);
+            documentTarget.body.removeChild(this.mask);
+            let bodyChildren = documentTarget.body.children;
             let hasBlockerMasks: boolean;
             for (let i = 0; i < bodyChildren.length; i++) {
                 let bodyChild = bodyChildren[i];
@@ -2100,7 +2104,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
 
             if (!hasBlockerMasks) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
             }
 
             this.unbindMaskClickListener();
@@ -2486,7 +2490,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.zone.runOutsideAngular(() => {
-                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+                const documentTarget = DomHandler.getDocument(this.el);
 
                 this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
@@ -2513,13 +2517,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener && !this.touchUI) {
             this.documentResizeListener = this.onWindowResize.bind(this);
-            window.addEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.addEventListener('resize', this.documentResizeListener);
         }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }

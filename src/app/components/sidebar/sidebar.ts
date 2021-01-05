@@ -99,7 +99,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
+                DomHandler.getDocument(this.el).body.appendChild(this.containerViewChild.nativeElement);
             else
                 DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
@@ -177,7 +177,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     enableModality() {
         if (!this.mask) {
-            this.mask = document.createElement('div');
+            const documentTarget = DomHandler.getDocument(this.el);
+            this.mask = documentTarget.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask');
 
@@ -189,9 +190,9 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
                 });
             }
 
-            document.body.appendChild(this.mask);
+            documentTarget.body.appendChild(this.mask);
             if (this.blockScroll) {
-                DomHandler.addClass(document.body, 'p-overflow-hidden');
+                DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
             }
         }
     }
@@ -199,9 +200,10 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
     disableModality() {
         if (this.mask) {
             this.unbindMaskClickListener();
-            document.body.removeChild(this.mask);
+            const documentTarget = DomHandler.getDocument(this.el);
+            documentTarget.body.removeChild(this.mask);
             if (this.blockScroll) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
             }
             this.mask = null;
         }
@@ -222,7 +224,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
     }
 
     bindDocumentEscapeListener() {
-        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+        const documentTarget = DomHandler.getDocument(this.el);
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {

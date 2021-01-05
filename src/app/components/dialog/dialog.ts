@@ -346,7 +346,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
         }
 
         if (this.modal) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            const documentTarget = DomHandler.getDocument(this.el);
+            DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
         }
     }
 
@@ -357,7 +358,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
             }
 
             if (this.modal) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                const documentTarget = DomHandler.getDocument(this.el);
+                DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -370,10 +372,11 @@ export class Dialog implements AfterContentInit,OnDestroy {
         this.maximized = !this.maximized;
 
         if (!this.modal && !this.blockScroll) {
+            const documentTarget = DomHandler.getDocument(this.el);
             if (this.maximized)
-                DomHandler.addClass(document.body, 'p-overflow-hidden');
+                DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
             else
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
         }
 
         this.onMaximize.emit({'maximized': this.maximized});
@@ -404,7 +407,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
             this.lastPageY = event.pageY;
 
             this.container.style.margin = '0';
-            DomHandler.addClass(document.body, 'p-unselectable-text');
+            const documentTarget = DomHandler.getDocument(this.el);
+            DomHandler.addClass(documentTarget.body, 'p-unselectable-text');
         }
     }
 
@@ -478,7 +482,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
     endDrag(event: MouseEvent) {
         if (this.dragging) {
             this.dragging = false;
-            DomHandler.removeClass(document.body, 'p-unselectable-text');
+            const documentTarget = DomHandler.getDocument(this.el);
+            DomHandler.removeClass(documentTarget.body, 'p-unselectable-text');
             this.cd.detectChanges();
             this.onDragEnd.emit(event);
         }
@@ -501,7 +506,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-            DomHandler.addClass(document.body, 'p-unselectable-text');
+            const documentTarget = DomHandler.getDocument(this.el);
+            DomHandler.addClass(documentTarget.body, 'p-unselectable-text');
             this.onResizeInit.emit(event);
         }
     }
@@ -548,7 +554,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
     resizeEnd(event) {
         if (this.resizing) {
             this.resizing = false;
-            DomHandler.removeClass(document.body, 'p-unselectable-text');
+            const documentTarget = DomHandler.getDocument(this.el);
+            DomHandler.removeClass(documentTarget.body, 'p-unselectable-text');
             this.onResizeEnd.emit(event);
         }
     }
@@ -578,14 +585,14 @@ export class Dialog implements AfterContentInit,OnDestroy {
     bindDocumentDragListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragListener = this.onDrag.bind(this);
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.addEventListener('mousemove', this.documentDragListener);
         });
     }
 
     unbindDocumentDragListener() {
         if (this.documentDragListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.removeEventListener('mousemove', this.documentDragListener);
             this.documentDragListener = null;
         }
@@ -594,14 +601,14 @@ export class Dialog implements AfterContentInit,OnDestroy {
     bindDocumentDragEndListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragEndListener = this.endDrag.bind(this);
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.addEventListener('mouseup', this.documentDragEndListener);
         });
     }
 
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.removeEventListener('mouseup', this.documentDragEndListener);
             this.documentDragEndListener = null;
         }
@@ -611,7 +618,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
         this.zone.runOutsideAngular(() => {
             this.documentResizeListener = this.onResize.bind(this);
             this.documentResizeEndListener = this.resizeEnd.bind(this);
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.addEventListener('mousemove', this.documentResizeListener);
             documentTarget.addEventListener('mouseup', this.documentResizeEndListener);
         });
@@ -619,7 +626,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     unbindDocumentResizeListeners() {
         if (this.documentResizeListener && this.documentResizeEndListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.removeEventListener('mousemove', this.documentResizeListener);
             documentTarget.removeEventListener('mouseup', this.documentResizeEndListener);
             this.documentResizeListener = null;
@@ -628,7 +635,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
     }
 
     bindDocumentEscapeListener() {
-        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+        const documentTarget = DomHandler.getDocument(this.el);
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
@@ -648,8 +655,9 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
+            const documentTarget = DomHandler.getDocument(this.el);
             if (this.appendTo === 'body')
-                document.body.appendChild(this.wrapper);
+                documentTarget.body.appendChild(this.wrapper);
             else
                 DomHandler.appendChild(this.wrapper, this.appendTo);
         }
@@ -675,7 +683,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
                 }
 
                 if (!this.modal && this.blockScroll) {
-                    DomHandler.addClass(document.body, 'p-overflow-hidden');
+                    const documentTarget = DomHandler.getDocument(this.el);
+                    DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
                 }
 
                 if (this.focusOnShow) {
@@ -702,9 +711,10 @@ export class Dialog implements AfterContentInit,OnDestroy {
         this.dragging = false;
 
         this.maskVisible = false;
+        const documentTarget = DomHandler.getDocument(this.el);
 
         if (this.maximized) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
             this.maximized = false;
         }
 
@@ -713,7 +723,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
         }
 
         this.container = null;

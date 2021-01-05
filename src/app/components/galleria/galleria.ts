@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-galleria',
@@ -89,7 +89,7 @@ export class Galleria implements OnChanges, OnDestroy {
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
     @Output() visibleChange: EventEmitter<any> = new EventEmitter();
-    
+
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
 
@@ -130,17 +130,18 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         if (this.fullScreen && simpleChanges.visible) {
+            const documentTarget = DomHandler.getDocument(this.mask);
             if (simpleChanges.visible.currentValue) {
-                DomHandler.addClass(document.body, 'p-overflow-hidden');
+                DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
 
                 this.zIndex = String(this.baseZIndex + ++DomHandler.zindex)
             }
             else {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
             }
         }
     }
-    
+
     onMaskHide() {
         this.visible = false;
         this.visibleChange.emit(false);
@@ -155,7 +156,8 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnDestroy() {
         if (this.fullScreen) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            const documentTarget = DomHandler.getDocument(this.mask);
+            DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
         }
     }
 }
@@ -163,7 +165,7 @@ export class Galleria implements OnChanges, OnDestroy {
 @Component({
     selector: 'p-galleriaContent',
     template: `
-        <div [attr.id]="id" *ngIf="value && value.length > 0" [ngClass]="{'p-galleria p-component': true, 'p-galleria-fullscreen': this.galleria.fullScreen, 
+        <div [attr.id]="id" *ngIf="value && value.length > 0" [ngClass]="{'p-galleria p-component': true, 'p-galleria-fullscreen': this.galleria.fullScreen,
             'p-galleria-indicator-onitem': this.galleria.showIndicatorsOnItem, 'p-galleria-item-nav-onhover': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen}"
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" [class]="galleriaClass()">
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple>
@@ -173,7 +175,7 @@ export class Galleria implements OnChanges, OnDestroy {
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
             <div class="p-galleria-content">
-                <p-galleriaItem [value]="value" [activeIndex]="activeIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
+                <p-galleriaItem [value]="value" [activeIndex]="activeIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)"
                     [showIndicators]="galleria.showIndicators" [changeItemOnIndicatorHover]="galleria.changeItemOnIndicatorHover" [indicatorFacet]="galleria.indicatorFacet"
                     [captionFacet]="galleria.captionFacet" [showItemNavigators]="galleria.showItemNavigators" [autoPlay]="galleria.autoPlay" [slideShowActive]="slideShowActive"
                     (startSlideShow)="startSlideShow()" (stopSlideShow)="stopSlideShow()"></p-galleriaItem>
@@ -386,7 +388,7 @@ export class GalleriaItem implements OnInit {
     @Output() startSlideShow: EventEmitter<any> = new EventEmitter();
 
     @Output() stopSlideShow: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onActiveIndexChange: EventEmitter<any> = new EventEmitter();
 
     @Input() get activeIndex(): number {
@@ -549,11 +551,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
         this._oldactiveIndex = this._activeIndex;
         this._activeIndex = activeIndex;
     }
-    
+
     index: number;
 
     startPos = null;
-    
+
     thumbnailsStyle = null;
 
     sortedResponsiveOptions = null;
@@ -571,7 +573,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     _oldNumVisible: number = 0;
 
     _activeIndex: number = 0;
-    
+
     _oldactiveIndex: number = 0;
 
     ngOnInit() {
@@ -620,9 +622,10 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     createStyle() {
         if (!this.thumbnailsStyle) {
-            this.thumbnailsStyle = document.createElement('style');
+            const documentTarget = DomHandler.getDocument(this.itemsContainer);
+            this.thumbnailsStyle = documentTarget.createElement('style');
             this.thumbnailsStyle.type = 'text/css';
-            document.body.appendChild(this.thumbnailsStyle);
+            documentTarget.body.appendChild(this.thumbnailsStyle);
         }
 
         let innerHTML = `
@@ -670,7 +673,8 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     calculatePosition() {
         if (this.itemsContainer && this.sortedResponsiveOptions) {
-            let windowWidth = window.innerWidth;
+            const windowTarget = DomHandler.getWindow(this.itemsContainer);
+            let windowWidth = windowTarget.innerWidth;
             let matchedResponsiveData = {
                 numVisible: this._numVisible
             };
@@ -793,7 +797,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
             this.navBackward(e);
         }
     }
-    
+
     getTotalPageNumber() {
         return this.value.length > this.d_numVisible ? (this.value.length - this.d_numVisible) + 1 : 0;
     }
@@ -863,13 +867,15 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
                 this.calculatePosition();
             };
 
-            window.addEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.itemsContainer);
+            windowTarget.addEventListener('resize', this.documentResizeListener);
         }
     }
 
     unbindDocumentListeners() {
         if(this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.itemsContainer);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }

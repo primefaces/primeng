@@ -10,30 +10,31 @@ import { UniqueComponentId } from 'primeng/utils';
 export class BadgeDirective implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
-            
+
     public _value: string;
-            
+
     public initialized: boolean;
 
     private id: string;
-    
+
     constructor(public el: ElementRef) {}
-    
+
     ngAfterViewInit() {
         this.id = UniqueComponentId() + '_badge';
-        let el = this.el.nativeElement.nodeName.indexOf("-") != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement; 
+        let el = this.el.nativeElement.nodeName.indexOf("-") != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
 
-        let badge = document.createElement('span');
+        const documentTarget = DomHandler.getDocument(this.el);
+        let badge = documentTarget.createElement('span');
         badge.id = this.id ;
         badge.className = 'p-badge p-component';
 
         if (this.severity) {
             DomHandler.addClass(badge, 'p-badge-' + this.severity);
         }
-        
+
         if (this.value != null) {
-            badge.appendChild(document.createTextNode(this.value));
-            
+            badge.appendChild(documentTarget.createTextNode(this.value));
+
             if (String(this.value).length === 1) {
                 DomHandler.addClass(badge, 'p-badge-no-gutter');
             }
@@ -57,7 +58,8 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             this._value = val;
 
             if (this.initialized) {
-                let badge = document.getElementById(this.id);
+                const documentTarget = DomHandler.getDocument(this.el);
+                let badge = documentTarget.getElementById(this.id);
 
                 if (this._value) {
                     if (DomHandler.hasClass(badge, 'p-badge-dot'))
@@ -75,13 +77,13 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
                 }
 
                 badge.innerHTML = '';
-                badge.appendChild(document.createTextNode(this._value));
+                badge.appendChild(documentTarget.createTextNode(this._value));
             }
         }
     }
 
     @Input() severity: string;
-        
+
     ngOnDestroy() {
         this.initialized = false;
     }
@@ -105,11 +107,11 @@ export class Badge {
     @Input() style: any;
 
     @Input() size: string;
-    
+
     @Input() severity: string;
-    
+
     @Input() value: string;
-    
+
     containerClass() {
         return {
             'p-badge p-component': true,

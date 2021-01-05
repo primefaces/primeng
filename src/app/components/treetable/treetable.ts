@@ -1625,14 +1625,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 this.editingCellClick = false;
             };
 
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.addEventListener('click', this.documentEditListener);
         }
     }
 
     unbindDocumentEditListener() {
         if (this.documentEditListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.removeEventListener('click', this.documentEditListener);
             this.documentEditListener = null;
         }
@@ -2072,7 +2072,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         if (this.isEnabled()) {
             DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
-            this.resizer = document.createElement('span');
+            this.resizer = DomHandler.getDocument(this.el).createElement('span');
             this.resizer.className = 'p-column-resizer';
             this.el.nativeElement.appendChild(this.resizer);
 
@@ -2085,8 +2085,8 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     bindDocumentEvents() {
         this.zone.runOutsideAngular(() => {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
-            
+            const documentTarget = DomHandler.getDocument(this.el);
+
             this.documentMouseMoveListener = this.onDocumentMouseMove.bind(this);
             documentTarget.addEventListener('mousemove', this.documentMouseMoveListener);
 
@@ -2096,7 +2096,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
     }
 
     unbindDocumentEvents() {
-        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+        const documentTarget = DomHandler.getDocument(this.el);
         if (this.documentMouseMoveListener) {
             documentTarget.removeEventListener('mousemove', this.documentMouseMoveListener);
             this.documentMouseMoveListener = null;

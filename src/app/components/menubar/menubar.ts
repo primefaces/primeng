@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-menubarSub',
@@ -12,9 +12,9 @@ import { RippleModule } from 'primeng/ripple';
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}">
-                    <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" 
-                        (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)" 
-                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" 
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
+                        (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"
+                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass"
                          [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
@@ -23,7 +23,7 @@ import { RippleModule } from 'primeng/ripple';
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
                         [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" role="menuitem"
-                        (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)" 
+                        (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"
                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass"
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state" pRipple>
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -52,7 +52,7 @@ export class MenubarSub implements OnDestroy {
 
     @Input() autoDisplay: boolean;
 
-    @Input() get parentActive():boolean 
+    @Input() get parentActive():boolean
     {
         return this._parentActive;
     }
@@ -93,7 +93,7 @@ export class MenubarSub implements OnDestroy {
                 item: item
             });
         }
-        
+
         if (item.items) {
             if (this.activeItem && item === this.activeItem) {
                 this.activeItem = null;
@@ -149,14 +149,14 @@ export class MenubarSub implements OnDestroy {
                 }
             };
 
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.addEventListener('click', this.documentClickListener);
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.removeEventListener('click', this.documentClickListener);
             this.documentClickListener = null;
         }
@@ -253,7 +253,7 @@ export class Menubar implements AfterContentInit, OnDestroy {
                     this.cd.markForCheck();
                 }
             };
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.addEventListener('click', this.outsideClickListener);
         }
     }
@@ -265,7 +265,7 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
             documentTarget.removeEventListener('click', this.outsideClickListener);
             this.outsideClickListener = null;
         }

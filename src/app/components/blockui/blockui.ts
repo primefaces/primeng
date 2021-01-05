@@ -18,30 +18,30 @@ import {PrimeTemplate} from 'primeng/api';
 export class BlockUI implements AfterViewInit,OnDestroy {
 
     @Input() target: any;
-    
+
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @Input() styleClass: string;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('mask') mask: ElementRef;
-    
+
     _blocked: boolean;
 
     contentTemplate: TemplateRef<any>;
-        
+
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
-    
+
     @Input() get blocked(): boolean {
         return this._blocked;
     }
-    
+
     set blocked(val: boolean) {
         this._blocked = val;
-        
+
         if (this.mask && this.mask.nativeElement) {
             if (this._blocked)
                 this.block();
@@ -49,7 +49,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
                 this.unblock();
         }
     }
-    
+
     ngAfterViewInit() {
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
@@ -62,32 +62,33 @@ export class BlockUI implements AfterViewInit,OnDestroy {
                 case 'content':
                     this.contentTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;
             }
         });
     }
-        
+
     block() {
         if (this.target) {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
             this.target.getBlockableElement().style.position = 'relative';
         }
         else {
-            document.body.appendChild(this.mask.nativeElement);
+            const documentTarget = DomHandler.getDocument(this.el);
+            documentTarget.body.appendChild(this.mask.nativeElement);
         }
-        
+
         if (this.autoZIndex) {
             this.mask.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     unblock() {
         this.el.nativeElement.appendChild(this.mask.nativeElement);
     }
-    
+
     ngOnDestroy() {
         this.unblock();
     }

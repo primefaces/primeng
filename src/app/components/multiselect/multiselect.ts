@@ -19,7 +19,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelectItem',
     template: `
-        <li class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)" [attr.aria-label]="label" 
+        <li class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)" [attr.aria-label]="label"
             [attr.tabindex]="disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'p-highlight': selected, 'p-disabled': disabled}" pRipple>
             <div class="p-checkbox p-component">
@@ -521,8 +521,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.disabled || this.toggleAllDisabled || this.readonly) {
             return;
         }
-        
-        let allChecked = this.allChecked;     
+
+        let allChecked = this.allChecked;
 
         if (allChecked)
             this.uncheckAll();
@@ -530,7 +530,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.checkAll();
 
         this.onModelChange(this.value);
-        this.onChange.emit({ originalEvent: event, value: this.value });        
+        this.onChange.emit({ originalEvent: event, value: this.value });
         this.updateFilledState();
         this.updateLabel();
         event.preventDefault();
@@ -541,7 +541,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let val: any[] = [];
 
         optionsToRender.forEach(opt => {
-            let optionDisabled = this.isOptionDisabled(opt); 
+            let optionDisabled = this.isOptionDisabled(opt);
             if (!optionDisabled || (optionDisabled && this.isSelected(opt))) {
                 val.push(this.getOptionValue(opt));
             }
@@ -555,7 +555,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let val: any[] = [];
 
         optionsToRender.forEach(opt => {
-            let optionDisabled = this.isOptionDisabled(opt); 
+            let optionDisabled = this.isOptionDisabled(opt);
             if (optionDisabled && this.isSelected(opt)) {
                 val.push(this.getOptionValue(opt));
             }
@@ -603,7 +603,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                DomHandler.getDocument(this.el).body.appendChild(this.overlay);
             else
                 DomHandler.appendChild(this.overlay, this.appendTo);
 
@@ -835,7 +835,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 if (disabled) {
                     if (selected)
                         selectedDisabledItemsLength++;
-                    else 
+                    else
                         unselectedDisabledItemsLength++;
                 }
                 else {
@@ -846,8 +846,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
 
-            return (optionsToRender.length === selectedDisabledItemsLength 
-                    || optionsToRender.length === selectedEnabledItemsLength 
+            return (optionsToRender.length === selectedDisabledItemsLength
+                    || optionsToRender.length === selectedEnabledItemsLength
                     || selectedEnabledItemsLength && optionsToRender.length === (selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength));
         }
     }
@@ -862,7 +862,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     hasFilter() {
-        return this._filterValue && this._filterValue.trim().length > 0; 
+        return this._filterValue && this._filterValue.trim().length > 0;
     }
 
     onFilter(event: KeyboardEvent) {
@@ -873,7 +873,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     filterOptions() {
         if (this.hasFilter() && this._options) {
             let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
-            this._filteredOptions = this.filterService.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);        
+            this._filteredOptions = this.filterService.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);
         }
         else {
             this._filteredOptions = null;
@@ -890,7 +890,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (this.isOutsideClicked(event)) {
@@ -909,12 +909,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     bindDocumentResizeListener() {
         this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        const windowTarget = DomHandler.getWindow(this.el);
+        windowTarget.addEventListener('resize', this.documentResizeListener);
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }

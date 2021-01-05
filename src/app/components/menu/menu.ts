@@ -170,7 +170,7 @@ export class Menu implements OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.container);
+                DomHandler.getDocument(this.el).body.appendChild(this.container);
             else
                 DomHandler.appendChild(this.container, this.appendTo);
         }
@@ -222,7 +222,7 @@ export class Menu implements OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                 if (!this.preventDocumentDefault) {
@@ -243,12 +243,14 @@ export class Menu implements OnDestroy {
 
     bindDocumentResizeListener() {
         this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        const windowTarget = DomHandler.getWindow(this.el);
+        windowTarget.addEventListener('resize', this.documentResizeListener);
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }

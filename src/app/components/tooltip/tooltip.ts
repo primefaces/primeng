@@ -164,13 +164,14 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.remove();
         }
 
-        this.container = document.createElement('div');
+        const documentTarget = DomHandler.getDocument(this.el);
+        this.container = documentTarget.createElement('div');
 
-        let tooltipArrow = document.createElement('div');
+        let tooltipArrow = documentTarget.createElement('div');
         tooltipArrow.className = 'p-tooltip-arrow';
         this.container.appendChild(tooltipArrow);
 
-        this.tooltipText = document.createElement('div');
+        this.tooltipText = documentTarget.createElement('div');
         this.tooltipText.className = 'p-tooltip-text';
 
         this.updateText();
@@ -182,7 +183,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.appendChild(this.tooltipText);
 
         if (this.appendTo === 'body')
-            document.body.appendChild(this.container);
+            documentTarget.body.appendChild(this.container);
         else if (this.appendTo === 'target')
             DomHandler.appendChild(this.container, this.el.nativeElement);
         else
@@ -216,7 +217,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     updateText() {
         if (this.escape) {
             this.tooltipText.innerHTML = '';
-            this.tooltipText.appendChild(document.createTextNode(this._text));
+            this.tooltipText.appendChild(DomHandler.getDocument(this.el).createTextNode(this._text));
         }
         else {
             this.tooltipText.innerHTML = this._text;
@@ -362,13 +363,15 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     bindDocumentResizeListener() {
         this.zone.runOutsideAngular(() => {
             this.resizeListener = this.onWindowResize.bind(this);
-            window.addEventListener('resize', this.resizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.addEventListener('resize', this.resizeListener);
         });
     }
 
     unbindDocumentResizeListener() {
         if (this.resizeListener) {
-            window.removeEventListener('resize', this.resizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.resizeListener);
             this.resizeListener = null;
         }
     }
@@ -408,7 +411,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     remove() {
         if (this.container && this.container.parentElement) {
             if (this.appendTo === 'body')
-                document.body.removeChild(this.container);
+                DomHandler.getDocument(this.el).body.removeChild(this.container);
             else if (this.appendTo === 'target')
                 this.el.nativeElement.removeChild(this.container);
             else

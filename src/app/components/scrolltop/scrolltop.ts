@@ -34,19 +34,19 @@ export class ScrollTop implements OnInit, OnDestroy {
     @Input() style: any;
 
     @Input() target: string = "window";
-    
+
     @Input() threshold: number = 400;
 
     @Input() icon: string = "pi pi-chevron-up";
 
     @Input() behavior: string = "smooth";
-    
+
     @Input() showTransitionOptions: string = '.15s';
 
     @Input() hideTransitionOptions: string = '.15s';
 
     scrollListener: any;
-    
+
     visible: boolean = false;
 
     constructor(public el: ElementRef, private cd: ChangeDetectorRef) { }
@@ -61,7 +61,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     onClick() {
         let scrollElement = this.target === 'window' ? window : this.el.nativeElement.parentElement;
          scrollElement.scroll({
-            top: 0, 
+            top: 0,
             behavior: this.behavior
         });
     }
@@ -84,7 +84,7 @@ export class ScrollTop implements OnInit, OnDestroy {
 
             this.checkVisibility(this.el.nativeElement.parentElement.scrollTop);
         };
-        
+
         this.el.nativeElement.parentElement.addEventListener('scroll', this.scrollListener);
     }
 
@@ -92,8 +92,9 @@ export class ScrollTop implements OnInit, OnDestroy {
         this.scrollListener = () => {
             this.checkVisibility(DomHandler.getWindowScrollTop());
         };
-        
-        window.addEventListener('scroll', this.scrollListener);
+
+        const windowTarget = DomHandler.getWindow(this.el);
+        windowTarget.addEventListener('scroll', this.scrollListener);
     }
 
     unbindParentScrollListener() {
@@ -105,7 +106,8 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     unbindDocumentScrollListener() {
         if (this.scrollListener) {
-            window.removeEventListener('scroll', this.scrollListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('scroll', this.scrollListener);
             this.scrollListener = null;
         }
     }

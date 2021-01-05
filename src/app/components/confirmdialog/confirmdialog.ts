@@ -306,7 +306,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.wrapper);
+                DomHandler.getDocument(this.el).body.appendChild(this.wrapper);
             else
                 DomHandler.appendChild(this.wrapper, this.appendTo);
         }
@@ -320,7 +320,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     enableModality() {
         if (this.option('blockScroll')) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            const documentTarget = DomHandler.getDocument(this.el);
+            DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
         }
 
         if (this.option('dismissableMask')) {
@@ -336,7 +337,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         this.maskVisible = false;
 
         if (this.option('blockScroll')) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            const documentTarget = DomHandler.getDocument(this.el);
+            DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
         }
 
         if (this.dismissableMask) {
@@ -385,7 +387,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     bindGlobalListeners() {
         if ((this.option('closeOnEscape') && this.closable) || this.focusTrap && !this.documentEscapeListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which == 27 && (this.option('closeOnEscape') && this.closable)) {

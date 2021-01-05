@@ -217,7 +217,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         if (this.global) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.triggerEventListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
                 this.show(event);
@@ -234,7 +234,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
+                DomHandler.getDocument(this.el).body.appendChild(this.containerViewChild.nativeElement);
             else
                 DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
@@ -276,6 +276,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     position(event?: MouseEvent) {
         if (event) {
+            const documentTarget = DomHandler.getDocument(this.el);
             let left = event.pageX + 1;
             let top = event.pageY + 1;
             let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
@@ -283,23 +284,23 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             let viewport = DomHandler.getViewport();
 
             //flip
-            if (left + width - document.body.scrollLeft > viewport.width) {
+            if (left + width - documentTarget.body.scrollLeft > viewport.width) {
                 left -= width;
             }
 
             //flip
-            if (top + height - document.body.scrollTop > viewport.height) {
+            if (top + height - documentTarget.body.scrollTop > viewport.height) {
                 top -= height;
             }
 
             //fit
-            if (left < document.body.scrollLeft) {
-                left = document.body.scrollLeft;
+            if (left < documentTarget.body.scrollLeft) {
+                left = documentTarget.body.scrollLeft;
             }
 
             //fit
-            if (top < document.body.scrollTop) {
-                top = document.body.scrollTop;
+            if (top < documentTarget.body.scrollTop) {
+                top = documentTarget.body.scrollTop;
             }
 
             this.containerViewChild.nativeElement.style.left = left + 'px';
@@ -398,7 +399,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     bindGlobalListeners() {
         if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && event.button !== 2) {
@@ -410,12 +411,13 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.zone.runOutsideAngular(() => {
             if (!this.windowResizeListener) {
                 this.windowResizeListener = this.onWindowResize.bind(this);
-                window.addEventListener('resize', this.windowResizeListener);
+                const windowTarget = DomHandler.getWindow(this.el);
+                windowTarget.addEventListener('resize', this.windowResizeListener);
             }
         });
 
         if (!this.documentKeydownListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentKeydownListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 let activeItem = this.getActiveItem();
@@ -562,7 +564,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.windowResizeListener) {
-            window.removeEventListener('resize', this.windowResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.windowResizeListener);
             this.windowResizeListener = null;
         }
 

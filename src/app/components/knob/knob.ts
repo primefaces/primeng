@@ -1,6 +1,7 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomHandler } from '../dom/domhandler';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -70,7 +71,7 @@ export class Knob {
     minRadians: number = 4 * Math.PI / 3;
 
     maxRadians: number = -Math.PI / 3;
-    
+
     value: number = null;
 
     windowMouseMoveListener: any;
@@ -124,16 +125,18 @@ export class Knob {
         if (!this.disabled && !this.readonly) {
             this.windowMouseMoveListener = this.onMouseMove.bind(this)
             this.windowMouseUpListener = this.onMouseUp.bind(this)
-            window.addEventListener('mousemove', this.windowMouseMoveListener);
-            window.addEventListener('mouseup', this.windowMouseUpListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.addEventListener('mousemove', this.windowMouseMoveListener);
+            windowTarget.addEventListener('mouseup', this.windowMouseUpListener);
             event.preventDefault();
         }
     }
 
     onMouseUp(event) {
         if (!this.disabled && !this.readonly) {
-            window.removeEventListener('mousemove', this.windowMouseMoveListener);
-            window.removeEventListener('mouseup', this.windowMouseUpListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('mousemove', this.windowMouseMoveListener);
+            windowTarget.removeEventListener('mouseup', this.windowMouseUpListener);
             this.windowMouseUpListener = null;
             this.windowMouseMoveListener = null;
             event.preventDefault();
@@ -144,16 +147,18 @@ export class Knob {
         if (!this.disabled && !this.readonly) {
             this.windowTouchMoveListener = this.onTouchMove.bind(this);
             this.windowTouchEndListener = this.onTouchEnd.bind(this);
-            window.addEventListener('touchmove', this.windowTouchMoveListener);
-            window.addEventListener('touchend', this.windowTouchEndListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.addEventListener('touchmove', this.windowTouchMoveListener);
+            windowTarget.addEventListener('touchend', this.windowTouchEndListener);
             event.preventDefault();
         }
     }
 
     onTouchEnd(event) {
         if (!this.disabled && !this.readonly) {
-            window.removeEventListener('touchmove', this.windowTouchMoveListener);
-            window.removeEventListener('touchend', this.windowTouchEndListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('touchmove', this.windowTouchMoveListener);
+            windowTarget.removeEventListener('touchend', this.windowTouchEndListener);
             this.windowTouchMoveListener = null;
             this.windowTouchEndListener = null;
             event.preventDefault();

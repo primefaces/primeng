@@ -18,7 +18,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)" [attr.id]="inputId" [attr.tabindex]="tabindex" [disabled]="disabled"
                 [style.backgroundColor]="inputBgColor">
             <div *ngIf="inline || overlayVisible" [ngClass]="{'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel':!inline, 'p-disabled': disabled}" (click)="onPanelClick()"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" 
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true"
                     (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
                 <div class="p-colorpicker-content">
                     <div #colorSelector class="p-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
@@ -159,7 +159,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     pickHue(event: MouseEvent) {
-        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
+        const windowTarget = DomHandler.getWindow(this.el);
+        const documentTarget = DomHandler.getDocument(this.el);
+        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (windowTarget.pageYOffset || documentTarget.documentElement.scrollTop || documentTarget.body.scrollTop || 0);
         this.value = this.validateHSB({
             h: Math.floor(360 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150),
             s: this.value.s,
@@ -185,9 +187,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     pickColor(event: MouseEvent) {
+        const windowTarget = DomHandler.getWindow(this.el);
+        const documentTarget = DomHandler.getDocument(this.el);
         let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
-        let top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
-        let left = rect.left + document.body.scrollLeft;
+        let top = rect.top + (windowTarget.pageYOffset || documentTarget.documentElement.scrollTop || documentTarget.body.scrollTop || 0);
+        let left = rect.left + documentTarget.body.scrollLeft;
         let saturation = Math.floor(100 * (Math.max(0, Math.min(150, (event.pageX - left)))) / 150);
         let brightness = Math.floor(100 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150);
         this.value = this.validateHSB({
@@ -321,7 +325,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                DomHandler.getDocument(this.el).body.appendChild(this.overlay);
             else
                 DomHandler.appendChild(this.overlay, this.appendTo);
         }
@@ -392,7 +396,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                 if (!this.selfClick) {
@@ -415,7 +419,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     bindDocumentMousemoveListener() {
         if (!this.documentMousemoveListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentMousemoveListener = this.renderer.listen(documentTarget, 'mousemove', (event: MouseEvent) => {
                 if (this.colorDragging) {
@@ -438,7 +442,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     bindDocumentMouseupListener() {
         if (!this.documentMouseupListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentMouseupListener = this.renderer.listen(documentTarget, 'mouseup', () => {
                 this.colorDragging = false;
@@ -458,12 +462,14 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     bindDocumentResizeListener() {
         this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        const windowTarget = DomHandler.getWindow(this.el);
+        windowTarget.addEventListener('resize', this.documentResizeListener);
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }

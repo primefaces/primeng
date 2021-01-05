@@ -351,7 +351,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     onListMouseMove(event: MouseEvent) {
         if (this.dragging) {
-            let offsetY = this.listViewChild.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
+            const documentTarget = DomHandler.getDocument(this.el);
+            let offsetY = this.listViewChild.nativeElement.getBoundingClientRect().top + documentTarget.body.scrollTop;
             let bottomDiff = (offsetY + this.listViewChild.nativeElement.clientHeight) - event.pageY;
             let topDiff = (event.pageY - offsetY);
             if (bottomDiff < 25 && bottomDiff > 0)

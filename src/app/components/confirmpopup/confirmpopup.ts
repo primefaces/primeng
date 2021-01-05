@@ -107,7 +107,7 @@ export class ConfirmPopup implements OnDestroy {
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            document.body.appendChild(this.container);
+            DomHandler.getDocument(this.el).body.appendChild(this.container);
             this.align();
             this.bindListeners();
         }
@@ -177,7 +177,7 @@ export class ConfirmPopup implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 let targetElement = <HTMLElement> this.confirmation.target;
@@ -202,12 +202,14 @@ export class ConfirmPopup implements OnDestroy {
 
     bindDocumentResizeListener() {
         this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        const windowTarget = DomHandler.getWindow(this.el);
+        windowTarget.addEventListener('resize', this.documentResizeListener);
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }
@@ -251,7 +253,7 @@ export class ConfirmPopup implements OnDestroy {
 
     restoreAppend() {
         if (this.container) {
-            document.body.removeChild(this.container);
+            DomHandler.getDocument(this.el).body.removeChild(this.container);
         }
 
         this.onContainerDestroy();

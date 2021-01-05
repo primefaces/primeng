@@ -26,7 +26,7 @@ import {ObjectUtils} from 'primeng/utils';
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
-                
+
                 <ul #sourcelist class="p-picklist-list p-picklist-source" [ngClass]="{'p-picklist-list-highlight': listHighlightSource}"
                     [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,SOURCE_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, SOURCE_LIST)" role="listbox" aria-multiselectable="multiple">
                     <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="sourceTrackBy || trackBy" let-i="index" let-l="last">
@@ -682,8 +682,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     onListMouseMove(event: MouseEvent, listType: number) {
         if (this.dragging) {
+            const documentTarget = DomHandler.getDocument(this.el);
             let moveListType = (listType == 0 ? this.listViewSourceChild : this.listViewTargetChild);
-            let offsetY = moveListType.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
+            let offsetY = moveListType.nativeElement.getBoundingClientRect().top + documentTarget.body.scrollTop;
             let bottomDiff = (offsetY + moveListType.nativeElement.clientHeight) - event.pageY;
             let topDiff = (event.pageY - offsetY);
 

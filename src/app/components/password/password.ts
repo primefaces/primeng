@@ -54,17 +54,18 @@ export class Password implements OnDestroy,DoCheck {
     }
 
     createPanel() {
-        this.panel = document.createElement('div');
+        const documentTarget = DomHandler.getDocument(this.el);
+        this.panel = documentTarget.createElement('div');
         this.panel.className = 'p-password-panel p-component p-password-panel-overlay p-connected-overlay';
-        this.meter = document.createElement('div');
+        this.meter = documentTarget.createElement('div');
         this.meter.className = 'p-password-meter';
-        this.info = document.createElement('div');
+        this.info = documentTarget.createElement('div');
         this.info.className = 'p-password-info';
         this.info.textContent = this.promptLabel;
         this.panel.appendChild(this.meter);
         this.panel.appendChild(this.info);
         this.panel.style.minWidth = DomHandler.getOuterWidth(this.el.nativeElement) + 'px';
-        document.body.appendChild(this.panel);
+        documentTarget.body.appendChild(this.panel);
     }
 
     showOverlay() {
@@ -203,12 +204,14 @@ export class Password implements OnDestroy,DoCheck {
 
     bindDocumentResizeListener() {
         this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        const windowTarget = DomHandler.getWindow(this.el);
+        windowTarget.addEventListener('resize', this.documentResizeListener);
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            const windowTarget = DomHandler.getWindow(this.el);
+            windowTarget.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }
@@ -226,7 +229,7 @@ export class Password implements OnDestroy,DoCheck {
 
             this.unbindDocumentResizeListener();
 
-            document.body.removeChild(this.panel);
+            DomHandler.getDocument(this.el).body.removeChild(this.panel);
             this.panel = null;
             this.meter = null;
             this.info = null;

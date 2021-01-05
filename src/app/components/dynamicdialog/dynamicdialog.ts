@@ -161,7 +161,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
 
         if (this.config.modal !== false) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            const documentTarget = DomHandler.getDocument(this.maskViewChild);
+            DomHandler.addClass(documentTarget.body, 'p-overflow-hidden');
         }
     }
 
@@ -172,7 +173,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             }
 
             if (this.config.modal !== false) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                const documentTarget = DomHandler.getDocument(this.maskViewChild);
+                DomHandler.removeClass(documentTarget.body, 'p-overflow-hidden');
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -236,21 +238,21 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     bindDocumentKeydownListener() {
         this.zone.runOutsideAngular(() => {
             this.documentKeydownListener = this.onKeydown.bind(this);
-            const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.maskViewChild);
             documentTarget.addEventListener('keydown', this.documentKeydownListener);
         });
     }
 
     unbindDocumentKeydownListener() {
         if (this.documentKeydownListener) {
-            const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : document;
+            const documentTarget = DomHandler.getDocument(this.maskViewChild);
             documentTarget.removeEventListener('keydown', this.documentKeydownListener);
             this.documentKeydownListener = null;
         }
     }
 
 	bindDocumentEscapeListener() {
-        const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
+        const documentTarget = DomHandler.getDocument(this.maskViewChild);
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
