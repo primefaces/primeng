@@ -899,7 +899,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table');
+                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table') || DomHandler.findSingle(scrollableView, '.p-treetable-virtual-scrollable-body table');
                             let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
                             let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
                             let resizeColumnIndex = DomHandler.index(column);
@@ -920,10 +920,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
                     let scrollableView = this.findParentScrollableView(column);
-                    let scrollableBody = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body');
+                    let scrollableBody = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport');
                     let scrollableHeader = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-header');
                     let scrollableFooter = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-footer');
-                    let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table');
+                    let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-treetable-scrollable-body table') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport table');
                     let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
                     let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
