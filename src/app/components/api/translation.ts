@@ -5,6 +5,7 @@ export interface Translation {
     endsWith?: string;
     equals?: string;
     notEquals?: string;
+    noFilter?: string;
     lt?: string;
     lte?: string;
     gt?: string;

@@ -40,6 +40,7 @@ export class PrimeNGConfig {
         endsWith: 'Ends with',
         equals: 'Equals',
         notEquals: 'Not equals',
+        noFilter: 'No Filter',
         lt: 'Less than',
         lte: 'Less than or equal to',
         gt: 'Greater than',

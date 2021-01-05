@@ -3925,7 +3925,7 @@ export class ColumnFilterFormElement implements OnInit {
                     <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
                         [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}" [attr.tabindex]="i === 0 ? '0' : null">{{matchMode.label}}</li>
                     <li class="p-column-filter-separator"></li>
-                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">No filter</li>
+                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">{{noFilterLabel}}</li>
                 </ul>
                 <ng-template #menu>
                     <div class="p-column-filter-operator" *ngIf="isShowOperator">
@@ -4294,6 +4294,10 @@ export class ColumnFilter implements AfterContentInit {
 
     get removeRuleButtonLabel(): string {
         return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
+    }
+
+    get noFilterLabel(): string {
+        return this.config.getTranslation(TranslationKeys.NO_FILTER);
     }
 
     hasFilter(): boolean {

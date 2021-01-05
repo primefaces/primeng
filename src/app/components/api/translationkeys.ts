@@ -5,6 +5,7 @@ export class TranslationKeys {
     public static readonly ENDS_WITH = 'endsWith';
     public static readonly EQUALS = 'equals';
     public static readonly NOT_EQUALS = 'notEquals';
+    public static readonly NO_FILTER = 'noFilter';
     public static readonly LT = 'lt';
     public static readonly LTE = 'lte';
     public static readonly GT = 'gt';
