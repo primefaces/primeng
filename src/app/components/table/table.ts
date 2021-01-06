@@ -585,6 +585,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
             this.preventSelectionSetterPropagation = false;
         }
+
+        if(simpleChange.filters) {
+            this._filter();
+        }
     }
 
     @Input() get value(): any[] {

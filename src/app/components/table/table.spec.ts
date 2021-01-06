@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { DropdownModule} from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { SharedModule, FilterOperator } from 'primeng/api';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -47,7 +47,8 @@ import { RouterTestingModule } from '@angular/router/testing';
         </ng-template>
     </p-table>
 
-    <p-table class="filterTable" #dt [columns]="cols" [value]="cars">
+    <p-table class="filterTable" #dt [columns]="cols" [value]="cars"
+    [filters]="filters">
         <ng-template pTemplate="caption">
             <div style="text-align: right">        
                 <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
@@ -382,6 +383,8 @@ class TestBasicTableComponent {
         {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"}
     ];
 
+    filters = {};
+
     customSort(event) {
         event.data.sort((data1, data2) => {
             let value1 = data1[event.field];
@@ -526,6 +529,20 @@ describe('Table', () => {
         const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(2);
     }));
+
+    it('should use custom filter and show all orange items', fakeAsync(() => {
+        fixture.detectChanges();
+
+        testComponent.filters = {'color': [{value: 'Orange', operator: FilterOperator.OR}]}
+        tick(300);
+        fixture.detectChanges();
+
+
+        const tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(3);
+    }));
+
 
     it('should use custom filter and show 2 items and after call reset', fakeAsync(() => {
         fixture.detectChanges();
