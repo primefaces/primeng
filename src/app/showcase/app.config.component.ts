@@ -290,6 +290,11 @@ import { Subscription } from 'rxjs';
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/freya-ng">
                                     <img alt="Freya" src="assets/showcase/images/layouts/freya-ng.jpg">
                                 </a>
@@ -377,11 +382,6 @@ import { Subscription } from 'rxjs';
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/paradise-ng">
                                     <img alt="Paradise" src="assets/showcase/images/layouts/paradise-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">

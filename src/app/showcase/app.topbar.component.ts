@@ -88,6 +88,12 @@ import { Subscription } from 'rxjs';
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
                         <li>
+                            <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                <img alt="Ultima" src="assets/showcase/images/layouts/ultima-logo.png">
+                                <span>Ultima</span><span class="theme-badge material">material</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="https://www.primefaces.org/layouts/freya-ng">
                                 <img alt="Freya" src="assets/showcase/images/layouts/freya-logo.png">
                                 <span>Freya</span>
@@ -193,12 +199,6 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/layouts/paradise-ng">
                                 <img alt="Paradise" src="assets/showcase/images/layouts/paradise-logo.png">
                                 <span>Paradise</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                <img alt="Ultima" src="assets/showcase/images/layouts/ultima-logo.png">
-                                <span>Ultima</span><span class="theme-badge material">material</span>
                             </a>
                         </li>
                         <li>
