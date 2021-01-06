@@ -376,8 +376,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     updateDomData(): void {
         let rect = this.el.nativeElement.children[0].getBoundingClientRect();
-        this.initX = rect.left + DomHandler.getWindowScrollLeft();
-        this.initY = rect.top + DomHandler.getWindowScrollTop();
+        this.initX = rect.left + DomHandler.getWindowScrollLeft(this.el);
+        this.initY = rect.top + DomHandler.getWindowScrollTop(this.el);
         this.barWidth = this.el.nativeElement.children[0].offsetWidth;
         this.barHeight = this.el.nativeElement.children[0].offsetHeight;
     }

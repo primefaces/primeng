@@ -453,7 +453,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
             let offset = DomHandler.getOffset(this.container);
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
-            let viewport = DomHandler.getViewport();
+            let viewport = DomHandler.getViewport(this.container);
 
             this.container.style.position = 'fixed';
 
@@ -524,7 +524,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
             let minWidth = this.container.style.minWidth;
             let minHeight = this.container.style.minHeight;
             let offset = DomHandler.getOffset(this.container);
-            let viewport = DomHandler.getViewport();
+            let viewport = DomHandler.getViewport(this.container);
             let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
 
             if (hasBeenDragged) {

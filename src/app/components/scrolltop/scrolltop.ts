@@ -90,7 +90,7 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     bindDocumentScrollListener() {
         this.scrollListener = () => {
-            this.checkVisibility(DomHandler.getWindowScrollTop());
+            this.checkVisibility(DomHandler.getWindowScrollTop(this.el));
         };
 
         const windowTarget = DomHandler.getWindow(this.el);

@@ -1816,7 +1816,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
         }
         else {
             if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
-                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
+                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight(this.el) + 'px';
             }
         }
 

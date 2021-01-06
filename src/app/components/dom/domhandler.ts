@@ -95,7 +95,7 @@ export class DomHandler {
         let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const targetHeight = target.offsetHeight;
         const targetOffset = target.getBoundingClientRect();
-        const viewport = this.getViewport();
+        const viewport = this.getViewport(element);
         let top: number, left: number;
 
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
@@ -134,9 +134,9 @@ export class DomHandler {
         let targetOuterHeight = target.offsetHeight;
         let targetOuterWidth = target.offsetWidth;
         let targetOffset = target.getBoundingClientRect();
-        let windowScrollTop = this.getWindowScrollTop();
-        let windowScrollLeft = this.getWindowScrollLeft();
-        let viewport = this.getViewport();
+        let windowScrollTop = this.getWindowScrollTop(element);
+        let windowScrollLeft = this.getWindowScrollLeft(element);
+        let viewport = this.getViewport(element);
         let top, left;
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
@@ -282,13 +282,13 @@ export class DomHandler {
         }, interval);
     }
 
-    public static getWindowScrollTop(): number {
-        let doc = DomHandler.getDocument().documentElement;
+    public static getWindowScrollTop(el?: any): number {
+        let doc = DomHandler.getDocument(el).documentElement;
         return (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     }
 
-    public static getWindowScrollLeft(): number {
-        let doc = DomHandler.getDocument().documentElement;
+    public static getWindowScrollLeft(el?: any): number {
+        let doc = DomHandler.getDocument(el).documentElement;
         return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     }
 
@@ -375,9 +375,9 @@ export class DomHandler {
         return width;
     }
 
-    public static getViewport(): any {
-        let win = window,
-            d = document,
+    public static getViewport(el?:any): any {
+        let win = DomHandler.getWindow(el),
+            d = DomHandler.getDocument(el),
             e = d.documentElement,
             g = d.getElementsByTagName('body')[0],
             w = win.innerWidth || e.clientWidth || g.clientWidth,
@@ -482,7 +482,7 @@ export class DomHandler {
             if (this.calculatedScrollbarWidth !== null)
                 return this.calculatedScrollbarWidth;
 
-            const documentTarget = DomHandler.getDocument(this.el);
+            const documentTarget = DomHandler.getDocument();
             let scrollDiv = documentTarget.createElement("div");
             scrollDiv.className = "p-scrollbar-measure";
             documentTarget.body.appendChild(scrollDiv);
@@ -496,11 +496,11 @@ export class DomHandler {
         }
     }
 
-    public static calculateScrollbarHeight(): number {
+    public static calculateScrollbarHeight(el?: any): number {
         if (this.calculatedScrollbarHeight !== null)
             return this.calculatedScrollbarHeight;
 
-        const documentTarget = DomHandler.getDocument();
+        const documentTarget = DomHandler.getDocument(el);
         let scrollDiv = documentTarget.createElement("div");
         scrollDiv.className = "p-scrollbar-measure";
         documentTarget.body.appendChild(scrollDiv);
@@ -605,11 +605,11 @@ export class DomHandler {
 
     static getWindow( elementRef?: any ): Window {
         const el = elementRef?.nativeElement ? elementRef.nativeElement : elementRef;
-        return el ? el.ownerDocument.defaultView : window;
+        return el?.ownerDocument ? el.ownerDocument.defaultView : window;
     }
 
     static getDocument( elementRef?: any ): Document {
         const el = elementRef?.nativeElement ? elementRef.nativeElement : elementRef;
-        return el ? el.ownerDocument : document;
+        return el?.ownerDocument ? el.ownerDocument : document;
     }
 }

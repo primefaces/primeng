@@ -1928,7 +1928,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onRowDragOver(event, index, rowElement) {
         if (this.rowDragging && this.draggedRowIndex !== index) {
-            let rowY = DomHandler.getOffset(rowElement).top + DomHandler.getWindowScrollTop();
+            let rowY = DomHandler.getOffset(rowElement).top + DomHandler.getWindowScrollTop(this.el);
             let pageY = event.pageY;
             let rowMidY = rowY + DomHandler.getOuterHeight(rowElement) / 2;
             let prevRowElement = rowElement.previousElementSibling;
@@ -2395,7 +2395,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         }
         else {
             if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
-                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
+                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight(this.el) + 'px';
             }
         }
 

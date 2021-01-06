@@ -281,7 +281,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             let top = event.pageY + 1;
             let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
             let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
-            let viewport = DomHandler.getViewport();
+            let viewport = DomHandler.getViewport(this.el);
 
             //flip
             if (left + width - documentTarget.body.scrollLeft > viewport.width) {
@@ -310,7 +310,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     positionSubmenu(sublist) {
         let parentMenuItem = sublist.parentElement.parentElement;
-        let viewport = DomHandler.getViewport();
+        let viewport = DomHandler.getViewport(sublist);
         let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
         let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
         let itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem.children[0]);
@@ -319,7 +319,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         sublist.style.zIndex = ++DomHandler.zindex;
 
-        if ((parseInt(containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
+        if ((parseInt(containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight(sublist))) {
             sublist.style.removeProperty('top');
             sublist.style.bottom = '0px';
         }

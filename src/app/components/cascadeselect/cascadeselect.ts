@@ -212,7 +212,7 @@ export class CascadeSelectSub implements OnInit {
     position() {
         const parentItem = this.el.nativeElement.parentElement;
         const containerOffset = DomHandler.getOffset(parentItem);
-        const viewport = DomHandler.getViewport();
+        const viewport = DomHandler.getViewport(this.el);
         const sublistWidth = this.el.nativeElement.children[0].offsetParent ? this.el.nativeElement.children[0].offsetWidth : DomHandler.getHiddenElementOuterWidth(this.el.nativeElement.children[0]);
         const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
 
