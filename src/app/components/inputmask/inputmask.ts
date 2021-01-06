@@ -104,6 +104,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onKeyDown: EventEmitter<any> = new EventEmitter();
 
     value: any;
 
@@ -404,6 +406,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             end;
         let iPhone = /iphone/i.test(DomHandler.getUserAgent());
         this.oldVal = this.inputViewChild.nativeElement.value;
+        
+        this.onKeyDown.emit(e);
 
         //backspace, delete, and escape get special treatment
         if (k === 8 || k === 46 || (iPhone && k === 127)) {
