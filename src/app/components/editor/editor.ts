@@ -17,7 +17,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         <div [ngClass]="'p-editor-container'" [class]="styleClass">
             <div class="p-editor-toolbar" *ngIf="toolbar || toolbarTemplate">
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
             <div class="p-editor-toolbar" *ngIf="!toolbar && !toolbarTemplate">
                 <span class="ql-formats">
@@ -107,8 +107,6 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
     quill: any;
 
     toolbarTemplate: TemplateRef<any>;
-
-    headerTemplate: TemplateRef<any>;
     
     constructor(public el: ElementRef) {}
 
@@ -171,9 +169,6 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
             switch(item.getType()) {
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
-                break;
-                case 'header':
-                    this.headerTemplate = item.template;
                 break;
             }
         });
