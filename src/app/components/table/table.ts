@@ -83,9 +83,17 @@ export class TableService {
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-top" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
+                         (onPageChange)="onPageChange($event)"
+                         *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+                         [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
+                         [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+                         [dropdownItemTemplate]="paginatorDropdownItemTemplate"
+                         [rowsPerPageOptions]="rowsPerPageOptions" [dropdownIcon]="paginatorDropdownIcon"
+                         [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon"
+                         [showCurrentPageReport]="showCurrentPageReport" [showPageLinks]="showPageLinks"
+                         [showJumpToPageDropdown]="showJumpToPageDropdown" [jumpToPageDropdownIcon]="paginatorJumpToPageDropdownIcon"
+                         [firstIcon]="paginatorFirstIcon" [previousIcon]="paginatorPreviousIcon"
+                         [nextIcon]="paginatorNextIcon" [lastIcon]="paginatorLastIcon"></p-paginator>
 
             <div class="p-datatable-wrapper" *ngIf="!scrollable">
                 <table role="grid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
@@ -105,10 +113,18 @@ export class TableService {
                <div class="p-datatable-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
             </div>
 
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-top" [alwaysShow]="alwaysShowPaginator"
+                         (onPageChange)="onPageChange($event)"
+                         *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
+                         [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
+                         [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+                         [dropdownItemTemplate]="paginatorDropdownItemTemplate"
+                         [rowsPerPageOptions]="rowsPerPageOptions" [dropdownIcon]="paginatorDropdownIcon"
+                         [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon"
+                         [showCurrentPageReport]="showCurrentPageReport" [showPageLinks]="showPageLinks"
+                         [showJumpToPageDropdown]="showJumpToPageDropdown" [jumpToPageDropdownIcon]="paginatorJumpToPageDropdownIcon"
+                         [firstIcon]="paginatorFirstIcon" [previousIcon]="paginatorPreviousIcon"
+                         [nextIcon]="paginatorNextIcon" [lastIcon]="paginatorLastIcon"></p-paginator>
 
             <div *ngIf="summaryTemplate" class="p-datatable-footer">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
@@ -146,7 +162,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() alwaysShowPaginator: boolean = true;
 
+    @Input() paginatorFirstIcon: string = 'pi pi-angle-double-left';
+
+    @Input() paginatorPreviousIcon: string = 'pi pi-angle-left';
+
+    @Input() paginatorNextIcon: string = 'pi pi-angle-right';
+
+    @Input() paginatorLastIcon: string = 'pi pi-angle-double-right';
+
     @Input() paginatorPosition: string = 'bottom';
+
+    @Input() paginatorDropdownIcon: string = 'pi pi-chevron-down';
+
+    @Input() paginatorJumpToPageDropdownIcon: string = 'pi pi-chevron-down';
 
     @Input() paginatorDropdownAppendTo: any;
 

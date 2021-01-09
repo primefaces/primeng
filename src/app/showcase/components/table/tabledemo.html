@@ -665,7 +665,7 @@ export class TableRowGroupDemo implements OnInit &#123;
             </p>
 
             <h3>Paginator</h3>
-            <p>Pagination is enabled by setting <i>paginator</i> property to true, rows property defines the number of rows per page and pageLinks specify the the number
+            <p>Pagination is enabled by setting <i>paginator</i> property to true, rows property defines the number of rows per page and pageLinks specify the number
                 of page links to display. See <a [routerLink]="['/paginator']">paginator</a> component for more information.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -2868,19 +2868,49 @@ export class TableDemo implements OnInit &#123;
                             <td>rowsPerPageOptions</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>Array of integer/object values to display inside rows per page dropdown of paginator</td>
+                            <td>Array of integer/object values to display inside rows per page dropdown of paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorDropdownIcon</td>
+                            <td>string</td>
+                            <td>pi pi-chevron down</td>
+                            <td>Icon to display in the rows per page dropdown.</td>
                         </tr>
                         <tr>
                             <td>alwaysShowPaginator</td>
                             <td>boolean</td>
                             <td>true</td>
-                            <td>Whether to show it even there is only one page.</td>
+                            <td>Whether to show it even if there is only one page.</td>
                         </tr>
                         <tr>
                             <td>showFirstLastIcon</td>
                             <td>boolean</td>
                             <td>true</td>
-                            <td>When enabled, icons are displayed on paginator to go first and last page.</td>
+                            <td>When enabled, icons are displayed on paginator to go to first and last page.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorFirstIcon</td>
+                            <td>string</td>
+                            <td>pi pi-angle-double-left</td>
+                            <td>Icon to display for goto first page button.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorPreviousIcon</td>
+                            <td>string</td>
+                            <td>pi pi-angle-left</td>
+                            <td>Icon to display for goto previous page button.</td>
+                        </tr>
+                        <tr>
+                            <td>pagionatorNextIcon</td>
+                            <td>string</td>
+                            <td>pi pi angle-right</td>
+                            <td>Icon to display for goto next page button.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorLastIcon</td>
+                            <td>string</td>
+                            <td>pi pi-angle-double-right</td>
+                            <td>Icon to display for goto last page button.</td>
                         </tr>
                         <tr>
                             <td>paginatorPosition</td>
@@ -2907,6 +2937,12 @@ export class TableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether to display a dropdown to navigate to any page.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorJumpToPageIcon</td>
+                            <td>string</td>
+                            <td>pi pi-chevron-down</td>
+                            <td>Icon to display in the dropdown that allows to navigate to any page.</td>
                         </tr>
                         <tr>
                             <td>showPageLinks</td>

@@ -513,6 +513,54 @@ describe('Table', () => {
         expect(bodyRows.length).toEqual(5);
     });
 
+    it('should use default icons for paginator if not provided', () => {
+        table.paginator = true;
+        table.paginatorPosition = 'both';
+        fixture.detectChanges();
+
+        const paginators = fixture.debugElement.query(By.css('.basicTable')).queryAll(By.css('p-paginator'));
+        expect(paginators.length).toEqual(2);
+        expect(paginators[0].componentInstance.dropdownIcon).toEqual('pi pi-chevron-down');
+        expect(paginators[0].componentInstance.jumpToPageDropdownIcon).toEqual('pi pi-chevron-down');
+        expect(paginators[0].componentInstance.firstIcon).toEqual('pi pi-angle-double-left');
+        expect(paginators[0].componentInstance.previousIcon).toEqual('pi pi-angle-left');
+        expect(paginators[0].componentInstance.nextIcon).toEqual('pi pi-angle-right');
+        expect(paginators[0].componentInstance.lastIcon).toEqual('pi pi-angle-double-right');
+        expect(paginators[1].componentInstance.dropdownIcon).toEqual('pi pi-chevron-down');
+        expect(paginators[1].componentInstance.jumpToPageDropdownIcon).toEqual('pi pi-chevron-down');
+        expect(paginators[1].componentInstance.firstIcon).toEqual('pi pi-angle-double-left');
+        expect(paginators[1].componentInstance.previousIcon).toEqual('pi pi-angle-left');
+        expect(paginators[1].componentInstance.nextIcon).toEqual('pi pi-angle-right');
+        expect(paginators[1].componentInstance.lastIcon).toEqual('pi pi-angle-double-right');
+    });
+
+    it('should pass on provided icons for paginator', () => {
+        table.paginator = true;
+        table.paginatorPosition = 'both';
+        table.paginatorDropdownIcon = 'pi pi-arrow-down';
+        table.paginatorJumpToPageDropdownIcon = 'pi pi-arrow-up';
+        table.paginatorFirstIcon = 'pi pi-fast-backward';
+        table.paginatorPreviousIcon = 'pi pi-step-backward';
+        table.paginatorNextIcon = 'pi pi-step-forward';
+        table.paginatorLastIcon = 'pi pi-fast-forward';
+        fixture.detectChanges();
+
+        const paginators = fixture.debugElement.query(By.css('.basicTable')).queryAll(By.css('p-paginator'));
+        expect(paginators.length).toEqual(2);
+        expect(paginators[0].componentInstance.dropdownIcon).toEqual('pi pi-arrow-down');
+        expect(paginators[0].componentInstance.jumpToPageDropdownIcon).toEqual('pi pi-arrow-up');
+        expect(paginators[0].componentInstance.firstIcon).toEqual('pi pi-fast-backward');
+        expect(paginators[0].componentInstance.previousIcon).toEqual('pi pi-step-backward');
+        expect(paginators[0].componentInstance.nextIcon).toEqual('pi pi-step-forward');
+        expect(paginators[0].componentInstance.lastIcon).toEqual('pi pi-fast-forward');
+        expect(paginators[1].componentInstance.dropdownIcon).toEqual('pi pi-arrow-down');
+        expect(paginators[1].componentInstance.jumpToPageDropdownIcon).toEqual('pi pi-arrow-up');
+        expect(paginators[1].componentInstance.firstIcon).toEqual('pi pi-fast-backward');
+        expect(paginators[1].componentInstance.previousIcon).toEqual('pi pi-step-backward');
+        expect(paginators[1].componentInstance.nextIcon).toEqual('pi pi-step-forward');
+        expect(paginators[1].componentInstance.lastIcon).toEqual('pi pi-fast-forward');
+    });
+
     it('should use custom filter and show 2 items', fakeAsync(() => {
         fixture.detectChanges();
 
