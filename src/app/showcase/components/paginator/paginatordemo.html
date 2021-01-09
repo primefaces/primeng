@@ -26,6 +26,12 @@
         <div class="image-gallery">
             <img src="assets/showcase/images/demo/nature/nature{{first + 1}}.jpg" />
         </div>
+        <h5>Custom icons</h5>
+        <p-paginator [rows]="10" [totalRecords]="totalRecords"
+                     [rowsPerPageOptions]="[10, 20, 30]" dropdownIcon="pi pi-arrow-down"
+                     [showJumpToPageDropdown]="true" [showPageLinks]="false" jumpToPageDropdownIcon="pi pi-arrow-up"
+                     firstIcon="pi pi-fast-backward" previousIcon="pi pi-step-backward"
+                     nextIcon="pi pi-step-forward" lastIcon="pi pi-fast-forward"></p-paginator>
     </div>
 </div>
 
@@ -59,6 +65,16 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
             <p>Number of items per page can be changed by the user using a dropdown if you define <i>rowsPerPageOptions</i> as an array of possible values.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+</app-code>
+
+            <h5>Icons</h5>
+            <p>All icons can be customized.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-paginator [rows]="10" [totalRecords]="totalRecords"
+                [rowsPerPageOptions]="[10, 20, 30]" dropdownIcon="pi pi-arrow-down"
+                [showJumpToPageDropdown]="true" [showPageLinks]="false" jumpToPageDropdownIcon="pi pi-arrow-up"
+                firstIcon="pi pi-fast-backward" previousIcon="pi pi-step-backward"
+                nextIcon="pi pi-step-forward" lastIcon="pi pi-fast-forward"&gt;&lt;/p-paginator&gt;
 </app-code>
 
             <h5>CurrentPageReport</h5>
@@ -154,10 +170,16 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>Template instance to inject into the right side of the paginator.</td>
                         </tr>
                         <tr>
+                            <td>dropdownIcon</td>
+                            <td>string</td>
+                            <td>pi pi-chevron-down</td>
+                            <td>Icon class to inject into the dropdown inside of the paginator.</td>
+                        </tr>
+                        <tr>
                             <td>dropdownItemTemplate</td>
                             <td>TemplateRef</td>
                             <td>null</td>
-                            <td>Template instance to inject into the dropdown item inside in the paginator.</td>
+                            <td>Template instance to inject into the dropdown item inside of the paginator.</td>
                         </tr>
                         <tr>
                             <td>dropdownAppendTo</td>
@@ -192,10 +214,40 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>Whether to display a dropdown to navigate to any page.</td>
                         </tr>
                         <tr>
+                            <td>jumpToPageDropdownIcon</td>
+                            <td>string</td>
+                            <td>pi pi-chevron-down</td>
+                            <td>Icon class to inject into the dropdown.</td>
+                        </tr>
+                        <tr>
                             <td>showPageLinks</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show page links.</td>
+                        </tr>
+                        <tr>
+                            <td>firstIcon</td>
+                            <td>string</td>
+                            <td>pi pi-angle-double-left</td>
+                            <td>Icon for goto first button.</td>
+                        </tr>
+                        <tr>
+                            <td>previousIcon</td>
+                            <td>string</td>
+                            <td>pi pi-angle-left</td>
+                            <td>Icon for goto previous page button.</td>
+                        </tr>
+                        <tr>
+                            <td>nextIcon</td>
+                            <td>string</td>
+                            <td>pi pi-angle-right</td>
+                            <td>Icon for goto next page button.</td>
+                        </tr>
+                        <tr>
+                            <td>lastIcon</td>
+                            <td>string</td>
+                            <td>pi pi-angle-double-right</td>
+                            <td>Icon for goto last page button.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -304,27 +356,31 @@ export class MyComponent &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 &lt;h5&gt;Basic&lt;/h5&gt;
-    &lt;p-paginator [rows]="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 
-    &lt;h5&gt;Custom&lt;/h5&gt;
-    &lt;div class="p-grid p-align-center"&gt;
-        &lt;div class="p-col-1"&gt;
-            &lt;p-button icon="pi pi-refresh" (onClick)="refresh()"&gt;&lt;/p-button&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-10"&gt;
-            &lt;p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
-            [showJumpToPageDropdown]="true" [showPageLinks]="false"&gt;&lt;/p-paginator&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-1 p-grid p-justify-end"&gt;
-            &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
-        &lt;/div&gt;
+&lt;h5&gt;Custom&lt;/h5&gt;
+&lt;div class="p-grid p-align-center"&gt;
+    &lt;div class="p-col-1"&gt;
+        &lt;p-button icon="pi pi-refresh" (onClick)="refresh()"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;div class="image-gallery"&gt;
-        &lt;img src="assets/showcase/images/demo/nature/nature&#123;&#123;first + 1&#125;&#125;.jpg" /&gt;
+    &lt;div class="p-col-10"&gt;
+        &lt;p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
+        [showJumpToPageDropdown]="true" [showPageLinks]="false"&gt;&lt;/p-paginator&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col-1 p-grid p-justify-end"&gt;
+        &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
+&lt;div class="image-gallery"&gt;
+    &lt;img src="assets/showcase/images/demo/nature/nature&#123;&#123;first + 1&#125;&#125;.jpg" /&gt;
+&lt;/div&gt;
+&lt;h5&gt;Custom icons&lt;/h5&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="totalRecords"
+             [rowsPerPageOptions]="[10, 20, 30]" dropdownIcon="pi pi-arrow-down"
+             [showJumpToPageDropdown]="true" [showPageLinks]="false" jumpToPageDropdownIcon="pi pi-arrow-up"
+             firstIcon="pi pi-fast-backward" previousIcon="pi pi-step-backward"
+             nextIcon="pi pi-step-forward" lastIcon="pi pi-fast-forward"&gt;&lt;/p-paginator&gt;
 </app-code>
 <app-code lang="css">
 .p-button.p-button-icon-only &#123;
