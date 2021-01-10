@@ -1,164 +1,345 @@
-<treetable-submenu></treetable-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">TreeTable - <span class="ubitem">Scroll</span></span>
-        <span>Scrolling data is available horizontally, vertically or both with optional support for frozen columns.</span>
+    <div class="feature-intro">
+        <h1>TreeTable <span>Scroll</span></h1>
+        <p>Scrollable view is available horizontally, vertically or both.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Vertical</h3>
-    <p-treeTable [value]="files1" [columns]="cols" [scrollable]="true" scrollHeight="200px">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>            
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Vertical with Fixed Viewport</h5>
+        <p-treeTable [value]="files1" [columns]="cols" [scrollable]="true" scrollHeight="200px">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+    </div>
 
-    <h3>Virtual Scroll - 250K Root Nodes X 2 Child Nodes</h3>
-    <p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
-        [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)"
-        [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="loadingbody" let-columns="columns">
-            <tr style="height:34px">
-                <td *ngFor="let col of columns;">
-                    <div class="loading-text"></div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Flexible Viewport</h5>
+        <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+            to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
+            
+        <p-button (click)="showDialog()" icon="pi pi-external-link" label="View"></p-button>
+        <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '300px'}">
+            <p-treeTable [value]="files2" [columns]="cols" [scrollable]="true" scrollHeight="flex">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns; let i = index">
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>            
+                </ng-template>
+            </p-treeTable>
+            <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="dialogVisible=false" label="Yes"></p-button>
+                <p-button icon="pi pi-times" (click)="dialogVisible=false" label="No" styleClass="p-button-secondary"></p-button>
+            </ng-template>        
+        </p-dialog>
+    </div>
 
-    <h3>Horizontal</h3>
-    <p-treeTable [value]="files2" [columns]="cols" [scrollable]="true" [style]="{width:'600px'}">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:350px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>            
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Full Page Scroll</h5>
+        <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/treetable/flexscroll']">Full Page</a> demo for an example.</p>
+        
+        <h5>Virtual Scroll with 100000 Nodes</h5>
+        <p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="200px"
+        [virtualScroll]="true" [virtualRowHeight]="34">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr style="height:34px">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
+    
+    <div class="card">
+        <h5>Horizontal</h5>
+        <p-treeTable [value]="files3" [columns]="cols" [scrollable]="true" [style]="{width:'600px'}">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" style="width:350px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+    </div>
+        
+    <div class="card">
+        <h5>Horizontal and Vertical</h5>
+        <p-treeTable [value]="files4" [columns]="cols" [scrollable]="true" scrollHeight="200px" [style]="{width:'600px'}">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" style="width:350px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+    </div>
 
-    <h3>Horizontal and Vertical</h3>
-    <p-treeTable [value]="files3" [columns]="cols" [scrollable]="true" scrollHeight="200px" [style]="{width:'600px'}">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:350px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>            
-        </ng-template>
-    </p-treeTable>
-
-    <h3>Frozen Columns</h3>
-    <p-treeTable [value]="files4" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="200px" frozenWidth="200px">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:250px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>            
-        </ng-template>
-        <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
-            <tr>
-                <td>
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                    {{rowData.name}}
-                </td>
-            </tr>            
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Frozen Columns</h5>
+        <p-treeTable [value]="files5" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="200px" frozenWidth="200px">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" style="width:250px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
+                <tr style="height: 57px">
+                    <td *ngFor="let col of columns; let i = index">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+            <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
+                <tr style="height: 57px">
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                        {{rowData.name}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+    </div>
 </div>
-
-<div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="treetablescrolldemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablescrolldemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    
+    <div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './treetablescrolldemo.html',
-    styles: [`
-        .loading-text &#123;
-            display: block;
-            background-color: #f1f1f1;
-            min-height: 19px;
-            animation: pulse 1s infinite ease-in-out;
-            text-indent: -99999px;
-            overflow: hidden;
-        &#125;
-    `]
-5;)
-export class TreeTableScrollDemo &#123;
+            <a href="https://stackblitz.com/edit/primeng-treetablescroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Vertical with Fixed Viewport&lt;/h5&gt;
+&lt;p-treeTable [value]="files1" [columns]="cols" [scrollable]="true" scrollHeight="200px"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Flexible Viewport&lt;/h5&gt;
+&lt;p&gt;Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+    to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
+
+&lt;pButton (click)="showDialog()" icon="pi pi-external-link" label="View"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
+    &lt;p-treeTable [value]="files2" [columns]="cols" [scrollable]="true" scrollHeight="flex"&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+            &lt;tr&gt;
+                &lt;td *ngFor="let col of columns; let i = index"&gt;
+                    &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                    &#123;&#123;rowData[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;            
+        &lt;/ng-template&gt;
+    &lt;/p-treeTable&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;p-button icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-times" (click)="dialogVisible=false" label="No" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
+    &lt;/ng-template&gt;        
+&lt;/p-dialog&gt;
+
+&lt;h5&gt;Full Page Scroll&lt;/h5&gt;
+&lt;p&gt;FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the &lt;a [routerLink]="['/treetable/flexscroll']"&gt;Full Page&lt;/a&gt; demo for an example.&lt;/p&gt;
+
+&lt;h5&gt;Virtual Scroll with 100000 Nodes&lt;/h5&gt;
+&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="200px"
+    [virtualScroll]="true" [virtualRowHeight]="34"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr style="height:34px"&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Horizontal&lt;/h5&gt;
+&lt;p-treeTable [value]="files3" [columns]="cols" [scrollable]="true" [style]="&#123;width:'600px'&#125;"&gt;
+    &lt;ng-template pTemplate="colgroup" let-columns&gt;
+        &lt;colgroup&gt;
+            &lt;col *ngFor="let col of columns" style="width:350px"&gt;
+        &lt;/colgroup&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Horizontal and Vertical&lt;/h5&gt;
+&lt;p-treeTable [value]="files4" [columns]="cols" [scrollable]="true" scrollHeight="200px" [style]="&#123;width:'600px'&#125;"&gt;
+    &lt;ng-template pTemplate="colgroup" let-columns&gt;
+        &lt;colgroup&gt;
+            &lt;col *ngFor="let col of columns" style="width:350px"&gt;
+        &lt;/colgroup&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Frozen Columns&lt;/h5&gt;
+&lt;p-treeTable [value]="files5" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="200px" frozenWidth="200px"&gt;
+    &lt;ng-template pTemplate="colgroup" let-columns&gt;
+        &lt;colgroup&gt;
+            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
+        &lt;/colgroup&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr style="height: 57px"&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData"&gt;
+        &lt;tr style="height: 57px"&gt;
+            &lt;td&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData.name&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component &#125; from '@angular/core';
+import &#123; TreeNode &#125; from 'primeng/api';
+import &#123; NodeService &#125; from '../../service/nodeservice';
+
+@Component(&#123;
+    templateUrl: './treetablescrolldemo.html'
+&#125;)
+export class TreeTableScrollDemo &#123;
+    
     files1: TreeNode[];
 
     files2: TreeNode[];
@@ -166,6 +347,8 @@ export class TreeTableScrollDemo &#123;
     files3: TreeNode[];
 
     files4: TreeNode[];
+
+    files5: TreeNode[];
 
     virtualFiles: TreeNode[];
 
@@ -175,17 +358,17 @@ export class TreeTableScrollDemo &#123;
 
     scrollableCols: any[];
 
-    totalRecords: number;
-
-    showLoader: boolean;
+    dialogVisible: boolean;
 
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
         this.nodeService.getFilesystem().then(files => this.files1 = files);
-        this.nodeService.getFilesystem().then(files => this.files2 = files);
         this.nodeService.getFilesystem().then(files => this.files3 = files);
         this.nodeService.getFilesystem().then(files => this.files4 = files);
+        this.nodeService.getFilesystem().then(files => this.files5 = files);
+        this.files2 = Array.from(&#123;length: 100&#125;).map((_,i) => this.createNode(i, 5));
+        this.virtualFiles = Array.from(&#123;length: 1000&#125;).map((_,i) => this.createNode(i, 100));
 
         this.cols = [
             &#123; field: 'name', header: 'Name' &#125;,
@@ -205,215 +388,31 @@ export class TreeTableScrollDemo &#123;
         this.frozenCols = [
             &#123; field: 'name', header: 'Name' &#125;
         ];
-
-        //in a production application, retrieve the logical number of rows from a remote datasource
-        this.totalRecords = 250000;
-
-        this.showLoader = false;
     &#125;
 
-    loadNodes(event) &#123;
-        //in a production application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-        //event.sortField = Field name to sort with
-        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-
-        //imitate db connection over a network
-        setTimeout(() => &#123;
-            this.virtualFiles = [];
-
-            //last chunk
-            if (event.first === 249980)
-                this.createLazyNodes(event.first, 20);
-            else
-                this.createLazyNodes(event.first, event.rows);
-        &#125;, 250);
-    &#125;
-
-    createLazyNodes(index, length) &#123;
-        for(let i = 0; i < length; i++) &#123;
-            let node = &#123;
-                data: &#123;  
-                    name: 'Item ' + (index + i),
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + (index + i)
-                &#125;,
-                leaf: false
-            &#125;;
-
-            this.virtualFiles.push(node);
-        &#125;
-    &#125;
-
-    onNodeExpand(event) &#123;
-        this.showLoader = true;
-
-        setTimeout(() => &#123;
-            this.showLoader = false;
-            const node = event.node;
-
-            node.children = [
-                &#123;
-                    data: &#123;  
-                        name: node.data.name + ' - 0',
-                        size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                        type: 'File'
-                    &#125;,
-                &#125;,
-                &#123;
-                    data: &#123;  
-                        name: node.data.name + ' - 1',
-                        size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                        type: 'File'
-                    &#125;
+    createNode(i: number, children: number): TreeNode &#123;
+        let node: TreeNode = &#123;
+            data: &#123;name: 'Node ' + i, type: 'virtual node', size: Math.ceil(Math.random() * 10000) + 'kb'&#125;,
+            children: Array.from(&#123;length: children&#125;).map((_,j) => &#123;
+                return &#123; 
+                    data: &#123;name: 'Node ' + i + '.' + j, type: 'virtual child node', size: Math.ceil(Math.random() * 10000) + 'kb'&#125;
                 &#125;
-            ];
+            &#125;)
+        &#125;;
 
-            this.virtualFiles = [...this.virtualFiles];
-        &#125;, 250);
-        
+        return node;
+    &#125;
+
+    showDialog() &#123;
+        this.dialogVisible = true;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
-
-        <p-tabPanel header="treetablescrolldemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/treetablescrolldemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Vertical&lt;/h3&gt;
-&lt;p-treeTable [value]="files2" [columns]="cols" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;            
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Virtual Scroll - 250K Root Nodes X 2 Child Nodes&lt;/h3&gt;
-&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
-    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
-    [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
-        &lt;tr style="height:34px"&gt;
-            &lt;td *ngFor="let col of columns;"&gt;
-                &lt;div class="loading-text"&gt;&lt;/div&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Horizontal&lt;/h3&gt;
-&lt;p-treeTable [value]="files2" [columns]="cols" [scrollable]="true" [style]="&#123;width:'600px'&#125;"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:350px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;            
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Horizontal and Vertical&lt;/h3&gt;
-&lt;p-treeTable [value]="files3" [columns]="cols" [scrollable]="true" scrollHeight="200px" [style]="&#123;width:'600px'&#125;"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:350px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;            
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Frozen Columns&lt;/h3&gt;
-&lt;p-treeTable [value]="files4" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="200px" frozenWidth="200px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;            
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData"&gt;
-        &lt;tr&gt;
-            &lt;td&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData.name&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;            
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetablescroll-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

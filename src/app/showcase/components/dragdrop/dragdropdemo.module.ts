@@ -6,7 +6,7 @@ import {DragDropModule} from 'primeng/dragdrop';
 import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
 
 
 @NgModule({
@@ -16,8 +16,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         DragDropModule,
         PanelModule,
         TableModule,
-        TabViewModule,
-        CodeHighlighterModule
+		TabViewModule,
+		AppCodeModule
 	],
 	declarations: [
 		DragDropDemo

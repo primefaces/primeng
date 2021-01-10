@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../components/domain/car';
-import { CarService } from '../../service/carservice';
-import { MenuItem } from 'primeng/api';
-import {MessageService} from 'primeng/api';
+import { Product } from '../../domain/product';
+import { ProductService } from '../../service/productservice';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './tablecontextmenudemo.html',
@@ -10,48 +9,31 @@ import {MessageService} from 'primeng/api';
 })
 export class TableContextMenuDemo implements OnInit {
 
-    cars: Car[];
+    products: Product[];
 
-    cols: any[];
-
-    selectedCar: Car;
-
-    selectCars: Car[];
+    selectedProduct: Product;
 
     items: MenuItem[];
 
-    constructor(private carService: CarService, private messageService: MessageService) { }
+    constructor(private productService: ProductService, private messageService: MessageService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
-        ];
+        this.productService.getProductsSmall().then(data => this.products = data);
 
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewCar(this.selectedCar) },
-            { label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteCar(this.selectedCar) }
+            {label: 'View', icon: 'pi pi-fw pi-search', command: () => this.viewProduct(this.selectedProduct)},
+                {label: 'Delete', icon: 'pi pi-fw pi-times', command: () => this.deleteProduct(this.selectedProduct)}
         ];
     }
 
-    viewCar(car: Car) {
-        this.messageService.add({ severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand });
+    viewProduct(product: Product) {
+        this.messageService.add({severity: 'info', summary: 'Product Selected', detail: product.name });
     }
 
-    deleteCar(car: Car) {
-        let index = -1;
-        for (let i = 0; i < this.cars.length; i++) {
-            if (this.cars[i].vin == car.vin) {
-                index = i;
-                break;
-            }
-        }
-        this.cars.splice(index, 1);
-        
-        this.messageService.add({ severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand });
+    deleteProduct(product: Product) {
+        this.products = this.products.filter((p) => p.id !== product.id);
+        this.messageService.add({severity: 'info', summary: 'Product Deleted', detail: product.name});
+        this.selectedProduct = null;
     }
+
 }

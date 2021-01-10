@@ -8,4 +8,5 @@ export interface Message {
     sticky?: boolean;
     closable?: boolean;
     data?: any;
+    icon?: string;
 }

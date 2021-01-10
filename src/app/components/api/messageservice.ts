@@ -12,13 +12,13 @@ export class MessageService {
     clearObserver = this.clearSource.asObservable();
     
     add(message: Message) {
-        if(message) {
+        if (message) {
             this.messageSource.next(message);
         }
     }
     
     addAll(messages: Message[]) {
-        if(messages && messages.length) {
+        if (messages && messages.length) {
             this.messageSource.next(messages);
         } 
     }

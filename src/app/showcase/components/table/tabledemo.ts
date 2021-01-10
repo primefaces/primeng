@@ -1,26 +1,55 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../components/domain/car';
-import { CarService } from '../../service/carservice';
+import { Customer, Representative } from '../../domain/customer';
+import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    templateUrl: './tabledemo.html'
+    templateUrl: './tabledemo.html',
+    styleUrls: ['./tabledemo.scss']
 })
 export class TableDemo implements OnInit {
 
-    cars: Car[];
+    customers: Customer[];
 
-    cols: any[];
+    selectedCustomers: Customer[];
 
-    constructor(private carService: CarService) { }
+    representatives: Representative[];
+
+    statuses: any[];
+
+    loading: boolean = true;
+
+    activityValues: number[] = [0, 100];
+
+    constructor(private customerService: CustomerService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.customerService.getCustomersLarge().then(customers => {
+            this.customers = customers;
+            this.loading = false;
 
-        this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+            this.customers.forEach(customer => customer.date = new Date(customer.date));
+        });
+
+        this.representatives = [
+            {name: "Amy Elsner", image: 'amyelsner.png'},
+            {name: "Anna Fali", image: 'annafali.png'},
+            {name: "Asiya Javayant", image: 'asiyajavayant.png'},
+            {name: "Bernardo Dominic", image: 'bernardodominic.png'},
+            {name: "Elwin Sharvill", image: 'elwinsharvill.png'},
+            {name: "Ioni Bowcher", image: 'ionibowcher.png'},
+            {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
+            {name: "Onyama Limba", image: 'onyamalimba.png'},
+            {name: "Stephen Shaw", image: 'stephenshaw.png'},
+            {name: "Xuxue Feng", image: 'xuxuefeng.png'}
+        ];
+
+        this.statuses = [
+            {label: 'Unqualified', value: 'unqualified'},
+            {label: 'Qualified', value: 'qualified'},
+            {label: 'New', value: 'new'},
+            {label: 'Negotiation', value: 'negotiation'},
+            {label: 'Renewal', value: 'renewal'},
+            {label: 'Proposal', value: 'proposal'}
         ];
     }
 }

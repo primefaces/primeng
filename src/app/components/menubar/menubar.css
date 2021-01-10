@@ -1,91 +1,70 @@
-.ui-menubar {
-    padding: .25em;
+.p-menubar {
+    display: flex;
+    align-items: center;
 }
 
-.ui-menubar:after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.ui-menubar ul {
+.p-menubar ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.ui-menubar .ui-menuitem-link {
-    display: block;
-    padding: .25em;
-    position: relative;
+.p-menubar .p-menuitem-link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-}
-
-.ui-menubar .ui-menuitem-icon {
-    margin-right: .25em;
-}
-
-.ui-menubar .ui-menubar-root-list {
-    display: inline-block;
-}
-
-.ui-menubar .ui-menubar-root-list > .ui-menuitem {
-    display: inline-block;
+    overflow: hidden;
     position: relative;
 }
 
-.ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
-    padding: .5em;
+.p-menubar .p-menuitem-text {
+    line-height: 1;
 }
 
-.ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link > .ui-submenu-icon {
-    vertical-align: middle;
-    margin-left: .25em;
-}
-
-.ui-menubar .ui-menubar-root-list > li ul {
-    display: none;
-}
-
-.ui-menubar .ui-menubar-root-list > .ui-menu-separator {
-    display: inline-block;
-    vertical-align: middle;
-    height: 1.5em;
-}
-
-.ui-menubar .ui-submenu-list {
-    display: none;
-    position: absolute;
-    min-width: 12.5em;
-    padding: .25em;
-}
-
-.ui-menubar .ui-submenu-list .ui-menuitem {
-    margin: .125em 0;
+.p-menubar .p-menuitem {
     position: relative;
 }
 
-.ui-menubar .ui-menuitem-icon {
-    margin-right: .25em;
-    vertical-align: middle;
+.p-menubar-root-list {
+    display: flex;
+    align-items: center;
 }
 
-.ui-menubar .ui-menuitem-text {
-    vertical-align: middle;
+.p-menubar-root-list > li ul {
+    display: none;
+    z-index: 1;
 }
 
-.ui-menubar .ui-submenu-list .ui-menuitem-link .ui-submenu-icon {
-    position: absolute;
-    margin-top: -.5em;
-    right: 0;
-    top: 50%;
-}
-
-.ui-menubar .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
+.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
     display: block;
 }
 
-.ui-menubar .ui-menubar-custom {
-    float: right;
-    padding: .25em;
+.p-menubar .p-submenu-list {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list  {
+    display: block;
+    left: 100%;
+    top: 0;
+}
+
+.p-menubar .p-submenu-list .p-menuitem-link .p-submenu-icon {
+    margin-left: auto;
+}
+
+.p-menubar .p-menubar-custom,
+.p-menubar .p-menubar-end {
+    margin-left: auto;
+    align-self: center;
+}
+
+.p-menubar-button {
+    display: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }

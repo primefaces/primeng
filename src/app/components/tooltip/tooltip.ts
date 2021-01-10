@@ -1,6 +1,6 @@
 import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, Input, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 
 @Directive({
     selector: '[pTooltip]'
@@ -19,8 +19,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() tooltipZIndex: string = 'auto';
 
-    @Input("tooltipDisabled") disabled: boolean;
-
     @Input() escape: boolean = true;
 
     @Input() showDelay: number;
@@ -28,6 +26,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     @Input() hideDelay: number;
 
     @Input() life: number;
+
+    @Input("tooltipDisabled") get disabled(): boolean {
+        return this._disabled;
+    }
+    set disabled(val:boolean) {
+        this._disabled = val;
+        this.deactivate();
+    }
+
+    _disabled: boolean;
 
     container: any;
 
@@ -52,6 +60,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     focusListener: Function;
 
     blurListener: Function;
+
+    scrollHandler: any;
 
     resizeListener: any;
 
@@ -81,19 +91,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.activate();
         }
     }
-    
+
     onMouseLeave(e: Event) {
         this.deactivate();
     }
-    
+
     onFocus(e: Event) {
         this.activate();
     }
-    
+
     onBlur(e: Event) {
         this.deactivate();
     }
-  
+
     onClick(e: Event) {
         this.deactivate();
     }
@@ -149,14 +159,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     create() {
+        if (this.container) {
+            this.clearHideTimeout();
+            this.remove();
+        }
+
         this.container = document.createElement('div');
 
         let tooltipArrow = document.createElement('div');
-        tooltipArrow.className = 'ui-tooltip-arrow';
+        tooltipArrow.className = 'p-tooltip-arrow';
         this.container.appendChild(tooltipArrow);
 
         this.tooltipText = document.createElement('div');
-        this.tooltipText.className = 'ui-tooltip-text ui-shadow ui-corner-all';
+        this.tooltipText.className = 'p-tooltip-text';
 
         this.updateText();
 
@@ -191,6 +206,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.container.style.zIndex = this.tooltipZIndex;
 
         this.bindDocumentResizeListener();
+        this.bindScrollListener();
     }
 
     hide() {
@@ -272,11 +288,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getHostOffset() {
-        if(this.appendTo === 'body' || this.appendTo === 'target') {
+        if (this.appendTo === 'body' || this.appendTo === 'target') {
             let offset = this.el.nativeElement.getBoundingClientRect();
             let targetLeft = offset.left + DomHandler.getWindowScrollLeft();
             let targetTop = offset.top + DomHandler.getWindowScrollTop();
-    
+
             return { left: targetLeft, top: targetTop };
         }
         else {
@@ -324,7 +340,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
 
-        let defaultClassName = 'ui-tooltip ui-widget ui-tooltip-' + position;
+        let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
         this.container.className = this.tooltipStyleClass ? defaultClassName + ' ' + this.tooltipStyleClass : defaultClassName;
     }
 
@@ -357,6 +373,24 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
+    bindScrollListener() {
+        if (!this.scrollHandler) {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
+                if (this.container) {
+                    this.hide();
+                }
+            });
+        }
+
+        this.scrollHandler.bindScrollListener();
+    }
+
+    unbindScrollListener() {
+        if (this.scrollHandler) {
+            this.scrollHandler.unbindScrollListener();
+        }
+    }
+
     unbindEvents() {
         if (this.tooltipEvent === 'hover') {
             this.el.nativeElement.removeEventListener('mouseenter', this.mouseEnterListener);
@@ -382,8 +416,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         this.unbindDocumentResizeListener();
+        this.unbindScrollListener();
         this.clearTimeouts();
         this.container = null;
+        this.scrollHandler = null;
     }
 
     clearShowTimeout() {
@@ -408,6 +444,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.unbindEvents();
         this.remove();
+
+        if (this.scrollHandler) {
+            this.scrollHandler.destroy();
+            this.scrollHandler = null;
+        }
     }
 }
 

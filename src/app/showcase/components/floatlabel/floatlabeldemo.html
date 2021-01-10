@@ -1,0 +1,220 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Float Label</h1>
+        <p>All input text components support floating labels.</p>
+    </div>
+    <app-inputStyleSwitch></app-inputStyleSwitch>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input type="text" id="inputtext" pInputText [(ngModel)]="value1"> 
+                    <label for="inputtext">InputText</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-autoComplete inputId="autocomplete" [(ngModel)]="value2" [suggestions]="filteredCountries" (completeMethod)="searchCountry($event)" field="name"></p-autoComplete>
+                    <label for="autocomplete">AutoComplete</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-calendar inputId="calendar" [(ngModel)]="value3"></p-calendar>
+                    <label for="calendar">Calendar</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-chips inputId="chips" [(ngModel)]="value4"></p-chips>
+                    <label for="chips">Chips</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5"></p-inputMask>
+                    <label for="inputmask">InputMask</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-inputNumber inputId="inputnumber" [(ngModel)]="value6"></p-inputNumber>
+                    <label for="inputnumber">InputNumber</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-user"></i>
+                    </span>
+                    <span class="p-float-label">
+                        <input type="text" id="inputgroup" pInputText [(ngModel)]="value7"> 
+                        <label for="inputgroup">InputGroup</label>
+                    </span>
+                </div>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="cities" [(ngModel)]="value8" optionLabel="name"></p-dropdown>
+                    <label for="dropdown">Dropdown</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-multiSelect inputId="multiselect" [options]="cities" [(ngModel)]="value9" optionLabel="name" [filter]="false"></p-multiSelect>
+                    <label for="multiselect">MultiSelect</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <textarea inputId="textarea" rows="3" cols="30" [(ngModel)]="value10" pInputTextarea></textarea>
+                    <label for="textarea">Textarea</label>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/floatlabel" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="p-fluid p-grid"&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;input type="text" id="inputtext" pInputText [(ngModel)]="value1"&gt; 
+            &lt;label for="inputtext"&gt;InputText&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;p-autoComplete inputId="autocomplete" [(ngModel)]="value2" [suggestions]="filteredCountries" (completeMethod)="searchCountry($event)" field="name"&gt;&lt;/p-autoComplete&gt;
+            &lt;label for="autocomplete"&gt;AutoComplete&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;p-calendar inputId="calendar" [(ngModel)]="value3"&gt;&lt;/p-calendar&gt;
+            &lt;label for="calendar"&gt;Calendar&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;p-chips inputId="chips" [(ngModel)]="value4"&gt;&lt;/p-chips&gt;
+            &lt;label for="chips"&gt;Chips&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5"&gt;&lt;/p-inputMask&gt;
+            &lt;label for="inputmask"&gt;InputMask&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;p-inputNumber inputId="inputnumber" [(ngModel)]="value6"&gt;&lt;/p-inputNumber&gt;
+            &lt;label for="inputnumber"&gt;InputNumber&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;div class="p-inputgroup"&gt;
+            &lt;span class="p-inputgroup-addon"&gt;
+                &lt;i class="pi pi-user"&gt;&lt;/i&gt;
+            &lt;/span&gt;
+            &lt;span class="p-float-label"&gt;
+                &lt;input type="text" id="inputgroup" pInputText [(ngModel)]="value7"&gt; 
+                &lt;label for="inputgroup"&gt;InputGroup&lt;/label&gt;
+            &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="cities" [(ngModel)]="value8" optionLabel="name"&gt;&lt;/p-dropdown&gt;
+            &lt;label for="dropdown"&gt;Dropdown&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;p-multiSelect inputId="multiselect" [options]="cities" [(ngModel)]="value9" optionLabel="name" [filter]="false"&gt;&lt;/p-multiSelect&gt;
+            &lt;label for="multiselect"&gt;MultiSelect&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;span class="p-float-label"&gt;
+            &lt;textarea inputId="textarea" rows="3" cols="30" [(ngModel)]="value10" pInputTextarea&gt;&lt;/textarea&gt;
+            &lt;label for="textarea"&gt;Textarea&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class FloatLabelDemo &#123;
+
+    countries: any[];
+
+    cities: any[];
+
+    filteredCountries: any[];
+
+    value1: any;
+
+    value2: any;
+
+    value3: any;
+
+    value4: any;
+
+    value5: any;
+
+    value6: any;
+
+    value7: any;
+
+    value8: any;
+    
+    value9: any;
+
+    value10: any;
+
+    constructor(private countryService: CountryService) &#123;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
+    &#125;
+
+    ngOnInit() &#123;
+        this.countryService.getCountries().then(countries =&gt; &#123;
+            this.countries = countries;
+        &#125;);
+    &#125;
+
+    searchCountry(event) &#123;
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        let filtered : any[] = [];
+        let query = event.query;
+        for(let i = 0; i &lt; this.countries.length; i++) &#123;
+            let country = this.countries[i];
+            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
+                filtered.push(country);
+            &#125;
+        &#125;
+        
+        this.filteredCountries = filtered;
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -6,7 +6,7 @@ import {OrganizationChartModule} from 'primeng/organizationchart';
 import {ToastModule} from 'primeng/toast';
 import {PanelModule} from 'primeng/panel';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -15,8 +15,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         OrganizationChartModule,
         ToastModule,
         PanelModule,
-        TabViewModule,
-        CodeHighlighterModule
+		TabViewModule,
+		AppCodeModule
 	],
 	declarations: [
 		OrganizationChartDemo

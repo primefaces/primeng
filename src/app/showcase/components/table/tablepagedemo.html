@@ -1,88 +1,188 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Page</span></span>
-        <span>Pagination is enabled by setting paginator property to true and defining a rows property to specify the number of rows per page. For server side pagination, see the <a [routerLink]="['/table/lazy']">lazy loading</a> example.</span>
+    <div class="feature-intro">
+        <h1>Table <span>Page</span></h1>
+        <p>Pagination is enabled by setting paginator property to true and defining a rows property to specify the number of rows per page. For server side pagination, see the <a [routerLink]="['/table/lazy']">lazy loading</a> example.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <h5>Implicit Pagination</h5>
+        <p-table [value]="customers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <h5>Programmatic Control</h5>
+        <div class="p-mb-3">
+            <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+        </div>
+        <p-table [value]="customers" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablepagedemo.ts">
+    <p-tabView>
+        <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablepagedemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-tablepage-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Implicit Pagination&lt;/h5&gt;
+    &lt;p-table [value]="customers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+        currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [rowsPerPageOptions]="[10,25,50]"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="paginatorleft"&gt;
+            &lt;p-button type="button" icon="pi pi-plus" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="paginatorright"&gt;
+            &lt;p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Programmatic Control&lt;/h5&gt;
+    &lt;div class="p-mb-3"&gt;
+        &lt;p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+    &lt;/div&gt;
+    &lt;p-table [value]="customers" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
+        currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [rowsPerPageOptions]="[10,25,50]"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+
+@Component(&#123;
+    templateUrl: './tablepagedemo.html'
+&#125;)
 export class TablePageDemo implements OnInit &#123;
 
-    cars: Car[];
+    customers: Customer[];
 
-    cols: any[];
+    first = 0;
 
-    constructor(private carService: CarService) &#123; &#125;
+    rows = 10;
+
+    constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
+        this.customerService.getCustomersLarge().then(customers =&gt; this.customers = customers);
     &#125;
+
+    next() &#123;
+        this.first = this.first + this.rows;
+    &#125;
+
+    prev() &#123;
+        this.first = this.first - this.rows;
+    &#125;
+
+    reset() &#123;
+        this.first = 0;
+    &#125;
+
+    isLastPage(): boolean &#123;
+        return this.customers ? this.first === (this.customers.length - this.rows): true;
+    &#125;
+
+    isFirstPage(): boolean &#123;
+        return this.customers ? this.first === 0 : true;
+    &#125;
+
 &#125;
-</code>
-</pre>   
+</app-code> 
         </p-tabPanel>
 
-        <p-tabPanel header="tablepagedemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablepagedemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
+       
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablepage-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

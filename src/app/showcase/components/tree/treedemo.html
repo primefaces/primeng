@@ -1,107 +1,40 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Tree</span>
-        <span>Tree is used to display hierarchical data.</span>
+    <div class="feature-intro">
+        <h1>Tree</h1>
+        <p>Tree is used to display hierarchical data.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-tree [value]="files1"></p-tree>
 
-    <h3 class="first">Basic</h3>
-    <p-tree [value]="filesTree0"></p-tree>
-
-    <h3>Loader</h3>
-    <p-tree [value]="filesTree1" [loading]="loading"></p-tree>
-
-    <h3>Single Selection</h3>
-    <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile"
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    <div style="margin-top:8px">Selected Node: {{selectedFile ? selectedFile.label : 'none'}}</div>
-
-    <h3>Multiple Selection with Metakey</h3>
-    <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles"
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    <div>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}}</span></div>
-
-    <h3>Multiple Selection with Checkbox</h3>
-    <p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
-    <div>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.label}}</span></div>
-
-    <h3>Lazy Loading</h3>
-    <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="{'max-height':'200px','overflow':'auto'}"></p-tree>
-
-    <h3>Template</h3>
-    <p-tree [value]="filesTree5">
-        <ng-template let-node pTemplate="default">
-            <input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext">
-        </ng-template>
-    </p-tree>
-
-    <h3>Context Menu</h3>
-    <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
-
-    <h3>DragDrop</h3>
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-3">
-            <h4>Files</h4>
-            <p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2" ></p-tree>
+        <h5>Programmatic</h5>
+        <div style="margin-bottom: 1rem">
+            <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .5rem"></button>
+            <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
         </div>
-
-        <div class="ui-g-12 ui-md-1" style="text-align:center">
-            <i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"></i>
-        </div>
-
-        <div class="ui-g-12 ui-md-3">
-            <h4>Server 1</h4>
-            <p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true"  droppableScope="server1" draggableScope="files"></p-tree>
-        </div>
-
-        <div class="ui-g-12 ui-md-1" style="text-align:center">
-            <i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"></i>
-        </div>
-
-        <div class="ui-g-12 ui-md-3">
-            <h4>Server 2</h4>
-            <p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true"  droppableScope="server2" draggableScope="server1"></p-tree>
-        </div>
-
-        <div class="ui-g-12 ui-md-1">
-
-        </div>
+        <p-tree [value]="files2"></p-tree>
     </div>
-
-    <h3>Programatic Tree Expansion</h3>
-    <p-tree #expandingTree [value]="filesTree10"></p-tree>
-    <div style="margin-top: 8px">
-        <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .25em"></button>
-        <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
-    </div>
-
-    <h3>Lenient Filter Mode</h3>
-    <p-tree [value]="filesTree11" [filter]="true"></p-tree>
-
-    <h3>Strict Filter Mode</h3>
-    <p-tree [value]="filesTree12" [filter]="true" filterMode="strict"></p-tree>
-
-    <h3>Horizontal Tree</h3>
-    <p-tree [value]="filesTree13" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
-    <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>CDK</h5>
+            <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+npm install @angular/cdk --save
+</app-code>
+
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TreeModule&#125; from 'primeng/tree';
 import &#123;TreeNode&#125; from 'primeng/api';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Tree component requires an array of TreeNode objects as its value. Let's begin with the TreeNode api. Note that all of the properties are optional.</p>
 
             <div class="doc-tablewrapper">
@@ -222,8 +155,8 @@ import &#123;TreeNode&#125; from 'primeng/api';
             </div>
 
             <p>Most of the time, nodes will be loaded from a remote datasoure, here is an example NodeService that fetches the data from a json file.</p>
-<pre>
-<code class="language-javascript" pCode ngNonBindable>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class NodeService &#123;
 
@@ -235,70 +168,67 @@ export class NodeService &#123;
                     .then(res =&gt; &lt;TreeNode[]&gt; res.json().data);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
         <p>The files.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
-<pre>
-<code class="language-javascript" pCode ngNonBindable>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &#123;
     "data":
     [
         &#123;
             "label": "Documents",
             "data": "Documents Folder",
-            "expandedIcon": "fa fa-folder-open",
-            "collapsedIcon": "fa fa-folder",
+            "expandedIcon": "pi pi-folder-open",
+            "collapsedIcon": "pi pi-folder",
             "children": [&#123;
                     "label": "Work",
                     "data": "Work Folder",
-                    "expandedIcon": "fa fa-folder-open",
-                    "collapsedIcon": "fa fa-folder",
-                    "children": [&#123;"label": "Expenses.doc", "icon": "fa fa-file-word-o", "data": "Expenses Document"&#125;, &#123;"label": "Resume.doc", "icon": "fa fa-file-word-o", "data": "Resume Document"&#125;]
+                    "expandedIcon": "pi pi-folder-open",
+                    "collapsedIcon": "pi pi-folder",
+                    "children": [&#123;"label": "Expenses.doc", "icon": "pi pi-file", "data": "Expenses Document"&#125;, &#123;"label": "Resume.doc", "icon": "pi pi-file", "data": "Resume Document"&#125;]
                 &#125;,
                 &#123;
                     "label": "Home",
                     "data": "Home Folder",
-                    "expandedIcon": "fa fa-folder-open",
-                    "collapsedIcon": "fa fa-folder",
-                    "children": [&#123;"label": "Invoices.txt", "icon": "fa fa-file-word-o", "data": "Invoices for this month"&#125;]
+                    "expandedIcon": "pi pi-folder-open",
+                    "collapsedIcon": "pi pi-folder",
+                    "children": [&#123;"label": "Invoices.txt", "icon": "pi pi-file", "data": "Invoices for this month"&#125;]
                 &#125;]
         &#125;,
         &#123;
             "label": "Pictures",
             "data": "Pictures Folder",
-            "expandedIcon": "fa fa-folder-open",
-            "collapsedIcon": "fa fa-folder",
+            "expandedIcon": "pi pi-folder-open",
+            "collapsedIcon": "pi pi-folder",
             "children": [
-                &#123;"label": "barcelona.jpg", "icon": "fa fa-file-image-o", "data": "Barcelona Photo"&#125;,
-                &#123;"label": "logo.jpg", "icon": "fa fa-file-image-o", "data": "PrimeFaces Logo"&#125;,
-                &#123;"label": "primeui.png", "icon": "fa fa-file-image-o", "data": "PrimeUI Logo"&#125;]
+                &#123;"label": "barcelona.jpg", "icon": "pi pi-image", "data": "Barcelona Photo"&#125;,
+                &#123;"label": "logo.jpg", "icon": "pi pi-file", "data": "PrimeFaces Logo"&#125;,
+                &#123;"label": "primeui.png", "icon": "pi pi-image", "data": "PrimeUI Logo"&#125;]
         &#125;,
         &#123;
             "label": "Movies",
             "data": "Movies Folder",
-            "expandedIcon": "fa fa-folder-open",
-            "collapsedIcon": "fa fa-folder",
+            "expandedIcon": "pi pi-folder-open",
+            "collapsedIcon": "pi pi-folder",
             "children": [&#123;
                     "label": "Al Pacino",
                     "data": "Pacino Movies",
-                    "children": [&#123;"label": "Scarface", "icon": "fa fa-file-video-o", "data": "Scarface Movie"&#125;, &#123;"label": "Serpico", "icon": "fa fa-file-video-o", "data": "Serpico Movie"&#125;]
+                    "children": [&#123;"label": "Scarface", "icon": "pi pi-video", "data": "Scarface Movie"&#125;, &#123;"label": "Serpico", "icon": "pi pi-file-video", "data": "Serpico Movie"&#125;]
                 &#125;,
                 &#123;
                     "label": "Robert De Niro",
                     "data": "De Niro Movies",
-                    "children": [&#123;"label": "Goodfellas", "icon": "fa fa-file-video-o", "data": "Goodfellas Movie"&#125;, &#123;"label": "Untouchables", "icon": "fa fa-file-video-o", "data": "Untouchables Movie"&#125;]
+                    "children": [&#123;"label": "Goodfellas", "icon": "pi pi-video", "data": "Goodfellas Movie"&#125;, &#123;"label": "Untouchables", "icon": "pi pi-video", "data": "Untouchables Movie"&#125;]
                 &#125;]
         &#125;
     ]
 &#125;
-</code>
-</pre>
+</app-code>
 
         <p>The component that uses this service makes a call to getFiles() and assigns them back to files property that is bound to the tree.</p>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeDemoComponent implements OnInit &#123;
 
     files: TreeNode[];
@@ -310,20 +240,16 @@ export class TreeDemoComponent implements OnInit &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Selection</h3>
-            <p>Tree supports 3 selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            <h5>Selection</h5>
+            <p>Tree supports 3 selection methods, single, multiple and checkbox. Selection is enabled by setting <i>selectionMode</i> property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeDemoComponent implements OnInit &#123;
 
     files: TreeNode[];
@@ -337,20 +263,16 @@ export class TreeDemoComponent implements OnInit &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+</app-code>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
         <p>In multiple mode or checkbox mode, selection property should be an array. In multiple mode, items can either be selected
         using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
         devices metaKeySelection is turned off automatically. In checkbox mode, when inititing a tree with preselections, also set partialSelected
         property on node so that minus icon can be displayed when necessary.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
     export class TreeDemoComponent implements OnInit &#123;
 
         files: TreeNode[];
@@ -364,33 +286,25 @@ export class TreeDemoComponent implements OnInit &#123;
         &#125;
 
     &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned off by propagateSelectionDown and
-            propagateSelectionUp properties.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned off by <i>propagateSelectionDown</i> and
+            <i>propagateSelectionUp</i> properties.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
                 [propagateSelectionUp]="false" [propagateSelectionDown]="false"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <p>Tree provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+            <p>Tree provides <i>onNodeSelect</i> and <i>onNodeUnselect</i> options as callbacks for selection feature.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeDemoComponent implements OnInit &#123;
 
     files: TreeNode[];
@@ -408,33 +322,29 @@ export class TreeDemoComponent implements OnInit &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
+            <p>Selection of a particular node can be disabled by setting the <i>selectable</i> property of the node to false.</p>
 
-            <h3>Icons</h3>
+            <h5>Icons</h5>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
-                expandedIcon and collapsedIcon instead.</p>
+                <i>expandedIcon</i> and <i>collapsedIcon</i> instead.</p>
 
-            <h3>Templating</h3>
+            <h5>Templating</h5>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets
                 the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files"&gt;
     &lt;ng-template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/ng-template&gt;
 &lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
             <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node has no type,
-            then default ng-template is used.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            then default <i>ng-template</i> is used.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files"&gt;
     &lt;ng-template let-node  pTemplate="picture"&gt;
         &lt;img [attrs.src]="picture.path"&gt;
@@ -443,46 +353,38 @@ export class TreeDemoComponent implements OnInit &#123;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/ng-template&gt;
 &lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Filtering</h3>
-            <p>Filtering is enabled by setting the <b>filter</b> property to true, by default label property of a node 
-                is used to compare against the value in the text field, in order to customize which field(s) should be used during search define <b>filterBy</b> property.</p>
-    
-            <p>In addition <b>filterMode</b> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, 
+            <h5>Filtering</h5>
+            <p>Filtering is enabled by setting the <i>filter</i> property to true, by default label property of a node
+                is used to compare against the value in the text field, in order to customize which field(s) should be used during search define <i>filterBy</i> property.</p>
+
+            <p>In addition <i>filterMode</i> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand,
                     in <b>strict</b> mode when the query matches a node, filtering continues on all descendants.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="filesTree11" [filter]="true">&lt;/p-tree&gt;
 
 &lt;p-tree [value]="filesTree12" [filter]="true" filterMode="strict"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>ContextMenu</h3>
+            <h5>ContextMenu</h5>
             <p>Tree has exclusive integration with context menu created by binding a menu instance to the tree.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
 
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Lazy Loading</h3>
-            <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at onNodeExpand event.
+            <h5>Lazy Loading</h5>
+            <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at <i>onNodeExpand</i> event.
             Important part of implementing lazy loading is defining leaf property of a node as false, this will instruct tree to display an arrow icon
             to indicate there are children of this node although they are not loaded yet. When the lazy node is expanded, onNodeExpand is called
             and a remote call can be made to add the children to the expanded node.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" (onNodeExpand)="loadNode($event)"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeDemoComponent implements OnInit &#123;
 
     files: TreeNode[];
@@ -497,111 +399,118 @@ export class TreeDemoComponent implements OnInit &#123;
     &#125;
 
     loadNode(event) &#123;
-        if(event.node) &#123;
+        if (event.node) &#123;
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
         &#125;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>Assume at ngOnInit tree is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
-<pre>
-<code class="language-javascript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &#123;
     "data":
     [
         &#123;
             "label": "Lazy Node 0",
             "data": "Node 0",
-            "expandedIcon": "fa fa-folder-open",
-            "collapsedIcon": "fa fa-folder",
+            "expandedIcon": "pi pi-folder",
+            "collapsedIcon": "pi pi-folder",
             "leaf": false
         &#125;,
         &#123;
             "label": "Lazy Node 1",
             "data": "Node 1",
-            "expandedIcon": "fa fa-folder-open",
-            "collapsedIcon": "fa fa-folder",
+            "expandedIcon": "pi pi-folder-open",
+            "collapsedIcon": "pi pi-folder",
             "leaf": false
         &#125;,
         &#123;
             "label": "Lazy Node 1",
             "data": "Node 2",
-            "expandedIcon": "fa fa-folder-open",
-            "collapsedIcon": "fa fa-folder",
+            "expandedIcon": "pi pi-folder-open",
+            "collapsedIcon": "pi pi-folder",
             "leaf": false
         &#125;
     ]
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Drag and Drop</h3>
-            <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set draggableNodes to true and to allow
-            dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+                <h5>Scrolling</h5>
+                <p>Scrolling is used to preserve space as content of the tree is dynamic and enabled by <i>scrollHeight</i> property.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tree [value]="files" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+</app-code>
+
+                <h5>Flex Scroll</h5>
+                <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
+                table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+    [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="p-fluid"&gt;
+    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+&lt;/p-dialog&gt;
+</app-code>
+
+                <h5>Virtual Scrolling</h5>
+                <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualNodeHeight</i> in pixels would be enough to enable this functionality.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tree [value]="files" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+</app-code>
+
+            <h5>Drag and Drop</h5>
+            <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set <i>draggableNodes</i> to true and to allow
+            dropping enable <i>droppableNodes</i> property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TreeDragDropService&#125; from 'primeng/api';
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
             <p>Multiple trees can be used in a drag drop operation, in order to add constraints like rejecting drags from a certain tree but allow from another use draggableScope
             and droppableScope properties which can be a string or an array. Following example uses 3 trees where second one only accepts drags from first tree and second one only
             accepts from second tree whereas first tree accepts drops from 3rd tree.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="a" droppableScope="c"&gt;&lt;/p-tree&gt;
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="b" droppableScope="a"&gt;&lt;/p-tree&gt;
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="c" droppableScope="b"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <p>In case, a drop should be accepted based on a condition, enable validateDrop property, define an event handler for onNodeDrop where the passed event and call the accept callback of the event
-                to accept a drop. Simply omitting the call of accept() will reject the drop.
+            <p>In case, a drop should be accepted based on a condition, enable validateDrop property, define an event handler for <i>onNodeDrop</i> where the passed event and call the accept callback of the event
+                to accept a drop. Simply emitting the call of <i>accept()</i> will reject the drop.
             </p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" [validateDrop]="true" (onNodeDrop)="onDrop($event)"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-onDrop(event) {
-    if (condition) {
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+onDrop(event) &#123;
+    if (condition) &#123;
         event.accept();
-    }
-}
-</code>
-</pre>
+    &#125;
+&#125;
+</app-code>
 
-            <h3>Loading Status</h3>
+            <h5>Loading Status</h5>
             <p>Tree has a loading property, when enabled a spinner icon is displayed to indicate data load.</p>
             <p>An optional loadingIcon property can be passed in case you prefer a different icon.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" [loading]="loading"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Horizontal Orientation</h3>
+            <h5>Horizontal Orientation</h5>
             <p>Horizontal mode is the alternative option for orientation.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tree [value]="files" layout="horizontal"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -656,6 +565,30 @@ onDrop(event) {
                             <td>Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.</td>
                         </tr>
                         <tr>
+                            <td>draggableScope</td>
+                            <td>string/array</td>
+                            <td>null</td>
+                            <td>Scope of the draggable nodes to match a droppableScope.</td>
+                        </tr>
+                        <tr>
+                            <td>droppableScope</td>
+                            <td>string/array</td>
+                            <td>null</td>
+                            <td>Scope of the droppable nodes to match a draggableScope.</td>
+                        </tr>
+                        <tr>
+                            <td>draggableNodes</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the nodes are draggable.</td>
+                        </tr>
+                        <tr>
+                            <td>droppableNodes</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the nodes are droppable.</td>
+                        </tr>
+                        <tr>
                             <td>metaKeySelection</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -683,8 +616,26 @@ onDrop(event) {
                         <tr>
                             <td>loadingIcon</td>
                             <td>string</td>
-                            <td>fa-circle-o-notch</td>
+                            <td>pi pi-spinner</td>
                             <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found</td>
+                            <td>Text to display when there is no data.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabel</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>Used to define a string that labels the tree.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>pi pi-spinner</td>
+                            <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
                         </tr>
                         <tr>
                             <td>validateDrop</td>
@@ -716,11 +667,59 @@ onDrop(event) {
                             <td>null</td>
                             <td>Placeholder text to show when filter input is empty.</td>
                         </tr>
+                        <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollHeight</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Height of the scrollable viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be rendered on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualNodeHeight</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of a node to use in calculations of virtual scrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>minBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
+                        </tr>
+                        <tr>
+                            <td>maxBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
+                        </tr>
+                        <tr>
+                            <td>trackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the node list rendering, default algoritm checks for object identity.</td>
+                        </tr>
+                        <tr>
+                            <td>indentation</td>
+                            <td>number</td>
+                            <td>1.5</td>
+                            <td>Indentation factor for spacing of the nested node when virtual scrolling is enabled.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -769,11 +768,17 @@ onDrop(event) {
                                 event.index: Index of the dropped node within siblings.</td>
                             <td>Callback to invoke when a node is dropped.</td>
                         </tr>
+                        <tr>
+                            <td>onFilter</td>
+                            <td>event.filter: Filter value used in filtering.<br>
+                                event.filteredValue: Filtered data after running the filtering.</td>
+                            <td>Callback to invoke when data is filtered.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -785,277 +790,120 @@ onDrop(event) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-tree</td>
+                            <td>p-tree</td>
                             <td>Main container element</td>
                         </tr>
                         <tr>
-                            <td>ui-tree-horizontal</td>
+                            <td>p-tree-horizontal</td>
                             <td>Main container element in horizontal mode</td>
                         </tr>
                         <tr>
-                            <td>ui-tree-container</td>
+                            <td>p-tree-container</td>
                             <td>Container of nodes</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode</td>
+                            <td>p-treenode</td>
                             <td>A treenode element</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode-content</td>
+                            <td>p-treenode-content</td>
                             <td>Content of a treenode</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode-toggler</td>
+                            <td>p-treenode-toggler</td>
                             <td>Toggle icon</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode-icon</td>
+                            <td>p-treenode-icon</td>
                             <td>Icon of a treenode</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode-label</td>
+                            <td>p-treenode-label</td>
                             <td>Label of a treenode</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode-children</td>
+                            <td>p-treenode-children</td>
                             <td>Container element for node children</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode-content-selected</td>
+                            <td>p-treenode-content-selected</td>
                             <td>Content of a selected node.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+            <a href="https://stackblitz.com/edit/primeng-tree-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-tree [value]="files1"&gt;&lt;/p-tree&gt;
 
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-tree [value]="filesTree0"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Loader&lt;/h3&gt;
-&lt;p-tree [value]="filesTree1" [loading]="loading"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Single Selection&lt;/h3&gt;
-&lt;p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile"
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-&lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile ? selectedFile.label : 'none'&#125;&lt;/div&gt;
-
-&lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
-&lt;p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles"
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;file.label&#125; &lt;/span&gt;&lt;/div&gt;
-
-&lt;h3&gt;Multiple Selection with Checkbox&lt;/h3&gt;
-&lt;p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"&gt;&lt;/p-tree&gt;
-&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles2"&gt;&#123;file.label&#125; &lt;/span&gt;&lt;/div&gt;
-
-&lt;h3&gt;Lazy Loading&lt;/h3&gt;
-&lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="filesTree5"&gt;
-    &lt;ng-template let-node pTemplate="default"&gt;
-        &lt;input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext"&gt;
-    &lt;/ng-template&gt;
-&lt;/p-tree&gt;
-
-&lt;h3&gt;Context Menu&lt;/h3&gt;
-&lt;p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
-&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
-
-&lt;h3&gt;DragDrop&lt;/h3&gt;
-&lt;div class="ui-g ui-fluid"&gt;
-    &lt;div class="ui-g-12 ui-md-3"&gt;
-        &lt;h4&gt;Files&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"&gt;&lt;/p-tree&gt;
-    &lt;/div&gt;
-
-    &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
-        &lt;i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"&gt;&lt;/i&gt;
-    &lt;/div&gt;
-
-    &lt;div class="ui-g-12 ui-md-3"&gt;
-        &lt;h4&gt;Server 1&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
-    &lt;/div&gt;
-
-    &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
-        &lt;i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"&gt;&lt;/i&gt;
-    &lt;/div&gt;
-
-    &lt;div class="ui-g-12 ui-md-3"&gt;
-        &lt;h4&gt;Server 2&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;
-    &lt;/div&gt;
-
-    &lt;div class="ui-g-12 ui-md-1"&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h3&gt;Programatic Tree Expansion&lt;/h3&gt;
-&lt;p-tree #expandingTree [value]="filesTree10"&gt;&lt;/p-tree&gt;
-&lt;div style="margin-top: 8px"&gt;
-    &lt;button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .25em"&gt;&lt;/button&gt;
+&lt;h5&gt;Programmatic&lt;/h5&gt;
+&lt;div style="margin-bottom: 1rem"&gt;
+    &lt;button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .5rem"&gt;&lt;/button&gt;
     &lt;button pButton type="button" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
 &lt;/div&gt;
+&lt;p-tree [value]="files2"&gt;&lt;/p-tree&gt;
+</app-code>
 
-&lt;h3&gt;Lenient Filter Mode&lt;/h3&gt;
-&lt;p-tree [value]="filesTree11" [filter]="true"&gt;&lt;/p-tree&gt;
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;NodeService&#125; from '../../service/nodeservice';
+import &#123;TreeNode&#125; from 'primeng/api';
 
-&lt;h3&gt;Strict Filter Mode&lt;/h3&gt;
-&lt;p-tree [value]="filesTree12" [filter]="true" filterMode="strict"&gt;&lt;/p-tree&gt;
+@Component(&#123;
+    templateUrl: './treebasicdemo.html'
+&#125;)
+export class TreeBasicDemo implements OnInit &#123;
 
-&lt;h3&gt;Horizontal Tree&lt;/h3&gt;
-&lt;p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
-&lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&lt;/div&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class TreeDemo implements OnInit &#123;
-
-    @ViewChild('expandingTree')
-    expandingTree: Tree;
-
-    filesTree1: TreeNode[];
-    filesTree2: TreeNode[];
-    filesTree3: TreeNode[];
-    filesTree4: TreeNode[];
-    filesTree5: TreeNode[];
-    filesTree6: TreeNode[];
-    filesTree7: TreeNode[];
-    filesTree8: TreeNode[];
-    filesTree9: TreeNode[];
-    filesTree10: TreeNode[];
-    filesTree11: TreeNode[];
-
-    lazyFiles: TreeNode[];
-
-    selectedFile: TreeNode;
-
-    selectedFile2: TreeNode;
-
-    selectedFile3: TreeNode;
-
-    selectedFiles: TreeNode[];
-
-    selectedFiles2: TreeNode[];
-
-    items: MenuItem[];
-
-    loading: boolean;
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) &#123; &#125;
+    files1: TreeNode[];
+    
+    files2: TreeNode[];
+    
+    constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.loading = true;
-        this.nodeService.getFiles().then(files => this.filesTree0 = files);
-        setTimeout(() => {
-            this.nodeService.getFiles().then(files => this.filesTree1 = files);
-            this.loading = false;
-        }, 3000);
-        this.nodeService.getFiles().then(files => this.filesTree2 = files);
-        this.nodeService.getFiles().then(files => this.filesTree3 = files);
-        this.nodeService.getFiles().then(files => this.filesTree4 = files);
-        this.nodeService.getFiles().then(files => this.filesTree5 = files);
-        this.nodeService.getFiles().then(files => this.filesTree6 = files);
-        this.nodeService.getFiles().then(files => this.filesTree7 = files);
-        this.filesTree8 = [
-            &#123;
-                label: "Backup",
-                data: "Backup Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
-            &#125;
-        ];
-        this.filesTree9 = [
-            &#123;
-                label: "Storage",
-                data: "Storage Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
-            &#125;
-        ];
-        this.nodeService.getFiles().then(files => this.filesTree10 = files);
-        this.nodeService.getFiles().then(files => &#123;
-            this.filesTree11 = [&#123;
-                label: 'Root',
-                children: files
-            &#125;];
-        &#125;);
-
-        this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
-
-        this.items = [
-            &#123;label: 'View', icon: 'fa fa-search', command: (event) => this.viewFile(this.selectedFile2)&#125;,
-            &#123;label: 'Unselect', icon: 'fa fa-close', command: (event) => this.unselectFile()&#125;
-        ];
+        this.nodeService.getFiles().then(files => this.files1 = files);
+        this.nodeService.getFiles().then(files => this.files2 = files);
     &#125;
-
-    nodeSelect(event) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.label&#125;);
-    &#125;
-
-    nodeUnselect(event) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.label&#125;);
-    &#125;
-
-    nodeExpandMessage(event) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Expanded', detail: event.node.label&#125;);
-    &#125;
-
-    nodeExpand(event) &#123;
-        if(event.node) &#123;
-            //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
-            this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
-        &#125;
-    &#125;
-
-    viewFile(file: TreeNode) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Selected with Right Click', detail: file.label&#125;);
-    &#125;
-
-    unselectFile() &#123;
-        this.selectedFile2 = null;
-    &#125;
-
+    
     expandAll()&#123;
-        this.filesTree6.forEach( node => &#123;
+        this.files2.forEach( node => &#123;
             this.expandRecursive(node, true);
         &#125; );
     &#125;
 
     collapseAll()&#123;
-        this.filesTree6.forEach( node => &#123;
+        this.files2.forEach( node => &#123;
             this.expandRecursive(node, false);
         &#125; );
     &#125;
-
+    
     private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
         node.expanded = isExpand;
-        if(node.children)&#123;
+        if (node.children)&#123;
             node.children.forEach( childNode => &#123;
                 this.expandRecursive(childNode, isExpand);
             &#125; );
         &#125;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tree-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

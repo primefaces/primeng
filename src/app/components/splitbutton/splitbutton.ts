@@ -1,58 +1,24 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ChangeDetectorRef,ViewChild} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ViewChild,ChangeDetectionStrategy,ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
 import {MenuItem} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
-import {Router} from '@angular/router';
-import {RouterModule} from '@angular/router';
-import { UniqueComponentId } from 'primeng/utils';
+import {MenuModule, Menu} from 'primeng/menu';
 
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
-            <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-right': 'ui-corner-left'" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
-            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="pi pi-chevron-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
-            <div [attr.id]="ariaId + '_overlay'" #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" *ngIf="overlayVisible"
-                    [ngStyle]="menuStyle" [class]="menuStyleClass"
-                    [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
-                <ul class="ui-menu-list ui-helper-reset" role="menu">
-                    <ng-template ngFor let-item [ngForOf]="model">
-                        <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': item.visible === false}" role="separator">
-                        <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngIf="item.visible !== false && !item.separator" role="none">
-                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" role="menuitem"
-                                [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
-                                <span class="ui-menuitem-text">{{item.label}}</span>
-                            </a>
-                            <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
-                                class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
-                                <span class="ui-menuitem-text">{{item.label}}</span>
-                            </a>
-                        </li>
-                    </ng-template>
-                </ul>
-            </div>
+        <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
+            <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
+            <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
+            <p-menu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo"
+                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-menu>
         </div>
     `,
-    animations: [
-        trigger('overlayAnimation', [
-            state('void', style({
-                transform: 'translateY(5%)',
-                opacity: 0
-            })),
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => visible', animate('{{showTransitionParams}}')),
-            transition('visible => void', animate('{{hideTransitionParams}}'))
-        ])
-    ]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./splitbutton.css']
 })
-export class SplitButton implements OnDestroy {
+export class SplitButton {
 
     @Input() model: MenuItem[];
 
@@ -82,160 +48,30 @@ export class SplitButton implements OnDestroy {
     
     @Input() dir: string;
 
-    @Input() showTransitionOptions: string = '225ms ease-out';
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() hideTransitionOptions: string = '.1s linear';
 
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
     
-    @ViewChild('defaultbtn', { static: true }) buttonViewChild: ElementRef;
+    @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
-    overlay: HTMLDivElement;
-                    
-    public overlayVisible: boolean = false;
-    
-    public documentClickListener: any;
-    
-    public dropdownClick: boolean;
-    
-    public shown: boolean;
+    @ViewChild('menu') menu: Menu;
 
-    ariaId: string;
-
-    documentResizeListener: any;
-
-    constructor(public el: ElementRef, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {
-        this.ariaId = UniqueComponentId() + '_list';
-    }
-                
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
-    
-    itemClick(event: Event, item: MenuItem) {
-        if(item.disabled) {
-            event.preventDefault();
-            return;
-        }
-        
-        if(!item.url) {
-            event.preventDefault();
-        }
-        
-        if(item.command) {            
-            item.command({
-                originalEvent: event,
-                item: item
-            });
-        }
-        
-        this.overlayVisible = false;
-    }
-    
-    show() {
-        this.overlayVisible = !this.overlayVisible;
-    }
-
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.overlay = event.element;
-                this.appendOverlay();
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
-                this.alignOverlay();
-                this.bindDocumentClickListener();
-                this.bindDocumentResizeListener();
-            break;
-
-            case 'void':
-                this.onOverlayHide();
-            break;
-        }
-    }
-        
+          
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
-        this.dropdownClick = true;
-        this.show();
+        this.menu.toggle({currentTarget: this.containerViewChild.nativeElement, relativeAlign: this.appendTo == null});
     }
 
-    alignOverlay() {
-        if(this.appendTo)
-            DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
-        else
-            DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
-    }
-
-    appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
-            else
-                DomHandler.appendChild(this.overlay, this.appendTo);
-
-            this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
-        }
-    }
-
-    restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlay);
-        }
-    }
-    
-    bindDocumentClickListener() {
-        if(!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(this.dropdownClick) {
-                    this.dropdownClick = false;
-                }
-                else {
-                    this.overlayVisible = false;
-                    this.unbindDocumentClickListener();
-                    this.cd.markForCheck();
-                }
-            });
-        }
-    }
-    
-    unbindDocumentClickListener() {
-        if(this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
-    }
-    
-    bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
-    }
-    
-    unbindDocumentResizeListener() {
-        if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
-        }
-    }
-
-    onWindowResize() {
-        this.overlayVisible = false;
-    }
-
-    onOverlayHide() {
-        this.unbindDocumentClickListener();
-        this.unbindDocumentResizeListener();
-        this.overlay = null;
-    }
-         
-    ngOnDestroy() {
-        this.restoreOverlayAppend();
-        this.onOverlayHide();
-    }
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,RouterModule],
-    exports: [SplitButton,ButtonModule,RouterModule],
+    imports: [CommonModule,ButtonModule,MenuModule],
+    exports: [SplitButton,ButtonModule],
     declarations: [SplitButton]
 })
 export class SplitButtonModule { }

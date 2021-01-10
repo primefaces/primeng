@@ -1,86 +1,90 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Inplace</span>
-        <span>Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.</span>
+    <div class="feature-intro">
+        <h1>Inplace</h1>
+        <p>Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic</h3>
-    <p-inplace closable="closable" [style]="{'min-height':'30px'}">
-        <span pInplaceDisplay>
-            Click to Edit
-        </span>
-        <span pInplaceContent>
-            <input type="text" value="PrimeNG" pInputText>
-        </span>
-    </p-inplace>
-
-    <h3>Image</h3>
-    <p-inplace>
-        <span pInplaceDisplay>
-            <span class="fa fa-picture-o"></span><span style="margin-left:8px">View Picture</span>
-        </span>
-        <span pInplaceContent>
-            <img src="assets/showcase/images/demo/galleria/galleria5.jpg" alt="Nature">
-        </span>
-    </p-inplace>
-
-    <h3>Data</h3>
-    <p-inplace>
-        <span pInplaceDisplay>
-            <span class="fa fa-table"></span><span style="margin-left:8px">View Data</span>
-        </span>
-        <span pInplaceContent>
-            <p-table [value]="cars">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Vin</th>
-                        <th>Year</th>
-                        <th>Brand</th>
-                        <th>Color</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-car>
-                    <tr>
-                        <td>{{car.vin}}</td>
-                        <td>{{car.year}}</td>
-                        <td>{{car.brand}}</td>
-                        <td>{{car.color}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </span>
-    </p-inplace>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-inplace closable="closable" [style]="{'min-height':'33px'}">
+            <ng-template pTemplate="display">
+                Click to Edit
+            </ng-template>
+            <ng-template pTemplate="content">
+                <input type="text" value="PrimeNG" pInputText>
+            </ng-template>
+        </p-inplace>
+    
+        <h5>Image</h5>
+        <p-inplace>
+            <ng-template pTemplate="display">
+                <div class="p-d-inline-flex p-ai-center">
+                    <span class="pi pi-image" style="vertical-align: middle"></span>
+                    <span class="p-ml-2">View Picture</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <img src="assets/showcase/images/demo/galleria/galleria5.jpg" alt="Nature">
+            </ng-template>
+        </p-inplace>
+    
+        <h5>Data</h5>
+        <p-inplace>
+            <ng-template pTemplate="display">
+                <div class="p-d-inline-flex p-ai-center">
+                    <span class="pi pi-table" style="vertical-align: middle"></span>
+                    <span class="p-ml-2">View Data</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table [value]="cars">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Vin</th>
+                            <th>Year</th>
+                            <th>Brand</th>
+                            <th>Color</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-car>
+                        <tr>
+                            <td>{{car.vin}}</td>
+                            <td>{{car.year}}</td>
+                            <td>{{car.brand}}</td>
+                            <td>{{car.color}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-template>
+        </p-inplace>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;InplaceModule&#125; from 'primeng/inplace';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
-            <p>Inplace requires two child components having <i>pInplaceDisplay</i> and <i>pInplaceOutput</i> attributes to define the content of each state.</p>
+            <h5>Getting Started</h5>
+            <p>Inplace requires two templates named <i>display</i> and <i>content</i> to represent the each state.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-inplace&gt;
-    &lt;span pInplaceDisplay&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-inplace &gt;
+    &lt;ng-template pTemplate="display"&gt;
         Click to Edit
-    &lt;/span&gt;
-    &lt;span pInplaceContent&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="content"&gt;
         &lt;input type="text" value="PrimeNG" pInputText&gt;
-    &lt;/span&gt;
+    &lt;/ng-template&gt;
 &lt;/p-inplace&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -111,6 +115,12 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                             <td>Displays a button to switch back to display mode.</td>
                         </tr>
                         <tr>
+                            <td>preventClick</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, instead of click events, the component can be controlled full programmatic with activate() and deactivate() functions.</td>
+                        </tr>
+                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -122,11 +132,17 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                        <tr>
+                            <td>closeIcon</td>
+                            <td>string</td>
+                            <td>pi pi-times</td>
+                            <td>Icon of the close icon.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -151,7 +167,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                 </table>
             </div>
 
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -168,7 +184,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                             <td>Activates the content.</td>
                         </tr>
                         <tr>
-                            <td>deactive</td>
+                            <td>deactivate</td>
                             <td>-</td>
                             <td>Deactivates the content.</td>
                         </tr>
@@ -176,7 +192,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -188,58 +204,65 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-inplace</td>
+                            <td>p-inplace</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-inplace-display</td>
+                            <td>p-inplace-display</td>
                             <td>Display container</td>
                         </tr>
                         <tr>
-                            <td>ui-inplace-content</td>
+                            <td>p-inplace-content</td>
                             <td>Content container</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/inplace" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-inplace closable="closable"&gt;
-    &lt;span pInplaceDisplay&gt;
+            <a href="https://stackblitz.com/edit/primeng-inplace-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-inplace closable="closable" [style]="&#123;'min-height':'33px'&#125;"&gt;
+    &lt;ng-template pTemplate="display"&gt;
         Click to Edit
-    &lt;/span&gt;
-    &lt;span pInplaceContent&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="content"&gt;
         &lt;input type="text" value="PrimeNG" pInputText&gt;
-    &lt;/span&gt;
+    &lt;/ng-template&gt;
 &lt;/p-inplace&gt;
 
-&lt;h3&gt;Image&lt;/h3&gt;
+&lt;h5&gt;Image&lt;/h5&gt;
 &lt;p-inplace&gt;
-    &lt;span pInplaceDisplay&gt;
-        &lt;span class="fa fa-picture-o"&gt;&lt;/span&gt;&lt;span style="margin-left:8px"&gt;View Picture&lt;/span&gt;
-    &lt;/span&gt;
-    &lt;span pInplaceContent&gt;
+    &lt;ng-template pTemplate="display"&gt;
+        &lt;div class="p-d-inline-flex p-ai-center"&gt;
+            &lt;span class="pi pi-image" style="vertical-align: middle"&gt;&lt;/span&gt;
+            &lt;span class="p-ml-2"&gt;View Picture&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="content"&gt;
         &lt;img src="assets/showcase/images/demo/galleria/galleria5.jpg" alt="Nature"&gt;
-    &lt;/span&gt;
+    &lt;/ng-template&gt;
 &lt;/p-inplace&gt;
 
-&lt;h3&gt;Data&lt;/h3&gt;
+&lt;h5&gt;Data&lt;/h5&gt;
 &lt;p-inplace&gt;
-    &lt;span pInplaceDisplay&gt;
-        &lt;span class="fa fa-table"&gt;&lt;/span&gt;&lt;span style="margin-left:8px"&gt;View Data&lt;/span&gt;
-    &lt;/span&gt;
-    &lt;span pInplaceContent&gt;
+    &lt;ng-template pTemplate="display"&gt;
+        &lt;div class="p-d-inline-flex p-ai-center"&gt;
+            &lt;span class="pi pi-table" style="vertical-align: middle"&gt;&lt;/span&gt;
+            &lt;span class="p-ml-2"&gt;View Data&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="content"&gt;
         &lt;p-table [value]="cars"&gt;
             &lt;ng-template pTemplate="header"&gt;
                 &lt;tr&gt;
@@ -258,10 +281,14 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                 &lt;/tr&gt;
             &lt;/ng-template&gt;
         &lt;/p-table&gt;
-    &lt;/span&gt;
+    &lt;/ng-template&gt;
 &lt;/p-inplace&gt;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-inplace-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

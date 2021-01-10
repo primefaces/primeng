@@ -1,124 +1,122 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">ContextMenu</span></span>
-        <span>Table has exclusive integration with ContextMenu.</span>
+    <div class="feature-intro">
+        <h1>Table <span>ContextMenu</span></h1>
+        <p>Table has exclusive integration with ContextMenu.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
-
-    <p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pContextMenuRow]="rowData">
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <p-toast></p-toast>
 
     <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+    <div class="card">
+        <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr [pContextMenuRow]="product">
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.price | currency: 'USD'}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablecontextmenudemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecontextmenudemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-tablecontextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast&gt;&lt;/p-toast&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+
+&lt;div class="card"&gt;
+    &lt;p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Code&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Category&lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr [pContextMenuRow]="product"&gt;
+                &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.price | currency: 'USD'&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+import &#123; MenuItem, MessageService &#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './tablecontextmenudemo.html',
+    providers: [MessageService]
+&#125;)
 export class TableContextMenuDemo implements OnInit &#123;
 
-    cars: Car[];
+    products: Product[];
 
-    cols: any[];
-
-    selectedCar: Car;
-
-    selectCars: Car[];
+    selectedProduct: Product;
 
     items: MenuItem[];
 
-    constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
+    constructor(private productService: ProductService, private messageService: MessageService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
+        this.productService.getProductsSmall().then(data =&gt; this.products = data);
 
         this.items = [
-            &#123; label: 'View', icon: 'pi pi-search', command: (event) => this.viewCar(this.selectedCar) &#125;,
-            &#123; label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteCar(this.selectedCar) &#125;
+            &#123;label: 'View', icon: 'pi pi-fw pi-search', command: () =&gt; this.viewProduct(this.selectedProduct)&#125;,
+                &#123;label: 'Delete', icon: 'pi pi-fw pi-times', command: () =&gt; this.deleteProduct(this.selectedProduct)&#125;
         ];
     &#125;
 
-    viewCar(car: Car) &#123;
-        this.messageService.add(&#123; severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand &#125;);
+    viewProduct(product: Product) &#123;
+        this.messageService.add(&#123;severity: 'info', summary: 'Product Selected', detail: product.name &#125;);
     &#125;
 
-    deleteCar(car: Car) &#123;
-        let index = -1;
-        for (let i = 0; i &lt; this.cars.length; i++) &#123;
-            if (this.cars[i].vin == car.vin) &#123;
-                index = i;
-                break;
-            &#125;
-        &#125;
-        this.cars.splice(index, 1);
-
-        this.messageService.add(&#123; severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand &#125;);
+    deleteProduct(product: Product) &#123;
+        this.products = this.products.filter((p) =&gt; p.id !== product.id);
+        this.messageService.add(&#123;severity: 'info', summary: 'Product Deleted', detail: product.name&#125;);
+        this.selectedProduct = null;
     &#125;
+
 &#125;
-</code>
-</pre>
+</app-code>
+
         </p-tabPanel>
 
-        <p-tabPanel header="tablecontextmenudemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecontextmenudemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
-
-&lt;p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [pContextMenuRow]="rowData"&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablecontextmenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -45,7 +45,7 @@ class TestDragDropComponent {
     }
     
     drop(event) {
-        if(this.draggedCar) {
+        if (this.draggedCar) {
             let draggedCarIndex = this.findIndex(this.draggedCar);
             this.selectedCars = [...this.selectedCars, this.draggedCar];
             this.availableCars = this.availableCars.filter((val,i) => i!=draggedCarIndex);
@@ -64,7 +64,7 @@ class TestDragDropComponent {
     findIndex(car) {
         let index = -1;
         for(let i = 0; i < this.availableCars.length; i++) {
-            if(car.vin === this.availableCars[i].vin) {
+            if (car.vin === this.availableCars[i].vin) {
                 index = i;
                 break;
             }

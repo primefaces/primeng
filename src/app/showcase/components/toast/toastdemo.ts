@@ -1,57 +1,46 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './toastdemo.html',
-    styles: [`
-        :host ::ng-deep button {
-            margin-right: .25em;
-        }
-
-        :host ::ng-deep .custom-toast .ui-toast-message {
-            color: #ffffff;
-            background: #FC466B;
-            background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
-            background: linear-gradient(to right, #3F5EFB, #FC466B);
-        }
-
-        :host ::ng-deep .custom-toast .ui-toast-close-icon {
-            color: #ffffff;
-        }
-    `],
+    styleUrls: ['./toastdemo.scss'],
     providers: [MessageService]
+    
 })
 export class ToastDemo {
 
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
 
     showSuccess() {
-        this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
     }
 
     showInfo() {
-        this.messageService.add({severity:'info', summary: 'Info Message', detail:'PrimeNG rocks'});
+        this.messageService.add({severity:'info', summary: 'Info', detail: 'Message Content'});
     }
 
     showWarn() {
-        this.messageService.add({severity:'warn', summary: 'Warn Message', detail:'There are unsaved changes'});
+        this.messageService.add({severity:'warn', summary: 'Warn', detail: 'Message Content'});
     }
 
     showError() {
-        this.messageService.add({severity:'error', summary: 'Error Message', detail:'Validation failed'});
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Message Content'});
     }
 
     showCustom() {
-        this.messageService.add({key: 'custom', severity:'info', summary: 'Custom Toast', detail:'With a Gradient'});
+        this.messageService.add({severity:'custom', summary: 'Custom', detail: 'Message Content', icon: 'pi-file'});
     }
 
     showTopLeft() {
-        this.messageService.add({key: 'tl', severity:'info', summary: 'Success Message', detail:'Order submitted'});
+        this.messageService.add({key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'});
     }
 
     showTopCenter() {
-        this.messageService.add({key: 'tc', severity:'warn', summary: 'Info Message', detail:'PrimeNG rocks'});
+        this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'Message Content'});
+    }
+
+    showBottomCenter() {
+        this.messageService.add({key: 'bc', severity:'success', summary: 'Success', detail: 'Message Content'});
     }
 
     showConfirm() {
@@ -61,10 +50,14 @@ export class ToastDemo {
 
     showMultiple() {
         this.messageService.addAll([
-            {severity:'info', summary:'Message 1', detail:'PrimeNG rocks'},
-            {severity:'info', summary:'Message 2', detail:'PrimeUI rocks'},
-            {severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'}
+            {severity:'success', summary:'Message 1', detail:'Message Content'},
+            {severity:'info', summary:'Message 2', detail:'Message Content'},
+            {severity:'warn', summary:'Message 3', detail:'Message Content'}
         ]);
+    }
+
+    showSticky() {
+        this.messageService.add({severity:'info', summary: 'Sticky', detail: 'Message Content', sticky: true});
     }
 
     onConfirm() {
@@ -77,9 +70,5 @@ export class ToastDemo {
     
     clear() {
         this.messageService.clear();
-    }
-
-    getTop() {
-        return this.app.newsActive ? '150px' : '80px';
     }
 }

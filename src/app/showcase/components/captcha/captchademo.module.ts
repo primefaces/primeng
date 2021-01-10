@@ -5,7 +5,7 @@ import {CaptchaDemoRoutingModule} from './captchademo-routing.module';
 import {CaptchaModule} from 'primeng/captcha';
 import {ToastModule} from 'primeng/toast';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -14,7 +14,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         CaptchaModule,
         TabViewModule,
         ToastModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		CaptchaDemo

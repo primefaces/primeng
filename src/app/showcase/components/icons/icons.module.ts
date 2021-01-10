@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { IconsComponent } from './icons.component';
 import { IconsRoutingModule } from './icons-routing.module';
 import { InputTextModule } from 'primeng/inputtext';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
     imports: [
         CommonModule,
         InputTextModule,
-        CodeHighlighterModule,
+        AppCodeModule,
         IconsRoutingModule
     ],
     declarations: [

@@ -1,170 +1,176 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Row Expansion</span></span>
-        <span>Row expansion is used to display additional content about the row data.</span>
+    <div class="feature-intro">
+        <h1>Table <span>Row Expansion</span></h1>
+        <p>A row can be expanded to display additional content.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" dataKey="vin">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th style="width: 3em"></th>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
-            <tr>
-                <td>
-                    <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                    </a>
-                </td>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
-            <tr>
-                <td [attr.colspan]="columns.length + 1">
-                    <div class="ui-g ui-fluid" style="font-size:16px;padding:20px" [@rowExpansionTrigger]="'active'">
-                        <div class="ui-g-12 ui-md-3" style="text-align:center">
-                            <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
+    <div class="card">
+        <p-table [value]="products" dataKey="name">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem"></th>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th>Image</th>
+                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                    <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-expanded="expanded">
+                <tr>
+                    <td>
+                        <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    </td>
+                    <td>{{product.name}}</td>
+                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
+                    <td>{{product.price | currency:'USD'}}</td>
+                    <td>{{product.category}}</td>
+                    <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                    <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-product>
+                <tr>
+                    <td colspan="7">
+                        <div class="p-p-3">
+                            <p-table [value]="product.orders" dataKey="id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+                                        <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+                                        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                                        <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                                        <th pSortableColumn="stats">Status <p-sortIcon field="status"></p-sortIcon></th>
+                                        <th style="width: 4rem"></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-order>
+                                    <tr>
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.customer}}</td>
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.amount | currency:'USD'}}</td>
+                                        <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                                        <td><p-button type="button" icon="pi pi-search"></p-button></td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="6">There are no order for this product yet.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
-                        <div class="ui-g-12 ui-md-9">
-                            <div class="ui-g">
-                                <div class="ui-g-12">
-                                    <b>Vin:</b> {{rowData.vin}}
-                                </div>
-                                <div class="ui-g-12">
-                                    <b>Year:</b> {{rowData.year}}
-                                </div>
-                                <div class="ui-g-12">
-                                    <b>Brand:</b> {{rowData.brand}}
-                                </div>
-                                <div class="ui-g-12">
-                                    <b>Color:</b> {{rowData.color}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablerowexpansiondemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowexpansiondemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './tablerowexpansiondemo.html',
-    animations: [
-        trigger('rowExpansionTrigger', [
-            state('void', style(&#123;
-                transform: 'translateX(-10%)',
-                opacity: 0
-            &#125;)),
-            state('active', style(&#123;
-                transform: 'translateX(0)',
-                opacity: 1
-            &#125;)),
-            transition('* &lt;=&gt; *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
-        ])
-    ]
-&#125;)
-export class TableRowExpansionDemo implements OnInit &#123;
-
-    cars: Car[];
-
-    cols: any[];
-
-    constructor(private carService: CarService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
-    &#125;
-&#125;
-</code>
-</pre>   
-        </p-tabPanel>
-
-        <p-tabPanel header="tablerowexpansiondemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowexpansiondemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
+            <a href="https://stackblitz.com/edit/primeng-tablerowexpansion-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" dataKey="vin"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="products" dataKey="name"&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th style="width: 3em"&gt;&lt;/th&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
+            &lt;th style="width: 3rem"&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th&gt;Image&lt;/th&gt;
+            &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="category"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="rating"&gt;Reviews &lt;p-sortIcon field="rating"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="inventoryStatus"&gt;Status &lt;p-sortIcon field="inventoryStatus"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns"&gt;
+    &lt;ng-template pTemplate="body" let-product let-expanded="expanded"&gt;
         &lt;tr&gt;
             &lt;td&gt;
-                &lt;a href="#" [pRowToggler]="rowData"&gt;
-                    &lt;i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/i&gt;
-                &lt;/a&gt;
+                &lt;button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
             &lt;/td&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /&gt;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="rowexpansion" let-rowData let-columns="columns"&gt;
+    &lt;ng-template pTemplate="rowexpansion" let-product&gt;
         &lt;tr&gt;
-            &lt;td [attr.colspan]="columns.length + 1"&gt;
-                &lt;div class="ui-g ui-fluid" style="font-size:16px;padding:20px"&gt;
-                    &lt;div class="ui-g-12 ui-md-3" style="text-align:center"&gt;
-                        &lt;img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/&#123;&#123;rowData.brand&#125;&#125;.png"&gt;
-                    &lt;/div&gt;
-                    &lt;div class="ui-g-12 ui-md-9"&gt;
-                        &lt;div class="ui-g"&gt;
-                            &lt;div class="ui-g-12"&gt;
-                                &lt;b&gt;Vin:&lt;/b&gt; &#123;&#123;rowData.vin&#125;&#125;
-                            &lt;/div&gt;
-                            &lt;div class="ui-g-12"&gt;
-                                &lt;b&gt;Year:&lt;/b&gt; &#123;&#123;rowData.year&#125;&#125;
-                            &lt;/div&gt;
-                            &lt;div class="ui-g-12"&gt;
-                                &lt;b&gt;Brand:&lt;/b&gt; &#123;&#123;rowData.brand&#125;&#125;
-                            &lt;/div&gt;
-                            &lt;div class="ui-g-12"&gt;
-                                &lt;b&gt;Color:&lt;/b&gt; &#123;&#123;rowData.color&#125;&#125;
-                            &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
+            &lt;td colspan="7"&gt;
+                &lt;div class="p-p-3"&gt;
+                    &lt;p-table [value]="product.orders" dataKey="id"&gt;
+                        &lt;ng-template pTemplate="header"&gt;
+                            &lt;tr&gt;
+                                &lt;th pSortableColumn="id"&gt;Id &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                                &lt;th pSortableColumn="customer"&gt;Customer &lt;p-sortIcon field="customer"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                                &lt;th pSortableColumn="date"&gt;Date &lt;p-sortIcon field="date"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                                &lt;th pSortableColumn="amount"&gt;Amount &lt;p-sortIcon field="amount"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                                &lt;th pSortableColumn="stats"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                                &lt;th style="width: 4rem"&gt;&lt;/th&gt;
+                            &lt;/tr&gt;
+                        &lt;/ng-template&gt;
+                        &lt;ng-template pTemplate="body" let-order&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;&#123;&#123;order.id&#125;&#125;&lt;/td&gt;
+                                &lt;td&gt;&#123;&#123;order.customer&#125;&#125;&lt;/td&gt;
+                                &lt;td&gt;&#123;&#123;order.id&#125;&#125;&lt;/td&gt;
+                                &lt;td&gt;&#123;&#123;order.amount | currency:'USD'&#125;&#125;&lt;/td&gt;
+                                &lt;td&gt;&lt;span [class]="'order-badge order-' + order.status.toLowerCase()"&gt;&#123;&#123;order.status&#125;&#125;&lt;/span&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;p-button type="button" icon="pi pi-search"&gt;&lt;/p-button&gt;&lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/ng-template&gt;
+                        &lt;ng-template pTemplate="emptymessage"&gt;
+                            &lt;tr&gt;
+                                &lt;td colspan="6"&gt;There are no order for this product yet.&lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/ng-template&gt;
+                    &lt;/p-table&gt;
                 &lt;/div&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
-</code>
-</pre>
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
+@Component(&#123;
+    templateUrl: './tablerowexpansiondemo.html'
+&#125;)
+export class TableRowExpansionDemo implements OnInit &#123;
+
+    products: Product[];
+
+    constructor(private productService: ProductService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.productService.getProductsWithOrdersSmall().then(data =&gt; this.products = data);
+    &#125;
+    
+&#125;
+</app-code>
+        </p-tabPanel>
+
+       
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablerowexpansion-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

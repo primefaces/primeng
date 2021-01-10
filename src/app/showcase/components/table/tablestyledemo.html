@@ -1,103 +1,121 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Style</span></span>
-        <span>Certain rows or cell can easily be styled based on conditions.</span>
+    <div class="feature-intro">
+        <h1>Table <span>Style</span></h1>
+        <p>Certain rows or cells can easily be styled based on conditions.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    &#123;&#123;col.header&#125;&#125;
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [ngClass]="rowData.year > 2010 ? 'new-car' : null">
-                <td *ngFor="let col of columns" [ngClass]="rowData[col.field] <= 2010 ? 'old-car' : null">
-                    &#123;&#123;rowData[col.field]&#125;&#125;
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <p-table [value]="products">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr [ngClass]="{'row-accessories': product.category === 'Accessories'}">
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>
+                        <div [ngClass]="{'outofstock': product.quantity === 0, 'lowstock': (product.quantity > 0 && product.quantity < 10),'instock': product.quantity > 10}">
+                            {{product.quantity}}
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablestyledemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestyledemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-tablestyle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="products"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Code&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Category&lt;/th&gt;
+            &lt;th&gt;Quantity&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-product&gt;
+        &lt;tr [ngClass]="&#123;'row-accessories': product.category === 'Accessories'&#125;"&gt;
+            &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;
+                &lt;div [ngClass]="&#123;'outofstock': product.quantity === 0, 'lowstock': (product.quantity &gt; 0 && product.quantity &lt; 10),'instock': product.quantity &gt; 10&#125;"&gt;
+                    &#123;&#123;product.quantity&#125;&#125;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
 @Component(&#123;
     templateUrl: './tablestyledemo.html',
     styles: [`
-        .old-car &#123;
-            background-color: #1CA979 !important;
-            color: #ffffff !important;
+        .outofstock &#123;
+            font-weight: 700;
+            color: #FF5252;
+            text-decoration: line-through;
         &#125;
-
-        .very-old-car &#123;
-            background-color: #2CA8B1 !important;
-            color: #ffffff !important;
+        
+        .lowstock &#123;
+            font-weight: 700;
+            color: #FFA726;
+        &#125;
+        
+        .instock &#123;
+            font-weight: 700;
+            color: #66BB6A;
+        &#125;
+        
+        :host ::ng-deep .row-accessories &#123;
+            background-color: rgba(0,0,0,.15) !important;
         &#125;
     `
     ]
 &#125;)
 export class TableStyleDemo implements OnInit &#123;
 
-    cars: Car[];
+    products: Product[];
 
-    cols: any[];
-
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private productService: ProductService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
+        this.productService.getProductsSmall().then(data =&gt; this.products = data);
     &#125;
+
 &#125;
-</code>
-</pre>   
+</app-code>
+
         </p-tabPanel>
 
-        <p-tabPanel header="tablestyledemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestyledemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [ngClass]="rowData.year &gt; 2010 ? 'new-car' : null"&gt;
-            &lt;td *ngFor="let col of columns" [ngClass]="rowData[col.field] &lt;= 2010 ? 'old-car' : null"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablestyle-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

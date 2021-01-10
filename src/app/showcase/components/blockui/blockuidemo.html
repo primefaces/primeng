@@ -1,89 +1,82 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">BlockUI</span>
-        <span>BlockUI can either block other components or the whole page.</span>
+    <div class="feature-intro">
+        <h1>BlockUI</h1>
+        <p>BlockUI can either block other components or the whole page.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Document</h3>
-    <p-blockUI [blocked]="blockedDocument"></p-blockUI>
-    
-    <button type="button" pButton label="Block" (click)="blockDocument()"></button>
-    
-    <h3>Panel</h3>
-    <button type="button" pButton label="Block" (click)="blockedPanel=true"></button>
-    <button type="button" pButton label="Unblock" (click)="blockedPanel=false"></button>
-    
-    <p-blockUI [target]="pnl" [blocked]="blockedPanel">
-        <i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"></i>
-    </p-blockUI>
-    <p-panel #pnl header="Godfather I" [style]="{'margin-top':'20px'}">
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-    </p-panel>
+    <div class="card">
+        <h5>Document</h5>
+        <p-blockUI [blocked]="blockedDocument"></p-blockUI>
+        
+        <button type="button" pButton pRipple label="Block" (click)="blockDocument()"></button>
+        
+        <h5>Panel</h5>
+        <button type="button" pButton pRipple label="Block" (click)="blockedPanel=true"></button>
+        <button type="button" pButton pRipple label="Unblock" (click)="blockedPanel=false"></button>
+        
+        <p-blockUI [target]="pnl" [blocked]="blockedPanel">
+            <i class="pi pi-lock" style="font-size: 3rem"></i>
+        </p-blockUI>
+        <p-panel #pnl header="Header" styleClass="p-mt-4">
+            <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </p-panel>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;BlockUIModule&#125; from 'primeng/blockui';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
-            <p>BlockUI is controlled using the blocked property and component to block is defined as target. If target is not provided, document
+            <h5>Getting Started</h5>
+            <p>BlockUI is controlled using the <i>blocked</i>  property and component to block is defined as target. If target is not provided, document
             itself is selected as the block target.</p>
             
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class BlockUIDemo &#123;
 
     blocked: boolean;
     
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-blockUI [blocked]="blocked"&gt;&lt;/p-blockUI&gt;
-</code>
-</pre>
+</app-code>
 
             <p>To block a certain component, define a local ng-template variable and bind it to the target option. The target component must implement the 
             BlockableUI interface, otherwise an exception is thrown.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-blockUI [blocked]="blockedDocument" [target]="pnl"&gt;&lt;/p-blockUI&gt;
 
 &lt;p-panel #pnl header="Panel Header"&gt;
     Content of Panel
 &lt;/p-panel&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Custom Content</h3>
+            <h5>Custom Content</h5>
             <p>Blocker mask is customized by simply adding the content inside the component<p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+                
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
-    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+    &lt;i class="pi pi-lock" style="font-size: 3rem"&gt;&lt;/i&gt;
 &lt;/p-blockUI&gt;
 
 &lt;p-panel #pnl header="Panel Header"&gt;
     Content of Panel
 &lt;/p-panel&gt;
-</code>
-</pre>
+</app-code>
 
-
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -119,11 +112,17 @@ export class BlockUIDemo &#123;
                             <td>true</td>
                             <td>Whether to automatically manage layering.</td>
                         </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>false</td>
+                            <td>Style class of the component.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -135,24 +134,51 @@ export class BlockUIDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-blockui</td>
-                            <td>Container element.</td>
+                            <td>p-blockui</td>
+                            <td>Mask element.</td>
+                        </tr>
+                        <tr>
+                            <td>p-blockui-document</td>
+                            <td>Mask element in full screen mode.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/blockui" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-blockui-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+            
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Document&lt;/h5&gt;
+&lt;p-blockUI [blocked]="blockedDocument"&gt;&lt;/p-blockUI&gt;
+
+&lt;button type="button" pButton pRipple label="Block" (click)="blockDocument()"&gt;&lt;/button&gt;
+
+&lt;h5&gt;Panel&lt;/h5&gt;
+&lt;button type="button" pButton pRipple label="Block" (click)="blockedPanel=true"&gt;&lt;/button&gt;
+&lt;button type="button" pButton pRipple label="Unblock" (click)="blockedPanel=false"&gt;&lt;/button&gt;
+
+&lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
+    &lt;i class="pi pi-lock" style="font-size: 3rem"&gt;&lt;/i&gt;
+&lt;/p-blockUI&gt;
+&lt;p-panel #pnl header="Header" styleClass="p-mt-4"&gt;
+    &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+&lt;/p-panel&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class BlockUIDemo &#123;
 
     blockedPanel: boolean = false;
@@ -166,31 +192,12 @@ export class BlockUIDemo &#123;
         &#125;, 3000);
     &#125;
 &#125;
-</code>
-</pre>
-
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Document&lt;/h3&gt;
-&lt;p-blockUI [blocked]="blockedDocument"&gt;&lt;/p-blockUI&gt;
-
-&lt;button type="button" pButton label="Block" (click)="blockDocument()"&gt;&lt;/button&gt;
-
-&lt;h3&gt;Panel&lt;/h3&gt;
-&lt;button type="button" pButton label="Block" (click)="blockedPanel=true"&gt;&lt;/button&gt;
-&lt;button type="button" pButton label="Unblock" (click)="blockedPanel=false"&gt;&lt;/button&gt;
-
-&lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
-    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
-&lt;/p-blockUI&gt;
-&lt;p-panel #pnl header="Godfather I" [style]="&#123;'margin-top':'20px'&#125;"&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
-    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-&lt;/p-panel&gt;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-blockui-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

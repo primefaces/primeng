@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './treetableselectiondemo.html',
@@ -54,4 +54,5 @@ export class TreeTableSelectionDemo {
     nodeUnselect(event) {
         this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.data.name});
     }
+    
 }

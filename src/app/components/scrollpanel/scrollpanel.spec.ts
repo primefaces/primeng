@@ -6,23 +6,21 @@ import { Component } from '@angular/core';
 
 @Component({
 	template: `
-	<div class="ui-g">
-		<div class="ui-g-12 ui-md-4" style="width:200px">
-			<p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custombar1">
-				<div style="padding:1em;line-height:1.5;width:600px;">
-					The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved
-					son Michael has just come home from the war, but does not intend to become part of his father's business.
-					Through Michael's life the nature of the family business becomes clear. The business of the family is just
-					like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence
-					whenever anything stands against the good of the family. The story begins as Don Vito Corleone, the head
-					of a New York Mafia family, oversees his daughter's wedding. His beloved son Michael has just come home from
-					the war, but does not intend to become part of his father's business. Through Michael's life the nature of
-					the family business becomes clear. The business of the family is just like the head of the family, kind and
-					benevolent to those who give respect, but given to ruthless violence whenever anything stands against the
-					good of the family.
-				</div>
-			</p-scrollPanel>
-		</div>
+	<div style="width: 300px;">
+        <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custombar1">
+            <div style="padding:1em;line-height:1.5;width:600px;">
+                The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved
+                son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just
+                like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence
+                whenever anything stands against the good of the family. The story begins as Don Vito Corleone, the head
+                of a New York Mafia family, oversees his daughter's wedding. His beloved son Michael has just come home from
+                the war, but does not intend to become part of his father's business. Through Michael's life the nature of
+                the family business becomes clear. The business of the family is just like the head of the family, kind and
+                benevolent to those who give respect, but given to ruthless violence whenever anything stands against the
+                good of the family.
+            </div>
+        </p-scrollPanel>
 	</div>
 	`
 })
@@ -52,7 +50,7 @@ describe('ScrollPanel', () => {
 	it('should created by default', () => {
 		fixture.detectChanges();
   
-		const scrollPanelEl = fixture.debugElement.query(By.css('.ui-scrollpanel'));
+		const scrollPanelEl = fixture.debugElement.query(By.css('.p-scrollpanel'));
 		expect(scrollPanelEl.nativeElement).toBeTruthy();
 	});
 
@@ -60,7 +58,7 @@ describe('ScrollPanel', () => {
 		fixture.detectChanges();
   
 		let scrollTopVal = scrollpanel.contentViewChild.nativeElement.scrollTop;
-		const barYEl = fixture.debugElement.query(By.css('.ui-scrollpanel-bar-y'));
+		const barYEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 		const mousedownEvent: any = document.createEvent('CustomEvent');
 		mousedownEvent.pageY = 201;
 		mousedownEvent.initEvent('mousedown', true, true);
@@ -70,7 +68,7 @@ describe('ScrollPanel', () => {
 		barYEl.nativeElement.dispatchEvent(mousedownEvent);
 		fixture.detectChanges();
 		
-		expect(document.body.className).toContain("ui-scrollpanel-grabbed");
+		expect(document.body.className).toContain("p-scrollpanel-grabbed");
 		document.dispatchEvent(mouseMoveEvent);
 		tick(150);
 		fixture.detectChanges();
@@ -86,7 +84,7 @@ describe('ScrollPanel', () => {
 		fixture.detectChanges();
   
 		let scrollLeftVal = scrollpanel.contentViewChild.nativeElement.scrollLeft;
-		const barXEl = fixture.debugElement.query(By.css('.ui-scrollpanel-bar-x'));
+		const barXEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
 		const mousedownEvent: any = document.createEvent('CustomEvent');
 		mousedownEvent.pageX = 201;
 		mousedownEvent.initEvent('mousedown', true, true);
@@ -96,7 +94,7 @@ describe('ScrollPanel', () => {
 		barXEl.nativeElement.dispatchEvent(mousedownEvent);
 		fixture.detectChanges();
 		
-		expect(document.body.className).toContain("ui-scrollpanel-grabbed");
+		expect(document.body.className).toContain("p-scrollpanel-grabbed");
 		document.dispatchEvent(mouseMoveEvent);
 		tick(150);
 		fixture.detectChanges();

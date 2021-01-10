@@ -6,15 +6,16 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 
 @Injectable()
 export class DialogService {
-    
-    dialogComponentRef: ComponentRef<DynamicDialogComponent>;
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) { }
+    dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
+
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) {
+    }
 
     public open(componentType: Type<any>, config: DynamicDialogConfig) {
         const dialogRef = this.appendDialogComponentToBody(config);
 
-        this.dialogComponentRef.instance.childComponentType = componentType;
+        this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
 
         return dialogRef;
     }
@@ -27,7 +28,12 @@ export class DialogService {
         map.set(DynamicDialogRef, dialogRef);
 
         const sub = dialogRef.onClose.subscribe(() => {
-            this.removeDialogComponentFromBody();
+            this.dialogComponentRefMap.get(dialogRef).instance.close();
+        });
+
+        const destroySub = dialogRef.onDestroy.subscribe(() => {
+            this.removeDialogComponentFromBody(dialogRef);
+            destroySub.unsubscribe();
             sub.unsubscribe();
         });
 
@@ -39,13 +45,19 @@ export class DialogService {
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         document.body.appendChild(domElem);
 
-        this.dialogComponentRef = componentRef;
+        this.dialogComponentRefMap.set(dialogRef, componentRef);
 
         return dialogRef;
     }
 
-    private removeDialogComponentFromBody() {
-        this.appRef.detachView(this.dialogComponentRef.hostView);
-        this.dialogComponentRef.destroy();
+    private removeDialogComponentFromBody(dialogRef: DynamicDialogRef) {
+        if (!dialogRef || !this.dialogComponentRefMap.has(dialogRef)) {
+            return;
+        }
+
+        const dialogComponentRef = this.dialogComponentRefMap.get(dialogRef);
+        this.appRef.detachView(dialogComponentRef.hostView);
+        dialogComponentRef.destroy();
+        this.dialogComponentRefMap.delete(dialogRef);
     }
 }

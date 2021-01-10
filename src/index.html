@@ -1,32 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93461466-1"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  </script>
   <meta charset="utf-8">
   <title>PrimeNG</title>
   <base href="/">
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover">
   <link rel="icon" type="image/x-icon" href="favicon.png">
-  <link rel="stylesheet" type="text/css" href="assets/showcase/css/splash.css">
-  <link id="theme-css" rel="stylesheet" type="text/css" href="assets/components/themes/nova-light/theme.css">
+  <link rel="stylesheet" type="text/css" href="assets/showcase/styles/splash.css">
+  <link id="theme-link" rel="stylesheet" type="text/css" href="assets/components/themes/saga-blue/theme.css">
   <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyA6Ar0UymhiklJBzEPLKKn2QHwbjdz3XV0" async defer></script>
   <script src="https://www.google.com/recaptcha/api.js?render=explicit&onLoad=initRecaptcha" async defer></script>
-  <script>
-    window.ga = window.ga || function () {
-        (ga.q = ga.q || []).push(arguments)
-    };
-    ga.l = +new Date;
-    ga('create', 'UA-93461466-1', 'auto');
-    ga('require', 'urlChangeTracker');
-    ga('send', 'pageview');
-</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js"></script>
 </head>
 <body>
     <app-root>
         <div class="splash-screen">
             <div class="splash-loader"></div>
-            <img class="splash-logo" src="assets/showcase/images/mask.svg">
+            <img class="splash-logo" src="assets/showcase/images/primeng.svg">
         </div>
     </app-root>
 </body>

@@ -6,7 +6,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TabViewModule } from 'primeng/tabview';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { FocusTrapDemoRoutingModule } from './focustrapdemo-routing.module';
 import { FocusTrapDemo } from './focustrapdemo';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -15,6 +14,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { FocusTrapModule } from 'primeng/focustrap';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -26,7 +26,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
         InputTextModule,
         AccordionModule,
         TabViewModule,
-        CodeHighlighterModule,
+        AppCodeModule,
         FocusTrapModule,
 		AutoCompleteModule,
 		CalendarModule,

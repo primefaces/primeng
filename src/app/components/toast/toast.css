@@ -1,82 +1,68 @@
-.ui-toast {
-	position: fixed;
-    width: 20em;
+.p-toast {
+    position: fixed;
+    width: 25rem;
 }
 
-.ui-toast .ui-toast-message {
-    position: relative;
-	display: block;
-    margin-bottom: .75em;
+.p-toast-message {
     overflow: hidden;
 }
 
-.ui-toast .ui-toast-message-content {
-    padding: .5em 1em;
+.p-toast-message-content {
+    display: flex;
+    align-items: flex-start;
 }
 
-.ui-toast .ui-toast-close-icon {
-	position: absolute;
-	top: .25em;
-	right: .25em;
-    cursor: pointer;
-    display: inline-block;
+.p-toast-message-text {
+    flex: 1 1 auto;
 }
 
-.ui-toast .ui-toast-summary {
-	font-weight: bold;
-	padding: 0 0 .5em 0;
-	display: block;
-}
-
-.ui-toast .ui-toast-icon {
-    position: absolute;
-    display: inline-block;
-    left: .5em;
-    top: .25em;
-    padding: 0;
-    font-size: 2em;
-}
-
-.ui-toast .ui-toast-message-text-content {
-	padding: 0 0 .25em 0;
-    margin-left: 2.5em;
-}
-/* Positions */
-.ui-toast-top-right {
+.p-toast-top-right {
 	top: 20px;
 	right: 20px;
 }
 
-.ui-toast-top-left {
+.p-toast-top-left {
 	top: 20px;
 	left: 20px;
 }
 
-.ui-toast-bottom-right {
-	bottom: 20px;
-	right: 20px;
-}
-
-.ui-toast-bottom-left {
+.p-toast-bottom-left {
 	bottom: 20px;
 	left: 20px;
 }
 
-.ui-toast-top-center {
+.p-toast-bottom-right {
+	bottom: 20px;
+	right: 20px;
+}
+
+.p-toast-top-center {
 	top: 20px;
     left: 50%;
     margin-left: -10em;
 }
 
-.ui-toast-bottom-center {
+.p-toast-bottom-center {
 	bottom: 20px;
 	left: 50%;
     margin-left: -10em;
 }
 
-.ui-toast-center {
+.p-toast-center {
 	left: 50%;
 	top: 50%;
     min-width: 20vw;
     transform: translate(-50%, -50%);
+}
+
+.p-toast-icon-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.p-toast-icon-close.p-link {
+	cursor: pointer;
 }

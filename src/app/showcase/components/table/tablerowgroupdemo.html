@@ -1,111 +1,300 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">RowGroup</span></span>
-        <span>It is easy to implement row grouping using the flexible template driven approach of the p-table. In this example, sorting
+    <div class="feature-intro">
+        <h1>DataTable <span>Row Group</span></h1>
+        <p>It is easy to implement row grouping using the flexible template driven approach of the p-table. In this example, sorting
             is enabled by default to sort the data by brand initially and then a rowGroupMetadata object is created to
             represent how many rows a brand should span along with the rowIndex of the group. Similarly multiple field grouping can be implemented as well.
-        </span>
+        </p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Toggleable Row Groups</h3>
-    <p-table [value]="cars" dataKey="brand">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Vin</th>
-                <th>Year</th>
-                <th>Color</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
-            <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex">
-                <td colspan="3">
-                    <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
-                        <span>{{rowData.brand}}</span>
-                    </a>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
-            <tr>
-                <td>{{rowData.vin}}</td>
-                <td>{{rowData.year}}</td>
-                <td>{{rowData.color}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <h5>Subheader Grouping</h5>
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                <tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex">
+                    <td colspan="5">
+                        <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{customer.name}}
+                    </td>
+                    <td>
+                        <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
+                        <span class="image-text">{{customer.country.name}}</span>
+                    </td>
+                    <td>
+                        {{customer.company}}
+                    </td>
+                    <td>
+                        <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    </td>
+                    <td>
+                        {{customer.date}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 
-    <h3>Subheader</h3>
-    <p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Vin</th>
-                <th>Year</th>
-                <th>Color</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex">
-                <td colspan="3">
-                    <span style="font-weight:bold">{{rowData.brand}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>{{rowData.vin}}</td>
-                <td>{{rowData.year}}</td>
-                <td>{{rowData.color}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <h5>Expandable Row Groups</h5>
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" dataKey="representative.name">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>                    
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+                <tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex">
+                    <td colspan="5">
+                        <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                        <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-customer>
+                <tr>
+                    <td>
+                        {{customer.name}}
+                    </td>
+                    <td>
+                        <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
+                        <span class="image-text">{{customer.country.name}}</span>
+                    </td>
+                    <td>
+                        {{customer.company}}
+                    </td>
+                    <td>
+                        <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    </td>
+                    <td>
+                        {{customer.date}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 
-    <h3>Rowspan</h3>
-    <p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Brand</th>
-                <th>Vin</th>
-                <th>Year</th>
-                <th>Color</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr>
-                <td *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.brand].size">
-                    {{rowData.brand}}
-                </td>
-                <td>{{rowData.vin}}</td>
-                <td>{{rowData.year}}</td>
-                <td>{{rowData.color}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-
+    <div class="card">
+        <h5>Rowspan</h5>
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:3rem">#</th>
+                    <th>Representative</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{rowIndex}}</td>
+                    <td *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex" [attr.rowspan]="rowGroupMetadata[customer.representative.name].size">
+                        <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                    </td>
+                    <td>
+                        {{customer.name}}
+                    </td>
+                    <td>
+                        <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
+                        <span class="image-text">{{customer.country.name}}</span>
+                    </td>
+                    <td>
+                        {{customer.company}}
+                    </td>
+                    <td>
+                        <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    </td>
+                    <td>
+                        {{customer.date}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablerowgroupdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowgroupdemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-tablerowgroup-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Subheader Grouping&lt;/h5&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Date&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;
+            &lt;tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex"&gt;
+                &lt;td colspan="5"&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.company&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.date&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Expandable Row Groups&lt;/h5&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" dataKey="representative.name"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;                    
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Date&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-expanded="expanded"&gt;
+            &lt;tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex"&gt;
+                &lt;td colspan="5"&gt;
+                    &lt;button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="rowexpansion" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.company&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.date&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Rowspan&lt;/h5&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th style="width:3rem"&gt;#&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Date&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;rowIndex&#125;&#125;&lt;/td&gt;
+                &lt;td *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex" [attr.rowspan]="rowGroupMetadata[customer.representative.name].size"&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.company&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.date&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+
+@Component(&#123;
+    templateUrl: './tablerowgroupdemo.html'
+&#125;)
 export class TableRowGroupDemo implements OnInit &#123;
 
-    cars: Car[];
+    customers: Customer[];
 
     rowGroupMetadata: any;
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsMedium().then(cars => &#123;
-            this.cars = cars;
+        this.customerService.getCustomersMedium().then(data =&gt; &#123;
+            this.customers = data;
             this.updateRowGroupMetaData();
         &#125;);
     &#125;
@@ -116,111 +305,36 @@ export class TableRowGroupDemo implements OnInit &#123;
 
     updateRowGroupMetaData() &#123;
         this.rowGroupMetadata = &#123;&#125;;
-        if (this.cars) &#123;
-            for (let i = 0; i &lt; this.cars.length; i++) &#123;
-                let rowData = this.cars[i];
-                let brand = rowData.brand;
+
+        if (this.customers) &#123;
+            for (let i = 0; i &lt; this.customers.length; i++) &#123;
+                let rowData = this.customers[i];
+                let representativeName = rowData.representative.name;
+                
                 if (i == 0) &#123;
-                    this.rowGroupMetadata[brand] = &#123; index: 0, size: 1 &#125;;
+                    this.rowGroupMetadata[representativeName] = &#123; index: 0, size: 1 &#125;;
                 &#125;
                 else &#123;
-                    let previousRowData = this.cars[i - 1];
-                    let previousRowGroup = previousRowData.brand;
-                    if (brand === previousRowGroup)
-                        this.rowGroupMetadata[brand].size++;
+                    let previousRowData = this.customers[i - 1];
+                    let previousRowGroup = previousRowData.representative.name;
+                    if (representativeName === previousRowGroup)
+                        this.rowGroupMetadata[representativeName].size++;
                     else
-                        this.rowGroupMetadata[brand] = &#123; index: i, size: 1 &#125;;
+                        this.rowGroupMetadata[representativeName] = &#123; index: i, size: 1 &#125;;
                 &#125;
             &#125;
         &#125;
     &#125;
-
+    
 &#125;
-</code>
-</pre>
+</app-code>
+
         </p-tabPanel>
 
-        <p-tabPanel header="tablerowgroupdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowgroupdemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Toggleable Row Groups&lt;/h3&gt;
-&lt;p-table [value]="cars" dataKey="brand"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Vin&lt;/th&gt;
-            &lt;th&gt;Year&lt;/th&gt;
-            &lt;th&gt;Color&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns"&gt;
-        &lt;tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex"&gt;
-            &lt;td colspan="3"&gt;
-                &lt;a href="#" [pRowToggler]="rowData"&gt;
-                    &lt;i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"&gt;&lt;/i&gt;
-                    &lt;span&gt;&#123;&#123;rowData.brand&#125;&#125;&lt;/span&gt;
-                &lt;/a&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex"&gt;
-        &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-    
-&lt;h3&gt;Subheader&lt;/h3&gt;
-&lt;p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Vin&lt;/th&gt;
-            &lt;th&gt;Year&lt;/th&gt;
-            &lt;th&gt;Color&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex"&gt;
-        &lt;tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex"&gt;
-            &lt;td colspan="3"&gt;
-                &lt;span style="font-weight:bold"&gt;&#123;&#123;rowData.brand&#125;&#125;&lt;/span&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Rowspan&lt;/h3&gt;
-&lt;p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Brand&lt;/th&gt;
-            &lt;th&gt;Vin&lt;/th&gt;
-            &lt;th&gt;Year&lt;/th&gt;
-            &lt;th&gt;Color&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex"&gt;
-        &lt;tr&gt;
-            &lt;td *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.brand].size"&gt;
-                &#123;&#123;rowData.brand&#125;&#125;
-            &lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablerowgroup-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

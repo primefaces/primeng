@@ -1,58 +1,43 @@
-.ui-tieredmenu {
-    width: 12.5em;
-    padding: .25em;
-}
-
-.ui-tieredmenu.ui-tieredmenu-dynamic {
+.p-tieredmenu-overlay {
     position: absolute;
 }
 
-.ui-tieredmenu .ui-menu-separator {
-    border-width: 1px 0 0 0;
-}
-
-.ui-tieredmenu ul {
-    list-style: none;
+.p-tieredmenu ul {
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 
-.ui-tieredmenu .ui-submenu-list {
+.p-tieredmenu .p-submenu-list {
+    position: absolute;
+    min-width: 100%;
+    z-index: 1;
     display: none;
-    position: absolute;
-    width: 12.5em;
-    padding: .25em;
 }
 
-.ui-tieredmenu .ui-menuitem-link {
-    padding: .25em;
-    display: block;
+.p-tieredmenu .p-menuitem-link {
     cursor: pointer;
-    position: relative;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-}
-
-.ui-tieredmenu .ui-menuitem-icon {
-    margin-right: .25em;
-    vertical-align: middle;
-}
-
-.ui-tieredmenu .ui-menuitem-text {
-    vertical-align: middle;
-}
-
-.ui-tieredmenu .ui-menuitem {
+    overflow: hidden;
     position: relative;
-    margin: .125em 0;
 }
 
-.ui-tieredmenu .ui-menuitem-link .ui-submenu-icon {
-    position: absolute;
-    margin-top: -.5em;
-    right: 0;
-    top: 50%;
+.p-tieredmenu .p-menuitem-text {
+    line-height: 1;
 }
 
-.ui-tieredmenu .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
+.p-tieredmenu .p-menuitem {
+    position: relative;
+}
+
+.p-tieredmenu .p-menuitem-link .p-submenu-icon {
+    margin-left: auto;
+}
+
+.p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list {
     display: block;
+    left: 100%;
+    top: 0;
 }

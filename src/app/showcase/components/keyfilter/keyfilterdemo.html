@@ -1,68 +1,67 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">KeyFilter</span>
-        <span>KeyFilter directive restricts user input based on a regular expression.</span>
+    <div  class="feature-intro">
+        <h1>KeyFilter</h1>
+        <p>KeyFilter directive restricts user input based on a regular expression.</p>
     </div>
+    <app-inputStyleSwitch></app-inputStyleSwitch>
 </div>
 
 <div class="content-section implementation">
-    <h3>Filtering</h3>
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText pKeyFilter="int" placeholder="Integers">
+    <div class="card">
+        <h5>Filtering</h5>
+        <div class="p-grid p-fluid">
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="int" placeholder="Integers">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="num" placeholder="Numbers">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="money" placeholder="Money">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="hex" placeholder="Hex">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="alpha" placeholder="Alphabetic">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="alphanum" placeholder="Alphanumeric">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText [pKeyFilter]="blockSpecial" placeholder="Block # < > * !">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key">
+            </div>
         </div>
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText pKeyFilter="num" placeholder="Numbers">
-        </div>
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText pKeyFilter="money" placeholder="Money">
-        </div>
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText pKeyFilter="hex" placeholder="Hex">
-        </div>
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText pKeyFilter="alpha" placeholder="Alphabetic">
-        </div>
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText pKeyFilter="alphanum" placeholder="Alphanumeric">
-        </div>
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText [pKeyFilter]="blockSpecial" placeholder="Block # < > * !">
-        </div>
-        <div class="ui-g-12 ui-md-4">
-            <input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key">
-        </div>
-    </div>
 
-    <h3>Validation Mode</h3>
-    <form #form="ngForm">
-        <label for="cc" style="display:block;margin-bottom:4px">Credit Card</label>
-        <input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em">
-        <p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"></p-message>
-    </form>
+        <h5>Validation Mode</h5>
+        <form #form="ngForm">
+            <label for="cc" style="display:block;margin-bottom:4px">Credit Card</label>
+            <input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em">
+            <p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"></p-message>
+        </form>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-                    <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+                    <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;KeyFilterModule&#125; from 'primeng/keyfilter';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>KeyFilter directive is applied to an input text element using pKeyFilter attribute whose value is either a built-in regular expression name or a custom one.
                 Following input only accepts integers.</p>
             
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pKeyFilter="int"&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Built-in Filters</h3>
+            <h5>Built-in Filters</h5>
             <p>Commonly used cases have their own built-in shortcuts.</p>
             <ul>
                 <li>pint: Positive integers</li>
@@ -75,38 +74,32 @@ import &#123;KeyFilterModule&#125; from 'primeng/keyfilter';
                 <li>alphanum: Alphanumeric</li>
             </ul>
 
-            <h3>Custom Filter</h3>
+            <h5>Custom Filter</h5>
             <p>A custom filter is provided by binding a regular expression, here is an example that blocks special characters including "< > * !"</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" [pKeyFilter]="noSpecial"&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class KeyFilterDemo &#123;
 
      noSpecial: RegExp = /^[^&lt;&gt;*!]+$/
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Validate Mode</h3>
+            <h5>Validate Mode</h5>
             <p>Instead of blocking a single keypress, the alternative validation mode which is enabled with pValidateOnly property validates the whole input
                 with a built-in Angular validator.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;form #form="ngForm"&gt; 
     &lt;label for="cc"&gt;Credit Card&lt;/label&gt; 
     &lt;input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234"&gt;
     &lt;p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"&gt;&lt;/p-message&gt;
 &lt;/form&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -128,59 +121,58 @@ export class KeyFilterDemo &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>This directive does not apply any styling.</p>
             
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
         
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/keyfilter" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3&gt;Filtering&lt;/h3&gt;
-&lt;div class="ui-g ui-fluid"&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+            <a href="https://stackblitz.com/edit/primeng-keyfilter-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Filtering&lt;/h5&gt;
+&lt;div class="p-grid p-fluid"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="int" placeholder="Integers"&gt;
     &lt;/div&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="num" placeholder="Numbers"&gt;
     &lt;/div&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="money" placeholder="Money"&gt;
     &lt;/div&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="hex" placeholder="Hex"&gt;
     &lt;/div&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="alpha" placeholder="Alphabetic"&gt;
     &lt;/div&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="alphanum" placeholder="Alphanumberic"&gt;
     &lt;/div&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText [pKeyFilter]="blockSpecial" placeholder="Block # &lt; &gt; * !"&gt;
     &lt;/div&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key"&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Validation Mode&lt;/h3&gt;
+&lt;h5&gt;Validation Mode&lt;/h5&gt;
 &lt;form #form="ngForm"&gt;
     &lt;label for="cc" style="display:block;margin-bottom:4px"&gt;Credit Card&lt;/label&gt;
     &lt;input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em"&gt;
     &lt;p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"&gt;&lt;/p-message&gt;
 &lt;/form&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class KeyFilterDemo &#123;
 
     blockSpecial: RegExp = /^[^&lt;&gt;*!]+$/ 
@@ -192,9 +184,13 @@ export class KeyFilterDemo &#123;
     cc: string; 
     
 &#125;
-</code>
-</pre>
+</app-code>
 
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-keyfilter-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
      </p-tabView >
 </div>

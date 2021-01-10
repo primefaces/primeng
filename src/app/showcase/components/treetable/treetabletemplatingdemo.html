@@ -1,0 +1,116 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>TreeTable <span>Templating</span></h1>
+        <p>Custom content at header, body and footer sections are supported via templating.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <p-treeTable [value]="files" [columns]="cols">
+            <ng-template pTemplate="caption">
+                FileSystem
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th style="width: 8rem">
+                        <p-button icon="pi pi-cog"></p-button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-search" styleClass="p-button-success" [style]="{'margin-right': '.5em'}"></p-button>
+                        <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
+                    </td>
+                </tr>            
+            </ng-template>
+            <ng-template pTemplate="summary">
+                    <div style="text-align:left">
+                        <p-button icon="pi pi-refresh"></p-button>
+                    </div>
+            </ng-template>
+        </p-treeTable>
+    </div>   
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treetablesections-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-treeTable [value]="files" [columns]="cols"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        FileSystem
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+            &lt;th style="width: 8rem"&gt;
+                &lt;p-button icon="pi pi-cog"&gt;&lt;/p-button&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;p-button icon="pi pi-search" styleClass="p-button-success" [style]="&#123;'margin-right': '.5em'&#125;"&gt;&lt;/p-button&gt;
+                &lt;p-button icon="pi pi-pencil" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+            &lt;div style="text-align:left"&gt;
+                &lt;p-button icon="pi pi-refresh"&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class TreeTableSectionsDemo implements OnInit &#123;
+
+    files: TreeNode[];
+
+    cols: any[];
+
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFilesystem().then(files => this.files = files);
+
+        this.cols = [
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'size', header: 'Size' &#125;,
+            &#123; field: 'type', header: 'Type' &#125;
+        ];
+    &#125;
+&#125;
+</app-code>   
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetablesections-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+</div>

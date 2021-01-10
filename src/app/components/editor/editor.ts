@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Header} from 'primeng/api'
+import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import * as Quill from "quill";
@@ -14,11 +14,12 @@ export const EDITOR_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-editor',
     template: `
-        <div [ngClass]="'ui-widget ui-editor-container ui-corner-all'" [class]="styleClass">
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
+        <div [ngClass]="'p-editor-container'" [class]="styleClass">
+            <div class="p-editor-toolbar" *ngIf="toolbar || toolbarTemplate">
                 <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
+            <div class="p-editor-toolbar" *ngIf="!toolbar && !toolbarTemplate">
                 <span class="ql-formats">
                     <select class="ql-header">
                       <option value="1">Heading</option>
@@ -32,17 +33,17 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     </select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-bold" aria-label="Bold"></button>
-                    <button class="ql-italic" aria-label="Italic"></button>
-                    <button class="ql-underline" aria-label="Underline"></button>
+                    <button class="ql-bold" aria-label="Bold" type="button"></button>
+                    <button class="ql-italic" aria-label="Italic" type="button"></button>
+                    <button class="ql-underline" aria-label="Underline" type="button"></button>
                 </span>
                 <span class="ql-formats">
                     <select class="ql-color"></select>
                     <select class="ql-background"></select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-list" value="ordered" aria-label="Ordered List"></button>
-                    <button class="ql-list" value="bullet" aria-label="Unordered List"></button>
+                    <button class="ql-list" value="ordered" aria-label="Ordered List" type="button"></button>
+                    <button class="ql-list" value="bullet" aria-label="Unordered List" type="button"></button>
                     <select class="ql-align">
                         <option selected></option>
                         <option value="center"></option>
@@ -51,26 +52,29 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     </select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-link" aria-label="Insert Link"></button>
-                    <button class="ql-image" aria-label="Insert Image"></button>
-                    <button class="ql-code-block" aria-label="Insert Code Block"></button>
+                    <button class="ql-link" aria-label="Insert Link" type="button"></button>
+                    <button class="ql-image" aria-label="Insert Image" type="button"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block" type="button"></button>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-clean" aria-label="Remove Styles"></button>
+                    <button class="ql-clean" aria-label="Remove Styles" type="button"></button>
                 </span>
             </div>
-            <div class="ui-editor-content" [ngStyle]="style"></div>
+            <div class="p-editor-content" [ngStyle]="style"></div>
         </div>
     `,
-    providers: [EDITOR_VALUE_ACCESSOR]
+    providers: [EDITOR_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./editor.css'],
+    encapsulation: ViewEncapsulation.None
 })
-export class Editor implements AfterViewInit,ControlValueAccessor {
+export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor {
         
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header, { static: true }) toolbar;
+    @ContentChild(Header) toolbar;
     
     @Input() style: any;
         
@@ -89,6 +93,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     @Input() debug: string;
     
     @Output() onInit: EventEmitter<any> = new EventEmitter();
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     value: string;
     
@@ -99,28 +105,32 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     onModelTouched: Function = () => {};
     
     quill: any;
+
+    toolbarTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
     
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
-        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
-        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
+        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-content'); 
+        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-toolbar'); 
         let defaultModule  = {toolbar: toolbarElement};
         let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
 
         this.quill = new Quill(editorElement, {
-          modules: modules,
-          placeholder: this.placeholder,
-          readOnly: this.readonly,
-          theme: 'snow',
-          formats: this.formats,
-          bounds: this.bounds,
-          debug: this.debug,
-          scrollingContainer: this.scrollingContainer
+            modules: modules,
+            placeholder: this.placeholder,
+            readOnly: this.readonly,
+            theme: 'snow',
+            formats: this.formats,
+            bounds: this.bounds,
+            debug: this.debug,
+            scrollingContainer: this.scrollingContainer
         });
                 
-        if(this.value) {
-            this.quill.pasteHTML(this.value);
+        if (this.value) {
+            this.quill.setContents(this.quill.clipboard.convert(this.value));
         }
         
         this.quill.on('text-change', (delta, oldContents, source) => {
@@ -155,13 +165,26 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             editor: this.quill
         });
     }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'toolbar':
+                    this.toolbarTemplate = item.template;
+                break;
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+            }
+        });
+    }
         
     writeValue(value: any) : void {
         this.value = value;
                 
-        if(this.quill) {
-            if(value)
-                this.quill.pasteHTML(value);
+        if (this.quill) {
+            if (value)
+                this.quill.setContents(this.quill.clipboard.convert(value));
             else
                 this.quill.setText('');
         }
@@ -186,8 +209,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     set readonly(val:boolean) {
         this._readonly = val;
         
-        if(this.quill) {
-            if(this._readonly)
+        if (this.quill) {
+            if (this._readonly)
                 this.quill.disable();
             else
                 this.quill.enable();

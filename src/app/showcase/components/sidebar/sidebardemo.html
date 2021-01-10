@@ -1,102 +1,94 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Sidebar</span>
-        <span>Sidebar is a panel component displayed as an overlay.</span>
+    <div class="feature-intro">
+        <h1>Sidebar</h1>
+        <p>Sidebar is a panel component displayed as an overlay at the edges of the screen.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
-        <h1 style="font-weight:normal">Left Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar1 = false" label="Save" class="ui-button-success"></button>
-        <button pButton type="button" (click)="visibleSidebar1 = false" label="Cancel" class="ui-button-secondary"></button>
-    </p-sidebar>
-
-    <p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000">
-        <h1 style="font-weight:normal">Right Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar2 = false" label="Save" class="ui-button-success"></button>
-        <button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"></button>
-    </p-sidebar>
-
-    <p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000">
-        <h1 style="font-weight:normal">Top Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar3 = false" label="Save" class="ui-button-success"></button>
-        <button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"></button>
-    </p-sidebar>
-
-    <p-sidebar [(visible)]="visibleSidebar4" position="bottom" [baseZIndex]="10000">
-        <h1 style="font-weight:normal">Bottom Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar4 = false" label="Save" class="ui-button-success"></button>
-        <button pButton type="button" (click)="visibleSidebar4 = false" label="Cancel" class="ui-button-secondary"></button>
-    </p-sidebar>
-
-    <p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
-        <h1 style="font-weight:normal">Full Screen Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar5 = false" label="Save" class="ui-button-success"></button>
-        <button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"></button>
-    </p-sidebar>
-
-    <button pButton type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"></button>
-    <button pButton type="button" (click)="visibleSidebar2 = true" icon="pi pi-arrow-left"></button>
-    <button pButton type="button" (click)="visibleSidebar3 = true" icon="pi pi-arrow-down"></button>
-    <button pButton type="button" (click)="visibleSidebar4 = true" icon="pi pi-arrow-up"></button>
-    <button pButton type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"></button>
+    <div class="card">
+        <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+            <h1 style="font-weight:normal">Left Sidebar</h1>
+            <p-button type="button" (click)="visibleSidebar1 = false" label="Save" styleClass="p-button-success"></p-button>
+            <p-button type="button" (click)="visibleSidebar1 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+        </p-sidebar>
+    
+        <p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000">
+            <h1 style="font-weight:normal">Right Sidebar</h1>
+            <p-button type="button" (click)="visibleSidebar2 = false" label="Save" styleClass="p-button-success"></p-button>
+            <p-button type="button" (click)="visibleSidebar2 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+        </p-sidebar>
+    
+        <p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000">
+            <h1 style="font-weight:normal">Top Sidebar</h1>
+            <p-button type="button" (click)="visibleSidebar3 = false" label="Save" styleClass="p-button-success"></p-button>
+            <p-button type="button" (click)="visibleSidebar3 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+        </p-sidebar>
+    
+        <p-sidebar [(visible)]="visibleSidebar4" position="bottom" [baseZIndex]="10000">
+            <h1 style="font-weight:normal">Bottom Sidebar</h1>
+            <p-button type="button" (click)="visibleSidebar4 = false" label="Save" styleClass="p-button-success"></p-button>
+            <p-button type="button" (click)="visibleSidebar4 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+        </p-sidebar>
+    
+        <p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
+            <h1 style="font-weight:normal">Full Screen Sidebar</h1>
+            <p-button type="button" (click)="visibleSidebar5 = false" label="Save" styleClass="p-button-success"></p-button>
+            <p-button type="button" (click)="visibleSidebar5 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+        </p-sidebar>
+    
+        <p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"></p-button>
+        <p-button type="button" (click)="visibleSidebar2 = true" icon="pi pi-arrow-left"></p-button>
+        <p-button type="button" (click)="visibleSidebar3 = true" icon="pi pi-arrow-down"></p-button>
+        <p-button type="button" (click)="visibleSidebar4 = true" icon="pi pi-arrow-up"></p-button>
+        <p-button type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"></p-button>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SidebarModule&#125; from 'primeng/sidebar';
-</code>
-</pre>
+</app-code>
 
             <h3>Getting Started</h3>
             <p>Sidebar is used as a container and visibility is controlled with visible property.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-sidebar [(visible)]="display"&gt;
     Content
 &lt;/p-sidebar&gt;
 
-&lt;button type="text" (click)="display = true" pButton icon="pi pi-plus" label="Show"&gt;&lt;/button&gt;
-</code>
-</pre>
+&lt;p-button type="text" (click)="display = true" icon="pi pi-plus" label="Show"&gt;&lt;/p-button&gt;
+</app-code>
 
             <h3>Position</h3>
-            <p>Sidebar can either be located as the left (default), right, top or bottom of the screen depending on the position property.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <p>Sidebar can either be located as the left (default), right, top or bottom of the screen depending on the <i>position</i> property.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-sidebar [(visible)]="display" position="right"&gt;
     Content
 &lt;/p-sidebar&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Size</h3>
             <p>Sidebar size can be changed using a fixed value or using one of the three predefined ones.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-sidebar [(visible)]="display" [style]="&#123;width:'30em'&#125;"&gt;&lt;/p-sidebar&gt;
 
-&lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-sm"&gt;&lt;/p-sidebar&gt;
-&lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-md"&gt;&lt;/p-sidebar&gt;
-&lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-lg"&gt;&lt;/p-sidebar&gt;
-</code>
-</pre>
+&lt;p-sidebar [(visible)]="display" styleClass="p-sidebar-sm"&gt;&lt;/p-sidebar&gt;
+&lt;p-sidebar [(visible)]="display" styleClass="p-sidebar-md"&gt;&lt;/p-sidebar&gt;
+&lt;p-sidebar [(visible)]="display" styleClass="p-sidebar-lg"&gt;&lt;/p-sidebar&gt;
+</app-code>
 
             <h3>Full Screen</h3>
             <p>Full screen mode allows the sidebar to cover whole screen.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-sidebar [(visible)]="display" [fullScreen]="true"&gt;
 Content
 &lt;/p-sidebar&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -132,7 +124,7 @@ Content
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -235,51 +227,51 @@ Content
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-sidebar</td>
+                            <td>p-sidebar</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-left</td>
+                            <td>p-sidebar-left</td>
                             <td>Container element of left sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-right</td>
+                            <td>p-sidebar-right</td>
                             <td>Container element of right sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-top</td>
+                            <td>p-sidebar-top</td>
                             <td>Container element of top sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-bottom</td>
+                            <td>p-sidebar-bottom</td>
                             <td>Container element of bottom sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-full</td>
+                            <td>p-sidebar-full</td>
                             <td>Container element of a full screen sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-active</td>
+                            <td>p-sidebar-active</td>
                             <td>Container element when sidebar is visible.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-close</td>
+                            <td>p-sidebar-close</td>
                             <td>Close anchor element.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-sm</td>
+                            <td>p-sidebar-sm</td>
                             <td>Small sized sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-md</td>
+                            <td>p-sidebar-md</td>
                             <td>Medium sized sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-lg</td>
+                            <td>p-sidebar-lg</td>
                             <td>Large sized sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-mask</td>
+                            <td>p-sidebar-mask</td>
                             <td>Modal layer of the sidebar.</td>
                         </tr>
                     </tbody>
@@ -292,52 +284,51 @@ Content
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/sidebar" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-sidebar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Left Sidebar&lt;/h1&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar1 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar1 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar1 = false" label="Save" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar1 = false" label="Cancel" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Right Sidebar&lt;/h1&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar2 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar2 = false" label="Save" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar2 = false" label="Cancel" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Top Sidebar&lt;/h1&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar3 = false" label="Save" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar3 = false" label="Cancel" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar4" position="bottom" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Bottom Sidebar&lt;/h1&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar4 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar4 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar4 = false" label="Save" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar4 = false" label="Cancel" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Full Screen Sidebar&lt;/h1&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar5 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
-    &lt;button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar5 = false" label="Save" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+    &lt;p-button type="button" (click)="visibleSidebar5 = false" label="Cancel" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
 &lt;/p-sidebar&gt;
 
-&lt;button pButton type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar2 = true" icon="pi pi-arrow-left"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar3 = true" icon="pi pi-arrow-down"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar4 = true" icon="pi pi-arrow-up"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"&gt;&lt;/button&gt;
-</code>
-</pre>
+&lt;p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"&gt;&lt;/p-button&gt;
+&lt;p-button type="button" (click)="visibleSidebar2 = true" icon="pi pi-arrow-left"&gt;&lt;/p-button&gt;
+&lt;p-button type="button" (click)="visibleSidebar3 = true" icon="pi pi-arrow-down"&gt;&lt;/p-button&gt;
+&lt;p-button type="button" (click)="visibleSidebar4 = true" icon="pi pi-arrow-up"&gt;&lt;/p-button&gt;
+&lt;p-button type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"&gt;&lt;/p-button&gt;
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SidebarDemo &#123;
 
     visibleSidebar1;
@@ -351,8 +342,12 @@ export class SidebarDemo &#123;
     visibleSidebar5;
 
 &#125;
-</code>
-</pre>
+</app-code>
+            </p-tabPanel>
+            <p-tabPanel header="StackBlitz">
+                <ng-template pTemplate="content">
+                    <iframe src="https://stackblitz.com/edit/primeng-sidebar-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+                </ng-template>
             </p-tabPanel>
         </p-tabView>
 </div>

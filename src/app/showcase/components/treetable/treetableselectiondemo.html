@@ -1,163 +1,235 @@
-<treetable-submenu></treetable-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">TreeTable - <span class="subitem">Selection</span></span>
-        <span>TreeTable supports single, multiple and checkbox based selection modes.</span>
+    <div class="feature-intro">
+        <h1>TreeTable <span>Selection</span></h1>
+        <p>TreeTable supports <b>single</b>, <b>multiple</b> and <b>checkbox</b> as selection modes.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
 
-    <h3 class="first">Single</h3>
-    <p-treeTable [value]="files1" [columns]="cols" selectionMode="single" [(selection)]="selectedNode1" dataKey="name">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div style="text-align: left">
-                Selected Node: <span style="font-weight: normal">{{selectedNode1 ? selectedNode1.data.name + ' - ' + selectedNode1.data.size + ' - ' + selectedNode1.data.type : 'none'}}</span>
-            </div>
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Single Selection</h5>
+        <p-treeTable [value]="files1" [columns]="cols" selectionMode="single" [(selection)]="selectedNode1" dataKey="name">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
 
-    <h3>Multiple</h3>
-    <p-treeTable [value]="files2" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes1" dataKey="name">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div style="text-align: left">
-                Selected Nodes: <span *ngIf="!selectedNodes1 || selectedNodes1.length === 0" style="font-weight: normal">none</span>
-                <ul *ngIf="selectedNodes1 && selectedNodes1.length">
-                    <li *ngFor="let node of selectedNodes1">
-                        <span style="font-weight: normal">{{node.data.name + ' - ' + node.data.size + ' - ' + node.data.type}}</span>
-                    </li>
-                </ul>
-            </div>
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Multiple Selection with MetaKey</h5>
+        <p-treeTable [value]="files3" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes2" dataKey="name" [metaKeySelection]="true">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
 
-    <h3>Multiple with MetaKey</h3>
-    <p-treeTable [value]="files3" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes2" dataKey="name" [metaKeySelection]="true">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div style="text-align: left">
-                Selected Nodes: <span *ngIf="!selectedNodes2 || selectedNodes2.length === 0" style="font-weight: normal">none</span>
-                <ul *ngIf="selectedNodes2 && selectedNodes2.length">
-                    <li *ngFor="let node of selectedNodes2">
-                        <span style="font-weight: normal">{{node.data.name + ' - ' + node.data.size + ' - ' + node.data.type}}</span>
-                    </li>
-                </ul>
-            </div>
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Multiple Selection without MetaKey</h5>
+        <p-treeTable [value]="files2" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes1" dataKey="name">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
 
-    <h3>Events</h3>
-    <p-treeTable [value]="files4" [columns]="cols" selectionMode="single" [(selection)]="selectedNode2" dataKey="name"
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Checkbox Selection</h5>
+        <p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex">
+                    <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+                    <span class="p-ml-2">Toggle All</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
 
-    <h3>Checkbox</h3>
-    <p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3">
-        <ng-template pTemplate="caption">
-            <div style="text-align:left">
-                <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
-                <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div style="text-align: left">
-                Selected Nodes: <span *ngIf="!selectedNodes3 || selectedNodes3.length === 0" style="font-weight: normal">none</span>
-                <ul *ngIf="selectedNodes3 && selectedNodes3.length">
-                    <li *ngFor="let node of selectedNodes3">
-                        <span style="font-weight: normal">{{node.data.name + ' - ' + node.data.size + ' - ' + node.data.type}}</span>
-                    </li>
-                </ul>
-            </div>
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <h5>Events</h5>
+        <p-treeTable [value]="files4" [columns]="cols" selectionMode="single" [(selection)]="selectedNode2" dataKey="name"
+            (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="treetableselectiondemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetableselectiondemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-treetableselection-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast&gt;&lt;/p-toast&gt;
+
+&lt;h5&gt;Single Selection&lt;/h5&gt;
+&lt;p-treeTable [value]="files1" [columns]="cols" selectionMode="single" [(selection)]="selectedNode1" dataKey="name"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode"&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Multiple Selection with MetaKey&lt;/h5&gt;
+&lt;p-treeTable [value]="files3" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes2" dataKey="name" [metaKeySelection]="true"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode"&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Multiple Selection without MetaKey&lt;/h5&gt;
+&lt;p-treeTable [value]="files2" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes1" dataKey="name"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode"&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Checkbox Selection&lt;/h5&gt;
+&lt;p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        &lt;div class="p-d-flex"&gt;
+            &lt;p-treeTableHeaderCheckbox&gt;&lt;/p-treeTableHeaderCheckbox&gt;
+            &lt;span class="p-ml-2"&gt;Toggle All&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &lt;p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableCheckbox&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h5&gt;Events&lt;/h5&gt;
+&lt;p-treeTable [value]="files4" [columns]="cols" selectionMode="single" [(selection)]="selectedNode2" dataKey="name"
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableSelectionDemo &#123;
 
     files1: TreeNode[];
@@ -206,158 +278,12 @@ export class TreeTableSelectionDemo &#123;
         this.messageService.add(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.data.name&#125;);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
-
-        <p-tabPanel header="treetableselectiondemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableselectiondemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
-
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-treeTable [value]="files1" [columns]="cols" selectionMode="single" [(selection)]="selectedNode1" dataKey="name"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr [ttRow]="rowNode" [ttSelectableRow]="rowNode"&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        &lt;div style="text-align: left"&gt;
-            Selected Node: &lt;span style="font-weight: normal"&gt;&#123;&#123;selectedNode1 ? selectedNode1.data.name + ' - ' + selectedNode1.data.size + ' - ' + selectedNode1.data.type : 'none'&#125;&#125;&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-treeTable [value]="files2" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes1" dataKey="name"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr [ttRow]="rowNode" [ttSelectableRow]="rowNode"&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        &lt;div style="text-align: left"&gt;
-            Selected Nodes: &lt;span *ngIf="!selectedNodes1 || selectedNodes1.length === 0" style="font-weight: normal"&gt;none&lt;/span&gt;
-            &lt;ul *ngIf="selectedNodes1 && selectedNodes1.length"&gt;
-                &lt;li *ngFor="let node of selectedNodes1"&gt;
-                    &lt;span style="font-weight: normal"&gt;&#123;&#123;node.data.name + ' - ' + node.data.size + ' - ' + node.data.type&#125;&#125;&lt;/span&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Multiple with MetaKey&lt;/h3&gt;
-&lt;p-treeTable [value]="files3" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes2" dataKey="name" [metaKeySelection]="true"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr [ttRow]="rowNode" [ttSelectableRow]="rowNode"&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        &lt;div style="text-align: left"&gt;
-            Selected Nodes: &lt;span *ngIf="!selectedNodes2 || selectedNodes2.length === 0" style="font-weight: normal"&gt;none&lt;/span&gt;
-            &lt;ul *ngIf="selectedNodes2 && selectedNodes2.length"&gt;
-                &lt;li *ngFor="let node of selectedNodes2"&gt;
-                    &lt;span style="font-weight: normal"&gt;&#123;&#123;node.data.name + ' - ' + node.data.size + ' - ' + node.data.type&#125;&#125;&lt;/span&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Events&lt;/h3&gt;
-&lt;p-treeTable [value]="files4" [columns]="cols" selectionMode="single" [(selection)]="selectedNode2" dataKey="name"
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr [ttRow]="rowNode" [ttSelectableRow]="rowNode"&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Checkbox&lt;/h3&gt;
-&lt;p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3"&gt;
-    &lt;ng-template pTemplate="caption"&gt;
-        &lt;div style="text-align:left"&gt;
-            &lt;p-treeTableHeaderCheckbox&gt;&lt;/p-treeTableHeaderCheckbox&gt;
-            &lt;span style="margin-left: .25em; vertical-align: middle"&gt;Toggle All&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &lt;p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableCheckbox&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        &lt;div style="text-align: left"&gt;
-            Selected Nodes: &lt;span *ngIf="!selectedNodes3 || selectedNodes3.length === 0" style="font-weight: normal"&gt;none&lt;/span&gt;
-            &lt;ul *ngIf="selectedNodes3 && selectedNodes3.length"&gt;
-                &lt;li *ngFor="let node of selectedNodes3"&gt;
-                    &lt;span style="font-weight: normal"&gt;&#123;&#123;node.data.name + ' - ' + node.data.size + ' - ' + node.data.type&#125;&#125;&lt;/span&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetableselection-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

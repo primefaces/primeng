@@ -1,130 +1,54 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Export</span></span>
-        <span>Table can export its data to CSV format.</span>
+    <div class="feature-intro">
+        <h1>Table <span>Export</span></h1>
+        <p>Table data can be exported to various formats.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table #dt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars">
-        <ng-template pTemplate="caption">
-            <div class="ui-helper-clearfix" style="text-align: left">
-                <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button>
-                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
-                <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button>
-                <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData">
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex">
+                    <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tableexportdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableexportdemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class TableExportDemo implements OnInit &#123;
 
-    cars: Car[];
-
-    selectedCars: Car[];
-
-    cols: any[];
-
-    columns: any[];
-
-    constructor(private carService: CarService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
-
-        this.exportColumns = this.cols.map(col => (&#123;title: col.header, dataKey: col.field&#125;));
-    &#125;
-
-    exportPdf() &#123;
-        import("jspdf").then(jsPDF => &#123;
-            import("jspdf-autotable").then(x => &#123;
-                const doc = new jsPDF.default(0,0);
-                doc.autoTable(this.columns, this.cars);
-                doc.save('primengTable.pdf');
-            &#125;)
-        &#125;)
-    &#125;
-    
-    exportExcel() &#123;
-        import("xlsx").then(xlsx => &#123;
-            const worksheet = xlsx.utils.json_to_sheet(this.getCars());
-            const workbook = &#123; Sheets: &#123; 'data': worksheet &#125;, SheetNames: ['data'] &#125;;
-            const excelBuffer: any = xlsx.write(workbook, &#123; bookType: 'xlsx', type: 'array' &#125;);
-            this.saveAsExcelFile(excelBuffer, "primengTable");
-        &#125;);
-    &#125;
-
-    saveAsExcelFile(buffer: any, fileName: string): void &#123;
-        import("file-saver").then(FileSaver => &#123;
-            let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-            let EXCEL_EXTENSION = '.xlsx';
-            const data: Blob = new Blob([buffer], &#123;
-                type: EXCEL_TYPE
-            &#125;);
-            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
-        &#125;);
-    &#125;
-
-    getCars() &#123;
-        let cars = [];
-        for(let car of this.cars) &#123;
-            car.year = car.year.toString();
-            cars.push(car);
-        &#125;
-        return cars;
-    &#125;
-&#125;
-</code>
-</pre>   
-        </p-tabPanel>
-
-        <p-tabPanel header="tableexportdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableexportdemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-table #dt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts"&gt;
     &lt;ng-template pTemplate="caption"&gt;
-        &lt;div class="ui-helper-clearfix" style="text-align: left"&gt;
-            &lt;button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
+        &lt;div class="p-d-flex"&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -142,8 +66,74 @@ export class TableExportDemo implements OnInit &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
-</code>
-</pre>
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
+@Component(&#123;
+    templateUrl: './tableexportdemo.html'
+&#125;)
+export class TableExportDemo implements OnInit &#123;
+
+    products: Product[];
+
+    selectedProducts: Product[];
+
+    constructor(private productService: ProductService) &#123; &#125;
+
+    cols: any[];
+
+    exportColumns: any[];
+
+    ngOnInit() &#123;
+        this.productService.getProductsSmall().then(data =&gt; this.products = data);
+
+        this.cols = [
+            &#123; field: 'code', header: 'Code' &#125;,
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'category', header: 'Category' &#125;,
+            &#123; field: 'quantity', header: 'Quantity' &#125;
+        ];
+
+        this.exportColumns = this.cols.map(col =&gt; (&#123;title: col.header, dataKey: col.field&#125;));
+    &#125;
+
+    exportPdf() &#123;
+        import("jspdf").then(jsPDF =&gt; &#123;
+            import("jspdf-autotable").then(x =&gt; &#123;
+                const doc = new jsPDF.default(0,0);
+                doc.autoTable(this.exportColumns, this.products);
+                doc.save('products.pdf');
+            &#125;)
+        &#125;)
+    &#125;
+
+    exportExcel() &#123;
+        import("xlsx").then(xlsx =&gt; &#123;
+            const worksheet = xlsx.utils.json_to_sheet(this.products);
+            const workbook = &#123; Sheets: &#123; 'data': worksheet &#125;, SheetNames: ['data'] &#125;;
+            const excelBuffer: any = xlsx.write(workbook, &#123; bookType: 'xlsx', type: 'array' &#125;);
+            this.saveAsExcelFile(excelBuffer, "products");
+        &#125;);
+    &#125;
+
+    saveAsExcelFile(buffer: any, fileName: string): void &#123;
+        import("file-saver").then(FileSaver =&gt; &#123;
+            let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+            let EXCEL_EXTENSION = '.xlsx';
+            const data: Blob = new Blob([buffer], &#123;
+                type: EXCEL_TYPE
+            &#125;);
+            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+        &#125;);
+    &#125;
+&#125;
+</app-code>
+
         </p-tabPanel>
+
     </p-tabView>
 </div>

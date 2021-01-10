@@ -3,11 +3,12 @@ import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './accordiondemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styleUrls: ['./accordiondemo.scss']
 })
 export class AccordionDemo {
     
-    index: number = -1;
+    activeState: boolean[] = [true, false, false];
 
     constructor(private messageService: MessageService) {}
 
@@ -18,12 +19,8 @@ export class AccordionDemo {
     onTabOpen(event) {
         this.messageService.add({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
     }
-    
-    openNext() {
-        this.index = (this.index === 3) ? 0 : this.index + 1;
-    }
-    
-    openPrev() {
-        this.index = (this.index <= 0) ? 3 : this.index - 1;
+
+    toggle(index: number) {
+        this.activeState[index] = !this.activeState[index];
     }
 }

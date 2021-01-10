@@ -1,51 +1,121 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Dialog</span>
-        <span>Dialog is a container to display content in an overlay window.</span>
+    <div class="feature-intro">
+        <h1>Dialog</h1>
+        <p>Dialog is a container to display content in an overlay window.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
-           kind and benevolent to those who give respect,
-           but given to ruthless violence whenever anything stands against the good of the family.</p>
-           <p-footer>
-               <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-               <button type="button" pButton icon="pi pi-times" (click)="display=false" label="No" class="ui-button-secondary"></button>
-           </p-footer>
-    </p-dialog>
-
-    <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        <p-dialog header="Header" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-dialog>
+    
+        <p-button (click)="showBasicDialog2()" icon="pi pi-external-link" label="Long Content"></p-button>
+        <p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="{width: '50vw'}" [baseZIndex]="10000">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                culpa qui officia deserunt mollit anim id est laborum.</p>
+    
+            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+                qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+                quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+                vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+    
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+                similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+                cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+            <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="displayBasic2=false" label="Ok" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-dialog>
+    
+        <h5>Modal</h5>
+        <p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false">
+            <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+               <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+               </ng-template>
+        </p-dialog>
+    
+        <h5>Maximizable</h5>
+        <p-button (click)="showMaximizableDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+               <ng-template pTemplate="footer">
+                   <p-button icon="pi pi-check" (click)="displayMaximizable=false" label="Ok" styleClass="p-button-text"></p-button>
+               </ng-template>
+        </p-dialog>
+    
+        <h5>Position</h5>
+        <div class="p-grid p-dir-col">
+            <div class="p-col">
+                <p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"></p-button>
+            </div>
+            <div class="p-col">
+                <p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
+            </div>
+            <div class="p-col">
+                <p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"></p-button>
+            </div>
+        </div>
+        <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false">
+            <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+               His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+               Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+               kind and benevolent to those who give respect,
+               but given to ruthless violence whenever anything stands against the good of the family.</p>
+               <ng-template pTemplate="footer">
+                   <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text"></p-button>
+               </ng-template>
+        </p-dialog>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DialogModule&#125; from 'primeng/dialog';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Dialog is used as a container and visibility is controlled with visible property.</p>
-                    
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
     Content
 &lt;/p-dialog&gt;
 
-&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
-</code>
-</pre>
+&lt;button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     display: boolean = false;
@@ -55,27 +125,43 @@ export class ModelComponent &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
+            <p>By default dialog is hidden and enabling the <i>visible</i> property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
-            
-            <h3>Dimensions</h3>
+
+            <h5>Dimensions</h5>
             <p>Use style property to define the dimensions of the Dialog.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog header="Title" [(visible)]="display" [style]="&#123;width: '300px', height: '200px'&#125;"&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-dialog header="Title" [(visible)]="display" [style]="&#123;width: '50vw'&#125;"&gt;
     Content
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Header and Footer</h3>
-            <p>Header and Footer sections are useful to include custom content. Note that Header and Footer components should be imported and defined
+            <h5>Responsive</h5>
+            <p>Responsiveness can easily be implemented using media queries.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-dialog header="Title" [(visible)]="display" styleClass="mydialog"&gt;
+Content
+&lt;/p-dialog&gt;
+</app-code>
+
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+.mydialog &#123;
+    width: 50vw;
+&#125;
+
+@media screen and (max-width: 40em) &#123;
+    .mydialog &#123;
+        width: 75vw;
+    &#125;
+&#125;
+</app-code>
+
+            <h5>Header and Footer</h5>
+            <p>Header and Footer sections are useful to include custom content. Note that <i>Header</i> and <i>Footer</i> components should be imported and defined
             at directives section of your component for this to work.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog [(visible)]="display"&gt;
     &lt;p-header&gt;
         Header content here
@@ -85,70 +171,43 @@ export class ModelComponent &#123;
         //buttons
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Overlays Inside</h3>
-            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can 
+            <h5>Positioning</h5>
+            <p>Dialog location is controlled with the <i>position</i> property whose default value is center. Other valid values are top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" and "bottom-right". You may also call the resetPosition() method of Dialog to re-position it after the content or position changes.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-dialog position="top" [(visible)]="display"&gt;
+Content
+&lt;/p-dialog&gt;
+</app-code>
+
+            <h5>Overlays Inside</h5>
+            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can
             either append the overlay to the body or allow overflow in dialog.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog&gt;
     &lt;p-dropdown appendTo="body"&gt;&lt;/p-dropdown&gt;
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog [contentStyle]="&#123;'overflow':'visible'&#125;"&gt;
-    &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
+            <h5>Initial Focus</h5>
+            <p>Adding <i>autofocus</i> to an element applies focus when the dialog is shown.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-dialog [(visible)]="display"&gt;
+    &lt;input type="text" pInputText &gt;
+    &lt;input type="text" pInputText &gt;
+    &lt;button type="button" pButton autofocus&gt;&lt;/button&gt;
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Dynamic Content</h3>
-            <p>Dynamic content may move the dialog boundaries outside of the viewport. Common solution is defining max-height at content section to let the content overflow. You may also call the center() method
-                of Dialog to re-center it after the content changes.</p>
-
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog [contentStyle]="&#123;'max-height':'200px'&#125;"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="let item of items"&gt;&#123;&#123;item&#125;&#125;&lt;li&gt;
-    &lt;/ul&gt;
-&lt;/p-dialog&gt;
-</code>
-</pre>
-
-            <h3>RTL Support</h3>
-            <p>RTL orientation is enabled by adding "ui-rtl" to an ancestor element of dialog in combination with standard dir="rtl" option.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;div class="ui-rtl" dir="rtl"&gt;
-    &lt;p-dialog [(visible)]="display"&gt;
-        &lt;p-header&gt;
-            Header content here
-        &lt;/p-header&gt;
-        Content
-        &lt;p-footer&gt;
-            Footer content here
-        &lt;/p-footer&gt;
-    &lt;/p-dialog&gt;
-&lt;/div&gt;
-</code>
-</pre>
-
-            <h3>Animation Configuration</h3>
-            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>, 
+            <h5>Animation Configuration</h5>
+            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>,
                 example below disables the animation altogether.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog [(visible)]="display" [transitionOptions]="'0ms'"&gt;&lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -173,6 +232,12 @@ export class ModelComponent &#123;
                             <td>Enables dragging to change the position using header.</td>
                         </tr>
                         <tr>
+                            <td>keepInViewport</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Keeps dialog in the viewport.</td>
+                        </tr>
+                        <tr>
                             <td>resizable</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -195,6 +260,12 @@ export class ModelComponent &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if background should be blocked when dialog is displayed.</td>
+                        </tr>
+                        <tr>
+                            <td>position</td>
+                            <td>string</td>
+                            <td>center</td>
+                            <td>Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".</td>
                         </tr>
                         <tr>
                             <td>blockScroll</td>
@@ -227,22 +298,10 @@ export class ModelComponent &#123;
                             <td>Adds a close icon to the header to hide the dialog.</td>
                         </tr>
                         <tr>
-                            <td>responsive</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>In responsive mode, dialog adjusts itself to screen width.</td>
-                        </tr>
-                        <tr>
-                            <td>breakpoint</td>
-                            <td>number</td>
-                            <td>640</td>
-                            <td>Maximum screen width to display the dialog with 100% width in responsive mode.</td>
-                        </tr>
-                        <tr>
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -257,22 +316,28 @@ export class ModelComponent &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
+                            <td>maskStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the mask.</td>
+                        </tr>
+                        <tr>
+                            <td>contentStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Inline style of the content.</td>
+                        </tr>
+                        <tr>
+                            <td>contentStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the content.</td>
+                        </tr>
+                        <tr>
                             <td>showHeader</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show the header or not.</td>
-                        </tr>
-                        <tr>
-                            <td>positionLeft</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Left coordinate value of the dialog.</td>
-                        </tr>
-                        <tr>
-                            <td>positionTop</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Top coordinate value of the dialog.</td>
                         </tr>
                         <tr>
                             <td>baseZIndex</td>
@@ -344,7 +409,7 @@ export class ModelComponent &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -365,11 +430,31 @@ export class ModelComponent &#123;
                             <td>event: Event object</td>
                             <td>Callback to invoke when dialog is hidden.</td>
                         </tr>
+                        <tr>
+                            <td>onResizeInit</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog resizing is initiated.</td>
+                        </tr>
+                        <tr>
+                            <td>onResizeEnd</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog resizing is completed.</td>
+                        </tr>
+                        <tr>
+                            <td>onDragEnd</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog dragging is completed.</td>
+                        </tr>
+                        <tr>
+                            <td>onMaximize</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog maximized or unmaximized.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -381,78 +466,201 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-dialog</td>
+                            <td>p-dialog</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar</td>
+                            <td>p-dialog-titlebar</td>
                             <td>Container of header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-title</td>
+                            <td>p-dialog-title</td>
                             <td>Header element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-icon</td>
+                            <td>p-dialog-titlebar-icon</td>
                             <td>Icon container inside header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-close</td>
+                            <td>p-dialog-titlebar-close</td>
                             <td>Close icon element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-content</td>
+                            <td>p-dialog-content</td>
                             <td>Content element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-footer</td>
+                            <td>p-dialog-footer</td>
                             <td>Footer element.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dialog" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="&#123;width: '350px', minWidth: '200px'&#125;" [minY]="70" 
-        [maximizable]="true" [baseZIndex]="10000"&gt;
-    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
-        kind and benevolent to those who give respect,
-        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
-        &lt;p-footer&gt;
-            &lt;button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
-        &lt;/p-footer&gt;
+            <a href="https://stackblitz.com/edit/primeng-dialog-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Header" [(visible)]="displayBasic" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 
-&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
-</code>
-</pre>
+&lt;p-button (click)="showBasicDialog2()" icon="pi pi-external-link" label="Long Content"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+    &lt;p&gt;"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+        qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+        quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&lt;/p&gt;
+
+    &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+        similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+        cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+        eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.&lt;/p&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;p-button icon="pi pi-check" (click)="displayBasic2=false" label="Ok" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+
+&lt;h5&gt;Modal&lt;/h5&gt;
+&lt;p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"&gt;
+    &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+        &lt;p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+
+&lt;h5&gt;Maximizable&lt;/h5&gt;
+&lt;p-button (click)="showMaximizableDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;p-button icon="pi pi-check" (click)="displayMaximizable=false" label="Ok" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+
+&lt;h5&gt;Position&lt;/h5&gt;
+&lt;div class="p-grid p-dir-col"&gt;
+    &lt;div class="p-col"&gt;
+        &lt;p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col"&gt;
+        &lt;p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col"&gt;
+        &lt;p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"&gt;
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+        kind and benevolent to those who give respect,
+        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DialogDemo &#123;
 
-    display: boolean = false;
+    displayModal: boolean;
 
-    showDialog() &#123;
-        this.display = true;
+    displayBasic: boolean;
+
+    displayBasic2: boolean;
+
+    displayMaximizable: boolean;
+
+    displayPosition: boolean;
+
+    position: string;
+
+    showModalDialog() &#123;
+        this.displayModal = true;
+    &#125;
+
+    showBasicDialog() &#123;
+        this.displayBasic = true;
+    &#125;
+
+    showBasicDialog2() &#123;
+        this.displayBasic2 = true;
+    &#125;
+
+    showMaximizableDialog() &#123;
+        this.displayMaximizable = true;
+    &#125;
+
+    showPositionDialog(position: string) &#123;
+        this.position = position;
+        this.displayPosition = true;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
+
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+:host ::ng-deep .p-button &#123;
+    margin: 0 .5rem 0 0;
+    min-width: 10rem;
+&#125;
+
+p &#123;
+    margin: 0;
+&#125;
+
+.confirmation-content &#123;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+&#125;
+
+:host ::ng-deep .p-dialog .p-button &#123;
+    min-width: 6rem;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-dialog-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

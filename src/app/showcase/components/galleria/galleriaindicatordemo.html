@@ -1,0 +1,253 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Galleria <span>Indicator</span></h1>
+        <p>Indicators allow quick navigation between the items.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <h5>Indicators with Click Event</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+
+    <div class="card">
+        <h5>Indicators with Hover Event</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+            [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+    <div class="card">
+        <h5>Inside Content</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+            [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+
+    <div class="card">
+        <h5>Positioned at Top</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+
+    <div class="card">
+        <h5>Positioned at Left</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+
+    <div class="card">
+        <h5>Positioned at Right</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+
+    <div class="card">
+        <h5>Template</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="indicator" let-index>
+                <span style="color: #e9ecef; cursor: pointer">
+                    {{index + 1}}
+                </span>
+            </ng-template>
+        </p-galleria>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="galleriaindicatordemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaindicatordemo.ts" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class GalleriaIndicatorDemo implements OnInit &#123;
+    images: any[];
+
+    responsiveOptions:any[] = [
+        &#123;
+            breakpoint: '1024px',
+            numVisible: 5
+        &#125;,
+        &#123;
+            breakpoint: '768px',
+            numVisible: 3
+        &#125;,
+        &#123;
+            breakpoint: '560px',
+            numVisible: 1
+        &#125;
+    ];
+
+    constructor(private photoService: PhotoService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.photoService.getImages().then(images =>&#123; 
+            this.images = images
+        &#125;)
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="galleriaindicatordemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaindicatordemo.html" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Indicators with Click Event&lt;/h5&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;h5&gt;Indicators with Hover Event&lt;/h5&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;h5&gt;Inside Content&lt;/h5&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;h5&gt;Positioned at Top&lt;/h5&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top"&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;h5&gt;Positioned at Left&lt;/h5&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;h5&gt;Positioned at Right&lt;/h5&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right"&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;h5&gt;Template&lt;/h5&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="indicator" let-index&gt;
+        &lt;span style="color: #e9ecef; cursor: pointer"&gt;
+            &#123;&#123;index + 1&#125;&#125;
+        &lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+</app-code>
+
+        </p-tabPanel>
+    </p-tabView>
+</div>
+

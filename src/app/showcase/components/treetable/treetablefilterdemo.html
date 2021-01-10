@@ -1,89 +1,58 @@
-<treetable-submenu></treetable-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">TreeTable - <span class="subitem">Filter</span></span>
-        <span>Filtering reduces the data by running a search using column filters and an optional global filter.</span>
+    <div class="feature-intro">
+        <h1>TreeTable <span>Filter</span></h1>
+        <p>Filtering is enabled by defining a filter template per column to populate the filters property of the TreTable.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-treeTable #tt [value]="files" [columns]="cols">
-        <ng-template pTemplate="caption">
-            <div style="text-align: right">        
-                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of cols">
-                    {{col.header}}
-                </th>
-            </tr>
-            <tr>
-                <th *ngFor="let col of cols">
-                    <input pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-            <tr>
-                <td *ngFor="let col of cols; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>        
-                <td [attr.colspan]="cols.length">No data found.</td>
-            </tr>
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <p-treeTable #tt [value]="files" [columns]="cols">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">        
+                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of cols">
+                        {{col.header}}
+                    </th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of cols">
+                        <input pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr>
+                    <td *ngFor="let col of cols; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>        
+                    <td [attr.colspan]="cols.length">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="treetablefilterdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablefilterdemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './treetablefilterdemo.html'
-&#125;)
-export class TreeTableFilterDemo &#123;
-
-    files: TreeNode[];
-
-    cols: any[];
-
-    constructor(private nodeService: NodeService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.nodeService.getFilesystem().then(files => this.files = files);
-
-        this.cols = [
-            &#123; field: 'name', header: 'Name' &#125;,
-            &#123; field: 'size', header: 'Size' &#125;,
-            &#123; field: 'type', header: 'Type' &#125;
-        ];
-    &#125;
-&#125;
-</code>
-</pre>   
-        </p-tabPanel>
-
-        <p-tabPanel header="treetablefilterdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablefilterdemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
+            <a href="https://stackblitz.com/edit/primeng-treetablefilter-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable #tt [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div style="text-align: right"&gt;        
@@ -117,8 +86,35 @@ export class TreeTableFilterDemo &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
-</code>
-</pre>
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+@Component(&#123;
+    templateUrl: './treetablefilterdemo.html'
+&#125;)
+export class TreeTableFilterDemo &#123;
+
+    files: TreeNode[];
+
+    cols: any[];
+
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFilesystem().then(files => this.files = files);
+
+        this.cols = [
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'size', header: 'Size' &#125;,
+            &#123; field: 'type', header: 'Type' &#125;
+        ];
+    &#125;
+&#125;
+</app-code>   
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetablefilter-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

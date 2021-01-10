@@ -13,7 +13,7 @@
                 "project": "src/app/components/ng-package.json",
                 "tsConfig": "src/app/components/tsconfig.lib.json"
             }
-            }
+          }
         }
       },
       "primeng": {
@@ -35,27 +35,16 @@
               "main": "src/main.ts",
               "polyfills": "src/polyfills.ts",
               "tsConfig": "tsconfig.app.json",
+              "aot": true,
               "assets": [
                 "src/favicon.png",
                 "src/assets",
                 "src/upload.php"
               ],
               "styles": [
-                "node_modules/@fullcalendar/core/main.min.css",
-                "node_modules/@fullcalendar/daygrid/main.min.css",
-                "node_modules/@fullcalendar/timegrid/main.min.css",
-                "node_modules/quill/dist/quill.snow.css",
-                "node_modules/primeicons/primeicons.css",
-                "node_modules/primeflex/primeflex.css",
-                "node_modules/font-awesome/css/font-awesome.min.css",
                 "src/styles.scss"
               ],
               "scripts": [
-                "./node_modules/moment/moment.js",
-                "./node_modules/@fullcalendar/core/main.js",
-                "./node_modules/@fullcalendar/daygrid/main.js",
-                "./node_modules/@fullcalendar/timegrid/main.js",
-                "./node_modules/@fullcalendar/interaction/main.js",
                 "./node_modules/prismjs/prism.js",
                 "./node_modules/prismjs/components/prism-typescript.js"
               ]
@@ -71,19 +60,17 @@
                 "optimization": true,
                 "outputHashing": "all",
                 "sourceMap": false,
-                "extractCss": true,
                 "namedChunks": false,
-                "aot": true,
                 "extractLicenses": true,
                 "vendorChunk": false,
                 "buildOptimizer": true,
                 "budgets": [
-                    {
-                      "type": "initial",
-                      "maximumWarning": "2mb",
-                      "maximumError": "5mb"
-                    }
-                  ]
+                  {
+                    "type": "initial",
+                    "maximumWarning": "2mb",
+                    "maximumError": "5mb"
+                  }
+                ]
               }
             }
           },
@@ -111,15 +98,15 @@
               "polyfills": "src/polyfills.ts",
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
-              "styles": [
-                "src/styles.scss"
-              ],
-              "scripts": [],
               "assets": [
                 "src/favicon.png",
                 "src/assets",
                 "src/upload.php"
-              ]
+              ],
+              "styles": [
+                "src/styles.scss"
+              ],
+              "scripts": []
             }
           },
           "lint": {

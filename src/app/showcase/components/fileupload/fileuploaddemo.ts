@@ -26,4 +26,5 @@ export class FileUploadDemo {
     onBasicUploadAuto(event) {
         this.messageService.add({severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode'});
     }
+    
 }

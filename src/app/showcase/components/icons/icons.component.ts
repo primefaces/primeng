@@ -1,58 +1,47 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { IconService } from '../../service/iconservice';
 
 @Component({
     templateUrl: './icons.component.html',
-    styles: [`
-        .icons-list {
-            text-align: center;
-        }
-
-        .icons-list i {
-            font-size: 2em;
-        }
-
-        .icons-list .ui-md-2 {
-            padding-bottom: 2em;
-        }
-    `]
+    styleUrls: ['./icons.component.scss']
 })
-export class IconsComponent {
+export class IconsComponent implements OnInit {
 
-	icons: any [];
+    icons: any [];
+    
 	filteredIcons: any [];
-	selectedIcon: any;
-	searchText:any;
-	constructor(private iconService: IconService) {}
+    
+    selectedIcon: any;
+        
+    constructor(private iconService: IconService) {}
 
-	getIcons() {
-		this.iconService.getIcons().subscribe((data: any) => {
-			this.icons = data;
+	ngOnInit() {
+		this.iconService.getIcons().subscribe(data => {
+            let icons = data;
+            icons.sort((icon1, icon2) => {
+                if(icon1.properties.name < icon2.properties.name)
+                    return -1;
+                else if(icon1.properties.name < icon2.properties.name)
+                    return 1;
+                else
+                    return 0;
+            });
+
+            this.icons = icons;
 			this.filteredIcons = data;
 		});
 	}
 
-	getIcon(id) {
-		this.selectedIcon = this.iconService.getIcon(id);
+    onFilter(event: KeyboardEvent): void {
+        let searchText = (<HTMLInputElement> event.target).value;
+  
+		if (!searchText) {
+            this.filteredIcons = this.icons
+        }
+        else {
+            this.filteredIcons = this.icons.filter( it => {
+                return it.icon.tags[0].includes(searchText);
+            });
+        }
     }
-    
-    onFilter(event): void {
-        this.searchText = event.target.value;
-        if( !this.icons) 
-			this.filteredIcons = [];
-		if (!this.searchText) 
-			this.filteredIcons = this.icons
-		this.searchText = this.searchText;
-	    this.filteredIcons =this.icons.filter( it => {
-			return it.icon.tags[0].includes(this.searchText);
-		});
-    }
-
-	unselectIcon() {
-		this.selectedIcon=null;
-	}
-
-	ngOnInit() {
-		this.getIcons();
-	}
 }

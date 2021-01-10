@@ -15,4 +15,5 @@ export class DynamicDialogConfig {
 	transitionOptions?: string;
 	closable?: boolean;
 	showHeader?: boolean;
+	modal?: boolean;
 }

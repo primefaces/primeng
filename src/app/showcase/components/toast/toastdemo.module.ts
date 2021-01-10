@@ -5,7 +5,8 @@ import {ToastDemoRoutingModule} from './toastdemo-routing.module';
 import {ToastModule} from 'primeng/toast';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {RippleModule} from 'primeng/ripple';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         ToastModule,
         ButtonModule,
         TabViewModule,
-        CodeHighlighterModule
+        RippleModule,
+        AppCodeModule
 	],
 	declarations: [
 		ToastDemo

@@ -6,55 +6,37 @@ import {CountryService} from '../../service/countryservice';
 })
 export class AutoCompleteDemo {
 
-    country: any;
+    selectedCountry: any;
     
     countries: any[];
         
-    filteredCountriesSingle: any[];
+    filteredCountries: any[];
+
+    selectedCountries: any[];
     
-    filteredCountriesMultiple: any[];
-    
-    brands: string[] = ['Audi','BMW','Fiat','Ford','Honda','Jaguar','Mercedes','Renault','Volvo','VW'];
+    selectedCountryAdvanced: any[];
     
     filteredBrands: any[];
     
-    brand: string;
-    
     constructor(private countryService: CountryService) { }
     
-    filterCountrySingle(event) {
-        let query = event.query;        
+    ngOnInit() {        
         this.countryService.getCountries().then(countries => {
-            this.filteredCountriesSingle = this.filterCountry(query, countries);
+            this.countries = countries;
         });
     }
     
-    filterCountryMultiple(event) {
-        let query = event.query;
-        this.countryService.getCountries().then(countries => {
-            this.filteredCountriesMultiple = this.filterCountry(query, countries);
-        });
-    }
-    
-    filterCountry(query, countries: any[]):any[] {
+    filterCountry(event) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
-        for(let i = 0; i < countries.length; i++) {
-            let country = countries[i];
-            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        let query = event.query;
+        for(let i = 0; i < this.countries.length; i++) {
+            let country = this.countries[i];
+            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
         }
-        return filtered;
-    }
         
-    filterBrands(event) {
-        this.filteredBrands = [];
-        for(let i = 0; i < this.brands.length; i++) {
-            let brand = this.brands[i];
-            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-                this.filteredBrands.push(brand);
-            }
-        }
+        this.filteredCountries = filtered;
     }
 }

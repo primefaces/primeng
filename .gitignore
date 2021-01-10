@@ -36,14 +36,6 @@ npm-debug.log
 testem.log
 /typings
 
-# themes
-/src/assets/components/themes/**/*.css
-/src/assets/components/themes/**/*.map
-!/src/assets/components/themes/bootstrap/theme.css
-!/src/assets/components/themes/nova-*/theme.css
-!/src/assets/components/themes/luna-*/theme.css
-!/src/assets/components/themes/rhea/theme.css
-
 # e2e
 /e2e/*.js
 /e2e/*.map
@@ -51,3 +43,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Themes
+src/assets/components/themes/soho-light/
+src/assets/components/themes/soho-dark/
+src/assets/components/themes/mira/
+src/assets/components/themes/nano/

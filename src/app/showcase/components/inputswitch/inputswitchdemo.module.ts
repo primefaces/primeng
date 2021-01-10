@@ -5,7 +5,7 @@ import {InputSwitchDemo} from './inputswitchdemo';
 import {InputSwitchDemoRoutingModule} from './inputswitchdemo-routing.module';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -13,8 +13,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         FormsModule,
 		InputSwitchDemoRoutingModule,
         InputSwitchModule,
-        TabViewModule,
-        CodeHighlighterModule
+		TabViewModule,
+		AppCodeModule
 	],
 	declarations: [
 		InputSwitchDemo

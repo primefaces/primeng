@@ -1,83 +1,169 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Button</span>
-        <span>Button is an extension to standard input element with icons and theming.</span>
+    <div class="feature-intro">
+        <h1>Button</h1>
+        <p>Button is an extension to standard button element with icons and theming.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Button Component</h3>
-    <p-button label="Click"></p-button>
-    <p-button icon="pi pi-check" label="Click"></p-button>
-    <p-button icon="pi pi-check" iconPos="right" label="Click"></p-button>
-    <p-button icon="pi pi-check"></p-button>
-    <p-button icon="pi pi-check" [disabled]="true" label="Disabled"></p-button>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-button label="Submit"></p-button>
+        <p-button label="Disabled" disabled="true"></p-button>
+        <p-button label="Link" styleClass="p-button-link"></p-button>
 
-    <h3>Button Directive</h3>
-    <button pButton type="button"label="Click"></button>
-    <button pButton type="button" icon="pi pi-check" label="Click"></button>
-    <button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"></button>
-    <button pButton type="button" icon="pi pi-check"></button>
-    <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
+        <h5>Icons</h5>
+        <p-button icon="pi pi-check"></p-button>
+        <p-button label="Submit" icon="pi pi-check"></p-button>
+        <p-button label="Submit" icon="pi pi-check" iconPos="right"></p-button>
 
-    <h3>Severity Buttons</h3>
-    <button pButton type="button" label="Primary"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-danger"></button>
+        <h5>Severities</h5>
+        <button pButton pRipple type="button" label="Primary"></button>
+        <button pButton pRipple type="button" label="Secondary" class="p-button-secondary"></button>
+        <button pButton pRipple type="button" label="Success" class="p-button-success"></button>
+        <button pButton pRipple type="button" label="Info" class="p-button-info"></button>
+        <button pButton pRipple type="button" label="Warning" class="p-button-warning"></button>
+        <button pButton pRipple type="button" label="Help" class="p-button-help"></button>
+        <button pButton pRipple type="button" label="Danger" class="p-button-danger"></button>
 
-    <h3>Raised Buttons</h3>
-    <button pButton type="button" label="Primary" class="ui-button-raised"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-raised ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-raised ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"></button>
+        <h5>Raised Buttons</h5>
+        <button pButton pRipple type="button" label="Primary" class="p-button-raised"></button>
+        <button pButton pRipple type="button" label="Secondary" class="p-button-raised p-button-secondary"></button>
+        <button pButton pRipple type="button" label="Success" class="p-button-raised p-button-success"></button>
+        <button pButton pRipple type="button" label="Info" class="p-button-raised p-button-info"></button>
+        <button pButton pRipple type="button" label="Warning" class="p-button-raised p-button-warning"></button>
+        <button pButton pRipple type="button" label="Help" class="p-button-raised p-button-help"></button>
+        <button pButton pRipple type="button" label="Danger" class="p-button-raised p-button-danger"></button>
 
-    <h3>Rounded Buttons</h3>
-    <button pButton type="button" label="Primary" class="ui-button-rounded"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"></button>
+        <h5>Rounded Buttons</h5>
+        <button pButton pRipple type="button" label="Primary" class="p-button-rounded"></button>
+        <button pButton pRipple type="button" label="Secondary" class="p-button-rounded p-button-secondary"></button>
+        <button pButton pRipple type="button" label="Success" class="p-button-rounded p-button-success"></button>
+        <button pButton pRipple type="button" label="Info" class="p-button-rounded p-button-info"></button>
+        <button pButton pRipple type="button" label="Warning" class="p-button-rounded p-button-warning"></button>
+        <button pButton pRipple type="button" label="Help" class="p-button-rounded p-button-help"></button>
+        <button pButton pRipple type="button" label="Danger" class="p-button-rounded p-button-danger"></button>
+
+        <h5>Text Buttons</h5>
+        <button pButton pRipple type="button" label="Primary" class="p-button-text"></button>
+        <button pButton pRipple type="button" label="Secondary" class="p-button-secondary p-button-text"></button>
+        <button pButton pRipple type="button" label="Success" class="p-button-success p-button-text"></button>
+        <button pButton pRipple type="button" label="Info" class="p-button-info p-button-text"></button>
+        <button pButton pRipple type="button" label="Warning" class="p-button-warning p-button-text"></button>
+        <button pButton pRipple type="button" label="Help" class="p-button-help p-button-text"></button>
+        <button pButton pRipple type="button" label="Danger" class="p-button-danger p-button-text"></button>
+        <button pButton pRipple type="button" label="Plain" class="p-button-text p-button-plain"></button>
+
+        <h5>Raised Text Buttons</h5>
+        <button pButton pRipple type="button" label="Primary" class="p-button-raised p-button-text"></button>
+        <button pButton pRipple type="button" label="Secondary" class="p-button-raised p-button-secondary p-button-text"></button>
+        <button pButton pRipple type="button" label="Success" class="p-button-raised p-button-success p-button-text"></button>
+        <button pButton pRipple type="button" label="Info" class="p-button-raised p-button-info p-button-text"></button>
+        <button pButton pRipple type="button" label="Warning" class="p-button-raised p-button-warning p-button-text"></button>
+        <button pButton pRipple type="button" label="Help" class="p-button-raised p-button-help p-button-text"></button>
+        <button pButton pRipple type="button" label="Danger" class="p-button-raised p-button-danger p-button-text"></button>
+        <button pButton pRipple type="button" label="Plain" class="p-button-raised p-button-text p-button-plain"></button>
+
+        <h5>Outlined Buttons</h5>
+        <button pButton pRipple type="button" label="Primary" class="p-button-outlined"></button>
+        <button pButton pRipple type="button" label="Secondary" class="p-button-outlined p-button-secondary"></button>
+        <button pButton pRipple type="button" label="Success" class="p-button-outlined p-button-success"></button>
+        <button pButton pRipple type="button" label="Info" class="p-button-outlined p-button-info"></button>
+        <button pButton pRipple type="button" label="Warning" class="p-button-outlined p-button-warning"></button>
+        <button pButton pRipple type="button" label="Help" class="p-button-outlined p-button-help"></button>
+        <button pButton pRipple type="button" label="Danger" class="p-button-outlined p-button-danger"></button>
+
+        <h5>Rounded Icon Buttons</h5>
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"></button>
+        <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary"></button>
+        <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success"></button>
+        <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info"></button>
+        <button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning"></button>
+        <button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+
+        <h5>Rounded Text Icon Buttons</h5>
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"></button>
+
+        <h5>Rounded and Outlined Icon Buttons</h5>
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-outlined"></button>
+        <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-outlined"></button>
+        <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success p-button-outlined"></button>
+        <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info p-button-outlined"></button>
+        <button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning p-button-outlined"></button>
+        <button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-outlined"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined"></button>
+
+        <h5>Badges</h5>
+        <p-button label="Emails" badge="8"></p-button>
+        <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+
+        <h5>Button Set</h5>
+        <span class="p-buttonset">
+            <button pButton pRipple label="Save" icon="pi pi-check"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
+            <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
+        </span>
+
+        <h5>Sizes</h5>
+        <div class="sizes">
+            <p-button label="Small" icon="pi pi-check" styleClass="p-button-sm"></p-button>
+            <p-button label="Normal" icon="pi pi-check" styleClass="p-button" ></p-button>
+            <p-button label="Large" icon="pi pi-check" styleClass="p-button-lg"></p-button>
+        </div>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-                    <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ButtonModule&#125; from 'primeng/button';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Button is either applies as a component using p-button element or a directive using pButton attribute. Directive enhances an existing button whereas 
                 p-button is an element on its own.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Click" &gt;&lt;/button&gt;
 &lt;p-button label="Click" &gt;&lt;/p-button&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Events</h3>
+
+				<h5>Label</h5>
+				<p>Text of the button is defined using the <i>label</i> property.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" label="Click" &gt;&lt;/button&gt;
+&lt;p-button label="Click" &gt;&lt;/p-button&gt;
+</app-code>
+
+            <h5>Icons</h5>
+            <p>Icon on a button is specified with <i>icon</i> attribute and position is customized using <i>iconPos</i> attribute. Default
+            icon position is left. To display only an icon, leave label as undefined.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" icon="pi pi-check" iconPos="left"&gt;&lt;/button&gt;
+&lt;p-button label="Click" icon="pi pi-check" iconPos="left"&gt;&lt;/p-button&gt;
+</app-code>
+
+
+            <h5>Events</h5>
             <p>Events are defined using standard notation in pButton and with on* prefix at p-button.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton type="button" label="Click" (click)="handleClick($event)"&gt;&lt;/button&gt;
 &lt;p-button label="Click" (onClick)="handleClick($event)"&gt;&lt;/p-button&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class Model &#123;
 
     handleClick() &#123;
@@ -85,46 +171,86 @@ export class Model &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Icons</h3>
-            <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
-            icon position is left. To display only an icon, leave label as undefined.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" icon="pi pi-check" iconPos="left"&gt;&lt;/button&gt;
-&lt;p-button label="Click" icon="pi pi-check" iconPos="left"&gt;&lt;/p-button&gt;
-</code>
-</pre>
-
-            <h3>Severity</h3>
+            <h5>Severity</h5>
             <p>Different color options are available to define severity levels.</p>
 
             <ul>
-                <li>.ui-button-secondary</li>
-                <li>.ui-button-success</li>
-                <li>.ui-button-info</li>
-                <li>.ui-button-warning</li>
-                <li>.ui-button-danger</li>
+                <li>.p-button-secondary</li>
+                <li>.p-button-success</li>
+                <li>.p-button-info</li>
+                <li>.p-button-warning</li>
+                <li>.p-button-help</li>
+                <li>.p-button-danger</li>
             </ul>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" class="ui-button-info"&gt;&lt;/button&gt;
-&lt;p-button label="Click" styleClass="ui-button-info"&gt;&lt;/p-button&gt;
-</code>
-</pre>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" class="p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Primary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Secondary" class="p-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Success" class="p-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Info" class="p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Warning" class="p-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Help" class="p-button-help"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Danger" class="p-button-danger"&gt;&lt;/button&gt;
+</app-code>
 
-            <h3>Raised and Rounded Buttons</h3>
-            <p>A button can be raised by having "ui-button-raised" style class and similarly borders can be made rounded using "ui-button-rounded" class.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" class="ui-button-raised ui-button-rounded"&gt;&lt;/button&gt;
-</code>
-</pre>
+                <h5>Text Buttons</h5>
+				<p>Text buttons have transparent background and borders, use <i>p-button-text</i> to apply text button styling. In addition when used with <i>.p-button-plain</i>
+                text buttons ignore severity levels and displayed as a regular text.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" label="Submit" class="p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check" class="p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Search" icon="pi pi-search" iconPos="right" class="p-button-text p-button-text"&gt;&lt;/button&gt;
+</app-code>
+            <h5>Raised and Rounded Buttons</h5>
+				<p>A button can be raised by having "p-button-raised" style class and similarly borders can be made rounded using "p-button-rounded" class.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" class="p-button-raised p-button-rounded"&gt;&lt;/button&gt;
+</app-code>
 
-            <h3>Properties of pButton</h3>
+                <h5>Outlined Buttons</h5>
+                <p>An alternate styling for a button is the outlined option where background becomes transparent. Apply "p-button-outlined" to style a button as outlined.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" label="Primary" class="p-button-outlined"&gt;&lt;/button&gt;
+</app-code>
+
+                <h5>Link Buttons</h5>
+                <p>Use "p-button-link" class to render the button as a link.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" label="Link" class="p-button-link"&gt;&lt;/button&gt;
+</app-code>
+
+                <h5>Badges</h5>
+                <p>Badge is a small status indicator for a button. Refer to the <a href="#" [routerLink]="['/badge']">badge</a>. documentation for available styling options.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" label="Emails" badge="8"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Messages" icon="pi pi-users" class="p-button-warning" badge="8" badgeClass="p-badge-info"&gt;&lt;/button&gt;
+</app-code>
+
+                <h5>ButtonSet</h5>
+                <p>Wrapping the buttons in a container having a <i>.p-buttonset</i> class, groups the buttons side to side.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;span class="p-buttonset"&gt;
+    &lt;button pButton type="button" label="Save" icon="pi pi-check"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" label="Delete" icon="pi pi-trash"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" label="Cancel" icon="pi pi-times"&gt;&lt;/button&gt;
+&lt;/span&gt;
+</app-code>
+
+                <h5>Sizes</h5>
+                <p>2 more sizes are available in addition to a regular button, for a smaller input add <i>p-button-sm</i> and for a larger one, use <i>p-button-lg</i>.
+                Note that these classes available to change the size of a particular button, for global scaling see the <a href="#" [routerLink]="['/theming']">theming</a>. page.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" label="Small" icon="pi pi-check" class="p-button-sm"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Normal" icon="pi pi-check" class="p-button"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Large" icon="pi pi-check" class="p-button-lg"&gt;&lt;/button&gt;
+</app-code>
+
+            <h5>Properties of pButton</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -154,17 +280,11 @@ export class Model &#123;
                             <td>left</td>
                             <td>Position of the icon, valid values are "left" and "right".</td>
                         </tr>
-                        <tr>
-                            <td>cornerStyleClass</td>
-                            <td>string</td>
-                            <td>ui-corner-all</td>
-                            <td>Defines the cornering of the button, valid replacements are top, left, right and button such as ui-corner-top.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Properties of p-button</h3>
+            <h5>Properties of p-button</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -240,7 +360,7 @@ export class Model &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -252,82 +372,196 @@ export class Model &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-button</td>
+                            <td>p-button</td>
                             <td>Button element</td>
                         </tr>
                         <tr>
-                            <td>ui-button-icon</td>
+                            <td>p-button-icon</td>
                             <td>Icon element</td>
                         </tr>
                         <tr>
-                            <td>ui-button-text</td>
+                            <td>p-button-text</td>
                             <td>Label element of the button</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
+        
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/button" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Button Component&lt;/h3&gt;
-&lt;p-button label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-check" label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
+            <ng-template pTemplate="content">
+                <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/button" class="btn-viewsource" target="_blank">
+                    <span>View on GitHub</span>
+                </a>
+                <a href="https://stackblitz.com/edit/primeng-button-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                    <span>Edit in StackBlitz</span>
+                </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-button label="Submit"&gt;&lt;/p-button&gt;
+&lt;p-button label="Disabled" disabled="true"&gt;&lt;/p-button&gt;
+&lt;p-button label="Link" styleClass="p-button-link"&gt;&lt;/p-button&gt;
+
+&lt;h5&gt;Icons&lt;/h5&gt;
 &lt;p-button icon="pi pi-check"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
+&lt;p-button label="Submit" icon="pi pi-check"&gt;&lt;/p-button&gt;
+&lt;p-button label="Submit" icon="pi pi-check" iconPos="right"&gt;&lt;/p-button&gt;
 
-&lt;h3&gt;Button Directive&lt;/h3&gt;
-&lt;button pButton type="button"label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check" label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+&lt;h5&gt;Severities&lt;/h5&gt;
+&lt;button pButton pRipple type="button" label="Primary"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Secondary" class="p-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Success" class="p-button-success"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Info" class="p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Warning" class="p-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Help" class="p-button-help"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Danger" class="p-button-danger"&gt;&lt;/button&gt;
 
-&lt;h3&gt;Severity Buttons&lt;/h3&gt;
-&lt;button pButton type="button" label="Primary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Warning" class="ui-button-warning"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Danger" class="ui-button-danger"&gt;&lt;/button&gt;
+&lt;h5&gt;Raised Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" label="Primary" class="p-button-raised"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Secondary" class="p-button-raised p-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Success" class="p-button-raised p-button-success"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Info" class="p-button-raised p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Warning" class="p-button-raised p-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Help" class="p-button-raised p-button-help"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Danger" class="p-button-raised p-button-danger"&gt;&lt;/button&gt;
 
-&lt;h3&gt;Raised Buttons&lt;/h3&gt;
-&lt;button pButton type="button" label="Primary" class="ui-button-raised"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Success" class="ui-button-raised ui-button-success"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Info" class="ui-button-raised ui-button-info"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"&gt;&lt;/button&gt;
+&lt;h5&gt;Rounded Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" label="Primary" class="p-button-rounded"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Secondary" class="p-button-rounded p-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Success" class="p-button-rounded p-button-success"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Info" class="p-button-rounded p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Warning" class="p-button-rounded p-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Help" class="p-button-rounded p-button-help"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Danger" class="p-button-rounded p-button-danger"&gt;&lt;/button&gt;
 
-&lt;h3&gt;Rounded Buttons&lt;/h3&gt;
-&lt;button pButton type="button" label="Primary" class="ui-button-rounded"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"&gt;&lt;/button&gt;
-</code>
-</pre>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+&lt;h5&gt;Text Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" label="Primary" class="p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Secondary" class="p-button-secondary p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Success" class="p-button-success p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Info" class="p-button-info p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Warning" class="p-button-warning p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Help" class="p-button-help p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Danger" class="p-button-danger p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Plain" class="p-button-text p-button-plain"&gt;&lt;/button&gt;
+
+&lt;h5&gt;Raised Text Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" label="Primary" class="p-button-raised p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Secondary" class="p-button-raised p-button-secondary p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Success" class="p-button-raised p-button-success p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Info" class="p-button-raised p-button-info p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Warning" class="p-button-raised p-button-warning p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Help" class="p-button-raised p-button-help p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Danger" class="p-button-raised p-button-danger p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Plain" class="p-button-raised p-button-text p-button-plain"&gt;&lt;/button&gt;
+
+&lt;h5&gt;Outlined Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" label="Primary" class="p-button-outlined"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Secondary" class="p-button-outlined p-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Success" class="p-button-outlined p-button-success"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Info" class="p-button-outlined p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Warning" class="p-button-outlined p-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Help" class="p-button-outlined p-button-help"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Danger" class="p-button-outlined p-button-danger"&gt;&lt;/button&gt;
+
+&lt;h5&gt;Rounded Icon Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"&gt;&lt;/button&gt;
+
+&lt;h5&gt;Rounded Text Icon Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"&gt;&lt;/button&gt;
+
+&lt;h5&gt;Rounded and Outlined Icon Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-outlined"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-outlined"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success p-button-outlined"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info p-button-outlined"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning p-button-outlined"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-outlined"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined"&gt;&lt;/button&gt;
+
+&lt;h5&gt;Badges&lt;/h5&gt;
+&lt;p-button label="Emails" badge="8"&gt;&lt;/p-button&gt;
+&lt;p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"&gt;&lt;/p-button&gt;
+
+&lt;h5&gt;Button Set&lt;/h5&gt;
+&lt;span class="p-buttonset"&gt;
+    &lt;button pButton pRipple label="Save" icon="pi pi-check"&gt;&lt;/button&gt;
+    &lt;button pButton pRipple label="Delete" icon="pi pi-trash"&gt;&lt;/button&gt;
+    &lt;button pButton pRipple label="Cancel" icon="pi pi-times"&gt;&lt;/button&gt;
+&lt;/span&gt;
+
+&lt;h5&gt;Sizes&lt;/h5&gt;
+&lt;div class="sizes"&gt;
+    &lt;p-button label="Small" icon="pi pi-check" styleClass="p-button-sm"&gt;&lt;/p-button&gt;
+    &lt;p-button label="Normal" icon="pi pi-check" styleClass="p-button" &gt;&lt;/p-button&gt;
+    &lt;p-button label="Large" icon="pi pi-check" styleClass="p-button-lg"&gt;&lt;/p-button&gt;
+&lt;/div&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ButtonDemo &#123;
 
-    clicks: number = 0;
-
-    count() &#123;
-        this.clicks++;
-    &#125;
 &#125;
-</code>
-</pre>
-        </ p-tabPanel>
-     </p-tabView >
+</app-code>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+    :host ::ng-deep .p-button &#123;
+        margin-right: .5rem;
+    &#125;
+    
+    :host ::ng-deep .p-buttonset &#123;
+        .p-button &#123;
+            margin-right: 0;
+        &#125;
+    &#125;
+    
+    :host ::ng-deep .sizes &#123;
+        .button &#123;
+            margin-bottom: .5rem;
+            display: block;
+    
+            &:last-child &#123;
+                margin-bottom: 0;
+            &#125;
+        &#125;
+    &#125;
+    
+    @media screen and (max-width: 960px) &#123;
+        .p-button &#123;
+            margin-bottom: .5rem;
+    
+            &:not(.p-button-icon-only) &#123;
+                display: flex;
+                width: 100%;
+            &#125;
+        &#125;
+    
+        .p-buttonset &#123;
+            .p-button &#123;
+                margin-bottom: 0;
+            &#125;
+        &#125;
+    &#125;
+</app-code>
+            </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-button-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+     </p-tabView>
 </div>

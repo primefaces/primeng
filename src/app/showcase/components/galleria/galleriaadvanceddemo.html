@@ -1,0 +1,252 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Galleria <span>Advanced</span></h1>
+        <p>Galleria can be extended further to implement complex requirements.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [containerStyle]="{'max-width':'640px'}" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
+            [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" [ngStyle]="{'width': !fullscreen ? '100%' : '', 'display': !fullscreen ? 'block' : ''}" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer" let-item>
+                <div class="custom-galleria-footer">
+                    <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+                    <span *ngIf="images"  class="title-container">
+                        <span>{{activeIndex + 1}}/{{images.length}}</span>
+                        <span class="title">{{images[activeIndex].title}}</span>
+                        <span>{{images[activeIndex].alt}}</span>
+                    </span>
+                    <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="galleriaadvanceddemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaadvanceddemo.ts" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class GalleriaAdvancedDemo implements OnInit &#123;
+    images: any[];
+
+    showThumbnails: boolean;
+
+    fullscreen: boolean = false;
+
+    activeIndex: number = 0;
+
+    onFullScreenListener: any;
+
+    @ViewChild('galleria') galleria: Galleria;
+
+
+    constructor(private photoService: PhotoService) &#123; &#125;
+
+    responsiveOptions:any[] = [
+        &#123;
+            breakpoint: '1024px',
+            numVisible: 5
+        &#125;,
+        &#123;
+            breakpoint: '768px',
+            numVisible: 3
+        &#125;,
+        &#123;
+            breakpoint: '560px',
+            numVisible: 1
+        &#125;
+    ];
+    ngOnInit() &#123;
+        this.photoService.getImages().then(images => this.images = images);
+        this.bindDocumentListeners();
+    &#125;
+
+    onThumbnailButtonClick() &#123;
+        this.showThumbnails = !this.showThumbnails;
+    &#125;
+
+    toggleFullScreen() &#123;
+        if (this.fullscreen) &#123;
+            this.closePreviewFullScreen();
+        &#125;
+        else &#123;
+            this.openPreviewFullScreen();
+        &#125;
+    &#125;
+
+    openPreviewFullScreen() &#123;
+        let elem = this.galleria.element.nativeElement.querySelector(".p-galleria");
+        if (elem.requestFullscreen) &#123;
+            elem.requestFullscreen();
+        &#125;
+        else if (elem['mozRequestFullScreen']) &#123; /* Firefox */
+            elem['mozRequestFullScreen']();
+        &#125;
+        else if (elem['webkitRequestFullscreen']) &#123; /* Chrome, Safari & Opera */
+            elem['webkitRequestFullscreen']();
+        &#125;
+        else if (elem['msRequestFullscreen']) &#123; /* IE/Edge */
+            elem['msRequestFullscreen']();
+        &#125;
+    &#125;
+
+    onFullScreenChange() &#123;
+        this.fullscreen = !this.fullscreen;
+    &#125;
+
+    closePreviewFullScreen() &#123;
+        if (document.exitFullscreen) &#123;
+            document.exitFullscreen();
+        &#125;
+        else if (document['mozCancelFullScreen']) &#123;
+            document['mozCancelFullScreen']();
+        &#125;
+        else if (document['webkitExitFullscreen']) &#123;
+            document['webkitExitFullscreen']();
+        &#125;
+        else if (document['msExitFullscreen']) &#123;
+            document['msExitFullscreen']();
+        &#125;
+    &#125;
+
+    bindDocumentListeners() &#123;
+        this.onFullScreenListener = this.onFullScreenChange.bind(this);
+        document.addEventListener("fullscreenchange", this.onFullScreenListener);
+        document.addEventListener("mozfullscreenchange", this.onFullScreenListener);
+        document.addEventListener("webkitfullscreenchange", this.onFullScreenListener);
+        document.addEventListener("msfullscreenchange", this.onFullScreenListener);
+    &#125;
+
+    unbindDocumentListeners() &#123;
+        document.removeEventListener("fullscreenchange", this.onFullScreenListener);
+        document.removeEventListener("mozfullscreenchange", this.onFullScreenListener);
+        document.removeEventListener("webkitfullscreenchange", this.onFullScreenListener);
+        document.removeEventListener("msfullscreenchange", this.onFullScreenListener);
+        this.onFullScreenListener = null;
+    &#125;
+
+    ngOnDestroy() &#123;
+        this.unbindDocumentListeners();
+    &#125;
+
+    galleriaClass() &#123;
+        return `custom-galleria $&#123;this.fullscreen ? 'fullscreen' : ''&#125;`;
+    &#125;
+
+    fullScreenIcon() &#123;
+        return `pi $&#123;this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'&#125;`;
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="galleriaadvanceddemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaadvanceddemo.html" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [containerStyle]="&#123;'max-width':'640px'&#125;" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"&gt; 
+&lt;ng-template pTemplate="item" let-item&gt;
+    &lt;img [src]="item.previewImageSrc" [ngStyle]="&#123;'width': !fullscreen ? '100%' : '', 'display': !fullscreen ? 'block' : ''&#125;" /&gt;
+&lt;/ng-template&gt;
+&lt;ng-template pTemplate="thumbnail" let-item&gt;
+    &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;img [src]="item.thumbnailImageSrc" /&gt;
+    &lt;/div&gt;
+&lt;/ng-template&gt;
+&lt;ng-template pTemplate="footer" let-item&gt;
+    &lt;div class="custom-galleria-footer"&gt;
+        &lt;button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"&gt;&lt;/button&gt;
+        &lt;span *ngIf="images"  class="title-container"&gt;
+            &lt;span&gt;&#123;&#123;activeIndex + 1&#125;&#125;/&#123;&#123;images.length&#125;&#125;&lt;/span&gt;
+            &lt;span class="title"&gt;&#123;&#123;images[activeIndex].title&#125;&#125;&lt;/span&gt;
+            &lt;span&gt;&#123;&#123;images[activeIndex].alt&#125;&#125;&lt;/span&gt;
+        &lt;/span&gt;
+        &lt;button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="galleriaadvanceddemo.scss">
+<app-code lang="css">
+    :host ::ng-deep .custom-galleria &#123;
+        &.p-galleria &#123;
+            &.fullscreen &#123;
+                display: flex;
+                flex-direction: column;
+    
+                .p-galleria-content &#123;
+                    flex-grow: 1;
+                    justify-content: center;
+                &#125;
+            &#125;
+    
+            .p-galleria-content &#123;
+                position: relative;
+            &#125;
+    
+            .p-galleria-thumbnail-wrapper &#123;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            &#125;
+    
+            .p-galleria-thumbnail-items-container &#123;
+                width: 100%;
+            &#125;
+    
+            .custom-galleria-footer &#123;
+                display: flex;
+                align-items: center;
+                background-color: rgba(0, 0, 0, .9);
+                color: #ffffff;
+    
+                > button &#123;
+                    background-color: transparent;
+                    color: #ffffff;
+                    border: 0 none;
+                    border-radius: 0;
+                    margin: .2rem 0;
+    
+                    &.fullscreen-button &#123;
+                        margin-left: auto;
+                    &#125;
+    
+                    &:hover &#123;
+                        background-color: rgba(255, 255, 255, 0.1);
+                    &#125;
+                &#125;
+            &#125;
+    
+            .title-container &#123;
+                > span &#123;
+                    font-size: .9rem;
+                    padding-left: .829rem;
+    
+                    &.title &#123;
+                        font-weight: bold;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    </app-code>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+

@@ -4,15 +4,15 @@ import {BreadcrumbDemo} from './breadcrumbdemo';
 import {BreadcrumbDemoRoutingModule} from './breadcrumbdemo-routing.module';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		BreadcrumbDemoRoutingModule,
         BreadcrumbModule,
-        TabViewModule,
-        CodeHighlighterModule
+		TabViewModule,
+		AppCodeModule
 	],
 	declarations: [
 		BreadcrumbDemo

@@ -1,75 +1,60 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Editor</span>
-        <span>Editor is rich text editor component based on Quill.</span>
+    <div class="feature-intro">
+        <h1>Editor</h1>
+        <p>Editor is rich text editor component based on Quill.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Default</h3>
-    <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
-    <p>Value: {{text1||'empty'}}</p>
-    
-    <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"></button>
-    
-    <hr style="border-top:0px;border-color:#dde3e6">
-    
-    <h3>Custom Toolbar</h3>
-    <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
-        <p-header>
-            <span class="ql-formats">
-                <button class="ql-bold" aria-label="Bold"></button>
-                <button class="ql-italic" aria-label="Italic"></button>
-                <button class="ql-underline" aria-label="Underline"></button>
-            </span>
-        </p-header>
-    </p-editor>
-    <p>Value: {{text2||'empty'}}</p>
-    
-    <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text2=null"></button>
+    <div class="card">
+        <h5>Default</h5>
+        <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
+        
+        <h5>Custom Toolbar</h5>
+        <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
+            <ng-template pTemplate="header">
+                <span class="ql-formats">
+                    <button type="button" class="ql-bold" aria-label="Bold"></button>
+                    <button type="button" class="ql-italic" aria-label="Italic"></button>
+                    <button type="button" class="ql-underline" aria-label="Underline"></button>
+                </span>
+            </ng-template>
+        </p-editor>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;EditorModule&#125; from 'primeng/editor';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Two-way value binding is defined with ngModel.</p>
             
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-editor [(ngModel)]="text" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class EditorDemo &#123;
     
     text: string;
         
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>Editor can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-editor formControlName="description" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Toolbar</h3>
+            <h5>Toolbar</h5>
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
     &lt;p-header&gt;
         &lt;span class="ql-format-group"&gt;
@@ -83,10 +68,9 @@ export class EditorDemo &#123;
         &lt;/span&gt;
     &lt;/p-header&gt;
 &lt;/p-editor&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -145,7 +129,7 @@ export class EditorDemo &#123;
                             <td>bounds</td>
                             <td>Element</td>
                             <td>document.body</td>
-                            <td>DOM Element or a CSS selector for a DOM Element, within which the editor’s ui elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries..</td>
+                            <td>DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries..</td>
                         </tr>
                         <tr>
                             <td>scrollingContainer</td>
@@ -158,7 +142,7 @@ export class EditorDemo &#123;
                 </table>
             </div>
             
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -197,7 +181,7 @@ export class EditorDemo &#123;
             
             <p>Refer to <a href="http://beta.quilljs.com/docs/api/#events">Quill documentation</a> for more information.</p>
 
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -217,7 +201,7 @@ export class EditorDemo &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -229,76 +213,60 @@ export class EditorDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-editor-container</td>
+                            <td>p-editor-container</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-editor-toolbar</td>
+                            <td>p-editor-toolbar</td>
                             <td>Toolbar of the editor</td>
                         </tr>
                         <tr>
-                            <td>ui-editor-content</td>
+                            <td>p-editor-content</td>
                             <td>Editable area</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p><a href="http://quilljs.com">Quill</a> Editor 1.0.</p>
             <p>Resources of quill needs to be added to your application. Example setup with CLI is as follows;</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install quill --save
-</code>
-</pre>
+</app-code>
             <p>Add Quill to scripts in angular-cli.json</p>  
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 "scripts": [... "../node_modules/quill/dist/quill.js"],
-</code>
-</pre>
+</app-code>
             <p>Add Quill css to styles in angular-cli.json</p>  
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 "styles": [ ... "../node_modules/quill/dist/quill.core.css", "../node_modules/quill/dist/quill.snow.css"],
-</code> 
-</pre>        
+</app-code>
 
         </p-tabPanel>
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/editor" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Default&lt;/h3&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Default&lt;/h5&gt;
 &lt;p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 &lt;p&gt;Value: &#123;&#123;text1||'empty'&#125;&#125;&lt;/p&gt;
 
-&lt;button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"&gt;&lt;/button&gt;
-
-&lt;hr style="border-top:0px;border-color:#dde3e6"&gt;
-
-&lt;h3&gt;Custom Toolbar&lt;/h3&gt;
+&lt;h5&gt;Custom Toolbar&lt;/h5&gt;
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;span class="ql-formats"&gt;
-            &lt;button class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
-            &lt;button class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
-            &lt;button class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
+            &lt;button type="button" class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
+            &lt;button type="button" class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
+            &lt;button type="button" class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
         &lt;/span&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
 &lt;/p-editor&gt;
-&lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
 
-&lt;button pButton type="button" label="Clear" icon="pi pi-times" (click)="text2=null"&gt;&lt;/button&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 
 @Component(&#123;
@@ -310,8 +278,7 @@ export class EditorDemo &#123;
     
     text2: string;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>

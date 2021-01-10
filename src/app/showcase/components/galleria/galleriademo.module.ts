@@ -1,10 +1,21 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {GalleriaDemo} from './galleriademo';
 import {GalleriaDemoRoutingModule} from './galleriademo-routing.module';
 import {GalleriaModule} from 'primeng/galleria';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {ButtonModule} from 'primeng/button';
+
+import {GalleriaDemo} from './galleriademo';
+import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
+import {GalleriaIndicatorDemo} from './galleriaindicatordemo';
+import {GalleriaThumbnailDemo} from './galleriathumbnaildemo';
+import {GalleriaNavigatorDemo} from './gallerianavigatordemo';
+import {GalleriaResponsiveDemo} from './galleriaresponsivedemo';
+import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
+import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
+import {GalleriaCaptionDemo} from './galleriacaptiondemo';
+import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -12,10 +23,20 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		GalleriaDemoRoutingModule,
         GalleriaModule,
         TabViewModule,
-        CodeHighlighterModule
+		AppCodeModule,
+		ButtonModule
 	],
 	declarations: [
-		GalleriaDemo
+		GalleriaDemo,
+		GalleriaProgrammaticDemo,
+		GalleriaIndicatorDemo,
+		GalleriaThumbnailDemo,
+		GalleriaNavigatorDemo,
+		GalleriaResponsiveDemo,
+		GalleriaFullscreenDemo,
+		GalleriaAutoPlayDemo,
+		GalleriaCaptionDemo,
+		GalleriaAdvancedDemo
 	]
 })
 export class GalleriaDemoModule {}

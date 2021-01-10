@@ -99,8 +99,8 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {
-        if(this.allowDrag() && !this.pDraggableDisabled) {
-            if(this.dragEffect) {
+        if (this.allowDrag() && !this.pDraggableDisabled) {
+            if (this.dragEffect) {
                 event.dataTransfer.effectAllowed = this.dragEffect;
             }
             event.dataTransfer.setData('text', this.scope);
@@ -129,7 +129,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
     }
     
     allowDrag() : boolean {
-        if(this.dragHandle && this.handle)
+        if (this.dragHandle && this.handle)
             return DomHandler.matches(this.handle, this.dragHandle);
         else
             return true;
@@ -193,7 +193,8 @@ export class Droppable implements AfterViewInit, OnDestroy {
             
     @HostListener('drop', ['$event'])
     drop(event) {
-        if(this.allowDrop(event)) {
+        if (this.allowDrop(event)) {
+            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
             event.preventDefault();
             this.onDrop.emit(event);
         }
@@ -203,10 +204,11 @@ export class Droppable implements AfterViewInit, OnDestroy {
     dragEnter(event) {
         event.preventDefault();
         
-        if(this.dropEffect) {
+        if (this.dropEffect) {
             event.dataTransfer.dropEffect = this.dropEffect;
         }
-                
+            
+        DomHandler.addClass(this.el.nativeElement, 'p-draggable-enter');
         this.onDragEnter.emit(event);
     }
     
@@ -214,17 +216,18 @@ export class Droppable implements AfterViewInit, OnDestroy {
     dragLeave(event) {
         event.preventDefault();
                 
+        DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
         this.onDragLeave.emit(event);
     }
         
     allowDrop(event): boolean {
         let dragScope = event.dataTransfer.getData('text');
-        if(typeof (this.scope) == "string" && dragScope == this.scope) {
+        if (typeof (this.scope) == "string" && dragScope == this.scope) {
             return true;
         }
-        else if(this.scope instanceof Array) {
+        else if (this.scope instanceof Array) {
             for(let j = 0; j < this.scope.length; j++) {
-                if(dragScope == this.scope[j]) {
+                if (dragScope == this.scope[j]) {
                     return true;
                 }
             }

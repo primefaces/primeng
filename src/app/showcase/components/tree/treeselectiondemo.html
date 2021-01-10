@@ -1,0 +1,96 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Tree <span>Selection</span></h1>
+        <p>Tree supports <b>single</b>, <b>multiple</b> and <b>checkbox</b> as selection modes.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <h5>Single Selection</h5>
+        <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile"
+            (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
+
+        <h5>Multiple Selection with Metakey</h5>
+        <p-tree [value]="files2" selectionMode="multiple" [(selection)]="selectedFiles1"
+            (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
+
+        <h5>Multiple Selection with Checkbox</h5>
+        <p-tree [value]="files3" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
+
+        <p-toast></p-toast>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treeselection-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Single Selection&lt;/h5&gt;
+&lt;p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile"
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
+
+&lt;h5&gt;Multiple Selection with Metakey&lt;/h5&gt;
+&lt;p-tree [value]="files2" selectionMode="multiple" [(selection)]="selectedFiles1"
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
+
+&lt;h5&gt;Multiple Selection with Checkbox&lt;/h5&gt;
+&lt;p-tree [value]="files3" selectionMode="checkbox" [(selection)]="selectedFiles2"&gt;&lt;/p-tree&gt;
+
+&lt;p-toast&gt;&lt;/p-toast&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;NodeService&#125; from '../../service/nodeservice';
+import &#123;TreeNode&#125; from 'primeng/api';
+import &#123;MessageService&#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './treeselectiondemo.html',
+    providers: [MessageService]
+&#125;)
+export class TreeSelectionDemo implements OnInit &#123;
+
+    files1: TreeNode[];
+
+    files2: TreeNode[];
+
+    files3: TreeNode[];
+
+    selectedFile: TreeNode;
+
+    selectedFiles1: TreeNode;
+
+    selectedFiles2: TreeNode;
+    
+    constructor(private nodeService: NodeService, private messageService: MessageService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files1 = files);
+        this.nodeService.getFiles().then(files => this.files2 = files);
+        this.nodeService.getFiles().then(files => this.files3 = files);
+    &#125;
+
+    nodeSelect(event) &#123;
+        this.messageService.add(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.label&#125;);
+    &#125;
+    
+    nodeUnselect(event) &#123;
+        this.messageService.add(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.label&#125;);
+    &#125;
+&#125;
+</app-code>   
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treeselection-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+</div>

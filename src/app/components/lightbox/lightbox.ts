@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,AfterViewInit,OnDestroy, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Renderer2,AfterViewInit,OnDestroy,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
@@ -32,7 +32,13 @@ import {DomHandler} from 'primeng/dom';
               <div style="clear:both"></div>
            </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: [
+        './lightbox.css',
+        '../dialog/dialog.css'
+    ]
 })
 export class Lightbox implements AfterViewInit,OnDestroy {
 
@@ -94,8 +100,8 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     ngAfterViewInit() {
         this.panel = DomHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
         
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
                 document.body.appendChild(this.panel);
             else
                 DomHandler.appendChild(this.panel, this.appendTo);
@@ -137,7 +143,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.currentImage = null;
         this.visible = false;
         
-        if(this.mask) {
+        if (this.mask) {
             document.body.removeChild(this.mask);
             this.mask = null;
         }
@@ -149,7 +155,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     center() {
         let elementWidth = DomHandler.getOuterWidth(this.panel);
         let elementHeight = DomHandler.getOuterHeight(this.panel);
-        if(elementWidth == 0 && elementHeight == 0) {
+        if (elementWidth == 0 && elementHeight == 0) {
             this.panel.style.visibility = 'hidden';
             this.panel.style.display = 'block';
             elementWidth = DomHandler.getOuterWidth(this.panel);
@@ -186,7 +192,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.captionText = null;
         this.loading = true;
         placeholder.style.display = 'none';
-        if(this.index > 0) {
+        if (this.index > 0) {
             this.displayImage(this.images[--this.index]);
         }
     }
@@ -195,21 +201,23 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.captionText = null;
         this.loading = true;
         placeholder.style.display = 'none';
-        if(this.index <= (this.images.length - 1)) {
+        if (this.index <= (this.images.length - 1)) {
             this.displayImage(this.images[++this.index]);
         }
     }
 
     bindGlobalListeners() {
-        this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-            if(!this.preventDocumentClickListener&&this.visible) {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+        this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
+            if (!this.preventDocumentClickListener && this.visible) {
                 this.hide(event);
             }
             this.preventDocumentClickListener = false;
             this.cd.markForCheck();
         });
-        if(this.closeOnEscape && !this.documentEscapeListener) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+        if (this.closeOnEscape && !this.documentEscapeListener) {
+            this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                     if (event.which == 27) {
                     if (parseInt(this.panel.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                         this.hide(event);
@@ -220,12 +228,12 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     }
 
     unbindGlobalListeners() {
-        if(this.documentEscapeListener){
+        if (this.documentEscapeListener){
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
 
-        if(this.documentClickListener) {
+        if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
@@ -242,7 +250,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     ngOnDestroy() {
         this.unbindGlobalListeners();
         
-        if(this.appendTo) {
+        if (this.appendTo) {
             this.el.nativeElement.appendChild(this.panel);
         }
     }

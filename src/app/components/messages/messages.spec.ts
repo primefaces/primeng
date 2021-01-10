@@ -12,10 +12,10 @@ import { Message } from 'primeng/api';
     template: `
     <p-messages [(value)]="msgs"></p-messages>
     <p-messages></p-messages>
-    <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
-    <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
-    <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
-    <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
+    <button type="button" pButton (click)="showSuccess()" label="Success" class="p-button-success"></button>
+    <button type="button" pButton (click)="showInfo()" label="Info" class="p-button-info"></button>
+    <button type="button" pButton (click)="showWarn()" label="Warn" class="p-button-warning"></button>
+    <button type="button" pButton (click)="showError()" label="Error" class="p-button-danger"></button>
     <button type="button" pButton (click)="showDefault()"></button>
     <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
     <button type="button" pButton (click)="showAllViaService()" label="Use Service"></button>
@@ -96,7 +96,7 @@ describe('Messages', () => {
     it('should not display by default', () => {
     fixture.detectChanges();
 
-    const messageEl = fixture.debugElement.query(By.css('div'));
+    const messageEl = fixture.debugElement.query(By.css('.p-message'));
     expect(messageEl).not.toBeTruthy();
     });
 
@@ -108,14 +108,13 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-messages-icon'));
-        const summaryEl = fixture.debugElement.query(By.css('.ui-messages-summary'));
-        const detailEl = fixture.debugElement.query(By.css('.ui-messages-detail'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
+        const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain('ui-messages-success');
         expect(iconEl.nativeElement.className).toContain('pi-check');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Success Message');
         expect(detailEl.nativeElement.innerHTML).toContain('Order submitted');
@@ -129,14 +128,13 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-messages-icon'));
-        const summaryEl = fixture.debugElement.query(By.css('.ui-messages-summary'));
-        const detailEl = fixture.debugElement.query(By.css('.ui-messages-detail'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
+        const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain('ui-messages-info');
         expect(iconEl.nativeElement.className).toContain('pi-info-circle');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Info Message');
         expect(detailEl.nativeElement.innerHTML).toContain('PrimeNG rocks');
@@ -150,14 +148,13 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-messages-icon'));
-        const summaryEl = fixture.debugElement.query(By.css('.ui-messages-summary'));
-        const detailEl = fixture.debugElement.query(By.css('.ui-messages-detail'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
+        const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain('ui-messages-warn');
         expect(iconEl.nativeElement.className).toContain('pi-exclamation-triangle');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Warn Message');
         expect(detailEl.nativeElement.innerHTML).toContain('There are unsaved changes');
@@ -171,37 +168,16 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-messages-icon'));
-        const summaryEl = fixture.debugElement.query(By.css('.ui-messages-summary'));
-        const detailEl = fixture.debugElement.query(By.css('.ui-messages-detail'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
+        const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain('ui-messages-error');
         expect(iconEl.nativeElement.className).toContain('pi-times');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Error Message');
         expect(detailEl.nativeElement.innerHTML).toContain('Validation failed');
-    });
-
-    it('should show default', () => {
-        fixture.detectChanges();
-        
-        const successButton = fixture.debugElement.queryAll(By.css('button'))[4];
-        successButton.nativeElement.click();
-        fixture.detectChanges();
-
-        const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-messages-icon'));
-        const summaryEl = fixture.debugElement.query(By.css('.ui-messages-summary'));
-        const detailEl = fixture.debugElement.query(By.css('.ui-messages-detail'));
-        expect(messageEl).toBeTruthy();
-        expect(iconEl).toBeTruthy();
-        expect(summaryEl).toBeTruthy();
-        expect(detailEl).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi-info-circle');
-        expect(summaryEl.nativeElement.innerHTML).toEqual('Default Message');
-        expect(detailEl.nativeElement.innerHTML).toContain('Default detail');
     });
 
     it('should show with service', () => {
@@ -212,9 +188,9 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-messages-icon'));
-        const summaryEl = fixture.debugElement.query(By.css('.ui-messages-summary'));
-        const detailEl = fixture.debugElement.query(By.css('.ui-messages-detail'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
+        const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
@@ -232,7 +208,7 @@ describe('Messages', () => {
         successButton.nativeElement.click();
         fixture.detectChanges();
 
-        const messageEl = fixture.debugElement.queryAll(By.css('.ui-messages'));
+        const messageEl = fixture.debugElement.queryAll(By.css('.p-message-icon'));
         expect(messageEl.length).toEqual(2);
     });
 
@@ -248,8 +224,8 @@ describe('Messages', () => {
         clearButton.nativeElement.click();
         fixture.detectChanges();
 
-        const messageEl = fixture.debugElement.queryAll(By.css('.ui-messages'));
-        expect(messageEl.length).toEqual(0);
+        const messageEl = fixture.debugElement.queryAll(By.css('.p-messages'));
+        expect(messageEl.length).toEqual(2);
     });
 
     it('should clear with service and key', () => {
@@ -264,7 +240,7 @@ describe('Messages', () => {
         clearButton.nativeElement.click();
         fixture.detectChanges();
 
-        const messageEl = fixture.debugElement.queryAll(By.css('.ui-messages'));
-        expect(messageEl.length).toEqual(1);
+        const messageEl = fixture.debugElement.queryAll(By.css('.p-message-icon'));
+        expect(messageEl.length).toEqual(2);
     });
 });

@@ -1,180 +1,44 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Responsive</span></span>
-        <span>Table columns are displayed as stacked in responsive mode if the screen size becomes smaller. In addition certain columns can be hidden
-            based on a priority, note that priority based implementation is not built-in and provided as a demo instead.
-        </span>
+    <div class="feature-intro">
+        <h1>Table <span>Responsive</span></h1>
+        <span>DataTable display can be optimized according for different screen sizes, this example demonstrates a demo where columns are stacked on a small screens.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Reflow</h3>
-    <p-table [columns]="cols" [value]="cars" [responsive]="true">
-        <ng-template pTemplate="caption">
-            List of Cars
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    &#123;&#123;col.header&#125;&#125;
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    <span class="ui-column-title">&#123;&#123;col.header&#125;&#125;</span>
-                    &#123;&#123;rowData[col.field]&#125;&#125;
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            There are &#123;&#123;cars?.length&#125;&#125; cars
-        </ng-template>
-    </p-table>
-
-    <h3>Priority</h3>
-    <p-table [columns]="cols" [value]="cars">
-        <ng-template pTemplate="caption">
-            List of Cars
-        </ng-template>
-        <ng-template pTemplate="header">
+    <div class="card">
+        <p-table [columns]="cols" [value]="products" styleClass="p-datatable-responsive-demo">
+            <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th>Vin</th>
-                    <th class="ui-p-4">Year - p4</th>
-                    <th class="ui-p-5">Brand - p5</th>
-                    <th class="ui-p-6">Color - p6</th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-car>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr>
-                    <td>&#123;&#123;car.vin&#125;&#125;</td>
-                    <td class="ui-p-4">&#123;&#123;car.year&#125;&#125;</td>
-                    <td class="ui-p-5">&#123;&#123;car.brand&#125;&#125;</td>
-                    <td class="ui-p-6">&#123;&#123;car.color&#125;&#125;</td>
+                    <td *ngFor="let col of columns">
+                        <span class="p-column-title">{{col.header}}</span>
+                        {{rowData[col.field]}}
+                    </td>
                 </tr>
             </ng-template>
-        <ng-template pTemplate="summary">
-            There are &#123;&#123;cars?.length&#125;&#125; cars
-        </ng-template>
-    </p-table>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tableresponsivedemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableresponsivedemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './tableresponsivedemo.html',
-    styles: [`
-        /* Column Priorities */
-        @media only all &#123;
-            th.ui-p-6,
-            td.ui-p-6,
-            th.ui-p-5,
-            td.ui-p-5,
-            th.ui-p-4,
-            td.ui-p-4,
-            th.ui-p-3,
-            td.ui-p-3,
-            th.ui-p-2,
-            td.ui-p-2,
-            th.ui-p-1,
-            td.ui-p-1 &#123;
-                display: none;
-            &#125;
-        &#125;
-        
-        /* Show priority 1 at 320px (20em x 16px) */
-        @media screen and (min-width: 20em) &#123;
-            th.ui-p-1,
-            td.ui-p-1 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 2 at 480px (30em x 16px) */
-        @media screen and (min-width: 30em) &#123;
-            th.ui-p-2,
-            td.ui-p-2 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 3 at 640px (40em x 16px) */
-        @media screen and (min-width: 40em) &#123;
-            th.ui-p-3,
-            td.ui-p-3 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 4 at 800px (50em x 16px) */
-        @media screen and (min-width: 50em) &#123;
-            th.ui-p-4,
-            td.ui-p-4 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 5 at 960px (60em x 16px) */
-        @media screen and (min-width: 60em) &#123;
-            th.ui-p-5,
-            td.ui-p-5 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 6 at 1,120px (70em x 16px) */
-        @media screen and (min-width: 70em) &#123;
-            th.ui-p-6,
-            td.ui-p-6 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-    `]
-    &#125;)
-    export class TableResponsiveDemo implements OnInit &#123;
-
-    cars: Car[];
-
-    cols: any[];
-
-    constructor(private carService: CarService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
-    &#125;
-&#125;
-</code>
-</pre>   
-        </p-tabPanel>
-
-        <p-tabPanel header="tableresponsivedemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableresponsivedemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
+            <a href="https://stackblitz.com/edit/primeng-tableresponsive-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>&lt;h3 class="first"&gt;Reflow&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars" [responsive]="true"&gt;
-    &lt;ng-template pTemplate="caption"&gt;
-        List of Cars
-    &lt;/ng-template&gt;
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [columns]="cols" [value]="products" styleClass="p-datatable-responsive-demo"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -185,43 +49,93 @@
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
             &lt;td *ngFor="let col of columns"&gt;
-                &lt;span class="ui-column-title"&gt;&#123;&#123;col.header&#125;&#125;&lt;/span&gt;
+                &lt;span class="p-column-title"&gt;&#123;&#123;col.header&#125;&#125;&lt;/span&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        There are &#123;&#123;cars?.length&#125;&#125; cars
-    &lt;/ng-template&gt;
 &lt;/p-table&gt;
+</app-code>
 
-&lt;h3&gt;Priority&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars"&gt;
-    &lt;ng-template pTemplate="caption"&gt;
-        List of Cars
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header"&gt;
-            &lt;tr&gt;
-                &lt;th&gt;Vin&lt;/th&gt;
-                &lt;th class="ui-p-4"&gt;Year&lt;/th&gt;
-                &lt;th class="ui-p-5"&gt;Brand&lt;/th&gt;
-                &lt;th class="ui-p-6"&gt;Color&lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-car&gt;
-            &lt;tr&gt;
-                &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
-                &lt;td class="ui-p-4"&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
-                &lt;td class="ui-p-5"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
-                &lt;td class="ui-p-6"&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        There are &#123;&#123;cars?.length&#125;&#125; cars
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
+@Component(&#123;
+    templateUrl: './tableresponsivedemo.html',
+    styleUrls: ['./tableresponsivedemo.scss']
+&#125;)
+export class TableResponsiveDemo implements OnInit &#123;
+
+    products: Product[];
+
+    cols: any[];
+
+    constructor(private productService: ProductService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.productService.getProductsSmall().then(data =&gt; this.products = data);
+
+        this.cols = [
+            &#123; field: 'code', header: 'Code' &#125;,
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'category', header: 'Category' &#125;,
+            &#123; field: 'quantity', header: 'Quantity' &#125;
+        ];
+    &#125;
+    
+&#125;
+</app-code>
+
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+:host ::ng-deep &#123;    
+    .p-datatable-responsive-demo .p-datatable-tbody &gt; tr &gt; td .p-column-title &#123;
+        display: none;
+    &#125;
+&#125;
+
+@media screen and (max-width: 40rem) &#123;
+    :host ::ng-deep &#123;
+        .p-datatable &#123;
+            &.p-datatable-responsive-demo &#123;
+                .p-datatable-thead &gt; tr &gt; th,
+                .p-datatable-tfoot &gt; tr &gt; td &#123;
+                    display: none !important;
+                &#125;
+
+                .p-datatable-tbody &gt; tr &gt; td &#123;
+                    text-align: left;
+                    display: block;
+                    width: 100%;
+                    float: left;
+                    clear: left;
+                    border: 0 none;
+
+                    .p-column-title &#123;
+                        padding: .4rem;
+                        min-width: 30%;
+                        display: inline-block;
+                        margin: -.4em 1em -.4em -.4rem;
+                        font-weight: bold;
+                    &#125;
+
+                    &:last-child &#123;
+                        border-bottom: 1px solid var(--surface-d);
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</app-code>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tableresponsive-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

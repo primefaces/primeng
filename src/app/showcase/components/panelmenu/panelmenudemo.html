@@ -1,38 +1,35 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Menu - PanelMenu</span>
-        <span>PanelMenu is a hybrid of accordion-tree components.</span>
+    <div class="feature-intro">
+        <h1>PanelMenu</h1>
+        <p>PanelMenu is a hybrid of Accordion and Tree components.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="false"></p-panelMenu>
+    <div class="card">
+        <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="false"></p-panelMenu>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;PanelMenuModule&#125; from 'primeng/panelmenu';
 import &#123;MenuItem&#125; from 'primeng/api';
-</code>
-</pre>
+</app-code>
 
-            <h3>MenuModel API</h3>
+            <h5>MenuModel API</h5>
             <p>PanelMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>PanelMenu requires nested menuitems as its model.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panelMenu [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class PanelMenuDemo &#123;
   
     items: MenuItem[];
@@ -114,21 +111,18 @@ export class PanelMenuDemo &#123;
         ];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Initial State</h3>
+            <h5>Initial State</h5>
             <p>MenuItem has an expanded property to control the visibility of a submenu, you may use this property to control the state from the menumodel.</p>
 
-            <h3>Animation Configuration</h3>
+            <h5>Animation Configuration</h5>
             <p>Transition of the toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
                 example below disables the animation altogether.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
  &lt;p-panelMenu [transitionOptions]="'0ms'" [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
-</code>
-</pre>
-            <h3>Properties</h3>
+</app-code>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -174,7 +168,7 @@ export class PanelMenuDemo &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -186,58 +180,57 @@ export class PanelMenuDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-panelmenu</td>
+                            <td>p-panelmenu</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-panelmenu-header</td>
+                            <td>p-panelmenu-header</td>
                             <td>Accordion header of root submenu.</td>
                         </tr>
                         <tr>
-                            <td>ui-panelmenu-content</td>
+                            <td>p-panelmenu-content</td>
                             <td>Accordion content of root submenu.</td>
                         </tr>
                         <tr>
-                            <td>ui-menu-list</td>
+                            <td>p-menu-list</td>
                             <td>List element.</td>
                         </tr>
                         <tr>
-                            <td>ui-menuitem</td>
+                            <td>p-menuitem</td>
                             <td>Menuitem element.</td>
                         </tr>
                         <tr>
-                            <td>ui-menuitem-text</td>
+                            <td>p-menuitem-text</td>
                             <td>Label of a menuitem.</td>
                         </tr>
                         <tr>
-                            <td>ui-menuitem-icon</td>
+                            <td>p-menuitem-icon</td>
                             <td>Icon of a menuitem.</td>
                         </tr>
                         <tr>
-                            <td>ui-panelmenu-icon</td>
+                            <td>p-panelmenu-icon</td>
                             <td>Arrow icon of an accordion header.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/panelmenu" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-panelmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panelMenu [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class PanelMenuDemo &#123;
   
     items: MenuItem[];
@@ -245,82 +238,129 @@ export class PanelMenuDemo &#123;
     ngOnInit() &#123;
         this.items = [
             &#123;
-                label: 'File',
-                icon: 'pi pi-pw pi-file',
-                items: [&#123;
-                        label: 'New', 
-                        icon: 'pi pi-fw pi-plus',
-                        items: [
-                            &#123;label: 'User', icon: 'pi pi-fw pi-user-plus'&#125;,
-                            &#123;label: 'Filter', icon: 'pi pi-fw pi-filter'&#125;
-                        ]
-                    &#125;,
-                    &#123;label: 'Open', icon: 'pi pi-fw pi-external-link'&#125;,
-                    &#123;separator: true&#125;,
-                    &#123;label: 'Quit', icon: 'pi pi-fw pi-times'&#125;
-                ]
+            label: 'File',
+            icon:'pi pi-fw pi-file',
+            items: [
+                &#123;
+                    label: 'New',
+                    icon:'pi pi-fw pi-plus',
+                    items: [
+                        &#123;
+                        label: 'Bookmark',
+                        icon:'pi pi-fw pi-bookmark'
+                        &#125;,
+                        &#123;
+                        label: 'Video',
+                        icon:'pi pi-fw pi-video'
+                        &#125;
+                    ]
+                &#125;,
+                &#123;
+                    label: 'Delete',
+                    icon:'pi pi-fw pi-trash'
+                &#125;,
+                &#123;
+                    label: 'Export',
+                    icon:'pi pi-fw pi-external-link'
+                &#125;
+            ]
             &#125;,
             &#123;
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
-                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
-                ]
+            label: 'Edit',
+            icon:'pi pi-fw pi-pencil',
+            items: [
+                &#123;
+                    label: 'Left',
+                    icon:'pi pi-fw pi-align-left'
+                &#125;,
+                &#123;
+                    label: 'Right',
+                    icon:'pi pi-fw pi-align-right'
+                &#125;,
+                &#123;
+                    label: 'Center',
+                    icon:'pi pi-fw pi-align-center'
+                &#125;,
+                &#123;
+                    label: 'Justify',
+                    icon:'pi pi-fw pi-align-justify'
+                &#125;
+            ]
             &#125;,
             &#123;
-                label: 'Help',
-                icon: 'pi pi-fw pi-question',
-                items: [
-                    &#123;
-                        label: 'Contents',
-                        icon: 'pi pi-pi pi-bars'
-                    &#125;,
-                    &#123;
-                        label: 'Search', 
-                        icon: 'pi pi-pi pi-search', 
+            label: 'Users',
+            icon:'pi pi-fw pi-user',
+            items: [
+                &#123;
+                    label: 'New',
+                    icon:'pi pi-fw pi-user-plus',
+
+                &#125;,
+                &#123;
+                    label: 'Delete',
+                    icon:'pi pi-fw pi-user-minus',
+                &#125;,
+                &#123;
+                    label: 'Search',
+                    icon:'pi pi-fw pi-users',
+                    items: [
+                        &#123;
+                        label: 'Filter',
+                        icon:'pi pi-fw pi-filter',
                         items: [
                             &#123;
-                                label: 'Text', 
-                                items: [
-                                    &#123;
-                                        label: 'Workspace'
-                                    &#125;
-                                ]
-                            &#125;,
-                            &#123;
-                                label: 'User',
-                                icon: 'pi pi-fw pi-file',
+                                label: 'Print',
+                                icon:'pi pi-fw pi-print'
                             &#125;
-                    ]&#125;
-                ]
+                        ]
+                        &#125;,
+                        &#123;
+                        icon:'pi pi-fw pi-bars',
+                        label: 'List'
+                        &#125;
+                    ]
+                &#125;
+            ]
             &#125;,
             &#123;
-                label: 'Actions',
-                icon: 'pi pi-fw pi-cog',
-                items: [
-                    &#123;
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
-                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
-                        ]
-                    &#125;,
-                    &#123;
-                        label: 'Other',
-                        icon: 'pi pi-fw pi-tags',
-                        items: [
-                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
-                        ]
-                    &#125;
-                ]
+            label: 'Events',
+            icon:'pi pi-fw pi-calendar',
+            items: [
+                &#123;
+                    label: 'Edit',
+                    icon:'pi pi-fw pi-pencil',
+                    items: [
+                        &#123;
+                        label: 'Save',
+                        icon:'pi pi-fw pi-calendar-plus'
+                        &#125;,
+                        &#123;
+                        label: 'Delete',
+                        icon:'pi pi-fw pi-calendar-minus'
+                        &#125;
+                    ]
+                &#125;,
+                &#123;
+                    label: 'Archieve',
+                    icon:'pi pi-fw pi-calendar-times',
+                    items: [
+                        &#123;
+                        label: 'Remove',
+                        icon:'pi pi-fw pi-calendar-minus'
+                        &#125;
+                    ]
+                &#125;
+            ]
             &#125;
-        ];
+        ]
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-panelmenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../components/domain/car';
-import { CarService } from '../../service/carservice';
+import { Product } from '../../domain/product';
+import { ProductService } from '../../service/productservice';
 
 @Component({
     templateUrl: './tablereorderdemo.html'
 })
 export class TableReorderDemo implements OnInit {
 
-    cars: Car[];
+    products: Product[];
 
     cols: any[];
 
-    constructor(private carService: CarService) { }
+    constructor(private productService: ProductService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.productService.getProductsSmall().then(data => this.products = data);
 
         this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+            { field: 'code', header: 'Code' },
+            { field: 'name', header: 'Name' },
+            { field: 'category', header: 'Category' },
+            { field: 'quantity', header: 'Quantity' }
         ];
     }
 }

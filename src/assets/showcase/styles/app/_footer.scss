@@ -1,0 +1,22 @@
+.layout-footer {
+    padding: 2rem;
+    font-size: 1rem;
+    background-color: var(--surface-a);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+        color: var(--text-color);
+        font-weight: 600;
+    }
+
+    .layout-footer-right {
+        a {
+            i {
+                color: var(--text-secondary-color);
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

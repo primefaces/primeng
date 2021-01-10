@@ -12,4 +12,5 @@ export class CaptchaDemo {
     showResponse(event) {
         this.messageService.add({severity:'info', summary:'Success', detail: 'User Responsed',sticky: true});
     }
+
 }

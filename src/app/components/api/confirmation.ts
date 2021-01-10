@@ -9,9 +9,17 @@ export interface Confirmation {
     reject?: Function;
     acceptLabel?: string;
     rejectLabel?: string;
+    acceptIcon?: string;
+    rejectIcon?: string;
     acceptVisible?: boolean;
     rejectVisible?: boolean;
     blockScroll?: boolean;
+    closeOnEscape?: boolean;
+    dismissableMask?: boolean;
+    defaultFocus?: string;
+    acceptButtonStyleClass?: string;
+    rejectButtonStyleClass?: string;
+    target?: EventTarget;
     acceptEvent?: EventEmitter<any>;
     rejectEvent?: EventEmitter<any>;
 }

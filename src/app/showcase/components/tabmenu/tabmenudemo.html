@@ -1,81 +1,55 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">TabMenu</span>
-        <span>Menu is a navigation/command component that displays items as tab headers.</span>
+    <div class="feature-intro">
+        <h1>TabMenu</h1>
+        <p>TabMenu is a navigation component that displays items as tab headers. Example below uses nested routes with TabMenu.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Default</h3>
-    <p-tabMenu [model]="items1" [activeItem]="items1[0]"></p-tabMenu>
-
-    <h3>Templating</h3>
-    <p-tabMenu [model]="items2" [activeItem]="activeItem">
-        <ng-template pTemplate="item" let-item let-i="index">
-            <div style="position: relative; text-align: center; min-width: 10em">
-                <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
-                <div class="ui-menuitem-text">
-                    {{item.label}}
-                </div>
-                <a tabindex="0" class="ui-menuitem-icon" (click)="closeItem($event, i)" style="position: absolute; right: -1em; top: -.5em; padding: 0" *ngIf="i !== 0">
-                    <span class="pi pi-times"></span>
-                </a>
-            </div>
-        </ng-template>
-    </p-tabMenu>
+    <div class="card">
+        <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TabMenuModule&#125; from 'primeng/tabmenu';
-import &#123;MenuItem&#125; from 'primeng/api';
-</code>
-</pre>
+import &#123;MenuItem&#125; from 'primeng/api';</app-code>
 
-            <h3>MenuModel API</h3>
+            <h5>MenuModel API</h5>
             <p>TabMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
-            <h3>Getting Started</h3>
-            <p>TabMenu requires a collection of menuitems as its model.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;
-</code>
-</pre>
+            <h5>Getting Started</h5>
+            <p>TabMenu requires a collection of menuitems as its <i>model</i>.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
     
     items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>ActiveItem</h3>
-            <p>By default item that matches the active route is highlighted, alternatively activeItem property can be used choose the initial active item.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;
-</code>
-</pre>
+            <h5>ActiveItem</h5>
+            <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
     
     items: MenuItem[];
@@ -84,32 +58,29 @@ export class TabMenuDemo &#123;
 
     ngOnInit() &#123;
         this.items = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
         
-        this.activeItem = this.items[2];
+        this.activeItem = this.items[0];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Templating</h3>
+            <h5>Templating</h5>
             <p>Menuitem content supports templating via the "item" template which gets the menuitem instance and the index.</p>
-            <pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabMenu [model]="items"&gt;
     &lt;ng-template pTemplate="item" let-item let-i="index"&gt;
         //item content
     &lt;/ng-template&gt;
 &lt;/p-tabMenu&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -149,7 +120,7 @@ export class TabMenuDemo &#123;
                 </table>
             </div>
             
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -161,102 +132,75 @@ export class TabMenuDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-tabmenu</td>
+                            <td>p-tabmenu</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-tabmenu-nav</td>
+                            <td>p-tabmenu-nav</td>
                             <td>List element of headers.</td>
                         </tr>
                         <tr>
-                            <td>ui-tabmenuitem</td>
+                            <td>p-tabmenuitem</td>
                             <td>Menuitem element.</td>
                         </tr>
                         <tr>
-                            <td>ui-menuitem-link</td>
+                            <td>p-menuitem-link</td>
                             <td>Link inside a menuitem.</td>
                         </tr>
                         <tr>
-                            <td>ui-menuitem-text</td>
+                            <td>p-menuitem-text</td>
                             <td>Label of a menuitem.</td>
                         </tr>
                         <tr>
-                            <td>ui-menuitem-icon</td>
+                            <td>p-menuitem-icon</td>
                             <td>Icon of a menuitem.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tabmenu" class="btn-viewsource" target="_blank">
-                <i class="fa fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Default&lt;/h3&gt;
-&lt;p-tabMenu [model]="items1" [activeItem]="items1[0]"&gt;&lt;/p-tabMenu&gt;
+            <a href="https://stackblitz.com/edit/primeng-tabmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 
-&lt;h3&gt;Templating&lt;/h3&gt;
-&lt;p-tabMenu [model]="items2" [activeItem]="activeItem"&gt;
-    &lt;ng-template pTemplate="item" let-item let-i="index"&gt;
-        &lt;div style="position: relative; text-align: center; min-width: 10em"&gt;
-            &lt;div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"&gt;&lt;/div&gt;
-            &lt;div class="ui-menuitem-text"&gt;
-                &#123;&#123;item.label&#125;&#125;
-            &lt;/div&gt;
-            &lt;a tabindex="0" class="ui-menuitem-icon" (click)="closeItem($event, i)" style="position: absolute; right: -1em; top: -.5em; padding: 0" *ngIf="i !== 0"&gt;
-                &lt;span class="pi pi-times"&gt;&lt;/span&gt;
-            &lt;/a&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-tabMenu&gt;
-</code>
-</pre>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tabMenu [model]="items" [activeItem]="activeItem"&gt;&lt;/p-tabMenu&gt;
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
     
-    items1: MenuItem[];
-
-    items2: MenuItem[];
+    items: MenuItem[];
 
     activeItem: MenuItem;
 
     ngOnInit() &#123;
-        this.items1 = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+        this.items = [
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
 
-        this.items2 = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
-        ];
-
-        this.activeItem = this.items2[0];
-    &#125;
-
-    closeItem(event, index) &#123;
-        this.items2 = this.items2.filter((item, i) => i !== index);
-        event.preventDefault();
+        this.activeItem = this.items[0];
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tabmenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

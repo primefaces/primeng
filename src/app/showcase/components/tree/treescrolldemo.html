@@ -1,0 +1,118 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Tree <span>Scroll</span></h1>
+        <p>Regular scrolling is used to preserve space as content of the tree is dynamic whereas virtual scrolling is a performant approach to large data rendering.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <h5>Regular Scroll</h5>
+        <p-tree [value]="files1" scrollHeight="200px"></p-tree>
+
+        <h5>Flexible Viewport</h5>
+        <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the tree. Click the button below
+            to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
+
+        <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+        <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+            [resizable]="true" [contentStyle]="{height: '300px'}" styleClass="p-fluid">
+            <p-tree [value]="files2" scrollHeight="flex"></p-tree>
+            <ng-template pTemplate="footer">
+                <button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Ok" class="p-button-text"></button>
+            </ng-template> 
+        </p-dialog>
+
+        <h5>Virtual Scroll</h5>
+        <p-tree [value]="files3" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"></p-tree>
+    </div>
+
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treescroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Regular Scroll&lt;/h5&gt;
+&lt;p-tree [value]="files1" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+
+&lt;h5&gt;Flexible Viewport&lt;/h5&gt;
+&lt;p&gt;Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the tree. Click the button below
+    to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
+
+&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+    [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="p-fluid"&gt;
+    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Ok" class="p-button-text"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt; 
+&lt;/p-dialog&gt;
+
+&lt;h5&gt;Virtual Scroll&lt;/h5&gt;
+&lt;p-tree [value]="files3" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;NodeService&#125; from '../../service/nodeservice';
+import &#123;TreeNode&#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './treescrolldemo.html'
+&#125;)
+export class TreeScrollDemo implements OnInit &#123;
+
+    files1: TreeNode[];
+
+    files2: TreeNode[];
+
+    files3: TreeNode[];
+
+    dialogVisible: boolean;
+    
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files1 = files);
+        this.files2 = Array.from(&#123;length: 100&#125;).map((_,i) => this.createNode(i, 2));
+        this.files3 = Array.from(&#123;length: 50&#125;).map((_,i) => this.createNode(i, 1000));
+    &#125;
+
+    createNode(i: number, children: number): TreeNode &#123;
+        let node: TreeNode = &#123;
+            label: 'Node ' + i,
+            data: 'Node ' + i,
+            expandedIcon: 'pi pi-folder-open',
+            collapsedIcon: 'pi pi-folder',
+            children: Array.from(&#123;length: children&#125;).map((_,j) => &#123;
+                return &#123;
+                    label: 'Node ' + i + '.' + j, 
+                    data: 'Node ' + i + '.' + j, 
+                    icon: 'pi pi-file-o'
+                &#125;
+            &#125;)
+        &#125;;
+
+        return node;
+    &#125;
+
+    showDialog() &#123;
+        this.dialogVisible = true;
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treescroll-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+</div>

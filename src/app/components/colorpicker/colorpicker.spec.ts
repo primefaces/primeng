@@ -40,7 +40,7 @@ describe('ColorPicker', () => {
     it('should created by default', () => {
         fixture.detectChanges();
   
-        const colorPickerEl = fixture.debugElement.query(By.css('.ui-colorpicker'));
+        const colorPickerEl = fixture.debugElement.query(By.css('.p-colorpicker'));
         expect(colorPickerEl.nativeElement).toBeTruthy();
     });
 
@@ -48,7 +48,7 @@ describe('ColorPicker', () => {
         colorpicker.inline = true;
         fixture.detectChanges();
   
-        const overlayEl = fixture.debugElement.query(By.css('.ui-colorpicker-overlay'));
+        const overlayEl = fixture.debugElement.query(By.css('.p-colorpicker-overlay'));
         expect(overlayEl).toBeFalsy();
     });
 
@@ -57,7 +57,7 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
   
         const pickColorSpy = spyOn(colorpicker,"pickColor").and.callThrough();
-        const colorSelectorEl = fixture.debugElement.query(By.css('.ui-colorpicker-color-selector'));
+        const colorSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-color-selector'));
         colorSelectorEl.triggerEventHandler("mousedown",{pageX:100,pageY:120});
         fixture.detectChanges();
 
@@ -73,7 +73,7 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
   
         const pickHueSpy = spyOn(colorpicker,"pickHue").and.callThrough();
-        const hueSelectorEl = fixture.debugElement.query(By.css('.ui-colorpicker-hue'));
+        const hueSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-hue'));
         hueSelectorEl.triggerEventHandler("mousedown",{pageX:20,pageY:25});
         fixture.detectChanges();
 
@@ -84,13 +84,13 @@ describe('ColorPicker', () => {
     it('should call togglePanel when click on input', () => {
         fixture.detectChanges();
   
-        const inputEl = fixture.debugElement.query(By.css('.ui-inputtext'));
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         const toggleSpy = spyOn(colorpicker,"togglePanel").and.callThrough();
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectorEl = fixture.debugElement.query(By.css(".ui-colorpicker-panel"));
+        const selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
         expect(toggleSpy).toHaveBeenCalled();
         expect(selectorEl).toBeTruthy();
     });
@@ -99,13 +99,13 @@ describe('ColorPicker', () => {
         colorpicker.appendTo = "body";
         fixture.detectChanges();
   
-        const inputEl = fixture.debugElement.query(By.css('.ui-inputtext'));
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
         const pickColorSpy = spyOn(colorpicker,"pickColor").and.callThrough();
-        const colorSelectorEl = fixture.debugElement.query(By.css('.ui-colorpicker-color-selector'));
+        const colorSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-color-selector'));
         colorSelectorEl.nativeElement.click();
         colorSelectorEl.triggerEventHandler("mousedown",{pageX:100,pageY:120});
         const mouseMoveEvent: any = document.createEvent('CustomEvent');
@@ -127,17 +127,17 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
   
         const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
-        const inputEl = fixture.debugElement.query(By.css('.ui-inputtext'));
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        let selectorEl = fixture.debugElement.query(By.css(".ui-colorpicker-panel"));
+        let selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
         expect(selectorEl).toBeTruthy();
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        selectorEl = fixture.debugElement.query(By.css(".ui-colorpicker-panel"));
+        selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
         expect(hideSpy).toHaveBeenCalled();
     });
 
@@ -145,14 +145,14 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
   
         const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
-        const inputEl = fixture.debugElement.query(By.css('.ui-inputtext'));
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         const openEvent: any = document.createEvent('CustomEvent');
         openEvent.which = 32;
         openEvent.initEvent('keydown', true, true);
         inputEl.nativeElement.dispatchEvent(openEvent);
         fixture.detectChanges();
 
-        let selectorEl = fixture.debugElement.query(By.css(".ui-colorpicker-panel"));
+        let selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
         expect(selectorEl).toBeTruthy();
         const escapeEvent: any = document.createEvent('CustomEvent');
         escapeEvent.which = 27;
@@ -160,7 +160,7 @@ describe('ColorPicker', () => {
         inputEl.nativeElement.dispatchEvent(escapeEvent);
         fixture.detectChanges();
 
-        selectorEl = fixture.debugElement.query(By.css(".ui-colorpicker-panel"));
+        selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
         expect(hideSpy).toHaveBeenCalled();
     });
 });

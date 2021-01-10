@@ -1,41 +1,24 @@
-.ui-overlaypanel {
-    padding: 0;
-    margin: 0;
+.p-overlaypanel {
     position: absolute;
     margin-top: 10px;
 }
 
-.ui-overlaypanel-flipped {
+.p-overlaypanel-flipped {
     margin-top: 0;
     margin-bottom: 10px;
 }
 
-.ui-overlaypanel-content {
-    padding: 0.5em 1em;
+.p-overlaypanel-close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
 }
 
-.ui-overlaypanel-close {
-    position: absolute;
-    top: -1em;
-    right: -1em;
-    width: 2em;
-    height: 2em;
-    line-height: 2em;
-    text-align: center;
-    -moz-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    border-radius: 100%;
-    cursor: pointer;
-}
-
-.ui-overlaypanel-close-icon {
-    line-height: inherit;
-}
-
-.ui-overlaypanel:after, .ui-overlaypanel:before {
+.p-overlaypanel:after, .p-overlaypanel:before {
 	bottom: 100%;
-	left: 1.25em;
-	border: solid transparent;
+	left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
 	content: " ";
 	height: 0;
 	width: 0;
@@ -43,39 +26,31 @@
 	pointer-events: none;
 }
 
-.ui-overlaypanel:after {
+.p-overlaypanel:after {
 	border-width: 8px;
 	margin-left: -8px;
 }
 
-.ui-overlaypanel:before {
+.p-overlaypanel:before {
 	border-width: 10px;
 	margin-left: -10px;
 }
 
-.ui-overlaypanel-shifted:after, .ui-overlaypanel-shifted:before {
+.p-overlaypanel-shifted:after, .p-overlaypanel-shifted:before {
     left: auto;
     right: 1.25em;
     margin-left: auto;
 }
 
-.ui-overlaypanel-shifted:after {
-    margin-right: -8px;
-}
-
-.ui-overlaypanel:before {
-    margin-right: -10px;
-}
-
-.ui-overlaypanel-flipped:after, .ui-overlaypanel-flipped:before {
+.p-overlaypanel-flipped:after, .p-overlaypanel-flipped:before {
     bottom: auto;
     top: 100%;
 }
 
-.ui-overlaypanel.ui-overlaypanel-flipped:after {
+.p-overlaypanel.p-overlaypanel-flipped:after {
     border-bottom-color: transparent;
 }
 
-.ui-overlaypanel.ui-overlaypanel-flipped:before {
+.p-overlaypanel.p-overlaypanel-flipped:before {
     border-bottom-color: transparent
 }

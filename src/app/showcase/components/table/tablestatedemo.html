@@ -1,164 +1,285 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">State</span></span>
-        <span>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page
+    <div class="feature-intro">
+        <h1>Table <span>State</span></h1>
+        <p>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page
             is visited again, table would render the data using its last settings.
-        </span>
+        </p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Session Storage</h3>
-    <p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
-        selectionMode="single" [(selection)]="selectedCar1" stateStorage="session" stateKey="statedemo-session">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
-                    {{col.header}}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                </th>
-            </tr>
-            <tr>
-                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
-                    <input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value">
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData">
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <h5>Session Storage</h5>
+        <p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers"
+            [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
+                    <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+                    <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                </tr>
+                <tr>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="p-column-filter">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr [pSelectableRow]="customer">
+                    <td>
+                        <span class="p-column-title">Name</span>
+                        {{customer.name}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Country</span>
+                        <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
+                        <span class="image-text">{{customer.country.name}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Representative</span>
+                        <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                        <span class="image-text">{{customer.representative.name}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Status</span>
+                        <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="4">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 
-    <h3>Local Storage</h3>
-    <p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
-        selectionMode="single" [(selection)]="selectedCar2" stateStorage="local" stateKey="statedemo-local">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
-                    {{col.header}}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                </th>
-            </tr>
-            <tr>
-                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
-                    <input pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt2.filters[col.field]?.value">
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData">
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <h5>Local Storage</h5>
+        <p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers"
+            [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
+                    <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+                    <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                </tr>
+                <tr>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr [pSelectableRow]="customer">
+                    <td>
+                        <span class="p-column-title">Name</span>
+                        {{customer.name}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Country</span>
+                        <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
+                        <span class="image-text">{{customer.country.name}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Representative</span>
+                        <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                        <span class="image-text">{{customer.representative.name}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Status</span>
+                        <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="4">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablestatedemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestatedemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-tablestate-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+            
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Session Storage&lt;/h5&gt;
+    &lt;p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers"
+        [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="country.name"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="representative.name"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="status"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="p-column-filter"&gt;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr [pSelectableRow]="customer"&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Name&lt;/span&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Country&lt;/span&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Representative&lt;/span&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Status&lt;/span&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="emptymessage"&gt;
+            &lt;tr&gt;
+                &lt;td colspan="4"&gt;No customers found.&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Local Storage&lt;/h5&gt;
+    &lt;p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers"
+        [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="country.name"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="representative.name"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="status"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter"&gt;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr [pSelectableRow]="customer"&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Name&lt;/span&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Country&lt;/span&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Representative&lt;/span&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span class="p-column-title"&gt;Status&lt;/span&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="emptymessage"&gt;
+            &lt;tr&gt;
+                &lt;td colspan="4"&gt;No customers found.&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+
+@Component(&#123;
+    templateUrl: './tablestatedemo.html',
+    styleUrls: ['./tabledemo.scss']
+&#125;)
 export class TableStateDemo implements OnInit &#123;
 
-    cars1: Car[];
+    customers1: Customer[];
 
-    cars2: Car[];
+    customers2: Customer[];
 
-    cols: any[];
+    selectedCustomer1: Customer;
 
-    selectedCar1: Car;
+    selectedCustomer2: Customer;
 
-    selectedCar2: Car;
-
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsMedium().then(cars => this.cars1 = cars);
-        this.carService.getCarsMedium().then(cars => this.cars2 = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
+        this.customerService.getCustomersMedium().then(data =&gt; this.customers1 = data);
+        this.customerService.getCustomersMedium().then(data =&gt; this.customers2 = data);
     &#125;
-
+    
 &#125;
-</code>
-</pre>
+</app-code> 
+
         </p-tabPanel>
 
-        <p-tabPanel header="tablestatedemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestatedemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Session Storage&lt;/h3&gt;
-&lt;p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
-    selectionMode="single" [(selection)]="selectedCar1" stateStorage="session" stateKey="statedemo-session"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn&gt;
-                &#123;&#123;col.header&#125;&#125;
-                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid"&gt;
-                &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value"&gt;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [pSelectableRow]="rowData"&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Local Storage&lt;/h3&gt;
-&lt;p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
-    selectionMode="single" [(selection)]="selectedCar2" stateStorage="local" stateKey="statedemo-local"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn&gt;
-                &#123;&#123;col.header&#125;&#125;
-                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid"&gt;
-                &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt2.filters[col.field]?.value"&gt;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [pSelectableRow]="rowData"&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablestate-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

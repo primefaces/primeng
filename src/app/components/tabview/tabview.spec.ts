@@ -1,13 +1,13 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TabView, TabPanel, TabViewNav } from './tabview';
+import { TabView, TabPanel } from './tabview';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { Tooltip } from 'primeng/tooltip';
 import { PrimeTemplate } from 'primeng/api';
 
 @Component({
-    template: `<p-tabView>
+	template: `<p-tabView>
         <p-tabPanel header="Godfather I" leftIcon="pi pi-calendar">
             The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
         </p-tabPanel>
@@ -21,170 +21,166 @@ import { PrimeTemplate } from 'primeng/api';
             </ng-template>
         </p-tabPanel>
     </p-tabView>`
-  })
-  class TestTabViewComponent {
-  }
+})
+class TestTabViewComponent {
+}
 
 describe('TabView', () => {
-  
-  let tabview: TabView;
-  let firstTabPanel:TabPanel;
-  let secondTabPanel:TabPanel;
-  let thirdTabPanel:TabPanel;
-  let fixture: ComponentFixture<TestTabViewComponent>;
-  
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        NoopAnimationsModule
-      ],
-      declarations: [
-        TabView,
-        TabPanel,
-        TabViewNav,
-        Tooltip,
-        TestTabViewComponent,
-        PrimeTemplate
-      ]
-    }).compileComponents();
-    
-    fixture = TestBed.createComponent(TestTabViewComponent);
-    tabview = fixture.debugElement.children[0].componentInstance;
-    firstTabPanel = fixture.debugElement.children[0].children[0].children[0].children[0].componentInstance;
-    secondTabPanel = fixture.debugElement.children[0].children[0].children[0].children[1].componentInstance;
-    thirdTabPanel = fixture.debugElement.children[0].children[0].children[0].children[2].componentInstance;
-    fixture.detectChanges();      
-    });
 
-    it('should have a three tabPanel', () => {
-      fixture.detectChanges();
+	let tabview: TabView;
+	let firstTabPanel: TabPanel;
+	let secondTabPanel: TabPanel;
+	let thirdTabPanel: TabPanel;
+	let fixture: ComponentFixture<TestTabViewComponent>;
 
-      expect(tabview.tabs.length).toEqual(3);  
-    });
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			imports: [
+				NoopAnimationsModule
+			],
+			declarations: [
+				TabView,
+				TabPanel,
+				Tooltip,
+				TestTabViewComponent,
+				PrimeTemplate
+			]
+		}).compileComponents();
 
-    it('should change the orientation', () => {
-      tabview.orientation="left"
-      fixture.detectChanges();
-      
-      const tabPanelEl=fixture.debugElement.children[0].query(By.css('.ui-tabview')).nativeElement;
-      const tabviewEl=fixture.debugElement.children[0].query(By.css('.ui-tabview')).nativeElement;
-      expect(tabviewEl.className).toContain("ui-tabview-left");
-      expect(tabPanelEl.className).toContain("ui-tabview-left");
-    });
+		fixture = TestBed.createComponent(TestTabViewComponent);
+		tabview = fixture.debugElement.children[0].componentInstance;
+		firstTabPanel = fixture.debugElement.queryAll(By.css('p-tabPanel'))[0].componentInstance;
+		secondTabPanel = fixture.debugElement.queryAll(By.css('p-tabPanel'))[1].componentInstance;
+		thirdTabPanel = fixture.debugElement.queryAll(By.css('p-tabPanel'))[2].componentInstance;
+		fixture.detectChanges();
+	});
 
-    it('should change the header', () => {
-      fixture.detectChanges();
+	it('should have a three tabPanel', () => {
+		fixture.detectChanges();
 
-      firstTabPanel.header = "Primeng ROCKS!"
-      secondTabPanel.header = "Primeng ROCKS!"
-      fixture.detectChanges();
+		expect(tabview.tabs.length).toEqual(3);
+	});
 
-      const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-      const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
-      expect(firstTabViewNavEl.textContent).toContain("Primeng ROCKS!");
-      expect(secondTabViewNavEl.textContent).toContain("Primeng ROCKS!");
-    });
+	it('should change the header', () => {
+		fixture.detectChanges();
 
-    it('should disabled', () => {
-      fixture.detectChanges();
+		firstTabPanel.header = "Primeng ROCKS!";
+		secondTabPanel.header = "Primeng ROCKS!";
+		fixture.detectChanges();
 
-      firstTabPanel.disabled = true;
-      fixture.detectChanges();
+		tabview.cd.detectChanges();
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+		const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
+		expect(firstTabViewNavEl.textContent).toContain("Primeng ROCKS!");
+		expect(secondTabViewNavEl.textContent).toContain("Primeng ROCKS!");
+	});
 
-      const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-      expect(firstTabViewNavEl.className).toContain("ui-state-disabled");
-    });
+	it('should disabled', () => {
+		fixture.detectChanges();
 
-    it('should closable and element count should be 2', () => {
-      fixture.detectChanges();
+		firstTabPanel.disabled = true;
+		fixture.detectChanges();
 
-      firstTabPanel.closable = true;
-      fixture.detectChanges();
+		tabview.cd.detectChanges();
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+		expect(firstTabViewNavEl.className).toContain("p-disabled");
+	});
 
-      const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('.ui-tabview-close')).nativeElement;
-      expect(firstTabViewNavEl.className).toContain("ui-tabview-close");
-      firstTabViewNavEl.click();
-      fixture.detectChanges();
+	it('should closable and element count should be 2', () => {
+		fixture.detectChanges();
 
-      const tabviewElCount = fixture.debugElement.children[0].children[0].children[0].children.length;
-      expect(firstTabPanel.closed).toEqual(true);
-      expect(tabviewElCount).toEqual(2);
-    });
+		firstTabPanel.closable = true;
+		fixture.detectChanges();
 
-    it('should change left and right icon', () => {
-      fixture.detectChanges();
+		tabview.cd.detectChanges();
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('.p-tabview-close')).nativeElement;
+		expect(firstTabViewNavEl.className).toContain("p-tabview-close");
+		firstTabViewNavEl.click();
+		fixture.detectChanges();
 
-      firstTabPanel.leftIcon = "PrimeNg ROCKS!";
-      firstTabPanel.rightIcon = "ALWAYS BET ON PRIME";
-      fixture.detectChanges();
+		tabview.cd.detectChanges();
+		const tabviewElCount = fixture.debugElement.queryAll(By.css('.p-tabview-panel')).length;
+		expect(firstTabPanel.closed).toEqual(true);
+		expect(tabviewElCount).toEqual(2);
+	});
 
-      const firstTabViewLeftIconEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('.ui-tabview-left-icon')).nativeElement;
-      const firstTabViewRightIconEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('.ui-tabview-right-icon')).nativeElement;
-      expect(firstTabViewLeftIconEl.className).toContain("PrimeNg ROCKS!");
-      expect(firstTabViewRightIconEl.className).toContain("ALWAYS BET ON PRIME");
-    });
+	it('should change left and right icon', () => {
+		fixture.detectChanges();
 
-    it('should change headerStyle and headerStyleClass', () => {
-      fixture.detectChanges();
+		firstTabPanel.leftIcon = "PrimeNg ROCKS!";
+		firstTabPanel.rightIcon = "ALWAYS BET ON PRIME";
+		fixture.detectChanges();
 
-      firstTabPanel.headerStyle = {"height":"300px"};
-      firstTabPanel.headerStyleClass = "Primeng ROCKS!";
-      fixture.detectChanges();
+		tabview.cd.detectChanges();
+		const firstTabViewLeftIconEl = fixture.debugElement.query(By.css('.p-tabview-left-icon')).nativeElement;
+		const firstTabViewRightIconEl = fixture.debugElement.query(By.css('.p-tabview-right-icon')).nativeElement;
+		expect(firstTabViewLeftIconEl.className).toContain("PrimeNg ROCKS!");
+		expect(firstTabViewRightIconEl.className).toContain("ALWAYS BET ON PRIME");
+	});
 
-      const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-      expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
-      expect(firstTabViewNavEl.style.height).toContain("300px");
-    });
+	it('should change headerStyle and headerStyleClass', () => {
+		fixture.detectChanges();
 
-    it('should change style and styleClass', () => {
-      fixture.detectChanges();
+		firstTabPanel.headerStyle = { "height": "300px" };
+		firstTabPanel.headerStyleClass = "Primeng ROCKS!";
+		fixture.detectChanges();
 
-      tabview.style = {"height":"300px"};
-      tabview.styleClass = "Primeng ROCKS!";
-      fixture.detectChanges();
+		tabview.cd.detectChanges();
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+		expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
+		expect(firstTabViewNavEl.style.height).toContain("300px");
+	});
 
-      const firstTabViewNavEl = fixture.debugElement.children[0].children[0].nativeElement;
-      expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
-      expect(firstTabViewNavEl.style.height).toContain("300px");
-    });
+	it('should change style and styleClass', () => {
+		fixture.detectChanges();
 
-    it('should cache true by default', () => {
-      fixture.detectChanges();
+		tabview.style = { "height": "300px" };
+		tabview.styleClass = "Primeng ROCKS!";
+		fixture.detectChanges();
 
-      expect(firstTabPanel.cache).toEqual(true);
-      expect(secondTabPanel.cache).toEqual(true);
-      expect(thirdTabPanel.cache).toEqual(true);
-    });
+		tabview.cd.detectChanges();
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].nativeElement;
+		expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
+		expect(firstTabViewNavEl.style.height).toContain("300px");
+	});
 
-    it('should open by activeIndex', () => {
-      tabview.activeIndex=1;
-      fixture.detectChanges();
+	it('should cache true by default', () => {
+		fixture.detectChanges();
 
-      const firstTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-      const secondTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
-      const thirdTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
-      expect(firstTabViewNavEl.className).not.toContain('ui-state-active ui-tabview-selected');
-      expect(secondTabViewNavEl.className).toContain('ui-state-active ui-tabview-selected');
-      expect(thirdTabViewNavEl.className).not.toContain('ui-state-active ui-tabview-selected');
-    });
+		expect(firstTabPanel.cache).toEqual(true);
+		expect(secondTabPanel.cache).toEqual(true);
+		expect(thirdTabPanel.cache).toEqual(true);
+	});
 
-    it('should change activeIndex', () => {
-      tabview.activeIndex=1;
-      fixture.detectChanges();
+	it('should open by activeIndex', () => {
+		tabview.activeIndex = 1;
+		fixture.detectChanges();
 
-      let activeIndex;
-      const firstTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-      tabview.activeIndexChange.subscribe(value => activeIndex=value);      
-      firstTabViewNavEl.click();
-      expect(activeIndex).toEqual(0);
-    });
+		tabview.cd.detectChanges();
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+		const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
+		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
+		expect(firstTabViewNavEl.className).not.toContain('p-highlight');
+		expect(secondTabViewNavEl.className).toContain('p-highlight');
+		expect(thirdTabViewNavEl.className).not.toContain('p-highlight');
+	});
 
-    it('should display header template', () => {
-        tabview.activeIndex=2;
-        fixture.detectChanges();
+	it('should change activeIndex', () => {
+		tabview.activeIndex = 1;
+		fixture.detectChanges();
 
-        const thirdTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
-        expect(thirdTabViewNavEl.textContent).toContain("Godfather III");
-    });
+		let activeIndex;
+		const firstTabViewNavEl = fixture.debugElement.query(By.css('.p-tabview-nav-link')).nativeElement;
+		tabview.activeIndexChange.subscribe(value => activeIndex = value);
+		firstTabViewNavEl.click();
+		expect(activeIndex).toEqual(0);
+	});
 
+	it('should display header template', () => {
+		tabview.activeIndex = 2;
+		fixture.detectChanges();
+
+		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
+		expect(thirdTabViewNavEl.textContent).toContain("Godfather III");
+	});
 });

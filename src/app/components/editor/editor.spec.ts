@@ -25,7 +25,7 @@ describe('Editor', () => {
     it('should display by default', () => {
         fixture.detectChanges();
 
-        const editorEl = fixture.debugElement.query(By.css('.ui-editor-container'));
+        const editorEl = fixture.debugElement.query(By.css('.p-editor-container'));
         expect(editorEl.nativeElement).toBeTruthy();
     });
 
@@ -35,19 +35,19 @@ describe('Editor', () => {
         
         fixture.detectChanges();
 
-        const paragraphEl = fixture.debugElement.query(By.css('.ui-editor-content')).nativeElement.children[0].children[0];
+        const paragraphEl = fixture.debugElement.query(By.css('.p-editor-content')).nativeElement.children[0].children[0];
         expect(paragraphEl.textContent).toEqual("V");
     });
 
     it('should call quill paste event and setText event', () => {
         fixture.detectChanges();
-        
-        const quillPasteSpy = spyOn(editor.quill,"pasteHTML").and.callThrough();
+
+        const quillPasteSpy = spyOn(editor.quill,"setContents").and.callThrough();
         const setTextSpy = spyOn(editor.quill,"setText").and.callThrough();
         editor.writeValue("V");
         fixture.detectChanges();
 
-        const paragraphEl = fixture.debugElement.query(By.css('.ui-editor-content')).nativeElement.children[0].children[0];
+        const paragraphEl = fixture.debugElement.query(By.css('.p-editor-content')).nativeElement.children[0].children[0];
         expect(paragraphEl.textContent).toEqual("V");
         expect(quillPasteSpy).toHaveBeenCalled();
         editor.writeValue("");
@@ -75,6 +75,6 @@ describe('Editor', () => {
         fixture.detectChanges();
         
         const quill = editor.getQuill();
-        expect(quill.container.className).toContain("ui-editor-content");
+        expect(quill.container.className).toContain("p-editor-content");
     });
 });

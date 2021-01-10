@@ -1,64 +1,68 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,AfterContentInit,Optional,ElementRef,ChangeDetectionStrategy,ContentChildren,QueryList,TemplateRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Message} from 'primeng/api';
-import {MessageService} from 'primeng/api';
+import {Message,PrimeTemplate,MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: 'p-messages',
     template: `
-        <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all"
-                    [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
-                    'ui-messages-warn':(value[0].severity === 'warn'),
-                    'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}" role="alert"
-                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
-            <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
-                <i class="pi pi-times"></i>
-            </a>
-            <span class="ui-messages-icon pi" [ngClass]="icon"></span>
-            <ul>
-                <li *ngFor="let msg of value">
-                    <div *ngIf="!escape; else escapeOut">
-                        <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
-                        <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
+        <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
+            <ng-container *ngIf="!contentTemplate; else staticMessage">
+                <div *ngFor="let msg of value; let i=index" [ngClass]="'p-message p-message-' + msg.severity" role="alert" 
+                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+                    <div class="p-message-wrapper">
+                       <span [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
+                            'pi-check': msg.severity === 'success',
+                            'pi-exclamation-triangle': msg.severity === 'warn',
+                            'pi-times-circle': msg.severity === 'error'}"></span>
+                        <ng-container *ngIf="!escape; else escapeOut">
+                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary"></span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail"></span>
+                        </ng-container>
+                        <ng-template #escapeOut>
+                            <span *ngIf="msg.summary" class="p-message-summary">{{msg.summary}}</span>
+                            <span *ngIf="msg.detail" class="p-message-detail">{{msg.detail}}</span>
+                        </ng-template>
+                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple>
+                            <i class="p-message-close-icon pi pi-times"></i>
+                        </button>
                     </div>
-                    <ng-template #escapeOut> 
-                        <span *ngIf="msg.summary" class="ui-messages-summary">{{msg.summary}}</span>
-                        <span *ngIf="msg.detail" class="ui-messages-detail">{{msg.detail}}</span>
-                    </ng-template>
-                </li>
-            </ul>
-        </div>
+                </div>
+            </ng-container>
+            <ng-template #staticMessage>
+                <div [ngClass]="'p-message p-message-' + severity" role="alert">
+                    <div class="p-message-wrapper">
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </div>
+                </div>
+            </ng-template>
+            </div>
     `,
     animations: [
         trigger('messageAnimation', [
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => *', [
-                style({transform: 'translateY(-25%)', opacity: 0}),
+            transition(':enter', [
+                style({opacity: 0, transform: 'translateY(-25%)'}),
                 animate('{{showTransitionParams}}')
             ]),
-            transition('* => void', [
-                animate(('{{hideTransitionParams}}'), style({
-                    opacity: 0,
-                    transform: 'translateY(-25%)'
-                }))
+            transition(':leave', [
+                animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, overflow: 'hidden', opacity: 0 }))
             ])
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./messages.css']
 })
-export class Messages implements OnInit, OnDestroy {
+export class Messages implements AfterContentInit, OnDestroy {
 
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() enableService: boolean = true;
@@ -67,29 +71,49 @@ export class Messages implements OnInit, OnDestroy {
 
     @Input() escape: boolean = true;
 
+    @Input() severity: string;
+
     @Input() showTransitionOptions: string = '300ms ease-out';
 
-    @Input() hideTransitionOptions: string = '250ms ease-in';
+    @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     messageSubscription: Subscription;
 
     clearSubscription: Subscription;
 
-    constructor(@Optional() public messageService: MessageService) {}
+    contentTemplate: TemplateRef<any>;
 
-    ngOnInit() {
-        if(this.messageService && this.enableService) {
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+
+        if (this.messageService && this.enableService && !this.contentTemplate) {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
-                if(messages) {
-                    if(messages instanceof Array) {
+                if (messages) {
+                    if (messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
                         this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
                     }
                     else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
                     }
+
+                    this.cd.markForCheck();
                 }
             });
 
@@ -102,60 +126,66 @@ export class Messages implements OnInit, OnDestroy {
                 else {
                     this.value = null;
                 }
+
+                this.cd.markForCheck();
             });
         }
     }
 
     hasMessages() {
-        return this.value && this.value.length > 0;
+        let parentEl = this.el.nativeElement.parentElement;
+        if (parentEl && parentEl.offsetParent) {
+            return this.contentTemplate != null || this.value && this.value.length > 0;
+        }
+
+        return false;
     }
 
-    getSeverityClass() {
-        return this.value[0].severity;
-    }
-
-    clear(event) {
+    clear() {
         this.value = [];
         this.valueChange.emit(this.value);
+    }
 
-        event.preventDefault();
+    removeMessage(i: number) {
+        this.value = this.value.filter((msg, index) => index !== i);
+        this.valueChange.emit(this.value);
     }
 
     get icon(): string {
-        let icon: string = null;
-        if(this.hasMessages()) {
-            let msg = this.value[0];
-            switch(msg.severity) {
+        const severity = this.severity || (this.hasMessages() ? this.value[0].severity : null);
+
+        if (this.hasMessages()) {
+            switch(severity) {
                 case 'success':
-                    icon = 'pi-check';
+                    return 'pi-check';
                 break;
 
                 case 'info':
-                    icon = 'pi-info-circle';
+                    return 'pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'pi-times';
+                    return 'pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'pi-exclamation-triangle';
+                    return 'pi-exclamation-triangle';
                 break;
 
                 default:
-                    icon = 'pi-info-circle';
+                    return 'pi-info-circle';
                 break;
             }
         }
 
-        return icon;
+        return null;
     }
 
     ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
@@ -163,7 +193,7 @@ export class Messages implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [Messages],
     declarations: [Messages]
 })

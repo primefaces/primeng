@@ -1,0 +1,106 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Galleria <span>Programmatic</span></h1>
+        <p>Galleria can be controlled programmatically using the <b>activeIndex</b> property.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <div class="p-py-2">
+            <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-secondary p-mr-2"></p-button>
+            <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary"></p-button>
+        </div>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5" [(activeIndex)]="activeIndex"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="galleriaprogrammaticdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaprogrammaticdemo.ts" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class GalleriaProgrammaticDemo implements OnInit &#123;
+    images: any[];
+
+    get activeIndex(): number &#123;
+        return this._activeIndex;
+    &#125;
+
+    set activeIndex(newValue) &#123;
+        if (this.images && 0 &lt;= newValue && newValue &lt;= (this.images.length - 1)) &#123;
+            this._activeIndex = newValue;
+        &#125;
+    &#125;
+
+    _activeIndex: number = 2;
+
+    responsiveOptions:any[] = [
+        &#123;
+            breakpoint: '1024px',
+            numVisible: 5
+        &#125;,
+        &#123;
+            breakpoint: '768px',
+            numVisible: 3
+        &#125;,
+        &#123;
+            breakpoint: '560px',
+            numVisible: 1
+        &#125;
+    ];
+
+    constructor(private photoService: PhotoService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.photoService.getImages().then(images => this.images = images)
+    &#125;
+
+    next() &#123;
+        this.activeIndex++;
+    &#125;
+
+    prev() &#123;
+        this.activeIndex--;
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="galleriaprogrammaticdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaprogrammaticdemo.html" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
+&lt;div class="p-py-2"&gt;
+    &lt;p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-secondary p-mr-2"&gt;&lt;/p-button&gt;
+    &lt;p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
+&lt;/div&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5" 
+    [(activeIndex)]="activeIndex"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+</app-code>
+
+        </p-tabPanel>
+    </p-tabView>
+</div>
+

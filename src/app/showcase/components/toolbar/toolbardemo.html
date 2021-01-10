@@ -1,64 +1,60 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Toolbar</span>
-        <span>Toolbar is a grouping component for buttons and other content.</span>
+    <div class="feature-intro">
+        <h1>Toolbar</h1>
+        <p>Toolbar is a grouping component for buttons and other content.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
     <p-toolbar>
-        <div class="ui-toolbar-group-left">
-            <button pButton type="button" label="New" icon="pi pi-plus"></button>
-            <button pButton type="button" label="Upload" icon="pi pi-upload" class="ui-button-success"></button>
+        <div class="p-toolbar-group-left">
+            <p-button label="New" icon="pi pi-plus" class="p-mr-2"></p-button>
+            <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
                 
-            <i class="ui-toolbar-separator pi pi-bars" style="vertical-align: middle"></i>
+            <i class="p-toolbar-separator pi pi-bars p-mr-2" style="vertical-align: middle"></i>
             
-            <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="ui-button-warning"></p-splitButton>
+            <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
         </div>
         
-        <div class="ui-toolbar-group-right">
-            <button pButton type="button" icon="pi pi-search"></button>
-            <button pButton type="button" icon="pi pi-calendar" class="ui-button-success"></button>
-            <button pButton type="button" icon="pi pi-times" class="ui-button-danger"></button>
+        <div class="p-toolbar-group-right">
+            <p-button icon="pi pi-search" class="p-mr-2"></p-button>
+            <p-button icon="pi pi-calendar" styleClass="p-button-success p-mr-2"></p-button>
+            <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
         </div>
-   </p-toolbar>
+    </p-toolbar>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ToolbarModule&#125; from 'primeng/toolbar';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Toolbar is a container component defined using p-toolbar element. Left aligned content is placed inside a div 
-            having .ui-toolbar-group-left class and similarly .ui-toolbar-group-right for right alignment.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            having <i>.p-toolbar-group-left</i> class and similarly <i>.p-toolbar-group-right</i> for right alignment.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toolbar&gt;
-    &lt;div class="ui-toolbar-group-left"&gt;
-        &lt;button pButton type="button" label="New" icon="pi pi-plus"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Upload" icon="pi pi-upload" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;div class="p-toolbar-group-left"&gt;
+        &lt;p-button label="New" icon="pi pi-plus"&gt;&lt;/p-button&gt;
+        &lt;p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"&gt;&lt;/p-button&gt;
             
         &lt;i class="pi pi-bars"&gt;&lt;/i&gt;
         
-        &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
+        &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
     
-    &lt;div class="ui-toolbar-group-right"&gt;
-        &lt;button pButton type="button" icon="pi pi-search"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-calendar" class="ui-button-success"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-times" class="ui-button-danger"&gt;&lt;/button&gt;
+    &lt;div class="p-toolbar-group-right"&gt;
+        &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-calendar" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-times" styleClass="p-button-danger"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
-</code>
-</pre>
+</app-code>
             
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -86,7 +82,7 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -98,50 +94,81 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-toolbar</td>
+                            <td>p-toolbar</td>
                             <td>Main container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-toolbar-group-left</td>
+                            <td>p-toolbar-group-left</td>
                             <td>Left content container.</td>
                         </tr>
                         <tr>
-                            <td>ui-toolbar-group-right</td>
+                            <td>p-toolbar-group-right</td>
                             <td>Right content container.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/toolbar" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-toolbar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toolbar&gt;
-    &lt;div class="ui-toolbar-group-left"&gt;
-        &lt;button pButton type="button" label="New" icon="pi pi-plus"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Upload" icon="pi pi-upload" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;div class="p-toolbar-group-left"&gt;
+        &lt;p-button label="New" icon="pi pi-plus" class="p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"&gt;&lt;/p-button&gt;
             
-        &lt;i class="ui-toolbar-separator pi pi-bars" style="vertical-align: middle"&gt;&lt;/i&gt;
+        &lt;i class="p-toolbar-separator pi pi-bars p-mr-2" style="vertical-align: middle"&gt;&lt;/i&gt;
         
-        &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
+        &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
     
-    &lt;div class="ui-toolbar-group-right"&gt;
-        &lt;button pButton type="button" icon="pi pi-search"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-calendar" class="ui-button-success"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-times" class="ui-button-danger"&gt;&lt;/button&gt;
+    &lt;div class="p-toolbar-group-right"&gt;
+        &lt;p-button icon="pi pi-search" class="p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-calendar" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-times" styleClass="p-button-danger"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
-</code>
-</pre>
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+items: MenuItem[];
+
+ngOnInit() &#123;
+    this.items = [
+        &#123;
+            label: 'Update',
+            icon: 'pi pi-refresh'
+        &#125;,
+        &#123;
+            label: 'Delete',
+            icon: 'pi pi-times'
+        &#125;,
+        &#123;
+            label: 'Angular Website',
+            icon: 'pi pi-external-link',
+            url: 'http://angular.io'
+        &#125;,
+        &#123;
+            label: 'Router',
+            icon: 'pi pi-upload',
+            routerLink: '/fileupload'
+        &#125;
+    ];
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-toolbar-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

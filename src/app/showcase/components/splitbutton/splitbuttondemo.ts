@@ -6,8 +6,8 @@ import {MenuItem} from 'primeng/api';
     templateUrl: './splitbuttondemo.html',
     providers: [MessageService],
     styles: [`
-        :host ::ng-deep .ui-splitbutton {
-            margin-right: .25em;
+        :host ::ng-deep .p-splitbutton {
+            margin-right: .25rem;
         }
     `]
 })
@@ -42,4 +42,5 @@ export class SplitButtonDemo implements OnInit {
     delete() {
         this.messageService.add({severity:'success', summary:'Success', detail:'Data Deleted'});
     }
+
 }

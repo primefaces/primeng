@@ -1,74 +1,64 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Panel</span>
-        <span>Panel is a grouping component with the optional content toggle feature.</span>
+    <div class="feature-intro">
+        <h1>Panel</h1>
+        <p>Panel is a container with the optional content toggle feature.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
-
-    <p-panel header="Godfather I" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    <h5>Regular</h5>
+    <p-panel header="Header">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </p-panel>
 
-    <p-panel>
-        <p-header>
-            <div class="ui-helper-clearfix">
-                <span class="ui-panel-title" style="display:inline-block;margin-top:.4em">Custom Header</span>
-
-                <p-splitButton [style]="{'float':'right'}" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"></p-splitButton>
-            </div>
-        </p-header>
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        <p-footer>
-            <button pButton type="button" icon="pi pi-plus" label="New" class="ui-button-info" style="margin-right: .25em"></button>
-            <button pButton type="button" icon="pi pi-search" label="View" class="ui-button-success"></button>
-        </p-footer>
+    <h5>Advanced</h5>
+    <p-panel header="Header"  [toggleable]="true">
+        <ng-template pTemplate="icons">
+                <button class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
+                    <span class="pi pi-cog"></span>
+                </button>
+                <p-menu #menu id="config_menu" [model]="items" [popup]="true"></p-menu>
+        </ng-template>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </p-panel>
+
+    <p-toast></p-toast>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;PanelModule&#125; from 'primeng/panel';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Panel is defined with p-panel element.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panel header="Title"&gt;
     Content
 &lt;/p-panel&gt;
-</code>
-</pre>
-            <h3>Toggleable</h3>
-            <p>Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option. By default, toggle icon
+</app-code>
+            <h5>Toggleable</h5>
+            <p>Content of the panel can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option. By default, toggle icon
                 is used to toggle the contents whereas setting toggler to "header" enables clicking anywhere in the header to trigger a toggle.
             </p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panel header="Title" [toggleable]="true"&gt;
     Content
 &lt;/p-panel&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Header and Footer Content</h3>
-            <p>Header and Footers sections can be customized using p-header and p-footer components.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <h5>Header and Footer Content</h5>
+            <p>Header and Footers sections can be customized using <i>p-header</i> and <i>p-footer</i> components.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panel &gt;
     &lt;p-header&gt;
         Header content here
@@ -78,19 +68,29 @@ import &#123;PanelModule&#125; from 'primeng/panel';
         Footer content here
     &lt;/p-footer&gt;
 &lt;/p-panel&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Animation Configuration</h3>
-            <p>Transition of the toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
+            <h5>Custom Icons</h5>
+                <p>Additional icons can be placed at the header section of the panel using the special <i>icons</i> selector. For a unified look, it is suggest to add <i>.p-panel-header-icon</i>
+                class to your icons.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-panel&gt;
+&lt;ng-template pTemplate="icons"&gt;
+    &lt;button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)"&gt;
+        &lt;span class="pi pi-cog"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;p-menu #menu id="config_menu" [model]="items" [popup]="true"&gt;&lt;/p-menu&gt;
+&lt;/ng-template&gt;
+</app-code>
+
+            <h5>Animation Configuration</h5>
+            <p>Transition of the toggle animation can be customized using the <i>transitionOptions</i> property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
                 example below disables the animation altogether.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panel [transitionOptions]="'0ms'"&gt;
 &lt;/p-panel&gt;
-</code>
-</pre>
-            <h3>Properties</h3>
+</app-code>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -166,7 +166,7 @@ import &#123;PanelModule&#125; from 'primeng/panel';
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -193,7 +193,7 @@ import &#123;PanelModule&#125; from 'primeng/panel';
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -205,68 +205,121 @@ import &#123;PanelModule&#125; from 'primeng/panel';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-panel</td>
+                            <td>p-panel</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-panel-titlebar</td>
+                            <td>p-panel-titlebar</td>
                             <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-panel-title</td>
+                            <td>p-panel-title</td>
                             <td>Title text of panel.</td>
                         </tr>
                         <tr>
-                            <td>ui-panel-titlebar-toggler</td>
+                            <td>p-panel-titlebar-toggler</td>
                             <td>Toggle icon.</td>
                         </tr>
                         <tr>
-                            <td>ui-panel-content</td>
+                            <td>p-panel-content</td>
                             <td>Content of panel.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
         <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/panel" class="btn-viewsource" target="_blank">
-            <i class="fa fa-github"></i>
             <span>View on GitHub</span>
         </a>
+        <a href="https://stackblitz.com/edit/primeng-panel-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+            <span>Edit in StackBlitz</span>
+        </a>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
-
-&lt;p-panel header="Godfather I" [toggleable]="true" [style]="&#123;'margin-bottom':'20px'&#125;"&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Regular&lt;/h5&gt;
+&lt;p-panel header="Header"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
 &lt;/p-panel&gt;
 
-&lt;p-panel&gt;
-    &lt;p-header&gt;
-        &lt;div class="ui-helper-clearfix"&gt;
-            &lt;span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"&gt;Custom Header&lt;/span&gt;
-            &lt;p-splitButton [style]="&#123;'float':'right'&#125;" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
-        &lt;/div&gt;
-    &lt;/p-header&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-    &lt;p-footer&gt;
-        &lt;button pButton type="button" icon="pi pi-plus" label="New" class="ui-button-info" style="margin-right: .25em"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-search" label="View" class="ui-button-success"&gt;&lt;/button&gt;
-    &lt;/p-footer&gt;
+&lt;h5&gt;Advanced&lt;/h5&gt;
+&lt;p-panel header="Header"  [toggleable]="true"&gt;
+    &lt;ng-template pTemplate="icons"&gt;
+            &lt;button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)"&gt;
+                &lt;span class="pi pi-cog"&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;p-menu #menu id="config_menu" [model]="items" [popup]="true"&gt;&lt;/p-menu&gt;
+    &lt;/ng-template&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
 &lt;/p-panel&gt;
-</code>
-</pre>
+
+&lt;p-toast&gt;&lt;/p-toast&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class PanelDemo implements OnInit &#123;
+    items: MenuItem[];
+    
+    constructor(private messageService: MessageService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.items = [
+            &#123;
+                label: 'Options',
+                items: [&#123;
+                    label: 'Update',
+                    icon: 'pi pi-refresh',
+                    command: () =&gt; &#123;
+                        this.update();
+                    &#125;
+                &#125;,
+                &#123;
+                    label: 'Delete',
+                    icon: 'pi pi-times',
+                    command: () =&gt; &#123;
+                        this.delete();
+                    &#125;
+                &#125;
+            ]&#125;,
+            &#123;
+                label: 'Navigate',
+                items: [&#123;
+                    label: 'Angular Website',
+                    icon: 'pi pi-external-link',
+                    url: 'http://angular.io'
+                &#125;,
+                &#123;
+                    label: 'Router',
+                    icon: 'pi pi-upload',
+                    routerLink: '/fileupload'
+                &#125;
+            ]&#125;
+        ];
+    &#125;
+
+    update() &#123;
+        this.messageService.add(&#123;severity:'success', summary:'Success', detail:'Data Updated'&#125;);
+    &#125;
+
+    delete() &#123;
+        this.messageService.add(&#123;severity:'warn', summary:'Delete', detail:'Data Deleted'&#125;);
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-panel-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

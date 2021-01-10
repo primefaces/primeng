@@ -1,47 +1,73 @@
-<treetable-submenu></treetable-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">TreeTable - <span class="subitem">Column Toggle</span></span>
-        <span>This demo uses a multiselect component to implement toggleable columns.</span>
+    <div class="feature-intro">
+        <h1>TreeTable <span>Column Toggle</span></h1>
+        <p>MultiSelect component can be used to implement column toggle functionality.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-treeTable [value]="files" [columns]="selectedColumns">
-        <ng-template pTemplate="caption">
-            <div style="text-align:left">
-                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    {{rowData[col.field]}}
-                </td>
-            </tr>            
-        </ng-template>
-    </p-treeTable>
+    <div class="card">
+        <p-treeTable [value]="files" [columns]="selectedColumns">
+            <ng-template pTemplate="caption">
+                <div style="text-align:left">
+                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                    selectedItemsLabel="{0} columns selected" [style]="{'width': '20em'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="treetablecoltoggle.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecoltoggle.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-treetabletoggle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-treeTable [value]="files" [columns]="selectedColumns"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        &lt;div style="text-align:left"&gt;
+            &lt;p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="&#123;0&#125; columns selected" [style]="&#123;'width': '20em'&#125;" defaultLabel="Choose Columns"&gt;&lt;/p-multiSelect&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableColToggleDemo &#123;
 
     files: TreeNode[];
@@ -64,42 +90,12 @@ export class TreeTableColToggleDemo &#123;
         this.selectedColumns = this.cols;
     &#125;
 &#125;
-</code>
-</pre>   
+</app-code>   
         </p-tabPanel>
-
-        <p-tabPanel header="treetablecoltoggle.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecoltoggle.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-treeTable [value]="files" [columns]="selectedColumns"&gt;
-    &lt;ng-template pTemplate="caption"&gt;
-        &lt;div style="text-align:left"&gt;
-            &lt;p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                        selectedItemsLabel="&#123;0&#125; columns selected" [style]="&#123;minWidth: '200px'&#125;" defaultLabel="Choose Columns"&gt;&lt;/p-multiSelect&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;            
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetabletoggle-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

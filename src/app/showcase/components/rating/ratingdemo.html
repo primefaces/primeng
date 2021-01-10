@@ -1,79 +1,65 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Rating</span>
-        <span>Rating components is a star based selection input.</span>
+    <div class="feature-intro">
+        <h1>Rating</h1>
+        <p>Rating component is a star based selection input.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic {{val1}}</h3> 
-    <p-rating [(ngModel)]="val1"></p-rating>
+    <div class="card">
+        <h5>Basic</h5> 
+        <p-rating [(ngModel)]="val1"></p-rating>
 
-    <h3>Callback {{val2}}</h3>
-    <p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">{{msg}}</span>
+        <h5>No Cancel</h5> 
+        <p-rating [(ngModel)]="val2" [cancel]="false"></p-rating>
 
-    <h3>No Cancel {{val3}}</h3> 
-    <p-rating [(ngModel)]="val3" [cancel]="false"></p-rating>
+        <h5>ReadOnly</h5> 
+        <p-rating [(ngModel)]="val3" readonly="true" stars="10" [cancel]="false"></p-rating>
 
-    <h3>ReadOnly</h3> 
-    <p-rating [ngModel]="5" readonly="true" stars="10" [cancel]="false"></p-rating>
-
-    <h3>Disabled</h3> 
-    <p-rating [ngModel]="val4" disabled="true" stars="10"></p-rating>
-    
-    <h3>Custom Icons</h3> 
-    <p-rating [ngModel]="val5" iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"></p-rating>
+        <h5>Disabled</h5> 
+        <p-rating [(ngModel)]="val4" disabled="true" stars="10"></p-rating>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;RatingModule&#125; from 'primeng/rating';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using ngModel.</p>
+            <h5>Getting Started</h5>
+            <p>Two-way value binding is defined using <i>ngModel</i>.</p>
                     
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-rating [(ngModel)]="val"&gt;&lt;/p-rating&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     val: number;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>Defining a default value would be enough to display the initial number of selected stars.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     val: number = 3;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>Rating can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-rating formControlName="score"&gt;&lt;/p-rating&gt;
-</code>
-</pre>
+</app-code>
 
-                    <h3>Properties</h3>
+                    <h5>Properties</h5>
                     <div class="doc-tablewrapper">
                         <table class="doc-table">
                             <thead>
@@ -149,7 +135,7 @@ export class ModelComponent &#123;
                         </table>
                     </div>
 
-                    <h3>Events</h3>
+                    <h5>Events</h5>
                     <div class="doc-tablewrapper">
                         <table class="doc-table">
                             <thead>
@@ -176,7 +162,7 @@ export class ModelComponent &#123;
                         </table>
                     </div>
 
-                    <h3>Styling</h3>
+                    <h5>Styling</h5>
                     <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
                     <div class="doc-tablewrapper">
                         <table class="doc-table">
@@ -188,82 +174,71 @@ export class ModelComponent &#123;
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>ui-rating</td>
+                                    <td>p-rating</td>
                                     <td>Container element</td>
                                 </tr>
                                 <tr>
-                                    <td>ui-rating-star</td>
+                                    <td>p-rating-star</td>
                                     <td>Star element</td>
                                 </tr>
                                 <tr>
-                                    <td>ui-rating-star-on</td>
+                                    <td>p-rating-star-on</td>
                                     <td>Selected star element.</td>
                                 </tr>
                                 <tr>
-                                    <td>ui-rating-cancel</td>
+                                    <td>p-rating-cancel</td>
                                     <td>Cancel icon.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <h3>Dependencies</h3>
+                    <h5>Dependencies</h5>
                     <p>None.</p>
                 </p-tabPanel>
 
                 <p-tabPanel header="Source">
                     <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/rating" class="btn-viewsource" target="_blank">
-                        <i class="fa fa-github"></i>
                         <span>View on GitHub</span>
                     </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic {{val1}}&lt;/h3&gt; 
+                    <a href="https://stackblitz.com/edit/primeng-rating-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                        <span>Edit in StackBlitz</span>
+                    </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Basic&lt;/h5&gt; 
 &lt;p-rating [(ngModel)]="val1"&gt;&lt;/p-rating&gt;
 
-&lt;h3&gt;Callback {{val2}}&lt;/h3&gt;
-&lt;p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;{{msg}}&lt;/span&gt;
+&lt;h5&gt;No Cancel&lt;/h5&gt; 
+&lt;p-rating [(ngModel)]="val2" [cancel]="false"&gt;&lt;/p-rating&gt;
 
-&lt;h3&gt;No Cancel {{val3}}&lt;/h3&gt; 
-&lt;p-rating [(ngModel)]="val3" [cancel]="false"&gt;&lt;/p-rating&gt;
+&lt;h5&gt;ReadOnly&lt;/h5&gt; 
+&lt;p-rating [ngModel]="val3" readonly="true" stars="10" [cancel]="false"&gt;&lt;/p-rating&gt;
 
-&lt;h3&gt;ReadOnly&lt;/h3&gt; 
-&lt;p-rating [ngModel]="5" readonly="true" stars="10" [cancel]="false"&gt;&lt;/p-rating&gt;
-
-&lt;h3&gt;Disabled&lt;/h3&gt; 
+&lt;h5&gt;Disabled&lt;/h5&gt; 
 &lt;p-rating [ngModel]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
+</app-code>
 
-&lt;h3>Custom Icons&lt;/h3&gt;
-&lt;p-rating [ngModel]="val5" iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"&gt;;&lt;/p-rating&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class RatingDemo &#123;
 
     val1: number;
 
-    val2: number = 5;
+    val2: number = 3;
 
-    val3: number;
+    val3: number = 5;
 
     val4: number = 5;
 
     val5: number;
 
     msg: string;
-
-    handleRate(event) &#123;
-        this.msg = "You have rated " + event.value;
-    &#125;
-
-    handleCancel(event) &#123;
-        this.msg = "Rating Cancelled";
-    &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+                </p-tabPanel>
+                <p-tabPanel header="StackBlitz">
+                    <ng-template pTemplate="content">
+                        <iframe src="https://stackblitz.com/edit/primeng-rating-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+                    </ng-template>
                 </p-tabPanel>
             </p-tabView>
         </div>

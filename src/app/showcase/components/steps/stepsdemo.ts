@@ -1,78 +1,48 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {MenuItem} from 'primeng/api';
-import {MessageService} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
+import { TicketService } from './ticketservice';
+import { Subscription } from 'rxjs';
 
 @Component({
     templateUrl: './stepsdemo.html',
-    providers: [MessageService],
-    styles: [`
-        .ui-steps .ui-steps-item {
-            width: 25%;
-        }
-        
-        .ui-steps.steps-custom {
-            margin-bottom: 30px;
-        }
-        
-        .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
-            height: 10px;
-            padding: 0 1em;
-            overflow: visible;
-        }
-        
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-number {
-            background-color: #0081c2;
-            color: #FFFFFF;
-            display: inline-block;
-            width: 36px;
-            border-radius: 50%;
-            margin-top: -14px;
-            margin-bottom: 10px;
-        }
-        
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
-            color: #555555;
-        }
-    `],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['stepsdemo.scss'],
+    providers: [MessageService]
 })
 export class StepsDemo implements OnInit {
 
     items: MenuItem[];
     
-    activeIndex: number = 1;
-    
-    constructor(private messageService: MessageService) {}
+    subscription: Subscription;
+
+    constructor(public messageService: MessageService, public ticketService: TicketService) {}
 
     ngOnInit() {
         this.items = [{
                 label: 'Personal',
-                command: (event: any) => {
-                    this.activeIndex = 0;
-                    this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label});
-                }
+                routerLink: 'personal'
             },
             {
                 label: 'Seat',
-                command: (event: any) => {
-                    this.activeIndex = 1;
-                    this.messageService.add({severity:'info', summary:'Seat Selection', detail: event.item.label});
-                }
+                routerLink: 'seat'
             },
             {
                 label: 'Payment',
-                command: (event: any) => {
-                    this.activeIndex = 2;
-                    this.messageService.add({severity:'info', summary:'Pay with CC', detail: event.item.label});
-                }
+                routerLink: 'payment'
             },
             {
                 label: 'Confirmation',
-                command: (event: any) => {
-                    this.activeIndex = 3;
-                    this.messageService.add({severity:'info', summary:'Last Step', detail: event.item.label});
-                }
+                routerLink: 'confirmation'
             }
         ];
+
+        this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) =>{
+            this.messageService.add({severity:'success', summary:'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'});
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

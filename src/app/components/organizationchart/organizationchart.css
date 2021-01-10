@@ -1,47 +1,60 @@
-.ui-organizationchart .ui-organizationchart-table {
+.p-organizationchart-table {
     border-spacing: 0;
     border-collapse: separate;
     margin: 0 auto;
 }
 
-.ui-organizationchart .ui-organizationchart-table > tr > td {
+.p-organizationchart-table > tbody > tr > td {
     text-align: center;
     vertical-align: top;
-    padding: 0;
-    padding: 0 .75em;
+    padding: 0 .75rem;
 }
 
-.ui-organizationchart .ui-organizationchart-node-content {
-    padding: .5em .75em;
+.p-organizationchart-node-content {
     display: inline-block;
     position: relative;
 }
 
-.ui-organizationchart .ui-organizationchart-node-content .ui-node-toggler {
+.p-organizationchart-node-content .p-node-toggler {
     position: absolute;
-    bottom: -9px;
-    margin-left: -8px;
+    bottom: -.75rem;
+    margin-left: -.75rem;
     z-index: 2;
     left: 50%;
+    user-select: none;
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
-.ui-organizationchart .ui-organizationchart-line-down {
+.p-organizationchart-node-content .p-node-toggler .p-node-toggler-icon {
+    position: relative;
+    top: .25rem;
+}
+
+.p-organizationchart-line-down {
     margin: 0 auto;
     height: 20px;
     width: 1px;
-    float: none;
 }
 
-.ui-organizationchart .ui-organizationchart-line-right {
-    float: none;
+.p-organizationchart-line-right {
     border-radius: 0px;
 }
 
-.ui-organizationchart .ui-organizationchart-line-left {
-    float: none;
+ .p-organizationchart-line-left {
     border-radius: 0;
 }
 
-.ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node {
+.p-organizationchart-selectable-node {
     cursor: pointer;
+}
+
+.p-organizationchart .p-organizationchart-node-hidden {
+    display: none;
+}
+
+.p-organizationchart-preservespace .p-organizationchart-node-hidden {
+    visibility: hidden;
+    display: inherit;
 }

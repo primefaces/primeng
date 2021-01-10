@@ -13,7 +13,7 @@ describe('MegaMenu', () => {
         TestBed.configureTestingModule({
         imports: [
             RouterTestingModule.withRoutes([
-            { path: 'test', component: MegaMenu }
+                { path: 'test', component: MegaMenu }
             ]),
             NoopAnimationsModule
         ],
@@ -46,7 +46,7 @@ describe('MegaMenu', () => {
     it('should horizontal by default', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -75,17 +75,15 @@ describe('MegaMenu', () => {
         
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const spanIconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
-        const menuItemCustomEl = fixture.debugElement.query(By.css('.ui-menuitem.ui-menuitem-custom'));
-        expect(megaMenuEl.className).toContain("ui-megamenu-horizontal");
-        expect(spanIconEl.className).toContain("pi-caret-down");
-        expect(menuItemCustomEl).toBeTruthy();
+        expect(megaMenuEl.className).toContain("p-megamenu-horizontal");
+        expect(spanIconEl.className).toContain("pi-angle-down");
     });
 
     it('should change orientation', () => {
         megamenu.orientation = "vertical"
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -114,71 +112,16 @@ describe('MegaMenu', () => {
         
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const spanIconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
-        const menuItemCustomEl = fixture.debugElement.query(By.css('.ui-menuitem.ui-menuitem-custom'));
-        expect(megaMenuEl.className).toContain("ui-megamenu-vertical");
-        expect(spanIconEl.className).toContain("pi-caret-right");
+        const menuItemCustomEl = fixture.debugElement.query(By.css('.p-menuitem.p-menuitem-custom'));
+        expect(megaMenuEl.className).toContain("p-megamenu-vertical");
+        expect(spanIconEl.className).toContain("pi-angle-right");
         expect(menuItemCustomEl).toBeFalsy();
     });
-
-    it('should call onItemMouseEnter', fakeAsync(() => {
-        megamenu.model  = [
-        {
-            label: 'TV', icon: 'fa fa-fw fa-check',
-            items: [
-                [
-                    {
-                        label: 'TV 1',
-                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
-                    },
-                    {
-                        label: 'TV 2',
-                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
-                    }
-                ]
-            ]
-        },
-        {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-            items: [
-                [
-                    {
-                        label: 'Sports 1',
-                        items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
-                    },
-                    {
-                        label: 'Sports 2',
-                        items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
-                    },
-
-                ]
-            ]
-        },
-        ];
-        fixture.detectChanges();
-        
-        const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const sportsEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const submenuEl = fixture.debugElement.query(By.css('.ui-g')).queryAll(By.css('ul'));
-        const event = new Event('mouseenter');
-        const mouseLeaveEvent = new Event('mouseleave');
-        tvEl.dispatchEvent(event);
-        fixture.detectChanges();
-
-        expect(megamenu.hideTimeout).toBeUndefined();
-        tvEl.dispatchEvent(mouseLeaveEvent);
-        fixture.detectChanges();
-        tick(200);
-
-        sportsEl.dispatchEvent(event);
-        fixture.detectChanges();
-
-        expect(megamenu.hideTimeout).toBeNull();
-    }));
 
     it('should call onItemMouseEnter twice and call', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -193,7 +136,7 @@ describe('MegaMenu', () => {
             ]
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -209,79 +152,26 @@ describe('MegaMenu', () => {
             ]
         },
         ];
-        const mouseenterSpy = spyOn(megamenu, 'onItemMouseEnter').and.callThrough();
         fixture.detectChanges();
         
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const submenuEl = fixture.debugElement.query(By.css('.ui-g')).queryAll(By.css('ul'));
+        const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
 
-        const tv1HeaderEl = submenuEl[0].query(By.css('.ui-widget-header')).nativeElement;
-        const tv1FirstItemLabelEl = submenuEl[0].query(By.css('.ui-menuitem-text')).nativeElement;
-        expect(mouseenterSpy).toHaveBeenCalled();
+        megamenu.cd.detectChanges();
+        const tv1HeaderEl = submenuEl[0].query(By.css('.p-megamenu-submenu-header')).nativeElement;
+        const tv1FirstItemLabelEl = submenuEl[0].query(By.css('.p-menuitem-text')).nativeElement;
         expect(submenuEl.length).toEqual(2);
         expect(tv1HeaderEl.textContent).toContain("TV 1");
         expect(tv1FirstItemLabelEl.textContent).toContain("TV 1.1");
-        expect(megamenu.activeItem).toBeTruthy();
     });
-
-    it('should call onItemMouseLeave', fakeAsync(() => {
-        megamenu.model  = [
-        {
-            label: 'TV', icon: 'fa fa-fw fa-check',
-            items: [
-                [
-                    {
-                        label: 'TV 1',
-                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
-                    },
-                    {
-                        label: 'TV 2',
-                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
-                    }
-                ]
-            ]
-        },
-        {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-            items: [
-                [
-                    {
-                        label: 'Sports 1',
-                        items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
-                    },
-                    {
-                        label: 'Sports 2',
-                        items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
-                    },
-
-                ]
-            ]
-        },
-        ];
-        const mouseLeaveSpy = spyOn(megamenu, 'onItemMouseLeave').and.callThrough();
-        fixture.detectChanges();
-        
-        const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const mouseenterEvent = new Event('mouseenter');
-        const mouseLeaveEvent = new Event('mouseleave');
-        tvEl.dispatchEvent(mouseenterEvent);
-        fixture.detectChanges();
-
-        tvEl.dispatchEvent(mouseLeaveEvent);
-        tick(1000)
-        fixture.detectChanges();
-
-        expect(mouseLeaveSpy).toHaveBeenCalled();
-        expect(megamenu.activeItem).toEqual(null);
-    }));
 
     it('should  call itemClick ', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -296,7 +186,7 @@ describe('MegaMenu', () => {
             ]
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -316,7 +206,7 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
         
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const submenuEl = fixture.debugElement.query(By.css('.ui-g')).queryAll(By.css('ul'));
+        const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
@@ -329,107 +219,11 @@ describe('MegaMenu', () => {
         expect(megamenu.activeItem).toEqual(null);
     });
 
-    it('should  call onItemMouseEnter and not show submenu ', () => {
-        megamenu.model  = [
-        {
-            label: 'TV', icon: 'fa fa-fw fa-check',
-            items: [
-                [
-                    {
-                        label: 'TV 1',
-                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
-                    },
-                    {
-                        label: 'TV 2',
-                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
-                    }
-                ]
-            ],
-            disabled:true
-        },
-        {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-            items: [
-                [
-                    {
-                        label: 'Sports 1',
-                        items: [{label: 'Sports 1.1', disabled: true},{label: 'Sports 1.2'}],
-                    },
-                    {
-                        label: 'Sports 2',
-                        items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
-                    },
-
-                ]
-            ]
-        },
-        ];
-        fixture.detectChanges();
-        
-        const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const mouseenterSpy = spyOn(megamenu, 'onItemMouseEnter').and.callThrough();
-        const event = new Event('mouseenter');
-        tvEl.dispatchEvent(event);
-        fixture.detectChanges();
-
-        const disabledItems = fixture.debugElement.queryAll(By.css('.ui-state-disabled'));
-        expect(megamenu.activeItem).toEqual(undefined);
-        expect(disabledItems.length).toEqual(2);
-        expect(mouseenterSpy).toHaveBeenCalled();
-        expect(megamenu.activeItem).toBeUndefined();
-    });
-
-    it('should  call onItemMouseEnter and not show submenu ', () => {
-        megamenu.model  = [
-        {
-            label: 'TV', icon: 'fa fa-fw fa-check',
-            items: [
-                [
-                    {
-                        label: 'TV 1',
-                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}],
-                    },
-                    {
-                        label: 'TV 2',
-                        items: [{label: 'TV 2.1',visible:false},{label: 'TV 2.2'}],
-                    }
-                ]
-            ],
-        },
-        {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-            items: [
-                [
-                    {
-                        label: 'Sports 1',
-                        items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
-                    },
-                    {
-                        label: 'Sports 2',
-                        items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
-                    },
-
-                ]
-            ],
-            visible:false
-        },
-        ];
-        fixture.detectChanges();
-
-        const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const event = new Event('mouseenter');
-        tvEl.dispatchEvent(event);
-        fixture.detectChanges();
-        
-        const unVisibleItems = fixture.debugElement.queryAll(By.css('.ui-helper-hidden'));
-        expect(unVisibleItems.length).toEqual(2);
-    });
-
     it('shouldn\'t  call itemClick ', () => {
         megamenu.orientation = "vertical"
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -444,7 +238,7 @@ describe('MegaMenu', () => {
             ],
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -464,7 +258,7 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
         
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const submenuEl = fixture.debugElement.query(By.css('.ui-g')).queryAll(By.css('ul'));
+        const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
@@ -481,7 +275,7 @@ describe('MegaMenu', () => {
         let item;
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -498,7 +292,7 @@ describe('MegaMenu', () => {
             ],
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -517,7 +311,7 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
         
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const submenuEl = fixture.debugElement.query(By.css('.ui-g')).queryAll(By.css('ul'));
+        const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
@@ -529,10 +323,10 @@ describe('MegaMenu', () => {
         expect(item.label).toEqual("TV 1.1")
     });
 
-    it('should item get ui-g-4', () => {
+    it('should item get p-megamenu-col-4', () => {
         megamenu.model  = [
         {
-            label: 'TVV', icon: 'fa fa-fw fa-check',
+            label: 'TVV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -562,16 +356,16 @@ describe('MegaMenu', () => {
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
 
-        let tv1Div = fixture.debugElement.query(By.css('.ui-g')).query(By.css('div')).nativeElement;
+        let tv1Div = fixture.debugElement.query(By.css('.p-megamenu-grid')).query(By.css('div')).nativeElement;
         fixture.detectChanges();
 
-        expect(tv1Div.className).toContain("ui-g-4");
+        expect(tv1Div.className).toContain("p-megamenu-col-4");
     });
 
-    it('should item get ui-g-3', () => {
+    it('should item get p-megamenu-col-3', () => {
         megamenu.model  = [
         {
-            label: 'TVV', icon: 'fa fa-fw fa-check',
+            label: 'TVV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -607,16 +401,16 @@ describe('MegaMenu', () => {
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
 
-        let tv1Div = fixture.debugElement.query(By.css('.ui-g')).query(By.css('div')).nativeElement;
+        let tv1Div = fixture.debugElement.query(By.css('.p-megamenu-grid')).query(By.css('div')).nativeElement;
         fixture.detectChanges();
 
-        expect(tv1Div.className).toContain("ui-g-3");
+        expect(tv1Div.className).toContain("p-megamenu-col-3");
     });
 
-    it('should item get ui-g-2', () => {
+    it('should item get p-megamenu-col-2', () => {
         megamenu.model  = [
         {
-            label: 'TVV', icon: 'fa fa-fw fa-check',
+            label: 'TVV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -664,9 +458,9 @@ describe('MegaMenu', () => {
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
 
-        let tv1Div = fixture.debugElement.query(By.css('.ui-g')).query(By.css('div')).nativeElement;
+        let tv1Div = fixture.debugElement.query(By.css('.p-megamenu-grid')).query(By.css('div')).nativeElement;
         fixture.detectChanges();
 
-        expect(tv1Div.className).toContain("ui-g-2");
+        expect(tv1Div.className).toContain("p-megamenu-col-2");
     });
 });

@@ -1,0 +1,185 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Table <span>VirtualScroll</span></h1>
+        <span>VirtualScroller is a performant approach to handle huge data efficiently.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <h5>Virtual Scroll with Preloaded Data (10000 Rows)</h5>
+        <p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
+            [virtualScroll]="true" [virtualRowHeight]="34">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr style="height:34px">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <h5>Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)</h5>
+        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+            [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr style="height:34px">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody" let-columns="columns">
+                <tr style="height:34px">
+                    <td *ngFor="let col of columns">
+                        <div class="loading-text"></div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablevirtualscroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Virtual Scroll with Preloaded Data (10000 Rows)&lt;/h5&gt;
+    &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
+        [virtualScroll]="true" [virtualRowHeight]="34"&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+            &lt;tr style="height:34px"&gt;
+                &lt;td *ngFor="let col of columns"&gt;
+                    &#123;&#123;rowData[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)&lt;/h5&gt;
+    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+        [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+            &lt;tr style="height:34px"&gt;
+                &lt;td *ngFor="let col of columns"&gt;
+                    &#123;&#123;rowData[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
+            &lt;tr style="height:34px"&gt;
+                &lt;td *ngFor="let col of columns"&gt;
+                    &lt;div class="loading-text"&gt;&lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component, OnInit&#125; from '@angular/core';
+import &#123;Car&#125; from '../../components/domain/car';
+import &#123;CarService&#125; from '../../service/carservice';
+import &#123;LazyLoadEvent&#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './tablevirtualscrolldemo.html',
+    styles: [`
+        .loading-text &#123;
+            display: block;
+            background-color: #f1f1f1;
+            min-height: 19px;
+            animation: pulse 1s infinite ease-in-out;
+            text-indent: -99999px;
+            overflow: hidden;
+        &#125;
+    `]
+&#125;)
+export class TableVirtualScrollDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    virtualCars: Car[];
+
+    cols: any[];
+
+    constructor(private carService: CarService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.cols = [
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
+        ];
+
+        this.cars = Array.from(&#123;length: 10000&#125;).map(() =&gt; this.carService.generateCar());
+        this.virtualCars = Array.from(&#123;length: 10000&#125;);
+    &#125;
+
+    loadCarsLazy(event: LazyLoadEvent) &#123;       
+        //simulate remote connection with a timeout 
+        setTimeout(() =&gt; &#123;
+            //load data of required page
+            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
+
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
+            
+            //trigger change detection
+            this.virtualCars = [...this.virtualCars];
+        &#125;, Math.random() * 1000 + 250);
+    &#125;
+&#125;
+</app-code>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablevirtualscroll-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -28,10 +28,10 @@ describe('UIMessage', () => {
         fixture.detectChanges();
   
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-message-icon'));
-        const textEl = fixture.debugElement.query(By.css('.ui-message-text'));
+        const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
+        const textEl = fixture.debugElement.query(By.css('.p-inline-message-text'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("ui-message-success");
+        expect(messageEl.nativeElement.className).toContain("p-inline-message-success");
         expect(iconEl.nativeElement.className).toContain("pi pi-check");
         expect(textEl.nativeElement.textContent).toContain("Primeng Rocks!");
     });
@@ -41,9 +41,9 @@ describe('UIMessage', () => {
         fixture.detectChanges();
   
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("ui-message-info");
+        expect(messageEl.nativeElement.className).toContain("p-inline-message-info");
         expect(iconEl.nativeElement.className).toContain("pi pi-info-circle");
     });
 
@@ -52,9 +52,9 @@ describe('UIMessage', () => {
         fixture.detectChanges();
   
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("ui-message-error");
+        expect(messageEl.nativeElement.className).toContain("p-inline-message-error");
         expect(iconEl.nativeElement.className).toContain("pi pi-times");
     });
 
@@ -63,9 +63,9 @@ describe('UIMessage', () => {
         fixture.detectChanges();
   
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("ui-message-warn");
+        expect(messageEl.nativeElement.className).toContain("p-inline-message-warn");
         expect(iconEl.nativeElement.className).toContain("pi pi-exclamation-triangle");
     });
     it('should change severity to default', () => {
@@ -73,7 +73,7 @@ describe('UIMessage', () => {
         fixture.detectChanges();
   
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.ui-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(iconEl.nativeElement.className).toContain("pi pi-info-circle");
     });

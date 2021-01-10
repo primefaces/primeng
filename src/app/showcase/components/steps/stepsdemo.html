@@ -1,47 +1,37 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Steps</span>
-        <span>Steps components is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.</span>
+    <div class="feature-intro">
+        <h1>Steps</h1>
+        <p>Steps components is an indicator for the steps in a wizard workflow. Example below uses nested routes with Steps.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
-
-    <h3 class="first">Basic</h3>
-    <p-steps [model]="items"></p-steps>
-
-    <h3>Clickable</h3>
-    <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
-
-    <h3>Custom Style</h3>
-    <p-steps [model]="items" styleClass="steps-custom"></p-steps>
+    <div class="card">
+        <p-toast></p-toast>
+        <p-steps [model]="items" [readonly]="true"></p-steps>
+    </div>
+    <router-outlet></router-outlet>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;StepsModule&#125; from 'primeng/steps';
 import &#123;MenuItem&#125; from 'primeng/api';
-</code>
-</pre>
+</app-code>
 
-            <h3>MenuModel API</h3>
+            <h5>MenuModel API</h5>
             <p>Steps uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Steps requires a collection of menuitems as its model.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-steps [model]="items"&gt;&lt;/p-steps&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MenuDemo &#123;
 
     items: MenuItem[];
@@ -54,18 +44,15 @@ export class MenuDemo &#123;
         ];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Readonly</h3>
-            <p>Items are readonly by default, if you'd like to make them interactive then disable readonly.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <h5>Readonly</h5>
+            <p>Items are readonly by default, if you'd like to make them interactive then disable <i>readonly</i>.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-steps [model]="items" [readonly]="false"&gt;&lt;/p-steps&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -111,7 +98,7 @@ export class MenuDemo &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -131,7 +118,7 @@ export class MenuDemo &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -143,138 +130,403 @@ export class MenuDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-steps</td>
+                            <td>p-steps</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-steps-item</td>
+                            <td>p-steps-item</td>
                             <td>Menuitem element.</td>
                         </tr>
                         <tr>
-                            <td>ui-steps-current</td>
+                            <td>p-steps-current</td>
                             <td>Active item.</td>
                         </tr>
                         <tr>
-                            <td>ui-steps-incomplete</td>
+                            <td>p-steps-incomplete</td>
                             <td>Inactive item.</td>
                         </tr>
                         <tr>
-                            <td>ui-steps-complete</td>
+                            <td>p-steps-complete</td>
                             <td>Completed item.</td>
                         </tr>
                         <tr>
-                            <td>ui-steps-number</td>
+                            <td>p-steps-number</td>
                             <td>Number of menuitem.</td>
                         </tr>
                         <tr>
-                            <td>ui-steps-title</td>
+                            <td>p-steps-title</td>
                             <td>Label of menuitem.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/steps" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+            <a href="https://stackblitz.com/edit/primeng-steps-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;p-toast&gt;&lt;/p-toast&gt;
+    &lt;p-steps [model]="items" [readonly]="true"&gt;&lt;/p-steps&gt;
+&lt;/div&gt;
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
+</app-code>
 
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-steps [model]="items"&gt;&lt;/p-steps&gt;
-
-&lt;h3&gt;Clickable&lt;/h3&gt;
-&lt;p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"&gt;&lt;/p-steps&gt;
-
-&lt;h3&gt;Custom Style&lt;/h3&gt;
-&lt;p-steps [model]="items" styleClass="steps-custom"&gt;&lt;/p-steps&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: 'showcase/demo/steps/stepsdemo.html',
-    providers: [MessageService],
-    styles: [`
-        .ui-steps .ui-steps-item &#123;
-            width: 25%;
-        &#125;
-
-        .ui-steps.steps-custom &#123;
-            margin-bottom: 30px;
-        &#125;
-
-        .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link &#123;
-            height: 10px;
-            padding: 0 1em;
-        &#125;
-
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-number &#123;
-            background-color: #0081c2;
-            color: #FFFFFF;
-            display: inline-block;
-            width: 36px;
-            border-radius: 50%;
-            margin-top: -14px;
-            margin-bottom: 10px;
-        &#125;
-
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-title &#123;
-            color: #555555;
-        &#125;
-    `],
-    encapsulation: ViewEncapsulation.None
-&#125;)
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class StepsDemo implements OnInit &#123;
 
     items: MenuItem[];
+    
+    subscription: Subscription;
 
-    activeIndex: number = 1;
-
-    constructor(private messageService: MessageService) &#123;&#125;
+    constructor(public messageService: MessageService, public ticketService: TicketService) &#123;&#125;
 
     ngOnInit() &#123;
         this.items = [&#123;
                 label: 'Personal',
-                command: (event: any) => &#123;
-                    this.activeIndex = 0;
-                    this.messageService.add(&#123;severity:'info', summary:'First Step', detail: event.item.label&#125;);
-                &#125;
+                routerLink: 'personal'
             &#125;,
             &#123;
                 label: 'Seat',
-                command: (event: any) => &#123;
-                    this.activeIndex = 1;
-                    this.messageService.add(&#123;severity:'info', summary:'Seat Selection', detail: event.item.label&#125;);
-                &#125;
+                routerLink: 'seat'
             &#125;,
             &#123;
                 label: 'Payment',
-                command: (event: any) => &#123;
-                    this.activeIndex = 2;
-                    this.messageService.add(&#123;severity:'info', summary:'Pay with CC', detail: event.item.label&#125;);
-                &#125;
+                routerLink: 'payment'
             &#125;,
             &#123;
                 label: 'Confirmation',
-                command: (event: any) => &#123;
-                    this.activeIndex = 3;
-                    this.messageService.add(&#123;severity:'info', summary:'Last Step', detail: event.item.label&#125;);
-                &#125;
+                routerLink: 'confirmation'
             &#125;
         ];
+
+        this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) =&gt;&#123;
+            this.messageService.add(&#123;severity:'success', summary:'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'&#125;);
+        &#125;);
+    &#125;
+
+    ngOnDestroy() &#123;
+        if (this.subscription) &#123;
+            this.subscription.unsubscribe();
+        &#125;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="Personal">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="stepsdemo-content"&gt;
+    &lt;p-card&gt;
+        &lt;ng-template pTemplate="title"&gt;
+            Personal Information
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="subtitle"&gt;
+            Enter your personal information
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            &lt;div class="p-fluid"&gt;
+                &lt;div class="p-field"&gt;
+                    &lt;label for="firstname"&gt;Firstname&lt;/label&gt;
+                    &lt;input #firstname="ngModel" id="firstname" type="text" required pInputText [(ngModel)]="personalInformation.firstname" [ngClass]="&#123;'p-invalid': (firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)&#125;"&gt; 
+                    &lt;small *ngIf="(firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)" class="p-error"&gt;Firstname is required.&lt;/small&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field"&gt;
+                    &lt;label for="lastname"&gt;Lastname&lt;/label&gt;
+                    &lt;input #lastname="ngModel" id="lastname" type="text" required pInputText [(ngModel)]="personalInformation.lastname" [ngClass]="&#123;'p-invalid': (lastname.invalid && submitted) || (lastname.dirty && lastname.invalid)&#125;"&gt; 
+                    &lt;small class="p-error" *ngIf="(lastname.invalid && submitted )|| (lastname.dirty && lastname.invalid)"&gt;Lastname is required.&lt;/small&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field"&gt;
+                    &lt;label for="age"&gt;Age&lt;/label&gt;
+                    &lt;input #age="ngModel" id="age" type="number" required pInputText [(ngModel)]="personalInformation.age" [ngClass]="&#123;'p-invalid': (age.invalid && submitted) || (age.dirty && age.invalid)&#125;"&gt; 
+                    &lt;small class="p-error" *ngIf="(age.invalid && submitted) || (age.dirty && age.invalid)"&gt;Age is required.&lt;/small&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;div class="p-grid p-nogutter p-justify-end"&gt;
+                &lt;p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-card&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class PersonalDemo implements OnInit &#123;
+
+    personalInformation: any;
+
+    submitted: boolean = false;
+
+    constructor(public ticketService: TicketService, private router: Router) &#123; &#125;
+
+    ngOnInit() &#123; 
+        this.personalInformation = this.ticketService.getTicketInformation().personalInformation;
+    &#125;
+
+    nextPage() &#123;
+        if (this.personalInformation.firstname && this.personalInformation.lastname && this.personalInformation.age) &#123;
+            this.ticketService.ticketInformation.personalInformation = this.personalInformation;
+            this.router.navigate(['steps/seat']);
+
+            return;
+        &#125;
+
+        this.submitted = true;
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="Seat">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="stepsdemo-content"&gt;
+    &lt;p-card&gt;
+        &lt;ng-template pTemplate="title"&gt;
+            Seat Information
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="subtitle"&gt;
+            Choose your seat
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            &lt;div class="p-fluid p-formgrid p-grid"&gt;
+                &lt;div class="p-field p-col-12 p-md-6"&gt;
+                    &lt;label for="class"&gt;Class&lt;/label&gt;
+                    &lt;p-dropdown inputId="class" [(ngModel)]="seatInformation.class" [options]="classes" (onChange)="setVagons($event)" optionLabel="name" placeholder="Select a Class"&gt;&lt;/p-dropdown&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field p-col-12 p-md-6"&gt;
+                    &lt;label for="wagon"&gt;Wagon&lt;/label&gt;
+                    &lt;p-dropdown inputId="wagon" [(ngModel)]="seatInformation.wagon" [options]="vagons" (onChange)="setSeats($event)" optionLabel="wagon" placeholder="Select a Wagon"&gt;&lt;/p-dropdown&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field p-col-12"&gt;
+                    &lt;label for="seat"&gt;Seat&lt;/label&gt;
+                    &lt;p-dropdown inputId="seat" [(ngModel)]="seatInformation.seat" [options]="seats" optionLabel="seat" placeholder="Select a Seat"&gt;&lt;/p-dropdown&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;div class="p-grid p-nogutter p-justify-between"&gt;
+                &lt;p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"&gt;&lt;/p-button&gt;
+                &lt;p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-card&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class SeatDemo implements OnInit &#123;
+    
+    constructor(public ticketService: TicketService, private router: Router) &#123; &#125;
+
+    classes: any[];
+
+    vagons: any[];
+    
+    seats: any[];
+
+    seatInformation: any;
+
+    ngOnInit() &#123; 
+        this.seatInformation = this.ticketService.ticketInformation.seatInformation;
+
+        this.classes = [
+            &#123;name: 'First Class', code: 'A', factor: 1&#125;,
+            &#123;name: 'Second Class', code: 'B', factor: 2&#125;,
+            &#123;name: 'Third Class', code: 'C', factor: 3&#125;
+        ];    
+    &#125;
+
+    setVagons(event) &#123;
+        if (this.seatInformation.class && event.value) &#123;
+            this.vagons = [];
+            this.seats = [];
+            for (let i = 1; i &lt; 3 * event.value.factor; i++) &#123;
+                this.vagons.push(&#123;wagon: i + event.value.code, type: event.value.name, factor: event.value.factor&#125;);
+            &#125;
+        &#125;
+    &#125;
+    
+    setSeats(event) &#123;
+        if (this.seatInformation.wagon && event.value) &#123;
+            this.seats = [];
+            for (let i = 1; i &lt; 10 * event.value.factor; i++) &#123;
+                this.seats.push(&#123;seat: i, type: event.value.type&#125;);
+            &#125;
+        &#125;
+    &#125;
+
+    nextPage() &#123;
+        if (this.seatInformation.class && this.seatInformation.seat && this.seatInformation.wagon) &#123;
+            this.ticketService.ticketInformation.seatInformation = this.seatInformation;
+            this.router.navigate(['steps/payment']);
+        &#125;
+    &#125;
+
+    prevPage() &#123;
+        this.router.navigate(['steps/personal']);
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="Payment">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="stepsdemo-content"&gt;
+    &lt;p-card&gt;
+        &lt;ng-template pTemplate="title"&gt;
+            Payment Information
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="subtitle"&gt;
+            Enter your card details
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            &lt;div class="p-fluid p-formgrid p-grid"&gt;
+                &lt;div class="p-field p-col-12"&gt;
+                    &lt;label for="class"&gt;Card Holder Name&lt;/label&gt;
+                    &lt;input type="text" required pInputText [(ngModel)]="paymentInformation.cardholderName"&gt; 
+                &lt;/div&gt;
+                &lt;div class="p-field p-col-8"&gt;
+                    &lt;label id="number" for="lastname"&gt;Number&lt;/label&gt;
+                    &lt;p-inputMask inputId="number" mask="9999-9999-9999-9999" [(ngModel)]="paymentInformation.cardholderNumber"&gt;&lt;/p-inputMask&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field p-col-2"&gt;
+                    &lt;label id="date" for="date"&gt;Date&lt;/label&gt;
+                    &lt;p-inputMask inputId="date" mask="99/99" [(ngModel)]="paymentInformation.date"&gt;&lt;/p-inputMask&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field p-col-2"&gt;
+                    &lt;label for="cvv"&gt;CVV&lt;/label&gt;
+                    &lt;p-inputMask id="cvv" mask="999" [(ngModel)]="paymentInformation.cvv"&gt;&lt;/p-inputMask&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field-checkbox p-col-12"&gt;
+                    &lt;p-checkbox id="remember" [binary]="true" [(ngModel)]="paymentInformation.remember"&gt;&lt;/p-checkbox&gt;
+                    &lt;label for="remember" class="p-checkbox-label"&gt;Save credit card information for future&lt;/label&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;div class="p-grid p-nogutter p-justify-between"&gt;
+                &lt;p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"&gt;&lt;/p-button&gt;
+                &lt;p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-card&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class PaymentDemo implements OnInit &#123;
+
+    paymentInformation: any;
+
+    constructor(public ticketService: TicketService, private router: Router) &#123; &#125;
+
+    ngOnInit() &#123; 
+        this.paymentInformation = this.ticketService.ticketInformation.paymentInformation;
+    &#125;
+
+    nextPage() &#123;
+        if (this.paymentInformation.cardholderName && this.paymentInformation.cardholderNumber && this.paymentInformation.date && this.paymentInformation.cvv) &#123;
+            this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
+            this.router.navigate(['steps/confirmation']);
+        &#125;
+    &#125;
+
+    prevPage() &#123;
+        this.router.navigate(['steps/seat']);
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="Confirmation">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="stepsdemo-content"&gt;
+    &lt;p-card&gt;
+        &lt;ng-template pTemplate="title"&gt;
+            Confirmation
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="subtitle"&gt;
+            Enter your card details
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="class"&gt;Name&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.personalInformation.firstname ? ticketInformation.personalInformation.firstname : '-'&#125;&#125; &#123;&#123;ticketInformation.personalInformation.lastname ? ticketInformation.personalInformation.lastname : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;Age&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.personalInformation.age ? ticketInformation.personalInformation.age : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;Seat Class&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.seatInformation.class ? ticketInformation.seatInformation.class.name : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;Wagon Number&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.seatInformation.wagon ? ticketInformation.seatInformation.wagon.wagon : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;Seat&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.seatInformation.seat ? ticketInformation.seatInformation.seat.seat : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;Cardholder Name&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.paymentInformation.cardholderName ? ticketInformation.paymentInformation.cardholderName : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;Card Number&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.paymentInformation.cardholderNumber ? ticketInformation.paymentInformation.cardholderNumber : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;Date&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.paymentInformation.date ? ticketInformation.paymentInformation.date : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col-12"&gt;
+                &lt;label for="Age"&gt;CVV&lt;/label&gt;
+                &lt;b&gt;&#123;&#123;ticketInformation.paymentInformation.cvv && ticketInformation.paymentInformation.cvv.length === 3  ? '**' + ticketInformation.paymentInformation.cvv[2] : '-'&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;div class="p-grid p-nogutter p-justify-between"&gt;
+                &lt;p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"&gt;&lt;/p-button&gt;
+                &lt;p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-card&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class ConfirmationDemo implements OnInit &#123;
+    
+    ticketInformation: any;
+    
+    constructor(public ticketService: TicketService, private router: Router) &#123; &#125;
+
+    ngOnInit() &#123; 
+        this.ticketInformation = this.ticketService.ticketInformation;
+    &#125;
+
+    complete() &#123;
+        this.ticketService.complete();
+    &#125;
+
+    prevPage() &#123;
+        this.router.navigate(['steps/payment']);
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-steps-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

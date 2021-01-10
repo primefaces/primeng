@@ -24,7 +24,7 @@ describe('ProgressSpinner', () => {
     it('should created by default', () => {
         fixture.detectChanges();
   
-        const progressSpinnerEl = fixture.debugElement.query(By.css('.ui-progress-spinner'));
+        const progressSpinnerEl = fixture.debugElement.query(By.css('.p-progress-spinner'));
         expect(progressSpinnerEl.nativeElement).toBeTruthy();
     });
 
@@ -33,7 +33,7 @@ describe('ProgressSpinner', () => {
         progressspinner.styleClass = "PrimeNG ROCKS!"
         fixture.detectChanges();
   
-        const progressSpinnerEl = fixture.debugElement.query(By.css('.ui-progress-spinner'));
+        const progressSpinnerEl = fixture.debugElement.query(By.css('.p-progress-spinner'));
         expect(progressSpinnerEl.nativeElement.className).toContain("PrimeNG ROCKS!");
         expect(progressSpinnerEl.nativeElement.style.height).toEqual("300px");
     });

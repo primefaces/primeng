@@ -1,59 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../components/domain/car';
-import { CarService } from '../../service/carservice';
+import { Customer, Representative } from '../../domain/customer';
+import { CustomerService } from '../../service/customerservice';
 import { LazyLoadEvent } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
 
 @Component({
     templateUrl: './tablelazydemo.html'
 })
 export class TableLazyDemo implements OnInit {
 
-    datasource: Car[];
-
-    cars: Car[];
+    customers: Customer[];
 
     totalRecords: number;
 
     cols: any[];
 
     loading: boolean;
+    
+    representatives: Representative[];
 
-    constructor(private carService: CarService) { }
+    constructor(private customerService: CustomerService) { }
 
     ngOnInit() {
-        //datasource imitation
-        this.carService.getCarsLarge().then(cars => {
-            this.datasource = cars;
-            this.totalRecords = this.datasource.length;
-        });
-
-        this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+        this.representatives = [
+            {name: "Amy Elsner", image: 'amyelsner.png'},
+            {name: "Anna Fali", image: 'annafali.png'},
+            {name: "Asiya Javayant", image: 'asiyajavayant.png'},
+            {name: "Bernardo Dominic", image: 'bernardodominic.png'},
+            {name: "Elwin Sharvill", image: 'elwinsharvill.png'},
+            {name: "Ioni Bowcher", image: 'ionibowcher.png'},
+            {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
+            {name: "Onyama Limba", image: 'onyamalimba.png'},
+            {name: "Stephen Shaw", image: 'stephenshaw.png'},
+            {name: "Xuxue Feng", image: 'xuxuefeng.png'}
         ];
 
         this.loading = true;
     }
 
-    loadCarsLazy(event: LazyLoadEvent) {  
+    loadCustomers(event: LazyLoadEvent) {  
         this.loading = true;
 
-        //in a real application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-        //event.sortField = Field name to sort with
-        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-
-        //imitate db connection over a network
         setTimeout(() => {
-            if (this.datasource) {
-                this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+            this.customerService.getCustomers({lazyEvent: JSON.stringify(event)}).then(res => {
+                this.customers = res.customers;
+                this.totalRecords = res.totalRecords;
                 this.loading = false;
-            }
+            })
         }, 1000);
     }
 }

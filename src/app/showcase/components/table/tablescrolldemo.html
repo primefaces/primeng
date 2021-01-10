@@ -1,574 +1,413 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Scroll</span></span>
-        <span>Scrolling data is available horizontally, vertically or both. Optional virtual scrolling mode would be handy to deal with large datasets by loading data on demand during scrolling.
-            In additon certain columns and rows can be fixed as well.</span>
+    <div class="feature-intro">
+        <h1>DataTable <span>Scroll</span></h1>
+        <span>Scrollable view is available horizontally, vertically or both.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Vertical</h3>
-    <p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="200px">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Virtual Scroll - 250K Rows</h3>
-    <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px"
-            [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [virtualRowHeight]="34"
-            [lazy]="true" [totalRecords]="totalRecords">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr style="height:34px">
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="loadingbody" let-columns="columns">
-            <tr style="height:34px">
-                <td *ngFor="let col of columns">
-                    <div class="loading-text"></div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Horizontal</h3>
-    <p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="{width:'500px'}">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:250px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Horizontal and Vertical</h3>
-    <p-table [columns]="cols" [value]="cars3" [scrollable]="true" [style]="{width:'500px'}" scrollHeight="200px">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:250px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Frozen Rows</h3>
-    <p-table [columns]="cols" [value]="cars4" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="frozenrows" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    <b>{{rowData[col.field]}}</b>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Frozen Columns</h3>
-    <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:300px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Frozen Columns and Frozen Rows</h3>
-    <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [frozenValue]="frozenCars" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:300px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="frozenrows" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    <b>{{rowData[col.field]}}</b>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <ng-container *ngIf="false">
-        <h3>Frozen Column Groups</h3>
-        <p-table [value]="sales" [scrollable]="true" scrollHeight="150px" frozenWidth="200px">
-            <ng-template pTemplate="frozenheader">
-                <tr>
-                    <th style="width:200px;height:102px">Brand</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="frozenbody" let-sale>
-                <tr>
-                    <td>{{sale.brand}}</td>
-                </tr>
-            </ng-template>
+    <div class="card">
+        <h5>Vertical with Fixed Viewport</h5>
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="4">Sale Rate</th>
-                </tr>
-                <tr>
-                    <th colspan="2">Sales</th>
-                    <th colspan="2">Profits</th>
-                </tr>
-                <tr>
-                    <th>Last Year</th>
-                    <th>This Year</th>
-                    <th>Last Year</th>
-                    <th>This Year</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-sale>
+            <ng-template pTemplate="body" let-customer>
                 <tr>
-                    <td>{{sale.lastYearSale}}</td>
-                    <td>{{sale.thisYearSale}}</td>
-                    <td>{{sale.lastYearProfit}}</td>
-                    <td>{{sale.thisYearProfit}}</td>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
                 </tr>
             </ng-template>
         </p-table>
-    </ng-container>
+    </div>
+    
+    <div class="card">
+        <h5>Flexible Viewport</h5>
+        <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+            to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
+    
+        <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+        <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '300px'}">
+            <p-table [value]="customers" [scrollable]="true" scrollHeight="flex">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Company</th>
+                        <th>Representative</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr>
+                        <td>{{customer.name}}</td>
+                        <td>{{customer.country.name}}</td>
+                        <td>{{customer.company}}</td>
+                        <td>{{customer.representative.name}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <ng-template pTemplate="footer">
+                <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"></button>
+            </ng-template>    
+        </p-dialog>
+
+        <h5>Full Page Scroll</h5>
+        <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/table/flexscroll']">Full Page</a> demo for an example.</p>
+    </div>
+
+    <div class="card">
+        <h5>Horizontal and Vertical</h5>
+        <p-table [value]="customers" [scrollable]="true" [style]="{width:'600px'}" scrollHeight="200px">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Date</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Activity</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.id}}</td>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.date}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.status}}</td>
+                    <td>{{customer.activity}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <h5>Frozen Rows</h5>
+        <p-table [value]="customers" [frozenValue]="frozenValue" [scrollable]="true" scrollHeight="200px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenrows" let-customer>
+                <tr>
+                    <td class="p-text-bold">{{customer.name}}</td>
+                    <td class="p-text-bold">{{customer.country.name}}</td>
+                    <td class="p-text-bold">{{customer.company}}</td>
+                    <td class="p-text-bold">{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <h5>Frozen Columns</h5>
+        <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="customers" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" style="width:300px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        {{customer[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablescrolldemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablescrolldemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-tablescroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Vertical with Fixed Viewport&lt;/h5&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Flexible Viewport&lt;/h5&gt;
+    &lt;p&gt;Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+        to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
+
+    &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+    &lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
+        &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="flex"&gt;
+            &lt;ng-template pTemplate="header"&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Name&lt;/th&gt;
+                    &lt;th&gt;Country&lt;/th&gt;
+                    &lt;th&gt;Company&lt;/th&gt;
+                    &lt;th&gt;Representative&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate="body" let-customer&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;        
+    &lt;/p-dialog&gt;
+
+    &lt;h5&gt;Full Page Scroll&lt;/h5&gt;
+    &lt;p&gt;FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the &lt;a [routerLink]="['/table/flexscroll']"&gt;Full Page&lt;/a&gt; demo for an example.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Horizontal and Vertical&lt;/h5&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" [style]="&#123;width:'600px'&#125;" scrollHeight="200px"&gt;
+        &lt;ng-template pTemplate="colgroup" let-columns&gt;
+            &lt;colgroup&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+            &lt;/colgroup&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Id&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Date&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Activity&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Frozen Rows&lt;/h5&gt;
+    &lt;p-table [value]="customers" [frozenValue]="frozenValue" [scrollable]="true" scrollHeight="200px"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="frozenrows" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Frozen Columns&lt;/h5&gt;
+    &lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="customers" [scrollable]="true" scrollHeight="200px" frozenWidth="300px"&gt;
+        &lt;ng-template pTemplate="colgroup" let-columns&gt;
+            &lt;colgroup&gt;
+                &lt;col *ngFor="let col of columns" style="width:300px"&gt;
+            &lt;/colgroup&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer let-columns="columns"&gt;
+            &lt;tr&gt;
+                &lt;td *ngFor="let col of columns"&gt;
+                    &#123;&#123;customer[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+
 @Component(&#123;
-    templateUrl: './tablescrolldemo.html',
-    styles: [`
-        .loading-text &#123;
-            display: block;
-            background-color: #f1f1f1;
-            min-height: 19px;
-            animation: pulse 1s infinite ease-in-out;
-            text-indent: -99999px;
-            overflow: hidden;
-        &#125;
-    `]
+    templateUrl: './tablescrolldemo.html'
 &#125;)
 export class TableScrollDemo implements OnInit &#123;
 
-    cars1: Car[];
+    customers: Customer[];
 
-    cars2: Car[];
-
-    cars3: Car[];
+    frozenValue: Customer[];
     
-    cars4: Car[];
-
-    cars5: Car[];
-
-    virtualCars: Car[];
-
-    totalRecords: number;
-
-    cols: any[];
-
-    frozenCars: Car[];
-
-    frozenCols: any[];
+    dialogVisible: boolean;
 
     scrollableCols: any[];
 
-    sales: any[];
+    frozenCols: any[];
 
-    loading: boolean;
-
-    inmemoryData: Car[];
-
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsMedium().then(cars => this.cars1 = cars);
-        this.carService.getCarsSmall().then(cars => this.cars2 = cars);
-        this.carService.getCarsMedium().then(cars => this.cars3 = cars);
-        this.carService.getCarsMedium().then(cars => this.cars4 = cars);
-        this.carService.getCarsMedium().then(cars => this.cars5 = cars);
+        this.customerService.getCustomersLarge().then(data =&gt; this.customers = data);
 
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
-
-        this.scrollableCols = [
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
+        this.frozenValue = [
+            &#123;
+                id: 1255,
+                name: "James McAdams",
+                country: &#123;
+                    name: "United States",
+                    code: "us"
+                &#125;,
+                company: "McAdams Consulting Ltd",
+                date: "2014-02-13",
+                status: "qualified",
+                activity: 23,
+                representative: &#123;
+                    name: "Ioni Bowcher",
+                    image: "ionibowcher.png"
+                &#125;
+            &#125;,
+            &#123;
+                id: 5135,
+                name: "Geraldine Bisset",
+                country: &#123;
+                    name: "France",
+                    code: "fr"
+                &#125;,
+                company: "Bisset Group",
+                status: "proposal",
+                date: "2019-05-05",
+                activity: 0,
+                representative: &#123;
+                    name: "Amy Elsner",
+                    image: "amyelsner.png"
+                &#125;
+            &#125;
         ];
 
         this.frozenCols = [
-            &#123; field: 'vin', header: 'Vin' &#125;
+            &#123; field: 'name', header: 'Name' &#125;
         ];
 
-        this.frozenCars = [
-            &#123; "brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23" &#125;,
-            &#123; "brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23" &#125;
-        ];
-
-        this.sales = [
-            &#123; brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342' &#125;,
-            &#123; brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122' &#125;,
-            &#123; brand: 'Microsoft', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500' &#125;,
-            &#123; brand: 'Philips', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323,' &#125;,
-            &#123; brand: 'Song', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332' &#125;,
-            &#123; brand: 'LG', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005' &#125;,
-            &#123; brand: 'Sharp', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214' &#125;,
-            &#123; brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322' &#125;,
-            &#123; brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' &#125;,
-            &#123; brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' &#125;
-        ];
-
-        this.totalRecords = 250000;
-        this.loading = true;
-
-        this.inmemoryData = [
-            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
-            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
-            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
-            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
-            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
-            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
-            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
-            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
-            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
-            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;,
-            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
-            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
-            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
-            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
-            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
-            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
-            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
-            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
-            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
-            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;,
-            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
-            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
-            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
-            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
-            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
-            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
-            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
-            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
-            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
-            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;,
-            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
-            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
-            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
-            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
-            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
-            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
-            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
-            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
-            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
-            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;
+        this.scrollableCols = [
+            &#123; field: 'id', header: 'Id' &#125;,
+            &#123; field: 'date', header: 'Date' &#125;,
+            &#123; field: 'company', header: 'Company' &#125;,
+            &#123; field: 'status', header: 'Status' &#125;,
+            &#123; field: 'activity', header: 'Activity' &#125;
         ];
     &#125;
 
-    loadDataOnScroll(event: LazyLoadEvent) &#123;      
-        this.loading = true;   
-
-        //for demo purposes keep loading the same dataset 
-        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
-        setTimeout(() => &#123;
-            //last chunk
-            if (event.first === 249980)
-                this.virtualCars = this.loadChunk(event.first, 20);
-            else
-                this.virtualCars = this.loadChunk(event.first, event.rows);        
-            
-            this.loading = false;  
-        &#125;, 250);   
-    &#125;
-
-    loadChunk(index, length): Car[] &#123;
-        let chunk: Car[] = [];
-        for (let i = 0; i &lt; length; i++) &#123;
-            chunk[i] = &#123;...this.inmemoryData[i], ...&#123;vin: (index + i)&#125;&#125;;
-        &#125; 
-
-        return chunk;
+    showDialog() &#123;
+        this.dialogVisible = true;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
 
-        <p-tabPanel header="tablescrolldemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablescrolldemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Vertical&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Virtual Scroll - 250K Rows&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
-    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr style="height:34px"&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
-        &lt;tr style="height:34px"&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;div class="loading-text"&gt;&lt;/div&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Horizontal&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="&#123;width:'500px'&#125;"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Horizontal and Vertical&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars3" [scrollable]="true" [style]="&#123;width:'500px'&#125;" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Frozen Rows&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars4" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenrows" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;b&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/b&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Frozen Columns&lt;/h3&gt;
-&lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="300px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:300px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Frozen Columns and Frozen Rows&lt;/h3&gt;
-&lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [frozenValue]="frozenCars" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="300px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:300px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenrows" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;b&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/b&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablescroll-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

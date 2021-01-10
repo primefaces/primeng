@@ -1,121 +1,95 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">VirtualScroller</span>
-        <span>VirtualScroller is an efficient way of rendering lists by displaying a small subset of data in the viewport at any time.</span>
+    <div class="feature-intro">
+        <h1>VirtualScroller</h1>
+        <p>VirtualScroller is an efficient way of rendering lists by displaying a small subset of data in the viewport at any time.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Lazy Loading</h3>
-    <p-virtualScroller [value]="lazyCars" scrollHeight="500px" [itemSize]="150" [rows]="100" [cache]="false" 
-            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalLazyCarsLength">
-        <p-header>
-            List of Cars
-        </p-header>
-        <ng-template let-car pTemplate="item" let-i="index">
-            <div class="ui-g car-item">
-                <div class="ui-g-12 ui-md-2">
-                    <div style="font-size: 24px; text-align: center; padding-top: 48px">{{i}}</div>
-                </div>
-                <div class="ui-g-12 ui-md-2">
-                    <img src="assets/showcase/images/demo/car/{{car?.brand}}.png">
-                </div>
-                <div class="ui-g-12 ui-md-8">
-                    <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">Vin: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.vin}}</div>
-            
-                        <div class="ui-g-2 ui-sm-6">Year: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.year}}</div>
-            
-                        <div class="ui-g-2 ui-sm-6">Brand: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.brand}}</div>
-            
-                        <div class="ui-g-2 ui-sm-6">Color: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.color}}</div>
+    <div class="card">
+        <h5>Lazy Loading</h5>
+        <p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
+            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+            <ng-template pTemplate="header">
+                List of Products
+            </ng-template>
+            <ng-template let-product pTemplate="item" let-i="index">
+                <div class="product-item">
+                    <div class="image-container">
+                        <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                    </div>
+                    <div class="product-list-detail">
+                        <h5 class="p-mb-2">{{product.name}}</h5>
+                        <i class="pi pi-tag product-category-icon"></i>
+                        <span class="product-category">{{product.category}}</span>
+                    </div>
+                    <div class="product-list-action">
+                        <h6 class="p-mb-2">${{product.price}}</h6>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                     </div>
                 </div>
-            </div>
-        </ng-template>
-        <ng-template let-car pTemplate="loadingItem">
-            <div class="ui-g car-item empty-car-item">
-                <div class="ui-g-12 ui-md-2">
-                    <div class="empty-car-item-index"></div>
-                </div>
-                <div class="ui-g-12 ui-md-2">
-                    <div class="empty-car-item-image"></div>
-                </div>
-                <div class="ui-g-12 ui-md-8">
-                    <div class="ui-g">
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+            </ng-template>
+            <ng-template let-product pTemplate="loadingItem">
+                <div class="product-item loading-item">
+                    <div class="image-container"></div>
+                    <div class="product-list-detail">
+                        <h5 class="p-mb-2"></h5>
+                        <i class="product-category-icon"></i>
+                        <span class="product-category"></span>
+                    </div>
+                    <div class="product-list-action">
+                        <h6 class="p-mb-2"></h6>
+                        <span class="product-badge"></span>
                     </div>
                 </div>
-            </div>
-        </ng-template>
-    </p-virtualScroller>
+            </ng-template>
+        </p-virtualScroller>
+    </div>
 
-    <h3>Prepopulated List</h3>
-    <p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150">
-        <p-header>
-            <div class="ui-g">
-                <div class="ui-g-6 sort-container">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width':'140px'}"></p-dropdown>
+    <div class="card">
+        <h5>Prepopulated List</h5>
+        <p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100">
+            <ng-template pTemplate="header">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    List of Products
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width':'10em'}"></p-dropdown>
                 </div>
-                <div class="ui-g-6 title-container">
-                    List of Cars
-                </div>
-            </div>
-        </p-header>
-        <ng-template let-car pTemplate="item" let-i="index">
-            <div class="ui-g car-item">
-                <div class="ui-g-12 ui-md-2">
-                    <div style="font-size: 24px; text-align: center; padding-top: 48px">{{i}}</div>
-                </div>
-                <div class="ui-g-12 ui-md-2">
-                    <img src="assets/showcase/images/demo/car/{{car?.brand}}.png">
-                </div>
-                <div class="ui-g-12 ui-md-8">
-                    <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">Vin: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.vin}}</div>
-            
-                        <div class="ui-g-2 ui-sm-6">Year: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.year}}</div>
-            
-                        <div class="ui-g-2 ui-sm-6">Brand: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.brand}}</div>
-            
-                        <div class="ui-g-2 ui-sm-6">Color: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.color}}</div>
+            </ng-template>
+            <ng-template let-product pTemplate="item" let-i="index">
+                <div class="product-item">
+                    <div class="image-container">
+                        <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                    </div>
+                    <div class="product-list-detail">
+                        <h5 class="p-mb-2">{{product.name}}</h5>
+                        <i class="pi pi-tag product-category-icon"></i>
+                        <span class="product-category">{{product.category}}</span>
+                    </div>
+                    <div class="product-list-action">
+                        <h6 class="p-mb-2">${{product.price}}</h6>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                     </div>
                 </div>
-            </div>
-        </ng-template>
-    </p-virtualScroller>
+            </ng-template>
+        </p-virtualScroller>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>CDK</h3>
+            <h5>CDK</h5>
             <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @angular/cdk --save
-</code>
-</pre>
+</app-code>
 
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;VirtualScrollerModule&#125; from 'primeng/virtualscroller';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>VirtualScroller requires a collection of items as its value, height of an item size, height of the scrollable viewport and a ng-template to display
                     where each item can be accessed using the implicit variable.</p>
 
@@ -123,19 +97,16 @@ import &#123;VirtualScrollerModule&#125; from 'primeng/virtualscroller';
                 to define an object to be displayed by the VirtualScroller. Cars are loaded by a CarService that
                 connects to a server to fetch the cars with a Promise. Note that this is for demo purposes only, 
                 any data source such as an Observable can be used as an alternative as well.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export interface Car &#123;
     vin;
     year;
     brand;
     color;
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123; HttpClient &#125; from '@angular/common/http';
 import &#123; Injectable &#125; from '@angular/core';
 
@@ -153,12 +124,10 @@ export class CarService &#123;
                     .then(data => &#123; return data; &#125;);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>Here is a sample VirtualScroller that displays a list of cars loaded from a remote datasource.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class VirtualScrollerDemo implements OnInit &#123;
 
     cars: Car[];
@@ -169,23 +138,19 @@ export class VirtualScrollerDemo implements OnInit &#123;
         this.carService.getCarsLarge().then(cars => this.cars = cars);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
     &lt;ng-template pTemplate="item" let-car&gt;
         Car content
     &lt;/ng-template&gt;
 &lt;/p-virtualScroller&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Sections</h3>
+            <h5>Sections</h5>
             <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
     &lt;p-header&gt;Header Content&lt;/p-header&gt;
     &lt;p-footer&gt;Footer Content&lt;/p-footer&gt;
@@ -193,18 +158,16 @@ export class VirtualScrollerDemo implements OnInit &#123;
         Car content
     &lt;/ng-template&gt;
 &lt;/p-virtualScroller&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Lazy Loading</h3>
+            <h5>Lazy Loading</h5>
             <p>Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking
              onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,
-            enable lazy attribute, initialize the number of logical rows with a query and finally implement a method callback using onLazyLoad that actually loads a chunk from a datasource. onLazyLoad gets an event object
+            enable <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using <i>onLazyLoad</i> that actually loads a chunk from a datasource. onLazyLoad gets an event object
             that contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-virtualScroller [value]="lazyCars" scrollHeight="500px" [itemSize]="150" [rows]="100" [cache]="false" 
-    [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalLazyCarsLength"&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-virtualScroller [value]="virtualCars" scrollHeight="500px" [itemSize]="150" [rows]="100"
+    [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
     &lt;/ng-template&gt;
@@ -212,20 +175,56 @@ export class VirtualScrollerDemo implements OnInit &#123;
         Loading...
     &lt;/ng-template&gt;
 &lt;/p-virtualScroller&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-loadData(event) &#123;
-    //event.first = First row offset
-    //event.rows = Number of rows per page
-    //this.lazyCars = load new chunk between first index and (first + rows) last index
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class LazyVirtualScrollerDemo implements OnInit &#123;
+
+    virtualCars: Car[];
+   
+    ngOnInit() &#123;
+        this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.carService.generateCar());
+        this.virtualCars =  Array.from(&#123;length: 10000&#125;);
+    &#125;
+
+    loadCarsLazy(event: LazyLoadEvent) &#123;       
+        //simulate remote connection with a timeout 
+        setTimeout(() => &#123;
+            //load data of required page
+            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
+
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
+            
+            //trigger change detection
+            this.virtualCars = [...this.virtualCars];
+        &#125;, 1000);
+    &#125;
+
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Programmatic Scroll</h5>
+            <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton label="Reset" (click)="reset"&gt;&lt;/button&gt;
+
+&lt;p-virtualScroller #vs [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
+    &lt;ng-template pTemplate="item" let-car&gt;
+        Car content
+    &lt;/ng-template&gt;
+&lt;/p-virtualScroller&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+@ViewChild('vs') vs: VirtualScroller;
+
+reset() &#123;
+    this.vs.scrollToIndex(0, 'smooth');
+&#125;
+</app-code>      
+
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -238,10 +237,10 @@ loadData(event) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>value</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of objects to display.</td>
+                            <td>delay</td>
+                            <td>number</td>
+                            <td>250</td>
+                            <td>Threshold in milliseconds to delay lazy loading during scrolling.</td>
                         </tr>
                         <tr>
                             <td>itemSize</td>
@@ -250,28 +249,28 @@ loadData(event) &#123;
                             <td>Height of an item in the list.</td>
                         </tr>
                         <tr>
-                            <td>rows</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Number of rows to display per page.</td>
-                        </tr>
-                        <tr>
-                            <td>first</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>Index of the first row to be displayed.</td>
-                        </tr>
-                        <tr>
-                            <td>totalRecords</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Number of total records, defaults to length of value when not defined.</td>
-                        </tr>
-                        <tr>
                             <td>lazy</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
+                            <td>minBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
+                        </tr>
+                        <tr>
+                            <td>maxBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
+                        </tr>
+                        <tr>
+                            <td>rows</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of rows to display per page.</td>
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
@@ -297,11 +296,17 @@ loadData(event) &#123;
                             <td>null</td>
                             <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
                         </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to display.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -322,7 +327,7 @@ loadData(event) &#123;
                 </table>
             </div>
 
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -334,15 +339,17 @@ loadData(event) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>scrollTo</td>
-                            <td>index: Index of the item</td>
+                            <td>scrollToIndex</td>
+                            <td>index: Index of the item.<br />
+                                mode: Scroll mode e.g. 'auto' or 'smooth'
+                            </td>
                             <td>Scrolls to the item with the given index.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -354,270 +361,153 @@ loadData(event) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-virtualscroller</td>
+                            <td>p-virtualscroller</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-virtualscroller-header</td>
+                            <td>p-virtualscroller-header</td>
                             <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-virtualscroller-footer</td>
+                            <td>p-virtualscroller-footer</td>
                             <td>Footer section.</td>
                         </tr>
                         <tr>
-                            <td>ui-virtualscroller-content</td>
+                            <td>p-virtualscroller-content</td>
                             <td>Content section.</td>
                         </tr>
                         <tr>
-                            <td>ui-virtualscroller-list</td>
+                            <td>p-virtualscroller-list</td>
                             <td>List element.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>Angular CDK.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/virtualscroller" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Lazy Loading&lt;/h3&gt;
-&lt;p-virtualScroller [value]="lazyCars" scrollHeight="500px" [itemSize]="150" [rows]="100" [cache]="false" 
-        [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalLazyCarsLength"&gt;
-    &lt;p-header&gt;
-        List of Cars
-    &lt;/p-header&gt;
-    &lt;ng-template let-car pTemplate="item" let-i="index"&gt;
-        &lt;div class="ui-g car-item"&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
-                &lt;div style="font-size: 24px; text-align: center; padding-top: 48px"&gt;&#123;&#123;i&#125;&#125;&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car?.brand&#125;&#125;.png"&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-8"&gt;
-                &lt;div class="ui-g"&gt;
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.vin&#125;&#125;&lt;/div&gt;
-        
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.year&#125;&#125;&lt;/div&gt;
-        
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.brand&#125;&#125;&lt;/div&gt;
-        
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.color&#125;&#125;&lt;/div&gt;
+            <a href="https://stackblitz.com/edit/primeng-virtualscroller-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Lazy Loading&lt;/h5&gt;
+    &lt;p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
+        [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            List of Products
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
+            &lt;div class="product-item"&gt;
+                &lt;div class="image-container"&gt;
+                    &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-detail"&gt;
+                    &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                    &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
+                    &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-action"&gt;
+                    &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template let-car pTemplate="loadingItem"&gt;
-        &lt;div class="ui-g car-item empty-car-item"&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
-                &lt;div class="empty-car-item-index"&gt;&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
-                &lt;div class="empty-car-item-image"&gt;&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-8"&gt;
-                &lt;div class="ui-g"&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="loadingItem"&gt;
+            &lt;div class="product-item loading-item"&gt;
+                &lt;div class="image-container"&gt;&lt;/div&gt;
+                &lt;div class="product-list-detail"&gt;
+                    &lt;h5 class="p-mb-2"&gt;&lt;/h5&gt;
+                    &lt;i class="product-category-icon"&gt;&lt;/i&gt;
+                    &lt;span class="product-category"&gt;&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-action"&gt;
+                    &lt;h6 class="p-mb-2"&gt;&lt;/h6&gt;
+                    &lt;span class="product-badge"&gt;&lt;/span&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-virtualScroller&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-virtualScroller&gt;
+&lt;/div&gt;
 
-&lt;h3&gt;Prepopulated List&lt;/h3&gt;
-&lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
-    &lt;p-header&gt;
-        &lt;div class="ui-g"&gt;
-            &lt;div class="ui-g-6 sort-container"&gt;
-                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="&#123;'min-width':'140px'&#125;"&gt;&lt;/p-dropdown&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Prepopulated List&lt;/h5&gt;
+    &lt;p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
+                List of Products
+                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="&#123;'min-width':'10em'&#125;"&gt;&lt;/p-dropdown&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-6 title-container"&gt;
-                List of Cars
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/p-header&gt;
-    &lt;ng-template let-car pTemplate="item" let-i="index"&gt;
-        &lt;div class="ui-g car-item"&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
-                &lt;div style="font-size: 24px; text-align: center; padding-top: 48px"&gt;&#123;&#123;i&#125;&#125;&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car?.brand&#125;&#125;.png"&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-8"&gt;
-                &lt;div class="ui-g"&gt;
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.vin&#125;&#125;&lt;/div&gt;
-        
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.year&#125;&#125;&lt;/div&gt;
-        
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.brand&#125;&#125;&lt;/div&gt;
-        
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.color&#125;&#125;&lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
+            &lt;div class="product-item"&gt;
+                &lt;div class="image-container"&gt;
+                    &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-detail"&gt;
+                    &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                    &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
+                    &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-action"&gt;
+                    &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-virtualScroller&gt;
-</code>
-</pre>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+        &lt;/ng-template&gt;
+    &lt;/p-virtualScroller&gt;
+&lt;/div&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component,OnInit &#125; from '@angular/core';
+import &#123; LazyLoadEvent,SelectItem &#125; from 'primeng/api';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
 @Component(&#123;
     templateUrl: './virtualscrollerdemo.html',
-    styles: [`
-        .car-item .ui-md-3 &#123;
-            text-align: center;
-        &#125;
-        
-        .car-item .ui-g-10 &#123;
-            font-weight: bold;
-        &#125;
-
-        .empty-car-item-index &#123;
-            background-color: #f1f1f1;
-            width: 60px;
-            height: 60px;
-            margin: 36px auto 0 auto;
-            animation: pulse 1s infinite ease-in-out;
-        &#125;
-
-        .empty-car-item-image &#123;
-            background-color: #f1f1f1;
-            width: 120px;
-            height: 120px;
-            animation: pulse 1s infinite ease-in-out;
-        &#125;
-
-        .empty-car-item-text &#123;
-            background-color: #f1f1f1;
-            height: 18px;
-            animation: pulse 1s infinite ease-in-out;
-        &#125;
-
-        .title-container &#123;
-            padding: 1em;
-            text-align: right;
-        &#125;
-
-        .sort-container &#123;
-            text-align: left;
-        &#125;
-
-        @media (max-width: 40em) &#123;
-            .car-item &#123;
-                text-align: center;
-            &#125;
-        &#125;
-    `]
+    styleUrls: ['./virtualscrollerdemo.scss']
 &#125;)
 export class VirtualScrollerDemo implements OnInit &#123;
 
-    cars: Car[] = [];
+    products: Product[];
 
-    lazyCars: Car[];
-    
-    brands: string[];
-
-    colors: string[];
-
-    totalLazyCarsLength: number;
-
-    timeout: any;
+    virtualProducts: Product[];
 
     sortKey: string;
 
     sortOptions: SelectItem[];
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private productService: ProductService) &#123;&#125;
 
     ngOnInit() &#123;
-        this.brands = [
-            'Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'
-        ];
-
-        this.colors = [
-            'Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'
-        ];
-
-        for (let i = 0; i &lt; 10000; i++) &#123;
-            this.cars.push(this.generateCar());
-        &#125;
-
-        //in a real application, make a remote request to retrieve the number of records only, not the actual records
-        this.totalLazyCarsLength = 10000;
+        this.products = Array.from(&#123;length: 10000&#125;).map(() => this.productService.generatePrduct());
+        this.virtualProducts = Array.from(&#123;length: 10000&#125;);
 
         this.sortOptions = [
-            &#123;label: 'Newest First', value: '!year'&#125;,
-            &#123;label: 'Oldest First', value: 'year'&#125;
+            &#123;label: 'Cheapest First', value: 'price'&#125;,
+            &#123;label: 'Expensive First', value: '!price'&#125;
         ];
     &#125;
 
-    generateCar(): Car &#123;
-        return &#123;
-            vin: this.generateVin(),
-            brand: this.generateBrand(),
-            color: this.generateColor(),
-            year: this.generateYear()
-        &#125;
-    &#125;
+    loadCarsLazy(event: LazyLoadEvent) &#123;       
+        // simulate remote connection with a timeout 
+        setTimeout(() => &#123;
+            //load data of required page
+            let loadedProducts = this.products.slice(event.first, (event.first + event.rows));
 
-    generateVin() &#123;
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        
-        for (var i = 0; i &lt; 5; i++) &#123;
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        &#125;
-        
-        return text;
-    &#125;
-
-    generateBrand() &#123;
-        return this.brands[Math.floor(Math.random() * Math.floor(10))];
-    &#125;
-
-    generateColor() &#123;
-        return this.colors[Math.floor(Math.random() * Math.floor(7))];
-    &#125;
-
-    generateYear() &#123;
-        return 2000 + Math.floor(Math.random() * Math.floor(19));
-    &#125;
-
-    loadCarsLazy(event: LazyLoadEvent) &#123;
-        //in a real application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-
-        //imitate db connection over a network
-        if (this.timeout) &#123;
-            clearTimeout(this.timeout);
-        &#125;
-        
-        this.timeout = setTimeout(() => &#123;
-            this.lazyCars = [];
-            if (this.cars) &#123;
-                this.lazyCars = this.cars.slice(event.first, (event.first + event.rows));
-            &#125;
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualProducts, [...[event.first, event.rows], ...loadedProducts]);
+            
+            //trigger change detection
+            this.virtualProducts = [...this.virtualProducts];
         &#125;, 1000);
     &#125;
 
@@ -629,20 +519,24 @@ export class VirtualScrollerDemo implements OnInit &#123;
     &#125;
 
     sort(order: number): void &#123;
-        let cars = [...this.cars];
-        cars.sort((data1, data2) => &#123;
-            let value1 = data1.year;
-            let value2 = data2.year;
+        let products = [...this.products];
+        products.sort((data1, data2) => &#123;
+            let value1 = data1.price;
+            let value2 = data2.price;
             let result = (value1 &lt; value2) ? -1 : (value1 > value2) ? 1 : 0;
 
             return (order * result);
         &#125;);
 
-        this.cars = cars;
+        this.products = products;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-virtualscroller-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

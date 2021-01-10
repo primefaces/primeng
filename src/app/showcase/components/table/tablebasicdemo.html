@@ -1,0 +1,90 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Table <span>Basic</span></h1>
+        <p>DataTable requires a collection to display along with column components for the representation of the data.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <p-table [value]="products">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablebasic-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+            
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="products"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Code&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Category&lt;/th&gt;
+            &lt;th&gt;Quantity&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-product&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
+@Component(&#123;
+    templateUrl: './tablebasicdemo.html'
+&#125;)
+export class TableBasicDemo implements OnInit &#123;
+
+    products: Product[];
+
+    constructor(private productService: ProductService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.productService.getProductsSmall().then(data =&gt; this.products = data);
+    &#125;
+&#125;
+</app-code>
+  
+        </p-tabPanel>
+
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablebasic-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+</div>

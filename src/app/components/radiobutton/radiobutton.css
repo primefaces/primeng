@@ -1,35 +1,35 @@
-.ui-radiobutton {
-    display:inline-block;
+.p-radiobutton {
+    display: inline-flex;
     cursor: pointer;
-    vertical-align: middle;
-    margin-right: .25em;
     user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    vertical-align: bottom;
 }
 
-.ui-radiobutton-box {
-    width: 1.125em;
-    height: 1.125em;
-    line-height: 1.125em;
-    -moz-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    border-radius: 100%;
-    text-align: center;
-    position: relative;
+.p-radiobutton-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.ui-radiobutton-icon {
-    display: block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 1em;
-    height: 1em;
-    margin-top: -.5em;
-    margin-left: -.5em;
+.p-radiobutton-icon {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0) scale(.1);
+    border-radius: 50%;
+    visibility: hidden;
 }
- 
-.ui-radiobutton {
-    vertical-align: middle;
+
+.p-radiobutton-box.p-highlight .p-radiobutton-icon {
+    transform: translateZ(0) scale(1.0, 1.0);
+    visibility: visible;
+}
+
+p-radiobutton {
+    display: inline-flex;
+    vertical-align: bottom;
+    align-items: center;
+}
+
+.p-radiobutton-label {
+    line-height: 1;
 }

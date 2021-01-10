@@ -1,0 +1,100 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Long Term Support</h1>
+        <p>LTS Support ensures stability, premium quality and advanced security for the prior versions.</p>
+    </div>
+</div>
+
+<div class="content-section documentation p-pb-3">
+    <h5>What is LTS?</h5>
+    <p>Angular is a fast paced technology with a new major version
+        <a href="https://angular.io/guide/releases">every 6 months</a>. PrimeNG release cycle is aligned with Angular and every 6 months a new major PrimeNG version is released that is compatible
+        with the latest Angular core. We are aware that majority of the existing applications prefer to remain at a previous version due to stability requirements instead of upgrading to the latest version immediately.
+    </p>
+    <p>
+        PrimeNG LTS is an annual subscription based service to provide a license for the finest compatible version suited to you. LTS covers the prior two versions from the latest release, this means up to <b>18 months</b>
+        of almost weekly releases to bring the latest defect fixes and security updates to your project. As an example, when PrimeNG moves to Angular 9, PrimeNG 7 and 8 will move to LTS support whereas STS (short term support)
+        versions of PrimeNG 9 will be open source under MIT license for at least 6 months until PrimeNG 10 is released. Here is a timeline to visualize the LTS support.</p>
+
+    <img alt="LTS" src="assets/showcase/images/lts-timeline.jpg" style="width: 100%">
+
+    <h5>License Terms</h5>
+    <p>PrimeNG is an open source and free to use library licensed under MIT license whereas <b>PrimeNG LTS</b> is a commercial software licensed under <a href="https://www.primefaces.org/lts/licenses/">LTS License.</a></p>
+    <ul>
+        <li>A license is required to be obtained before installing and importing an LTS package.</li>
+        <li>LTS license is per developer and period is 1 year.</li>
+        <li>License needs to be renewed after the expiration to be able to continue using the LTS versions of PrimeNG.</li>
+        <li>Licenses can be obtained online at <a href="https://www.primefaces.org/store">PrimeStore</a>.</li>
+        <li>Please contact <a href="mailto:contact@primetek.com.tr">PrimeTek</a> regarding any inquiry such as alternative payment methods and license terms.</li>
+    </ul>
+
+    <h5>Changelog</h5>
+    <p>Detailed changes included in the LTS versions are available at the main <a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG.md">changelog</a> list.</p>
+
+    <h5>Download</h5>
+    <p>PrimeNG-LTS is available at <a href="https://www.npmjs.com/package/primeng-lts">npm</a>, if you have an existing application run the following command to download it to your project. If you require a specific version,
+    refer to the <a href="https://www.npmjs.com/package/primeng-lts">versions list</a> for the version compatible with your project.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+npm install primeng-lts --save
+</app-code>
+
+    <h5>Configuration</h5>
+    <p>In order to use an LTS release, primeng import path must reference the primeng-lts package.</p>
+
+    <h6>tsconfig.path</h6>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+&#123;
+    "compilerOptions": &#123;
+        //...other options
+        "paths": &#123;
+            "primeng/*": ["node_modules/primeng-lts/*"]
+        &#125;
+    &#125;
+&#125;
+</app-code>
+
+    <p>In addition, primeng.min.css needs to be loaded from the primeng-lts package.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+node_modules/primeng-lts/resources/primeng.min.css
+</app-code>
+</div>
+
+<div class="content-section implementation p-pt-0">
+    <div class="card">
+        <h5>FAQ</h5>
+        <p-accordion>
+            <p-accordionTab header="Is LTS license mandatory to use PrimeNG?">
+                No, latest version of PrimeNG is free to use under the MIT License. Maintenance releases of the latest version are also free to use until a new major version comes which happens every 6 months.
+            </p-accordionTab>
+            <p-accordionTab header="Is the license per organization, per developer or per cpu/server?">
+                LTS license is per developer, for example if your team has 5 developers who work with PrimeNG, then 5 licenses are required.
+            </p-accordionTab>
+            <p-accordionTab header="How long is the duration of the LTS license?">
+                Duration is 1 year.
+            </p-accordionTab>
+            <p-accordionTab header="What happens after the license duration ends?">
+                Licenses need to be renewed at PrimeStore.
+            </p-accordionTab>
+            <p-accordionTab header="Does the license renew automatically?">
+                No, renewal should be done manually at PrimeStore.
+            </p-accordionTab>
+            <p-accordionTab header="Is it possible to add developers to the existing license?">
+                At PrimeStore there is an option to add developers to an existing license in case your team grows. Fee is calculated based on the remaining time until the expiry of your license.
+            </p-accordionTab>
+            <p-accordionTab header="Does LTS provide a support contact?">
+                No, PrimeNG PRO is the service where response of PrimeTek engineers is secured within 1 business day.
+            </p-accordionTab>
+            <p-accordionTab header="How about the older versions that are not covered by LTS?">
+                PrimeNG PRO covers versions even that are not covered by the LTS.
+            </p-accordionTab>
+            <p-accordionTab header="Does PRO provide access to the LTS releases?">
+                Yes, PRO users are granted licenses to access LTS releases.
+            </p-accordionTab>
+            <p-accordionTab header="What is the difference between LTS and PRO?">
+                PrimeNG PRO is a premium support service delivered via <a href="htps://pro.primefaces.org">pro.primefaces.org</a> where support engineers of PrimeTek provide assistance
+                within 1 business day to the raised tickets. LTS on the other hand provides a license to utilize the long term support versions.
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</div>

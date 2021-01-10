@@ -1,66 +1,94 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Icons</span>
-        <span>PrimeNG components internally use <a href="https://github.com/primefaces/primeicons">PrimeIcons</a> library, the official icons suite from <a href="https://www.primetek.com.tr">PrimeTek</a>.</span>
+    <div class="feature-intro">
+        <h1>Icons</h1>
+        <p>PrimeNG components internally use <a href="https://github.com/primefaces/primeicons">PrimeIcons</a> library, the official icons suite from <a href="https://www.primetek.com.tr">PrimeTek</a>.</p>
     </div>
 </div>
 
-<div class="content-section documentation icons-documentation">
-    <h3 style="margin-top:0px">Download</h3>
+<div class="content-section documentation">
+    <h5>Download</h5>
     <p>PrimeIcons is available at npm, run the following command to download it to your project.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install primeicons --save
-</code>
-</pre>
+</app-code>
 
-    <h3>Getting Started</h3>
-    <p>PrimeIcons use the <strong>pi pi-&#123;icon&#125;</strong> syntax such as <strong>pi pi-check</strong>. A standalone icon can be displayed using an element such as <i>i</i> or <i>span</i></p>
+    <h5>Getting Started</h5>
+    <p>PrimeIcons use the <strong>pi pi-&#123;icon&#125;</strong> syntax such as <strong>pi pi-check</strong>. 
+        A standalone icon can be displayed using an element such as <i>i</i> or <i>span</i></p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;i class="pi pi-check"&gt;&lt;/i&gt;
 &lt;i class="pi pi-times"&gt;&lt;/i&gt;
-</code>
-</pre>
+</app-code>
 
-<i class="pi pi-check"></i>
+<i class="pi pi-check p-mr-2"></i>
 <i class="pi pi-times"></i>
 
-    <h3>Size</h3>
+    <h5>Size</h5>
     <p>Size of the icons can easily be changed using font-size property.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;i class="pi pi-check"&gt;&lt;/i&gt;
-</code>
-</pre>
+</app-code>
+
     <i class="pi pi-check"></i>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;i class="pi pi-check" style="font-size: 3em"&gt;&lt;/i&gt;
-</code>
-</pre>
-<i class="pi pi-check" style="font-size: 3em"></i>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;i class="pi pi-check" style="font-size: 2rem"&gt;&lt;/i&gt;
+</app-code>
 
-    <h3>Spinning Animation</h3>
+    <i class="pi pi-check" style="font-size: 2rem"></i>
+
+    <h5>Spinning Animation</h5>
     <p>Special pi-spin class applies infinite rotate to an icon.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;i class="pi pi-spin pi-spinner" style="font-size: 3em"&gt;&lt;/i&gt;
-</code>
-</pre>
-<i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
 
-    <h3>List of Icons</h3>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;i class="pi pi-spin pi-spinner" style="font-size: 2rem"&gt;&lt;/i&gt;
+</app-code>
+
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+
+    <h5>Constants</h5>
+    <p>PrimeIcons constants API is provided to easily choose an icon with typescript e.g. when defining a menu model.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;MenuItem, PrimeIcons&#125; from 'primeng/api';
+
+export class MenuDemo &#123;
+
+    private items: MenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [&#123;
+            label: 'File',
+            items: [
+                &#123;label: 'New', icon: PrimeIcons.PLUS&#125;,
+                &#123;label: 'Open', icon: PrimeIcons.DOWNLOAD&#125;
+            ]
+        &#125;,
+        &#123;
+            label: 'Edit',
+            items: [
+                &#123;label: 'Undo', icon: PrimeIcons.REFRESH&#125;,
+                &#123;label: 'Redo', icon: PrimeIcons.REPEAT&#125;
+            ]
+        &#125;];
+    &#125;
+&#125;
+</app-code>
+
+    <h5>List of Icons</h5>
     <p>Here is the current list of PrimeIcons, more icons will be added periodically. You may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
     <div>
-        <input class="icon-filter" (input)="onFilter($event)" pInputText [ngStyle]="{width: '100%', padding: '1em', margin: '16px 0 26px 0'}" placeholder="Search an icon"> 
+        <input class="icon-filter" (input)="onFilter($event)" pInputText placeholder="Search an icon"> 
     </div>
 
-    <div class="ui-g icons-list">
-        <div class="ui-g-12 ui-md-2" *ngFor="let icon of filteredIcons">
+    <div class="p-grid icons-list">
+        <div class="p-col-12 p-md-2" *ngFor="let icon of filteredIcons">
             <i class="pi pi-{{icon.properties.name}}"></i>
             <div>pi-{{icon.properties.name}}</div>
         </div>

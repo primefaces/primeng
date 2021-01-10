@@ -1,92 +1,63 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Column Group</span></span>
-        <span>Columns can be grouped using rowspan and colspan properties.</span>
+    <div class="feature-intro">
+        <h1>Table <span>Column Group</span></h1>
+        <p>Columns can be grouped using rowspan and colspan properties.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [value]="sales">
-        <ng-template pTemplate="header">
-            <tr>
-                <th rowspan="3">Brand</th>
-                <th colspan="4">Sale Rate</th>
-            </tr>
-            <tr>
-                <th colspan="2">Sales</th>
-                <th colspan="2">Profits</th>
-            </tr>
-            <tr>
-                <th>Last Year</th>
-                <th>This Year</th>
-                <th>Last Year</th>
-                <th>This Year</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-sale>
-            <tr>
-                <td>{{sale.brand}}</td>
-                <td>{{sale.lastYearSale}}</td>
-                <td>{{sale.thisYearSale}}</td>
-                <td>{{sale.lastYearProfit}}</td>
-                <td>{{sale.thisYearProfit}}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <tr>
-                <td colspan="3">Totals</td>
-                <td>$506,202</td>
-                <td>$531,020</td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <p-table [value]="sales">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th rowspan="3">Product</th>
+                    <th colspan="4">Sale Rate</th>
+                </tr>
+                <tr>
+                    <th colspan="2">Sales</th>
+                    <th colspan="2">Profits</th>
+                </tr>
+                <tr>
+                    <th>Last Year</th>
+                    <th>This Year</th>
+                    <th>Last Year</th>
+                    <th>This Year</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-sale>
+                <tr>
+                    <td>{{sale.product}}</td>
+                    <td>{{sale.lastYearSale}}%</td>
+                    <td>{{sale.thisYearSale}}%</td>
+                    <td>{{sale.lastYearProfit | currency: 'USD'}}</td>
+                    <td>{{sale.thisYearProfit | currency: 'USD'}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td colspan="3" class="p-text-right">Totals</td>
+                    <td>{{lastYearTotal | currency: 'USD'}}</td>
+                    <td>{{thisYearTotal | currency: 'USD'}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablecolgroupdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecolgroupdemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class TableColGroupDemo implements OnInit &#123;
-
-    sales: any[];
-
-    ngOnInit() &#123;
-        this.sales = [
-            &#123; brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342' &#125;,
-            &#123; brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122' &#125;,
-            &#123; brand: 'Microsoft', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500' &#125;,
-            &#123; brand: 'Philips', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323,' &#125;,
-            &#123; brand: 'Song', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332' &#125;,
-            &#123; brand: 'LG', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005' &#125;,
-            &#123; brand: 'Sharp', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214' &#125;,
-            &#123; brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322' &#125;,
-            &#123; brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' &#125;,
-            &#123; brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' &#125;
-        ];
-    &#125;
-&#125;
-</code>
-</pre>   
-        </p-tabPanel>
-
-        <p-tabPanel header="tablecolgroupdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecolgroupdemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
+            <a href="https://stackblitz.com/edit/primeng-tablecolgroup-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [value]="sales"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th rowspan="3"&gt;Brand&lt;/th&gt;
+            &lt;th rowspan="3"&gt;Product&lt;/th&gt;
             &lt;th colspan="4"&gt;Sale Rate&lt;/th&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
@@ -102,23 +73,79 @@ export class TableColGroupDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-sale&gt;
         &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;sale.brand&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.lastYearSale&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.thisYearSale&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.lastYearProfit&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.thisYearProfit&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.product&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.lastYearSale&#125;&#125;%&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.thisYearSale&#125;&#125;%&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.lastYearProfit | currency: 'USD'&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;sale.thisYearProfit | currency: 'USD'&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="footer"&gt;
         &lt;tr&gt;
-            &lt;td colspan="3"&gt;Totals&lt;/td&gt;
-            &lt;td&gt;$506,202&lt;/td&gt;
-            &lt;td&gt;$531,020&lt;/td&gt;
+            &lt;td colspan="3" class="p-text-right"&gt;Totals&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;lastYearTotal | currency: 'USD'&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;thisYearTotal | currency: 'USD'&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
-</code>
-</pre>
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+
+@Component(&#123;
+    templateUrl: './tablecolgroupdemo.html'
+&#125;)
+export class TableColGroupDemo implements OnInit &#123;
+
+    sales: any[];
+
+    lastYearTotal: number;
+
+    thisYearTotal: number;
+
+    ngOnInit() &#123;
+        this.sales = [
+            &#123;product: 'Bamboo Watch', lastYearSale: 51, thisYearSale: 40, lastYearProfit: 54406, thisYearProfit: 43342&#125;,
+            &#123;product: 'Black Watch', lastYearSale: 83, thisYearSale: 9, lastYearProfit: 423132, thisYearProfit: 312122&#125;,
+            &#123;product: 'Blue Band', lastYearSale: 38, thisYearSale: 5, lastYearProfit: 12321, thisYearProfit: 8500&#125;,
+            &#123;product: 'Blue T-Shirt', lastYearSale: 49, thisYearSale: 22, lastYearProfit: 745232, thisYearProfit: 65323&#125;,
+            &#123;product: 'Brown Purse', lastYearSale: 17, thisYearSale: 79, lastYearProfit: 643242, thisYearProfit: 500332&#125;,
+            &#123;product: 'Chakra Bracelet', lastYearSale: 52, thisYearSale:  65, lastYearProfit: 421132, thisYearProfit: 150005&#125;,
+            &#123;product: 'Galaxy Earrings', lastYearSale: 82, thisYearSale: 12, lastYearProfit: 131211, thisYearProfit: 100214&#125;,
+            &#123;product: 'Game Controller', lastYearSale: 44, thisYearSale: 45, lastYearProfit: 66442, thisYearProfit: 53322&#125;,
+            &#123;product: 'Gaming Set', lastYearSale: 90, thisYearSale: 56, lastYearProfit: 765442, thisYearProfit: 296232&#125;,
+            &#123;product: 'Gold Phone Case', lastYearSale: 75, thisYearSale: 54, lastYearProfit: 21212, thisYearProfit: 12533&#125;
+        ];
+
+        this.calculateLastYearTotal();
+        this.calculateThisYearTotal();
+    &#125;
+
+    calculateLastYearTotal() &#123;
+        let total = 0;
+        for(let sale of this.sales) &#123;
+            total += sale.lastYearProfit;
+        &#125;
+
+        this.lastYearTotal = total;
+    &#125;
+
+    calculateThisYearTotal() &#123;
+        let total = 0;
+        for(let sale of this.sales) &#123;
+            total += sale.thisYearProfit;
+        &#125;
+
+        this.thisYearTotal = total;
+    &#125;
+&#125;
+</app-code>  
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablecolgroup-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

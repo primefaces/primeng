@@ -1,0 +1,131 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Tree <span>DragDrop</span></h1>
+        <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
+    </div>
+</div>
+<div class="content-section implementation">
+    <div class="card">
+        <h5>Single Tree</h5>
+        <p>Node reordering within a tree.</p>
+        <p-tree [value]="files1" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"></p-tree>
+
+        <h5>Multiple Trees</h5>
+        <p>Node reordering between multiple tree based on scope constraints.</p>
+        <div class="p-grid p-fluid">
+            <div class="p-col-12 p-md-4">
+                <h4>Files</h4>
+                <p>Can transfer to Server 2.</p>
+                <p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2"></p-tree>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+                <h4>Server 1</h4>
+                <p>Can transfer to Files.</p>
+                <p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"></p-tree>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+                <h4>Server 2</h4>
+                <p>Can transfer to Server 1.</p>
+                <p-tree [value]="files4" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"></p-tree>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treedragdropdemo.ts" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treedragdrop-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Single Tree&lt;/h5&gt;
+&lt;p&gt;Node reordering within a tree.&lt;/p&gt;
+&lt;p-tree [value]="files1" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"&gt;&lt;/p-tree&gt;
+
+&lt;h5&gt;Multiple Trees&lt;/h5&gt;
+&lt;p&gt;Node reordering between multiple tree based on scope constraints.&lt;/p&gt;
+&lt;div class="p-grid p-fluid"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;h4&gt;Files&lt;/h4&gt;
+        &lt;p&gt;Can transfer to Server 2.&lt;/p&gt;
+        &lt;p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2"&gt;&lt;/p-tree&gt;
+    &lt;/div&gt;
+
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;h4&gt;Server 1&lt;/h4&gt;
+        &lt;p&gt;Can transfer to Files.&lt;/p&gt;
+        &lt;p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
+    &lt;/div&gt;
+
+    &lt;div class="p-col-12 p-md-4"&gt;
+        &lt;h4&gt;Server 2&lt;/h4&gt;
+        &lt;p&gt;Can transfer to Server 1.&lt;/p&gt;
+        &lt;p-tree [value]="files4" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;NodeService&#125; from '../../service/nodeservice';
+import &#123;TreeNode&#125; from 'primeng/api';
+import &#123;TreeDragDropService&#125; from 'primeng/api';
+import &#123;MessageService&#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './treedragdropdemo.html',
+    providers: [TreeDragDropService,MessageService],
+    styles:[`
+        h4 &#123;
+            text-align: center;
+            margin: 0 0 8px 0;
+        &#125;
+    `]
+&#125;)
+export class TreeDragDropDemo implements OnInit &#123;
+
+    files1: TreeNode[];
+
+    files2: TreeNode[];
+
+    files3: TreeNode[];
+
+    files4: TreeNode[];
+    
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files1 = files);
+        this.nodeService.getFiles().then(files => this.files2 = files);
+        this.files3 = [&#123;
+                label: "Backup",
+                data: "Backup Folder",
+                expandedIcon: "pi pi-folder-open",
+                collapsedIcon: "pi pi-folder"
+            &#125;
+        ];
+
+        this.files4 = [&#123;
+                label: "Storage",
+                data: "Storage Folder",
+                expandedIcon: "pi pi-folder-open",
+                collapsedIcon: "pi pi-folder"
+            &#125;
+        ];
+    &#125;
+&#125;
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treedragdrop-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+</div>

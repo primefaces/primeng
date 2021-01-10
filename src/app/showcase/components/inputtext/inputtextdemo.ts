@@ -1,15 +1,20 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-    templateUrl: './inputtextdemo.html'
+    templateUrl: './inputtextdemo.html',
+    styleUrls: ['./inputtextdemo.scss']
 })
 export class InputTextDemo {
 
-    text: string;
-
     disabled: boolean = true;
 
-    toggleDisabled() {
-        this.disabled = !this.disabled;
-    }
+    value1: string;
+    
+    value2: string;
+
+    value3: string;
+
+    value4: string;
+
+    value5: string = 'Disabled';
 }

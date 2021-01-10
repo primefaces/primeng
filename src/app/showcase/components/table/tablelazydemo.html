@@ -1,122 +1,177 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Lazy</span></span>
-        <span>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
-            onLazyLoad callback everytime paging, sorting and filtering happens. Sample belows imitates lazy paging by using an in memory list.</span>
+    <div class="feature-intro">
+        <h1>Table <span>Lazy</span></h1>
+        <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
+            onLazyLoad callback everytime paging, sorting and filtering happens. Sample belows imitates lazy paging by using an in memory list.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" 
-        [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+            [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
+                    <th pSortableColumn="company">Company <p-sortIcon field="company"></p-sortIcon></th>
+                    <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+                </tr>
+                <tr>
+                    <th>
+                        <p-columnFilter type="text" field="name"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter type="text" field="company"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                    <ng-template let-option pTemplate="item">
+                                        <div class="p-multiselect-representative-option">
+                                            <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
+                                            <span class="p-ml-1">{{option.name}}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-multiSelect>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablelazydemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablelazydemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <a href="https://stackblitz.com/edit/primeng-tablelazy-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+    [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['name','country.name', 'company', 'representative.name']"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="country.name"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="company"&gt;Company &lt;p-sortIcon field="company"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="representative.name"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;
+                &lt;p-columnFilter type="text" field="name"&gt;&lt;/p-columnFilter&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;p-columnFilter type="text" field="country.name"&gt;&lt;/p-columnFilter&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;p-columnFilter type="text" field="company"&gt;&lt;/p-columnFilter&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;p-columnFilter field="representative" matchMode="in" [showMenu]="false"&gt;
+                    &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
+                        &lt;p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
+                            &lt;ng-template let-option pTemplate="item"&gt;
+                                &lt;div class="p-multiselect-representative-option"&gt;
+                                    &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                    &lt;span class="p-ml-1"&gt;&#123;&#123;option.name&#125;&#125;&lt;/span&gt;
+                                &lt;/div&gt;
+                            &lt;/ng-template&gt;
+                        &lt;/p-multiSelect&gt;
+                    &lt;/ng-template&gt;
+                &lt;/p-columnFilter&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer, Representative &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+import &#123; LazyLoadEvent &#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './tablelazydemo.html'
+&#125;)
 export class TableLazyDemo implements OnInit &#123;
 
-    datasource: Car[];
-
-    cars: Car[];
+    customers: Customer[];
 
     totalRecords: number;
 
     cols: any[];
 
     loading: boolean;
+    
+    representatives: Representative[];
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        //datasource imitation
-        this.carService.getCarsLarge().then(cars => &#123;
-            this.datasource = cars;
-            this.totalRecords = this.datasource.length;
-        &#125;);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
+        this.representatives = [
+            &#123;name: "Amy Elsner", image: 'amyelsner.png'&#125;,
+            &#123;name: "Anna Fali", image: 'annafali.png'&#125;,
+            &#123;name: "Asiya Javayant", image: 'asiyajavayant.png'&#125;,
+            &#123;name: "Bernardo Dominic", image: 'bernardodominic.png'&#125;,
+            &#123;name: "Elwin Sharvill", image: 'elwinsharvill.png'&#125;,
+            &#123;name: "Ioni Bowcher", image: 'ionibowcher.png'&#125;,
+            &#123;name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'&#125;,
+            &#123;name: "Onyama Limba", image: 'onyamalimba.png'&#125;,
+            &#123;name: "Stephen Shaw", image: 'stephenshaw.png'&#125;,
+            &#123;name: "Xuxue Feng", image: 'xuxuefeng.png'&#125;
         ];
 
         this.loading = true;
     &#125;
 
-    loadCarsLazy(event: LazyLoadEvent) &#123;
+    loadCustomers(event: LazyLoadEvent) &#123;  
         this.loading = true;
 
-        //in a real application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-        //event.sortField = Field name to sort with
-        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-
-        //imitate db connection over a network
-        setTimeout(() => &#123;
-            if (this.datasource) &#123;
-                this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+        setTimeout(() =&gt; &#123;
+            this.customerService.getCustomers(&#123;lazyEvent: JSON.stringify(event)&#125;).then(res =&gt; &#123;
+                this.customers = res.customers;
+                this.totalRecords = res.totalRecords;
                 this.loading = false;
-            &#125;
+            &#125;)
         &#125;, 1000);
     &#125;
 &#125;
-</code>
-</pre>   
-        </p-tabPanel>
+</app-code>
 
-        <p-tabPanel header="tablelazydemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablelazydemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true" 
-    [rows]="10" [totalRecords]="totalRecords" [loading]="loading"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
+         </p-tabPanel>
+
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablelazy-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

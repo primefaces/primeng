@@ -1,49 +1,36 @@
 import {Component} from '@angular/core';
-import {SelectItem} from 'primeng/api';
 
 @Component({
     templateUrl: './selectbuttondemo.html'
 })
 export class SelectButtonDemo {
 
-    types: SelectItem[];
+    stateOptions: any[];
 
-    selectedType: string;
+    paymentOptions: any[];
 
-    selectedTypes: string[] = ['PayPal','MasterCard'];
+    justifyOptions: any[];
 
-    selectedModes: string[];
+    value1: string = "off";
 
-    modes: SelectItem[];
+    value2: number;
 
-    countries: any[];
-
-    selectedCountry: any;
+    value3: any;
 
     constructor() {
-        this.types = [
-            {label: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'},
-            {label: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'},
-            {label: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'}
+        this.stateOptions = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
+
+        this.paymentOptions = [
+            {name: 'Option 1', value: 1},
+            {name: 'Option 2', value: 2},
+            {name: 'Option 3', value: 3}
         ];
 
-        this.modes = [
-            {value: 'Bold', title: 'Bold', icon: 'fa fa-fw fa-bold'},
-            {value: 'Italic', title: 'Italic', icon: 'fa fa-fw fa-italic'},
-            {value: 'Underline', title: 'Underline', icon: 'fa fa-fw fa-underline'}
+        this.justifyOptions = [
+            {icon: 'pi pi-align-left', justify: 'Left'},
+            {icon: 'pi pi-align-right', justify: 'Right'},
+            {icon: 'pi pi-align-center', justify: 'Center'},
+            {icon: 'pi pi-align-justify', justify: 'Justify'}
         ];
-
-        this.countries = [
-            {name: 'USA', flag: 'usa.png'},
-            {name: 'Germany', flag: 'germany.png'},
-            {name: 'Japan', flag: 'japan.png'}
-        ];
-    }
-
-    clear() {
-        this.selectedType = null;
-        this.selectedTypes = [];
-        this.selectedModes = [];
-        this.selectedCountry = null;
     }
 }

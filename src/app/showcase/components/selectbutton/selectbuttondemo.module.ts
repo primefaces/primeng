@@ -6,7 +6,7 @@ import {SelectButtonDemoRoutingModule} from './selectbuttondemo-routing.module';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -15,8 +15,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         FormsModule,
         SelectButtonModule,
         ButtonModule,
-        TabViewModule,
-        CodeHighlighterModule
+		TabViewModule,
+		AppCodeModule
 	],
 	declarations: [
 		SelectButtonDemo

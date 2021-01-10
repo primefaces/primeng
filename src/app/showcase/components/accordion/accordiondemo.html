@@ -1,91 +1,114 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Accordion</span>
-        <span>Accordion groups a collection of contents in tabs.</span>
+    <div class="feature-intro">
+        <h1>Accordion</h1>
+        <p>Accordion groups a collection of contents in tabs.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
     
-    <h3 class="first">Default</h3>
-    <p-accordion>
-        <p-accordionTab header="Godfather I" [selected]="true">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather II">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather III">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-accordionTab>
-    </p-accordion>
-
-    <h3>Multiple</h3>
-    <p-accordion [multiple]="true">
-        <p-accordionTab header="Godfather I">
-            The story begins  as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather II">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-       </p-accordionTab>
-        <p-accordionTab header="Godfather III">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-accordionTab>
-    </p-accordion>
+    <div class="card">
+        <h5>Default</h5>
+        <p-accordion>
+            <p-accordionTab header="Header I" [selected]="true">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header II">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header III">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+            </p-accordionTab>
+        </p-accordion>
     
-    <h3>Tab Change Event</h3>
-    <p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)">
-        <p-accordionTab header="Godfather I">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather II">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather III">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather IV" [disabled]="true">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-accordionTab>
-    </p-accordion>
+        <h5>Multiple</h5>
+        <p-accordion [multiple]="true">
+            <p-accordionTab header="Header I">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header II">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+           </p-accordionTab>
+            <p-accordionTab header="Header III">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+            </p-accordionTab>
+        </p-accordion>
+            
+        <h5>Programmatic</h5>
+        <div class="p-py-3">
+            <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"></p-button>
+            <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"></p-button>
+            <p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"></p-button>
+        </div>
+            
+        <p-accordion>
+            <p-accordionTab header="Header I" [(selected)]="activeState[0]">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header II" [(selected)]="activeState[1]">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header III" [(selected)]="activeState[2]">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+            </p-accordionTab>
+        </p-accordion>
     
-    <h3>Programmatic Change</h3>
-    <div style="margin-bottom: 1em">
-        <button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()" style="margin-right:.25em"></button>
-        <button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"></button>
+        <h5>Tab Change Event</h5>
+        <p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)">
+            <p-accordionTab header="Header I">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header II">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header III">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Header IV" [disabled]="true">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+            </p-accordionTab>
+        </p-accordion>
     </div>
-        
-    <p-accordion [activeIndex]="index">
-        <p-accordionTab header="Godfather I">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather II">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather III">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather IV">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-accordionTab>
-    </p-accordion>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header ="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;AccordionModule&#125; from 'primeng/accordion';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Accordion element consists of one or more p-accordionTab elements. Title of the tab is defined using header attribute.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1"&gt;
        Content 1
@@ -97,13 +120,11 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
         Content 3    
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Selected</h3>
+            <h5>Selected</h5>
             <p>Visibility of the content is specified with the selected property that supports one or two-way binding.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1" [selected]="true"&gt;
        Content 1
@@ -115,14 +136,12 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
         Content 3    
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-</code>
-</pre>
+</app-code>
 
-        <h3>Multiple</h3>
+        <h5>Multiple</h5>
         <p>By default only one tab at a time can be active, enabling multiple property changes this behavior to allow multiple
             tabs be active at the same time.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordion [multiple]="true"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
         Content 1
@@ -134,14 +153,12 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
         Content 3    
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-</code>
-</pre>
+</app-code>
 
-        <h3>Disabled</h3>
+        <h5>Disabled</h5>
         <p>A tab can be disabled by setting the disabled property to true.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1" [disabled]="true"&gt;
        Content 1
@@ -153,51 +170,63 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
         Content 3    
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Custom Content at Headers</h3>
-            <p>Custom content can be placed at an accordion header with header element.</p>
+            <h5>Custom Content at Headers</h5>
+            <p>Custom content can be placed at an accordion header with header template.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordionTab&gt;
-    &lt;p-header&gt;
-        Header Content
-    &lt;/p-header&gt;
-    Body Content
+    &lt;ng-template pTemplate="header"&gt;Header Content&lt;/ng-template&gt;
+    &lt;ng-template pTemplate="content"&gt;Body Content&lt;/ng-template&gt;
 &lt;/p-accordionTab&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Programmatic Control</h3>
-            <p>Tabs can be controlled programmatically using activeIndex property, in single mode it should be a number and in multiple mode an array of numbers
-            that define the indexes of active tabs.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
-&lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+<h5>Programmatic Control</h5>
+<p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Programmatic&lt;/h5&gt;
+&lt;div class="p-py-3"&gt;
+    &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
+&lt;/div&gt;
         
-&lt;p-accordion [activeIndex]="index"&gt;
-    &lt;p-accordionTab header="Header 1"&gt;
-       Content 1
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header I" [(selected)]="activeState[0]"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 2"&gt;
-        Content 2
+    &lt;p-accordionTab header="Header II" [(selected)]="activeState[1]"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Header 3"&gt;
-        Content 3    
+    &lt;p-accordionTab header="Header III" [(selected)]="activeState[2]"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-</code>
-</pre>
+</app-code>
+    
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class AccordionDemo &#123;
+    
+    activeState: boolean[] = [true, false, false];
 
-            <h3>Lazy Loading</h3>
+    toggle(index: number) &#123;
+        this.activeState[index] = !this.activeState[index];
+    &#125;
+&#125;
+</app-code>
+
+            <h5>Lazy Loading</h5>
             <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy
             loaded accordionTab contents are cached by default so that upon reselection, they are not created again. You may use cache property on AccordionTab to
             configure this behavior. A AccordionTab is specified as lazy when there is a ngTemplate with pTemplate="content" in it.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1"&gt;
         Content 1
@@ -213,11 +242,9 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
         &lt;/ng-template&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class AccordionDemo &#123;
     
     index: number = 0;
@@ -230,22 +257,17 @@ export class AccordionDemo &#123;
         this.index = (this.index === 0) ? 2 : this.index - 1;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Animation Configuration</h3>
+            <h5>Animation Configuration</h5>
             <p>Transition of the toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
                 example below disables the animation altogether.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-accordion [activeIndex]="index"&gt;
-    &lt;p-accordionTab [transitionOptions]="'0ms'" header="Header 1"&gt;
-        Content 1
-    &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-</code>
-</pre>
-            <h3>Properties for Accordion</h3>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-accordionTab [transitionOptions]="'0ms'" header="Header 1"&gt;
+    Content
+&lt;/p-accordionTab&gt;
+</app-code>
+            <h5>Properties for Accordion</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -297,7 +319,7 @@ export class AccordionDemo &#123;
                 </table>
             </div>
             
-            <h3>Properties for AccordionTab</h3>
+            <h5>Properties for AccordionTab</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -343,7 +365,7 @@ export class AccordionDemo &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -373,21 +395,17 @@ export class AccordionDemo &#123;
                     </tbody>
                 </table>
             </div>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-accordion (onOpen)="onTabOpen($event)"&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 onTabOpen(e) &#123;
     var index = e.index;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
 
             <div class="doc-tablewrapper">
@@ -400,112 +418,134 @@ onTabOpen(e) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-accordion</td>
+                            <td>p-accordion</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-accordion-header</td>
+                            <td>p-accordion-header</td>
                             <td>Header of a tab.</td>
                         </tr>
                         <tr>
-                            <td>ui-accordion-content</td>
+                            <td>p-accordion-content</td>
                             <td>Content of a tab.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
 
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/accordion" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
-
-&lt;h3 class="first"&gt;Default&lt;/h3&gt;
+            <a href="https://stackblitz.com/edit/primeng-accordion-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Default&lt;/h5&gt;
 &lt;p-accordion&gt;
-    &lt;p-accordionTab header="Godfather I" [selected]="true"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;p-accordionTab header="Header I" [selected]="true"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather II"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;p-accordionTab header="Header II"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather III"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;p-accordionTab header="Header III"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
 
-&lt;h3&gt;Multiple&lt;/h3&gt;
+&lt;h5&gt;Multiple&lt;/h5&gt;
 &lt;p-accordion [multiple]="true"&gt;
-    &lt;p-accordionTab header="Godfather I"&gt;
-        The story begins  as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;p-accordionTab header="Header I"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather II"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-   &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather III"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;p-accordionTab header="Header II"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-&lt;/p-accordion&gt;
-
-&lt;h3&gt;Tab Change Event&lt;/h3&gt;
-&lt;p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)"&gt;
-    &lt;p-accordionTab header="Godfather I"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather II"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather III"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather IV" [disabled]="true"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;p-accordionTab header="Header III"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-
-&lt;h3&gt;Programmatic Change&lt;/h3&gt;
-&lt;div style="margin-bottom: 1em"&gt;
-    &lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()" style="margin-right:.25em"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+    
+&lt;h5&gt;Programmatic&lt;/h5&gt;
+&lt;div class="p-py-3"&gt;
+    &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
     
-&lt;p-accordion [activeIndex]="index"&gt;
-    &lt;p-accordionTab header="Godfather I"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header I" [(selected)]="activeState[0]"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather II"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;p-accordionTab header="Header II" [(selected)]="activeState[1]"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather III"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-    &lt;/p-accordionTab&gt;
-    &lt;p-accordionTab header="Godfather IV"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;p-accordionTab header="Header III" [(selected)]="activeState[2]"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
-</code>
-</pre>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+&lt;h5&gt;Tab Change Event&lt;/h5&gt;
+&lt;p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)"&gt;
+    &lt;p-accordionTab header="Header I"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header II"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header III"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header IV" [disabled]="true"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
     templateUrl: './accordiondemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styleUrls: ['./accordiondemo.scss']
 &#125;)
 export class AccordionDemo &#123;
-
-    index: number = -1;
+    
+    activeState: boolean[] = [true, false, false];
 
     constructor(private messageService: MessageService) &#123;&#125;
 
@@ -516,18 +556,17 @@ export class AccordionDemo &#123;
     onTabOpen(event) &#123;
         this.messageService.add(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
     &#125;
-    
-    openNext() &#123;
-        this.index = (this.index === 3) ? 0 : this.index + 1;
-    &#125;
-    
-    openPrev() &#123;
-        this.index = (this.index &lt;= 0) ? 3 : this.index - 1;
-    &#125;
 
+    toggle(index: number) &#123;
+        this.activeState[index] = !this.activeState[index];
+    &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-accordion-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>
