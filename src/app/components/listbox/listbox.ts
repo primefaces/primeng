@@ -186,7 +186,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : (this.optionLabel ? option : option.value);
+        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : (this.optionLabel || option.value === undefined ? option : option.value);
     }
 
     isOptionDisabled(option: any) {
