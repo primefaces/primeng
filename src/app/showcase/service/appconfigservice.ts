@@ -6,7 +6,7 @@ import { AppConfig } from '../domain/appconfig';
 export class AppConfigService {
 
     config: AppConfig = {
-        theme: 'viva-light',
+        theme: 'saga-blue',
         dark: false,
         inputStyle: 'outlined',
         ripple: true
