@@ -220,6 +220,18 @@ import { Subscription } from 'rxjs';
                                 <span>Soho Dark</span>
                             </div>
                             <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'viva-light', false)">
+                                    <img src="assets/showcase/images/themes/viva-light.svg" alt="Viva Light"/>
+                                </button>
+                                <span>Soho Light</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'viva-dark', true)">
+                                <img src="assets/showcase/images/themes/viva-dark.svg" alt="Viva Dark"/>
+                                </button>
+                                <span>Soho Dark</span>
+                            </div>
+                            <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'mira', false)">
                                     <img src="assets/showcase/images/themes/mira.jpg" alt="Mira"/>
                                 </button>

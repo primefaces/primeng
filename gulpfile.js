@@ -55,6 +55,7 @@ gulp.task('images', function() {
 gulp.task('themes', function() {
     return gulp.src(['src/assets/components/themes/**/*',
         '!src/assets/components/themes/soho-*/**/*',
+        '!src/assets/components/themes/viva-*/**/*',
         '!src/assets/components/themes/mira/**/*',
         '!src/assets/components/themes/nano/**/*'])
         .pipe(gulp.dest('dist/resources/themes'));
