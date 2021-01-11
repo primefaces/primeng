@@ -61,13 +61,14 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/colorpicker']" routerLinkActive="router-link-exact-active">ColorPicker</a>
                     <a [routerLink]=" ['/dropdown']" routerLinkActive="router-link-exact-active">Dropdown</a>
                     <a [routerLink]=" ['/editor']" routerLinkActive="router-link-exact-active">Editor</a>
+                    <a [routerLink]=" ['/floatlabel']" routerLinkActive="router-link-exact-active">FloatLabel</a>
                     <a [routerLink]=" ['/inputgroup']" routerLinkActive="router-link-exact-active">InputGroup</a>
                     <a [routerLink]=" ['/inputmask']" routerLinkActive="router-link-exact-active">InputMask</a>
                     <a [routerLink]=" ['/inputswitch']" routerLinkActive="router-link-exact-active">InputSwitch</a>
                     <a [routerLink]=" ['/inputtext']" routerLinkActive="router-link-exact-active">InputText</a>
                     <a [routerLink]=" ['/inputtextarea']" routerLinkActive="router-link-exact-active">InputTextArea</a>
                     <a [routerLink]=" ['/inputnumber']" routerLinkActive="router-link-exact-active">InputNumber</a>
-                    <a [routerLink]=" ['/floatlabel']" routerLinkActive="router-link-exact-active">FloatLabel</a>
+                    <a [routerLink]=" ['/invalid']" routerLinkActive="router-link-exact-active">InvalidState <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/knob']" routerLinkActive="router-link-exact-active">Knob <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/keyfilter']" routerLinkActive="router-link-exact-active">KeyFilter</a>
                     <a [routerLink]=" ['/listbox']" routerLinkActive="router-link-exact-active">Listbox</a>

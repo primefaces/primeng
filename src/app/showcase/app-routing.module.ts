@@ -53,6 +53,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'inputtext', loadChildren: () => import('./components/inputtext/inputtextdemo.module').then(m => m.InputTextDemoModule)},
             {path: 'inputgroup', loadChildren: () => import('./components/inputgroup/inputgroupdemo.module').then(m => m.InputGroupDemoModule)},
             {path: 'inputtextarea', loadChildren: () => import('./components/inputtextarea/inputtextareademo.module').then(m => m.InputTextareaDemoModule)},
+            {path: 'invalid', loadChildren: () => import('./components/invalid/invaliddemo.module').then(m => m.InvalidDemoModule)},
             {path: 'i18n', loadChildren: () => import('./components/i18n/i18n.module').then(m => m.I18NModule)},
             {path: 'knob', loadChildren: () => import('./components/knob/knobdemo.module').then(m => m.KnobDemoModule)},
             {path: 'keyfilter', loadChildren: () => import('./components/keyfilter/keyfilterdemo.module').then(m => m.KeyFilterDemoModule)},
