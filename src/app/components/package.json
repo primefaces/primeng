@@ -14,11 +14,21 @@
     },
     "module": "primeng.js",
     "typings": "primeng.d.ts",
+    "scripts": {
+      "build": "../../../node_modules/.bin/tsc -p tsconfig.schematics.json",
+      "copy:schemas": "gcp --parents schematics/*/schema.json ../../../dist/",
+      "copy:collection": "gcp schematics/collection.json ../../../dist/schematics/collection.json",
+      "postbuild": "npm run copy:schemas && npm run copy:collection"
+    },
     "peerDependencies": {
       "@angular/core": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
       "@angular/common": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
       "@angular/forms": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
       "rxjs": "^6.0.0",
       "zone.js": "^0.10.2"
+    },
+    "schematics": "./schematics/collection.json",
+    "ng-add": {
+      "save": "dependencies"
     }
   }
