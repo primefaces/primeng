@@ -5,10 +5,10 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
     template: `
         <div class="layout-news">
             <div class="layout-news-container">
-                <img class="layouts-news-mockup-image" src="assets/showcase/images/topbar-poseidon-device.png">
+                <img class="layouts-news-mockup-image" src="assets/showcase/images/topbar-ultima-device.png">
                 <span class="layout-news-details">
                 </span>
-                <a href="https://www.primefaces.org/poseidon-ng" target="_blank"  style="text-decoration: none" class="layout-news-button">
+                <a href="https://www.primefaces.org/layouts/ultima-ng" target="_blank"  style="text-decoration: none" class="layout-news-button">
                     LEARN MORE<i class="pi pi-angle-right"></i>
                 </a>
                 <a tabindex="0" class="layout-news-close" (click)="hideNews($event)">
