@@ -75,23 +75,23 @@
     
                     > td {
                         text-align: left;
-                        display: block;
-                        border: 0 none !important;
-                        width: 100% !important;
-                        float: left;
-                        clear: left;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
                         border: 0 none;
     
                         .p-column-title {
-                            padding: .4rem;
                             min-width: 30%;
                             display: inline-block;
-                            margin: -.4rem 1rem -.4rem -.4rem;
                             font-weight: bold;
                         }
-    
-                        .p-progressbar {
-                            margin-top: .5rem;
+        
+                        p-progressbar {
+                            width: 100%;
+                        }
+
+                        &:last-child {
+                            border-bottom: 1px solid var(--surface-d);
                         }
                     }
                 }
