@@ -41,8 +41,8 @@ describe('Editor', () => {
 
     it('should call quill paste event and setText event', () => {
         fixture.detectChanges();
-        
-        const quillPasteSpy = spyOn(editor.quill,"pasteHTML").and.callThrough();
+
+        const quillPasteSpy = spyOn(editor.quill,"setContents").and.callThrough();
         const setTextSpy = spyOn(editor.quill,"setText").and.callThrough();
         editor.writeValue("V");
         fixture.detectChanges();

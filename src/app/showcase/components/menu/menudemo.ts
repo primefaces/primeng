@@ -32,7 +32,7 @@ export class MenuDemo {
             {
                 label: 'Navigate',
                 items: [{
-                    label: 'Angular Website',
+                    label: 'Angular',
                     icon: 'pi pi-external-link',
                     url: 'http://angular.io'
                 },

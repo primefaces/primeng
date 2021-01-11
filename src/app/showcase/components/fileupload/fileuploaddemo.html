@@ -33,7 +33,8 @@
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;FileUploadModule&#125; from 'primeng/fileupload';
+    import &#123;FileUploadModule&#125; from 'primeng/fileupload';
+    import &#123;HttpClientModule&#125; from '@angular/common/http';
 </app-code>
 
             <h5>Getting Started</h5>
@@ -151,8 +152,8 @@ myUploader(event) &#123;
                         <tr>
                             <td>method</td>
                             <td>string</td>
-                            <td>POST</td>
-                            <td>HTTP method to send the files to the url.</td>
+                            <td>post</td>
+                            <td>HTTP method to send the files to the url such as "post" and "put".</td>
                         </tr>
                         <tr>
                             <td>multiple</td>
@@ -247,20 +248,20 @@ myUploader(event) &#123;
                         <tr>
                             <td>chooseLabel</td>
                             <td>string</td>
-                            <td>Choose</td>
-                            <td>Label of the choose button.</td>
+                            <td>null</td>
+                            <td>Label of the choose button. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                         <tr>
                             <td>uploadLabel</td>
                             <td>string</td>
-                            <td>Upload</td>
-                            <td>Label of the upload button.</td>
+                            <td>null</td>
+                            <td>Label of the upload button. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                         <tr>
                             <td>cancelLabel</td>
                             <td>string</td>
-                            <td>Cancel</td>
-                            <td>Label of the cancel button.</td>
+                            <td>null</td>
+                            <td>Label of the cancel button. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                         <tr>
                             <td>chooseIcon</td>

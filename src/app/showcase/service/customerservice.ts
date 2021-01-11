@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Customer } from '../domain/customer';
 
 @Injectable()
@@ -35,4 +36,7 @@ export class CustomerService {
             .then(data => { return data; });
     }
 
+    getCustomers(params) {
+        return this.http.get<any>(environment.apiUrl, {params: params}).toPromise();
+    }
 }

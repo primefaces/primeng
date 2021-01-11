@@ -187,6 +187,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
 
+    @Output() onMaximize: EventEmitter<any> = new EventEmitter();
+
     headerTemplate: TemplateRef<any>;
 
     contentTemplate: TemplateRef<any>;
@@ -336,7 +338,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     enableModality() {
         if (this.closable && this.dismissableMask) {
-            this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.close(event);
                 }
@@ -373,6 +375,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
             else
                 DomHandler.removeClass(document.body, 'p-overflow-hidden');
         }
+
+        this.onMaximize.emit({'maximized': this.maximized});
     }
 
     unbindMaskClickListener() {
@@ -656,7 +660,6 @@ export class Dialog implements AfterContentInit,OnDestroy {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
-                this.onShow.emit({});
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
@@ -681,6 +684,9 @@ export class Dialog implements AfterContentInit,OnDestroy {
             case 'void':
                 this.onContainerDestroy();
                 this.onHide.emit({});
+            break;
+            case 'visible':
+                this.onShow.emit({});
             break;
         }
     }

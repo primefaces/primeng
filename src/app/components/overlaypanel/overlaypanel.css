@@ -18,7 +18,7 @@
 
 .p-overlaypanel:after, .p-overlaypanel:before {
 	bottom: 100%;
-	left: 1.25rem;
+	left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
 	content: " ";
 	height: 0;
 	width: 0;
@@ -34,6 +34,12 @@
 .p-overlaypanel:before {
 	border-width: 10px;
 	margin-left: -10px;
+}
+
+.p-overlaypanel-shifted:after, .p-overlaypanel-shifted:before {
+    left: auto;
+    right: 1.25em;
+    margin-left: auto;
 }
 
 .p-overlaypanel-flipped:after, .p-overlaypanel-flipped:before {

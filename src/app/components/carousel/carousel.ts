@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';  
 import { CommonModule } from '@angular/common';
@@ -111,9 +111,6 @@ export class Carousel implements AfterContentInit {
 	};
 	set value(val) {
 		this._value = val;
-		if (this.circular && this._value) {
-			this.setCloneItems();
-		}
 	}
 	
 	@Input() circular:boolean = false;
@@ -196,6 +193,36 @@ export class Carousel implements AfterContentInit {
 		this.totalShiftedItems = this.page * this.numScroll * -1; 
 	}
 
+	ngOnChanges(simpleChange: SimpleChanges) {
+		if (simpleChange.value) {
+			if (this.circular && this._value) {
+				this.setCloneItems();
+			}
+		}
+
+		if (this.isCreated) {
+			
+			if (simpleChange.numVisible) {
+				if (this.responsiveOptions) {
+					this.defaultNumVisible = this.numVisible;
+				}
+
+				if (this.isCircular()) {
+					this.setCloneItems();
+				}
+
+				this.createStyle();
+				this.calculatePosition();
+			}
+
+			if (simpleChange.numScroll) {
+				if (this.responsiveOptions) {
+					this.defaultNumScroll = this.numScroll;
+				}
+			}
+		}
+	}
+
 	ngAfterContentInit() {
 		this.id = UniqueComponentId();
 		this.allowAutoplay = !!this.autoplayInterval;
@@ -241,7 +268,7 @@ export class Carousel implements AfterContentInit {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
 		
-		if (this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
+		if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
 			if (this.autoplayInterval) {
 				this.stopAutoplay();
 			}
@@ -279,7 +306,7 @@ export class Carousel implements AfterContentInit {
 			this.prevState.numVisible = this._numVisible;
 			this.prevState.value = this._value;
 
-			if (this.totalDots() > 0 && this.itemsContainer && this.itemsContainer.nativeElement) {
+			if (this.totalDots() > 0  && this.itemsContainer.nativeElement) {
 				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 			}
 			
@@ -357,7 +384,7 @@ export class Carousel implements AfterContentInit {
 		}
 
 	calculatePosition() {
-		if (this.itemsContainer && this.responsiveOptions) {
+		if (this.responsiveOptions) {
 			let windowWidth = window.innerWidth;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,

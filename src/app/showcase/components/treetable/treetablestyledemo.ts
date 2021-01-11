@@ -6,17 +6,13 @@ import {TreeNode} from 'primeng/api';
     templateUrl: './treetablestyledemo.html',
     styles: [`
         .kb-row {
-            background-color: #1CA979 !important;
-            color: #ffffff !important;
-        }
-
-        :host ::ng-deep .kb-row .ui-treetable-toggler {
-            color: #ffffff !important;
+            background-color: rgba(0,0,0,.15) !important;
         }
 
         .kb-cell {
-            background-color: #2CA8B1 !important;
-            color: #ffffff !important;
+            font-weight: 700;
+            color: #FF5252;
+            text-decoration: line-through;
         }
     `]
 })

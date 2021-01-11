@@ -77,7 +77,11 @@ export class AccordionTab implements AfterContentInit,OnDestroy {
         this._selected = val;
         
         if (!this.loaded) {
-            this.changeDetector.detectChanges();
+            if (this._selected && this.cache) {
+                this.loaded = true;
+            }
+
+            this.changeDetector.markForCheck();
         }
     }
 
@@ -252,6 +256,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                 if (changed) {
                     this.tabs[i].selected = selected;
                     this.tabs[i].selectedChange.emit(selected);
+                    this.tabs[i].changeDetector.markForCheck();
                 }
             }
         }

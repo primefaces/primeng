@@ -8,7 +8,9 @@
 <div class="content-section implementation">
     <p-toast></p-toast>
 
-    <p-chart type="line" [data]="data" [options]="chartOptions" (onDataSelect)="selectData($event)"></p-chart>
+    <div class="card">
+        <p-chart type="line" [data]="data" [options]="chartOptions" (onDataSelect)="selectData($event)"></p-chart>
+    </div>
 </div>
 
 <div class="content-section documentation">

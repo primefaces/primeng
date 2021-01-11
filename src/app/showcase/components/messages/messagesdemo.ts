@@ -3,7 +3,8 @@ import {Message,MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './messagesdemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styleUrls: ['./messagesdemo.css']
 })
 export class MessagesDemo implements OnInit {
 
@@ -18,7 +19,8 @@ export class MessagesDemo implements OnInit {
             {severity:'success', summary:'Success', detail:'Message Content'},
             {severity:'info', summary:'Info', detail:'Message Content'},
             {severity:'warn', summary:'Warning', detail:'Message Content'},
-            {severity:'error', summary:'Error', detail:'Message Content'}
+            {severity:'error', summary:'Error', detail:'Message Content'},
+            {severity:'custom', summary:'Custom', detail:'Message Content', icon: 'pi-file'}
         ];
     }
     

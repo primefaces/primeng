@@ -20,6 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     config: AppConfig;
 
+    news_key = 'primenews';
+
     public subscription: Subscription;
 
     constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig) {}
@@ -41,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
              }
         });
 
-        this.newsActive = this.newsActive && sessionStorage.getItem('primenews-hidden') == null;
+        this.newsActive = this.newsActive && this.isNewsStorageExpired();
     }
 
     onMenuButtonClick() {
@@ -74,7 +76,28 @@ export class AppComponent implements OnInit, OnDestroy {
 
     hideNews() {
         this.newsActive = false;
-        sessionStorage.setItem('primenews-hidden', 'true');
+        const now = new Date();
+        const item = {
+            value: false,
+            expiry: now.getTime() + 604800000,
+        }
+        localStorage.setItem(this.news_key, JSON.stringify(item));
+    }
+
+    isNewsStorageExpired() {
+        const newsString = localStorage.getItem(this.news_key);
+        if (!newsString) {
+            return true;
+        }
+        const newsItem = JSON.parse(newsString);
+        const now = new Date()
+
+        if (now.getTime() > newsItem.expiry) {
+            localStorage.removeItem(this.news_key);
+            return true;
+        }
+
+        return false;
     }
 
     ngOnDestroy() {

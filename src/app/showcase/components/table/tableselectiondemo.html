@@ -47,8 +47,8 @@
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr [pSelectableRow]="product">
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
                     <td>{{product.code}}</td>
                     <td>{{product.name}}</td>
                     <td>{{product.category}}</td>
@@ -69,8 +69,8 @@
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr [pSelectableRow]="product">
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
                     <td>{{product.code}}</td>
                     <td>{{product.name}}</td>
                     <td>{{product.category}}</td>
@@ -234,7 +234,7 @@
         &lt;ng-template pTemplate="caption"&gt;
             Multiple Selection with MetaKey
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="header"&gt;
+        &lt;ng-template pTemplate="header" &gt;
             &lt;tr&gt;
                 &lt;th&gt;Code&lt;/th&gt;
                 &lt;th&gt;Name&lt;/th&gt;
@@ -242,8 +242,8 @@
                 &lt;th&gt;Quantity&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-product&gt;
-            &lt;tr [pSelectableRow]="product"&gt;
+        &lt;ng-template pTemplate="body" let-product let-rowIndex="rowIndex"&gt;
+            &lt;tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex"&gt;
                 &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
@@ -264,8 +264,8 @@
                 &lt;th&gt;Quantity&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-product&gt;
-            &lt;tr [pSelectableRow]="product"&gt;
+        &lt;ng-template pTemplate="body" let-product let-rowIndex="rowIndex"&gt;
+            &lt;tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex"&gt;
                 &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;

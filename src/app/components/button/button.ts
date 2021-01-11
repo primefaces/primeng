@@ -90,12 +90,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.setStyleClass();
         }
     }
-        
+    
     ngOnDestroy() {
-        while(this.el.nativeElement.hasChildNodes()) {
-            this.el.nativeElement.removeChild(this.el.nativeElement.lastChild);
-        }
-        
         this.initialized = false;
     }
 }
@@ -117,7 +113,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-button-icon-bottom': iconPos === 'bottom' && label}"
                         [class]="icon" *ngIf="icon" [attr.aria-hidden]="true"></span>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label">{{label||'&nbsp;'}}</span>
-            <span [ngClass]="'p-badge'" *ngIf="badge" [class]="badgeClass">{{badge}}</span>
+            <span [ngClass]="badgeStyleClass()" *ngIf="badge" [class]="badgeClass">{{badge}}</span>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -165,6 +161,13 @@ export class Button implements AfterContentInit {
                 break;
             }
         });
+    }
+
+    badgeStyleClass() {
+        return {
+            'p-badge p-component': true,
+            'p-badge-no-gutter': this.badge && String(this.badge).length === 1
+        }
     }
 }
 

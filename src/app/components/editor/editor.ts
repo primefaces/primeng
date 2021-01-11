@@ -65,6 +65,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     `,
     providers: [EDITOR_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./editor.css'],
     encapsulation: ViewEncapsulation.None
 })
 export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor {
@@ -106,6 +107,8 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
     quill: any;
 
     toolbarTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
     
     constructor(public el: ElementRef) {}
 
@@ -127,7 +130,7 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
         });
                 
         if (this.value) {
-            this.quill.pasteHTML(this.value);
+            this.quill.setContents(this.quill.clipboard.convert(this.value));
         }
         
         this.quill.on('text-change', (delta, oldContents, source) => {
@@ -169,6 +172,9 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
                 break;
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
             }
         });
     }
@@ -178,7 +184,7 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
                 
         if (this.quill) {
             if (value)
-                this.quill.pasteHTML(value);
+                this.quill.setContents(this.quill.clipboard.convert(value));
             else
                 this.quill.setText('');
         }

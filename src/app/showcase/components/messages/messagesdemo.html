@@ -472,17 +472,18 @@ import &#123;MessageService&#125; from 'primeng/api';
     export class MessagesDemo implements OnInit &#123;
     
         msgs1: Message[];
-    
+
         msgs2: Message[];
         
         constructor(private messageService: MessageService) &#123;&#125;
-    
+
         ngOnInit() &#123;
             this.msgs1 = [
                 &#123;severity:'success', summary:'Success', detail:'Message Content'&#125;,
                 &#123;severity:'info', summary:'Info', detail:'Message Content'&#125;,
                 &#123;severity:'warn', summary:'Warning', detail:'Message Content'&#125;,
-                &#123;severity:'error', summary:'Error', detail:'Message Content'&#125;
+                &#123;severity:'error', summary:'Error', detail:'Message Content'&#125;,
+                &#123;severity:'custom', summary:'Custom', detail:'Message Content', icon: 'pi-file'&#125;
             ];
         &#125;
         
@@ -494,15 +495,28 @@ import &#123;MessageService&#125; from 'primeng/api';
                 &#123;severity:'error', summary:'Error', detail:'Message Content'&#125;
             ];
         &#125;
-    
+
         clearMessages() &#123;
             this.msgs2 = [];
         &#125;
-    
+
         showViaService() &#123;
             this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
         &#125;
     &#125;
+</app-code>
+
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+:host ::ng-deep .p-message-custom &#123;
+    background-color: #E1CFE7;
+    border: solid #8A427A;
+    border-width: 0 0 0 6px;
+    color: #2c1e30;
+&#125;
+
+:host ::ng-deep .p-message-close-icon &#123;
+    color: #2c1e30;
+&#125;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">

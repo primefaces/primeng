@@ -1,76 +1,11 @@
-import {Component,OnInit} from '@angular/core';
-import {CarService} from '../../service/carservice';
-import {LazyLoadEvent,SelectItem} from 'primeng/api';
+import { Component,OnInit } from '@angular/core';
+import { LazyLoadEvent,SelectItem } from 'primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     templateUrl: './virtualscrollerdemo.html',
-    styles: [`
-        .product-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .product-details > div {
-            display: flex;
-            align-items: center;
-        }
-
-        .product-item-image {
-            margin-right: 14px;
-            width: 60px;
-            height: 60px;
-        }
-
-        .empty-product-item-image {
-            background-color: #f1f1f1;
-            animation: pulse 1s infinite ease-in-out;
-            margin-right: 14px;
-            border-radius: 3px;
-        }
-
-        .empty-product-item-text {
-            background-color: #f1f1f1;
-            height: 19px;
-            animation: pulse 1s infinite ease-in-out;
-            display: block;
-            width: 100px;
-            margin-bottom: 2px;
-            border-radius: 3px;
-        }
-
-        .empty-product-item-button {
-            background-color: #f1f1f1;
-            height: 33px;
-            width: 33px;
-            animation: pulse 1s infinite ease-in-out;
-            display: block;
-            border-radius: 3px;
-        }
-
-        .list-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .title-container {
-            text-align: left;
-        }
-
-        .sort-container {
-            text-align: right;
-        }
-
-        @media (max-width: 40em) {
-            .product-item {
-                text-align: center;
-            }
-        }
-    `]
+    styleUrls: ['./virtualscrollerdemo.scss']
 })
 export class VirtualScrollerDemo implements OnInit {
 
@@ -82,7 +17,7 @@ export class VirtualScrollerDemo implements OnInit {
 
     sortOptions: SelectItem[];
 
-    constructor(private carService: CarService, private productService: ProductService) {}
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.products = Array.from({length: 10000}).map(() => this.productService.generatePrduct());

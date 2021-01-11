@@ -1,10 +1,9 @@
 import {NgModule,Component,ElementRef,AfterViewChecked,AfterContentInit,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate,FilterService} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
-import {FilterUtils} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 
 @Component({
@@ -113,7 +112,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     public _value: any[];
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     get selection(): any[] {
         return this._selection;
@@ -212,7 +211,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
-        this.visibleOptions = FilterUtils.filter(this.value, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+        this.visibleOptions = this.filterService.filter(this.value, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
     }
 
     isItemVisible(item: any): boolean {

@@ -201,7 +201,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Paginator</h3>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
-                of page links to display. To customize the left and right side of the paginators, use <i>paginatorLeftTemplate</i> and <i>paginatorRightTemplate</i> templates.</p>
+                of page links to display. To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"&gt;
@@ -221,6 +221,9 @@ export class DataViewDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="paginatorright"&gt;
         &lt;button type="button" pButton icon="pi-cloud-upload"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-item pTemplate="paginatordropdownitem"&gt;
+        &#123;&#123;item.value&#125;&#125; - per page
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 </app-code>
@@ -418,6 +421,12 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show it even there is only one page.</td>
+                        </tr>
+                        <tr>
+                            <td>showFirstLastIcon</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When enabled, icons are displayed on paginator to go first and last page.</td>
                         </tr>
                         <tr>
                             <td>paginatorDropdownAppendTo</td>

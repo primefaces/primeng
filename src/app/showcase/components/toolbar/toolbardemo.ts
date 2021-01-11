@@ -19,7 +19,7 @@ export class ToolbarDemo implements OnInit {
                 icon: 'pi pi-times'
             },
             {
-                label: 'Angular Website',
+                label: 'Angular',
                 icon: 'pi pi-external-link',
                 url: 'http://angular.io'
             },

@@ -149,33 +149,6 @@ describe('Calendar', () => {
 		expect(panelEl.nativeElement.className).toContain('p-datepicker-inline')
 	});
 
-	it('should spanish', () => {
-		const createWeekDaysSpy = spyOn(calendar, 'createWeekDays').and.callThrough();
-		const createMonthsSpy = spyOn(calendar, 'createMonths').and.callThrough();
-		calendar.locale = {
-			firstDayOfWeek: 1,
-			dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
-			dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-			dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-			monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-			monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
-			today: 'Hoy',
-			clear: 'Borrar'
-		};
-		fixture.detectChanges();
-
-		expect(createWeekDaysSpy).toHaveBeenCalled();
-		expect(createMonthsSpy).toHaveBeenCalled();
-		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		const focusEvent = new Event('focus');
-		inputEl.click();
-		inputEl.dispatchEvent(focusEvent);
-		fixture.detectChanges();
-
-		const firstDayEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(firstDayEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
-	});
-
 	it('should change locale (view month)', () => {
 		const createMonthPickerValuesSpy = spyOn(calendar, 'createMonthPickerValues').and.callThrough();
 		calendar.view = "month";
@@ -205,15 +178,12 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const navForwardSpy = spyOn(calendar, 'navForward').and.callThrough();
-		const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
 		const nextMonthEl = fixture.debugElement.query(By.css('.p-datepicker-next'));
 		nextMonthEl.nativeElement.click();
 		fixture.detectChanges();
 
 		const currentMonthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
 		expect(currentMonth).not.toEqual(calendar.currentMonth);
-		expect(currentMonthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
 		expect(navForwardSpy).toHaveBeenCalled();
 	});
 
@@ -228,15 +198,11 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const navBackwardSpy = spyOn(calendar, 'navBackward').and.callThrough();
-		const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
 		const preMonthEl = fixture.debugElement.query(By.css('.p-datepicker-prev'));
 		preMonthEl.nativeElement.click();
 		fixture.detectChanges();
 
-		const currentMonthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
 		expect(currentMonth).not.toEqual(calendar.currentMonth);
-		expect(currentMonthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
 		expect(navBackwardSpy).toHaveBeenCalled();
 	});
 
@@ -532,8 +498,8 @@ describe('Calendar', () => {
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
 		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultMinute.toString());
-		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentHour.toString());
-		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentMinute.toString());
+		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toContain(calendar.currentHour.toString());
+		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toContain(calendar.currentMinute.toString());
 		expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toEqual(calendar.inputFieldValue);
 	});
 
@@ -630,6 +596,7 @@ describe('Calendar', () => {
 
 	it('should select today and clear input with button bar', fakeAsync(() => {
 		calendar.showButtonBar = true;
+
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -644,8 +611,6 @@ describe('Calendar', () => {
 		const todayButtonEl = buttonbar.queryAll(By.css('button'))[0];
 		const clearButtonEl = buttonbar.queryAll(By.css('button'))[1];
 		expect(buttonbar).toBeTruthy();
-		expect(todayButtonEl.attributes["ng-reflect-label"]).toEqual(calendar.locale.today);
-		expect(clearButtonEl.attributes["ng-reflect-label"]).toEqual(calendar.locale.clear);
 		todayButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -1603,8 +1568,6 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const navForwardSpy = spyOn(calendar, 'navForward').and.callThrough();
-		const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
 		const nextMonthEl = fixture.debugElement.query(By.css('.p-datepicker-next'));
 		nextMonthEl.nativeElement.click();
 		fixture.detectChanges();
@@ -1629,8 +1592,6 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const navBackwardSpy = spyOn(calendar, 'navBackward').and.callThrough();
-		const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
 		const prevMonthEl = fixture.debugElement.query(By.css('.p-datepicker-prev'));
 		prevMonthEl.nativeElement.click();
 		fixture.detectChanges();

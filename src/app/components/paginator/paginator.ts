@@ -14,7 +14,7 @@ import {SharedModule} from 'primeng/api';
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
-            <button type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)" pRipple
+            <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)" pRipple
                     class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
                 <span class="p-paginator-icon pi pi-angle-double-left"></span>
             </button>
@@ -34,12 +34,19 @@ import {SharedModule} from 'primeng/api';
                     class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
                 <span class="p-paginator-icon pi pi-angle-right"></span>
             </button>
-            <button type="button" [disabled]="isLastPage()" (click)="changePageToLast($event)" pRipple
+            <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage()" (click)="changePageToLast($event)" pRipple
                     class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
                 <span class="p-paginator-icon pi pi-angle-double-right"></span>
             </button>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" styleClass="p-paginator-rpp-options"
-                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"></p-dropdown>
+                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight">
+                <ng-container *ngIf="dropdownItemTemplate">
+                    <ng-template let-item pTemplate="item">
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: {$implicit: item}">
+                        </ng-container>
+                    </ng-template>
+                </ng-container>
+            </p-dropdown>
             <div class="p-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
@@ -73,6 +80,8 @@ export class Paginator implements OnInit, OnChanges {
 
     @Input() showCurrentPageReport: boolean;
 
+    @Input() showFirstLastIcon: boolean = true;
+
     @Input() totalRecords: number = 0;
 
     @Input() rows: number = 0;
@@ -82,6 +91,8 @@ export class Paginator implements OnInit, OnChanges {
     @Input() showJumpToPageDropdown: boolean;
 
     @Input() showPageLinks: boolean = true;
+
+    @Input() dropdownItemTemplate: TemplateRef<any>;
 
     pageLinks: number[];
 

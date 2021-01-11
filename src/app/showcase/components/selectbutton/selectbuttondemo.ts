@@ -1,12 +1,11 @@
 import {Component} from '@angular/core';
-import {SelectItem} from 'primeng/api';
 
 @Component({
     templateUrl: './selectbuttondemo.html'
 })
 export class SelectButtonDemo {
 
-    options: SelectItem[];
+    stateOptions: any[];
 
     paymentOptions: any[];
 
@@ -14,12 +13,12 @@ export class SelectButtonDemo {
 
     value1: string = "off";
 
-    value2: string;
+    value2: number;
 
     value3: any;
 
     constructor() {
-        this.options = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
+        this.stateOptions = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
 
         this.paymentOptions = [
             {name: 'Option 1', value: 1},
@@ -28,10 +27,10 @@ export class SelectButtonDemo {
         ];
 
         this.justifyOptions = [
-            {icon: 'pi pi-align-left', value: 'left'},
-            {icon: 'pi pi-align-right', value: 'Right'},
-            {icon: 'pi pi-align-center', value: 'Center'},
-            {icon: 'pi pi-align-justify', value: 'Justify'}
+            {icon: 'pi pi-align-left', justify: 'Left'},
+            {icon: 'pi pi-align-right', justify: 'Right'},
+            {icon: 'pi pi-align-center', justify: 'Center'},
+            {icon: 'pi pi-align-justify', justify: 'Justify'}
         ];
     }
 }

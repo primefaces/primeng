@@ -18,7 +18,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)" [attr.id]="inputId" [attr.tabindex]="tabindex" [disabled]="disabled"
                 [style.backgroundColor]="inputBgColor">
             <div *ngIf="inline || overlayVisible" [ngClass]="{'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel':!inline, 'p-disabled': disabled}" (click)="onPanelClick()"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" 
+                    (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
                 <div class="p-colorpicker-content">
                     <div #colorSelector class="p-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
                         <div class="p-colorpicker-color">
@@ -76,11 +77,16 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('input') inputViewChild: ElementRef;
 
-    value: any;
+    value: any = {h:0, s: 100, b: 100};
 
     inputBgColor: string;
 
@@ -294,6 +300,20 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
             case 'void':
                 this.onOverlayHide();
+            break;
+        }
+    }
+
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                if (!this.inline) {
+                    this.onShow.emit({})
+                }
+            break;
+
+            case 'void':
+                this.onHide.emit({})
             break;
         }
     }

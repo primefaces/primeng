@@ -1,7 +1,11 @@
 import {Component} from '@angular/core';
-import {SelectItem} from 'primeng/api';
 
 interface City {
+    name: string,
+    code: string
+}
+
+interface Country {
     name: string,
     code: string
 }
@@ -13,11 +17,11 @@ export class ListboxDemo {
 
     cities: City[];
 
-    countries: any[];
+    countries: Country[];
 
     selectedCity: City;
 
-    selectedCountries: any[];
+    selectedCountries: Country[];
 
     constructor() {
         this.cities = [

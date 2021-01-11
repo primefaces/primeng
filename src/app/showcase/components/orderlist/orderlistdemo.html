@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-orderList [value]="products" [listStyle]="{'height':'auto'}" header="List of Products" filterBy="name" filterPlaceholder="Filter by name" dragdrop="true">
+        <p-orderList [value]="products" [listStyle]="{'height':'auto'}" header="List of Products" filterBy="name" filterPlaceholder="Filter by name" [dragdrop]="true">
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="image-container">
@@ -294,7 +294,7 @@ export class MyComponent &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-orderList [value]="products" [listStyle]="&#123;'height':'auto'&#125;" header="List of Products" filterBy="name" filterPlaceholder="Filter by name" dragdrop="true"&gt;
+&lt;p-orderList [value]="products" [listStyle]="&#123;'height':'auto'&#125;" header="List of Products" filterBy="name" filterPlaceholder="Filter by name" [dragdrop]="true"&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="image-container"&gt;
