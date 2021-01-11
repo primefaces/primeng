@@ -1091,18 +1091,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             rangeEnd -= this.first;
         }
 
+        let rangeRowsData = [];
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if (!this.isSelected(rangeRowData)) {
+                rangeRowsData.push(rangeRowData);
                 this._selection = [...this.selection, rangeRowData];
                 let dataKeyValue: string = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
                 }
-                this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
             }
         }
-
+        this.onRowSelect.emit({originalEvent: event, data: rangeRowsData, type: 'row'});
         this.selectionChange.emit(this.selection);
     }
 
