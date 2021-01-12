@@ -182,6 +182,21 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.7-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.7) (2021-01-12)
+- shiftKey invokes onRowSelect multiple times [\#9747](https://github.com/primefaces/primeng/issues/9747)
+- Basic uploader button visual issue [\#9711](https://github.com/primefaces/primeng/issues/9711)
+- Table not restoring columns when using virtualscroll [\#9708](https://github.com/primefaces/primeng/issues/9708)
+- Toast message icon is not styled [\#9702](https://github.com/primefaces/primeng/issues/9702)
+- Float label not working when clearing input on AutoComplete and TextArea [\#9688](https://github.com/primefaces/primeng/issues/9688)
+- TabView Header does not update until clicking elsewhere [\#9685](https://github.com/primefaces/primeng/issues/9685)
+- p-editor automatically gains focus when intializing model with data [\#9664](https://github.com/primefaces/primeng/issues/9664)
+- Lazy loaded tabpanel content loading eagerly when selected input is present [\#9613](https://github.com/primefaces/primeng/issues/9613)
+- P-Table with VirtualScroll only header is resizing [\#9598](https://github.com/primefaces/primeng/issues/9598)
+- Resizable columns with virtual scroll doesn't work with p-treeTable [\#9575](https://github.com/primefaces/primeng/issues/9575)
+- Wrong documentation for controlCase on TabView [\#9490](https://github.com/primefaces/primeng/issues/9490)
+- Treetable column resize breaks when columnResizeMode="expand" in combination with [virtualScroll]="true" [\#9202](https://github.com/primefaces/primeng/issues/9202)
+- p-treeTable with VirtualScroll only header is resizing [\#9170](https://github.com/primefaces/primeng/issues/9170)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.6-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.6) (2020-12-09)
 - Checkbox getting highlight when Tree item disabled [\#9619](https://github.com/primefaces/primeng/issues/9619)
 - ConfirmDialog top-left top-right bottom-left bottom-right positions not working [\#9612](https://github.com/primefaces/primeng/issues/9612)
@@ -436,6 +451,18 @@
 **Deprecated:**
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.1) (2020-12-09)
+- shiftKey invokes onRowSelect multiple times [\#9747](https://github.com/primefaces/primeng/issues/9747)
+- Table not restoring columns when using virtualscroll [\#9708](https://github.com/primefaces/primeng/issues/9708)
+- Float label not working when clearing input on AutoComplete and TextArea [\#9688](https://github.com/primefaces/primeng/issues/9688)
+- p-editor automatically gains focus when intializing model with data [\#9664](https://github.com/primefaces/primeng/issues/9664)
+- Lazy loaded tabpanel content loading eagerly when selected input is present [\#9613](https://github.com/primefaces/primeng/issues/9613)
+- Resizable columns with virtual scroll doesn't work with p-treeTable [\#9575](https://github.com/primefaces/primeng/issues/9575)
+- Wrong documentation for controlCase on TabView [\#9490](https://github.com/primefaces/primeng/issues/9490)
+- Treetable column resize breaks when columnResizeMode="expand" in combination with [virtualScroll]="true" [\#9202](https://github.com/primefaces/primeng/issues/9202)
+- p-treeTable with VirtualScroll only header is resizing [\#9170](https://github.com/primefaces/primeng/issues/9170)
+- SelectButton - reactive form and disabled control [\#8788](https://github.com/primefaces/primeng/issues/8788)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.1) (2020-12-09)
 - InputTextArea, FloatLabel and Initial State [\#9607](https://github.com/primefaces/primeng/issues/9607)
