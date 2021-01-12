@@ -31,7 +31,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/theming']" routerLinkActive="router-link-exact-active">Guide</a>
                     <a href="https://www.primefaces.org/designer/primeng">Theme Designer</a>
                     <a href="https://www.primefaces.org/designer-ng">Visual Editor</a>
-                    <a href="https://www.primefaces.org/designer/api/primeng/11.0.0">SASS API</a>
+                    <a href="https://www.primefaces.org/designer/api/primeng/11.1.0">SASS API</a>
                 </div>
 
                 <div class="menu-category">PrimeFlex</div>
