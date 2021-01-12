@@ -14,13 +14,13 @@
         <h5>Input: {{val2}}</h5>
         <input type="text" pInputText [(ngModel)]="val2" readonly/>
         <p-slider [(ngModel)]="val2"></p-slider>
-
+    
         <h5>Step: {{val3}}</h5>
         <p-slider [(ngModel)]="val3" [step]="20"></p-slider>
-
+    
         <h5>Range: {{rangeValues[0] + ' - ' + rangeValues[1]}}</h5>
         <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>
-
+    
         <h5>Vertical: {{val4}}</h5>
         <p-slider [(ngModel)]="val4" orientation="vertical"></p-slider>
 
@@ -234,7 +234,7 @@ export class MyModel &#123;
                             <td>onSlideEnd</td>
                             <td>
                                 event.originalEvent: Mouseup event<br />
-                                event.value: New value
+                                event.value: New value 
                             </td>
                             <td>Callback to invoke when slide stops.</td>
                         </tr>
