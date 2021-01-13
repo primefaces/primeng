@@ -19,17 +19,17 @@ import { Router } from '@angular/router';
                         <div class="p-field">
                             <label for="firstname">Firstname</label>
                             <input #firstname="ngModel" id="firstname" type="text" required pInputText [(ngModel)]="personalInformation.firstname" [ngClass]="{'ng-dirty': (firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)}"> 
-                            <small *ngIf="(firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)" class="p-invalid">Firstname is required.</small>
+                            <small *ngIf="(firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)" class="p-error">Firstname is required.</small>
                         </div>
                         <div class="p-field">
                             <label for="lastname">Lastname</label>
                             <input #lastname="ngModel" id="lastname" type="text" required pInputText [(ngModel)]="personalInformation.lastname" [ngClass]="{'ng-dirty': (lastname.invalid && submitted) || (lastname.dirty && lastname.invalid)}"> 
-                            <small class="p-invalid" *ngIf="(lastname.invalid && submitted )|| (lastname.dirty && lastname.invalid)">Lastname is required.</small>
+                            <small class="p-error" *ngIf="(lastname.invalid && submitted )|| (lastname.dirty && lastname.invalid)">Lastname is required.</small>
                         </div>
                         <div class="p-field">
                             <label for="age">Age</label>
                             <input #age="ngModel" id="age" type="number" required pInputText [(ngModel)]="personalInformation.age" [ngClass]="{'ng-dirty': (age.invalid && submitted) || (age.dirty && age.invalid)}"> 
-                            <small class="p-invalid" *ngIf="(age.invalid && submitted) || (age.dirty && age.invalid)">Age is required.</small>
+                            <small class="p-error" *ngIf="(age.invalid && submitted) || (age.dirty && age.invalid)">Age is required.</small>
                         </div>
                     </div>
                 </ng-template>
