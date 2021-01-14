@@ -129,7 +129,7 @@ export class FilterService {
         },
 
         between: (value, filter: any[]):boolean => {
-            if (filter == null || filter[0] == null || filter[0] == null) {
+            if (filter == null || filter[0] == null || filter[1] == null) {
                 return true;
             }
     
