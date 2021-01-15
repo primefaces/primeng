@@ -36,17 +36,31 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       </div>
       <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass">
         <ul class="p-listbox-list" role="listbox" aria-multiselectable="multiple">
-          <li *ngFor="let option of optionsToRender; let i = index;" [attr.tabindex]="disabled || isOptionDisabled(option) ? null : '0'" pRipple
-              [ngClass]="{'p-listbox-item':true,'p-highlight':isSelected(option), 'p-disabled': this.isOptionDisabled(option)}" role="option" [attr.aria-label]="getOptionLabel(option)"
-              [attr.aria-selected]="isSelected(option)" (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd(option)" (keydown)="onOptionKeyDown($event,option)">
-            <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{'p-checkbox-disabled': disabled || isOptionDisabled(option)}">
-              <div class="p-checkbox-box" [ngClass]="{'p-highlight':isSelected(option)}">
-                <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
-              </div>
-            </div>
-            <span *ngIf="!itemTemplate">{{getOptionLabel(option)}}</span>
-            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
-          </li>
+            <ng-container *ngIf="group">
+                <ng-template ngFor let-optgroup [ngForOf]="optionsToRender">
+                    <li class="p-listbox-item-group">
+                        <span *ngIf="!groupTemplate">{{getOptionGroupLabel(optgroup)||'empty'}}</span>
+                        <ng-container *ngTemplateOutlet="groupTemplate; context: {$implicit: optgroup}"></ng-container>
+                    </li>
+                    <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: getOptionGroupChildren(optgroup)}"></ng-container>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="!group">
+                    <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToRender}"></ng-container>
+            </ng-container>
+            <ng-template #itemslist let-optionsToDisplay>
+                <li *ngFor="let option of optionsToDisplay; let i = index;" [attr.tabindex]="disabled || isOptionDisabled(option) ? null : '0'" pRipple
+                    [ngClass]="{'p-listbox-item':true,'p-highlight':isSelected(option), 'p-disabled': this.isOptionDisabled(option)}" role="option" [attr.aria-label]="getOptionLabel(option)"
+                    [attr.aria-selected]="isSelected(option)" (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd(option)" (keydown)="onOptionKeyDown($event,option)">
+                    <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{'p-checkbox-disabled': disabled || isOptionDisabled(option)}">
+                        <div class="p-checkbox-box" [ngClass]="{'p-highlight':isSelected(option)}">
+                            <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
+                        </div>
+                    </div>
+                    <span *ngIf="!itemTemplate">{{getOptionLabel(option)}}</span>
+                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
+                </li>
+            </ng-template>
         </ul>
       </div>
       <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
@@ -94,11 +108,17 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() optionValue: string;
 
+    @Input() optionGroupChildren: string;
+
+    @Input() optionGroupLabel: string;
+
     @Input() optionDisabled: string;
 
     @Input() ariaFilterLabel: string;
 
     @Input() filterPlaceHolder: string;
+
+    @Input() group: boolean;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -117,6 +137,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     public _options: any[];
 
     public itemTemplate: TemplateRef<any>;
+
+    public groupTemplate: TemplateRef<any>;
 
     public headerTemplate: TemplateRef<any>;
 
@@ -156,7 +178,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     set filterValue(val: string) {
         this._filterValue = val;
-        this.filterOptions();
+        this.activateFilter();
     }
 
     ngAfterContentInit() {
@@ -164,6 +186,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+
+                case 'group':
+                    this.groupTemplate = item.template;
                 break;
 
                 case 'header':
@@ -183,6 +209,14 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     getOptionLabel(option: any) {
         return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : (option.label != undefined ? option.label : option);
+    }
+
+    getOptionGroupChildren(optionGroup: any) {
+        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+    }
+
+    getOptionGroupLabel(optionGroup: any) {
+        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : (optionGroup.label != undefined ? optionGroup.label : optionGroup);
     }
 
     getOptionValue(option: any) {
@@ -420,14 +454,35 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     onFilter(event: KeyboardEvent) {
         this._filterValue = (<HTMLInputElement> event.target).value;
-        this.filterOptions();
+        this.activateFilter();
     }
 
-    filterOptions() {
-        if (this.hasFilter() && this._options)
-            this._filteredOptions = this._options.filter(option => this.filterService.filters[this.filterMatchMode](this.getOptionLabel(option), this._filterValue, this.filterLocale));
-        else
+    activateFilter() {
+        if (this.hasFilter() && this._options) {
+            if (this.group) {
+                let searchFields: string[] = (this.optionLabel || 'label').split(',');
+
+                let filteredGroups = [];
+                for (let optgroup of this.options) {
+                    let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+                    if (filteredSubOptions && filteredSubOptions.length) {
+                        filteredGroups.push({
+                            label: optgroup.label,
+                            value: optgroup.value,
+                            items: filteredSubOptions
+                        });
+                    }
+                }
+
+                this._filteredOptions = filteredGroups;
+            }
+            else {
+                this._filteredOptions = this._options.filter(option => this.filterService.filters[this.filterMatchMode](this.getOptionLabel(option), this._filterValue, this.filterLocale));
+            }
+        }
+        else {
             this._filteredOptions = null;
+        }
     }
 
     get toggleAllDisabled(): boolean {
