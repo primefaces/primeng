@@ -22,7 +22,7 @@
         </p-listbox>
 
         <h5>Advanced with Group, Filtering and Multiple Selection</h5>
-        <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'250px'}" [style]="{'width':'15rem'}">
+        <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'250px'}" [style]="{'width':'15rem'}">
             <ng-template let-group pTemplate="group">
                 <div class="p-d-flex p-ai-center">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>

@@ -26,6 +26,8 @@ export class ListboxDemo {
 
     selectedCountries: Country[];
 
+    selectedCities: any[];
+    
     constructor() {
         this.cities = [
             {name: 'New York', code: 'NY'},
