@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {CountryService} from '../../service/countryservice';
-
+import { Component } from '@angular/core';
+import { FilterService, SelectItemGroup } from 'primeng/api';
+import { CountryService } from '../../service/countryservice';
 @Component({
     templateUrl: './autocompletedemo.html'
 })
@@ -18,12 +18,46 @@ export class AutoCompleteDemo {
     
     filteredBrands: any[];
     
-    constructor(private countryService: CountryService) { }
+    groupedCities: SelectItemGroup[];
+
+    filteredGroups: any[];
+
+    constructor(private countryService: CountryService, private filterService: FilterService) { }
     
     ngOnInit() {        
         this.countryService.getCountries().then(countries => {
             this.countries = countries;
         });
+
+        this.groupedCities = [
+            {
+                label: 'Germany', value: 'de', 
+                items: [
+                    {label: 'Berlin', value: 'Berlin'},
+                    {label: 'Frankfurt', value: 'Frankfurt'},
+                    {label: 'Hamburg', value: 'Hamburg'},
+                    {label: 'Munich', value: 'Munich'}
+                ]
+            },
+            {
+                label: 'USA', value: 'us', 
+                items: [
+                    {label: 'Chicago', value: 'Chicago'},
+                    {label: 'Los Angeles', value: 'Los Angeles'},
+                    {label: 'New York', value: 'New York'},
+                    {label: 'San Francisco', value: 'San Francisco'}
+                ]
+            },
+            {
+                label: 'Japan', value: 'jp', 
+                items: [
+                    {label: 'Kyoto', value: 'Kyoto'},
+                    {label: 'Osaka', value: 'Osaka'},
+                    {label: 'Tokyo', value: 'Tokyo'},
+                    {label: 'Yokohama', value: 'Yokohama'}
+                ]
+            }
+        ];
     }
     
     filterCountry(event) {
@@ -38,5 +72,23 @@ export class AutoCompleteDemo {
         }
         
         this.filteredCountries = filtered;
+    }
+
+    filterGroupedCity(event) {
+        let query = event.query;
+        let filteredGroups = [];
+
+        for (let optgroup of this.groupedCities) {
+            let filteredSubOptions = this.filterService.filter(optgroup.items, ['label'], query, "contains");
+            if (filteredSubOptions && filteredSubOptions.length) {
+                filteredGroups.push({
+                    label: optgroup.label,
+                    value: optgroup.value,
+                    items: filteredSubOptions
+                });
+            }
+        }
+
+        this.filteredGroups = filteredGroups;
     }
 }

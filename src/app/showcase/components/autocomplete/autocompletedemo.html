@@ -26,6 +26,16 @@
             <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true">
             </p-autoComplete>
         </span>
+
+        <h5>Grouped</h5>
+        <p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true">
+            <ng-template let-group pTemplate="group">
+                <div class="p-d-flex p-ai-center">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
+                    <span>{{group.label}}</span>
+                </div>
+            </ng-template>
+        </p-autoComplete>
     </div>
 </div>
 
@@ -171,7 +181,8 @@ export class AutoCompleteDemo &#123;
 </app-code>
 
             <p>In multiple mode, selected item can be customized using selectedItem ng-template. Note that this
-                template is not supported in single mode.</p>
+                template is not supported in single mode. In addition when grouping is enabled, <i>group</i> template is available
+                to customize the option groups. All templates get the option instance as the default local template variable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"&gt;
@@ -302,6 +313,24 @@ export class AutoCompleteDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Name of the input element.</td>
+                        </tr>
+                        <tr>
+                            <td>optionGroupLabel</td>
+                            <td>string</td>
+                            <td>label</td>
+                            <td>Name of the label field of an option group.</td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display options as grouped when nested options are provided.</td>
+                        </tr>
+                        <tr>
+                            <td>optionGroupChildren</td>
+                            <td>string</td>
+                            <td>items</td>
+                            <td>Name of the options field of an option group.</td>
                         </tr>
                         <tr>
                             <td>placeholder</td>
@@ -606,36 +635,79 @@ export class AutoCompleteDemo &#123;
     &lt;p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"&gt;
     &lt;/p-autoComplete&gt;
 &lt;/span&gt;
+&lt;h5&gt;Grouped&lt;/h5&gt;
+&lt;p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true"&gt;
+    &lt;ng-template let-group pTemplate="group"&gt;
+        &lt;div class="p-d-flex p-ai-center"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+            &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-autoComplete&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class AutoCompleteDemo &#123;
 
     selectedCountry: any;
-        
+    
     countries: any[];
         
     filteredCountries: any[];
 
     selectedCountries: any[];
-
+    
     selectedCountryAdvanced: any[];
-
+    
     filteredBrands: any[];
+    
+    groupedCities: SelectItemGroup[];
 
-    constructor(private countryService: CountryService) &#123; &#125;
+    filteredGroups: any[];
 
+    constructor(private countryService: CountryService, private filterService: FilterService) &#123; &#125;
+    
     ngOnInit() &#123;        
-        this.countryService.getCountries().then(countries => &#123;
+        this.countryService.getCountries().then(countries =&gt; &#123;
             this.countries = countries;
         &#125;);
-    &#125;
 
+        this.groupedCities = [
+            &#123;
+                label: 'Germany', value: 'de', 
+                items: [
+                    &#123;label: 'Berlin', value: 'Berlin'&#125;,
+                    &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
+                    &#123;label: 'Hamburg', value: 'Hamburg'&#125;,
+                    &#123;label: 'Munich', value: 'Munich'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'USA', value: 'us', 
+                items: [
+                    &#123;label: 'Chicago', value: 'Chicago'&#125;,
+                    &#123;label: 'Los Angeles', value: 'Los Angeles'&#125;,
+                    &#123;label: 'New York', value: 'New York'&#125;,
+                    &#123;label: 'San Francisco', value: 'San Francisco'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Japan', value: 'jp', 
+                items: [
+                    &#123;label: 'Kyoto', value: 'Kyoto'&#125;,
+                    &#123;label: 'Osaka', value: 'Osaka'&#125;,
+                    &#123;label: 'Tokyo', value: 'Tokyo'&#125;,
+                    &#123;label: 'Yokohama', value: 'Yokohama'&#125;
+                ]
+            &#125;
+        ];
+    &#125;
+    
     filterCountry(event) &#123;
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
         let query = event.query;
-        for(let i = 0; i < this.countries.length; i++) &#123;
+        for(let i = 0; i &lt; this.countries.length; i++) &#123;
             let country = this.countries[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
                 filtered.push(country);
@@ -643,6 +715,24 @@ export class AutoCompleteDemo &#123;
         &#125;
         
         this.filteredCountries = filtered;
+    &#125;
+
+    filterGroupedCity(event) &#123;
+        let query = event.query;
+        let filteredGroups = [];
+
+        for (let optgroup of this.groupedCities) &#123;
+            let filteredSubOptions = this.filterService.filter(optgroup.items, ['label'], query, "contains");
+            if (filteredSubOptions && filteredSubOptions.length) &#123;
+                filteredGroups.push(&#123;
+                    label: optgroup.label,
+                    value: optgroup.value,
+                    items: filteredSubOptions
+                &#125;);
+            &#125;
+        &#125;
+
+        this.filteredGroups = filteredGroups;
     &#125;
 &#125;
 </app-code>
