@@ -419,28 +419,53 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             let selectedDisabledItemsLength = 0;
             let unselectedDisabledItemsLength = 0;
             let selectedEnabledItemsLength = 0;
-
+            let visibleOptionsLength = this.group ? 0 : this.optionsToRender.length;
+            
             for (let option of optionsToRender) {
-                let disabled = this.isOptionDisabled(option);
-                let selected = this.isSelected(option);
-
-                if (disabled) {
-                    if (selected)
-                        selectedDisabledItemsLength++;
-                    else 
-                        unselectedDisabledItemsLength++;
+                if (!this.group) {
+                    let disabled = this.isOptionDisabled(option);
+                    let selected = this.isSelected(option);
+    
+                    if (disabled) {
+                        if (selected)
+                            selectedDisabledItemsLength++;
+                        else 
+                            unselectedDisabledItemsLength++;
+                    }
+                    else {
+                        if (selected)
+                            selectedEnabledItemsLength++;
+                        else
+                            return false;
+                    }
                 }
-                else {
-                    if (selected)
-                        selectedEnabledItemsLength++;
-                    else
-                        return false;
+                else if (option.items) {
+                    for (let opt of option.items) {
+                        let disabled = this.isOptionDisabled(opt);
+                        let selected = this.isSelected(opt);
+        
+                        if (disabled) {
+                            if (selected)
+                                selectedDisabledItemsLength++;
+                            else 
+                                unselectedDisabledItemsLength++;
+                        }
+                        else {
+                            if (selected)
+                                selectedEnabledItemsLength++;
+                            else {
+                                return false;
+                            }
+                        }
+
+                        visibleOptionsLength++;
+                    }
                 }
             }
 
-            return (optionsToRender.length === selectedDisabledItemsLength 
-                    || optionsToRender.length === selectedEnabledItemsLength 
-                    || selectedEnabledItemsLength && optionsToRender.length === (selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength));
+            return (visibleOptionsLength === selectedDisabledItemsLength 
+                    || visibleOptionsLength === selectedEnabledItemsLength 
+                    || selectedEnabledItemsLength && visibleOptionsLength === (selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength));
         }
     }
 
@@ -522,9 +547,21 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let val: any[] = [];
 
         optionsToRender.forEach(opt => {
-            let optionDisabled = this.isOptionDisabled(opt); 
-            if (!optionDisabled || (optionDisabled && this.isSelected(opt))) {
-                val.push(this.getOptionValue(opt));
+            if (!this.group) {
+                let optionDisabled = this.isOptionDisabled(opt); 
+                if (!optionDisabled || (optionDisabled && this.isSelected(opt))) {
+                    val.push(this.getOptionValue(opt));
+                }
+            }
+            else {
+                if (opt.items) {
+                    opt.items.forEach(option => {
+                        let optionDisabled = this.isOptionDisabled(option); 
+                        if (!optionDisabled || (optionDisabled && this.isSelected(option))) {
+                            val.push(this.getOptionValue(option));
+                        }
+                    });
+                }
             }
         });
 
@@ -536,9 +573,21 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let val: any[] = [];
 
         optionsToRender.forEach(opt => {
-            let optionDisabled = this.isOptionDisabled(opt); 
-            if (optionDisabled && this.isSelected(opt)) {
-                val.push(this.getOptionValue(opt));
+            if (!this.group) {
+                let optionDisabled = this.isOptionDisabled(opt); 
+                if (optionDisabled && this.isSelected(opt)) {
+                    val.push(this.getOptionValue(opt));
+                }
+            }
+            else {
+                if (opt.items) {
+                    opt.items.forEach(option => {
+                        let optionDisabled = this.isOptionDisabled(option); 
+                        if (optionDisabled && this.isSelected(option)) {
+                            val.push(this.getOptionValue(option));
+                        }
+                    });
+                }
             }
         });
 
