@@ -248,10 +248,10 @@ export class ConfirmDialogDemo &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmDialog #cd header="Confirmation" icon="pi pi-exclamation-triangle"&gt;
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         &lt;button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
         &lt;button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-confirmDialog&gt;
 </app-code>
 

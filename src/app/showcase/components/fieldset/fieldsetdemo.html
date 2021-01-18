@@ -53,7 +53,7 @@ import &#123;FieldsetModule&#125; from 'primeng/fieldset';
             <p>Legend content can be customized with <i>p-header</i> component.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-fieldset&gt;
-    &lt;p-header&gt;Custom Legend Content&lt;/p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;Custom Legend Content&lt;/ng-template&gt;
     Content
 &lt;/p-fieldset&gt;
 </app-code>

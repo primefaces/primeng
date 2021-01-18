@@ -10,10 +10,10 @@ import { ButtonModule } from '../button/button';
 @Component({
     template: `
     <p-dialog [(visible)]="display">
-    <p-footer>
+    <ng-template pTemplate="footer">
             <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
             <button type="button" pButton icon="pi pi-times" (click)="display=false" label="No" class="ui-button-secondary"></button>
-    </p-footer>
+    </ng-template>
     </p-dialog>
     <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
     `

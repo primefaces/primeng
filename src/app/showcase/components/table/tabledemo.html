@@ -2179,10 +2179,10 @@ export class TableExportDemo implements OnInit &#123;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-table&gt;
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/button&gt;
         &lt;button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 </app-code>
 

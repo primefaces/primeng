@@ -203,8 +203,8 @@ export class MyModel &#123;
             <p>Calendar UI accepts custom content using p-header and p-footer components.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue"&gt;
-    &lt;p-header&gt;Header&lt;/p-header&gt;
-    &lt;p-footer&gt;Footer&lt;/p-footer&gt;
+    &lt;ng-template pTemplate="header"&gt;Header&lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;Footer&lt;/ng-template&gt;
 &lt;/p-calendar&gt;
 </app-code>
 

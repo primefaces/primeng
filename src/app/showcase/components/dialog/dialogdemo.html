@@ -9,11 +9,14 @@
     <div class="card">
         <h5>Basic</h5>
         <p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"></p-button>
-        <p-dialog header="Header" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+        <p-dialog [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+            <ng-template pTemplate="header">Header</ng-template>
+            <ng-template pTemplate>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                 cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </ng-template>
             <ng-template pTemplate="footer">
                 <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>
             </ng-template>
@@ -159,17 +162,18 @@ Content
 </app-code>
 
             <h5>Header and Footer</h5>
-            <p>Header and Footer sections are useful to include custom content. Note that <i>Header</i> and <i>Footer</i> components should be imported and defined
-            at directives section of your component for this to work.</p>
+            <p>Header and footer sections are useful to include custom content. You can specify the sections using the <i>pTemplate</i> attribute directive.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog [(visible)]="display"&gt;
-    &lt;p-header&gt;
-        Header content here
-    &lt;/p-header&gt;
-    Content
-    &lt;p-footer&gt;
-        //buttons
-    &lt;/p-footer&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        Header content here (e.g. heading)
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="content"&gt;
+        Body content here
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        Footer content here (e.g. buttons)
+    &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 </app-code>
 
