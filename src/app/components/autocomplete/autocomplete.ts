@@ -560,20 +560,40 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     onKeydown(event) {
         if (this.overlayVisible) {
-            let highlightItemIndex = this.findOptionIndex(this.highlightOption);
-
             switch(event.which) {
                 //down
                 case 40:
-                    if (highlightItemIndex != -1) {
-                        var nextItemIndex = highlightItemIndex + 1;
-                        if (nextItemIndex != (this.suggestions.length)) {
-                            this.highlightOption = this.suggestions[nextItemIndex];
-                            this.highlightOptionChanged = true;
+                    if (this.group) {
+                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, this.suggestions);
+
+                        if (highlightItemIndex !== -1) {
+                            let nextItemIndex = highlightItemIndex.itemIndex + 1;
+                            if (nextItemIndex < (this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex]).length)) {
+                                this.highlightOption = this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex])[nextItemIndex];
+                                this.highlightOptionChanged = true;
+                            }
+                            else if (this.suggestions[highlightItemIndex.groupIndex + 1]) {
+                                this.highlightOption = this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex + 1])[0];
+                                this.highlightOptionChanged = true;
+                            }
+                        }
+                        else {
+                            this.highlightOption = this.getOptionGroupChildren(this.suggestions[0])[0];
                         }
                     }
                     else {
-                        this.highlightOption = this.suggestions[0];
+                        let highlightItemIndex = this.findOptionIndex(this.highlightOption, this.suggestions);
+
+                        if (highlightItemIndex != -1) {
+                            var nextItemIndex = highlightItemIndex + 1;
+                            if (nextItemIndex != (this.suggestions.length)) {
+                                this.highlightOption = this.suggestions[nextItemIndex];
+                                this.highlightOptionChanged = true;
+                            }
+                        }
+                        else {
+                            this.highlightOption = this.suggestions[0];
+                        }
                     }
 
                     event.preventDefault();
@@ -581,10 +601,31 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
                 //up
                 case 38:
-                    if (highlightItemIndex > 0) {
-                        let prevItemIndex = highlightItemIndex - 1;
-                        this.highlightOption = this.suggestions[prevItemIndex];
-                        this.highlightOptionChanged = true;
+                    if (this.group) {
+                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, this.suggestions);
+                        if (highlightItemIndex !== -1) {
+                            let prevItemIndex = highlightItemIndex.itemIndex - 1;
+                            if (prevItemIndex >= 0) {
+                                this.highlightOption = this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex])[prevItemIndex];
+                                this.highlightOptionChanged = true;
+                            }
+                            else if (prevItemIndex < 0) {
+                                let prevGroup = this.suggestions[highlightItemIndex.groupIndex - 1];
+                                if (prevGroup) {
+                                    this.highlightOption = this.getOptionGroupChildren(prevGroup)[this.getOptionGroupChildren(prevGroup).length - 1];
+                                    this.highlightOptionChanged = true;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        let highlightItemIndex = this.findOptionIndex(this.highlightOption, this.suggestions);
+
+                        if (highlightItemIndex > 0) {
+                            let prevItemIndex = highlightItemIndex - 1;
+                            this.highlightOption = this.suggestions[prevItemIndex];
+                            this.highlightOptionChanged = true;
+                        }
                     }
 
                     event.preventDefault();
@@ -710,11 +751,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         return selected;
     }
 
-    findOptionIndex(option): number {
+    findOptionIndex(option, suggestions): number {
         let index: number = -1;
-        if (this.suggestions) {
-            for (let i = 0; i < this.suggestions.length; i++) {
-                if (ObjectUtils.equals(option, this.suggestions[i])) {
+        if (suggestions) {
+            for (let i = 0; i < suggestions.length; i++) {
+                if (ObjectUtils.equals(option, suggestions[i])) {
                     index = i;
                     break;
                 }
@@ -722,6 +763,28 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         }
 
         return index;
+    }
+
+    findOptionGroupIndex(val: any, opts: any[]): any {
+        let groupIndex, itemIndex;
+
+        if (opts) {
+            for (let i = 0; i < opts.length; i++) {
+                groupIndex = i;
+                itemIndex = this.findOptionIndex(val, this.getOptionGroupChildren(opts[i]));
+
+                if (itemIndex !== -1) {
+                    break;
+                }
+            }
+        }
+
+        if (itemIndex !== -1) {
+            return {groupIndex: groupIndex, itemIndex: itemIndex};
+        }
+        else {
+            return -1;
+        }
     }
 
     updateFilledState() {
