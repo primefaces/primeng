@@ -41,11 +41,25 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <div #panel *ngIf="overlayVisible" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items">
-                    <li role="option" *ngFor="let option of suggestions; let idx = index" class="p-autocomplete-item" pRipple [ngClass]="{'p-highlight': (option === highlightOption)}" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
-                        <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
-                    </li>
-                    <li *ngIf="noResults && emptyMessage" class="p-autocomplete-emptymessage p-autocomplete-item">{{emptyMessage}}</li>
+                    <ng-container *ngIf="group">
+                        <ng-template ngFor let-optgroup [ngForOf]="suggestions">
+                            <li class="p-autocomplete-item-group">
+                                <span *ngIf="!groupTemplate">{{getOptionGroupLabel(optgroup)||'empty'}}</span>
+                                <ng-container *ngTemplateOutlet="groupTemplate; context: {$implicit: optgroup}"></ng-container>
+                            </li>
+                            <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: getOptionGroupChildren(optgroup)}"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="!group">
+                            <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: suggestions}"></ng-container>
+                    </ng-container>
+                    <ng-template #itemslist let-suggestionsToDisplay>
+                        <li role="option" *ngFor="let option of suggestionsToDisplay; let idx = index" class="p-autocomplete-item" pRipple [ngClass]="{'p-highlight': (option === highlightOption)}" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
+                            <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
+                        </li>
+                        <li *ngIf="noResults && emptyMessage" class="p-autocomplete-emptymessage p-autocomplete-item">{{emptyMessage}}</li>
+                    </ng-template>
                 </ul>
             </div>
         </span>
@@ -124,6 +138,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() unique: boolean = true;
 
+    @Input() group: boolean;
+
     @Input() completeOnFocus: boolean = false;
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
@@ -170,6 +186,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() autocomplete: string = 'off';
 
+    @Input() optionGroupChildren: string;
+
+    @Input() optionGroupLabel: string;
+
     @ViewChild('container') containerEL: ElementRef;
 
     @ViewChild('in') inputEL: ElementRef;
@@ -187,6 +207,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     itemTemplate: TemplateRef<any>;
 
     selectedItemTemplate: TemplateRef<any>;
+    
+    groupTemplate: TemplateRef<any>;
 
     value: any;
 
@@ -307,6 +329,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     this.itemTemplate = item.template;
                 break;
 
+                case 'group':
+                    this.groupTemplate = item.template;
+                break;
+
                 case 'selectedItem':
                     this.selectedItemTemplate = item.template;
                 break;
@@ -323,6 +349,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.filled = this.value && this.value != '';
         this.updateInputField();
         this.cd.markForCheck();
+    }
+
+    getOptionGroupChildren(optionGroup: any) {
+        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+    }
+
+    getOptionGroupLabel(optionGroup: any) {
+        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : (optionGroup.label != undefined ? optionGroup.label : optionGroup);
     }
 
     registerOnChange(fn: Function): void {
