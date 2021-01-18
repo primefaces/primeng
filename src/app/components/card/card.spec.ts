@@ -1,14 +1,15 @@
+import { CardDemo } from './../../showcase/components/card/carddemo';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Card } from './card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Footer, Header } from 'primeng/api';
+import { PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from '../button/button';
 
 @Component({
 	template: `<p-card [header]="header" [subheader]="subheader" [style]="style" [styleClass]="styleClass">
-  <ng-template pTemplate="header">
+  <ng-template pTemplate="header">CardDemo
       <img src="Card" src="assets/showcase/images/usercard.png">
   </ng-template>
   <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
@@ -45,8 +46,7 @@ describe('Card', () => {
 			declarations: [
 				Card,
 				TestCardComponent,
-				Header,
-				Footer
+				PrimeTemplate,
 			],
 		})
 	}));
@@ -93,25 +93,21 @@ describe('Card', () => {
 	it('should have a header', () => {
 		fixture.detectChanges();
 
-		const headerEl = fixture.debugElement.query(By.css('p-header')).nativeElement;
 		const cardHeaderEl = fixture.debugElement.query(By.css('.p-card-header')).nativeElement;
-		expect(headerEl).toBeTruthy();
 		expect(cardHeaderEl).toBeTruthy();
-		expect(cardHeaderEl.children[0].children.length).toEqual(1);
+		expect(cardHeaderEl.children.length).toEqual(1);
 	});
 
 	it('should have a footer', () => {
 		fixture.detectChanges();
 
-		const footerEl = fixture.debugElement.query(By.css('p-footer')).nativeElement;
 		const cardFooterEl = fixture.debugElement.query(By.css('.p-card-footer')).nativeElement;
-		expect(footerEl).toBeTruthy();
 		expect(cardFooterEl).toBeTruthy();
-		expect(cardFooterEl.children[0].children.length).toEqual(2);
+		expect(cardFooterEl.children.length).toEqual(2);
 	});
 
 	it('should not have a header', () => {
-		card.headerFacet = null;
+		card.headerFacet = card.headerTemplate = null;
 		fixture.componentInstance.header = null;
 		fixture.detectChanges();
 
