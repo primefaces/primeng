@@ -342,6 +342,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     expandedRowTemplate: TemplateRef<any>;
 
+    frozenExpandedRowTemplate: TemplateRef<any>;
+
     frozenHeaderTemplate: TemplateRef<any>;
 
     frozenBodyTemplate: TemplateRef<any>;
@@ -489,6 +491,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
+                break;
+
+                case 'frozenrowexpansion':
+                    this.frozenExpandedRowTemplate = item.template;
                 break;
 
                 case 'emptymessage':
@@ -2222,11 +2228,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 <ng-container *ngTemplateOutlet="rowData ? template: dt.loadingBodyTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
             </ng-template>
         </ng-container>
-        <ng-container *ngIf="dt.expandedRowTemplate">
+        <ng-container *ngIf="dt.expandedRowTemplate && !(frozen && dt.frozenExpandedRowTemplate)">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
                 <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
                 <ng-container *ngIf="dt.isRowExpanded(rowData)">
                     <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
+                </ng-container>
+            </ng-template>
+        </ng-container>
+        <ng-container *ngIf="dt.frozenExpandedRowTemplate && frozen">
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
+                <ng-container *ngIf="dt.isRowExpanded(rowData)">
+                    <ng-container *ngTemplateOutlet="dt.frozenExpandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
                 </ng-container>
             </ng-template>
         </ng-container>
