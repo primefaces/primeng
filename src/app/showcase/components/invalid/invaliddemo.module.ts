@@ -20,12 +20,14 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { AppCodeModule } from '../../app.code.component';
 import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		InvalidDemoRoutingModule,
-        ButtonModule,
+		ButtonModule,
+		CascadeSelectModule,
         PanelModule,
 		TabViewModule,
 		InputTextModule,
