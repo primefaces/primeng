@@ -1768,7 +1768,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
         const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
-        const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth >= scrollableBodyTableWidth;
+        const isContainerInViewport = scrollableView.offsetWidth >= scrollableBodyTableWidth;
 
         let setWidth = (container, table, width, isContainerInViewport) => {
             if (container && table) {
