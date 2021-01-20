@@ -3252,6 +3252,63 @@ export class EditableColumn implements AfterViewInit {
             }
         }
     }
+    @HostListener('keydown.arrowdown', ['$event'])
+    onArrowDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            let currentCell = this.findCell(event.target);
+            if (currentCell) {
+                let cellIndex = DomHandler.index(currentCell);
+                let targetCell = this.findNextEditableColumnByIndex(currentCell, cellIndex);
+
+                if (targetCell) {
+                    if (this.dt.isEditingCellValid()) {
+                        this.closeEditingCell(true, event);
+                    }
+
+                    DomHandler.invokeElementMethod(event.target, 'blur');
+                    DomHandler.invokeElementMethod(targetCell, 'click');
+                }
+
+                event.preventDefault();
+            }
+        }
+    }
+
+    @HostListener('keydown.arrowup', ['$event'])
+    onArrowUp(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            let currentCell = this.findCell(event.target);
+            if (currentCell) {
+                let cellIndex = DomHandler.index(currentCell);
+                let targetCell = this.findPrevEditableColumnByIndex(currentCell, cellIndex);
+
+                if (targetCell) {
+                    if (this.dt.isEditingCellValid()) {
+                        this.closeEditingCell(true, event);
+                    }
+
+                    DomHandler.invokeElementMethod(event.target, 'blur');
+                    DomHandler.invokeElementMethod(targetCell, 'click');
+                }
+                
+                event.preventDefault();
+            }
+        }
+    }
+
+    @HostListener('keydown.arrowleft', ['$event'])
+    onArrowLeft(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            this.moveToPreviousCell(event);
+        }
+    }
+
+    @HostListener('keydown.arrowright', ['$event'])
+    onArrowRight(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            this.moveToNextCell(event);
+        }
+    }
 
     findCell(element) {
         if (element) {
@@ -3337,6 +3394,40 @@ export class EditableColumn implements AfterViewInit {
                 return nextCell;
             else
                 return this.findNextEditableColumn(nextCell);
+        }
+        else {
+            return null;
+        }
+    }
+
+    findNextEditableColumnByIndex(cell: Element, index: number) {
+        let nextRow = cell.parentElement.nextElementSibling;
+
+        if (nextRow) {
+            let nextCell = nextRow.children[index];
+
+            if (nextCell && DomHandler.hasClass(nextCell, 'p-editable-column')) {
+                return nextCell;
+            }
+
+            return null;
+        }
+        else {
+            return null;
+        }
+    }
+
+    findPrevEditableColumnByIndex(cell: Element, index: number) {
+        let prevRow = cell.parentElement.previousElementSibling;
+
+        if (prevRow) {
+            let prevCell = prevRow.children[index];
+
+            if (prevCell && DomHandler.hasClass(prevCell, 'p-editable-column')) {
+                return prevCell;
+            }
+
+            return null;
         }
         else {
             return null;
