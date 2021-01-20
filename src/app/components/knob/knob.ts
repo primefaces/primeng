@@ -12,7 +12,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
     selector: 'p-knob',
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-        <svg viewBox="0 0 100 100" [style.width]="size" [style.height]="size" (click)="onClick($event)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
+        <svg viewBox="0 0 100 100" [style.width]="size + 'px'" [style.height]="size + 'px'" (click)="onClick($event)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
             (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
             <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
             <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
