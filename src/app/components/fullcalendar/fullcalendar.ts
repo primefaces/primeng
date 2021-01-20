@@ -27,9 +27,7 @@ export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
     constructor(public el: ElementRef) {}
     
     ngOnInit() {
-        this.config = {
-            theme: true
-        };
+        this.config = {themeSystem: 'standard'};
 
         if (this.options) {
             for (let prop in this.options) {

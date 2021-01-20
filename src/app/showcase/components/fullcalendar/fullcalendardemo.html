@@ -20,7 +20,7 @@ import &#123;FullCalendarModule&#125; from 'primeng/fullcalendar';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.1.0+</a> so FullCalendar core needs to be included in your project. For complete documentation and samples please refer to the <a href="https://fullcalendar.io/">FullCalendar website</a>.</p>
+            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs">FullCalendar 5.4.0+</a> so FullCalendar core needs to be included in your project. For complete documentation and samples please refer to the <a href="https://fullcalendar.io/">FullCalendar website</a>.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @fullcalendar/core --save
 </app-code>
@@ -37,7 +37,7 @@ npm install @fullcalendar/interaction --save
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 "styles": [
-    "node_modules/@fullcalendar/core/main.min.css",
+    "node_modules/@fullcalendar/common/main.min.css",
     "node_modules/@fullcalendar/daygrid/main.min.css",
     "node_modules/@fullcalendar/timegrid/main.min.css",
     //...
@@ -206,7 +206,7 @@ gotoDate(date: Date) &#123;
             </div>
                         
             <h5>Dependencies</h5>
-            <p><a href="https://fullcalendar.io/docs/v4">FullCalendar</a>.</p>
+            <p><a href="https://fullcalendar.io/docs">FullCalendar</a>.</p>
         </p-tabPanel>
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fullcalendar" class="btn-viewsource" target="_blank">
@@ -234,8 +234,8 @@ export class FullCalendarDemo implements OnInit &#123;
         
         this.options = &#123;
             plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-            defaultDate: '2017-02-01',
-            header: &#123;
+            initialDate : '2019-01-01',
+            headerToolbar: &#123;
                 left: 'prev,next',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'

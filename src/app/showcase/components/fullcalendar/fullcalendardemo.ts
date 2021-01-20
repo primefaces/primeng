@@ -22,8 +22,8 @@ export class FullCalendarDemo implements OnInit {
         
         this.options = {
             plugins:[ dayGridPlugin, timeGridPlugin, interactionPlugin ],
-            defaultDate: '2017-02-01',
-            header: {
+            initialDate : '2019-01-01',
+            headerToolbar: {
                 left: 'prev,next',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
