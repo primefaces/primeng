@@ -149,6 +149,13 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   color: #3F51B5;
   background: rgba(63, 81, 181, 0.12);
 }
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item-group {
+  margin: 0;
+  padding: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+  font-weight: 400;
+}
 
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #B00020;
@@ -1018,6 +1025,13 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 .p-listbox .p-listbox-list .p-listbox-item .p-checkbox {
   margin-right: 0.5rem;
 }
+.p-listbox .p-listbox-list .p-listbox-item-group {
+  margin: 0;
+  padding: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+  font-weight: 400;
+}
 .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
   color: rgba(0, 0, 0, 0.87);
   background: rgba(0, 0, 0, 0.04);
@@ -1144,6 +1158,13 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
   margin-right: 0.5rem;
+}
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item-group {
+  margin: 0;
+  padding: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+  font-weight: 400;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-empty-message {
   padding: 1rem 1rem;

@@ -21,12 +21,6 @@
             </ng-template>
         </p-autoComplete>
     
-        <h5>Multiple</h5>
-        <span class="p-fluid">
-            <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true">
-            </p-autoComplete>
-        </span>
-
         <h5>Grouped</h5>
         <p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true">
             <ng-template let-group pTemplate="group">
@@ -36,6 +30,12 @@
                 </div>
             </ng-template>
         </p-autoComplete>
+
+        <h5>Multiple</h5>
+        <span class="p-fluid">
+            <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true">
+            </p-autoComplete>
+        </span>
     </div>
 </div>
 
@@ -630,11 +630,6 @@ export class AutoCompleteDemo &#123;
     &lt;/ng-template&gt;
 &lt;/p-autoComplete&gt;
 
-&lt;h5&gt;Multiple&lt;/h5&gt;
-&lt;span class="p-fluid"&gt;
-    &lt;p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"&gt;
-    &lt;/p-autoComplete&gt;
-&lt;/span&gt;
 &lt;h5&gt;Grouped&lt;/h5&gt;
 &lt;p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
@@ -644,6 +639,12 @@ export class AutoCompleteDemo &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-autoComplete&gt;
+
+&lt;h5&gt;Multiple&lt;/h5&gt;
+&lt;span class="p-fluid"&gt;
+    &lt;p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"&gt;
+    &lt;/p-autoComplete&gt;
+&lt;/span&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
