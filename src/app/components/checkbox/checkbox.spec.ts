@@ -4,6 +4,7 @@ import { Checkbox } from './checkbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { componentFactoryName } from '@angular/compiler';
 
 
 @Component({
@@ -183,5 +184,13 @@ describe('Checkbox', () => {
         fixture.detectChanges();
 
         expect(handleChangeSpy).toHaveBeenCalled();
+    });
+
+    it('should pass wcag2a specifications', () => {
+        checkbox.ariaLabelledBy = 'aria label';
+        fixture.detectChanges();
+
+        const el = fixture.debugElement.query(By.css('[role="checkbox"]'));
+        expect(el.attributes['aria-labelledby']).toBeTruthy();
     });
 });
