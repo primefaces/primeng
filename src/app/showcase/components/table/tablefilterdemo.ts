@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Table } from 'primeng/table';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
@@ -49,6 +50,10 @@ export class TableFilterDemo implements OnInit {
             {label: 'Renewal', value: 'renewal'},
             {label: 'Proposal', value: 'proposal'}
         ]
+    }
+
+    clear(table: Table) {
+        table.clear();
     }
 
 }
