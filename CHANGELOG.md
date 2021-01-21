@@ -1,5 +1,34 @@
 # Changelog
 
+## [11.2.0](https://github.com/primefaces/primeng/tree/11.2.0) (2021-01-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.1.0...11.2.0)
+
+**Breaking changes:**
+
+- Remove p-error in favor p-invalid [\#9757](https://github.com/primefaces/primeng/issues/9757)
+
+**Implemented New Features and Enhancements:**
+
+- Remove deprecated p-header and p-footer from demos [\#9795](https://github.com/primefaces/primeng/issues/9795)
+- Float Label support for CascadeSelect [\#9783](https://github.com/primefaces/primeng/issues/9783)
+- Grouping for Select Components [\#9772](https://github.com/primefaces/primeng/issues/9772)
+- emptyMessage template is duplicated if treeTable has frozen columns \[TreeTable\] [\#9768](https://github.com/primefaces/primeng/issues/9768)
+- Add frozenexpansion template to TurboTable [\#9621](https://github.com/primefaces/primeng/issues/9621)
+- Wrong documentation for controlCase on TabView [\#9490](https://github.com/primefaces/primeng/issues/9490)
+- Keyboard navigation Table - Edit with arrows [\#6982](https://github.com/primefaces/primeng/issues/6982)
+
+**Fixed bugs:**
+
+- Improve float label support in overlay selects [\#9797](https://github.com/primefaces/primeng/issues/9797)
+- Link button is not visible on material themes [\#9796](https://github.com/primefaces/primeng/issues/9796)
+- Knob not set sizes when using Firefox [\#9792](https://github.com/primefaces/primeng/issues/9792)
+- \[bug report\] Filter function 'between' used a wrong comparison operator. [\#9769](https://github.com/primefaces/primeng/issues/9769)
+- \[bug report\] Filter function 'between' thow an exception when the second parameter value is null. [\#9765](https://github.com/primefaces/primeng/issues/9765)
+- Wrong color on material default text [\#9756](https://github.com/primefaces/primeng/issues/9756)
+- CascadeSelect missing material theming [\#9755](https://github.com/primefaces/primeng/issues/9755)
+- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
+
 ## [11.1.0](https://github.com/primefaces/primeng/tree/11.1.0) (2021-01-11)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.1.0-rc.1...11.1.0)
