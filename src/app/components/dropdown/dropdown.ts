@@ -136,7 +136,7 @@ export class DropdownItem {
     ],
     host: {
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },
     providers: [DROPDOWN_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,

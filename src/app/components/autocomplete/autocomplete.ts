@@ -77,7 +77,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     ],
     host: {
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus && !disabled'
+        '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible'
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,

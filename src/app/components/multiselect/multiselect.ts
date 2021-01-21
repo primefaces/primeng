@@ -172,7 +172,7 @@ export class MultiSelectItem {
     ],
     host: {
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus'
+        '[class.p-inputwrapper-focus]': 'focus || overlayVisible'
     },
     providers: [MULTISELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,

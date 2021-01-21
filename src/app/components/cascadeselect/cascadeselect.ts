@@ -266,7 +266,7 @@ export class CascadeSelectSub implements OnInit {
     ],
     host: {
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },
     providers: [CASCADESELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
