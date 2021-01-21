@@ -121,8 +121,8 @@ export class TabPanel implements AfterContentInit,OnDestroy {
         <div [ngClass]="'p-tabview p-component'" [ngStyle]="style" [class]="styleClass">
             <ul #navbar class="p-tabview-nav" role="tablist">
                 <ng-template ngFor let-tab [ngForOf]="tabs">
-                    <li role="presentation" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
-                        <a role="tab" class="p-tabview-nav-link" [attr.id]="tab.id + '-label'" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
+                    <li  role="tab" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
+                        <a class="p-tabview-nav-link" [attr.id]="tab.id + '-label'" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
                             [attr.aria-selected]="tab.selected" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass"
                             (click)="open($event,tab)" (keydown.enter)="open($event,tab)" pRipple [attr.tabindex]="tab.disabled ? null : '0'">
                             <ng-container *ngIf="!tab.headerTemplate">
@@ -135,7 +135,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                         </a>
                     </li>
                 </ng-template>
-                <li #inkbar class="p-tabview-ink-bar"></li>
+                <li #inkbar class="p-tabview-ink-bar" role="tab"></li>
             </ul>
             <div class="p-tabview-panels">
                 <ng-content></ng-content>

@@ -183,4 +183,12 @@ describe('TabView', () => {
 		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
 		expect(thirdTabViewNavEl.textContent).toContain("Godfather III");
 	});
+
+	it('should pass wcag2 specifications', () => {
+		fixture.detectChanges();
+		const el = fixture.debugElement.query(By.css('[role="tablist"]'));
+		for(let child of el.children)	{
+			expect(child.attributes.role).toBe('tab');
+		}
+	});
 });
