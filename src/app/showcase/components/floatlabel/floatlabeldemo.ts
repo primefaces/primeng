@@ -34,6 +34,10 @@ export class FloatLabelDemo {
 
     value10: any;
 
+    valueIconLeft: any;
+
+    valueIconRight: any;
+
     constructor(private countryService: CountryService) {
         this.cities = [
             {name: 'New York', code: 'NY'},
