@@ -44,7 +44,7 @@
                     <td pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-dropdown [options]="statuses" [(ngModel)]="product.inventoryStatus" [style]="{'width':'100%'}"></p-dropdown>
+                                <input pInputText [(ngModel)]="product.inventoryStatus">
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{product.inventoryStatus}}
@@ -180,7 +180,7 @@
                 &lt;td pEditableColumn&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
-                            &lt;p-dropdown [options]="statuses" [(ngModel)]="product.inventoryStatus" [style]="&#123;'width':'100%'&#125;"&gt;&lt;/p-dropdown&gt;
+                            &lt;input pInputText [(ngModel)]="product.inventoryStatus"&gt;
                         &lt;/ng-template&gt;
                         &lt;ng-template pTemplate="output"&gt;
                             &#123;&#123;product.inventoryStatus&#125;&#125;
