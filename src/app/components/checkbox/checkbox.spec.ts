@@ -4,7 +4,6 @@ import { Checkbox } from './checkbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { componentFactoryName } from '@angular/compiler';
 
 
 @Component({
