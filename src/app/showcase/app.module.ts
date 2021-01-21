@@ -30,7 +30,6 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppConfigComponent } from './app.config.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
-import { FullCalendarModule } from 'primeng/fullcalendar';
 
 @NgModule({
     declarations: [
@@ -51,7 +50,6 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
         ButtonModule,
         RadioButtonModule,
         InputSwitchModule,
-        FullCalendarModule,
         TooltipModule,
         AppInputStyleSwitchModule
     ],
