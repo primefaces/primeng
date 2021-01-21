@@ -17,7 +17,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub',
     template: `
-        <ul class="p-cascadeselect-panel p-cascadeselect-items" role="listbox" aria-orientation="horizontal">
+        <ul class="p-cascadeselect-panel p-cascadeselect-items" [ngClass]="{'p-cascadeselect-panel-root': root}" role="listbox" aria-orientation="horizontal">
             <ng-template ngFor let-option [ngForOf]="options" let-i="index">
                 <li [ngClass]="getItemClass(option)" role="none">
                     <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, option)" tabindex="0" (keydown)="onKeyDown($event, option, i)" pRipple>
