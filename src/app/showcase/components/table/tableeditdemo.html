@@ -80,7 +80,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
                 <tr [pEditableRow]="product">
-                    <td pEditableColumn>
+                    <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="product.code">
@@ -90,7 +90,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
+                    <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="product.name" required>
@@ -100,7 +100,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
+                    <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-dropdown [options]="statuses" [(ngModel)]="product.inventoryStatus" [style]="{'width':'100%'}"></p-dropdown>
@@ -110,7 +110,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
+                    <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="product.price">
@@ -216,7 +216,7 @@
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex"&gt;
             &lt;tr [pEditableRow]="product"&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;input pInputText type="text" [(ngModel)]="product.code"&gt;
@@ -226,7 +226,7 @@
                         &lt;/ng-template&gt;
                     &lt;/p-cellEditor&gt;
                 &lt;/td&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;input pInputText type="text" [(ngModel)]="product.name" required&gt;
@@ -236,7 +236,7 @@
                         &lt;/ng-template&gt;
                     &lt;/p-cellEditor&gt;
                 &lt;/td&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;p-dropdown [options]="statuses" [(ngModel)]="product.inventoryStatus" [style]="&#123;'width':'100%'&#125;"&gt;&lt;/p-dropdown&gt;
@@ -246,7 +246,7 @@
                         &lt;/ng-template&gt;
                     &lt;/p-cellEditor&gt;
                 &lt;/td&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;input pInputText type="text" [(ngModel)]="product.price"&gt;
