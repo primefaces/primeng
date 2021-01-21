@@ -154,12 +154,12 @@ export class CarouselDemo &#123;
 </app-code>
 
             <h5>Header and Footer</h5>
-            <p>Custom content projection is available using the <i>p-header</i> and <i>p-footer</i> components.</p>
+            <p>Custom content projection is available using the <i>header</i> and <i>footer</i> templates.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;h5&gt;Vertical&lt;/h5&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;
@@ -180,9 +180,9 @@ export class CarouselDemo &#123;
             <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be enabled. Note that in autoplay mode, circular is enabled by default.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-carousel [value]="cars" [autoplayInterval]="3000" [circular]="true"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;h5&gt;Vertical&lt;/h5&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;

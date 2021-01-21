@@ -57,16 +57,16 @@ import &#123;PanelModule&#125; from 'primeng/panel';
 </app-code>
 
             <h5>Header and Footer Content</h5>
-            <p>Header and Footers sections can be customized using <i>p-header</i> and <i>p-footer</i> components.</p>
+            <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-panel &gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         Header content here
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     Body Content
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         Footer content here
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-panel&gt;
 </app-code>
 
