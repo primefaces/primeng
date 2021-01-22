@@ -162,7 +162,7 @@ export class ContextMenuSub {
     }
 
     isActive(key) {
-        return (this.activeItemKey && this.activeItemKey.startsWith(key));
+        return (this.activeItemKey &&(this.activeItemKey.startsWith(key + '_') || this.activeItemKey === key));
     }
 }
 
