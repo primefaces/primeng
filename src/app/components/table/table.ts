@@ -1109,8 +1109,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
         }
-        this.onRowSelect.emit({originalEvent: event, data: rangeRowsData, type: 'row'});
         this.selectionChange.emit(this.selection);
+        this.onRowSelect.emit({originalEvent: event, data: rangeRowsData, type: 'row'});
     }
 
     clearSelectionRange(event: MouseEvent) {
