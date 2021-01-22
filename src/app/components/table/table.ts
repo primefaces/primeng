@@ -2781,6 +2781,11 @@ export class SelectableRow implements OnInit, OnDestroy {
         });
     }
 
+    @HostListener('keydown.space', ['$event'])
+    onSpaceKeyDown(event: KeyboardEvent) {
+        event.preventDefault();
+    }
+
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let nextRow = <HTMLTableRowElement> row.nextElementSibling;
         if (nextRow) {
