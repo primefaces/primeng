@@ -68,6 +68,26 @@ describe('FilterService Suite', () => {
         filteredValue = filterService.filter(data,[''],'BMW','notEquals');
         expect(filteredValue.length).toEqual(10);
     });
+
+    it('Should filter by in', () => {
+        let filteredValue = filterService.filter(data,['brand'],['BMW', 'Mercedes', 'Ford'],'in');
+        expect(filteredValue.length).toEqual(3);
+        filteredValue = filterService.filter(data,['brand'],['BMW'],'in');
+        expect(filteredValue.length).toEqual(1);
+
+        filteredValue = filterService.filter(data,['brand'],['Chevrolet'],'in');
+        expect(filteredValue.length).toEqual(0);
+
+        filteredValue = filterService.filter(data,['brand'],undefined,'in');
+        expect(filteredValue.length).toEqual(10);
+        filteredValue = filterService.filter(data,['brand'],null,'in');
+        expect(filteredValue.length).toEqual(10);
+        filteredValue = filterService.filter(data,['brand'],[],'in');
+        expect(filteredValue.length).toEqual(10);
+
+        filteredValue = filterService.filter(data,[''],'BMW','in');
+        expect(filteredValue.length).toEqual(0);
+    });
 ​
     it('Should filter by lt', () => {
         let filteredValue = filterService.filter(timeData,['date'],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lt');
