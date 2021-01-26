@@ -220,6 +220,18 @@ import { Subscription } from 'rxjs';
                                 <span>Soho Dark</span>
                             </div>
                             <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'viva-light', false)">
+                                    <img src="assets/showcase/images/themes/viva-light.svg" alt="Viva Light"/>
+                                </button>
+                                <span>Viva Light</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'viva-dark', true)">
+                                <img src="assets/showcase/images/themes/viva-dark.svg" alt="Viva Dark"/>
+                                </button>
+                                <span>Viva Dark</span>
+                            </div>
+                            <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'mira', false)">
                                     <img src="assets/showcase/images/themes/mira.jpg" alt="Mira"/>
                                 </button>
@@ -289,6 +301,11 @@ import { Subscription } from 'rxjs';
                         <h4>Premium Angular-CLI Templates</h4>
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
+                                </a>
+                            </div>
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/freya-ng">
                                     <img alt="Freya" src="assets/showcase/images/layouts/freya-ng.jpg">
@@ -377,11 +394,6 @@ import { Subscription } from 'rxjs';
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/paradise-ng">
                                     <img alt="Paradise" src="assets/showcase/images/layouts/paradise-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">

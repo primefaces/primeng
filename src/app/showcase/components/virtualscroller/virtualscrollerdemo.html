@@ -152,11 +152,11 @@ export class VirtualScrollerDemo implements OnInit &#123;
             <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
-    &lt;p-header&gt;Header Content&lt;/p-header&gt;
-    &lt;p-footer&gt;Footer Content&lt;/p-footer&gt;
+    &lt;ng-template pTemplate="header"&gt;Header Content&lt;/ng-template&gt;
     &lt;ng-template pTemplate="item" let-car&gt;
-        Car content
+    Car content
     &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;Footer Content&lt;/ng-template&gt;
 &lt;/p-virtualScroller&gt;
 </app-code>
 

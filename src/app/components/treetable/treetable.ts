@@ -1664,7 +1664,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             </ng-template>
         </ng-container>
         <ng-container *ngIf="tt.isEmpty()">
-            <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: {$implicit: columns}"></ng-container>
+            <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
         </ng-container>
     `,
     encapsulation: ViewEncapsulation.None

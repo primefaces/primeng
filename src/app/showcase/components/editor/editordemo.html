@@ -56,7 +56,7 @@ export class EditorDemo &#123;
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;span class="ql-format-group"&gt;
             &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
@@ -66,7 +66,7 @@ export class EditorDemo &#123;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
             &lt;span title="Strikethrough" class="ql-format-button ql-strike"&gt;&lt;/span&gt;
         &lt;/span&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
 &lt;/p-editor&gt;
 </app-code>
 

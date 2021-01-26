@@ -256,13 +256,6 @@ handleClose(e) &#123;
 &lt;/p-tabPanel&gt;
 </app-code>
 
-            <h5>Orientation</h5>
-            <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
-            and this can be changed using <i>orientation</i> attribute.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-tabView orientation="left"&gt;
-</app-code>
-
             <h5>Programmatic Control</h5>
             <p>Tabs can be controlled programmatically using <i>activeIndex</i> property that defines the index of the active tab.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -333,16 +326,16 @@ export class TabViewDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>orientation</td>
-                            <td>string</td>
-                            <td>top</td>
-                            <td>Orientation of tab headers.</td>
-                        </tr>
-                        <tr>
                             <td>activeIndex</td>
                             <td>number</td>
                             <td>null</td>
                             <td>Index of the active tab to change selected tab programmatically.</td>
+                        </tr>
+                        <tr>
+                            <td>controlClose</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether tab close is controlled at onClose event or not.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -376,7 +369,7 @@ export class TabViewDemo &#123;
                             <td>header</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Orientation of tab headers.</td>
+                            <td>Title of the tabPanel.</td>
                         </tr>
                         <tr>
                             <td>selected</td>
@@ -407,12 +400,6 @@ export class TabViewDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the tab header.</td>
-                        </tr>
-                        <tr>
-                            <td>controlClose</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Whether tab close is controlled at onClose event or not.</td>
                         </tr>
                         <tr>
                             <td>cache</td>

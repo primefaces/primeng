@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import { CountryService } from '../../service/countryservice';
 
 @Component({
-    templateUrl: './floatlabeldemo.html'
+    templateUrl: './invaliddemo.html'
 })
-export class FloatLabelDemo {
+export class InvalidDemo {
 
     countries: any[];
 
@@ -31,12 +31,6 @@ export class FloatLabelDemo {
     value8: any;
     
     value9: any;
-
-    value10: any;
-
-    valueIconLeft: any;
-
-    valueIconRight: any;
 
     constructor(private countryService: CountryService) {
         this.cities = [

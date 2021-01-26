@@ -35,6 +35,10 @@
                     }
                 }
             }
+
+            .app-inputstyleswitch {
+                margin-left: 2rem;
+            }
         }
 
         &.implementation {
@@ -191,6 +195,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+    }
+
+    .fluid-video {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
     }
 }

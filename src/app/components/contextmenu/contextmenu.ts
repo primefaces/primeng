@@ -162,7 +162,7 @@ export class ContextMenuSub {
     }
 
     isActive(key) {
-        return (this.activeItemKey && this.activeItemKey.startsWith(key));
+        return (this.activeItemKey &&(this.activeItemKey.startsWith(key + '_') || this.activeItemKey === key));
     }
 }
 
@@ -402,7 +402,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             const documentTarget = DomHandler.getDocument(this.el);
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && event.button !== 2) {
+                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2) {
                     this.hide();
                 }
             });

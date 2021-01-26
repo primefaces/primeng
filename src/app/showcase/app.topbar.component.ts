@@ -69,6 +69,8 @@ import { Subscription } from 'rxjs';
                         <li class="topbar-submenu-header">PREMIUM</li>
                         <li><a (click)="changeTheme($event, 'soho-light', false)"><img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light" /><span>Soho Light</span></a></li>
                         <li><a (click)="changeTheme($event, 'soho-dark', true)"><img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark" /><span>Soho Dark</span></a></li>
+                        <li><a (click)="changeTheme($event, 'viva-light', false)"><img src="assets/showcase/images/themes/viva-light.svg" alt="Viva Light" /><span>Viva Light</span></a></li>
+                        <li><a (click)="changeTheme($event, 'viva-dark', true)"><img src="assets/showcase/images/themes/viva-dark.svg" alt="Viva Dark" /><span>Viva Dark</span></a></li>
                         <li><a (click)="changeTheme($event, 'mira', false)"><img src="assets/showcase/images/themes/mira.jpg" alt="Mira" /><span>Mira</span></a></li>
                         <li><a (click)="changeTheme($event, 'nano', false)"><img src="assets/showcase/images/themes/nano.jpg" alt="Nano" /><span>Nano</span></a></li>
 
@@ -87,6 +89,12 @@ import { Subscription } from 'rxjs';
                     <a tabindex="0" (click)="toggleMenu($event, 1)">Templates</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                <img alt="Ultima" src="assets/showcase/images/layouts/ultima-logo.png">
+                                <span>Ultima</span><span class="theme-badge material">material</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/freya-ng">
                                 <img alt="Freya" src="assets/showcase/images/layouts/freya-logo.png">
@@ -193,12 +201,6 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/layouts/paradise-ng">
                                 <img alt="Paradise" src="assets/showcase/images/layouts/paradise-logo.png">
                                 <span>Paradise</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                <img alt="Ultima" src="assets/showcase/images/layouts/ultima-logo.png">
-                                <span>Ultima</span><span class="theme-badge material">material</span>
                             </a>
                         </li>
                         <li>
@@ -318,6 +320,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'fluent-light': 'fluent-light.png',
         'soho-light': 'soho-light.png',
         'soho-dark': 'soho-dark.png',
+        'viva-light': 'viva-light.svg',
+        'viva-dark': 'viva-dark.svg',
         'mira': 'mira.jpg',
         'nano': 'nano.jpg',
     };

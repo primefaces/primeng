@@ -48,16 +48,16 @@ import &#123;CardModule&#125; from 'primeng/card';
 </app-code>
 
             <h5>Header and Footer Content</h5>
-            <p>Header and Footers sections can be customized using <i>p-header</i> and <i>p-footer</i> components.</p>
+            <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-card&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         Header content here
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     Body Content
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         Footer content here
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-card&gt;
 </app-code>
 
@@ -158,9 +158,9 @@ import &#123;CardModule&#125; from 'primeng/card';
 &lt;/p-card&gt;
 
 &lt;p-card header="Advanced Card" subheader="Card Subheader" [style]="&#123;width: '360px'&#125;" styleClass="p-card-shadow"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;img alt="Card" src="assets/showcase/images/usercard.png"&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/p&gt;
     &lt;ng-template pTemplate="footer"&gt;

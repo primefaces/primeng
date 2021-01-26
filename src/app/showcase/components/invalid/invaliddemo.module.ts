@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { FloatLabelDemo } from './floatlabeldemo';
-import { FloatLabelDemoRoutingModule } from './floatlabeldemo-routing.module';
+import { InvalidDemo } from './invaliddemo';
+import { InvalidDemoRoutingModule } from './invaliddemo-routing.module';
 
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
@@ -17,22 +17,22 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 import { AppCodeModule } from '../../app.code.component';
 import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		FloatLabelDemoRoutingModule,
-        ButtonModule,
+		InvalidDemoRoutingModule,
+		ButtonModule,
+		CascadeSelectModule,
         PanelModule,
 		TabViewModule,
 		InputTextModule,
 		AutoCompleteModule,
 		CalendarModule,
-		CascadeSelectModule,
 		ChipsModule,
 		InputMaskModule,
 		InputNumberModule,
@@ -44,7 +44,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
         AppCodeModule
 	],
 	declarations: [
-		FloatLabelDemo
+		InvalidDemo
 	]
 })
-export class FloatLabelDemoModule {}
+export class InvalidDemoModule {}

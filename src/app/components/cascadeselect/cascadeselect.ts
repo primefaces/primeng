@@ -17,7 +17,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub',
     template: `
-        <ul class="p-cascadeselect-panel p-cascadeselect-items" role="listbox" aria-orientation="horizontal">
+        <ul class="p-cascadeselect-panel p-cascadeselect-items" [ngClass]="{'p-cascadeselect-panel-root': root}" role="listbox" aria-orientation="horizontal">
             <ng-template ngFor let-option [ngForOf]="options" let-i="index">
                 <li [ngClass]="getItemClass(option)" role="none">
                     <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, option)" tabindex="0" (keydown)="onKeyDown($event, option, i)" pRipple>
@@ -266,7 +266,7 @@ export class CascadeSelectSub implements OnInit {
     ],
     host: {
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },
     providers: [CASCADESELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -332,6 +332,8 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     selectionPath: any = null;
 
     focused: boolean = false;
+
+    filled: boolean = false;
 
     overlayVisible: boolean = false;
 
@@ -413,7 +415,12 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
             }
         }
 
-        this.selectionPath = path;
+        this.selectionPath = path;   
+        this.updateFilledState();
+    }
+
+    updateFilledState() {
+        this.filled = !(this.selectionPath == null || this.selectionPath.length == 0);
     }
 
     findModelOptionInGroup(option, level) {
@@ -650,9 +657,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         return {
             'p-cascadeselect p-component p-inputwrapper': true,
             'p-disabled': this.disabled,
-            'p-focus': this.focused,
-            'p-inputwrapper-filled': this.value,
-            'p-inputwrapper-focus': this.focused
+            'p-focus': this.focused
         };
     }
 

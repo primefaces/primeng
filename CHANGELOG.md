@@ -1,5 +1,66 @@
 # Changelog
 
+## [11.2.0](https://github.com/primefaces/primeng/tree/11.2.0) (2021-01-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.1.0...11.2.0)
+
+**Breaking changes:**
+
+- Remove p-error in favor p-invalid [\#9757](https://github.com/primefaces/primeng/issues/9757)
+
+**Implemented New Features and Enhancements:**
+
+- Remove deprecated p-header and p-footer from demos [\#9795](https://github.com/primefaces/primeng/issues/9795)
+- Float Label support for CascadeSelect [\#9783](https://github.com/primefaces/primeng/issues/9783)
+- Grouping for Select Components [\#9772](https://github.com/primefaces/primeng/issues/9772)
+- emptyMessage template is duplicated if treeTable has frozen columns \[TreeTable\] [\#9768](https://github.com/primefaces/primeng/issues/9768)
+- Add frozenexpansion template to TurboTable [\#9621](https://github.com/primefaces/primeng/issues/9621)
+- Wrong documentation for controlCase on TabView [\#9490](https://github.com/primefaces/primeng/issues/9490)
+- Keyboard navigation Table - Edit with arrows [\#6982](https://github.com/primefaces/primeng/issues/6982)
+
+**Fixed bugs:**
+
+- Improve float label support in overlay selects [\#9797](https://github.com/primefaces/primeng/issues/9797)
+- Link button is not visible on material themes [\#9796](https://github.com/primefaces/primeng/issues/9796)
+- Knob not set sizes when using Firefox [\#9792](https://github.com/primefaces/primeng/issues/9792)
+- \[bug report\] Filter function 'between' used a wrong comparison operator. [\#9769](https://github.com/primefaces/primeng/issues/9769)
+- \[bug report\] Filter function 'between' thow an exception when the second parameter value is null. [\#9765](https://github.com/primefaces/primeng/issues/9765)
+- Wrong color on material default text [\#9756](https://github.com/primefaces/primeng/issues/9756)
+- CascadeSelect missing material theming [\#9755](https://github.com/primefaces/primeng/issues/9755)
+- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
+
+## [11.1.0](https://github.com/primefaces/primeng/tree/11.1.0) (2021-01-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.1.0-rc.1...11.1.0)
+
+**Implemented New Features and Enhancements:**
+
+- shiftKey invokes onRowSelect multiple times [\#9747](https://github.com/primefaces/primeng/issues/9747)
+- New  Lazy Table Demo with Remote Source [\#9717](https://github.com/primefaces/primeng/issues/9717)
+- p-table: Unable to translate "No filter" in columnFilter [\#9709](https://github.com/primefaces/primeng/issues/9709)
+- Messages 2way binding is not working [\#9623](https://github.com/primefaces/primeng/issues/9623)
+
+**Fixed bugs:**
+
+- Improve invalid validation visuals on material themes [\#9745](https://github.com/primefaces/primeng/issues/9745)
+- p-chip remove event doesn't match documentation [\#9735](https://github.com/primefaces/primeng/issues/9735)
+- Basic uploader button visual issue [\#9711](https://github.com/primefaces/primeng/issues/9711)
+- Table not restoring columns when using virtualscroll [\#9708](https://github.com/primefaces/primeng/issues/9708)
+- Toast message icon is not styled [\#9702](https://github.com/primefaces/primeng/issues/9702)
+- Editor UI bug report [\#9695](https://github.com/primefaces/primeng/issues/9695)
+- Skeleton animation not working expected in Safari [\#9692](https://github.com/primefaces/primeng/issues/9692)
+- Float label not working when clearing input on AutoComplete and TextArea [\#9688](https://github.com/primefaces/primeng/issues/9688)
+- TabView Header does not update until clicking elsewhere [\#9685](https://github.com/primefaces/primeng/issues/9685)
+- p-editor automatically gains focus when intializing model with data [\#9664](https://github.com/primefaces/primeng/issues/9664)
+- ConfirmPopup not not hidden after url change [\#9637](https://github.com/primefaces/primeng/issues/9637)
+- Lazy loaded tabpanel content loading eagerly when selected input is present [\#9613](https://github.com/primefaces/primeng/issues/9613)
+- P-Table with VirtualScroll only header is resizing [\#9598](https://github.com/primefaces/primeng/issues/9598)
+- Multiselect on chips display does not update the model when deleting them from the chip icon [\#9579](https://github.com/primefaces/primeng/issues/9579)
+- Resizable columns with virtual scroll doesn't work with p-treeTable [\#9575](https://github.com/primefaces/primeng/issues/9575)
+- Treetable column resize breaks when columnResizeMode="expand" in combination with \[virtualScroll\]="true" [\#9202](https://github.com/primefaces/primeng/issues/9202)
+- p-treeTable with VirtualScroll only header is resizing [\#9170](https://github.com/primefaces/primeng/issues/9170)
+- p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
+
 ## [11.1.0-rc.1](https://github.com/primefaces/primeng/tree/11.1.0-rc.1) (2020-12-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.0.0...11.1.0-rc.1)
@@ -149,6 +210,21 @@
 **Closed issues:**
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.7-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.7) (2021-01-12)
+- shiftKey invokes onRowSelect multiple times [\#9747](https://github.com/primefaces/primeng/issues/9747)
+- Basic uploader button visual issue [\#9711](https://github.com/primefaces/primeng/issues/9711)
+- Table not restoring columns when using virtualscroll [\#9708](https://github.com/primefaces/primeng/issues/9708)
+- Toast message icon is not styled [\#9702](https://github.com/primefaces/primeng/issues/9702)
+- Float label not working when clearing input on AutoComplete and TextArea [\#9688](https://github.com/primefaces/primeng/issues/9688)
+- TabView Header does not update until clicking elsewhere [\#9685](https://github.com/primefaces/primeng/issues/9685)
+- p-editor automatically gains focus when intializing model with data [\#9664](https://github.com/primefaces/primeng/issues/9664)
+- Lazy loaded tabpanel content loading eagerly when selected input is present [\#9613](https://github.com/primefaces/primeng/issues/9613)
+- P-Table with VirtualScroll only header is resizing [\#9598](https://github.com/primefaces/primeng/issues/9598)
+- Resizable columns with virtual scroll doesn't work with p-treeTable [\#9575](https://github.com/primefaces/primeng/issues/9575)
+- Wrong documentation for controlCase on TabView [\#9490](https://github.com/primefaces/primeng/issues/9490)
+- Treetable column resize breaks when columnResizeMode="expand" in combination with [virtualScroll]="true" [\#9202](https://github.com/primefaces/primeng/issues/9202)
+- p-treeTable with VirtualScroll only header is resizing [\#9170](https://github.com/primefaces/primeng/issues/9170)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.6-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.6) (2020-12-09)
 - Checkbox getting highlight when Tree item disabled [\#9619](https://github.com/primefaces/primeng/issues/9619)
@@ -404,6 +480,18 @@
 **Deprecated:**
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.1) (2020-12-09)
+- shiftKey invokes onRowSelect multiple times [\#9747](https://github.com/primefaces/primeng/issues/9747)
+- Table not restoring columns when using virtualscroll [\#9708](https://github.com/primefaces/primeng/issues/9708)
+- Float label not working when clearing input on AutoComplete and TextArea [\#9688](https://github.com/primefaces/primeng/issues/9688)
+- p-editor automatically gains focus when intializing model with data [\#9664](https://github.com/primefaces/primeng/issues/9664)
+- Lazy loaded tabpanel content loading eagerly when selected input is present [\#9613](https://github.com/primefaces/primeng/issues/9613)
+- Resizable columns with virtual scroll doesn't work with p-treeTable [\#9575](https://github.com/primefaces/primeng/issues/9575)
+- Wrong documentation for controlCase on TabView [\#9490](https://github.com/primefaces/primeng/issues/9490)
+- Treetable column resize breaks when columnResizeMode="expand" in combination with [virtualScroll]="true" [\#9202](https://github.com/primefaces/primeng/issues/9202)
+- p-treeTable with VirtualScroll only header is resizing [\#9170](https://github.com/primefaces/primeng/issues/9170)
+- SelectButton - reactive form and disabled control [\#8788](https://github.com/primefaces/primeng/issues/8788)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.1) (2020-12-09)
 - InputTextArea, FloatLabel and Initial State [\#9607](https://github.com/primefaces/primeng/issues/9607)

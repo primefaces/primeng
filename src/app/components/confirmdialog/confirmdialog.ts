@@ -345,7 +345,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             this.unbindMaskClickListener();
         }
 
-        if (this.container) {
+        if (this.container && !this.cd['destroyed']) {
             this.cd.detectChanges();
         }
     }

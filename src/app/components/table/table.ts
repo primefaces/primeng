@@ -342,6 +342,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     expandedRowTemplate: TemplateRef<any>;
 
+    frozenExpandedRowTemplate: TemplateRef<any>;
+
     frozenHeaderTemplate: TemplateRef<any>;
 
     frozenBodyTemplate: TemplateRef<any>;
@@ -489,6 +491,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
+                break;
+
+                case 'frozenrowexpansion':
+                    this.frozenExpandedRowTemplate = item.template;
                 break;
 
                 case 'emptymessage':
@@ -985,7 +991,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             this._selection = null;
                             this.selectionKeys = {};
                             this.selectionChange.emit(this.selection);
-                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
                         }
                         else {
                             this._selection = rowData;
@@ -1002,7 +1008,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             let selectionIndex = this.findIndexInSelection(rowData);
                             this._selection = this.selection.filter((val, i) => i != selectionIndex);
                             this.selectionChange.emit(this.selection);
-                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
                             if (dataKeyValue) {
                                 delete this.selectionKeys[dataKeyValue];
                             }
@@ -1053,17 +1059,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.isSingleSelectionMode()) {
                         this.selection = rowData;
                         this.selectionChange.emit(rowData);
+    
+                        if (dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                     else if (this.isMultipleSelectionMode()) {
-                        this.selection = [rowData];
+                        this._selection = this.selection ? [...this.selection, rowData] : [rowData];
                         this.selectionChange.emit(this.selection);
-                    }
-
-                    if (dataKeyValue) {
-                        this.selectionKeys[dataKeyValue] = 1;
+    
+                        if (dataKeyValue) {
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                 }
 
+                this.tableService.onSelectionChange();
                 this.contextMenu.show(event.originalEvent);
                 this.onContextMenuSelect.emit({originalEvent: event, data: rowData, index: event.rowIndex});
             }
@@ -1091,19 +1103,20 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             rangeEnd -= this.first;
         }
 
+        let rangeRowsData = [];
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if (!this.isSelected(rangeRowData)) {
+                rangeRowsData.push(rangeRowData);
                 this._selection = [...this.selection, rangeRowData];
                 let dataKeyValue: string = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
                 }
-                this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
             }
         }
-
         this.selectionChange.emit(this.selection);
+        this.onRowSelect.emit({originalEvent: event, data: rangeRowsData, type: 'row'});
     }
 
     clearSelectionRange(event: MouseEvent) {
@@ -2224,11 +2237,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 <ng-container *ngTemplateOutlet="rowData ? template: dt.loadingBodyTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
             </ng-template>
         </ng-container>
-        <ng-container *ngIf="dt.expandedRowTemplate">
+        <ng-container *ngIf="dt.expandedRowTemplate && !(frozen && dt.frozenExpandedRowTemplate)">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
                 <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
                 <ng-container *ngIf="dt.isRowExpanded(rowData)">
                     <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
+                </ng-container>
+            </ng-template>
+        </ng-container>
+        <ng-container *ngIf="dt.frozenExpandedRowTemplate && frozen">
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
+                <ng-container *ngIf="dt.isRowExpanded(rowData)">
+                    <ng-container *ngTemplateOutlet="dt.frozenExpandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
                 </ng-container>
             </ng-template>
         </ng-container>
@@ -2769,6 +2790,11 @@ export class SelectableRow implements OnInit, OnDestroy {
         });
     }
 
+    @HostListener('keydown.space', ['$event'])
+    onSpaceKeyDown(event: KeyboardEvent) {
+        event.preventDefault();
+    }
+
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let nextRow = <HTMLTableRowElement> row.nextElementSibling;
         if (nextRow) {
@@ -3243,6 +3269,63 @@ export class EditableColumn implements AfterViewInit {
             }
         }
     }
+    @HostListener('keydown.arrowdown', ['$event'])
+    onArrowDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            let currentCell = this.findCell(event.target);
+            if (currentCell) {
+                let cellIndex = DomHandler.index(currentCell);
+                let targetCell = this.findNextEditableColumnByIndex(currentCell, cellIndex);
+
+                if (targetCell) {
+                    if (this.dt.isEditingCellValid()) {
+                        this.closeEditingCell(true, event);
+                    }
+
+                    DomHandler.invokeElementMethod(event.target, 'blur');
+                    DomHandler.invokeElementMethod(targetCell, 'click');
+                }
+
+                event.preventDefault();
+            }
+        }
+    }
+
+    @HostListener('keydown.arrowup', ['$event'])
+    onArrowUp(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            let currentCell = this.findCell(event.target);
+            if (currentCell) {
+                let cellIndex = DomHandler.index(currentCell);
+                let targetCell = this.findPrevEditableColumnByIndex(currentCell, cellIndex);
+
+                if (targetCell) {
+                    if (this.dt.isEditingCellValid()) {
+                        this.closeEditingCell(true, event);
+                    }
+
+                    DomHandler.invokeElementMethod(event.target, 'blur');
+                    DomHandler.invokeElementMethod(targetCell, 'click');
+                }
+                
+                event.preventDefault();
+            }
+        }
+    }
+
+    @HostListener('keydown.arrowleft', ['$event'])
+    onArrowLeft(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            this.moveToPreviousCell(event);
+        }
+    }
+
+    @HostListener('keydown.arrowright', ['$event'])
+    onArrowRight(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            this.moveToNextCell(event);
+        }
+    }
 
     findCell(element) {
         if (element) {
@@ -3328,6 +3411,40 @@ export class EditableColumn implements AfterViewInit {
                 return nextCell;
             else
                 return this.findNextEditableColumn(nextCell);
+        }
+        else {
+            return null;
+        }
+    }
+
+    findNextEditableColumnByIndex(cell: Element, index: number) {
+        let nextRow = cell.parentElement.nextElementSibling;
+
+        if (nextRow) {
+            let nextCell = nextRow.children[index];
+
+            if (nextCell && DomHandler.hasClass(nextCell, 'p-editable-column')) {
+                return nextCell;
+            }
+
+            return null;
+        }
+        else {
+            return null;
+        }
+    }
+
+    findPrevEditableColumnByIndex(cell: Element, index: number) {
+        let prevRow = cell.parentElement.previousElementSibling;
+
+        if (prevRow) {
+            let prevCell = prevRow.children[index];
+
+            if (prevCell && DomHandler.hasClass(prevCell, 'p-editable-column')) {
+                return prevCell;
+            }
+
+            return null;
         }
         else {
             return null;

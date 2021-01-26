@@ -152,12 +152,11 @@ export class DataViewDemo implements OnInit &#123;
 </app-code>
 
             <h3>Sections</h3>
-            <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
+            <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars"&gt;
-    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
-    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
+    &lt;ng-template pTemplate="header"&gt;List of Cars&lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
             &#123;&#123;car.id&#125;&#125;
@@ -168,6 +167,7 @@ export class DataViewDemo implements OnInit &#123;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;Choose from the list.&lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 </app-code>
 
@@ -179,13 +179,9 @@ export class DataViewDemo implements OnInit &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
-    &lt;/p-header&gt;
-    &lt;p-footer&gt;
-        &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
-    &lt;/p-footer&gt;
-
+    &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
             &#123;&#123;car.id&#125;&#125;
@@ -195,6 +191,9 @@ export class DataViewDemo implements OnInit &#123;
         &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 </app-code>
@@ -264,10 +263,10 @@ loadData(event) &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
             (onChange)="onSortChange($event)" [style]="&#123;'min-width':'15em'&#125;"&gt;&lt;/p-dropdown&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
             &#123;&#123;car.id&#125;&#125;
@@ -329,9 +328,9 @@ export class DataViewSortDemo implements OnInit &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dataView #dv [value]="cars" filterBy="brand"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value, "contains")"&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &#123;&#123;car.id&#125;&#125;
     &lt;/ng-template&gt;

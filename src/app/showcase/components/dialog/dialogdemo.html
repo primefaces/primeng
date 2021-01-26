@@ -159,13 +159,12 @@ Content
 </app-code>
 
             <h5>Header and Footer</h5>
-            <p>Header and Footer sections are useful to include custom content. Note that <i>Header</i> and <i>Footer</i> components should be imported and defined
-            at directives section of your component for this to work.</p>
+            <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dialog [(visible)]="display"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         Header content here
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     Content
     &lt;p-footer&gt;
         //buttons

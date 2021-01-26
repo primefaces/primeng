@@ -17,4 +17,6 @@ export class InputTextDemo {
     value4: string;
 
     value5: string = 'Disabled';
+
+    value6: string;
 }
