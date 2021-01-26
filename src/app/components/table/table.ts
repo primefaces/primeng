@@ -1059,17 +1059,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.isSingleSelectionMode()) {
                         this.selection = rowData;
                         this.selectionChange.emit(rowData);
+    
+                        if (dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                     else if (this.isMultipleSelectionMode()) {
-                        this.selection = [rowData];
+                        this._selection = this.selection ? [...this.selection, rowData] : [rowData];
                         this.selectionChange.emit(this.selection);
-                    }
-
-                    if (dataKeyValue) {
-                        this.selectionKeys[dataKeyValue] = 1;
+    
+                        if (dataKeyValue) {
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                 }
 
+                this.tableService.onSelectionChange();
                 this.contextMenu.show(event.originalEvent);
                 this.onContextMenuSelect.emit({originalEvent: event, data: rowData, index: event.rowIndex});
             }
