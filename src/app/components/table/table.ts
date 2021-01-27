@@ -2792,6 +2792,16 @@ export class SelectableRow implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
+    @HostListener('keydown.pagedown', ['$event'])
+    @HostListener('keydown.pageup', ['$event'])
+    @HostListener('keydown.home', ['$event'])
+    @HostListener('keydown.end', ['$event'])
+    onPageDownKeyDown() {
+        if (this.dt.virtualScroll) {
+            DomHandler.findSingle(this.dt.scrollableViewChild.el.nativeElement, 'cdk-virtual-scroll-viewport').focus();
+        }
+    }
+
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let nextRow = <HTMLTableRowElement> row.nextElementSibling;
         if (nextRow) {
