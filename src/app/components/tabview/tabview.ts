@@ -29,10 +29,6 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     
     @Input() headerStyleClass: string;
     
-    @Input() leftIcon: string;
-    
-    @Input() rightIcon: string;
-    
     @Input() cache: boolean = true;
 
     @Input() tooltip: any;
@@ -54,6 +50,10 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     _disabled: boolean;
     
     _header: string;
+
+    _leftIcon: string;
+
+    _rightIcon: string;
     
     loaded: boolean;
     
@@ -117,6 +117,24 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     
     set header(header: string) {
         this._header = header;
+        this.tabView.cd.markForCheck();
+    }
+
+    @Input() get leftIcon(): string {
+        return this._leftIcon;
+    }
+
+    set leftIcon(leftIcon :string) {
+        this._leftIcon = leftIcon;
+        this.tabView.cd.markForCheck();
+    }
+
+    @Input() get rightIcon(): string {
+        return this._rightIcon;
+    }
+
+    set rightIcon(rightIcon :string) {
+        this._rightIcon = rightIcon;
         this.tabView.cd.markForCheck();
     }
     
