@@ -37,6 +37,7 @@
 .p-treenode-content {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .p-tree-filter {
