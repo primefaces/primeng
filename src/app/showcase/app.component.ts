@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { VersionService } from './service/versionservice';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
+import { PrimeNGConfig } from 'primeng/api';
 
 declare let gtag: Function;
 
@@ -16,17 +16,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
     menuActive: boolean;
 
-    newsActive: boolean = false;
-
-    versions: any[];
+    newsActive: boolean = true;
 
     config: AppConfig;
 
+    news_key = 'primenews';
+
     public subscription: Subscription;
 
-    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
+    constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig) {}
 
     ngOnInit() {
+        this.primengConfig.ripple = true;
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
 
@@ -42,8 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
              }
         });
 
-        this.newsActive = this.newsActive && sessionStorage.getItem('primenews-hidden') == null;
-        this.versionService.getVersions().then(data => this.versions = data);
+        this.newsActive = this.newsActive && this.isNewsStorageExpired();
     }
 
     onMenuButtonClick() {
@@ -74,10 +74,30 @@ export class AppComponent implements OnInit, OnDestroy {
             element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
 
-    hideNews(event) {
+    hideNews() {
         this.newsActive = false;
-        sessionStorage.setItem('primenews-hidden', 'true');
-        event.preventDefault();
+        const now = new Date();
+        const item = {
+            value: false,
+            expiry: now.getTime() + 604800000,
+        }
+        localStorage.setItem(this.news_key, JSON.stringify(item));
+    }
+
+    isNewsStorageExpired() {
+        const newsString = localStorage.getItem(this.news_key);
+        if (!newsString) {
+            return true;
+        }
+        const newsItem = JSON.parse(newsString);
+        const now = new Date()
+
+        if (now.getTime() > newsItem.expiry) {
+            localStorage.removeItem(this.news_key);
+            return true;
+        }
+
+        return false;
     }
 
     ngOnDestroy() {

@@ -8,10 +8,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Single Selection</h5>
-        <p-selectButton [options]="options" [(ngModel)]="value1"></p-selectButton>
+        <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
 
         <h5>Multiple Selection</h5>
-        <p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name"></p-selectButton>
+        <p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name" optionValue="value"></p-selectButton>
 
         <h5>Custom Template</h5>
         <p-selectButton [options]="justifyOptions" [(ngModel)]="value3">
@@ -26,80 +26,116 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SelectButtonModule&#125; from 'primeng/selectbutton';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>SelectButton requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
-            instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how 
-            the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<app-code lang="markup" ngNonBindable>
-&lt;p-selectButton [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-selectButton&gt;
+            <p>SelectButton requires a value to bind and a collection of options.</p>
 
-&lt;p-selectButton [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-selectButton&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"&gt;&lt;/p-selectButton&gt;
 </app-code>
+    
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+interface City &#123;
+    name: string,
+    code: string
+&#125;
 
-<app-code lang="typescript" ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/api';
+export class SelectButtonDemo &#123;
 
-export class MyModel &#123;
+    cities: City[];
 
-    cities1: SelectItem[];
-
-    cities2: City[];
-
-    selectedCity1: City;
-
-    selectedCity2: City;
+    selectedCity: City;
 
     constructor() &#123;
-      //SelectItem API with label-value pairs
-      this.cities1 = [
-          &#123;label:'Select City', value:null&#125;,
-          &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
-          &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
-          &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
-          &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;
-          &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
-      ];
-      
-      //An array of cities
-      this.cities2 = [
-          &#123;name: 'New York', code: 'NY'&#125;,
-          &#123;name: 'Rome', code: 'RM'&#125;,
-          &#123;name: 'London', code: 'LDN'&#125;,
-          &#123;name: 'Istanbul', code: 'IST'&#125;,
-          &#123;name: 'Paris', code: 'PRS'&#125;
-      ];
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
     &#125;
 
 &#125;
 </app-code>
 
-            <h5>Multiple</h5>
-            <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. 
-                In multiple case, model property should be an array instance that is not null or undefined.</p>
-<app-code lang="markup" ngNonBindable>
-&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" &gt;&lt;/p-selectButton&gt;
+            <h5>Value Binding</h5>
+            <p>The option itself is bound to the model by default, use <i>optionValue</i> to customize the property to pass as the value.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCityCode" optionLabel="name" optionValue="code"&gt;&lt;/p-selectButton&gt;
 </app-code>
+    
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class SelectButtonDemo &#123;
 
-<app-code lang="typescript" ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/api';
+    cities: City[];
 
-export class MyModel &#123;
-
-    cities: SelectItem[];
-
-    selectedCities: string[] = [];
+    selectedCityCode: string;
 
     constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
-        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
-        this.cities.push(&#123;label:'London', value:'London'&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
-        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
+    &#125;
+
+&#125;
+</app-code>
+
+            <h5>Selection</h5>
+            <p>SelectButtons allows selection of either single or multiple items, this behavior is defined with the <i>multiple</i> property. In single case, model should be a single object reference whereas in multiple case should be an array.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true"&gt;&lt;/p-selectButton&gt;
+</app-code>
+    
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class SelectButtonDemo &#123;
+
+    cities: City[];
+
+    selectedCities: City[];
+
+    constructor() &#123;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
+    &#125;
+
+&#125;
+</app-code>
+
+            <h5>Disabled Options</h5>
+            <p>Particular options can be prevented from selection using the <i>optionDisabled</i> property.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" optionDisabled="inactive"&gt;&lt;/p-selectButton&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class SelectButtonDemo &#123;
+
+    cities: City[];
+
+    selectedCity: City;
+
+    constructor() &#123;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY', inactive: false&#125;,
+            &#123;name: 'Rome', code: 'RM', inactive: true&#125;,
+            &#123;name: 'London', code: 'LDN', inactive: false&#125;,
+            &#123;name: 'Istanbul', code: 'IST', inactive: true&#125;,
+            &#123;name: 'Paris', code: 'PRS', inactive: false&#125;
+        ];
     &#125;
 
 &#125;
@@ -107,68 +143,38 @@ export class MyModel &#123;
 
             <h5>Model Driven Forms</h5>
             <p>SelectButton can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities" formControlName="selectedCity"&gt;&lt;/p-selectButton&gt;
 </app-code>
 
-            <h5>Icons</h5>
-            <p>Button options can display icons using the icon property of the SelectItem API.</p>
-<app-code lang="markup" ngNonBindable>
-&lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
-</app-code>
+            <h5>Custom Content</h5>
+            <p>For custom content support define a ng-template where the local ng-template variable refers to an option in the options collection.</p>
 
-<app-code lang="typescript" ngNonBindable>
-export class SelectButtonDemo &#123;
-
-    types: SelectItem[];
-
-    selectedType: string;
-
-    constructor() &#123;
-        this.types = [
-            &#123;label: 'Apartment', value: 'Apartment'&#125;,
-            &#123;label: 'House', value: 'House'&#125;,
-            &#123;label: 'Studio', value: 'Studio'&#125;
-        ];
-    &#125;
-&#125;
-</app-code>
-
-            <h5>Disabled Options</h5>
-            <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
-
-            <h5>Templating</h5>
-            <p>Items support templating to display custom content inside the buttons using an ng-template that receives the option as the implicit variable. Note that
-                if an arbitrary object is used as the option instead of the SelectItem API, internally they are converted to SelectItems which means in the template
-                the arbitrary object can be access using the value property.
-            </p>
-<app-code lang="markup" ngNonBindable>
-&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-selectButton [options]="justifyOptions" [(ngModel)]="value"&gt;
     &lt;ng-template let-item&gt;
-        &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" /&gt;
-        &lt;span&gt;&#123;&#123;item.name&#125;&#125;&lt;/span&gt;
+        &lt;i [class]="item.icon"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-selectButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SelectButtonDemo &#123;
-        
-    countries: any[];
 
-    selectedCountry: any;
+    justifyOptions: any[];
 
-    constructor() &#123;
-        this.countries = [
-            &#123;name: 'USA', flag: 'usa.png'&#125;,
-            &#123;name: 'Germany', flag: 'germany.png'&#125;,
-            &#123;name: 'Japan', flag: 'japan.png'&#125;
+    value: any;
+
+    constructor() &#123;    
+        this.justifyOptions = [
+            &#123;icon: 'pi pi-align-left', justify: 'Left'&#125;,
+            &#123;icon: 'pi pi-align-right', justify: 'Right'&#125;,
+            &#123;icon: 'pi pi-align-center', justify: 'Center'&#125;,
+            &#123;icon: 'pi pi-align-justify', justify: 'Justify'&#125;
         ];
     &#125;
-
 &#125;
 </app-code>
-
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -191,8 +197,20 @@ export class SelectButtonDemo &#123;
                         <tr>
                             <td>optionLabel</td>
                             <td>string</td>
-                            <td>null</td>
-                            <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
+                            <td>label</td>
+                            <td>Name of the label field of an option.</td>
+                        </tr>
+                        <tr>
+                            <td>optionValue</td>
+                            <td>string</td>
+                            <td>value</td>
+                            <td>Name of the value field of an option.</td>
+                        </tr>
+                        <tr>
+                            <td>optionDisabled</td>
+                            <td>string</td>
+                            <td>disabled</td>
+                            <td>Name of the disabled field of an option.</td>
                         </tr>
                         <tr>
                             <td>multiple</td>
@@ -281,12 +299,12 @@ export class SelectButtonDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-selectbutton-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Single Selection&lt;/h5&gt;
-&lt;p-selectButton [options]="options" [(ngModel)]="value1"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"&gt;&lt;/p-selectButton&gt;
 
 &lt;h5&gt;Multiple Selection&lt;/h5&gt;
-&lt;p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name" optionValue="value"&gt;&lt;/p-selectButton&gt;
 
 &lt;h5&gt;Custom Template&lt;/h5&gt;
 &lt;p-selectButton [options]="justifyOptions" [(ngModel)]="value3"&gt;
@@ -296,10 +314,15 @@ export class SelectButtonDemo &#123;
 &lt;/p-selectButton&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component&#125; from '@angular/core';
+
+@Component(&#123;
+    templateUrl: './selectbuttondemo.html'
+&#125;)
 export class SelectButtonDemo &#123;
 
-    options: SelectItem[];
+    stateOptions: any[];
 
     paymentOptions: any[];
 
@@ -307,12 +330,12 @@ export class SelectButtonDemo &#123;
 
     value1: string = "off";
 
-    value2: string;
+    value2: number;
 
     value3: any;
 
     constructor() &#123;
-        this.options = [&#123;label: 'Off', value: 'off'&#125;, &#123;label: 'On', value: 'on'&#125;];
+        this.stateOptions = [&#123;label: 'Off', value: 'off'&#125;, &#123;label: 'On', value: 'on'&#125;];
 
         this.paymentOptions = [
             &#123;name: 'Option 1', value: 1&#125;,
@@ -321,13 +344,12 @@ export class SelectButtonDemo &#123;
         ];
 
         this.justifyOptions = [
-            &#123;icon: 'pi pi-align-left', value: 'left'&#125;,
-            &#123;icon: 'pi pi-align-right', value: 'Right'&#125;,
-            &#123;icon: 'pi pi-align-center', value: 'Center'&#125;,
-            &#123;icon: 'pi pi-align-justify', value: 'Justify'&#125;
+            &#123;icon: 'pi pi-align-left', justify: 'Left'&#125;,
+            &#123;icon: 'pi pi-align-right', justify: 'Right'&#125;,
+            &#123;icon: 'pi pi-align-center', justify: 'Center'&#125;,
+            &#123;icon: 'pi pi-align-justify', justify: 'Justify'&#125;
         ];
     &#125;
-
 &#125;
 </app-code>
         </p-tabPanel>

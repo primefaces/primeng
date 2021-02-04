@@ -8,7 +8,8 @@ export class AppConfigService {
     config: AppConfig = {
         theme: 'saga-blue',
         dark: false,
-        inputStyle: 'outlined'
+        inputStyle: 'outlined',
+        ripple: true
     };
     
     private configUpdate = new Subject<AppConfig>();

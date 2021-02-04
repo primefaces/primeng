@@ -5,7 +5,6 @@ import {ToggleButtonDemo} from './togglebuttondemo';
 import {ToggleButtonDemoRoutingModule} from './togglebuttondemo-routing.module';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -15,8 +14,7 @@ import {AppCodeModule} from '../../app.code.component';
 		ToggleButtonDemoRoutingModule,
         ToggleButtonModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		ToggleButtonDemo

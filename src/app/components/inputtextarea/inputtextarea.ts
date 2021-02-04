@@ -1,6 +1,7 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,Output,DoCheck,EventEmitter,Optional} from '@angular/core';
-import {NgModel} from '@angular/forms';
+import {NgModule,Directive,ElementRef,HostListener,Input,Output, EventEmitter,Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import {NgModel, NgControl} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Directive({
     selector: '[pInputTextarea]',
@@ -12,7 +13,7 @@ import {CommonModule} from '@angular/common';
         '[class.p-inputtextarea-resizable]': 'autoResize'
     }
 })
-export class InputTextarea implements DoCheck {
+export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
     
     @Input() autoResize: boolean;
     
@@ -22,26 +23,41 @@ export class InputTextarea implements DoCheck {
 
     cachedScrollHeight:number;
 
-    constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
+    ngModelSubscription: Subscription;
+
+    ngControlSubscription: Subscription;
+
+    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control : NgControl, private cd: ChangeDetectorRef) {}
         
-    ngDoCheck() {
-        this.updateFilledState();
-        
-        if (this.autoResize) {
-            this.resize();
+    ngOnInit() {
+        if (this.ngModel) {
+            this.ngModelSubscription = this.ngModel.valueChanges.subscribe(() =>{
+                this.updateState();
+            })
+        }
+
+        if (this.control) {
+            this.ngControlSubscription = this.control.valueChanges.subscribe(() => {
+                this.updateState();
+            });
         }
     }
-    
+
+    ngAfterViewInit() {
+        if (this.autoResize)
+            this.resize();
+
+        this.updateFilledState();
+        this.cd.detectChanges();
+    }
+
     @HostListener('input', ['$event'])
     onInput(e) {
-        this.updateFilledState();
-        if (this.autoResize) {
-            this.resize(e);
-        }
+        this.updateState();
     }
     
     updateFilledState() {
-        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
     
     @HostListener('focus', ['$event'])
@@ -71,6 +87,24 @@ export class InputTextarea implements DoCheck {
         }
 
         this.onResize.emit(event||{});
+    }
+
+    updateState() {
+        this.updateFilledState();
+            
+        if (this.autoResize) {
+            this.resize();
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.ngModelSubscription) {
+            this.ngModelSubscription.unsubscribe();
+        }
+
+        if (this.ngControlSubscription) {
+            this.ngControlSubscription.unsubscribe();
+        }
     }
 }
 

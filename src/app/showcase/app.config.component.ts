@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
                 <a tabindex="0" class="layout-config-button" (click)="toggleConfigurator($event)">
                     <i class="pi pi-cog"></i>
                 </a>
-                <a tabindex="0"  class="layout-config-close" (click)="hideConfigurator($event)">
+                <a tabindex="0" class="layout-config-close" (click)="hideConfigurator($event)">
                     <i class="pi pi-times"></i>
                 </a>
 
@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
                         <app-inputStyleSwitch></app-inputStyleSwitch>
 
                         <h4>Ripple Effect</h4>
-                        <b>TODO</b>
+                        <p-inputSwitch [(ngModel)]="config.ripple" (onChange)="onRippleChange()"></p-inputSwitch>
 
                         <h4>Free Themes</h4>
                         <p>Built-in component themes created by the <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a>.</p>
@@ -36,27 +36,27 @@ import { Subscription } from 'rxjs';
                         <h5>Bootstrap</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-blue', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'bootstrap4-light-blue', false)">
                                     <img src="assets/showcase/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap Light Blue" />
-                                </a>
+                                </button>
                                 <span>Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-purple', false)">
-                                    <img src="assets/showcase/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Blue" />
-                                </a>
+                                <button class="p-link" (click)="changeTheme($event, 'bootstrap4-light-purple', false)">
+                                    <img src="assets/showcase/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Purple" />
+                                </button>
                                 <span>Purple</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-dark-blue', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'bootstrap4-dark-blue', true)">
                                     <img src="assets/showcase/images/themes/bootstrap4-dark-blue.svg" alt="Bootstrap Dark Blue" />
-                                </a>
+                                </button>
                                 <span>Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-dark-purple', true)">
-                                    <img src="assets/showcase/images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Blue" />
-                                </a>
+                                <button class="p-link" (click)="changeTheme($event, 'bootstrap4-dark-purple', true)">
+                                    <img src="assets/showcase/images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Purple" />
+                                </button>
                                 <span>Purple</span>
                             </div>
                         </div>
@@ -64,27 +64,27 @@ import { Subscription } from 'rxjs';
                         <h5>Material Design</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'md-light-indigo', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'md-light-indigo', false)">
                                     <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Light Indigo" />
-                                </a>
+                                </button>
                                 <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'md-light-deeppurple', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'md-light-deeppurple', false)">
                                     <img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Material Light Deep Purple" />
-                                </a>
+                                </button>
                                 <span>Deep Purple</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'md-dark-indigo', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'md-dark-indigo', true)">
                                     <img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Material Dark Indigo" />
-                                </a>
+                                </button>
                                 <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'md-dark-deeppurple', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'md-dark-deeppurple', true)">
                                     <img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Material Dark Deep Purple" />
-                                </a>
+                                </button>
                                 <span>Deep Purple</span>
                             </div>
                         </div>
@@ -92,163 +92,235 @@ import { Subscription } from 'rxjs';
                         <h5>Material Design Compact</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-indigo', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'mdc-light-indigo', false)">
                                     <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo"/>
-                                </a>
+                                </button>
                                 <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-deeppurple', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'mdc-light-deeppurple', false)">
                                     <img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Material Compact Deep Purple" />
-                                </a>
+                                </button>
                                 <span>Deep Purple</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'mdc-dark-indigo', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'mdc-dark-indigo', true)">
                                     <img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Material Compact Dark Indigo" />
-                                </a>
+                                </button>
                                 <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'mdc-dark-deeppurple', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'mdc-dark-deeppurple', true)">
                                     <img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Material Compact Dark Deep Purple" />
-                                </a>
+                                </button>
                                 <span>Deep Purple</span>
+                            </div>
+                        </div>
+
+                        <h5>Fluent UI</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'fluent-light', false)">
+                                    <img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light"/>
+                                </button>
+                                <span>Light</span>
                             </div>
                         </div>
 
                         <h5>PrimeOne Design</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-blue', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'saga-blue', false)">
                                     <img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" />
-                                </a>
+                                </button>
                                 <span>Saga Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-green', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'saga-green', false)">
                                     <img src="assets/showcase/images/themes/saga-green.png" alt="Saga Green" />
-                                </a>
+                                </button>
                                 <span>Saga Green</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-orange', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'saga-orange', false)">
                                     <img src="assets/showcase/images/themes/saga-orange.png" alt="Saga Orange" />
-                                </a>
+                                </button>
                                 <span>Saga Orange</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-purple', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'saga-purple', false)">
                                     <img src="assets/showcase/images/themes/saga-purple.png" alt="Saga Purple" />
-                                </a>
+                                </button>
                                 <span>Saga Purple</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'vela-blue', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'vela-blue', true)">
                                     <img src="assets/showcase/images/themes/vela-blue.png" alt="Vela Blue" />
-                                </a>
+                                </button>
                                 <span>Vela Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'vela-green', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'vela-green', true)">
                                     <img src="assets/showcase/images/themes/vela-green.png" alt="Vela Green" />
-                                </a>
+                                </button>
                                 <span>Vela Green</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'vela-orange', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'vela-orange', true)">
                                     <img src="assets/showcase/images/themes/vela-orange.png" alt="Vela Orange" />
-                                </a>
+                                </button>
                                 <span>Vela Orange</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'vela-purple', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'vela-purple', true)">
                                     <img src="assets/showcase/images/themes/vela-purple.png" alt="Vela Purple" />
-                                </a>
+                                </button>
                                 <span>Vela Purple</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'arya-blue', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'arya-blue', true)">
                                     <img src="assets/showcase/images/themes/arya-blue.png" alt="Arya Blue" />
-                                </a>
+                                </button>
                                 <span>Arya Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'arya-green', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'arya-green', true)">
                                     <img src="assets/showcase/images/themes/arya-green.png" alt="Arya Green" />
-                                </a>
+                                </button>
                                 <span>Arya Green</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'arya-orange', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'arya-orange', true)">
                                     <img src="assets/showcase/images/themes/arya-orange.png" alt="Arya Orange" />
-                                </a>
+                                </button>
                                 <span>Arya Orange</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'arya-purple', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'arya-purple', true)">
                                     <img src="assets/showcase/images/themes/arya-purple.png" alt="Arya Purple" />
-                                </a>
+                                </button>
                                 <span>Arya Purple</span>
                             </div>
                         </div>
 
-                        <h5>Legacy</h5>
+                        <h4>Premium Themes</h4>
+                        <p>Premium themes are only available exclusively for <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a> subscribers and therefore not included in PrimeNG core.</p>
+
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'nova', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'soho-light', false)">
+                                    <img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light"/>
+                                </button>
+                                <span>Soho Light</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'soho-dark', true)">
+                                <img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark"/>
+                                </button>
+                                <span>Soho Dark</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'viva-light', false)">
+                                    <img src="assets/showcase/images/themes/viva-light.svg" alt="Viva Light"/>
+                                </button>
+                                <span>Viva Light</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'viva-dark', true)">
+                                <img src="assets/showcase/images/themes/viva-dark.svg" alt="Viva Dark"/>
+                                </button>
+                                <span>Viva Dark</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'mira', false)">
+                                    <img src="assets/showcase/images/themes/mira.jpg" alt="Mira"/>
+                                </button>
+                                <span>Mira</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'nano', false)">
+                                    <img src="assets/showcase/images/themes/nano.jpg" alt="Nano"/>
+                                </button>
+                                <span>Nano</span>
+                            </div>
+                        </div>
+
+                        <h4>Legacy Free Themes</h4>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'nova', false)">
                                     <img src="assets/showcase/images/themes/nova.png" alt="Nova" />
-                                </a>
+                                </button>
                                 <span>Nova</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'nova-alt', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'nova-alt', false)">
                                     <img src="assets/showcase/images/themes/nova-alt.png" alt="Nova Alt" />
-                                </a>
+                                </button>
                                 <span>Nova Alt</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'nova-accent', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'nova-accent', false)">
                                     <img src="assets/showcase/images/themes/nova-accent.png" alt="Nova Accent" />
-                                </a>
+                                </button>
                                 <span>Nova Accent</span>
                             </div>
                             <div class="p-col-3"></div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'luna-blue', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'luna-blue', true)">
                                     <img src="assets/showcase/images/themes/luna-blue.png" alt="Luna Blue" />
-                                </a>
+                                </button>
                                 <span>Luna Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'luna-green', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'luna-green', true)">
                                     <img src="assets/showcase/images/themes/luna-green.png" alt="Luna Green" />
-                                </a>
+                                </button>
                                 <span>Luna Green</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'luna-amber', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'luna-amber', true)">
                                     <img src="assets/showcase/images/themes/luna-amber.png" alt="Luna Amber" />
-                                </a>
+                                </button>
                                 <span>Luna Amber</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'luna-pink', true)">
+                                <button class="p-link" (click)="changeTheme($event, 'luna-pink', true)">
                                     <img src="assets/showcase/images/themes/luna-pink.png" alt="Luna Pink" />
-                                </a>
+                                </button>
                                 <span>Luna Pink</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'rhea', false)">
+                                <button class="p-link" (click)="changeTheme($event, 'rhea', false)">
                                     <img src="assets/showcase/images/themes/rhea.png" alt="Rhea" />
-                                </a>
+                                </button>
                                 <span>Rhea</span>
                             </div>
                         </div>
 
-                        <h4>Premium Vue-CLI Templates</h4>
-                        <p>Beautifully crafted premium <a href="https://cli.vuejs.org">Vue CLI</a> application templates by the PrimeTek design team.</p>
+                        <h4>Premium Angular-CLI Templates</h4>
+                        <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/freya-ng">
+                                    <img alt="Freya" src="assets/showcase/images/layouts/freya-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/poseidon-ng">
+                                    <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/diamond-ng">
+                                    <img alt="Diamond" src="assets/showcase/images/layouts/diamond-ng.jpg">
+                                </a>
+                            </div>
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/mirage-ng">
                                     <img alt="Mirage" src="assets/showcase/images/layouts/mirage-ng.jpg">
@@ -325,11 +397,6 @@ import { Subscription } from 'rxjs';
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/barcelona-ng">
                                     <img alt="Barcelona" src="assets/showcase/images/layouts/barcelona-ng.jpg">
                                 </a>
@@ -342,11 +409,6 @@ import { Subscription } from 'rxjs';
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/atlantis-ng">
                                     <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/poseidon-ng">
-                                    <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
@@ -366,7 +428,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     active: boolean;
 
     scale: number = 14;;
-    
+
     scales: number[] = [12,13,14,15,16];
 
     outsideClickListener: any;
@@ -379,7 +441,15 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+        this.subscription = this.configService.configUpdate$.subscribe(config => {
+            this.config = config;
+            if (this.config.theme === 'nano')
+                this.scale = 12;
+            else
+                this.scale = 14;
+
+            this.applyScale();
+        });
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
@@ -411,6 +481,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
+    onRippleChange() {
+        this.configService.updateConfig(this.config);
+    }
+
     bindOutsideClickListener() {
         if (!this.outsideClickListener) {
             this.outsideClickListener = (event) => {
@@ -435,11 +509,15 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     decrementScale() {
         this.scale--;
-        document.documentElement.style.fontSize = this.scale + 'px';
+        this.applyScale();
     }
 
     incrementScale() {
         this.scale++;
+        this.applyScale();
+    }
+
+    applyScale() {
         document.documentElement.style.fontSize = this.scale + 'px';
     }
 
@@ -448,5 +526,5 @@ export class AppConfigComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
         }
     }
-    
+
 }

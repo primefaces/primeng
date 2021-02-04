@@ -6,7 +6,7 @@ import {BlockUIModule} from 'primeng/blockui';
 import {ButtonModule} from 'primeng/button';
 import {PanelModule} from 'primeng/panel';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -16,7 +16,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         ButtonModule,
         PanelModule,
         TabViewModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		BlockUIDemo

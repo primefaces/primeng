@@ -4,7 +4,6 @@ import {PasswordDemo} from './passworddemo';
 import {PasswordDemoRoutingModule} from './passworddemo-routing.module';
 import {PasswordModule} from 'primeng/password';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
@@ -15,8 +14,7 @@ import {AppCodeModule} from '../../app.code.component';
         PasswordModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		PasswordDemo

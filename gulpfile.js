@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     del = require('del'),
     flatten = require('gulp-flatten');
-    
+
 gulp.task('build-css', function() {
 	gulp.src([
         'src/app/components/common/common.css',
@@ -27,19 +27,20 @@ gulp.task('build-css-prod', function() {
         'src/app/components/inputtextarea/inputtextarea.css',
         'src/app/components/password/password.css',
         'src/app/components/radiobutton/radiobutton.css',
+        'src/app/components/ripple/ripple.css',
         'src/app/components/tooltip/tooltip.css'
     ])
     .pipe(concat('primeng.css'))
     .pipe(gulp.dest('dist/resources'))
     .pipe(uglifycss({"uglyComments": true}))
     .pipe(rename('primeng.min.css'))
-    .pipe(gulp.dest('dist/resources'));	
+    .pipe(gulp.dest('dist/resources'));
 });
 
 gulp.task('copy-component-css', function () {
     gulp.src([
         'src/app/components/**/*.css',
-        'src/app/components/**/images/*.png', 
+        'src/app/components/**/images/*.png',
         'src/app/components/**/images/*.gif'
     ])
     .pipe(gulp.dest('dist/resources/components'));
@@ -52,7 +53,11 @@ gulp.task('images', function() {
 });
 
 gulp.task('themes', function() {
-    return gulp.src(['src/assets/components/themes/**/*'])
+    return gulp.src(['src/assets/components/themes/**/*',
+        '!src/assets/components/themes/soho-*/**/*',
+        '!src/assets/components/themes/viva-*/**/*',
+        '!src/assets/components/themes/mira/**/*',
+        '!src/assets/components/themes/nano/**/*'])
         .pipe(gulp.dest('dist/resources/themes'));
 });
 
@@ -70,4 +75,3 @@ gulp.task('readme', function() {
 //Building project with run sequence
 gulp.task('build-assets', ['clean','copy-component-css', 'build-css-prod', 'images', 'themes', 'readme']);
 
-        

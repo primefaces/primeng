@@ -1,60 +1,71 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Galleria - Navigator</span>
-        <span>Combining item navigators, thumbnails and indicators provide various UI alternatives.</span>
+    <div class="feature-intro">
+        <h1>Galleria <span>Navigator</span></h1>
+        <p>Combining item navigators, thumbnails and indicators provide various UI alternatives.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3>Item Navigators and Thumbnails</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
-        [circular]="true" [showItemNavigators]="true">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-    </p-galleria>
-    <h3>Item Navigators without Thumbnails</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
-        [circular]="true" [showItemNavigators]="true" [showThumbnails]="false">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-    </p-galleria>
-    <h3>Item Navigators on Hover</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
-        [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-    </p-galleria>
-    <h3>Item Navigators and Indicators</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px', 'margin-top':'2em'}" [numVisible]="5"
-        [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
-        [showIndicatorsOnItem]="true"> 
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-    </p-galleria>
+    <div class="card">
+        <h5>Item Navigators and Thumbnails</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+            [circular]="true" [showItemNavigators]="true">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+    
+    <div class="card">
+        <h5>Item Navigators without Thumbnails</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+            [circular]="true" [showItemNavigators]="true" [showThumbnails]="false">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+    
+    <div class="card">
+        <h5>Item Navigators on Hover</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+            [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+    
+    <div class="card">
+        <h5>Item Navigators and Indicators</h5>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px', 'margin-top':'2em'}" [numVisible]="5"
+            [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
+            [showIndicatorsOnItem]="true"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -63,8 +74,7 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/gallerianavigatordemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class GalleriaNavigatorDemo implements OnInit &#123;
     images: any[];
 
@@ -91,17 +101,14 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
         &#125;)
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="gallerianavigatordemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/gallerianavigatordemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;h3&gt;Item Navigators and Thumbnails&lt;/h3&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Item Navigators and Thumbnails&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
     [circular]="true" [showItemNavigators]="true"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
@@ -113,7 +120,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;h3&gt;Item Navigators without Thumbnails&lt;/h3&gt;
+&lt;h5&gt;Item Navigators without Thumbnails&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
     [circular]="true" [showItemNavigators]="true" [showThumbnails]="false"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
@@ -125,7 +132,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;h3&gt;Item Navigators on Hover&lt;/h3&gt;
+&lt;h5&gt;Item Navigators on Hover&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
     [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
@@ -137,7 +144,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;h3&gt;Item Navigators and Indicators&lt;/h3&gt;
+&lt;h5&gt;Item Navigators and Indicators&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px', 'margin-top':'2em'&#125;" [numVisible]="5"
     [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
     [showIndicatorsOnItem]="true"&gt; 
@@ -150,8 +157,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
+</app-code>
 
         </p-tabPanel>
     </p-tabView>

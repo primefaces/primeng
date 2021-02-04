@@ -1,10 +1,9 @@
 import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
-import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
+import {Header,Footer,PrimeTemplate,SharedModule,FilterService} from 'primeng/api';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockableUI} from 'primeng/api';
-import {FilterUtils} from 'primeng/utils';
 
 @Component({
     selector: 'p-dataView',
@@ -15,13 +14,14 @@ import {FilterUtils} from 'primeng/utils';
                     <i [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
                 </div>
             </div>
-            <div class="p-dataview-header">
+            <div class="p-dataview-header" *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="p-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
+                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
             <div class="p-dataview-content">
                 <div class="p-grid p-nogutter">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
@@ -35,9 +35,10 @@ import {FilterUtils} from 'primeng/utils';
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="p-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
-                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
-            <div class="p-dataview-footer" *ngIf="footer">
+                [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
+            <div class="p-dataview-footer" *ngIf="footer || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -70,6 +71,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
 
     @Input() showCurrentPageReport: boolean;
+
+    @Input() showJumpToPageDropdown: boolean;
+
+    @Input() showFirstLastIcon: boolean = true;
+
+    @Input() showPageLinks: boolean = true;
 
     @Input() lazy: boolean;
 
@@ -119,9 +126,15 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     itemTemplate: TemplateRef<any>;
 
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
+
     paginatorLeftTemplate: TemplateRef<any>;
 
     paginatorRightTemplate: TemplateRef<any>;
+
+    paginatorDropdownItemTemplate: TemplateRef<any>;
 
     filteredValue: any[];
 
@@ -129,7 +142,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     initialized: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
         if (this.lazy) {
@@ -173,6 +186,18 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
+                break;
+
+                case 'paginatordropdownitem':
+                    this.paginatorDropdownItemTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
                 break;
             }
         });
@@ -280,7 +305,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
+            this.filteredValue = this.filterService.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
 
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;
@@ -306,8 +331,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         <div [ngClass]="'p-dataview-layout-options p-selectbutton p-buttonset'" [ngStyle]="style" [class]="styleClass">
             <button type="button" class="p-button p-button-icon-only" [ngClass]="{'p-highlight': dv.layout === 'list'}" (click)="changeLayout($event, 'list')" (keydown.enter)="changeLayout($event, 'list')">
                 <i class="pi pi-bars"></i>
-            </button>
-            <button type="button" class="p-button p-button-icon-only" [ngClass]="{'p-highlight': dv.layout === 'grid'}" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')">
+            </button><button type="button" class="p-button p-button-icon-only" [ngClass]="{'p-highlight': dv.layout === 'grid'}" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')">
                 <i class="pi pi-th-large"></i>
             </button>
         </div>

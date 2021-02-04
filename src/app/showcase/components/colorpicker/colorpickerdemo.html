@@ -19,17 +19,17 @@
     <p-tabView>
         <p-tabPanel header ="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ColorPickerModule&#125; from 'primeng/colorpicker';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>ColorPicker uses ngModel directive to bind a value.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-colorPicker [(ngModel)]="color"&gt;&lt;/p-colorPicker&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponent &#123;
 
     color: string;
@@ -40,13 +40,13 @@ export class MyComponent &#123;
             <h5>Formats</h5>
             <p>Default color format to use in value binding is "hex" and other possible values are "rgb" and "hsb". 
                 Example below has 3 colorpickers having default values with different formats.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-colorPicker [(ngModel)]="color1"&gt;&lt;/p-colorPicker&gt;
 &lt;p-colorPicker [(ngModel)]="color2" format="rgb"&gt;&lt;/p-colorPicker&gt;
 &lt;p-colorPicker [(ngModel)]="color3" format="hsb"&gt;&lt;/p-colorPicker&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponent &#123;
 
     color1: string;
@@ -64,21 +64,21 @@ export class MyComponent &#123;
 
             <h5>Overlay and Inline</h5>
             <p>ColorPicker can be displayed as inline or as an overlay (default) using the "inline" property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-colorPicker [(ngModel)]="color1" &gt;&lt;/p-colorPicker&gt;
 &lt;p-colorPicker [(ngModel)]="color2" [inline]="true"&gt;&lt;/p-colorPicker&gt;
 </app-code>
 
             <h5>Model Driven Forms</h5>
             <p>Colorpicker can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-colorPicker formControlName="color"&gt;&lt;/p-colorPicker&gt;
 </app-code>
      
         <h5>Animation Configuration</h5>
         <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
             example below disables the animations altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-colorPicker [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" formControlName="color"&gt;&lt;/p-colorPicker&gt;
 </app-code>       
     
@@ -188,6 +188,16 @@ export class MyComponent &#123;
                         </td>
                         <td>Callback to invoke when a color is selected.</td>
                     </tr>
+                    <tr>
+                        <td>onShow</td>
+                        <td>event: Event object</td>
+                        <td>Callback to invoke when popup is shown.</td>
+                    </tr>
+                    <tr>
+                        <td>onHide</td>
+                        <td>event: Event object</td>
+                        <td>Callback to invoke when popup is hidden.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -256,7 +266,7 @@ export class MyComponent &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/colorpicker" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Inline&lt;/h5&gt;
 &lt;p-colorPicker [(ngModel)]="color1" [inline]="true"&gt;&lt;/p-colorPicker&gt;
 
@@ -265,7 +275,7 @@ export class MyComponent &#123;
 &lt;p-colorPicker [(ngModel)]="color2"&gt;&lt;/p-colorPicker&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ColorPickerDemo &#123;
 
     color1: string;

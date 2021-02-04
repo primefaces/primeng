@@ -43,7 +43,7 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;CheckboxModule&#125; from 'primeng/checkbox';
 </app-code>
 
@@ -52,12 +52,12 @@ import &#123;CheckboxModule&#125; from 'primeng/checkbox';
             
             <h4>Multiple Values</h4>
             <p>Multiple mode is enabled by default, ngModel property refers to an array to bind the selected values.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 &lt;p-checkbox name="groupname" value="val2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     selectedValues: string[] = [];
@@ -67,7 +67,7 @@ export class ModelComponent &#123;
 
             <p>As ngModel is two-way binding enabled, prepopulating the model array with values is enough to display the related
             checkboxes as checked by default.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     selectedValues: string[] = ['val1','val2'];
@@ -77,14 +77,14 @@ export class ModelComponent &#123;
 
         <h4>Label</h4>
         <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 &lt;p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 </app-code>
 
         <h4>Boolean Value</h4>
         <p>A single boolean value can be bound using the ngModel property as well by enabling the binary option.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     value: boolean;
@@ -92,14 +92,14 @@ export class ModelComponent &#123;
 &#125;
 </app-code>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-checkbox [(ngModel)]="value" [binary]="true"&gt;&lt;/p-checkbox&gt;
 </app-code>
 
         <h5>Model Driven Forms</h5>
         <p>Checkbox can be used in a model driven form as well. In this case, due to an <a href="https://github.com/angular/angular/issues/17685">issue</a> in Angular bind the formControl instance 
             instead of using formControlName.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;!-- Wrong --&gt;
 &lt;p-checkbox formControlName="cities"&gt;&lt;/p-checkbox&gt;
 
@@ -303,8 +303,7 @@ export class ModelComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-checkbox-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
-&lt;h5&gt;Basic&lt;/h5&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;div class="p-field-checkbox"&gt;
     &lt;p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"&gt;&lt;/p-checkbox&gt;
@@ -335,7 +334,7 @@ export class ModelComponent &#123;
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class CheckboxDemo &#123;
 
     selectedCities: string[] = [];

@@ -1,6 +1,8 @@
-import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
+import {RippleModule} from 'primeng/ripple'; 
+import {PrimeTemplate} from 'primeng/api'; 
 
 @Directive({
     selector: '[pButton]'
@@ -50,10 +52,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         if (this.icon && !this.label) {
             styleClass = styleClass + ' p-button-icon-only';
         }
-
-        if (this.el.nativeElement.disabled) {
-            styleClass = styleClass + ' p-disabled';
-        }
         
         return styleClass;
     }
@@ -92,12 +90,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.setStyleClass();
         }
     }
-        
+    
     ngOnDestroy() {
-        while(this.el.nativeElement.hasChildNodes()) {
-            this.el.nativeElement.removeChild(this.el.nativeElement.lastChild);
-        }
-        
         this.initialized = false;
     }
 }
@@ -108,10 +102,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled"
             [ngClass]="{'p-button p-component':true,
                         'p-button-icon-only': (icon && !label),
-                        'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
-                        'p-disabled': disabled}"
-                        (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)">
+                        'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label}"
+                        (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)" pRipple>
             <ng-content></ng-content>
+            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <span [ngClass]="{'p-button-icon': true,
                         'p-button-icon-left': iconPos === 'left' && label,
                         'p-button-icon-right': iconPos === 'right' && label,
@@ -119,13 +113,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-button-icon-bottom': iconPos === 'bottom' && label}"
                         [class]="icon" *ngIf="icon" [attr.aria-hidden]="true"></span>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label">{{label||'&nbsp;'}}</span>
-            <span [ngClass]="'p-badge'" *ngIf="badge" [class]="badgeClass">{{badge}}</span>
+            <span [ngClass]="badgeStyleClass()" *ngIf="badge" [class]="badgeClass">{{badge}}</span>
         </button>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Button {
+export class Button implements AfterContentInit {
 
     @Input() type: string = "button";
 
@@ -145,15 +139,40 @@ export class Button {
 
     @Input() badgeClass: string;
 
+    contentTemplate: TemplateRef<any>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+                
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+    }
+
+    badgeStyleClass() {
+        return {
+            'p-badge p-component': true,
+            'p-badge-no-gutter': this.badge && String(this.badge).length === 1
+        }
+    }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [ButtonDirective,Button],
     declarations: [ButtonDirective,Button]
 })

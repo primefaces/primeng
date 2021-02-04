@@ -5,7 +5,6 @@ import {DropdownDemo} from './dropdowndemo';
 import {DropdownDemoRoutingModule} from './dropdowndemo-routing.module';
 import {DropdownModule} from 'primeng/dropdown';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 import { AppCodeModule } from '../../app.code.component';
 
@@ -17,8 +16,7 @@ import { AppCodeModule } from '../../app.code.component';
         DropdownModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		DropdownDemo

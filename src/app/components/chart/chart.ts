@@ -16,8 +16,6 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     @Input() type: string;
 
-    @Input() options: any = {};
-
     @Input() plugins: any[] = [];
     
     @Input() width: string;
@@ -32,6 +30,8 @@ export class UIChart implements AfterViewInit, OnDestroy {
     
     _data: any;
 
+    _options: any = {};
+
     chart: any;
 
     constructor(public el: ElementRef) {}
@@ -45,6 +45,15 @@ export class UIChart implements AfterViewInit, OnDestroy {
         this.reinit();
     }
 
+    @Input() get options(): any {
+        return this._options;
+    }
+
+    set options(val:any) {
+        this._options = val;
+        this.reinit();
+    }
+
     ngAfterViewInit() {
         this.initChart();
         this.initialized = true;
@@ -54,7 +63,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
         if (this.chart) {
             let element = this.chart.getElementAtEvent(event);
             let dataset = this.chart.getDatasetAtEvent(event);
-            if (element&&element[0]&&dataset) {
+            if (element && element[0] && dataset) {
                 this.onDataSelect.emit({originalEvent: event, element: element[0], dataset: dataset});
             }
         }

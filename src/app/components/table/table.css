@@ -33,7 +33,7 @@
     table-layout: auto;
 }
 
-.p-datatable-hoverable-rows .p-datatable-row {
+.p-datatable-hoverable-rows .p-selectable-row {
     cursor: pointer;
 }
 
@@ -104,6 +104,7 @@
 .p-datatable-resizable .p-datatable-tfoot > tr > td,
 .p-datatable-resizable .p-datatable-tbody > tr > td {
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .p-datatable-resizable .p-resizable-column {
@@ -161,18 +162,93 @@
     display: none;
 }
 
+.p-datatable-reorderablerow-handle {
+    cursor: move;
+}
+
+[pReorderableColumn] {
+    cursor: move;
+}
+
 /* Loader */
 .p-datatable .p-datatable-loading-overlay {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 2;
+}
+
+/* Filter */
+.p-column-filter-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.p-column-filter-menu {
+    display: inline-flex;
+}
+
+.p-column-filter-row p-columnfilterformelement {
+    flex: 1 1 auto;
+    width: 1%;
+}
+
+.p-column-filter-menu-button,
+.p-column-filter-clear-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.p-column-filter-overlay {
+    position: absolute;
+}
+
+.p-column-filter-row-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.p-column-filter-row-item {
+    cursor: pointer;
+}
+
+.p-column-filter-add-button,
+.p-column-filter-remove-button {
+    justify-content: center;
+}
+
+.p-column-filter-add-button .p-button-label, 
+.p-column-filter-remove-button .p-button-label {
+    flex-grow: 0;
+}
+
+.p-column-filter-buttonbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p-column-filter-buttonbar .p-button {
+    width: auto;
 }
 
 /* Responsive */
 .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
     display: none;
+}
+
+/* Virtual Scroll*/
+
+cdk-virtual-scroll-viewport {
+    outline: 0 none;
 }
 
 @media screen and (max-width: 40em) {

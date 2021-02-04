@@ -25,7 +25,7 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {InputTextModule} from 'primeng/inputtext';
@@ -143,7 +143,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     focused: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         let ua = DomHandler.getUserAgent();
@@ -234,12 +234,13 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     caret(first?: number, last?: number) {
         let range, begin, end;
 
-        if (!this.inputViewChild.nativeElement.offsetParent||this.inputViewChild.nativeElement !== document.activeElement) {
+        if (!this.inputViewChild.nativeElement.offsetParent||this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
             return;
         }
 
@@ -576,7 +577,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         pos = this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
-            if (this.inputViewChild.nativeElement !== document.activeElement){
+            if (this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement){
                 return;
             }
             this.writeBuffer();

@@ -7,7 +7,8 @@ import {MessageModule} from 'primeng/message';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {RippleModule} from 'primeng/ripple';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -18,7 +19,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         ButtonModule,
         InputTextModule,
         TabViewModule,
-        CodeHighlighterModule
+        RippleModule,
+        AppCodeModule
 	],
 	declarations: [
 		MessagesDemo

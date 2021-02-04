@@ -1,6 +1,16 @@
 import {Component} from '@angular/core';
-import {SelectItem} from 'primeng/api';
-import { CountryService } from '../../service/countryservice';
+import {CountryService} from '../../service/countryservice';
+import {SelectItemGroup} from 'primeng/api';
+
+interface City {
+    name: string,
+    code: string
+}
+
+interface Country {
+    name: string,
+    code: string
+}
 
 @Component({
     templateUrl: './multiselectdemo.html',
@@ -8,27 +18,32 @@ import { CountryService } from '../../service/countryservice';
 })
 export class MultiSelectDemo {
 
-    selectedCities: string[] = [];
+    selectedCities1: City[];
+
+    selectedCities2: City[];
+
+    selectedCities3: any[];
     
-    selectedCountries1: string[] = [];
+    selectedCountries1: Country[];
 
-    selectedCountries2: string[] = [];
+    selectedCountries2: Country[];
 
-    items: SelectItem[];
+    cities: City[];
 
-    item: string;
+    groupedCities: SelectItemGroup[];
 
-    cities: any[];
+    countries: City[];
 
-    countries: any[];
+    virtualCountries: Country[];
 
     constructor(private countryService: CountryService) {
-        
-        this.items = [];
-
-        this.countryService.getCountries().then(countries => {
-            this.items = countries;
-        });
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
 
         this.countries = [
             {name: 'Australia', code: 'AU'},
@@ -43,12 +58,38 @@ export class MultiSelectDemo {
             {name: 'United States', code: 'US'}
         ];
 
-        this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+        this.groupedCities = [
+            {
+                label: 'Germany', value: 'de', 
+                items: [
+                    {label: 'Berlin', value: 'Berlin'},
+                    {label: 'Frankfurt', value: 'Frankfurt'},
+                    {label: 'Hamburg', value: 'Hamburg'},
+                    {label: 'Munich', value: 'Munich'}
+                ]
+            },
+            {
+                label: 'USA', value: 'us', 
+                items: [
+                    {label: 'Chicago', value: 'Chicago'},
+                    {label: 'Los Angeles', value: 'Los Angeles'},
+                    {label: 'New York', value: 'New York'},
+                    {label: 'San Francisco', value: 'San Francisco'}
+                ]
+            },
+            {
+                label: 'Japan', value: 'jp', 
+                items: [
+                    {label: 'Kyoto', value: 'Kyoto'},
+                    {label: 'Osaka', value: 'Osaka'},
+                    {label: 'Tokyo', value: 'Tokyo'},
+                    {label: 'Yokohama', value: 'Yokohama'}
+                ]
+            }
         ];
+
+        this.countryService.getCountries().then(countries => {
+            this.virtualCountries = countries;
+        });
     }
 }

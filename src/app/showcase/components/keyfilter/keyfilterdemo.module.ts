@@ -7,7 +7,6 @@ import {KeyFilterDemoRoutingModule} from './keyfilterdemo-routing.module';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
@@ -21,8 +20,7 @@ import {AppCodeModule} from '../../app.code.component';
 		MessageModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		KeyFilterDemo

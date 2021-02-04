@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule}    from '@angular/forms'
+import {FormsModule} from '@angular/forms'
 import {AutoCompleteDemo} from './autocompletedemo';
 import {AutoCompleteDemoRoutingModule} from './autocompletedemo-routing.module';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 import { AppCodeModule } from '../../app.code.component';
 
@@ -17,8 +16,7 @@ import { AppCodeModule } from '../../app.code.component';
         AutoCompleteModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		AutoCompleteDemo

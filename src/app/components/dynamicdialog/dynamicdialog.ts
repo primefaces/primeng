@@ -26,7 +26,7 @@ const hideAnimation = animation([
                 <div class="p-dialog-header" *ngIf="config.showHeader === false ? false: true">
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons">
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="close()" (keydown.enter)="close()" *ngIf="config.closable !== false">
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
                             <span class="p-dialog-header-close-icon pi pi-times"></span>
                         </button>
                     </div>
@@ -50,7 +50,7 @@ const hideAnimation = animation([
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
@@ -133,7 +133,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	onContainerDestroy() {
 		this.unbindGlobalListeners();
-        
+
         if (this.config.modal !== false) {
             this.disableModality();
         }
@@ -145,11 +145,17 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.cd.markForCheck();
 	}
 
+    hide() {
+        if (this.dialogRef) {
+            this.dialogRef.close();
+        }
+    }
+
     enableModality() {
         if (this.config.closable !== false && this.config.dismissableMask) {
-            this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
-                    this.close();
+                    this.hide();
                 }
             });
         }
@@ -182,11 +188,11 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             let focusableElements = DomHandler.getFocusableElements(this.container);
 
             if (focusableElements && focusableElements.length > 0) {
-                if (!document.activeElement) {
+                if (!focusableElements[0].ownerDocument.activeElement) {
                     focusableElements[0].focus();
                 }
                 else {
-                    let focusedIndex = focusableElements.indexOf(document.activeElement);
+                    let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                     if (event.shiftKey) {
                         if (focusedIndex == -1 || focusedIndex === 0)
@@ -242,10 +248,12 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
 	bindDocumentEscapeListener() {
-        this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+        const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
+
+        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
                 if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + (this.config.baseZIndex ? this.config.baseZIndex : 0))) {
-					this.close();
+					this.hide();
 				}
             }
         });

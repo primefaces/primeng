@@ -27,21 +27,21 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
                     <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>SplitButton has a default command button and a collection of menuitems to be displayed in an overlay.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitButton label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
                 example below disables the animations altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
 </app-code>
             <h5>MenuModel API</h5>
@@ -176,7 +176,7 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
             <li>.p-button-help</li>
             <li>.p-button-danger</li>
           </ul>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"&gt;&lt;/p-splitButton&gt;
 </app-code>
             <h5>Styling</h5>
@@ -217,7 +217,7 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
             <a href="https://stackblitz.com/edit/primeng-splitbutton-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;h5&gt;Basic&lt;/h5&gt;
@@ -230,11 +230,8 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
 &lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning"&gt;&lt;/p-splitButton&gt;
 &lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-help"&gt;&lt;/p-splitButton&gt;
 &lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger"&gt;&lt;/p-splitButton&gt;
-
-&lt;h5&gt;RTL&lt;/h5&gt;
-&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" dir="rtl"&gt;&lt;/p-splitButton&gt;
 </app-code>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SplitButtonDemo implements OnInit &#123;
 
     items: MenuItem[];

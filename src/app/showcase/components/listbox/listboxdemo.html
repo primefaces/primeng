@@ -15,8 +15,18 @@
         <p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}" [style]="{'width':'15rem'}">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" />
-                    <div>{{country.value.name}}</div>
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <div>{{country.name}}</div>
+                </div>
+            </ng-template>
+        </p-listbox>
+
+        <h5>Advanced with Group, Filtering and Multiple Selection</h5>
+        <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'250px'}" [style]="{'width':'15rem'}">
+            <ng-template let-group pTemplate="group">
+                <div class="p-d-flex p-ai-center">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
+                    <span>{{group.label}}</span>
                 </div>
             </ng-template>
         </p-listbox>
@@ -27,47 +37,32 @@
   <p-tabView>
     <p-tabPanel header="Documentation">
       <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ListboxModule&#125; from 'primeng/listbox';
 </app-code>
 
 
-      <h5>Getting Started</h5>
-      <p>Listbox requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
-      instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how
-      the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
+        <h5>Getting Started</h5>
+        <p>Listbox requires a value to bind and a collection of options.</p>
       
-<app-code lang="markup" ngNonBindable>
-&lt;p-listbox [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-listbox&gt;
-
-&lt;p-listbox [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-listbox&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"&gt;&lt;/p-listbox&gt;
 </app-code>
-<app-code lang="typescript">
-import &#123;SelectItem&#125; from 'primeng/api';
 
-export class MyModel &#123;
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+interface City &#123;
+    name: string,
+    code: string
+&#125;
 
-    cities1: SelectItem[];
+export class ListboxDemo &#123;
 
-    cities2: City[];
+    cities: City[];
 
-    selectedCity1: City;
-
-    selectedCity2: City;
+    selectedCity: City;
 
     constructor() &#123;
-        //SelectItem API with label-value pairs
-        this.cities1 = [
-            &#123;label:'Select City', value:null&#125;,
-            &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
-            &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
-            &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
-            &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;,
-            &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
-        ];
-
-        //An array of cities
-        this.cities2 = [
+        this.cities = [
             &#123;name: 'New York', code: 'NY'&#125;,
             &#123;name: 'Rome', code: 'RM'&#125;,
             &#123;name: 'London', code: 'LDN'&#125;,
@@ -79,113 +74,156 @@ export class MyModel &#123;
 &#125;
 </app-code>
 
-
-      <h5>Selection</h5>
-      <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection.
-        In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
-        using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
-        devices metaKeySelection is turned off automatically.</p>
-<app-code lang="markup">
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
+        <h5>Value Binding</h5>
+        <p>The option itself is bound to the model by default, use <i>optionValue</i> to customize the property to pass as the value.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCityCode" optionLabel="name" optionValue="code"&gt;&lt;/p-listbox&gt;
 </app-code>
+    
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+interface City &#123;
+    name: string,
+    code: string
+&#125;
 
-<app-code lang="typescript">
-import &#123;SelectItem&#125; from 'primeng/api';
+export class ListboxDemo &#123;
 
-export class MyModel &#123;
+    cities: City[];
 
-    cities: SelectItem[];
-
-    selectedCities: string[];
+    selectedCityCode: string;
 
     constructor() &#123;
         this.cities = [
-            &#123;label:'Select City', value:null&#125;,
-            &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
-            &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
-            &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
-            &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;
-            &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
         ];
     &#125;
 
 &#125;
 </app-code>
 
+      <h5>Selection</h5>
+      <p>Listbox allows selection of either single or multiple items whereas <i>checkbox</i> option displays a checkbox to indicate multiple selection.
+        In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
+        using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
+        devices metaKeySelection is turned off automatically.</p>
 
-        <h5>Updating Options</h5>
-        <p>When itemLabel property is used, Listbox does not detect changes in the options so provide a new reference when you need to update the options such as adding a new option.</p>
-<app-code lang="typescript">
-addOption() &#123;
-    //fails
-    this.options.push(&#123;name:'New York', code: 'NY'&#125;);
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" optionLabel="name"&gt;&lt;/p-listbox&gt;
+</app-code>
 
-    //correct
-    this.options = [...this.cities, &#123;name:'New York', code: 'NY'&#125;];
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class ListboxDemo &#123;
+
+    cities: City[];
+
+    selectedCities: City[];
+
+    constructor() &#123;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
+    &#125;
+
 &#125;
 </app-code>
 
-
         <h5>Disabled Options</h5>
-        <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
+        <p>Particular options can be prevented from selection using the <i>optionDisabled</i> property.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" optionDisabled="inactive"&gt;&lt;/p-listbox&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class ListboxDemo &#123;
+
+    cities: City[];
+
+    selectedCity: City;
+
+    constructor() &#123;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY', inactive: false&#125;,
+            &#123;name: 'Rome', code: 'RM', inactive: true&#125;,
+            &#123;name: 'London', code: 'LDN', inactive: false&#125;,
+            &#123;name: 'Istanbul', code: 'IST', inactive: true&#125;,
+            &#123;name: 'Paris', code: 'PRS', inactive: false&#125;
+        ];
+    &#125;
+
+&#125;
+</app-code>
 
       <h5>Filter</h5>
-      <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
-        mode is "contains" and alternative is "startsWith" configuted by <i>filterMode</i> property.</p>
-<app-code lang="markup">
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
+      <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, set <i>filter</i> property as true. Default filtering
+        mode is "contains" and alternatives are available via the <i>filterMatchMode</i> property. See property documentation for more information.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-listbox&gt;
 </app-code>
 
       <h5>Model Driven Forms</h5>
       <p>Listbox can be used in a model driven form as well.</p>
-<app-code lang="markup">
-&lt;p-listbox [options]="cities" formControlName="cities"&gt;&lt;/p-listbox&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-listbox [options]="cities" formControlName="selectedCity"&gt;&lt;/p-listbox&gt;
 </app-code>
 
       <h5>Custom Content</h5>
-      <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template where
-        the local ng-template variable refers to an option in the options collection. Additionally a custom header and footer can be provided
-        using <i>p-header</i> and <i>p-footer</i> element.</p>
-<app-code lang="markup" ngNonBindable>
-&lt;p-listbox [options]="cars" [(ngModel)]="selectedCar"&gt;
-    &lt;p-header&gt;
-      List of Car
-    &lt;/p-header&gt;
-    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
-        &lt;div&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{car.label}}.png" style="display:inline-block;margin:5px 0 0 5px" width="48"&gt;
-            &lt;span style="float:right;margin:20px 10px 0 0"&gt;&#123;&#123;i&#125;&#125; - &#123;&#123;car.value&#125;&#125;&lt;/span&gt;
+      <p>For custom content support define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. Additionally a custom header and footer can be provided
+        using <i>header</i> and <i>footer</i> templates. In addition when grouping is enabled, <i>group</i> template is available
+        to customize the option groups. All templates get the option instance as the default local template variable.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-listbox [options]="countries" [(ngModel)]="selectedCountries" [multiple]="true" optionLabel="name" [listStyle]="&#123;'max-height':'250px'&#125;"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        Header Content
+    &lt;/ng-template&gt;
+    &lt;ng-template let-country pTemplate="item"&gt;
+        &lt;div class="country-item"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-    &lt;p-footer&gt;
-        Selected: &#123;&#123;selectedCar||'none'&#125;&#125;
-    &lt;/p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        Footer Content
+    &lt;/ng-template&gt;
 &lt;/p-listbox&gt;
 </app-code>
 
-<app-code lang="typescript">
-import &#123;SelectItem&#125; from 'primeng/api';
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+interface Country &#123;
+    name: string,
+    code: string
+&#125;
 
-export class MyModel &#123;
+export class ListboxDemo &#123;
 
-    cars: SelectItem[];
+    countries: Country[];
 
-    selectedCar: string;
+    selectedCountries: Country[];
 
     constructor() &#123;
-        this.cars = [
-            &#123;label: 'Audi', value: 'Audi'&#125;,
-            &#123;label: 'BMW', value: 'BMW'&#125;,
-            &#123;label: 'Fiat', value: 'Fiat'&#125;,
-            &#123;label: 'Ford', value: 'Ford'&#125;,
-            &#123;label: 'Honda', value: 'Honda'&#125;,
-            &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
-            &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
-            &#123;label: 'Renault', value: 'Renault'&#125;,
-            &#123;label: 'VW', value: 'VW'&#125;,
-            &#123;label: 'Volvo', value: 'Volvo'&#125;
+        this.countries = [
+            &#123;name: 'Australia', code: 'AU'&#125;,
+            &#123;name: 'Brazil', code: 'BR'&#125;,
+            &#123;name: 'China', code: 'CN'&#125;,
+            &#123;name: 'Egypt', code: 'EG'&#125;,
+            &#123;name: 'France', code: 'FR'&#125;,
+            &#123;name: 'Germany', code: 'DE'&#125;,
+            &#123;name: 'India', code: 'IN'&#125;,
+            &#123;name: 'Japan', code: 'JP'&#125;,
+            &#123;name: 'Spain', code: 'ES'&#125;,
+            &#123;name: 'United States', code: 'US'&#125;
         ];
     &#125;
+    
 &#125;
 </app-code>
 
@@ -203,23 +241,10 @@ export class MyModel &#123;
             </thead>
             <tbody>
                 <tr>
-                    <td>options</td>
-                    <td>array</td>
-                    <td>null</td>
-                    <td>An array of selectitems to display as the available options.</td>
-                </tr>
-                <tr>
-                    <td>optionLabel</td>
+                    <td>ariaFilterLabel</td>
                     <td>string</td>
                     <td>null</td>
-                    <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as
-                        options.</td>
-                </tr>
-                <tr>
-                    <td>multiple</td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>When specified, allows selecting multiple values.</td>
+                    <td>Defines a string that labels the filter input.</td>
                 </tr>
                 <tr>
                     <td>checkbox</td>
@@ -228,13 +253,25 @@ export class MyModel &#123;
                     <td>When specified, allows selecting items with checkboxes.</td>
                 </tr>
                 <tr>
+                    <td>dataKey</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>A property to uniquely identify a value in options.</td>
+                </tr>
+                <tr>
+                    <td>disabled</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>When present, it specifies that the element should be disabled.</td>
+                </tr>
+                <tr>
                     <td>filter</td>
                     <td>boolean</td>
                     <td>false</td>
                     <td>When specified, displays a filter input at header.</td>
                 </tr>
                 <tr>
-                    <td>filterMode</td>
+                    <td>filterMatchMode</td>
                     <td>string</td>
                     <td>contains</td>
                     <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
@@ -252,28 +289,10 @@ export class MyModel &#123;
                     <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
                 </tr>
                 <tr>
-                    <td>readonly</td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>When present, it specifies that the element value cannot be changed.</td>
-                </tr>
-                <tr>
-                    <td>disabled</td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>When present, it specifies that the element should be disabled.</td>
-                </tr>
-                <tr>
-                    <td>style</td>
+                    <td>filterPlaceHolder</td>
                     <td>string</td>
                     <td>null</td>
-                    <td>Inline style of the container.</td>
-                </tr>
-                <tr>
-                    <td>styleClass</td>
-                    <td>string</td>
-                    <td>null</td>
-                    <td>Style class of the container.</td>
+                    <td>Defines placeholder of the filter input.</td>
                 </tr>
                 <tr>
                     <td>listStyle</td>
@@ -297,10 +316,58 @@ export class MyModel &#123;
                         automatically.</td>
                 </tr>
                 <tr>
-                    <td>dataKey</td>
-                    <td>string</td>
+                    <td>multiple</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>When specified, allows selecting multiple values.</td>
+                </tr>
+                <tr>
+                    <td>readonly</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>When present, it specifies that the element value cannot be changed.</td>
+                </tr>
+                <tr>
+                    <td>options</td>
+                    <td>array</td>
                     <td>null</td>
-                    <td>A property to uniquely identify a value in options.</td>
+                    <td>An array of selectitems to display as the available options.</td>
+                </tr>
+                <tr>
+                    <td>optionLabel</td>
+                    <td>string</td>
+                    <td>label</td>
+                    <td>Name of the label field of an option.</td>
+                </tr>
+                <tr>
+                    <td>optionValue</td>
+                    <td>string</td>
+                    <td>value</td>
+                    <td>Name of the value field of an option.</td>
+                </tr>
+                <tr>
+                    <td>optionDisabled</td>
+                    <td>string</td>
+                    <td>disabled</td>
+                    <td>Name of the disabled field of an option.</td>
+                </tr>
+                <tr>
+                    <td>optionGroupLabel</td>
+                    <td>string</td>
+                    <td>label</td>
+                    <td>Name of the label field of an option group.</td>
+                </tr>
+                <tr>
+                    <td>optionGroupChildren</td>
+                    <td>string</td>
+                    <td>items</td>
+                    <td>Name of the options field of an option group.</td>
+                </tr>
+                <tr>
+                    <td>group</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Whether to display options as grouped when nested options are provided.</td>
                 </tr>
                 <tr>
                     <td>showToggleAll</td>
@@ -309,16 +376,16 @@ export class MyModel &#123;
                     <td>Whether header checkbox is shown in multiple mode.</td>
                 </tr>
                 <tr>
-                    <td>ariaFilterLabel</td>
+                    <td>style</td>
                     <td>string</td>
                     <td>null</td>
-                    <td>Defines a string that labels the filter input.</td>
+                    <td>Inline style of the container.</td>
                 </tr>
                 <tr>
-                    <td>filterPlaceHolder</td>
+                    <td>styleClass</td>
                     <td>string</td>
                     <td>null</td>
-                    <td>Defines placeholder of the filter input.</td>
+                    <td>Style class of the container.</td>
                 </tr>
             </tbody>
         </table>
@@ -409,7 +476,7 @@ export class MyModel &#123;
       <a href="https://stackblitz.com/edit/primeng-listbox-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
         <span>Edit in StackBlitz</span>
       </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Single&lt;/h5&gt;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="&#123;'width':'15rem'&#125;"&gt;&lt;/p-listbox&gt;
 
@@ -417,23 +484,51 @@ export class MyModel &#123;
 &lt;p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="&#123;'max-height':'250px'&#125;" [style]="&#123;'width':'15rem'&#125;"&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;country.value.name&#125;&#125;&lt;/div&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-listbox&gt;
+
+&lt;h5&gt;Advanced with Group, Filtering and Multiple Selection&lt;/h5&gt;
+&lt;p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="&#123;'max-height':'250px'&#125;" [style]="&#123;'width':'15rem'&#125;"&gt;
+    &lt;ng-template let-group pTemplate="group"&gt;
+        &lt;div class="p-d-flex p-ai-center"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+            &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-listbox&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component&#125; from '@angular/core';
+import &#123; SelectItemGroup &#125; from 'primeng/api';
+
+interface City &#123;
+    name: string,
+    code: string
+&#125;
+
+interface Country &#123;
+    name: string,
+    code: string
+&#125;
+
+@Component(&#123;
+    templateUrl: './listboxdemo.html'
+&#125;)
 export class ListboxDemo &#123;
 
+    groupedCities: SelectItemGroup[];
+    
     cities: City[];
 
-    countries: any[];
+    countries: Country[];
 
     selectedCity: City;
 
-    selectedCountries: any[];
+    selectedCountries: Country[];
 
     constructor() &#123;
         this.cities = [
@@ -455,6 +550,36 @@ export class ListboxDemo &#123;
             &#123;name: 'Japan', code: 'JP'&#125;,
             &#123;name: 'Spain', code: 'ES'&#125;,
             &#123;name: 'United States', code: 'US'&#125;
+        ];
+
+        this.groupedCities = [
+            &#123;
+                label: 'Germany', value: 'de', 
+                items: [
+                    &#123;label: 'Berlin', value: 'Berlin'&#125;,
+                    &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
+                    &#123;label: 'Hamburg', value: 'Hamburg'&#125;,
+                    &#123;label: 'Munich', value: 'Munich'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'USA', value: 'us', 
+                items: [
+                    &#123;label: 'Chicago', value: 'Chicago'&#125;,
+                    &#123;label: 'Los Angeles', value: 'Los Angeles'&#125;,
+                    &#123;label: 'New York', value: 'New York'&#125;,
+                    &#123;label: 'San Francisco', value: 'San Francisco'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Japan', value: 'jp', 
+                items: [
+                    &#123;label: 'Kyoto', value: 'Kyoto'&#125;,
+                    &#123;label: 'Osaka', value: 'Osaka'&#125;,
+                    &#123;label: 'Tokyo', value: 'Tokyo'&#125;,
+                    &#123;label: 'Yokohama', value: 'Yokohama'&#125;
+                ]
+            &#125;
         ];
     &#125;
     

@@ -5,7 +5,6 @@ import {CardDemoRoutingModule} from './carddemo-routing.module';
 import {CardModule} from 'primeng/card';
 import {TabViewModule} from 'primeng/tabview';
 import {ButtonModule} from 'primeng/button';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -15,8 +14,7 @@ import { AppCodeModule } from '../../app.code.component';
 		CardModule,
 		ButtonModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		CardDemo

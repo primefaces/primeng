@@ -1,0 +1,16 @@
+.p-scrolltop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-scrolltop-sticky {
+    position: sticky;
+}
+
+.p-scrolltop-sticky.p-link {
+    margin-left: auto;
+}

@@ -1,65 +1,61 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">ConfirmDialog</span>
-        <span>ConfirmDialog is backed by a service utilizing Observables to display confirmation windows
-            easily that can be shared by multiple actions on the same component.</span>
+    <div class="feature-intro">
+        <h1>ConfirmDialog</h1>
+        <p>ConfirmDialog is backed by a service utilizing Observables to display confirmation windows
+            easily that can be shared by multiple actions on the same component.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3>Basic</h3>
-    <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-    <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
-    <button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"></button>
-
-    <h3>Position</h3>
-    <div class="p-grid p-dir-col">
-        <div class="p-col">
-            <button type="button" (click)="confirmPosition('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"></button>
-            <button type="button" (click)="confirmPosition('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"></button>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+        <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"></p-button>
+        <p-button (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
+    
+        <h5>Position</h5>
+        <div class="p-grid p-dir-col">
+            <div class="p-col">
+                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
+            </div>
+            <div class="p-col">
+                <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
+            </div>
+            <div class="p-col">
+                <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"></p-button>
+            </div>
         </div>
-        <div class="p-col">
-            <button type="button" (click)="confirmPosition('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"></button>
-            <button type="button" (click)="confirmPosition('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"></button>
-            <button type="button" (click)="confirmPosition('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"></button>
-        </div>
-        <div class="p-col">
-            <button type="button" (click)="confirmPosition('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"></button>
-            <button type="button" (click)="confirmPosition('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"></button>
-            <button type="button" (click)="confirmPosition('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"></button>
-        </div>
+        <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+    
+        <p-toast></p-toast>
     </div>
-    <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"></p-confirmDialog>
-
-
-    <p-messages [value]="msgs"></p-messages>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ConfirmDialogModule&#125; from 'primeng/confirmdialog';
 import &#123;ConfirmationService&#125; from 'primeng/api';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>ConfirmDialog is defined using p-confirmDialog tag and an instance of ConfirmationService is required to display it by
                 calling confirm method.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"&gt;&lt;/p-confirmDialog&gt;
 
-&lt;button type="text" (click)="confirm()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
-</code>
-</pre>
+&lt;button (click)="confirm()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ConfirmDialogDemo &#123;
 
     constructor(private confirmationService: ConfirmationService) &#123;&#125;
@@ -73,8 +69,7 @@ export class ConfirmDialogDemo &#123;
         &#125;);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>Confirm method takes a confirmation instance used to customize the dialog UI along with accept and reject actions.</p>
             <div class="doc-tablewrapper">
@@ -197,6 +192,18 @@ export class ConfirmDialogDemo &#123;
                             <td>Whether background scroll should be blocked when dialog is visible.</td>
                         </tr>
                         <tr>
+                            <td>closeOnEscape</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Specifies if pressing escape key should hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>dismissableMask</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifices if clicking the modal background should hide the dialog.</td>
+                        </tr>
+                        <tr>
                             <td>defaultFocus</td>
                             <td>string</td>
                             <td>accept</td>
@@ -206,7 +213,7 @@ export class ConfirmDialogDemo &#123;
                 </table>
             </div>
 
-            <h3>ConfirmationService</h3>
+            <h5>ConfirmationService</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -231,7 +238,7 @@ export class ConfirmDialogDemo &#123;
                 </table>
             </div>
 
-            <h3>Customization</h3>
+            <h5>Customization</h5>
             <p>Properties of the dialog are defined in two ways, message, icon and header properties can either
             be defined using confirm method or declaratively on p-confirmDialog ng-template. If these values are unlikely to change then
             declarative approach would be useful, still properties defined in a ng-template can be overriden with confirm method call.</p>
@@ -239,27 +246,23 @@ export class ConfirmDialogDemo &#123;
             <p>In addition, buttons at footer section can be customized by passing your own UI, important note to make confirmation work with
             a custom UI is defining a local ng-template variable for the dialog and assign accept()-reject() methods to your own buttons.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmDialog #cd header="Confirmation" icon="pi pi-exclamation-triangle"&gt;
     &lt;p-footer&gt;
         &lt;button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
         &lt;button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
     &lt;/p-footer&gt;
 &lt;/p-confirmDialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Animation Configuration</h3>
+            <h5>Animation Configuration</h5>
             <p>Transition of the ConfirmDialog open and hide animations can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.25, 0.8, 0.25, 1)</b>,
                 example below disables the animation altogether.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmDialog [transitionOptions]="'0ms'"&gt;
 &lt;/p-confirmDialog&gt;
-</code>
-</pre>
-            <h3>Properties</h3>
+</app-code>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -302,6 +305,12 @@ export class ConfirmDialogDemo &#123;
                           <td>Label of the accept button.</td>
                         </tr>
                         <tr>
+                            <td>acceptAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the accept button for accessibility.</td>
+                        </tr>
+                        <tr>
                           <td>acceptIcon</td>
                           <td>string</td>
                           <td>pi pi-check</td>
@@ -318,6 +327,12 @@ export class ConfirmDialogDemo &#123;
                           <td>string</td>
                           <td>No</td>
                           <td>Label of the reject button.</td>
+                        </tr>
+                        <tr>
+                            <td>rejectAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the reject button for accessibility.</td>
                         </tr>
                         <tr>
                           <td>rejectIcon</td>
@@ -337,6 +352,11 @@ export class ConfirmDialogDemo &#123;
                             <td>true</td>
                             <td>Specifies if pressing escape key should hide the dialog.</td>
                         </tr>
+                        <tr>
+                            <td>dismissableMask</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifices if clicking the modal background should hide the dialog.</td>
                         <tr>
                             <td>rtl</td>
                             <td>boolean</td>
@@ -364,13 +384,13 @@ export class ConfirmDialogDemo &#123;
                         <tr>
                             <td>acceptButtonStyleClass</td>
                             <td>string</td>
-                            <td>ui-confirmdialog-acceptbutton</td>
+                            <td>p-confirmdialog-acceptbutton</td>
                             <td>Style class of the accept button.</td>
                         </tr>
                         <tr>
                             <td>rejectButtonStyleClass</td>
                             <td>string</td>
-                            <td>ui-confirmdialog-rejectbutton</td>
+                            <td>p-confirmdialog-rejectbutton</td>
                             <td>Style class of the reject button.</td>
                         </tr>
                         <tr>
@@ -401,7 +421,7 @@ export class ConfirmDialogDemo &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -413,38 +433,38 @@ export class ConfirmDialogDemo &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-dialog</td>
+                            <td>p-dialog</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-confirmdialog</td>
+                            <td>p-confirmdialog</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar</td>
+                            <td>p-dialog-titlebar</td>
                             <td>Container of header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-title</td>
+                            <td>p-dialog-title</td>
                             <td>Header element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-icon</td>
+                            <td>p-dialog-titlebar-icon</td>
                             <td>Icon container inside header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-close</td>
+                            <td>p-dialog-titlebar-close</td>
                             <td>Close icon element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-content</td>
+                            <td>p-dialog-content</td>
                             <td>Content element.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>ConfirmationService</p>
         </p-tabPanel>
 
@@ -455,62 +475,47 @@ export class ConfirmDialogDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-confirmdialog-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;"&gt;&lt;/p-confirmDialog&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"&gt;&lt;/p-button&gt;
+&lt;p-button (click)="confirm2()" icon="pi pi-times" label="Delete"&gt;&lt;/p-button&gt;
 
-&lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
-
-&lt;button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"&gt;&lt;/button&gt;
-
-&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
-&lt;h3&gt;Basic&lt;/h3&gt;
-&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;&lt;/p-confirmDialog&gt;
-&lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
-&lt;button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"&gt;&lt;/button&gt;
-
-&lt;h3&gt;Position&lt;/h3&gt;
+&lt;h5&gt;Position&lt;/h5&gt;
 &lt;div class="p-grid p-dir-col"&gt;
     &lt;div class="p-col"&gt;
-        &lt;button type="button" (click)="confirmPosition('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="confirmPosition('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-    &lt;button type="button" (click)="confirmPosition('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"&gt;&lt;/button&gt;
-    &lt;button type="button" (click)="confirmPosition('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="confirmPosition('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-    &lt;button type="button" (click)="confirmPosition('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"&gt;&lt;/button&gt;
-    &lt;button type="button" (click)="confirmPosition('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="confirmPosition('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" key="positionDialog" [position]="position" [baseZIndex]="10000"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"&gt;&lt;/p-confirmDialog&gt;
 
+&lt;p-toast&gt;&lt;/p-toast&gt;
+</app-code>
 
-&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
-</code>
-</pre>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component&#125; from '@angular/core';
+import &#123;ConfirmationService, MessageService&#125; from 'primeng/api';
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
     templateUrl: './confirmdialogdemo.html',
-    styles: [`
-        :host ::ng-deep button &#123;
-            margin-right: .25em;
-        &#125;
-    `],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService,MessageService]
 &#125;)
 export class ConfirmDialogDemo &#123;
-
-    msgs: Message[] = [];
-
+    
     position: string;
-
-    constructor(private confirmationService: ConfirmationService) &#123;&#125;
+    
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) &#123;&#125;
 
     confirm1() &#123;
         this.confirmationService.confirm(&#123;
@@ -518,24 +523,24 @@ export class ConfirmDialogDemo &#123;
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'You have accepted'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Confirmed', detail:'You have accepted'&#125;);
             &#125;,
             reject: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;);
             &#125;
         &#125;);
     &#125;
-
+    
     confirm2() &#123;
         this.confirmationService.confirm(&#123;
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;);
             &#125;,
             reject: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;);
             &#125;
         &#125;);
     &#125;
@@ -548,17 +553,16 @@ export class ConfirmDialogDemo &#123;
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;);
             &#125;,
             reject: () => &#123;
-                this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
+                this.messageService.add(&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;);
             &#125;,
             key: "positionDialog"
         &#125;);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

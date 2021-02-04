@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Header} from 'primeng/api'
+import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import * as Quill from "quill";
@@ -15,10 +15,11 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     selector: 'p-editor',
     template: `
         <div [ngClass]="'p-editor-container'" [class]="styleClass">
-            <div class="p-editor-toolbar" *ngIf="toolbar">
+            <div class="p-editor-toolbar" *ngIf="toolbar || toolbarTemplate">
                 <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
-            <div class="p-editor-toolbar" *ngIf="!toolbar">
+            <div class="p-editor-toolbar" *ngIf="!toolbar && !toolbarTemplate">
                 <span class="ql-formats">
                     <select class="ql-header">
                       <option value="1">Heading</option>
@@ -64,9 +65,10 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     `,
     providers: [EDITOR_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./editor.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class Editor implements AfterViewInit,ControlValueAccessor {
+export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor {
         
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
@@ -91,6 +93,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     @Input() debug: string;
     
     @Output() onInit: EventEmitter<any> = new EventEmitter();
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     value: string;
     
@@ -101,6 +105,10 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     onModelTouched: Function = () => {};
     
     quill: any;
+
+    toolbarTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
     
     constructor(public el: ElementRef) {}
 
@@ -111,18 +119,18 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
 
         this.quill = new Quill(editorElement, {
-          modules: modules,
-          placeholder: this.placeholder,
-          readOnly: this.readonly,
-          theme: 'snow',
-          formats: this.formats,
-          bounds: this.bounds,
-          debug: this.debug,
-          scrollingContainer: this.scrollingContainer
+            modules: modules,
+            placeholder: this.placeholder,
+            readOnly: this.readonly,
+            theme: 'snow',
+            formats: this.formats,
+            bounds: this.bounds,
+            debug: this.debug,
+            scrollingContainer: this.scrollingContainer
         });
                 
         if (this.value) {
-            this.quill.pasteHTML(this.value);
+            this.quill.setContents(this.quill.clipboard.convert(this.value));
         }
         
         this.quill.on('text-change', (delta, oldContents, source) => {
@@ -157,13 +165,26 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             editor: this.quill
         });
     }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'toolbar':
+                    this.toolbarTemplate = item.template;
+                break;
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+            }
+        });
+    }
         
     writeValue(value: any) : void {
         this.value = value;
                 
         if (this.quill) {
             if (value)
-                this.quill.pasteHTML(value);
+                this.quill.setContents(this.quill.clipboard.convert(value));
             else
                 this.quill.setText('');
         }

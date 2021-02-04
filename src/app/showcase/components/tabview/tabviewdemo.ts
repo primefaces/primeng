@@ -1,15 +1,9 @@
-import {Component} from '@angular/core';
-import {MessageService} from 'primeng/api';
+import {Component} from '@angular/core';;
 
 @Component({
     templateUrl: './tabviewdemo.html',
-    providers: [MessageService]
+    styleUrls: ['./tabviewdemo.scss']
 })
 export class TabViewDemo {
-    
-    constructor(private messageService: MessageService) {}
-    
-    onTabChange(event) {
-        this.messageService.add({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
-    }
+    activeIndex: number = 0;
 }

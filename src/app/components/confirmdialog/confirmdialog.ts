@@ -1,12 +1,12 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule} from 'primeng/api';
+import {Footer,SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
-import {Subscription}   from 'rxjs';
+import {Subscription} from 'rxjs';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -35,12 +35,13 @@ const hideAnimation = animation([
                     <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="option('icon')"></i>
                     <span class="p-confirm-dialog-message" [innerHTML]="option('message')"></span>
                 </div>
-                <div class="p-dialog-footer" *ngIf="footer">
+                <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="!footer">
-                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="option('acceptLabel')" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')"></button>
-                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="option('rejectLabel')" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')"></button>
+                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
+                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
                 </div>
             </div>
         </div>
@@ -59,7 +60,7 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class ConfirmDialog implements OnDestroy {
+export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     @Input() header: string;
 
@@ -75,13 +76,17 @@ export class ConfirmDialog implements OnDestroy {
 
     @Input() acceptIcon: string = 'pi pi-check';
 
-    @Input() acceptLabel: string = 'Yes';
+    @Input() acceptLabel: string;
+
+    @Input() acceptAriaLabel: string;
 
     @Input() acceptVisible: boolean = true;
 
     @Input() rejectIcon: string = 'pi pi-times';
 
-    @Input() rejectLabel: string = 'No';
+    @Input() rejectLabel: string;
+
+    @Input() rejectAriaLabel: string;
 
     @Input() rejectVisible: boolean = true;
 
@@ -90,6 +95,8 @@ export class ConfirmDialog implements OnDestroy {
     @Input() rejectButtonStyleClass: string;
 
     @Input() closeOnEscape: boolean = true;
+
+    @Input() dismissableMask: boolean;
 
     @Input() blockScroll: boolean = true;
 
@@ -120,10 +127,9 @@ export class ConfirmDialog implements OnDestroy {
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
         }
-        
+
         this.cd.markForCheck();
     }
-
 
     @Input() get position(): string {
         return this._position;
@@ -133,13 +139,13 @@ export class ConfirmDialog implements OnDestroy {
         this._position = value;
 
         switch (value) {
-            case 'topleft':
-            case 'bottomleft':
+            case 'top-left':
+            case 'bottom-left':
             case 'left':
                 this.transformOptions = "translate3d(-100%, 0px, 0px)";
             break;
-            case 'topright':
-            case 'bottomright':
+            case 'top-right':
+            case 'bottom-right':
             case 'right':
                 this.transformOptions = "translate3d(100%, 0px, 0px)";
             break;
@@ -159,6 +165,20 @@ export class ConfirmDialog implements OnDestroy {
 
     @ViewChild('content') contentViewChild: ElementRef;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'footerTemplate':
+                    this.footerTemplate = item.template;
+                break;
+            }
+        });
+    }
+
+    footerTemplate: TemplateRef<any>;
+
     confirmation: Confirmation;
 
     _visible: boolean;
@@ -175,6 +195,8 @@ export class ConfirmDialog implements OnDestroy {
 
     subscription: Subscription;
 
+    maskClickListener: Function;
+
     preWidth: number;
 
     _position: string = "center";
@@ -183,7 +205,7 @@ export class ConfirmDialog implements OnDestroy {
 
     confirmationOptions: Confirmation;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
                 this.hide();
@@ -205,7 +227,9 @@ export class ConfirmDialog implements OnDestroy {
                     acceptButtonStyleClass: this.confirmation.acceptButtonStyleClass || this.acceptButtonStyleClass,
                     rejectButtonStyleClass: this.confirmation.rejectButtonStyleClass || this.rejectButtonStyleClass,
                     defaultFocus: this.confirmation.defaultFocus || this.defaultFocus,
-                    blockScroll: (this.confirmation.blockScroll === false || this.confirmation.blockScroll === true) ? this.confirmation.blockScroll : this.blockScroll
+                    blockScroll: (this.confirmation.blockScroll === false || this.confirmation.blockScroll === true) ? this.confirmation.blockScroll : this.blockScroll,
+                    closeOnEscape: (this.confirmation.closeOnEscape === false || this.confirmation.closeOnEscape === true) ? this.confirmation.closeOnEscape : this.closeOnEscape,
+                    dismissableMask: (this.confirmation.dismissableMask === false || this.confirmation.dismissableMask === true) ? this.confirmation.dismissableMask : this.dismissableMask
                 };
 
                 if (this.confirmation.accept) {
@@ -298,6 +322,14 @@ export class ConfirmDialog implements OnDestroy {
         if (this.option('blockScroll')) {
             DomHandler.addClass(document.body, 'p-overflow-hidden');
         }
+
+        if (this.option('dismissableMask')) {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
+                if (this.wrapper && this.wrapper.isSameNode(event.target)) {
+                    this.close(event);
+                }
+            });
+        }
     }
 
     disableModality() {
@@ -307,7 +339,11 @@ export class ConfirmDialog implements OnDestroy {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
         }
 
-        if (this.container) {
+        if (this.dismissableMask) {
+            this.unbindMaskClickListener();
+        }
+
+        if (this.container && !this.cd['destroyed']) {
             this.cd.detectChanges();
         }
     }
@@ -341,16 +377,18 @@ export class ConfirmDialog implements OnDestroy {
     }
 
     getPositionClass() {
-        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
+        const positions = ['left', 'right', 'top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right'];
         const pos = positions.find(item => item === this.position);
 
         return pos ? `p-dialog-${pos}` : '';
     }
 
     bindGlobalListeners() {
-        if ((this.closeOnEscape && this.closable) || this.focusTrap && !this.documentEscapeListener) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
-                if (event.which == 27 && (this.closeOnEscape && this.closable)) {
+        if ((this.option('closeOnEscape') && this.closable) || this.focusTrap && !this.documentEscapeListener) {
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+            this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
+                if (event.which == 27 && (this.option('closeOnEscape') && this.closable)) {
                     if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
                     }
@@ -362,11 +400,11 @@ export class ConfirmDialog implements OnDestroy {
                     let focusableElements = DomHandler.getFocusableElements(this.container);
 
                     if (focusableElements && focusableElements.length > 0) {
-                        if (!document.activeElement) {
+                        if (!focusableElements[0].ownerDocument.activeElement) {
                             focusableElements[0].focus();
                         }
                         else {
-                            let focusedIndex = focusableElements.indexOf(document.activeElement);
+                            let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                             if (event.shiftKey) {
                                 if (focusedIndex == -1 || focusedIndex === 0)
@@ -394,6 +432,13 @@ export class ConfirmDialog implements OnDestroy {
         }
     }
 
+    unbindMaskClickListener() {
+        if (this.maskClickListener) {
+            this.maskClickListener();
+            this.maskClickListener = null;
+        }
+    }
+
     onOverlayHide() {
         this.disableModality();
         this.unbindGlobalListeners();
@@ -407,7 +452,7 @@ export class ConfirmDialog implements OnDestroy {
     }
 
     accept() {
-        if (this.confirmation.acceptEvent) {
+        if (this.confirmation && this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
 
@@ -415,11 +460,19 @@ export class ConfirmDialog implements OnDestroy {
     }
 
     reject() {
-        if (this.confirmation.rejectEvent) {
+        if (this.confirmation && this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
 
         this.hide();
+    }
+
+    get acceptButtonLabel(): string {
+        return this.option('acceptLabel') || this.config.getTranslation(TranslationKeys.ACCEPT);
+    }
+
+    get rejectButtonLabel(): string {
+        return this.option('rejectLabel') || this.config.getTranslation(TranslationKeys.REJECT);
     }
 }
 

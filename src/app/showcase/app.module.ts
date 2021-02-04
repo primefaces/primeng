@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 import { CarService } from './service/carservice';
 import { CountryService } from './service/countryservice';
@@ -21,6 +22,7 @@ import { CustomerService } from './service/customerservice';
 import { PhotoService } from './service/photoservice';
 import { VersionService } from './service/versionservice';
 import { AppConfigService } from './service/appconfigservice';
+import { ProductService } from './service/productservice';
 
 import { AppNewsComponent } from './app.news.component';
 import { AppTopBarComponent } from './app.topbar.component';
@@ -47,12 +49,13 @@ import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
         BrowserAnimationsModule,
         ButtonModule,
         RadioButtonModule,
+        InputSwitchModule,
         TooltipModule,
         AppInputStyleSwitchModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CarService,CountryService,EventService,NodeService,IconService,CustomerService,PhotoService,VersionService,AppConfigService
+        CarService,CountryService,EventService,NodeService,IconService,CustomerService,PhotoService,VersionService,AppConfigService, ProductService
     ],
     bootstrap: [AppComponent]
 })

@@ -8,7 +8,7 @@ import {MessageService} from 'primeng/api';
 })
 export class AccordionDemo {
     
-    index: number = -1;
+    activeState: boolean[] = [true, false, false];
 
     constructor(private messageService: MessageService) {}
 
@@ -21,6 +21,6 @@ export class AccordionDemo {
     }
 
     toggle(index: number) {
-        this.index = index === this.index ? -1 : index;
+        this.activeState[index] = !this.activeState[index];
     }
 }

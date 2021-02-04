@@ -5,7 +5,6 @@ import {RatingDemo} from './ratingdemo';
 import {RatingDemoRoutingModule} from './ratingdemo-routing.module';
 import {RatingModule} from 'primeng/rating';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -15,8 +14,7 @@ import {AppCodeModule} from '../../app.code.component';
 		RatingDemoRoutingModule,
         RatingModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		RatingDemo

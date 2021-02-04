@@ -1,12 +1,8 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ChangeDetectorRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ViewChild,ChangeDetectionStrategy,ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
 import {MenuItem} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
-import {Router} from '@angular/router';
-import {RouterModule} from '@angular/router';
-import { UniqueComponentId } from 'primeng/utils';
+import {MenuModule, Menu} from 'primeng/menu';
 
 @Component({
     selector: 'p-splitButton',
@@ -14,48 +10,15 @@ import { UniqueComponentId } from 'primeng/utils';
         <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
             <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
-            <div [attr.id]="ariaId + '_overlay'" #overlay [ngClass]="'p-menu p-component p-menu-overlay'" *ngIf="overlayVisible"
-                    [ngStyle]="menuStyle" [class]="menuStyleClass"
-                    [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
-                <ul class="p-menu-list p-reset" role="menu">
-                    <ng-template ngFor let-item [ngForOf]="model">
-                        <li *ngIf="item.separator" class="p-menu-separator" [ngClass]="{'p-hidden-accessible': item.visible === false}" role="separator">
-                        <li class="p-menuitem" role="menuitem" *ngIf="item.visible !== false && !item.separator" role="none">
-                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" [attr.target]="item.target" role="menuitem"
-                                [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)">
-                                <span [ngClass]="'p-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
-                                <span class="p-menuitem-text">{{item.label}}</span>
-                            </a>
-                            <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
-                                class="p-menuitem-link p" [attr.target]="item.target" [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)">
-                                <span [ngClass]="'p-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
-                                <span class="p-menuitem-text">{{item.label}}</span>
-                            </a>
-                        </li>
-                    </ng-template>
-                </ul>
-            </div>
+            <p-menu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo"
+                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-menu>
         </div>
     `,
-    animations: [
-        trigger('overlayAnimation', [
-            state('void', style({
-                transform: 'translateY(5%)',
-                opacity: 0
-            })),
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => visible', animate('{{showTransitionParams}}')),
-            transition('visible => void', animate('{{hideTransitionParams}}'))
-        ])
-    ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./splitbutton.css', '../menu/menu.css']
+    styleUrls: ['./splitbutton.css']
 })
-export class SplitButton implements OnDestroy {
+export class SplitButton {
 
     @Input() model: MenuItem[];
 
@@ -85,163 +48,30 @@ export class SplitButton implements OnDestroy {
     
     @Input() dir: string;
 
-    @Input() showTransitionOptions: string = '225ms ease-out';
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() hideTransitionOptions: string = '.1s linear';
 
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
-    overlay: HTMLDivElement;
-                    
-    public overlayVisible: boolean = false;
-    
-    public documentClickListener: any;
-    
-    public dropdownClick: boolean;
-    
-    public shown: boolean;
+    @ViewChild('menu') menu: Menu;
 
-    ariaId: string;
-
-    documentResizeListener: any;
-
-    constructor(public el: ElementRef, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {
-        this.ariaId = UniqueComponentId() + '_list';
-    }
-                
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
-    
-    itemClick(event: Event, item: MenuItem) {
-        if (item.disabled) {
-            event.preventDefault();
-            return;
-        }
-        
-        if (!item.url) {
-            event.preventDefault();
-        }
-        
-        if (item.command) {            
-            item.command({
-                originalEvent: event,
-                item: item
-            });
-        }
-        
-        this.overlayVisible = false;
-    }
-    
-    show() {
-        this.overlayVisible = !this.overlayVisible;
-    }
-
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.overlay = event.element;
-                this.appendOverlay();
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
-                this.alignOverlay();
-                this.bindDocumentClickListener();
-                this.bindDocumentResizeListener();
-            break;
-
-            case 'void':
-                this.onOverlayHide();
-            break;
-        }
-    }
-        
+          
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
-        this.dropdownClick = true;
-        this.show();
+        this.menu.toggle({currentTarget: this.containerViewChild.nativeElement, relativeAlign: this.appendTo == null});
     }
 
-    alignOverlay() {
-        if (this.appendTo)
-            DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
-        else
-            DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
-    }
-
-    appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
-            else
-                DomHandler.appendChild(this.overlay, this.appendTo);
-
-            if (!this.overlay.style.minWidth) {
-                this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
-            }
-        }
-    }
-
-    restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlay);
-        }
-    }
-    
-    bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if (this.dropdownClick) {
-                    this.dropdownClick = false;
-                }
-                else {
-                    this.overlayVisible = false;
-                    this.unbindDocumentClickListener();
-                    this.cd.markForCheck();
-                }
-            });
-        }
-    }
-    
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
-    }
-    
-    bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
-    }
-    
-    unbindDocumentResizeListener() {
-        if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
-        }
-    }
-
-    onWindowResize() {
-        this.overlayVisible = false;
-        this.cd.markForCheck();
-    }
-
-    onOverlayHide() {
-        this.unbindDocumentClickListener();
-        this.unbindDocumentResizeListener();
-        this.overlay = null;
-    }
-         
-    ngOnDestroy() {
-        this.restoreOverlayAppend();
-        this.onOverlayHide();
-    }
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,RouterModule],
-    exports: [SplitButton,ButtonModule,RouterModule],
+    imports: [CommonModule,ButtonModule,MenuModule],
+    exports: [SplitButton,ButtonModule],
     declarations: [SplitButton]
 })
 export class SplitButtonModule { }

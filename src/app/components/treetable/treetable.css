@@ -33,8 +33,27 @@
     table-layout: auto;
 }
 
-.p-treetable-hoverable-rows .p-treetable-row {
+.p-treetable-hoverable-rows .p-treetable-tbody > tr {
     cursor: pointer;
+}
+
+.p-treetable-toggler {
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+}
+
+p-treetabletoggler + p-treetablecheckbox .p-checkbox {
+    vertical-align: middle;
+}
+
+p-treetabletoggler + p-treetablecheckbox + span {
+    vertical-align: middle;
 }
 
 /* Scrollable */
@@ -160,11 +179,15 @@
     display: none;
 }
 
+[ttReorderableColumn] {
+    cursor: move;
+}
+
 /* Loader */
 .p-treetable .p-treetable-loading-overlay {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 2;
 }

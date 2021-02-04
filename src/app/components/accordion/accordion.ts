@@ -19,6 +19,7 @@ let idx: number = 0;
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{header}}
                     </span>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
                 </a>
             </div>
@@ -50,7 +51,7 @@ let idx: number = 0;
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./accordion.css']
 })
-export class AccordionTab implements OnDestroy {
+export class AccordionTab implements AfterContentInit,OnDestroy {
 
     @Input() header: string;
 
@@ -76,11 +77,17 @@ export class AccordionTab implements OnDestroy {
         this._selected = val;
         
         if (!this.loaded) {
+            if (this._selected && this.cache) {
+                this.loaded = true;
+            }
+
             this.changeDetector.markForCheck();
         }
     }
 
     contentTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
 
     id: string = `p-accordiontab-${idx++}`;
 
@@ -97,6 +104,10 @@ export class AccordionTab implements OnDestroy {
             switch(item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
                 break;
                 
                 default:
@@ -137,8 +148,6 @@ export class AccordionTab implements OnDestroy {
 
         event.preventDefault();
     }
-
-
 
     findTabIndex() {
         let index = -1;
@@ -211,13 +220,13 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
         this.tabListSubscription = this.tabList.changes.subscribe(_ => {
             this.initTabs();
-            this.changeDetector.markForCheck();
         });
     }
 
     initTabs(): any {
         this.tabs = this.tabList.toArray();
         this.updateSelectionState();
+        this.changeDetector.markForCheck();
     }
       
     getBlockableElement(): HTMLElement {
@@ -247,6 +256,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                 if (changed) {
                     this.tabs[i].selected = selected;
                     this.tabs[i].selectedChange.emit(selected);
+                    this.tabs[i].changeDetector.markForCheck();
                 }
             }
         }

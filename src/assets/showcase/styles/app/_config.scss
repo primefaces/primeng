@@ -44,6 +44,7 @@
             z-index: -1;
             overflow: hidden;
             cursor: pointer;
+            outline: 0 none;
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
             border-bottom-left-radius: 3px;
@@ -107,6 +108,7 @@
         z-index: 999;
         background-color: var(--primary-color);
         border-radius: 50%;
+        cursor: pointer;
         transition: background-color .2s, box-shadow .2s, transform .2s;
 
         i {
@@ -120,8 +122,7 @@
         }
 
         &:focus {
-            outline: 0 none;
-            box-shadow: 0 0 0 0.2rem $focusBorderColor;
+            @include focused();
         }
     }
 
@@ -137,6 +138,10 @@
             position: relative;
             display: inline-flex;
             justify-content: center;
+
+            &:focus {
+                @include focused();
+            }
         }
     }
 

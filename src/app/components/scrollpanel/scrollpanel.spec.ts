@@ -50,7 +50,7 @@ describe('ScrollPanel', () => {
 	it('should created by default', () => {
 		fixture.detectChanges();
   
-		const scrollPanelEl = fixture.debugElement.query(By.css('.ui-scrollpanel'));
+		const scrollPanelEl = fixture.debugElement.query(By.css('.p-scrollpanel'));
 		expect(scrollPanelEl.nativeElement).toBeTruthy();
 	});
 
@@ -58,7 +58,7 @@ describe('ScrollPanel', () => {
 		fixture.detectChanges();
   
 		let scrollTopVal = scrollpanel.contentViewChild.nativeElement.scrollTop;
-		const barYEl = fixture.debugElement.query(By.css('.ui-scrollpanel-bar-y'));
+		const barYEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 		const mousedownEvent: any = document.createEvent('CustomEvent');
 		mousedownEvent.pageY = 201;
 		mousedownEvent.initEvent('mousedown', true, true);
@@ -68,7 +68,7 @@ describe('ScrollPanel', () => {
 		barYEl.nativeElement.dispatchEvent(mousedownEvent);
 		fixture.detectChanges();
 		
-		expect(document.body.className).toContain("ui-scrollpanel-grabbed");
+		expect(document.body.className).toContain("p-scrollpanel-grabbed");
 		document.dispatchEvent(mouseMoveEvent);
 		tick(150);
 		fixture.detectChanges();
@@ -84,7 +84,7 @@ describe('ScrollPanel', () => {
 		fixture.detectChanges();
   
 		let scrollLeftVal = scrollpanel.contentViewChild.nativeElement.scrollLeft;
-		const barXEl = fixture.debugElement.query(By.css('.ui-scrollpanel-bar-x'));
+		const barXEl = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
 		const mousedownEvent: any = document.createEvent('CustomEvent');
 		mousedownEvent.pageX = 201;
 		mousedownEvent.initEvent('mousedown', true, true);
@@ -94,7 +94,7 @@ describe('ScrollPanel', () => {
 		barXEl.nativeElement.dispatchEvent(mousedownEvent);
 		fixture.detectChanges();
 		
-		expect(document.body.className).toContain("ui-scrollpanel-grabbed");
+		expect(document.body.className).toContain("p-scrollpanel-grabbed");
 		document.dispatchEvent(mouseMoveEvent);
 		tick(150);
 		fixture.detectChanges();

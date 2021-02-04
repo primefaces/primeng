@@ -64,7 +64,7 @@
 }
 
 /* Multiple Month DatePicker */
-.p-datepicker-multiple-month {
+.p-datepicker-multiple-month .p-datepicker-group-container {
     display: flex;
 }
 

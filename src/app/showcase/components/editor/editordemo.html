@@ -12,13 +12,13 @@
         
         <h5>Custom Toolbar</h5>
         <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
-            <p-header>
+            <ng-template pTemplate="header">
                 <span class="ql-formats">
                     <button type="button" class="ql-bold" aria-label="Bold"></button>
                     <button type="button" class="ql-italic" aria-label="Italic"></button>
                     <button type="button" class="ql-underline" aria-label="Underline"></button>
                 </span>
-            </p-header>
+            </ng-template>
         </p-editor>
     </div>
 </div>
@@ -27,18 +27,18 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;EditorModule&#125; from 'primeng/editor';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way value binding is defined with ngModel.</p>
             
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-editor [(ngModel)]="text" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class EditorDemo &#123;
     
     text: string;
@@ -48,15 +48,15 @@ export class EditorDemo &#123;
 
             <h5>Model Driven Forms</h5>
             <p>Editor can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-editor formControlName="description" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 </app-code>
 
             <h5>Toolbar</h5>
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;span class="ql-format-group"&gt;
             &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
@@ -66,7 +66,7 @@ export class EditorDemo &#123;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
             &lt;span title="Strikethrough" class="ql-format-button ql-strike"&gt;&lt;/span&gt;
         &lt;/span&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
 &lt;/p-editor&gt;
 </app-code>
 
@@ -231,15 +231,15 @@ export class EditorDemo &#123;
             <h5>Dependencies</h5>
             <p><a href="http://quilljs.com">Quill</a> Editor 1.0.</p>
             <p>Resources of quill needs to be added to your application. Example setup with CLI is as follows;</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install quill --save
 </app-code>
             <p>Add Quill to scripts in angular-cli.json</p>  
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 "scripts": [... "../node_modules/quill/dist/quill.js"],
 </app-code>
             <p>Add Quill css to styles in angular-cli.json</p>  
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 "styles": [ ... "../node_modules/quill/dist/quill.core.css", "../node_modules/quill/dist/quill.snow.css"],
 </app-code>
 
@@ -248,29 +248,25 @@ npm install quill --save
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/editor" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-            <a href="https://stackblitz.com/edit/primeng-editor-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
-                <span>Edit in StackBlitz</span>
-            </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Default&lt;/h5&gt;
 &lt;p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 &lt;p&gt;Value: &#123;&#123;text1||'empty'&#125;&#125;&lt;/p&gt;
 
 &lt;h5&gt;Custom Toolbar&lt;/h5&gt;
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;span class="ql-formats"&gt;
             &lt;button type="button" class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
             &lt;button type="button" class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
             &lt;button type="button" class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
         &lt;/span&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
 &lt;/p-editor&gt;
-&lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
 
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 
 @Component(&#123;
@@ -283,11 +279,6 @@ export class EditorDemo &#123;
     text2: string;
 &#125;
 </app-code>
-        </p-tabPanel>
-        <p-tabPanel header="StackBlitz">
-            <ng-template pTemplate="content">
-                <iframe src="https://stackblitz.com/edit/primeng-editor-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
-            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

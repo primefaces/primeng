@@ -18,9 +18,14 @@
         margin-bottom: 2rem;
     }
 
+    .section-image {
+        width: 100%;
+        max-width: 430px;
+    }
+
     .introduction {
         background-color: var(--surface-a);
-        background-image: url('./assets/showcase/images/home/intro-bg.jpg');
+        background-image: url('../../images/home/intro-bg.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         padding: 115px 30px 135px 50px;
@@ -28,7 +33,7 @@
         position: relative;
 
         &.introduction-dark {
-            background-image: url('./assets/showcase/images/home/intro-bg-dark.jpg');
+            background-image: url('../../images/home/intro-bg-dark.jpg');
             color: var(--text-color);
 
             .introduction-promo {
@@ -40,7 +45,7 @@
             display: inline-block;
             margin-left: -50px;
             margin-bottom: 20px;
-            padding: 10px 50px 10px 175px;
+            padding: 10px 175px 10px 50px;
             font-size: 1.5rem;
             background-image: linear-gradient(90deg, #445C72 0%, transparent 100%);
             position: relative;
@@ -141,6 +146,10 @@
     .why-templates {
         text-align: left;
         padding-top: 2rem;
+
+        img {
+            box-shadow: none;
+        }
     }
 
     .primeng-designer {
@@ -148,19 +157,12 @@
         color: var(--text-color);
         padding: 2rem;
       
-        img {
-            width: 100%;
-        }
     }
 
     .lts {
         background-color: var(--surface-b);
         color: var(--text-color);
         padding: 2rem;
-      
-        img {
-            width: 100%;
-        }
 
         h4 {
             text-align: center;
@@ -172,14 +174,6 @@
         background-color: var(--surface-a);
         padding: 2rem;
         color: var(--text-color);
-
-        img {
-            margin-top: 10px;
-        }
-
-        .p-md-6:last-child {
-            text-align: center;
-        }
 
         .action-button {
             display: inline-block;

@@ -26,7 +26,7 @@ export class DomHandler {
 
     public static addMultipleClasses(element: any, className: string): void {
         if (element.classList) {
-            let styles: string[] = className.split(' ');
+            let styles: string[] = className.trim().split(' ');
             for (let i = 0; i < styles.length; i++) {
                 element.classList.add(styles[i]);
             }
@@ -80,7 +80,7 @@ export class DomHandler {
         }
         return -1;
     }
-    
+
     public static indexWithinGroup(element: any, attributeName: string): number {
         let children = element.parentNode ? element.parentNode.childNodes : [];
         let num = 0;
@@ -146,7 +146,7 @@ export class DomHandler {
             if (top < 0) {
                 top = windowScrollTop;
             }
-        } 
+        }
         else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
             element.style.transformOrigin = 'top';
@@ -159,6 +159,42 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
+    }
+
+    static getParents(element: any, parents:any = []): any {
+        return element['parentNode'] === null ? parents : this.getParents(element.parentNode, parents.concat([element.parentNode]));
+    }
+
+    static getScrollableParents(element: any) {
+        let scrollableParents = [];
+
+        if (element) {
+            let parents = this.getParents(element);
+            const overflowRegex = /(auto|scroll)/;
+            const overflowCheck = (node: any) => {
+                let styleDeclaration = window['getComputedStyle'](node, null);
+                return overflowRegex.test(styleDeclaration.getPropertyValue('overflow')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowX')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowY'));
+            };
+
+            for (let parent of parents) {
+                let scrollSelectors = parent.nodeType === 1 && parent.dataset['scrollselectors'];
+                if (scrollSelectors) {
+                    let selectors = scrollSelectors.split(',');
+                    for (let selector of selectors) {
+                        let el = this.findSingle(parent, selector);
+                        if (el && overflowCheck(el)) {
+                            scrollableParents.push(el);
+                        }
+                    }
+                }
+
+                if (parent.nodeType !== 9 && overflowCheck(parent)) {
+                    scrollableParents.push(parent);
+                }
+            }
+        }
+
+        return scrollableParents;
     }
 
     public static getHiddenElementOuterHeight(element: any): number {
@@ -244,7 +280,7 @@ export class DomHandler {
                 opacity = 0;
                 clearInterval(fading);
             }
-            
+
             element.style.opacity = opacity;
         }, interval);
     }
@@ -303,7 +339,7 @@ export class DomHandler {
         width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
-    
+
     public static getInnerHeight(el) {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
@@ -351,19 +387,19 @@ export class DomHandler {
 
         return { width: w, height: h };
     }
-    
+
     public static getOffset(el) {
-        let rect = el.getBoundingClientRect();
-        
+        var rect = el.getBoundingClientRect();
+
         return {
-            top: rect.top + document.body.scrollTop,
-            left: rect.left + document.body.scrollLeft
+            top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
+            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
         };
     }
 
     public static replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
-        if (!parentNode) 
+        if (!parentNode)
             throw `Can't replace element`;
         return parentNode.replaceChild(replacementElement, element);
     }
@@ -405,7 +441,7 @@ export class DomHandler {
     public static isAndroid() {
         return /(android)/i.test(navigator.userAgent);
     }
-     
+
     public static appendChild(element: any, target: any) {
         if (this.isElement(target))
             target.appendChild(element);
@@ -414,7 +450,7 @@ export class DomHandler {
         else
             throw 'Cannot append ' + target + ' to ' + element;
     }
-    
+
     public static removeChild(element: any, target: any) {
         if (this.isElement(target))
             target.removeChild(element);
@@ -423,13 +459,20 @@ export class DomHandler {
         else
             throw 'Cannot remove ' + element + ' from ' + target;
     }
-    
+
+    public static removeElement(element: Element) {
+        if (!('remove' in Element.prototype))
+            element.parentNode.removeChild(element);
+        else
+            element.remove();
+    }
+
     public static isElement(obj: any) {
         return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :
             obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
         );
     }
-    
+
     public static calculateScrollbarWidth(el?: HTMLElement): number {
         if (el) {
             let style = getComputedStyle(el);
@@ -438,7 +481,7 @@ export class DomHandler {
         else {
             if (this.calculatedScrollbarWidth !== null)
                 return this.calculatedScrollbarWidth;
-            
+
             let scrollDiv = document.createElement("div");
             scrollDiv.className = "p-scrollbar-measure";
             document.body.appendChild(scrollDiv);
@@ -447,7 +490,7 @@ export class DomHandler {
             document.body.removeChild(scrollDiv);
 
             this.calculatedScrollbarWidth = scrollbarWidth;
-            
+
             return scrollbarWidth;
         }
     }
@@ -455,7 +498,7 @@ export class DomHandler {
     public static calculateScrollbarHeight(): number {
         if (this.calculatedScrollbarHeight !== null)
             return this.calculatedScrollbarHeight;
-        
+
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "p-scrollbar-measure";
         document.body.appendChild(scrollDiv);
@@ -464,14 +507,14 @@ export class DomHandler {
         document.body.removeChild(scrollDiv);
 
         this.calculatedScrollbarWidth = scrollbarHeight;
-        
+
         return scrollbarHeight;
     }
-    
+
     public static invokeElementMethod(element: any, methodName: string, args?: any[]): void {
         (element as any)[methodName].apply(element, args);
     }
-    
+
     public static clearSelection(): void {
         if (window.getSelection) {
             if (window.getSelection().empty) {
@@ -538,10 +581,10 @@ export class DomHandler {
     }
 
     public static getFocusableElements(element:HTMLElement) {
-        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
             );
 
@@ -551,5 +594,10 @@ export class DomHandler {
                     visibleFocusableElements.push(focusableElement);
             }
         return visibleFocusableElements;
+    }
+
+    static generateZIndex() {
+        this.zindex = this.zindex||999;
+        return ++this.zindex;
     }
 }

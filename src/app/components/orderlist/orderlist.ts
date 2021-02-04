@@ -1,10 +1,10 @@
 import {NgModule,Component,ElementRef,AfterViewChecked,AfterContentInit,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate,FilterService} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
-import { FilterUtils } from 'primeng/utils';
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: 'p-orderList',
@@ -12,10 +12,10 @@ import { FilterUtils } from 'primeng/utils';
         <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
-                <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header">
@@ -31,10 +31,10 @@ import { FilterUtils } from 'primeng/utils';
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="p-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)"
                             [ngClass]="{'p-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
-                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}"
+                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" pRipple
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'" role="option" [attr.aria-selected]="isSelected(item)"
-                            [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
+                            [attr.draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="p-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)"
@@ -112,7 +112,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     public _value: any[];
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     get selection(): any[] {
         return this._selection;
@@ -211,7 +211,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
-        this.visibleOptions = FilterUtils.filter(this.value, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+        this.visibleOptions = this.filterService.filter(this.value, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
     }
 
     isItemVisible(item: any): boolean {
@@ -413,7 +413,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,SharedModule],
+    imports: [CommonModule,ButtonModule,SharedModule,RippleModule],
     exports: [OrderList,SharedModule],
     declarations: [OrderList]
 })

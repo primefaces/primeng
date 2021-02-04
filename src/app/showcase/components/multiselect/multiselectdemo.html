@@ -9,7 +9,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
+
+        <h5>Chips</h5>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
     
         <h5>Templating</h5>
         <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
@@ -24,18 +27,28 @@
             </ng-template>
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" />
-                    <div>{{country.value.name}}</div>
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <div>{{country.name}}</div>
+                </div>
+            </ng-template>
+        </p-multiSelect>
+
+        <h5>Grouped</h5>
+        <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities3" defaultLabel="Select a City" scrollHeight="250px" display="chip">
+            <ng-template let-group pTemplate="group">
+                <div class="p-d-flex p-ai-center">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
+                    <span>{{group.label}}</span>
                 </div>
             </ng-template>
         </p-multiSelect>
     
         <h5>Virtual Scroll (10000 Items)</h5>
-        <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
+        <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" />
-                    <div>{{country.value.name}}</div>
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <div>{{country.name}}</div>
                 </div>
             </ng-template>
         </p-multiSelect>
@@ -48,55 +61,36 @@
             <h5>CDK</h5>
             <p>Virtual Scrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 npm install @angular/cdk --save
 </app-code>
 
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>MultiSelect requires a value to bind and a collection of options. There are two alternatives of how to define the <i>options</i> property; one way is providing a collection of SelectItem
-            instances whereas other way is providing an array of arbitrary objects along with the <i>optionLabel</i> property to specify the field name of the option. SelectItem API is designed to have more control on how
-            the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<app-code lang="markup">
-&lt;p-multiSelect [options]="cities1" [(ngModel)]="selectedCities1"&gt;&lt;/p-multiSelect&gt;
+            <p>MultiSelect requires a value to bind and a collection of options.</p>
 
-&lt;p-multiSelect [options]="cities2" [(ngModel)]="selectedCities2" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
-<app-code lang="typescript">
-import &#123;SelectItem&#125; from 'primeng/api';
-
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 interface City &#123;
     name: string,
     code: string
 &#125;
 
-export class MyModel &#123;
+export class MultiSelectDemo &#123;
 
-    cities1: SelectItem[];
+    cities: City[];
 
-    cities2: City[];
-
-    selectedCities1: City[];
-
-    selectedCities2: City[];
+    selectedCities: City[];
 
     constructor() &#123;
-        //SelectItem API with label-value pairs
-        this.cities1 = [
-            &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
-            &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
-            &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
-            &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;,
-            &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
-        ];
-
-        //An array of cities
-        this.cities2 = [
+        this.cities = [
             &#123;name: 'New York', code: 'NY'&#125;,
             &#123;name: 'Rome', code: 'RM'&#125;,
             &#123;name: 'London', code: 'LDN'&#125;,
@@ -108,71 +102,149 @@ export class MyModel &#123;
 &#125;
 </app-code>
 
-            <h5>Model Driven Forms</h5>
-            <p>MultiSelect can be used in a model driven form as well.</p>
-<app-code lang="markup">
-&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
+            <h5>Value Binding</h5>
+            <p>The option itself is bound to the model by default, use <i>optionValue</i> to customize the property to pass as the value.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCityCodes" optionLabel="name" optionValue="code"&gt;&lt;/p-multiSelect&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+interface City &#123;
+    name: string,
+    code: string
+&#125;
+
+export class MultiSelectDemo &#123;
+
+    cities: City[];
+
+    selectedCityCodes: string[];
+
+    constructor() &#123;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
+    &#125;
+
+&#125;
+</app-code>
+
+        
+            <h5>Chips Display</h5>
+            <p>A comma separated list is used by default to display selected items whereas alternative chip mode is provided using the <i>display</i> property to visualize the items as tokens.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" display="chip"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
             <h5>Disabled Options</h5>
-            <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
-
-            <h5>Templating</h5>
-            <p>Label of a selectitem is displayed by default next to the checkbox in the overlay panel and it is possible to customize
-            the content using templating. The ngTemplate receives the selectitem as the implicit variable.</p>
-
-            <p>In addition selectedItems template can be used to customize the selected values display instead of the default comma separated list.</p>
-<app-code lang="markup" ngNonBindable>
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2"&gt;
-    &lt;ng-template let-selectedCars pTemplate="selectedItems"&gt;
-        &lt;span *ngFor="let selectedCar of selectedCars"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/span&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
-        {{i}}
-        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;display:inline-block;vertical-align:middle"/&gt;
-        &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-multiSelect&gt;
-&lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
+            <p>Particular options can be prevented from selection using the <i>optionDisabled</i> property.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" optionDisabled="inactive"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
-            <h5>Filtering</h5>
-            <p>Options can be filtered using an input field in the overlay by enabling the <i>filter</i> property. By default filtering is done against
-                label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
-<app-code lang="markup">
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true"&gt;&lt;/p-multiSelect&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" filterBy="label,value.name"&gt;&lt;/p-multiSelect&gt;
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class MultiSelectDemo &#123;
+
+    cities: City[];
+
+    selectedCities: City[];
+
+    constructor() &#123;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY', inactive: false&#125;,
+            &#123;name: 'Rome', code: 'RM', inactive: true&#125;,
+            &#123;name: 'London', code: 'LDN', inactive: false&#125;,
+            &#123;name: 'Istanbul', code: 'IST', inactive: true&#125;,
+            &#123;name: 'Paris', code: 'PRS', inactive: false&#125;
+        ];
+    &#125;
+
+&#125;
 </app-code>
 
-            <h5>Change Detection</h5>
-            <p>MultiSelect detects changes to options and selected values using setters so when changing your model,
-                prefer creating a new array reference instead of manipulating an existing array.</p>
+            <h5>Model Driven Forms</h5>
+            <p>MultiSelect can be used in a model driven form as well.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
+</app-code>
 
-            <h5>Header and Footer</h5>
-            <p><i>p-header</i> and <i>p-footer</i> elements can be used display custom content inside the header and footer sections.</p>
-<app-code lang="markup">
-&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
-    &lt;p-header&gt;
-        //Header content
-    &lt;/p-header&gt;
-    &lt;p-footer&gt;
-        //Footer content
-    &lt;/p-footer&gt;
+            <h5>Custom Content</h5>
+            <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. 
+                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header and footer can be provided using <i>header</i> and <i>footer</i> templates. 
+                In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        Header Content
+    &lt;/ng-template&gt;
+    &lt;ng-template let-value pTemplate="selectedItems"&gt;
+        &lt;div class="country-item country-item-value" *ngFor="let option of selectedCountries"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;option.name&#125;&#125;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div *ngIf="!selectedCountries || selectedCountries.length === 0" class="country-placeholder"&gt;
+            Select Countries
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-country pTemplate="item"&gt;
+        &lt;div class="country-item"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        Footer Content
+    &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+interface Country &#123;
+    name: string,
+    code: string
+&#125;
+
+export class MultiSelectDemo &#123;
+
+    countries: Country[];
+
+    selectedCountries: Country[];
+
+    constructor() &#123;
+        this.countries = [
+            &#123;name: 'Australia', code: 'AU'&#125;,
+            &#123;name: 'Brazil', code: 'BR'&#125;,
+            &#123;name: 'China', code: 'CN'&#125;,
+            &#123;name: 'Egypt', code: 'EG'&#125;,
+            &#123;name: 'France', code: 'FR'&#125;,
+            &#123;name: 'Germany', code: 'DE'&#125;,
+            &#123;name: 'India', code: 'IN'&#125;,
+            &#123;name: 'Japan', code: 'JP'&#125;,
+            &#123;name: 'Spain', code: 'ES'&#125;,
+            &#123;name: 'United States', code: 'US'&#125;
+        ];
+    &#125;
+
+&#125;
 </app-code>
 
             <h5>Virtual Scrolling</h5>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
                 to avoid performance issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining itemSize to specify the height of an item.</p>
-<app-code lang="markup">
-&lt;p-multiSelect [options]="cities" formControlName="selectedCities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
-<app-code lang="markup">
-&lt;p-multiSelect [options]="cities" formControlName="selectedCities" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-multiSelect&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
             <h5>Properties</h5>
@@ -188,124 +260,16 @@ export class MyModel &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>options</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of objects to display as the available options.</td>
-                        </tr>
-                        <tr>
-                            <td>optionLabel</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the element should be disabled.</td>
-                        </tr>
-                        <tr>
-                            <td>readonly</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the component cannot be edited.</td>
-                        </tr>
-                        <tr>
-                            <td>filter</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>When specified, displays an input field to filter the items on keyup.</td>
-                        </tr>
-                        <tr>
-                            <td>filterBy</td>
-                            <td>string</td>
-                            <td>label</td>
-                            <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
-                        </tr>
-                        <tr>
-                            <td>filterPlaceHolder</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Defines placeholder of the filter input.</td>
-                        </tr>
-                        <tr>
-                            <td>filterMatchMode</td>
-                            <td>string</td>
-                            <td>contains</td>
-                            <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
-                        </tr>
-                        <tr>
-                            <td>filterLocale</td>
-                            <td>string</td>
-                            <td>undefined</td>
-                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
-                        </tr>
-                        <tr>
-                            <td>defaultLabel</td>
-                            <td>string</td>
-                            <td>Choose</td>
-                            <td>Label to display when there are no selections. Deprecated: Use placeholder instead.</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Label to display when there are no selections.</td>
-                        </tr>
-                        <tr>
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
-                            <td>style</td>
-                            <td>object</td>
-                            <td>null</td>
-                            <td>Inline style of the element.</td>
-                        </tr>
-                        <tr>
-                            <td>styleClass</td>
+                            <td>ariaFilterLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Style class of the element.</td>
-                        </tr>
-                        <tr>
-                            <td>panelStyle</td>
-                            <td>object</td>
-                            <td>null</td>
-                            <td>Inline style of the overlay panel.</td>
-                        </tr>
-                        <tr>
-                            <td>scrollHeight</td>
-                            <td>string</td>
-                            <td>200px</td>
-                            <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                        </tr>
-                        <tr>
-                            <td>overlayVisible</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Specifies the visibility of the options panel.</td>
-                        </tr>
-                        <tr>
-                            <td>tabindex</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Index of the element in tabbing order.</td>
-                        </tr>
-                        <tr>
-                            <td>dataKey</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>A property to uniquely identify a value in options.</td>
-                        </tr>
-                        <tr>
-                            <td>name</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Name of the input element.</td>
+                            <td>Defines a string that labels the filter input.</td>
                         </tr>
                         <tr>
                             <td>ariaLabelledBy</td>
@@ -314,40 +278,46 @@ export class MyModel &#123;
                             <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
                         </tr>
                         <tr>
-                            <td>inputId</td>
+                            <td>autofocusFilter</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Applies focus to the filter element when the overlay is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>autoZIndex</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to automatically manage layering.</td>
+                        </tr>
+                        <tr>
+                            <td>baseZIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Base zIndex value to use in layering.</td>
+                        </tr>
+                        <tr>
+                            <td>defaultLabel</td>
+                            <td>string</td>
+                            <td>Choose</td>
+                            <td>Label to display when there are no selections. Deprecated: Use placeholder instead.</td>
+                        </tr>
+                        <tr>
+                            <td>dataKey</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Identifier of the focus input to match a label defined for the component.</td>
+                            <td>A property to uniquely identify a value in options.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element should be disabled.</td>
                         </tr>
                         <tr>
                             <td>displaySelectedLabel</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show labels of selected item labels or use default label.</td>
-                        </tr>
-                        <tr>
-                            <td>maxSelectedLabels</td>
-                            <td>number</td>
-                            <td>3</td>
-                            <td>Decides how many selected item labels to show at most.</td>
-                        </tr>
-                        <tr>
-                            <td>selectedItemsLabel</td>
-                            <td>string</td>
-                            <td>&#123;0&#125; items selected</td>
-                            <td>Label to display after exceeding max selected labels.</td>
-                        </tr>
-                        <tr>
-                            <td>showToggleAll</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Whether to show the checkbox at header to toggle all items at once.</td>
-                        </tr>
-                        <tr>
-                            <td>resetFilterOnHide</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Clears the filter value when hiding the dropdown.</td>
                         </tr>
                         <tr>
                             <td>dropdownIcon</td>
@@ -362,34 +332,40 @@ export class MyModel &#123;
                             <td>Text to display when filtering does not return any results.</td>
                         </tr>
                         <tr>
-                            <td>showHeader</td>
+                            <td>filter</td>
                             <td>boolean</td>
                             <td>true</td>
-                            <td>Whether to show the header.</td>
+                            <td>When specified, displays an input field to filter the items on keyup.</td>
                         </tr>
                         <tr>
-                            <td>selectionLimit</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Number of maximum options that can be selected.</td>
-                        </tr>
-                        <tr>
-                            <td>baseZIndex</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>Base zIndex value to use in layering.</td>
-                        </tr>
-                        <tr>
-                            <td>autoZIndex</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Whether to automatically manage layering.</td>
-                        </tr>
-                        <tr>
-                            <td>showTransitionOptions</td>
+                            <td>filterMatchMode</td>
                             <td>string</td>
-                            <td>.12s cubic-bezier(0, 0, 0.2, 1)</td>
-                            <td>Transition options of the show animation.</td>
+                            <td>contains</td>
+                            <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
+                        </tr>
+                        <tr>
+                            <td>filterValue</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>When specified, filter displays with this value.</td>
+                        </tr>
+                        <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
+                        <tr>
+                            <td>filterBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
+                        </tr>
+                        <tr>
+                            <td>filterPlaceHolder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines placeholder of the filter input.</td>
                         </tr>
                         <tr>
                             <td>hideTransitionOptions</td>
@@ -398,22 +374,154 @@ export class MyModel &#123;
                             <td>Transition options of the hide animation.</td>
                         </tr>
                         <tr>
+                            <td>inputId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the focus input to match a label defined for the component.</td>
+                        </tr>
+                        <tr>
                             <td>itemSize</td>
                             <td>number</td>
                             <td>null</td>
                             <td>Height of an item in the list for VirtualScrolling.</td>
                         </tr>
                         <tr>
-                            <td>virtualScroll</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Whether the data should be loaded on demand during scroll.</td>
+                            <td>maxSelectedLabels</td>
+                            <td>number</td>
+                            <td>3</td>
+                            <td>Decides how many selected item labels to show at most.</td>
                         </tr>
                         <tr>
-                            <td>ariaFilterLabel</td>
+                            <td>name</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Defines a string that labels the filter input.</td>
+                            <td>Name of the input element.</td>
+                        </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to display as the available options.</td>
+                        </tr>
+                        <tr>
+                            <td>optionLabel</td>
+                            <td>string</td>
+                            <td>label</td>
+                            <td>Name of the label field of an option.</td>
+                        </tr>
+                        <tr>
+                            <td>optionValue</td>
+                            <td>string</td>
+                            <td>value</td>
+                            <td>Name of the value field of an option.</td>
+                        </tr>
+                        <tr>
+                            <td>optionDisabled</td>
+                            <td>string</td>
+                            <td>disabled</td>
+                            <td>Name of the disabled field of an option.</td>
+                        </tr>
+                        <tr>
+                            <td>optionGroupLabel</td>
+                            <td>string</td>
+                            <td>label</td>
+                            <td>Name of the label field of an option group.</td>
+                        </tr>
+                        <tr>
+                            <td>optionGroupChildren</td>
+                            <td>string</td>
+                            <td>items</td>
+                            <td>Name of the options field of an option group.</td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display options as grouped when nested options are provided.</td>
+                        </tr>
+                        <tr>
+                            <td>overlayVisible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifies the visibility of the options panel.</td>
+                        </tr>
+                        <tr>
+                            <td>panelStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Inline style of the overlay panel.</td>
+                        </tr>
+                        <tr>
+                            <td>placeholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label to display when there are no selections.</td>
+                        </tr>
+                        <tr>
+                            <td>readonly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component cannot be edited.</td>
+                        </tr>
+                        <tr>
+                            <td>resetFilterOnHide</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Clears the filter value when hiding the dropdown.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollHeight</td>
+                            <td>string</td>
+                            <td>200px</td>
+                            <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                        </tr>
+                        <tr>
+                            <td>selectedItemsLabel</td>
+                            <td>string</td>
+                            <td>&#123;0&#125; items selected</td>
+                            <td>Label to display after exceeding max selected labels.</td>
+                        </tr>
+                        <tr>
+                            <td>selectionLimit</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of maximum options that can be selected.</td>
+                        </tr>
+                        <tr>
+                            <td>showHeader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the header.</td>
+                        </tr>
+                        <tr>
+                            <td>showTransitionOptions</td>
+                            <td>string</td>
+                            <td>.12s cubic-bezier(0, 0, 0.2, 1)</td>
+                            <td>Transition options of the show animation.</td>
+                        </tr>
+                        <tr>
+                            <td>showToggleAll</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the checkbox at header to toggle all items at once.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
                         </tr>
                         <tr>
                             <td>tooltip</td>
@@ -440,10 +548,10 @@ export class MyModel &#123;
                             <td>Type of CSS position.</td>
                         </tr>
                         <tr>
-                            <td>autofocusFilter</td>
+                            <td>virtualScroll</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Applies focus to the filter element when the overlay is shown.</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -559,10 +667,12 @@ export class MyModel &#123;
             <a href="https://stackblitz.com/edit/primeng-multiselect-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
+
+&lt;h5&gt;Chips&lt;/h5&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name" display="chip"&gt;&lt;/p-multiSelect&gt;
 
 &lt;h5&gt;Templating&lt;/h5&gt;
 &lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
@@ -577,47 +687,79 @@ export class MyModel &#123;
     &lt;/ng-template&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;country.value.name&#125;&#125;&lt;/div&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-multiSelect&gt;
+
+&lt;h5&gt;Grouped&lt;/h5&gt;
+&lt;p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities3" defaultLabel="Select a City" crollHeight="250px" display="chip"&gt;
+    &lt;ng-template let-group pTemplate="group"&gt;
+        &lt;div class="p-d-flex p-ai-center"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+            &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 
 &lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
-&lt;p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"&gt;
+&lt;p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;country.value.name&#125;&#125;&lt;/div&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 </app-code>
 
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component&#125; from '@angular/core';
+import &#123;CountryService&#125; from '../../service/countryservice';
+
+interface City &#123;
+    name: string,
+    code: string
+&#125;
+
+interface Country &#123;
+    name: string,
+    code: string
+&#125;
+
+@Component(&#123;
+    templateUrl: './multiselectdemo.html',
+    styleUrls: ['./multiselectdemo.scss']
+&#125;)
 export class MultiSelectDemo &#123;
 
-    selectedCities: string[] = [];
-    
-    selectedCountries1: string[] = [];
+    selectedCities1: City[];
 
-    selectedCountries2: string[] = [];
+    selectedCities2: City[];
 
-    items: SelectItem[];
+    selectedCities3: any[];
 
-    item: string;
+    selectedCountries1: Country[];
 
-    cities: any[];
+    selectedCountries2: Country[];
 
-    countries: any[];
+    cities: City[];
+
+    groupedCities: SelectItemGroup[];
+
+    countries: City[];
+
+    virtualCountries: Country[];
 
     constructor(private countryService: CountryService) &#123;
-        
-        this.items = [];
-
-        this.countryService.getCountries().then(countries => &#123;
-            this.items = countries;
-        &#125;);
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
 
         this.countries = [
             &#123;name: 'Australia', code: 'AU'&#125;,
@@ -632,17 +774,45 @@ export class MultiSelectDemo &#123;
             &#123;name: 'United States', code: 'US'&#125;
         ];
 
-        this.cities = [
-            &#123;name: 'New York', code: 'NY'&#125;,
-            &#123;name: 'Rome', code: 'RM'&#125;,
-            &#123;name: 'London', code: 'LDN'&#125;,
-            &#123;name: 'Istanbul', code: 'IST'&#125;,
-            &#123;name: 'Paris', code: 'PRS'&#125;
+        this.groupedCities = [
+            &#123;
+                label: 'Germany', value: 'de', 
+                items: [
+                    &#123;label: 'Berlin', value: 'Berlin'&#125;,
+                    &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
+                    &#123;label: 'Hamburg', value: 'Hamburg'&#125;,
+                    &#123;label: 'Munich', value: 'Munich'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'USA', value: 'us', 
+                items: [
+                    &#123;name: 'Chicago', value: 'Chicago'&#125;,
+                    &#123;name: 'Los Angeles', value: 'Los Angeles'&#125;,
+                    &#123;name: 'New York', value: 'New York'&#125;,
+                    &#123;name: 'San Francisco', value: 'San Francisco'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Japan', value: 'jp', 
+                items: [
+                    &#123;name: 'Kyoto', value: 'Kyoto'&#125;,
+                    &#123;name: 'Osaka', value: 'Osaka'&#125;,
+                    &#123;name: 'Tokyo', value: 'Tokyo'&#125;,
+                    &#123;name: 'Yokohama', value: 'Yokohama'&#125;
+                ]
+            &#125;
         ];
+
+        this.countryService.getCountries().then(countries =&gt; &#123;
+            this.virtualCountries = countries;
+        &#125;);
     &#125;
+
 &#125;
 </app-code>
-<app-code lang="css">
+
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
     :host ::ng-deep .p-multiselect &#123;
         min-width: 15rem;
     &#125;
@@ -675,7 +845,7 @@ export class MultiSelectDemo &#123;
         &#125;
     &#125;
 </app-code>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class CountryService &#123;
 

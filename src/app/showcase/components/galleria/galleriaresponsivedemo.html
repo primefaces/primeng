@@ -1,21 +1,23 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Galleria - Responsive</span>
-        <span>Galleria responsiveness is defined with the <b>responsiveOptions</b> property.</span>
+    <div class="feature-intro">
+        <h1>Galleria <span>Responsive</span></h1>
+        <p>Galleria responsiveness is defined with the <b>responsiveOptions</b> property.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '800px'}" [numVisible]="7" [circular]="true"> 
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;"/>
-            </div>
-        </ng-template>
-    </p-galleria>
+    <div class="card">
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '800px'}" [numVisible]="7" [circular]="true"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;"/>
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -24,8 +26,7 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaresponsivedemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class GalleriaResponsiveDemo implements OnInit &#123;
     images: any[];
 
@@ -56,15 +57,13 @@ export class GalleriaResponsiveDemo implements OnInit &#123;
         &#125;)
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="galleriaresponsivedemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaresponsivedemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '800px'&#125;" [numVisible]="7"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
@@ -75,8 +74,7 @@ export class GalleriaResponsiveDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
+</app-code>
 
         </p-tabPanel>
     </p-tabView>

@@ -1,16 +1,17 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild} from '@angular/core';
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule} from 'primeng/api';
+import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
+import {RippleModule} from 'primeng/ripple';
 
 let idx: number = 0;
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
-    animate('{{transition}}', style({ transform: 'none', opacity: 1 }))
+    animate('{{transition}}')
 ]);
 
 const hideAnimation = animation([
@@ -20,38 +21,41 @@ const hideAnimation = animation([
 @Component({
     selector: 'p-dialog',
     template: `
-        <div *ngIf="maskVisible" [class]="maskStyleClass" 
+        <div *ngIf="maskVisible" [class]="maskStyleClass"
             [ngClass]="{'p-dialog-mask': true, 'p-component-overlay': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
                 'p-dialog-left': position === 'left',
                 'p-dialog-right': position === 'right',
                 'p-dialog-top': position === 'top',
-                'p-dialog-topleft': position === 'topleft',
-                'p-dialog-topright': position === 'topright',
+                'p-dialog-top-left': position === 'topleft' || position === 'top-left',
+                'p-dialog-top-right': position === 'topright' || position === 'top-right',
                 'p-dialog-bottom': position === 'bottom',
-                'p-dialog-bottomleft': position === 'bottomleft',
-                'p-dialog-bottomright': position === 'bottomright'}">
+                'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
+                'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'}">
             <div #container [ngClass]="{'p-dialog p-component':true, 'p-dialog-rtl':rtl,'p-dialog-draggable':draggable,'p-dialog-resizable':resizable, 'p-dialog-maximized': maximized}"
                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="header">{{header}}</span>
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet && headerFacet.first">
+                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()">
+                        <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                         </button>
-                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
+                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)" tabindex="-1" pRipple>
                             <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                         </button>
                     </div>
                 </div>
                 <div #content [ngClass]="'p-dialog-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
                     <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
-                <div #footer class="p-dialog-footer" *ngIf="footerFacet && footerFacet.first">
+                <div #footer class="p-dialog-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
             </div>
@@ -71,14 +75,13 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class Dialog implements OnDestroy {
+export class Dialog implements AfterContentInit,OnDestroy {
 
     @Input() header: string;
 
     @Input() draggable: boolean = true;
 
     @Input() resizable: boolean = true;
-
 
     @Input() get positionLeft(): number {
         return 0;
@@ -160,9 +163,11 @@ export class Dialog implements OnDestroy {
 
     @Input() maximizeIcon: string = 'pi pi-window-maximize';
 
-    @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
+    @ContentChild(Header) headerFacet: QueryList<Header>;
 
-    @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
+    @ContentChild(Footer) footerFacet: QueryList<Footer>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('titlebar') headerViewChild: ElementRef;
 
@@ -181,6 +186,14 @@ export class Dialog implements OnDestroy {
     @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
 
     @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
+
+    @Output() onMaximize: EventEmitter<any> = new EventEmitter();
+
+    headerTemplate: TemplateRef<any>;
+
+    contentTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
 
     _visible: boolean;
 
@@ -235,6 +248,28 @@ export class Dialog implements OnDestroy {
     transformOptions: any = "scale(0.7)";
 
     constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef) { }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
+
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+    }
 
     @Input() get visible(): any {
         return this._visible;
@@ -303,7 +338,7 @@ export class Dialog implements OnDestroy {
 
     enableModality() {
         if (this.closable && this.dismissableMask) {
-            this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.close(event);
                 }
@@ -340,6 +375,8 @@ export class Dialog implements OnDestroy {
             else
                 DomHandler.removeClass(document.body, 'p-overflow-hidden');
         }
+
+        this.onMaximize.emit({'maximized': this.maximized});
     }
 
     unbindMaskClickListener() {
@@ -379,11 +416,11 @@ export class Dialog implements OnDestroy {
                 let focusableElements = DomHandler.getFocusableElements(this.container);
 
                 if (focusableElements && focusableElements.length > 0) {
-                    if (!document.activeElement) {
+                    if (!focusableElements[0].ownerDocument.activeElement) {
                         focusableElements[0].focus();
                     }
                     else {
-                        let focusedIndex = focusableElements.indexOf(document.activeElement);
+                        let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                         if (event.shiftKey) {
                             if (focusedIndex == -1 || focusedIndex === 0)
@@ -585,7 +622,9 @@ export class Dialog implements OnDestroy {
     }
 
     bindDocumentEscapeListener() {
-        this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+
+        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
                 if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);
@@ -621,7 +660,6 @@ export class Dialog implements OnDestroy {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
-                this.onShow.emit({});
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
@@ -646,6 +684,9 @@ export class Dialog implements OnDestroy {
             case 'void':
                 this.onContainerDestroy();
                 this.onHide.emit({});
+            break;
+            case 'visible':
+                this.onShow.emit({});
             break;
         }
     }
@@ -685,7 +726,7 @@ export class Dialog implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,FocusTrapModule],
+    imports: [CommonModule,FocusTrapModule,RippleModule],
     exports: [Dialog,SharedModule],
     declarations: [Dialog]
 })

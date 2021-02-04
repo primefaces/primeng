@@ -4,7 +4,6 @@ import {GalleriaDemoRoutingModule} from './galleriademo-routing.module';
 import {GalleriaModule} from 'primeng/galleria';
 import {TabViewModule} from 'primeng/tabview';
 import {ButtonModule} from 'primeng/button';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 import {GalleriaDemo} from './galleriademo';
 import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
@@ -16,6 +15,7 @@ import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
 import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
 import {GalleriaCaptionDemo} from './galleriacaptiondemo';
 import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -23,7 +23,7 @@ import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 		GalleriaDemoRoutingModule,
         GalleriaModule,
         TabViewModule,
-		CodeHighlighterModule,
+		AppCodeModule,
 		ButtonModule
 	],
 	declarations: [

@@ -12,15 +12,15 @@
     </p-card>
 
     <p-card header="Advanced Card" subheader="Card Subheader" [style]="{width: '360px'}" styleClass="p-card-shadow">
-        <p-header>
+        <ng-template pTemplate="header">
             <img alt="Card" src="assets/showcase/images/usercard.png">
-        </p-header>
+        </ng-template>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
-        <p-footer>
-            <button pButton type="button" label="Save" icon="pi pi-check"></button>
-            <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary" style="margin-left: .5em"></button>
-        </p-footer>
+        <ng-template pTemplate="footer">
+            <p-button label="Save" icon="pi pi-check"></p-button>
+            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+        </ng-template>
     </p-card>
 </div>
 
@@ -28,36 +28,36 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;CardModule&#125; from 'primeng/card';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Card is defined with p-card element.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-card&gt;
     Content
 &lt;/p-card&gt;
 </app-code>
             <h5>Header</h5>
             <p>Header text of the card is provided using the <i>header</i> property, optionally <i>subheader</i> property is available for additional information about the card.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-card header="header"&gt;
     Content
 &lt;/p-card&gt;
 </app-code>
 
             <h5>Header and Footer Content</h5>
-            <p>Header and Footers sections can be customized using <i>p-header</i> and <i>p-footer</i> components.</p>
-<app-code lang="markup">
+            <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-card&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         Header content here
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     Body Content
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         Footer content here
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-card&gt;
 </app-code>
 
@@ -148,25 +148,25 @@ import &#123;CardModule&#125; from 'primeng/card';
             <span>Edit in StackBlitz</span>
         </a>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-card header="Simple Card" [style]="&#123;'width': '25rem', 'margin-bottom': '2em'&#125;"&gt;
-    &lt;p-header&gt;
-        Simple Card
-    &lt;/p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;img alt="Card" src="assets/showcase/images/usercard.png"&gt;
+    &lt;/ng-template&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/p&gt;
 &lt;/p-card&gt;
 
 &lt;p-card header="Advanced Card" subheader="Card Subheader" [style]="&#123;width: '360px'&#125;" styleClass="p-card-shadow"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;img alt="Card" src="assets/showcase/images/usercard.png"&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/p&gt;
-    &lt;p-footer&gt;
-        &lt;button pButton type="button" label="Save" icon="pi pi-check"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary style="margin-left: .5em""&gt;&lt;/button&gt;
-    &lt;/p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;p-button label="Save" icon="pi pi-check"&gt;&lt;/p-button&gt;
+        &lt;p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary [style]="&#123;'margin-left': '.5em'&#125;""&gt;&lt;/p-button&gt;
+    &lt;/ng-template&gt;
 &lt;/p-card&gt;
 </app-code>
         </p-tabPanel>

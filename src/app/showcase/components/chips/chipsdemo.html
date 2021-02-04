@@ -17,7 +17,7 @@
         <h5>Template</h5>
         <p-chips [(ngModel)]="values3">
             <ng-template let-item pTemplate="item">
-                {{item}} - (active) <span class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle;"></span>
+                {{item}} - (active) <span class="pi pi-user p-ml-2"></span>
             </ng-template>
         </p-chips>
     </div>
@@ -27,17 +27,17 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ChipsModule&#125; from 'primeng/chips';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Chips requires an array as its model.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-chips [(ngModel)]="values"&gt;&lt;/p-chips&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyModel &#123;
 
     values: string[];
@@ -46,13 +46,13 @@ export class MyModel &#123;
 </app-code>
             <h5>Model Driven Forms</h5>
             <p>Chips can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-chips formControlName="cities"&gt;&lt;/p-chips&gt;
 </app-code>
 
             <h5>Custom Content</h5>
             <p>A chip is customized using a <i>ng-template</i> element where the value is passed as the implicit variable.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-chips [(ngModel)]="values"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user"&gt;&lt;/i&gt;
@@ -257,7 +257,7 @@ export class MyModel &#123;
             <a href="https://stackblitz.com/edit/primeng-chips-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-chips [(ngModel)]="values1" &gt;&lt;/p-chips&gt;
 
@@ -267,12 +267,12 @@ export class MyModel &#123;
 &lt;h5&gt;ng-template&lt;/h5&gt;
 &lt;p-chips [(ngModel)]="values3"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
-        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle"&gt;&lt;/i&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user p-ml-2"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ChipsDemo &#123;
 
     values1: string[];

@@ -7,10 +7,10 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TreeTablePageDemo } from './treetablepagedemo';
 import { TreeTableSortDemo } from './treetablesortdemo';
 import { TreeTableSelectionDemo } from './treetableselectiondemo';
-import { TreeTableSectionsDemo } from './treetablesectionsdemo';
 import { TreeTableStyleDemo } from './treetablestyledemo';
 import { TreeTableLazyDemo } from './treetablelazydemo';
 import { TreeTableColGroupDemo } from './treetablecolgroupdemo';
+import { TreeTableTemplatingDemo } from './treetabletemplatingdemo';
 import { TreeTableScrollDemo } from './treetablescrolldemo';
 import { TreeTableFlexScrollDemo } from './treetableflexscrolldemo';
 import { TreeTableColToggleDemo } from './treetablecoltoggledemo';
@@ -20,6 +20,7 @@ import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
+import { TreeTableSizeDemo } from './treetablesizedemo';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -27,7 +28,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ContextMenuModule } from 'primeng/contextmenu';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -42,14 +43,14 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
         MultiSelectModule,
         InputTextModule,
         ContextMenuModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
         TreeTableDemo,
         TreeTablePageDemo,
         TreeTableSortDemo,
         TreeTableSelectionDemo,
-        TreeTableSectionsDemo,
+        TreeTableTemplatingDemo,
         TreeTableStyleDemo,
         TreeTableLazyDemo,
         TreeTableColGroupDemo,
@@ -61,7 +62,8 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
         TreeTableColResizeDemo,
         TreeTableReorderDemo,
         TreeTableEditDemo,
-        TreeTableFilterDemo
+        TreeTableFilterDemo,
+        TreeTableSizeDemo
 	]
 })
 export class TreeTableDemoModule {}

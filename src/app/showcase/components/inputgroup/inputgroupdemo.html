@@ -50,7 +50,7 @@
         <div class="p-grid p-fluid">
             <div class="p-col-12 p-md-4">
                 <div class="p-inputgroup">
-                    <button pButton type="button" label="Search"></button>
+                    <button type="button" pButton pRipple label="Search"></button>
                     <input type="text" pInputText placeholder="Keyword">         
                 </div>
             </div>
@@ -58,15 +58,15 @@
             <div class="p-col-12 p-md-4">
                 <div class="p-inputgroup">
                     <input type="text" pInputText placeholder="Keyword">   
-                    <button pButton type="button" icon="pi pi-refresh" class="p-button-warn"></button>      
+                    <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"></button>      
                 </div>
             </div>
                     
             <div class="p-col-12 p-md-4">
                 <div class="p-inputgroup">
-                    <button pButton type="button" icon="pi pi-check" class="p-button-success"></button>    
+                    <button type="button" pButton pRipple icon="pi pi-check" styleClass="p-button-success"></button>    
                     <input type="text" pInputText placeholder="Vote">   
-                    <button pButton type="button" icon="pi pi-times" class="p-button-danger"></button>      
+                    <button type="button" pButton pRipple icon="pi pi-times" styleClass="p-button-danger"></button>      
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
     <span>Edit in StackBlitz</span>
 </a>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Addons&lt;/h5&gt;
 &lt;div class="p-grid p-fluid"&gt;
     &lt;div class="p-col-12 p-md-4"&gt;
@@ -151,7 +151,7 @@
 &lt;div class="p-grid p-fluid"&gt;
     &lt;div class="p-col-12 p-md-4"&gt;
         &lt;div class="p-inputgroup"&gt;
-            &lt;button pButton type="button" label="Search"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple label="Search"&gt;&lt;/button&gt;
             &lt;input type="text" pInputText placeholder="Keyword"&gt;         
         &lt;/div&gt;
     &lt;/div&gt;
@@ -159,15 +159,15 @@
     &lt;div class="p-col-12 p-md-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;input type="text" pInputText placeholder="Keyword"&gt;   
-            &lt;button pButton type="button" icon="pi pi-refresh" class="p-button-warn"&gt;&lt;/button&gt;      
+            &lt;button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"&gt;&lt;/button&gt;      
         &lt;/div&gt;
     &lt;/div&gt;
             
     &lt;div class="p-col-12 p-md-4"&gt;
         &lt;div class="p-inputgroup"&gt;
-            &lt;button pButton type="button" icon="pi pi-check" class="p-button-success"&gt;&lt;/button&gt;    
+            &lt;button type="button" pButton pRipple icon="pi pi-check" styleClass="p-button-success"&gt;&lt;/button&gt;    
             &lt;input type="text" pInputText placeholder="Vote"&gt;   
-            &lt;button pButton type="button" icon="pi pi-times" class="p-button-danger"&gt;&lt;/button&gt;      
+            &lt;button type="button" pButton pRipple icon="pi pi-times" styleClass="p-button-danger"&gt;&lt;/button&gt;      
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
@@ -200,7 +200,7 @@
         </p-tabPanel>
         
         <p-tabPanel header="inputgroupdemo.ts">
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class InputGroupDemo &#123;
 
 &#125;

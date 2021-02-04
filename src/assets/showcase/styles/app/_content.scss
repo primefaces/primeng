@@ -35,6 +35,10 @@
                     }
                 }
             }
+
+            .app-inputstyleswitch {
+                margin-left: 2rem;
+            }
         }
 
         &.implementation {
@@ -110,9 +114,7 @@
                             transition: border-bottom-color .2s;
 
                             &:focus {
-                                outline: 0 none;
-                                transition: background-color .2s, box-shadow .2s;
-                                box-shadow: 0 0 0 0.2em $focusBorderColor;
+                                @include focused();
                             }
 
                             &:hover {
@@ -125,7 +127,7 @@
                         &.p-highlight:hover a {
                             background: transparent;
                             color: var(--primary-color);
-                            border-bottom: 1px solid $linkColor;
+                            border-bottom: 1px solid var(--primary-color);
                         }
 
                         &:not(.p-highlight):not(.p-disabled):hover a {
@@ -193,6 +195,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+    }
+
+    .fluid-video {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
     }
 }

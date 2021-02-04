@@ -1,226 +1,416 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table <span class="subitem">CRUD</span></span>
-        <span>This samples demonstrates a CRUD implementation using various PrimeNG components.</span>
+    <div class="feature-intro">
+        <h1>Table <span>CRUD</span></h1>
+        <span>This sample demonstrates a CRUD implementation using various PrimeNG components.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
-        <ng-template pTemplate="caption">
-            List of Cars
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    {{col.header}}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData">
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary" let-rowData>
-            <div style="text-align:left">
-                <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
-            </div>
-        </ng-template>
-    </p-table>
+    <p-toast></p-toast>
+
+    <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+                <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+            </ng-template>
     
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
-        <div class="p-grid ui-fluid" *ngIf="car">
-            <div class="p-col-4">
-                <label for="vin">Vin</label>
+            <ng-template pTemplate="right">
+                <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+                <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+            </ng-template>
+        </p-toolbar>
+    
+        <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
+            [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h5 class="p-m-0">Manage Products</h5>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th>Image</th>
+                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                    <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    </td>
+                    <td>{{product.name}}</td>
+                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
+                    <td>{{product.price | currency:'USD'}}</td>
+                    <td>{{product.category}}</td>
+                    <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                    <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    In total there are {{products ? products.length : 0 }} products.
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image">
+            <div class="p-field">
+                <label for="name">Name</label>
+                <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
+                <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>
             </div>
-            <div class="p-col-8">
-                <input pInputText id="vin" [(ngModel)]="car.vin" autofocus />
+            <div class="p-field">
+                <label for="description">Description</label>
+                <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
             </div>
-            <div class="p-col-4">
-                <label for="year">Year</label>
+
+            <div class="p-field">
+                <label for="inventoryStatus">Inventory Status</label>
+                <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+                    </ng-template>
+                </p-dropdown>
             </div>
-            <div class="p-col-8">
-                <input pInputText id="year" [(ngModel)]="car.year" />
+    
+            <div class="p-field">
+                <label class="p-mb-3">Category</label>
+                <div class="p-formgrid p-grid">
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
+                        <label for="category1">Accessories</label>
+                    </div>
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
+                        <label for="category2">Clothing</label>
+                    </div>
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
+                        <label for="category3">Electronics</label>
+                    </div>
+                    <div class="p-field-radiobutton p-col-6">
+                        <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
+                        <label for="category4">Fitness</label>
+                    </div>
+                </div>
             </div>
-            <div class="p-col-4">
-                <label for="brand">Brand</label>
+    
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <label for="price">Price</label>
+                    <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                </div>
+                <div class="p-field p-col">
+                    <label for="quantity">Quantity</label>
+                    <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+                </div>
             </div>
-            <div class="p-col-8">
-                <input pInputText id="brand" [(ngModel)]="car.brand" />
-            </div>
-            <div class="p-col-4">
-                <label for="color">Color</label>
-            </div>
-            <div class="p-col-8">
-                <input pInputText id="color" [(ngModel)]="car.color" />
-            </div>
-        </div>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
-                <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
-            </div>
-        </p-footer>
+        </ng-template>
+        
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+        </ng-template>
     </p-dialog>
+
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
-        <p-tabPanel header="tablecruddemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablepagedemo.ts" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
             <a href="https://stackblitz.com/edit/primeng-tablecrud-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast&gt;&lt;/p-toast&gt;
+
+&lt;div class="card"&gt;
+    &lt;p-toolbar styleClass="p-mb-4"&gt;
+        &lt;ng-template pTemplate="left"&gt;
+            &lt;button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"&gt;&lt;/button&gt;
+            &lt;button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+
+        &lt;ng-template pTemplate="right"&gt;
+            &lt;p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"&gt;&lt;/p-fileUpload&gt;
+            &lt;button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-toolbar&gt;
+
+    &lt;p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [showCurrentPageReport]="true"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
+                &lt;h5 class="p-m-0"&gt;Manage Products&lt;/h5&gt;
+                &lt;span class="p-input-icon-left"&gt;
+                    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+                    &lt;input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th style="width: 3rem"&gt;
+                    &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+                &lt;/th&gt;
+                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th&gt;Image&lt;/th&gt;
+                &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="category"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="rating"&gt;Reviews &lt;p-sortIcon field="rating"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="inventoryStatus"&gt;Status &lt;p-sortIcon field="inventoryStatus"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th&gt;&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &lt;p-tableCheckbox [value]="product"&gt;&lt;/p-tableCheckbox&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /&gt;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"&gt;&lt;/button&gt;
+                    &lt;button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"&gt;&lt;/button&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="summary"&gt;
+            &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
+                In total there are &#123;&#123;products ? products.length : 0 &#125;&#125; products.
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;p-dialog [(visible)]="productDialog" [style]="&#123;width: '450px'&#125;" header="Product Details" [modal]="true" styleClass="p-fluid"&gt;
+    &lt;ng-template pTemplate="content"&gt;
+        &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"&gt;
+        &lt;div class="p-field"&gt;
+            &lt;label for="name"&gt;Name&lt;/label&gt;
+            &lt;input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus /&gt;
+            &lt;small class="p-error" *ngIf="submitted && !product.name"&gt;Name is required.&lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class="p-field"&gt;
+            &lt;label for="description"&gt;Description&lt;/label&gt;
+            &lt;textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div class="p-field"&gt;
+            &lt;label for="inventoryStatus"&gt;Inventory Status&lt;/label&gt;
+            &lt;p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select"&gt;
+                &lt;ng-template let-option pTemplate="item"&gt;
+                    &lt;span [class]="'product-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                &lt;/ng-template&gt;
+            &lt;/p-dropdown&gt;
+        &lt;/div&gt;
+
+        &lt;div class="p-field"&gt;
+            &lt;label class="p-mb-3"&gt;Category&lt;/label&gt;
+            &lt;div class="p-formgrid p-grid"&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category1"&gt;Accessories&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category2"&gt;Clothing&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category3"&gt;Electronics&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class="p-field-radiobutton p-col-6"&gt;
+                    &lt;p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"&gt;&lt;/p-radioButton&gt;
+                    &lt;label for="category4"&gt;Fitness&lt;/label&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="p-formgrid p-grid"&gt;
+            &lt;div class="p-field p-col"&gt;
+                &lt;label for="price"&gt;Price&lt;/label&gt;
+                &lt;p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"&gt;&lt;/p-inputNumber&gt;
+            &lt;/div&gt;
+            &lt;div class="p-field p-col"&gt;
+                &lt;label for="quantity"&gt;Quantity&lt;/label&gt;
+                &lt;p-inputNumber id="quantity" [(ngModel)]="product.quantity"&gt;&lt;/p-inputNumber&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"&gt;&lt;/button&gt;
+        &lt;button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+
+&lt;p-confirmDialog [style]="&#123;width: '450px'&#125;"&gt;&lt;/p-confirmDialog&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+import &#123; ConfirmationService &#125; from 'primeng/api';
+import &#123; MessageService &#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './tablecruddemo.html',
+    styleUrls: ['./tabledemo.scss'],
+    styles: [`
+        :host ::ng-deep .p-dialog .product-image &#123;
+            width: 150px;
+            margin: 0 auto 2rem auto;
+            display: block;
+        &#125;
+    `],
+    providers: [MessageService,ConfirmationService]
+&#125;)
 export class TableCrudDemo implements OnInit &#123;
 
-    displayDialog: boolean;
+    productDialog: boolean;
 
-    car: Car = &#123;&#125;;
+    products: Product[];
 
-    selectedCar: Car;
+    product: Product;
 
-    newCar: boolean;
+    selectedProducts: Product[];
 
-    cars: Car[];
+    submitted: boolean;
 
-    cols: any[];
+    statuses: any[];
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.productService.getProducts().then(data =&gt; this.products = data);
 
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
+        this.statuses = [
+            &#123;label: 'INSTOCK', value: 'instock'&#125;,
+            &#123;label: 'LOWSTOCK', value: 'lowstock'&#125;,
+            &#123;label: 'OUTOFSTOCK', value: 'outofstock'&#125;
         ];
     &#125;
 
-    showDialogToAdd() &#123;
-        this.newCar = true;
-        this.car = &#123;&#125;;
-        this.displayDialog = true;
+    openNew() &#123;
+        this.product = &#123;&#125;;
+        this.submitted = false;
+        this.productDialog = true;
     &#125;
 
-    save() &#123;
-        let cars = [...this.cars];
-        if (this.newCar)
-            cars.push(this.car);
-        else
-            cars[this.cars.indexOf(this.selectedCar)] = this.car;
-
-        this.cars = cars;
-        this.car = null;
-        this.displayDialog = false;
+    deleteSelectedProducts() &#123;
+        this.confirmationService.confirm(&#123;
+            message: 'Are you sure you want to delete the selected products?',
+            header: 'Confirm',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () =&gt; &#123;
+                this.products = this.products.filter(val =&gt; !this.selectedProducts.includes(val));
+                this.selectedProducts = null;
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000&#125;);
+            &#125;
+        &#125;);
     &#125;
 
-    delete() &#123;
-        let index = this.cars.indexOf(this.selectedCar);
-        this.cars = this.cars.filter((val, i) => i != index);
-        this.car = null;
-        this.displayDialog = false;
+    editProduct(product: Product) &#123;
+        this.product = &#123;...product&#125;;
+        this.productDialog = true;
     &#125;
 
-    onRowSelect(event) &#123;
-        this.newCar = false;
-        this.car = this.cloneCar(event.data);
-        this.displayDialog = true;
+    deleteProduct(product: Product) &#123;
+        this.confirmationService.confirm(&#123;
+            message: 'Are you sure you want to delete ' + product.name + '?',
+            header: 'Confirm',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () =&gt; &#123;
+                this.products = this.products.filter(val =&gt; val.id !== product.id);
+                this.product = &#123;&#125;;
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000&#125;);
+            &#125;
+        &#125;);
     &#125;
 
-    cloneCar(c: Car): Car &#123;
-        let car = &#123;&#125;;
-        for (let prop in c) &#123;
-            car[prop] = c[prop];
+    hideDialog() &#123;
+        this.productDialog = false;
+        this.submitted = false;
+    &#125;
+    
+    saveProduct() &#123;
+        this.submitted = true;
+
+        if (this.product.name.trim()) &#123;
+            if (this.product.id) &#123;
+                this.products[this.findIndexById(this.product.id)] = this.product;                
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000&#125;);
+            &#125;
+            else &#123;
+                this.product.id = this.createId();
+                this.product.image = 'product-placeholder.svg';
+                this.products.push(this.product);
+                this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000&#125;);
+            &#125;
+
+            this.products = [...this.products];
+            this.productDialog = false;
+            this.product = &#123;&#125;;
         &#125;
-        return car;
+    &#125;
+
+    findIndexById(id: string): number &#123;
+        let index = -1;
+        for (let i = 0; i &lt; this.products.length; i++) &#123;
+            if (this.products[i].id === id) &#123;
+                index = i;
+                break;
+            &#125;
+        &#125;
+
+        return index;
+    &#125;
+
+    createId(): string &#123;
+        let id = '';
+        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for ( var i = 0; i &lt; 5; i++ ) &#123;
+            id += chars.charAt(Math.floor(Math.random() * chars.length));
+        &#125;
+        return id;
     &#125;
 &#125;
-</code>
-</pre>   
+</app-code>
+  
         </p-tabPanel>
 
-        <p-tabPanel header="tablecruddemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablepagedemo.html" class="btn-viewsource" target="_blank">
-                <span>View on GitHub</span>
-            </a>
-            <a href="https://stackblitz.com/edit/primeng-tablecrud-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
-                <span>Edit in StackBlitz</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15"&gt;
-    &lt;ng-template pTemplate="caption"&gt;
-        List of Cars
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
-                &#123;&#123;col.header&#125;&#125;
-                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [pSelectableRow]="rowData"&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary" let-rowData&gt;
-        &lt;div style="text-align:left"&gt;
-            &lt;button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"&gt;&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;    
-&lt;/p-table&gt;
-
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="&#123;width: '300px'&#125;"&gt;
-    &lt;div class="p-grid ui-fluid" *ngIf="car"&gt;
-        &lt;div class="p-col-4"&gt;
-            &lt;label for="vin"&gt;Vin&lt;/label&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-8"&gt;
-            &lt;input pInputText id="vin" [(ngModel)]="car.vin" autofocus /&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-4"&gt;
-            &lt;label for="year"&gt;Year&lt;/label&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-8"&gt;
-            &lt;input pInputText id="year" [(ngModel)]="car.year" /&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-4"&gt;
-            &lt;label for="brand"&gt;Brand&lt;/label&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-8"&gt;
-            &lt;input pInputText id="brand" [(ngModel)]="car.brand" /&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-4"&gt;
-            &lt;label for="color"&gt;Color&lt;/label&gt;
-        &lt;/div&gt;
-        &lt;div class="p-col-8"&gt;
-            &lt;input pInputText id="color" [(ngModel)]="car.color" /&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;p-footer&gt;
-        &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"&gt;&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/p-footer&gt;
-&lt;/p-dialog&gt;
-</code>
-</pre>
-        </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
                 <iframe src="https://stackblitz.com/edit/primeng-tablecrud-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>

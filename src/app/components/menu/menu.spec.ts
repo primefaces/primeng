@@ -40,7 +40,7 @@ describe('Menu', () => {
     it('should display by default', () => {
       fixture.detectChanges();
       
-      const containerEl = fixture.debugElement.query(By.css('.ui-menu'));
+      const containerEl = fixture.debugElement.query(By.css('.p-menu'));
       expect(containerEl).toBeTruthy();
     });
 
@@ -48,7 +48,7 @@ describe('Menu', () => {
       menu.popup = true;
       fixture.detectChanges();
       
-      const containerEl = fixture.debugElement.query(By.css('.ui-menu'));
+      const containerEl = fixture.debugElement.query(By.css('.p-menu'));
       expect(containerEl).toBeFalsy();
     });
 
@@ -57,7 +57,7 @@ describe('Menu', () => {
       menu.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
       
-      const containerEl = fixture.debugElement.query(By.css('.ui-menu'));
+      const containerEl = fixture.debugElement.query(By.css('.p-menu'));
       expect(containerEl.nativeElement.className).toContain("Primeng ROCKS!");      
       expect(containerEl.nativeElement.className).toContain(menu.styleClass);
       expect(containerEl.nativeElement.style.height).toEqual(menu.style.height);
@@ -104,35 +104,6 @@ describe('Menu', () => {
       expect(itemsEl.length).toEqual(2);
     });
 
-    it('should not show items (menu visible false)', () => {
-      menu.model  = [{
-        label: 'File',
-        items: [
-          {label: 'New', icon: 'pi pi-fw pi-plus'},
-          {label: 'Download', icon: 'pi pi-fw pi-download'}
-        ],
-        visible:false
-      }]; 
-      fixture.detectChanges();
-      
-      const menuItemsEl = fixture.debugElement.queryAll(By.css('.ui-helper-hidden'));
-      expect(menuItemsEl.length).toEqual(3);
-    });
-
-    it('should not show items (subMenu visible false)', () => {
-      menu.model  = [{
-        label: 'File',
-        items: [
-          {label: 'New', icon: 'pi pi-fw pi-plus',visible:false},
-          {label: 'Download', icon: 'pi pi-fw pi-download',visible:false}
-        ]
-      }]; 
-      fixture.detectChanges();
-      
-      const menuItemsEl = fixture.debugElement.queryAll(By.css('.ui-helper-hidden'));
-      expect(menuItemsEl.length).toEqual(2);
-    });
-
     it('should change menuItemStyle and menuItemStyleClass', () => {
       menu.model  = [{
         label: 'File',
@@ -143,7 +114,7 @@ describe('Menu', () => {
       }]; 
       fixture.detectChanges();
       
-      const menuItemsEl = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
+      const menuItemsEl = fixture.debugElement.queryAll(By.css('.p-menuitem'));
       expect(menuItemsEl.length).toEqual(2);
       for(let menuItem of menuItemsEl){
         expect(menuItem.nativeElement.className).toContain("Primeng ROCKS!");
@@ -162,7 +133,7 @@ describe('Menu', () => {
       }]; 
       fixture.detectChanges();
       
-      const seperatorEl = fixture.debugElement.query(By.css('.ui-menu-separator'));
+      const seperatorEl = fixture.debugElement.query(By.css('.p-menu-separator'));
       const menuItemsEl = fixture.debugElement.queryAll(By.css('li'));
       expect(seperatorEl).toBeTruthy();
       expect(menuItemsEl.length).toEqual(4); 
@@ -177,8 +148,8 @@ describe('Menu', () => {
       }]; 
       fixture.detectChanges();
       
-      const menuItemLink = fixture.debugElement.query(By.css('.ui-menuitem-link'));
-      const iconEl = fixture.debugElement.query(By.css('.ui-menuitem-icon'));
+      const menuItemLink = fixture.debugElement.query(By.css('.p-menuitem-link'));
+      const iconEl = fixture.debugElement.query(By.css('.p-menuitem-icon'));
       expect(menuItemLink.nativeElement.href).toContain("primeng");
       expect(menuItemLink.nativeElement.target).toContain("primeng");
       expect(menuItemLink.nativeElement.title).toContain("primeng");
@@ -194,8 +165,8 @@ describe('Menu', () => {
       }]; 
       fixture.detectChanges();
       
-      const menuItemLink = fixture.debugElement.query(By.css('.ui-menuitem-link'));
-      expect(menuItemLink.nativeElement.className).toContain("ui-state-disabled");
+      const menuItemLink = fixture.debugElement.query(By.css('.p-menuitem-link'));
+      expect(menuItemLink.nativeElement.className).toContain("p-disabled");
     });
 
     it('should call itemClick', () => {
@@ -208,7 +179,7 @@ describe('Menu', () => {
       const itemClickSpy = spyOn(menu, 'itemClick').and.callThrough();
       fixture.detectChanges();
       
-      const menuItemLink = fixture.debugElement.query(By.css('.ui-menuitem-link'));
+      const menuItemLink = fixture.debugElement.query(By.css('.p-menuitem-link'));
       menuItemLink.nativeElement.click();
       expect(itemClickSpy).toHaveBeenCalled();
     });
@@ -228,15 +199,15 @@ describe('Menu', () => {
       popupButtonEl.nativeElement.click();
       fixture.detectChanges();
 
-      const containerEl = fixture.debugElement.query(By.css('.ui-menu'));
-      const headerEl = fixture.debugElement.query(By.css('.ui-submenu-header'));
-      const menuItem = fixture.debugElement.query(By.css('.ui-menuitem-link'));
+      const containerEl = fixture.debugElement.query(By.css('.p-menu'));
+      const headerEl = fixture.debugElement.query(By.css('.p-submenu-header'));
+      const menuItem = fixture.debugElement.query(By.css('.p-menuitem-link'));
       expect(toggleSpy).toHaveBeenCalled();
       expect(containerEl).toBeTruthy();
       expect(headerEl).toBeTruthy();
       expect(headerEl.nativeElement.textContent).toEqual("File");
       expect(menuItem).toBeTruthy();
-      expect(menuItem.query(By.css('.ui-menuitem-text')).nativeElement.textContent).toEqual('New');
+      expect(menuItem.query(By.css('.p-menuitem-text')).nativeElement.textContent).toEqual('New');
     });
 
     it('should call hide when item click', () => {
@@ -255,7 +226,7 @@ describe('Menu', () => {
       popupButtonEl.nativeElement.click();
       fixture.detectChanges();
 
-      const menuItem = fixture.debugElement.query(By.css('.ui-menuitem-link'));
+      const menuItem = fixture.debugElement.query(By.css('.p-menuitem-link'));
       menuItem.nativeElement.click();
       fixture.detectChanges();
 

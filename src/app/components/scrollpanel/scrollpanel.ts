@@ -1,6 +1,7 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-scrollPanel',
@@ -9,17 +10,18 @@ import { DomHandler } from 'primeng/dom';
             <div class="p-scrollpanel-wrapper">
                 <div #content class="p-scrollpanel-content">
                     <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
             </div>
             <div #xBar class="p-scrollpanel-bar p-scrollpanel-bar-x"></div>
             <div #yBar class="p-scrollpanel-bar p-scrollpanel-bar-y"></div>   
         </div>
     `,
-//    changeDetection: ChangeDetectionStrategy.OnPush,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./scrollpanel.css']
 })
-export class ScrollPanel implements AfterViewInit, OnDestroy {
+export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() style: any;
 
@@ -34,6 +36,8 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     @ViewChild('xBar') xBarViewChild: ElementRef;
     
     @ViewChild('yBar') yBarViewChild: ElementRef;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     scrollYRatio: number;
 
@@ -50,6 +54,8 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     isXBarClicked: boolean;
 
     isYBarClicked: boolean;
+
+    contentTemplate: TemplateRef<any>;
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
@@ -69,6 +75,20 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
             this.calculateContainerHeight();
 
             this.initialized = true;
+        });
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
         });
     }
 

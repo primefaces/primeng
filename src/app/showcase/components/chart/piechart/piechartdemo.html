@@ -1,26 +1,24 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">PieChart</span>
-        <span>A pie chart is a circular statistical graphic, which is divided into slices to illustrate numerical proportion.</span>
+    <div class="feature-intro">
+        <h1>Pie Chart</h1>
+        <p>A pie chart is a circular statistical graphic, which is divided into slices to illustrate numerical proportion.</p>
     </div>
 </div>
 
-<div class="content-section implementation-charts">
-    <p-chart type="pie" [data]="data"></p-chart>
+<div class="content-section implementation">
+    <div class="card">
+        <p-chart type="pie" [data]="data" [options]="chartOptions"></p-chart>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chart/piechart" class="btn-viewsource" target="_blank">
-        <span>View on GitHub</span>
-    </a>
-    <a href="https://stackblitz.com/edit/primeng-piechart-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
-        <span>Edit in StackBlitz</span>
-    </a>
 
     <p-tabView>
-        <p-tabPanel header="piechartdemo.ts">
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+        <p-tabPanel header="Source">
+        <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chart/piechart" class="btn-viewsource" target="_blank">
+            <span>View on GitHub</span>
+        </a>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class PieChartDemo &#123;
 
     data: any;
@@ -45,21 +43,13 @@ export class PieChartDemo &#123;
             &#125;;
     &#125;
 &#125;
-</code>
-</pre>            
+</app-code>            
         </p-tabPanel>
 
         <p-tabPanel header="piechartdemo.html">
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-chart type="pie" [data]="data"&gt;&lt;/p-chart&gt;
-</code>
-</pre>
-        </p-tabPanel>
-        <p-tabPanel header="StackBlitz">
-            <ng-template pTemplate="content">
-                <iframe src="https://stackblitz.com/edit/primeng-piechart-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
-            </ng-template>
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>

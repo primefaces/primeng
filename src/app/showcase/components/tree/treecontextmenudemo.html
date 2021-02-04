@@ -1,28 +1,34 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Tree <span class="subitem">ContextMenu</span></span>
-        <span>Tree has exclusive integration with ContextMenu.</span>
+    <div class="feature-intro">
+        <h1>Tree <span>ContextMenu</span></h1>
+        <p>Tree has exclusive integration with ContextMenu.</p>
     </div>
 </div>
-
 <div class="content-section implementation">
-    <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
-    
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    <div class="card">
+        <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
+        
+        <p-contextMenu #cm [model]="items"></p-contextMenu>
     <p-toast></p-toast>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
-        <p-tabPanel header="treecontextmenudemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treecontextmenudemo.ts" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
             <a href="https://stackblitz.com/edit/primeng-treecontextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+&lt;p-toast&gt;&lt;/p-toast&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component,OnInit&#125; from '@angular/core';
 import &#123;NodeService&#125; from '../../service/nodeservice';
 import &#123;MenuItem,TreeNode&#125; from 'primeng/api';
@@ -59,25 +65,7 @@ export class TreeContextMenuDemo implements OnInit &#123;
         this.selectedFile = null;
     &#125;
 &#125;
-</code>
-</pre>   
-        </p-tabPanel>
-
-        <p-tabPanel header="treecontextmenudemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treecontextmenudemo.html" class="btn-viewsource" target="_blank">
-                <span>View on GitHub</span>
-            </a>
-            <a href="https://stackblitz.com/edit/primeng-treecontextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
-                <span>Edit in StackBlitz</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
-
-&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
-&lt;p-toast&gt;&lt;/p-toast&gt;
-</code>
-</pre>
+</app-code>   
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

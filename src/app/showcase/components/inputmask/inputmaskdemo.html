@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>InputMask</h1>
-        <p>InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.</p>
+        <p>InputMask component is used to enter input in a certain format such as numeric, date, currency and phone.</p>
     </div>
     <app-inputStyleSwitch></app-inputStyleSwitch>
 </div>
@@ -46,13 +46,13 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;InputMaskModule&#125; from 'primeng/inputmask';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Component is defined using p-inputMask element with a mask and two-way value binding is enabled with standard ngModel directive.</p>   
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputMask [(ngModel)]="val" mask="99-9999"&gt;&lt;/p-inputMask&gt;
 </app-code>
 
@@ -63,17 +63,17 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                 <li>9 - Numeric character (0-9)</li>
                 <li>* - Alpha numberic character (A-Z,a-z,0-9)</li>
             </ul>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputMask [(ngModel)]="val" mask="a*-999-a999"&gt;&lt;/p-inputMask&gt;
 </app-code>
             <p>You can also define your own regex pattern for alpha character</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputMask [(ngModel)]="val" mask="99-aa" characterPattern="[А-Яа-я]"&gt;&lt;/p-inputMask&gt;
 </app-code>
             
             <h5>SlotChar</h5>
             <p>Underscore is the default placeholder for a mask and this can be customized using <i>slotChart</i> option.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputMask [(ngModel)]="val" mask="99-9999" slotChar=" "&gt;&lt;/p-inputMask&gt;
 </app-code>
             
@@ -83,7 +83,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                         
             <h5>Model Driven Forms</h5>
             <p>InputMask can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-inputMask formControlName="username" mask="(999) 999-9999? x99999"&gt;&lt;/p-inputMask&gt;
 </app-code>
 
@@ -217,7 +217,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                             <td>ariaLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Used to define a string that labels the current element.</td>
+                            <td>Used to define a string that labels the input element.</td>
                         </tr>
                         <tr>
                             <td>ariaRequired</td>
@@ -304,7 +304,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
             <a href="https://stackblitz.com/edit/primeng-inputmask-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-grid p-fluid"&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
         &lt;span&gt;Basic&lt;/span&gt;
@@ -338,7 +338,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class InputMaskDemo &#123;
 
     val1: string;

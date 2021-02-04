@@ -160,7 +160,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
             </ng-template>
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
-                    <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'ui-toggler-column': i === 0}">
+                    <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'p-toggler-column': i === 0}">
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                         <p-treeTableCellEditor>
                             <ng-template pTemplate="input">
@@ -704,7 +704,7 @@ describe('TreeTable', () => {
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         let rowEls = basicTreeTableEl.queryAll(By.css("tr"));
         expect(rowEls.length).toEqual(11);
-        const toggleEls = basicTreeTableEl.queryAll(By.css(".ui-treetable-toggler"));
+        const toggleEls = basicTreeTableEl.queryAll(By.css(".p-treetable-toggler"));
         const firstToggleComp = toggleEls[0].componentInstance;
         const onClickSpy = spyOn(firstToggleComp,"onClick").and.callThrough();
         toggleEls[0].nativeElement.click();
@@ -721,7 +721,7 @@ describe('TreeTable', () => {
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         let rowEls = basicTreeTableEl.queryAll(By.css("tr"));
         expect(rowEls.length).toEqual(11 );
-        let toggleEls = basicTreeTableEl.queryAll(By.css(".ui-treetable-toggler"));
+        let toggleEls = basicTreeTableEl.queryAll(By.css(".p-treetable-toggler"));
         const firstToggleComp = toggleEls[0].componentInstance;
         const onClickSpy = spyOn(firstToggleComp,"onClick").and.callThrough();
         toggleEls[0].nativeElement.click();
@@ -729,7 +729,7 @@ describe('TreeTable', () => {
 
         rowEls = basicTreeTableEl.queryAll(By.css("tr"));
         expect(rowEls.length).toEqual(14);
-        toggleEls = basicTreeTableEl.queryAll(By.css(".ui-treetable-toggler"));
+        toggleEls = basicTreeTableEl.queryAll(By.css(".p-treetable-toggler"));
         toggleEls[0].nativeElement.click();
         fixture.detectChanges();
 
@@ -793,9 +793,9 @@ describe('TreeTable', () => {
         fixture.detectChanges();
   
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
-        const captionEl = basicTreeTableEl.query(By.css(".ui-treetable-caption"));
-        const summaryEl = basicTreeTableEl.query(By.css(".ui-treetable-summary"));
-        const footerEl = basicTreeTableEl.query(By.css(".ui-treetable-tfoot"));
+        const captionEl = basicTreeTableEl.query(By.css(".p-treetable-header"));
+        const summaryEl = basicTreeTableEl.query(By.css(".p-treetable-footer"));
+        const footerEl = basicTreeTableEl.query(By.css(".p-treetable-tfoot"));
         expect(captionEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(footerEl).toBeTruthy();
@@ -807,7 +807,7 @@ describe('TreeTable', () => {
         const paginationTreeTableEl = fixture.debugElement.query(By.css(".paginationTreeTable"));
         let rowEls = paginationTreeTableEl.queryAll(By.css("tr"));
         const paginatorEl = paginationTreeTableEl.query(By.css("p-paginator"));
-        const pages = paginationTreeTableEl.queryAll(By.css(".ui-paginator-page"));
+        const pages = paginationTreeTableEl.queryAll(By.css(".p-paginator-page"));
 
         expect(rowEls.length).toEqual(4);
         expect(paginatorEl).toBeTruthy();
@@ -818,7 +818,7 @@ describe('TreeTable', () => {
         fixture.detectChanges();
   
         const paginationTreeTableEl = fixture.debugElement.query(By.css(".paginationTreeTable"));
-        const pages = paginationTreeTableEl.queryAll(By.css(".ui-paginator-page"));
+        const pages = paginationTreeTableEl.queryAll(By.css(".p-paginator-page"));
         expect(paginationTreeTable.first).toEqual(0);
         const onPageChangeSpy = spyOn(paginationTreeTable,"onPageChange").and.callThrough();
         pages[1].nativeElement.click();
@@ -1011,17 +1011,17 @@ describe('TreeTable', () => {
         fixture.detectChanges();
   
         const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
-        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
         expect(checkboxEls.length).toEqual(10);
         checkboxEls[1].query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
 
-        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
-        expect(checkboxEls[1].query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
+        expect(checkboxEls[1].query(By.css(".p-checkbox-box")).nativeElement.className).toContain("p-focus");
         checkboxEls[1].query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
 
-        expect(checkboxEls[1].query(By.css(".ui-chkbox-box")).nativeElement.className).not.toContain("ui-state-focus");
+        expect(checkboxEls[1].query(By.css(".p-checkbox-box")).nativeElement.className).not.toContain("p-focus");
         checkboxEls[1].nativeElement.click();
         fixture.detectChanges();
 
@@ -1036,30 +1036,30 @@ describe('TreeTable', () => {
         fixture.detectChanges();
   
         const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
-        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
-        let toggleEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-treetable-toggler"));
+        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
+        let toggleEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-treetable-toggler"));
         toggleEls[0].nativeElement.click();
         fixture.detectChanges();
 
-        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
         expect(checkboxEls.length).toEqual(13);
         checkboxEls[2].nativeElement.click();
         fixture.detectChanges();
 
-        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
-        expect(checkboxEls[1].query(By.css(".ui-chkbox-icon")).nativeElement.className).toContain("pi-minus");
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
+        expect(checkboxEls[1].query(By.css(".p-checkbox-icon")).nativeElement.className).toContain("pi-minus");
         checkboxEls[3].nativeElement.click();
         checkboxEls[4].nativeElement.click();
         fixture.detectChanges();
 
-        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
-        expect(checkboxEls[1].query(By.css(".ui-chkbox-icon")).nativeElement.className).toContain("pi-check");
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
+        expect(checkboxEls[1].query(By.css(".p-checkbox-icon")).nativeElement.className).toContain("pi-check");
         expect(testcomponent.selectedNode.length).toEqual(7);
         checkboxEls[4].nativeElement.click();
         fixture.detectChanges();
 
-        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
-        expect(checkboxEls[1].query(By.css(".ui-chkbox-icon")).nativeElement.className).toContain("pi-minus");
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
+        expect(checkboxEls[1].query(By.css(".p-checkbox-icon")).nativeElement.className).toContain("pi-minus");
         expect(testcomponent.selectedNode.length).toEqual(5);
     });
 
@@ -1067,16 +1067,16 @@ describe('TreeTable', () => {
         fixture.detectChanges();
   
         const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
-        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
         checkboxEls[0].query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
 
-        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
-        expect(checkboxEls[0].query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
+        expect(checkboxEls[0].query(By.css(".p-checkbox-box")).nativeElement.className).toContain("p-focus");
         checkboxEls[0].query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
 
-        expect(checkboxEls[0].query(By.css(".ui-chkbox-box")).nativeElement.className).not.toContain("ui-state-focus");
+        expect(checkboxEls[0].query(By.css(".p-checkbox-box")).nativeElement.className).not.toContain("p-focus");
         checkboxEls[0].nativeElement.click();
         fixture.detectChanges();
 
@@ -1098,7 +1098,7 @@ describe('TreeTable', () => {
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         let inputEl = editableTreeTableEl.query(By.css("input"));
         expect(inputEl).toBeTruthy();
-        expect(editableColumns[0].nativeElement.className).toContain("ui-editing-cell");
+        expect(editableColumns[0].nativeElement.className).toContain("p-cell-editing");
         fixture.detectChanges();
 
         document.dispatchEvent(new Event("click"));
@@ -1107,7 +1107,7 @@ describe('TreeTable', () => {
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         inputEl = editableTreeTableEl.query(By.css("input"));
         expect(inputEl).toBeFalsy();
-        expect(editableColumns[0].nativeElement.className).not.toContain("ui-editing-cell");
+        expect(editableColumns[0].nativeElement.className).not.toContain("p-cell-editing");
     });
 
     it('should open cell and close with tab escape and enter key', () => {
@@ -1121,7 +1121,7 @@ describe('TreeTable', () => {
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         let inputEl = editableTreeTableEl.query(By.css("input"));
         expect(inputEl).toBeTruthy();
-        expect(editableColumns[1].nativeElement.className).toContain("ui-editing-cell");
+        expect(editableColumns[1].nativeElement.className).toContain("p-cell-editing");
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
@@ -1129,48 +1129,48 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
-        expect(editableColumns[1].nativeElement.className).not.toContain("ui-editing-cell");
-        expect(editableColumns[2].nativeElement.className).toContain("ui-editing-cell");
+        expect(editableColumns[1].nativeElement.className).not.toContain("p-cell-editing");
+        expect(editableColumns[2].nativeElement.className).toContain("p-cell-editing");
         editableColumns[2].triggerEventHandler('keydown',{'target':editableColumns[2].nativeElement,'keyCode':9,preventDefault(){}});
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
-        expect(editableColumns[2].nativeElement.className).not.toContain("ui-editing-cell");
-        expect(editableColumns[3].nativeElement.className).toContain("ui-editing-cell");
+        expect(editableColumns[2].nativeElement.className).not.toContain("p-cell-editing");
+        expect(editableColumns[3].nativeElement.className).toContain("p-cell-editing");
 
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         editableColumns[3].triggerEventHandler('keydown',{'target':editableColumns[3].nativeElement,'shiftKey':true,'keyCode':9,preventDefault(){}});
         fixture.detectChanges();
 
-        expect(editableColumns[3].nativeElement.className).not.toContain("ui-editing-cell");
-        expect(editableColumns[2].nativeElement.className).toContain("ui-editing-cell");
+        expect(editableColumns[3].nativeElement.className).not.toContain("p-cell-editing");
+        expect(editableColumns[2].nativeElement.className).toContain("p-cell-editing");
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         editableColumns[2].triggerEventHandler('keydown',{'target':editableColumns[2].nativeElement,'shiftKey':true,'keyCode':9,preventDefault(){}});
         fixture.detectChanges();
 
-        expect(editableColumns[1].nativeElement.className).toContain("ui-editing-cell");
+        expect(editableColumns[1].nativeElement.className).toContain("p-cell-editing");
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         editableColumns[1].triggerEventHandler('keydown',{'target':editableColumns[1].nativeElement,'shiftKey':true,'keyCode':27,preventDefault(){}});
         fixture.detectChanges();
 
-        expect(editableColumns[1].nativeElement.className).not.toContain("ui-editing-cell");
+        expect(editableColumns[1].nativeElement.className).not.toContain("p-cell-editing");
         editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         editableColumns[1].nativeElement.click();
         fixture.detectChanges();
 
-        expect(editableColumns[1].nativeElement.className).toContain("ui-editing-cell");
+        expect(editableColumns[1].nativeElement.className).toContain("p-cell-editing");
         editableColumns[1].triggerEventHandler('keydown',{'target':editableColumns[1].nativeElement,'shiftKey':true,'keyCode':13,preventDefault(){}});
         fixture.detectChanges();
 
-        expect(editableColumns[1].nativeElement.className).not.toContain("ui-editing-cell");
+        expect(editableColumns[1].nativeElement.className).not.toContain("p-cell-editing");
     });
 
     it('should create scrollable body and view', () => {
         fixture.detectChanges();
         
         const basicScrollTableEl = fixture.debugElement.query(By.css(".basicScrollTable"));
-        const scrollEl = basicScrollTableEl.query(By.css(".ui-treetable-scrollable-body"));
-        const scrollBody = basicScrollTableEl.query(By.css(".ui-treetable-scrollable-view"));
+        const scrollEl = basicScrollTableEl.query(By.css(".p-treetable-scrollable-body"));
+        const scrollBody = basicScrollTableEl.query(By.css(".p-treetable-scrollable-view"));
         fixture.detectChanges();
         
         scrollBody.nativeElement.dispatchEvent(new Event("scroll"));
@@ -1189,7 +1189,7 @@ describe('TreeTable', () => {
         const onColumnResizeEndSpy = spyOn(resizableTreeTable,"onColumnResizeEnd").and.callThrough();
         let headerEls = resizableTreeTableEl.queryAll(By.css("th"));
         let firstWidth = headerEls[0].nativeElement.clientWidth;
-        let firstResizer = document.querySelector(".ui-column-resizer");
+        let firstResizer = document.querySelector(".p-column-resizer");
         const event: any = document.createEvent('CustomEvent');
         event.pageX = firstWidth + 200;
 		event.initEvent('mousedown', true, true);
@@ -1240,7 +1240,7 @@ describe('TreeTable', () => {
         const onColumnResizeEndSpy = spyOn(resizableTreeTable,"onColumnResizeEnd").and.callThrough();
         let headerEls = resizableTreeTableEl.queryAll(By.css("th"));
         let firstWidth = headerEls[0].nativeElement.clientWidth;
-        let firstResizer = document.querySelector(".ui-column-resizer");
+        let firstResizer = document.querySelector(".p-column-resizer");
         const event: any = document.createEvent('CustomEvent');
         event.pageX = firstWidth + 200;
 		event.initEvent('mousedown', true, true);
@@ -1362,7 +1362,7 @@ describe('TreeTable', () => {
     it('should open contextMenu (separate)',  () => {
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.css(".p-contextmenu")).componentInstance as ContextMenu;
         const showSpy = spyOn(contextMenu,"show").and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTreeTable"));
         const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
@@ -1384,7 +1384,7 @@ describe('TreeTable', () => {
         contextMenuTreeTable.contextMenuSelectionMode = "joint";
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.css(".p-contextmenu")).componentInstance as ContextMenu;
         const showSpy = spyOn(contextMenu,"show").and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTreeTable"));
         const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
@@ -1406,7 +1406,7 @@ describe('TreeTable', () => {
         contextMenuTreeTable.contextMenuSelectionMode = "joint";
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.css(".p-contextmenu")).componentInstance as ContextMenu;
         const showSpy = spyOn(contextMenu,"show").and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTreeTable"));
         const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
@@ -1432,7 +1432,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
-            const bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            const bodyRows = tableEl.query(By.css('.p-treetable-tbody')).queryAll(By.css('tr'));
             expect(bodyRows.length).toEqual(6);
         });
     }));
@@ -1447,14 +1447,14 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
-            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            let bodyRows = tableEl.query(By.css('.p-treetable-tbody')).queryAll(By.css('tr'));
             expect(bodyRows.length).toEqual(6);
             filterEls[0].nativeElement.value = "";
             filterEls[0].nativeElement.dispatchEvent(new Event("input"));
             fixture.whenStable().then(() => {
                 fixture.detectChanges();
 
-                bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+                bodyRows = tableEl.query(By.css('.p-treetable-tbody')).queryAll(By.css('tr'));
                 expect(bodyRows.length).toEqual(9);
             });
         });
@@ -1471,7 +1471,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
-            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            let bodyRows = tableEl.query(By.css('.p-treetable-tbody')).queryAll(By.css('tr'));
             expect(bodyRows.length).toEqual(1);
         });
     }));
@@ -1487,7 +1487,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
-            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            let bodyRows = tableEl.query(By.css('.p-treetable-tbody')).queryAll(By.css('tr'));
             expect(bodyRows.length).toEqual(1);
         });
     }));

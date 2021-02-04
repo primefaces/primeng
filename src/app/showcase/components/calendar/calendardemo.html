@@ -16,8 +16,8 @@
             </div>
 
             <div class="p-field p-col-12 p-md-4">
-                <label for="spanish">Spanish</label>
-                <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy" inputId="spanish"></p-calendar>
+                <label for="dateformat">DateFormat</label>
+                <p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
@@ -69,7 +69,7 @@
                 <label for="template">Date Template</label>
                 <p-calendar [(ngModel)]="date10" inputId="template">
                     <ng-template pTemplate="date" let-date>
-                        <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">{{date.day}}</span>
+                        <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
                     </ng-template>
                 </p-calendar>
             </div>
@@ -100,18 +100,18 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;CalendarModule&#125; from 'primeng/calendar';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way value binding is defined using the standard ngModel directive referencing to a Date property.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="value"&gt;&lt;/p-calendar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyModel &#123;
 
     value: Date;
@@ -121,13 +121,13 @@ export class MyModel &#123;
 
             <h5>Model Driven Forms</h5>
             <p>Calendar can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar formControlName="date"&gt;&lt;/p-calendar&gt;
 </app-code>
 
             <h5>Popup and Inline</h5>
             <p>Calendar is displayed in a <i>popup</i> by default and <i>inline</i> property needs to be enabled for inline mode.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="value" [inline]="true"&gt;&lt;/p-calendar&gt;
 </app-code>
 
@@ -138,8 +138,8 @@ export class MyModel &#123;
             is the end date.</p>
 
             <h5>DateFormat</h5>
-            <p>Default date format is mm/dd/yy, to customize this use <i>dateFormat</i> property or define it at locale settings. Note that standalone property overrides the value in locale settings.</p>
-<app-code lang="markup" ngNonBindable>
+            <p>Default date format is mm/dd/yy, to customize this use <i>dateFormat</i> property.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
 </app-code>
 
@@ -162,11 +162,14 @@ export class MyModel &#123;
     			<li>'...' - literal text</li>
     			<li>'' - single quote</li>
     			<li>anything else - literal text</li>
-		    </ul>
+            </ul>
+            
+            <h5>I18N</h5>
+            <p>Translations for the calendar are defined with the <a href="#" [routerLink]="['/i18n']">I18N API</a>.</p>
 
             <h5>Time</h5>
             <p>TimePicker is enabled with  <i>showTime</i> property and 24 (default) or 12 hour mode is configured using <i>hourFormat</i> option.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="value" showTime="true" hourFormat="12"&gt;&lt;/p-calendar&gt;
 &lt;p-calendar [(ngModel)]="value" showTime="true" hourFormat="24"&gt;&lt;/p-calendar&gt;
 </app-code>
@@ -174,62 +177,34 @@ export class MyModel &#123;
             <h5>Date Restriction</h5>
             <p>To disable entering dates manually, set <i>readonlyInput</i> to true and to restrict selectable dates use <i>minDate</i>
                 and <i>maxDate</i> options.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
 </app-code>
 
             <h5>Disable specific dates and/or days</h5>
             <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use <i>disabledDates</i> and/or <i>disabledDays</i> options.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
 </app-code>
 
             <h5>Button Bar</h5>
             <p>Button bar displays today and clear buttons and enabled using <i>showButtonBar</i> property.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" showButtonBar="true"&gt;&lt;/p-calendar&gt;
 </app-code>
 
             <h5>Multiple Months</h5>
             <p>Displaying multiple months is enabled by setting <i>numberOfMonths</i> property to a value greater than 1.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
 </app-code>
 
-            <h5>Localization</h5>
-            <p>Localization for different languages and formats is defined by binding the locale settings object to the <i>locale</i> property. Following is the default values for English.</p>
-<app-code lang="markup" ngNonBindable>
-&lt;p-calendar [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-calendar&gt;
-</app-code>
-
-<app-code lang="typescript" ngNonBindable>
-export class MyModel &#123;
-
-    en: any;
-
-    ngOnInit() &#123;
-        this.en = &#123;
-            firstDayOfWeek: 0,
-            dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-            monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-            monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-            today: 'Today',
-            clear: 'Clear',
-            dateFormat: 'mm/dd/yy',
-            weekHeader: 'Wk'
-        &#125;;
-    &#125;
-&#125;
-</app-code>
-
             <h5>Custom Content</h5>
-            <p>Calendar UI accepts custom content using p-header and p-footer components.</p>
-<app-code lang="markup" ngNonBindable>
+            <p>Calendar UI accepts custom content using header and footer templates.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue"&gt;
-    &lt;p-header&gt;Header&lt;/p-header&gt;
-    &lt;p-footer&gt;Footer&lt;/p-footer&gt;
+    &lt;ng-template pTemplate="header"&gt;Header&lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;Footer&lt;/ng-template&gt;
 &lt;/p-calendar&gt;
 </app-code>
 
@@ -238,17 +213,17 @@ export class MyModel &#123;
             changes the background color of dates between 10th and 21st of each month. </p>
             <p>In addition, "disabledDateTemplate" is provided in case you need to customize the content of disabled dates as well.</p>
 
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="date10"&gt;
     &lt;ng-template pTemplate="date" let-date&gt;
-        &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#7cc67c' : 'inherit'&#125;" style="border-radius:50%"&gt;{{date.day}}&lt;/span&gt;
+        &lt;span [ngStyle]="&#123;textDecoration: (date.day &lt; 21 && date.day &gt; 10) ? 'line-through' : 'inherit'&#125;"&gt;{{date.day}}&lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-calendar&gt;
 </app-code>
 
             <h5>Month Picker</h5>
             <p>Month picker is used to select month and year only without the date, set view mode as "month" to activate month picker.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
 </app-code>
 
@@ -257,14 +232,14 @@ export class MyModel &#123;
                 Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices. 
                 When using Touch UI mode you will typically want to set readonlyInput to prevent keyboard popup for mobile users.
             </p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" [touchUI]="true" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
                 example below disables the animations altogether.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-calendar&gt;
 </app-code>
 
@@ -625,14 +600,20 @@ export class MyModel &#123;
                         <tr>
                             <td>showTransitionOptions</td>
                             <td>string</td>
-                            <td>225ms ease-out</td>
+                            <td>.12s cubic-bezier(0, 0, 0.2, 1)</td>
                             <td>Transition options of the show animation.</td>
                         </tr>
                         <tr>
                             <td>hideTransitionOptions</td>
                             <td>string</td>
-                            <td>195ms ease-in</td>
+                            <td>.1s linear</td>
                             <td>Transition options of the hide animation.</td>
+                        </tr>
+                        <tr>
+                            <td>firstDayOfWeek</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Defines the first of the week for various date calculations.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -812,7 +793,7 @@ export class MyModel &#123;
             <a href="https://stackblitz.com/edit/primeng-calendar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Popup&lt;/h5&gt;
 &lt;div class="p-fluid p-grid p-formgrid"&gt;
     &lt;div class="p-field p-col-12 p-md-4"&gt;
@@ -820,10 +801,10 @@ export class MyModel &#123;
         &lt;p-calendar inputId="basic" [(ngModel)]="date1"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;label for="spanish"&gt;Spanish&lt;/label&gt;
-        &lt;p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy" inputId="spanish"&gt;&lt;/p-calendar&gt;
-    &lt;/div&gt;
+    &gt;div class="p-field p-col-12 p-md-4"&lt;
+        &gt;label for="dateformat"&lt;DateFormat&gt;/label&lt;
+        &gt;p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"&lt;&gt;/p-calendar&lt;
+    &gt;/div&lt;
 
     &lt;div class="p-field p-col-12 p-md-4"&gt;
         &lt;label for="icon"&gt;Icon&lt;/label&gt;
@@ -874,7 +855,7 @@ export class MyModel &#123;
         &lt;label for="template"&gt;Date Template&lt;/label&gt;
         &lt;p-calendar [(ngModel)]="date10" inputId="template"&gt;
             &lt;ng-template pTemplate="date" let-date&gt;
-                &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#81C784' : 'inherit'&#125;" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block"&gt;&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
+                &lt;span [ngStyle]="&#123;textDecoration: (date.day &lt; 21 && date.day &gt; 10) ? 'line-through' : 'inherit'&#125;"&gt;&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
             &lt;/ng-template&gt;
         &lt;/p-calendar&gt;
     &lt;/div&gt;
@@ -899,7 +880,7 @@ export class MyModel &#123;
 &lt;p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"&gt;&lt;/p-calendar&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class CalendarDemo &#123;
 
     date1: Date;

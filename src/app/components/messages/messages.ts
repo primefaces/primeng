@@ -3,16 +3,17 @@ import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message,PrimeTemplate,MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: 'p-messages',
     template: `
-        <div *ngIf="hasMessages()" class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass"
-                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+        <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div *ngFor="let msg of value" [ngClass]="'p-message p-message-' + msg.severity" role="alert">
+                <div *ngFor="let msg of value; let i=index" [ngClass]="'p-message p-message-' + msg.severity" role="alert" 
+                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
                     <div class="p-message-wrapper">
-                        <span class="p-message-icon pi" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
+                       <span [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
                             'pi-check': msg.severity === 'success',
                             'pi-exclamation-triangle': msg.severity === 'warn',
                             'pi-times-circle': msg.severity === 'error'}"></span>
@@ -24,7 +25,7 @@ import {Subscription} from 'rxjs';
                             <span *ngIf="msg.summary" class="p-message-summary">{{msg.summary}}</span>
                             <span *ngIf="msg.detail" class="p-message-detail">{{msg.detail}}</span>
                         </ng-template>
-                        <button class="p-message-close p-link" (click)="clear($event)" *ngIf="closable" type="button">
+                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple>
                             <i class="p-message-close-icon pi pi-times"></i>
                         </button>
                     </div>
@@ -41,19 +42,12 @@ import {Subscription} from 'rxjs';
     `,
     animations: [
         trigger('messageAnimation', [
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => *', [
-                style({transform: 'translateY(-25%)', opacity: 0}),
+            transition(':enter', [
+                style({opacity: 0, transform: 'translateY(-25%)'}),
                 animate('{{showTransitionParams}}')
             ]),
-            transition('* => void', [
-                animate(('{{hideTransitionParams}}'), style({
-                    opacity: 0,
-                    transform: 'translateY(-25%)'
-                }))
+            transition(':leave', [
+                animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, overflow: 'hidden', opacity: 0 }))
             ])
         ])
     ],
@@ -81,7 +75,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     @Input() showTransitionOptions: string = '300ms ease-out';
 
-    @Input() hideTransitionOptions: string = '250ms ease-in';
+    @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -147,11 +141,14 @@ export class Messages implements AfterContentInit, OnDestroy {
         return false;
     }
 
-    clear(event) {
+    clear() {
         this.value = [];
         this.valueChange.emit(this.value);
+    }
 
-        event.preventDefault();
+    removeMessage(i: number) {
+        this.value = this.value.filter((msg, index) => index !== i);
+        this.valueChange.emit(this.value);
     }
 
     get icon(): string {
@@ -196,7 +193,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [Messages],
     declarations: [Messages]
 })

@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Basic</h5>
         <input type="text" pInputText [(ngModel)]="value1"> 
-        <span>{{text}}</span>
+        <span class="p-ml-2">{{value1}}</span>
         
         <h5>Float Label</h5>
         <span class="p-float-label">
@@ -40,9 +40,15 @@
         <h5>Invalid</h5>
         <div class="p-field">
             <label for="username2">Username</label>
-            <input id="username2" type="username" aria-describedby="username2-help" class="p-invalid" pInputText />
-            <small id="username2-help" class="p-invalid">Username is not available.</small>
+            <input id="username2" type="username" aria-describedby="username2-help" class="ng-invalid ng-dirty" pInputText />
+            <small id="username2-help" class="p-error">Username is not available.</small>
         </div>
+
+        <h5>Invalid with Float Label</h5>
+        <span class="p-float-label">
+            <input id="float-input-invalid" type="text" pInputText [(ngModel)]="value6" class="ng-invalid ng-dirty"> 
+            <label for="float-input-invalid">Username</label>
+        </span>
 
         <h5>Disabled</h5>
         <input id="disabled-input" type="text" pInputText [disabled]="disabled" [(ngModel)]="value5" />
@@ -60,25 +66,25 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;InputTextModule&#125; from 'primeng/inputtext';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>InputText is applied to an input field with pInputText directive.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pInputText /&gt;
 </app-code>
 
             <h5>Model Binding</h5>
             <p>A model can be bound using standard ngModel directive.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pInputText [(ngModel)]="property"/&gt;
 </app-code>
 
             <h5>Float Label</h5>
-            <p>A floating label is implemented by wrapping the input and the label inside a container with <i>.p-float-label class</i>.</p>
-<app-code lang="markup">
+            <p>A floating label is implemented by wrapping the input and the label inside a container with <i>.p-float-label</i> class.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;span class="p-float-label"&gt;
     &lt;input id="float-input" type="text" pInputText&gt; 
     &lt;label for="float-input"&gt;Username&lt;/label&gt;
@@ -88,14 +94,14 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
             <h5>Icons</h5>
             <p>An icon can be integrated within an input field by wrapping the input and the icon with an element having either <i>p-input-icon-right</i>
             or <i>p-input-icon-left</i> class depending on the icon location.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;span class="p-input-icon-left"&gt;
-    &lt;i class="pi pi-search" /&gt;
+    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
     &lt;input type="text" pInputText [(ngModel)]="value1" placeholder="Search"&gt;         
 &lt;/span&gt;
 
 &lt;span class="p-input-icon-right"&gt;
-    &lt;i class="pi pi-spin pi-spinner" /&gt;
+    &lt;i class="pi pi-spin pi-spinner"&gt;&lt;/i&gt;
     &lt;input type="text" pInputText [(ngModel)]="value2" &gt;        
 &lt;/span&gt; 
 </app-code>
@@ -103,7 +109,7 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
             <h5>Sizes</h5>
             <p>2 more sizes are available in addition to a regular input, for a smaller input add <i>p-inputtext-sm</i> and for a larger one, use <i>p-inputtext-lg</i>.
             Note that these classes should be used to change the size of a particular field, for global scaling see <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pInputText class="p-inputtext-sm" placeholder="Small"&gt;         
 &lt;input type="text" pInputText class="p-inputtext-sm" placeholder="Small"&gt;         
 &lt;input type="text" pInputText class="p-inputtext-lg"  placeholder="Large"&gt;   
@@ -111,7 +117,7 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 
             <p>Instead of repeating the scale classes for each input, sizing can also be applied to a group by adding the
                 class to a container element so that descendant inputs share the same style easier</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-inputtext-sm"&gt;
     &lt;input type="text" pInputText&gt;
     &lt;p-inputnumber&gt;&lt;/p-inputnumber&gt;
@@ -123,7 +129,7 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
             <p>Input fields come in two styles, default is <i>outlined</i> with borders around the field whereas <i>filled</i> alternative adds a background color
             to the field. Applying <i>p-input-filled</i> to an ancestor of an input <i>p-input-filled</i> enables the filled style. If you prefer
             to use filled inputs in the entire application, use a global container such as document body or the application element to apply the style class.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-input-filled"&gt;
     &lt;input type="text" pInputText&gt;
 &lt;/div&gt;   
@@ -132,7 +138,7 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
             <h5>Addons</h5>
             <p>Text, icon, buttons and other content can be grouped next to an input by wrapping the addons and input inside
                 <i>.p-inputgroup element</i>. Multiple addons can be used within the same group as well.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-inputgroup"&gt;
     &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-user"&gt;&lt;/i&gt;&lt;/span&gt;
     &lt;input type="text" pInputText placeholder="Username"&gt;         
@@ -198,10 +204,10 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
             <a href="https://stackblitz.com/edit/primeng-inputtext-demo" class="btn-viewsource p-ml-2" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;input type="text" pInputText [(ngModel)]="value1"&gt; 
-&lt;span&gt;&#123;&#123;text&#125;&#125;&lt;/span&gt;
+&lt;span class="p-ml-2"&gt;&#123;&#123;value1&#125;&#125;&lt;/span&gt;
 
 &lt;h5&gt;Float Label&lt;/h5&gt;
 &lt;span class="p-float-label"&gt;
@@ -231,9 +237,15 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 &lt;h5&gt;Invalid&lt;/h5&gt;
 &lt;div class="p-field"&gt;
     &lt;label for="username2"&gt;Username&lt;/label&gt;
-    &lt;input id="username2" type="username" aria-describedby="username2-help" class="p-invalid" pInputText /&gt;
-    &lt;small id="username2-help" class="p-invalid"&gt;Username is not available.&lt;/small&gt;
+    &lt;input id="username2" type="username" aria-describedby="username2-help" class="ng-invalid ng-dirty" pInputText /&gt;
+    &lt;small id="username2-help" class="p-error"&gt;Username is not available.&lt;/small&gt;
 &lt;/div&gt;
+
+&lt;h5&gt;Invalid with Float Label&lt;/h5&gt;
+&lt;span class="p-float-label"&gt;
+    &lt;input id="float-input-invalid" type="text" pInputText [(ngModel)]="value6" class="ng-invalid ng-dirty"&gt; 
+    &lt;label for="float-input-invalid"&gt;Username&lt;/label&gt;
+&lt;/span&gt;
 
 &lt;h5&gt;Disabled&lt;/h5&gt;
 &lt;input id="disabled-input" type="text" pInputText [disabled]="disabled" [(ngModel)]="value5" /&gt;
@@ -246,20 +258,21 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 &lt;/div&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class InputTextDemo &#123;
 
     disabled: boolean = true;
 
-    value1: string = '';
+    value1: string;
 
-    value2: string = '';
+    value2: string;
 
-    value3: string = '';
+    value3: string;
 
-    value4: string = '';
+    value4: string;
 
-    value5: string = 'PrimeVue';
+    value5: string = 'Disabled';
+
 &#125;
 </app-code>
         </p-tabPanel>

@@ -6,12 +6,11 @@ import {DataViewDemoRoutingModule} from './dataviewdemo-routing.module';
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {InputTextModule} from 'primeng/inputtext';
+import {RatingModule} from 'primeng/rating';
 import {ButtonModule} from 'primeng/button';
-import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
+import {AppCodeModule} from '../../app.code.component';
 import {TabViewModule} from 'primeng/tabview';
-
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [
@@ -20,12 +19,12 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		DataViewDemoRoutingModule,
         DataViewModule,
         PanelModule,
-        DialogModule,
         DropdownModule,
         TabViewModule,
         InputTextModule,
+        RatingModule,
         ButtonModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		DataViewDemo

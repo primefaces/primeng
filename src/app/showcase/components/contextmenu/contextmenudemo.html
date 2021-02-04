@@ -1,57 +1,48 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">ContextMenu</span>
-        <span>ContextMenu displays an overlay menu on right click of its target. This page has two menus, one for the document and one for the image. Note that 
-        components like Table has special integration with ContextMenu. Refer to documentation of the individual documentation of the components having a special integration.</span>
+    <div class="feature-intro">
+        <h1>ContextMenu</h1>
+        <p>ContextMenu displays an overlay menu on right click of its target. Note that components like DataTable has special integration with ContextMenu. Refer to documentation of the individual documentation of the with context menu support.</p>
     </div>
 </div>
 
 <div class="content-section implementation">    
-    <img #img src="assets/showcase/images/demo/sopranos/sopranos1.jpg" alt="Logo">
-
-    <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
-    
-    <p-contextMenu [target]="img" [model]="items2"></p-contextMenu>
+    <div class="card">
+        <img #img src="assets/showcase/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true">
+        <p-contextMenu [target]="img" [model]="items"></p-contextMenu>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;ContextMenuModule&#125; from 'primeng/contextmenu';
 import &#123;MenuItem&#125; from 'primeng/api';
-</code>
-</pre>
+</app-code>
 
-            <h3>MenuModel API</h3>
+            <h5>MenuModel API</h5>
             <p>ContextMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>ContextMenu requires nested menuitems as its model and in its simplest form ContextMenu is attached to the document with global setting. .</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-contextMenu [global]="true" [model]="items"&gt;&lt;/p-contextMenu&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Target</h3>
+            <h5>Target</h5>
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
 
 &lt;img #img src="assets/showcase/images/primeng.svg" alt="Logo"&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Exclusive Integrations</h3>
+            <h5>Exclusive Integrations</h5>
             <p>Some components like Table require special attention so they provide a different method to attach a context menu. Refer to 
             individual documentation of components with special integration like Table.</p>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ContextMenuDemo &#123;
 
     private items: MenuItem[];
@@ -83,10 +74,9 @@ export class ContextMenuDemo &#123;
         ];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -156,7 +146,7 @@ export class ContextMenuDemo &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -181,7 +171,7 @@ export class ContextMenuDemo &#123;
                 </table>
             </div>
             
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -211,7 +201,7 @@ export class ContextMenuDemo &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -223,34 +213,34 @@ export class ContextMenuDemo &#123;
                     </thead>
                     <tbody>
                     <tr>
-                        <td>ui-contextmenu</td>
+                        <td>p-contextmenu</td>
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>ui-menu-list</td>
+                        <td>p-menu-list</td>
                         <td>List element.</td>
                     </tr>
                     <tr>
-                        <td>ui-menuitem</td>
+                        <td>p-menuitem</td>
                         <td>Menuitem element.</td>
                     </tr>
                     <tr>
-                        <td>ui-menuitem-text</td>
+                        <td>p-menuitem-text</td>
                         <td>Label of a menuitem.</td>
                     </tr>
                     <tr>
-                        <td>ui-menuitem-icon</td>
+                        <td>p-menuitem-icon</td>
                         <td>Icon of a menuitem.</td>
                     </tr>
                     <tr>
-                        <td>ui-submenu-icon</td>
+                        <td>p-submenu-icon</td>
                         <td>Arrow icon of a submenu.</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -261,116 +251,152 @@ export class ContextMenuDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-contextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;img #img src="assets/showcase/images/demo/sopranos/sopranos1.jpg" alt="Logo"&gt;
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;img #img src="assets/showcase/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true"&gt;
+&lt;p-contextMenu [target]="img" [model]="items"&gt;&lt;/p-contextMenu&gt;
+</app-code>
 
-&lt;p-contextMenu [global]="true" [model]="items1"&gt;&lt;/p-contextMenu&gt;
-
-&lt;p-contextMenu [target]="img" [model]="items2"&gt;&lt;/p-contextMenu&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ContextMenuDemo &#123;
 
     items: MenuItem[];
-    
-    items2: MenuItem[];
 
     ngOnInit() &#123;
-        this.items1 = [
+        this.items = [
             &#123;
-                label: 'File',
-                icon: 'pi pi-fw pi-file',
-                items: [&#123;
-                        label: 'New', 
-                        icon: 'pi pi-fw pi-plus',
-                        items: [
-                            &#123;label: 'Project'&#125;,
-                            &#123;label: 'Other'&#125;,
-                        ]
-                    &#125;,
-                    &#123;label: 'Open'&#125;,
-                    &#123;separator:true&#125;,
-                    &#123;label: 'Quit'&#125;
-                ]
-            &#125;,
-            &#123;
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
-                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
-                ]
-            &#125;,
-            &#123;
-                label: 'Help',
-                icon: 'pi pi-fw pi-question',
-                items: [
-                    &#123;
-                        label: 'Contents'
-                    &#125;,
-                    &#123;
-                        label: 'Search', 
-                        icon: 'pi pi-fw pi-search', 
-                        items: [
-                            &#123;
-                                label: 'Text', 
-                                items: [
-                                    &#123;
-                                        label: 'Workspace'
-                                    &#125;
-                                ]
-                            &#125;,
-                            &#123;
-                                label: 'File'
-                            &#125;
-                    ]&#125;
-                ]
-            &#125;,
-            &#123;
-                label: 'Actions',
-                icon: 'pi pi-fw pi-cog',
-                items: [
-                    &#123;
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
-                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
-                        ]
-                    &#125;,
-                    &#123;
-                        label: 'Other',
-                        icon: 'pi pi-fw pi-tags',
-                        items: [
-                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
-                        ]
-                    &#125;
-                ]
-            &#125;,
-            &#123;separator:true&#125;,
-            &#123;
-                label: 'Quit', icon: 'pi pi-fw pi-times'
-            &#125;
-        ];
+               label:'File',
+               icon:'pi pi-fw pi-file',
+               items:[
+                  &#123;
+                     label:'New',
+                     icon:'pi pi-fw pi-plus',
+                     items:[
+                        &#123;
+                           label:'Bookmark',
+                           icon:'pi pi-fw pi-bookmark'
+                        &#125;,
+                        &#123;
+                           label:'Video',
+                           icon:'pi pi-fw pi-video'
+                        &#125;,
 
-        this.items2 = [
-            &#123;
-                label: 'Family',
-                icon: 'pi pi-fw pi-users'
+                     ]
+                  &#125;,
+                  &#123;
+                     label:'Delete',
+                     icon:'pi pi-fw pi-trash'
+                  &#125;,
+                  &#123;
+                     separator:true
+                  &#125;,
+                  &#123;
+                     label:'Export',
+                     icon:'pi pi-fw pi-external-link'
+                  &#125;
+               ]
             &#125;,
             &#123;
-                label: 'Business',
-                icon: 'pi pi-fw pi-briefcase'
+               label:'Edit',
+               icon:'pi pi-fw pi-pencil',
+               items:[
+                  &#123;
+                     label:'Left',
+                     icon:'pi pi-fw pi-align-left'
+                  &#125;,
+                  &#123;
+                     label:'Right',
+                     icon:'pi pi-fw pi-align-right'
+                  &#125;,
+                  &#123;
+                     label:'Center',
+                     icon:'pi pi-fw pi-align-center'
+                  &#125;,
+                  &#123;
+                     label:'Justify',
+                     icon:'pi pi-fw pi-align-justify'
+                  &#125;,
+
+               ]
+            &#125;,
+            &#123;
+               label:'Users',
+               icon:'pi pi-fw pi-user',
+               items:[
+                  &#123;
+                     label:'New',
+                     icon:'pi pi-fw pi-user-plus',
+
+                  &#125;,
+                  &#123;
+                     label:'Delete',
+                     icon:'pi pi-fw pi-user-minus',
+
+                  &#125;,
+                  &#123;
+                     label:'Search',
+                     icon:'pi pi-fw pi-users',
+                     items:[
+                        &#123;
+                           label:'Filter',
+                           icon:'pi pi-fw pi-filter',
+                           items:[
+                              &#123;
+                                 label:'Print',
+                                 icon:'pi pi-fw pi-print'
+                              &#125;
+                           ]
+                        &#125;,
+                        &#123;
+                           icon:'pi pi-fw pi-bars',
+                           label:'List'
+                        &#125;
+                     ]
+                  &#125;
+               ]
+            &#125;,
+            &#123;
+               label:'Events',
+               icon:'pi pi-fw pi-calendar',
+               items:[
+                  &#123;
+                     label:'Edit',
+                     icon:'pi pi-fw pi-pencil',
+                     items:[
+                        &#123;
+                           label:'Save',
+                           icon:'pi pi-fw pi-calendar-plus'
+                        &#125;,
+                        &#123;
+                           label:'Delete',
+                           icon:'pi pi-fw pi-calendar-minus'
+                        &#125;,
+
+                     ]
+                  &#125;,
+                  &#123;
+                     label:'Archieve',
+                     icon:'pi pi-fw pi-calendar-times',
+                     items:[
+                        &#123;
+                           label:'Remove',
+                           icon:'pi pi-fw pi-calendar-minus'
+                        &#125;
+                     ]
+                  &#125;
+               ]
+            &#125;,
+            &#123;
+               separator:true
+            &#125;,
+            &#123;
+               label:'Quit',
+               icon:'pi pi-fw pi-power-off'
             &#125;
-        ];
+         ];
     &#125;
+
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

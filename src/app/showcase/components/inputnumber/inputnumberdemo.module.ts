@@ -4,7 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {InputNumberDemo} from './inputnumberdemo';
 import {InputNumberDemoRoutingModule} from './inputnumberdemo-routing.module';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
@@ -17,8 +16,7 @@ import {AppCodeModule} from '../../app.code.component';
         InputNumberModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		InputNumberDemo

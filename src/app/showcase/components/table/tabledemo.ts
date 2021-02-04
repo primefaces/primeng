@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
-import { Table } from '../../../components/table/table';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -19,7 +18,7 @@ export class TableDemo implements OnInit {
 
     loading: boolean = true;
 
-    @ViewChild('dt') table: Table;
+    activityValues: number[] = [0, 100];
 
     constructor(private customerService: CustomerService) { }
 
@@ -27,6 +26,8 @@ export class TableDemo implements OnInit {
         this.customerService.getCustomersLarge().then(customers => {
             this.customers = customers;
             this.loading = false;
+
+            this.customers.forEach(customer => customer.date = new Date(customer.date));
         });
 
         this.representatives = [
@@ -39,7 +40,7 @@ export class TableDemo implements OnInit {
             {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
             {name: "Onyama Limba", image: 'onyamalimba.png'},
             {name: "Stephen Shaw", image: 'stephenshaw.png'},
-            {name: "XuXue Feng", image: 'xuxuefeng.png'}
+            {name: "Xuxue Feng", image: 'xuxuefeng.png'}
         ];
 
         this.statuses = [
@@ -49,40 +50,6 @@ export class TableDemo implements OnInit {
             {label: 'Negotiation', value: 'negotiation'},
             {label: 'Renewal', value: 'renewal'},
             {label: 'Proposal', value: 'proposal'}
-        ]
-    }
-
-    onActivityChange(event) {
-        const value = event.target.value;
-        if (value && value.trim().length) {
-            const activity = parseInt(value);
-
-            if (!isNaN(activity)) {
-                this.table.filter(activity, 'activity', 'gte');
-            }
-        }
-    }
-
-    onDateSelect(value) {
-        this.table.filter(this.formatDate(value), 'date', 'equals')
-    }
-
-    formatDate(date) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        if (day < 10) {
-            day = '0' + day;
-        }
-
-        return date.getFullYear() + '-' + month + '-' + day;
-    }
-
-    onRepresentativeChange(event) {
-        this.table.filter(event.value, 'representative', 'in')
+        ];
     }
 }

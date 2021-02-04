@@ -5,7 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContextMenu, ContextMenuSub } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { TreeDragDropService } from 'primeng/api';
+import { ContextMenuService, TreeDragDropService } from 'primeng/api';
+import { first } from 'rxjs/operators';
 
 @Component({
 	template: `
@@ -128,7 +129,7 @@ describe('Tree', () => {
 				ContextMenuSub,
 				TestTreeComponent
 			],
-			providers: [TreeDragDropService]
+			providers: [TreeDragDropService, ContextMenuService]
 		});
 
 		fixture = TestBed.createComponent(TestTreeComponent);
@@ -191,14 +192,14 @@ describe('Tree', () => {
 	it('should created', () => {
 		fixture.detectChanges();
   
-		const treeEl = fixture.debugElement.query(By.css('.ui-tree'));
+		const treeEl = fixture.debugElement.query(By.css('.p-tree'));
 		expect(treeEl.nativeElement).toBeTruthy();
 	});
 	  
 	it('should call toggle and expand clicked row', () => {
 		fixture.detectChanges();
   
-		const toggleEls = fixture.debugElement.queryAll(By.css('.ui-tree-toggler'));
+		const toggleEls = fixture.debugElement.queryAll(By.css('.p-tree-toggler'));
 		const documentsToggleEl = toggleEls[0];
 		const treeNodes = fixture.debugElement.queryAll(By.css("p-treeNode"));
 		const documentsNode = treeNodes[0].componentInstance as UITreeNode;
@@ -214,7 +215,7 @@ describe('Tree', () => {
 	it('should call toggle and collapse clicked row', () => {
 		fixture.detectChanges();
   
-		const toggleEls = fixture.debugElement.queryAll(By.css('.ui-tree-toggler'));
+		const toggleEls = fixture.debugElement.queryAll(By.css('.p-tree-toggler'));
 		const documentsToggleEl = toggleEls[0];
 		const treeNodes = fixture.debugElement.queryAll(By.css("p-treeNode"));
 		const documentsNode = treeNodes[0].componentInstance as UITreeNode;
@@ -230,52 +231,16 @@ describe('Tree', () => {
 		expect(collapseSpy).toHaveBeenCalled();
 	});
 
-	it('should focused with nav keys', () => {
-		fixture.detectChanges();
-		
-		const contentEls = fixture.debugElement.queryAll(By.css('.ui-treenode-content'));
-		const firstEl = contentEls[0];
-		const secondEl = contentEls[1];
-		const thirdEl = contentEls[2];
-		firstEl.triggerEventHandler('keydown',{'which':40,'target':firstEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-
-		const secondNode = fixture.debugElement.queryAll(By.css('.ui-treenode-content'))[1];
-		let focusElement = document.activeElement;
-		expect(focusElement).toEqual(secondNode.nativeElement);
-		secondEl.triggerEventHandler('keydown',{'which':38,'target':secondEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-		
-		const firstNode = fixture.debugElement.queryAll(By.css('.ui-treenode-content'))[0];
-		focusElement = document.activeElement;
-		expect(focusElement).toEqual(firstNode.nativeElement);
-		firstEl.triggerEventHandler('keydown',{'which':38,'target':firstEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-
-		focusElement = document.activeElement;
-		expect(focusElement).toEqual(firstNode.nativeElement);
-		secondEl.triggerEventHandler('keydown',{'which':40,'target':secondEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-
-		thirdEl.triggerEventHandler('keydown',{'which':40,'target':thirdEl.nativeElement,preventDefault (){}});
-		fixture.detectChanges();
-		
-		const thirdNode = fixture.debugElement.queryAll(By.css('.ui-treenode-content'))[2];
-		focusElement = document.activeElement;
-		expect(focusElement).toEqual(thirdNode.nativeElement);
-	});
-
 	it('should expand&collapse with right and left key', () => {
 		fixture.detectChanges();
 		
-		const contentEls = fixture.debugElement.queryAll(By.css('.ui-treenode-content'));
+		const contentEls = fixture.debugElement.queryAll(By.css('.p-treenode-content'));
 		const treeNodes = fixture.debugElement.queryAll(By.css("p-treeNode"));
 		const documentsNode = treeNodes[0].componentInstance as UITreeNode;
 		const firstEl = contentEls[0];
 		firstEl.triggerEventHandler('keydown',{'which':39,'target':firstEl.nativeElement,preventDefault (){}});
 		fixture.detectChanges();
 
-		const firstElComponent = firstEl.componentInstance;
 		expect(documentsNode.node.expanded).toBeTruthy();
 		firstEl.triggerEventHandler('keydown',{'which':37,'target':firstEl.nativeElement,preventDefault (){}});
 		fixture.detectChanges();
@@ -299,7 +264,7 @@ describe('Tree', () => {
 		tree.selectionChange.subscribe((node)=>{
 			selectedNode = node;
 		});
-		const contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		const contentEls = fixture.debugElement.queryAll(By.css(".p-treenode-content"));
 		const documentsContentEl = contentEls[0];
 		const onNodeClickSpy = spyOn(tree,"onNodeClick").and.callThrough();
 		documentsContentEl.nativeElement.click();
@@ -320,7 +285,7 @@ describe('Tree', () => {
 		tree.metaKeySelection = false;
 		fixture.detectChanges();
 		
-		const contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		const contentEls = fixture.debugElement.queryAll(By.css(".p-treenode-content"));
 		const documentsContentEl = contentEls[0];
 		const onNodeClickSpy = spyOn(tree,"onNodeClick").and.callThrough();
 		documentsContentEl.nativeElement.click();
@@ -342,7 +307,7 @@ describe('Tree', () => {
 		tree.selectionChange.subscribe((node)=>{
 			selectedNode = node;
 		});
-		const contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		const contentEls = fixture.debugElement.queryAll(By.css(".p-treenode-content"));
 		const documentsContentEl = contentEls[0];
 		const picturesContentEl = contentEls[1];
 		const onNodeClickSpy = spyOn(tree,"onNodeClick").and.callThrough();
@@ -370,7 +335,7 @@ describe('Tree', () => {
 		tree.metaKeySelection = false;
 		fixture.detectChanges();
 		
-		const contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		const contentEls = fixture.debugElement.queryAll(By.css(".p-treenode-content"));
 		const documentsContentEl = contentEls[0];
 		const picturesContentEl = contentEls[1];
 		const onNodeClickSpy = spyOn(tree,"onNodeClick").and.callThrough();
@@ -396,12 +361,12 @@ describe('Tree', () => {
 		tree.selectionMode = 'checkbox';
 		fixture.detectChanges();
 		
-		let toggleEls = fixture.debugElement.queryAll(By.css('.ui-tree-toggler'));
+		let toggleEls = fixture.debugElement.queryAll(By.css('.p-tree-toggler'));
 		const documentsToggleEl = toggleEls[0];
 		documentsToggleEl.nativeElement.click();
 		fixture.detectChanges();
 
-		let contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		let contentEls = fixture.debugElement.queryAll(By.css(".p-treenode-content"));
 		const workContentEl = contentEls[1];
 		const homeContentEl = contentEls[2];
 		workContentEl.nativeElement.click();
@@ -412,13 +377,13 @@ describe('Tree', () => {
 		workContentEl.nativeElement.click();
 		fixture.detectChanges();
 
-		toggleEls = fixture.debugElement.queryAll(By.css('.ui-tree-toggler'));
+		toggleEls = fixture.debugElement.queryAll(By.css('.p-tree-toggler'));
 		const workToggleEl = toggleEls[1];
 		expect(tree.selection.length).toEqual(2);
 		workToggleEl.nativeElement.click();
 		fixture.detectChanges();
 
-		contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		contentEls = fixture.debugElement.queryAll(By.css(".p-treenode-content"));
 		const resumeContentEl = contentEls[3];
 		const expensesContentEl = contentEls[2];
 		resumeContentEl.nativeElement.click();
@@ -445,7 +410,7 @@ describe('Tree', () => {
 		
 		let selectedNode;
 		tree.selectionChange.subscribe(node =>{ selectedNode = node });
-		const contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		const contentEls = fixture.debugElement.queryAll(By.css(".p-treenode-content"));
 		const documentsContentEl = contentEls[0];
 		const onNodeRightClickSpy = spyOn(tree,"onNodeRightClick").and.callThrough();
 		const showSpy = spyOn(contextMenu,"show").and.callThrough();
@@ -461,7 +426,7 @@ describe('Tree', () => {
 		tree.filter = true;
 		fixture.detectChanges();
 
-		const filterInput = fixture.debugElement.query(By.css('.ui-tree-filter'));
+		const filterInput = fixture.debugElement.query(By.css('.p-tree-filter'));
 		expect(filterInput).toBeTruthy();
 		filterInput.triggerEventHandler("input",{target:{value:'d'}});
 		fixture.detectChanges();
@@ -474,7 +439,7 @@ describe('Tree', () => {
 	it('should drop item from files to server2', () => {
 		fixture.detectChanges();
 
-		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.p-treenode-content'));
 		expect(fileTreeContentEls.length).toEqual(3);
 		const documentsContentEl = fileTreeContentEls[0];
 		const onDragStartSpy = spyOn(documentsContentEl.componentInstance,"onDragStart").and.callThrough();
@@ -499,8 +464,8 @@ describe('Tree', () => {
 		expect(onDragLeaveSpy).toHaveBeenCalled();
 		server2TreeEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
 		expect(onDragEnterSpy).toHaveBeenCalled();
-		const server2DropPoints = server2TreeEl.queryAll(By.css('.ui-treenode-droppoint'));
-		const serverContentEl = server2TreeEl.query(By.css('.ui-treenode-content'));
+		const server2DropPoints = server2TreeEl.queryAll(By.css('.p-treenode-droppoint'));
+		const serverContentEl = server2TreeEl.query(By.css('.p-treenode-content'));
 		expect(server2DropPoints.length).toEqual(2);
 		server2DropPoints[0].triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
 		server2DropPoints[0].triggerEventHandler("dragleave",{currentTarget:fileTreeEl.nativeElement});
@@ -513,7 +478,7 @@ describe('Tree', () => {
 		server2DropPoints[1].triggerEventHandler("drop",{preventDefault(){}});
 		fixture.detectChanges();
 
-		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.p-treenode-content'));
 		expect(fileTreeContentEls.length).toEqual(2);
 		expect(dropEvent.dragNode.label).toEqual("Documents");
 		expect(dropEvent.dropNode.label).toEqual("Storage");
@@ -524,7 +489,7 @@ describe('Tree', () => {
 	it('should drop item to inside of node', () => {
 		fixture.detectChanges();
 
-		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.p-treenode-content'));
 		expect(fileTreeContentEls.length).toEqual(3);
 		const documentsContentEl = fileTreeContentEls[0];
 		const onDragStartSpy = spyOn(documentsContentEl.componentInstance,"onDragStart").and.callThrough();
@@ -548,8 +513,8 @@ describe('Tree', () => {
 		expect(onDragLeaveSpy).toHaveBeenCalled();
 		server2TreeEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
 		expect(onDragEnterSpy).toHaveBeenCalled();
-		const server2DropPoints = server2TreeEl.queryAll(By.css('.ui-treenode-droppoint'));
-		const serverContentEl = server2TreeEl.query(By.css('.ui-treenode-content'));
+		const server2DropPoints = server2TreeEl.queryAll(By.css('.p-treenode-droppoint'));
+		const serverContentEl = server2TreeEl.query(By.css('.p-treenode-content'));
 		expect(server2DropPoints.length).toEqual(2);
 		server2DropPoints[0].triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
 		server2DropPoints[0].triggerEventHandler("dragleave",{currentTarget:fileTreeEl.nativeElement});
@@ -565,7 +530,7 @@ describe('Tree', () => {
 		serverContentEl.triggerEventHandler("dragend",{dataTransfer:new DataTransfer,preventDefault(){},stopPropagation(){}});
 		fixture.detectChanges();
 
-		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.p-treenode-content'));
 		expect(fileTreeContentEls.length).toEqual(2);
 		expect(dropEvent.dragNode.label).toEqual("Documents");
 		expect(dropEvent.dropNode.label).toEqual("Storage");
@@ -575,7 +540,7 @@ describe('Tree', () => {
 		fixture.detectChanges();
 
 		server2Tree.value = [];
-		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.p-treenode-content'));
 		expect(fileTreeContentEls.length).toEqual(3);
 		const documentsContentEl = fileTreeContentEls[0];
 		const onDragStartSpy = spyOn(documentsContentEl.componentInstance,"onDragStart").and.callThrough();
@@ -606,7 +571,7 @@ describe('Tree', () => {
 		server2TreeEl.triggerEventHandler("drop",{preventDefault(){}});
 		fixture.detectChanges();
 
-		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.p-treenode-content'));
 		expect(fileTreeContentEls.length).toEqual(2);
 		expect(onDropSpy).toHaveBeenCalled();
 	});

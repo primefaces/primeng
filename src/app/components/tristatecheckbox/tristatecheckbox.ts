@@ -13,15 +13,15 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div [ngStyle]="style" [ngClass]="{'p-checkbox p-component': true,'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused}" [class]="styleClass">
             <div class="p-hidden-accessible">
-                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()" [attr.aria-labelledby]="ariaLabelledBy">
+                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()" [attr.aria-labelledby]="ariaLabelledBy" inputmode="none">
             </div>
             <div class="p-checkbox-box" (click)="onClick($event,input)"  role="checkbox" [attr.aria-checked]="value === true"
-                [ngClass]="{'p-highlight':value!=null,'p-disabled':disabled,'p-focus':focus}">
+                [ngClass]="{'p-highlight':value!=null,'p-disabled':disabled,'p-focus':focused}">
                 <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':value==true,'pi-times':value==false}"></span>
             </div>
         </div>
-        <label class="p-chkbox-label" (click)="onClick($event,input)"
-               [ngClass]="{'p-label-active':value!=null, 'p-label-disabled':disabled, 'p-label-focus':focus}"
+        <label class="p-checkbox-label" (click)="onClick($event,input)"
+               [ngClass]="{'p-checkbox-label-active':value!=null, 'p-disabled':disabled, 'p-checkbox-label-focus':focused}"
                *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
@@ -52,7 +52,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    focus: boolean;
+    focused: boolean;
 
     value: any;
 
@@ -63,7 +63,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     onClick(event: Event, input: HTMLInputElement) {
         if (!this.disabled && !this.readonly) {
             this.toggle(event);
-            this.focus = true;
+            this.focused = true;
             input.focus();
         }
     }
@@ -97,11 +97,11 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
 
     onFocus() {
-        this.focus = true;
+        this.focused = true;
     }
 
     onBlur() {
-        this.focus = false;
+        this.focused = false;
         this.onModelTouched();
     }
 
@@ -120,6 +120,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
 
     setDisabledState(disabled: boolean): void {
         this.disabled = disabled;
+        this.cd.markForCheck();
     }
 }
 

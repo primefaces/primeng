@@ -25,18 +25,18 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;RatingModule&#125; from 'primeng/rating';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
                     
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-rating [(ngModel)]="val"&gt;&lt;/p-rating&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     val: number;
@@ -45,7 +45,7 @@ export class ModelComponent &#123;
 </app-code>
 
             <p>Defining a default value would be enough to display the initial number of selected stars.</p>
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ModelComponent &#123;
 
     val: number = 3;
@@ -55,7 +55,7 @@ export class ModelComponent &#123;
 
             <h5>Model Driven Forms</h5>
             <p>Rating can be used in a model driven form as well.</p>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-rating formControlName="score"&gt;&lt;/p-rating&gt;
 </app-code>
 
@@ -204,7 +204,7 @@ export class ModelComponent &#123;
                     <a href="https://stackblitz.com/edit/primeng-rating-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                         <span>Edit in StackBlitz</span>
                     </a>
-<app-code lang="markup" ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt; 
 &lt;p-rating [(ngModel)]="val1"&gt;&lt;/p-rating&gt;
 
@@ -218,7 +218,7 @@ export class ModelComponent &#123;
 &lt;p-rating [ngModel]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
 </app-code>
 
-<app-code lang="typescript" ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class RatingDemo &#123;
 
     val1: number;

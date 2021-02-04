@@ -4,11 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { TableDemo } from './tabledemo';
 import { TableBasicDemo } from './tablebasicdemo';
 import { TableDynamicDemo } from './tabledynamicdemo';
+import { TableTemplatingDemo } from './tabletemplatingdemo';
+import { TableSizeDemo } from './tablesizedemo';
+import { TableGridLinesDemo } from './tablegridlinesdemo';
+import { TableStripedDemo } from './tablestripeddemo';
 import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
 import { TableFilterDemo } from './tablefilterdemo';
-import { TableSectionsDemo } from './tablesectionsdemo';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
@@ -36,11 +39,18 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { TooltipModule } from 'primeng/tooltip';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FileUploadModule } from 'primeng/fileupload';
 import { TabViewModule } from 'primeng/tabview';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -51,26 +61,36 @@ import { AppCodeModule } from '../../app.code.component';
         TableModule,
         CalendarModule,
 		SliderModule,
-		DialogModule,
+        DialogModule,
+        ConfirmDialogModule,
 		MultiSelectModule,
 		ContextMenuModule,
 		DropdownModule,
 		ButtonModule,
 		ToastModule,
         InputTextModule,
+        InputNumberModule,
+        InputTextareaModule,
         ProgressBarModule,
-		TabViewModule,
-        CodeHighlighterModule,
+        TooltipModule,
+        RadioButtonModule,
+        ToolbarModule,
+        FileUploadModule,
+        TabViewModule,
+        RatingModule,
         AppCodeModule
 	],
 	declarations: [
 		TableDemo,
 		TableBasicDemo,
 		TableDynamicDemo,
+        TableTemplatingDemo,
+        TableSizeDemo,
+        TableGridLinesDemo,
+        TableStripedDemo,
 		TablePageDemo,
 		TableSortDemo,
 		TableSelectionDemo,
-		TableSectionsDemo,
 		TableFilterDemo,
 		TableStyleDemo,
 		TableLazyDemo,

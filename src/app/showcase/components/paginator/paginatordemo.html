@@ -1,57 +1,67 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Paginator</span>
-        <span>Paginator is a generic widget to display content in paged format.</span>
+    <div class="feature-intro">
+        <h1>Paginator</h1>
+        <p>Paginator is a generic component to display content in paged format.</p>
     </div>
 </div>
 
-<div class="content-section implementation ui-fluid">
-    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+<div class="content-section implementation">
+    <div class="card">
+        <h5>Basic</h5>
+        <p-paginator [rows]="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+
+        <h5>Custom</h5>
+        <div class="p-grid p-align-center">
+            <div class="p-col-1">
+                <p-button icon="pi pi-refresh" (onClick)="refresh()"></p-button>
+            </div>
+            <div class="p-col-10">
+                <p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
+                [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+            </div>
+            <div class="p-col-1 p-grid p-justify-end">
+                <p-button icon="pi pi-search"></p-button>
+            </div>
+        </div>
+        <div class="image-gallery">
+            <img src="assets/showcase/images/demo/nature/nature{{first + 1}}.jpg" />
+        </div>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;PaginatorModule&#125; from 'primeng/paginator';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Paginator is defined using p-paginator element.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator&gt;&lt;/p-paginator&gt;
-</code>
-</pre>
-            <h3>Rows and TotalRecords</h3>
+</app-code>
+            <h5>Rows and TotalRecords</h5>
             <p><i>rows</i> and <i>totalRecords</i> define how many pages the paginator should display. Paginator below will have 10 pages.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="100"&gt;&lt;/p-paginator&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>PageLinks</h3>
+            <h5>PageLinks</h5>
             <p>PageLinks provide shortcuts to jump to a specific page, use <i>pageLinkSize</i> property to define the number of links to display. Default is 5.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Rows Per Page</h3>
+            <h5>Rows Per Page</h5>
             <p>Number of items per page can be changed by the user using a dropdown if you define <i>rowsPerPageOptions</i> as an array of possible values.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>CurrentPageReport</h3>
+            <h5>CurrentPageReport</h5>
             <p>Current page report item in the template displays information about the pagination state. Default value is (&#123;currentPage&#125; of &#123;totalPages&#125;)
                 whereas available placeholders are the following;
             </p>
@@ -64,7 +74,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                 <li>&#123;totalRecords&#125;</li>
             </ul>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -126,6 +136,12 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>Whether to show it even there is only one page.</td>
                         </tr>
                         <tr>
+                            <td>showFirstLastIcon</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When enabled, icons are displayed on paginator to go first and last page.</td>
+                        </tr>
+                        <tr>
                             <td>templateLeft</td>
                             <td>TemplateRef</td>
                             <td>null</td>
@@ -136,6 +152,12 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>TemplateRef</td>
                             <td>null</td>
                             <td>Template instance to inject into the right side of the paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>dropdownItemTemplate</td>
+                            <td>TemplateRef</td>
+                            <td>null</td>
+                            <td>Template instance to inject into the dropdown item inside in the paginator.</td>
                         </tr>
                         <tr>
                             <td>dropdownAppendTo</td>
@@ -163,11 +185,23 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>false</td>
                             <td>Whether to display current page report.</td>
                         </tr>
+                        <tr>
+                            <td>showJumpToPageDropdown</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display a dropdown to navigate to any page.</td>
+                        </tr>
+                        <tr>
+                            <td>showPageLinks</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show page links.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -190,14 +224,11 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                 </table>
             </div>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class MyComponent &#123;
 
     paginate(event) &#123;
@@ -208,10 +239,9 @@ export class MyComponent &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -223,42 +253,46 @@ export class MyComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-paginator</td>
+                            <td>p-paginator</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-paginator-first</td>
+                            <td>p-paginator-first</td>
                             <td>First page element.</td>
                         </tr>
                         <tr>
-                            <td>ui-paginator-prev</td>
+                            <td>p-paginator-prev</td>
                             <td>Previous page element.</td>
                         </tr>
                         <tr>
-                            <td>ui-paginator-pages</td>
+                            <td>p-paginator-pages</td>
                             <td>Container of page links.</td>
                         </tr>
                         <tr>
-                            <td>ui-paginator-page</td>
+                            <td>p-paginator-page</td>
                             <td>A page link.</td>
                         </tr>
                         <tr>
-                            <td>ui-paginator-next</td>
+                            <td>p-paginator-next</td>
                             <td>Next page element.</td>
                         </tr>
                         <tr>
-                            <td>ui-paginator-last</td>
+                            <td>p-paginator-last</td>
                             <td>Last page element.</td>
                         </tr>
                         <tr>
-                            <td>ui-paginator-rpp-options</td>
+                            <td>p-paginator-rpp-options</td>
                             <td>Rows per page dropdown.</td>
+                        </tr>
+                        <tr>
+                            <td>p-paginator-page-options</td>
+                            <td>Jump to per page dropdown.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -269,11 +303,39 @@ export class MyComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-paginator-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
-</code>
-</pre>
+&lt;h5&gt;Basic&lt;/h5&gt;
+    &lt;p-paginator [rows]="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+
+    &lt;h5&gt;Custom&lt;/h5&gt;
+    &lt;div class="p-grid p-align-center"&gt;
+        &lt;div class="p-col-1"&gt;
+            &lt;p-button icon="pi pi-refresh" (onClick)="refresh()"&gt;&lt;/p-button&gt;
+        &lt;/div&gt;
+        &lt;div class="p-col-10"&gt;
+            &lt;p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
+            [showJumpToPageDropdown]="true" [showPageLinks]="false"&gt;&lt;/p-paginator&gt;
+        &lt;/div&gt;
+        &lt;div class="p-col-1 p-grid p-justify-end"&gt;
+            &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="image-gallery"&gt;
+        &lt;img src="assets/showcase/images/demo/nature/nature&#123;&#123;first + 1&#125;&#125;.jpg" /&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</app-code>
+<app-code lang="css">
+.p-button.p-button-icon-only &#123;
+    border-radius: 0;
+&#125;
+
+.image-gallery &#123;
+    text-align: center;
+    padding: 1rem;
+&#125;
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

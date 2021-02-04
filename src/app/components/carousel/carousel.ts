@@ -1,5 +1,6 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';  
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
 
@@ -7,12 +8,13 @@ import { UniqueComponentId } from 'primeng/utils';
 	selector: 'p-carousel',
 	template: `
 		<div [attr.id]="id" [ngClass]="{'p-carousel p-component':true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical()}" [ngStyle]="style" [class]="styleClass">
-			<div class="p-carousel-header" *ngIf="headerFacet">
-				<ng-content select="p-header"></ng-content>
+			<div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
+                <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
 			</div>
 			<div [class]="contentClass" [ngClass]="'p-carousel-content'">
 				<div class="p-carousel-container">
-					<button type="button" [ngClass]="{'p-carousel-prev p-link':true, 'p-disabled': isBackwardNavDisabled()}" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)">
+					<button type="button" [ngClass]="{'p-carousel-prev p-link':true, 'p-disabled': isBackwardNavDisabled()}" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
 					</button>
 					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
@@ -37,7 +39,7 @@ import { UniqueComponentId } from 'primeng/utils';
 							</div>
 						</div>
 					</div>
-					<button type="button" [ngClass]="{'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled()}" [disabled]="isForwardNavDisabled()" (click)="navForward($event)">
+					<button type="button" [ngClass]="{'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled()}" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple>
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
 					</button>
 				</div>
@@ -47,8 +49,9 @@ import { UniqueComponentId } from 'primeng/utils';
 					</li>
 				</ul>
 			</div>
-			<div class="p-carousel-footer" *ngIf="footerFacet">
-				<ng-content select="p-footer"></ng-content>
+			<div class="p-carousel-footer" *ngIf="footerFacet || footerTemplate">
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
 			</div>
 		</div>
     `,
@@ -68,10 +71,10 @@ export class Carousel implements AfterContentInit {
 				this.allowAutoplay = false;
 			}
 
-			if (val > this._page && val < (this.totalDots() - 1)) {
+			if (val > this._page && val <= (this.totalDots() - 1)) {
 				this.step(-1, val);
 			}
-			else if (val < this._page && val !== 0) {
+			else if (val < this._page ) {
 				this.step(1, val);
 			}
 		} 
@@ -108,9 +111,6 @@ export class Carousel implements AfterContentInit {
 	};
 	set value(val) {
 		this._value = val;
-		if (this.circular && this._value) {
-			this.setCloneItems();
-		}
 	}
 	
 	@Input() circular:boolean = false;
@@ -183,10 +183,44 @@ export class Carousel implements AfterContentInit {
 
 	swipeThreshold: number = 20;
 
-	public itemTemplate: TemplateRef<any>;
+    itemTemplate: TemplateRef<any>;
+    
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
 
 	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) { 
 		this.totalShiftedItems = this.page * this.numScroll * -1; 
+	}
+
+	ngOnChanges(simpleChange: SimpleChanges) {
+		if (simpleChange.value) {
+			if (this.circular && this._value) {
+				this.setCloneItems();
+			}
+		}
+
+		if (this.isCreated) {
+			
+			if (simpleChange.numVisible) {
+				if (this.responsiveOptions) {
+					this.defaultNumVisible = this.numVisible;
+				}
+
+				if (this.isCircular()) {
+					this.setCloneItems();
+				}
+
+				this.createStyle();
+				this.calculatePosition();
+			}
+
+			if (simpleChange.numScroll) {
+				if (this.responsiveOptions) {
+					this.defaultNumScroll = this.numScroll;
+				}
+			}
+		}
 	}
 
 	ngAfterContentInit() {
@@ -213,11 +247,19 @@ export class Carousel implements AfterContentInit {
 			switch (item.getType()) {
 				case 'item':
 					this.itemTemplate = item.template;
-					break;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
 
 				default:
 					this.itemTemplate = item.template;
-					break;
+                break;
 			}
 		});
 	}
@@ -226,7 +268,7 @@ export class Carousel implements AfterContentInit {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
 		
-		if (this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
+		if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
 			if (this.autoplayInterval) {
 				this.stopAutoplay();
 			}
@@ -264,7 +306,7 @@ export class Carousel implements AfterContentInit {
 			this.prevState.numVisible = this._numVisible;
 			this.prevState.value = this._value;
 
-			if (this.totalDots() > 0 && this.itemsContainer && this.itemsContainer.nativeElement) {
+			if (this.totalDots() > 0  && this.itemsContainer.nativeElement) {
 				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 			}
 			
@@ -342,7 +384,7 @@ export class Carousel implements AfterContentInit {
 		}
 
 	calculatePosition() {
-		if (this.itemsContainer && this.responsiveOptions) {
+		if (this.responsiveOptions) {
 			let windowWidth = window.innerWidth;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,
@@ -626,7 +668,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-	imports: [CommonModule, SharedModule],
+	imports: [CommonModule, SharedModule, RippleModule],
 	exports: [CommonModule, Carousel, SharedModule],
 	declarations: [Carousel]
 })

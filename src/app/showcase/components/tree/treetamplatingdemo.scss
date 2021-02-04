@@ -1,0 +1,10 @@
+button {
+    margin-right: .5rem;
+}
+
+:host ::ng-deep .p-tree {
+    a {
+        color: #2196f3;
+    }
+
+}
