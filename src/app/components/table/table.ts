@@ -708,7 +708,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.sortMode === 'single') {
             this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this._sortField = event.field;
-            this.sortSingle();
 
             if (this.resetPageOnSort) {
                 this._first = 0;
@@ -718,6 +717,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.resetScrollTop();
                 }
             }
+
+            this.sortSingle();
         }
         if (this.sortMode === 'multiple') {
             let metaKey = originalEvent.metaKey || originalEvent.ctrlKey;
@@ -769,6 +770,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             if (this.lazy) {
+                console.log("hola?")
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else if (this.value) {
@@ -1423,6 +1425,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     createLazyLoadMetadata(): any {
+        console.log(this.first, this._first)
         return {
             first: this.first,
             rows: this.rows,
