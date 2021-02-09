@@ -116,6 +116,7 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   background: transparent;
   transition: box-shadow 0.2s;
   border-radius: 0;
+  white-space: break-spaces;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item:hover {
   color: rgba(255, 255, 255, 0.87);

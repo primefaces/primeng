@@ -118,6 +118,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() size: number;
 
+    @Input() overlayFitWidth: boolean;
+
     @Input() appendTo: any;
 
     @Input() autoHighlight: boolean;
@@ -496,6 +498,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
             if (!this.overlay.style.minWidth) {
                 this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+                if (this.overlayFitWidth) {
+                    this.overlay.style.maxWidth = this.overlay.style.minWidth;
+                }
             }
         }
     }
