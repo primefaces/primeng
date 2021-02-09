@@ -369,7 +369,6 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border: 1px solid #191919;
   border-radius: 3px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  min-width: 12.5rem;
 }
 .p-cascadeselect-panel .p-cascadeselect-items {
   padding: 0;

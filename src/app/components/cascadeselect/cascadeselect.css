@@ -27,8 +27,7 @@
     visibility: hidden;
 }
 
-.p-cascadeselect > .p-cascadeselect-panel,
-.p-cascadeselect-panel-root {
+.p-cascadeselect .p-cascadeselect-panel {
     min-width: 100%;
 }
 
