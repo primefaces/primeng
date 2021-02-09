@@ -3,6 +3,7 @@ export * from './translation';
 export * from './translationkeys';
 export * from './blockableui';
 export * from './confirmation';
+export * from './confirmaeventtype';
 export * from './confirmationservice';
 export * from './filtermetadata';
 export * from './filterservice';

@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, Output} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys} from 'primeng/api';
+import {Footer,SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys, ConfirmEventType} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
@@ -160,6 +160,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             break;
         }
     }
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(Footer) footer;
 
@@ -350,14 +352,15 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     close(event: Event) {
         if (this.confirmation.rejectEvent) {
-            this.confirmation.rejectEvent.emit();
+            this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
         }
 
-        this.hide();
+        this.hide(ConfirmEventType.CANCEL);
         event.preventDefault();
     }
 
-    hide() {
+    hide(type?) {
+        this.onHide.emit(type);
         this.visible = false;
         this.confirmation = null;
         this.confirmationOptions = null;
@@ -456,15 +459,15 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
             this.confirmation.acceptEvent.emit();
         }
 
-        this.hide();
+        this.hide(ConfirmEventType.ACCEPT);
     }
 
     reject() {
         if (this.confirmation && this.confirmation.rejectEvent) {
-            this.confirmation.rejectEvent.emit();
+            this.confirmation.rejectEvent.emit(ConfirmEventType.REJECT);
         }
 
-        this.hide();
+        this.hide(ConfirmEventType.REJECT);
     }
 
     get acceptButtonLabel(): string {

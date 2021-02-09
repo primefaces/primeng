@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, ConfirmEventType, MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './confirmdialogdemo.html',
@@ -19,8 +19,15 @@ export class ConfirmDialogDemo {
             accept: () => {
                 this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
             },
-            reject: () => {
-                this.messageService.add({severity:'info', summary:'Rejected', detail:'You have rejected'});
+            reject: (type) => {
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+                    break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+                    break;
+                }
             }
         });
     }
@@ -33,8 +40,15 @@ export class ConfirmDialogDemo {
             accept: () => {
                 this.messageService.add({severity:'info', summary:'Confirmed', detail:'Record deleted'});
             },
-            reject: () => {
-                this.messageService.add({severity:'info', summary:'Rejected', detail:'You have rejected'});
+            reject: (type) => {
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+                    break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+                    break;
+                }
             }
         });
     }
@@ -49,8 +63,15 @@ export class ConfirmDialogDemo {
             accept: () => {
                 this.messageService.add({severity:'info', summary:'Confirmed', detail:'Record deleted'});
             },
-            reject: () => {
-                this.messageService.add({severity:'info', summary:'Rejected', detail:'You have rejected'});
+            reject: (type) => {
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+                    break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+                    break;
+                }
             },
             key: "positionDialog"
         });
