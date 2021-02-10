@@ -1,5 +1,33 @@
 # Changelog
 
+## [11.2.1](https://github.com/primefaces/primeng/tree/11.2.1) (2021-02-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.2.0...11.2.1)
+
+**Implemented New Features and Enhancements:**
+
+- Enter key should hide calendar [\#9880](https://github.com/primefaces/primeng/issues/9880)
+- New Date Filters for Table [\#9879](https://github.com/primefaces/primeng/issues/9879)
+- Add ConfirmEventType for ConfirmDialog [\#9872](https://github.com/primefaces/primeng/issues/9872)
+- PageDown PageUp Home End Key support for Table VirtualScroll [\#9832](https://github.com/primefaces/primeng/issues/9832)
+- Add rowIndex to onRowUnselect [\#9823](https://github.com/primefaces/primeng/issues/9823)
+
+**Fixed bugs:**
+
+- Filtermenu grows with multiple constraints [\#9878](https://github.com/primefaces/primeng/issues/9878)
+- p-sidebar appendTo has wrong type [\#9876](https://github.com/primefaces/primeng/issues/9876)
+- LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
+- Adding \[multiSortMeta\] to the table causes an extra initial call to fetch data in virtual scroll [\#9854](https://github.com/primefaces/primeng/issues/9854)
+- TabPanel's leftIcon and rightIcon properties not working with programmatic change [\#9844](https://github.com/primefaces/primeng/issues/9844)
+- Not filtering date using "Is"  in table [\#9838](https://github.com/primefaces/primeng/issues/9838)
+- Row not selected when using the Table contextMenuSelectionMode="joint" [\#9824](https://github.com/primefaces/primeng/issues/9824)
+- ConnectedOverlayScrollHandler API doesn't work as expected [\#9822](https://github.com/primefaces/primeng/issues/9822)
+- Strange behavior using context menu on Safari [\#9814](https://github.com/primefaces/primeng/issues/9814)
+- Table onRowSelect calling before the selection change [\#9806](https://github.com/primefaces/primeng/issues/9806)
+- The up and down arrow key stops working by the virtualscroller [\#9805](https://github.com/primefaces/primeng/issues/9805)
+- Space key causes scroll the browser when using Table selection  [\#9804](https://github.com/primefaces/primeng/issues/9804)
+- ContextMenu highlight select multiple items when item count bigger than nine [\#9803](https://github.com/primefaces/primeng/issues/9803)
+
 ## [11.2.0](https://github.com/primefaces/primeng/tree/11.2.0) (2021-01-21)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.1.0...11.2.0)
