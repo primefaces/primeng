@@ -14,6 +14,10 @@ export interface Translation {
     isNot?: string;
     before?: string;
     after?: string;
+    dateIs?: string;
+    dateIsNot?: string;
+    dateBefore?: string;
+    dateAfter?: string;
     clear?: string;
     apply?: string;
     matchAll?: string;

@@ -4378,7 +4378,7 @@ export class ColumnFilter implements AfterContentInit {
             else if (this.type === 'numeric')
                 return FilterMatchMode.EQUALS;
             else if (this.type === 'date')
-                return FilterMatchMode.EQUALS;
+                return FilterMatchMode.DATE_IS;
             else
                 return FilterMatchMode.CONTAINS;
         }

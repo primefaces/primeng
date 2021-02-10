@@ -15,4 +15,8 @@ export class FilterMatchMode {
     public static readonly IS_NOT = 'isNot';
     public static readonly BEFORE = 'before';
     public static readonly AFTER = 'after';
+    public static readonly DATE_IS = 'dateIs';
+    public static readonly DATE_IS_NOT = 'dateIsNot';
+    public static readonly DATE_BEFORE = 'dateBefore';
+    public static readonly DATE_AFTER = 'dateAfter';
 }

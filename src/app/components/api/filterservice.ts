@@ -217,6 +217,54 @@ export class FilterService {
 
         after: (value, filter, filterLocale?): boolean => {
             return this.filters.gt(value, filter, filterLocale);
+        },
+
+        dateIs: (value, filter): boolean => {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+    
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value.toDateString() === filter.toDateString();
+        },
+
+        dateIsNot: (value, filter): boolean => {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+    
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value.toDateString() !== filter.toDateString();
+        },
+
+        dateBefore: (value, filter): boolean =>  {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+    
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value.getTime() < filter.getTime();
+        },
+
+        dateAfter: (value, filter): boolean =>  {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+    
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value.getTime() > filter.getTime();
         }
     
     }
