@@ -301,7 +301,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     
     @Input() ariaLabelledBy: string;
 
-    @Input() appendTo: string;
+    @Input() appendTo: any;
 
     @Input() disabled: boolean;
 

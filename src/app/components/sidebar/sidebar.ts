@@ -44,7 +44,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     @Input() fullScreen: boolean;
 
-    @Input() appendTo: string;
+    @Input() appendTo: any;
 
     @Input() blockScroll: boolean = false;
 

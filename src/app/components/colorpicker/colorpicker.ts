@@ -59,7 +59,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @Input() format: string = 'hex';
 
-    @Input() appendTo: string;
+    @Input() appendTo: any;
 
     @Input() disabled: boolean;
 
