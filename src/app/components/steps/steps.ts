@@ -50,7 +50,7 @@ export class Steps implements OnInit, OnDestroy {
 
     constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
     
-    subscription: Subscription;
+    subscription = Subscription.EMPTY;
 
     ngOnInit() {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
