@@ -239,6 +239,18 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.8-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.8) (2021-02-11)
+- LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
+- Adding [multiSortMeta] to the table causes an extra initial call to fetch data in virtual scroll [\#9854](https://github.com/primefaces/primeng/issues/9854)
+- TabPanel's leftIcon and rightIcon properties not working with programmatic change [\#9844](https://github.com/primefaces/primeng/issues/9844)
+- Row not selected when using the Table contextMenuSelectionMode="joint" [\#9824](https://github.com/primefaces/primeng/issues/9824)
+- ConnectedOverlayScrollHandler API doesn't work as expected [\#9822](https://github.com/primefaces/primeng/issues/9822)
+- Strange behavior using context menu on Safari [\#9814](https://github.com/primefaces/primeng/issues/9814)
+- Table onRowSelect calling before the selection change [\#9806](https://github.com/primefaces/primeng/issues/9806)
+- The up and down arrow key stops working by the virtualscroller [\#9805](https://github.com/primefaces/primeng/issues/9805)
+- Space key causes scroll the browser when using Table selection [\#9804](https://github.com/primefaces/primeng/issues/9804)
+- Messages 2way binding is not working [\#9623](https://github.com/primefaces/primeng/issues/9623)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.7-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.7) (2021-01-12)
 - shiftKey invokes onRowSelect multiple times [\#9747](https://github.com/primefaces/primeng/issues/9747)
 - Basic uploader button visual issue [\#9711](https://github.com/primefaces/primeng/issues/9711)
@@ -509,7 +521,17 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.1) (2020-12-09)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.3) (2021-02-11)
+- LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
+- Adding multiSortMeta to the table causes an extra initial call to fetch data in virtual scroll [\#9854](https://github.com/primefaces/primeng/issues/9854)
+- TabPanel's leftIcon and rightIcon properties not working with programmatic change [\#9844](https://github.com/primefaces/primeng/issues/9844)
+- Row not selected when using the Table contextMenuSelectionMode="joint" [\#9824](https://github.com/primefaces/primeng/issues/9824)
+- Strange behavior using context menu on Safari [\#9814](https://github.com/primefaces/primeng/issues/9814)
+- Table onRowSelect calling before the selection change [\#9806](https://github.com/primefaces/primeng/issues/9806)
+- The up and down arrow key stops working by the virtualscroller [\#9805](https://github.com/primefaces/primeng/issues/9805)
+- Space key causes scroll the browser when using Table selection [\#9804](https://github.com/primefaces/primeng/issues/9804)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.2) (2021-01-12)
 - shiftKey invokes onRowSelect multiple times [\#9747](https://github.com/primefaces/primeng/issues/9747)
 - Table not restoring columns when using virtualscroll [\#9708](https://github.com/primefaces/primeng/issues/9708)
 - Float label not working when clearing input on AutoComplete and TextArea [\#9688](https://github.com/primefaces/primeng/issues/9688)
