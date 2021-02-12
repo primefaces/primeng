@@ -108,9 +108,9 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
 </app-code>
 
             <h5>Initial Sizes</h5>
-            <p>When no sizes are defined, panels are split 50/50, use the <i>sizes</i> property to give relative widths e.g. [20,80].</p>
+            <p>When no sizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [20,80].</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-splitter [style]="&#123;'height': '300px'&#125;" [sizes]="[20,80]" layout="vertical"&gt;
+&lt;p-splitter [style]="&#123;'height': '300px'&#125;" [panelSizes]="[20,80]" layout="vertical"&gt;
     &lt;ng-template&gt;
         Panel 1
     &lt;/ng-template&gt;
@@ -196,7 +196,7 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
 						</thead>
 						<tbody>
                             <tr>
-                                <td>sizes</td>
+                                <td>panelSizes</td>
                                 <td>number</td>
                                 <td>null</td>
                                 <td>Size of the elements relative to 100%.</td>
