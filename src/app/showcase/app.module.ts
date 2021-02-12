@@ -30,6 +30,7 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppConfigComponent } from './app.config.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        AutoCompleteModule,
         ButtonModule,
         RadioButtonModule,
         InputSwitchModule,
