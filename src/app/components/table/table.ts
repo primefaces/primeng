@@ -2788,15 +2788,11 @@ export class SelectableRow implements OnInit, OnDestroy {
         });
     }
 
-    @HostListener('keydown.space', ['$event'])
-    onSpaceKeyDown(event: KeyboardEvent) {
-        event.preventDefault();
-    }
-
     @HostListener('keydown.pagedown', ['$event'])
     @HostListener('keydown.pageup', ['$event'])
     @HostListener('keydown.home', ['$event'])
     @HostListener('keydown.end', ['$event'])
+    @HostListener('keydown.space', ['$event'])
     onPageDownKeyDown() {
         if (this.dt.virtualScroll) {
             DomHandler.findSingle(this.dt.scrollableViewChild.el.nativeElement, 'cdk-virtual-scroll-viewport').focus();
