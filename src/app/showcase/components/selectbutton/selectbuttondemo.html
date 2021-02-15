@@ -14,7 +14,7 @@
         <p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name" optionValue="value"></p-selectButton>
 
         <h5>Custom Template</h5>
-        <p-selectButton [options]="justifyOptions" [(ngModel)]="value3">
+        <p-selectButton [options]="justifyOptions" [(ngModel)]="value3" optionLabel="icon">
             <ng-template let-item>
                 <i [class]="item.icon"></i>
             </ng-template>
@@ -151,7 +151,7 @@ export class SelectButtonDemo &#123;
             <p>For custom content support define a ng-template where the local ng-template variable refers to an option in the options collection.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-selectButton [options]="justifyOptions" [(ngModel)]="value"&gt;
+&lt;p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="icon"&gt;
     &lt;ng-template let-item&gt;
         &lt;i [class]="item.icon"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
@@ -307,7 +307,7 @@ export class SelectButtonDemo &#123;
 &lt;p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name" optionValue="value"&gt;&lt;/p-selectButton&gt;
 
 &lt;h5&gt;Custom Template&lt;/h5&gt;
-&lt;p-selectButton [options]="justifyOptions" [(ngModel)]="value3"&gt;
+&lt;p-selectButton [options]="justifyOptions" [(ngModel)]="value3" optionLabel="icon"&gt;
     &lt;ng-template let-item&gt;
         &lt;i [class]="item.icon"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
