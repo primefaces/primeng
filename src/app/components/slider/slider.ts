@@ -292,6 +292,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     setValueFromHandle(event: Event, handleValue: any) {
+        this.sliderHandleClick = false;
         let newValue = this.getValueFromHandle(handleValue);
 
         if (this.range) {
