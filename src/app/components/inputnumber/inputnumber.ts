@@ -50,8 +50,6 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() buttonLayout: string = "stacked";
 
-    @Input() disabled: boolean;
-
     @Input() inputId: string;
 
     @Input() styleClass: string;
@@ -166,6 +164,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     _suffixOption: string;
 
+    _disabled: boolean;
+
     @Input() get locale(): string {
         return this._localeOption;
     }
@@ -254,6 +254,21 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     set suffix(suffixOption: string) {
         this._suffixOption = suffixOption;
         this.updateConstructParser();
+    }
+
+
+    @Input() get disabled(): boolean {
+        return this._disabled;
+    }
+
+    set disabled(disabled: boolean) {
+        if (disabled)
+            this.focused = false;
+
+        this._disabled = disabled;
+        
+        if (this.timer)
+            this.clearTimer();
     }
 
     constructor(public el: ElementRef, private cd: ChangeDetectorRef) { }
