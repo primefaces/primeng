@@ -770,7 +770,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             if (this.lazy) {
-                console.log("hola?")
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else if (this.value) {
@@ -1425,7 +1424,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     createLazyLoadMetadata(): any {
-        console.log(this.first, this._first)
         return {
             first: this.first,
             rows: this.rows,
@@ -4292,6 +4290,7 @@ export class ColumnFilter implements AfterContentInit {
     onOperatorChange(value) {
         (<FilterMetadata[]> this.dt.filters[this.field]).forEach(filterMeta => {
             filterMeta.operator = value;
+            this.operator = value;
         });
 
         if (!this.showApplyButton) {
