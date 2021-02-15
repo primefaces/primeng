@@ -1,5 +1,18 @@
 # Changelog
 
+## [11.2.2](https://github.com/primefaces/primeng/tree/11.2.2) (2021-02-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.2.1...11.2.2)
+
+**Implemented New Features and Enhancements:**
+
+- Add Search to Showcase [\#9887](https://github.com/primefaces/primeng/issues/9887)
+- Splitter property for initial size should be called panelSize on the showcase [\#9807](https://github.com/primefaces/primeng/issues/9807)
+
+**Fixed bugs:**
+
+- Filter Match All vs Match Any not working twice [\#9836](https://github.com/primefaces/primeng/issues/9836)
+
 ## [11.2.1](https://github.com/primefaces/primeng/tree/11.2.1) (2021-02-10)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.2.0...11.2.1)
