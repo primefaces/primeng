@@ -384,6 +384,7 @@ export class AppMenuComponent implements OnInit {
                 {label: 'FloatLabel', value: '/floatlabel'},
                 {label: 'InputGroup', value: '/inputgroup'},
                 {label: 'InputMask', value: '/inputmask'},
+                {label: 'InputNumber', value: '/inputnumber'},
                 {label: 'InputSwitch', value: '/inputswitch'},
                 {label: 'InputText', value: '/inputtext'},
                 {label: 'InputTextArea', value: '/inputtextarea'},
@@ -513,7 +514,6 @@ export class AppMenuComponent implements OnInit {
                 {label: 'ConfirmPopup', value: '/confirmpopup'},
                 {label: 'Dialog', value: '/dialog'},
                 {label: 'DynamicDialog', value: '/dynamicdialog'},
-                {label: 'Panel', value: '/panel'},
                 {label: 'OverlayPanel', value: '/overlaypanel'},
                 {label: 'Sidebar', value: '/sidebar'},
                 {label: 'Tooltip', value: '/tooltip'}
@@ -523,19 +523,6 @@ export class AppMenuComponent implements OnInit {
             label: 'File', value: 'fileupload', 
             items: [
                 {label: 'Upload', value: '/fileupload'}
-            ]
-        },
-        {
-            label: 'Overlay', value: 'overlay', 
-            items: [
-                {label: 'ConfirmDialog', value: '/confirmdialog'},
-                {label: 'ConfirmPopup', value: '/confirmpopup'},
-                {label: 'Dialog', value: '/dialog'},
-                {label: 'DynamicDialog', value: '/dynamicdialog'},
-                {label: 'Panel', value: '/panel'},
-                {label: 'OverlayPanel', value: '/overlaypanel'},
-                {label: 'Sidebar', value: '/sidebar'},
-                {label: 'Tooltip', value: '/tooltip'}
             ]
         },
         {
@@ -611,6 +598,7 @@ export class AppMenuComponent implements OnInit {
                 {label: 'Inplace', value: '/inplace'},
                 {label: 'ProgressBar', value: '/progressbar'},
                 {label: 'ProgressSpinner', value: '/progressspinner'},
+                {label: 'ScrollTop', value: '/scrolltop'},
                 {label: 'Skeleton', value: '/skeleton'},
                 {label: 'Tag', value: '/tag'},
                 {label: 'Terminal', value: '/terminal'}
