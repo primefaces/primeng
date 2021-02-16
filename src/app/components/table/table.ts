@@ -31,6 +31,7 @@ export class TableService {
     private valueSource = new Subject<any>();
     private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
+    private resetSource = new Subject();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
@@ -38,6 +39,7 @@ export class TableService {
     valueSource$ = this.valueSource.asObservable();
     totalRecordsSource$ = this.totalRecordsSource.asObservable();
     columnsSource$ = this.columnsSource.asObservable();
+    resetSource$ = this.resetSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -45,6 +47,10 @@ export class TableService {
 
     onSelectionChange() {
         this.selectionSource.next();
+    }
+
+    onResetChange() {
+        this.resetSource.next();
     }
 
     onContextMenu(data: any) {
@@ -1442,7 +1448,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.tableService.onSort(null);
 
         this.filteredValue = null;
-        this.filters = {};
+        this.tableService.onResetChange();
 
         this.first = 0;
         this.firstChange.emit(this.first);
@@ -4167,6 +4173,8 @@ export class ColumnFilter implements AfterContentInit {
 
     translationSubscription: Subscription;
 
+    resetSubscription: Subscription;
+
     ngOnInit() {
         if (!this.dt.filters[this.field]) {
             this.initFieldFilterConstraint();
@@ -4176,6 +4184,10 @@ export class ColumnFilter implements AfterContentInit {
             this.generateMatchModeOptions();
             this.generateOperatorOptions();
         });
+
+        this.resetSubscription = this.dt.tableService.resetSource$.subscribe(() => {
+            this.clearFilter();
+        })
 
         this.generateMatchModeOptions();
         this.generateOperatorOptions();
@@ -4524,6 +4536,10 @@ export class ColumnFilter implements AfterContentInit {
 
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
+        }
+
+        if (this.resetSubscription) {
+            this.resetSubscription.unsubscribe();
         }
     }
 }
