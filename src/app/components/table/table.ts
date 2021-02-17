@@ -583,7 +583,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (simpleChange.multiSortMeta) {
             this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
-            if (this.sortMode === 'multiple' && (this.initialized || !this.virtualScroll)) {
+            if (this.sortMode === 'multiple' && (this.initialized || (!this.lazy && !this.virtualScroll))) {
                 this.sortMultiple();
             }
         }
