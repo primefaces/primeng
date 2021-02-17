@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "11.2.3-SNAPSHOT",
+    "version": "11.2.3",
     "repository": {
       "type": "git",
       "url": "https://github.com/primefaces/primeng"
