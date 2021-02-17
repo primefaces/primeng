@@ -1,5 +1,25 @@
 # Changelog
 
+## [11.2.3](https://github.com/primefaces/primeng/tree/11.2.3) (2021-02-17)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.2.2...11.2.3)
+
+**Implemented New Features and Enhancements:**
+
+- Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
+
+**Fixed bugs:**
+
+- When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
+- p-dialog draggable with maximize [\#9899](https://github.com/primefaces/primeng/issues/9899)
+- Avatar Circle not working [\#9895](https://github.com/primefaces/primeng/issues/9895)
+- pSelectableRow blocks typing space on inputs in p-table [\#9893](https://github.com/primefaces/primeng/issues/9893)
+- p-inputnumber infinite loop when using buttons [\#9888](https://github.com/primefaces/primeng/issues/9888)
+- selectButton \>Custom Template broken [\#9883](https://github.com/primefaces/primeng/issues/9883)
+- p-slider does not react when clicking on bar in some cases [\#9857](https://github.com/primefaces/primeng/issues/9857)
+- p-columnFilter not displaying placeholder for type="numeric" [\#9851](https://github.com/primefaces/primeng/issues/9851)
+- p-table reset\(\) causes errors in filter value binding [\#9570](https://github.com/primefaces/primeng/issues/9570)
+
 ## [11.2.2](https://github.com/primefaces/primeng/tree/11.2.2) (2021-02-15)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.2.1...11.2.2)
