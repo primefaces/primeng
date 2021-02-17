@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
     template: `
         <div class="layout-footer">
             <div class="layout-footer-left">
-                <span>PrimeNG 11.2.2 by </span>
+                <span>PrimeNG 11.2.3 by </span>
                 <a href="https://www.primetek.com.tr">PrimeTek</a>
             </div>
 
