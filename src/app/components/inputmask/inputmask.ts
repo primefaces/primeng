@@ -41,7 +41,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     selector: 'p-inputMask',
     template: `<input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
         [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
-        (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
+        (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
         (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
     host: {
         '[class.p-inputwrapper-filled]': 'filled',
@@ -105,7 +105,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
     
-    @Output() onKeyDown: EventEmitter<any> = new EventEmitter();
+    @Output() onKeydown: EventEmitter<any> = new EventEmitter();
 
     value: any;
 
@@ -395,7 +395,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    onKeyDown(e) {
+    onInputKeydown(e) {
         if (this.readonly) {
             return;
         }
@@ -407,7 +407,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         let iPhone = /iphone/i.test(DomHandler.getUserAgent());
         this.oldVal = this.inputViewChild.nativeElement.value;
         
-        this.onKeyDown.emit(e);
+        this.onKeydown.emit(e);
 
         //backspace, delete, and escape get special treatment
         if (k === 8 || k === 46 || (iPhone && k === 127)) {
