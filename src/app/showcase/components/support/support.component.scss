@@ -1,23 +1,107 @@
-:host ::ng-deep .pro-section {
+.header-support {
     display: flex;
-    margin-top: .75rem;
+    background-image: url(/assets/showcase/images/header-pro.jpg);
+    background-size: cover;
+    height: 10rem;
+    color: white;
+}
 
-    .pro-section-text {
-        flex: 1 1 auto;
-        padding: 0rem 1rem 0 0;
+.options {
+    background-color: var(--surface-b);
+}
 
-        .action-button {
-            display: inline-block;
-            margin-top: 1rem;
-        }
+.support-box {
+    height: 20rem;
+
+    &.pro {
+        background-color: #303132;
+        background-image: url(/assets/showcase/images/pro-effect.png);
+        background-size: cover;
+        color: white;
     }
 
-    .pro-section-image {
-        text-align: center;
-        padding: 1rem;
+    a {
+        color: #2196f3;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
-li {
-    line-height: 1.5;
+.action-button {
+    background-color: #D8692B;
+}
+
+.section-moreaboutpro {
+    background-color: #303132;
+    color: white;
+    margin-top: 1rem;
+
+    p {
+        color: #aaaaaa;
+    }
+
+    h6 {
+        margin-top:0;
+    }
+
+    .section-header {
+        position: relative;
+        bottom: 3.5rem;
+        background-color: #303132;
+        padding: 1rem;
+        display: inline;
+        border-radius: 4px 4px 0 0;
+    }
+}
+
+.section-newfeatures {
+    background-color: white;
+    margin-top: 2rem;
+
+    p {
+        color: var(--text-color-secondary);
+    }
+}
+
+.dot {
+    height: 1rem;
+    width: 1rem;
+    min-height: 1rem;
+    min-width: 1rem;
+    border-radius: 2px;
+    background-color: #DA2F4F;
+
+    &.color-1 {
+        background-color: #2B76D8;
+    }
+    &.color-2 {
+        background-color: #D8692B;
+    }
+    &.color-3 {
+        background-color: #6ECE65;
+    }
+    &.color-4 {
+        background-color: #E9DC68;
+    }
+    &.color-5 {
+        background-color: #C159A4;
+    }
+    &.color-6 {
+        background-color: #2BD8C3;
+    }
+    &.color-7 {
+        background-color: #2BAED8;
+    }
+    &.color-8 {
+        background-color: #D8A82B;
+    }
+    &.color-9 {
+        background-color: #A7C553;
+    }
+    &.color-10 {
+        background-color: #A06FC7;
+    }
 }
