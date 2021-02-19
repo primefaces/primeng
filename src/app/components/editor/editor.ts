@@ -1,9 +1,10 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import * as Quill from "quill";
+import {fromEvent, Subscription} from 'rxjs';
+import * as Quill from 'quill';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -68,7 +69,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     styleUrls: ['./editor.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor {
+export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor,OnDestroy {
         
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
@@ -107,6 +108,8 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
     quill: any;
 
     headerTemplate: TemplateRef<any>;
+
+    private subscription = new Subscription();
     
     constructor(public el: ElementRef) {}
 
@@ -130,35 +133,39 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
         if (this.value) {
             this.quill.setContents(this.quill.clipboard.convert(this.value));
         }
-        
-        this.quill.on('text-change', (delta, oldContents, source) => {
-            if (source === 'user') {
-                let html = editorElement.children[0].innerHTML;
-                let text = this.quill.getText().trim();
-                if (html === '<p><br></p>') {
-                    html = null;
-                }
 
-                this.onTextChange.emit({
-                    htmlValue: html,
-                    textValue: text,
-                    delta: delta,
+        this.subscription.add(
+            fromEvent(this.quill, 'text-change').subscribe(([delta, oldContents, source]) => {
+                if (source === 'user') {
+                    let html = editorElement.children[0].innerHTML;
+                    let text = this.quill.getText().trim();
+                    if (html === '<p><br></p>') {
+                        html = null;
+                    }
+
+                    this.onTextChange.emit({
+                        htmlValue: html,
+                        textValue: text,
+                        delta: delta,
+                        source: source
+                    });
+
+                    this.onModelChange(html);
+                    this.onModelTouched();
+                }
+            })
+        );
+
+        this.subscription.add(
+            fromEvent(this.quill, 'selection-change').subscribe(([range, oldRange, source]) => {
+                this.onSelectionChange.emit({
+                    range: range,
+                    oldRange: oldRange,
                     source: source
                 });
-                
-                this.onModelChange(html);
-                this.onModelTouched();
-            }
-        });
-        
-        this.quill.on('selection-change', (range, oldRange, source) => {
-            this.onSelectionChange.emit({
-                range: range,
-                oldRange: oldRange,
-                source: source
-            });
-        });
-        
+            })
+        );
+
         this.onInit.emit({
             editor: this.quill
         });
@@ -172,6 +179,10 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
                 break;
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
         
     writeValue(value: any) : void {
