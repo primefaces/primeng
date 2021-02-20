@@ -1,5 +1,5 @@
 import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,TemplateRef,EmbeddedViewRef,
-        ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild} from '@angular/core';
+        ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild, NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -11,24 +11,33 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     
     @ContentChild(TemplateRef) template: TemplateRef<any>;
         
-    documentScrollListener: Function;
-    
-    view: EmbeddedViewRef<any>;
-            
-    constructor(public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef) {}
+    documentScrollListener: VoidFunction;
+
+    view: EmbeddedViewRef<any> | null = null;
+
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public viewContainer: ViewContainerRef,
+        private ngZone: NgZone
+    ) {}
     
     ngAfterViewInit() {
         if (this.shouldLoad()) {
             this.load();
         }
-        
+
         if (!this.isLoaded()) {
-            this.documentScrollListener = this.renderer.listen('window', 'scroll', () => {
-                if (this.shouldLoad()) {
-                    this.load();
-                    this.documentScrollListener();
-                    this.documentScrollListener = null;
-                }
+            this.ngZone.runOutsideAngular(() => {
+                this.documentScrollListener = this.renderer.listen('window', 'scroll', () => {
+                    if (this.shouldLoad()) {
+                        this.ngZone.run(() => {
+                            this.load();
+                        });
+                        this.documentScrollListener();
+                        this.documentScrollListener = null;
+                    }
+                });
             });
         }
     }
@@ -48,15 +57,23 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     
     load(): void { 
         this.view = this.viewContainer.createEmbeddedView(this.template);
-        this.onLoad.emit();
+        if (this.onLoad.observers.length > 0) {
+            this.onLoad.emit();
+        }
     }
-    
+
     isLoaded() {
-        return this.view != null;
+        return this.view !== null;
     }
-            
+
     ngOnDestroy() {
-        this.view = null;
+        if (this.isLoaded()) {
+            // `createEmbeddedView` calls `attachToAppRef` which attaches the embedded view
+            // to the component tree, this will create a memory leak if we don't call `destroy()`,
+            // since we have to remove the embedded view from the component tree.
+            this.view.destroy();
+            this.view = null;
+        }
         
         if (this.documentScrollListener) {
             this.documentScrollListener();
