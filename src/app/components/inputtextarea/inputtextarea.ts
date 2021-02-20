@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,Output, EventEmitter,Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Directive,ElementRef,Input,Output, EventEmitter,Optional, AfterViewInit, OnInit, OnDestroy, NgZone, Renderer2} from '@angular/core';
 import {NgModel, NgControl} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
         '[class.p-inputtextarea]': 'true',
         '[class.p-inputtext]': 'true',
         '[class.p-component]': 'true',
-        '[class.p-filled]': 'filled',
         '[class.p-inputtextarea-resizable]': 'autoResize'
     }
 })
@@ -27,7 +26,15 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
 
     ngControlSubscription: Subscription;
 
-    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control : NgControl, private cd: ChangeDetectorRef) {}
+    private listeners: VoidFunction[] = [];
+
+    constructor(
+        public el: ElementRef,
+        @Optional() public ngModel: NgModel,
+        @Optional() public control : NgControl,
+        private ngZone: NgZone,
+        private renderer: Renderer2
+    ) {}
         
     ngOnInit() {
         if (this.ngModel) {
@@ -41,6 +48,26 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
                 this.updateState();
             });
         }
+
+        this.ngZone.runOutsideAngular(() => {
+            const inputListener = this.renderer.listen(this.el.nativeElement, 'input', () => {
+                this.updateState();
+            });
+
+            const blurListener = this.renderer.listen(this.el.nativeElement, 'blur', event => {
+                if (this.autoResize) {
+                    this.resize(event);
+                }
+            });
+
+            const focusListener = this.renderer.listen(this.el.nativeElement, 'focus', event => {
+                if (this.autoResize) {
+                    this.resize(event);
+                }
+            });
+
+            this.listeners.push(inputListener, blurListener, focusListener);
+        });
     }
 
     ngAfterViewInit() {
@@ -48,29 +75,14 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
             this.resize();
 
         this.updateFilledState();
-        this.cd.detectChanges();
-    }
-
-    @HostListener('input', ['$event'])
-    onInput(e) {
-        this.updateState();
     }
     
     updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
-    }
-    
-    @HostListener('focus', ['$event'])
-    onFocus(e) {
-        if (this.autoResize) {
-            this.resize(e);
-        }
-    }
-    
-    @HostListener('blur', ['$event'])
-    onBlur(e) {
-        if (this.autoResize) {
-            this.resize(e);
+        this.filled = this.el.nativeElement.value?.length;
+        if (this.filled) {
+            this.renderer.addClass(this.el.nativeElement, 'p-filled');
+        } else {
+            this.renderer.removeClass(this.el.nativeElement, 'p-filled');
         }
     }
     
@@ -86,7 +98,11 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
             this.el.nativeElement.style.overflow = "hidden";
         }
 
-        this.onResize.emit(event||{});
+        if (this.onResize.observers.length > 0) {
+            this.ngZone.run(() => {
+                this.onResize.emit(event || {});
+            });
+        }
     }
 
     updateState() {
@@ -105,6 +121,8 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy  {
         if (this.ngControlSubscription) {
             this.ngControlSubscription.unsubscribe();
         }
+
+        while (this.listeners.length) this.listeners.pop()();
     }
 }
 
