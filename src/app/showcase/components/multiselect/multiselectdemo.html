@@ -13,7 +13,7 @@
 
         <h5>Chips</h5>
         <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
-    
+  
         <h5>Templating</h5>
         <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
             <ng-template let-value pTemplate="selectedItems">
@@ -324,6 +324,12 @@ export class MultiSelectDemo &#123;
                             <td>string</td>
                             <td>pi pi-chevron-down</td>
                             <td>Icon class of the dropdown icon.</td>
+                        </tr>
+                        <tr>
+                            <td>chipIcon</td>
+                            <td>string</td>
+                            <td>pi pi-times-circle</td>
+                            <td>Icon class of the chip icon.</td>
                         </tr>
                         <tr>
                             <td>emptyFilterMessage</td>

@@ -85,11 +85,13 @@ export class MultiSelectItem {
                     <ng-container *ngIf="!selectedItemsTemplate">
                         <ng-container *ngIf="display === 'comma'">{{valuesAsString || 'empty'}}</ng-container>
                         <ng-container *ngIf="display === 'chip'">
+                            <ng-container *ngIf="options?.length">
                             <div #token *ngFor="let item of value; let i = index;" class="p-multiselect-token">
-                                <span class="p-multiselect-token-label">{{findLabelByValue(item)}}</span>
-                                <span *ngIf="!disabled" class="p-multiselect-token-icon pi pi-times-circle" (click)="removeChip(item, $event)"></span>
+                                    <span class="p-multiselect-token-label">{{findLabelByValue(item)}}</span>
+                                    <span *ngIf="!disabled" class="p-multiselect-token-icon" [ngClass]="chipIcon" (click)="removeChip(item, $event)"></span>
                             </div>
-                            <ng-container *ngIf="!value || value.length === 0">{{placeholder || defaultLabel || 'empty'}}</ng-container>
+                            </ng-container>
+                             <ng-container *ngIf="!options?.length||!value || value.length === 0">{{placeholder || defaultLabel || 'empty'}}</ng-container>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
@@ -230,6 +232,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() resetFilterOnHide: boolean = false;
 
     @Input() dropdownIcon: string = 'pi pi-chevron-down';
+
+    @Input() chipIcon = 'pi pi-times-circle';
 
     @Input() optionLabel: string;
 
@@ -372,7 +376,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     public headerCheckboxFocus: boolean;
 
-    _options: any[];
+    private _options: any[] = [];
 
     maxSelectionLimitReached: boolean;
 
@@ -472,7 +476,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     updateFilledState() {
-        this.filled = (this.value && this.value.length > 0);
+        this.filled = (this.value && this.value?.length > 0 && this.options?.length > 0);
     }
 
     registerOnChange(fn: Function): void {
@@ -525,7 +529,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let index = -1;
 
         if (this.value) {
-            for (let i = 0; i < this.value.length; i++) {
+            for (let i = 0; i < this.value?.length; i++) {
                 if (ObjectUtils.equals(this.value[i], val, this.dataKey)) {
                     index = i;
                     break;
@@ -885,8 +889,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     searchLabelByValue(val: any, options: any[]): string {
         let label = null;
-
-        for (let i = 0; i < options.length; i++) {
+        for (let i = 0; i < options?.length; i++) {
             let option = options[i];
             let optionValue = this.getOptionValue(option);
 
