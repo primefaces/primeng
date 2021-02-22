@@ -2157,7 +2157,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
                 else {
                     this.tableViewChild.nativeElement.style.width = this.tableWidthState;
-                    this.containerViewChild.nativeElement.style.width = this.tableWidthState;
                 }
             }
 
