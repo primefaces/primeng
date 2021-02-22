@@ -6,7 +6,7 @@ import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
 import {RippleModule} from 'primeng/ripple';
-import { UniqueComponentId } from '../utils/uniquecomponentid';
+import {UniqueComponentId} from 'primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -74,7 +74,7 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class Dialog implements AfterContentInit, OnInit, OnDestroy {
+export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() header: string;
 

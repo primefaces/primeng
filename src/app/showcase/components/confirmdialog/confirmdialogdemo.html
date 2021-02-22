@@ -71,6 +71,15 @@ export class ConfirmDialogDemo &#123;
 &#125;
 </app-code>
 
+        <h5>Responsive</h5>
+            <p>ConfirmDialog width can be adjusted per screen size with the <i>breakpoints</i> option. In example below, default width is set to 50vw and below 961px, width would be 75vw and finally below 641px width becomes
+                100%. The value of <i>breakpoints</i> should be an object literal whose keys are the maximum screen sizes and values are the widths per screen.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-confirmDialog [breakpoints]="&#123;'960px': '75vw', '640px': '100vw'&#125;" [style]="&#123;width: '50vw'&#125;"&gt;
+    Content
+&lt;/p-confirmDialog&gt;
+</app-code>
+
             <p>Confirm method takes a confirmation instance used to customize the dialog UI along with accept and reject actions.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -424,6 +433,12 @@ export class ConfirmDialogDemo &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to automatically manage layering.</td>
+                        </tr>
+                        <tr>
+                            <td>breakpoints</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Object literal to define widths per screen size.</td>
                         </tr>
                         <tr>
                             <td>transitionOptions</td>

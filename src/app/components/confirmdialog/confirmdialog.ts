@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, Output} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, Output, OnInit} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -7,6 +7,7 @@ import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 import {Subscription} from 'rxjs';
+import {UniqueComponentId} from 'primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -60,7 +61,7 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class ConfirmDialog implements AfterContentInit,OnDestroy {
+export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() header: string;
 
@@ -117,6 +118,8 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
     @Input() focusTrap: boolean = true;
 
     @Input() defaultFocus: string = 'accept';
+
+    @Input() breakpoints: any;
 
     @Input() get visible(): any {
         return this._visible;
@@ -205,6 +208,10 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     transformOptions: any = "scale(0.7)";
 
+    styleElement: any;
+
+    id = UniqueComponentId();
+
     confirmationOptions: Confirmation;
 
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
@@ -249,6 +256,12 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         });
     }
 
+    ngOnInit() {
+        if (this.breakpoints) {
+            this.createStyle();
+        }
+    }
+
     option(name: string) {
         const source = this.confirmationOptions || this;
         if (source.hasOwnProperty(name)) {
@@ -263,6 +276,7 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
                 this.contentContainer = DomHandler.findSingle(this.container, '.p-dialog-content');
+                this.container.setAttribute(this.id, '');
 
                 const element = this.getElementToFocus();
                 if (element) {
@@ -347,6 +361,26 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
         if (this.container && !this.cd['destroyed']) {
             this.cd.detectChanges();
+        }
+    }
+
+    createStyle() {
+        if (!this.styleElement) {
+            this.styleElement = document.createElement('style');
+            this.styleElement.type = 'text/css';
+            document.body.appendChild(this.styleElement);
+            let innerHTML = '';
+            for (let breakpoint in this.breakpoints) {
+                innerHTML += `
+                    @media screen and (max-width: ${breakpoint}) {
+                        .p-dialog[${this.id}] {
+                            width: ${this.breakpoints[breakpoint]} !important;
+                        }
+                    }
+                `
+            }
+
+            this.styleElement.innerHTML = innerHTML;
         }
     }
 
@@ -448,10 +482,18 @@ export class ConfirmDialog implements AfterContentInit,OnDestroy {
         this.container = null;
     }
 
+    destroyStyle() {
+        if (this.styleElement) {
+            document.body.removeChild(this.styleElement);
+            this.styleElement = null;
+        }
+    }
+
     ngOnDestroy() {
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
+        this.destroyStyle();
     }
 
     accept() {
