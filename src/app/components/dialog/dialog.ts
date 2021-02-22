@@ -135,7 +135,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     };
 
     set breakpoint(_breakpoint: number) {
-        console.log("Breakpoint property is not utilized and deprecated, use CSS media queries instead.");
+        console.log("Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.");
     }
 
     @Input() blockScroll: boolean = false;
