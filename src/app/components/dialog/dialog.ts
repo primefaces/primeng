@@ -1,13 +1,12 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild} from '@angular/core';
+    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild, OnInit} from '@angular/core';
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
 import {RippleModule} from 'primeng/ripple';
-
-let idx: number = 0;
+import { UniqueComponentId } from '../utils/uniquecomponentid';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -75,7 +74,7 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class Dialog implements AfterContentInit,OnDestroy {
+export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() header: string;
 
@@ -122,6 +121,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
     }
 
     @Input() appendTo: any;
+
+    @Input() breakpoints: any;
 
     @Input() styleClass: string;
 
@@ -237,7 +238,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     preMaximizePageY: number;
 
-    id: string = `p-dialog-${idx++}`;
+    id: string = UniqueComponentId();
 
     _style: any = {};
 
@@ -246,6 +247,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
     originalStyle: any;
 
     transformOptions: any = "scale(0.7)";
+
+    styleElement: any;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef) { }
 
@@ -269,6 +272,12 @@ export class Dialog implements AfterContentInit,OnDestroy {
                 break;
             }
         });
+    }
+
+    ngOnInit() {
+        if (this.breakpoints) {
+            this.createStyle();
+        }
     }
 
     @Input() get visible(): any {
@@ -390,6 +399,26 @@ export class Dialog implements AfterContentInit,OnDestroy {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
             this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
+        }
+    }
+
+    createStyle() {
+        if (!this.styleElement) {
+            this.styleElement = document.createElement('style');
+            this.styleElement.type = 'text/css';
+            document.body.appendChild(this.styleElement);
+            let innerHTML = '';
+            for (let breakpoint in this.breakpoints) {
+                innerHTML += `
+                    @media screen and (max-width: ${breakpoint}) {
+                        .p-dialog[${this.id}] {
+                            width: ${this.breakpoints[breakpoint]} !important;
+                        }
+                    }
+                `
+            }
+            
+            this.styleElement.innerHTML = innerHTML;
         }
     }
 
@@ -663,6 +692,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
+                this.container.setAttribute(this.id, '');
 
                 if (this.modal) {
                     this.enableModality();
@@ -716,11 +746,20 @@ export class Dialog implements AfterContentInit,OnDestroy {
         this._style = this.originalStyle ? {...this.originalStyle} : {};
     }
 
+    destroyStyle() {
+        if (this.styleElement) {
+            document.body.removeChild(this.styleElement);
+            this.styleElement = null;
+        }
+    }
+
     ngOnDestroy() {
         if (this.container) {
             this.restoreAppend();
             this.onContainerDestroy();
         }
+
+        this.destroyStyle();
     }
 
 }

@@ -14,11 +14,13 @@ export class DialogDemo {
 
     displayMaximizable: boolean;
 
+    displayResponsive: boolean;
+
     displayPosition: boolean;
 
     position: string;
 
-    showModalDialog() {
+    showModalDialog() { 
         this.displayModal = true;
     }
 
@@ -37,5 +39,9 @@ export class DialogDemo {
     showPositionDialog(position: string) {
         this.position = position;
         this.displayPosition = true;
+    }
+
+    showResponsiveDialog() {
+        this.displayResponsive = true;
     }
 }
