@@ -1185,6 +1185,10 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+.p-password.p-invalid.p-component > .p-inputtext {
+  border-color: #f44435;
+}
+
 .p-password-panel {
   padding: 0.75rem;
   background: #1e1e1e;
@@ -1195,6 +1199,16 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
 }
 .p-password-panel .p-password-meter {
   margin-bottom: 0.5rem;
+  background: rgba(63, 81, 181, 0.32);
+}
+.p-password-panel .p-password-meter .p-password-strength.weak {
+  background: #EF9A9A;
+}
+.p-password-panel .p-password-meter .p-password-strength.medium {
+  background: #FFF59D;
+}
+.p-password-panel .p-password-meter .p-password-strength.strong {
+  background: #C5E1A5;
 }
 
 .p-radiobutton {
