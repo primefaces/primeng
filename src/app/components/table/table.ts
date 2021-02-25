@@ -2696,9 +2696,10 @@ export class SortIcon implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[pSelectableRow]',
-    host: {
+    host: {        
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected',
+        '[class.p-disabled]': '!isEnabled()',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
