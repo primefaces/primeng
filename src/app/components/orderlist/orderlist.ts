@@ -3,8 +3,9 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {SharedModule,PrimeTemplate,FilterService} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
-import {ObjectUtils} from 'primeng/utils';
+import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
+import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'p-orderList',
@@ -12,10 +13,10 @@ import {RippleModule} from 'primeng/ripple';
         <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp($event)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown($event)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop()"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown()"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header">
@@ -27,18 +28,13 @@ import {RippleModule} from 'primeng/ripple';
                         <span class="p-orderlist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
-                <ul #listelement class="p-orderlist-list" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
+                <ul #listelement cdkDropList (cdkDropListDropped)="onDrop($event)" class="p-orderlist-list" [ngStyle]="listStyle">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
-                        <li class="p-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)"
-                            [ngClass]="{'p-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
-                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" pRipple
+                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
-                            [style.display]="isItemVisible(item) ? 'block' : 'none'" role="option" [attr.aria-selected]="isSelected(item)"
-                            [attr.draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
+                             [style.display]="(isItemVisible(item) ? 'block' : 'none')" role="option" [attr.aria-selected]="isSelected(item)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
-                        <li class="p-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)"
-                            [ngClass]="{'p-orderlist-droppoint-highlight': (i + 1 === dragOverItemIndex)}"></li>
                     </ng-template>
                 </ul>
             </div>
@@ -76,6 +72,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() filterMatchMode: string = "contains";
 
+    @Input() breakpoint: string = "960px";
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() trackBy: Function = (index: number, item: any) => item;
@@ -100,11 +98,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     itemTouched: boolean;
 
-    draggedItemIndex: number;
+    styleElement: any;
 
-    dragOverItemIndex: number;
-
-    dragging: boolean;
+    id: string = UniqueComponentId();
 
     public filterValue: string;
 
@@ -120,6 +116,13 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() set selection(val:any[]) {
         this._selection = val;
+    }
+
+    ngOnInit() {
+        if (this.responsive) {
+            console.log(this.listViewChild)
+            this.createStyle();
+        }
     }
 
     ngAfterContentInit() {
@@ -138,6 +141,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp||this.movedDown) {
+            console.log(this.listViewChild)
             let listItems = DomHandler.find(this.listViewChild.nativeElement, 'li.p-highlight');
             let listItem;
 
@@ -235,7 +239,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         return ObjectUtils.findIndexInList(item, this.selection) != -1;
     }
 
-    moveUp(event) {
+    moveUp() {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
@@ -253,11 +257,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             }
 
             this.movedUp = true;
-            this.onReorder.emit(event);
+            this.onReorder.emit(this.selection);
         }
     }
 
-    moveTop(event) {
+    moveTop() {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
@@ -272,12 +276,12 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            this.onReorder.emit(event);
+            this.onReorder.emit(this.selection);
             this.listViewChild.nativeElement.scrollTop = 0;
         }
     }
 
-    moveDown(event) {
+    moveDown() {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
@@ -295,11 +299,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             }
 
             this.movedDown = true;
-            this.onReorder.emit(event);
+            this.onReorder.emit(this.selection);
         }
     }
 
-    moveBottom(event) {
+    moveBottom() {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
@@ -314,50 +318,15 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            this.onReorder.emit(event);
+            this.onReorder.emit(this.selection);
             this.listViewChild.nativeElement.scrollTop = this.listViewChild.nativeElement.scrollHeight;
         }
     }
 
-    onDragStart(event: DragEvent, index: number) {
-        event.dataTransfer.setData('text', 'b');    // For firefox
-        (<HTMLLIElement> event.target).blur();
-        this.dragging = true;
-        this.draggedItemIndex = index;
-    }
-
-    onDragOver(event: DragEvent, index: number) {
-        if (this.dragging && this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
-            this.dragOverItemIndex = index;
-            event.preventDefault();
-        }
-    }
-
-    onDragLeave(event: DragEvent) {
-        this.dragOverItemIndex = null;
-    }
-
-    onDrop(event: DragEvent, index: number) {
-        let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
-        ObjectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
-        this.dragOverItemIndex = null;
-        this.onReorder.emit(event);
-        event.preventDefault();
-    }
-
-    onDragEnd(event: DragEvent) {
-        this.dragging = false;
-    }
-
-    onListMouseMove(event: MouseEvent) {
-        if (this.dragging) {
-            let offsetY = this.listViewChild.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
-            let bottomDiff = (offsetY + this.listViewChild.nativeElement.clientHeight) - event.pageY;
-            let topDiff = (event.pageY - offsetY);
-            if (bottomDiff < 25 && bottomDiff > 0)
-                this.listViewChild.nativeElement.scrollTop += 15;
-            else if (topDiff < 25 && topDiff > 0)
-                this.listViewChild.nativeElement.scrollTop -= 15;
+    onDrop(event: CdkDragDrop<string[]>) {
+        if (event.previousIndex !== event.currentIndex) {
+            moveItemInArray(this.value, event.previousIndex, event.currentIndex);
+            this.onReorder.emit([event.item.data]);
         }
     }
 
@@ -410,11 +379,55 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         else
             return null;
     }
+
+    createStyle() {
+        if (!this.styleElement) {
+            this.el.nativeElement.children[0].setAttribute(this.id, '');
+            this.styleElement = document.createElement('style');
+            this.styleElement.type = 'text/css';
+            document.head.appendChild(this.styleElement);
+
+            let innerHTML = `
+                @media screen and (max-width: ${this.breakpoint}) {
+                    .p-orderlist[${this.id}] {
+                        flex-direction: column;
+                    }
+
+                    .p-orderlist[${this.id}] .p-orderlist-controls {
+                        padding: var(--content-padding);
+                        flex-direction: row;
+                    }
+
+                    .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
+                        margin-right: var(--inline-spacing);
+                        margin-bottom: 0;
+                    }
+
+                    .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
+                        margin-right: 0;
+                    }
+                }
+            `;
+            
+            this.styleElement.innerHTML = innerHTML;
+        }
+    }
+
+    destroyStyle() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;``
+        }
+    }
+
+    ngOnDestroy() {
+        this.destroyStyle();
+    }
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,SharedModule,RippleModule],
-    exports: [OrderList,SharedModule],
+    imports: [CommonModule,ButtonModule,SharedModule,RippleModule,DragDropModule],
+    exports: [OrderList,SharedModule,DragDropModule],
     declarations: [OrderList]
 })
 export class OrderListModule { }
