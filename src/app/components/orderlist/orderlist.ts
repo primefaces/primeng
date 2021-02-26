@@ -120,7 +120,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     ngOnInit() {
         if (this.responsive) {
-            console.log(this.listViewChild)
             this.createStyle();
         }
     }
@@ -141,7 +140,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp||this.movedDown) {
-            console.log(this.listViewChild)
             let listItems = DomHandler.find(this.listViewChild.nativeElement, 'li.p-highlight');
             let listItem;
 
