@@ -186,10 +186,10 @@ describe('PickList', () => {
 		picklist.dragdrop = true;
 		fixture.detectChanges();
 
-		const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-droppoint'));
-		const targetListItems = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-droppoint'));
+		const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source')).queryAll(By.css('.p-picklist-item'));
+		const targetListItems = fixture.debugElement.query(By.css('.p-picklist-target')).queryAll(By.css('.p-picklist-item'));
 
-		expect(sourceListItems.length).toEqual(11);
+		expect(sourceListItems.length).toEqual(10);
 		expect(targetListItems.length).toEqual(0);
 	});
 
@@ -774,86 +774,6 @@ describe('PickList', () => {
 		sourceListItems[0].nativeElement.dispatchEvent(new Event('touchend'));
 		expect(picklist.itemTouched).toEqual(false);
 		expect(onItemTouchEndSpy).toHaveBeenCalled();
-	});
-
-	it('should move items(source) with dragging with reorder', () => {
-		fixture.detectChanges();
-
-		let dragEvent = new DragEvent('drag');
-		picklist.dragging = true;
-		picklist.fromListType = -1;
-		fixture.detectChanges();
-
-		picklist.onDragOver(dragEvent, 0, -1);
-		picklist.onDrop(dragEvent, 2, -1);
-		picklist.onDragEnd(dragEvent);
-		fixture.detectChanges();
-
-		expect(picklist.source[0].brand).toEqual("Audi");
-		expect(picklist.source[1].brand).toEqual("VW");
-	});
-
-	it('should move items(target) with dragging', () => {
-		fixture.detectChanges();
-
-		const controlAllRightButton = fixture.debugElement.query(By.css('.p-picklist-transfer-buttons')).queryAll(By.css('button'))[1];
-		controlAllRightButton.nativeElement.click();
-		fixture.detectChanges();
-
-		let dragEvent = new DragEvent('drag');
-		picklist.dragging = true;
-		picklist.fromListType = 1;
-		fixture.detectChanges();
-
-		picklist.onDragOver(dragEvent, 0, 1);
-		picklist.onDrop(dragEvent, 2, 1);
-		picklist.onDragEnd(dragEvent);
-		fixture.detectChanges();
-
-		expect(picklist.target[0].brand).toEqual("Audi");
-		expect(picklist.target[1].brand).toEqual("VW");
-	});
-
-	it('should move item to right with dragging', () => {
-		fixture.detectChanges();
-
-		let dragEvent = new DragEvent('drag');
-		picklist.dragging = true;
-		picklist.fromListType = -1;
-		fixture.detectChanges();
-
-		picklist.onDragOver(dragEvent, 0, -1);
-		picklist.onDragLeave(dragEvent, 1);
-		picklist.onListDrop(dragEvent, 1);
-		picklist.onDragEnd(dragEvent);
-		fixture.detectChanges();
-
-		expect(picklist.source.length).toEqual(9);
-		expect(picklist.target.length).toEqual(1);
-		expect(picklist.target[0].brand).toEqual("VW");
-	});
-
-	it('should move item to left with dragging', () => {
-		fixture.detectChanges();
-
-		const controlAllRightButton = fixture.debugElement.query(By.css('.p-picklist-transfer-buttons')).queryAll(By.css('button'))[1];
-		controlAllRightButton.nativeElement.click();
-		fixture.detectChanges();
-
-		let dragEvent = new DragEvent('drag');
-		picklist.dragging = true;
-		picklist.fromListType = 1;
-		fixture.detectChanges();
-
-		picklist.onDragOver(dragEvent, 0, 1);
-		picklist.onDragLeave(dragEvent, -1);
-		picklist.onListDrop(dragEvent, -1);
-		picklist.onDragEnd(dragEvent);
-		fixture.detectChanges();
-
-		expect(picklist.target.length).toEqual(9);
-		expect(picklist.source.length).toEqual(1);
-		expect(picklist.source[0].brand).toEqual("VW");
 	});
 
 	it('should change focused item with up and down arrows', () => {
