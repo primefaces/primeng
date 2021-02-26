@@ -27,6 +27,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'chips', loadChildren: () => import('./components/chips/chipsdemo.module').then(m => m.ChipsDemoModule)},
             {path: 'codehighlighter', loadChildren: () => import('./components/codehighlighter/codehighlighterdemo.module').then(m => m.CodeHighlighterDemoModule)},
             {path: 'colorpicker', loadChildren: () => import('./components/colorpicker/colorpickerdemo.module').then(m => m.ColorPickerDemoModule)},
+            {path: 'colors', loadChildren: () => import('./components/colors/colorsdemo.module').then(m => m.ColorsDemoModule)},
             {path: 'confirmdialog', loadChildren: () => import('./components/confirmdialog/confirmdialogdemo.module').then(m => m.ConfirmDialogDemoModule)},
             {path: 'confirmpopup', loadChildren: () => import('./components/confirmpopup/confirmpopupdemo.module').then(m => m.ConfirmPopupDemoModule)},
             {path: 'contextmenu', loadChildren: () => import('./components/contextmenu/contextmenudemo.module').then(m => m.ContextMenuDemoModule)},
