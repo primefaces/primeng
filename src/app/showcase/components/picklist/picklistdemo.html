@@ -33,6 +33,12 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
+            <h5>CDK</h5>
+            <p>VirtualScrolling depends on @angular/cdk's DragDropModule so begin with installing CDK if not already installed.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+npm install @angular/cdk --save
+</app-code>
+
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;PickListModule&#125; from 'primeng/picklist';
@@ -436,7 +442,7 @@ This dragdrop property also supports cross list actions.</p>
             </div>
 
             <h5>Dependencies</h5>
-            <p>None.</p>
+            <p>Angular CDK.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
