@@ -18,7 +18,6 @@
     padding: 0;
     overflow: auto;
     min-height: 12rem;
-    max-height: 24rem;
 }
 
 .p-picklist-item {

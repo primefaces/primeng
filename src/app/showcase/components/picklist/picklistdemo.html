@@ -8,7 +8,7 @@
 <div class="content-section implementation">
     <div class="card">
         <p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
-            [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filterBy="name"
+            [responsive]="true" [sourceStyle]="{'max-height':'30rem'}" [targetStyle]="{'max-height':'30rem'}" filterBy="name"
             sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
@@ -454,7 +454,7 @@ This dragdrop property also supports cross list actions.</p>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
-    [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;" filterBy="name"
+    [responsive]="true" [sourceStyle]="&#123;'max-height':'30rem'&#125;" [targetStyle]="&#123;'max-height':'30rem'&#125;" filterBy="name"
     sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name"&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
