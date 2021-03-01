@@ -35,7 +35,7 @@ declare let gtag: Function;
                     <a href="https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw" target="_blank">PrimeTV</a>
                     <a href="https://github.com/primefaces/primeng" target="_blank">Source Code</a>
                     <a href="https://www.primefaces.org/store">Store</a>
-                    <a href="https://twitter.com/primevue?lang=en">Twitter</a>
+                    <a href="https://twitter.com/prime_ng?lang=en">Twitter</a>
                 </div>
 
                 <div class="menu-category">Theming</div>
