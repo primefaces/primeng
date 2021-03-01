@@ -287,7 +287,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Input() optionGroupLabel: string;
 
-    @Input() optionGroupChildren: string;
+    @Input() optionGroupChildren: any[];
 
     @Input() placeholder: string;
     
