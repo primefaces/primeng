@@ -2562,11 +2562,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 0 none;
   color: #333333;
   background: transparent;
-  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-}
-.p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
-  background: #eaeaea;
-  color: #333333;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 .p-orderlist .p-orderlist-list .p-orderlist-item:focus {
   outline: 0 none;
@@ -2576,6 +2572,19 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
   color: #ffffff;
   background: #e02365;
+}
+.p-orderlist .p-orderlist-list:not(.cdk-drop-list-dragging) .p-orderlist-item:not(.p-highlight):hover {
+  background: #eaeaea;
+  color: #333333;
+}
+
+.p-orderlist-item.cdk-drag-preview {
+  padding: 0.429rem 0.857rem;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  border: 0 none;
+  color: #333333;
+  background: #ffffff;
+  margin: 0;
 }
 
 .p-organizationchart .p-organizationchart-node-content.p-organizationchart-selectable-node:not(.p-highlight):hover {
@@ -2736,11 +2745,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 0 none;
   color: #333333;
   background: transparent;
-  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-}
-.p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
-  background: #eaeaea;
-  color: #333333;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 .p-picklist .p-picklist-list .p-picklist-item:focus {
   outline: 0 none;
@@ -2754,6 +2759,19 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-picklist .p-picklist-list .p-picklist-empty-message {
   padding: 0.429rem 0.857rem;
   color: #333333;
+}
+.p-picklist .p-picklist-list:not(.cdk-drop-list-dragging) .p-picklist-item:not(.p-highlight):hover {
+  background: #eaeaea;
+  color: #333333;
+}
+
+.p-picklist-item.cdk-drag-preview {
+  padding: 0.429rem 0.857rem;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  border: 0 none;
+  color: #333333;
+  background: #ffffff;
+  margin: 0;
 }
 
 .p-timeline .p-timeline-event-marker {

@@ -2586,11 +2586,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 0 none;
   color: rgba(255, 255, 255, 0.87);
   background: transparent;
-  transition: transform 0.2s, none;
-}
-.p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(255, 255, 255, 0.87);
+  transition: none;
 }
 .p-orderlist .p-orderlist-list .p-orderlist-item:focus {
   outline: 0 none;
@@ -2600,6 +2596,19 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
   color: #3F51B5;
   background: rgba(63, 81, 181, 0.16);
+}
+.p-orderlist .p-orderlist-list:not(.cdk-drop-list-dragging) .p-orderlist-item:not(.p-highlight):hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.p-orderlist-item.cdk-drag-preview {
+  padding: 0.75rem 0.75rem;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  border: 0 none;
+  color: rgba(255, 255, 255, 0.87);
+  background: #1e1e1e;
+  margin: 0;
 }
 
 .p-organizationchart .p-organizationchart-node-content.p-organizationchart-selectable-node:not(.p-highlight):hover {
@@ -2760,11 +2769,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 0 none;
   color: rgba(255, 255, 255, 0.87);
   background: transparent;
-  transition: transform 0.2s, none;
-}
-.p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(255, 255, 255, 0.87);
+  transition: none;
 }
 .p-picklist .p-picklist-list .p-picklist-item:focus {
   outline: 0 none;
@@ -2778,6 +2783,19 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-picklist .p-picklist-list .p-picklist-empty-message {
   padding: 0.75rem 0.75rem;
   color: rgba(255, 255, 255, 0.87);
+}
+.p-picklist .p-picklist-list:not(.cdk-drop-list-dragging) .p-picklist-item:not(.p-highlight):hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.p-picklist-item.cdk-drag-preview {
+  padding: 0.75rem 0.75rem;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  border: 0 none;
+  color: rgba(255, 255, 255, 0.87);
+  background: #1e1e1e;
+  margin: 0;
 }
 
 .p-timeline .p-timeline-event-marker {
