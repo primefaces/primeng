@@ -1,5 +1,27 @@
 # Changelog
 
+## [11.3.0-rc.1](https://github.com/primefaces/primeng/tree/11.3.0-rc.1) (2021-03-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.2.3...11.3.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Remove max-height from OrderList PickList [\#9955](https://github.com/primefaces/primeng/issues/9955)
+- Color Palettes for Each Theme [\#9948](https://github.com/primefaces/primeng/issues/9948)
+- Cdk DragDrop Support for OrderList and PickList [\#9943](https://github.com/primefaces/primeng/issues/9943)
+- BreakPoints for OrderList and PickList [\#9942](https://github.com/primefaces/primeng/issues/9942)
+- Reimplement password strength ui  [\#9929](https://github.com/primefaces/primeng/issues/9929)
+- breakpoints for Dialog and ConfirmDialog [\#9923](https://github.com/primefaces/primeng/issues/9923)
+- Improve support page [\#9914](https://github.com/primefaces/primeng/issues/9914)
+- Update Editor Custom Toolbar Documentation [\#8905](https://github.com/primefaces/primeng/issues/8905)
+
+**Fixed bugs:**
+
+- p-cascadeSelect optionGroupChildren wrong type definition [\#9952](https://github.com/primefaces/primeng/issues/9952)
+- columnResizeMode Expand not working with Storage Table [\#9922](https://github.com/primefaces/primeng/issues/9922)
+- p-picklist drag and drop is not working correctly [\#9910](https://github.com/primefaces/primeng/issues/9910)
+- ExpressionChangedAfterItHasBeenCheckedError error in p-accordion [\#9894](https://github.com/primefaces/primeng/pull/9894)
+
 ## [11.2.3](https://github.com/primefaces/primeng/tree/11.2.3) (2021-02-17)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.2.2...11.2.3)
