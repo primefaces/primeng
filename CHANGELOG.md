@@ -272,12 +272,25 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.9-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.9) (2021-03-01)
+- When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
+- p-dialog draggable with maximize [\#9899](https://github.com/primefaces/primeng/issues/9899)
+- pSelectableRow blocks typing space on inputs in p-table [\#9893](https://github.com/primefaces/primeng/issues/9893)
+- p-inputnumber infinite loop when using buttons [\#9888](https://github.com/primefaces/primeng/issues/9888)
+- Enter key should hide calendar [\#9880](https://github.com/primefaces/primeng/issues/9880)
+- p-sidebar appendTo has wrong type [\#9876](https://github.com/primefaces/primeng/issues/9876)
+- p-slider does not react when clicking on bar in some cases [\#9857](https://github.com/primefaces/primeng/issues/9857)
+- Add rowIndex to onRowUnselect [\#9823](https://github.com/primefaces/primeng/issues/9823)
+- Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
+- p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
+- Update Editor Custom Toolbar Documentation [\#8905](https://github.com/primefaces/primeng/issues/8905)
+- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.8-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.8) (2021-02-11)
 - LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
 - Adding [multiSortMeta] to the table causes an extra initial call to fetch data in virtual scroll [\#9854](https://github.com/primefaces/primeng/issues/9854)
 - TabPanel's leftIcon and rightIcon properties not working with programmatic change [\#9844](https://github.com/primefaces/primeng/issues/9844)
 - Row not selected when using the Table contextMenuSelectionMode="joint" [\#9824](https://github.com/primefaces/primeng/issues/9824)
-- ConnectedOverlayScrollHandler API doesn't work as expected [\#9822](https://github.com/primefaces/primeng/issues/9822)
 - Strange behavior using context menu on Safari [\#9814](https://github.com/primefaces/primeng/issues/9814)
 - Table onRowSelect calling before the selection change [\#9806](https://github.com/primefaces/primeng/issues/9806)
 - The up and down arrow key stops working by the virtualscroller [\#9805](https://github.com/primefaces/primeng/issues/9805)
@@ -553,6 +566,18 @@
 **Deprecated:**
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.4) (2021-03-01)
+- When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
+- pSelectableRow blocks typing space on inputs in p-table [\#9893](https://github.com/primefaces/primeng/issues/9893)
+- p-inputnumber infinite loop when using buttons [\#9888](https://github.com/primefaces/primeng/issues/9888)
+- Enter key should hide calendar [\#9880](https://github.com/primefaces/primeng/issues/9880)
+- p-sidebar appendTo has wrong type [\#9876](https://github.com/primefaces/primeng/issues/9876)
+- p-slider does not react when clicking on bar in some cases [\#9857](https://github.com/primefaces/primeng/issues/9857)
+- Add rowIndex to onRowUnselect [\#9823](https://github.com/primefaces/primeng/issues/9823)
+- Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
+- p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
+- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.3) (2021-02-11)
 - LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
