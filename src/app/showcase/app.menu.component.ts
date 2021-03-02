@@ -344,7 +344,7 @@ export class AppMenuComponent implements OnInit {
             label: 'General', value: 'general', 
             items: [
                 {label: 'Setup', value: '/setup'},
-                {label: 'I18N', value: '/i18n'}
+                {label: 'Locale', value: '/i18n'}
             ]
         },
         {
@@ -357,7 +357,8 @@ export class AppMenuComponent implements OnInit {
         {
             label: 'Theming', value: 'theming', 
             items: [
-                {label: 'Guide', value: '/theming'}
+                {label: 'Guide', value: '/theming'},
+                {label: 'Colors', value: '/colors'}
             ]
         },
         {
@@ -451,6 +452,7 @@ export class AppMenuComponent implements OnInit {
                 {label: 'VirtualScroll', value: '/table/virtualscroll'},
                 {label: 'FlexScroll', value: '/table/flexscroll'},
                 {label: 'RowExpand', value: '/table/rowexpansion'},
+                {label: 'Lazy', value: '/table/lazy'},
                 {label: 'Edit', value: '/table/edit'},
                 {label: 'Toggle', value: '/table/coltoggle'},
                 {label: 'Resize', value: '/table/colresize'},
