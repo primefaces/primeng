@@ -9,12 +9,12 @@
     <div class="card">
         <h5>Horizontal</h5>
         <p-splitter [style]="{'height': '300px'}" styleClass="p-mb-5">
-            <ng-template>
+            <ng-template pTemplate>
                 <div class="p-col p-d-flex p-ai-center p-jc-center">
                     Panel 1
                 </div>
             </ng-template>
-            <ng-template>
+            <ng-template pTemplate>
                 <div class="p-col p-d-flex p-ai-center p-jc-center">
                     Panel 2
                 </div>
@@ -25,12 +25,12 @@
     <div class="card">
         <h5>Vertical</h5>
         <p-splitter [style]="{'height': '300px'}" styleClass="p-mb-5" layout="vertical">
-            <ng-template>
+            <ng-template pTemplate>
                 <div class="p-col p-d-flex p-ai-center p-jc-center">
                     Panel 1
                 </div>
             </ng-template>
-            <ng-template>
+            <ng-template pTemplate>
                 <div class="p-col p-d-flex p-ai-center p-jc-center">
                     Panel 2
                 </div>
@@ -41,26 +41,26 @@
     <div class="card">
         <h5>Nested</h5>
         <p-splitter [style]="{'height': '300px'}" [panelSizes]="[20,80]" [minSizes]="[10,0]" styleClass="p-mb-5">
-            <ng-template>
+            <ng-template pTemplate>
                 <div class="p-col p-d-flex p-ai-center p-jc-center">
                     Panel 1
                 </div>
             </ng-template>
-            <ng-template>
+            <ng-template pTemplate>
                 <p-splitter layout="vertical" [panelSizes]="[15,85]">
-                    <ng-template>
+                    <ng-template pTemplate>
                         <div class="p-col p-d-flex p-ai-center p-jc-center">
                             Panel 2
                         </div>
                     </ng-template>
-                    <ng-template>
+                    <ng-template pTemplate>
                         <p-splitter [panelSizes]="[20,80]">
-                            <ng-template>
+                            <ng-template pTemplate>
                                 <div class="p-col p-d-flex p-ai-center p-jc-center">
                                     Panel 3
                                 </div>
                             </ng-template>
-                            <ng-template>
+                            <ng-template pTemplate>
                                 <div class="p-col p-d-flex p-ai-center p-jc-center">
                                     Panel 4
                                 </div>
@@ -82,13 +82,13 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>Splitter requires two ng-template  structural directives to wrap.</p>
+            <p>Splitter requires two ng-template with <i>pTemplate</i> structural directives to wrap.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitter [style]="&#123;'height': '300px'&#125;"&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 1
     &lt;/ng-template&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 2
     &lt;/ng-template&gt;
 &lt;/p-splitter&gt;
@@ -98,10 +98,10 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
             <p>Default orientation is configured with the <i>layout</i> property and default is the "horizontal" whereas other alternative is the "vertical".</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitter [style]="&#123;'height': '300px'&#125;" layout="vertical"&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 1
     &lt;/ng-template&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 2
     &lt;/ng-template&gt;
 &lt;/p-splitter&gt;
@@ -111,10 +111,10 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
             <p>When no panelSizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [20,80].</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitter [style]="&#123;'height': '300px'&#125;" [panelSizes]="[20,80]" layout="vertical"&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 1
     &lt;/ng-template&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 2
     &lt;/ng-template&gt;
 &lt;/p-splitter&gt;
@@ -124,10 +124,10 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
             <p>Minimum sizes defines the lowest boundary for the size of a panels.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitter [style]="&#123;'height': '300px'&#125;" [minSizes]="[10,20]" layout="vertical"&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 1
     &lt;/ng-template&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 2
     &lt;/ng-template&gt;
 &lt;/p-splitter&gt;
@@ -137,26 +137,26 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
             <p>Splitters can be combined to create advanced layouts.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitter [style]="&#123;'height': '300px'&#125;" [panelSizes]="[20,80]" [minSizes]="[10,0]" styleClass="p-mb-5"&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
             Panel 1
         &lt;/div&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         &lt;p-splitter layout="vertical" [panelSizes]="[15,85]"&gt;
-            &lt;ng-template&gt;
+            &lt;ng-template pTemplate&gt;
                 &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                     Panel 2
                 &lt;/div&gt;
             &lt;/ng-template&gt;
-            &lt;ng-template&gt;
+            &lt;ng-template pTemplate&gt;
                 &lt;p-splitter [panelSizes]="[20,80]"&gt;
-                    &lt;ng-template&gt;
+                    &lt;ng-template pTemplate&gt;
                         &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                             Panel 3
                         &lt;/div&gt;
                     &lt;/ng-template&gt;
-                    &lt;ng-template&gt;
+                    &lt;ng-template pTemplate&gt;
                         &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                             Panel 4
                         &lt;/div&gt;
@@ -174,10 +174,10 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
                 session storage and other option is the local storage which can be configured using the <i>stateStorage</i> property.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitter stateKey="mykey" stateStorage="local"&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 1
     &lt;/ng-template&gt;
-    &lt;ng-template&gt;
+    &lt;ng-template pTemplate&gt;
         Panel 2
     &lt;/ng-template&gt;
 &lt;/p-splitter&gt;
@@ -327,12 +327,12 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
 &lt;div class="card"&gt;
     &lt;h5&gt;Horizontal&lt;/h5&gt;
     &lt;p-splitter [style]="&#123;'height': '300px'&#125;" styleClass="p-mb-5"&gt;
-        &lt;ng-template&gt;
+        &lt;ng-template pTemplate&gt;
             &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                 Panel 1
             &lt;/div&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template&gt;
+        &lt;ng-template pTemplate&gt;
             &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                 Panel 2
             &lt;/div&gt;
@@ -343,12 +343,12 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
 &lt;div class="card"&gt;
     &lt;h5&gt;Vertical&lt;/h5&gt;
     &lt;p-splitter [style]="&#123;'height': '300px'&#125;" styleClass="p-mb-5" layout="vertical"&gt;
-        &lt;ng-template&gt;
+        &lt;ng-template pTemplate&gt;
             &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                 Panel 1
             &lt;/div&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template&gt;
+        &lt;ng-template pTemplate&gt;
             &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                 Panel 2
             &lt;/div&gt;
@@ -359,26 +359,26 @@ import &#123;SplitterModule&#125; from 'primeng/splitter';
 &lt;div class="card"&gt;
     &lt;h5&gt;Nested&lt;/h5&gt;
     &lt;p-splitter [style]="&#123;'height': '300px'&#125;" [panelSizes]="[20,80]" [minSizes]="[10,0]" styleClass="p-mb-5"&gt;
-        &lt;ng-template&gt;
+        &lt;ng-template pTemplate&gt;
             &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                 Panel 1
             &lt;/div&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template&gt;
+        &lt;ng-template pTemplate&gt;
             &lt;p-splitter layout="vertical" [panelSizes]="[15,85]"&gt;
-                &lt;ng-template&gt;
+                &lt;ng-template pTemplate&gt;
                     &lt;div style="flex-grow: 1;" class="p-d-flex p-ai-center p-jc-center"&gt;
                         Panel 2
                     &lt;/div&gt;
                 &lt;/ng-template&gt;
-                &lt;ng-template&gt;
+                &lt;ng-template pTemplate&gt;
                     &lt;p-splitter [panelSizes]="[20,80]"&gt;
-                        &lt;ng-template&gt;
+                        &lt;ng-template pTemplate&gt;
                             &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                                 Panel 3
                             &lt;/div&gt;
                         &lt;/ng-template&gt;
-                        &lt;ng-template&gt;
+                        &lt;ng-template pTemplate&gt;
                             &lt;div class="p-col p-d-flex p-ai-center p-jc-center"&gt;
                                 Panel 4
                             &lt;/div&gt;
