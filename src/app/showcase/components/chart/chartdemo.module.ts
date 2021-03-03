@@ -7,6 +7,7 @@ import {DoughnutChartDemo} from './doughnutchart/doughnutchartdemo';
 import {BarChartDemo} from './barchart/barchartdemo';
 import {LineChartDemo} from './linechart/linechartdemo';
 import {PolarAreaChartDemo} from './polarareachart/polarareachartdemo';
+import {ComboChartDemo} from './combochart/comobochartdemo';
 import {RadarChartDemo} from './radarchart/radarchartdemo';
 import {ChartModule} from 'primeng/chart';
 import {ToastModule} from 'primeng/toast';
@@ -29,6 +30,7 @@ import {AppCodeModule} from '../../app.code.component';
         BarChartDemo,
         LineChartDemo,
         PolarAreaChartDemo,
+        ComboChartDemo,
         RadarChartDemo
 	]
 })

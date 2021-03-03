@@ -7,6 +7,7 @@ import {BarChartDemo} from './barchart/barchartdemo';
 import {LineChartDemo} from './linechart/linechartdemo';
 import {PolarAreaChartDemo} from './polarareachart/polarareachartdemo';
 import {RadarChartDemo} from './radarchart/radarchartdemo';
+import {ComboChartDemo} from './combochart/comobochartdemo';
 
 @NgModule({
 	imports: [
@@ -17,7 +18,8 @@ import {RadarChartDemo} from './radarchart/radarchartdemo';
             {path:'bar', component: BarChartDemo},
             {path:'line', component: LineChartDemo},
             {path:'polararea',component: PolarAreaChartDemo},
-            {path:'radar', component: RadarChartDemo}
+            {path:'radar', component: RadarChartDemo},
+            {path:'combo', component: ComboChartDemo}
 		])
 	],
 	exports: [
