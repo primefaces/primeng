@@ -7,7 +7,20 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
+        <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+    </div>
+
+    <div class="card">
+        <p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"></p-chart>
+    </div>
+
+    <div class="card">
+        <p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
+    </div>
+
+    <div class="card">
+        <h5>Stacked</h5>
+        <p-chart type="bar" [data]="stackedData" [options]="stackedOptions"></p-chart>
     </div>
 </div>
 
@@ -19,32 +32,338 @@
             <span>View on GitHub</span>
         </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-chart type="bar" [data]="data"&gt;&lt;/p-chart&gt;
+&lt;div class="card"&gt;
+    &lt;p-chart type="bar" [data]="basicData" [options]="basicOptions"&gt;&lt;/p-chart&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"&gt;&lt;/p-chart&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"&gt;&lt;/p-chart&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Stacked&lt;/h5&gt;
+    &lt;p-chart type="bar" [data]="stackedData" [options]="stackedOptions"&gt;&lt;/p-chart&gt;
+&lt;/div&gt;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class BarChartDemo &#123;
 
-    data: any;
+    basicData: any;
+    
+    basicOptions: any;
 
-    constructor() &#123;
-        this.data = &#123;
+    multiAxisData: any;
+
+    chartOptions: any;
+
+    multiAxisOptions: any;
+
+    stackedData: any;
+
+    stackedOptions: any;
+    
+    subscription: Subscription;
+
+    config: AppConfig;
+
+    constructor(private configService: AppConfigService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.basicData = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 &#123;
                     label: 'My First dataset',
                     backgroundColor: '#42A5F5',
-                    borderColor: '#1E88E5',
                     data: [65, 59, 80, 81, 56, 55, 40]
                 &#125;,
                 &#123;
                     label: 'My Second dataset',
-                    backgroundColor: '#9CCC65',
-                    borderColor: '#7CB342',
+                    backgroundColor: '#FFA726',
                     data: [28, 48, 40, 19, 86, 27, 90]
                 &#125;
             ]
-        &#125;
+        &#125;;
+
+        this.multiAxisData = &#123;
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [&#123;
+                label: 'Dataset 1',
+                backgroundColor: [
+                    '#EC407A',
+                    '#AB47BC',
+                    '#42A5F5',
+                    '#7E57C2',
+                    '#66BB6A',
+                    '#FFCA28',
+                    '#26A69A'
+                ],
+                yAxisID: 'y-axis-1',
+                data: [65, 59, 80, 81, 56, 55, 10]
+            &#125;, &#123;
+                label: 'Dataset 2',
+                backgroundColor: '#78909C',
+                yAxisID: 'y-axis-2',
+                data: [28, 48, 40, 19, 86, 27, 90]
+            &#125;]
+        &#125;;
+
+        this.multiAxisOptions = &#123;
+            responsive: true,
+            tooltips: &#123;
+                mode: 'index',
+                intersect: true
+            &#125;,
+            scales: &#123;
+                yAxes: [&#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-1',
+                    ticks: &#123;
+                        min: 0,
+                        max: 100
+                    &#125;
+                &#125;,
+                &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-2',
+                    gridLines: &#123;
+                        drawOnChartArea: false
+                    &#125;,
+                    ticks: &#123;
+                        min: 0,
+                        max: 100
+                    &#125;
+                &#125;]
+            &#125;
+        &#125;;
+
+        this.stackedData = &#123;
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [&#123;
+                type: 'bar',
+                label: 'Dataset 1',
+                backgroundColor: '#42A5F5',
+                data: [
+                    50,
+                    25,
+                    12,
+                    48,
+                    90,
+                    76,
+                    42
+                ]
+            &#125;, &#123;
+                type: 'bar',
+                label: 'Dataset 2',
+                backgroundColor: '#66BB6A',
+                data: [
+                    21,
+                    84,
+                    24,
+                    75,
+                    37,
+                    65,
+                    34
+                ]
+            &#125;, &#123;
+                type: 'bar',
+                label: 'Dataset 3',
+                backgroundColor: '#FFA726',
+                data: [
+                    41,
+                    52,
+                    24,
+                    74,
+                    23,
+                    21,
+                    32
+                ]
+            &#125;]
+        &#125;;
+
+        this.stackedOptions = &#123;
+            tooltips: &#123;
+                mode: 'index',
+                intersect: false
+            &#125;,
+            responsive: true,
+            scales: &#123;
+                xAxes: [&#123;
+                    stacked: true,
+                &#125;],
+                yAxes: [&#123;
+                    stacked: true
+                &#125;]
+            &#125;
+        &#125;;
+        
+        this.config = this.configService.config;
+        this.updateChartOptions();
+        this.subscription = this.configService.configUpdate$.subscribe(config =&gt; &#123;
+            this.config = config;
+            this.updateChartOptions();
+        &#125;);
     &#125;
+
+    updateChartOptions() &#123;
+        if (this.config.dark) 
+            this.applyDarkTheme();
+        else
+            this.applyLightTheme();
+    &#125;
+
+    applyDarkTheme() &#123;
+        this.basicOptions = &#123;
+            legend: &#123;
+                labels: &#123;
+                    fontColor: '#ebedef'
+                &#125;
+            &#125;,
+            scales: &#123;
+                xAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#ebedef'
+                    &#125;,
+                    gridLines: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;],
+                yAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#ebedef'
+                    &#125;,
+                    gridLines: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;]
+            &#125;
+        &#125;;
+
+        this.stackedOptions.scales.xAxes[0].ticks = &#123;
+            fontColor: '#ebedef'
+        &#125;;
+        this.stackedOptions.scales.xAxes[0].gridLines = &#123;
+            color: 'rgba(255,255,255,0.2)'
+        &#125;;
+        this.stackedOptions.scales.yAxes[0].ticks = &#123;
+            fontColor: '#ebedef'
+        &#125;;
+        this.stackedOptions.scales.yAxes[0].gridLines = &#123;
+            color: 'rgba(255,255,255,0.2)'
+        &#125;;
+        this.stackedOptions.legend = &#123;
+            labels:  &#123;
+                fontColor: '#ebedef'
+            &#125;
+        &#125;;
+        this.stackedOptions = &#123;...this.stackedOptions&#125;;
+
+        this.multiAxisOptions.scales.xAxes = [&#123;
+                ticks: &#123;
+                    fontColor: '#ebedef'
+                &#125;,
+                gridLines: &#123;
+                    color: 'rgba(255,255,255,0.2)'
+                &#125;
+            &#125;
+        ];
+        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
+            fontColor: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
+            color: 'rgba(255,255,255,0.2)'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
+            fontColor: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
+            color: 'rgba(255,255,255,0.2)'
+        &#125;;
+        this.multiAxisOptions.legend = &#123;
+            labels:  &#123;
+                fontColor: '#ebedef'
+            &#125;
+        &#125;;
+        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
+    &#125;
+    
+    applyLightTheme() &#123;
+        this.basicOptions = &#123;
+            legend: &#123;
+                labels: &#123;
+                    fontColor: '#495057'
+                &#125;
+            &#125;,
+            scales: &#123;
+                xAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#495057'
+                    &#125;
+                &#125;],
+                yAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#495057'
+                    &#125;
+                &#125;]
+            &#125;
+        &#125;;
+
+        this.stackedOptions.scales.xAxes[0].ticks = &#123;
+            fontColor: '#495057'
+        &#125;;
+        this.stackedOptions.scales.xAxes[0].gridLines = &#123;
+            color: '#ebedef'
+        &#125;;
+        this.stackedOptions.scales.yAxes[0].ticks = &#123;
+            fontColor: '#495057'
+        &#125;;
+        this.stackedOptions.scales.yAxes[0].gridLines = &#123;
+            color: '#ebedef'
+        &#125;;
+        this.stackedOptions.legend = &#123;
+            labels:  &#123;
+                fontColor: '#495057'
+            &#125;
+        &#125;;
+        this.stackedOptions = &#123;...this.stackedOptions&#125;;
+
+        this.multiAxisOptions.scales.xAxes = [&#123;
+                ticks: &#123;
+                    fontColor: '#495057'
+                &#125;,
+                gridLines: &#123;
+                    color: '#ebedef'
+                &#125;
+            &#125;
+        ];
+        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
+            fontColor: '#495057'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
+            color: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
+            fontColor: '#495057'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
+            color: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.legend = &#123;
+            labels:  &#123;
+                fontColor: '#495057'
+            &#125;
+        &#125;;
+        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
+    &#125;
+
 &#125;
 </app-code>            
         </p-tabPanel>
