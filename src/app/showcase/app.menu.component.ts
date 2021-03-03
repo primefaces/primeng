@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 import { FilterService } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
 
 declare let gtag: Function;
 
@@ -112,7 +113,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/picklist']" routerLinkActive="router-link-exact-active">PickList</a>
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, '/table')">Table</a>
-                        <div [@submenu]="isSubmenuActive('/table') ? 'visible': 'hidden'">
+                        <div [@submenu]="isSubmenuActive('/table') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['/table']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['/table/basic']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Basic</a></li>
@@ -151,7 +152,7 @@ declare let gtag: Function;
 
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, '/tree')">Tree</a>
-                        <div [@submenu]="isSubmenuActive('/tree') ? 'visible': 'hidden'">
+                        <div [@submenu]="isSubmenuActive('/tree') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['/tree']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['/tree/templating']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Templating</a></li>
@@ -168,7 +169,7 @@ declare let gtag: Function;
 
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, '/treetable')">TreeTable</a>
-                        <div [@submenu]="isSubmenuActive('/treetable') ? 'visible': 'hidden'">
+                        <div [@submenu]="isSubmenuActive('/treetable') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['/treetable']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['/treetable/templating']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Templating</a></li>
@@ -247,6 +248,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/chart/polararea']" routerLinkActive="router-link-exact-active">PolarArea</a>
                     <a [routerLink]=" ['/chart/pie']" routerLinkActive="router-link-exact-active">Pie</a>
                     <a [routerLink]=" ['/chart/radar']" routerLinkActive="router-link-exact-active">Radar</a>
+                    <a [routerLink]=" ['/chart/combo']" routerLinkActive="router-link-exact-active">Combo</a>
                 </div>
 
                 <div class="menu-category">Messages</div>
@@ -260,7 +262,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/carousel']" routerLinkActive="router-link-exact-active">Carousel</a>
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, '/galleria')">Galleria</a>
-                        <div [@submenu]="isSubmenuActive('/galleria') ? 'visible': 'hidden'">
+                        <div [@submenu]="isSubmenuActive('/galleria') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['/galleria']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['/galleria/programmatic']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Programmatic</a></li>
@@ -327,17 +329,19 @@ declare let gtag: Function;
         ])
     ]
 })
-export class AppMenuComponent implements OnInit {
+export class AppMenuComponent {
 
     @Input() active: boolean;
 
     activeSubmenus: {[key: string]: boolean} = {};
 
-    constructor(private router: Router, private filterService: FilterService) {}
+    constructor(private el: ElementRef,private router: Router, private filterService: FilterService) {}
 
     filteredRoutes: any[];
 
     selectedRoute: any;
+
+    submenuRouting: boolean;
 
     routes = [
         {
@@ -436,71 +440,71 @@ export class AppMenuComponent implements OnInit {
         {
             label: 'Table', value: 'table', 
             items: [
-                {label: 'Documentation', value: '/table'},
-                {label: 'Basic', value: '/table/basic'},
-                {label: 'Dynamic', value: '/table/dynamic'},
-                {label: 'Templating', value: '/table/templating'},
-                {label: 'Size', value: '/table/size'},
-                {label: 'Gridlines', value: '/table/gridlines'},
-                {label: 'Striped', value: '/table/striped'},
-                {label: 'ColGroup', value: '/table/colgroup'},
-                {label: 'Page', value: '/table/page'},
-                {label: 'Sort', value: '/table/sort'},
-                {label: 'Filter', value: '/table/filter'},
-                {label: 'Selection', value: '/table/selection'},
-                {label: 'Scroll', value: '/table/scroll'},
-                {label: 'VirtualScroll', value: '/table/virtualscroll'},
-                {label: 'FlexScroll', value: '/table/flexscroll'},
-                {label: 'RowExpand', value: '/table/rowexpansion'},
-                {label: 'Lazy', value: '/table/lazy'},
-                {label: 'Edit', value: '/table/edit'},
-                {label: 'Toggle', value: '/table/coltoggle'},
-                {label: 'Resize', value: '/table/colresize'},
-                {label: 'Reorder', value: '/table/reorder'},
-                {label: 'RowGroup', value: '/table/rowgroup'},
-                {label: 'ContextMenu', value: '/table/contextmenu'},
-                {label: 'Responsive', value: '/table/responsive'},
-                {label: 'Export', value: '/table/export'},
-                {label: 'State', value: '/table/state'},
-                {label: 'Style', value: '/table/style'},
-                {label: 'Sticky', value: '/table/sticky'},
-                {label: 'Crud', value: '/table/crud'},
+                {label: 'Documentation', value: '/table', isSubmenu: true},
+                {label: 'Basic', value: '/table/basic', isSubmenu: true},
+                {label: 'Dynamic', value: '/table/dynamic', isSubmenu: true},
+                {label: 'Templating', value: '/table/templating', isSubmenu: true},
+                {label: 'Size', value: '/table/size', isSubmenu: true},
+                {label: 'Gridlines', value: '/table/gridlines', isSubmenu: true},
+                {label: 'Striped', value: '/table/striped', isSubmenu: true},
+                {label: 'ColGroup', value: '/table/colgroup', isSubmenu: true},
+                {label: 'Page', value: '/table/page', isSubmenu: true},
+                {label: 'Sort', value: '/table/sort', isSubmenu: true},
+                {label: 'Filter', value: '/table/filter', isSubmenu: true},
+                {label: 'Selection', value: '/table/selection', isSubmenu: true},
+                {label: 'Scroll', value: '/table/scroll', isSubmenu: true},
+                {label: 'VirtualScroll', value: '/table/virtualscroll', isSubmenu: true},
+                {label: 'FlexScroll', value: '/table/flexscroll', isSubmenu: true},
+                {label: 'RowExpand', value: '/table/rowexpansion', isSubmenu: true},
+                {label: 'Lazy', value: '/table/lazy', isSubmenu: true},
+                {label: 'Edit', value: '/table/edit', isSubmenu: true},
+                {label: 'Toggle', value: '/table/coltoggle', isSubmenu: true},
+                {label: 'Resize', value: '/table/colresize', isSubmenu: true},
+                {label: 'Reorder', value: '/table/reorder', isSubmenu: true},
+                {label: 'RowGroup', value: '/table/rowgroup', isSubmenu: true},
+                {label: 'ContextMenu', value: '/table/contextmenu', isSubmenu: true},
+                {label: 'Responsive', value: '/table/responsive', isSubmenu: true},
+                {label: 'Export', value: '/table/export', isSubmenu: true},
+                {label: 'State', value: '/table/state', isSubmenu: true},
+                {label: 'Style', value: '/table/style', isSubmenu: true},
+                {label: 'Sticky', value: '/table/sticky', isSubmenu: true},
+                {label: 'Crud', value: '/table/crud', isSubmenu: true},
             ]
         },
         {
             label: 'Tree', value: 'tree', 
             items: [
-                {label: 'Documentation', value: '/tree'},
-                {label: 'Templating', value: '/tree/templating'},
-                {label: 'Selection', value: '/tree/selection'},
-                {label: 'Filter', value: '/tree/filter'},
-                {label: 'Lazy', value: '/tree/lazy'},
-                {label: 'Scroll', value: '/tree/scroll'},
-                {label: 'ContextMenu', value: '/tree/contextmenu'},
-                {label: 'DragDrop', value: '/tree/dragdrop'},
-                {label: 'Horizontal', value: '/tree/horizontal'}
+                {label: 'Documentation', value: '/tree', isSubmenu: true},
+                {label: 'Templating', value: '/tree/templating', isSubmenu: true},
+                {label: 'Selection', value: '/tree/selection', isSubmenu: true},
+                {label: 'Filter', value: '/tree/filter', isSubmenu: true},
+                {label: 'Lazy', value: '/tree/lazy', isSubmenu: true},
+                {label: 'Scroll', value: '/tree/scroll', isSubmenu: true},
+                {label: 'ContextMenu', value: '/tree/contextmenu', isSubmenu: true},
+                {label: 'DragDrop', value: '/tree/dragdrop', isSubmenu: true},
+                {label: 'Horizontal', value: '/tree/horizontal', isSubmenu: true}
             ]
         },
         {
             label: 'TreeTable', value: 'treetable', 
             items: [
-                {label: 'Documentation', value: '/treetable'},
-                {label: 'Templating', value: '/treetable/templating'},
-                {label: 'Page', value: '/treetable/page'},
-                {label: 'Sort', value: '/treetable/sort'},
-                {label: 'Selection', value: '/treetable/selection'},
-                {label: 'ColGroup', value: '/treetable/colgroup'},
-                {label: 'Lazy', value: '/treetable/lazy'},
-                {label: 'Edit', value: '/treetable/edit'},
-                {label: 'Scroll', value: '/treetable/scroll'},
-                {label: 'Resize', value: '/treetable/colresize'},
-                {label: 'Reorder', value: '/treetable/reorder'},
-                {label: 'Toggle', value: '/treetable/coltoggle'},
-                {label: 'Style', value: '/treetable/style'},
-                {label: 'ContextMenu', value: '/treetable/contextmenu'},
-                {label: 'Responsive', value: '/treetable/responsive'},
-                {label: 'Filter', value: '/treetable/filter'},
-                {label: 'Size', value: '/treetable/size'}
+                {label: 'Documentation', value: '/treetable', isSubmenu: true},
+                {label: 'Templating', value: '/treetable/templating', isSubmenu: true},
+                {label: 'Page', value: '/treetable/page', isSubmenu: true},
+                {label: 'Sort', value: '/treetable/sort', isSubmenu: true},
+                {label: 'Selection', value: '/treetable/selection', isSubmenu: true},
+                {label: 'ColGroup', value: '/treetable/colgroup', isSubmenu: true},
+                {label: 'Lazy', value: '/treetable/lazy', isSubmenu: true},
+                {label: 'Edit', value: '/treetable/edit', isSubmenu: true},
+                {label: 'Scroll', value: '/treetable/scroll', isSubmenu: true},
+                {label: 'Resize', value: '/treetable/colresize', isSubmenu: true},
+                {label: 'Reorder', value: '/treetable/reorder', isSubmenu: true},
+                {label: 'Toggle', value: '/treetable/coltoggle', isSubmenu: true},
+                {label: 'Style', value: '/treetable/style', isSubmenu: true},
+                {label: 'ContextMenu', value: '/treetable/contextmenu', isSubmenu: true},
+                {label: 'Responsive', value: '/treetable/responsive', isSubmenu: true},
+                {label: 'Filter', value: '/treetable/filter', isSubmenu: true},
+                {label: 'Size', value: '/treetable/size', isSubmenu: true}
             ]
         },
         {
@@ -560,7 +564,8 @@ export class AppMenuComponent implements OnInit {
                 {label: 'Line', value: '/chart/line'},
                 {label: 'PolarArea', value: '/chart/polararea'},
                 {label: 'Pie', value: '/chart/pie'},
-                {label: 'Radar', value: '/chart/radar'}
+                {label: 'Radar', value: '/chart/radar'},
+                {label: 'Combo', value: '/chart/combo'}
             ]
         },
         {
@@ -579,16 +584,16 @@ export class AppMenuComponent implements OnInit {
         {
             label: 'Galleria', value: 'galleria', 
             items: [
-                {label: 'Documentation', value: '/galleria'},
-                {label: 'Programmatic', value: '/galleria/programmatic'},
-                {label: 'Indicator', value: '/galleria/indicator'},
-                {label: 'Thumbnail', value: '/galleria/thumbnail'},
-                {label: 'Navigator', value: '/galleria/navigator'},
-                {label: 'Responsive', value: '/galleria/responsive'},
-                {label: 'Fullscreen', value: '/galleria/fullscreen'},
-                {label: 'AutoPlay', value: '/galleria/autoplay'},
-                {label: 'Caption', value: '/galleria/caption'},
-                {label: 'Advanced', value: '/galleria/advanced'}
+                {label: 'Documentation', value: '/galleria', isSubmenu: true},
+                {label: 'Programmatic', value: '/galleria/programmatic', isSubmenu: true},
+                {label: 'Indicator', value: '/galleria/indicator', isSubmenu: true},
+                {label: 'Thumbnail', value: '/galleria/thumbnail', isSubmenu: true},
+                {label: 'Navigator', value: '/galleria/navigator', isSubmenu: true},
+                {label: 'Responsive', value: '/galleria/responsive', isSubmenu: true},
+                {label: 'Fullscreen', value: '/galleria/fullscreen', isSubmenu: true},
+                {label: 'AutoPlay', value: '/galleria/autoplay', isSubmenu: true},
+                {label: 'Caption', value: '/galleria/caption', isSubmenu: true},
+                {label: 'Advanced', value: '/galleria/advanced', isSubmenu: true}
             ]
         },
         {
@@ -630,9 +635,6 @@ export class AppMenuComponent implements OnInit {
         },
     ];
 
-    ngOnInit() {
-    }
-
     filterGroupedRoute(event) {
         let query = event.query;
         let filteredGroups = [];
@@ -652,8 +654,28 @@ export class AppMenuComponent implements OnInit {
     }
 
     onSelect(event) {
+        if (event.isSubmenu && !this.isSubmenuActive('/'+event.value.split('/')[1])) {
+            this.submenuRouting = true;
+        }
+
+        this.router.navigate([event.value]).then(() => {
+            if (!this.submenuRouting) 
+                this.scrollToSelectedRoute();
+        });
+
         this.selectedRoute = null;
-        this.router.navigate([event.value]);
+    }
+
+    onAnimationDone() {
+        if (this.submenuRouting) {
+            this.scrollToSelectedRoute();
+            this.submenuRouting = false;
+        }
+    }
+
+    scrollToSelectedRoute() {
+        let routeEl = DomHandler.findSingle(this.el.nativeElement, '.router-link-exact-active');
+        routeEl.scrollIntoView({behavior: "smooth"});
     }
 
     toggleSubmenu(event: Event, name: string) {
