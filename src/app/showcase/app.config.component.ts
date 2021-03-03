@@ -427,8 +427,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     active: boolean;
 
-    scale: number = 14;;
-
+    scale: number = 14;
     scales: number[] = [12,13,14,15,16];
 
     outsideClickListener: any;
@@ -456,6 +455,9 @@ export class AppConfigComponent implements OnInit, OnDestroy {
                 this.active = false
              }
         });
+
+        if (this.config.theme === 'nano')
+            this.scale = 12;
     }
 
     toggleConfigurator(event: Event) {
