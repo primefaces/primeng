@@ -21,12 +21,12 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" 
                     (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
                 <div class="p-colorpicker-content">
-                    <div #colorSelector class="p-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
+                    <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)">
                         <div class="p-colorpicker-color">
                             <div #colorHandle class="p-colorpicker-color-handle"></div>
                         </div>
                     </div>
-                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)">
+                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()">
                         <div #hueHandle class="p-colorpicker-hue-handle"></div>
                     </div>
                 </div>
@@ -158,10 +158,28 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickHue(event);
     }
 
-    pickHue(event: MouseEvent) {
+    onHueTouchStart(event) {
+        if (this.disabled) {
+            return;
+        }
+
+        this.hueDragging = true;
+        this.pickHue(event);
+    }
+
+    onColorTouchStart(event) {
+        if (this.disabled) {
+            return;
+        }
+
+        this.colorDragging = true;
+        this.pickColor(event);
+    }
+
+    pickHue(event) {
         let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         this.value = this.validateHSB({
-            h: Math.floor(360 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150),
+            h: Math.floor(360 * (150 - Math.max(0, Math.min(150, ((event.pageY || event.changedTouches[0].pageY) - top)))) / 150),
             s: this.value.s,
             b: this.value.b
         });
@@ -184,12 +202,32 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickColor(event);
     }
 
-    pickColor(event: MouseEvent) {
+    onMove(event) {
+        if (this.colorDragging) {
+            this.pickColor(event);
+            event.preventDefault();
+        }
+
+        if (this.hueDragging) {
+            this.pickHue(event);
+            event.preventDefault();
+        }
+    }
+
+    onDragEnd() {
+        this.colorDragging = false;
+        this.hueDragging = false;
+
+        this.unbindDocumentMousemoveListener();
+        this.unbindDocumentMouseupListener();
+    }
+
+    pickColor(event) {
         let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
         let top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         let left = rect.left + document.body.scrollLeft;
-        let saturation = Math.floor(100 * (Math.max(0, Math.min(150, (event.pageX - left)))) / 150);
-        let brightness = Math.floor(100 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150);
+        let saturation = Math.floor(100 * (Math.max(0, Math.min(150, ((event.pageX || event.changedTouches[0].pageX)- left)))) / 150);
+        let brightness = Math.floor(100 * (150 - Math.max(0, Math.min(150, ((event.pageY || event.changedTouches[0].pageY) - top)))) / 150);
         this.value = this.validateHSB({
             h: this.value.h,
             s: saturation,
