@@ -284,7 +284,7 @@ export class Paginator implements OnInit, OnChanges {
         return this.currentPageReportTemplate
                 .replace("{currentPage}", String(this.getPage() + 1))
                 .replace("{totalPages}", String(this.getPageCount()))
-                .replace("{first}", String(this._first + 1))
+                .replace("{first}", String(Math.min(this._first + 1, this.totalRecords)))
                 .replace("{last}", String(Math.min(this._first + this.rows, this.totalRecords)))
                 .replace("{rows}", String(this.rows))
                 .replace("{totalRecords}", String(this.totalRecords));
