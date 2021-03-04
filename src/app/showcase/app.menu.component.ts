@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 
@@ -335,8 +335,6 @@ export class AppMenuComponent {
 
     activeSubmenus: {[key: string]: boolean} = {};
 
-    constructor(private el: ElementRef,private router: Router, private filterService: FilterService) {}
-
     filteredRoutes: any[];
 
     selectedRoute: any;
@@ -440,71 +438,71 @@ export class AppMenuComponent {
         {
             label: 'Table', value: 'table', 
             items: [
-                {label: 'Documentation', value: '/table', isSubmenu: true},
-                {label: 'Basic', value: '/table/basic', isSubmenu: true},
-                {label: 'Dynamic', value: '/table/dynamic', isSubmenu: true},
-                {label: 'Templating', value: '/table/templating', isSubmenu: true},
-                {label: 'Size', value: '/table/size', isSubmenu: true},
-                {label: 'Gridlines', value: '/table/gridlines', isSubmenu: true},
-                {label: 'Striped', value: '/table/striped', isSubmenu: true},
-                {label: 'ColGroup', value: '/table/colgroup', isSubmenu: true},
-                {label: 'Page', value: '/table/page', isSubmenu: true},
-                {label: 'Sort', value: '/table/sort', isSubmenu: true},
-                {label: 'Filter', value: '/table/filter', isSubmenu: true},
-                {label: 'Selection', value: '/table/selection', isSubmenu: true},
-                {label: 'Scroll', value: '/table/scroll', isSubmenu: true},
-                {label: 'VirtualScroll', value: '/table/virtualscroll', isSubmenu: true},
-                {label: 'FlexScroll', value: '/table/flexscroll', isSubmenu: true},
-                {label: 'RowExpand', value: '/table/rowexpansion', isSubmenu: true},
-                {label: 'Lazy', value: '/table/lazy', isSubmenu: true},
-                {label: 'Edit', value: '/table/edit', isSubmenu: true},
-                {label: 'Toggle', value: '/table/coltoggle', isSubmenu: true},
-                {label: 'Resize', value: '/table/colresize', isSubmenu: true},
-                {label: 'Reorder', value: '/table/reorder', isSubmenu: true},
-                {label: 'RowGroup', value: '/table/rowgroup', isSubmenu: true},
-                {label: 'ContextMenu', value: '/table/contextmenu', isSubmenu: true},
-                {label: 'Responsive', value: '/table/responsive', isSubmenu: true},
-                {label: 'Export', value: '/table/export', isSubmenu: true},
-                {label: 'State', value: '/table/state', isSubmenu: true},
-                {label: 'Style', value: '/table/style', isSubmenu: true},
-                {label: 'Sticky', value: '/table/sticky', isSubmenu: true},
-                {label: 'Crud', value: '/table/crud', isSubmenu: true},
+                {label: 'Documentation', value: '/table'},
+                {label: 'Basic', value: '/table/basic'},
+                {label: 'Dynamic', value: '/table/dynamic'},
+                {label: 'Templating', value: '/table/templating'},
+                {label: 'Size', value: '/table/size'},
+                {label: 'Gridlines', value: '/table/gridlines'},
+                {label: 'Striped', value: '/table/striped'},
+                {label: 'ColGroup', value: '/table/colgroup'},
+                {label: 'Page', value: '/table/page'},
+                {label: 'Sort', value: '/table/sort'},
+                {label: 'Filter', value: '/table/filter'},
+                {label: 'Selection', value: '/table/selection'},
+                {label: 'Scroll', value: '/table/scroll'},
+                {label: 'VirtualScroll', value: '/table/virtualscroll'},
+                {label: 'FlexScroll', value: '/table/flexscroll'},
+                {label: 'RowExpand', value: '/table/rowexpansion'},
+                {label: 'Lazy', value: '/table/lazy'},
+                {label: 'Edit', value: '/table/edit'},
+                {label: 'Toggle', value: '/table/coltoggle'},
+                {label: 'Resize', value: '/table/colresize'},
+                {label: 'Reorder', value: '/table/reorder'},
+                {label: 'RowGroup', value: '/table/rowgroup'},
+                {label: 'ContextMenu', value: '/table/contextmenu'},
+                {label: 'Responsive', value: '/table/responsive'},
+                {label: 'Export', value: '/table/export'},
+                {label: 'State', value: '/table/state'},
+                {label: 'Style', value: '/table/style'},
+                {label: 'Sticky', value: '/table/sticky'},
+                {label: 'Crud', value: '/table/crud'},
             ]
         },
         {
             label: 'Tree', value: 'tree', 
             items: [
-                {label: 'Documentation', value: '/tree', isSubmenu: true},
-                {label: 'Templating', value: '/tree/templating', isSubmenu: true},
-                {label: 'Selection', value: '/tree/selection', isSubmenu: true},
-                {label: 'Filter', value: '/tree/filter', isSubmenu: true},
-                {label: 'Lazy', value: '/tree/lazy', isSubmenu: true},
-                {label: 'Scroll', value: '/tree/scroll', isSubmenu: true},
-                {label: 'ContextMenu', value: '/tree/contextmenu', isSubmenu: true},
-                {label: 'DragDrop', value: '/tree/dragdrop', isSubmenu: true},
-                {label: 'Horizontal', value: '/tree/horizontal', isSubmenu: true}
+                {label: 'Documentation', value: '/tree'},
+                {label: 'Templating', value: '/tree/templating'},
+                {label: 'Selection', value: '/tree/selection'},
+                {label: 'Filter', value: '/tree/filter'},
+                {label: 'Lazy', value: '/tree/lazy'},
+                {label: 'Scroll', value: '/tree/scroll'},
+                {label: 'ContextMenu', value: '/tree/contextmenu'},
+                {label: 'DragDrop', value: '/tree/dragdrop'},
+                {label: 'Horizontal', value: '/tree/horizontal'}
             ]
         },
         {
             label: 'TreeTable', value: 'treetable', 
             items: [
-                {label: 'Documentation', value: '/treetable', isSubmenu: true},
-                {label: 'Templating', value: '/treetable/templating', isSubmenu: true},
-                {label: 'Page', value: '/treetable/page', isSubmenu: true},
-                {label: 'Sort', value: '/treetable/sort', isSubmenu: true},
-                {label: 'Selection', value: '/treetable/selection', isSubmenu: true},
-                {label: 'ColGroup', value: '/treetable/colgroup', isSubmenu: true},
-                {label: 'Lazy', value: '/treetable/lazy', isSubmenu: true},
-                {label: 'Edit', value: '/treetable/edit', isSubmenu: true},
-                {label: 'Scroll', value: '/treetable/scroll', isSubmenu: true},
-                {label: 'Resize', value: '/treetable/colresize', isSubmenu: true},
-                {label: 'Reorder', value: '/treetable/reorder', isSubmenu: true},
-                {label: 'Toggle', value: '/treetable/coltoggle', isSubmenu: true},
-                {label: 'Style', value: '/treetable/style', isSubmenu: true},
-                {label: 'ContextMenu', value: '/treetable/contextmenu', isSubmenu: true},
-                {label: 'Responsive', value: '/treetable/responsive', isSubmenu: true},
-                {label: 'Filter', value: '/treetable/filter', isSubmenu: true},
-                {label: 'Size', value: '/treetable/size', isSubmenu: true}
+                {label: 'Documentation', value: '/treetable'},
+                {label: 'Templating', value: '/treetable/templating'},
+                {label: 'Page', value: '/treetable/page'},
+                {label: 'Sort', value: '/treetable/sort'},
+                {label: 'Selection', value: '/treetable/selection'},
+                {label: 'ColGroup', value: '/treetable/colgroup'},
+                {label: 'Lazy', value: '/treetable/lazy'},
+                {label: 'Edit', value: '/treetable/edit'},
+                {label: 'Scroll', value: '/treetable/scroll'},
+                {label: 'Resize', value: '/treetable/colresize'},
+                {label: 'Reorder', value: '/treetable/reorder'},
+                {label: 'Toggle', value: '/treetable/coltoggle'},
+                {label: 'Style', value: '/treetable/style'},
+                {label: 'ContextMenu', value: '/treetable/contextmenu'},
+                {label: 'Responsive', value: '/treetable/responsive'},
+                {label: 'Filter', value: '/treetable/filter'},
+                {label: 'Size', value: '/treetable/size'}
             ]
         },
         {
@@ -584,16 +582,16 @@ export class AppMenuComponent {
         {
             label: 'Galleria', value: 'galleria', 
             items: [
-                {label: 'Documentation', value: '/galleria', isSubmenu: true},
-                {label: 'Programmatic', value: '/galleria/programmatic', isSubmenu: true},
-                {label: 'Indicator', value: '/galleria/indicator', isSubmenu: true},
-                {label: 'Thumbnail', value: '/galleria/thumbnail', isSubmenu: true},
-                {label: 'Navigator', value: '/galleria/navigator', isSubmenu: true},
-                {label: 'Responsive', value: '/galleria/responsive', isSubmenu: true},
-                {label: 'Fullscreen', value: '/galleria/fullscreen', isSubmenu: true},
-                {label: 'AutoPlay', value: '/galleria/autoplay', isSubmenu: true},
-                {label: 'Caption', value: '/galleria/caption', isSubmenu: true},
-                {label: 'Advanced', value: '/galleria/advanced', isSubmenu: true}
+                {label: 'Documentation', value: '/galleria'},
+                {label: 'Programmatic', value: '/galleria/programmatic'},
+                {label: 'Indicator', value: '/galleria/indicator'},
+                {label: 'Thumbnail', value: '/galleria/thumbnail'},
+                {label: 'Navigator', value: '/galleria/navigator'},
+                {label: 'Responsive', value: '/galleria/responsive'},
+                {label: 'Fullscreen', value: '/galleria/fullscreen'},
+                {label: 'AutoPlay', value: '/galleria/autoplay'},
+                {label: 'Caption', value: '/galleria/caption'},
+                {label: 'Advanced', value: '/galleria/advanced'}
             ]
         },
         {
@@ -635,6 +633,30 @@ export class AppMenuComponent {
         },
     ];
 
+    scrollable = true;
+
+    constructor(private el: ElementRef,private router: Router, private filterService: FilterService) {
+        router.events.subscribe((routerEvent) => {
+                if (routerEvent instanceof NavigationStart && (routerEvent.navigationTrigger ==="popstate" || this.scrollable)){
+                    let routeUrl = routerEvent.url;
+
+                    if (this.isSubmenu(routeUrl) && !this.isSubmenuActive('/'+routeUrl.split('/')[1])){
+                        this.submenuRouting = true;
+                    }
+
+                    if (routerEvent.navigationTrigger ==="popstate") {
+                        this.scrollable = true;
+                    }
+                }
+    
+                if (routerEvent instanceof NavigationEnd && !this.submenuRouting && this.scrollable){
+                    setTimeout(() => {
+                        this.scrollToSelectedRoute();
+                    },1);
+                }
+        });
+    }
+
     filterGroupedRoute(event) {
         let query = event.query;
         let filteredGroups = [];
@@ -654,14 +676,10 @@ export class AppMenuComponent {
     }
 
     onSelect(event) {
-        if (event.isSubmenu && !this.isSubmenuActive('/'+event.value.split('/')[1])) {
-            this.submenuRouting = true;
+        if (this.router.url !== event.value) {
+            this.scrollable = true;
+            this.router.navigate([event.value]);
         }
-
-        this.router.navigate([event.value]).then(() => {
-            if (!this.submenuRouting) 
-                this.scrollToSelectedRoute();
-        });
 
         this.selectedRoute = null;
     }
@@ -675,12 +693,20 @@ export class AppMenuComponent {
 
     scrollToSelectedRoute() {
         let routeEl = DomHandler.findSingle(this.el.nativeElement, '.router-link-exact-active');
-        routeEl.scrollIntoView({behavior: "smooth"});
+
+        if (routeEl) 
+            routeEl.scrollIntoView({behavior: "smooth",inline: 'start'});
+
+        this.scrollable = false;
     }
 
     toggleSubmenu(event: Event, name: string) {
         this.activeSubmenus[name] = this.activeSubmenus[name] ? false: true;
         event.preventDefault();
+    }
+
+    isSubmenu(route) {
+        return route.includes('table') || route.includes('treetable') || route.includes('tree') || route.includes('galleria');
     }
 
     isSubmenuActive(name: string) {
