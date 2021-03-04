@@ -695,7 +695,7 @@ export class AppMenuComponent {
         let routeEl = DomHandler.findSingle(this.el.nativeElement, '.router-link-exact-active');
 
         if (routeEl) 
-            routeEl.scrollIntoView({behavior: "smooth",inline: 'start'});
+            routeEl.scrollIntoView({inline: 'start'});
 
         this.scrollable = false;
     }
