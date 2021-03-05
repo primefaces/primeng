@@ -182,7 +182,7 @@ export class GalleriaDemo implements OnInit &#123;
 &lt;p-galleria [value]="images" [numVisible]="5"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
         &lt;div class="p-grid p-nogutter p-justify-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" /&gt;
