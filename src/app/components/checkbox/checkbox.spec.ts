@@ -184,4 +184,12 @@ describe('Checkbox', () => {
 
         expect(handleChangeSpy).toHaveBeenCalled();
     });
+
+    it('should pass wcag2a specifications', () => {
+        checkbox.ariaLabelledBy = 'aria label';
+        fixture.detectChanges();
+
+        const el = fixture.debugElement.query(By.css('[role="checkbox"]'));
+        expect(el.attributes['aria-labelledby']).toBeTruthy();
+    });
 });
