@@ -834,18 +834,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     updateLabel() {
         if (this.value && this.options && this.value.length && this.displaySelectedLabel) {
-            let label = '';
-            for (let i = 0; i < this.value.length; i++) {
-                let itemLabel = this.findLabelByValue(this.value[i]);
-                if (itemLabel) {
-                    if (label.length > 0) {
-                        label = label + ', ';
-                    }
-                    label = label + itemLabel;
-                }
-            }
-
             if (this.value.length <= this.maxSelectedLabels) {
+                let label = '';
+                for (let i = 0; i < this.value.length; i++) {
+                    let itemLabel = this.findLabelByValue(this.value[i]);
+                    if (itemLabel) {
+                        if (label.length > 0) {
+                            label = label + ', ';
+                        }
+                        label = label + itemLabel;
+                    }
+                }
                 this.valuesAsString = label;
             }
             else {
