@@ -1,6 +1,6 @@
 .header-support {
     display: flex;
-    background-image: url(/assets/showcase/images/header-pro.jpg);
+    background-image: url(../../../../assets/showcase/images/header-pro.jpg);
     background-size: cover;
     height: 10rem;
     color: white;
@@ -15,7 +15,7 @@
 
     &.pro {
         background-color: #303132;
-        background-image: url(/assets/showcase/images/pro-effect.png);
+        background-image: url(../../../../assets/showcase/images/pro-effect.png);
         background-size: cover;
         color: white;
     }
