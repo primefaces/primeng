@@ -81,7 +81,7 @@ export interface LocaleSettings {
                                     <tbody>
                                         <tr *ngFor="let week of month.dates; let j = index;">
                                             <td *ngIf="showWeek" class="p-datepicker-weeknumber">
-                                                <span>
+                                                <span class="p-disabled">
                                                     {{month.weekNumbers[j]}}
                                                 </span>
                                             </td>
