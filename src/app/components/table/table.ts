@@ -2657,6 +2657,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
+        <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{getMultiSortMetaIndex() + 1}}</span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -2693,6 +2694,28 @@ export class SortIcon implements OnInit, OnDestroy {
         }
 
         this.cd.markForCheck();
+    }
+
+    getMultiSortMetaIndex() {
+        let multiSortMeta = this.dt._multiSortMeta;
+        let index = -1;
+
+        if (multiSortMeta && this.dt.sortMode === 'multiple') {
+    
+            for (let i = 0; i < multiSortMeta.length; i++) {
+                let meta = multiSortMeta[i];
+                if (meta.field === this.field || meta.field === this.field) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
+    isMultiSorted() {
+        return this.dt.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
     }
 
     ngOnDestroy() {
