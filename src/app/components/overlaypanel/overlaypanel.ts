@@ -2,7 +2,7 @@ import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,Element
         ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 
@@ -313,8 +313,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
-    exports: [OverlayPanel],
+    imports: [CommonModule,RippleModule, SharedModule],
+    exports: [OverlayPanel, SharedModule],
     declarations: [OverlayPanel]
 })
 export class OverlayPanelModule { }
