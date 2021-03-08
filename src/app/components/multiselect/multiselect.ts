@@ -223,6 +223,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() selectedItemsLabel: string = '{0} items selected';
 
+    @Input() elipsis: boolean = true;
+
     @Input() showToggleAll: boolean = true;
 
     @Input() emptyFilterMessage: string = 'No results found';
@@ -845,7 +847,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
 
-            if (this.value.length <= this.maxSelectedLabels) {
+            if (this.value.length <= this.maxSelectedLabels || this.elipsis) {
                 this.valuesAsString = label;
             }
             else {
