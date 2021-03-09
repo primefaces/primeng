@@ -1,5 +1,32 @@
 # Changelog
 
+## [11.3.0](https://github.com/primefaces/primeng/tree/11.3.0) (2021-03-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.3.0-rc.1...11.3.0)
+
+**Implemented New Features and Enhancements:**
+
+- Ellipsis mode for Multiselect [\#9979](https://github.com/primefaces/primeng/issues/9979)
+- Showcase menu enhancement [\#9966](https://github.com/primefaces/primeng/issues/9966)
+- Update Chart Demos [\#9961](https://github.com/primefaces/primeng/issues/9961)
+- Unable to access tab menu using keyboard [\#9954](https://github.com/primefaces/primeng/issues/9954)
+- Facing accessibility-related issues with primeNg controls and AXE tools. [\#9834](https://github.com/primefaces/primeng/issues/9834)
+- p-splitter not working with I think nested ngtemplates [\#9754](https://github.com/primefaces/primeng/issues/9754)
+- Calendar: WeekNumber looks like it is selectable [\#9746](https://github.com/primefaces/primeng/issues/9746)
+- Menubar menuitems must have menu/menubar as parent  [\#9680](https://github.com/primefaces/primeng/issues/9680)
+- Indicators for MultiSort [\#8757](https://github.com/primefaces/primeng/issues/8757)
+- Touch support for ColorPicker [\#8566](https://github.com/primefaces/primeng/issues/8566)
+
+**Fixed bugs:**
+
+- Table error while using stateStorage with date filter [\#9967](https://github.com/primefaces/primeng/issues/9967)
+- Galleria thumbnail animation jumps [\#9963](https://github.com/primefaces/primeng/issues/9963)
+- Chips disabled not working when using with comma [\#9958](https://github.com/primefaces/primeng/issues/9958)
+- Disabled p-inputNumber updated after pasting from clipboard [\#9957](https://github.com/primefaces/primeng/issues/9957)
+- OverlayPanel  not working unless ShareModule is imported as well [\#9927](https://github.com/primefaces/primeng/issues/9927)
+- Galleria: thumbnail items doesn't work properly when responsive options are set [\#9744](https://github.com/primefaces/primeng/issues/9744)
+- first in currentPageReportTemplate always resolves to "1" even when no rows match [\#9002](https://github.com/primefaces/primeng/issues/9002)
+
 ## [11.3.0-rc.1](https://github.com/primefaces/primeng/tree/11.3.0-rc.1) (2021-03-01)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.2.3...11.3.0-rc.1)
