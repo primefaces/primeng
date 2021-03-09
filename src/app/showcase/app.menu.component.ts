@@ -3,6 +3,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { AppConfigService } from './service/appconfigservice';
+import { Subscription } from 'rxjs';
+import { AppConfig } from './domain/appconfig';
 
 declare let gtag: Function;
 
@@ -10,6 +13,9 @@ declare let gtag: Function;
     selector: 'app-menu',
     template: `
         <div class="layout-sidebar" [ngClass]="{'active': active}">
+            <a [routerLink]="['/']" class="logo">
+                <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" />
+            </a>
             <div class="layout-sidebar-filter p-fluid p-input-filled">
                 <p-autoComplete [group]="true" [(ngModel)]="selectedRoute" [minLength]="2" [suggestions]="filteredRoutes" scrollHeight="300px" (onSelect)="onSelect($event)" placeholder="Search by name..." (completeMethod)="filterGroupedRoute($event)" field="label">
                 </p-autoComplete>
@@ -635,7 +641,13 @@ export class AppMenuComponent {
 
     scrollable = true;
 
-    constructor(private el: ElementRef,private router: Router, private filterService: FilterService) {
+    config: AppConfig;
+
+    subscription: Subscription;
+
+    constructor(private el: ElementRef,private router: Router, private filterService: FilterService, private configService: AppConfigService) {
+        this.config = this.configService.config;
+        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
         router.events.subscribe((routerEvent) => {
                 if (routerEvent instanceof NavigationStart && (routerEvent.navigationTrigger ==="popstate" || this.scrollable)){
                     let routeUrl = routerEvent.url;
