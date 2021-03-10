@@ -255,7 +255,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
-                    <ng-container *ngTemplateOutlet="markerTemplate; context: {$implicit: event}"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-meter">
