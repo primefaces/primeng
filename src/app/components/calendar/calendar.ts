@@ -73,7 +73,7 @@ export interface LocaleSettings {
                                             <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
                                                 <span>{{getTranslation('weekHeader')}}</span>
                                             </th>
-                                            <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
+                                            <th scope="col" *ngFor="let weekDay of getTranslation('dayNamesMin');let begin = first; let end = last">
                                                 <span>{{weekDay}}</span>
                                             </th>
                                         </tr>
