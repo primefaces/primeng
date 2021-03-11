@@ -23,8 +23,9 @@ import &#123;DynamicDialogModule&#125; from 'primeng/dynamicdialog';
 
             <h5>Getting Started</h5>
             <p>Dynamic dialogs require an instance of a DialogService that is responsible for displaying a dialog with a component as its content. Since the dynamically
-                loaded content is not defined at build time, a configuration is necessary using the entryComponents of your parent module. Example below, displays a list of cars
-                using the CarsListDemo component so it needs to be configured at entryComponents along with the import of DynamicDialogModule. The configuration of the demo page is as follows;
+                loaded content is not defined at build time, a configuration is necessary using the entryComponents of your parent module.The example below displays a list of cars
+                using the CarsListDemo component, so it needs to be configured at entryComponents along with the import of DynamicDialogModule. As of Angular 9 (Ivy), the entryComponents
+                property is deprecated and no longer neccessary, thus this step can be skipped. The configuration of the demo page is as follows;
             </p>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
