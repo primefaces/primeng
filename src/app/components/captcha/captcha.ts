@@ -18,8 +18,6 @@ export class Captcha implements AfterViewInit,OnDestroy {
     @Input() size = 'normal';
     
     @Input() tabindex = 0;
-    
-    @Input() language: string = null;
      
     @Input() initCallback = "initRecaptcha";
     
@@ -28,6 +26,18 @@ export class Captcha implements AfterViewInit,OnDestroy {
     @Output() onExpire: EventEmitter<any> = new EventEmitter();
     
     private _instance: any = null;
+
+    private _language: any = null;
+
+
+    @Input() get language(): string {
+        return this._language;
+    }
+
+    set language(language: string) {
+        this._language = language;
+        this.init();
+    }
 
     constructor(public el: ElementRef, public _zone: NgZone, public cd: ChangeDetectorRef) {}
     
