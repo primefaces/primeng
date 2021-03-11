@@ -458,7 +458,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         if (this.multiInputEL || this.inputEL) {
             let hasFocus = this.multiple ?
                 this.multiInputEL.nativeElement.ownerDocument.activeElement == this.multiInputEL.nativeElement :
-                this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement ;
+                this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement;
 
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
