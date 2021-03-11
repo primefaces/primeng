@@ -643,12 +643,14 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onPaste(event) {
-        event.preventDefault();
-        let data = (event.clipboardData || window['clipboardData']).getData('Text');
-        if (data) {
-            let filteredData = this.parseValue(data);
-            if (filteredData != null) {
-                this.insert(event, filteredData.toString());
+        if (!this.disabled) {
+            event.preventDefault();
+            let data = (event.clipboardData || window['clipboardData']).getData('Text');
+            if (data) {
+                let filteredData = this.parseValue(data);
+                if (filteredData != null) {
+                    this.insert(event, filteredData.toString());
+                }
             }
         }
     }

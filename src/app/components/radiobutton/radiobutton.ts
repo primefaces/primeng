@@ -46,12 +46,10 @@ export class RadioControlRegistry {
     template: `
         <div [ngStyle]="style" [ngClass]="{'p-radiobutton p-component':true,'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled, 'p-radiobutton-focused': focused}" [class]="styleClass">
             <div class="p-hidden-accessible">
-                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy"
-                    [checked]="checked" (change)="onChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled">
+                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" [attr.aria-checked]="checked" [attr.aria-label]="ariaLabel"
+                    [attr.aria-labelledby]="ariaLabelledBy" [checked]="checked" (change)="onChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled">
             </div>
-            <div (click)="handleClick($event, rb, true)" role="radio" [attr.aria-checked]="checked"
-                [ngClass]="{'p-radiobutton-box':true,
-                'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused}">
+            <div (click)="handleClick($event, rb, true)" [ngClass]="{'p-radiobutton-box':true, 'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused}">
                 <span class="p-radiobutton-icon"></span>
             </div>
         </div>
@@ -79,6 +77,8 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     @Input() inputId: string;
 
     @Input() ariaLabelledBy: string;
+
+    @Input() ariaLabel: string;
 
     @Input() style: any;
 

@@ -1,6 +1,7 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, QueryList, ElementRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-splitter',
@@ -46,11 +47,13 @@ export class Splitter {
 
     @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
 
-    @ContentChildren(TemplateRef) panels: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     nested = false;
+
+    panels = [];
 
     dragging = false;
 
@@ -80,6 +83,19 @@ export class Splitter {
 
     ngOnInit() {
         this.nested = this.isNested();
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'panel':
+                    this.panels.push(item.template);
+                break;
+                default: 
+                    this.panels.push(item.template);
+                break;
+            }
+        })
     }
 
     ngAfterViewInit() {
@@ -300,7 +316,7 @@ export class Splitter {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Splitter],
+    exports: [Splitter, SharedModule],
     declarations: [Splitter]
 })
 export class SplitterModule { }

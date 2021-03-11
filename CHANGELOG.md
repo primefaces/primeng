@@ -1,5 +1,54 @@
 # Changelog
 
+## [11.3.0](https://github.com/primefaces/primeng/tree/11.3.0) (2021-03-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.3.0-rc.1...11.3.0)
+
+**Implemented New Features and Enhancements:**
+
+- Ellipsis mode for Multiselect [\#9979](https://github.com/primefaces/primeng/issues/9979)
+- Showcase menu enhancement [\#9966](https://github.com/primefaces/primeng/issues/9966)
+- Update Chart Demos [\#9961](https://github.com/primefaces/primeng/issues/9961)
+- Unable to access tab menu using keyboard [\#9954](https://github.com/primefaces/primeng/issues/9954)
+- Facing accessibility-related issues with primeNg controls and AXE tools. [\#9834](https://github.com/primefaces/primeng/issues/9834)
+- p-splitter not working with I think nested ngtemplates [\#9754](https://github.com/primefaces/primeng/issues/9754)
+- Calendar: WeekNumber looks like it is selectable [\#9746](https://github.com/primefaces/primeng/issues/9746)
+- Menubar menuitems must have menu/menubar as parent  [\#9680](https://github.com/primefaces/primeng/issues/9680)
+- Indicators for MultiSort [\#8757](https://github.com/primefaces/primeng/issues/8757)
+- Touch support for ColorPicker [\#8566](https://github.com/primefaces/primeng/issues/8566)
+
+**Fixed bugs:**
+
+- Table error while using stateStorage with date filter [\#9967](https://github.com/primefaces/primeng/issues/9967)
+- Galleria thumbnail animation jumps [\#9963](https://github.com/primefaces/primeng/issues/9963)
+- Chips disabled not working when using with comma [\#9958](https://github.com/primefaces/primeng/issues/9958)
+- Disabled p-inputNumber updated after pasting from clipboard [\#9957](https://github.com/primefaces/primeng/issues/9957)
+- OverlayPanel  not working unless ShareModule is imported as well [\#9927](https://github.com/primefaces/primeng/issues/9927)
+- Galleria: thumbnail items doesn't work properly when responsive options are set [\#9744](https://github.com/primefaces/primeng/issues/9744)
+- first in currentPageReportTemplate always resolves to "1" even when no rows match [\#9002](https://github.com/primefaces/primeng/issues/9002)
+
+## [11.3.0-rc.1](https://github.com/primefaces/primeng/tree/11.3.0-rc.1) (2021-03-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.2.3...11.3.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Remove max-height from OrderList PickList [\#9955](https://github.com/primefaces/primeng/issues/9955)
+- Color Palettes for Each Theme [\#9948](https://github.com/primefaces/primeng/issues/9948)
+- Cdk DragDrop Support for OrderList and PickList [\#9943](https://github.com/primefaces/primeng/issues/9943)
+- BreakPoints for OrderList and PickList [\#9942](https://github.com/primefaces/primeng/issues/9942)
+- Reimplement password strength ui  [\#9929](https://github.com/primefaces/primeng/issues/9929)
+- breakpoints for Dialog and ConfirmDialog [\#9923](https://github.com/primefaces/primeng/issues/9923)
+- Improve support page [\#9914](https://github.com/primefaces/primeng/issues/9914)
+- Update Editor Custom Toolbar Documentation [\#8905](https://github.com/primefaces/primeng/issues/8905)
+
+**Fixed bugs:**
+
+- p-cascadeSelect optionGroupChildren wrong type definition [\#9952](https://github.com/primefaces/primeng/issues/9952)
+- columnResizeMode Expand not working with Storage Table [\#9922](https://github.com/primefaces/primeng/issues/9922)
+- p-picklist drag and drop is not working correctly [\#9910](https://github.com/primefaces/primeng/issues/9910)
+- ExpressionChangedAfterItHasBeenCheckedError error in p-accordion [\#9894](https://github.com/primefaces/primeng/pull/9894)
+
 ## [11.2.3](https://github.com/primefaces/primeng/tree/11.2.3) (2021-02-17)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.2.2...11.2.3)
@@ -272,12 +321,25 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.9-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.9) (2021-03-01)
+- When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
+- p-dialog draggable with maximize [\#9899](https://github.com/primefaces/primeng/issues/9899)
+- pSelectableRow blocks typing space on inputs in p-table [\#9893](https://github.com/primefaces/primeng/issues/9893)
+- p-inputnumber infinite loop when using buttons [\#9888](https://github.com/primefaces/primeng/issues/9888)
+- Enter key should hide calendar [\#9880](https://github.com/primefaces/primeng/issues/9880)
+- p-sidebar appendTo has wrong type [\#9876](https://github.com/primefaces/primeng/issues/9876)
+- p-slider does not react when clicking on bar in some cases [\#9857](https://github.com/primefaces/primeng/issues/9857)
+- Add rowIndex to onRowUnselect [\#9823](https://github.com/primefaces/primeng/issues/9823)
+- Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
+- p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
+- Update Editor Custom Toolbar Documentation [\#8905](https://github.com/primefaces/primeng/issues/8905)
+- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.8-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.8) (2021-02-11)
 - LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
 - Adding [multiSortMeta] to the table causes an extra initial call to fetch data in virtual scroll [\#9854](https://github.com/primefaces/primeng/issues/9854)
 - TabPanel's leftIcon and rightIcon properties not working with programmatic change [\#9844](https://github.com/primefaces/primeng/issues/9844)
 - Row not selected when using the Table contextMenuSelectionMode="joint" [\#9824](https://github.com/primefaces/primeng/issues/9824)
-- ConnectedOverlayScrollHandler API doesn't work as expected [\#9822](https://github.com/primefaces/primeng/issues/9822)
 - Strange behavior using context menu on Safari [\#9814](https://github.com/primefaces/primeng/issues/9814)
 - Table onRowSelect calling before the selection change [\#9806](https://github.com/primefaces/primeng/issues/9806)
 - The up and down arrow key stops working by the virtualscroller [\#9805](https://github.com/primefaces/primeng/issues/9805)
@@ -553,6 +615,18 @@
 **Deprecated:**
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.4) (2021-03-01)
+- When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
+- pSelectableRow blocks typing space on inputs in p-table [\#9893](https://github.com/primefaces/primeng/issues/9893)
+- p-inputnumber infinite loop when using buttons [\#9888](https://github.com/primefaces/primeng/issues/9888)
+- Enter key should hide calendar [\#9880](https://github.com/primefaces/primeng/issues/9880)
+- p-sidebar appendTo has wrong type [\#9876](https://github.com/primefaces/primeng/issues/9876)
+- p-slider does not react when clicking on bar in some cases [\#9857](https://github.com/primefaces/primeng/issues/9857)
+- Add rowIndex to onRowUnselect [\#9823](https://github.com/primefaces/primeng/issues/9823)
+- Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
+- p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
+- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.3) (2021-02-11)
 - LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)

@@ -121,14 +121,16 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
 
     onPaste(event) {
-        if (this.separator) {
-            let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
-            pastedData.split(this.separator).forEach(val => {
-                this.addItem(event, val, true);
-            });
-            this.inputViewChild.nativeElement.value = '';
+        if (!this.disabled) {
+            if (this.separator) {
+                let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
+                pastedData.split(this.separator).forEach(val => {
+                    this.addItem(event, val, true);
+                });
+                this.inputViewChild.nativeElement.value = '';
+            }
+            this.updateFilledState();
         }
-        this.updateFilledState();
     }
 
     updateFilledState() {

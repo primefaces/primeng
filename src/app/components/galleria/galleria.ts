@@ -574,6 +574,8 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     
     _oldactiveIndex: number = 0;
 
+    constructor(private cd: ChangeDetectorRef) { }
+
     ngOnInit() {
         this.createStyle();
 		this.calculatePosition();
@@ -685,6 +687,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
             if (this.d_numVisible !== matchedResponsiveData.numVisible) {
                 this.d_numVisible = matchedResponsiveData.numVisible;
+                this.cd.markForCheck();
             }
         }
     }

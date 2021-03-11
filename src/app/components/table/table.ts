@@ -2084,9 +2084,17 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     restoreState() {
         const storage = this.getStorage();
         const stateString = storage.getItem(this.stateKey);
+        const dateFormat = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/;
+        const reviver = function(key, value) {
+            if (typeof value === "string" && dateFormat.test(value)) {
+                return new Date(value);
+            }
+
+            return value;
+        }
 
         if (stateString) {
-            let state: TableState = JSON.parse(stateString);
+            let state: TableState = JSON.parse(stateString, reviver);
 
             if (this.paginator) {
                 if (this.first !== undefined) {
@@ -2157,7 +2165,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
                 else {
                     this.tableViewChild.nativeElement.style.width = this.tableWidthState;
-                    this.containerViewChild.nativeElement.style.width = this.tableWidthState;
                 }
             }
 
@@ -2650,6 +2657,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
+        <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{getMultiSortMetaIndex() + 1}}</span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -2686,6 +2694,28 @@ export class SortIcon implements OnInit, OnDestroy {
         }
 
         this.cd.markForCheck();
+    }
+
+    getMultiSortMetaIndex() {
+        let multiSortMeta = this.dt._multiSortMeta;
+        let index = -1;
+
+        if (multiSortMeta && this.dt.sortMode === 'multiple') {
+    
+            for (let i = 0; i < multiSortMeta.length; i++) {
+                let meta = multiSortMeta[i];
+                if (meta.field === this.field || meta.field === this.field) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
+    isMultiSorted() {
+        return this.dt.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
     }
 
     ngOnDestroy() {

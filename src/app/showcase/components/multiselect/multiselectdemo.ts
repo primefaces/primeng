@@ -23,6 +23,8 @@ export class MultiSelectDemo {
     selectedCities2: City[];
 
     selectedCities3: any[];
+
+    selectedCities4: any[];
     
     selectedCountries1: Country[];
 

@@ -6,10 +6,19 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast></p-toast>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
+    </div>
 
     <div class="card">
-        <p-chart type="line" [data]="data" [options]="chartOptions" (onDataSelect)="selectData($event)"></p-chart>
+        <h5>Multi Axis</h5>
+        <p-chart type="line" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
+    </div>
+
+    <div class="card">
+        <h5>Line Styles</h5>
+        <p-chart type="line" [data]="lineStylesData" [options]="basicOptions"></p-chart>
     </div>
 </div>
 
@@ -21,37 +30,243 @@
         </a>
         <p-tabPanel header="Source">
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Basic&lt;/h5&gt;
+    &lt;p-chart type="line" [data]="basicData" [options]="basicOptions"&gt;&lt;/p-chart&gt;
+&lt;/div&gt;
 
-&lt;p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"&gt;&lt;/p-chart&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Multi Axis&lt;/h5&gt;
+    &lt;p-chart type="line" [data]="multiAxisData" [options]="multiAxisOptions"&gt;&lt;/p-chart&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Line Styles&lt;/h5&gt;
+    &lt;p-chart type="line" [data]="lineStylesData" [options]="basicOptions"&gt;&lt;/p-chart&gt;
+&lt;/div&gt;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class LineChartDemo &#123;
 
-    data: any;
+    basicData: any;
 
-    constructor(private messageService: MessageService) &#123;
-        this.data = &#123;
+    multiAxisData: any;
+
+    multiAxisOptions: any;
+
+    lineStylesData: any;
+
+    basicOptions: any;
+    
+    subscription: Subscription;
+
+    config: AppConfig;
+
+    constructor(private messageService: MessageService, private configService: AppConfigService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.basicData = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 &#123;
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     fill: false,
-                    borderColor: '#4bc0c0'
+                    borderColor: '#42A5F5'
                 &#125;,
                 &#123;
                     label: 'Second Dataset',
                     data: [28, 48, 40, 19, 86, 27, 90],
                     fill: false,
-                    borderColor: '#565656'
+                    borderColor: '#FFA726'
                 &#125;
             ]
         &#125;
+
+        this.multiAxisData = &#123;
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [&#123;
+                label: 'Dataset 1',
+                fill: false,
+                borderColor: '#42A5F5',
+                yAxisID: 'y-axis-1',
+                data: [65, 59, 80, 81, 56, 55, 10]
+            &#125;, &#123;
+                label: 'Dataset 2',
+                fill: false,
+                borderColor: '#00bb7e',
+                yAxisID: 'y-axis-2',
+                data: [28, 48, 40, 19, 86, 27, 90]
+            &#125;]
+        &#125;;
+
+        this.multiAxisOptions = &#123;
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            scales: &#123;
+                yAxes: [&#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-1',
+                &#125;, &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-2',
+                    gridLines: &#123;
+                        drawOnChartArea: false
+                    &#125;
+                &#125;]
+            &#125;
+        &#125;;
+
+        this.lineStylesData = &#123;
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                &#123;
+                    label: 'First Dataset',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    fill: false,
+                    borderColor: '#42A5F5'
+                &#125;,
+                &#123;
+                    label: 'Second Dataset',
+                    data: [28, 48, 40, 19, 86, 27, 90],
+                    fill: false,
+                    borderDash: [5, 5],
+                    borderColor: '#66BB6A'
+                &#125;,
+                &#123;
+                    label: 'Third Dataset',
+                    data: [12, 51, 62, 33, 21, 62, 45],
+                    fill: true,
+                    borderColor: '#FFA726',
+                    backgroundColor: 'rgba(255,167,38,0.2)'
+                &#125;
+            ]
+        &#125;;
+        
+        this.config = this.configService.config;
+        this.updateChartOptions();
+        this.subscription = this.configService.configUpdate$.subscribe(config =&gt; &#123;
+            this.config = config;
+            this.updateChartOptions();
+        &#125;);
     &#125;
 
-    selectData(event) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]&#125;);
+    updateChartOptions() &#123;
+        if (this.config.dark) 
+            this.applyDarkTheme();
+        else
+            this.applyLightTheme();
+    &#125;
+
+    applyLightTheme() &#123;
+        this.basicOptions = &#123;
+            legend: &#123;
+                labels: &#123;
+                    fontColor: '#495057'
+                &#125;
+            &#125;,
+            scales: &#123;
+                xAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#495057'
+                    &#125;
+                &#125;],
+                yAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#495057'
+                    &#125;
+                &#125;]
+            &#125;
+        &#125;;
+
+        this.multiAxisOptions.scales.xAxes = [&#123;
+                ticks: &#123;
+                    fontColor: '#495057'
+                &#125;,
+                gridLines: &#123;
+                    color: '#ebedef'
+                &#125;
+            &#125;
+        ];
+        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
+            fontColor: '#495057'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
+            color: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
+            fontColor: '#495057'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
+            color: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.legend = &#123;
+            labels:  &#123;
+                fontColor: '#495057'
+            &#125;
+        &#125;;
+        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
+    &#125;
+
+    applyDarkTheme() &#123;
+        this.basicOptions = &#123;
+            legend: &#123;
+                labels: &#123;
+                    fontColor: '#ebedef'
+                &#125;
+            &#125;,
+            scales: &#123;
+                xAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#ebedef'
+                    &#125;,
+                    gridLines: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;],
+                yAxes: [&#123;
+                    ticks: &#123;
+                        fontColor: '#ebedef'
+                    &#125;,
+                    gridLines: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;]
+            &#125;
+        &#125;;
+
+        this.multiAxisOptions.scales.xAxes = [&#123;
+                ticks: &#123;
+                    fontColor: '#ebedef'
+                &#125;,
+                gridLines: &#123;
+                    color: 'rgba(255,255,255,0.2)'
+                &#125;
+            &#125;
+        ];
+        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
+            fontColor: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
+            color: 'rgba(255,255,255,0.2)'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
+            fontColor: '#ebedef'
+        &#125;;
+        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
+            color: 'rgba(255,255,255,0.2)'
+        &#125;;
+        this.multiAxisOptions.legend = &#123;
+            labels:  &#123;
+                fontColor: '#ebedef'
+            &#125;
+        &#125;;
+        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
     &#125;
 &#125;
 </app-code>

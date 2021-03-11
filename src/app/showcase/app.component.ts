@@ -22,6 +22,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     news_key = 'primenews';
 
+    theme: string = "saga-blue";
+
     public subscription: Subscription;
 
     constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig) {}
@@ -29,7 +31,10 @@ export class AppComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.primengConfig.ripple = true;
         this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+        this.subscription = this.configService.configUpdate$.subscribe(config => {
+            this.config = config;
+            localStorage.setItem('theme', this.config.theme);
+        });
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
@@ -44,6 +49,22 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         this.newsActive = this.newsActive && this.isNewsStorageExpired();
+
+        let appTheme;
+        const queryString = window.location.search;
+        
+        if (queryString)
+            appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
+        else
+            appTheme = localStorage.getItem('theme');
+
+        if (appTheme) {
+            let darkTheme = this.isDarkTheme(appTheme);
+            this.changeTheme({
+                theme: appTheme,
+                dark: darkTheme
+            });
+        }
     }
 
     onMenuButtonClick() {
@@ -98,6 +119,32 @@ export class AppComponent implements OnInit, OnDestroy {
         }
 
         return false;
+    }
+
+    changeTheme(event) {
+        let themeElement = document.getElementById('theme-link');
+        themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.theme, event.theme));
+        this.theme = event.theme;
+
+        this.config.dark = event.dark;
+        this.config.theme = this.theme;
+        this.configService.updateConfig(this.config);
+
+        if (event.theme.startsWith('md')) {
+            this.config.ripple = true;
+        }
+
+        if (this.config.theme === 'nano')
+            this.applyScale(12);
+        
+    }
+
+    isDarkTheme(theme) {
+        return theme.indexOf('dark') !== -1 || theme.indexOf('vela') !== -1 || theme.indexOf('arya') !== -1 || theme.indexOf('luna') !== -1;
+    }
+
+    applyScale(scale: number) {
+        document.documentElement.style.fontSize = scale + 'px';
     }
 
     ngOnDestroy() {

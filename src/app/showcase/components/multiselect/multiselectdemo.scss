@@ -1,9 +1,6 @@
 :host ::ng-deep .p-multiselect {
     min-width: 15rem;
-}
-
-:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
-    min-width: 20rem;
+    width: 18rem;
 }
 
 :host ::ng-deep .multiselect-custom {
@@ -27,5 +24,12 @@
 
     .country-placeholder {
         padding: 0.25rem;
+    }
+}
+:host ::ng-deep {
+    @media screen and (max-width: 640px) {
+        .p-multiselect {
+            width: 100%;
+        }
     }
 }

@@ -94,15 +94,6 @@ describe('OrderList', () => {
 		expect(filterInputEl.nativeElement.placeholder).toEqual("Primeng ROCKS!");
 	});
 
-	it('should add droppoints when dragdrop is enabled', () => {
-		orderlist.dragdrop = true;
-		fixture.detectChanges();
-
-		const dragdropEl = fixture.debugElement.query(By.css('.p-orderlist-droppoint'));
-
-		expect(dragdropEl).toBeTruthy();
-	});
-
 	it('should show items', () => {
 		fixture.detectChanges();
 

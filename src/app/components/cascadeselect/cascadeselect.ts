@@ -247,7 +247,7 @@ export class CascadeSelectSub implements OnInit {
                     <p-cascadeSelectSub [options]="options" [selectionPath]="selectionPath" class="p-cascadeselect-items" 
                         [optionLabel]="optionLabel" [optionValue]="optionValue" [level]="0" [optionTemplate]="optionTemplate"
                         [optionGroupLabel]="optionGroupLabel" [optionGroupChildren]="optionGroupChildren" 
-                        (onSelect)="onOptionSelect($event)" (onGroupSelect)="onOptionGroupSelect()" [dirty]="dirty" [root]="true">
+                        (onSelect)="onOptionSelect($event)" (onGroupSelect)="onOptionGroupSelect($event)" [dirty]="dirty" [root]="true">
                     </p-cascadeSelectSub>
                 </div>
             </div>
@@ -287,7 +287,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Input() optionGroupLabel: string;
 
-    @Input() optionGroupChildren: string;
+    @Input() optionGroupChildren: any[];
 
     @Input() placeholder: string;
     
@@ -385,6 +385,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     onOptionGroupSelect(event) {
         this.dirty = true;
+        console.log(event)
         this.onGroupChange.emit(event);
     }
 

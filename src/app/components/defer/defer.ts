@@ -1,5 +1,5 @@
 import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,TemplateRef,EmbeddedViewRef,
-        ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild} from '@angular/core';
+        ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -15,7 +15,7 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     
     view: EmbeddedViewRef<any>;
             
-    constructor(public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
     
     ngAfterViewInit() {
         if (this.shouldLoad()) {
@@ -49,6 +49,7 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     load(): void { 
         this.view = this.viewContainer.createEmbeddedView(this.template);
         this.onLoad.emit();
+        this.cd.detectChanges();
     }
     
     isLoaded() {

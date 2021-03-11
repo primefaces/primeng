@@ -223,7 +223,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() selectionLimit: number;
 
-    @Input() selectedItemsLabel: string = '{0} items selected';
+    @Input() selectedItemsLabel: string = 'ellipsis';
 
     @Input() showToggleAll: boolean = true;
 
@@ -849,7 +849,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
 
-            if (this.value.length <= this.maxSelectedLabels) {
+            if (this.value.length <= this.maxSelectedLabels || this.selectedItemsLabel === 'ellipsis') {
                 this.valuesAsString = label;
             }
             else {

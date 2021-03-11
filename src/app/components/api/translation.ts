@@ -36,4 +36,8 @@ export interface Translation {
     monthNamesShort?: string[];
     today?: string;
     weekHeader?: string;
+    weak?: string;
+    medium?: string;
+    strong?: string;
+    passwordPrompt?: string;
 }

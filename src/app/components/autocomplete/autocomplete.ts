@@ -27,7 +27,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li #token *ngFor="let val of value" class="p-autocomplete-token">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: val}"></ng-container>
                     <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{resolveFieldData(val)}}</span>
-                    <span class="p-autocomplete-token-icon pi pi-times-circle" (click)="removeItem(token)" *ngIf="!disabled"></span>
+                    <span  class="p-autocomplete-token-icon pi pi-times-circle" (click)="removeItem(token)" *ngIf="!disabled && !readonly"></span>
                 </li>
                 <li class="p-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.maxlength]="maxlength" (input)="onInput($event)"  (click)="onInputClick($event)"
@@ -440,7 +440,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             }
         }
         else {
-            this.inputEL.nativeElement.value = this.field ? ObjectUtils.resolveFieldData(option, this.field)||'': option;
+            this.inputEL.nativeElement.value = this.field ? this.getFieldData(option) : option;
             this.value = option;
             this.onModelChange(this.value);
         }
@@ -458,7 +458,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         if (this.multiInputEL || this.inputEL) {
             let hasFocus = this.multiple ?
                 this.multiInputEL.nativeElement.ownerDocument.activeElement == this.multiInputEL.nativeElement :
-                this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement ;
+                this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement;
 
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
@@ -502,6 +502,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     resolveFieldData(value) {
         return this.field ? ObjectUtils.resolveFieldData(value, this.field): value;
+    }
+
+    getFieldData(option) {
+        let data = ObjectUtils.resolveFieldData(option, this.field);
+        return data !== null ? data : '';
     }
 
     restoreOverlayAppend() {

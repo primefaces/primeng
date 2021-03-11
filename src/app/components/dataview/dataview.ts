@@ -48,8 +48,6 @@ import {BlockableUI} from 'primeng/api';
 })
 export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
-    @Input() layout: string = 'list';
-
     @Input() paginator: boolean;
 
     @Input() rows: number;
@@ -142,6 +140,20 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     initialized: boolean;
 
+    _layout: string = 'list';
+
+    @Input() get layout(): string {
+        return this._layout;
+    }
+
+    set layout(layout: string) {
+        this._layout = layout;
+
+        if (this.initialized) {
+            this.changeLayout(layout);
+        }
+    }
+
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
@@ -218,7 +230,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     }
 
     changeLayout(layout: string) {
-        this.layout = layout;
+        this._layout = layout;
         this.onChangeLayout.emit({
             layout: this.layout
         });

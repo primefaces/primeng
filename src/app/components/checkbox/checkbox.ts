@@ -14,10 +14,10 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [ngClass]="{'p-checkbox p-component': true, 'p-checkbox-checked': checked, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused}" [class]="styleClass">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [readonly]="readonly" [value]="value" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
-                (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy" [attr.required]="required">
+                (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.aria-checked]="checked" [attr.required]="required">
             </div>
             <div class="p-checkbox-box" (click)="onClick($event,cb,true)"
-                        [ngClass]="{'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused}" role="checkbox" [attr.aria-checked]="checked">
+                        [ngClass]="{'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused}">
                 <span class="p-checkbox-icon" [ngClass]="checked ? checkboxIcon : null"></span>
             </div>
         </div>
@@ -43,6 +43,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() label: string;
 
     @Input() ariaLabelledBy: string;
+
+    @Input() ariaLabel: string;
 
     @Input() tabindex: number;
 

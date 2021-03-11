@@ -8,7 +8,7 @@
 <div class="content-section implementation">
     <div class="card">
         <p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
-            [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filterBy="name"
+            [responsive]="true" [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}" filterBy="name"
             sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
@@ -33,6 +33,12 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
+            <h5>CDK</h5>
+            <p>PickList depends on @angular/cdk's DragDropModule so begin with installing CDK if not already installed.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+npm install @angular/cdk --save
+</app-code>
+
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;PickListModule&#125; from 'primeng/picklist';
@@ -92,7 +98,7 @@ export class MyComponent &#123;
 <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property along with dragdropScope to avoid conflict with other drag drop events on view.
 This dragdrop property also supports cross list actions.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-pickList [source]="sourceCars" [target]="targetCars" dragdrop="true"&gt;&lt;/p-pickList&gt;
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" [dragdrop]="true"&gt;&lt;/p-pickList&gt;
 </app-code>
 
             <h5>Templates</h5>
@@ -424,10 +430,6 @@ This dragdrop property also supports cross list actions.</p>
                             <td>Container of buttons.</td>
                         </tr>
                         <tr>
-                            <td>p-picklist-listwrapper</td>
-                            <td>Parent of a list element.</td>
-                        </tr>
-                        <tr>
                             <td>p-picklist-list</td>
                             <td>List element.</td>
                         </tr>
@@ -440,7 +442,7 @@ This dragdrop property also supports cross list actions.</p>
             </div>
 
             <h5>Dependencies</h5>
-            <p>None.</p>
+            <p>Angular CDK.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -452,7 +454,7 @@ This dragdrop property also supports cross list actions.</p>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
-    [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;" filterBy="name"
+    [responsive]="true" [sourceStyle]="&#123;'height':'30rem'&#125;" [targetStyle]="&#123;'height':'30rem'&#125;" filterBy="name"
     sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name"&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;

@@ -70,7 +70,11 @@ export class PrimeNGConfig {
         monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December"],
         monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         today: 'Today',
-        weekHeader: 'Wk'
+        weekHeader: 'Wk',
+        weak: 'Weak',
+        medium: 'Medium',
+        strong: 'Strong',
+        passwordPrompt: 'Enter a password'
     }
 
     private translationSource = new Subject<any>();

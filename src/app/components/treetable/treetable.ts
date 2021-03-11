@@ -335,6 +335,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     editingCell: Element;
 
+    editingCellData: any;
+
+    editingCellField: any;
+
     editingCellClick: boolean;
 
     documentEditListener: any;
@@ -1604,8 +1608,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
-    updateEditingCell(cell) {
+    updateEditingCell(cell, data, field) {
         this.editingCell = cell;
+        this.editingCellData = data;
+        this.editingCellField = field;
         this.bindDocumentEditListener();
     }
 
@@ -1619,6 +1625,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
+                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
                     this.unbindDocumentEditListener();
                 }
 
@@ -2609,7 +2616,7 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     openCell() {
-        this.tt.updateEditingCell(this.el.nativeElement);
+        this.tt.updateEditingCell(this.el.nativeElement, this.data, this.field);
         DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         this.tt.onEditInit.emit({ field: this.field, data: this.data});
         this.tt.editingCellClick = true;
