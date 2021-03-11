@@ -440,7 +440,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             }
         }
         else {
-            this.inputEL.nativeElement.value = this.field ? ObjectUtils.resolveFieldData(option, this.field)||'': option;
+            this.inputEL.nativeElement.value = this.field ? this.getFieldData(option) : option;
             this.value = option;
             this.onModelChange(this.value);
         }
@@ -502,6 +502,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     resolveFieldData(value) {
         return this.field ? ObjectUtils.resolveFieldData(value, this.field): value;
+    }
+
+    getFieldData(option) {
+        let data = ObjectUtils.resolveFieldData(option, this.field);
+        return data !== null ? data : '';
     }
 
     restoreOverlayAppend() {
