@@ -1,5 +1,25 @@
 # Changelog
 
+## [11.3.1](https://github.com/primefaces/primeng/tree/11.3.1) (2021-03-12)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.3.0...11.3.1)
+
+**Implemented New Features and Enhancements:**
+
+- Changing captcha language does not work [\#9985](https://github.com/primefaces/primeng/issues/9985)
+- TreeTable onEditComplete not triggered [\#9307](https://github.com/primefaces/primeng/issues/9307)
+
+**Fixed bugs:**
+
+- Allow zone.js 0.11.4 [\#9989](https://github.com/primefaces/primeng/issues/9989)
+- CascadeSelect onGroupChange returns undefined [\#9986](https://github.com/primefaces/primeng/issues/9986)
+- Defer directive throws ExpressionChangedAfterItHasBeenCheckedError if visible from the beginning [\#9984](https://github.com/primefaces/primeng/issues/9984)
+- Password component content template not working [\#9983](https://github.com/primefaces/primeng/issues/9983)
+- Calendar week days are never updated use i18n API. [\#9689](https://github.com/primefaces/primeng/issues/9689)
+- AutoComplete does not display 0 as value [\#9628](https://github.com/primefaces/primeng/issues/9628)
+- Autocomplete with multiple and readonly enabled still show button to remove options [\#9513](https://github.com/primefaces/primeng/issues/9513)
+- p-dataView not updating view after \[layout\] change [\#9494](https://github.com/primefaces/primeng/issues/9494)
+
 ## [11.3.0](https://github.com/primefaces/primeng/tree/11.3.0) (2021-03-09)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.3.0-rc.1...11.3.0)
