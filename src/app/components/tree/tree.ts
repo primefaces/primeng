@@ -206,7 +206,7 @@ export class UITreeNode implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node,
-                    dropIndex: this.index,
+                    index: this.index,
                     accept: () => {
                         this.processPointDrop(dropParams);
                     }
@@ -218,7 +218,7 @@ export class UITreeNode implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node,
-                    dropIndex: this.index
+                    index: this.index
                 });
             }
         }
@@ -1032,6 +1032,16 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 let dragNodeIndex = this.dragNodeIndex;
                 this.dragNodeSubNodes.splice(dragNodeIndex, 1);
                 this.value = this.value||[];
+
+                if (this.value.length === 0) {
+                    this.onNodeDrop.emit({
+                        originalEvent: event,
+                        dragNode: dragNode,
+                        dropNode: null,
+                        index: dragNodeIndex
+                    })
+                }
+
                 this.value.push(dragNode);
 
                 this.dragDropService.stopDrag({
