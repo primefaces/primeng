@@ -579,7 +579,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target));
+        return !(this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target) || this.containerViewChild.nativeElement.contains(event.composedPath()[0]));
     }
 
     ngOnDestroy() {

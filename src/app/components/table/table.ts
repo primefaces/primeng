@@ -4451,8 +4451,8 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isOutsideClicked(event): boolean {
-        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
-            || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
+        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target)  || this.overlay.contains(event.composedPath()[0]) 
+            || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target) || this.icon.nativeElement.contains(event.composedPath()[0])
             || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button')
             || DomHandler.hasClass(event.target, 'p-column-filter-remove-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button'));
     }

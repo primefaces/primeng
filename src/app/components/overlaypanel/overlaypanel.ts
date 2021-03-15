@@ -123,7 +123,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.isContainerClicked) {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.isContainerClicked
+                        && !this.container.contains(event.composedPath()[0]) && this.target !== event.composedPath()[0] && !this.target.contains(event.composedPath()[0])) {
                         this.zone.run(() => {
                             this.hide();
                         });
@@ -147,7 +148,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         if (this.overlayVisible) {
             if (this.hasTargetChanged(event, target)) {
                 this.destroyCallback = () => {
-                    this.show(null, (target||event.currentTarget||event.target));
+                    this.show(null, (target||event.currentTarget||event.target||event.composedPath()[0]));
                 };
             }
 
@@ -159,14 +160,14 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     show(event, target?) {
-        this.target = target||event.currentTarget||event.target;
+        this.target = target||event.currentTarget||event.target||event.composedPath()[0];
         this.overlayVisible = true;
         this.render = true;
         this.cd.markForCheck();
     }
 
     hasTargetChanged(event, target) {
-        return this.target != null && this.target !== (target||event.currentTarget||event.target);
+        return this.target != null && this.target !== (target||event.currentTarget||event.target||event.composedPath()[0]);
     }
 
     appendContainer() {

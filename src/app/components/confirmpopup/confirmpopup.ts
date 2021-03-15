@@ -182,7 +182,8 @@ export class ConfirmPopup implements OnDestroy {
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 let targetElement = <HTMLElement> this.confirmation.target;
                 if (this.container !== event.target && !this.container.contains(event.target) &&
-                    targetElement !== event.target && !targetElement.contains(event.target)) {
+                    targetElement !== event.target && !targetElement.contains(event.target)  &&
+                    !this.container.contains(event.composedPath()[0]) && !targetElement.contains(event.composedPath()[0])) {
                     this.hide();
                 }
             });

@@ -736,7 +736,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     isOutsideClicked(event: MouseEvent): boolean {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || this.isOverlayClick(event));
+        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || this.isOverlayClick(event)
+            || this.el.nativeElement.contains(event.composedPath()[0]));
     }
 
     onInputFocus(event) {

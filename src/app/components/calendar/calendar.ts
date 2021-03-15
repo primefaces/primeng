@@ -2550,7 +2550,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     isOutsideClicked(event: Event) {
         return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) || 
-                this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node> event.target)));
+                this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node> event.target)) || this.el.nativeElement.contains(event.composedPath()[0]));
     }
 
     isNavIconClicked(event: Event) {
