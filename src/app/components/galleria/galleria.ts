@@ -578,7 +578,6 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     ngOnInit() {
         this.createStyle();
-		this.calculatePosition();
 
 		if (this.responsiveOptions) {
 			this.bindDocumentListeners();
@@ -618,6 +617,10 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
             this._oldactiveIndex = this._activeIndex;
             this._oldNumVisible = this.d_numVisible;
         }
+    }
+
+    ngAfterViewInit() {
+		this.calculatePosition();
     }
 
     createStyle() {
