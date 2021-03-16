@@ -340,6 +340,18 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.0-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.0) (2021-03-16)
+- First node dropped into empty tree not triggering onNodeDrop [\#9991](https://github.com/primefaces/primeng/issues/9991)
+- Changing captcha language does not work [\#9985](https://github.com/primefaces/primeng/issues/9985)
+- Defer directive throws ExpressionChangedAfterItHasBeenCheckedError if visible from the beginning [\#9984](https://github.com/primefaces/primeng/issues/9984)
+- Chips disabled not working when using with comma [\#9958](https://github.com/primefaces/primeng/issues/9958)
+- Disabled p-inputNumber updated after pasting from clipboard [\#9957](https://github.com/primefaces/primeng/issues/9957)
+- Unable to access tab menu using keyboard [\#9954](https://github.com/primefaces/primeng/issues/9954)
+- OverlayPanel not working unless ShareModule is imported as well [\#9927](https://github.com/primefaces/primeng/issues/9927)
+- Galleria: thumbnail items doesn't work properly when responsive options are set [\#9744](https://github.com/primefaces/primeng/issues/9744)
+- Autocomplete with multiple and readonly enabled still show button to remove options [\#9513](https://github.com/primefaces/primeng/issues/9513)
+- p-dataView not updating view after [layout] change [\#9494](https://github.com/primefaces/primeng/issues/9494)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.0.9-LTS](https://www.npmjs.com/package/primeng-lts/v/10.0.9) (2021-03-01)
 - When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
 - p-dialog draggable with maximize [\#9899](https://github.com/primefaces/primeng/issues/9899)
@@ -646,6 +658,18 @@
 - Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
 - p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
 - ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.5) (2021-03-16)
+- First node dropped into empty tree not triggering onNodeDrop [\#9991](https://github.com/primefaces/primeng/issues/9991)
+- Changing captcha language does not work [\#9985](https://github.com/primefaces/primeng/issues/9985)
+- Defer directive throws ExpressionChangedAfterItHasBeenCheckedError if visible from the beginning [\#9984](https://github.com/primefaces/primeng/issues/9984)
+- Chips disabled not working when using with comma [\#9958](https://github.com/primefaces/primeng/issues/9958)
+- Disabled p-inputNumber updated after pasting from clipboard [\#9957](https://github.com/primefaces/primeng/issues/9957)
+- Unable to access tab menu using keyboard [\#9954](https://github.com/primefaces/primeng/issues/9954)
+- OverlayPanel not working unless ShareModule is imported as well [\#9927](https://github.com/primefaces/primeng/issues/9927)
+- Galleria: thumbnail items doesn't work properly when responsive options are set [\#9744](https://github.com/primefaces/primeng/issues/9744)
+- Autocomplete with multiple and readonly enabled still show button to remove options [\#9513](https://github.com/primefaces/primeng/issues/9513)
+- p-dataView not updating view after [layout] change [\#9494](https://github.com/primefaces/primeng/issues/9494)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.3) (2021-02-11)
 - LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
