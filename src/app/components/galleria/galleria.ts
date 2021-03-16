@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { UniqueComponentId } from 'primeng/utils';
@@ -505,7 +505,7 @@ export class GalleriaItem implements OnInit {
     `,
    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestroy {
+export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
 
     @Input() containerId: string;
 
