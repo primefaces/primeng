@@ -44,7 +44,6 @@
 - Chips disabled not working when using with comma [\#9958](https://github.com/primefaces/primeng/issues/9958)
 - Disabled p-inputNumber updated after pasting from clipboard [\#9957](https://github.com/primefaces/primeng/issues/9957)
 - OverlayPanel  not working unless ShareModule is imported as well [\#9927](https://github.com/primefaces/primeng/issues/9927)
-- Galleria: thumbnail items doesn't work properly when responsive options are set [\#9744](https://github.com/primefaces/primeng/issues/9744)
 - first in currentPageReportTemplate always resolves to "1" even when no rows match [\#9002](https://github.com/primefaces/primeng/issues/9002)
 
 ## [11.3.0-rc.1](https://github.com/primefaces/primeng/tree/11.3.0-rc.1) (2021-03-01)
