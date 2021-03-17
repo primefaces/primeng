@@ -675,7 +675,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;h5&gt;Editable&lt;/h5&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity2" editable="true" optionLabel="name"&gt;&lt;/p-dropdown&gt;
 
-&lt;h5&gt;Content with Filters&lt;/h5&gt;
+&lt;h5&gt;Advanced with Templating, Filtering and Clear Icon&lt;/h5&gt;
 &lt;p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country"&gt;
     &lt;ng-template pTemplate="selectedItem"&gt;
         &lt;div class="country-item country-item-value"  *ngIf="selectedCountry"&gt;
