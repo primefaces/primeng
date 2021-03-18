@@ -327,6 +327,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     set options(val: any[]) {
         this._options = val;
+        this.updateLabel();
     }
 
     @Input() get filterValue(): string {
