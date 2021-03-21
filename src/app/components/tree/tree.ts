@@ -7,11 +7,12 @@ import {TreeNode} from 'primeng/api';
 import {SharedModule} from 'primeng/api';
 import {PrimeTemplate} from 'primeng/api';
 import {TreeDragDropService} from 'primeng/api';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {BlockableUI} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
 import {DomHandler} from 'primeng/dom';
 import {RippleModule} from 'primeng/ripple';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
     selector: 'p-treeNode',
@@ -519,7 +520,7 @@ export class UITreeNode implements OnInit {
             </div>
             <div *ngIf="filter" class="p-tree-filter-container">
                 <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event)">
+                    (keydown.enter)="$event.preventDefault()" (input)="filterTextSubject.next($event.target.value)">
                     <span class="p-tree-filter-icon pi pi-search"></span>
             </div>
             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
@@ -620,6 +621,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() filterLocale: string;
 
+    @Input() filterDebounceTime: number = 0;
+
     @Input() scrollHeight: string;
 
     @Input() virtualScroll: boolean;
@@ -664,6 +667,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     public filteredNodes: TreeNode[];
 
+    filterTextSubject = new Subject<string>();
+
     constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
 
     ngOnInit() {
@@ -687,6 +692,11 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 this.dragHover = false;
             });
         }
+        this.filterTextSubject
+            .pipe(debounceTime(this.filterDebounceTime), distinctUntilChanged())
+            .subscribe(text => {
+                this._filter(text);
+            });
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -1127,8 +1137,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
     }
 
-    _filter(event) {
-        let filterValue = event.target.value;
+    _filter(filterValue) {
         if (filterValue === '') {
             this.filteredNodes = null;
         }

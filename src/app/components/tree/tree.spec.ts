@@ -422,7 +422,7 @@ describe('Tree', () => {
 		expect(selectedNode.label).toEqual("Documents");
 	});
 
-	it('should be filtered', () => {
+	it('should be filtered without debounceTime', (done) => {
 		tree.filter = true;
 		fixture.detectChanges();
 
@@ -431,8 +431,28 @@ describe('Tree', () => {
 		filterInput.triggerEventHandler("input",{target:{value:'d'}});
 		fixture.detectChanges();
 
-		expect(tree.filteredNodes).toBeTruthy();
-		expect(tree.filteredNodes.length).toEqual(2);
+		setTimeout(() => {
+            expect(tree.filteredNodes).toBeTruthy();
+            expect(tree.filteredNodes.length).toEqual(2);
+            done();
+        }, tree.filterDebounceTime);
+	});
+
+	it('should be filtered with debounceTime 250ms', (done) => {
+	    tree.filterDebounceTime = 250;
+		tree.filter = true;
+		fixture.detectChanges();
+
+		const filterInput = fixture.debugElement.query(By.css('.p-tree-filter'));
+		expect(filterInput).toBeTruthy();
+		filterInput.triggerEventHandler("input",{target:{value:'d'}});
+		fixture.detectChanges();
+
+		setTimeout(() => {
+            expect(tree.filteredNodes).toBeTruthy();
+            expect(tree.filteredNodes.length).toEqual(2);
+            done();
+        }, tree.filterDebounceTime);
 	});
 
 
