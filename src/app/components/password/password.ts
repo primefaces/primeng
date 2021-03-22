@@ -317,7 +317,7 @@ export class Password implements AfterContentInit,OnInit {
 
     @Input() hideTransitionOptions: string = '.1s linear';
 
-    @Input() placeholder: string = null;
+    @Input() placeholder: string;
 
     @ViewChild('input') input: ElementRef;
 
