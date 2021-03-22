@@ -482,7 +482,6 @@ describe('Tree', () => {
 		expect(fileTreeContentEls.length).toEqual(2);
 		expect(dropEvent.dragNode.label).toEqual("Documents");
 		expect(dropEvent.dropNode.label).toEqual("Storage");
-		expect(dropEvent.dropIndex).toEqual(0);
 		expect(onDropSpy).toHaveBeenCalled();
 	});
 
