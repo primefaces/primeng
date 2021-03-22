@@ -33,7 +33,7 @@ export class Skeleton {
         return {
             'p-skeleton p-component': true,
             'p-skeleton-circle': this.shape === 'circle',
-            'p-skeleton-animation-none': this.animation === 'none'
+            'p-skeleton-none': this.animation === 'none'
         };
     }
 
