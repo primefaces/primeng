@@ -239,7 +239,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() optionGroupLabel: string;
 
-    @Input() optionGroupChildren: string;
+    @Input() optionGroupChildren: string = "items";
 
     @Input() showHeader: boolean = true;
 
@@ -582,8 +582,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
             else {
-                if (opt.items) {
-                    opt.items.forEach(option => {
+                let subOptions = this.getOptionGroupChildren(opt);
+
+                if (subOptions) {
+                    subOptions.forEach(option => {
                         let optionDisabled = this.isOptionDisabled(option); 
                         if (!optionDisabled || (optionDisabled && this.isSelected(option))) {
                             val.push(this.getOptionValue(option));
@@ -867,8 +869,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             let label = null;
 
             for (let i = 0; i < this.options.length; i++) {
-                if (this.options[i].items) {
-                    label = this.searchLabelByValue(val, this.options[i].items);
+                let subOptions = this.getOptionGroupChildren(this.options[i]);
+                if (subOptions) {
+                    label = this.searchLabelByValue(val, subOptions);
 
                     if (label) {
                         break;
@@ -928,8 +931,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                             return false;
                     }
                 }
-                else if (option.items) {
-                    for (let opt of option.items) {
+                else {
+                    for (let opt of this.getOptionGroupChildren(option)) {
                         let disabled = this.isOptionDisabled(opt);
                         let selected = this.isSelected(opt);
         
@@ -986,11 +989,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 for (let optgroup of this.options) {
                     let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
                     if (filteredSubOptions && filteredSubOptions.length) {
-                        filteredGroups.push({
-                            label: optgroup.label,
-                            value: optgroup.value,
-                            items: filteredSubOptions
-                        });
+                        filteredGroups.push({...optgroup, ...{[this.optionGroupChildren]: filteredSubOptions}});
                     }
                 }
 

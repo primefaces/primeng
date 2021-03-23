@@ -385,7 +385,6 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     onOptionGroupSelect(event) {
         this.dirty = true;
-        console.log(event)
         this.onGroupChange.emit(event);
     }
 

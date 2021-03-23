@@ -108,8 +108,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() optionValue: string;
 
-    @Input() optionGroupChildren: string;
-
+    @Input() optionGroupChildren: string = "items";
+    
     @Input() optionGroupLabel: string;
 
     @Input() optionDisabled: string;
@@ -218,7 +218,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     getOptionGroupLabel(optionGroup: any) {
         return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : (optionGroup.label != undefined ? optionGroup.label : optionGroup);
     }
-
+    
     getOptionValue(option: any) {
         return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : (this.optionLabel || option.value === undefined ? option : option.value);
     }
@@ -439,8 +439,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                             return false;
                     }
                 }
-                else if (option.items) {
-                    for (let opt of option.items) {
+                else {
+                    for (let opt of this.getOptionGroupChildren(option)) {
                         let disabled = this.isOptionDisabled(opt);
                         let selected = this.isSelected(opt);
         
@@ -491,11 +491,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 for (let optgroup of this.options) {
                     let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
                     if (filteredSubOptions && filteredSubOptions.length) {
-                        filteredGroups.push({
-                            label: optgroup.label,
-                            value: optgroup.value,
-                            items: filteredSubOptions
-                        });
+                        filteredGroups.push({...optgroup, ...{[this.optionGroupChildren]: filteredSubOptions}});
                     }
                 }
 
@@ -554,8 +550,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 }
             }
             else {
-                if (opt.items) {
-                    opt.items.forEach(option => {
+                let subOptions = this.getOptionGroupChildren(opt);
+
+                if (subOptions) {
+                    subOptions.forEach(option => {
                         let optionDisabled = this.isOptionDisabled(option); 
                         if (!optionDisabled || (optionDisabled && this.isSelected(option))) {
                             val.push(this.getOptionValue(option));
