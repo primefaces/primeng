@@ -197,7 +197,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() optionGroupLabel: string;
 
-    @Input() optionGroupChildren: string;
+    @Input() optionGroupChildren: string = "items";
 
     @Input() autoDisplayFirst: boolean = true;
 
@@ -1052,11 +1052,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 for (let optgroup of this.options) {
                     let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
                     if (filteredSubOptions && filteredSubOptions.length) {
-                        filteredGroups.push({
-                            label: optgroup.label,
-                            value: optgroup.value,
-                            items: filteredSubOptions
-                        });
+                        filteredGroups.push({...optgroup, ...{[this.optionGroupChildren]: filteredSubOptions}});
                     }
                 }
 
