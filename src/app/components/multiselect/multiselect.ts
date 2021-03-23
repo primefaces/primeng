@@ -112,7 +112,7 @@ export class MultiSelectItem {
                         </div>
                     </div>
                     <div class="p-multiselect-filter-container" *ngIf="filter">
-                        <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter($event)" class="p-multiselect-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
+                        <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilterInputChange($event)" class="p-multiselect-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
                         <span class="p-multiselect-filter-icon pi pi-search"></span>
                     </div>
                     <button class="p-multiselect-close p-link" type="button" (click)="close($event)" pRipple>
@@ -286,6 +286,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
@@ -974,9 +976,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return this._filterValue && this._filterValue.trim().length > 0; 
     }
 
-    onFilter(event: KeyboardEvent) {
+    onFilterInputChange(event: KeyboardEvent) {
         this._filterValue = (<HTMLInputElement> event.target).value;
         this.activateFilter();
+        this.onFilter.emit({originalEvent: event, filter: this._filterValue});
     }
 
     activateFilter() {

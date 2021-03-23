@@ -81,7 +81,7 @@ export class DropdownItem {
                 <div class="p-dropdown-header" *ngIf="filter" >
                     <div class="p-dropdown-filter-container" (click)="$event.stopPropagation()">
                         <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="p-dropdown-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                        (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilter($event)" [attr.aria-label]="ariaFilterLabel">
+                        (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilterInputChange($event)" [attr.aria-label]="ariaFilterLabel">
                         <span class="p-dropdown-filter-icon pi pi-search"></span>
                     </div>
                 </div>
@@ -238,6 +238,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() autofocusFilter: boolean = true;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
@@ -1029,7 +1031,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    onFilter(event): void {
+    onFilterInputChange(event): void {
         let inputValue = event.target.value;
         if (inputValue && inputValue.length) {
             this._filterValue = inputValue;
@@ -1041,6 +1043,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.optionsChanged = true;
+        this.onFilter.emit({originalEvent: event, filter: this._filterValue});
     }
 
     activateFilter() {
