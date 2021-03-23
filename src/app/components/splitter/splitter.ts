@@ -12,7 +12,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
                     <ng-container *ngTemplateOutlet="panel"></ng-container>
                 </div>
                 <div class="p-splitter-gutter" *ngIf="i !== (panels.length - 1)" [ngStyle]="gutterStyle()" 
-                    (mousedown)="onGutterMouseDown($event, i)" (touchstart)="onGutterTouchStart($event, i)" (touchmove)="onGutterTouchMove($event, i)" (touchend)="onGutterTouchEnd($event, i)">
+                    (mousedown)="onGutterMouseDown($event, i)" (touchstart)="onGutterTouchStart($event, i)">
                     <div class="p-splitter-gutter-handle"></div>
                 </div>
             </ng-template>
@@ -60,6 +60,10 @@ export class Splitter {
     mouseMoveListener = null;
 
     mouseUpListener = null;
+
+    touchMoveListener = null;
+
+    touchEndListener = null;
 
     size = null;
 
@@ -125,7 +129,7 @@ export class Splitter {
         this.gutterElement = event.currentTarget;
         this.size = this.horizontal() ? DomHandler.getWidth(this.containerViewChild.nativeElement) : DomHandler.getHeight(this.containerViewChild.nativeElement);
         this.dragging = true;
-        this.startPos = this.horizontal() ? event.pageX : event.pageY;
+        this.startPos = this.horizontal() ? (event.pageX || event.changedTouches[0].pageX) : (event.pageY || event.changedTouches[0].pageY);
         this.prevPanelElement = this.gutterElement.previousElementSibling;
         this.nextPanelElement = this.gutterElement.nextElementSibling;
         this.prevPanelSize = 100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true): DomHandler.getOuterHeight(this.prevPanelElement, true)) / this.size;
@@ -138,9 +142,9 @@ export class Splitter {
     onResize(event) {
         let newPos;
         if (this.horizontal())
-            newPos = (event.pageX * 100 / this.size) - (this.startPos * 100 / this.size);
+            newPos = ((event.pageX || event.changedTouches[0].pageX)  * 100 / this.size) - (this.startPos * 100 / this.size);
         else
-            newPos = (event.pageY * 100 / this.size) - (this.startPos * 100 / this.size);
+            newPos = ((event.pageY || event.changedTouches[0].pageY)  * 100 / this.size) - (this.startPos * 100 / this.size);
 
         let newPrevPanelSize = this.prevPanelSize + newPos;
         let newNextPanelSize = this.nextPanelSize - newPos;
@@ -170,18 +174,20 @@ export class Splitter {
     }
 
     onGutterTouchStart(event, index) {
-        this.onResizeStart(event, index);
-        event.preventDefault();
-    }
+        if (event.cancelable){
+            this.onResizeStart(event, index);
+            this.bindTouchListeners();
 
-    onGutterTouchMove(event) {
-        this.onResize(event);
-        event.preventDefault();
+            event.preventDefault();
+        }
     }
 
     onGutterTouchEnd(event) {
         this.resizeEnd(event);
-        event.preventDefault();
+        this.unbindTouchListeners();
+        
+        if (event.cancelable)
+            event.preventDefault();
     }
 
     validateResize(newPrevPanelSize, newNextPanelSize) {
@@ -211,6 +217,21 @@ export class Splitter {
         }
     }
 
+    bindTouchListeners() {
+        if (!this.touchMoveListener) {
+            this.touchMoveListener = event => this.onResize(event)
+            document.addEventListener('touchmove', this.touchMoveListener);
+        }
+
+        if (!this.touchEndListener) {
+            this.touchEndListener = event => {
+                this.resizeEnd(event);
+                this.unbindTouchListeners();
+            }
+            document.addEventListener('touchend', this.touchEndListener);
+        }
+    }
+
     unbindMouseListeners() {
         if (this.mouseMoveListener) {
             document.removeEventListener('mousemove', this.mouseMoveListener);
@@ -220,6 +241,18 @@ export class Splitter {
         if (this.mouseUpListener) {
             document.removeEventListener('mouseup', this.mouseUpListener);
             this.mouseUpListener = null;
+        }
+    }
+
+    unbindTouchListeners() {
+        if (this.touchMoveListener) {
+            document.removeEventListener('touchmove', this.touchMoveListener);
+            this.touchMoveListener = null;
+        }
+
+        if (this.touchEndListener) {
+            document.removeEventListener('touchend', this.touchEndListener);
+            this.touchEndListener = null;
         }
     }
 
