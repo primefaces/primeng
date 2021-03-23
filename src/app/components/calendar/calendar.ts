@@ -7,6 +7,7 @@ import {RippleModule} from 'primeng/ripple';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -73,7 +74,7 @@ export interface LocaleSettings {
                                             <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
                                                 <span>{{getTranslation('weekHeader')}}</span>
                                             </th>
-                                            <th scope="col" *ngFor="let weekDay of getTranslation('dayNamesMin');let begin = first; let end = last">
+                                            <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
                                                 <span>{{weekDay}}</span>
                                             </th>
                                         </tr>
@@ -434,6 +435,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     initialized: boolean;
 
+    translationSubscription: Subscription;
+
     _locale: LocaleSettings;
 
     @Input() get defaultDate(): Date {
@@ -453,7 +456,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     _defaultDate: Date;
-
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -557,6 +559,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else if (this.view === 'month') {
             this.createMonthPickerValues();
         }
+
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.createWeekDays();
+        });
 
         this.initialized = true;
     }
@@ -2577,6 +2583,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
         }
 
         this.clearTimePickerTimer();
