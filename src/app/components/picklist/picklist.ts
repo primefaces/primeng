@@ -27,8 +27,8 @@ import {UniqueComponentId} from 'primeng/utils';
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
-                
-                <ul #sourcelist class="p-picklist-list p-picklist-source" cdkDropList [cdkDropListData]="source" (cdkDropListDropped)="onDrop($event, SOURCE_LIST)"
+
+                <ul #sourcelist class="p-picklist-list p-picklist-source" cdkDropList [cdkDropListData]="source" [cdkDropListDisabled]="!dragdrop"  (cdkDropListDropped)="onDrop($event, SOURCE_LIST)"
                     [ngStyle]="sourceStyle" role="listbox" aria-multiselectable="multiple">
                     <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="sourceTrackBy || trackBy" let-i="index" let-l="last">
                         <li [ngClass]="{'p-picklist-item':true,'p-highlight':isSelected(item,selectedItemsSource),'p-disabled': disabled}" pRipple cdkDrag [cdkDragData]="item"
@@ -60,7 +60,7 @@ import {UniqueComponentId} from 'primeng/utils';
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
-                <ul #targetlist class="p-picklist-list p-picklist-target" cdkDropList [cdkDropListData]="target" (cdkDropListDropped)="onDrop($event, TARGET_LIST)"
+                <ul #targetlist class="p-picklist-list p-picklist-target" cdkDropList [cdkDropListData]="target" [cdkDropListDisabled]="!dragdrop" (cdkDropListDropped)="onDrop($event, TARGET_LIST)"
                     [ngStyle]="targetStyle" role="listbox" aria-multiselectable="multiple">
                     <ng-template ngFor let-item [ngForOf]="target" [ngForTrackBy]="targetTrackBy || trackBy" let-i="index" let-l="last">
                         <li [ngClass]="{'p-picklist-item':true,'p-highlight':isSelected(item,selectedItemsTarget), 'p-disabled': disabled}" pRipple cdkDrag [cdkDragData]="item"
@@ -116,7 +116,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Input() metaKeySelection: boolean = true;
 
-    @Input() dragdrop: boolean;
+    @Input() dragdrop: boolean = false;
 
     @Input() style: any;
 
@@ -571,7 +571,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 this.onSourceReorder.emit([event.item.data]);
             else
                 this.onTargetReorder.emit([event.item.data]);
-        } 
+        }
         else {
             transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
@@ -654,39 +654,39 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 .p-picklist[${this.id}] {
                     flex-direction: column;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons {
                     padding: var(--content-padding);
                     flex-direction: row;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons .p-button {
                     margin-right: var(--inline-spacing);
                     margin-bottom: 0;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
                     margin-right: 0;
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-right:before {
                     content: "\\e930"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-double-right:before {
                     content: "\\e92c"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-left:before {
                     content: "\\e933"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-double-left:before {
                     content: "\\e92f"
                 }
             }
             `;
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }
