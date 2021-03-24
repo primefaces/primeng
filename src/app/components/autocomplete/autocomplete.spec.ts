@@ -397,6 +397,7 @@ describe('AutoComplete', () => {
 		const firstItemEl = fixture.debugElement.query(By.css('li')).nativeElement;
 		firstItemEl.click();
 		fixture.detectChanges();
+
 		expect(autocomplete.value).toEqual("Volvo");
 		expect(selectItemSpy).toHaveBeenCalled();
 		expect(inputEl.nativeElement.value).toEqual(autocomplete.value);

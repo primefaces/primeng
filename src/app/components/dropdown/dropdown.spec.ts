@@ -254,7 +254,7 @@ describe('Dropdown', () => {
 		filterInputEl.nativeElement.value = "n";
 		filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		const event = {'target':{'value':'n'}};
-		dropdown.onFilter(event)
+		dropdown.onFilterInputChange(event)
 		fixture.detectChanges();
 
 		items=fixture.debugElement.query(By.css('.p-dropdown-items'));
@@ -282,7 +282,7 @@ describe('Dropdown', () => {
 		filterInputEl.nativeElement.value = "primeng";
 		filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		const event = {'target':{'value':'primeng'}};
-		dropdown.onFilter(event)
+		dropdown.onFilterInputChange(event)
 		fixture.detectChanges();
 
 		const items = fixture.debugElement.query(By.css('.p-dropdown-items'));
