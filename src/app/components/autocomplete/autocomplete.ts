@@ -501,7 +501,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     resolveFieldData(value) {
-        let data = this.field ? ObjectUtils.resolveFieldData(value, this.field) : this.value;
+        let data = this.field ? ObjectUtils.resolveFieldData(value, this.field) : value;
         return data !== (null || undefined) ? data : '';
     }
 
