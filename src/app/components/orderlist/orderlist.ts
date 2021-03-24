@@ -64,7 +64,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() metaKeySelection: boolean = true;
 
-    @Input() dragdrop: boolean;
+    @Input() dragdrop: boolean = false;
 
     @Input() controlsPosition: string = 'left';
 
