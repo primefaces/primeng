@@ -11,7 +11,7 @@ import {DomHandler} from 'primeng/dom';
     template: `
         <div [ngClass]="'p-tabmenu p-component'" [ngStyle]="style" [class]="styleClass">
             <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
-                <li *ngFor="let item of model; let i = index" role="tab" [attr.aria-selected]="activeItem==item" [attr.aria-expanded]="activeItem==item"
+                <li *ngFor="let item of model; let i = index" role="tab" [class]="item.styleClass" [attr.aria-selected]="activeItem==item" [attr.aria-expanded]="activeItem==item"
                     [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight':activeItem==item,'p-hidden': item.visible === false}">
                     <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
                         [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
