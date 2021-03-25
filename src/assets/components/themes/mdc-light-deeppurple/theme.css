@@ -5427,6 +5427,12 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
 .p-calendar-w-btn .p-datepicker-trigger.p-button:enabled:active, .p-calendar-w-btn .p-datepicker-trigger.p-button:focus {
   background: rgba(0, 0, 0, 0.12);
 }
+.p-calendar-w-btn .p-datepicker-trigger.p-button:disabled {
+  background-color: transparent !important;
+}
+.p-calendar-w-btn .p-datepicker-trigger.p-button:disabled span {
+  color: rgba(0, 0, 0, 0.38);
+}
 .p-calendar-w-btn:not(.p-disabled):hover {
   border-color: rgba(0, 0, 0, 0.87);
 }
