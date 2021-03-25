@@ -152,6 +152,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
                 yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
             }
         });
+        this.cd.markForCheck();
     }
 
     onYBarMouseDown(e: MouseEvent) {
