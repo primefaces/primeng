@@ -427,7 +427,7 @@ describe('Menubar', () => {
 		fixture.detectChanges();
 
 		const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
-		const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
+		const firstParentEl = parentEl.query(By.css('.p-menuitem'));
 		firstParentEl.nativeElement.dispatchEvent(new Event('mouseenter'));
 		fixture.detectChanges();
 
