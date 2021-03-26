@@ -30,15 +30,7 @@
                 <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"></p-button>
             </div>
         </div>
-        <p-confirmDialog #cd [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined">
-            <ng-template pTemplate="header">
-                <h3>Header Content</h3>
-            </ng-template>
-            <ng-template pTemplate="footer">
-                <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-                <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-            </ng-template>
-        </p-confirmDialog>
+        <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
     
         <p-toast></p-toast>
     </div>
