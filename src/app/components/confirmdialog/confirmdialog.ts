@@ -24,7 +24,10 @@ const hideAnimation = animation([
         <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
             <div [ngClass]="{'p-dialog p-confirm-dialog p-component':true,'p-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
-                <div class="p-dialog-header">
+                <div class="p-dialog-header" *ngIf="headerTemplate">
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                </div>
+                <div class="p-dialog-header" *ngIf="!headerTemplate">
                     <span class="p-dialog-title" *ngIf="option('header')">{{option('header')}}</span>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
@@ -40,7 +43,7 @@ const hideAnimation = animation([
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
-                <div class="p-dialog-footer" *ngIf="!footer">
+                <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
                     <button type="button" pButton [icon]="option('rejectIcon')" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
                     <button type="button" pButton [icon]="option('acceptIcon')" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
                 </div>
@@ -175,12 +178,17 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
-                case 'footerTemplate':
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+                case 'footer':
                     this.footerTemplate = item.template;
                 break;
             }
         });
     }
+
+    headerTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
 
