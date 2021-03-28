@@ -473,7 +473,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
                     this.writeBuffer();
                     next = this.seekNext(p);
 
-                    if (isPlatformBrowser(this.platformId) && /android/i.test(DomHandler.getUserAgent()) {
+                    if (isPlatformBrowser(this.platformId) && /android/i.test(DomHandler.getUserAgent())) {
                         //Path for CSP Violation on FireFox OS 1.1
                         let proxy = () => {
                             this.caret(next);
