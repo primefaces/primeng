@@ -85,6 +85,8 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     clearSubscription: Subscription;
 
+    removeSubscription: Subscription;
+
     contentTemplate: TemplateRef<any>;
 
     constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
@@ -125,6 +127,19 @@ export class Messages implements AfterContentInit, OnDestroy {
                 }
                 else {
                     this.value = null;
+                }
+
+                this.cd.markForCheck();
+            });
+
+            this.removeSubscription = this.messageService.removeObserver.subscribe((message: Message) => {
+                if (message?.key) {
+                    if (this.key === message?.key) {
+                        this.value = this.value ? this.value.filter(m => m !== message) : this.value;
+                        this.value = this.value ? this.value.filter(m => m !== message) : this.value;
+                    }
+                } else {
+                    this.value = this.value ? this.value.filter(m => m !== message) : this.value;
                 }
 
                 this.cd.markForCheck();
@@ -188,6 +203,10 @@ export class Messages implements AfterContentInit, OnDestroy {
 
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
+        }
+
+        if (this.removeSubscription) {
+            this.removeSubscription.unsubscribe();
         }
     }
 }

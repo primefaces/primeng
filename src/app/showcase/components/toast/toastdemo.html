@@ -51,6 +51,9 @@
         <h5>Clear</h5>
         <button type="button" pButton pRipple (click)="clear()" icon="pi pi-times" label="Clear"></button>
 
+        <h5>Remove</h5>
+        <button type="button" pButton pRipple (click)="removeLatestMessage()" icon="pi pi-times" label="Remove Latest"></button>
+
         <h5>Template</h5>
         <button type="button" pButton pRipple (click)="showConfirm()" label="Confirm" class="ui-button-warning"></button>
     </div>
@@ -152,16 +155,25 @@ export class MyComponent &#123;
     constructor(private messageService: MessageService) &#123;&#125;
     
     addSingle() &#123;
-        this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
+        this.latestMessage = &#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
     
     addMultiple() &#123;
-        this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
-                                    &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+        this.latestMessage = &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;;
+        this.messageService.addAll([
+            &#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+            this.latestMessage
+        ]);
     &#125;
     
     clear() &#123;
         this.messageService.clear();
+    &#125;
+
+    removeLatest() &#123;
+        this.messageService.remove(this.latestMessage);
+        this.latestMessage = null;
     &#125;
 &#125;
 </app-code>
@@ -209,6 +221,20 @@ this.messageService.add(&#123;key: 'myKey2', severity:'success', summary: 'Summa
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 this.messageService.clear();            //clears messages of both toast components
 this.messageService.clear('myKey1');    //clears messages of the first toast only
+</app-code>
+
+            <h5>Removing a Message</h5>
+<p>Clicking the close icon on the message, removes it manually. Same can also be achieved programmatically using the remove function of the message service. Calling it with
+    the message reference will remove the message. If the message had a key, it would remove it from the correct toast.
+</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+    &lt;p-toast&gt;&lt;/p-toast&gt;
+    &lt;p-toast key="myKey1"&gt;&lt;/p-toast&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+    this.messageService.remove(this.messageReference);  //removes the message
 </app-code>
 
             <h5>Templating</h5>
@@ -456,6 +482,9 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
     &lt;h5&gt;Clear&lt;/h5&gt;
     &lt;button type="button" pButton pRipple (click)="clear()" icon="pi pi-times" label="Clear"&gt;&lt;/button&gt;
 
+    &lt;h5&gt;Remove&lt;/h5&gt;
+    &lt;button type="button" pButton pRipple (click)="removeLatestMessage()" icon="pi pi-times" label="Remove Latest"&gt;&lt;/button&gt;
+
     &lt;h5&gt;Template&lt;/h5&gt;
     &lt;button type="button" pButton pRipple (click)="showConfirm()" label="Confirm" class="ui-button-warning"&gt;&lt;/button&gt;
 &lt;/div&gt;
@@ -472,56 +501,69 @@ import &#123;MessageService&#125; from 'primeng/api';
     
 &#125;)
 export class ToastDemo &#123;
+    
+    private latestMessage: Message;
 
     constructor(private messageService: MessageService) &#123;&#125;
 
     showSuccess() &#123;
-        this.messageService.add(&#123;severity:'success', summary: 'Success', detail: 'Message Content'&#125;);
+        this.latestMessage = &#123;severity:'success', summary: 'Success', detail: 'Message Content'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showInfo() &#123;
-        this.messageService.add(&#123;severity:'info', summary: 'Info', detail: 'Message Content'&#125;);
+        this.latestMessage = &#123;severity:'info', summary: 'Info', detail: 'Message Content'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showWarn() &#123;
-        this.messageService.add(&#123;severity:'warn', summary: 'Warn', detail: 'Message Content'&#125;);
+        this.latestMessage = &#123;severity:'warn', summary: 'Warn', detail: 'Message Content'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showError() &#123;
-        this.messageService.add(&#123;severity:'error', summary: 'Error', detail: 'Message Content'&#125;);
+        this.latestMessage = &#123;severity:'error', summary: 'Error', detail: 'Message Content'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showCustom() &#123;
-        this.messageService.add(&#123;severity:'custom', summary: 'Custom', detail: 'Message Content', icon: 'pi-file'&#125;);
+        this.latestMessage = &#123;severity:'custom', summary: 'Custom', detail: 'Message Content', icon: 'pi-file'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showTopLeft() &#123;
-        this.messageService.add(&#123;key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'&#125;);
+        this.latestMessage = &#123;key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showTopCenter() &#123;
-        this.messageService.add(&#123;key: 'tc', severity:'warn', summary: 'Warn', detail: 'Message Content'&#125;);
+        this.latestMessage = &#123;key: 'tc', severity:'warn', summary: 'Warn', detail: 'Message Content'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showBottomCenter() &#123;
-        this.messageService.add(&#123;key: 'bc', severity:'success', summary: 'Success', detail: 'Message Content'&#125;);
+        this.latestMessage = &#123;key: 'bc', severity:'success', summary: 'Success', detail: 'Message Content'&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showConfirm() &#123;
+        this.latestMessage = &#123;key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'&#125;;
         this.messageService.clear();
-        this.messageService.add(&#123;key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'&#125;);
+        this.messageService.add(this.latestMessage);
     &#125;
 
     showMultiple() &#123;
+        this.latestMessage = &#123;severity:'warn', summary:'Message 3', detail:'Message Content'&#125;;
         this.messageService.addAll([
             &#123;severity:'success', summary:'Message 1', detail:'Message Content'&#125;,
             &#123;severity:'info', summary:'Message 2', detail:'Message Content'&#125;,
-            &#123;severity:'warn', summary:'Message 3', detail:'Message Content'&#125;
+            this.latestMessage
         ]);
     &#125;
 
     showSticky() &#123;
-        this.messageService.add(&#123;severity:'info', summary: 'Sticky', detail: 'Message Content', sticky: true&#125;);
+        this.latestMessage = &#123;severity:'info', summary: 'Sticky', detail: 'Message Content', sticky: true&#125;;
+        this.messageService.add(this.latestMessage);
     &#125;
 
     onConfirm() &#123;
@@ -534,6 +576,13 @@ export class ToastDemo &#123;
     
     clear() &#123;
         this.messageService.clear();
+    &#125;
+
+    removeLatestMessage() &#123;
+        if (this.latestMessage) &#123;
+            this.messageService.remove(this.latestMessage);
+            this.latestMessage = null;
+        &#125;
     &#125;
 &#125;
 </app-code>

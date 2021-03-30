@@ -113,19 +113,30 @@ import &#123;MessageService&#125; from 'primeng/api';
     &#125;)
     export class MessageServiceDemo &#123;
 
+        private latestMessage: Message;
+
         constructor(private messageService: MessageService) &#123;&#125;
 
         addSingle() &#123;
-            this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
+            this.latestMessage = &#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;;
+            this.messageService.add(this.latestMessage);
         &#125;
 
         addMultiple() &#123;
-            this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
-                            &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+            this.latestMessage = &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;;
+            this.messageService.addAll([
+                &#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+                this.latestMessage
+            ]);
         &#125;
         
         clear() &#123;
             this.messageService.clear();
+        &#125;
+
+        removeLatest() &#123;
+            this.messageService.remove(this.latestMessage);
+            this.latestMessage = null;
         &#125;
 &#125;
 </app-code>
