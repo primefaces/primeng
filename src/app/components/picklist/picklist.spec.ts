@@ -1,9 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PickList } from './picklist';
+import { PickListModule, PickList } from 'primeng/picklist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, EventEmitter } from '@angular/core';
-import { Button } from 'primeng/button';
 
 @Component({
 	template: `<p-pickList [source]="sourceCars" [target]="targetCars">
@@ -46,11 +45,11 @@ describe('PickList', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			imports: [
-				NoopAnimationsModule
+				NoopAnimationsModule,
+				PickListModule
 			],
 			declarations: [
 				PickList,
-				Button,
 				TestPickListComponent
 			]
 		});
@@ -119,13 +118,7 @@ describe('PickList', () => {
 		expect(picklist.visibleOptionsSource.length).toEqual(2);
 		expect(picklist.visibleOptionsSource[0].brand).toEqual("VW");
 		expect(picklist.visibleOptionsSource[1].brand).toEqual("Volvo");
-		for (let i = 0; i < sourceListItems.length; i++) {
-			if (i == 0 || i == 5)
-				expect(sourceListItems[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(sourceListItems[i].nativeElement.style.display).not.toEqual("block");
-		}
-
+		expect(sourceListItems.length).toEqual(2);
 	});
 
 	it('should filtered target', () => {
@@ -147,13 +140,7 @@ describe('PickList', () => {
 		expect(picklist.visibleOptionsTarget.length).toEqual(2);
 		expect(picklist.visibleOptionsTarget[0].brand).toEqual("VW");
 		expect(picklist.visibleOptionsTarget[1].brand).toEqual("Volvo");
-		for (let i = 0; i < targetListItems.length; i++) {
-			if (i == 0 || i == 5)
-				expect(targetListItems[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(targetListItems[i].nativeElement.style.display).not.toEqual("block");
-		}
-
+		expect(targetListItems.length).toEqual(2);
 	});
 
 	it('should use input placeholders', () => {
@@ -329,8 +316,8 @@ describe('PickList', () => {
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveUpSpy).toHaveBeenCalled();
 		expect(sourceListItemsAfterChange[2].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[2].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Renault");
+		expect(sourceListItemsAfterChange[2].nativeElement.textContent).toContain("BMW");
+		expect(sourceListItemsAfterChange[3].nativeElement.textContent).toContain("Renault");
 	});
 
 	it('should call moveUp and do nothing', () => {
@@ -365,8 +352,8 @@ describe('PickList', () => {
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveDownSpy).toHaveBeenCalled();
 		expect(sourceListItemsAfterChange[4].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[4].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
+		expect(sourceListItemsAfterChange[4].nativeElement.textContent).toContain("BMW");
+		expect(sourceListItemsAfterChange[3].nativeElement.textContent).toContain("Mercedes");
 	});
 
 	it('should call moveDown and do nothing', () => {
@@ -401,8 +388,8 @@ describe('PickList', () => {
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveTopSpy).toHaveBeenCalled();
 		expect(sourceListItemsAfterChange[0].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[0].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Renault");
+		expect(sourceListItemsAfterChange[0].nativeElement.textContent).toContain("BMW");
+		expect(sourceListItemsAfterChange[3].nativeElement.textContent).toContain("Renault");
 	});
 
 	it('should call movetop and do nothing', () => {
@@ -437,8 +424,8 @@ describe('PickList', () => {
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveBottomSpy).toHaveBeenCalled();
 		expect(sourceListItemsAfterChange[9].nativeElement.className).toContain("p-highlight");
-		expect(sourceListItemsAfterChange[9].context.$implicit.brand).toEqual("BMW");
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
+		expect(sourceListItemsAfterChange[9].nativeElement.textContent).toContain("BMW");
+		expect(sourceListItemsAfterChange[3].nativeElement.textContent).toContain("Mercedes");
 	});
 
 	it('should call moveBottom and do nothing', () => {
@@ -473,8 +460,8 @@ describe('PickList', () => {
 		const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
 		const targetListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
 		expect(moveRightSpy).toHaveBeenCalled();
-		expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
-		expect(targetListItemsAfterChange[0].context.$implicit.brand).toEqual("BMW");
+		expect(sourceListItemsAfterChange[3].nativeElement.textContent).toContain("Mercedes");
+		expect(targetListItemsAfterChange[0].nativeElement.textContent).toContain("BMW");
 		expect(targetListItemsAfterChange.length).toEqual(1);
 		expect(picklist.target.length).toEqual(1);
 		expect(picklist.target[0].brand).toEqual("BMW");
@@ -506,7 +493,7 @@ describe('PickList', () => {
 		expect(targetListItemsAfterChange.length).toEqual(0);
 		expect(picklist.target.length).toEqual(0);
 		expect(picklist.source.length).toEqual(10);
-		expect(sourceListItemsAfterChange[9].context.$implicit.brand).toEqual("BMW");
+		expect(sourceListItemsAfterChange[9].nativeElement.textContent).toContain("BMW");
 	});
 
 	it('should call moveAllRight', () => {
