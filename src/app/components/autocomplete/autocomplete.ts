@@ -18,7 +18,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-autoComplete',
     template: `
-        <span #container [ngClass]="{'p-autocomplete p-component':true,'p-autocomplete-dd':dropdown,'p-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
+        <span #container [ngClass]="{'p-autocomplete p-component':true,'p-autocomplete-dd':dropdown,'p-autocomplete-multiple':multiple,'p-autocomplete-clearable': showClear && !disabled && !multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" [autocomplete]="autocomplete" [attr.required]="required" [attr.name]="name"
             class="p-autocomplete-input p-inputtext p-component" [ngClass]="{'p-autocomplete-dd-input':dropdown,'p-disabled': disabled}" [value]="inputFieldValue" aria-autocomplete="list" [attr.aria-controls]="listId" role="searchbox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
@@ -36,6 +36,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             aria-autocomplete="list" [attr.aria-controls]="listId" role="searchbox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'">
                 </li>
             </ul>
+            <i class="p-autocomplete-clear-icon pi pi-times" (click)="clear($event)" *ngIf="value != null && showClear && !disabled && !multiple"></i>
             <i *ngIf="loading" class="p-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" class="p-autocomplete-dropdown" [disabled]="disabled" pRipple
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
             <div #panel *ngIf="overlayVisible" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
@@ -125,6 +126,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     @Input() unique: boolean = true;
 
     @Input() completeOnFocus: boolean = false;
+
+    @Input() showClear: boolean;
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 
@@ -798,6 +801,15 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         }
         this.restoreOverlayAppend();
         this.onOverlayHide();
+    }
+
+    clear(event: Event) {
+        this.value = null;
+        this.inputEL.nativeElement.value = '';
+        this.hide();
+        this.onClear.emit(event);
+        this.onModelChange(null);
+        this.updateFilledState();
     }
 }
 
