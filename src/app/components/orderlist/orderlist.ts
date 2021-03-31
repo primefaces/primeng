@@ -32,7 +32,7 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
-                             [style.display]="(isItemVisible(item) ? 'block' : 'none')" role="option" [attr.aria-selected]="isSelected(item)">
+                             *ngIf="isItemVisible(item)" role="option" [attr.aria-selected]="isSelected(item)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
@@ -322,8 +322,21 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
 
     onDrop(event: CdkDragDrop<string[]>) {
-        if (event.previousIndex !== event.currentIndex) {
-            moveItemInArray(this.value, event.previousIndex, event.currentIndex);
+        let previousIndex =  event.previousIndex;
+        let currentIndex = event.currentIndex;
+
+        if (previousIndex !== currentIndex) {
+
+            if (this.visibleOptions) {
+                if (this.filterValue) {
+                    previousIndex =  ObjectUtils.findIndexInList(event.item.data, this.value);
+                    currentIndex = ObjectUtils.findIndexInList(this.visibleOptions[currentIndex], this.value);
+                }
+
+                moveItemInArray(this.visibleOptions, event.previousIndex, event.currentIndex);
+            }
+
+            moveItemInArray(this.value, previousIndex, currentIndex);
             this.onReorder.emit([event.item.data]);
         }
     }
