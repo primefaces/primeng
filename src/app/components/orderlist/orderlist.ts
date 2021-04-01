@@ -254,7 +254,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if (this.filterValue)
+            if (this.dragdrop && this.filterValue)
                 this.filter();
 
             this.movedUp = true;
@@ -277,7 +277,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if (this.filterValue)
+            if (this.dragdrop && this.filterValue)
                 this.filter();
 
             this.onReorder.emit(this.selection);
@@ -302,7 +302,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if (this.filterValue)
+            if (this.dragdrop && this.filterValue)
                 this.filter();
 
             this.movedDown = true;
@@ -325,7 +325,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if (this.filterValue)
+            if (this.dragdrop && this.filterValue)
                 this.filter();
 
             this.onReorder.emit(this.selection);

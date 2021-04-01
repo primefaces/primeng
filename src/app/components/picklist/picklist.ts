@@ -14,7 +14,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
                 <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
                 <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorde,SOURCE_LIST)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
                 <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
@@ -382,7 +382,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
                 this.filter(list, listType);
 
             this.movedUp = true;
@@ -407,7 +407,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
                 this.filter(list, listType);
 
             listElement.scrollTop = 0;
@@ -433,7 +433,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
                 this.filter(list, listType);
 
             this.movedDown = true;
@@ -458,7 +458,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
                 this.filter(list, listType);
 
             listElement.scrollTop = listElement.scrollHeight;
