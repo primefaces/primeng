@@ -559,11 +559,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 if (this.visibleOptionsTarget)
                     this.visibleOptionsTarget.splice(event.previousIndex, 1);
                 
-                this.onMoveToSource.emit([event.item.data]);
+                this.onMoveToSource.emit({items: event.item.data});
             }
             else {
                 moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
-                this.onSourceReorder.emit([event.item.data]);
+                this.onSourceReorder.emit({items: event.item.data});
             }
 
             if (this.filterValueSource) {
@@ -577,11 +577,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 if (this.visibleOptionsSource)
                     this.visibleOptionsSource.splice(event.previousIndex, 1);
                 
-                this.onMoveAllToTarget.emit([event.item.data]);
+                this.onMoveToTarget.emit({items: event.item.data});
             }
             else {
                 moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
-                this.onTargetReorder.emit([event.item.data]);
+                this.onTargetReorder.emit({items: event.item.data});
             }
 
             if (this.filterValueTarget) {
