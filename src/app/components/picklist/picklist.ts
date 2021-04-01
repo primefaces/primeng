@@ -12,10 +12,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-picklist p-component'" cdkDropListGroup>
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorde,SOURCE_LIST)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
                 <div class="p-picklist-header" *ngIf="sourceHeader">
@@ -77,10 +77,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-target-controls" *ngIf="showTargetControls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
             </div>
         </div>
     `,
@@ -310,19 +310,22 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     onFilter(event: KeyboardEvent, data: any[], listType: number) {
         let query = ((<HTMLInputElement> event.target).value.trim() as any).toLocaleLowerCase(this.filterLocale);
-        this.filter(query, data, listType);
+        if (listType === this.SOURCE_LIST)
+            this.filterValueSource = query;
+        else if (listType === this.TARGET_LIST)
+            this.filterValueTarget = query;
+        
+        this.filter(data, listType);
     }
 
-    filter(query: string, data: any[], listType: number) {
+    filter(data: any[], listType: number) {
         let searchFields = this.filterBy.split(',');
 
         if (listType === this.SOURCE_LIST) {
-            this.filterValueSource = query;
             this.visibleOptionsSource = this.filterService.filter(data, searchFields, this.filterValueSource, this.filterMatchMode, this.filterLocale);
             this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
         }
         else if (listType === this.TARGET_LIST) {
-            this.filterValueTarget = query;
             this.visibleOptionsTarget = this.filterService.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode, this.filterLocale);
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
@@ -361,7 +364,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             ObjectUtils.findIndexInList(item1, list) - ObjectUtils.findIndexInList(item2, list));
     }
 
-    moveUp(listElement, list, selectedItems, callback) {
+    moveUp(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
@@ -379,13 +382,16 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+                this.filter(list, listType);
+
             this.movedUp = true;
             this.reorderedListElement = listElement;
             callback.emit({items: selectedItems});
         }
     }
 
-    moveTop(listElement, list, selectedItems, callback) {
+    moveTop(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
@@ -401,12 +407,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+                this.filter(list, listType);
+
             listElement.scrollTop = 0;
             callback.emit({items: selectedItems});
         }
     }
 
-    moveDown(listElement, list, selectedItems, callback) {
+    moveDown(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
@@ -424,13 +433,16 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+                this.filter(list, listType);
+
             this.movedDown = true;
             this.reorderedListElement = listElement;
             callback.emit({items: selectedItems});
         }
     }
 
-    moveBottom(listElement, list, selectedItems, callback) {
+    moveBottom(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
@@ -445,6 +457,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     break;
                 }
             }
+
+            if ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+                this.filter(list, listType);
 
             listElement.scrollTop = listElement.scrollHeight;
             callback.emit({items: selectedItems});
@@ -465,7 +480,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(this.filterValueTarget, this.target, this.TARGET_LIST);
+                this.filter(this.target, this.TARGET_LIST);
             }
         }
     }
@@ -490,7 +505,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(this.filterValueTarget, this.target, this.TARGET_LIST);
+                this.filter(this.target, this.TARGET_LIST);
             }
         }
     }
@@ -510,7 +525,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(this.filterValueSource, this.source, this.SOURCE_LIST);
+                this.filter(this.source, this.SOURCE_LIST);
             }
         }
     }
@@ -535,7 +550,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(this.filterValueSource, this.source, this.SOURCE_LIST);
+                this.filter(this.source, this.SOURCE_LIST);
             }
         }
     }
@@ -567,7 +582,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             }
 
             if (this.filterValueSource) {
-                this.filter(this.filterValueSource, this.source, this.SOURCE_LIST);
+                this.filter(this.source, this.SOURCE_LIST);
             }
         }
         else {
@@ -585,7 +600,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             }
 
             if (this.filterValueTarget) {
-                this.filter(this.filterValueTarget, this.target, this.TARGET_LIST);
+                this.filter(this.target, this.TARGET_LIST);
             }
         }
     }
