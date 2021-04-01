@@ -334,7 +334,7 @@ describe('PickList', () => {
 
 		expect(moveUpSpy).toHaveBeenCalled();
 		let callback = new EventEmitter();
-		expect(picklist.moveBottom(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
+		expect(picklist.moveBottom(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
 	});
 
 	it('should call moveDown', () => {
@@ -370,7 +370,7 @@ describe('PickList', () => {
 
 		expect(moveDownSpy).toHaveBeenCalled();
 		let callback = new EventEmitter();
-		expect(picklist.moveDown(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
+		expect(picklist.moveDown(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
 	});
 
 	it('should call movetop', () => {
@@ -406,7 +406,7 @@ describe('PickList', () => {
 
 		expect(moveTopSpy).toHaveBeenCalled();
 		let callback = new EventEmitter();
-		expect(picklist.moveTop(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
+		expect(picklist.moveTop(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
 	});
 
 	it('should call moveBottom', () => {
@@ -442,7 +442,7 @@ describe('PickList', () => {
 
 		expect(moveBottomSpy).toHaveBeenCalled();
 		let callback = new EventEmitter();
-		expect(picklist.moveBottom(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback)).toBeUndefined();
+		expect(picklist.moveBottom(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
 	});
 
 	it('should call moveRight', () => {
