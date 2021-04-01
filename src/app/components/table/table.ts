@@ -2066,10 +2066,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             state.expandedRowKeys = this.expandedRowKeys;
         }
 
-        if (Object.keys(state).length) {
-            storage.setItem(this.stateKey, JSON.stringify(state));
-        }
-
+        storage.setItem(this.stateKey, JSON.stringify(state));
         this.onStateSave.emit(state);
     }
 
