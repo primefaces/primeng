@@ -4402,7 +4402,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 2px;
   background: #ffffff;
 }
-.p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+.p-steps .p-steps-item .p-menuitem-link .p-steps-number, 
+.p-steps .p-steps-item .p-menuitem-link .p-steps-icon {
   color: #323130;
   border: 1px solid #f3f2f1;
   background: #ffffff;
@@ -4422,7 +4423,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   outline-offset: 0;
   box-shadow: inset 0 0 0 1px #605e5c;
 }
-.p-steps .p-steps-item.p-highlight .p-steps-number {
+.p-steps .p-steps-item.p-highlight .p-steps-number, 
+.p-steps .p-steps-item.p-highlight .p-steps-icon {
   background: #edebe9;
   color: #323130;
 }

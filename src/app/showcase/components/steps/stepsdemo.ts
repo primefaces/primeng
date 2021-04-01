@@ -1,5 +1,5 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {MenuItem, MessageService} from 'primeng/api';
+import {MenuItem, MessageService, PrimeIcons} from 'primeng/api';
 import { TicketService } from './ticketservice';
 import { Subscription } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class StepsDemo implements OnInit {
 
     items: MenuItem[];
+    itemsIcon: MenuItem[];
     
     subscription: Subscription;
 
@@ -34,6 +35,28 @@ export class StepsDemo implements OnInit {
                 routerLink: 'confirmation'
             }
         ];
+
+        this.itemsIcon = [{
+            label: 'Personal',
+            routerLink: 'personal',
+            icon:PrimeIcons.USER
+        },
+        {
+            label: 'Seat',
+            routerLink: 'seat',
+            icon: PrimeIcons.TH_LARGE
+        },
+        {
+            label: 'Payment',
+            routerLink: 'payment',
+            icon: PrimeIcons.MONEY_BILL
+        },
+        {
+            label: 'Confirmation',
+            routerLink: 'confirmation',
+            icon: PrimeIcons.CHECK
+        }
+    ];
 
         this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) =>{
             this.messageService.add({severity:'success', summary:'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'});
