@@ -304,7 +304,7 @@ export class Carousel implements AfterContentInit {
 			this._oldNumScroll = this._numScroll;
 			this.prevState.numScroll = this._numScroll;
 			this.prevState.numVisible = this._numVisible;
-			this.prevState.value = this._value;
+			this.prevState.value = [...this._value];
 
 			if (this.totalDots() > 0  && this.itemsContainer.nativeElement) {
 				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
