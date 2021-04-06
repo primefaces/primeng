@@ -1,5 +1,5 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers,ChangeDetectionStrategy, ViewEncapsulation,Inject, PLATFORM_ID} from '@angular/core';
+import {CommonModule, isPlatformBrowser} from '@angular/common';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
@@ -256,7 +256,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     itemClicked: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, @Inject(PLATFORM_ID) private platformId: Object) {
         this.differ = differs.find([]).create(null);
         this.listId = UniqueComponentId() + '_list';
     }
@@ -374,7 +374,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     onInput(event: Event) {
         // When an input element with a placeholder is clicked, the onInput event is invoked in IE.
-        if (!this.inputKeyDown && DomHandler.isIE()) {
+        if (isPlatformBrowser(this.platformId) && !this.inputKeyDown && DomHandler.isIE()) {
             return;
         }
 
