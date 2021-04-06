@@ -1,5 +1,40 @@
 # Changelog
 
+## [11.3.2](https://github.com/primefaces/primeng/tree/11.3.2) (2021-04-06)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.3.1...11.3.2)
+
+**Implemented New Features and Enhancements:**
+
+- Icon support for TriStateCheckBox [\#10052](https://github.com/primefaces/primeng/issues/10052)
+- MenuItem's style and styleClass properties should be apply to li [\#10045](https://github.com/primefaces/primeng/issues/10045)
+- Menuitem style and styleClass should applied to the TabMenu [\#10044](https://github.com/primefaces/primeng/issues/10044)
+- Placeholder support for Password Component [\#10030](https://github.com/primefaces/primeng/issues/10030)
+- Splitter not working on touch devices \(including dev tools\) [\#10020](https://github.com/primefaces/primeng/issues/10020)
+- Dropdown/Multiselect filter change event [\#9971](https://github.com/primefaces/primeng/issues/9971)
+- p-confirmDialog should support template [\#5448](https://github.com/primefaces/primeng/issues/5448)
+
+**Fixed bugs:**
+
+- p-table with save state \(localstorage/sessionstorage\) remember old value after delete from filter [\#10065](https://github.com/primefaces/primeng/issues/10065)
+- Pick list events emit inconsistent types [\#10063](https://github.com/primefaces/primeng/issues/10063)
+- Accessibility: Typo in aria attribute valuemin for InputNumber [\#10058](https://github.com/primefaces/primeng/issues/10058)
+- Carousel does not always display dynamically added items [\#10051](https://github.com/primefaces/primeng/issues/10051)
+- PickList's and OrderList's reorder and move functions not working with filtering [\#10048](https://github.com/primefaces/primeng/issues/10048)
+- Picklist dragdrop input can't disable drag and drop [\#10037](https://github.com/primefaces/primeng/issues/10037)
+- Toggle All Checkbox not working when using Group templates on Listbox and MultiSelect [\#10035](https://github.com/primefaces/primeng/issues/10035)
+- AutoComplete does not display 0 as value when preselected [\#10031](https://github.com/primefaces/primeng/issues/10031)
+- Animation "none" not working for p-skeleton [\#10026](https://github.com/primefaces/primeng/issues/10026)
+- p-calendar styling is incorrect when it is disabled with an icon [\#10024](https://github.com/primefaces/primeng/issues/10024)
+- Dropdown, MultiSelect, Listbox group filter issue when using custom interface instead of SelectItemGroup [\#10022](https://github.com/primefaces/primeng/issues/10022)
+- firstDayOfWeek is broken in 11.3.1 [\#10013](https://github.com/primefaces/primeng/issues/10013)
+- First node dropped into empty tree not triggering onNodeDrop [\#9991](https://github.com/primefaces/primeng/issues/9991)
+- Galleria: thumbnail items doesn't work properly when responsive options are set [\#9744](https://github.com/primefaces/primeng/issues/9744)
+- Implemented fix for \#9660 prevents finding a value for simple array of options [\#9742](https://github.com/primefaces/primeng/issues/9742)
+- Scroll Panel Bars not displaying correctly when the scrollpanel loses/gains width [\#9727](https://github.com/primefaces/primeng/issues/9727)
+- MultiSelect Not Displaying Pre-Selected Items Upon Load [\#9673](https://github.com/primefaces/primeng/issues/9673)
+- When no label is assigned to pButton, the button should not render &nbsp; [\#9482](https://github.com/primefaces/primeng/issues/9482)
+
 ## [11.3.1](https://github.com/primefaces/primeng/tree/11.3.1) (2021-03-12)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.3.0...11.3.1)
