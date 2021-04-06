@@ -5430,15 +5430,15 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
 .p-calendar-w-btn .p-datepicker-trigger.p-button:disabled {
   background-color: transparent !important;
 }
-.p-calendar-w-btn .p-datepicker-trigger.p-button:disabled span {
-  color: rgba(0, 0, 0, 0.38);
-}
-.p-calendar-w-btn:not(.p-disabled):hover {
+.p-calendar-w-btn:not(.p-calendar-disabled):hover {
   border-color: rgba(0, 0, 0, 0.87);
 }
-.p-calendar-w-btn:not(.p-disabled).p-focus {
+.p-calendar-w-btn:not(.p-calendar-disabled).p-focus {
   border-color: #3F51B5;
   box-shadow: inset 0 0 0 1px #3F51B5, inset 0 0 0 1px #3F51B5, inset 0 0 0 1px #3F51B5, inset 0 0 0 1px #3F51B5;
+}
+.p-calendar-w-btn.p-calendar-disabled {
+  opacity: 0.38;
 }
 
 .p-datepicker .p-datepicker-header {
