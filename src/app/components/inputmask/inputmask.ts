@@ -148,7 +148,7 @@ export class InputMask implements OnInit, OnDestroy, ControlValueAccessor {
     constructor(public el: ElementRef, private cd: ChangeDetectorRef, @Inject(PLATFORM_ID) private platformId: Object) { }
 
     ngOnInit() {
-        if (!(isPlatformBrowser(this.platformId))) {
+        if (isPlatformBrowser(this.platformId)) {
             let ua = DomHandler.getUserAgent();
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
