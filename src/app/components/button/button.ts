@@ -42,7 +42,12 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             labelElement.setAttribute('aria-hidden', 'true');
         }
         labelElement.className = 'p-button-label';
-        labelElement.appendChild(document.createTextNode(this.label||'&nbsp;'));
+
+        if (this.label)
+            labelElement.appendChild(document.createTextNode(this.label));
+        else 
+            labelElement.innerHTML = '&nbsp;';
+        
         this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     }
