@@ -161,7 +161,7 @@ export class DomHandler {
         element.style.left = left + 'px';
     }
 
-    static getParents(element: any, parents:any = []): any {
+    static getParents(element: any, parents: any = []): any {
         return element['parentNode'] === null ? parents : this.getParents(element.parentNode, parents.concat([element.parentNode]));
     }
 
@@ -394,6 +394,7 @@ export class DomHandler {
         return {
             top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
             left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
+            right: rect.right + (window.pageXOffset),
         };
     }
 
@@ -408,7 +409,7 @@ export class DomHandler {
         return navigator.userAgent;
     }
 
-    public static  isIE() {
+    public static isIE() {
         var ua = window.navigator.userAgent;
 
         var msie = ua.indexOf('MSIE ');
@@ -426,8 +427,8 @@ export class DomHandler {
 
         var edge = ua.indexOf('Edge/');
         if (edge > 0) {
-           // Edge (IE 12+) => return version number
-           return true;
+            // Edge (IE 12+) => return version number
+            return true;
         }
 
         // other browser
@@ -526,7 +527,7 @@ export class DomHandler {
         else if (document['selection'] && document['selection'].empty) {
             try {
                 document['selection'].empty();
-            } catch(error) {
+            } catch (error) {
                 //ignore IE bug
             }
         }
@@ -572,7 +573,7 @@ export class DomHandler {
             return Number.isInteger(value);
         }
         else {
-            return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+            return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
         }
     }
 
@@ -580,24 +581,24 @@ export class DomHandler {
         return element.offsetParent === null;
     }
 
-    public static getFocusableElements(element:HTMLElement) {
-        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+    public static getFocusableElements(element: HTMLElement) {
+        let focusableElements = DomHandler.find(element, `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
-            );
+        );
 
-            let visibleFocusableElements = [];
-            for(let focusableElement of focusableElements) {
-                if (getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
-                    visibleFocusableElements.push(focusableElement);
-            }
+        let visibleFocusableElements = [];
+        for (let focusableElement of focusableElements) {
+            if (getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
+                visibleFocusableElements.push(focusableElement);
+        }
         return visibleFocusableElements;
     }
 
     static generateZIndex() {
-        this.zindex = this.zindex||999;
+        this.zindex = this.zindex || 999;
         return ++this.zindex;
     }
 }

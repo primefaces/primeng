@@ -140,7 +140,7 @@ declare let gtag: Function;
                                 <li><a [routerLink]=" ['/table/rowexpansion']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">RowExpand</a></li>
                                 <li><a [routerLink]=" ['/table/edit']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Edit</a></li>
                                 <li><a [routerLink]=" ['/table/coltoggle']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Toggle</a></li>
-                                <li><a [routerLink]=" ['/table/colresize']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Resize</a></li>
+                                <li><a [routerLink]=" ['/table/colresize']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Resize - RTL</a></li>
                                 <li><a [routerLink]=" ['/table/reorder']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Reorder</a></li>
                                 <li><a [routerLink]=" ['/table/rowgroup']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">RowGroup</a></li>
                                 <li><a [routerLink]=" ['/table/contextmenu']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">ContextMenu</a></li>
