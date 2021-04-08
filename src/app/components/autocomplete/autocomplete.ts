@@ -8,7 +8,7 @@ import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -62,7 +62,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             </li>
                         </ng-container>
                         <ng-template #virtualScrollList>
-                            <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && !noResults">
+                            <cdk-virtual-scroll-viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && !noResults">
                                 <ng-container *cdkVirtualFor="let option of suggestionsToDisplay; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
                                     <li role="option" class="p-autocomplete-item" pRipple [ngClass]="{'p-highlight': (option === highlightOption)}" [ngStyle]="{'height': itemSize + 'px'}" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
                                         <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
@@ -217,9 +217,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @ViewChild('ddBtn') dropdownButton: ElementRef;
 
+    @ViewChild(CdkVirtualScrollViewport) viewPort: CdkVirtualScrollViewport;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     overlay: HTMLDivElement;
+
+    itemsWrapper: HTMLDivElement;
 
     itemTemplate: TemplateRef<any>;
 
@@ -273,6 +277,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     itemClicked: boolean;
 
+    virtualScrollSelectedIndex: number;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
         this.listId = UniqueComponentId() + '_list';
@@ -300,10 +306,20 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
         if (this.highlightOptionChanged) {
             setTimeout(() => {
-                if (this.overlay) {
+                if (this.overlay && this.itemsWrapper) {
                     let listItem = DomHandler.findSingle(this.overlay, 'li.p-highlight');
+
                     if (listItem) {
-                        DomHandler.scrollInView(this.overlay, listItem);
+                        DomHandler.scrollInView(this.itemsWrapper, listItem);
+                    }
+
+                    if (this.virtualScroll && this.viewPort) {
+                        let range = this.viewPort.getRenderedRange();
+                        this.updateVirtualScrollSelectedIndex();
+                        
+                        if (range.start > this.virtualScrollSelectedIndex || range.end < this.virtualScrollSelectedIndex) {
+                            this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex);
+                        }
                     }
                 }
             }, 1);
@@ -359,6 +375,12 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 break;
             }
         });
+    }
+
+    updateVirtualScrollSelectedIndex() {
+        if (this.highlightOption && this.suggestions && this.suggestions.length) {
+            this.virtualScrollSelectedIndex = this.findOptionIndex(this.highlightOption, this.suggestions);
+        }
     }
 
     writeValue(value: any) : void {
@@ -487,6 +509,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
+                this.itemsWrapper = this.virtualScroll ? DomHandler.findSingle(this.overlay, '.cdk-virtual-scroll-viewport') : this.overlay;
                 this.appendOverlay();
                 if (this.autoZIndex) {
                     this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
