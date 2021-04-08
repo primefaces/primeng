@@ -31,6 +31,10 @@
             </ng-template>
         </p-autoComplete>
 
+        <h5>Virtual Scroll (10000 Items)</h5>
+        <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [itemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true">
+        </p-autoComplete>
+
         <h5>Multiple</h5>
         <span class="p-fluid">
             <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true">
@@ -478,6 +482,18 @@ export class AutoCompleteDemo &#123;
                             <td>null</td>
                             <td>Used to define a string that autocomplete attribute the current element.</td>
                         </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>itemSize</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of an item in the list for VirtualScrolling.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -640,6 +656,10 @@ export class AutoCompleteDemo &#123;
     &lt;/ng-template&gt;
 &lt;/p-autoComplete&gt;
 
+&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+&lt;p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [itemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"&gt;
+&lt;/p-autoComplete&gt;
+
 &lt;h5&gt;Multiple&lt;/h5&gt;
 &lt;span class="p-fluid"&gt;
     &lt;p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"&gt;
@@ -651,17 +671,23 @@ export class AutoCompleteDemo &#123;
 export class AutoCompleteDemo &#123;
 
     selectedCountry: any;
+
+    selectedItem: any;
     
     countries: any[];
+    
+    items: any[];
         
     filteredCountries: any[];
+
+    filteredItems: any[];
 
     selectedCountries: any[];
     
     selectedCountryAdvanced: any[];
     
     filteredBrands: any[];
-    
+
     groupedCities: SelectItemGroup[];
 
     filteredGroups: any[];
@@ -702,12 +728,18 @@ export class AutoCompleteDemo &#123;
                 ]
             &#125;
         ];
+
+        this.items = [];
+        for (let i = 0; i &lt; 10000; i++) &#123;
+            this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
+        &#125;
     &#125;
     
     filterCountry(event) &#123;
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
         let query = event.query;
+
         for(let i = 0; i &lt; this.countries.length; i++) &#123;
             let country = this.countries[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
@@ -716,6 +748,21 @@ export class AutoCompleteDemo &#123;
         &#125;
         
         this.filteredCountries = filtered;
+    &#125;
+
+    filterItems(event) &#123;
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        let filtered : any[] = [];
+        let query = event.query;
+
+        for(let i = 0; i &lt; this.items.length; i++) &#123;
+            let item = this.items[i];
+            if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
+                filtered.push(item);
+            &#125;
+        &#125;
+        
+        this.filteredItems = filtered;
     &#125;
 
     filterGroupedCity(event) &#123;
