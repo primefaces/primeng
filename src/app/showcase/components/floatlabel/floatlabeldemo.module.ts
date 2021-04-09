@@ -19,8 +19,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 
-import { AppCodeModule } from '../../app.code.component';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -40,7 +40,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
 		MultiSelectModule,
 		InputTextareaModule,
 		FormsModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
         AppCodeModule
 	],
 	declarations: [
