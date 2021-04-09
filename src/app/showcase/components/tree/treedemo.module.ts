@@ -18,6 +18,7 @@ import {DialogModule} from 'primeng/dialog';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -30,7 +31,8 @@ import {AppCodeModule} from '../../app.code.component';
         DialogModule,
         ContextMenuModule,
         TabViewModule,
-        AppCodeModule
+        AppCodeModule,
+        AppDemoActionsModule
 	],
 	declarations: [
         TreeDemo,
