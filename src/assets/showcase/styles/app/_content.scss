@@ -35,6 +35,15 @@
                 }
             }
 
+            app-demoActions {
+                display: flex;
+                justify-content: flex-end;
+                
+                .p-button-icon-only {
+                    padding: .5rem 0;
+                }
+            }
+
             .app-inputstyleswitch {
                 margin-left: 2rem;
             }
