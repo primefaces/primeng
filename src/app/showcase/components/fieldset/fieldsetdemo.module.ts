@@ -4,7 +4,8 @@ import {FieldsetDemo} from './fieldsetdemo';
 import {FieldsetDemoRoutingModule} from './fieldsetdemo-routing.module';
 import {FieldsetModule} from 'primeng/fieldset';
 import {TabViewModule} from 'primeng/tabview';
-import { AppCodeModule } from '../../app.code.component';
+import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -12,7 +13,8 @@ import { AppCodeModule } from '../../app.code.component';
 		FieldsetDemoRoutingModule,
         FieldsetModule,
 		TabViewModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		FieldsetDemo
