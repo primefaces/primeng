@@ -513,7 +513,7 @@ export class UITreeNode implements OnInit {
         <div [ngClass]="{'p-tree p-component':true,'p-tree-selectable':selectionMode,
                 'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
-            (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
+            (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
@@ -1028,30 +1028,45 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         if (this.droppableNodes && (!this.value || this.value.length === 0)) {
             event.preventDefault();
             let dragNode = this.dragNode;
+
             if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
                 let dragNodeIndex = this.dragNodeIndex;
-                this.dragNodeSubNodes.splice(dragNodeIndex, 1);
                 this.value = this.value||[];
 
-                if (this.value.length === 0) {
+                if (this.validateDrop) {
+                    this.onNodeDrop.emit({
+                        originalEvent: event,
+                        dragNode: dragNode,
+                        dropNode: null,
+                        index: dragNodeIndex,
+                        accept: () => {
+                            this.processTreeDrop(dragNode, dragNodeIndex);
+                        }
+                    });
+                }
+                else {
                     this.onNodeDrop.emit({
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: null,
                         index: dragNodeIndex
-                    })
+                    });
+                    
+                    this.processTreeDrop(dragNode, dragNodeIndex);
                 }
-
-                this.value.push(dragNode);
-
-                this.dragDropService.stopDrag({
-                    node: dragNode
-                });
             }
         }
     }
 
-    onDragEnter(event) {
+    processTreeDrop(dragNode, dragNodeIndex) {
+        this.dragNodeSubNodes.splice(dragNodeIndex, 1);
+        this.value.push(dragNode);
+        this.dragDropService.stopDrag({
+            node: dragNode
+        });
+    }
+
+    onDragEnter() {
         if (this.droppableNodes && this.allowDrop(this.dragNode, null, this.dragNodeScope)) {
             this.dragHover = true;
         }
