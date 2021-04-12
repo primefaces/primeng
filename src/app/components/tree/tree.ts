@@ -511,7 +511,7 @@ export class UITreeNode implements OnInit {
     selector: 'p-tree',
     template: `
         <div [ngClass]="{'p-tree p-component':true,'p-tree-selectable':selectionMode,
-                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
+                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}"
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
@@ -898,6 +898,27 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         return index;
     }
 
+    processPointDrop(event, dragNodeIndex: number) {
+        let newNodeList = event.dropNode.parent ? event.dropNode.parent.children : this.value;
+        event.dragNodeSubNodes.splice(event.dragNodeIndex, 1);
+        let dropIndex = dragNodeIndex;
+
+        if (event.position < 0) {
+            dropIndex = (event.dragNodeSubNodes === newNodeList) ? ((event.dragNodeIndex > event.index) ? event.index : event.index - 1) : event.index;
+            newNodeList.splice(dropIndex, 0, event.dragNode);
+        }
+        else {
+            dropIndex = newNodeList.length;
+            newNodeList.push(event.dragNode);
+        }
+
+        this.dragDropService.stopDrag({
+            node: event.dragNode,
+            subNodes: event.dropNode.parent ? event.dropNode.parent.children : this.value,
+            index: event.dragNodeIndex
+        });
+    }
+
     syncNodeOption(node, parentNodes, option, value?: any) {
         // to synchronize the node option between the filtered nodes and the original nodes(this.value)
         const _node = this.hasFilteredNodes() ? this.getNodeWithKey(node.key, parentNodes) : null;
@@ -1002,7 +1023,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         return this.selectionMode && this.selectionMode == 'checkbox';
     }
 
-    isNodeLeaf(node) {
+    isNodeLeaf(node: TreeNode) {
         return node.leaf == false ? false : !(node.children && node.children.length);
     }
 
@@ -1033,12 +1054,17 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 this.dragNodeSubNodes.splice(dragNodeIndex, 1);
                 this.value = this.value||[];
 
+                let dropParams = {...this.createDropNodeEventMetadata(null)};
+
                 if (this.value.length === 0) {
                     this.onNodeDrop.emit({
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: null,
-                        index: dragNodeIndex
+                        index: dragNodeIndex,
+                        accept: () => {
+                            this.processPointDrop(dropParams, dragNodeIndex);
+                        }
                     })
                 }
 
@@ -1049,6 +1075,15 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 });
             }
         }
+    }
+
+    createDropNodeEventMetadata(dropNode) {
+        return {
+            dragNode: this.dragNode,
+            dragNodeIndex:  this.dragNodeIndex,
+            dragNodeSubNodes: this.dragNodeSubNodes,
+            dropNode: dropNode
+        };
     }
 
     onDragEnter(event) {
