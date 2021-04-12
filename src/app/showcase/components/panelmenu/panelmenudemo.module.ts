@@ -5,6 +5,7 @@ import {PanelMenuDemoRoutingModule} from './panelmenudemo-routing.module';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -12,6 +13,7 @@ import {AppCodeModule} from '../../app.code.component';
 		PanelMenuDemoRoutingModule,
         PanelMenuModule,
 		TabViewModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [
