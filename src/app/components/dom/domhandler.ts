@@ -188,7 +188,7 @@ export class DomHandler {
                     }
                 }
 
-                if (parent.nodeType !== 9 && parent.toString() !== "[object ShadowRoot]" && overflowCheck(parent)) {
+                if (parent.nodeType !== 9 && parent.nodeType !== 11 && overflowCheck(parent)) {
                     scrollableParents.push(parent);
                 }
             }

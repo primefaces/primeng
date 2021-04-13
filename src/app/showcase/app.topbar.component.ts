@@ -380,7 +380,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     isOutsideTopbarMenuClicked(event): boolean {
-        return !(this.topbarMenu.nativeElement.isSameNode(event.target) || this.topbarMenu.nativeElement.contains(event.target) || this.topbarMenu.nativeElement.contains(event.composedPath()[0]));
+        return !(this.topbarMenu.nativeElement.isSameNode(event.target) || this.topbarMenu.nativeElement.contains(event.target));
     }
 
     onOverlayMenuEnter(event: AnimationEvent) {
