@@ -3,7 +3,7 @@
         <h1>Table <span>Striped</span></h1>
         <p>Adding <b>p-datatable-striped</b> displays striped rows.</p>
     </div>
-    <app-demoActions github="table"></app-demoActions>
+    <app-demoActions github="table" stackblitz="tablestriped-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -34,6 +34,9 @@
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablestriped-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -78,6 +81,11 @@ export class TableStripedDemo implements OnInit &#123;
 &#125;
 </app-code>
   
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablestriped-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>
