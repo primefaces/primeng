@@ -17,7 +17,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
             </div>
             <div class="p-checkbox-box" (click)="onClick($event,input)"  role="checkbox" [attr.aria-checked]="value === true"
                 [ngClass]="{'p-highlight':value!=null,'p-disabled':disabled,'p-focus':focused}">
-                <span class="p-checkbox-icon" [ngClass]="value===true ? checkboxTrueIcon : value === false ? checkboxFalseIcon : ''"></span>
+                <span class="p-checkbox-icon" [ngClass]="value === true ? checkboxTrueIcon : value === false ? checkboxFalseIcon : ''"></span>
             </div>
         </div>
         <label class="p-checkbox-label" (click)="onClick($event,input)"
