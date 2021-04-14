@@ -399,7 +399,7 @@ export class Password implements AfterContentInit,OnInit {
                 this.bindResizeListener();
             break;
 
-            case 'hidden':
+            case 'void':
                 this.unbindScrollListener();
                 this.unbindResizeListener();
                 this.overlay = null;
