@@ -270,8 +270,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     };
 
     set disabled(_disabled: boolean) {
-        if (_disabled)
+        if (_disabled) {
             this.focused = false;
+
+            if (this.overlayVisible)
+                this.hide();
+        }
 
         this._disabled = _disabled;
         if (!(this.cd as ViewRef).destroyed) {
@@ -444,7 +448,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         setTimeout(() => {
-            this.hide(event);
+            this.hide();
         }, 150);
     }
 
@@ -554,7 +558,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.accessibleViewChild.nativeElement.focus();
 
         if (this.overlayVisible)
-            this.hide(event);
+            this.hide();
         else
             this.show();
 
@@ -577,7 +581,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     onEditableInputFocus(event) {
         this.focused = true;
-        this.hide(event);
+        this.hide();
         this.onFocus.emit(event);
     }
 
@@ -632,6 +636,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             case 'void':
                 this.onOverlayHide();
+                this.onHide.emit(event);
             break;
         }
     }
@@ -678,7 +683,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    hide(event) {
+    hide() {
         this.overlayVisible = false;
 
         if (this.filter && this.resetFilterOnHide) {
@@ -690,7 +695,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.cd.markForCheck();
-        this.onHide.emit(event);
     }
 
     alignOverlay() {
@@ -868,7 +872,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //enter
             case 13:
                 if (!this.filter || (this.optionsToDisplay && this.optionsToDisplay.length > 0)) {
-                    this.hide(event);
+                    this.hide();
                 }
 
                 event.preventDefault();
@@ -877,7 +881,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //escape and tab
             case 27:
             case 9:
-                this.hide(event);
+                this.hide();
             break;
 
             //search item based on keyboard input
@@ -1086,7 +1090,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                 if (this.isOutsideClicked(event)) {
-                    this.hide(event);
+                    this.hide();
                     this.unbindDocumentClickListener();
                 }
 
@@ -1116,7 +1120,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     onWindowResize() {
         if (!DomHandler.isAndroid()) {
-            this.hide(event);
+            this.hide();
         }
     }
 
@@ -1124,7 +1128,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild.nativeElement, (event: any) => {
                 if (this.overlayVisible) {
-                    this.hide(event);
+                    this.hide();
                 }
             });
         }
