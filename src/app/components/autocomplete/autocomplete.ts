@@ -41,7 +41,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
             <div #panel *ngIf="overlayVisible" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
-                <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items">
+                <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="{'p-autocomplete-virtualscroll': virtualScroll}">
                     <ng-container *ngIf="group">
                         <ng-template ngFor let-optgroup [ngForOf]="suggestions">
                             <li class="p-autocomplete-item-group">
