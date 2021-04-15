@@ -882,14 +882,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             //search item based on keyboard input
             default:
-                if (search) {
+                if (search && !event.metaKey) {
                     this.search(event);
                 }
             break;
         }
     }
 
-    search(event) {
+    search(event: KeyboardEvent) {
         if (this.searchTimeout) {
             clearTimeout(this.searchTimeout);
         }
