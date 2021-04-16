@@ -4148,6 +4148,8 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() showAddButton: boolean = true;
 
+    @Input() hideMenuOnClear: boolean = false;
+
     @Input() placeholder: string;
 
     @Input() matchModeOptions: SelectItem[];
@@ -4548,6 +4550,8 @@ export class ColumnFilter implements AfterContentInit {
     clearFilter() {
         this.initFieldFilterConstraint();
         this.dt._filter();
+        if (this.hideMenuOnClear)
+            this.hide();
     }
 
     applyFilter() {
