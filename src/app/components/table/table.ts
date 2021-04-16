@@ -4148,7 +4148,7 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() showAddButton: boolean = true;
 
-    @Input() hideMenuOnClear: boolean = false;
+    @Input() hideOnClear: boolean = false;
 
     @Input() placeholder: string;
 
@@ -4550,7 +4550,7 @@ export class ColumnFilter implements AfterContentInit {
     clearFilter() {
         this.initFieldFilterConstraint();
         this.dt._filter();
-        if (this.hideMenuOnClear)
+        if (this.hideOnClear)
             this.hide();
     }
 
