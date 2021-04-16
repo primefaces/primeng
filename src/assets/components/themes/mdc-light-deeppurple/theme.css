@@ -2845,7 +2845,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-tree .p-tree-container .p-treenode .p-treenode-content {
   border-radius: 4px;
   transition: none;
-  padding: 0.571rem;
+  padding: 0.25rem;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
   margin-right: 0.5rem;
@@ -2927,7 +2927,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 1px solid #e0e0e0;
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
-  padding: 0.571rem;
+  padding: 0.25rem;
   transition: none;
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-highlight {
