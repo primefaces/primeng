@@ -74,12 +74,114 @@ describe('Paginator', () => {
 			rows: new SimpleChange(null, 10, false),
 			totalRecords: new SimpleChange(null, 120, false),
 			rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
-		})
+		});
 		fixture.detectChanges();
 
 		const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
 		expect(dropdownEl.componentInstance.appendTo).toEqual('body');
 	});
+
+    it('should inject dropdownIcon into rowsPerPage-dropdown', () => {
+        paginator.dropdownIcon = 'pi pi-arrow-down';
+        paginator.rowsPerPageOptions = [10, 20, 30];
+        paginator.rows = 10;
+        paginator.ngOnChanges({
+            rows: new SimpleChange(null, 10, false),
+            totalRecords: new SimpleChange(null, 120, false),
+            rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
+        });
+        fixture.detectChanges();
+
+        const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
+        expect(dropdownEl.componentInstance.dropdownIcon).toEqual('pi pi-arrow-down');
+    });
+
+    it('should inject default dropdownIcon into rowsPerPage-dropdown if not provided', () => {
+        paginator.rowsPerPageOptions = [10, 20, 30];
+        paginator.rows = 10;
+        paginator.ngOnChanges({
+            rows: new SimpleChange(null, 10, false),
+            totalRecords: new SimpleChange(null, 120, false),
+            rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
+        });
+        fixture.detectChanges();
+
+        const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
+        expect(dropdownEl.componentInstance.dropdownIcon).toEqual('pi pi-chevron-down');
+    });
+
+    it('should inject jumpToPageDropdownIcon into jumpToPage-dropdown', () => {
+        paginator.jumpToPageDropdownIcon = 'pi pi-arrow-down';
+        paginator.showJumpToPageDropdown = true;
+        paginator.rows = 10;
+        paginator.ngOnChanges({
+            rows: new SimpleChange(null, 10, false),
+            totalRecords: new SimpleChange(null, 120, false),
+            rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
+        });
+        fixture.detectChanges();
+
+        const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
+        expect(dropdownEl.componentInstance.dropdownIcon).toEqual('pi pi-arrow-down');
+    });
+
+    it('should inject default dropdownIcon into jumpToPage-dropdown if not provided', () => {
+        paginator.rowsPerPageOptions = [10, 20, 30];
+        paginator.rows = 10;
+        paginator.ngOnChanges({
+            rows: new SimpleChange(null, 10, false),
+            totalRecords: new SimpleChange(null, 120, false),
+            rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
+        });
+        fixture.detectChanges();
+
+        const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
+        expect(dropdownEl.componentInstance.dropdownIcon).toEqual('pi pi-chevron-down');
+    });
+
+    it('should use default icons for first to last buttons if not provided', () => {
+        paginator.rowsPerPageOptions = [10, 20, 30];
+        paginator.rows = 10;
+        paginator.ngOnChanges({
+            rows: new SimpleChange(null, 10, false),
+            totalRecords: new SimpleChange(null, 120, false),
+            rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
+        });
+        fixture.detectChanges();
+
+        const buttonEls = fixture.debugElement.queryAll(By.css('.p-paginator-icon'));
+        expect(buttonEls.length).toEqual(4);
+        expect(buttonEls.map(el => el.classes)).toEqual([
+            {'p-paginator-icon': true, pi: true, 'pi-angle-double-left': true},
+            {'p-paginator-icon': true, pi: true, 'pi-angle-left': true},
+            {'p-paginator-icon': true, pi: true, 'pi-angle-right': true},
+            {'p-paginator-icon': true, pi: true, 'pi-angle-double-right': true}
+        ]);
+    });
+
+    it('should use provided icons for first to last buttons', () => {
+        paginator.firstIcon = 'pi pi-fast-backward';
+        paginator.previousIcon = 'pi pi-step-backward';
+        paginator.nextIcon = 'pi pi-step-forward';
+        paginator.lastIcon = 'pi pi-fast-forward';
+        paginator.rowsPerPageOptions = [10, 20, 30];
+        paginator.rows = 10;
+        paginator.ngOnChanges({
+            rows: new SimpleChange(null, 10, false),
+            totalRecords: new SimpleChange(null, 120, false),
+            rowsPerPageOptions: new SimpleChange(null, [10, 20, 30], false),
+        });
+        fixture.detectChanges();
+
+        const buttonEls = fixture.debugElement.queryAll(By.css('.p-paginator-icon'));
+        expect(buttonEls.length).toEqual(4);
+        expect(buttonEls.map(el => el.classes)).toEqual([
+            {'p-paginator-icon': true, pi: true, 'pi-fast-backward': true},
+            {'p-paginator-icon': true, pi: true, 'pi-step-backward': true},
+            {'p-paginator-icon': true, pi: true, 'pi-step-forward': true},
+            {'p-paginator-icon': true, pi: true, 'pi-fast-forward': true}
+        ]);
+    });
 
 	it('should have a 5 page link, 4 paginator element and 1 dropdown with 3 option', () => {
 		paginator.rowsPerPageOptions = [10, 20, 30];

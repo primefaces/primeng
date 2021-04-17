@@ -16,30 +16,32 @@ import {SharedModule} from 'primeng/api';
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)" pRipple
                     class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
-                <span class="p-paginator-icon pi pi-angle-double-left"></span>
+                <span [class]="'p-paginator-icon ' + firstIcon"></span>
             </button>
             <button type="button" [disabled]="isFirstPage()" (click)="changePageToPrev($event)" pRipple
                     class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
-                <span class="p-paginator-icon pi pi-angle-left"></span>
+                <span [class]="'p-paginator-icon ' + previousIcon"></span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
                 <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 == getPage())}"
                     (click)="onPageLinkClick($event, pageLink - 1)" pRipple>{{pageLink}}</button>
             </span>
             <p-dropdown [options]="pageItems" [ngModel]="getPage()" *ngIf="showJumpToPageDropdown"  styleClass="p-paginator-page-options"
-                (onChange)="onPageDropdownChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight">
+                (onChange)="onPageDropdownChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"
+                [dropdownIcon]="jumpToPageDropdownIcon">
                 <ng-template pTemplate="selectedItem">{{currentPageReport}}</ng-template>
             </p-dropdown>
             <button type="button" [disabled]="isLastPage()" (click)="changePageToNext($event)" pRipple
                     class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
-                <span class="p-paginator-icon pi pi-angle-right"></span>
+                <span [class]="'p-paginator-icon ' + nextIcon"></span>
             </button>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage()" (click)="changePageToLast($event)" pRipple
                     class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
-                <span class="p-paginator-icon pi pi-angle-double-right"></span>
+                <span [class]="'p-paginator-icon pi ' + lastIcon"></span>
             </button>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" styleClass="p-paginator-rpp-options"
-                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight">
+                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"
+                        [dropdownIcon]="dropdownIcon">
                 <ng-container *ngIf="dropdownItemTemplate">
                     <ng-template let-item pTemplate="item">
                         <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: {$implicit: item}">
@@ -67,9 +69,9 @@ export class Paginator implements OnInit, OnChanges {
     @Input() styleClass: string;
 
     @Input() alwaysShow: boolean = true;
-    
+
     @Input() templateLeft: TemplateRef<any>;
-    
+
     @Input() templateRight: TemplateRef<any>;
 
     @Input() dropdownAppendTo: any;
@@ -85,21 +87,33 @@ export class Paginator implements OnInit, OnChanges {
     @Input() totalRecords: number = 0;
 
     @Input() rows: number = 0;
-    
+
     @Input() rowsPerPageOptions: any[];
 
     @Input() showJumpToPageDropdown: boolean;
 
+    @Input() jumpToPageDropdownIcon: string = 'pi pi-chevron-down';
+
     @Input() showPageLinks: boolean = true;
 
     @Input() dropdownItemTemplate: TemplateRef<any>;
+
+    @Input() dropdownIcon: string = 'pi pi-chevron-down';
+
+    @Input() firstIcon: string = 'pi pi-angle-double-left';
+
+    @Input() previousIcon: string = 'pi pi-angle-left';
+
+    @Input() nextIcon: string = 'pi pi-angle-right';
+
+    @Input() lastIcon: string = 'pi pi-angle-double-right';
 
     pageLinks: number[];
 
     pageItems: SelectItem[];
 
     rowsPerPageItems: SelectItem[];
-    
+
     paginatorState: any;
 
     _first: number = 0;
@@ -107,7 +121,7 @@ export class Paginator implements OnInit, OnChanges {
     _page: number = 0;
 
     constructor(private cd: ChangeDetectorRef) {}
-    
+
     ngOnInit() {
         this.updatePaginatorState();
     }
@@ -269,7 +283,7 @@ export class Paginator implements OnInit, OnChanges {
     onPageDropdownChange(event) {
         this.changePage(event.value);
     }
-    
+
     updatePaginatorState() {
         this.paginatorState = {
             page: this.getPage(),
