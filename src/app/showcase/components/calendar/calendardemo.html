@@ -12,10 +12,10 @@
         <div class="p-fluid p-grid p-formgrid">
             <div class="p-field p-col-12 p-md-4">
                 <label for="basic">Basic</label>
-                <p-calendar inputId="basic" [(ngModel)]="date1"></p-calendar>
+                <p-calendar inputId="basic"></p-calendar>
             </div>
 
-            <div class="p-field p-col-12 p-md-4">
+          <div class="p-field p-col-12 p-md-4">
                 <label for="dateformat">DateFormat</label>
                 <p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"></p-calendar>
             </div>
@@ -32,17 +32,17 @@
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="disabledays">Disable Days</label>
-                <p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true" inputId="disabledays"></p-calendar>
+                <p-calendar [isJalali]="true" [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true" inputId="disabledays"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="navigators">Navigators</label>
-                <p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" inputId="navigators"></p-calendar>
+                <p-calendar [isJalali]="true" [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="1360:1420" inputId="navigators"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="time">Time</label>
-                <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
+                <p-calendar [(ngModel)]="date7" [isJalali]="true" [showTime]="true" inputId="time"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
@@ -52,12 +52,12 @@
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="multiple">Multiple</label>
-                <p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" inputId="multiple"></p-calendar>
+                <p-calendar [(ngModel)]="dates" selectionMode="multiple" [isJalali]="true" [readonlyInput]="false" inputId="multiple"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="range">Range</label>
-                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
+                <p-calendar [isJalali]="true" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
@@ -67,7 +67,7 @@
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="template">Date Template</label>
-                <p-calendar [(ngModel)]="date10" inputId="template">
+                <p-calendar [isJalali]="true" [(ngModel)]="date10" inputId="template">
                     <ng-template pTemplate="date" let-date>
                         <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
                     </ng-template>
@@ -76,22 +76,22 @@
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="multiplemonths">Multiple Months</label>
-                <p-calendar [(ngModel)]="date11" [numberOfMonths]="3" inputId="multiplemonths"></p-calendar>
+                <p-calendar  [isJalali]="true"   [(ngModel)]="date11" [numberOfMonths]="3" inputId="multiplemonths"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="monthpicker">Month Picker</label>
-                <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
+                <p-calendar [isJalali]="true" [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="1360:1420" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
             </div>
 
             <div class="p-field p-col-12 p-md-4">
                 <label for="touchui">Touch UI</label>
-                <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true" inputId="touchui"></p-calendar>
-            </div>
+                <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true" inputId="touchui" [isJalali]="true"></p-calendar>
+            </div> 
         </div>
 
         <h5>Inline</h5>
-        <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"></p-calendar>
+        <!-- <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"></p-calendar> -->
     </div>
 
 </div>
