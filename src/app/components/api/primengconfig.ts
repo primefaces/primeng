@@ -76,13 +76,24 @@ export class PrimeNGConfig {
         strong: 'Strong',
         passwordPrompt: 'Enter a password'
     }
+    private farsiTranslation: Translation = {
+
+        dayNames: [" شنبه", "یک شنبه", "دو شنبه ", "سه شنبه", "چهار شنبه", " پنج شنبه", " جمعه"],
+        dayNamesShort: ["شن", "یک", "دو ", "س", "چ", " پ", " ج"],
+        dayNamesMin: ["  شنبه", "یک شنبه", "دو شنبه ", "سه شنبه", "چهار شنبه", " پنج شنبه", " جمعه"],
+        monthNames: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
+        monthNamesShort: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
+        today: 'امروز',
+        clear: 'پاک کردن',
+
+    }
 
     private translationSource = new Subject<any>();
     
     translationObserver = this.translationSource.asObservable();
     
-    getTranslation(key: string) {
-        return this.translation[key];
+    getTranslation(key: string , isJalali?) {
+        return isJalali ?  this.farsiTranslation[key] : this.translation[key];
     }
 
     setTranslation(value: Translation) {
