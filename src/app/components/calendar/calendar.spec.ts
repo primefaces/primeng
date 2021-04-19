@@ -301,7 +301,6 @@ describe('Calendar', () => {
 	});
 
 	it('should use invalidDates', () => {
-
 		let invalidDates: Array<Date>;
 		let invalidDate = new Date();
 		invalidDate.setDate(15);
@@ -345,7 +344,6 @@ describe('Calendar', () => {
 	});
 
 	it('should use year and month navigator', () => {
-
 		calendar.monthNavigator = true;
 		calendar.yearNavigator = true;
 		calendar.yearRange = "2000:2030";
@@ -413,23 +411,25 @@ describe('Calendar', () => {
 		const decrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[1];
 		const monthDropdownEl = navigators[0];
 		const yearDropdownEl = navigators[1];
-		const event = new Event('change');
+		const changeEvent = new Event('change');
+		const mousedownEvent = new Event('mousedown');
+		const mouseupEvent = new Event('mouseup');
 		monthDropdownEl.nativeElement.value = "7";
-		monthDropdownEl.nativeElement.dispatchEvent(event);
+		monthDropdownEl.nativeElement.dispatchEvent(changeEvent);
 		yearDropdownEl.nativeElement.value = "2008";
-		yearDropdownEl.nativeElement.dispatchEvent(event);
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+		yearDropdownEl.nativeElement.dispatchEvent(changeEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
@@ -459,12 +459,13 @@ describe('Calendar', () => {
 	});
 
 	it('should only time', () => {
-
 		calendar.timeOnly = true;
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const focusEvent = new Event('focus');
+		const mousedownEvent = new Event('mousedown');
+		const mouseupEvent = new Event('mouseup');
 		inputEl.click();
 		inputEl.dispatchEvent(focusEvent);
 		fixture.detectChanges();
@@ -482,18 +483,18 @@ describe('Calendar', () => {
 		const decrementHourEl = hourPicker.queryAll(By.css('.p-link'))[1];
 		const incrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[0];
 		const decrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[1];
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+		incrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
@@ -669,7 +670,6 @@ describe('Calendar', () => {
 	});
 
 	it('should show month picker', fakeAsync(() => {
-
 		calendar.view = "month";
 		calendar.dateFormat = "mm";
 		fixture.detectChanges();
@@ -914,7 +914,8 @@ describe('Calendar', () => {
 
 		const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
 		const focusEvent = new Event('focus');
-
+		const mousedownEvent = new Event('mousedown');
+		const mouseupEvent = new Event('mouseup');
 		inputEl.nativeElement.click();
 		inputEl.nativeElement.dispatchEvent(focusEvent);
 		fixture.detectChanges();
@@ -929,15 +930,15 @@ describe('Calendar', () => {
 		expect(incrementHour).toBeTruthy();
 		expect(calendar.pm).toEqual(false);
 		expect(amPmEl.children[1].nativeElement.textContent).toEqual("AM");
-		incrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
+		incrementHour.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHour.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(calendar.pm).toEqual(true);
 		expect(amPmEl.children[1].nativeElement.textContent).toEqual("PM");
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual("12");
-		decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
+		decrementHour.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHour.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(calendar.pm).toEqual(false);
@@ -1052,20 +1053,21 @@ describe('Calendar', () => {
 		inputEl.nativeElement.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
-
+		const mousedownEvent = new Event('mousedown');
+		const mouseupEvent = new Event('mouseup');
 		const secondPicker = fixture.debugElement.query(By.css('.p-second-picker'));
 		const incrementSecond = secondPicker.query(By.css('button'));
 		const decrementSecond = secondPicker.queryAll(By.css('button'))[1];
-		incrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
+		incrementSecond.nativeElement.dispatchEvent(mousedownEvent);
+		incrementSecond.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
 		expect(incrementSecondSpy).toHaveBeenCalled();
 		fixture.detectChanges();
 
-		decrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
+		decrementSecond.nativeElement.dispatchEvent(mousedownEvent);
+		decrementSecond.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
@@ -1090,6 +1092,8 @@ describe('Calendar', () => {
 		inputEl.nativeElement.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
+		const mousedownEvent = new Event('mousedown');
+		const mouseupEvent = new Event('mouseup');
 		const secondPicker = fixture.debugElement.query(By.css('.p-second-picker'));
 		const incrementSecond = secondPicker.query(By.css('button'));
 		const decrementSecond = secondPicker.queryAll(By.css('button'))[1];
@@ -1099,12 +1103,12 @@ describe('Calendar', () => {
 		const minutePicker = fixture.debugElement.query(By.css('.p-minute-picker'));
 		const incrementMinute = minutePicker.query(By.css('button'));
 		const decrementMinute = minutePicker.queryAll(By.css('button'))[1];
-		incrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
+		incrementHour.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHour.nativeElement.dispatchEvent(mouseupEvent);
+		incrementMinute.nativeElement.dispatchEvent(mousedownEvent);
+		incrementMinute.nativeElement.dispatchEvent(mouseupEvent);
+		incrementSecond.nativeElement.dispatchEvent(mousedownEvent);
+		incrementSecond.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('13');
@@ -1113,12 +1117,12 @@ describe('Calendar', () => {
 		expect(calendar.currentHour).toEqual(13);
 		expect(calendar.currentMinute).toEqual(14);
 		expect(calendar.currentSecond).toEqual(23);
-		decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
+		decrementHour.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHour.nativeElement.dispatchEvent(mouseupEvent);
+		decrementMinute.nativeElement.dispatchEvent(mousedownEvent);
+		decrementMinute.nativeElement.dispatchEvent(mouseupEvent);
+		decrementSecond.nativeElement.dispatchEvent(mousedownEvent);
+		decrementSecond.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
@@ -1147,6 +1151,8 @@ describe('Calendar', () => {
 		inputEl.nativeElement.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
+		const mousedownEvent = new Event('mousedown');
+		const mouseupEvent = new Event('mouseup');
 		const secondPicker = fixture.debugElement.query(By.css('.p-second-picker'));
 		const incrementSecond = secondPicker.query(By.css('button'));
 		const decrementSecond = secondPicker.queryAll(By.css('button'))[1];
@@ -1156,12 +1162,12 @@ describe('Calendar', () => {
 		const minutePicker = fixture.debugElement.query(By.css('.p-minute-picker'));
 		const incrementMinute = minutePicker.query(By.css('button'));
 		const decrementMinute = minutePicker.queryAll(By.css('button'))[1];
-		incrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
+		incrementHour.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHour.nativeElement.dispatchEvent(mouseupEvent);
+		incrementMinute.nativeElement.dispatchEvent(mousedownEvent);
+		incrementMinute.nativeElement.dispatchEvent(mouseupEvent);
+		incrementSecond.nativeElement.dispatchEvent(mousedownEvent);
+		incrementSecond.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
@@ -1170,12 +1176,12 @@ describe('Calendar', () => {
 		expect(calendar.currentHour).toEqual(3);
 		expect(calendar.currentMinute).toEqual(3);
 		expect(calendar.currentSecond).toEqual(3);
-		decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
+		decrementHour.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHour.nativeElement.dispatchEvent(mouseupEvent);
+		decrementMinute.nativeElement.dispatchEvent(mousedownEvent);
+		decrementMinute.nativeElement.dispatchEvent(mouseupEvent);
+		decrementSecond.nativeElement.dispatchEvent(mousedownEvent);
+		decrementSecond.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
@@ -1752,6 +1758,8 @@ describe('Calendar', () => {
 		calendar.currentMinute = 0;
 		fixture.detectChanges();
 
+		const mousedownEvent = new Event('mousedown');
+		const mouseupEvent = new Event('mouseup');
 		let defaultHour = calendar.currentHour;
 		let defaultMinute = calendar.currentMinute;
 		const timers = fixture.debugElement.query(By.css('.p-timepicker')).queryAll(By.css('div'));
@@ -1761,22 +1769,22 @@ describe('Calendar', () => {
 		const decrementHourEl = hourPicker.queryAll(By.css('.p-link'))[1];
 		const incrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[0];
 		const decrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[1];
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
-		decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+		incrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementHourEl.nativeElement.dispatchEvent(mouseupEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		incrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mousedownEvent);
+		decrementMinuteEl.nativeElement.dispatchEvent(mouseupEvent);
 		fixture.detectChanges();
 
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
