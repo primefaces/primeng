@@ -68,15 +68,15 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
+            <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DataViewModule&#125; from 'primeng/dataview';
 </app-code>
 
-            <h3>PrimeFlex</h3>
+            <h5>PrimeFlex</h5>
             <p>DataView utilizes PrimeFlex so it is required to be installed in your application. Refer to the <a [routerLink]="['/flexgrid']">documentation</a> for details.</p>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. <i>list</i> and <i>grid</i>.</p>
 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
@@ -132,7 +132,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Layouts</h3>
+            <h5>Layouts</h5>
             <p>DataView has two layout modes; "list" and "grid" where a separate template is used to render an item in each mode. In list mode name of the template is "listItem" whereas
                 in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/flexgrid']">PrimeFlex</a> style class of your choice.</p>
             <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
@@ -152,7 +152,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Sections</h3>
+            <h5>Sections</h5>
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -172,7 +172,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>DataViewLayoutOptions</h3>
+            <h5>DataViewLayoutOptions</h5>
             <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. <i>p-dataViewLayoutOptions</i> is a helper component
                 to display a buttonset to choose the layout mode in DataView. Location of the <i>p-dataViewLayoutOptions</i> should be inside the DataView component. If you prefer a different UI element
                 you can create your own that updates the layout property of the DataView.
@@ -199,7 +199,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Paginator</h3>
+            <h5>Paginator</h5>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
                 of page links to display. To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p>
 
@@ -228,7 +228,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Lazy Loading</h3>
+            <h5>Lazy Loading</h5>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
              onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using <i>onLazyLoad</i> that actually loads the data from a remote datasource. <i>onLazyLoad</i> gets an event object
             that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
@@ -258,7 +258,7 @@ loadData(event) &#123;
 &#125;
 </app-code>
 
-            <h3>Sorting</h3>
+            <h5>Sorting</h5>
             <p><i>sortField</i> and <i>sortOrder</i> properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
                 Here is an example that uses a dropdown where simply updating the <i>sortField</i> - <i>sortOrder</i> bindings of the DataView initiates sorting.</p>
 
@@ -321,7 +321,7 @@ export class DataViewSortDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-            <h3>Filtering</h3>
+            <h5>Filtering</h5>
             <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component,
                 for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
                 Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
@@ -341,12 +341,12 @@ export class DataViewSortDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Custom UI Elements</h3>
+            <h5>Custom UI Elements</h5>
             <p>As mentioned above, layout options selector, sorting and filtering are baked-in and no strict UI is enforces to make it possible to come up with your own UI elements
                 to enable these features.
             </p>
 
-            <h3>Loading Status</h3>
+            <h5>Loading Status</h5>
             <p>DataView has a loading property, when enabled a spinner icon is displayed to indicate data load.
                 An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
 
@@ -356,7 +356,7 @@ export class DataViewSortDemo implements OnInit &#123;
 &lt;/p-dataview&gt;
 </app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -530,7 +530,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -568,7 +568,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -611,7 +611,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>PrimeFlex.</p>
         </p-tabPanel>
 

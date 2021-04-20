@@ -162,20 +162,20 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>CDK</h3>
+            <h5>CDK</h5>
             <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 npm install @angular/cdk --save
 </app-code>
 
-            <h3>Import</h3>
+            <h5>Import</h5>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TableModule&#125; from 'primeng/table';
 </app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Table requires a value as an array of objects and templates for the presentation. Throughout the samples, a car interface having
             vin, brand, year and color properties is used to define an object to be displayed by the table. Cars are loaded by a CarService that
             connects to a server to fetch the data.</p>
@@ -247,7 +247,7 @@ export class TableDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </app-code>
 
-        <h3>Dynamic Columns</h3>
+        <h5>Dynamic Columns</h5>
         <p>Instead of configuring columns one by one, a simple ngFor can be used to implement dynamic columns. cols property below is an array of objects that represent a column,
             only property that table component uses is field, rest of the properties like <i>header</i> depend on your choice.
         </p>
@@ -320,12 +320,12 @@ export class DynamicColumnsDemo implements OnInit &#123;
 
             <p>Tip: Use ngSwitch to customize the column content per dynamic column.</p>
 
-            <h3>Table Layout</h3>
+            <h5>Table Layout</h5>
             <p>For performance reasons, default table-layout is fixed meaning the cell widths do not depend on their content. If you require cells to scale based on their contents
                 set <i>autoLayout</i> property to true. Note that Scrollable and/or Resizable tables do not support auto layout due to technical reasons.
             </p>
 
-            <h3>Templates</h3>
+            <h5>Templates</h5>
             <p>Table is a template driven component with named templates such as header and body that we've used so far. Templates grant a great level of customization and flexibility
                 where you have total control over the presentation while table handles the features such as paging, sorting, filtering and more. This speeds up development without sacrifing
                 flexibility. Here is the full list of available templates.</p>
@@ -459,13 +459,13 @@ export class DynamicColumnsDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Change Detection</h3>
+            <h5>Change Detection</h5>
             <p>Table may need to be aware of changes in its value in some cases such as reapplying sort. For the sake of performance, this is only done when the reference of the value changes meaning a
                 setter is used instead of ngDoCheck/IterableDiffers which can reduce performance. So when you manipulate the value such as removing or adding an item, instead of using array methods such as push, splice
                 create a new array reference using a spread operator or similar.
             </p>
 
-            <h3>Sections</h3>
+            <h5>Sections</h5>
             <p>Table offers various templates to display additional information about the data such as a <i>caption</i> or <i>summary</i>.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -502,7 +502,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/sections']">live example.</a></p>
 
-            <h3>Column Grouping</h3>
+            <h5>Column Grouping</h5>
             <p>Columns can easily be grouped using templating. Let's start with sample data of sales of brands per year.</p>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -566,7 +566,7 @@ export class TableColGroupDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/colgroup']">live example.</a></p>
 
-            <h3>Row Grouping</h3>
+            <h5>Row Grouping</h5>
             <p>Templating features can also be used to implement row grouping functionality, here is an example implementation that uses a metadata object
                 to keep at what index a group starts and how many items it has.</p>
 
@@ -668,13 +668,13 @@ export class TableRowGroupDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/rowgroup']">live example.</a></p>
 
-            <h3>Multi Field grouping</h3>
+            <h5>Multi Field grouping</h5>
             <p>Previous example uses a single field to group the rows however nothing limits you to implement multiple field grouping as well. Similarly to single
                 grouping, your data should be sorted first, you may use the built-in multiSorting or provide it sorted to the table and create a <i>rowGroupMetadata</i>
                 for multiple fields.
             </p>
 
-            <h3>Paginator</h3>
+            <h5>Paginator</h5>
             <p>Pagination is enabled by setting <i>paginator</i> property to true, rows property defines the number of rows per page and pageLinks specify the the number
                 of page links to display. See <a [routerLink]="['/paginator']">paginator</a> component for more information.</p>
 
@@ -778,7 +778,7 @@ export class TablePageDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/page']">live example.</a></p>
 
-            <h3>Sorting</h3>
+            <h5>Sorting</h5>
             <p>A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sortIcon</i> component. For dynamic columns,
                 setting <i>pSortableColumnDisabled</i> property as true disables sorting for that particular column.
             </p>
@@ -935,7 +935,7 @@ export class CustomTableSortDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/sort']">live example.</a></p>
 
-            <h3>Filtering</h3>
+            <h5>Filtering</h5>
             <p>Filtering feature provides advanced and flexible options to query the data. Core of the filtering functionality is the <i>p-columnFilter</i> component.</p>
 
             <h4>Data Types</h4>
@@ -1084,7 +1084,7 @@ export class TableFilterDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </app-code>
 
-            <h3>ColumnFilter Properties</h3>
+            <h5>ColumnFilter Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -1258,7 +1258,7 @@ export class TableFilterDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/filter']">live example.</a></p>
 
-            <h3>Selection</h3>
+            <h5>Selection</h5>
             <p>Table provides built-in single and multiple selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a <i>selectionMode</i>, bind a selection reference and add pSelectableRow directive
             whose value is the rowData to the rows that can be selected. Additionally if you prefer double click use <i>pSelectableRowDblClick</i> directive instead and
@@ -1423,7 +1423,7 @@ export class TableDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>TableCheckbox Properties</h3>
+            <h5>TableCheckbox Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -1481,7 +1481,7 @@ export class TableDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>TableHeaderCheckbox Properties</h3>
+            <h5>TableHeaderCheckbox Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -1521,7 +1521,7 @@ export class TableDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>TableRadioButton Properties</h3>
+            <h5>TableRadioButton Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -1575,7 +1575,7 @@ export class TableDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/selection']">live example.</a></p>
 
-            <h3>ContextMenu</h3>
+            <h5>ContextMenu</h5>
             <p>Table has exclusive integration with contextmenu component. In order to attach a menu to a table, add <i>pContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template
             variable for the menu and bind it to the contextMenu property of the table. This enables displaying the menu whenever a row is right clicked. Optional
             <i>pContextMenuRowIndex</i> property is avaiable to access the row index. A separate <i>contextMenuSelection</i>
@@ -1633,7 +1633,7 @@ export class TableDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/contextmenu']">live example.</a></p>
 
-            <h3>Cell Editing</h3>
+            <h5>Cell Editing</h5>
             <p>Incell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper
                 component to define the input-output templates for the edit and view modes respectively.</p>
 
@@ -1712,7 +1712,7 @@ export class TableDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>Row Editing</h3>
+            <h5>Row Editing</h5>
             <p>Row editing toggles the visibility of the all editors in the row at once and provides additional options to save and cancel editing. Row editing functionality
                 is enabled by setting the <i>editMode</i> to "row" on table, defining a dataKey to uniquely identify a row, adding pEditableRow directive to the editable rows and defining the UI Controls with <i>pInitEditableRow</i>, <i>pSaveEditableRow</i> and <i>pCancelEditableRow</i> directives respectively.
             </p>
@@ -1832,7 +1832,7 @@ export class TableEditDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/edit']">live example.</a></p>
 
-            <h3>Expandable Rows</h3>
+            <h5>Expandable Rows</h5>
             <p>Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and
                 use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice whose click event toggles the expansion. This
             enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle event for the element.</p>
@@ -1904,7 +1904,7 @@ export class TableEditDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/rowexpansion']">live example.</a></p>
 
-            <h3>Column Resize</h3>
+            <h5>Column Resize</h5>
             <p>Columns can be resized using drag drop by setting the <i>resizableColumns</i> to true. There are two resize modes; "fit" and "expand". Fit is the default one and
             the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width. <i>onColumnResize</i>
             is a callback that passes the resized column header as a parameter. For dynamic columns, setting <i>pResizableColumnDisabled</i> property as true disables resizing for that particular column.
@@ -1984,7 +1984,7 @@ export class TableEditDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/colresize']">live example.</a></p>
 
-            <h3>Column Reordering</h3>
+            <h5>Column Reordering</h5>
             <p>Columns can be reordered using drag drop by setting the <i>reorderableColumns</i> to true and adding <i>pReorderableColumn</i> directive to the columns that can be dragged. Note that
                 columns should be dynamic for reordering to work. For dynamic columns, setting <i>pReorderableColumnDisabled</i> property as true disables reordering for that particular column.</p>
 
@@ -2009,7 +2009,7 @@ export class TableEditDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/colreorder']">live example.</a></p>
 
-            <h3>Rows Reordering</h3>
+            <h5>Rows Reordering</h5>
             <p>Row reordering is enabled by adding <i>pReorderableRow</i> directive with a row index binding to the rows that can be reordered with drag and drop. The optional <i>pReorderableRowDisabled</i> property is available
                 to disable dragging for a particular row. In addition, drag handle should get <i>pReorderableRowHandle</i> directive to specify which element is used to initiate the dragging.
             </p>
@@ -2039,7 +2039,7 @@ export class TableEditDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/reorder']">live example.</a></p>
 
-            <h3>Data Export</h3>
+            <h5>Data Export</h5>
             <p>Table can export its data in CSV format using the built-in <i>exportCSV()</i> function. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
                 columns should be dynamic for export functionality to work and column objects must define field/header properties.
             </p>
@@ -2145,7 +2145,7 @@ export class TableExportDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/export']">live example.</a></p>
 
-            <h3>Scrolling</h3>
+            <h5>Scrolling</h5>
             <p>Table supports both horizontal and vertical scrolling as well as frozen columns and rows. Additionally, <i>virtualScroll</i> mode enables dealing with large datasets by rendering data on demand during scrolling.</p>
 
             <p>Sample below uses vertical scrolling where headers are fixed and data is scrollable.</p>
@@ -2170,7 +2170,7 @@ export class TableExportDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>Flex Scroll</h3>
+            <h5>Flex Scroll</h5>
             <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
             table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
 
@@ -2202,7 +2202,7 @@ export class TableExportDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>Full Page Scroll</h3>
+            <h5>Full Page Scroll</h5>
             <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/table/flexscroll']">Full Page</a> demo for an example.</p>
 
 
@@ -2239,7 +2239,7 @@ export class TableExportDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>Horizontal Scroll</h3>
+            <h5>Horizontal Scroll</h5>
             <p>In horizontal scrolling, it is required to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
                 use colgroup as below to avoid misalignment issues as it will apply both the header, body and footer sections which are different separate elements internally.</p>
 
@@ -2296,7 +2296,7 @@ export class TableExportDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>Frozen Rows and Columns</h3>
+            <h5>Frozen Rows and Columns</h5>
             <p>Certain rows can be fixed by using the frozenValue property along with the "frozenrows" template.</p>
 
 
@@ -2438,7 +2438,7 @@ export class TableExportDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>Virtual Scrolling</h3>
+            <h5>Virtual Scrolling</h5>
             <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
             would be enough to enable this functionality. It is also suggested to use the same virtualRowHeight value on the tr element inside the body template.</p>
 
@@ -2562,7 +2562,7 @@ export class TableVirtualScrollDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/scroll']">scroll</a> and <a [routerLink]="['/table/virtualscroll']">virtual scroll</a> examples.</p>
 
-            <h3>Lazy Loading</h3>
+            <h5>Lazy Loading</h5>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
              onLazyLoad callback everytime paging, sorting and filtering happens. To implement lazy loading,
             enable <i>lazy</i> attribute and provide a method callback using <i>onLazyLoad</i> that actually loads the data from a remote datasource. <i>onLazyLoad</i> gets an event object
@@ -2604,7 +2604,7 @@ loadData(event: LazyLoadEvent) &#123;
 
             <p>See the <a [routerLink]="['/table/lazy']">live example.</a></p>
 
-            <h3>TableState</h3>
+            <h5>TableState</h5>
             <p>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page is visited again, table would render the data using its last settings.
                 Enabling state is easy as defining a unique <i>stateKey</i>, the storage to keep the state is defined with the <i>stateStorage</i> property that accepts session for sessionStorage and local for localStorage. Currently following features
                 are supported by TableState; paging, sorting, filtering, column resizing, column reordering, row expansion and row selection.
@@ -2638,7 +2638,7 @@ loadData(event: LazyLoadEvent) &#123;
 
             <p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
 
-            <h3>Responsive</h3>
+            <h5>Responsive</h5>
             <p>Table columns are displayed as stacked in responsive mode if the screen size becomes smaller than a certain breakpoint value. This feature is enabled
             by setting responsive to true and adding an element whose class name is "p-column-title" to the body cells.</p>
 
@@ -2670,7 +2670,7 @@ loadData(event: LazyLoadEvent) &#123;
 
             <p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
 
-            <h3>EmptyMessage</h3>
+            <h5>EmptyMessage</h5>
             <p>When there is no data, <i>emptymessage</i> template can be used to display a message.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -2700,7 +2700,7 @@ loadData(event: LazyLoadEvent) &#123;
 </app-code>
 
 
-            <h3>Loading Status</h3>
+            <h5>Loading Status</h5>
             <p>Table has a loading property, when enabled a spinner icon is displayed to indicate data load.
                 An optional <i>loadingIcon</i> property can be passed in case you'd like a different loading icon.</p>
 
@@ -2748,7 +2748,7 @@ export class TableDemo implements OnInit &#123;
 </app-code>
 
 
-            <h3>Styling Certain Rows and Columns</h3>
+            <h5>Styling Certain Rows and Columns</h5>
             <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class. Example here
                 paint the background of the last cell using a colgroup and highlights rows whose year is older than 2000.
             </p>
@@ -2783,14 +2783,14 @@ export class TableDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/style']">live example.</a></p>
 
-            <h3>Performance Tips</h3>
+            <h5>Performance Tips</h5>
             <ul>
                 <li>When selection is enabled use dataKey to avoid deep checking when comparing objects.</li>
                 <li>Use rowTrackBy to avoid unnecessary dom operations.</li>
                 <li>Prefer lazy loading for large datasets.</li>
             </ul>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -3250,7 +3250,7 @@ export class TableDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -3385,7 +3385,7 @@ export class TableDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -3432,7 +3432,7 @@ export class TableDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -3535,7 +3535,7 @@ export class TableDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
