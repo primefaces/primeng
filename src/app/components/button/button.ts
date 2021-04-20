@@ -107,6 +107,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled"
             [ngClass]="{'p-button p-component':true,
                         'p-button-icon-only': (icon && !label),
+                        'p-disabled': disabled,
                         'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label}"
                         (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)" pRipple>
             <ng-content></ng-content>
