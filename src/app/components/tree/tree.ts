@@ -517,6 +517,7 @@ export class UITreeNode implements OnInit {
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
+            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             <div *ngIf="filter" class="p-tree-filter-container">
                 <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()" (input)="_filter($event)">
@@ -539,8 +540,10 @@ export class UITreeNode implements OnInit {
                 </cdk-virtual-scroll-viewport>
             </ng-template>
             <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
         <div [ngClass]="{'p-tree p-tree-horizontal p-component':true,'p-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
+            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             <div class="p-tree-loading-mask p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
@@ -548,6 +551,7 @@ export class UITreeNode implements OnInit {
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
             <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -642,6 +646,10 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     serializedValue: any[];
 
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
+
     public templateMap: any;
 
     public nodeTouched: boolean;
@@ -709,7 +717,19 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
 
         this.templates.forEach((item) => {
-            this.templateMap[item.name] = item.template;
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
+
+                default:
+                    this.templateMap[item.name] = item.template;
+                break;
+            }
         });
     }
 
