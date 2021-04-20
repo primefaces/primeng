@@ -331,6 +331,18 @@ export class TreeDemoComponent implements OnInit &#123;
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
                 <i>expandedIcon</i> and <i>collapsedIcon</i> instead.</p>
 
+            <h5>Sections</h5>
+            <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tree [value]="files"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        Header Content
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        Footer Content
+    &lt;/ng-template&gt;
+&lt;/p-tree&gt;
+</app-code>
             <h5>Templating</h5>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets
                 the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
