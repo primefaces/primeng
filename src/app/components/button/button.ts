@@ -11,9 +11,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
             
+    @Input() loadingIcon: string = "pi pi-spinner pi-spin";
+
     public _label: string;
     
     public _icon: string;
+
+    public _loading: boolean = false;
             
     public initialized: boolean;
     
@@ -26,15 +30,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
 
         if (this.icon) {
-            let iconElement = document.createElement("span");
-            iconElement.className = 'p-button-icon';
-            iconElement.setAttribute("aria-hidden", "true");
-            let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
-            if (iconPosClass) {
-                DomHandler.addClass(iconElement, iconPosClass);
-            }
-            DomHandler.addMultipleClasses(iconElement, this.icon);
-            this.el.nativeElement.appendChild(iconElement);
+            this.createIconEl();
         }
         
         let labelElement = document.createElement("span");
@@ -57,6 +53,12 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         if (this.icon && !this.label) {
             styleClass = styleClass + ' p-button-icon-only';
         }
+
+        if (this.loading) {
+            styleClass = styleClass + ' p-disabled p-button-loading';
+            if (!this.icon && this.label)
+                styleClass = styleClass + ' p-button-loading-label-only';
+        }
         
         return styleClass;
     }
@@ -64,6 +66,47 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     setStyleClass() {
         let styleClass = this.getStyleClass();
         this.el.nativeElement.className = styleClass + ' ' + this._initialStyleClass;
+    }
+
+    createIconEl() {
+        let iconElement = document.createElement("span");
+        iconElement.className = 'p-button-icon';
+        iconElement.setAttribute("aria-hidden", "true");
+        let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
+        
+        if (iconPosClass) {
+            DomHandler.addClass(iconElement, iconPosClass);
+        }
+
+        DomHandler.addMultipleClasses(iconElement, this.getIconClass());
+        let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label')
+
+        if (labelEl)
+            this.el.nativeElement.insertBefore(iconElement, labelEl);
+        else
+            this.el.nativeElement.appendChild(iconElement)
+    }
+
+    getIconClass() {
+        return this.loading ? 'p-button-loading-icon ' + this.loadingIcon : this._icon;
+    }
+
+    setIconClass() {
+        let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
+        if (iconElement) {
+            if (this.iconPos) 
+                iconElement.className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this.getIconClass();
+            else 
+                iconElement.className = 'p-button-icon ' + this.getIconClass();
+        }
+        else {
+            this.createIconEl();
+        }
+    }
+
+    removeIconElement() {
+        let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
+        this.el.nativeElement.removeChild(iconElement)
     }
     
     @Input() get label(): string {
@@ -87,11 +130,24 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._icon = val;
         
         if (this.initialized) {
-            if (this.iconPos)
-                DomHandler.findSingle(this.el.nativeElement, '.p-button-icon').className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this._icon;
-            else
-                DomHandler.findSingle(this.el.nativeElement, '.p-button-icon').className = 'p-button-icon ' + this._icon;
+            this.setIconClass();
+            this.setStyleClass();
+        }
+    }
 
+    @Input() get loading(): boolean {
+        return this._loading;
+    }
+
+    set loading(val: boolean) {
+        this._loading = val;
+        
+        if (this.initialized) {
+            if (this.loading || this.icon)
+                this.setIconClass();
+            else 
+                this.removeIconElement();
+            
             this.setStyleClass();
         }
     }
@@ -104,11 +160,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-button',
     template: `
-        <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled"
+        <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled || loading"
             [ngClass]="{'p-button p-component':true,
                         'p-button-icon-only': (icon && !label),
-                        'p-disabled': disabled,
-                        'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label}"
+                        'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
+                        'p-disabled': this.disabled || this.loading,
+                        'p-button-loading': this.loading,
+                        'p-button-loading-label-only': this.loading && !this.icon && this.label}"
                         (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)" pRipple>
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -117,7 +175,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-button-icon-right': iconPos === 'right' && label,
                         'p-button-icon-top': iconPos === 'top' && label,
                         'p-button-icon-bottom': iconPos === 'bottom' && label}"
-                        [class]="icon" *ngIf="icon" [attr.aria-hidden]="true"></span>
+                        [class]="loading ? 'p-button-loading-icon ' + loadingIcon : icon" *ngIf="icon||loading" [attr.aria-hidden]="true"></span>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label">{{label||'&nbsp;'}}</span>
             <span [ngClass]="badgeStyleClass()" *ngIf="badge" [class]="badgeClass">{{badge}}</span>
         </button>
@@ -138,6 +196,10 @@ export class Button implements AfterContentInit {
     @Input() label: string;
 
     @Input() disabled: boolean;
+
+    @Input() loading: boolean = false;
+
+    @Input() loadingIcon: string = "pi pi-spinner pi-spin";
 
     @Input() style: any;
 
