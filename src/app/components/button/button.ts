@@ -175,9 +175,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-button-icon-right': iconPos === 'right' && label,
                         'p-button-icon-top': iconPos === 'top' && label,
                         'p-button-icon-bottom': iconPos === 'bottom' && label}"
-                        [class]="loading ? 'p-button-loading-icon ' + loadingIcon : icon" *ngIf="icon||loading" [attr.aria-hidden]="true"></span>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label">{{label||'&nbsp;'}}</span>
-            <span [ngClass]="badgeStyleClass()" *ngIf="badge" [class]="badgeClass">{{badge}}</span>
+                        [class]="loading ? 'p-button-loading-icon ' + loadingIcon : icon" *ngIf="!contentTemplate && (icon||loading)" [attr.aria-hidden]="true"></span>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate">{{label||'&nbsp;'}}</span>
+            <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{badge}}</span>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
