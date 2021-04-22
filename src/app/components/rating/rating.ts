@@ -1,6 +1,7 @@
 import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {TooltipModule} from '../tooltip/tooltip';
 
 export const RATING_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -13,7 +14,7 @@ export const RATING_VALUE_ACCESSOR: any = {
     template: `
         <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
             <span [attr.tabindex]="(disabled || readonly) ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-            <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'"  (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
+            <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'"  (click)="rate($event,i)" (keydown.enter)="rate($event,i)" [pTooltip]="starTooltip[i]" [tooltipPosition]="tooltipPosition"
                 [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
                 [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"></span>
         </div>
@@ -30,6 +31,10 @@ export class Rating implements OnInit,ControlValueAccessor {
     @Input() readonly: boolean;
 
     @Input() stars: number = 5;
+
+    @Input() starTooltip: any;
+
+    @Input() tooltipPosition: string = 'top';
 
     @Input() cancel: boolean = true;
 
