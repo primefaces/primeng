@@ -1,7 +1,7 @@
 import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {TooltipModule} from '../tooltip/tooltip';
+import {TooltipModule} from 'primeng/tooltip';
 
 export const RATING_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
