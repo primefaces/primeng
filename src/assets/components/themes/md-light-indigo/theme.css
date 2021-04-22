@@ -1687,6 +1687,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-button.p-button-lg .p-button-icon {
   font-size: 1.25rem;
 }
+.p-button.p-button-loading-label-only .p-button-label {
+  margin-left: 0.5rem;
+}
+.p-button.p-button-loading-label-only .p-button-loading-icon {
+  margin-right: 0;
+}
 
 .p-fluid .p-button {
   width: 100%;
