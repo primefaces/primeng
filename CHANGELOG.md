@@ -1,5 +1,31 @@
 # Changelog
 
+## [11.4.0](https://github.com/primefaces/primeng/tree/11.4.0) (2021-04-22)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.3.2...11.4.0)
+
+**Implemented New Features and Enhancements:**
+
+- Add "loading" prop to Buttons [\#10145](https://github.com/primefaces/primeng/issues/10145)
+- Header and Footer template for Tree [\#10137](https://github.com/primefaces/primeng/issues/10137)
+- ColumnFilter should be have hide option when click clear [\#10107](https://github.com/primefaces/primeng/issues/10107)
+- Dropdown closing issue [\#10106](https://github.com/primefaces/primeng/issues/10106)
+- TriStateCheckbox null state has false state icon [\#10101](https://github.com/primefaces/primeng/issues/10101)
+- VirtualScroller for Autocomplete items [\#7442](https://github.com/primefaces/primeng/issues/7442)
+
+**Fixed bugs:**
+
+- p-disabled class missing on p-button [\#10140](https://github.com/primefaces/primeng/issues/10140)
+- Crash when changing Button Icon  [\#10138](https://github.com/primefaces/primeng/issues/10138)
+- Footer gets misaligned when used with calendar's inline mode [\#10130](https://github.com/primefaces/primeng/issues/10130)
+- TabView programmatic update activeIndex not update inkbar position when using Material Themes [\#10117](https://github.com/primefaces/primeng/issues/10117)
+- MultiSelect, Dropdown and AutoComplete's virtualScroll padding is wrong [\#10115](https://github.com/primefaces/primeng/issues/10115)
+- Dropdown selecting an unwanted option when pressing Windows key on the keyboard [\#10113](https://github.com/primefaces/primeng/issues/10113)
+- Password Component onAnimationStart invalid State case [\#10099](https://github.com/primefaces/primeng/issues/10099)
+- \[p-tree\] event.accept\(\) not available on first drop [\#10093](https://github.com/primefaces/primeng/issues/10093)
+- PColumnFilter's apply and clear button arent hiding if \[showApplyButton\] or \[showClearButton\] are set to false [\#9654](https://github.com/primefaces/primeng/issues/9654)
+- Hovering on timepicker arrows acting like select after clicking an arrow in the time picker [\#8961](https://github.com/primefaces/primeng/issues/8961)
+
 ## [11.3.2](https://github.com/primefaces/primeng/tree/11.3.2) (2021-04-06)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.3.1...11.3.2)
