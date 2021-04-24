@@ -1253,6 +1253,36 @@ export class TableFilterDemo implements OnInit &#123;
                 </table>
             </div>
 
+            
+
+            <h5>ColumnFilter Templates</h5>
+			<div class="doc-tablewrapper">
+                <table class="doc-table">
+					<thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+					</thead>
+					<tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>$implicit: filter value<br /> 
+                                filterCallback: Callback function of the filter
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
+                        </tr>
+					</tbody>
+				</table>
+            </div>
+
             <h4>Custom Filters</h4>
             <p>FilterService provides an API to register custom filters, Visit the <a [routerLink]="['/filterservice']">FilterService</a> documentation for more information.</p>
 
