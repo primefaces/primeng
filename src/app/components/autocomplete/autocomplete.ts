@@ -41,6 +41,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
             <div #panel *ngIf="overlayVisible" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="{'p-autocomplete-virtualscroll': virtualScroll}">
                     <ng-container *ngIf="group">
                         <ng-template ngFor let-optgroup [ngForOf]="suggestions">
@@ -74,6 +75,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         <li *ngIf="noResults && emptyMessage" class="p-autocomplete-emptymessage p-autocomplete-item">{{emptyMessage}}</li>
                     </ng-template>
                 </ul>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </span>
     `,
@@ -227,6 +229,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     itemTemplate: TemplateRef<any>;
 
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
+
     selectedItemTemplate: TemplateRef<any>;
     
     groupTemplate: TemplateRef<any>;
@@ -368,6 +374,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
                 case 'selectedItem':
                     this.selectedItemTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
                 break;
 
                 default:
