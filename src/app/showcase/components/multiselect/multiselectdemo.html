@@ -177,7 +177,7 @@ export class MultiSelectDemo &#123;
 
             <h5>Custom Content</h5>
             <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. 
-                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header and footer can be provided using <i>header</i> and <i>footer</i> templates. 
+                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, footer and empty filter message can be provided using <i>header</i>, <i>footer</i> and <i>emptyfilter</i> templates. 
                 In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -652,6 +652,10 @@ export class MultiSelectDemo &#123;
                         </tr>
                         <tr>
                             <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>emptyfilter</td>
                             <td>-</td>
                         </tr>
                         <tr>
