@@ -17,12 +17,9 @@ provide: NG_VALUE_ACCESSOR,
 useExisting: forwardRef(() => Calendar),
 multi: true
 };
-
-
-
 @Component({
 selector: 'p-calendar',
-template:  `
+ template:  `
     <span #container [ngClass]="{'p-calendar':true, 'p-calendar-w-btn': showIcon, 'p-calendar-timeonly': timeOnly, 'p-calendar-disabled':disabled, 'p-focus': focus}" [ngStyle]="style" [class]="styleClass">
         <ng-template [ngIf]="!inline">
             <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [attr.aria-required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick()" (blur)="onInputBlur($event)"
@@ -152,6 +149,7 @@ template:  `
         </div>
     </span>
 `,
+
 animations: [
     trigger('overlayAnimation', [
         state('visibleTouchUI', style({
@@ -1848,6 +1846,7 @@ onTimePickerElementMouseOut(event: Event) {
     }
 }
 
+
 repeat(event: Event, interval: number, type: number, direction: number) {
     let i = interval||500;
 
@@ -1880,15 +1879,15 @@ repeat(event: Event, interval: number, type: number, direction: number) {
         break;
     }
 
+
     this.updateInputfield();
 }
-
-clearTimePickerTimer() {
-    if (this.timePickerTimer) {
-        clearTimeout(this.timePickerTimer);
+    clearTimePickerTimer() {
+        if (this.timePickerTimer) {
+            clearTimeout(this.timePickerTimer);
+            this.timePickerTimer = null;
+        }
     }
-}
-
 decrementHour(event) {
     let newHour = this.currentHour - this.stepHour;
     let newPM = this.pm
