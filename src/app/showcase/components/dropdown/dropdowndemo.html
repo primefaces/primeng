@@ -3,7 +3,7 @@
         <h1>Dropdown</h1>
         <p>Dropdown is used to select an item from a list of options.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="dropdown" stackblitz="dropdown-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -603,6 +603,32 @@ clearFilter(dropdown: Dropdown) &#123;
     dropdown.resetFilter();
 &#125;
 </app-code>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>item</td>
+                            <td>$implicit: Data of the option</td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>$implicit: Group option</td>
+                        </tr>
+                        <tr>
+                            <td>selectedItem</td>
+                            <td>$implicit: value</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>

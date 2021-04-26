@@ -5,8 +5,8 @@ import {DropdownDemo} from './dropdowndemo';
 import {DropdownDemoRoutingModule} from './dropdowndemo-routing.module';
 import {DropdownModule} from 'primeng/dropdown';
 import {TabViewModule} from 'primeng/tabview';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
-import { AppCodeModule } from '../../app.code.component';
+import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -15,7 +15,7 @@ import { AppCodeModule } from '../../app.code.component';
 		DropdownDemoRoutingModule,
         DropdownModule,
 		TabViewModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

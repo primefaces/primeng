@@ -343,6 +343,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         if (this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
             this.findSelectedTab().selected = false;
             this.tabs[this._activeIndex].selected = true;
+            this.tabChanged = true;
         }
     }
 

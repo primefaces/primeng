@@ -27,6 +27,11 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
         .nested-grid .p-col-4 {
             padding-bottom: 1rem;
         }
+        
+        .content-section {
+            background-color: var(--surface-b);
+            color: var(--text-color);
+        }
     `],
     animations: [
         trigger('animation', [

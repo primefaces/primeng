@@ -7,6 +7,7 @@ import {PanelModule} from 'primeng/panel';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import { TagModule } from 'primeng/tag';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import { TagModule } from 'primeng/tag';
         PanelModule,
 		TabViewModule,
 		TagModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		TagDemo

@@ -6,8 +6,8 @@ import {SliderDemoRoutingModule} from './sliderdemo-routing.module';
 import {SliderModule} from 'primeng/slider';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
-import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -17,7 +17,7 @@ import {AppCodeModule} from '../../app.code.component';
         SliderModule,
         InputTextModule,
 		TabViewModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

@@ -4192,8 +4192,8 @@ export class ColumnFilterFormElement implements OnInit {
                         <button type="button" pButton [label]="addRuleButtonLabel" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button type="button" pButton class="p-button-outlined" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
-                        <button type="button" pButton (click)="applyFilter()" [label]="applyButtonLabel" pRipple></button>
+                        <button *ngIf="showClearButton" type="button" pButton class="p-button-outlined" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
+                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" [label]="applyButtonLabel" pRipple></button>
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: field}"></ng-container>
@@ -4236,6 +4236,8 @@ export class ColumnFilter implements AfterContentInit {
     @Input() showMatchModes: boolean = true;
 
     @Input() showAddButton: boolean = true;
+
+    @Input() hideOnClear: boolean = false;
 
     @Input() placeholder: string;
 
@@ -4637,6 +4639,8 @@ export class ColumnFilter implements AfterContentInit {
     clearFilter() {
         this.initFieldFilterConstraint();
         this.dt._filter();
+        if (this.hideOnClear)
+            this.hide();
     }
 
     applyFilter() {

@@ -6,8 +6,8 @@ import {PasswordDemoRoutingModule} from './passworddemo-routing.module';
 import {PasswordModule} from 'primeng/password';
 import {TabViewModule} from 'primeng/tabview';
 import {DividerModule} from 'primeng/divider';
-import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -17,7 +17,7 @@ import {AppCodeModule} from '../../app.code.component';
 		DividerModule,
 		TabViewModule,
 		FormsModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

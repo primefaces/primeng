@@ -52,6 +52,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TabViewModule } from 'primeng/tabview';
 import { AppCodeModule } from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -78,7 +79,8 @@ import { AppCodeModule } from '../../app.code.component';
         FileUploadModule,
         TabViewModule,
         RatingModule,
-        AppCodeModule
+        AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		TableDemo,

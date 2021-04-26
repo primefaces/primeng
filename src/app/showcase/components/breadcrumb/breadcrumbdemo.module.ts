@@ -4,7 +4,8 @@ import {BreadcrumbDemo} from './breadcrumbdemo';
 import {BreadcrumbDemoRoutingModule} from './breadcrumbdemo-routing.module';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {TabViewModule} from 'primeng/tabview';
-import { AppCodeModule } from '../../app.code.component';
+import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -12,7 +13,8 @@ import { AppCodeModule } from '../../app.code.component';
 		BreadcrumbDemoRoutingModule,
         BreadcrumbModule,
 		TabViewModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		BreadcrumbDemo

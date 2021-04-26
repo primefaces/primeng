@@ -1,5 +1,31 @@
 # Changelog
 
+## [11.4.0](https://github.com/primefaces/primeng/tree/11.4.0) (2021-04-22)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.3.2...11.4.0)
+
+**Implemented New Features and Enhancements:**
+
+- Add "loading" prop to Buttons [\#10145](https://github.com/primefaces/primeng/issues/10145)
+- Header and Footer template for Tree [\#10137](https://github.com/primefaces/primeng/issues/10137)
+- ColumnFilter should be have hide option when click clear [\#10107](https://github.com/primefaces/primeng/issues/10107)
+- Dropdown closing issue [\#10106](https://github.com/primefaces/primeng/issues/10106)
+- TriStateCheckbox null state has false state icon [\#10101](https://github.com/primefaces/primeng/issues/10101)
+- VirtualScroller for Autocomplete items [\#7442](https://github.com/primefaces/primeng/issues/7442)
+
+**Fixed bugs:**
+
+- p-disabled class missing on p-button [\#10140](https://github.com/primefaces/primeng/issues/10140)
+- Crash when changing Button Icon  [\#10138](https://github.com/primefaces/primeng/issues/10138)
+- Footer gets misaligned when used with calendar's inline mode [\#10130](https://github.com/primefaces/primeng/issues/10130)
+- TabView programmatic update activeIndex not update inkbar position when using Material Themes [\#10117](https://github.com/primefaces/primeng/issues/10117)
+- MultiSelect, Dropdown and AutoComplete's virtualScroll padding is wrong [\#10115](https://github.com/primefaces/primeng/issues/10115)
+- Dropdown selecting an unwanted option when pressing Windows key on the keyboard [\#10113](https://github.com/primefaces/primeng/issues/10113)
+- Password Component onAnimationStart invalid State case [\#10099](https://github.com/primefaces/primeng/issues/10099)
+- \[p-tree\] event.accept\(\) not available on first drop [\#10093](https://github.com/primefaces/primeng/issues/10093)
+- PColumnFilter's apply and clear button arent hiding if \[showApplyButton\] or \[showClearButton\] are set to false [\#9654](https://github.com/primefaces/primeng/issues/9654)
+- Hovering on timepicker arrows acting like select after clicking an arrow in the time picker [\#8961](https://github.com/primefaces/primeng/issues/8961)
+
 ## [11.3.2](https://github.com/primefaces/primeng/tree/11.3.2) (2021-04-06)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.3.1...11.3.2)
@@ -375,6 +401,18 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.1-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.1) (2021-04-13)
+- p-tree event.accept() not available on first drop [\#10093](https://github.com/primefaces/primeng/issues/10093)
+- p-table with save state (localstorage/sessionstorage) remember old value after delete from filter [\#10065](https://github.com/primefaces/primeng/issues/10065)
+- Accessibility: Typo in aria attribute valuemin for InputNumber [\#10058](https://github.com/primefaces/primeng/issues/10058)
+- Carousel does not always display dynamically added items [\#10051](https://github.com/primefaces/primeng/issues/10051)
+- MenuItem's style and styleClass properties should be apply to li [\#10045](https://github.com/primefaces/primeng/issues/10045)
+- AutoComplete does not display 0 as value when preselected [\#10031](https://github.com/primefaces/primeng/issues/10031)
+- Calendar: WeekNumber looks like it is selectable [\#9746](https://github.com/primefaces/primeng/issues/9746)
+- Menubar menuitems must have menu/menubar as parent [\#9680](https://github.com/primefaces/primeng/issues/9680)
+- AutoComplete does not display 0 as value [\#9628](https://github.com/primefaces/primeng/issues/9628)
+- When no label is assigned to pButton, the button should not render &nbsp; [\#9482](https://github.com/primefaces/primeng/issues/9482)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.0-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.0) (2021-03-16)
 - First node dropped into empty tree not triggering onNodeDrop [\#9991](https://github.com/primefaces/primeng/issues/9991)
 - Changing captcha language does not work [\#9985](https://github.com/primefaces/primeng/issues/9985)
@@ -682,17 +720,16 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.4) (2021-03-01)
-- When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
-- pSelectableRow blocks typing space on inputs in p-table [\#9893](https://github.com/primefaces/primeng/issues/9893)
-- p-inputnumber infinite loop when using buttons [\#9888](https://github.com/primefaces/primeng/issues/9888)
-- Enter key should hide calendar [\#9880](https://github.com/primefaces/primeng/issues/9880)
-- p-sidebar appendTo has wrong type [\#9876](https://github.com/primefaces/primeng/issues/9876)
-- p-slider does not react when clicking on bar in some cases [\#9857](https://github.com/primefaces/primeng/issues/9857)
-- Add rowIndex to onRowUnselect [\#9823](https://github.com/primefaces/primeng/issues/9823)
-- Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
-- p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
-- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.6-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.6) (2021-04-13)
+- p-tree event.accept() not available on first drop [\#10093](https://github.com/primefaces/primeng/issues/10093)
+- p-table with save state (localstorage/sessionstorage) remember old value after delete from filter [\#10065](https://github.com/primefaces/primeng/issues/10065)
+- Accessibility: Typo in aria attribute valuemin for InputNumber [\#10058](https://github.com/primefaces/primeng/issues/10058)
+- Carousel does not always display dynamically added items [\#10051](https://github.com/primefaces/primeng/issues/10051)
+- MenuItem's style and styleClass properties should be apply to li [\#10045](https://github.com/primefaces/primeng/issues/10045)
+- AutoComplete does not display 0 as value when preselected [\#10031](https://github.com/primefaces/primeng/issues/10031)
+- Calendar: WeekNumber looks like it is selectable [\#9746](https://github.com/primefaces/primeng/issues/9746)
+- Menubar menuitems must have menu/menubar as parent [\#9680](https://github.com/primefaces/primeng/issues/9680)
+- AutoComplete does not display 0 as value [\#9628](https://github.com/primefaces/primeng/issues/9628)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.5) (2021-03-16)
 - First node dropped into empty tree not triggering onNodeDrop [\#9991](https://github.com/primefaces/primeng/issues/9991)
@@ -705,6 +742,18 @@
 - Galleria: thumbnail items doesn't work properly when responsive options are set [\#9744](https://github.com/primefaces/primeng/issues/9744)
 - Autocomplete with multiple and readonly enabled still show button to remove options [\#9513](https://github.com/primefaces/primeng/issues/9513)
 - p-dataView not updating view after [layout] change [\#9494](https://github.com/primefaces/primeng/issues/9494)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.4) (2021-03-01)
+- When table is lazy and having multiSortMeta then "lazyLoad" execute twice [\#9906](https://github.com/primefaces/primeng/issues/9906)
+- pSelectableRow blocks typing space on inputs in p-table [\#9893](https://github.com/primefaces/primeng/issues/9893)
+- p-inputnumber infinite loop when using buttons [\#9888](https://github.com/primefaces/primeng/issues/9888)
+- Enter key should hide calendar [\#9880](https://github.com/primefaces/primeng/issues/9880)
+- p-sidebar appendTo has wrong type [\#9876](https://github.com/primefaces/primeng/issues/9876)
+- p-slider does not react when clicking on bar in some cases [\#9857](https://github.com/primefaces/primeng/issues/9857)
+- Add rowIndex to onRowUnselect [\#9823](https://github.com/primefaces/primeng/issues/9823)
+- Expose InputMask OnKeyDown event [\#9718](https://github.com/primefaces/primeng/issues/9718)
+- p-table cell edit wrong index on onEditComplete event [\#9075](https://github.com/primefaces/primeng/issues/9075)
+- ConfirmDialog throws exception during onDestroy [\#8585](https://github.com/primefaces/primeng/issues/8585)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.3) (2021-02-11)
 - LazyEvent.first coming wrong when sorting with resetPageOnSort true [\#9866](https://github.com/primefaces/primeng/issues/9866)
