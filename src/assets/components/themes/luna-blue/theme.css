@@ -1133,6 +1133,11 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   background: #191919;
   font-weight: 700;
 }
+.p-listbox .p-listbox-list .p-listbox-empty-message {
+  padding: 0.429rem 0.857rem;
+  color: #dedede;
+  background: transparent;
+}
 .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
   color: #dedede;
   background: #4c4c4c;

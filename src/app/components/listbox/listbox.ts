@@ -61,6 +61,12 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                 </li>
             </ng-template>
+            <li *ngIf="filter && (!optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0))" class="p-listbox-empty-message">
+                <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
+                    {{emptyFilterMessage}}
+                </ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
+            </li>
         </ul>
       </div>
       <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
@@ -118,6 +124,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() filterPlaceHolder: string;
 
+    @Input() emptyFilterMessage: string = 'No results found';
+
     @Input() group: boolean;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -143,6 +151,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     public headerTemplate: TemplateRef<any>;
 
     public footerTemplate: TemplateRef<any>;
+
+    public emptyFilterTemplate: TemplateRef<any>;
 
     public _filterValue: string;
 
@@ -198,6 +208,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                break;
+
+                case 'emptyfilter':
+                    this.emptyFilterTemplate = item.template;
                 break;
 
                 default:
