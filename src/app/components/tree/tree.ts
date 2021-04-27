@@ -539,7 +539,12 @@ export class UITreeNode implements OnInit {
                     </ul>
                 </cdk-virtual-scroll-viewport>
             </ng-template>
-            <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
+                <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
+                    {{emptyMessage}}
+                </ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+            </div>
             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
         <div [ngClass]="{'p-tree p-tree-horizontal p-component':true,'p-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
@@ -550,7 +555,12 @@ export class UITreeNode implements OnInit {
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
-            <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
+                <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
+                    {{emptyMessage}}
+                </ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+            </div>
             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
     `,
@@ -650,6 +660,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     footerTemplate: TemplateRef<any>;
 
+    emptyMessageTemplate: TemplateRef<any>;
+
     public templateMap: any;
 
     public nodeTouched: boolean;
@@ -720,6 +732,10 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
                 break;
 
                 case 'footer':
