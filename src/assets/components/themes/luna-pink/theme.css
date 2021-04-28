@@ -2605,6 +2605,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #212529;
   background: #F48FB1;
 }
+.p-orderlist .p-orderlist-list .p-orderlist-empty-message {
+  padding: 0.429rem 0.857rem;
+  color: #dedede;
+}
 .p-orderlist .p-orderlist-list:not(.cdk-drop-list-dragging) .p-orderlist-item:not(.p-highlight):hover {
   background: #4c4c4c;
   color: #dedede;

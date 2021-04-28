@@ -36,6 +36,11 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
+                    <ng-container *ngIf="isEmpty() && emptyMessageTemplate">
+                        <li class="p-orderlist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
         </div>
@@ -89,6 +94,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public itemTemplate: TemplateRef<any>;
+    
+    public emptyMessageTemplate: TemplateRef<any>;
 
     _selection: any[];
 
@@ -129,6 +136,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
                 break;
 
                 default:
@@ -235,6 +246,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     isSelected(item: any) {
         return ObjectUtils.findIndexInList(item, this.selection) != -1;
+    }
+
+    isEmpty() {
+        return this.filterValue ? (!this.visibleOptions || this.visibleOptions.length === 0) : (!this.value || this.value.length === 0) 
     }
 
     moveUp() {
