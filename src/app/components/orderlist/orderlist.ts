@@ -249,7 +249,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
 
     isEmpty() {
-        return this.filterValue ? (!this.visibleOptions || this.visibleOptions.length === 0) : (!this.value || this.value.length === 0) 
+        return this.filterValue ? (!this.visibleOptions || this.visibleOptions.length === 0) : (!this.value || this.value.length === 0);
     }
 
     moveUp() {
