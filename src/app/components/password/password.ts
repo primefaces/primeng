@@ -455,48 +455,52 @@ export class Password implements AfterContentInit,OnInit {
     onKeyUp(event) {
         if (this.feedback) {
             let value = event.target.value;
-            let label = null;
-            let meter = null;
-
-            switch (this.testStrength(value)) {
-                case 1:
-                    label = this.weakText();
-                    meter = {
-                        strength: 'weak',
-                        width: '33.33%'
-                    };
-                    break;
-
-                case 2:
-                    label = this.mediumText();
-                    meter = {
-                        strength: 'medium',
-                        width: '66.66%'
-                    };
-                    break;
-
-                case 3:
-                    label = this.strongText();
-                    meter = {
-                        strength: 'strong',
-                        width: '100%'
-                    };
-                    break;
-
-                default:
-                    label = this.promptText();
-                    meter = null;
-                    break;
-            }
-
-            this.meter = meter;
-            this.infoText = label;
+            this.updateUI(value);
 
             if (!this.overlayVisible) {
                 this.overlayVisible = true;
             }
         }
-    }    
+    }
+    
+    updateUI(value) {
+        let label = null;
+        let meter = null;
+
+        switch (this.testStrength(value)) {
+            case 1:
+                label = this.weakText();
+                meter = {
+                    strength: 'weak',
+                    width: '33.33%'
+                };
+                break;
+
+            case 2:
+                label = this.mediumText();
+                meter = {
+                    strength: 'medium',
+                    width: '66.66%'
+                };
+                break;
+
+            case 3:
+                label = this.strongText();
+                meter = {
+                    strength: 'strong',
+                    width: '100%'
+                };
+                break;
+
+            default:
+                label = this.promptText();
+                meter = null;
+                break;
+        }
+
+        this.meter = meter;
+        this.infoText = label;
+    }
 
     onMaskToggle() {
         this.unmasked = !this.unmasked;
@@ -520,6 +524,9 @@ export class Password implements AfterContentInit,OnInit {
             this.value = null;
         else 
             this.value = value;
+
+        if (this.feedback)
+            this.updateUI(this.value || "");
         
         this.cd.markForCheck();
     }
