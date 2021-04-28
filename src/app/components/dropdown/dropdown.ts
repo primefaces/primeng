@@ -142,7 +142,7 @@ export class DropdownItem {
         ])
     ],
     host: {
-        '[class.p-inputwrapper-filled]': 'filled',
+        '[class.p-inputwrapper-filled]': 'value',
         '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },
     providers: [DROPDOWN_VALUE_ACCESSOR],
@@ -322,8 +322,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     focused: boolean;
 
-    filled: boolean;
-
     overlayVisible: boolean;
 
     documentClickListener: any;
@@ -412,7 +410,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
-        this.updateFilledState();
 
         if (this._filterValue && this._filterValue.length) {
             this.activateFilter();
@@ -481,7 +478,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.selectedOption != option) {
             this.selectedOption = option;
             this.value = this.getOptionValue(option);
-            this.filled = true;
 
             this.onModelChange(this.value);
             this.updateEditableLabel();
@@ -539,7 +535,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.value = value;
         this.updateSelectedOption(value);
         this.updateEditableLabel();
-        this.updateFilledState();
         this.cd.markForCheck();
     }
 
@@ -1167,10 +1162,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    updateFilledState() {
-        this.filled = (this.selectedOption != null);
-    }
-
     clear(event: Event) {
         this.value = null;
         this.onModelChange(this.value);
@@ -1180,7 +1171,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         });
         this.updateSelectedOption(this.value);
         this.updateEditableLabel();
-        this.updateFilledState();
     }
 
     onOverlayHide() {
