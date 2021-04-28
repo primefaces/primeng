@@ -21,6 +21,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
 	imports: [
@@ -41,7 +42,8 @@ import {AppDemoActionsModule} from '../../app.demoactions.component';
 		InputTextareaModule,
 		FormsModule,
 		AppDemoActionsModule,
-        AppCodeModule
+        AppCodeModule,
+		PasswordModule
 	],
 	declarations: [
 		FloatLabelDemo
