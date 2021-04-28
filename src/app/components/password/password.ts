@@ -248,8 +248,8 @@ export const Password_VALUE_ACCESSOR: any = {
     selector: 'p-password',
     template: `
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
-            <input #input pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus($event)" 
-                (blur)="onBlur($event)" (keyup)="onKeyUp($event)" />
+            <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()" 
+                (blur)="onBlur()" (keyup)="onKeyUp($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
             <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" 
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)">
@@ -278,6 +278,10 @@ export const Password_VALUE_ACCESSOR: any = {
               ])
         ])
     ],
+    host: {
+        '[class.p-inputwrapper-filled]': 'filled()',
+        '[class.p-inputwrapper-focus]': 'focused'
+    },
     providers: [Password_VALUE_ACCESSOR],
     styleUrls: ['./password.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -298,6 +302,8 @@ export class Password implements AfterContentInit,OnInit {
     @Input() mediumLabel: string;
 
     @Input() strongLabel: string;
+
+    @Input() inputId: string;
 
     @Input() feedback: boolean = true;
 
@@ -427,18 +433,19 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     onInput(event)  {
-        this.onModelChange(event.target.value);
+        this.value = event.target.value;
+        this.onModelChange(this.value);
         this.onModelTouched();
     }
 
-    onFocus(event) {
+    onFocus() {
         this.focused = true;
         if (this.feedback) {
             this.overlayVisible = true;
         }
     }
 
-    onBlur(event) {
+    onBlur() {
         this.focused = false;
         if (this.feedback) {
             this.overlayVisible = false;
@@ -574,8 +581,6 @@ export class Password implements AfterContentInit,OnInit {
 
     containerClass() {
         return {'p-password p-component p-inputwrapper': true,
-            'p-inputwrapper-filled': this.filled(),
-            'p-inputwrapper-focus': this.focused,
             'p-input-icon-right': this.toggleMask
         };
     }
