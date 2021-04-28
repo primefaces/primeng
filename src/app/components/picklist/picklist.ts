@@ -37,7 +37,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
-                    <ng-container *ngIf="(source == null || source.length === 0) && emptyMessageSourceTemplate">
+                    <ng-container *ngIf="isEmpty(SOURCE_LIST) && emptyMessageSourceTemplate">
                         <li class="p-picklist-empty-message">
                             <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate"></ng-container>
                         </li>
@@ -69,7 +69,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
-                    <ng-container *ngIf="(target == null || target.length === 0) && emptyMessageTargetTemplate">
+                    <ng-container *ngIf="isEmpty(TARGET_LIST) && emptyMessageTargetTemplate">
                         <li class="p-picklist-empty-message">
                             <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate"></ng-container>
                         </li>
@@ -337,6 +337,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         else
             return this.isVisibleInList(this.visibleOptionsTarget, item, this.filterValueTarget);
     }
+
+    isEmpty(listType: number) {
+        if (listType == this.SOURCE_LIST)
+            return this.filterValueSource ? (!this.visibleOptionsSource || this.visibleOptionsSource.length === 0) : (!this.source || this.source.length === 0);
+        else
+            return this.filterValueTarget ? (!this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0) : (!this.target || this.target.length === 0);
+    }
+    
 
     isVisibleInList(data: any[], item: any, filterValue: string): boolean {
         if (filterValue && filterValue.trim().length) {
