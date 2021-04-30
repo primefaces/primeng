@@ -60,13 +60,13 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <span *ngIf="!itemTemplate">{{getOptionLabel(option)}}</span>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                 </li>
+                <li *ngIf="filter && (!optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0))" class="p-listbox-empty-message">
+                    <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
+                        {{emptyFilterMessage}}
+                    </ng-container>
+                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
+                </li>
             </ng-template>
-            <li *ngIf="filter && (!optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0))" class="p-listbox-empty-message">
-                <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
-                    {{emptyFilterMessage}}
-                </ng-container>
-                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
-            </li>
         </ul>
       </div>
       <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
