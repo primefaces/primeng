@@ -8,7 +8,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
     template: `
         <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-template ngFor let-panel let-i="index" [ngForOf]="panels">
-                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass">
+                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle">
                     <ng-container *ngTemplateOutlet="panel"></ng-container>
                 </div>
                 <div class="p-splitter-gutter" *ngIf="i !== (panels.length - 1)" [ngStyle]="gutterStyle()" 
@@ -32,6 +32,8 @@ export class Splitter {
     @Input() panelStyleClass: string;
 
     @Input() style: any;
+
+    @Input() panelStyle: any;
 
     @Input() stateStorage: string = "session";
 
