@@ -2821,13 +2821,19 @@ export class SelectableRow implements OnInit, OnDestroy {
         });
     }
 
-    @HostListener('keydown.pagedown', ['$event'])
-    @HostListener('keydown.pageup', ['$event'])
-    @HostListener('keydown.home', ['$event'])
-    @HostListener('keydown.end', ['$event'])
-    @HostListener('keydown.space', ['$event'])
+    @HostListener('keydown.pagedown')
+    @HostListener('keydown.pageup')
+    @HostListener('keydown.home')
+    @HostListener('keydown.end')
     onPageDownKeyDown() {
         if (this.dt.virtualScroll) {
+            DomHandler.findSingle(this.dt.scrollableViewChild.el.nativeElement, 'cdk-virtual-scroll-viewport').focus();
+        }
+    }
+
+    @HostListener('keydown.space')
+    onSpaceKeydown() {
+        if (this.dt.virtualScroll && !this.dt.editingCell) {
             DomHandler.findSingle(this.dt.scrollableViewChild.el.nativeElement, 'cdk-virtual-scroll-viewport').focus();
         }
     }
