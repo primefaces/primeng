@@ -1,18 +1,26 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
+import {trigger, style, transition, animate, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate} from 'primeng/api';
 
+const showAnimation = animation([
+    style({ transform: '{{transform}}', opacity: 0 }),
+    animate('{{transition}}')
+]);
+
+const hideAnimation = animation([
+    animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))
+]);
+
 @Component({
     selector: 'p-sidebar',
     template: `
         <div #container [ngClass]="{'p-sidebar':true, 'p-sidebar-active': visible,
-            'p-sidebar-left': (position === 'left'), 'p-sidebar-right': (position === 'right'),
-            'p-sidebar-top': (position === 'top'), 'p-sidebar-bottom': (position === 'bottom'),
-            'p-sidebar-full': fullScreen}"
-            [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
+            'p-sidebar-left': (position === 'left' && !fullScreen), 'p-sidebar-right': (position === 'right' && !fullScreen),
+            'p-sidebar-top': (position === 'top' && !fullScreen), 'p-sidebar-bottom': (position === 'bottom' && !fullScreen),
+            'p-sidebar-full': fullScreen}"  *ngIf="visible" [@panelState]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
             <div class="p-sidebar-content">
                 <button type="button" class="p-sidebar-close p-link" *ngIf="showCloseIcon" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel" pRipple>
                     <span class="p-sidebar-close-icon pi pi-times"></span>
@@ -24,25 +32,19 @@ import {PrimeTemplate} from 'primeng/api';
     `,
     animations: [
         trigger('panelState', [
-            state('hidden', style({
-                opacity: 0
-            })),
-            state('visible', style({
-                opacity: 1
-            })),
-            transition('visible => hidden', animate('300ms ease-in')),
-            transition('hidden => visible', animate('300ms ease-out'))
+            transition('void => visible', [
+                useAnimation(showAnimation)
+            ]),
+            transition('visible => void', [
+                useAnimation(hideAnimation)
+            ])
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./sidebar.css']
 })
-export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
-
-    @Input() position: string = 'left';
-
-    @Input() fullScreen: boolean;
+export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() appendTo: any;
 
@@ -66,7 +68,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     @Input() closeOnEscape: boolean = true;
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -80,7 +82,13 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     _visible: boolean;
 
-    preventVisibleChangePropagation: boolean;
+    _position: string = "left";
+
+    _fullScreen: boolean = false;
+
+    container: HTMLDivElement;
+
+    transformOptions: any = "translate3d(-100%, 0px, 0px)";
 
     mask: HTMLDivElement;
 
@@ -88,25 +96,12 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     documentEscapeListener: Function;
 
-    executePostDisplayActions: boolean;
-
     contentTemplate: TemplateRef<any>;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         this.initialized = true;
-
-        if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
-            else
-                DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
-        }
-
-        if (this.visible) {
-            this.show();
-        }
     }
 
     ngAfterContentInit() {
@@ -129,35 +124,52 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
     set visible(val:boolean) {
         this._visible = val;
+    }
 
-        if (this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
-            if (this._visible)
-                this.show();
-            else {
-                if (this.preventVisibleChangePropagation)
-                    this.preventVisibleChangePropagation = false;
-                else
-                    this.hide();
-            }
+    @Input() get position(): string {
+        return this._position;
+    };
+
+    set position(value: string) {
+        this._position = value;
+
+        switch (value) {
+            case 'left':
+                this.transformOptions = "translate3d(100%, 0px, 0px)";
+            break;
+            case 'right':
+                this.transformOptions = "translate3d(100%, 0px, 0px)";
+            break;
+            case 'bottom':
+                this.transformOptions = "translate3d(0px, 100%, 0px)";
+            break;
+            case 'top':
+                this.transformOptions = "translate3d(0px, -100%, 0px)";
+            break;
         }
     }
 
-    ngAfterViewChecked() {
-        if (this.executePostDisplayActions) {
-            this.onShow.emit({});
-            this.executePostDisplayActions = false;
-        }
+    @Input() get fullScreen(): boolean {
+        return this._fullScreen;
+    }
+
+    set fullScreen(value: boolean) {
+        this._fullScreen = value;
+
+        if (value)
+            this.transformOptions = "none";
     }
 
     show() {
-        this.executePostDisplayActions = true;
         if (this.autoZIndex) {
-            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
 
         if (this.modal) {
             this.enableModality();
         }
+
+        this.onShow.emit({});
     }
 
     hide() {
@@ -169,7 +181,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
     }
 
     close(event: Event) {
-        this.preventVisibleChangePropagation = true;
         this.hide();
         this.visibleChange.emit(false);
         event.preventDefault();
@@ -178,7 +189,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
     enableModality() {
         if (!this.mask) {
             this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
+            this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask');
 
             if (this.dismissible){
@@ -210,14 +221,28 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
     onAnimationStart(event){
         switch(event.toState) {
             case 'visible':
+                this.container = event.element;
+                this.appendContainer();
+                this.show();
+
                 if (this.closeOnEscape) {
                     this.bindDocumentEscapeListener();
                 }
             break;
 
             case 'hidden':
+                this.hide();
                 this.unbindGlobalListeners();
             break;
+        }
+    }
+
+    appendContainer() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.container);
+            else
+                DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -226,7 +251,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.containerViewChild.nativeElement.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);
                 }
             }
@@ -260,7 +285,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
         }
 
         if (this.appendTo) {
-            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
+            this.el.nativeElement.appendChild(this.container);
         }
 
 		this.unbindGlobalListeners();

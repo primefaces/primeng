@@ -22,20 +22,11 @@
     transition-property: background-color;
 }
 
-.p-sidebar-mask-leave.p-component-overlay {
-    background-color: transparent;
-}
-
 .p-sidebar-left {
     top: 0;
     left: 0;
     width: 20rem;
     height: 100%;
-    transform: translateX(-100%);
-}
-
-.p-sidebar-left.p-sidebar-active {
-    transform: translateX(0);
 }
 
 .p-sidebar-right {
@@ -43,11 +34,6 @@
     right: 0;
     width: 20rem;
     height: 100%;
-    transform: translateX(100%);
-}
-
-.p-sidebar-right.p-sidebar-active {
-    transform: translateX(0);
 }
 
 .p-sidebar-top {
@@ -55,11 +41,6 @@
     left: 0;
     width: 100%;
     height: 10rem;
-    transform: translateY(-100%);
-}
-
-.p-sidebar-top.p-sidebar-active {
-    transform: translateY(0);
 }
 
 .p-sidebar-bottom {
@@ -67,11 +48,6 @@
     left: 0;
     width: 100%;
     height: 10rem;
-    transform: translateY(100%);
-}
-
-.p-sidebar-bottom.p-sidebar-active {
-    transform: translateY(0);
 }
 
 .p-sidebar-full {
@@ -79,6 +55,7 @@
     height: 100%;
     top: 0;
     left: 0;
+    -webkit-transition: none;
     transition: none;
 }
 
