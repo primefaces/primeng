@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/primefaces/primeng.svg?branch=master)](https://travis-ci.org/primefaces/primeng)
 [![Discord Chat](https://img.shields.io/discord/557940238991753223.svg?color=7289da&label=chat&logo=discord)](https://discord.gg/gzKFYnpmCY)
 
-[![PrimeNG Hero](https://www.primefaces.org/wp-content/uploads/2020/08/primeng-release-x-fix-2.jpg)](https://www.primefaces.org/primeng)
+[![PrimeNG Hero](https://www.primefaces.org/wp-content/uploads/2021/05/primeng-11.png)](https://www.primefaces.org/primeng)
 
 ### Website
 
