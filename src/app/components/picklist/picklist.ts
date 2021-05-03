@@ -18,8 +18,9 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
-                <div class="p-picklist-header" *ngIf="sourceHeader">
-                    <div class="p-picklist-title">{{sourceHeader}}</div>
+                <div class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate">
+                    <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate">{{sourceHeader}}</div>
+                    <ng-container *ngTemplateOutlet="sourceHeaderTemplate"></ng-container>
                 </div>
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showSourceFilter !== false">
                     <div class="p-picklist-filter">
@@ -51,8 +52,9 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 <button type="button" pButton pRipple icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper">
-                <div class="p-picklist-header" *ngIf="targetHeader">
-                    <div class="p-picklist-title" *ngIf="targetHeader">{{targetHeader}}</div>
+                <div class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate">
+                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate">{{targetHeader}}</div>
+                    <ng-container *ngTemplateOutlet="targetHeaderTemplate"></ng-container>
                 </div>
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showTargetFilter !== false">
                     <div class="p-picklist-filter">
@@ -206,6 +208,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     emptyMessageTargetTemplate: TemplateRef<any>;
 
+    sourceHeaderTemplate: TemplateRef<any>;
+
+    targetHeaderTemplate: TemplateRef<any>;
+
     readonly SOURCE_LIST = -1;
 
     readonly TARGET_LIST = 1;
@@ -226,13 +232,21 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.itemTemplate = item.template;
                 break;
 
+                case 'sourceHeader':
+                    this.sourceHeaderTemplate = item.template;
+                break;
+
+                case 'targetHeader':
+                    this.targetHeaderTemplate = item.template;
+                break;
+
                 case 'emptymessagesource':
                     this.emptyMessageSourceTemplate = item.template;
                 break;
 
                 case 'emptymessagetarget':
                     this.emptyMessageTargetTemplate = item.template;
-                    break;
+                break;
 
                 default:
                     this.itemTemplate = item.template;

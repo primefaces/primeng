@@ -19,8 +19,9 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                 <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
             </div>
             <div class="p-orderlist-list-container">
-                <div class="p-orderlist-header" *ngIf="header">
-                    <div class="p-orderlist-title">{{header}}</div>
+                <div class="p-orderlist-header" *ngIf="header || headerTemplate">
+                    <div class="p-orderlist-title" *ngIf="!headerTemplate">{{header}}</div>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-orderlist-filter-container" *ngIf="filterBy">
                     <div class="p-orderlist-filter">
@@ -94,6 +95,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public itemTemplate: TemplateRef<any>;
+
+    public headerTemplate: TemplateRef<any>;
     
     public emptyMessageTemplate: TemplateRef<any>;
 
@@ -140,6 +143,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
                 case 'empty':
                     this.emptyMessageTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
                 break;
 
                 default:
