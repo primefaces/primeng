@@ -3,7 +3,7 @@ import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,Afte
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {SelectItem} from 'primeng/api';
+import {PrimeNGConfig, SelectItem, TranslationKeys} from 'primeng/api';
 import {SharedModule,PrimeTemplate, FilterService} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
@@ -118,11 +118,17 @@ export class DropdownItem {
                                 </cdk-virtual-scroll-viewport>
                             </ng-template>
                         </ng-template>
-                        <li *ngIf="filter && (!optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0))" class="p-dropdown-empty-message">
+                        <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message">
                             <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
-                                {{emptyFilterMessage}}
+                                {{emptyFilterMessageLabel}}
                             </ng-container>
                             <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
+                        </li>
+                        <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message">
+                            <ng-container *ngIf="!emptyTemplate; else empty">
+                                {{emptyMessageLabel}}
+                            </ng-container>
+                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                         </li>
                     </ul>
                 </div>
@@ -212,7 +218,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() showClear: boolean;
 
-    @Input() emptyFilterMessage: string = 'No results found';
+    @Input() emptyFilterMessage: string = '';
+
+    @Input() emptyMessage: string = '';
 
     @Input() virtualScroll: boolean;
 
@@ -306,6 +314,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     emptyFilterTemplate: TemplateRef<any>;
 
+    emptyTemplate: TemplateRef<any>;
+
     selectedOption: any;
 
     _options: any[];
@@ -360,7 +370,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     preventModelTouched: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -383,6 +393,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
                 case 'emptyfilter':
                     this.emptyFilterTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyTemplate = item.template;
                 break;
 
                 case 'group':
@@ -433,6 +447,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     get label(): string {
         return this.selectedOption ? this.getOptionLabel(this.selectedOption) : null;
+    }
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+    }
+
+    get emptyFilterMessageLabel(): string {
+        return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
     }
 
     updateEditableLabel(): void {
@@ -593,6 +615,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     isOutsideClicked(event: Event): boolean {
         return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node> event.target)));
+    }
+
+    isEmpty() {
+        return !this.optionsToDisplay || (this.optionsToDisplay && this.optionsToDisplay.length === 0);
     }
 
     onEditableInputClick() {
