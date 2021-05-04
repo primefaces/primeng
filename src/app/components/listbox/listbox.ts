@@ -60,11 +60,17 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <span *ngIf="!itemTemplate">{{getOptionLabel(option)}}</span>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                 </li>
-                <li *ngIf="filter && (!optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0))" class="p-listbox-empty-message">
+                <li *ngIf="hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
                     <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
                         {{emptyFilterMessage}}
                     </ng-container>
                     <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
+                </li>
+                <li *ngIf="!hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
+                    <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
+                        {{emptyMessage}}
+                    </ng-container>
+                    <ng-container #emptyFilter *ngTemplateOutlet="emptyTemplate"></ng-container>
                 </li>
             </ng-template>
         </ul>
@@ -124,7 +130,9 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() filterPlaceHolder: string;
 
-    @Input() emptyFilterMessage: string = 'No results found';
+    @Input() emptyFilterMessage: string = 'No results found - FILTER';
+
+    @Input() emptyMessage: string = 'No results found - NO FILTER';
 
     @Input() group: boolean;
 
@@ -153,6 +161,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     public footerTemplate: TemplateRef<any>;
 
     public emptyFilterTemplate: TemplateRef<any>;
+
+    public emptyTemplate: TemplateRef<any>;
 
     public _filterValue: string;
 
@@ -208,6 +218,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyTemplate = item.template;
                 break;
 
                 case 'emptyfilter':
@@ -489,6 +503,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     hasFilter() {
         return this._filterValue && this._filterValue.trim().length > 0; 
+    }
+
+    isEmpty(optionsToDisplay) {
+        return !optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0);
     }
 
     onFilter(event: KeyboardEvent) {
