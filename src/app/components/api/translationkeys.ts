@@ -36,4 +36,6 @@ export class TranslationKeys {
     public static readonly MEDIUM = 'medium';
     public static readonly STRONG = 'strong';
     public static readonly PASSWORD_PROMPT = 'passwordPrompt';
+    public static readonly EMPTY_MESSAGE = 'emptyMessage';
+    public static readonly EMPTY_FILTER_MESSAGE = 'emptyFilterMessage';
 }
