@@ -67,10 +67,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
                 </li>
                 <li *ngIf="!hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
-                    <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
+                    <ng-container *ngIf="!emptyFilterTemplate; else empty">
                         {{emptyMessageLabel}}
                     </ng-container>
-                    <ng-container #emptyFilter *ngTemplateOutlet="emptyTemplate"></ng-container>
+                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                 </li>
             </ng-template>
         </ul>
