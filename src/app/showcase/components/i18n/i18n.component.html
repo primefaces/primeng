@@ -68,7 +68,13 @@ export class AppComponent implements OnInit, OnDestroy &#123;
         "monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
         "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         "today": "Today",
-        "weekHeader": "Wk"
+        "weekHeader": "Wk",
+        weak: 'Weak',
+        medium: 'Medium',
+        strong: 'Strong',
+        passwordPrompt: 'Enter a password',
+        emptyMessage: 'No results found',
+        emptyFilterMessage: 'No results found'
     &#125;
 &#125;
 </app-code>
@@ -256,6 +262,14 @@ export class AppComponent implements OnInit, OnDestroy &#123;
                     <tr>
                         <td>passwordPrompt</td>
                         <td>Enter a password</td>
+                    </tr>
+                    <tr>
+                        <td>emptyMessage</td>
+                        <td>No results found</td>
+                    </tr>
+                    <tr>
+                        <td>emptyFilterMessage</td>
+                        <td>No results found</td>
                     </tr>
                 </tbody>
             </table>
