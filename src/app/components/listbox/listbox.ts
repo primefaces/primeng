@@ -1,6 +1,6 @@
 import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService } from 'primeng/api';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -62,13 +62,13 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </li>
                 <li *ngIf="hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
                     <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
-                        {{emptyFilterMessage}}
+                        {{emptyFilterMessageLabel}}
                     </ng-container>
                     <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
                 </li>
                 <li *ngIf="!hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
                     <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
-                        {{emptyMessage}}
+                        {{emptyMessageLabel}}
                     </ng-container>
                     <ng-container #emptyFilter *ngTemplateOutlet="emptyTemplate"></ng-container>
                 </li>
@@ -130,9 +130,9 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() filterPlaceHolder: string;
 
-    @Input() emptyFilterMessage: string = 'No results found - FILTER';
+    @Input() emptyFilterMessage: string;
 
-    @Input() emptyMessage: string = 'No results found - NO FILTER';
+    @Input() emptyMessage: string;
 
     @Input() group: boolean;
 
@@ -182,7 +182,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerCheckboxFocus: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) { }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) { }
 
     @Input() get options(): any[] {
         return this._options;
@@ -190,6 +190,9 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     set options(val: any[]) {
         this._options = val;
+        
+        if (this.hasFilter())
+            this.activateFilter();
     }
 
     @Input() get filterValue(): string {
@@ -499,6 +502,15 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     get optionsToRender(): any[] {
         return this._filteredOptions || this.options;
+    }
+
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+    }
+
+    get emptyFilterMessageLabel(): string {
+        return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
     }
 
     hasFilter() {
