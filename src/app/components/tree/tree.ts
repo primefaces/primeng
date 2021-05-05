@@ -3,7 +3,7 @@ import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,
 import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TreeNode} from 'primeng/api';
+import {PrimeNGConfig, TranslationKeys, TreeNode} from 'primeng/api';
 import {SharedModule} from 'primeng/api';
 import {PrimeTemplate} from 'primeng/api';
 import {TreeDragDropService} from 'primeng/api';
@@ -541,7 +541,7 @@ export class UITreeNode implements OnInit {
             </ng-template>
             <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
                 <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
-                    {{emptyMessage}}
+                    {{emptyMessageLabel}}
                 </ng-container>
                 <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
             </div>
@@ -557,7 +557,7 @@ export class UITreeNode implements OnInit {
             </table>
             <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
                 <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
-                    {{emptyMessage}}
+                    {{emptyMessageLabel}}
                 </ng-container>
                 <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
             </div>
@@ -616,7 +616,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
-    @Input() emptyMessage: string = 'No records found';
+    @Input() emptyMessage: string = '';
 
     @Input() ariaLabel: string;
 
@@ -684,7 +684,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     public filteredNodes: TreeNode[];
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
+    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -721,6 +721,10 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     get horizontal(): boolean {
         return this.layout == 'horizontal';
+    }
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
     ngAfterContentInit() {
