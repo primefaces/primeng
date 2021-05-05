@@ -1,47 +1,49 @@
 import {Component} from '@angular/core';
+import * as moment from 'jalali-moment';
+
 
 @Component({
     templateUrl: './calendardemo.html'
 })
 export class CalendarDemo {
 
-    date1: Date;
+    date1: moment.Moment;
 
-    date2: Date;
+    date2: moment.Moment;
 
-    date3: Date;
+    date3: moment.Moment;
 
-    date4: Date;
+    date4: moment.Moment;
 
-    date5: Date;
+    date5: moment.Moment;
 
-    date6: Date;
+    date6: moment.Moment;
     
-    date7: Date;
+    date7: moment.Moment;
     
-    date8: Date;
+    date8: moment.Moment;
     
-    date9: Date;
+    date9: moment.Moment;
     
-    date10: Date;
+    date10: moment.Moment;
     
-    date11: Date;
+    date11: moment.Moment;
 
-    date12: Date;
+    date12: moment.Moment;
 
-    date13: Date;
+    date13: moment.Moment;
 
-    date14: Date;
+    date14: moment.Moment;
     
-    dates: Date[];
+    dates: moment.Moment[];
     
-    rangeDates: Date[];
+    rangeDates: moment.Moment[];
     
-    minDate: Date;
+    minDate: moment.Moment;
     
-    maxDate: Date;
+    maxDate: moment.Moment;
     
-    invalidDates: Array<Date>;
+    invalidDates: Array<moment.Moment>;
     
     es: any;
 
@@ -57,22 +59,22 @@ export class CalendarDemo {
             clear: 'Borrar'
         };
         
-        let today = new Date();
-        let month = today.getMonth();
-        let year = today.getFullYear();
+        let today = moment();
+        let month = today.month();
+        let year = today.year();
         let prevMonth = (month === 0) ? 11 : month -1;
         let prevYear = (prevMonth === 11) ? year - 1 : year;
         let nextMonth = (month === 11) ? 0 : month + 1;
         let nextYear = (nextMonth === 0) ? year + 1 : year;
-        this.minDate = new Date();
-        this.minDate.setMonth(prevMonth);
-        this.minDate.setFullYear(prevYear);
-        this.maxDate = new Date();
-        this.maxDate.setMonth(nextMonth);
-        this.maxDate.setFullYear(nextYear);
+        this.minDate = moment();
+        this.minDate.set('month',prevMonth);
+        this.minDate.year(prevYear);
+        this.maxDate = moment();
+        this.maxDate.set('month' , nextMonth);
+        this.maxDate.year(nextYear);
         
-        let invalidDate = new Date();
-        invalidDate.setDate(today.getDate() - 1);
+        let invalidDate = moment();
+        invalidDate.set('day',today.date() - 1);
         this.invalidDates = [today,invalidDate];
     }
  }
