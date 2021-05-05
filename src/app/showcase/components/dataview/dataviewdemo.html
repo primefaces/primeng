@@ -476,7 +476,7 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>emptyMessage</td>
                             <td>string</td>
                             <td>No records found.</td>
-                            <td>Text to display when there is no data.</td>
+                            <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -599,6 +599,10 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>listItemTemplate</td>
                             <td>$implicit: Data of the row <br />
                                 index: Index of the row</td>
+                        </tr>
+                        <tr>
+                            <td>empty</td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <td>footer</td>

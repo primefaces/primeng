@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
-import {Header,Footer,PrimeTemplate,SharedModule,FilterService} from 'primeng/api';
+import {Header,Footer,PrimeTemplate,SharedModule,FilterService, TranslationKeys, PrimeNGConfig} from 'primeng/api';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockableUI} from 'primeng/api';
 
@@ -28,7 +28,12 @@ import {BlockableUI} from 'primeng/api';
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                     </ng-template>
                     <div *ngIf="isEmpty()" class="p-col">
-                        <div class="p-dataview-emptymessage">{{emptyMessage}}</div>
+                            <div class="p-dataview-emptymessage">
+                            <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
+                                    {{emptyMessageLabel}}
+                            </ng-container>
+                            <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,7 +83,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     @Input() lazy: boolean;
 
-    @Input() emptyMessage: string = 'No records found';
+    @Input() emptyMessage: string = '';
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -125,6 +130,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     itemTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
+    
+    emptyMessageTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
 
@@ -154,7 +161,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         }
     }
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (this.lazy) {
@@ -202,6 +209,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
                 case 'paginatordropdownitem':
                     this.paginatorDropdownItemTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
                 break;
 
                 case 'header':
@@ -310,6 +321,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+
+
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
     filter(filter: string, filterMatchMode:string ="contains") {
