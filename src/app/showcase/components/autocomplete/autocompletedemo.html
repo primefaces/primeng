@@ -9,10 +9,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="selectedCountry" [showClear]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
     
-        <h5>Dropdown and Templating</h5>
-        <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
+        <h5>Dropdown, Templating and Clear Icon</h5>
+        <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [showClear]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
