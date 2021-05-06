@@ -244,6 +244,11 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   color: #212529;
   background: #C5E1A5;
 }
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-empty-message {
+  padding: 0.429rem 0.857rem;
+  color: #dedede;
+  background: transparent;
+}
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item-group {
   margin: 0;
   padding: 0.857rem;

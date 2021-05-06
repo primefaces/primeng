@@ -9,7 +9,7 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="selectedCountry" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
     
         <h5>Dropdown and Templating</h5>
         <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
@@ -396,11 +396,18 @@ export class AutoCompleteDemo &#123;
                             <td>text</td>
                             <td>Type of the input, defaults to "text".</td>
                         </tr>
+
+                        <tr>
+                            <td>showEmptyMessage</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to show the empty message or not.</td>
+                        </tr>
                         <tr>
                             <td>emptyMessage</td>
                             <td>string</td>
-                            <td>null</td>
-                            <td>Message to display when there are no results for a query.</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                         <tr>
                             <td>immutable</td>
@@ -669,7 +676,7 @@ export class AutoCompleteDemo &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
+&lt;p-autoComplete [(ngModel)]="selectedCountry" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
 
 &lt;h5&gt;Dropdown and Templating&lt;/h5&gt;
 &lt;p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true"&gt;

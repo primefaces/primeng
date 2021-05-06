@@ -4,7 +4,7 @@ import {trigger,style,transition,animate,AnimationEvent} from '@angular/animatio
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate, TranslationKeys, PrimeNGConfig} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -72,7 +72,12 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 </ng-container>
                             </cdk-virtual-scroll-viewport>
                         </ng-template>
-                        <li *ngIf="noResults && emptyMessage" class="p-autocomplete-emptymessage p-autocomplete-item">{{emptyMessage}}</li>
+                        <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message">
+                            <ng-container *ngIf="!emptyTemplate; else empty">
+                                {{emptyMessageLabel}}
+                            </ng-container>
+                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                        </li>
                     </ng-template>
                 </ul>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
@@ -187,6 +192,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() dropdown: boolean;
 
+    @Input() showEmptyMessage: boolean;
+
     @Input() dropdownMode: string = 'blank';
 
     @Input() multiple: boolean;
@@ -228,6 +235,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     itemsWrapper: HTMLDivElement;
 
     itemTemplate: TemplateRef<any>;
+
+    emptyTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
 
@@ -285,7 +294,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     virtualScrollSelectedIndex: number;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, public config: PrimeNGConfig) {
         this.differ = differs.find([]).create(null);
         this.listId = UniqueComponentId() + '_list';
     }
@@ -348,7 +357,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             else {
                 this.noResults = true;
 
-                if (this.emptyMessage) {
+                if (this.showEmptyMessage) {
                     this.show();
                     this.suggestionsUpdated = true;
                 }
@@ -378,6 +387,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
                 case 'header':
                     this.headerTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyTemplate = item.template;
                 break;
 
                 case 'footer':
@@ -602,6 +615,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             this.multiInputEL.nativeElement.focus();
         else
             this.inputEL.nativeElement.focus();
+    }
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
     removeItem(item: any) {
