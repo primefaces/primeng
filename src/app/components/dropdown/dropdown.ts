@@ -119,10 +119,10 @@ export class DropdownItem {
                             </ng-template>
                         </ng-template>
                         <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message">
-                            <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
+                            <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
                                 {{emptyFilterMessageLabel}}
                             </ng-container>
-                            <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
+                            <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
                         </li>
                         <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message">
                             <ng-container *ngIf="!emptyTemplate; else empty">

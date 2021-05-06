@@ -149,10 +149,10 @@ export class MultiSelectItem {
                                 </cdk-virtual-scroll-viewport>
                             </ng-template>
                             <li *ngIf="hasFilter() && emptyOptions" class="p-multiselect-empty-message">
-                                <ng-container *ngIf="!emptyFilterTemplate; else emptyFilter">
+                                <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
                                     {{emptyFilterMessageLabel}}
                                 </ng-container>
-                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate"></ng-container>
+                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
                             </li>
                             <li *ngIf="!hasFilter() && emptyOptions" class="p-multiselect-empty-message">
                                 <ng-container *ngIf="!emptyTemplate; else empty">
