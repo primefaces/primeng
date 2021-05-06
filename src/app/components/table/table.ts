@@ -246,6 +246,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() customSort: boolean;
 
+    @Input() showInitialSortBadge: boolean = true;
+
     @Input() autoLayout: boolean;
 
     @Input() exportFunction;
@@ -2697,7 +2699,7 @@ export class SortIcon implements OnInit, OnDestroy {
         let multiSortMeta = this.dt._multiSortMeta;
         let index = -1;
 
-        if (multiSortMeta && this.dt.sortMode === 'multiple') {
+        if (multiSortMeta && this.dt.sortMode === 'multiple' && (this.dt.showInitialSortBadge || multiSortMeta.length > 1)) {
     
             for (let i = 0; i < multiSortMeta.length; i++) {
                 let meta = multiSortMeta[i];
