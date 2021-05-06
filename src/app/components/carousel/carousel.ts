@@ -43,9 +43,9 @@ import { UniqueComponentId } from 'primeng/utils';
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
 					</button>
 				</div>
-				<ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass">
+				<ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle">
 					<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'p-carousel-indicator':true,'p-highlight': _page === i}">
-						<button type="button" class="p-link" (click)="onDotClick($event, i)"></button>
+						<button type="button" class="p-link" (click)="onDotClick($event, i)" [class]="indicatorStyleClass" [ngStyle]="indicatorStyle"></button>
 					</li>
 				</ul>
 			</div>
@@ -102,9 +102,15 @@ export class Carousel implements AfterContentInit {
 	
 	@Input() verticalViewPortHeight = "300px";
 	
-	@Input() contentClass: String = "";
+	@Input() contentClass: string = "";
 
-	@Input() indicatorsContentClass: String = "";
+	@Input() indicatorsContentClass: string = "";
+
+	@Input() indicatorsContentStyle: any;
+
+	@Input() indicatorStyleClass: string = "";
+
+	@Input() indicatorStyle: any;
 
 	@Input() get value() :any[] {
 		return this._value;
