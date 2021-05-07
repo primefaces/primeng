@@ -731,7 +731,7 @@
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.7-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.7) (2021-05-07)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.8-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.8) (2021-05-07)
 - showNavigator and showIndicator support for Carousel [\#10208](https://github.com/primefaces/primeng/issues/10208)
 - IndicatorStyle and IndicatorStyleClass support for Carousel [\#10207](https://github.com/primefaces/primeng/issues/10207)
 - p-editor - HTML binding fails [\#10182](https://github.com/primefaces/primeng/issues/10182)
