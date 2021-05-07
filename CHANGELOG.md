@@ -401,6 +401,17 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.2-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.2) (2021-05-07)
+- showNavigator and showIndicator support for Carousel [\#10208](https://github.com/primefaces/primeng/issues/10208)
+- IndicatorStyle and IndicatorStyleClass support for Carousel [\#10207](https://github.com/primefaces/primeng/issues/10207)
+- p-editor - HTML binding fails [\#10182](https://github.com/primefaces/primeng/issues/10182)
+- p-dropdown with editable=true and floating labels results in incorrect behavior with manually entered values [\#10170](https://github.com/primefaces/primeng/issues/10170)
+- Footer gets misaligned when used with calendar's inline mode [\#10130](https://github.com/primefaces/primeng/issues/10130)
+- Dropdown selecting an unwanted option when pressing Windows key on the keyboard [\#10113](https://github.com/primefaces/primeng/issues/10113)
+- Facing accessibility-related issues with primeNg controls and AXE tools. [\#9834](https://github.com/primefaces/primeng/issues/9834)
+- Radio buttons do not get unselected on the same group, with Reactive Forms using formControl instead of formControlName [\#9631](https://github.com/primefaces/primeng/issues/9631)
+- Hovering on timepicker arrows acting like select after clicking an arrow in the time picker [\#8961](https://github.com/primefaces/primeng/issues/8961)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.1-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.1) (2021-04-13)
 - p-tree event.accept() not available on first drop [\#10093](https://github.com/primefaces/primeng/issues/10093)
 - p-table with save state (localstorage/sessionstorage) remember old value after delete from filter [\#10065](https://github.com/primefaces/primeng/issues/10065)
@@ -719,6 +730,16 @@
 **Deprecated:**
 
 - Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.7-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.7) (2021-05-07)
+- showNavigator and showIndicator support for Carousel [\#10208](https://github.com/primefaces/primeng/issues/10208)
+- IndicatorStyle and IndicatorStyleClass support for Carousel [\#10207](https://github.com/primefaces/primeng/issues/10207)
+- p-editor - HTML binding fails [\#10182](https://github.com/primefaces/primeng/issues/10182)
+- p-dropdown with editable=true and floating labels results in incorrect behavior with manually entered values [\#10170](https://github.com/primefaces/primeng/issues/10170)
+- Dropdown selecting an unwanted option when pressing Windows key on the keyboard [\#10113](https://github.com/primefaces/primeng/issues/10113)
+- Facing accessibility-related issues with primeNg controls and AXE tools. [\#9834](https://github.com/primefaces/primeng/issues/9834)
+- Radio buttons do not get unselected on the same group, with Reactive Forms using formControl instead of formControlName [\#9631](https://github.com/primefaces/primeng/issues/9631)
+- Hovering on timepicker arrows acting like select after clicking an arrow in the time picker [\#8961](https://github.com/primefaces/primeng/issues/8961)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [9.2.6-LTS](https://www.npmjs.com/package/primeng-lts/v/9.2.6) (2021-04-13)
 - p-tree event.accept() not available on first drop [\#10093](https://github.com/primefaces/primeng/issues/10093)
