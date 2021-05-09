@@ -1484,20 +1484,22 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         //headers
-        for (let i = 0; i < columns.length; i++) {
-            let column = columns[i];
-            if (column.exportable !== false && column.field) {
-                csv += '"' + (column.header || column.field) + '"';
+        if (!options || !options.noHeader) {
+            for (let i = 0; i < columns.length; i++) {
+                let column = columns[i];
+                if (column.exportable !== false && column.field) {
+                    csv += '"' + (column.header || column.field) + '"';
 
-                if (i < (columns.length - 1)) {
-                    csv += this.csvSeparator;
+                    if (i < (columns.length - 1)) {
+                        csv += this.csvSeparator;
+                    }
                 }
             }
+            csv += '\n';
         }
 
         //body
-        data.forEach((record, i) => {
-            csv += '\n';
+        data.forEach((record, index) => {
             for (let i = 0; i < columns.length; i++) {
                 let column = columns[i];
                 if (column.exportable !== false && column.field) {
@@ -1522,6 +1524,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         csv += this.csvSeparator;
                     }
                 }
+            }
+            if (index < data.length-1) {
+                csv += '\n';
             }
         });
 

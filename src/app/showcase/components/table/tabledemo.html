@@ -2070,7 +2070,7 @@ export class TableEditDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/reorder']">live example.</a></p>
 
             <h5>Data Export</h5>
-            <p>Table can export its data in CSV format using the built-in <i>exportCSV()</i> function. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
+            <p>Table can export its data in CSV format using the built-in <i>exportCSV()</i> function. By default whole data is exported; if you'd like to export only the selection then pass a config object with selectionOnly property as true. By default a header row is included; if you do not want the header then pass a config object with noHeader property as true. Note that
                 columns should be dynamic for export functionality to work and column objects must define field/header properties.
             </p>
 
@@ -2084,6 +2084,7 @@ export class TableEditDemo implements OnInit &#123;
             &lt;button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV - No Header" (click)="dt.exportCSV(&#123;noHeader:true&#125;)" style="float:right"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -3444,7 +3445,8 @@ export class TableDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>exportCSV</td>
-                            <td>config?.selectionOnly: Exports only the selection.</td>
+                            <td>config?.selectionOnly: Exports only the selection.<br/>
+                                config?.noHeader: Does not include a header.</td>
                             <td>Exports the data in csv format.</td>
                         </tr>
                         <tr>
