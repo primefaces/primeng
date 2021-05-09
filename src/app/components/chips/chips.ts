@@ -1,4 +1,5 @@
 import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+
 import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
@@ -69,6 +70,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() separator: string;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
+
+    @Output() onDuplicate: EventEmitter<any> = new EventEmitter();
 
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
 
@@ -227,6 +230,12 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                     originalEvent: event,
                     value: item
                 });
+            }
+            else if (!this.allowDuplicate && this.value.indexOf(item) > -1) {
+                this.onDuplicate.emit({
+                    originalEvent: event,
+                    value: item
+                })
             }
         }
         this.updateFilledState();
