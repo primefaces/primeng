@@ -654,6 +654,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
 
+    @ViewChild('filter') filterViewChild: ElementRef;
+
     serializedValue: any[];
 
     headerTemplate: TemplateRef<any>;
@@ -1207,6 +1209,14 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
             filter: filterValue,
             filteredValue: this.filteredNodes
         });
+    }
+
+    resetFilter() {
+        this.filteredNodes = null;
+
+        if (this.filterViewChild && this.filterViewChild.nativeElement) {
+            this.filterViewChild.nativeElement.value = '';
+        }
     }
 
     findFilteredNodes(node, paramsWithoutNode) {
