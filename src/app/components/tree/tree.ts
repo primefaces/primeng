@@ -520,7 +520,7 @@ export class UITreeNode implements OnInit {
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             <div *ngIf="filter" class="p-tree-filter-container">
                 <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event)">
+                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
                     <span class="p-tree-filter-icon pi pi-search"></span>
             </div>
             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
@@ -1182,8 +1182,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
     }
 
-    _filter(event) {
-        let filterValue = event.target.value;
+    _filter(value) {
+        let filterValue = value;
         if (filterValue === '') {
             this.filteredNodes = null;
         }
