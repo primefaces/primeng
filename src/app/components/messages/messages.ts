@@ -136,7 +136,6 @@ export class Messages implements AfterContentInit, OnDestroy {
                 if (message?.key) {
                     if (this.key === message?.key) {
                         this.value = this.value ? this.value.filter(m => m !== message) : this.value;
-                        this.value = this.value ? this.value.filter(m => m !== message) : this.value;
                     }
                 } else {
                     this.value = this.value ? this.value.filter(m => m !== message) : this.value;
