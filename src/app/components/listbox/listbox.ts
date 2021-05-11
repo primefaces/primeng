@@ -1,10 +1,11 @@
-import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';  
+import { Subscription } from 'rxjs';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -86,7 +87,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./listbox.css']
 })
-export class Listbox implements AfterContentInit, ControlValueAccessor {
+export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
 
     @Input() multiple: boolean;
 
@@ -182,6 +183,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerCheckboxFocus: boolean;
 
+    translationSubscription: Subscription;
+
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) { }
 
     @Input() get options(): any[] {
@@ -202,6 +205,12 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     set filterValue(val: string) {
         this._filterValue = val;
         this.activateFilter();
+    }
+
+    ngOnInit() {
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.cd.markForCheck();
+        });
     }
 
     ngAfterContentInit() {
@@ -696,6 +705,12 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     onHeaderCheckboxBlur() {
         this.headerCheckboxFocus = false;
+    }
+
+    ngOnDestroy() {
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
     }
 }
 

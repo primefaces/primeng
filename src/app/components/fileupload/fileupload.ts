@@ -1,5 +1,5 @@
 import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
-            ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+            ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from 'primeng/button';
@@ -11,6 +11,7 @@ import {PrimeTemplate,SharedModule,PrimeNGConfig} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';  
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'p-fileUpload',
@@ -67,7 +68,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./fileupload.css']
 })
-export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
+export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestroy,BlockableUI {
 
     @Input() name: string;
 
@@ -197,6 +198,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
+    translationSubscription: Subscription;
+
     constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef, public config: PrimeNGConfig){}
 
     ngAfterContentInit() {
@@ -218,6 +221,13 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                     this.fileTemplate = item.template;
                 break;
             }
+        });
+    }
+
+
+    ngOnInit() {
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.cd.markForCheck();
         });
     }
 
@@ -556,6 +566,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     ngOnDestroy() {
         if (this.content && this.content.nativeElement) {
             this.content.nativeElement.removeEventListener('dragover', this.onDragOver);
+        }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
         }
     }
 }

@@ -223,6 +223,8 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
     confirmationOptions: Confirmation;
 
+    translationSubscription: Subscription;
+
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
@@ -269,6 +271,12 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
         if (this.breakpoints) {
             this.createStyle();
         }
+
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            if (this.visible) {
+                this.cd.markForCheck();
+            }
+        });
     }
 
     option(name: string) {
@@ -502,6 +510,11 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
+        
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
+
         this.destroyStyle();
     }
 

@@ -1,9 +1,10 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
 import {Header,Footer,PrimeTemplate,SharedModule,FilterService, TranslationKeys, PrimeNGConfig} from 'primeng/api';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockableUI} from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-dataView',
@@ -51,7 +52,7 @@ import {BlockableUI} from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./dataview.css']
 })
-export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
+export class DataView implements OnInit,AfterContentInit,OnDestroy,BlockableUI,OnChanges {
 
     @Input() paginator: boolean;
 
@@ -149,6 +150,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     _layout: string = 'list';
 
+    translationSubscription: Subscription;
+
     @Input() get layout(): string {
         return this._layout;
     }
@@ -167,6 +170,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
+
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.cd.markForCheck();
+        });
         this.initialized = true;
     }
 
@@ -351,6 +358,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     hasFilter() {
         return this.filterValue && this.filterValue.trim().length > 0;
+    }
+
+    ngOnDestroy() {
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
     }
 }
 
