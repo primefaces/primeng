@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'app-config',
@@ -485,6 +486,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     onRippleChange() {
         this.configService.updateConfig(this.config);
+        if (this.config.ripple)
+            DomHandler.removeClass(document.body, 'p-ripple-disabled');
+        else
+            DomHandler.addClass(document.body, 'p-ripple-disabled');
     }
 
     bindOutsideClickListener() {
