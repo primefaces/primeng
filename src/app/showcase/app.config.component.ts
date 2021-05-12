@@ -303,6 +303,11 @@ import { DomHandler } from 'primeng/dom';
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
+                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/ultima-ng">
                                     <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
                                 </a>
@@ -405,11 +410,6 @@ import { DomHandler } from 'primeng/dom';
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/morpheus-ng">
                                     <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
