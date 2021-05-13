@@ -230,7 +230,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 }
             break;
 
-            case 'hidden':
+            case 'void':
                 this.hide();
                 this.unbindGlobalListeners();
             break;
