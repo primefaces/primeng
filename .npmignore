@@ -46,7 +46,6 @@ testem.log
 .gitignore
 exports
 CHANGELOG.md
-.travis.yml
 
 # config
 .angular-cli.json
