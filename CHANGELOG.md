@@ -1,8 +1,8 @@
 # Changelog
 
-## [11.4.1](https://github.com/primefaces/primeng/tree/11.4.1) (2021-05-11)
+## [11.4.2](https://github.com/primefaces/primeng/tree/11.4.1) (2021-05-14)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/11.4.0...11.4.1)
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.4.0...11.4.2)
 
 **Implemented New Features and Enhancements:**
 
@@ -32,6 +32,8 @@
 - p-dropdown with editable=true and floating labels results in incorrect behavior with manually entered values [\#10170](https://github.com/primefaces/primeng/issues/10170)
 - p-calendar styling is incorrect when it is disabled with an icon [\#10167](https://github.com/primefaces/primeng/issues/10167)
 - Radio buttons do not get unselected on the same group, with Reactive Forms using formControl instead of formControlName [\#9631](https://github.com/primefaces/primeng/issues/9631)
+- Sidebar content overflows its container [\#10231](https://github.com/primefaces/primeng/issues/10231)
+- Sidebar's Overlay not removing when closing with cancel [\#10234](https://github.com/primefaces/primeng/issues/10234)
 
 ## [11.4.0](https://github.com/primefaces/primeng/tree/11.4.0) (2021-04-22)
 
