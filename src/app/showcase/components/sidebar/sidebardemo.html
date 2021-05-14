@@ -10,32 +10,22 @@
     <div class="card">
         <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
             <h3>Left Sidebar</h3>
-            <p-button type="button" (click)="visibleSidebar1 = false" label="Save" styleClass="p-button-success p-mr-2"></p-button>
-            <p-button type="button" (click)="visibleSidebar1 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"></p-button>
         </p-sidebar>
     
         <p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000">
-            <h1 style="font-weight:normal">Right Sidebar</h1>
-            <p-button type="button" (click)="visibleSidebar2 = false" label="Save" styleClass="p-button-success p-mr-2"></p-button>
-            <p-button type="button" (click)="visibleSidebar2 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"></p-button>
+            <h3>Right Sidebar</h3>
         </p-sidebar>
     
         <p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000">
-            <h1 style="font-weight:normal">Top Sidebar</h1>
-            <p-button type="button" (click)="visibleSidebar3 = false" label="Save" styleClass="p-button-success p-mr-2"></p-button>
-            <p-button type="button" (click)="visibleSidebar3 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"></p-button>
+            <h3>Top Sidebar</h3>
         </p-sidebar>
     
         <p-sidebar [(visible)]="visibleSidebar4" position="bottom" [baseZIndex]="10000">
-            <h1 style="font-weight:normal">Bottom Sidebar</h1>
-            <p-button type="button" (click)="visibleSidebar4 = false" label="Save" styleClass="p-button-success p-mr-2"></p-button>
-            <p-button type="button" (click)="visibleSidebar4 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"></p-button>
+            <h3>Bottom Sidebar</h3>
         </p-sidebar>
     
         <p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
-            <h1 style="font-weight:normal">Full Screen Sidebar</h1>
-            <p-button type="button" (click)="visibleSidebar5 = false" label="Save" styleClass="p-button-success p-mr-2"></p-button>
-            <p-button type="button" (click)="visibleSidebar5 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"></p-button>
+            <h3>Full Screen</h3>
         </p-sidebar>
     
         <p-button type="button" class="p-mr-2" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"></p-button>
@@ -325,32 +315,22 @@ Content
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000"&gt;
     &lt;h3&gt;Left Sidebar&lt;/h3&gt;
-    &lt;p-button type="button" (click)="visibleSidebar1 = false" label="Save" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
-    &lt;p-button type="button" (click)="visibleSidebar1 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"&gt;&lt;/p-button&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000"&gt;
-    &lt;h1 style="font-weight:normal"&gt;Right Sidebar&lt;/h1&gt;
-    &lt;p-button type="button" (click)="visibleSidebar2 = false" label="Save" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
-    &lt;p-button type="button" (click)="visibleSidebar2 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"&gt;&lt;/p-button&gt;
+    &lt;h3&gt;Right Sidebar&lt;/h3&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000"&gt;
-    &lt;h1 style="font-weight:normal"&gt;Top Sidebar&lt;/h1&gt;
-    &lt;p-button type="button" (click)="visibleSidebar3 = false" label="Save" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
-    &lt;p-button type="button" (click)="visibleSidebar3 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"&gt;&lt;/p-button&gt;
+    &lt;h3&gt;Top Sidebar&lt;/h3&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar4" position="bottom" [baseZIndex]="10000"&gt;
-    &lt;h1 style="font-weight:normal"&gt;Bottom Sidebar&lt;/h1&gt;
-    &lt;p-button type="button" (click)="visibleSidebar4 = false" label="Save" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
-    &lt;p-button type="button" (click)="visibleSidebar4 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"&gt;&lt;/p-button&gt;
+    &lt;h3&gt;Bottom Sidebar&lt;/h3&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000"&gt;
-    &lt;h1 style="font-weight:normal"&gt;Full Screen Sidebar&lt;/h1&gt;
-    &lt;p-button type="button" (click)="visibleSidebar5 = false" label="Save" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
-    &lt;p-button type="button" (click)="visibleSidebar5 = false" label="Cancel" styleClass="p-button-secondary p-mr-2"&gt;&lt;/p-button&gt;
+    &lt;h3&gt;Full Screen Sidebar&lt;/h3&gt;
 &lt;/p-sidebar&gt;
 
 &lt;p-button type="button" class="p-mr-2" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"&gt;&lt;/p-button&gt;
