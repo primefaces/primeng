@@ -1,25 +1,34 @@
 .p-sidebar {
     position: fixed;
     transition: transform .3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .p-sidebar-content {
     position: relative;
+    overflow-y: auto;
 }
 
-.p-sidebar-close {
-    position: absolute;
-    top: 0;
-    right: 0;
+.p-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.p-sidebar-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
 .p-sidebar-mask {
     background-color: transparent;
     transition-property: background-color;
+}
+
+.p-sidebar-mask.p-sidebar-mask-leave.p-component-overlay {
+    background-color: transparent;
 }
 
 .p-sidebar-left {
