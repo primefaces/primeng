@@ -1,6 +1,6 @@
 # Changelog
 
-## [11.4.2](https://github.com/primefaces/primeng/tree/11.4.1) (2021-05-14)
+## [11.4.2](https://github.com/primefaces/primeng/tree/11.4.2) (2021-05-14)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.4.0...11.4.2)
 
