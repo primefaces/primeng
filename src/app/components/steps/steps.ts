@@ -1,13 +1,15 @@
 import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
-import {RouterModule, Router, ActivatedRoute} from '@angular/router';
+import { RouterModule, Router, ActivatedRoute, RouterEvent, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-steps',
     template: `
         <div [ngClass]="{'p-steps p-component':true,'p-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
+            <span class="p-steps-title-lg" *ngIf="model[activeIndex]?.escape !== false; else htmlBigLabel">{{model[activeIndex]?.label}}</span>
+            <ng-template #htmlBigLabel><span class="p-steps-title-lg" [innerHTML]="model[activeIndex]?.label"></span></ng-template>
             <ul role="tablist">
                 <li *ngFor="let item of model; let i = index" class="p-steps-item" #menuitem [ngStyle]="item.style" [class]="item.styleClass" role="tab" [attr.aria-selected]="i === activeIndex" [attr.aria-expanded]="i === activeIndex"
                     [ngClass]="{'p-highlight p-steps-current': isActive(item, i), 'p-disabled': item.disabled || (readonly && !isActive(item, i))}">
@@ -39,7 +41,7 @@ export class Steps implements OnInit, OnDestroy {
     @Input() activeIndex: number = 0;
     
     @Input() model: MenuItem[];
-    
+
     @Input() readonly: boolean =  true;
     
     @Input() style: any;
@@ -48,14 +50,27 @@ export class Steps implements OnInit, OnDestroy {
     
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
-    constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
+    constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) { }
     
     subscription: Subscription;
 
     ngOnInit() {
-        this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
+        this.setActiveIndexFromUrl(this.router.url);
+        this.subscription = this.router.events.subscribe(event => {
+            this.cd.markForCheck();
+            if (event instanceof NavigationEnd) {
+                this.setActiveIndexFromUrl(event.url);
+            }
+        });
     }
-    
+
+    private setActiveIndexFromUrl(url: string): void {
+        this.activeIndex = this.model
+            .map((item, index) => url.endsWith(item.routerLink) ? index : undefined)
+            .find(index => index !== undefined);
+        this.activeIndexChange.emit(this.activeIndex);
+    }
+
     itemClick(event: Event, item: MenuItem, i: number) {
         if (this.readonly || item.disabled) {
             event.preventDefault();
