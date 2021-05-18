@@ -83,7 +83,7 @@
             <div class="p-col-12 p-md-12">
                 <div class="p-inputgroup">
                     <input type="text" pInputText placeholder="Price">   
-                    <span class="p-inputgroup-addon"><p-radioButton></p-radioButton></span>      
+                    <span class="p-inputgroup-addon"><p-radioButton name="category" value="price" [(ngModel)]="category"></p-radioButton></span>      
                 </div>
             </div>
                     
@@ -91,7 +91,7 @@
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><p-checkbox></p-checkbox></span>
                     <input type="text" pInputText placeholder="Website">      
-                    <span class="p-inputgroup-addon"><p-radioButton></p-radioButton></span> 
+                    <span class="p-inputgroup-addon"><p-radioButton name="category" value="site" [(ngModel)]="category"></p-radioButton></span> 
                 </div>
             </div>
         </div>
@@ -184,7 +184,7 @@
     &lt;div class="p-col-12 p-md-12"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;input type="text" pInputText placeholder="Price"&gt;   
-            &lt;span class="p-inputgroup-addon"&gt;&lt;p-radioButton&gt;&lt;/p-radioButton&gt;&lt;/span&gt;      
+            &lt;span class="p-inputgroup-addon"&gt;&lt;p-radioButton name="category" value="price" [(ngModel)]="category"&gt;&lt;/p-radioButton&gt;&lt;/span&gt;      
         &lt;/div&gt;
     &lt;/div&gt;
             
@@ -192,7 +192,7 @@
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;&lt;p-checkbox&gt;&lt;/p-checkbox&gt;&lt;/span&gt;
             &lt;input type="text" pInputText placeholder="Website"&gt;      
-            &lt;span class="p-inputgroup-addon"&gt;&lt;p-radioButton&gt;&lt;/p-radioButton&gt;&lt;/span&gt; 
+            &lt;span class="p-inputgroup-addon"&gt;&lt;p-radioButton name="category" value="site" [(ngModel)]="category"&gt;&lt;/p-radioButton&gt;&lt;/span&gt; 
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;

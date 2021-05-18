@@ -15,12 +15,12 @@
     
         <h5>Severities</h5>
         <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
-        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary"></p-splitButton>
-        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success"></p-splitButton>
-        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info"></p-splitButton>
-        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning"></p-splitButton>
-        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-help"></p-splitButton>
-        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger"></p-splitButton>
+        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary p-mb-2"></p-splitButton>
+        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success p-mb-2"></p-splitButton>
+        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info p-mb-2"></p-splitButton>
+        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning p-mb-2"></p-splitButton>
+        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-help p-mb-2"></p-splitButton>
+        <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger p-mb-2"></p-splitButton>
     </div>
 </div>
 
@@ -225,12 +225,12 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
 &lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"&gt;&lt;/p-splitButton&gt;
 
 &lt;h5&gt;Severities&lt;/h5&gt;
-&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-help"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary p-mb-2"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success p-mb-2"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info p-mb-2"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning p-mb-2"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-help p-mb-2"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger p-mb-2"&gt;&lt;/p-splitButton&gt;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SplitButtonDemo implements OnInit &#123;
@@ -243,10 +243,10 @@ export class SplitButtonDemo implements OnInit &#123;
         this.items = [
             &#123;label: 'Update', icon: 'pi pi-refresh', command: () => &#123;
                 this.update();
-            &#125;&#125;,
+            &#125;,
             &#123;label: 'Delete', icon: 'pi pi-times', command: () => &#123;
                 this.delete();
-            &#125;&#125;,
+            &#125;,
             &#123;label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io'&#125;,
             &#123;separator: true&#125;,
             &#123;label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']&#125;
