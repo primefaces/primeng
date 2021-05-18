@@ -286,7 +286,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
             this.hide();
         }
 
-        if (this.appendTo) {
+        if (this.appendTo && this.container) {
             this.el.nativeElement.appendChild(this.container);
         }
 
