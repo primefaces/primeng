@@ -76,6 +76,7 @@
 import &#123; Component, OnInit &#125; from '@angular/core';
 import &#123; Product &#125; from '../../domain/product';
 import &#123; ProductService &#125; from '../../service/productservice';
+import * as FileSaver from 'file-saver';
 
 @Component(&#123;
     templateUrl: './tableexportdemo.html'
@@ -125,14 +126,12 @@ export class TableExportDemo implements OnInit &#123;
     &#125;
 
     saveAsExcelFile(buffer: any, fileName: string): void &#123;
-        import("file-saver").then(FileSaver =&gt; &#123;
-            let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-            let EXCEL_EXTENSION = '.xlsx';
-            const data: Blob = new Blob([buffer], &#123;
-                type: EXCEL_TYPE
-            &#125;);
-            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], &#123;
+            type: EXCEL_TYPE
         &#125;);
+        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
     &#125;
 &#125;
 </app-code>
