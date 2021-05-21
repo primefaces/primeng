@@ -1,5 +1,17 @@
 # Changelog
 
+## [12.0.0-rc.1](https://github.com/primefaces/primeng/tree/12.0.0-rc.1) (2021-21-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.4.2...12.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Angular 12 Support [\#10262](https://github.com/primefaces/primeng/issues/10262)
+
+**Fixed bugs:**
+
+- Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
+
 ## [11.4.2](https://github.com/primefaces/primeng/tree/11.4.2) (2021-05-14)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.4.0...11.4.2)
