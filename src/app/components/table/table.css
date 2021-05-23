@@ -129,6 +129,11 @@
     border: 1px solid transparent;
 }
 
+.ui-rtl .p-datatable .p-column-resizer {
+    right: auto;
+    left:0;
+}
+
 .p-datatable .p-column-resizer-helper {
     width: 1px;
     position: absolute;
