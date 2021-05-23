@@ -21,6 +21,7 @@ import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
+import { Directionality } from '@angular/cdk/bidi';
 
 @Injectable()
 export class TableService {
@@ -430,7 +431,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    isRtl: boolean;
+
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, dir: Directionality) {
+        this.isRtl = dir.value === 'rtl';
+    }
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -1703,6 +1708,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onColumnResizeEnd(event, column) {
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
+		delta = delta * (this.isRtl ? -1 : 1);
         let columnWidth = column.offsetWidth;
         let minWidth = parseInt(column.style.minWidth || 15);
 
