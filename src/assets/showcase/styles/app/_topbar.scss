@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     padding: 0 35px;
-    margin-right: 250px;
+    margin-left: 250px;
 
     .menu-button {
         display: none;
@@ -172,4 +172,9 @@
             background: linear-gradient(to bottom, #141d26, #5a6067);
         }
     }
+}
+
+.ui-rtl .layout-topbar {
+    margin-left: auto;
+    margin-right: 250px;
 }

@@ -1,5 +1,5 @@
 .layout-content {
-    margin-right: 250px;
+    margin-left: 250px;
 
     .content-section {
         padding: 2rem;
@@ -236,4 +236,9 @@
             height: 100%;
         }
     }
+}
+
+.ui-rtl .layout-content {
+    margin-left: auto;
+    margin-right: 250px;
 }

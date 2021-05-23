@@ -1,6 +1,6 @@
 .layout-sidebar {
     position: fixed;
-    right: 0;
+    left: 0;
     top: 0;
     height: 100%;
     background-color: var(--surface-a);
@@ -116,4 +116,9 @@
         border-bottom: 1px solid var(--surface-d);
         background-color: var(--surface-a);
     }
+}
+
+.ui-rtl .layout-sidebar {
+    right: 0;
+    left: auto;
 }
