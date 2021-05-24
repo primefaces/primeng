@@ -76,6 +76,7 @@ export class TableService {
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-datatable-scrollable-body, .p-datatable-unfrozen-view .p-datatable-scrollable-body"
             [ngClass]="{'p-datatable p-component': true,
+                'p-table-rtl' : rtl,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
                 'p-datatable-auto-layout': autoLayout,
                 'p-datatable-resizable': resizableColumns,
@@ -262,6 +263,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() minBufferPx: number;
 
     @Input() maxBufferPx: number;
+    
+    @Input() rtl: boolean=undefined;
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -431,11 +434,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    isRtl: boolean;
-
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, dir: Directionality) {
-        this.isRtl = dir.value === 'rtl';
-    }
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService,public dir: Directionality) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -447,6 +446,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.restoringFilter = false;
             }
         }
+
+        if(this.rtl == undefined)
+            this.rtl = this.dir.value === 'rtl';
 
         this.initialized = true;
     }
@@ -1708,7 +1710,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onColumnResizeEnd(event, column) {
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
-		delta = delta * (this.isRtl ? -1 : 1);
+		delta = delta * (this.rtl ? -1 : 1);
         let columnWidth = column.offsetWidth;
         let minWidth = parseInt(column.style.minWidth || 15);
 
