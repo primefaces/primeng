@@ -130,3 +130,8 @@ button {
 .p-component-rtl {
     direction: rtl;
 }
+
+.p-component-rtl .p-ml-auto{
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
