@@ -30,6 +30,30 @@
             </ng-template>
         </p-table>
     </div>
+
+    <div class="card" dir="rtl">
+        <h5>Single Column RTL Support</h5>
+        <p-table [value]="products1">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td>{{product.price | currency: 'USD'}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
    
     <div class="card">
         <h5>Multiple Columns</h5>
