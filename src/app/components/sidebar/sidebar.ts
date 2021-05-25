@@ -137,7 +137,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         switch (value) {
             case 'left':
-                this.transformOptions = "translate3d(100%, 0px, 0px)";
+                this.transformOptions = "translate3d(-100%, 0px, 0px)";
             break;
             case 'right':
                 this.transformOptions = "translate3d(100%, 0px, 0px)";
