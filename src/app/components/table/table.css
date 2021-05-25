@@ -129,14 +129,6 @@
     border: 1px solid transparent;
 }
 
-.p-table-rtl {
-    direction: rtl;
-}
-.p-table-rtl .p-column-resizer { 
-    right: auto;
-    left:0;
-}
-
 .p-datatable .p-column-resizer-helper {
     width: 1px;
     position: absolute;
@@ -281,4 +273,18 @@ cdk-virtual-scroll-viewport {
         margin: -.4em 1em -.4em -.4rem;
         font-weight: bold;
     }
+}
+
+.p-table-rtl {
+    direction: rtl;
+}
+.p-table-rtl .p-column-resizer { 
+    right: auto;
+    left:0;
+}
+
+.p-table-rtl .p-datatable-thead > tr > th,
+.p-table-rtl .p-datatable-tfoot > tr > td,
+.p-table-rtl .p-datatable-tbody > tr > td{
+    text-align: right;
 }
