@@ -10,7 +10,7 @@ import { Directionality } from '@angular/cdk/bidi';
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-paginator p-component' : true, 'p-paginator-rtl' : rtl}" *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-paginator p-component' : true, 'p-component-rtl' : rtl}" *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
             <div class="p-paginator-left-content" *ngIf="templateLeft">
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>

@@ -275,16 +275,13 @@ cdk-virtual-scroll-viewport {
     }
 }
 
-.p-table-rtl {
-    direction: rtl;
-}
-.p-table-rtl .p-column-resizer { 
+.p-component-rtl .p-column-resizer { 
     right: auto;
     left:0;
 }
 
-.p-table-rtl .p-datatable-thead > tr > th,
-.p-table-rtl .p-datatable-tfoot > tr > td,
-.p-table-rtl .p-datatable-tbody > tr > td{
+.p-component-rtl .p-datatable-thead > tr > th,
+.p-component-rtl .p-datatable-tfoot > tr > td,
+.p-component-rtl .p-datatable-tbody > tr > td{
     text-align: right;
 }

@@ -34,14 +34,11 @@
     position: relative;
 }
 
-.p-paginator-rtl {
-   direction: rtl;
-}
-.p-paginator-rtl .p-paginator-left-content {
+.p-component-rtl .p-paginator-left-content {
     margin-right: 0 ;
 	margin-left: auto;
 }
-.p-paginator-rtl .p-paginator-right-content {
+.p-component-rtl .p-paginator-right-content {
     margin-left: 0 ;
 	margin-right: auto;
 }

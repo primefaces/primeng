@@ -78,7 +78,7 @@ export class TableService {
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-datatable-scrollable-body, .p-datatable-unfrozen-view .p-datatable-scrollable-body"
             [ngClass]="{'p-datatable p-component': true,
-                'p-table-rtl' : rtl,
+                'p-component-rtl' : rtl,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
                 'p-datatable-auto-layout': autoLayout,
                 'p-datatable-resizable': resizableColumns,

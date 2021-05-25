@@ -127,3 +127,6 @@ button {
     overflow: hidden;
 }
 
+.p-component-rtl {
+    direction: rtl;
+}
