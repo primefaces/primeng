@@ -36,7 +36,7 @@
         overflow-y: auto;
         flex-grow: 1;
         border-right: 1px solid var(--surface-d);
-        
+
         .menu-category {
             display: block;
             color: var(--text-color-secondary);
@@ -81,7 +81,7 @@
                 }
 
                 .p-tag {
-                    padding-top:.125rem;
+                    padding-top: .125rem;
                     padding-bottom: .125rem;
                 }
             }
@@ -91,7 +91,7 @@
                     > a {
                         font-weight: 700;
                     }
-                    
+
                     ul {
                         display: block;
                     }
@@ -118,7 +118,9 @@
     }
 }
 
-.ui-rtl .layout-sidebar {
-    right: 0;
-    left: auto;
+.p-component-rtl {
+    .layout-sidebar {
+        right: 0;
+        left: auto;
+    }
 }
