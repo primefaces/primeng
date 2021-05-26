@@ -1,4 +1,4 @@
-import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList} from '@angular/core';
+import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList, Renderer2} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple'; 
@@ -23,7 +23,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     
     public _initialStyleClass: string;
 
-    constructor(public el: ElementRef) {}
+    constructor(private renderer: Renderer2, public el: ElementRef) {}
     
     ngAfterViewInit() {
         this._initialStyleClass = this.el.nativeElement.className;
@@ -33,18 +33,18 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.createIconEl();
         }
         
-        let labelElement = document.createElement("span");
+        let labelElement = this.renderer.createElement("span");
         if (this.icon && !this.label) {
-            labelElement.setAttribute('aria-hidden', 'true');
+            this.renderer.setAttribute(labelElement, 'aria-hidden', 'true');
         }
-        labelElement.className = 'p-button-label';
+        this.renderer.addClass(labelElement, 'p-button-label');
 
         if (this.label)
-            labelElement.appendChild(document.createTextNode(this.label));
+            this.renderer.appendChild(labelElement, this.renderer.createText(this.label));
         else 
             labelElement.innerHTML = '&nbsp;';
         
-        this.el.nativeElement.appendChild(labelElement);
+        this.renderer.appendChild(this.el.nativeElement, labelElement);
         this.initialized = true;
     }
         
@@ -69,9 +69,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createIconEl() {
-        let iconElement = document.createElement("span");
-        iconElement.className = 'p-button-icon';
-        iconElement.setAttribute("aria-hidden", "true");
+        let iconElement = this.renderer.createElement("span");
+        this.renderer.addClass(iconElement, 'p-button-icon');
+        this.renderer.setAttribute(iconElement, "aria-hidden", "true");
         let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
         
         if (iconPosClass) {
@@ -82,9 +82,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label')
 
         if (labelEl)
-            this.el.nativeElement.insertBefore(iconElement, labelEl);
+            this.renderer.insertBefore(this.el.nativeElement, iconElement, labelEl);
         else
-            this.el.nativeElement.appendChild(iconElement)
+            this.renderer.appendChild(this.el.nativeElement, iconElement)
     }
 
     getIconClass() {
@@ -106,7 +106,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     removeIconElement() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
-        this.el.nativeElement.removeChild(iconElement)
+        this.renderer.removeChild(this.el.nativeElement, iconElement)
     }
     
     @Input() get label(): string {
