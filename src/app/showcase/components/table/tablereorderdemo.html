@@ -29,6 +29,30 @@
             </ng-template>
         </p-table>
     </div>
+
+    <div class="card" dir="rtl">
+        <h5>RTL Support</h5>
+        <p-table [value]="products" [columns]="cols" [reorderableColumns]="true">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width:3rem"></th>
+                    <th *ngFor="let col of columns" pReorderableColumn>
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                <tr [pReorderableRow]="index">
+                    <td>
+                        <span class="pi pi-bars" pReorderableRowHandle></span>
+                    </td>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
