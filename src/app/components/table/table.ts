@@ -112,7 +112,7 @@ export class TableService {
 
             <div class="p-datatable-scrollable-wrapper" *ngIf="scrollable">
                <div class="p-datatable-scrollable-view p-datatable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div class="p-datatable-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
+               <div class="p-datatable-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="rtl ? {right: frozenWidth, width: 'calc(100% - '+frozenWidth+')'} : {left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
             </div>
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -2523,12 +2523,23 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             return;
         }
 
-        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
-        }
+        if (this.dt.rtl) {
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = event.target.scrollLeft + 'px';
+            }
 
-        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                this.scrollFooterBoxViewChild.nativeElement.style.marginRight = event.target.scrollLeft + 'px';
+            }
+        }
+        else {
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
+            }
+
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
+            }
         }
 
         if (this.frozenSiblingBody) {
