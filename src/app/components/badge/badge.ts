@@ -10,18 +10,20 @@ import { UniqueComponentId } from 'primeng/utils';
 export class BadgeDirective implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
-            
+
     public _value: string;
-            
+
+    public _disabled: boolean;
+
     public initialized: boolean;
 
     private id: string;
-    
+
     constructor(public el: ElementRef) {}
-    
+
     ngAfterViewInit() {
         this.id = UniqueComponentId() + '_badge';
-        let el = this.el.nativeElement.nodeName.indexOf("-") != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement; 
+        let el = this.el.nativeElement.nodeName.indexOf("-") != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
 
         let badge = document.createElement('span');
         badge.id = this.id ;
@@ -30,16 +32,20 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         if (this.severity) {
             DomHandler.addClass(badge, 'p-badge-' + this.severity);
         }
-        
+
         if (this.value != null) {
             badge.appendChild(document.createTextNode(this.value));
-            
+
             if (String(this.value).length === 1) {
                 DomHandler.addClass(badge, 'p-badge-no-gutter');
             }
         }
         else {
             DomHandler.addClass(badge, 'p-badge-dot');
+        }
+
+        if (this.disabled) {
+            DomHandler.addClass(badge, 'p-d-none');
         }
 
         DomHandler.addClass(el, 'p-overlay-badge');
@@ -81,7 +87,25 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
 
     @Input() severity: string;
-        
+
+    @Input("badgeDisabled") get disabled(): boolean {
+        return this._disabled;
+    }
+    set disabled(val:boolean) {
+        this._disabled = val;
+
+        if (this.initialized) {
+            let badge = document.getElementById(this.id);
+
+            if (this._disabled && !DomHandler.hasClass(badge, 'p-d-none')) {
+                DomHandler.addClass(badge, 'p-d-none');
+
+            } else if (!this._disabled && DomHandler.hasClass(badge, 'p-d-none')){
+                DomHandler.removeClass(badge, 'p-d-none');
+            }
+        }
+    }
+
     ngOnDestroy() {
         this.initialized = false;
     }
@@ -105,11 +129,13 @@ export class Badge {
     @Input() style: any;
 
     @Input() size: string;
-    
+
     @Input() severity: string;
-    
+
     @Input() value: string;
-    
+
+    @Input("badgeDisabled") disabled: boolean;
+
     containerClass() {
         return {
             'p-badge p-component': true,
@@ -119,7 +145,8 @@ export class Badge {
             'p-badge-info': this.severity === 'info',
             'p-badge-success': this.severity === 'success',
             'p-badge-warning': this.severity === 'warning',
-            'p-badge-danger': this.severity === 'danger'
+            'p-badge-danger': this.severity === 'danger',
+            'p-d-none': this.disabled
         };
     }
 }
