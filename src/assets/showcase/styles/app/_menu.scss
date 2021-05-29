@@ -124,3 +124,18 @@
         left: auto;
     }
 }
+
+
+.ui-rtl .layout-sidebar {
+    position: fixed;
+    left: auto;
+    right: 0;
+    border-left: 1px solid var(--surface-d);
+
+    .layout-menu {
+        padding: 0 1rem;
+        overflow-y: auto;
+        flex-grow: 1;
+        border-left: 1px solid var(--surface-d);
+    }
+}
