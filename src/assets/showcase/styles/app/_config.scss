@@ -173,3 +173,44 @@
         }
     }
 }
+
+.ui-rtl .layout-config {
+    right: auto;
+    left:0;
+    transform: translateX(-100%);
+
+    &.layout-config-active {
+        transform: translateX(0);
+    }
+
+    .layout-config-content-wrapper {
+
+        .layout-config-button {
+            left: auto;
+            right: -51px;
+            z-index: -1;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+    }
+
+    .config-scale {
+        .p-button {
+            margin-right: auto;
+            margin-left: .5rem;
+        }
+
+        i {
+            margin-right: auto;
+            margin-left: .5rem;
+        }
+    }
+
+    .layout-config-close {
+        right: auto;
+        left: 20px;
+    }
+
+}
