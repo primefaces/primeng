@@ -31,6 +31,32 @@
             </ng-template>
         </p-table>
     </div>
+
+    <div class="card" dir="rtl">
+        <h5>RTL support</h5>
+        <p-table [columns]="selectedColumns" [value]="products">
+            <ng-template pTemplate="caption">
+                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>Code</th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-columns="columns">
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td *ngFor="let col of columns">
+                        {{product[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">

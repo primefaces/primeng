@@ -129,11 +129,6 @@
     border: 1px solid transparent;
 }
 
-.ui-rtl .p-datatable .p-column-resizer {
-    right: auto;
-    left:0;
-}
-
 .p-datatable .p-column-resizer-helper {
     width: 1px;
     position: absolute;
@@ -278,4 +273,15 @@ cdk-virtual-scroll-viewport {
         margin: -.4em 1em -.4em -.4rem;
         font-weight: bold;
     }
+}
+
+.p-component-rtl .p-column-resizer { 
+    right: auto;
+    left:0;
+}
+
+.p-component-rtl .p-datatable-thead > tr > th,
+.p-component-rtl .p-datatable-tfoot > tr > td,
+.p-component-rtl .p-datatable-tbody > tr > td{
+    text-align: right;
 }

@@ -28,7 +28,7 @@
                     text-decoration: none;
                     color: $linkColor;
                     font-weight: 600;
-    
+
                     &:hover {
                         text-decoration: underline;
                     }
@@ -38,7 +38,7 @@
             app-demoActions {
                 display: flex;
                 justify-content: flex-end;
-                
+
                 .p-button-icon-only {
                     padding: .5rem 0;
                 }
@@ -53,7 +53,7 @@
             background-color: var(--surface-b);
             color: var(--text-color);
 
-            +.documentation {
+            + .documentation {
                 padding-top: 0;
             }
         }
@@ -214,7 +214,7 @@
         box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
         border-radius: 4px;
         margin-bottom: 2rem;
-        
+
         .card-header {
             display: flex;
             align-items: center;
@@ -238,7 +238,9 @@
     }
 }
 
-.ui-rtl .layout-content {
-    margin-left: auto;
-    margin-right: 250px;
+.p-component-rtl {
+    .layout-content {
+        margin-left: auto;
+        margin-right: 250px;
+    }
 }

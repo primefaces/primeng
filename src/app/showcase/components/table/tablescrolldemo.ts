@@ -13,6 +13,8 @@ export class TableScrollDemo implements OnInit {
     
     dialogVisible: boolean;
 
+    rtlDialogVisible :boolean;
+
     scrollableCols: any[];
 
     frozenCols: any[];
@@ -72,5 +74,8 @@ export class TableScrollDemo implements OnInit {
 
     showDialog() {
         this.dialogVisible = true;
+    }
+    showDialogRTL() {
+        this.rtlDialogVisible = true;
     }
 }
