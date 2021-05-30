@@ -1,0 +1,30 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Multi Culture Calendar</h1>
+        <p>Multi Culture Calendar is an input component to select a date.</p>
+    </div>
+    <app-demoActions github="calendar" stackblitz="calendar-demo"></app-demoActions>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <h5>Popup</h5>
+        <div class="p-fluid p-grid p-formgrid">
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="basic">Basic MultiCalendar</label>
+                <p-multicalendar inputId="basic" [(ngModel)]="date1"></p-multicalendar>
+            </div>
+        
+
+       
+            <div class="p-field p-col-12 p-md-4">
+                <label for="basic-calendar">Basic Calendar</label>
+                <p-calendar inputId="basic" [(ngModel)]="date2" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
