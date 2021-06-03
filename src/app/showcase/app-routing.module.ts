@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'breadcrumb', loadChildren: () => import('./components/breadcrumb/breadcrumbdemo.module').then(m => m.BreadcrumbDemoModule)},
             {path: 'button', loadChildren: () => import('./components/button/buttondemo.module').then(m => m.ButtonDemoModule)},
             {path: 'calendar', loadChildren: () => import('./components/calendar/calendardemo.module').then(m => m.CalendarDemoModule)},
+            {path: 'multicalendar', loadChildren: () => import('./components/multicalendar/multicalendardemo.module').then(m => m.MultiCalendarDemoModule)},
             {path: 'captcha', loadChildren: () => import('./components/captcha/captchademo.module').then(m => m.CaptchaDemoModule)},
             {path: 'card', loadChildren: () => import('./components/card/carddemo.module').then(m => m.CardDemoModule)},
             {path: 'cascadeselect', loadChildren: () => import('./components/cascadeselect/cascadeselectdemo.module').then(m => m.CascadeSelectDemoModule)},
