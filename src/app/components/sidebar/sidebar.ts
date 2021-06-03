@@ -1,9 +1,10 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
 import {trigger, style, transition, animate, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate} from 'primeng/api';
+import {PrimeNGConfig, PrimeTemplate} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -20,7 +21,7 @@ const hideAnimation = animation([
         <div #container [ngClass]="{'p-sidebar':true, 'p-sidebar-active': visible,
             'p-sidebar-left': (position === 'left' && !fullScreen), 'p-sidebar-right': (position === 'right' && !fullScreen),
             'p-sidebar-top': (position === 'top' && !fullScreen), 'p-sidebar-bottom': (position === 'bottom' && !fullScreen),
-            'p-sidebar-full': fullScreen}"  *ngIf="visible" [@panelState]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
+            'p-sidebar-full': fullScreen}"  *ngIf="visible" [@panelState]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@panelState.start)="onAnimationStart($event)" (@panelState.done)="onAnimationEnd($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
             <div class="p-sidebar-header">
                 <button type="button" class="p-sidebar-close p-sidebar-icon p-link" *ngIf="showCloseIcon" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel" pRipple>
                     <span class="p-sidebar-close-icon pi pi-times"></span>
@@ -100,7 +101,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         this.initialized = true;
@@ -164,7 +165,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     show() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);
         }
 
         if (this.modal) {
@@ -239,6 +240,14 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
     }
 
+    onAnimationEnd(event){
+        switch(event.toState) {
+            case 'void':
+                ZIndexUtils.clear(this.container);
+            break;
+        }
+    }
+
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
@@ -290,6 +299,11 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
 
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
+
+        this.container = null;
 		this.unbindGlobalListeners();
     }
 }

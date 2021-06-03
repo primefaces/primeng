@@ -3,6 +3,8 @@ import { trigger, state, style, transition, animate, AnimationEvent } from '@ang
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { PrimeNGConfig } from 'primeng/api';
+import { ZIndexUtils } from 'primeng/utils';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -18,7 +20,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)" [attr.id]="inputId" [attr.tabindex]="tabindex" [disabled]="disabled"
                 [style.backgroundColor]="inputBgColor">
             <div *ngIf="inline || overlayVisible" [ngClass]="{'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel':!inline, 'p-disabled': disabled}" (click)="onPanelClick()"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" 
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true"
                     (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
                 <div class="p-colorpicker-content">
                     <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)">
@@ -81,7 +83,6 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('input') inputViewChild: ElementRef;
@@ -128,7 +129,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     hueHandleViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
@@ -323,9 +324,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
                 if (!this.inline) {
                     this.overlay = event.element;
                     this.appendOverlay();
+
                     if (this.autoZIndex) {
-                        this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                        ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                     }
+
                     this.alignOverlay();
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
@@ -351,6 +354,10 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             break;
 
             case 'void':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(event.element);
+                }
+
                 this.onHide.emit({})
             break;
         }
@@ -658,6 +665,10 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.overlay && this.autoZIndex) {
+            ZIndexUtils.clear(this.overlay);
         }
 
         this.restoreOverlayAppend();

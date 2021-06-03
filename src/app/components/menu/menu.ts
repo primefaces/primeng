@@ -2,7 +2,8 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Render
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, PrimeNGConfig} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 import {RouterModule} from '@angular/router';
 import {RippleModule} from 'primeng/ripple';
 
@@ -42,7 +43,7 @@ export class MenuItemContent {
     template: `
         <div #container [ngClass]="{'p-menu p-component': true, 'p-menu-overlay': popup}"
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible"
-            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
             <ul class="p-menu-list p-reset">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}"></li>
@@ -119,7 +120,7 @@ export class Menu implements OnDestroy {
 
     relativeAlign: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     toggle(event) {
         if (this.visible)
@@ -160,6 +161,16 @@ export class Menu implements OnDestroy {
         }
     }
 
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'void':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(event.element);
+                }
+            break;
+        }
+    }
+
     alignOverlay() {
         if (this.relativeAlign)
             DomHandler.relativePosition(this.container, this.target);
@@ -184,7 +195,7 @@ export class Menu implements OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('menu', this.container, this.baseZIndex + this.config.zIndex.menu);
         }
     }
 
@@ -284,6 +295,10 @@ export class Menu implements OnDestroy {
             if (this.scrollHandler) {
                 this.scrollHandler.destroy();
                 this.scrollHandler = null;
+            }
+
+            if (this.container && this.autoZIndex) {
+                ZIndexUtils.clear(this.container);
             }
 
             this.restoreOverlayAppend();

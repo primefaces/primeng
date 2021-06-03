@@ -1,6 +1,8 @@
 import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, Input, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ZIndexUtils } from 'primeng/utils'
+import { PrimeNGConfig } from 'primeng/api';
 
 @Directive({
     selector: '[pTooltip]'
@@ -65,7 +67,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone) { }
+    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig) { }
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
@@ -201,7 +203,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         DomHandler.fadeIn(this.container, 250);
 
         if (this.tooltipZIndex === 'auto')
-            this.container.style.zIndex = ++DomHandler.zindex;
+            ZIndexUtils.set('tooltip', this.container, this.config.zIndex.tooltip);
         else
             this.container.style.zIndex = this.tooltipZIndex;
 
@@ -210,6 +212,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     hide() {
+        if (this.tooltipZIndex === 'auto') {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.remove();
     }
 
@@ -443,6 +449,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         this.unbindEvents();
+
+        if (this.container) {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.remove();
 
         if (this.scrollHandler) {

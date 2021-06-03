@@ -8,6 +8,7 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Subscription} from 'rxjs';
+import {ZIndexUtils} from 'primeng/utils';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -445,7 +446,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     set defaultDate(defaultDate: Date) {
         this._defaultDate = defaultDate;
-        
+
         if (this.initialized) {
             const date = defaultDate||new Date();
             this.currentMonth = date.getMonth();
@@ -1200,10 +1201,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onInputClick() {
-        if (this.overlay && this.autoZIndex) {
-            this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-        }
-
         if (this.showOnFocus && !this.overlayVisible) {
             this.showOverlay();
         }
@@ -2030,8 +2027,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     this.overlay = event.element;
                     this.appendOverlay();
                     if (this.autoZIndex) {
-                        this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                        if (this.touchUI)
+                            ZIndexUtils.set('modal', this.overlay, this.baseZIndex || this.config.zIndex.modal);
+                        else
+                            ZIndexUtils.set('overlay', this.overlay, this.baseZIndex || this.config.zIndex.overlay);
                     }
+
                     this.alignOverlay();
                     this.onShow.emit(event);
                 }
@@ -2054,6 +2055,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     this.bindScrollListener();
                 }
             break;
+
+            case 'void':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(event.element);
+                }
+            break
         }
     }
 
@@ -2588,6 +2595,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
+        }
+
+        if (this.overlay && this.autoZIndex) {
+            ZIndexUtils.clear(this.overlay);
         }
 
         this.clearTimePickerTimer();

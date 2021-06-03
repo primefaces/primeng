@@ -2,9 +2,10 @@ import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,Element
         ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate, PrimeNGConfig} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {ZIndexUtils} from 'primeng/utils';
 
 @Component({
     selector: 'p-overlayPanel',
@@ -52,7 +53,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    @Input() appendTo: any;
+    @Input() appendTo: any = 'body';
 
     @Input() autoZIndex: boolean = true;
 
@@ -94,7 +95,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     destroyCallback: Function;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -186,8 +187,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     align() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
+
         DomHandler.absolutePosition(this.container, this.target);
 
         const containerOffset = DomHandler.getOffset(this.container);
@@ -230,6 +232,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             break;
 
             case 'close':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(this.container);
+                }
+
                 this.onContainerDestroy();
                 this.onHide.emit({});
                 this.render = false;
@@ -301,6 +307,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
         }
 
         this.target = null;

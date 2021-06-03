@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {Confirmation, ConfirmationService, PrimeNGConfig, TranslationKeys} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {ButtonModule} from 'primeng/button';
+import {ZIndexUtils} from 'primeng/utils';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 
@@ -123,7 +124,7 @@ export class ConfirmPopup implements OnDestroy {
 
     align() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
         }
 
         DomHandler.absolutePosition(this.container, this.confirmation.target);
@@ -245,6 +246,11 @@ export class ConfirmPopup implements OnDestroy {
     onContainerDestroy() {
         this.unbindListeners();
         this.unsubscribeConfirmationSubscriptions();
+
+        if (this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.confirmation = null;
         this.container = null;
     }

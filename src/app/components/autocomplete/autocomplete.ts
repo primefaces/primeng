@@ -6,7 +6,7 @@ import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
 import {SharedModule,PrimeTemplate, TranslationKeys, PrimeNGConfig} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
+import {ObjectUtils, UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
 
@@ -40,7 +40,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <i *ngIf="loading" class="p-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" class="p-autocomplete-dropdown" [disabled]="disabled" pRipple
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
             <div #panel *ngIf="overlayVisible" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="{'p-autocomplete-virtualscroll': virtualScroll}">
                     <ng-container *ngIf="group">
@@ -243,7 +243,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     footerTemplate: TemplateRef<any>;
 
     selectedItemTemplate: TemplateRef<any>;
-    
+
     groupTemplate: TemplateRef<any>;
 
     value: any;
@@ -331,7 +331,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     if (this.virtualScroll && this.viewPort) {
                         let range = this.viewPort.getRenderedRange();
                         this.updateVirtualScrollSelectedIndex();
-                        
+
                         if (range.start > this.virtualScrollSelectedIndex || range.end < this.virtualScrollSelectedIndex) {
                             this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex);
                         }
@@ -538,9 +538,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 this.overlay = event.element;
                 this.itemsWrapper = this.virtualScroll ? DomHandler.findSingle(this.overlay, '.cdk-virtual-scroll-viewport') : this.overlay;
                 this.appendOverlay();
+
                 if (this.autoZIndex) {
-                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                    ZIndexUtils.set('overlay', this.overlay, this.baseZIndex + this.config.zIndex.overlay);
                 }
+
                 this.alignOverlay();
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
@@ -550,6 +552,16 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
             case 'void':
                 this.onOverlayHide();
+            break;
+        }
+    }
+
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'void':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(event.element);
+                }
             break;
         }
     }
@@ -965,6 +977,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
+
+        if (this.overlay) {
+            ZIndexUtils.clear(this.overlay);
+        }
+
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }

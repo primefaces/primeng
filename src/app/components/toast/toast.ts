@@ -1,12 +1,13 @@
 import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Message} from 'primeng/api';
+import {Message, PrimeNGConfig} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-toastItem',
@@ -74,7 +75,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     timeout: any;
 
     constructor(private zone: NgZone) {}
-    
+
     ngAfterViewInit() {
         this.initTimeout();
     }
@@ -98,7 +99,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
             this.timeout = null;
         }
     }
-    
+
     onMouseEnter() {
         this.clearTimeout();
     }
@@ -106,10 +107,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     onMouseLeave() {
         this.initTimeout();
     }
- 
+
     onCloseIconClick(event) {
         this.clearTimeout();
-        
+
         this.onClose.emit({
             index: this.index,
             message: this.message
@@ -128,8 +129,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     template: `
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
             <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" 
-                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions" 
+                    [template]="template" @toastAnimation [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
                     [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
         </div>
     `,
@@ -149,11 +149,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     @Input() key: string;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() style: any;
-        
+
     @Input() styleClass: string;
 
     @Input() position: string = 'top-right';
@@ -161,7 +161,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     @Input() preventOpenDuplicates: boolean = false;
 
     @Input() preventDuplicates: boolean = false;
-    
+
     @Input() showTransformOptions: string = 'translateY(100%)';
 
     @Input() hideTransformOptions: string = 'translateY(-100%)';
@@ -185,8 +185,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     messagesArchieve: Message[];
 
     template: TemplateRef<any>;
-    
-    constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
+
+    constructor(public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
@@ -212,7 +212,13 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
             }
 
             this.cd.markForCheck();
-        });       
+        });
+    }
+
+    ngAfterViewInit() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
+        }
     }
 
     add(messages: Message[]): void {
@@ -273,17 +279,15 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         this.cd.detectChanges();
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (event.fromState === 'void' && this.autoZIndex) {
-            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-        }
-    }
-
-    ngOnDestroy() {        
+    ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
+        if (this.containerViewChild && this.autoZIndex) {
+            ZIndexUtils.clear(this.containerViewChild.nativeElement);
+        }
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
