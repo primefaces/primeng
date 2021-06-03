@@ -302,7 +302,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/progressspinner']" routerLinkActive="router-link-exact-active">ProgressSpinner</a>
                     <a [routerLink]=" ['/scrolltop']" routerLinkActive="router-link-exact-active">ScrollTop</a>
                     <a [routerLink]=" ['/skeleton']" routerLinkActive="router-link-exact-active">Skeleton</a>
-                    <a [routerLink]=" ['/tag']" routerLinkActive="router-link-exact-active">Tag <span class="p-tag">Tag</span></a>
+                    <a [routerLink]=" ['/tag']" routerLinkActive="router-link-exact-active">Tag</a>
                     <a [routerLink]=" ['/terminal']" routerLinkActive="router-link-exact-active">Terminal</a>
                 </div>
 
