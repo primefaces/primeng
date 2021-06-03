@@ -99,6 +99,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/slider']" routerLinkActive="router-link-exact-active">Slider</a>
                     <a [routerLink]=" ['/selectbutton']" routerLinkActive="router-link-exact-active">SelectButton</a>
                     <a [routerLink]=" ['/togglebutton']" routerLinkActive="router-link-exact-active">ToggleButton</a>
+                    <a [routerLink]=" ['/treeselect']" routerLinkActive="router-link-exact-active">TreeSelect</a>
                     <a [routerLink]=" ['/tristatecheckbox']" routerLinkActive="router-link-exact-active">TriCheckbox</a>
                 </div>
 
@@ -289,7 +290,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/dragdrop']" routerLinkActive="router-link-exact-active">Drag&amp;Drop</a>
                 </div>
-                
+
                 <div class="menu-category">Misc</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/avatar']" routerLinkActive="router-link-exact-active">Avatar</a>
@@ -349,28 +350,28 @@ export class AppMenuComponent {
 
     routes = [
         {
-            label: 'General', value: 'general', 
+            label: 'General', value: 'general',
             items: [
                 {label: 'Setup', value: '/setup'},
                 {label: 'Locale', value: '/i18n'}
             ]
         },
         {
-            label: 'Support', value: 'support', 
+            label: 'Support', value: 'support',
             items: [
                 {label: 'Long Term Support', value: '/lts'},
                 {label: 'PRO Support', value: '/support'}
             ]
         },
         {
-            label: 'Theming', value: 'theming', 
+            label: 'Theming', value: 'theming',
             items: [
                 {label: 'Guide', value: '/theming'},
                 {label: 'Colors', value: '/colors'}
             ]
         },
         {
-            label: 'PrimeFlex', value: 'primeflex', 
+            label: 'PrimeFlex', value: 'primeflex',
             items: [
                 {label: 'Setup', value: '/primeflex'},
                 {label: 'Display', value: '/primeflex/display'},
@@ -382,13 +383,13 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'PrimeIcons', value: 'primeicons', 
+            label: 'PrimeIcons', value: 'primeicons',
             items: [
                 {label: 'Icons v4.1', value: '/icons'}
             ]
         },
         {
-            label: 'Form', value: 'form', 
+            label: 'Form', value: 'form',
             items: [
                 {label: 'AutoComplete', value: '/autocomplete'},
                 {label: 'Calendar', value: '/calendar'},
@@ -416,18 +417,19 @@ export class AppMenuComponent {
                 {label: 'Slider', value: '/slider'},
                 {label: 'SelectButton', value: '/selectbutton'},
                 {label: 'ToggleButton', value: '/togglebutton'},
+                {label: 'TreeSelect', value: '/treeselect'},
                 {label: 'TriCheckbox', value: '/tristatecheckbox'}
             ]
         },
         {
-            label: 'Button', value: 'button', 
+            label: 'Button', value: 'button',
             items: [
                 {label: 'Button', value: '/button'},
                 {label: 'SplitButton', value: '/splitbutton'}
             ]
         },
         {
-            label: 'Data', value: 'data', 
+            label: 'Data', value: 'data',
             items: [
                 {label: 'DataView', value: '/dataview'},
                 {label: 'FullCalendar', value: '/fullcalendar'},
@@ -442,7 +444,7 @@ export class AppMenuComponent {
         },
 
         {
-            label: 'Table', value: 'table', 
+            label: 'Table', value: 'table',
             items: [
                 {label: 'Documentation', value: '/table'},
                 {label: 'Basic', value: '/table/basic'},
@@ -476,7 +478,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Tree', value: 'tree', 
+            label: 'Tree', value: 'tree',
             items: [
                 {label: 'Documentation', value: '/tree'},
                 {label: 'Templating', value: '/tree/templating'},
@@ -490,7 +492,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'TreeTable', value: 'treetable', 
+            label: 'TreeTable', value: 'treetable',
             items: [
                 {label: 'Documentation', value: '/treetable'},
                 {label: 'Templating', value: '/treetable/templating'},
@@ -512,7 +514,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Panel', value: 'panel', 
+            label: 'Panel', value: 'panel',
             items: [
                 {label: 'Accordion', value: '/accordion'},
                 {label: 'Card', value: '/card'},
@@ -526,7 +528,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Overlay', value: 'overlay', 
+            label: 'Overlay', value: 'overlay',
             items: [
                 {label: 'ConfirmDialog', value: '/confirmdialog'},
                 {label: 'ConfirmPopup', value: '/confirmpopup'},
@@ -538,13 +540,13 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'File', value: 'fileupload', 
+            label: 'File', value: 'fileupload',
             items: [
                 {label: 'Upload', value: '/fileupload'}
             ]
         },
         {
-            label: 'Menu', value: 'menu', 
+            label: 'Menu', value: 'menu',
             items: [
                 {label: 'MenuModel', value: '/menumodel'},
                 {label: 'Breadcrumb', value: '/breadcrumb'},
@@ -560,7 +562,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Chart', value: 'chart', 
+            label: 'Chart', value: 'chart',
             items: [
                 {label: 'ChartModel', value: '/chart'},
                 {label: 'Bar', value: '/chart/bar'},
@@ -573,20 +575,20 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Messages', value: 'messages', 
+            label: 'Messages', value: 'messages',
             items: [
                 {label: 'Messages', value: '/messages'},
                 {label: 'Toast', value: '/toast'}
             ]
         },
         {
-            label: 'Media', value: 'media', 
+            label: 'Media', value: 'media',
             items: [
                 {label: 'Carousel', value: '/carousel'}
             ]
         },
         {
-            label: 'Galleria', value: 'galleria', 
+            label: 'Galleria', value: 'galleria',
             items: [
                 {label: 'Documentation', value: '/galleria'},
                 {label: 'Programmatic', value: '/galleria/programmatic'},
@@ -601,13 +603,13 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'DragDrop', value: 'dragdrop', 
+            label: 'DragDrop', value: 'dragdrop',
             items: [
                 {label: 'DragDrop', value: '/dragdrop'}
             ]
         },
         {
-            label: 'Misc', value: 'misc', 
+            label: 'Misc', value: 'misc',
             items: [
                 {label: 'Avatar', value: '/avatar'},
                 {label: 'Badge', value: '/badge'},
@@ -624,7 +626,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Directives', value: 'directives', 
+            label: 'Directives', value: 'directives',
             items: [
                 {label: 'Defer', value: '/defer'},
                 {label: 'FocusTrap', value: '/focustrap'},
@@ -632,7 +634,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Utilities', value: 'utilities', 
+            label: 'Utilities', value: 'utilities',
             items: [
                 {label: 'FilterService', value: '/filterservice'}
             ]
@@ -660,7 +662,7 @@ export class AppMenuComponent {
                         this.scrollable = true;
                     }
                 }
-    
+
                 if (routerEvent instanceof NavigationEnd && !this.submenuRouting && this.scrollable){
                     setTimeout(() => {
                         this.scrollToSelectedRoute();
@@ -706,7 +708,7 @@ export class AppMenuComponent {
     scrollToSelectedRoute() {
         let routeEl = DomHandler.findSingle(this.el.nativeElement, '.router-link-exact-active');
 
-        if (routeEl) 
+        if (routeEl)
             routeEl.scrollIntoView({inline: 'start'});
 
         this.scrollable = false;
