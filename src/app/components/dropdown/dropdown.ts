@@ -803,7 +803,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let nextEnabledOption;
 
         if (this.optionsToDisplay && this.optionsToDisplay.length) {
-            for (let i = (index + 1); index < (this.optionsToDisplay.length - 1); i++) {
+            for (let i = (index + 1); i < (this.optionsToDisplay.length - 1); i++) {
                 let option = this.optionsToDisplay[i];
                 if (this.isOptionDisabled(option)) {
                     continue;
@@ -845,7 +845,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 else {
                     if (this.group) {
                         let selectedItemIndex = this.selectedOption ? this.findOptionGroupIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
-                        
+
                         if (selectedItemIndex !== -1) {
                             let nextItemIndex = selectedItemIndex.itemIndex + 1;
                             if (nextItemIndex < (this.getOptionGroupChildren(this.optionsToDisplay[selectedItemIndex.groupIndex]).length)) {
