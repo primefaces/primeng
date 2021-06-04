@@ -2,7 +2,7 @@ import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Di
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -12,7 +12,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
+import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { SortMeta } from 'primeng/api';
 import { TableState } from 'primeng/api';
 import { FilterMetadata } from 'primeng/api';
@@ -394,7 +394,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCellRowIndex: number;
 
-    editingCellClick: boolean;
+    selfClick: boolean;
 
     documentEditListener: any;
 
@@ -430,7 +430,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    overlaySubscription: Subscription;
+
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -1068,7 +1070,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.isSingleSelectionMode()) {
                         this.selection = rowData;
                         this.selectionChange.emit(rowData);
-    
+
                         if (dataKeyValue) {
                             this.selectionKeys = {};
                             this.selectionKeys[dataKeyValue] = 1;
@@ -1077,7 +1079,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     else if (this.isMultipleSelectionMode()) {
                         this._selection = this.selection ? [...this.selection, rowData] : [rowData];
                         this.selectionChange.emit(this.selection);
-    
+
                         if (dataKeyValue) {
                             this.selectionKeys[dataKeyValue] = 1;
                         }
@@ -1347,7 +1349,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             else {
                                 localMatch = this.executeLocalFilter(filterField, this.value[i], filterMeta);
                             }
-                            
+
                             if (!localMatch) {
                                 break;
                             }
@@ -1591,7 +1593,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
             this.documentEditListener = (event) => {
-                if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
+                if (this.editingCell && !this.selfClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event, index: this.editingCellRowIndex });
@@ -1600,9 +1602,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.editingCellRowIndex = null;
                     this.unbindDocumentEditListener();
                     this.cd.markForCheck();
+
+                    if (this.overlaySubscription) {
+                        this.overlaySubscription.unsubscribe();
+                    }
                 }
 
-                this.editingCellClick = false;
+                this.selfClick = false;
             };
 
             document.addEventListener('click', this.documentEditListener);
@@ -2526,7 +2532,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 let page = Math.floor(index / this.dt.rows);
                 let virtualScrollOffset = page === 0 ? 0 : (page - 1) * this.dt.rows;
                 let virtualScrollChunkSize = page === 0 ? this.dt.rows * 2 : this.dt.rows * 3;
-  
+
                 if (page !== this.virtualPage) {
                     this.virtualPage = page;
                     this.dt.onLazyLoad.emit({
@@ -2700,7 +2706,7 @@ export class SortIcon implements OnInit, OnDestroy {
         let index = -1;
 
         if (multiSortMeta && this.dt.sortMode === 'multiple' && (this.dt.showInitialSortBadge || multiSortMeta.length > 1)) {
-    
+
             for (let i = 0; i < multiSortMeta.length; i++) {
                 let meta = multiSortMeta[i];
                 if (meta.field === this.field || meta.field === this.field) {
@@ -3219,6 +3225,8 @@ export class EditableColumn implements AfterViewInit {
 
     @Input() pFocusCellSelector: string;
 
+    overlayEventListener;
+
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
@@ -3230,7 +3238,7 @@ export class EditableColumn implements AfterViewInit {
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
-            this.dt.editingCellClick = true;
+            this.dt.selfClick = true;
 
             if (this.dt.editingCell) {
                 if (this.dt.editingCell !== this.el.nativeElement) {
@@ -3262,6 +3270,14 @@ export class EditableColumn implements AfterViewInit {
                 }
             }, 50);
         });
+
+        this.overlayEventListener = (e) => {
+            if (this.el && this.el.nativeElement.contains(e.target)) {
+                this.dt.selfClick = true;
+            }
+        }
+
+        this.dt.overlaySubscription = this.dt.overlayService.clickObservable.subscribe(this.overlayEventListener);
     }
 
     closeEditingCell(completed, event) {
@@ -3275,6 +3291,10 @@ export class EditableColumn implements AfterViewInit {
         this.dt.editingCellData = null;
         this.dt.editingCellField = null;
         this.dt.unbindDocumentEditListener();
+
+        if (this.dt.overlaySubscription) {
+            this.dt.overlaySubscription.unsubscribe();
+        }
     }
 
     @HostListener('keydown.enter', ['$event'])
@@ -3349,7 +3369,7 @@ export class EditableColumn implements AfterViewInit {
                     DomHandler.invokeElementMethod(event.target, 'blur');
                     DomHandler.invokeElementMethod(targetCell, 'click');
                 }
-                
+
                 event.preventDefault();
             }
         }
@@ -4012,7 +4032,7 @@ export class ReorderableRow implements AfterViewInit {
     encapsulation: ViewEncapsulation.None
 })
 export class ColumnFilterFormElement implements OnInit {
-    
+
     @Input() field: string;
 
     @Input() type: string;
@@ -4024,7 +4044,7 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() placeholder: string;
 
     @Input() minFractionDigits: number
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -4080,11 +4100,11 @@ export class ColumnFilterFormElement implements OnInit {
             <p-columnFilterFormElement *ngIf="display === 'row'" class="p-fluid" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
                                     [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
             <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" aria-haspopup="true" [attr.aria-expanded]="overlayVisible"
-                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}" 
+                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}"
                 (click)="toggleMenu()" (keydown)="onToggleButtonKeyDown($event)"><span class="pi pi-filter-icon pi-filter"></span></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-filter-slash"></span></button>
-            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" 
-                [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (keydown.escape)="onEscape()">
+            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}"
+                [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" (keydown.escape)="onEscape()">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
                     <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
@@ -4165,7 +4185,7 @@ export class ColumnFilter implements AfterContentInit {
     @Input() maxConstraints: number = 2;
 
     @Input() minFractionDigits: number;
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -4231,7 +4251,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     generateMatchModeOptions() {
-        this.matchModes = this.matchModeOptions || 
+        this.matchModes = this.matchModeOptions ||
         this.config.filterMatchModeOptions[this.type]?.map(key => {
             return {label: this.config.getTranslation(key), value: key}
         });
@@ -4254,7 +4274,7 @@ export class ColumnFilter implements AfterContentInit {
                 case 'filter':
                     this.filterTemplate = item.template;
                 break;
-                
+
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
@@ -4284,11 +4304,11 @@ export class ColumnFilter implements AfterContentInit {
         this.dt._filter();
         this.hide();
     }
-    
+
     onRowMatchModeKeyDown(event: KeyboardEvent) {
         let item = <HTMLLIElement> event.target;
 
-        switch(event.key) {            
+        switch(event.key) {
             case 'ArrowDown':
                 var nextItem = this.findNextItem(item);
                 if (nextItem) {
@@ -4353,7 +4373,7 @@ export class ColumnFilter implements AfterContentInit {
             case 'Tab':
                 this.overlayVisible = false;
             break;
-            
+
             case 'ArrowDown':
                 if (this.overlayVisible) {
                     let focusable = DomHandler.getFocusableElements(this.overlay);
@@ -4397,9 +4417,9 @@ export class ColumnFilter implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                
+
                 document.body.appendChild(this.overlay);
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
@@ -4408,6 +4428,14 @@ export class ColumnFilter implements AfterContentInit {
 
             case 'void':
                 this.onOverlayHide();
+            break;
+        }
+    }
+
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
             break;
         }
     }
@@ -4480,7 +4508,7 @@ export class ColumnFilter implements AfterContentInit {
         let fieldFilter = this.dt.filters[this.field];
         if (fieldFilter) {
             if (Array.isArray(fieldFilter))
-                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value); 
+                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value);
             else
                 return !this.dt.isFilterBlank(fieldFilter.value);
         }
@@ -4489,7 +4517,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isOutsideClicked(event): boolean {
-        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
+        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target)
             || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
             || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button')
             || DomHandler.hasClass(event.target, 'p-column-filter-remove-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button'));
@@ -4570,6 +4598,7 @@ export class ColumnFilter implements AfterContentInit {
     ngOnDestroy() {
         if (this.overlay) {
             this.el.nativeElement.appendChild(this.overlay);
+            ZIndexUtils.clear(this.overlay);
             this.onOverlayHide();
         }
 
