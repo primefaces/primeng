@@ -11,9 +11,9 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container [attr.id]="message.id" class="p-toast-message" [ngClass]="'p-toast-message-' + message.severity" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
+        <div #container [attr.id]="message.id" class="p-toast-message" [ngClass]="['p-toast-message-' + message.severity, message.styleClass]" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true" [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
                     <span [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
@@ -22,10 +22,10 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                         <div class="p-toast-detail">{{message.detail}}</div>
                     </div>
                 </ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
                 <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
                     <span class="p-toast-icon-close-icon pi pi-times"></span>
                 </button>
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
             </div>
         </div>
     `,
