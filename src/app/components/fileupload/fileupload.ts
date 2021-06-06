@@ -9,7 +9,7 @@ import {DomHandler} from 'primeng/dom';
 import {Message, TranslationKeys} from 'primeng/api';
 import {PrimeTemplate,SharedModule,PrimeNGConfig} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 import {Subscription} from 'rxjs';
 
@@ -19,7 +19,7 @@ import {Subscription} from 'rxjs';
         <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="p-fileupload-buttonbar">
                 <span class="p-button p-component p-fileupload-choose" [ngClass]="{'p-focus': focus, 'p-disabled':disabled || isChooseDisabled()}" (focus)="onFocus()" (blur)="onBlur()" pRipple
-                    (click)="choose()" (keydown.enter)="choose()" tabindex="0"> 
+                    (click)="choose()" (keydown.enter)="choose()" tabindex="0">
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
                     <span class="p-button-label">{{chooseButtonLabel}}</span>
@@ -39,7 +39,7 @@ import {Subscription} from 'rxjs';
                     <div *ngIf="!fileTemplate">
                         <div class="p-fileupload-row" *ngFor="let file of files; let i = index;">
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
-                            <div>{{file.name}}</div>
+                            <div class="p-fileupload-filename">{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
                             <div>
                                 <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading"></button>
@@ -125,7 +125,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     @Input() mode: string = 'advanced';
 
     @Input() headers: HttpHeaders;
-    
+
     @Input() customUpload: boolean;
 
     @Input() fileLimit: number;
@@ -360,9 +360,9 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     upload() {
         if (this.customUpload) {
             if (this.fileLimit) {
-                this.uploadedFileCount += this.files.length; 
+                this.uploadedFileCount += this.files.length;
             }
-            
+
             this.uploadHandler.emit({
                 files: this.files
             });
@@ -398,7 +398,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
 
                             if (event['status'] >= 200 && event['status'] < 300) {
                                 if (this.fileLimit) {
-                                    this.uploadedFileCount += this.files.length; 
+                                    this.uploadedFileCount += this.files.length;
                                 }
 
                                 this.onUpload.emit({originalEvent: event, files: this.files});
