@@ -274,3 +274,14 @@ cdk-virtual-scroll-viewport {
         font-weight: bold;
     }
 }
+
+.p-component-rtl .p-column-resizer { 
+    right: auto;
+    left:0;
+}
+
+.p-component-rtl .p-datatable-thead > tr > th,
+.p-component-rtl .p-datatable-tfoot > tr > td,
+.p-component-rtl .p-datatable-tbody > tr > td{
+    text-align: right;
+}

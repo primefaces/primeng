@@ -5,22 +5,23 @@ import {DropdownModule} from 'primeng/dropdown';
 import {SelectItem} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {SharedModule} from 'primeng/api';
+import { Directionality } from '@angular/cdk/bidi';
 
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-paginator p-component'" *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-paginator p-component' : true, 'p-component-rtl' : rtl}" *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
             <div class="p-paginator-left-content" *ngIf="templateLeft">
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)" pRipple
                     class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
-                <span class="p-paginator-icon pi pi-angle-double-left"></span>
+                <span [ngClass]="{'p-paginator-icon pi':true, 'pi-angle-double-left' : !rtl,'pi-angle-double-right' : rtl}"></span>
             </button>
             <button type="button" [disabled]="isFirstPage()" (click)="changePageToPrev($event)" pRipple
                     class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
-                <span class="p-paginator-icon pi pi-angle-left"></span>
+                <span [ngClass]="{'p-paginator-icon pi' : true, 'pi-angle-left' : !rtl, 'pi-angle-right' : rtl}"></span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
                 <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 == getPage())}"
@@ -32,11 +33,11 @@ import {SharedModule} from 'primeng/api';
             </p-dropdown>
             <button type="button" [disabled]="isLastPage()" (click)="changePageToNext($event)" pRipple
                     class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
-                <span class="p-paginator-icon pi pi-angle-right"></span>
+                <span [ngClass]="{'p-paginator-icon pi' : true, 'pi-angle-right' : !rtl, 'pi-angle-left' : rtl}"></span>
             </button>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage()" (click)="changePageToLast($event)" pRipple
                     class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
-                <span class="p-paginator-icon pi pi-angle-double-right"></span>
+                <span [ngClass]="{'p-paginator-icon pi' : true, 'pi-angle-double-right' : !rtl,'pi-angle-double-left' : rtl}"></span>
             </button>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" styleClass="p-paginator-rpp-options"
                 (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight">
@@ -94,6 +95,8 @@ export class Paginator implements OnInit, OnChanges {
 
     @Input() dropdownItemTemplate: TemplateRef<any>;
 
+    @Input() rtl: boolean = undefined;
+
     pageLinks: number[];
 
     pageItems: SelectItem[];
@@ -106,9 +109,12 @@ export class Paginator implements OnInit, OnChanges {
 
     _page: number = 0;
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef,private dir: Directionality) {}
     
     ngOnInit() {
+        if (this.rtl == undefined)
+            this.rtl = this.dir.value === 'rtl';
+
         this.updatePaginatorState();
     }
 

@@ -30,8 +30,52 @@
         </p-table>
     </div>
 
+    <div class="card" dir="rtl">
+        <h5>Fit Mode RTL Support</h5>
+        <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pResizableColumn>Code</th>
+                    <th pResizableColumn>Name</th>
+                    <th pResizableColumn>Category</th>
+                    <th pResizableColumn>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
     <div class="card">
         <h5>Expand Mode</h5>
+        <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pResizableColumn>Code</th>
+                    <th pResizableColumn>Name</th>
+                    <th pResizableColumn>Category</th>
+                    <th pResizableColumn>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card" dir="rtl">
+        <h5>Expand Mode RTL Support</h5>
         <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header">
                 <tr>
@@ -82,8 +126,68 @@
         </p-table>
     </div>
 
+    <div class="card" dir="rtl">
+        <h5>Scrollable RTL Support</h5>
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pResizableColumn>Name</th>
+                    <th pResizableColumn>Country</th>
+                    <th pResizableColumn>Company</th>
+                    <th pResizableColumn>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
     <div class="card">
         <h5>Scrollable with Variable Width</h5>
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width:25%">
+                    <col style="width:15%">
+                    <col style="width:35%">
+                    <col style="width:25%">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pResizableColumn>Name</th>
+                    <th pResizableColumn>Country</th>
+                    <th pResizableColumn>Company</th>
+                    <th pResizableColumn>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card" dir="rtl">
+        <h5>Scrollable with Variable Width RTL Support</h5>
         <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="colgroup">
                 <colgroup>

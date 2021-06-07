@@ -33,3 +33,12 @@
     z-index: 1;
     position: relative;
 }
+
+.p-component-rtl .p-paginator-left-content {
+    margin-right: 0 ;
+	margin-left: auto;
+}
+.p-component-rtl .p-paginator-right-content {
+    margin-left: 0 ;
+	margin-right: auto;
+}

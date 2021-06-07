@@ -20,3 +20,8 @@
 .p-menu .p-menuitem-text {
     line-height: 1;
 }
+
+.p-component-rtl .p-menuitem-icon {
+    margin-right: auto;
+    margin-left: 0.5rem;
+}

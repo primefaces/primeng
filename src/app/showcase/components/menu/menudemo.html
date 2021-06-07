@@ -7,6 +7,7 @@
 </div>
 
 <div class="content-section implementation">
+
     <div class="card">
         <h5>Basic</h5>
         <p-menu [model]="items"></p-menu>
@@ -15,6 +16,16 @@
         <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
         <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>
+
+    <div class="card" dir="rtl">
+        <h5>Basic RTL Support</h5>
+        <p-menu [model]="items"></p-menu>
+    
+        <h5>Overlay</h5>
+        <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menuRTL.toggle($event)"></button>
+        <p-menu #menuRTL [popup]="true" [model]="items"></p-menu>
+    </div>
+
 </div>
 
 <div class="content-section documentation">
