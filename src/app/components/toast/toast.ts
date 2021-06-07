@@ -11,9 +11,9 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container [attr.id]="message.id" class="p-toast-message" [ngClass]="'p-toast-message-' + message.severity" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
+        <div #container [attr.id]="message.id" class="p-toast-message" [ngClass]="['p-toast-message-' + message.severity, message.styleClass]" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
                     <span [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
@@ -22,10 +22,10 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                         <div class="p-toast-detail">{{message.detail}}</div>
                     </div>
                 </ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
                 <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
                     <span class="p-toast-icon-close-icon pi pi-times"></span>
                 </button>
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
             </div>
         </div>
     `,
@@ -74,7 +74,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     timeout: any;
 
     constructor(private zone: NgZone) {}
-    
+
     ngAfterViewInit() {
         this.initTimeout();
     }
@@ -98,7 +98,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
             this.timeout = null;
         }
     }
-    
+
     onMouseEnter() {
         this.clearTimeout();
     }
@@ -106,10 +106,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     onMouseLeave() {
         this.initTimeout();
     }
- 
+
     onCloseIconClick(event) {
         this.clearTimeout();
-        
+
         this.onClose.emit({
             index: this.index,
             message: this.message
@@ -128,8 +128,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     template: `
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
             <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" 
-                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions" 
+                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)"
+                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
                     [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
         </div>
     `,
@@ -149,11 +149,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     @Input() key: string;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() style: any;
-        
+
     @Input() styleClass: string;
 
     @Input() position: string = 'top-right';
@@ -161,7 +161,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     @Input() preventOpenDuplicates: boolean = false;
 
     @Input() preventDuplicates: boolean = false;
-    
+
     @Input() showTransformOptions: string = 'translateY(100%)';
 
     @Input() hideTransformOptions: string = 'translateY(-100%)';
@@ -185,7 +185,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     messagesArchieve: Message[];
 
     template: TemplateRef<any>;
-    
+
     constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
@@ -212,7 +212,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
             }
 
             this.cd.markForCheck();
-        });       
+        });
     }
 
     add(messages: Message[]): void {
@@ -279,11 +279,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         }
     }
 
-    ngOnDestroy() {        
+    ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
