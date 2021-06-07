@@ -1068,7 +1068,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.isSingleSelectionMode()) {
                         this.selection = rowData;
                         this.selectionChange.emit(rowData);
-    
+
                         if (dataKeyValue) {
                             this.selectionKeys = {};
                             this.selectionKeys[dataKeyValue] = 1;
@@ -1077,7 +1077,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     else if (this.isMultipleSelectionMode()) {
                         this._selection = this.selection ? [...this.selection, rowData] : [rowData];
                         this.selectionChange.emit(this.selection);
-    
+
                         if (dataKeyValue) {
                             this.selectionKeys[dataKeyValue] = 1;
                         }
@@ -1347,7 +1347,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             else {
                                 localMatch = this.executeLocalFilter(filterField, this.value[i], filterMeta);
                             }
-                            
+
                             if (!localMatch) {
                                 break;
                             }
@@ -1780,10 +1780,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.p-datatable-scrollable-body table') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport table');
         let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.p-datatable-scrollable-header-table');
         let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.p-datatable-scrollable-footer-table');
-
+        let frozenWidth = this.frozenWidth ?  parseInt(this.frozenWidth, 10) : 0;
         const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
         const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
-        const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth >= scrollableBodyTableWidth;
+        const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth - frozenWidth >= scrollableBodyTableWidth;
 
         let setWidth = (container, table, width, isContainerInViewport) => {
             if (container && table) {
@@ -2526,7 +2526,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 let page = Math.floor(index / this.dt.rows);
                 let virtualScrollOffset = page === 0 ? 0 : (page - 1) * this.dt.rows;
                 let virtualScrollChunkSize = page === 0 ? this.dt.rows * 2 : this.dt.rows * 3;
-  
+
                 if (page !== this.virtualPage) {
                     this.virtualPage = page;
                     this.dt.onLazyLoad.emit({
@@ -2700,7 +2700,7 @@ export class SortIcon implements OnInit, OnDestroy {
         let index = -1;
 
         if (multiSortMeta && this.dt.sortMode === 'multiple' && (this.dt.showInitialSortBadge || multiSortMeta.length > 1)) {
-    
+
             for (let i = 0; i < multiSortMeta.length; i++) {
                 let meta = multiSortMeta[i];
                 if (meta.field === this.field || meta.field === this.field) {
@@ -3349,7 +3349,7 @@ export class EditableColumn implements AfterViewInit {
                     DomHandler.invokeElementMethod(event.target, 'blur');
                     DomHandler.invokeElementMethod(targetCell, 'click');
                 }
-                
+
                 event.preventDefault();
             }
         }
@@ -4012,7 +4012,7 @@ export class ReorderableRow implements AfterViewInit {
     encapsulation: ViewEncapsulation.None
 })
 export class ColumnFilterFormElement implements OnInit {
-    
+
     @Input() field: string;
 
     @Input() type: string;
@@ -4024,7 +4024,7 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() placeholder: string;
 
     @Input() minFractionDigits: number
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -4080,10 +4080,10 @@ export class ColumnFilterFormElement implements OnInit {
             <p-columnFilterFormElement *ngIf="display === 'row'" class="p-fluid" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
                                     [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
             <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" aria-haspopup="true" [attr.aria-expanded]="overlayVisible"
-                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}" 
+                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}"
                 (click)="toggleMenu()" (keydown)="onToggleButtonKeyDown($event)"><span class="pi pi-filter-icon pi-filter"></span></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-filter-slash"></span></button>
-            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" 
+            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}"
                 [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (keydown.escape)="onEscape()">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
@@ -4165,7 +4165,7 @@ export class ColumnFilter implements AfterContentInit {
     @Input() maxConstraints: number = 2;
 
     @Input() minFractionDigits: number;
-    
+
     @Input() maxFractionDigits: number;
 
     @Input() prefix: string;
@@ -4231,7 +4231,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     generateMatchModeOptions() {
-        this.matchModes = this.matchModeOptions || 
+        this.matchModes = this.matchModeOptions ||
         this.config.filterMatchModeOptions[this.type]?.map(key => {
             return {label: this.config.getTranslation(key), value: key}
         });
@@ -4254,7 +4254,7 @@ export class ColumnFilter implements AfterContentInit {
                 case 'filter':
                     this.filterTemplate = item.template;
                 break;
-                
+
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
@@ -4284,11 +4284,11 @@ export class ColumnFilter implements AfterContentInit {
         this.dt._filter();
         this.hide();
     }
-    
+
     onRowMatchModeKeyDown(event: KeyboardEvent) {
         let item = <HTMLLIElement> event.target;
 
-        switch(event.key) {            
+        switch(event.key) {
             case 'ArrowDown':
                 var nextItem = this.findNextItem(item);
                 if (nextItem) {
@@ -4353,7 +4353,7 @@ export class ColumnFilter implements AfterContentInit {
             case 'Tab':
                 this.overlayVisible = false;
             break;
-            
+
             case 'ArrowDown':
                 if (this.overlayVisible) {
                     let focusable = DomHandler.getFocusableElements(this.overlay);
@@ -4397,7 +4397,7 @@ export class ColumnFilter implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                
+
                 document.body.appendChild(this.overlay);
                 this.overlay.style.zIndex = String(++DomHandler.zindex);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
@@ -4480,7 +4480,7 @@ export class ColumnFilter implements AfterContentInit {
         let fieldFilter = this.dt.filters[this.field];
         if (fieldFilter) {
             if (Array.isArray(fieldFilter))
-                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value); 
+                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value);
             else
                 return !this.dt.isFilterBlank(fieldFilter.value);
         }
@@ -4489,7 +4489,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isOutsideClicked(event): boolean {
-        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target) 
+        return !(this.overlay.isSameNode(event.target) || this.overlay.contains(event.target)
             || this.icon.nativeElement.isSameNode(event.target) || this.icon.nativeElement.contains(event.target)
             || DomHandler.hasClass(event.target, 'p-column-filter-add-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button')
             || DomHandler.hasClass(event.target, 'p-column-filter-remove-button') || DomHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button'));
