@@ -148,7 +148,7 @@ export class DropdownItem {
         ])
     ],
     host: {
-        '[class.p-inputwrapper-filled]': 'value',
+        '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },
     providers: [DROPDOWN_VALUE_ACCESSOR],
@@ -455,6 +455,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     get emptyFilterMessageLabel(): string {
         return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
+    }
+
+    get filled() {
+        return this.value || this.value != null || this.value != undefined;
     }
 
     updateEditableLabel(): void {
