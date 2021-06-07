@@ -457,7 +457,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
             return;
         }
 
-        if (!this.overlayEl || !this.overlayEl || !this.overlayEl.contains(event.target)) {
+        if (!this.overlayEl || !this.overlayEl || !this.overlayEl.contains(event.target) || !this.overlayEl.contains(event.composedPath()[0])) {
             if (this.overlayVisible){
                 this.hide();
             }
@@ -544,7 +544,8 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     bindOutsideClickListener() {
         if (!this.outsideClickListener) {
             this.outsideClickListener = (event) => {
-                if (this.overlayVisible && this.overlayEl && !this.containerEl.nativeElement.contains(event.target) && !this.overlayEl.contains(event.target)) {
+                if (this.overlayVisible && this.overlayEl && !this.containerEl.nativeElement.contains(event.target) && !this.overlayEl.contains(event.target)
+                     && !this.containerEl.nativeElement.contains(event.composedPath()[0]) && !this.overlayEl.contains(event.composedPath()[0])) {
                     this.hide();
                 }
             };

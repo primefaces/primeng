@@ -216,7 +216,7 @@ export class MegaMenu implements AfterContentInit {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
+                if (this.el && !this.el.nativeElement.contains(event.target) && !this.el.nativeElement.contains(event.composedPath()[0])) {
                     this.activeItem = null;
                     this.unbindDocumentClickListener();
                     this.cd.markForCheck();

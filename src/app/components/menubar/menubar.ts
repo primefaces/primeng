@@ -141,7 +141,7 @@ export class MenubarSub implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
+                if (this.el && !this.el.nativeElement.contains(event.target) && !this.el.nativeElement.contains(event.composedPath()[0])) {
                     this.activeItem = null;
                     this.cd.markForCheck();
                     this.unbindDocumentClickListener();
@@ -245,7 +245,8 @@ export class Menubar implements AfterContentInit, OnDestroy {
         if (!this.outsideClickListener) {
             this.outsideClickListener = (event) => {
                 if (this.mobileActive && this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target)
-                    && this.menubutton.nativeElement !== event.target && !this.menubutton.nativeElement.contains(event.target)) {
+                    && this.menubutton.nativeElement !== event.target && !this.menubutton.nativeElement.contains(event.target)
+                    && !this.rootmenu.el.nativeElement.contains(event.composedPath()[0]) && !this.menubutton.nativeElement.contains(event.composedPath()[0])) {
                     this.mobileActive = false;
                     this.cd.markForCheck();
                 }
