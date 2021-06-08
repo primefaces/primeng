@@ -11,7 +11,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container [attr.id]="message.id" class="p-toast-message" [ngClass]="['p-toast-message-' + message.severity, message.styleClass]" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
+        <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
