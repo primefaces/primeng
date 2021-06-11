@@ -862,7 +862,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                             }
                         }
                         else {
-                            this.selectItem(event, this.getOptionGroupChildren(this.optionsToDisplay[0])[0]);
+                            if (this.optionsToDisplay && this.optionsToDisplay.length > 0) {
+                                this.selectItem(event, this.getOptionGroupChildren(this.optionsToDisplay[0])[0]);
+                            }
                         }
                     }
                     else {
