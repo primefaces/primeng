@@ -42,4 +42,6 @@ export interface Translation {
     passwordPrompt?: string;
     emptyMessage?: string;
     emptyFilterMessage?: string;
+    dateFormat?: string;
+    hourFormat?: string;
 }
