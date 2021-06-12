@@ -74,7 +74,9 @@ export class AppComponent implements OnInit, OnDestroy &#123;
         "strong": 'Strong',
         "passwordPrompt": 'Enter a password',
         "emptyMessage": 'No results found',
-        "emptyFilterMessage": 'No results found'
+        "emptyFilterMessage": 'No results found',
+        "dateFormat": 'mm/dd/yy',
+        "hourFormat": '24'
     &#125;
 &#125;
 </app-code>
@@ -270,6 +272,14 @@ export class AppComponent implements OnInit, OnDestroy &#123;
                     <tr>
                         <td>emptyFilterMessage</td>
                         <td>No results found</td>
+                    </tr>
+                    <tr>
+                        <td>dateFormat</td>
+                        <td>mm/dd/yy</td>
+                    </tr>
+                    <tr>
+                        <td>hourFormat</td>
+                        <td>24</td>
                     </tr>
                 </tbody>
             </table>
