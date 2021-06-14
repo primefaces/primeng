@@ -4,7 +4,8 @@ import {OrderListDemo} from './orderlistdemo';
 import {OrderListDemoRoutingModule} from './orderlistdemo-routing.module';
 import {OrderListModule} from 'primeng/orderlist';
 import {TabViewModule} from 'primeng/tabview';
-import { AppCodeModule } from '../../app.code.component';
+import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -12,7 +13,8 @@ import { AppCodeModule } from '../../app.code.component';
 		OrderListDemoRoutingModule,
         OrderListModule,
 		TabViewModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		OrderListDemo

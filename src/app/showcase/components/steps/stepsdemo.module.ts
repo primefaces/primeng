@@ -5,6 +5,7 @@ import { StepsDemoRoutingModule } from './stepsdemo-routing.module';
 import { StepsModule } from 'primeng/steps';
 import { TabViewModule } from 'primeng/tabview';
 import { AppCodeModule } from '../../app.code.component';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 import { SeatDemo } from './seatdemo';
 import { ConfirmationDemo } from './confirmationdemo';
 import { PersonalDemo } from './personaldemo';
@@ -26,6 +27,7 @@ import { TicketService } from './ticketservice';
         StepsModule,
 		TabViewModule,
 		AppCodeModule,
+		AppDemoActionsModule,
 		ButtonModule,
 		CardModule,
 		InputTextModule,

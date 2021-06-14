@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'app-config',
@@ -302,6 +303,11 @@ import { Subscription } from 'rxjs';
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
+                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/ultima-ng">
                                     <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
                                 </a>
@@ -407,11 +413,6 @@ import { Subscription } from 'rxjs';
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/omega-ng">
                                     <img alt="Omega" src="assets/showcase/images/layouts/omega-ng.jpg">
                                 </a>
@@ -485,6 +486,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     onRippleChange() {
         this.configService.updateConfig(this.config);
+        if (this.config.ripple)
+            DomHandler.removeClass(document.body, 'p-ripple-disabled');
+        else
+            DomHandler.addClass(document.body, 'p-ripple-disabled');
     }
 
     bindOutsideClickListener() {

@@ -8,6 +8,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {DividerModule} from 'primeng/divider';
 import {InputTextModule} from 'primeng/inputtext';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -18,7 +19,8 @@ import {InputTextModule} from 'primeng/inputtext';
 		TabViewModule,
 		DividerModule,
 		InputTextModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		DividerDemo

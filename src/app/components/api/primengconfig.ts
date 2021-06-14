@@ -74,7 +74,9 @@ export class PrimeNGConfig {
         weak: 'Weak',
         medium: 'Medium',
         strong: 'Strong',
-        passwordPrompt: 'Enter a password'
+        passwordPrompt: 'Enter a password',
+        emptyMessage: 'No results found',
+        emptyFilterMessage: 'No results found'
     }
 
     private translationSource = new Subject<any>();

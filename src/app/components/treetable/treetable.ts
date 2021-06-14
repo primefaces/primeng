@@ -1626,6 +1626,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
+                    this.editingCellField = null;
+                    this.editingCellData = null;
                     this.unbindDocumentEditListener();
                 }
 
@@ -1646,6 +1648,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     ngOnDestroy() {
         this.unbindDocumentEditListener();
         this.editingCell = null;
+        this.editingCellField = null;
+        this.editingCellData = null;
         this.initialized = null;
     }
 

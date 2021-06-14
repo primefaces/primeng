@@ -289,7 +289,7 @@ describe('Dropdown', () => {
 		const emptyMesage = items.children[0]; 
 		expect(items.nativeElement.children.length).toEqual(1);
 		expect(emptyMesage).toBeTruthy();
-		expect(emptyMesage.nativeElement.textContent).toEqual("No results found");
+		expect(emptyMesage.nativeElement.textContent).toContain("No results found");
 	}));
 
 	it('should open with down and altkey', () => {

@@ -122,7 +122,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() appendTo: any;
 
-    @Input() breakpoints: any[];
+    @Input() breakpoints: any;
 
     @Input() styleClass: string;
 
@@ -417,7 +417,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
                     }
                 `
             }
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }

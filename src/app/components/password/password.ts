@@ -248,8 +248,8 @@ export const Password_VALUE_ACCESSOR: any = {
     selector: 'p-password',
     template: `
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
-            <input #input pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus($event)" 
-                (blur)="onBlur($event)" (keyup)="onKeyUp($event)" />
+            <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()" 
+                (blur)="onBlur()" (keyup)="onKeyUp($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
             <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" 
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)">
@@ -278,6 +278,10 @@ export const Password_VALUE_ACCESSOR: any = {
               ])
         ])
     ],
+    host: {
+        '[class.p-inputwrapper-filled]': 'filled()',
+        '[class.p-inputwrapper-focus]': 'focused'
+    },
     providers: [Password_VALUE_ACCESSOR],
     styleUrls: ['./password.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -298,6 +302,8 @@ export class Password implements AfterContentInit,OnInit {
     @Input() mediumLabel: string;
 
     @Input() strongLabel: string;
+
+    @Input() inputId: string;
 
     @Input() feedback: boolean = true;
 
@@ -399,7 +405,7 @@ export class Password implements AfterContentInit,OnInit {
                 this.bindResizeListener();
             break;
 
-            case 'hidden':
+            case 'void':
                 this.unbindScrollListener();
                 this.unbindResizeListener();
                 this.overlay = null;
@@ -427,18 +433,19 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     onInput(event)  {
-        this.onModelChange(event.target.value);
+        this.value = event.target.value;
+        this.onModelChange(this.value);
         this.onModelTouched();
     }
 
-    onFocus(event) {
+    onFocus() {
         this.focused = true;
         if (this.feedback) {
             this.overlayVisible = true;
         }
     }
 
-    onBlur(event) {
+    onBlur() {
         this.focused = false;
         if (this.feedback) {
             this.overlayVisible = false;
@@ -448,48 +455,52 @@ export class Password implements AfterContentInit,OnInit {
     onKeyUp(event) {
         if (this.feedback) {
             let value = event.target.value;
-            let label = null;
-            let meter = null;
-
-            switch (this.testStrength(value)) {
-                case 1:
-                    label = this.weakText();
-                    meter = {
-                        strength: 'weak',
-                        width: '33.33%'
-                    };
-                    break;
-
-                case 2:
-                    label = this.mediumText();
-                    meter = {
-                        strength: 'medium',
-                        width: '66.66%'
-                    };
-                    break;
-
-                case 3:
-                    label = this.strongText();
-                    meter = {
-                        strength: 'strong',
-                        width: '100%'
-                    };
-                    break;
-
-                default:
-                    label = this.promptText();
-                    meter = null;
-                    break;
-            }
-
-            this.meter = meter;
-            this.infoText = label;
+            this.updateUI(value);
 
             if (!this.overlayVisible) {
                 this.overlayVisible = true;
             }
         }
-    }    
+    }
+    
+    updateUI(value) {
+        let label = null;
+        let meter = null;
+
+        switch (this.testStrength(value)) {
+            case 1:
+                label = this.weakText();
+                meter = {
+                    strength: 'weak',
+                    width: '33.33%'
+                };
+                break;
+
+            case 2:
+                label = this.mediumText();
+                meter = {
+                    strength: 'medium',
+                    width: '66.66%'
+                };
+                break;
+
+            case 3:
+                label = this.strongText();
+                meter = {
+                    strength: 'strong',
+                    width: '100%'
+                };
+                break;
+
+            default:
+                label = this.promptText();
+                meter = null;
+                break;
+        }
+
+        this.meter = meter;
+        this.infoText = label;
+    }
 
     onMaskToggle() {
         this.unmasked = !this.unmasked;
@@ -513,6 +524,9 @@ export class Password implements AfterContentInit,OnInit {
             this.value = null;
         else 
             this.value = value;
+
+        if (this.feedback)
+            this.updateUI(this.value || "");
         
         this.cd.markForCheck();
     }
@@ -574,8 +588,6 @@ export class Password implements AfterContentInit,OnInit {
 
     containerClass() {
         return {'p-password p-component p-inputwrapper': true,
-            'p-inputwrapper-filled': this.filled(),
-            'p-inputwrapper-focus': this.focused,
             'p-input-icon-right': this.toggleMask
         };
     }

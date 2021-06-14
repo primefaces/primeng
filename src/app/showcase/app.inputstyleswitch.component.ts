@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppConfigService} from './service/appconfigservice';
 import { Subscription } from 'rxjs';
 import { AppConfig } from './domain/appconfig';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'app-inputStyleSwitch',
@@ -40,6 +41,11 @@ export class AppInputStyleSwitchComponent implements OnInit, OnDestroy {
 
     onChange() {
         this.configService.updateConfig(this.config);
+
+        if (this.config.inputStyle === 'filled')
+            DomHandler.addClass(document.body, 'p-input-filled');
+        else
+            DomHandler.removeClass(document.body, 'p-input-filled');
     }
 
     ngOnDestroy() {

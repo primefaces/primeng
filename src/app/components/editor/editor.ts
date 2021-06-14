@@ -133,7 +133,7 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
         
         this.quill.on('text-change', (delta, oldContents, source) => {
             if (source === 'user') {
-                let html = editorElement.children[0].innerHTML;
+                let html = DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;

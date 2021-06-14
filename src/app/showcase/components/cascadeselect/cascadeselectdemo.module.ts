@@ -8,7 +8,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
 import {FormsModule} from '@angular/forms';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -19,7 +19,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
 		TabViewModule,
 		CascadeSelectModule,
 		FormsModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

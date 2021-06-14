@@ -3,7 +3,7 @@
         <h1>Listbox</h1>
         <p>Listbox is used to select one or more values from a list of items.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="listbox" stackblitz="listbox-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -295,6 +295,12 @@ export class ListboxDemo &#123;
                     <td>Defines placeholder of the filter input.</td>
                 </tr>
                 <tr>
+                    <td>emptyFilterMessage</td>
+                    <td>string</td>
+                    <td>No results found</td>
+                    <td>Text to display when filtering does not return any results.</td>
+                </tr>
+                <tr>
                     <td>listStyle</td>
                     <td>string</td>
                     <td>null</td>
@@ -326,6 +332,18 @@ export class ListboxDemo &#123;
                     <td>boolean</td>
                     <td>false</td>
                     <td>When present, it specifies that the element value cannot be changed.</td>
+                </tr>
+                <tr>
+                    <td>emptyMessage</td>
+                    <td>string</td>
+                    <td>No records found.</td>
+                    <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
+                </tr>
+                <tr>
+                    <td>emptyFilterMessage</td>
+                    <td>string</td>
+                    <td>No results found</td>
+                    <td>Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.</td>
                 </tr>
                 <tr>
                     <td>options</td>
@@ -424,6 +442,45 @@ export class ListboxDemo &#123;
                         event.option: option that are clicked
                     </td>
                     <td>Callback to invoke when listbox option clicks.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h5>Templates</h5>
+    <div class="doc-tablewrapper">
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Parameters</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>item</td>
+                    <td>$implicit: Data of the option <br />
+                        index: Index of the option</td>
+                </tr>
+                <tr>
+                    <td>group</td>
+                    <td>$implicit: Group option</td>
+                </tr>
+                <tr>
+                    <td>header</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>empty</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>emptyfilter</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>footer</td>
+                    <td>-</td>
                 </tr>
             </tbody>
         </table>

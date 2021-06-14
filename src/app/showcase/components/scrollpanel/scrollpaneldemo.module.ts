@@ -5,6 +5,7 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ScrollPanelDemoRoutingModule} from './scrollpaneldemo-routing.module';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -12,7 +13,8 @@ import {AppCodeModule} from '../../app.code.component';
 		ScrollPanelModule,
 		ScrollPanelDemoRoutingModule,
 		TabViewModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		ScrollPanelDemo

@@ -1,6 +1,6 @@
 import {NgModule ,Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BlockableUI, PrimeTemplate} from 'primeng/api';
+import {BlockableUI, PrimeTemplate, SharedModule} from 'primeng/api';
 
 @Component({
     selector: 'p-timeline',
@@ -84,7 +84,7 @@ export class Timeline implements AfterContentInit, BlockableUI {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Timeline],
+    exports: [Timeline, SharedModule],
     declarations: [Timeline]
 })
 export class TimelineModule { }

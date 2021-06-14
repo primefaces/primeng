@@ -8,6 +8,7 @@ import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {UniqueComponentId} from 'primeng/utils';
+import { RippleModule } from 'primeng/ripple';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -44,8 +45,8 @@ const hideAnimation = animation([
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
-                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
-                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
+                    <button type="button" pRipple pButton [icon]="option('rejectIcon')" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
+                    <button type="button" pRipple pButton [icon]="option('acceptIcon')" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
                 </div>
             </div>
         </div>
@@ -222,6 +223,8 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
     confirmationOptions: Confirmation;
 
+    translationSubscription: Subscription;
+
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
@@ -268,6 +271,12 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
         if (this.breakpoints) {
             this.createStyle();
         }
+
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            if (this.visible) {
+                this.cd.markForCheck();
+            }
+        });
     }
 
     option(name: string) {
@@ -501,6 +510,11 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
+        
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
+
         this.destroyStyle();
     }
 
@@ -530,7 +544,7 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
+    imports: [CommonModule,ButtonModule,RippleModule],
     exports: [ConfirmDialog,ButtonModule,SharedModule],
     declarations: [ConfirmDialog]
 })

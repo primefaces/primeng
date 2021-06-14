@@ -4,7 +4,7 @@ import { trigger,style,transition,animate,AnimationEvent} from '@angular/animati
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService } from 'primeng/api';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TooltipModule } from 'primeng/tooltip';
@@ -120,7 +120,7 @@ export class MultiSelectItem {
                     </button>
                 </div>
                 <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
-                    <ul class="p-multiselect-items p-component" role="listbox" aria-multiselectable="true">
+                    <ul class="p-multiselect-items p-component" [ngClass]="{'p-multiselect-virtualscroll': virtualScroll}" role="listbox" aria-multiselectable="true">
                         <ng-container *ngIf="group">
                             <ng-template ngFor let-optgroup [ngForOf]="optionsToRender">
                                 <li class="p-multiselect-item-group">
@@ -148,7 +148,18 @@ export class MultiSelectItem {
                                     </ng-container>
                                 </cdk-virtual-scroll-viewport>
                             </ng-template>
-                            <li *ngIf="emptyOptions" class="p-multiselect-empty-message">{{emptyFilterMessage}}</li>
+                            <li *ngIf="hasFilter() && emptyOptions" class="p-multiselect-empty-message">
+                                <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                                    {{emptyFilterMessageLabel}}
+                                </ng-container>
+                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                            </li>
+                            <li *ngIf="!hasFilter() && emptyOptions" class="p-multiselect-empty-message">
+                                <ng-container *ngIf="!emptyTemplate; else empty">
+                                    {{emptyMessageLabel}}
+                                </ng-container>
+                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            </li>
                         </ng-template>
                     </ul>
                 </div>
@@ -225,7 +236,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() showToggleAll: boolean = true;
 
-    @Input() emptyFilterMessage: string = 'No results found';
+    @Input() emptyFilterMessage: string = '';
+
+    @Input() emptyMessage: string = '';
 
     @Input() resetFilterOnHide: boolean = false;
 
@@ -329,6 +342,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     set options(val: any[]) {
         this._options = val;
+        this.updateLabel();
     }
 
     @Input() get filterValue(): string {
@@ -370,6 +384,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     public footerTemplate: TemplateRef<any>;
 
+    public emptyFilterTemplate: TemplateRef<any>;
+
+    public emptyTemplate: TemplateRef<any>;
+
     public selectedItemsTemplate: TemplateRef<any>;
 
     public headerCheckboxFocus: boolean;
@@ -384,7 +402,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     preventModelTouched: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         this.updateLabel();
@@ -407,6 +425,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
                 case 'header':
                     this.headerTemplate = item.template;
+                break;
+
+                case 'emptyfilter':
+                    this.emptyFilterTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyTemplate = item.template;
                 break;
 
                 case 'footer':
@@ -970,6 +996,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     get emptyOptions(): boolean {
         let optionsToRender = this.optionsToRender;
         return !optionsToRender || optionsToRender.length === 0;
+    }
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+    }
+
+    get emptyFilterMessageLabel(): string {
+        return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
     }
 
     hasFilter() {

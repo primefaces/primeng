@@ -221,7 +221,10 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.133) 0px 3.2px 7.2px 0px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
 }
-.p-autocomplete-panel .p-autocomplete-items {
+.p-autocomplete-panel .p-autocomplete-items:not(.p-autocomplete-virtualscroll) {
+  padding: 0;
+}
+.p-autocomplete-panel .p-autocomplete-items.p-autocomplete-virtualscroll .cdk-virtual-scroll-content-wrapper {
   padding: 0;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
@@ -240,6 +243,11 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
   color: #323130;
   background: #edebe9;
+}
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-empty-message {
+  padding: 0.75rem 0.5rem;
+  color: #323130;
+  background: transparent;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item-group {
   margin: 0;
@@ -709,7 +717,10 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   right: 0.5rem;
   color: #605e5c;
 }
-.p-dropdown-panel .p-dropdown-items {
+.p-dropdown-panel .p-dropdown-items:not(.p-dropdown-virtualscroll) {
+  padding: 0;
+}
+.p-dropdown-panel .p-dropdown-items.p-dropdown-virtualscroll .cdk-virtual-scroll-content-wrapper {
   padding: 0;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
@@ -1123,6 +1134,11 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   background: #ffffff;
   font-weight: 600;
 }
+.p-listbox .p-listbox-list .p-listbox-empty-message {
+  padding: 0.75rem 0.5rem;
+  color: #323130;
+  background: transparent;
+}
 .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
   color: #323130;
   background: #f3f2f1;
@@ -1222,7 +1238,10 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   outline-offset: 0;
   box-shadow: inset 0 0 0 1px #605e5c;
 }
-.p-multiselect-panel .p-multiselect-items {
+.p-multiselect-panel .p-multiselect-items:not(.p-multiselect-virtualscroll) {
+  padding: 0;
+}
+.p-multiselect-panel .p-multiselect-items.p-multiselect-virtualscroll .cdk-virtual-scroll-content-wrapper {
   padding: 0;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
@@ -1653,6 +1672,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-button.p-button-lg .p-button-icon {
   font-size: 1.25rem;
+}
+.p-button.p-button-loading-label-only .p-button-label {
+  margin-left: 0.5rem;
+}
+.p-button.p-button-loading-label-only .p-button-loading-icon {
+  margin-right: 0;
 }
 
 .p-fluid .p-button {
@@ -2572,6 +2597,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
   color: #323130;
   background: #edebe9;
+}
+.p-orderlist .p-orderlist-list .p-orderlist-empty-message {
+  padding: 0.75rem 0.5rem;
+  color: #323130;
 }
 .p-orderlist .p-orderlist-list:not(.cdk-drop-list-dragging) .p-orderlist-item:not(.p-highlight):hover {
   background: #f3f2f1;
@@ -3577,11 +3606,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-sidebar {
   background: #ffffff;
   color: #323130;
-  padding: 1rem;
   border: 0 none;
   box-shadow: rgba(0, 0, 0, 0.133) 0px 6.4px 14.4px 0px, rgba(0, 0, 0, 0.11) 0px 1.2px 3.6px 0px;
 }
-.p-sidebar .p-sidebar-close {
+.p-sidebar .p-sidebar-header {
+  padding: 1rem;
+}
+.p-sidebar .p-sidebar-header .p-sidebar-close,
+.p-sidebar .p-sidebar-header .p-sidebar-icon {
   width: 2rem;
   height: 2rem;
   color: #605e5c;
@@ -3590,15 +3622,23 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 2px;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
-.p-sidebar .p-sidebar-close:enabled:hover {
+.p-sidebar .p-sidebar-header .p-sidebar-close:enabled:hover,
+.p-sidebar .p-sidebar-header .p-sidebar-icon:enabled:hover {
   color: #605e5c;
   border-color: transparent;
   background: #f3f2f1;
 }
-.p-sidebar .p-sidebar-close:focus {
+.p-sidebar .p-sidebar-header .p-sidebar-close:focus,
+.p-sidebar .p-sidebar-header .p-sidebar-icon:focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: inset 0 0 0 1px #605e5c;
+}
+.p-sidebar .p-sidebar-header + .p-sidebar-content {
+  padding-top: 0;
+}
+.p-sidebar .p-sidebar-content {
+  padding: 1rem;
 }
 
 .p-sidebar-mask.p-component-overlay {

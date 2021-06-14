@@ -10,18 +10,18 @@ import { UniqueComponentId } from 'primeng/utils';
 export class BadgeDirective implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
-            
+
     public _value: string;
-            
+
     public initialized: boolean;
 
     private id: string;
-    
+
     constructor(public el: ElementRef) {}
-    
+
     ngAfterViewInit() {
         this.id = UniqueComponentId() + '_badge';
-        let el = this.el.nativeElement.nodeName.indexOf("-") != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement; 
+        let el = this.el.nativeElement.nodeName.indexOf("-") != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
 
         let badge = document.createElement('span');
         badge.id = this.id ;
@@ -30,10 +30,10 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         if (this.severity) {
             DomHandler.addClass(badge, 'p-badge-' + this.severity);
         }
-        
+
         if (this.value != null) {
             badge.appendChild(document.createTextNode(this.value));
-            
+
             if (String(this.value).length === 1) {
                 DomHandler.addClass(badge, 'p-badge-no-gutter');
             }
@@ -81,7 +81,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
 
     @Input() severity: string;
-        
+
     ngOnDestroy() {
         this.initialized = false;
     }
@@ -105,15 +105,15 @@ export class Badge {
     @Input() style: any;
 
     @Input() size: string;
-    
+
     @Input() severity: string;
-    
+
     @Input() value: string;
-    
+
     containerClass() {
         return {
             'p-badge p-component': true,
-            'p-badge-no-gutter': this.value && String(this.value).length === 1,
+            'p-badge-no-gutter': this.value != undefined && String(this.value).length === 1,
             'p-badge-lg': this.size === 'large',
             'p-badge-xl': this.size === 'xlarge',
             'p-badge-info': this.severity === 'info',

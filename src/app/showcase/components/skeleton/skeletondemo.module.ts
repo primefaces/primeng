@@ -8,6 +8,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {SkeletonModule} from 'primeng/skeleton';
 import {TableModule} from 'primeng/table';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -18,7 +19,8 @@ import {TableModule} from 'primeng/table';
 		TabViewModule,
 		SkeletonModule,
 		TableModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		SkeletonDemo

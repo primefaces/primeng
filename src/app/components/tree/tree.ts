@@ -3,7 +3,7 @@ import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,
 import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TreeNode} from 'primeng/api';
+import {PrimeNGConfig, TranslationKeys, TreeNode} from 'primeng/api';
 import {SharedModule} from 'primeng/api';
 import {PrimeTemplate} from 'primeng/api';
 import {TreeDragDropService} from 'primeng/api';
@@ -513,13 +513,14 @@ export class UITreeNode implements OnInit {
         <div [ngClass]="{'p-tree p-component':true,'p-tree-selectable':selectionMode,
                 'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
-            (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
+            (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
+            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             <div *ngIf="filter" class="p-tree-filter-container">
                 <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event)">
+                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
                     <span class="p-tree-filter-icon pi pi-search"></span>
             </div>
             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
@@ -538,16 +539,29 @@ export class UITreeNode implements OnInit {
                     </ul>
                 </cdk-virtual-scroll-viewport>
             </ng-template>
-            <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
+                <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
+                    {{emptyMessageLabel}}
+                </ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+            </div>
+            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
         <div [ngClass]="{'p-tree p-tree-horizontal p-component':true,'p-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
+            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             <div class="p-tree-loading-mask p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
-            <div class="p-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
+            <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
+                <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
+                    {{emptyMessageLabel}}
+                </ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+            </div>
+            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -602,7 +616,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
-    @Input() emptyMessage: string = 'No records found';
+    @Input() emptyMessage: string = '';
 
     @Input() ariaLabel: string;
 
@@ -640,7 +654,15 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
 
+    @ViewChild('filter') filterViewChild: ElementRef;
+
     serializedValue: any[];
+
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
+
+    emptyMessageTemplate: TemplateRef<any>;
 
     public templateMap: any;
 
@@ -664,7 +686,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     public filteredNodes: TreeNode[];
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
+    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -703,13 +725,33 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         return this.layout == 'horizontal';
     }
 
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+    }
+
     ngAfterContentInit() {
         if (this.templates.length) {
             this.templateMap = {};
         }
 
         this.templates.forEach((item) => {
-            this.templateMap[item.name] = item.template;
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
+
+                default:
+                    this.templateMap[item.name] = item.template;
+                break;
+            }
         });
     }
 
@@ -1028,30 +1070,45 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         if (this.droppableNodes && (!this.value || this.value.length === 0)) {
             event.preventDefault();
             let dragNode = this.dragNode;
+
             if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
                 let dragNodeIndex = this.dragNodeIndex;
-                this.dragNodeSubNodes.splice(dragNodeIndex, 1);
                 this.value = this.value||[];
 
-                if (this.value.length === 0) {
+                if (this.validateDrop) {
+                    this.onNodeDrop.emit({
+                        originalEvent: event,
+                        dragNode: dragNode,
+                        dropNode: null,
+                        index: dragNodeIndex,
+                        accept: () => {
+                            this.processTreeDrop(dragNode, dragNodeIndex);
+                        }
+                    });
+                }
+                else {
                     this.onNodeDrop.emit({
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: null,
                         index: dragNodeIndex
-                    })
+                    });
+                    
+                    this.processTreeDrop(dragNode, dragNodeIndex);
                 }
-
-                this.value.push(dragNode);
-
-                this.dragDropService.stopDrag({
-                    node: dragNode
-                });
             }
         }
     }
 
-    onDragEnter(event) {
+    processTreeDrop(dragNode, dragNodeIndex) {
+        this.dragNodeSubNodes.splice(dragNodeIndex, 1);
+        this.value.push(dragNode);
+        this.dragDropService.stopDrag({
+            node: dragNode
+        });
+    }
+
+    onDragEnter() {
         if (this.droppableNodes && this.allowDrop(this.dragNode, null, this.dragNodeScope)) {
             this.dragHover = true;
         }
@@ -1127,8 +1184,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
     }
 
-    _filter(event) {
-        let filterValue = event.target.value;
+    _filter(value) {
+        let filterValue = value;
         if (filterValue === '') {
             this.filteredNodes = null;
         }
@@ -1152,6 +1209,14 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
             filter: filterValue,
             filteredValue: this.filteredNodes
         });
+    }
+
+    resetFilter() {
+        this.filteredNodes = null;
+
+        if (this.filterViewChild && this.filterViewChild.nativeElement) {
+            this.filterViewChild.nativeElement.value = '';
+        }
     }
 
     findFilteredNodes(node, paramsWithoutNode) {

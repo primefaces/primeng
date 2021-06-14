@@ -3,7 +3,7 @@
         <h1>Calendar</h1>
         <p>Calendar is an input component to select a date.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="calendar" stackblitz="calendar-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -723,6 +723,32 @@ export class MyModel &#123;
                 </table>
             </div>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>date</td>
+                            <td>$implicit: Value of the component</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -801,10 +827,10 @@ export class MyModel &#123;
         &lt;p-calendar inputId="basic" [(ngModel)]="date1"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &gt;div class="p-field p-col-12 p-md-4"&lt;
-        &gt;label for="dateformat"&lt;DateFormat&gt;/label&lt;
-        &gt;p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"&lt;&gt;/p-calendar&lt;
-    &gt;/div&lt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="dateformat"&gt;DateFormat&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
 
     &lt;div class="p-field p-col-12 p-md-4"&gt;
         &lt;label for="icon"&gt;Icon&lt;/label&gt;

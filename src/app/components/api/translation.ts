@@ -40,4 +40,6 @@ export interface Translation {
     medium?: string;
     strong?: string;
     passwordPrompt?: string;
+    emptyMessage?: string;
+    emptyFilterMessage?: string;
 }
