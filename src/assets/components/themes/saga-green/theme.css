@@ -22,6 +22,16 @@
   --surface-700: #616161;
   --surface-800: #424242;
   --surface-900: #212121;
+  --gray-50: #FAFAFA;
+  --gray-100: #F5F5F5;
+  --gray-200: #EEEEEE;
+  --gray-300: #E0E0E0;
+  --gray-400: #BDBDBD;
+  --gray-500: #9E9E9E;
+  --gray-600: #757575;
+  --gray-700: #616161;
+  --gray-800: #424242;
+  --gray-900: #212121;
   --content-padding:1rem;
   --inline-spacing:0.5rem;
 }
@@ -1544,6 +1554,76 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: #f44336;
 }
 
+.p-treeselect {
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 3px;
+}
+.p-treeselect:not(.p-disabled):hover {
+  border-color: #4CAF50;
+}
+.p-treeselect:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #b7e0b8;
+  border-color: #4CAF50;
+}
+.p-treeselect .p-treeselect-label {
+  padding: 0.5rem 0.5rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.p-treeselect .p-treeselect-label.p-placeholder {
+  color: #6c757d;
+}
+.p-treeselect.p-treeselect-chip .p-treeselect-token {
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  background: #dee2e6;
+  color: #495057;
+  border-radius: 16px;
+}
+.p-treeselect .p-treeselect-trigger {
+  background: transparent;
+  color: #6c757d;
+  width: 2.357rem;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.p-treeselect.p-invalid.p-component {
+  border-color: #f44336;
+}
+
+.p-inputwrapper-filled .p-treeselect.p-treeselect-chip .p-treeselect-label {
+  padding: 0.25rem 0.5rem;
+}
+
+.p-treeselect-panel {
+  background: #ffffff;
+  color: #495057;
+  border: 0 none;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.p-treeselect-panel .p-treeselect-items-wrapper .p-tree {
+  border: 0 none;
+}
+.p-treeselect-panel .p-treeselect-items-wrapper .p-treeselect-empty-message {
+  padding: 0.5rem 1rem;
+  color: #495057;
+  background: transparent;
+}
+
+.p-input-filled .p-treeselect {
+  background: #f8f9fa;
+}
+.p-input-filled .p-treeselect:not(.p-disabled):hover {
+  background-color: #f8f9fa;
+}
+.p-input-filled .p-treeselect:not(.p-disabled).p-focus {
+  background-color: #ffffff;
+}
+
 .p-button {
   color: #ffffff;
   background: #4CAF50;
@@ -2694,6 +2774,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-paginator .p-dropdown {
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
   height: 2.357rem;
 }
 .p-paginator .p-dropdown .p-dropdown-label {

@@ -12,16 +12,26 @@
   --primary-color-text:#ffffff;
   --font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   --surface-0: #121212;
-  --surface-50: #181818;
-  --surface-100: #1e1e1e;
-  --surface-200: #242424;
-  --surface-300: #2a2a2a;
-  --surface-400: #303030;
-  --surface-500: #363636;
-  --surface-600: #3b3b3b;
-  --surface-700: #414141;
-  --surface-800: #474747;
-  --surface-900: #4d4d4d;
+  --surface-50: #2a2a2a;
+  --surface-100: #414141;
+  --surface-200: #595959;
+  --surface-300: #717171;
+  --surface-400: #898989;
+  --surface-500: #a0a0a0;
+  --surface-600: #b8b8b8;
+  --surface-700: #d0d0d0;
+  --surface-800: #e7e7e7;
+  --surface-900: #ffffff;
+  --gray-50:#e7e7e7;
+  --gray-100: #d0d0d0;
+  --gray-200: #b8b8b8;
+  --gray-300: #a0a0a0;
+  --gray-400: #898989;
+  --gray-500: #717171;
+  --gray-600: #595959;
+  --gray-700: #414141;
+  --gray-800: #2a2a2a;
+  --gray-900: #121212;
   --content-padding:1rem;
   --inline-spacing:0.5rem;
 }
@@ -1544,6 +1554,76 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: #ef9a9a;
 }
 
+.p-treeselect {
+  background: #121212;
+  border: 1px solid #383838;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 3px;
+}
+.p-treeselect:not(.p-disabled):hover {
+  border-color: #BA68C8;
+}
+.p-treeselect:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 1px #cf95d9;
+  border-color: #BA68C8;
+}
+.p-treeselect .p-treeselect-label {
+  padding: 0.5rem 0.5rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.p-treeselect .p-treeselect-label.p-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.p-treeselect.p-treeselect-chip .p-treeselect-token {
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  background: #383838;
+  color: rgba(255, 255, 255, 0.87);
+  border-radius: 16px;
+}
+.p-treeselect .p-treeselect-trigger {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  width: 2.357rem;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.p-treeselect.p-invalid.p-component {
+  border-color: #ef9a9a;
+}
+
+.p-inputwrapper-filled .p-treeselect.p-treeselect-chip .p-treeselect-label {
+  padding: 0.25rem 0.5rem;
+}
+
+.p-treeselect-panel {
+  background: #1e1e1e;
+  color: rgba(255, 255, 255, 0.87);
+  border: 1px solid #383838;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.p-treeselect-panel .p-treeselect-items-wrapper .p-tree {
+  border: 0 none;
+}
+.p-treeselect-panel .p-treeselect-items-wrapper .p-treeselect-empty-message {
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.87);
+  background: transparent;
+}
+
+.p-input-filled .p-treeselect {
+  background: #383838;
+}
+.p-input-filled .p-treeselect:not(.p-disabled):hover {
+  background-color: #383838;
+}
+.p-input-filled .p-treeselect:not(.p-disabled).p-focus {
+  background-color: #383838;
+}
+
 .p-button {
   color: #ffffff;
   background: #BA68C8;
@@ -2694,6 +2774,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-paginator .p-dropdown {
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
   height: 2.286em;
 }
 .p-paginator .p-dropdown .p-dropdown-label {
