@@ -249,6 +249,12 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 &lt;/p-toast&gt;
 </app-code>
 
+            <h5>Responsive</h5>
+            <p>Toast styling can be adjusted per screen size with the <i>breakpoints</i> option. The value of <i>breakpoints</i> should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast [breakpoints]="&#123;'920px': &#123;width: '100%', right: '0', left: '0'&#125;&#125;"&gt;&lt;/p-toast&gt;
+</app-code>
+
             <h5>Animation Configuration</h5>
             <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties,
                 example below disables the animations altogether.</p>
@@ -339,6 +345,12 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                             <td>boolean</td>
                             <td>false</td>
                             <td>It does not add the new message if there is already a toast displayed with the same content</td>
+                        </tr>
+                        <tr>
+                            <td>breakpoints</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Object literal to define styles per screen size.</td>
                         </tr>
                         <tr>
                             <td>preventDuplicates</td>
