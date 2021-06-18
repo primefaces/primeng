@@ -502,4 +502,23 @@ describe('OrderList', () => {
 		expect(findPrevItemSpy).toHaveBeenCalled();
 		expect(bmwEl.className).toContain('p-highlight');
 	});
+
+    it('should disabled', () => {
+		orderlist.disabled = true;
+		orderlist.filterBy = "brand";
+		fixture.detectChanges();
+
+		const buttonsEls = fixture.debugElement.queryAll(By.css('button'));
+		const inputEls = fixture.debugElement.queryAll(By.css('input'));
+		const itemEls = fixture.debugElement.queryAll(By.css('li'));
+		for (let button of buttonsEls) {
+			expect(button.nativeElement.disabled).toEqual(true);
+		}
+		for (let input of inputEls) {
+			expect(input.nativeElement.disabled).toEqual(true);
+		}
+		for (let item of itemEls) {
+			expect(item.nativeElement.className).toContain("p-disabled");
+		}
+	});
 });
