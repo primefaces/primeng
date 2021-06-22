@@ -4,6 +4,7 @@ import {Message} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import {UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
@@ -170,6 +171,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
+    @Input() breakpoints: any;
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
@@ -187,6 +190,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     messagesArchieve: Message[];
 
     template: TemplateRef<any>;
+
+    styleElement: any;
+
+    id: string = UniqueComponentId();
 
     constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
 
@@ -227,6 +234,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
             this.cd.markForCheck();
         });
+
+        if (this.breakpoints) {
+            this.createStyle();
+        }
     }
 
     add(messages: Message[]): void {
@@ -290,6 +301,39 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     onAnimationStart(event: AnimationEvent) {
         if (event.fromState === 'void' && this.autoZIndex) {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            this.containerViewChild.nativeElement.setAttribute(this.id, '');
+
+        }
+    }
+
+    createStyle() {
+        if (!this.styleElement) {
+            this.styleElement = document.createElement('style');
+            this.styleElement.type = 'text/css';
+            document.head.appendChild(this.styleElement);
+            let innerHTML = '';
+            for (let breakpoint in this.breakpoints) {
+                let breakpointStyle = '';
+                for (let styleProp in this.breakpoints[breakpoint]) {
+                    breakpointStyle += styleProp + ':' + this.breakpoints[breakpoint][styleProp] + ' !important;';
+                }
+                innerHTML += `
+                    @media screen and (max-width: ${breakpoint}) {
+                        .p-toast[${this.id}] {
+                           ${breakpointStyle}
+                        }
+                    }
+                `
+            }
+
+            this.styleElement.innerHTML = innerHTML;
+        }
+    }
+
+    destroyStyle() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;
         }
     }
 
@@ -305,6 +349,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         if (this.removeSubscription) {
             this.removeSubscription.unsubscribe();
         }
+
+        this.destroyStyle();
     }
 }
 
