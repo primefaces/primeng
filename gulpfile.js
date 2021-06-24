@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     flatten = require('gulp-flatten');
 
 gulp.task('build-css', function() {
-	gulp.src([
+	return gulp.src([
         'src/app/components/common/common.css',
 		    'src/app/components/**/*.css'
     ])
@@ -17,7 +17,7 @@ gulp.task('build-css', function() {
 });
 
 gulp.task('build-css-prod', function() {
-    gulp.src([
+    return gulp.src([
         'src/app/components/common/common.css',
         'src/app/components/badge/badge.css',
         'src/app/components/button/button.css',
@@ -38,7 +38,7 @@ gulp.task('build-css-prod', function() {
 });
 
 gulp.task('copy-component-css', function () {
-    gulp.src([
+    return gulp.src([
         'src/app/components/**/*.css',
         'src/app/components/**/images/*.png',
         'src/app/components/**/images/*.gif'
@@ -63,15 +63,15 @@ gulp.task('themes', function() {
 
 //Cleaning previous gulp tasks from project
 gulp.task('clean', function() {
-	del(['dist/resources']);
+    return del(['dist/resources']);
 });
 
 //Copy readme
 gulp.task('readme', function() {
-    gulp.src(['README.md'])
+    return gulp.src(['README.md'])
     .pipe(gulp.dest('dist'));
 });
 
 //Building project with run sequence
-gulp.task('build-assets', ['clean','copy-component-css', 'build-css-prod', 'images', 'themes', 'readme']);
+gulp.task('build-assets', gulp.series('clean','copy-component-css', 'build-css-prod', 'images', 'themes', 'readme'));
 

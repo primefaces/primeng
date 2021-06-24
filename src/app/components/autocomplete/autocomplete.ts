@@ -76,7 +76,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             <ng-container *ngIf="!emptyTemplate; else empty">
                                 {{emptyMessageLabel}}
                             </ng-container>
-                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            <ng-template #empty>
+                                <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            </ng-template>
                         </li>
                     </ng-template>
                 </ul>
@@ -243,7 +245,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     footerTemplate: TemplateRef<any>;
 
     selectedItemTemplate: TemplateRef<any>;
-    
+
     groupTemplate: TemplateRef<any>;
 
     value: any;
@@ -331,7 +333,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     if (this.virtualScroll && this.viewPort) {
                         let range = this.viewPort.getRenderedRange();
                         this.updateVirtualScrollSelectedIndex();
-                        
+
                         if (range.start > this.virtualScrollSelectedIndex || range.end < this.virtualScrollSelectedIndex) {
                             this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex);
                         }
