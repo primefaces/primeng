@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {PrimeNGConfig, PrimeTemplate, TranslationKeys} from 'primeng/api';
+import {PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
 
 @Directive({
@@ -248,10 +248,10 @@ export const Password_VALUE_ACCESSOR: any = {
     selector: 'p-password',
     template: `
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
-            <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()" 
+            <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()"
                 (blur)="onBlur()" (keyup)="onKeyUp($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
-            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" 
+            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
@@ -288,7 +288,7 @@ export const Password_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class Password implements AfterContentInit,OnInit {
-    
+
     @Input() disabled: boolean;
 
     @Input() promptLabel: string;
@@ -334,15 +334,15 @@ export class Password implements AfterContentInit,OnInit {
     headerTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     overlayVisible: boolean = false;
 
     meter: any;
-    
+
     infoText: string;
-    
+
     focused: boolean = false;
-    
+
     unmasked: boolean = false;
 
     mediumCheckRegExp: any;
@@ -380,7 +380,7 @@ export class Password implements AfterContentInit,OnInit {
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;
@@ -462,7 +462,7 @@ export class Password implements AfterContentInit,OnInit {
             }
         }
     }
-    
+
     updateUI(value) {
         let label = null;
         let meter = null;
@@ -522,12 +522,12 @@ export class Password implements AfterContentInit,OnInit {
     writeValue(value: any) : void {
         if (value === undefined)
             this.value = null;
-        else 
+        else
             this.value = value;
 
         if (this.feedback)
             this.updateUI(this.value || "");
-        
+
         this.cd.markForCheck();
     }
 
@@ -593,7 +593,7 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     inputFieldClass() {
-        return {'p-password-input' : true, 
+        return {'p-password-input' : true,
                 'p-disabled': this.disabled
         };
     }
@@ -655,7 +655,7 @@ export class Password implements AfterContentInit,OnInit {
 
 @NgModule({
     imports: [CommonModule, InputTextModule],
-    exports: [PasswordDirective, Password],
+    exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password]
 })
 export class PasswordModule { }
