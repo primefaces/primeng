@@ -26,7 +26,8 @@
       "strictMetadataEmit": true,
       "skipTemplateCodegen": true,
       "flatModuleOutFile": "primeng.js",
-      "flatModuleId": "primeng"
+      "flatModuleId": "primeng",
+      "fullTemplateTypeCheck": true
     },
     "files": [
       "./public_api.ts"

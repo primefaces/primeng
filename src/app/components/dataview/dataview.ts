@@ -33,7 +33,9 @@ import { Subscription } from 'rxjs';
                             <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
                                     {{emptyMessageLabel}}
                             </ng-container>
-                            <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                            <ng-template #emptyFilter>
+                                <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
@@ -131,7 +133,7 @@ export class DataView implements OnInit,AfterContentInit,OnDestroy,BlockableUI,O
     itemTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
-    
+
     emptyMessageTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;

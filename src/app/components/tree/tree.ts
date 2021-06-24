@@ -511,7 +511,7 @@ export class UITreeNode implements OnInit {
     selector: 'p-tree',
     template: `
         <div [ngClass]="{'p-tree p-component':true,'p-tree-selectable':selectionMode,
-                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
+                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}"
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
@@ -543,7 +543,9 @@ export class UITreeNode implements OnInit {
                 <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
                     {{emptyMessageLabel}}
                 </ng-container>
-                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                <ng-template #emptyFilter>
+                    <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                </ng-template>
             </div>
             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
@@ -559,7 +561,9 @@ export class UITreeNode implements OnInit {
                 <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
                     {{emptyMessageLabel}}
                 </ng-container>
-                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                <ng-template #emptyFilter>
+                    <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                </ng-template>
             </div>
             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
@@ -1093,7 +1097,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                         dropNode: null,
                         index: dragNodeIndex
                     });
-                    
+
                     this.processTreeDrop(dragNode, dragNodeIndex);
                 }
             }
