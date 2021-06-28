@@ -33,6 +33,7 @@
 }
 
 .p-steps-title {
+    display: none;
     white-space: nowrap;
 }
 
@@ -42,6 +43,21 @@
     justify-content: center;
 }
 
-.p-steps-title {
+.p-steps-title-lg {
     display: block;
+    white-space: nowrap;
+
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .p-steps-title-lg {
+        display: none;
+    }
+
+    .p-steps-title {
+        display: block;
+    }
 }
