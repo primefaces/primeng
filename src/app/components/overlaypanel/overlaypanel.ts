@@ -2,15 +2,16 @@ import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,Element
         ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate, PrimeNGConfig} from 'primeng/api';
+import {SharedModule,PrimeTemplate, PrimeNGConfig, OverlayService} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {ZIndexUtils} from 'primeng/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-overlayPanel',
     template: `
-        <div *ngIf="render" [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick()"
+        <div *ngIf="render" [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
             [@animation]="{value: (overlayVisible ? 'open': 'close'), params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
             <div class="p-overlaypanel-content">
@@ -79,7 +80,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     render: boolean = false;
 
-    isContainerClicked: boolean = true;
+    selfClick: boolean = false;
 
     documentClickListener: any;
 
@@ -95,7 +96,11 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     destroyCallback: Function;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public config: PrimeNGConfig) {}
+    overlayEventListener;
+
+    overlaySubscription: Subscription;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -113,10 +118,6 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         });
     }
 
-    onContainerClick() {
-        this.isContainerClicked = true;
-    }
-
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {
             this.zone.runOutsideAngular(() => {
@@ -124,13 +125,13 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.isContainerClicked) {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                         this.zone.run(() => {
                             this.hide();
                         });
                     }
 
-                    this.isContainerClicked = false;
+                    this.selfClick = false;
                     this.cd.markForCheck();
                 });
             });
@@ -141,6 +142,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
+            this.selfClick = false;
         }
     }
 
@@ -164,6 +166,15 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.overlayVisible = true;
         this.render = true;
         this.cd.markForCheck();
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
+
+        this.selfClick = true;
     }
 
     hasTargetChanged(event, target) {
@@ -219,6 +230,14 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             if (this.focusOnShow) {
                 this.focus();
             }
+
+            this.overlayEventListener = (e) => {
+                if (this.container && this.container.contains(e.target)) {
+                    this.selfClick = true;
+                }
+            }
+
+            this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
         }
     }
 
@@ -229,11 +248,19 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                     this.destroyCallback();
                     this.destroyCallback = null;
                 }
+
+                if (this.overlaySubscription) {
+                    this.overlaySubscription.unsubscribe();
+                }
             break;
 
             case 'close':
                 if (this.autoZIndex) {
                     ZIndexUtils.clear(this.container);
+                }
+
+                if (this.overlaySubscription) {
+                    this.overlaySubscription.unsubscribe();
                 }
 
                 this.onContainerDestroy();
@@ -318,6 +345,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         if (this.container) {
             this.restoreAppend();
             this.onContainerDestroy();
+        }
+
+        if (this.overlaySubscription) {
+            this.overlaySubscription.unsubscribe();
         }
     }
 }

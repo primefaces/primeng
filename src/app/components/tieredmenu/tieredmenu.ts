@@ -1,7 +1,7 @@
 import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
@@ -251,7 +251,7 @@ export class TieredMenuSub implements OnDestroy {
 @Component({
     selector: 'p-tieredMenu',
     template: `
-        <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-overlay':popup}" [class]="styleClass" [ngStyle]="style"
+        <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-overlay':popup}" [class]="styleClass" [ngStyle]="style" (click)="onOverlayClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" (click)="preventDocumentDefault=true" *ngIf="!popup || visible">
             <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" (leafClick)="onLeafClick()"
@@ -311,7 +311,7 @@ export class TieredMenu implements OnDestroy {
 
     visible: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     toggle(event) {
         if (this.visible)
@@ -328,6 +328,15 @@ export class TieredMenu implements OnDestroy {
         this.parentActive = true;
         this.preventDocumentDefault = true;
         this.cd.markForCheck();
+    }
+
+    onOverlayClick(event) {
+        if (this.popup) {
+            this.overlayService.add({
+                originalEvent: event,
+                target: this.el.nativeElement
+            });
+        }
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {

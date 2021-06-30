@@ -1,6 +1,6 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy, OnInit, AfterContentInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
+import { SharedModule, PrimeTemplate, PrimeNGConfig, OverlayService } from 'primeng/api';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -241,7 +241,7 @@ export class CascadeSelectSub implements OnInit {
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
-            <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible"
+            <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
                 <div class="p-cascadeselect-items-wrapper">
                     <p-cascadeSelectSub [options]="options" [selectionPath]="selectionPath" class="p-cascadeselect-items"
@@ -355,7 +355,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     onModelTouched: Function = () => {};
 
-    constructor(private el: ElementRef, private cd: ChangeDetectorRef, private config: PrimeNGConfig) { }
+    constructor(private el: ElementRef, private cd: ChangeDetectorRef, private config: PrimeNGConfig, public overlayService: OverlayService) { }
 
     ngOnInit() {
         this.updateSelectionPath();
@@ -475,6 +475,13 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     onBlur() {
         this.focused = false;
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {

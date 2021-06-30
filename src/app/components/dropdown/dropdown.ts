@@ -178,7 +178,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() editable: boolean;
 
-    @Input() appendTo: any;
+    @Input() appendTo: any = "body";
 
     @Input() tabindex: number;
 
@@ -611,7 +611,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.overlayService.add({
             originalEvent: event,
             target: this.el.nativeElement
-        })
+        });
     }
 
     isInputClick(event): boolean {

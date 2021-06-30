@@ -2,7 +2,7 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Render
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {MenuItem, PrimeNGConfig} from 'primeng/api';
+import {MenuItem, OverlayService, PrimeNGConfig} from 'primeng/api';
 import {ZIndexUtils} from 'primeng/utils';
 import {RouterModule} from '@angular/router';
 import {RippleModule} from 'primeng/ripple';
@@ -42,7 +42,7 @@ export class MenuItemContent {
     selector: 'p-menu',
     template: `
         <div #container [ngClass]="{'p-menu p-component': true, 'p-menu-overlay': popup}"
-            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible"
+            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible" (click)="onOverlayClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
             <ul class="p-menu-list p-reset">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
@@ -120,7 +120,7 @@ export class Menu implements OnDestroy {
 
     relativeAlign: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     toggle(event) {
         if (this.visible)
@@ -228,6 +228,15 @@ export class Menu implements OnDestroy {
 
         if (this.popup) {
             this.hide();
+        }
+    }
+
+    onOverlayClick(event) {
+        if (this.popup) {
+            this.overlayService.add({
+                originalEvent: event,
+                target: this.el.nativeElement
+            });
         }
     }
 

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {PrimeNGConfig, PrimeTemplate, TranslationKeys} from 'primeng/api';
+import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys} from 'primeng/api';
 import {ZIndexUtils} from 'primeng/utils'
 import {InputTextModule} from 'primeng/inputtext';
 
@@ -252,7 +252,7 @@ export const Password_VALUE_ACCESSOR: any = {
             <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()"
                 (blur)="onBlur()" (keyup)="onKeyUp($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
-            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'"
+            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
@@ -365,7 +365,7 @@ export class Password implements AfterContentInit,OnInit {
     onModelTouched: Function = () => {};
 
 
-    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
+    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -513,6 +513,13 @@ export class Password implements AfterContentInit,OnInit {
 
     onMaskToggle() {
         this.unmasked = !this.unmasked;
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     testStrength(str) {

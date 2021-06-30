@@ -1,7 +1,7 @@
 import {NgModule,Component,EventEmitter,Output,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList, forwardRef, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple';
-import {PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeNode} from 'primeng/api';
+import {OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeNode} from 'primeng/api';
 import {animate, style, transition, trigger, AnimationEvent} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {ConnectedOverlayScrollHandler, DomHandler} from 'primeng/dom';
@@ -45,8 +45,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
         </div>
 
-        <div #overlayRef class="p-treeselect-panel p-component" *ngIf="overlayVisible" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
+        <div #overlayRef class="p-treeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
+            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
             <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: value, options: options}"></ng-container>
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
                 <p-tree [value]="options" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
@@ -173,7 +173,7 @@ export class TreeSelect implements AfterContentInit {
 
     onModelTouched: Function = () => {};
 
-    constructor(public config: PrimeNGConfig, public cd: ChangeDetectorRef) { }
+    constructor(public config: PrimeNGConfig, public cd: ChangeDetectorRef, public el: ElementRef, public overlayService: OverlayService) { }
 
     ngOnInit() {
         this.updateTreeState();
@@ -230,8 +230,9 @@ export class TreeSelect implements AfterContentInit {
 
     onClick(event) {
         if (!this.disabled && (!this.overlayEl || !this.overlayEl.contains(event.target)) && !DomHandler.hasClass(event.target, 'p-treeselect-close')) {
-            if (this.overlayVisible)
+            if (this.overlayVisible){
                 this.hide();
+            }
             else
                 this.show();
 
@@ -283,6 +284,13 @@ export class TreeSelect implements AfterContentInit {
     hide() {
         this.overlayVisible = false;
         this.cd.markForCheck();
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     updateTreeState() {
@@ -396,6 +404,7 @@ export class TreeSelect implements AfterContentInit {
             this.hide();
         }
     }
+
     onUnselect(node) {
         this.onNodeUnselect.emit(node);
     }
