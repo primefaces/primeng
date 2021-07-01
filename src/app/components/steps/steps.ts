@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
             <ul role="tablist">
                 <li *ngFor="let item of model; let i = index" class="p-steps-item" #menuitem [ngStyle]="item.style" [class]="item.styleClass" role="tab" [attr.aria-selected]="i === activeIndex" [attr.aria-expanded]="i === activeIndex"
                     [ngClass]="{'p-highlight p-steps-current': isActive(item, i), 'p-disabled': item.disabled || (readonly && !isActive(item, i))}">
-                    <a *ngIf="isClickableRouterLink(item); else elseBlock" [routerLink]="item.routerLink" [queryParams]="item.queryParams" role="presentation" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" 
+                    <a *ngIf="isClickableRouterLink(item); else elseBlock" [routerLink]="item.routerLink" [queryParams]="item.queryParams" role="presentation" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link"
                         (click)="itemClick($event, item, i)" (keydown.enter)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled || readonly ? null : (item.tabindex ? item.tabindex : '0')"
                         [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
                         <span class="p-steps-number">{{i + 1}}</span>
@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
                         <ng-template #htmlLabel><span class="p-steps-title" [innerHTML]="item.label"></span></ng-template>
                     </a>
                     <ng-template #elseBlock>
-                        <a [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event, item, i)" (keydown.enter)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" 
+                        <a [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event, item, i)" (keydown.enter)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id"
                             [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
                             <span class="p-steps-number">{{i + 1}}</span>
                             <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
@@ -35,40 +35,40 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./steps.css']
 })
 export class Steps implements OnInit, OnDestroy {
-    
+
     @Input() activeIndex: number = 0;
-    
+
     @Input() model: MenuItem[];
-    
+
     @Input() readonly: boolean =  true;
-    
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
     constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
-    
+
     subscription: Subscription;
 
     ngOnInit() {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
     }
-    
+
     itemClick(event: Event, item: MenuItem, i: number) {
         if (this.readonly || item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         this.activeIndexChange.emit(i);
-                
+
         if (!item.url) {
             event.preventDefault();
         }
-        
-        if (item.command) {            
+
+        if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item,
@@ -84,12 +84,14 @@ export class Steps implements OnInit, OnDestroy {
     isActive(item: MenuItem, index: number) {
         if (item.routerLink)
             return this.router.isActive(item.routerLink, false) || this.router.isActive(this.router.createUrlTree([item.routerLink], {relativeTo: this.route}).toString(), false);
-        else    
+        else
             return index === this.activeIndex;
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }
 
