@@ -910,7 +910,13 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             }
             else if (newLength === currentLength) {
                 if (operation === 'insert' || operation === 'delete-back-single')
-                    this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
+                {
+                    // should just replace zero, not move cursor position
+                    if (this.parseValue(inputValue) === 0)
+                        this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                    else
+                        this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
+                }
                 else if (operation === 'delete-single')
                     this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
                 else if (operation === 'delete-range' || operation === 'spin')
