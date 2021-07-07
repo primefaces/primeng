@@ -3,7 +3,8 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    templateUrl: './tablerowgroupdemo.html'
+    templateUrl: './tablerowgroupdemo.html',
+    styleUrls: ['./tablerowgroupdemo.scss']
 })
 export class TableRowGroupDemo implements OnInit {
 
@@ -31,7 +32,7 @@ export class TableRowGroupDemo implements OnInit {
             for (let i = 0; i < this.customers.length; i++) {
                 let rowData = this.customers[i];
                 let representativeName = rowData.representative.name;
-                
+
                 if (i == 0) {
                     this.rowGroupMetadata[representativeName] = { index: 0, size: 1 };
                 }
@@ -46,5 +47,18 @@ export class TableRowGroupDemo implements OnInit {
             }
         }
     }
-   
+
+    calculateCustomerTotal(name) {
+        let total = 0;
+
+        if (this.customers) {
+            for (let customer of this.customers) {
+                if (customer.representative.name === name) {
+                    total++;
+                }
+            }
+        }
+
+        return total;
+    }
 }

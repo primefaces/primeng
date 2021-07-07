@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Table <span>Column Resize</span></h1>
-        <p>Columns can be resized using drag drop by setting the resizableColumns to true. There are two resize modes; "fit" and "expand". Fit is the default one and 
+        <p>Columns can be resized using drag drop by setting the resizableColumns to true. There are two resize modes; "fit" and "expand". Fit is the default one and
             the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width.</p>
     </div>
     <app-demoActions github="table" stackblitz="tablecolresize-demo"></app-demoActions>
@@ -55,14 +55,6 @@
     <div class="card">
         <h5>Scrollable</h5>
         <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines">
-            <ng-template pTemplate="colgroup">
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Name</th>
@@ -85,28 +77,20 @@
     <div class="card">
         <h5>Scrollable with Variable Width</h5>
         <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines">
-            <ng-template pTemplate="colgroup">
-                <colgroup>
-                    <col style="width:25%">
-                    <col style="width:15%">
-                    <col style="width:35%">
-                    <col style="width:25%">
-                </colgroup>
-            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th pResizableColumn>Name</th>
-                    <th pResizableColumn>Country</th>
-                    <th pResizableColumn>Company</th>
-                    <th pResizableColumn>Representative</th>
+                    <th pResizableColumn style="width:25%">Name</th>
+                    <th pResizableColumn style="width:25%">Country</th>
+                    <th pResizableColumn style="width:25%">Company</th>
+                    <th pResizableColumn style="width:25%">Representative</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>
                 <tr>
-                    <td>{{customer.name}}</td>
-                    <td>{{customer.country.name}}</td>
-                    <td>{{customer.company}}</td>
-                    <td>{{customer.representative.name}}</td>
+                    <td style="width:25%">{{customer.name}}</td>
+                    <td style="width:25%">{{customer.country.name}}</td>
+                    <td style="width:25%">{{customer.company}}</td>
+                    <td style="width:25%">{{customer.representative.name}}</td>
                 </tr>
             </ng-template>
         </p-table>

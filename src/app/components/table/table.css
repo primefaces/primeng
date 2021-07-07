@@ -38,26 +38,88 @@
 }
 
 /* Scrollable */
-.p-datatable-scrollable-wrapper {
+.p-datatable-scrollable .p-datatable-wrapper {
     position: relative;
-}
-
-.p-datatable-scrollable-header,
-.p-datatable-scrollable-footer {
-    overflow: hidden;
-}
-
-.p-datatable-scrollable-body {
     overflow: auto;
-    position: relative;
 }
 
-.p-datatable-scrollable-body > table > .p-datatable-tbody > tr:first-child > td {
-    border-top: 0 none;
+.p-datatable-scrollable .p-datatable-table {
+    display: block;
 }
 
-.p-datatable-virtual-table {
-    position: absolute;
+.p-datatable-scrollable .p-datatable-thead,
+.p-datatable-scrollable .p-datatable-tbody,
+.p-datatable-scrollable .p-datatable-tfoot {
+    display: block;
+}
+
+.p-datatable-scrollable .p-datatable-thead > tr,
+.p-datatable-scrollable .p-datatable-tbody > tr,
+.p-datatable-scrollable .p-datatable-tfoot > tr {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.p-datatable-scrollable .p-datatable-thead > tr > th,
+.p-datatable-scrollable .p-datatable-tbody > tr > td,
+.p-datatable-scrollable .p-datatable-tfoot > tr > td {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+}
+
+.p-datatable-scrollable .p-datatable-thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.p-datatable-scrollable .p-datatable-frozen-tbody {
+    position: sticky;
+    z-index: 1;
+}
+
+.p-datatable-scrollable .p-datatable-tfoot {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}
+
+.p-datatable-scrollable .p-frozen-column {
+    position: sticky;
+    background: inherit;
+}
+
+.p-datatable-scrollable th.p-frozen-column {
+    z-index: 1;
+}
+
+.p-datatable-scrollable-both .p-datatable-thead > tr > th,
+.p-datatable-scrollable-both .p-datatable-tbody > tr > td,
+.p-datatable-scrollable-both .p-datatable-tfoot > tr > td,
+.p-datatable-scrollable-horizontal .p-datatable-thead > tr > th
+.p-datatable-scrollable-horizontal .p-datatable-tbody > tr > td,
+.p-datatable-scrollable-horizontal .p-datatable-tfoot > tr > td {
+    flex: 0 0 auto;
+}
+
+.p-datatable-flex-scrollable {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.p-datatable-flex-scrollable .p-datatable-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.p-datatable-scrollable .p-rowgroup-header {
+    position: sticky;
+    z-index: 1;
 }
 
 /* Frozen Columns */
@@ -225,7 +287,7 @@
     justify-content: center;
 }
 
-.p-column-filter-add-button .p-button-label, 
+.p-column-filter-add-button .p-button-label,
 .p-column-filter-remove-button .p-button-label {
     flex-grow: 0;
 }

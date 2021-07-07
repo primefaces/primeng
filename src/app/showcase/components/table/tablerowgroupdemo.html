@@ -12,38 +12,49 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Subheader Grouping</h5>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()">
+        <p>Group customers by their representative.</p>
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Company</th>
-                    <th>Status</th>
-                    <th>Date</th>
+                    <th style="min-width:200px">Name</th>
+                    <th style="min-width:200px">Country</th>
+                    <th style="min-width:200px">Company</th>
+                    <th style="min-width:200px">Status</th>
+                    <th style="min-width:200px">Date</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
-                <tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex">
+            <ng-template pTemplate="groupheader" let-customer>
+                <tr pRowGroupHeader>
                     <td colspan="5">
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
                         <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
                     </td>
                 </tr>
+            </ng-template>
+            <ng-template pTemplate="groupfooter" let-customer>
+                <tr class="p-rowgroup-footer">
+                    <td style="min-width: 80%">
+                        <div style="text-align: right; width: 100%">Total Customers</div>
+                    </td>
+                    <td style="width: 20%">{{calculateCustomerTotal(customer.representative.name)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
                 <tr>
-                    <td>
+                    <td style="min-width:200px">
                         {{customer.name}}
                     </td>
-                    <td>
+                    <td style="min-width:200px">
                         <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
                         <span class="image-text">{{customer.country.name}}</span>
                     </td>
-                    <td>
+                    <td style="min-width:200px">
                         {{customer.company}}
                     </td>
-                    <td>
+                    <td style="min-width:200px">
                         <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
                     </td>
-                    <td>
+                    <td style="min-width:200px">
                         {{customer.date}}
                     </td>
                 </tr>
@@ -53,23 +64,30 @@
 
     <div class="card">
         <h5>Expandable Row Groups</h5>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" dataKey="representative.name">
+        <p>Group customers by their representative.</p>
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>
                     <th>Country</th>
-                    <th>Company</th>                    
+                    <th>Company</th>
                     <th>Status</th>
                     <th>Date</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
-                <tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex">
+            <ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+                <tr>
                     <td colspan="5">
                         <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
                         <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
                     </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="groupfooter" let-customer>
+                <tr class="p-rowgroup-footer">
+                    <td colspan="4" style="text-align: right">Total Customers</td>
+                    <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-customer>
@@ -97,7 +115,7 @@
 
     <div class="card">
         <h5>Rowspan</h5>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()">
+        <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" (onSort)="onSort()">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:3rem">#</th>
@@ -109,10 +127,10 @@
                     <th>Date</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-isRowspan="isRowspan" let-rowspan="rowspan">
                 <tr>
                     <td>{{rowIndex}}</td>
-                    <td *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex" [attr.rowspan]="rowGroupMetadata[customer.representative.name].size">
+                    <td *ngIf="isRowspan" [attr.rowspan]="rowspan">
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
                         <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
                     </td>
@@ -197,7 +215,7 @@
             &lt;tr&gt;
                 &lt;th&gt;Name&lt;/th&gt;
                 &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Company&lt;/th&gt;                    
+                &lt;th&gt;Company&lt;/th&gt;
                 &lt;th&gt;Status&lt;/th&gt;
                 &lt;th&gt;Date&lt;/th&gt;
             &lt;/tr&gt;
@@ -311,7 +329,7 @@ export class TableRowGroupDemo implements OnInit &#123;
             for (let i = 0; i &lt; this.customers.length; i++) &#123;
                 let rowData = this.customers[i];
                 let representativeName = rowData.representative.name;
-                
+
                 if (i == 0) &#123;
                     this.rowGroupMetadata[representativeName] = &#123; index: 0, size: 1 &#125;;
                 &#125;
@@ -326,7 +344,7 @@ export class TableRowGroupDemo implements OnInit &#123;
             &#125;
         &#125;
     &#125;
-    
+
 &#125;
 </app-code>
 

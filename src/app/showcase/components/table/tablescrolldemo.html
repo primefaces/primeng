@@ -8,55 +8,55 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5>Vertical with Fixed Viewport</h5>
-        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px">
+        <h5>Vertical</h5>
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Company</th>
-                    <th>Representative</th>
+                    <th style="min-width:200px">Name</th>
+                    <th style="min-width:200px">Country</th>
+                    <th style="min-width:200px">Company</th>
+                    <th style="min-width:200px">Representative</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>
                 <tr>
-                    <td>{{customer.name}}</td>
-                    <td>{{customer.country.name}}</td>
-                    <td>{{customer.company}}</td>
-                    <td>{{customer.representative.name}}</td>
+                    <td style="min-width:200px">{{customer.name}}</td>
+                    <td style="min-width:200px">{{customer.country.name}}</td>
+                    <td style="min-width:200px">{{customer.company}}</td>
+                    <td style="min-width:200px">{{customer.representative.name}}</td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
-    
+
     <div class="card">
         <h5>Flexible Viewport</h5>
         <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
             to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
-    
+
         <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
-        <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '300px'}">
+        <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
             <p-table [value]="customers" [scrollable]="true" scrollHeight="flex">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>Company</th>
-                        <th>Representative</th>
+                        <th style="min-width:200px">Name</th>
+                        <th style="min-width:200px">Country</th>
+                        <th style="min-width:200px">Company</th>
+                        <th style="min-width:200px">Representative</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-customer>
                     <tr>
-                        <td>{{customer.name}}</td>
-                        <td>{{customer.country.name}}</td>
-                        <td>{{customer.company}}</td>
-                        <td>{{customer.representative.name}}</td>
+                        <td style="min-width:200px">{{customer.name}}</td>
+                        <td style="min-width:200px">{{customer.country.name}}</td>
+                        <td style="min-width:200px">{{customer.company}}</td>
+                        <td style="min-width:200px">{{customer.representative.name}}</td>
                     </tr>
                 </ng-template>
             </p-table>
             <ng-template pTemplate="footer">
                 <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"></button>
-            </ng-template>    
+            </ng-template>
         </p-dialog>
 
         <h5>Full Page Scroll</h5>
@@ -65,41 +65,45 @@
 
     <div class="card">
         <h5>Horizontal and Vertical</h5>
-        <p-table [value]="customers" [scrollable]="true" [style]="{width:'600px'}" scrollHeight="200px">
-            <ng-template pTemplate="colgroup" let-columns>
-                <colgroup>
-                    <col style="width:250px">
-                    <col style="width:250px">
-                    <col style="width:250px">
-                    <col style="width:250px">
-                    <col style="width:250px">
-                    <col style="width:250px">
-                    <col style="width:250px">
-                    <col style="width:250px">
-                </colgroup>
-            </ng-template>
+
+        <p-table [value]="customers" [scrollable]="true"  scrollHeight="400px" scrollDirection="both">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Date</th>
-                    <th>Company</th>
-                    <th>Status</th>
-                    <th>Activity</th>
-                    <th>Representative</th>
+                    <th style="width:100px">Id</th>
+                    <th style="width:200px">Name</th>
+                    <th style="width:200px">Country</th>
+                    <th style="width:200px">Date</th>
+                    <th style="width:200px">Balance</th>
+                    <th style="width:200px">Company</th>
+                    <th style="width:200px">Status</th>
+                    <th style="width:200px">Activity</th>
+                    <th style="width:200px">Representative</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>
                 <tr>
-                    <td>{{customer.id}}</td>
-                    <td>{{customer.name}}</td>
-                    <td>{{customer.country.name}}</td>
-                    <td>{{customer.date}}</td>
-                    <td>{{customer.company}}</td>
-                    <td>{{customer.status}}</td>
-                    <td>{{customer.activity}}</td>
-                    <td>{{customer.representative.name}}</td>
+                    <td style="width:100px">{{customer.id}}</td>
+                    <td style="width:200px">{{customer.name}}</td>
+                    <td style="width:200px">{{customer.country.name}}</td>
+                    <td style="width:200px">{{customer.date}}</td>
+                    <td style="width:200px">{{formatCurrency(customer.balance)}}</td>
+                    <td style="width:200px">{{customer.company}}</td>
+                    <td style="width:200px">{{customer.status}}</td>
+                    <td style="width:200px">{{customer.activity}}</td>
+                    <td style="width:200px">{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td style="width:100px">Id</td>
+                    <td style="width:200px">Name</td>
+                    <td style="width:200px">Country</td>
+                    <td style="width:200px">Date</td>
+                    <td style="width:200px">Balance</td>
+                    <td style="width:200px">Company</td>
+                    <td style="width:200px">Status</td>
+                    <td style="width:200px">Activity</td>
+                    <td style="width:200px">Representative</td>
                 </tr>
             </ng-template>
         </p-table>
@@ -107,29 +111,36 @@
 
     <div class="card">
         <h5>Frozen Rows</h5>
-        <p-table [value]="customers" [frozenValue]="frozenValue" [scrollable]="true" scrollHeight="200px">
+        <p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>
                     <th>Country</th>
                     <th>Company</th>
                     <th>Representative</th>
+                    <th style="flex: 0 0 4rem"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer>
+            <ng-template pTemplate="frozenbody" let-customer let-index="rowIndex">
                 <tr>
                     <td>{{customer.name}}</td>
                     <td>{{customer.country.name}}</td>
                     <td>{{customer.company}}</td>
                     <td>{{customer.representative.name}}</td>
+                    <td style="flex: 0 0 4rem">
+                        <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer,true,index)" class="p-button-sm p-button-text"></button>
+                    </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="frozenrows" let-customer>
+            <ng-template pTemplate="body" let-customer let-index="rowIndex">
                 <tr>
-                    <td class="p-text-bold">{{customer.name}}</td>
-                    <td class="p-text-bold">{{customer.country.name}}</td>
-                    <td class="p-text-bold">{{customer.company}}</td>
-                    <td class="p-text-bold">{{customer.representative.name}}</td>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                    <td style="flex: 0 0 4rem">
+                        <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer,false,index)" class="p-button-sm p-button-text"></button>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
@@ -137,23 +148,79 @@
 
     <div class="card">
         <h5>Frozen Columns</h5>
-        <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="customers" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
-            <ng-template pTemplate="colgroup" let-columns>
-                <colgroup>
-                    <col *ngFor="let col of columns" style="width:300px">
-                </colgroup>
-            </ng-template>
-            <ng-template pTemplate="header" let-columns>
+        <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Unfreeze Balance'" offLabel="Freeze Balance" [style]="{'width': '12rem'}"></p-toggleButton>
+
+        <p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" frozenWidth="300px" styleClass="p-mt-3">
+            <ng-template pTemplate="header">
                 <tr>
-                    <th *ngFor="let col of columns">
-                        {{col.header}}
-                    </th>
+                    <th style="width:200px" pFrozenColumn>Name</th>
+                    <th style="width:100px">Id</th>
+                    <th style="width:200px">Country</th>
+                    <th style="width:200px">Date</th>
+                    <th style="width:200px">Company</th>
+                    <th style="width:200px">Status</th>
+                    <th style="width:200px">Activity</th>
+                    <th style="width:200px">Representative</th>
+                    <th style="width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">Balance</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer let-columns="columns">
+            <ng-template pTemplate="body" let-customer>
                 <tr>
-                    <td *ngFor="let col of columns">
-                        {{customer[col.field]}}
+                    <td style="width:200px" pFrozenColumn>{{customer.name}}</td>
+                    <td style="width:100px">{{customer.id}}</td>
+                    <td style="width:200px">{{customer.country.name}}</td>
+                    <td style="width:200px">{{customer.date}}</td>
+                    <td style="width:200px">{{customer.company}}</td>
+                    <td style="width:200px">{{customer.status}}</td>
+                    <td style="width:200px">{{customer.activity}}</td>
+                    <td style="width:200px">{{customer.representative.name}}</td>
+                    <td style="width:200px" alignFrozen="right"  pFrozenColumn [frozen]="balanceFrozen">{{formatCurrency(customer.balance)}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="card">
+        <h5>Subheader Grouping</h5>
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width:200px">Name</th>
+                    <th style="min-width:200px">Country</th>
+                    <th style="min-width:200px">Company</th>
+                    <th style="min-width:200px">Status</th>
+                    <th style="min-width:200px">Date</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="groupheader" let-customer>
+                <tr pRowGroupHeader>
+                    <td colspan="5">
+                        <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="groupfooter" let-customer>
+                <tr>
+                    <td style="text-align: right" class="p-text-bold p-pr-6">Total Customers: {{calculateCustomerTotal(customer.representative.name)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                <tr>
+                    <td style="min-width:200px">
+                        {{customer.name}}
+                    </td>
+                    <td style="min-width:200px">
+                        <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
+                        <span class="image-text">{{customer.country.name}}</span>
+                    </td>
+                    <td style="min-width:200px">
+                        {{customer.company}}
+                    </td>
+                    <td style="min-width:200px">
+                        <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    </td>
+                    <td style="min-width:200px">
+                        {{customer.date}}
                     </td>
                 </tr>
             </ng-template>
@@ -220,7 +287,7 @@
         &lt;/p-table&gt;
         &lt;ng-template pTemplate="footer"&gt;
             &lt;button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"&gt;&lt;/button&gt;
-        &lt;/ng-template&gt;        
+        &lt;/ng-template&gt;
     &lt;/p-dialog&gt;
 
     &lt;h5&gt;Full Page Scroll&lt;/h5&gt;
@@ -338,7 +405,7 @@ export class TableScrollDemo implements OnInit &#123;
     customers: Customer[];
 
     frozenValue: Customer[];
-    
+
     dialogVisible: boolean;
 
     scrollableCols: any[];

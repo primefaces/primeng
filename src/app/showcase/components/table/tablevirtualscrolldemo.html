@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Virtual Scroll with Preloaded Data (10000 Rows)</h5>
         <p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
-            [virtualScroll]="true" [virtualRowHeight]="34">
+            [virtualScroll]="true" [virtualRowHeight]="40">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -18,8 +18,8 @@
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr style="height:34px">
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                <tr style="height:40px">
                     <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                     </td>
@@ -30,7 +30,7 @@
 
     <div class="card">
         <h5>Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)</h5>
-        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px"
             [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -91,7 +91,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)&lt;/h5&gt;
-    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px"
         [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
@@ -159,15 +159,15 @@ export class TableVirtualScrollDemo implements OnInit &#123;
         this.virtualCars = Array.from(&#123;length: 10000&#125;);
     &#125;
 
-    loadCarsLazy(event: LazyLoadEvent) &#123;       
-        //simulate remote connection with a timeout 
+    loadCarsLazy(event: LazyLoadEvent) &#123;
+        //simulate remote connection with a timeout
         setTimeout(() =&gt; &#123;
             //load data of required page
             let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
 
             //populate page of virtual cars
             Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
-            
+
             //trigger change detection
             this.virtualCars = [...this.virtualCars];
         &#125;, Math.random() * 1000 + 250);
