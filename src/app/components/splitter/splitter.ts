@@ -49,6 +49,8 @@ export class Splitter {
 
     @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
 
+    @Output() onResizeStart: EventEmitter<any> = new EventEmitter();
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('container', { static: false }) containerViewChild: ElementRef;
@@ -127,7 +129,7 @@ export class Splitter {
         }
     }
 
-    onResizeStart(event, index) {
+    resizeStart(event, index) {
         this.gutterElement = event.currentTarget;
         this.size = this.horizontal() ? DomHandler.getWidth(this.containerViewChild.nativeElement) : DomHandler.getHeight(this.containerViewChild.nativeElement);
         this.dragging = true;
@@ -139,6 +141,7 @@ export class Splitter {
         this.prevPanelIndex = index;
         DomHandler.addClass(this.gutterElement, 'p-splitter-gutter-resizing');
         DomHandler.addClass(this.containerViewChild.nativeElement, 'p-splitter-resizing');
+        this.onResizeStart.emit({originalEvent: event, sizes: this._panelSizes});
     }
 
     onResize(event) {
@@ -164,20 +167,20 @@ export class Splitter {
             this.saveState();
         }
 
-        this.onResizeEnd.emit({originalEvent: event, sizes: this._panelSizes})
+        this.onResizeEnd.emit({originalEvent: event, sizes: this._panelSizes});
         DomHandler.removeClass(this.gutterElement, 'p-splitter-gutter-resizing');
         DomHandler.removeClass(this.containerViewChild.nativeElement, 'p-splitter-resizing');
         this.clear();
     }
 
     onGutterMouseDown(event, index) {
-        this.onResizeStart(event, index);
+        this.resizeStart(event, index);
         this.bindMouseListeners();
     }
 
     onGutterTouchStart(event, index) {
         if (event.cancelable){
-            this.onResizeStart(event, index);
+            this.resizeStart(event, index);
             this.bindTouchListeners();
 
             event.preventDefault();
