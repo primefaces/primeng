@@ -90,6 +90,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() step: number = 1;
 
+    @Input() stepPoints: 'relative' | 'multiples' | 'multiplesOffsetByMin' = 'relative';
+
     @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
@@ -426,9 +428,9 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     spin(event, dir) {
-        let step = this.step * dir;
         let currentValue = this.parseValue(this.input.nativeElement.value) || 0;
-        let newValue = this.validateValue(currentValue + step);
+        const nextStepPoint = this.getNextStepPoint(currentValue, dir)
+        let newValue = this.validateValue(nextStepPoint);
         if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
             return;
         }
@@ -437,6 +439,62 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.updateModel(event, newValue);
 
         this.handleOnInput(event, currentValue, newValue);
+    }
+
+    getNextStepPoint(currentValue: number, dir: 1 | -1): number {
+        const step = this.step;
+        if (!step) {
+            return currentValue;
+        }
+        const stepPoints = this.stepPoints;
+        if (stepPoints === 'multiples' || stepPoints === 'multiplesOffsetByMin') {
+            const offset = (stepPoints === 'multiplesOffsetByMin' && this.min) ? this.min : 0;
+            // Must divide avoiding floating point errors to determine whether the current value is a step point or between step points
+            const currentStepMultiple = this.safeDivide(currentValue - offset, step);
+            let nextStepMultiple: number;
+            if (Number.isInteger(currentStepMultiple)) {
+                // Current value is step point
+                nextStepMultiple = currentStepMultiple + dir;
+            } else {
+                // Current value is between step points
+                nextStepMultiple =
+                    dir === 1
+                        ? Math.ceil(currentStepMultiple)
+                        : Math.floor(currentStepMultiple);
+            }
+            return (nextStepMultiple) * step + offset;
+        } else {
+            return currentValue + step * dir;
+        }
+    }
+
+    safeDivide(numerator: number, denominator: number): number {
+        if (Number.isInteger(denominator)) {
+            return numerator / denominator;
+        }
+        // If step is not an integer, increase both numerator and denominator before division to avoid floating point error.
+        const denominatorPrecision = this.getPrecision(denominator);
+        const magnitudeIncrease = Math.pow(10, denominatorPrecision);
+        const increasedNumerator = numerator * magnitudeIncrease;
+        const increasedDenominator = denominator * magnitudeIncrease;
+        if (Number.isSafeInteger(increasedNumerator) && Number.isSafeInteger(increasedDenominator)) {
+            return increasedNumerator / increasedDenominator;
+        } else if (window.BigInt && Number.isInteger(increasedNumerator) && Number.isInteger(increasedDenominator)) {
+            return Number(BigInt(increasedNumerator) / BigInt(increasedDenominator));
+        } else {
+            // Numerator is too high or denominator is too precise to divide safely
+            return numerator / denominator;
+        }
+    }
+
+    getPrecision(num: number): number {
+        let e = 1;
+        let precision = 0;
+        while (Math.round(num * e) / e !== num) {
+            e *= 10;
+            precision++;
+        }
+        return precision;
     }
 
     onUpButtonMouseDown(event) {
