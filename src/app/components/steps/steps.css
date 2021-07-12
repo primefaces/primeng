@@ -36,7 +36,8 @@
     white-space: nowrap;
 }
 
-.p-steps-number {
+.p-steps-number,
+.p-steps-icon {
     display: flex;
     align-items: center;
     justify-content: center;

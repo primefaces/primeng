@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA, ViewEncapsulation } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, PrimeIcons } from 'primeng/api';
 
 @Component({
 	template: `<p-steps [model]="items"></p-steps>
@@ -40,6 +40,7 @@ class TestStpesComponent {
 		},
 		{
 			label: 'Confirmation',
+			icon: PrimeIcons.CHECK,
 			command: (event: any) => {
 				this.activeIndex = 3;
 			}
@@ -109,13 +110,17 @@ describe('Steps', () => {
 		}
 	});
 
-	it('should show the step number', () => {
+	it('should show the step icon and step number', () => {
 		fixture.detectChanges();
 
 		const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
 		const items = fixture.debugElement.children[0].queryAll(By.css('li'));
 		for (let x = 0; x < testComponent.items.length; x++) {
-			expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual((x + 1).toString());
+			if(testComponent.items[x].icon){
+				expect(items[x].query(By.css('.p-steps-icon')).nativeElement.textContent).toEqual('')
+			}else{
+				expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual((x + 1).toString());
+			}
 		}
 	});
 
