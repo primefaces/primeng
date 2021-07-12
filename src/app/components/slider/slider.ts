@@ -1,6 +1,7 @@
-import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, forwardRef, Renderer2,NgZone,ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, forwardRef, Renderer2, NgZone, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
+import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate } from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
@@ -21,13 +22,25 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span *ngIf="!range && orientation=='horizontal'" class="p-slider-range" [ngStyle]="{'width': handleValue + '%'}"></span>
             <span #sliderHandle *ngIf="!range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event)" class="p-slider-handle" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)"
                 [style.transition]="dragging ? 'none': null" [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"
-                [attr.aria-valuemin]="min" [attr.aria-valuenow]="value" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy"></span>
-            <span #sliderHandleStart *ngIf="range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event,0)" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="onTouchEnd($event)" [style.transition]="dragging ? 'none': null" class="p-slider-handle" 
+                [attr.aria-valuemin]="min" [attr.aria-valuenow]="value" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy">
+                <ng-container *ngIf="sliderHandleTemplate">
+                    <ng-container *ngTemplateOutlet="sliderHandleTemplate; context: {$implicit: value}"></ng-container>
+                </ng-container>
+            </span>
+            <span #sliderHandleStart *ngIf="range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event,0)" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="onTouchEnd($event)" [style.transition]="dragging ? 'none': null" class="p-slider-handle"
                 [ngStyle]="{'left': rangeStartLeft, 'bottom': rangeStartBottom}" [ngClass]="{'p-slider-handle-active':handleIndex==0}"
-                [attr.aria-valuemin]="min" [attr.aria-valuenow]="value ? value[0] : null" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy"></span>
-            <span #sliderHandleEnd *ngIf="range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event,1)" (mousedown)="onMouseDown($event,1)" (touchstart)="onTouchStart($event,1)" (touchmove)="onTouchMove($event,1)" (touchend)="onTouchEnd($event)" [style.transition]="dragging ? 'none': null" class="p-slider-handle" 
+                [attr.aria-valuemin]="min" [attr.aria-valuenow]="value ? value[0] : null" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy">
+                <ng-container *ngIf="sliderHandleStartTemplate">
+                    <ng-container *ngTemplateOutlet="sliderHandleStartTemplate; context: {$implicit: values[0]}"></ng-container>
+                </ng-container>
+            </span>
+            <span #sliderHandleEnd *ngIf="range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event,1)" (mousedown)="onMouseDown($event,1)" (touchstart)="onTouchStart($event,1)" (touchmove)="onTouchMove($event,1)" (touchend)="onTouchEnd($event)" [style.transition]="dragging ? 'none': null" class="p-slider-handle"
                 [ngStyle]="{'left': rangeEndLeft, 'bottom': rangeEndBottom}" [ngClass]="{'p-slider-handle-active':handleIndex==1}"
-                [attr.aria-valuemin]="min" [attr.aria-valuenow]="value ? value[1] : null" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy"></span>
+                [attr.aria-valuemin]="min" [attr.aria-valuenow]="value ? value[1] : null" [attr.aria-valuemax]="max" [attr.aria-labelledby]="ariaLabelledBy">
+                <ng-container *ngIf="sliderHandleEndTemplate">
+                    <ng-container *ngTemplateOutlet="sliderHandleEndTemplate; context: {$implicit: values[1]}"></ng-container>
+                </ng-container>
+            </span>
         </div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR],
@@ -35,7 +48,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./slider.css']
 })
-export class Slider implements OnDestroy,ControlValueAccessor {
+export class Slider implements OnDestroy,ControlValueAccessor,AfterContentInit {
 
     @Input() animate: boolean;
 
@@ -59,6 +72,12 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     @Input() tabindex: number = 0;
 
+    @Input() sliderHandleTemplate?: TemplateRef<any>;
+
+    @Input() sliderHandleStartTemplate?: TemplateRef<any>;
+
+    @Input() sliderHandleEndTemplate?: TemplateRef<any>;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
@@ -68,6 +87,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     @ViewChild("sliderHandleStart") sliderHandleStart: ElementRef;
 
     @ViewChild("sliderHandleEnd") sliderHandleEnd: ElementRef;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public value: number;
     
@@ -104,9 +125,27 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     public startx: number;
 
     public starty: number;
-    
-    constructor(public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
-    
+
+    constructor(public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) { }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'sliderHandle':
+                    this.sliderHandleTemplate = item.template;
+                    break;
+
+                case 'sliderHandleStart':
+                    this.sliderHandleStartTemplate = item.template;
+                    break;
+
+                case 'sliderHandleEnd':
+                    this.sliderHandleEndTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     onMouseDown(event, index?:number) {
         if (this.disabled) {
             return;
@@ -188,7 +227,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         }
 
         this.dragging = false;
-        
+
         if (this.range)
             this.onSlideEnd.emit({originalEvent: event, values: this.values});
         else

@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Basic: {{val1}}</h5>
         <p-slider [(ngModel)]="val1"></p-slider>
-    
+
         <h5>Input: {{val2}}</h5>
         <input type="text" pInputText [(ngModel)]="val2" readonly/>
         <p-slider [(ngModel)]="val2"></p-slider>
@@ -23,6 +23,27 @@
     
         <h5>Vertical: {{val4}}</h5>
         <p-slider [(ngModel)]="val4" orientation="vertical"></p-slider>
+
+        <div class="p-mt-6">
+            <h5>Custom handle template:</h5>
+            <p-slider [(ngModel)]="val5" class="mb-5">
+                <ng-template pTemplate="sliderHandle" let-value>
+                    <span style="display: block; margin-top: 20px;">{{value}}</span>
+                </ng-template>
+            </p-slider>
+        </div>
+
+        <div class="p-mt-6 p-mb-6">
+        <h5>Custom range handle template:</h5>
+            <p-slider [(ngModel)]="rangeValues2" [range]="true">
+                <ng-template pTemplate="sliderHandleStart" let-value>
+                    <span style="display: block; margin-top: 20px;">{{value}}</span>
+                </ng-template>
+                <ng-template pTemplate="sliderHandleEnd" let-value>
+                    <span style="display: block; margin-top: 20px;">{{value}}</span>
+                </ng-template>
+            </p-slider>
+        </div>
     </div>
 </div>
 
@@ -84,6 +105,27 @@ export class MyModel &#123;
             <p>Sliders supports two <i>orientation</i>, horizontal is the default and other alternative is vertical.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-slider [(ngModel)]="val" orientation="vertical"&gt;&lt;/p-slider&gt;
+</app-code>
+
+<h5>Custom template</h5>
+<p>Sliders supports custom handle templates for both simple and <i>range</i> slider.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-slider [(ngModel)]="val"&gt;
+    &lt;ng-template pTemplate="sliderHandle" let-value&gt;
+        &lt;span&gt;{{value}}&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-slider&gt;
+</app-code>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-slider [(ngModel)]="rangeValues" [range]="true"&gt;
+    &lt;ng-template pTemplate="sliderHandleStart" let-value&gt;
+        &lt;span&gt;{{value}}&lt;/span&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="sliderHandleEnd" let-value&gt;
+        &lt;span&gt;{{value}}&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-slider&gt;
 </app-code>
 
             <h5>Properties</h5>
