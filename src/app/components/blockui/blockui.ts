@@ -81,6 +81,8 @@ export class BlockUI implements AfterViewInit,OnDestroy {
         
         if (this.autoZIndex) {
             this.mask.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        } else {
+            this.mask.nativeElement.style.zIndex = String(this.baseZIndex);
         }
     }
     
