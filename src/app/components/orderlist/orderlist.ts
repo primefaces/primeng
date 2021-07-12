@@ -13,10 +13,10 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
         <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp()"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop()"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown()"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom()"></button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header || headerTemplate">
@@ -25,13 +25,13 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                 </div>
                 <div class="p-orderlist-filter-container" *ngIf="filterBy">
                     <div class="p-orderlist-filter">
-                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
+                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="p-orderlist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
                         <span class="p-orderlist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
                 <ul #listelement cdkDropList (cdkDropListDropped)="onDrop($event)" class="p-orderlist-list" [ngStyle]="listStyle">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
-                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
+                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item), 'p-disabled': disabled}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd()" (keydown)="onItemKeydown($event,item,i)"
                              *ngIf="isItemVisible(item)" role="option" [attr.aria-selected]="isSelected(item)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
@@ -83,6 +83,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() breakpoint: string = "960px";
 
+    @Input() disabled: boolean = false;
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() trackBy: Function = (index: number, item: any) => item;
@@ -100,7 +102,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     public itemTemplate: TemplateRef<any>;
 
     public headerTemplate: TemplateRef<any>;
-    
+
     public emptyMessageTemplate: TemplateRef<any>;
 
     public emptyFilterMessageTemplate: TemplateRef<any>;
@@ -462,7 +464,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                     }
                 }
             `;
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }
