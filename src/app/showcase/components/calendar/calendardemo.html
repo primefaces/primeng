@@ -163,6 +163,7 @@ export class MyModel &#123;
     			<li>'' - single quote</li>
     			<li>anything else - literal text</li>
             </ul>
+            <p>You can also set the default date format with <a href="#" [routerLink]="['/i18n']">I18N API</a>.</p>
             
             <h5>I18N</h5>
             <p>Translations for the calendar are defined with the <a href="#" [routerLink]="['/i18n']">I18N API</a>.</p>
@@ -318,8 +319,8 @@ export class MyModel &#123;
                         <tr>
                             <td>dateFormat</td>
                             <td>string</td>
-                            <td>mm/dd/yy</td>
-                            <td>Format of the date which can also be defined at locale settings.</td>
+                            <td>null</td>
+                            <td>Format of the date which can also be defined at locale settings. If empty (null) it will use the default value defined with <a href="#" [routerLink]="['/i18n']">I18N API</a>.</td>
                         </tr>
                         <tr>
                             <td>inline</td>
@@ -432,8 +433,8 @@ export class MyModel &#123;
                         <tr>
                             <td>hourFormat</td>
                             <td>string</td>
-                            <td>24</td>
-                            <td>Specifies 12 or 24 hour format.</td>
+                            <td>null</td>
+                            <td>Specifies 12 or 24 hour format. If empty (null) it will use the default value defined with <a href="#" [routerLink]="['/i18n']">I18N API</a>.</td>
                         </tr>
                         <tr>
                             <td>locale</td>

@@ -141,7 +141,7 @@ export interface LocaleSettings {
                             <span class="pi pi-chevron-down"></span>
                         </button>
                     </div>
-                    <div class="p-ampm-picker" *ngIf="hourFormat=='12'">
+                    <div class="p-ampm-picker" *ngIf="getHourFormat() =='12'">
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
                             <span class="pi pi-chevron-up"></span>
                         </button>
@@ -215,7 +215,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() disabled: any;
 
-    @Input() dateFormat: string = 'mm/dd/yy';
+    @Input() dateFormat: string = null;
 
     @Input() multipleSeparator: string = ',';
 
@@ -241,7 +241,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() yearNavigator: boolean;
 
-    @Input() hourFormat: string = '24';
+    @Input() hourFormat: string = null;
 
     @Input() timeOnly: boolean;
 
@@ -903,7 +903,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     setCurrentHourPM(hours: number) {
-        if (this.hourFormat == '12') {
+        const hourFormat = this.getHourFormat();
+
+        if (hourFormat == '12') {
             this.pm = hours > 11;
             if (hours >= 12) {
                 this.currentHour = (hours == 12) ? 12 : hours - 12;
@@ -918,10 +920,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     selectDate(dateMeta) {
+        const hourFormat = this.getHourFormat();
+
         let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
 
         if (this.showTime) {
-            if (this.hourFormat == '12') {
+            if (hourFormat == '12') {
                 if (this.currentHour === 12)
                     date.setHours(this.pm ? 12 : 0);
                 else
@@ -1623,7 +1627,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     convertTo24Hour = function (hours: number, pm: boolean) {
-        if (this.hourFormat == '12') {
+        const hourFormat = this.getHourFormat();
+        if (hourFormat == '12') {
             if (hours === 12) {
                 return (pm ? 12 : 0);
             } else {
@@ -1682,10 +1687,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         const prevHour = this.currentHour;
         let newHour = this.currentHour + this.stepHour;
         let newPM = this.pm;
+        const hourFormat = this.getHourFormat();
 
-        if (this.hourFormat == '24')
+        if (hourFormat == '24')
             newHour = (newHour >= 24) ? (newHour - 24) : newHour;
-        else if (this.hourFormat == '12') {
+        else if (hourFormat == '12') {
             // Before the AM/PM break, now after
             if (prevHour < 12 && newHour > 11) {
                 newPM= !this.pm;
@@ -1766,10 +1772,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     decrementHour(event) {
         let newHour = this.currentHour - this.stepHour;
         let newPM = this.pm
+        const hourFormat = this.getHourFormat();
 
-        if (this.hourFormat == '24')
+        if (hourFormat == '24')
             newHour = (newHour < 0) ? (24 + newHour) : newHour;
-        else if (this.hourFormat == '12') {
+        else if (hourFormat == '12') {
             // If we were at noon/midnight, then switch
             if (this.currentHour === 12) {
                 newPM = !this.pm;
@@ -1835,7 +1842,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         value = value ? new Date(value.getTime()) : new Date();
 
-        if (this.hourFormat == '12') {
+        const hourFormat = this.getHourFormat();
+        if (hourFormat == '12') {
             if (this.currentHour === 12)
                 value.setHours(this.pm ? 12 : 0);
             else
@@ -1949,7 +1957,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else {
             const dateFormat = this.getDateFormat();
             if (this.showTime) {
-                let ampm = this.hourFormat == '12' ? parts.pop() : null;
+                const hourFormat = this.getHourFormat();
+                let ampm = hourFormat == '12' ? parts.pop() : null;
                 let timeString = parts.pop();
 
                 date = this.parseDate(parts.join(' '), dateFormat);
@@ -1964,7 +1973,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     populateTime(value, timeString, ampm) {
-        if (this.hourFormat == '12' && !ampm) {
+        const hourFormat = this.getHourFormat();
+        if (hourFormat == '12' && !ampm) {
             throw 'Invalid Time';
         }
 
@@ -2154,7 +2164,17 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     getDateFormat() {
-        return this.dateFormat;
+        if (!!this.dateFormat){
+            return this.dateFormat;
+        }
+        else return this.config.getTranslation("dateFormat");
+    }
+    
+    getHourFormat() {
+        if (!!this.hourFormat){
+            return this.hourFormat;
+        }
+        else return this.config.getTranslation("hourFormat");
     }
 
     // Ported from jquery-ui datepicker formatDate
@@ -2248,12 +2268,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let hours = date.getHours();
         let minutes = date.getMinutes();
         let seconds = date.getSeconds();
-
-        if (this.hourFormat == '12' && hours > 11 && hours != 12) {
+        const hourFormat = this.getHourFormat();
+        if (hourFormat == '12' && hours > 11 && hours != 12) {
             hours-=12;
         }
 
-        if (this.hourFormat == '12') {
+        if (hourFormat == '12') {
             output += hours === 0 ? 12 : (hours < 10) ? '0' + hours : hours;
         } else {
             output += (hours < 10) ? '0' + hours : hours;
@@ -2266,7 +2286,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             output += (seconds < 10) ? '0' + seconds : seconds;
         }
 
-        if (this.hourFormat == '12') {
+        if (hourFormat == '12') {
             output += date.getHours() > 11 ? ' PM' : ' AM';
         }
 
@@ -2284,12 +2304,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let h = parseInt(tokens[0]);
         let m = parseInt(tokens[1]);
         let s = this.showSeconds ? parseInt(tokens[2]) : null;
+        const hourFormat = this.getHourFormat();
 
-        if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
+        if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
             throw "Invalid time";
         }
         else {
-            if (this.hourFormat == '12') {
+            if (hourFormat == '12') {
                 if (h !== 12 && this.pm) {
                     h += 12;
                 }

@@ -76,7 +76,9 @@ export class PrimeNGConfig {
         strong: 'Strong',
         passwordPrompt: 'Enter a password',
         emptyMessage: 'No results found',
-        emptyFilterMessage: 'No results found'
+        emptyFilterMessage: 'No results found',
+        dateFormat: 'mm/dd/yy',
+        hourFormat: '24'
     }
 
     private translationSource = new Subject<any>();
