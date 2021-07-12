@@ -13,7 +13,7 @@ import {SharedModule} from 'primeng/api';
             <div class="p-paginator-left-content" *ngIf="templateLeft">
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>
-            <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
+            <span class="p-paginator-current" [attr.aria-label]="currentPageReport" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)" pRipple
                     class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
                 <span class="p-paginator-icon pi pi-angle-double-left"></span>
