@@ -146,6 +146,9 @@ describe('Chips', () => {
 		chips.allowDuplicate = false;
 		fixture.detectChanges();
 
+		let data;
+		chips.onDuplicate.subscribe(value => data = value);
+
 		const inputEl = fixture.debugElement.query(By.css('input'));
 		inputEl.nativeElement.value = "primeng";
 		fixture.detectChanges();
@@ -161,6 +164,7 @@ describe('Chips', () => {
 		fixture.detectChanges();
 
 		expect(chips.value.length).toEqual(1);
+		expect(data).toBeTruthy();
 		expect(chips.value[0]).toEqual("primeng");
 	});
 
