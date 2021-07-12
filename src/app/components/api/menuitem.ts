@@ -14,6 +14,8 @@ export interface MenuItem {
     routerLinkActiveOptions?: any;
     separator?: boolean;
     badge?: string;
+    tooltip?: string;
+    tooltipPosition?: string;
     badgeStyleClass?: string;
     style?:any;
     styleClass?:string;

@@ -5,11 +5,12 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import {TooltipModule} from 'primeng/tooltip';
 import { DomHandler } from 'primeng/dom';
+import {RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-speedDial',
     template: `
-        <div #container [attr.id]="id" [ngClass]="containerClass()" [ngStyle]="style">
+        <div #container [attr.id]="id" [ngClass]="containerClass()" [class]="className" [ngStyle]="style">
             <button pRipple pButton [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
@@ -17,14 +18,15 @@ import { DomHandler } from 'primeng/dom';
             </button>
             <ul #list class="p-speeddial-list" role="menu">
                 <li *ngFor="let item of model; let i = index" [ngStyle]="getItemStyle(i)" class="p-speeddial-item">
-                    <a *ngIf="isClickableRouterLink(item); else elseBlock" [pTooltip]="item.label"  class="p-speeddial-action" pRipple [routerLink]="item.routerLink" [queryParams]="item.queryParams" [ngClass]="{'p-disabled':item.disabled}"  role="menuitem" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
-                        (click)="onItemClick($event, item)" (keydown.enter)="onItemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled || readonly ? null : (item.tabindex ? item.tabindex : '0')"
+                    <a *ngIf="isClickableRouterLink(item); else elseBlock" [pTooltip]="item.tooltip" [tooltipPosition]="item.tooltipPosition||'right'" class="p-speeddial-action" pRipple [routerLink]="item.routerLink" [queryParams]="item.queryParams"
+                        [ngClass]="{'p-disabled':item.disabled}"  role="menuitem" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" (click)="onItemClick($event, item)" (keydown.enter)="onItemClick($event, item, i)"
+                        [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled || readonly ? null : (item.tabindex ? item.tabindex : '0')"
                         [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                     </a>
                     <ng-template #elseBlock>
-                        <a [attr.href]="item.url||null" class="p-speeddial-action" [pTooltip]="item.label" role="menuitem" pRipple (click)="onItemClick($event, item)" [ngClass]="{'p-disabled':item.disabled}" (keydown.enter)="onItemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id"
-                            [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
+                        <a [attr.href]="item.url||null" class="p-speeddial-action" [pTooltip]="item.tooltip" [tooltipPosition]="item.tooltipPosition||'right'" role="menuitem" pRipple (click)="onItemClick($event, item)"
+                            [ngClass]="{'p-disabled':item.disabled}" (keydown.enter)="onItemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                         </a>
                     </ng-template>
@@ -145,6 +147,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         this._visible = true;
         this.onShow.emit();
         this.bindDocumentClickListener();
+        this.cd.markForCheck();
     }
 
     hide() {
@@ -153,13 +156,13 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         this._visible = false;
         this.onHide.emit();
         this.unbindDocumentClickListener();
+        this.cd.markForCheck();
     }
 
     onButtonClick(event) {
         this.visible ? this.hide() : this.show();
         this.onClick.emit(event)
         this.isItemClicked = true;
-        this.cd.markForCheck();
     }
 
     onItemClick(e, item) {
@@ -170,7 +173,6 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         this.hide();
 
         this.isItemClicked = true;
-        e.preventDefault();
     }
 
 
@@ -300,8 +302,8 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, RippleModule,TooltipModule],
-    exports: [SpeedDial, SharedModule, ButtonModule,TooltipModule],
+    imports: [CommonModule, ButtonModule, RippleModule,TooltipModule, RouterModule],
+    exports: [SpeedDial, SharedModule, ButtonModule,TooltipModule, RouterModule],
     declarations: [SpeedDial]
 })
 export class SpeedDialModule { }
