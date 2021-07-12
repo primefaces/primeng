@@ -1,6 +1,6 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Optional} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TreeNode } from 'primeng/api';
+import { TreeNode, TreeDragDropService } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { DomHandler } from 'primeng/dom';
 import { PaginatorModule } from 'primeng/paginator';
@@ -221,6 +221,16 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() filterLocale: string;
 
+    @Input() validateDrop: boolean;
+
+	@Input() draggableScope: any;
+
+	@Input() droppableScope: any;
+
+	@Input() draggableNodes: boolean;
+
+	@Input() droppableNodes: boolean;
+
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
@@ -252,6 +262,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeDrop: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -347,10 +359,48 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     toggleRowIndex: number;
 
+    dragNodeTreeTable: TreeTable;
+
+	dragNode: TreeNode;
+
+	dragNodeSubNodes: TreeNode[];
+
+	dragNodeIndex: number;
+
+	dragNodeScope: any;
+
+	dragHover: boolean;
+
+	dragStartSubscription: Subscription;
+
+	dragStopSubscription: Subscription;
+
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
+        if (this.droppableNodes) {
+			this.dragStartSubscription = this.dragDropService.dragStart$.subscribe(
+				event => {
+					this.dragNodeTreeTable = event.tree;
+					this.dragNode = event.node;
+					this.dragNodeSubNodes = event.subNodes;
+					this.dragNodeIndex = event.index;
+					this.dragNodeScope = event.scope;
+				},
+			);
+
+			this.dragStopSubscription = this.dragDropService.dragStop$.subscribe(
+				event => {
+					this.dragNodeTreeTable = null;
+					this.dragNode = null;
+					this.dragNodeSubNodes = null;
+					this.dragNodeIndex = null;
+					this.dragNodeScope = null;
+					this.dragHover = false;
+				},
+			);
+		}
         this.initialized = true;
     }
 
@@ -420,7 +470,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService, @Optional() public dragDropService: TreeDragDropService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
@@ -1006,6 +1056,103 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             }
         }
     }
+
+    onDragOver(event) {
+		if (this.droppableNodes && (!this.value || this.value.length === 0)) {
+			event.dataTransfer.dropEffect = 'move';
+			event.preventDefault();
+		}
+	}
+
+	onDrop(event) {
+		if (this.droppableNodes && (!this.value || this.value.length === 0)) {
+			event.preventDefault();
+			let dragNode = this.dragNode;
+			if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
+				let dragNodeIndex = this.dragNodeIndex;
+				this.dragNodeSubNodes.splice(dragNodeIndex, 1);
+				this.value = this.value || [];
+				this.value.push(dragNode);
+
+				this.dragDropService.stopDrag({
+					node: dragNode,
+				});
+			}
+		}
+	}
+
+    onDragEnter(event) {
+        if (this.droppableNodes && this.allowDrop(this.dragNode, null, this.dragNodeScope)) {
+            this.dragHover = true;
+        }
+    }
+
+    onDragLeave(event) {
+        if (this.droppableNodes) {
+            let rect = event.currentTarget.getBoundingClientRect();
+            if (event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
+               this.dragHover = false;
+            }
+        }
+    }
+
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
+        if (!dragNode) {
+            //prevent random html elements to be dragged
+            return false;
+        }
+        else if (this.isValidDragScope(dragNodeScope)) {
+            let allow: boolean = true;
+            if (dropNode) {
+                if (dragNode === dropNode) {
+                    allow = false;
+                }
+                else {
+                    let parent = dropNode.parent;
+                    while(parent != null) {
+                        if (parent === dragNode) {
+                            allow = false;
+                            break;
+                        }
+                        parent = parent.parent;
+                    }
+                }
+            }
+
+            return allow;
+        }
+        else {
+            return false;
+        }
+    }
+
+	isValidDragScope(dragScope: any): boolean {
+		let dropScope = this.droppableScope;
+
+		if (dropScope) {
+			if (typeof dropScope === 'string') {
+				if (typeof dragScope === 'string')
+					return dropScope === dragScope;
+				else if (dragScope instanceof Array)
+					return dragScope.indexOf(dropScope) != -1;
+			} else if (dropScope instanceof Array) {
+				if (typeof dragScope === 'string') {
+					return dropScope.indexOf(dragScope) != -1;
+				} else if (dragScope instanceof Array) {
+					for (let s of dropScope) {
+						for (let ds of dragScope) {
+							if (s === ds) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+			return false;
+		} else {
+			return true;
+		}
+	}
 
     onColumnDragStart(event, columnElement) {
         this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild.nativeElement);
@@ -1651,6 +1798,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this.editingCellField = null;
         this.editingCellData = null;
         this.initialized = null;
+
+        if (this.dragStartSubscription) {
+			this.dragStartSubscription.unsubscribe();
+		}
+
+		if (this.dragStopSubscription) {
+			this.dragStopSubscription.unsubscribe();
+		}
     }
 
 }
@@ -2881,6 +3036,165 @@ export class TTRow {
     }
 }
 
+@Directive({
+	selector: '[ttDraggableRow]',
+	host: {},
+})
+export class TTDraggableRow implements OnInit, OnDestroy {
+	@Input('ttDraggableRow') rowNode: any;
+
+	draghoverNode: boolean;
+
+	subscription: Subscription;
+
+	get node(): TreeNode {
+		return this.rowNode.node || undefined;
+	}
+	get siblings(): TreeNode[] {
+		return this.rowNode.parent
+			? this.rowNode.parent.children
+			: this.tt.value;
+	}
+
+	constructor(public tt: TreeTable) {}
+
+	ngOnInit() {}
+
+	@HostListener('dragstart', ['$event'])
+	onDragStart(event) {
+		if (this.tt.draggableNodes && this.node.draggable !== false) {
+			event.dataTransfer.setData('text', 'data');
+
+			this.tt.dragDropService.startDrag({
+				tree: this,
+				node: this.node,
+				subNodes: this.node.parent
+					? this.node.parent.children
+					: this.tt.value,
+				index: this.getIndex(),
+				scope: this.tt.draggableScope,
+			});
+		} else {
+			event.preventDefault();
+		}
+	}
+
+	@HostListener('dragend', ['$event'])
+	onDragStop(event) {
+		this.tt.dragDropService.stopDrag({
+			node: this.node,
+			subNodes: this.node.parent
+				? this.node.parent.children
+				: this.tt.value,
+			index: this.getIndex(),
+		});
+	}
+
+	@HostListener('dragover', ['$event'])
+	onDropNodeDragOver(event) {
+		event.dataTransfer.dropEffect = 'move';
+		if (this.tt.droppableNodes) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+	}
+
+	@HostListener('drop', ['$event'])
+	onDropNode(event) {
+		if (this.tt.droppableNodes && this.node.droppable !== false) {
+			event.preventDefault();
+			event.stopPropagation();
+			let dragNode = this.tt.dragNode;
+			if (this.tt.allowDrop(dragNode, this.node, this.tt.dragNodeScope)) {
+				if (this.tt.validateDrop) {
+					this.tt.onNodeDrop.emit({
+						originalEvent: event,
+						dragNode: dragNode,
+						dropNode: this.node,
+						index: this.getIndex(),
+						accept: () => {
+							this.processNodeDrop(dragNode);
+						},
+					});
+				} else {
+					this.processNodeDrop(dragNode);
+					this.tt.onNodeDrop.emit({
+						originalEvent: event,
+						dragNode: dragNode,
+						dropNode: this.node,
+						index: this.getIndex(),
+					});
+				}
+			}
+		}
+
+		this.draghoverNode = false;
+	}
+
+	processNodeDrop(dragNode) {
+		let dragNodeIndex = this.tt.dragNodeIndex;
+		if (dragNodeIndex == -1) {
+			console.log('Error: DragNodeIndex is -1');
+			return;
+		}
+		this.tt.dragNodeSubNodes.splice(dragNodeIndex, 1);
+
+		if (this.node.children) this.node.children.push(dragNode);
+		else this.node.children = [dragNode];
+
+		this.tt.dragDropService.stopDrag({
+			node: dragNode,
+			subNodes: this.node.parent
+				? this.node.parent.children
+				: this.tt.value,
+			index: this.tt.dragNodeIndex,
+		});
+
+		this.tt.updateSerializedValue();
+		this.tt.tableService.onUIUpdate(this.tt.value);
+	}
+
+	@HostListener('dragenter', ['$event'])
+	onDropNodeDragEnter(event) {
+		if (
+			this.tt.droppableNodes &&
+			this.node.droppable !== false &&
+			this.tt.allowDrop(
+				this.tt.dragNode,
+				this.node,
+				this.tt.dragNodeScope,
+			)
+		) {
+			this.draghoverNode = true;
+		}
+	}
+
+	@HostListener('dragleave', ['$event'])
+	onDropNodeDragLeave(event) {
+		if (this.tt.droppableNodes) {
+			let rect = event.currentTarget.getBoundingClientRect();
+			if (
+				event.x > rect.left + rect.width ||
+				event.x < rect.left ||
+				event.y >= Math.floor(rect.top + rect.height) ||
+				event.y < rect.top
+			) {
+				this.draghoverNode = false;
+			}
+		}
+	}
+
+	getIndex(): number {
+		return this.siblings.indexOf(this.node);
+	}
+
+	ngOnDestroy() {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
+	}
+}
+
 @Component({
     selector: 'p-treeTableToggler',
     template: `
@@ -2922,7 +3236,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule,ScrollingModule,RippleModule],
-    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor,ScrollingModule],
-    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
+    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TTDraggableRow,TreeTableCellEditor,ScrollingModule],
+    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TTDraggableRow,TreeTableCellEditor]
 })
 export class TreeTableModule { }

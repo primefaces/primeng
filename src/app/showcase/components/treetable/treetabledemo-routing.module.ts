@@ -15,6 +15,7 @@ import { TreeTableResponsiveDemo } from './treetableresponsivedemo';
 import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
 import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
+import { TreeTableDragDropDemo } from './treetabledragdropdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
 import { TreeTableSizeDemo } from './treetablesizedemo';
@@ -37,6 +38,7 @@ import { TreeTableSizeDemo } from './treetablesizedemo';
 			{ path: 'contextmenu', component: TreeTableContextMenuDemo },
 			{ path: 'colresize', component: TreeTableColResizeDemo },
 			{ path: 'reorder', component: TreeTableReorderDemo },
+			{ path: 'dragdrop', component: TreeTableDragDropDemo },
 			{ path: 'edit', component: TreeTableEditDemo },
 			{ path: 'filter', component: TreeTableFilterDemo },
 			{ path: 'size', component: TreeTableSizeDemo }

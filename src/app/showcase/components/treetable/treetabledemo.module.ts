@@ -18,6 +18,7 @@ import { TreeTableResponsiveDemo } from './treetableresponsivedemo';
 import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
 import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
+import { TreeTableDragDropDemo } from './treetabledragdropdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
 import { TreeTableSizeDemo } from './treetablesizedemo';
@@ -63,6 +64,7 @@ import { AppDemoActionsModule } from '../../app.demoactions.component';
         TreeTableContextMenuDemo,
         TreeTableColResizeDemo,
         TreeTableReorderDemo,
+        TreeTableDragDropDemo,
         TreeTableEditDemo,
         TreeTableFilterDemo,
         TreeTableSizeDemo
