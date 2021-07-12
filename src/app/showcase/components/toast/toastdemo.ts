@@ -9,55 +9,68 @@ import {MessageService} from 'primeng/api';
 })
 export class ToastDemo {
 
+    private latestMessage;
+
     constructor(private messageService: MessageService) {}
 
     showSuccess() {
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
+        this.latestMessage = {severity:'success', summary: 'Success', detail: 'Message Content'};
+        this.messageService.add(this.latestMessage);
     }
 
     showInfo() {
-        this.messageService.add({severity:'info', summary: 'Info', detail: 'Message Content'});
+        this.latestMessage = {severity:'info', summary: 'Info', detail: 'Message Content'};
+        this.messageService.add(this.latestMessage);
     }
 
     showWarn() {
-        this.messageService.add({severity:'warn', summary: 'Warn', detail: 'Message Content'});
+        this.latestMessage = {severity:'warn', summary: 'Warn', detail: 'Message Content'};
+        this.messageService.add(this.latestMessage);
     }
 
     showError() {
-        this.messageService.add({severity:'error', summary: 'Error', detail: 'Message Content'});
+        this.latestMessage = {severity:'error', summary: 'Error', detail: 'Message Content'};
+        this.messageService.add(this.latestMessage);
     }
 
     showCustom() {
-        this.messageService.add({severity:'custom', summary: 'Custom', detail: 'Message Content', icon: 'pi-file'});
+        this.latestMessage = {severity:'custom', summary: 'Custom', detail: 'Message Content', icon: 'pi-file'};
+        this.messageService.add(this.latestMessage);
     }
 
     showTopLeft() {
-        this.messageService.add({key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'});
+        this.latestMessage = {key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'};
+        this.messageService.add(this.latestMessage);
     }
 
     showTopCenter() {
-        this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'Message Content'});
+        this.latestMessage = {key: 'tc', severity:'warn', summary: 'Warn', detail: 'Message Content'};
+        this.messageService.add(this.latestMessage);
     }
 
     showBottomCenter() {
-        this.messageService.add({key: 'bc', severity:'success', summary: 'Success', detail: 'Message Content'});
+        this.latestMessage = {key: 'bc', severity:'success', summary: 'Success', detail: 'Message Content'};
+        this.messageService.add(this.latestMessage);
     }
 
     showConfirm() {
+        this.latestMessage = {key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'};
         this.messageService.clear();
-        this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
+        this.messageService.add(this.latestMessage);
     }
 
     showMultiple() {
+        this.latestMessage = {severity:'warn', summary:'Message 3', detail:'Message Content'};
         this.messageService.addAll([
             {severity:'success', summary:'Message 1', detail:'Message Content'},
             {severity:'info', summary:'Message 2', detail:'Message Content'},
-            {severity:'warn', summary:'Message 3', detail:'Message Content'}
+            this.latestMessage
         ]);
     }
 
     showSticky() {
-        this.messageService.add({severity:'info', summary: 'Sticky', detail: 'Message Content', sticky: true});
+        this.latestMessage = {severity:'info', summary: 'Sticky', detail: 'Message Content', sticky: true};
+        this.messageService.add(this.latestMessage);
     }
 
     onConfirm() {
@@ -70,5 +83,12 @@ export class ToastDemo {
     
     clear() {
         this.messageService.clear();
+    }
+
+    removeLatestMessage() {
+        if (this.latestMessage) {
+            this.messageService.remove(this.latestMessage);
+            this.latestMessage = null;
+        }
     }
 }

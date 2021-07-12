@@ -183,6 +183,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     clearSubscription: Subscription;
 
+    removeSubscription: Subscription;
+
     messages: Message[];
 
     messagesArchieve: Message[];
@@ -221,6 +223,17 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
             this.cd.markForCheck();
         });
 
+        this.removeSubscription = this.messageService.removeObserver.subscribe((message: Message) => {
+            if (message?.key) {
+                if (this.key === message?.key) {
+                    this.messages = this.messages ? this.messages.filter(m => m !== message) : this.messages;
+                }
+            } else {
+                this.messages = this.messages ? this.messages.filter(m => m !== message) : this.messages;
+            }
+
+            this.cd.markForCheck();
+        });
 
         if (this.breakpoints) {
             this.createStyle();
@@ -331,6 +344,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
+        }
+
+        if (this.removeSubscription) {
+            this.removeSubscription.unsubscribe();
         }
 
         this.destroyStyle();

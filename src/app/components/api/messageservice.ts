@@ -7,9 +7,11 @@ export class MessageService {
     
     private messageSource = new Subject<Message|Message[]>();
     private clearSource = new Subject<string>();
+    private removeSource = new Subject<Message>();
     
     messageObserver = this.messageSource.asObservable();
     clearObserver = this.clearSource.asObservable();
+    removeObserver = this.removeSource.asObservable();
     
     add(message: Message) {
         if (message) {
@@ -25,6 +27,10 @@ export class MessageService {
     
     clear(key?: string) {
         this.clearSource.next(key||null);
+    }
+    
+    remove(message: Message) {
+        this.removeSource.next(message);
     }
     
 }
