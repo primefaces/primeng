@@ -274,6 +274,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     inputKeyDown: boolean;
 
+    itemClick: boolean;
+
     noResults: boolean;
 
     differ: any;
@@ -498,6 +500,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         }
 
         if (this.multiple) {
+            this.itemClick = true;
             this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
             if (!this.isSelected(option) || !this.unique) {
@@ -886,11 +889,12 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     return;
                 }
 
-                if (!this.inputClick && !this.isDropdownClick(event)) {
+                if (!this.inputClick && !this.isDropdownClick(event) && (!this.multiple || this.multiple && !this.itemClick)) {
                     this.hide();
                 }
 
                 this.inputClick = false;
+                this.itemClick = false;
                 this.cd.markForCheck();
             });
         }
