@@ -152,6 +152,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Input() breakpoint: string = "960px";
 
+    @Input() disableDoubleClickToMove: boolean = false;
+
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
 
     @Output() onMoveAllToSource: EventEmitter<any> = new EventEmitter();
@@ -325,7 +327,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
 
     onSourceItemDblClick() {
-        if (this.disabled) {
+        if (this.disabled || this.disableDoubleClickToMove) {
             return;
         }
 
@@ -333,7 +335,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
 
     onTargetItemDblClick() {
-        if (this.disabled) {
+        if (this.disabled || this.disableDoubleClickToMove) {
             return;
         }
 

@@ -790,4 +790,37 @@ describe('PickList', () => {
 
 		expect(picklist.selectedItemsSource[0].brand).toBe("Audi");
 	});
+
+    it("should disable double click moving item to right", () => {
+		picklist.disableDoubleClickToMove = true;
+		fixture.detectChanges();
+
+		const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
+		sourceListItems[0].nativeElement.click();
+		sourceListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+		fixture.detectChanges();
+
+		expect(picklist.target.length).toEqual(0);
+		expect(picklist.source.length).toEqual(10);
+    });
+
+    it("should disable double click moving item to left", () => {
+		fixture.detectChanges();
+
+		const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
+		sourceListItems[0].nativeElement.click();
+		sourceListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+		fixture.detectChanges();
+
+		picklist.disableDoubleClickToMove = true;
+		fixture.detectChanges();
+
+		const targetListItems = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
+		targetListItems[0].nativeElement.click();
+		targetListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+		fixture.detectChanges();
+
+		expect(picklist.target.length).toEqual(1);
+		expect(picklist.source.length).toEqual(9);
+    });
 });
