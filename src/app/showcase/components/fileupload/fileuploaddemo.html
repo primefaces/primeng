@@ -117,7 +117,7 @@ import &#123;HttpClientModule&#125; from '@angular/common/http';
             <p>Uploading implementation can be overridden by enabling customUpload property and defining a custom upload handler event.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="myUploader($event)"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="myUploader($event)"&gt;&lt;/p-fileUpload&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
