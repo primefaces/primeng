@@ -479,6 +479,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : (option.disabled !== undefined ? option.disabled : false);
     }
 
+    private startWithSearchValue(option: any): boolean {
+        return `${this.getOptionLabel(option)}`.toLocaleLowerCase(this.filterLocale).startsWith((this.searchValue as any).toLocaleLowerCase(this.filterLocale));
+    }
+
     getOptionGroupLabel(optionGroup: any) {
         return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : (optionGroup.label != undefined ? optionGroup.label : optionGroup);
     }
@@ -996,7 +1000,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     searchOptionInRange(start, end) {
         for (let i = start; i < end; i++) {
             let opt = this.optionsToDisplay[i];
-            if (this.getOptionLabel(opt).toLocaleLowerCase(this.filterLocale).startsWith((this.searchValue as any).toLocaleLowerCase(this.filterLocale)) && !this.isOptionDisabled(opt)) {
+            if (this.startWithSearchValue(opt) && !this.isOptionDisabled(opt)) {
                 return opt;
             }
         }
@@ -1011,7 +1015,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             for (let i = index.groupIndex; i < this.optionsToDisplay.length; i++) {
                 for (let j = (index.groupIndex === i) ? (index.itemIndex + 1) : 0; j < this.getOptionGroupChildren(this.optionsToDisplay[i]).length; j++) {
                     let opt = this.getOptionGroupChildren(this.optionsToDisplay[i])[j];
-                    if (this.getOptionLabel(opt).toLocaleLowerCase(this.filterLocale).startsWith((this.searchValue as any).toLocaleLowerCase(this.filterLocale)) && !this.isOptionDisabled(opt)) {
+                    if (this.startWithSearchValue(opt) && !this.isOptionDisabled(opt)) {
                         return opt;
                     }
                 }
@@ -1021,7 +1025,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 for (let i = 0; i <= index.groupIndex; i++) {
                     for (let j = 0; j < ((index.groupIndex === i) ? index.itemIndex : this.getOptionGroupChildren(this.optionsToDisplay[i]).length); j++) {
                         let opt = this.getOptionGroupChildren(this.optionsToDisplay[i])[j];
-                        if (this.getOptionLabel(opt).toLocaleLowerCase(this.filterLocale).startsWith((this.searchValue as any).toLocaleLowerCase(this.filterLocale)) && !this.isOptionDisabled(opt)) {
+                        if (this.startWithSearchValue(opt) && !this.isOptionDisabled(opt)) {
                             return opt;
                         }
                     }
