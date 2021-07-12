@@ -34,6 +34,11 @@
   --gray-900: #17212f;
   --content-padding:1rem;
   --inline-spacing:0.5rem;
+  --surface-ground:#17212f;
+  --surface-section:#17212f;
+  --surface-card:#1f2d40;
+  --surface-overlay:#1f2d40;
+  --surface-border:#304562;
 }
 
 * {
