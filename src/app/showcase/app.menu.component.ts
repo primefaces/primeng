@@ -55,15 +55,8 @@ declare let gtag: Function;
                 </div>
 
                 <div class="menu-category">PrimeFlex</div>
-                <div class="menu-items">
-                    <a [routerLink]=" ['/primeflex']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Setup</a>
-                    <a [routerLink]=" ['/primeflex/display']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Display</a>
-                    <a [routerLink]=" ['/primeflex/elevation']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Elevation</a>
-                    <a [routerLink]=" ['/primeflex/flexbox']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">FlexBox</a>
-                    <a [routerLink]=" ['/primeflex/formlayout']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Form Layout</a>
-                    <a [routerLink]=" ['/primeflex/grid']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Grid System</a>
-                    <a [routerLink]=" ['/primeflex/spacing']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Spacing</a>
-                    <a [routerLink]=" ['/primeflex/text']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Text</a>
+                <div class="menu-items flex-banner">
+                    <a href="https://www.primefaces.org/primeflex"><img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
