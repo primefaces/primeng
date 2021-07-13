@@ -106,7 +106,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     removeIconElement() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
-        this.el.nativeElement.removeChild(iconElement)
+        this.el.nativeElement.removeChild(iconElement);
     }
 
     @Input() get label(): string {
@@ -118,7 +118,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         if (this.initialized) {
             DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
-            this.setIconClass();
+
+            if (this.loading || this.icon) {
+                this.setIconClass();
+            }
             this.setStyleClass();
         }
     }
