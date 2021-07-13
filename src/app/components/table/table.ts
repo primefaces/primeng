@@ -1870,12 +1870,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         for (let child of children) {
             for (let row of child.children) {
                 let resizeCell = row.children[colIndex];
-                resizeCell.style.flex = '0 0 ' + newColumnWidth + 'px';
+                if (resizeCell) {
+                    resizeCell.style.flex = '0 0 ' + newColumnWidth + 'px';
 
-                if (this.columnResizeMode === 'fit') {
-                    let nextCell = resizeCell.nextElementSibling;
-                    if (nextCell) {
-                        nextCell.style.flex = '0 0 ' + nextColumnWidth + 'px';
+                    if (this.columnResizeMode === 'fit') {
+                        let nextCell = resizeCell.nextElementSibling;
+                        if (nextCell) {
+                            nextCell.style.flex = '0 0 ' + nextColumnWidth + 'px';
+                        }
                     }
                 }
             }
@@ -2266,7 +2268,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     updateScrollWidth() {
-        if (this.tableHeaderViewChild && this.tableHeaderViewChild.nativeElement) {
+        if (this.tableViewChild && this.tableViewChild.nativeElement) {
             this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.scrollWidth + 'px';
         }
     }
