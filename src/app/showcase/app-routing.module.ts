@@ -87,6 +87,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'skeleton', loadChildren: () => import('./components/skeleton/skeletondemo.module').then(m => m.SkeletonDemoModule)},
             {path: 'slidemenu', loadChildren: () => import('./components/slidemenu/slidemenudemo.module').then(m => m.SlideMenuDemoModule)},
             {path: 'slider', loadChildren: () => import('./components/slider/sliderdemo.module').then(m => m.SliderDemoModule)},
+            {path: 'speeddial', loadChildren: () => import('./components/speeddial/speeddialdemo.module').then(m => m.SpeedDialDemoModule)},
             {path: 'splitbutton', loadChildren: () => import('./components/splitbutton/splitbuttondemo.module').then(m => m.SplitButtonDemoModule)},
             {path: 'splitter', loadChildren: () => import('./components/splitter/splitterdemo.module').then(m => m.SplitterDemoModule)},
             {path: 'steps', loadChildren: () => import('./components/steps/stepsdemo.module').then(m => m.StepsDemoModule)},
@@ -106,7 +107,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'treetable', loadChildren: () => import('./components/treetable/treetabledemo.module').then(m => m.TreeTableDemoModule)},
             {path: 'tristatecheckbox', loadChildren: () => import('./components/tristatecheckbox/tristatecheckboxdemo.module').then(m => m.TriStateCheckboxDemoModule)},
             {path: 'virtualscroller', loadChildren: () => import('./components/virtualscroller/virtualscrollerdemo.module').then(m => m.VirtualScrollerDemoModule)}
-        ], {scrollPositionRestoration: 'enabled'})    
+        ], {scrollPositionRestoration: 'enabled'})
     ],
     exports: [RouterModule]
 })
