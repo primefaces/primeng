@@ -95,6 +95,10 @@
                             background-color: var(--surface-c);
                         }
                     } 
+
+                    &:focus {
+                        box-shadow: none;
+                    }
                 }
             }
 
