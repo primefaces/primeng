@@ -73,7 +73,7 @@ export class TableService {
 @Component({
     selector: 'p-table',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-datatable-scrollable-body, .p-datatable-unfrozen-view .p-datatable-scrollable-body"
+        <div #container [ngStyle]="style" [class]="styleClass"
             [ngClass]="{'p-datatable p-component': true,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
                 'p-datatable-auto-layout': autoLayout,
@@ -615,7 +615,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             this.tableService.onValueChange(simpleChange.value.currentValue);
-            this.updateScrollWidth();
+
+            if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
+                this.updateScrollWidth();
+            }
         }
 
         if (simpleChange.columns) {
@@ -626,7 +629,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.restoreColumnOrder();
             }
 
-            this.updateScrollWidth();
+            if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
+                this.updateScrollWidth();
+            }
         }
 
         if (simpleChange.sortField) {
