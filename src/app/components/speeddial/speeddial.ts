@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 import { DomHandler } from 'primeng/dom';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'p-speedDial',
@@ -302,8 +302,8 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, RippleModule,TooltipModule, RouterModule],
-    exports: [SpeedDial, SharedModule, ButtonModule,TooltipModule, RouterModule],
+    imports: [CommonModule, ButtonModule, RippleModule, TooltipModule, RouterModule],
+    exports: [SpeedDial, SharedModule, ButtonModule, TooltipModule, RouterModule],
     declarations: [SpeedDial]
 })
 export class SpeedDialModule { }
