@@ -520,7 +520,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.populateYearOptions(yearStart, yearEnd);
         }
     }
-
+    
+    // start Test
+    @Input() get dateFormat(): string {
+      return this._dateFormat;
+    }
+    
+    set dateFormat(dateFormat: string) {
+        this._dateFormat = dateFormat;
+        this.updateInputfield();
+    }
+    // end Test
+    
     @Input() get showTime(): boolean {
         return this._showTime;
     }
