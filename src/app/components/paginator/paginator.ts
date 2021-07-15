@@ -15,27 +15,27 @@ import {SharedModule} from 'primeng/api';
             </div>
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)" pRipple
-                    class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
+                    class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}" [attr.aria-label]="ariaLabelFirstPage">
                 <span class="p-paginator-icon pi pi-angle-double-left"></span>
             </button>
             <button type="button" [disabled]="isFirstPage()" (click)="changePageToPrev($event)" pRipple
-                    class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
+                    class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}" [attr.aria-label]="ariaLabelPreviousPage">
                 <span class="p-paginator-icon pi pi-angle-left"></span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
-                <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 == getPage())}"
-                    (click)="onPageLinkClick($event, pageLink - 1)" pRipple>{{pageLink}}</button>
+                <button type="button" *ngFor="let pageLink of pageLinks;index as i" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 == getPage())}"
+                    (click)="onPageLinkClick($event, pageLink - 1)" pRipple [attr.aria-label]="ariaLabelPageLink + ' ' + (i + 1)">{{pageLink}}</button>
             </span>
             <p-dropdown [options]="pageItems" [ngModel]="getPage()" *ngIf="showJumpToPageDropdown"  styleClass="p-paginator-page-options"
                 (onChange)="onPageDropdownChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight">
                 <ng-template pTemplate="selectedItem">{{currentPageReport}}</ng-template>
             </p-dropdown>
             <button type="button" [disabled]="isLastPage()" (click)="changePageToNext($event)" pRipple
-                    class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
+                    class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}" [attr.aria-label]="ariaLabelPageNext">
                 <span class="p-paginator-icon pi pi-angle-right"></span>
             </button>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage()" (click)="changePageToLast($event)" pRipple
-                    class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
+                    class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}" [attr.aria-label]="ariaLabelPageLast">
                 <span class="p-paginator-icon pi pi-angle-double-right"></span>
             </button>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" styleClass="p-paginator-rpp-options"
@@ -93,6 +93,16 @@ export class Paginator implements OnInit, OnChanges {
     @Input() showPageLinks: boolean = true;
 
     @Input() dropdownItemTemplate: TemplateRef<any>;
+
+    @Input() ariaLabelFirstPage: string = 'Go to first page';
+
+    @Input() ariaLabelPreviousPage: string = 'Go to previous page';
+
+    @Input() ariaLabelPageLink: string = 'Go to page';
+
+    @Input() ariaLabelPageNext: string = 'Go to next page';
+
+    @Input() ariaLabelPageLast: string = 'Go to last page';
 
     pageLinks: number[];
 
