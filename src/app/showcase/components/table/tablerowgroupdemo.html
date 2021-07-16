@@ -127,10 +127,10 @@
                     <th>Date</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-isRowspan="isRowspan" let-rowspan="rowspan">
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
                 <tr>
                     <td>{{rowIndex}}</td>
-                    <td *ngIf="isRowspan" [attr.rowspan]="rowspan">
+                    <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
                         <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
                     </td>

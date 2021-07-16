@@ -2326,7 +2326,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         </td>
                         <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
                     </tr>
-                    <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen, isRowspan: shouldRenderRowspan(value, rowData, rowIndex), rowspan: calculateRowGroupSize(value, rowData, rowIndex)}"></ng-container>
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen, rowgroup: shouldRenderRowspan(value, rowData, rowIndex), rowspan: calculateRowGroupSize(value, rowData, rowIndex)}"></ng-container>
                 </ng-container>
                 <ng-container *ngIf="dt.groupFooterTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
                     <ng-container *ngTemplateOutlet="dt.groupFooterTemplate ; context: {$implicit: rowData}"></ng-container>
