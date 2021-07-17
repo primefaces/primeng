@@ -12,18 +12,33 @@
   --primary-color-text:#151515;
   --font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   --surface-0: #20262e;
-  --surface-50: #262b33;
-  --surface-100: #2b3138;
-  --surface-200: #31363e;
-  --surface-300: #363c43;
-  --surface-400: #3c4148;
-  --surface-500: #41474d;
-  --surface-600: #474c53;
-  --surface-700: #4d5158;
-  --surface-800: #52575d;
-  --surface-900: #585c62;
+  --surface-50: #363c43;
+  --surface-100: #4d5158;
+  --surface-200: #63676d;
+  --surface-300: #797d82;
+  --surface-400: #909397;
+  --surface-500: #a6a8ab;
+  --surface-600: #bcbec0;
+  --surface-700: #d2d4d5;
+  --surface-800: #e9e9ea;
+  --surface-900: #ffffff;
+  --gray-50:#e9e9ea;
+  --gray-100: #d2d4d5;
+  --gray-200: #bcbec0;
+  --gray-300: #a6a8ab;
+  --gray-400: #909397;
+  --gray-500: #797d82;
+  --gray-600: #63676d;
+  --gray-700: #4d5158;
+  --gray-800: #363c43;
+  --gray-900: #20262e;
   --content-padding:1.25rem;
   --inline-spacing:0.5rem;
+  --surface-ground:#20262e;
+  --surface-section:#20262e;
+  --surface-card:#2a323d;
+  --surface-overlay:#2a323d;
+  --surface-border:#3f4b5b;
 }
 
 * {
@@ -2093,6 +2108,70 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: transparent;
 }
 
+.p-speeddial-button.p-button.p-button-icon-only {
+  width: 4rem;
+  height: 4rem;
+}
+.p-speeddial-button.p-button.p-button-icon-only .p-button-icon {
+  font-size: 1.3rem;
+}
+
+.p-speeddial-action {
+  width: 3rem;
+  height: 3rem;
+  background: #343e4d;
+  color: #fff;
+}
+.p-speeddial-action:hover {
+  background: #3f4b5b;
+  color: #fff;
+}
+
+.p-speeddial-direction-up .p-speeddial-item {
+  margin: 0.25rem 0;
+}
+.p-speeddial-direction-up .p-speeddial-item:first-child {
+  margin-bottom: 0.5rem;
+}
+
+.p-speeddial-direction-down .p-speeddial-item {
+  margin: 0.25rem 0;
+}
+.p-speeddial-direction-down .p-speeddial-item:first-child {
+  margin-top: 0.5rem;
+}
+
+.p-speeddial-direction-left .p-speeddial-item {
+  margin: 0 0.25rem;
+}
+.p-speeddial-direction-left .p-speeddial-item:first-child {
+  margin-right: 0.5rem;
+}
+
+.p-speeddial-direction-right .p-speeddial-item {
+  margin: 0 0.25rem;
+}
+.p-speeddial-direction-right .p-speeddial-item:first-child {
+  margin-left: 0.5rem;
+}
+
+.p-speeddial-circle .p-speeddial-item,
+.p-speeddial-semi-circle .p-speeddial-item,
+.p-speeddial-quarter-circle .p-speeddial-item {
+  margin: 0;
+}
+.p-speeddial-circle .p-speeddial-item:first-child, .p-speeddial-circle .p-speeddial-item:last-child,
+.p-speeddial-semi-circle .p-speeddial-item:first-child,
+.p-speeddial-semi-circle .p-speeddial-item:last-child,
+.p-speeddial-quarter-circle .p-speeddial-item:first-child,
+.p-speeddial-quarter-circle .p-speeddial-item:last-child {
+  margin: 0;
+}
+
+.p-speeddial-mask {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 .p-carousel .p-carousel-content .p-carousel-prev,
 .p-carousel .p-carousel-content .p-carousel-next {
   width: 2rem;
@@ -2776,6 +2855,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-paginator .p-dropdown {
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
   height: 2.357rem;
 }
 .p-paginator .p-dropdown .p-dropdown-label {
