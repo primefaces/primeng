@@ -99,7 +99,6 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/button']" routerLinkActive="router-link-exact-active">Button</a>
                     <a [routerLink]=" ['/splitbutton']" routerLinkActive="router-link-exact-active">SplitButton</a>
-                    <a [routerLink]=" ['/speeddial']" routerLinkActive="router-link-exact-active">SpeedDial</a>
                 </div>
 
                 <div class="menu-category">Data</div>
@@ -417,7 +416,6 @@ export class AppMenuComponent {
             label: 'Button', value: 'button',
             items: [
                 {label: 'Button', value: '/button'},
-                {label: 'SpeedDial', value: '/speeddial'},
                 {label: 'SplitButton', value: '/splitbutton'}
             ]
         },
