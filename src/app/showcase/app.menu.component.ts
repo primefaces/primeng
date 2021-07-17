@@ -56,7 +56,7 @@ declare let gtag: Function;
 
                 <div class="menu-category">PrimeFlex</div>
                 <div class="menu-items flex-banner">
-                    <a href="https://www.primefaces.org/primeflex"><img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
+                    <a href="https://www.primefaces.org/primeflex"><img width="100%" alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
