@@ -11,9 +11,19 @@
 }
 
 .p-sidebar-header {
-    display: flex;
+    /*display: flex;*/
     align-items: center;
     justify-content: flex-end;
+}
+
+.p-siderbar-header-title {
+    font-size: 14px;
+    font-weight: 900;
+    float: left;
+}
+
+.p-sidebar-close {
+    float: right;
 }
 
 .p-sidebar-icon {

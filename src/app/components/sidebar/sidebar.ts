@@ -22,6 +22,7 @@ const hideAnimation = animation([
             'p-sidebar-top': (position === 'top' && !fullScreen), 'p-sidebar-bottom': (position === 'bottom' && !fullScreen),
             'p-sidebar-full': fullScreen}"  *ngIf="visible" [@panelState]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
             <div class="p-sidebar-header">
+                 <span class="p-sidebar-header-title">{{ header}}</span>
                 <button type="button" class="p-sidebar-close p-sidebar-icon p-link" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel"  *ngIf="showCloseIcon" pRipple>
                     <span class="p-sidebar-close-icon pi pi-times"></span>
                 </button>
@@ -47,6 +48,8 @@ const hideAnimation = animation([
     styleUrls: ['./sidebar.css']
 })
 export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
+
+    @Input() header: string = '';
 
     @Input() appendTo: any;
 

@@ -8,23 +8,23 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+        <p-sidebar [header]="'HEADER'" [(visible)]="visibleSidebar1" [baseZIndex]="10000">
             <h3>Left Sidebar</h3>
         </p-sidebar>
     
-        <p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000">
+        <p-sidebar [header]="'HEADER'" [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000">
             <h3>Right Sidebar</h3>
         </p-sidebar>
     
-        <p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000">
+        <p-sidebar [header]="'HEADER'" [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000">
             <h3>Top Sidebar</h3>
         </p-sidebar>
     
-        <p-sidebar [(visible)]="visibleSidebar4" position="bottom" [baseZIndex]="10000">
+        <p-sidebar [header]="'HEADER'" [(visible)]="visibleSidebar4" position="bottom" [baseZIndex]="10000">
             <h3>Bottom Sidebar</h3>
         </p-sidebar>
     
-        <p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
+        <p-sidebar [header]="'HEADER'" [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
             <h3>Full Screen</h3>
         </p-sidebar>
     
@@ -123,6 +123,12 @@ Content
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>Header's title.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -296,6 +302,10 @@ Content
                             <td>p-sidebar-mask</td>
                             <td>Modal layer of the sidebar.</td>
                         </tr>
+                        <tr>
+                            <td>p-siderbar-header-title</td>
+                            <td>Container element of header's title.</td>
+                        </tr>                        
                     </tbody>
                 </table>
             </div>
