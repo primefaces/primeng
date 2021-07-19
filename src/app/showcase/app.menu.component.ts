@@ -303,6 +303,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/defer']" routerLinkActive="router-link-exact-active">Defer</a>
                     <a [routerLink]=" ['/focustrap']" routerLinkActive="router-link-exact-active">FocusTrap</a>
+                    <a [routerLink]=" ['/styleclass']" routerLinkActive="router-link-exact-active">StyleClass <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
                 </div>
 

@@ -34,6 +34,7 @@
   --gray-900: #20262e;
   --content-padding:1.25rem;
   --inline-spacing:0.5rem;
+  --border-radius:4px;
   --surface-ground:#20262e;
   --surface-section:#20262e;
   --surface-card:#2a323d;
@@ -2106,70 +2107,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: transparent;
   color: #8dd0ff;
   border-color: transparent;
-}
-
-.p-speeddial-button.p-button.p-button-icon-only {
-  width: 4rem;
-  height: 4rem;
-}
-.p-speeddial-button.p-button.p-button-icon-only .p-button-icon {
-  font-size: 1.3rem;
-}
-
-.p-speeddial-action {
-  width: 3rem;
-  height: 3rem;
-  background: #343e4d;
-  color: #fff;
-}
-.p-speeddial-action:hover {
-  background: #3f4b5b;
-  color: #fff;
-}
-
-.p-speeddial-direction-up .p-speeddial-item {
-  margin: 0.25rem 0;
-}
-.p-speeddial-direction-up .p-speeddial-item:first-child {
-  margin-bottom: 0.5rem;
-}
-
-.p-speeddial-direction-down .p-speeddial-item {
-  margin: 0.25rem 0;
-}
-.p-speeddial-direction-down .p-speeddial-item:first-child {
-  margin-top: 0.5rem;
-}
-
-.p-speeddial-direction-left .p-speeddial-item {
-  margin: 0 0.25rem;
-}
-.p-speeddial-direction-left .p-speeddial-item:first-child {
-  margin-right: 0.5rem;
-}
-
-.p-speeddial-direction-right .p-speeddial-item {
-  margin: 0 0.25rem;
-}
-.p-speeddial-direction-right .p-speeddial-item:first-child {
-  margin-left: 0.5rem;
-}
-
-.p-speeddial-circle .p-speeddial-item,
-.p-speeddial-semi-circle .p-speeddial-item,
-.p-speeddial-quarter-circle .p-speeddial-item {
-  margin: 0;
-}
-.p-speeddial-circle .p-speeddial-item:first-child, .p-speeddial-circle .p-speeddial-item:last-child,
-.p-speeddial-semi-circle .p-speeddial-item:first-child,
-.p-speeddial-semi-circle .p-speeddial-item:last-child,
-.p-speeddial-quarter-circle .p-speeddial-item:first-child,
-.p-speeddial-quarter-circle .p-speeddial-item:last-child {
-  margin: 0;
-}
-
-.p-speeddial-mask {
-  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .p-carousel .p-carousel-content .p-carousel-prev,
