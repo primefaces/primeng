@@ -54,7 +54,7 @@ declare let gtag: Function;
                     <a href="https://www.primefaces.org/designer/api/primeng/11.1.0">SASS API</a>
                 </div>
 
-                <div class="menu-category">PrimeFlex</div>
+                <div class="menu-category">PrimeFlex v3.0.0</div>
                 <div class="menu-items flex-banner">
                     <a href="https://www.primefaces.org/primeflex"><img width="100%" alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
                 </div>
@@ -361,18 +361,6 @@ export class AppMenuComponent {
             items: [
                 {label: 'Guide', value: '/theming'},
                 {label: 'Colors', value: '/colors'}
-            ]
-        },
-        {
-            label: 'PrimeFlex', value: 'primeflex',
-            items: [
-                {label: 'Setup', value: '/primeflex'},
-                {label: 'Display', value: '/primeflex/display'},
-                {label: 'Elevation', value: '/primeflex/elevation'},
-                {label: 'FlexBox', value: '/primeflex/flexbox'},
-                {label: 'Form Layout', value: '/primeflex/formlayout'},
-                {label: 'Spacing', value: '/primeflex/spacing'},
-                {label: 'Text', value: '/primeflex/text'}
             ]
         },
         {
