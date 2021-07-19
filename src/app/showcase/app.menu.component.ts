@@ -54,9 +54,14 @@ declare let gtag: Function;
                     <a href="https://www.primefaces.org/designer/api/primeng/11.1.0">SASS API</a>
                 </div>
 
+                <div class="menu-category">PrimeBlocks</div>
+                <div class="menu-items menu-banner">
+                    <a href="https://www.primefaces.org/primeblocks-ng"><img width="100%" alt="PrimeBlocks Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeblocks-dark.png' : 'banner-primeblocks.png')" /></a>
+                </div>
+
                 <div class="menu-category">PrimeFlex v3.0.0</div>
-                <div class="menu-items flex-banner">
-                    <a href="https://www.primefaces.org/primeflex"><img width="100%" alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
+                <div class="menu-items menu-banner">
+                    <a href="https://www.primefaces.org/primeflex"><img width="100%" alt="PrimeFlex Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
