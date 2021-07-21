@@ -39,20 +39,25 @@
     align-items: center;
 }
 
-.p-tree-filter {
-    width: 100%;
+.p-tree-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .p-tree-filter-container {
     position: relative;
-    display: block;
-    width: 100%;
+    flex: 1 1 auto;
 }
 
 .p-tree-filter-icon {
     position: absolute;
     top: 50%;
     margin-top: -.5rem;
+}
+
+.p-tree-filter-container .p-inputtext {
+    width: 100%;
 }
 
 .p-tree-loading {

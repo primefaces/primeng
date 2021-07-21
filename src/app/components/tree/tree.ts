@@ -517,11 +517,21 @@ export class UITreeNode implements OnInit {
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
-            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <div *ngIf="filter" class="p-tree-filter-container">
-                <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
-                    <span class="p-tree-filter-icon pi pi-search"></span>
+            <div class="p-tree-header" *ngIf="(showToggleAll && isCheckboxSelectionMode()) || filter">
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <div class="p-checkbox p-component" *ngIf="showToggleAll && isCheckboxSelectionMode()">
+                    <div class="p-hidden-accessible">
+                        <input type="checkbox" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
+                    </div>
+                    <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="allChecked" [ngClass]="{'p-highlight':allChecked, 'p-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
+                        <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
+                    </div>
+                </div>
+                <div *ngIf="filter" class="p-tree-filter-container">
+                    <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
+                        (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
+                        <span class="p-tree-filter-icon pi pi-search"></span>
+                </div>
             </div>
             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                 <div class="p-tree-wrapper" [style.max-height]="scrollHeight">
@@ -616,6 +626,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
+    @Input() showToggleAll: boolean;
+
     @Input() emptyMessage: string = '';
 
     @Input() ariaLabel: string;
@@ -686,6 +698,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     public filteredNodes: TreeNode[];
 
+    public headerCheckboxFocus: boolean;
+
     constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
@@ -723,6 +737,29 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     get horizontal(): boolean {
         return this.layout == 'horizontal';
+    }
+
+    get allChecked(): boolean {
+        let checked: boolean;
+        const data = this.filteredNodes||this.value;
+
+        if (data) {
+            for (let node of data) {
+                if (this.isSelected(node)) {
+                    checked = true;
+                }
+                else  {
+                    checked = false;
+                    break;
+                }
+            }
+        }
+        else {
+            checked = false;
+        }
+
+        return checked;
+
     }
 
     get emptyMessageLabel(): string {
@@ -965,6 +1002,25 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 }
             }
         }
+    }
+
+    toggleAll(event: Event) {
+        let allChecked = this.allChecked;
+        
+        let data = this.filteredNodes || this.value;
+        this.selection = allChecked && data ? data.slice() : [];
+        if (allChecked) {
+            this.selection = [];   
+        }
+        else {
+            if (data && data.length) {
+                for (let node of data) {
+                    this.propagateDown(node, true);
+                }
+            }
+        }
+
+        this.selectionChange.emit(this.selection);
     }
 
     propagateUp(node: TreeNode, select: boolean) {
@@ -1255,6 +1311,14 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
 
         return matched;
+    }
+
+    onHeaderCheckboxFocus() {
+        this.headerCheckboxFocus = true;
+    }
+
+    onHeaderCheckboxBlur() {
+        this.headerCheckboxFocus = false;
     }
 
     getBlockableElement(): HTMLElement {

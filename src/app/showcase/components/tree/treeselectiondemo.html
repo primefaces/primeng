@@ -9,15 +9,16 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Single Selection</h5>
-        <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile"
+        <p-tree [value]="files1" [showToggleAll]="true" selectionMode="single" [(selection)]="selectedFile"
             (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
 
         <h5>Multiple Selection with Metakey</h5>
-        <p-tree [value]="files2" selectionMode="multiple" [(selection)]="selectedFiles1"
+        <p-tree [value]="files2" [showToggleAll]="true" selectionMode="multiple" [(selection)]="selectedFiles1"
             (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
 
         <h5>Multiple Selection with Checkbox</h5>
-        <p-tree [value]="files3" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
+        <p-tree [value]="files3" [showToggleAll]="true" selectionMode="checkbox" [(selection)]="selectedFiles2"
+        [filter]="true" filterMode="strict"></p-tree>
 
         <p-toast></p-toast>
     </div>
