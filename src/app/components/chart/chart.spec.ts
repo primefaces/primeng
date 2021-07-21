@@ -166,7 +166,7 @@ describe('UIChart', () => {
         expect(initChartSpy).toHaveBeenCalled();
     });
 
-    it('should get canvas, image and generateLegend', () => {
+    it('should get canvas and image', () => {
         chart.data = {
             datasets: [{
                 data: [
@@ -196,12 +196,10 @@ describe('UIChart', () => {
         chart.type = "polarArea";
         fixture.detectChanges();
 
-        const legend = chart.generateLegend();
         const image = chart.getBase64Image();
         const canvas = chart.getCanvas();
 
         expect(canvas.tagName).toEqual("CANVAS");
         expect(image).toContain("data");
-        expect(legend).toContain("legend");
     });
 });

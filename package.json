@@ -35,7 +35,7 @@
     "@fullcalendar/timegrid": "4.1.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
-    "chart.js": "2.7.3",
+    "chart.js": "3.4.1",
     "codelyzer": "^6.0.0",
     "del": "^2.2.0",
     "file-saver": "^2.0.2",

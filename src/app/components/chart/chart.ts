@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import * as Chart from 'chart.js';
+import Chart, {ChartType} from 'chart.js/auto';
 
 @Component({
     selector: 'p-chart',
@@ -14,7 +14,7 @@ import * as Chart from 'chart.js';
 })
 export class UIChart implements AfterViewInit, OnDestroy {
 
-    @Input() type: string;
+    @Input() type: ChartType | 'horizontalBar';
 
     @Input() plugins: any[] = [];
     
@@ -32,7 +32,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     _options: any = {};
 
-    chart: any;
+    chart: Chart;
 
     constructor(public el: ElementRef) {}
     
@@ -61,8 +61,8 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     onCanvasClick(event) {
         if (this.chart) {
-            let element = this.chart.getElementAtEvent(event);
-            let dataset = this.chart.getDatasetAtEvent(event);
+            const element = this.chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+            const dataset = this.chart.getElementsAtEventForMode(event, 'dataset', { intersect: true }, false);
             if (element && element[0] && dataset) {
                 this.onDataSelect.emit({originalEvent: event, element: element[0], dataset: dataset});
             }
@@ -76,6 +76,12 @@ export class UIChart implements AfterViewInit, OnDestroy {
         // allows chart to resize in responsive mode
         if (opts.responsive&&(this.height||this.width)) {
             opts.maintainAspectRatio = false;
+        }
+
+        // Migrate legacy chart types
+        if (this.type === 'horizontalBar') {
+            this.type = 'bar';
+            this.options.indexAxis = 'y';
         }
 
         this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
@@ -93,13 +99,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     getBase64Image() {
         return this.chart.toBase64Image();
     }
-    
-    generateLegend() {
-        if (this.chart) {
-            return this.chart.generateLegend();
-        }
-    }
-    
+
     refresh() {
         if (this.chart) {
             this.chart.update();
