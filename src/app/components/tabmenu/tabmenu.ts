@@ -12,7 +12,8 @@ import {DomHandler} from 'primeng/dom';
         <div [ngClass]="'p-tabmenu p-component'" [ngStyle]="style" [class]="styleClass">
             <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
                 <li *ngFor="let item of model; let i = index" role="tab" [ngStyle]="item.style" [class]="item.styleClass" [attr.aria-selected]="activeItem==item" [attr.aria-expanded]="activeItem==item"
-                    [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight':activeItem==item,'p-hidden': item.visible === false}">
+                    [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight': usesActiveItem ? activeItem==item : rLA?.isActive,'p-hidden': item.visible === false}"
+                    #rLA="routerLinkActive" routerLinkActive>
                     <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
                         [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                         <ng-container *ngIf="!itemTemplate">
@@ -63,6 +64,12 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
     itemTemplate: TemplateRef<any>;
 
     tabChanged: boolean;
+
+    usesActiveItem: boolean;
+
+    ngOnInit() {
+      this.usesActiveItem = !!this.activeItem;
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

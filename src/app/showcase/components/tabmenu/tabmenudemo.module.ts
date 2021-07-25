@@ -6,6 +6,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { TabMenuDemoCalendar, TabMenuDemoDocumentation, TabMenuDemoEdit, TabMenuDemoHome, TabMenuDemoSettings } from './tabmenudemo-children.component';
 
 @NgModule({
 	imports: [
@@ -18,6 +19,11 @@ import {AppDemoActionsModule} from '../../app.demoactions.component';
 	],
 	declarations: [
 		TabMenuDemo,
+    TabMenuDemoHome,
+    TabMenuDemoCalendar,
+    TabMenuDemoEdit,
+    TabMenuDemoDocumentation,
+    TabMenuDemoSettings
 	]
 })
 export class TabMenuDemoModule {}
