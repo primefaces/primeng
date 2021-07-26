@@ -651,9 +651,14 @@ export class Password implements AfterContentInit,OnInit {
     ngOnDestroy() {
         this.restoreAppend();
         this.unbindResizeListener();
+
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
         }
     }
 }
