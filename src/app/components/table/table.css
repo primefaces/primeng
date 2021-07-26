@@ -208,6 +208,8 @@
 
 .p-column-filter-overlay {
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .p-column-filter-row-items {
@@ -225,7 +227,7 @@
     justify-content: center;
 }
 
-.p-column-filter-add-button .p-button-label, 
+.p-column-filter-add-button .p-button-label,
 .p-column-filter-remove-button .p-button-label {
     flex-grow: 0;
 }
