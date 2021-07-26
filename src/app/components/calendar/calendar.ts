@@ -624,7 +624,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     createMonths(month: number, year: number) {
-        this.months = this.months = [];
+        this.months = [];
         for (let i = 0 ; i < this.numberOfMonths; i++) {
             let m = month + i;
             let y = year;
