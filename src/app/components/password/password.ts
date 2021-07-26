@@ -5,6 +5,7 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
+import { Subscription } from 'rxjs';
 
 @Directive({
     selector: '[pPassword]',
@@ -363,6 +364,7 @@ export class Password implements AfterContentInit,OnInit {
 
     onModelTouched: Function = () => {};
 
+    translationSubscription: Subscription;
 
     constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
 
@@ -392,6 +394,9 @@ export class Password implements AfterContentInit,OnInit {
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.updateUI(this.value || "");
+        });
     }
 
     onAnimationStart(event) {
