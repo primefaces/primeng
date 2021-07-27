@@ -11,7 +11,7 @@ export class ComboChartDemo {
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -66,18 +66,35 @@ export class ComboChartDemo {
                 ]
             }]
         };
-        this.chartOptions = {
-            responsive: true,
-            title: {
-                display: true,
-                text: 'Combo Bar Line Chart'
+
+        this.chartOptions =  {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#495057'
+                    }
+                }
             },
-            tooltips: {
-                mode: 'index',
-                intersect: true
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
+                    }
+                }
             }
         };
-        
+
         this.config = this.configService.config;
         this.updateChartOptions();
         this.subscription = this.configService.configUpdate$.subscribe(config => {
@@ -87,58 +104,68 @@ export class ComboChartDemo {
     }
 
     updateChartOptions() {
-        if (this.config.dark) 
+        if (this.config.dark)
             this.applyDarkTheme();
         else
             this.applyLightTheme();
     }
 
     applyLightTheme() {
-            this.chartOptions = {
+        this.chartOptions = {
+            plugins: {
                 legend: {
                     labels: {
-                        fontColor: '#495057'
+                        color: '#495057'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
                     }
                 },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontColor: '#495057'
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            fontColor: '#495057'
-                        }
-                    }]
+                y: {
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
+                    }
                 }
             }
+        }
     }
 
     applyDarkTheme() {
         this.chartOptions = {
-            legend: {
-                labels: {
-                    fontColor: '#ebedef'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ebedef'
+                    }
                 }
             },
             scales: {
-                xAxes: [{
+                x: {
                     ticks: {
-                        fontColor: '#ebedef'
+                        color: '#ebedef'
                     },
-                    gridLines: {
+                    grid: {
                         color: 'rgba(255,255,255,0.2)'
                     }
-                }],
-                yAxes: [{
+                },
+                y: {
                     ticks: {
-                        fontColor: '#ebedef'
+                        color: '#ebedef'
                     },
-                    gridLines: {
+                    grid: {
                         color: 'rgba(255,255,255,0.2)'
                     }
-                }]
+                }
             }
         };
     }

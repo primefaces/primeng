@@ -17,17 +17,17 @@ export class UIChart implements AfterViewInit, OnDestroy {
     @Input() type: string;
 
     @Input() plugins: any[] = [];
-    
+
     @Input() width: string;
-    
+
     @Input() height: string;
 
     @Input() responsive: boolean = true;
-    
+
     @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
-    
+
     _data: any;
 
     _options: any = {};
@@ -35,7 +35,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     chart: any;
 
     constructor(public el: ElementRef) {}
-    
+
     @Input() get data(): any {
         return this._data;
     }
@@ -61,8 +61,9 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     onCanvasClick(event) {
         if (this.chart) {
-            let element = this.chart.getElementAtEvent(event);
-            let dataset = this.chart.getDatasetAtEvent(event);
+            const element = this.chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+            const dataset = this.chart.getElementsAtEventForMode(event, 'dataset', { intersect: true }, false);
+
             if (element && element[0] && dataset) {
                 this.onDataSelect.emit({originalEvent: event, element: element[0], dataset: dataset});
             }
@@ -78,41 +79,44 @@ export class UIChart implements AfterViewInit, OnDestroy {
             opts.maintainAspectRatio = false;
         }
 
-        this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
-            type: this.type,
-            data: this.data,
-            options: this.options,
-            plugins: this.plugins
+        import('chart.js/auto').then((module) => {
+            if (module && module.default) {
+                this.chart = new module.default(this.el.nativeElement.children[0].children[0], {
+                    type: this.type,
+                    data: this.data,
+                    options: this.options
+                });
+            }
         });
     }
-    
+
     getCanvas() {
         return this.el.nativeElement.children[0].children[0];
     }
-    
+
     getBase64Image() {
         return this.chart.toBase64Image();
     }
-    
+
     generateLegend() {
         if (this.chart) {
             return this.chart.generateLegend();
         }
     }
-    
+
     refresh() {
         if (this.chart) {
             this.chart.update();
         }
     }
-    
+
     reinit() {
         if (this.chart) {
             this.chart.destroy();
             this.initChart();
         }
     }
-    
+
     ngOnDestroy() {
         if (this.chart) {
             this.chart.destroy();
