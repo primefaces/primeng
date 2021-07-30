@@ -61,7 +61,8 @@ export class DockDemo {
                     tooltipLabel: "Finder",
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15
+                    positionLeft: 15,
+                    showDelay: 1000
                 },
                 icon: "assets/showcase/images/dock/finder.svg",
                 command: () => {
@@ -74,7 +75,8 @@ export class DockDemo {
                     tooltipLabel: "Terminal",
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15
+                    positionLeft: 15,
+                    showDelay: 1000
                 },
                 icon: "assets/showcase/images/dock/terminal.svg",
                 command: () => {
@@ -86,8 +88,9 @@ export class DockDemo {
                 tooltipOptions: {
                     tooltipLabel: "App Store",
                     tooltipPosition: 'top',
+                    positionTop: -15,
                     positionLeft: 15,
-                    positionTop: -15
+                    showDelay: 1000
                 },
                 icon: "assets/showcase/images/dock/appstore.svg",
                 command: () => {
@@ -100,7 +103,8 @@ export class DockDemo {
                     tooltipLabel: "Safari",
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15
+                    positionLeft: 15,
+                    showDelay: 1000
                 },
                 icon: "assets/showcase/images/dock/safari.svg",
                 command: () => {
@@ -113,7 +117,8 @@ export class DockDemo {
                     tooltipLabel: "Photos",
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15
+                    positionLeft: 15,
+                    showDelay: 1000
                 },
                 icon: "assets/showcase/images/dock/photos.svg",
                 command: () => {
@@ -122,10 +127,24 @@ export class DockDemo {
             },
             {
                 label: 'GitHub',
+                tooltipOptions: {
+                    tooltipLabel: "GitHub",
+                    tooltipPosition: 'top',
+                    positionTop: -15,
+                    positionLeft: 15,
+                    showDelay: 1000
+                },
                 icon: "assets/showcase/images/dock/github.svg",
             },
             {
                 label: 'Trash',
+                tooltipOptions: {
+                    tooltipLabel: "Trash",
+                    tooltipPosition: 'top',
+                    positionTop: -15,
+                    positionLeft: 15,
+                    showDelay: 1000
+                },
                 icon: "assets/showcase/images/dock/trash.png",
                 command: () => {
                     this.messageService.add({severity: 'info', summary: 'Empty Trash'});
