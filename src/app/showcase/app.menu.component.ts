@@ -237,6 +237,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/menumodel']" routerLinkActive="router-link-exact-active">MenuModel</a>
                     <a [routerLink]=" ['/breadcrumb']" routerLinkActive="router-link-exact-active">Breadcrumb</a>
                     <a [routerLink]=" ['/contextmenu']" routerLinkActive="router-link-exact-active">ContextMenu</a>
+                    <a [routerLink]=" ['/dock']" routerLinkActive="router-link-exact-active">Dock <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/megamenu']" routerLinkActive="router-link-exact-active">MegaMenu</a>
                     <a [routerLink]=" ['/menu']" routerLinkActive="router-link-exact-active">Menu</a>
                     <a [routerLink]=" ['/menubar']" routerLinkActive="router-link-exact-active">Menubar</a>
@@ -553,6 +554,7 @@ export class AppMenuComponent {
                 {label: 'MenuModel', value: '/menumodel'},
                 {label: 'Breadcrumb', value: '/breadcrumb'},
                 {label: 'ContextMenu', value: '/contextmenu'},
+                {label: 'Dock', value: '/dock'},
                 {label: 'MegaMenu', value: '/megamenu'},
                 {label: 'Menu', value: '/menu'},
                 {label: 'Menubar', value: '/menubar'},

@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
             <a class="menu-button" (click)="onMenuButtonClick($event)">
                 <i class="pi pi-bars"></i>
             </a>
-            <div class="app-theme" [pTooltip]="config.theme" tooltipPosition="bottom">
+            <div class="app-theme"  tooltipPosition="bottom">
                 <img [src]="'assets/showcase/images/themes/' + logoMap[config.theme]" />
             </div>
             <ul #topbarMenu class="topbar-menu">
