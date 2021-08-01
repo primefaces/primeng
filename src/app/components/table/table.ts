@@ -1842,15 +1842,17 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
             else if (this.columnResizeMode === 'expand') {
                 let tableWidth = this.tableViewChild.nativeElement.offsetWidth + delta;
-                this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
 
-                if (!this.scrollable)
+                if (!this.scrollable) {
+                    this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
                     this.resizeColumnElement.style.width = newColumnWidth + 'px';
+                }
                 else {
+                    this.resizeTableCells(newColumnWidth, null);
                     let scrollbarWidth = DomHandler.calculateScrollbarWidth(this.wrapperViewChild.nativeElement);
                     let isWrapperInViewport = this.containerViewChild.nativeElement.offsetWidth > tableWidth + scrollbarWidth;
+                    this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
                     this.wrapperViewChild.nativeElement.style.width = isWrapperInViewport ? tableWidth + scrollbarWidth + 'px' : 'auto';
-                    this.resizeTableCells(newColumnWidth, null);
                 }
             }
 
@@ -1870,23 +1872,27 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     resizeTableCells(newColumnWidth, nextColumnWidth) {
         let colIndex = DomHandler.index(this.resizeColumnElement);
-        let children = this.tableViewChild.nativeElement.children;
+        let widths = [];
+        let headers = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-thead > tr > th');
+        headers.forEach(header => widths.push(DomHandler.getOuterWidth(header)));
 
-        for (let child of children) {
-            for (let row of child.children) {
-                let resizeCell = row.children[colIndex];
-                if (resizeCell) {
-                    resizeCell.style.flex = '0 0 ' + newColumnWidth + 'px';
+        this.destroyStyleElement();
+        this.createStyleElement();
 
-                    if (this.columnResizeMode === 'fit') {
-                        let nextCell = resizeCell.nextElementSibling;
-                        if (nextCell) {
-                            nextCell.style.flex = '0 0 ' + nextColumnWidth + 'px';
-                        }
-                    }
+        let innerHTML = '';
+        widths.forEach((width,index) => {
+            let colWidth = index === colIndex ? newColumnWidth : (nextColumnWidth && index === colIndex + 1) ? nextColumnWidth : width;
+            innerHTML += `
+                #${this.id} .p-datatable-thead > tr > th:nth-child(${index+1}) {
+                    flex: 0 0 ${colWidth}px;
                 }
-            }
-        }
+
+                #${this.id} .p-datatable-tbody > tr > td:nth-child(${index+1}) {
+                    flex: 0 0 ${colWidth}px;
+                }
+            `
+        });
+        this.styleElement.innerHTML = innerHTML;
     }
 
     onColumnDragStart(event, columnElement) {
@@ -2218,14 +2224,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.wrapperViewChild.nativeElement.style.width = this.wrapperWidthState;
             }
 
-            this.styleElement = document.createElement('style');
-            this.styleElement.type = 'text/css';
-            document.head.appendChild(this.styleElement);
+            this.createStyleElement();
 
             if (this.scrollable && widths && widths.length > 0) {
                     let innerHTML = '';
                     widths.forEach((width,index) => {
                         innerHTML += `
+                            #${this.id} .p-datatable-thead > tr > th:nth-child(${index+1}) {
+                                flex: 0 0 ${width}px;
+                            }
+
                             #${this.id} .p-datatable-tbody > tr > td:nth-child(${index+1}) {
                                 flex: 0 0 ${width}px;
                             }
@@ -2233,10 +2241,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     });
                 this.styleElement.innerHTML = innerHTML;
             }
+            else {
+                DomHandler.find(this.tableViewChild.nativeElement, '.p-datatable-thead > tr > th').forEach((header, index) => {
+                    header.style.width = widths[index] + 'px';
+                });
+            }
 
-            DomHandler.find(this.tableViewChild.nativeElement, '.p-datatable-thead > tr > th').forEach((header, index) => {
-                header.style.flex = '0 0 ' + widths[index] + 'px';
-            });
         }
     }
 
@@ -2292,6 +2302,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    createStyleElement() {
+        this.styleElement = document.createElement('style');
+        this.styleElement.type = 'text/css';
+        document.head.appendChild(this.styleElement);
+    }
+
+    destroyStyleElement() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;
+        }
+    }
+
     ngOnDestroy() {
         this.unbindDocumentEditListener();
         this.editingCell = null;
@@ -2301,10 +2324,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.virtualScrollSubscription.unsubscribe();
         }
 
-        if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
-            this.styleElement = null;
-        }
+        this.destroyStyleElement();
     }
 }
 
