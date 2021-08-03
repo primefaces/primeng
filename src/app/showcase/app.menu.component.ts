@@ -615,6 +615,7 @@ export class AppMenuComponent {
             items: [
                 {label: 'Defer', value: '/defer'},
                 {label: 'FocusTrap', value: '/focustrap'},
+                {label: 'StyleClass', value: '/styleclass'},
                 {label: 'Ripple', value: '/ripple'}
             ]
         },
