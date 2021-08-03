@@ -13,7 +13,7 @@
     <div class="card">
         <h5>Subheader Grouping</h5>
         <p>Group customers by their representative.</p>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name">
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="min-width:200px">Name</th>
@@ -65,7 +65,7 @@
     <div class="card">
         <h5>Expandable Row Groups</h5>
         <p>Group customers by their representative.</p>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name">
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>
@@ -115,7 +115,7 @@
 
     <div class="card">
         <h5>RowSpan Grouping</h5>
-        <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" (onSort)="onSort()">
+        <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:3rem">#</th>
