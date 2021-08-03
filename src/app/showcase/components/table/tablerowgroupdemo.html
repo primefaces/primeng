@@ -169,38 +169,49 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Subheader Grouping&lt;/h5&gt;
-    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()"&gt;
+    &lt;p&gt;Group customers by their representative.&lt;/p&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Company&lt;/th&gt;
-                &lt;th&gt;Status&lt;/th&gt;
-                &lt;th&gt;Date&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Status&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Date&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;
-            &lt;tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex"&gt;
+        &lt;ng-template pTemplate="groupheader" let-customer&gt;
+            &lt;tr pRowGroupHeader&gt;
                 &lt;td colspan="5"&gt;
                     &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
                     &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="groupfooter" let-customer&gt;
+            &lt;tr class="p-rowgroup-footer"&gt;
+                &lt;td style="min-width: 80%"&gt;
+                    &lt;div style="text-align: right; width: 100%"&gt;Total Customers&lt;/div&gt;
+                &lt;/td&gt;
+                &lt;td style="width: 20%"&gt;&#123;&#123;calculateCustomerTotal(customer.representative.name)&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;
             &lt;tr&gt;
-                &lt;td&gt;
+                &lt;td style="min-width:200px"&gt;
                     &#123;&#123;customer.name&#125;&#125;
                 &lt;/td&gt;
-                &lt;td&gt;
+                &lt;td style="min-width:200px"&gt;
                     &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
                     &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
-                &lt;td&gt;
+                &lt;td style="min-width:200px"&gt;
                     &#123;&#123;customer.company&#125;&#125;
                 &lt;/td&gt;
-                &lt;td&gt;
+                &lt;td style="min-width:200px"&gt;
                     &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
-                &lt;td&gt;
+                &lt;td style="min-width:200px"&gt;
                     &#123;&#123;customer.date&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
@@ -210,7 +221,8 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Expandable Row Groups&lt;/h5&gt;
-    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" dataKey="representative.name"&gt;
+    &lt;p&gt;Group customers by their representative.&lt;/p&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Name&lt;/th&gt;
@@ -220,13 +232,19 @@
                 &lt;th&gt;Date&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-expanded="expanded"&gt;
-            &lt;tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex"&gt;
+        &lt;ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded"&gt;
+            &lt;tr&gt;
                 &lt;td colspan="5"&gt;
                     &lt;button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
                     &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
                     &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="groupfooter" let-customer&gt;
+            &lt;tr class="p-rowgroup-footer"&gt;
+                &lt;td colspan="4" style="text-align: right"&gt;Total Customers&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;calculateCustomerTotal(customer.representative.name)&#125;&#125;&lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="rowexpansion" let-customer&gt;
@@ -253,8 +271,8 @@
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
-    &lt;h5&gt;Rowspan&lt;/h5&gt;
-    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()"&gt;
+    &lt;h5&gt;RowSpan Grouping&lt;/h5&gt;
+    &lt;p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th style="width:3rem"&gt;#&lt;/th&gt;
@@ -266,10 +284,10 @@
                 &lt;th&gt;Date&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;
+        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan"&gt;
             &lt;tr&gt;
                 &lt;td&gt;&#123;&#123;rowIndex&#125;&#125;&lt;/td&gt;
-                &lt;td *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex" [attr.rowspan]="rowGroupMetadata[customer.representative.name].size"&gt;
+                &lt;td *ngIf="rowgroup" [attr.rowspan]="rowspan"&gt;
                     &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
                     &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
@@ -301,53 +319,55 @@ import &#123; Customer &#125; from '../../domain/customer';
 import &#123; CustomerService &#125; from '../../service/customerservice';
 
 @Component(&#123;
-    templateUrl: './tablerowgroupdemo.html'
+    templateUrl: './tablerowgroupdemo.html',
+    styleUrls: ['./tablerowgroupdemo.scss']
 &#125;)
 export class TableRowGroupDemo implements OnInit &#123;
 
     customers: Customer[];
 
-    rowGroupMetadata: any;
 
     constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
         this.customerService.getCustomersMedium().then(data =&gt; &#123;
             this.customers = data;
-            this.updateRowGroupMetaData();
         &#125;);
     &#125;
 
-    onSort() &#123;
-        this.updateRowGroupMetaData();
-    &#125;
-
-    updateRowGroupMetaData() &#123;
-        this.rowGroupMetadata = &#123;&#125;;
+    calculateCustomerTotal(name) &#123;
+        let total = 0;
 
         if (this.customers) &#123;
-            for (let i = 0; i &lt; this.customers.length; i++) &#123;
-                let rowData = this.customers[i];
-                let representativeName = rowData.representative.name;
-
-                if (i == 0) &#123;
-                    this.rowGroupMetadata[representativeName] = &#123; index: 0, size: 1 &#125;;
-                &#125;
-                else &#123;
-                    let previousRowData = this.customers[i - 1];
-                    let previousRowGroup = previousRowData.representative.name;
-                    if (representativeName === previousRowGroup)
-                        this.rowGroupMetadata[representativeName].size++;
-                    else
-                        this.rowGroupMetadata[representativeName] = &#123; index: i, size: 1 &#125;;
+            for (let customer of this.customers) &#123;
+                if (customer.representative.name === name) &#123;
+                    total++;
                 &#125;
             &#125;
         &#125;
-    &#125;
 
+        return total;
+    &#125;
 &#125;
 </app-code>
 
+
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+:host ::ng-deep .p-rowgroup-footer td &#123;
+    font-weight: 700;
+&#125;
+
+:host ::ng-deep .p-rowgroup-header &#123;
+    span &#123;
+        font-weight: 700;
+    &#125;
+
+    .p-row-toggler &#123;
+        vertical-align: middle;
+        margin-right: .25rem;
+    &#125;
+&#125;
+</app-code>
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

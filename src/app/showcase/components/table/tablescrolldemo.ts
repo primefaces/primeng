@@ -29,7 +29,6 @@ export class TableScrollDemo implements OnInit {
     ngOnInit() {
         this.customerService.getCustomersMedium().then(data => {
             this.customers = data
-            this.updateRowGroupMetaData();
         });
         this.customerService.getCustomersMedium().then(data => this.unlockedCustomers = data);
 
@@ -83,33 +82,6 @@ export class TableScrollDemo implements OnInit {
         this.unlockedCustomers.sort((val1, val2) => {
             return val1.id < val2.id ? -1 : 1;
         });
-    }
-
-    onSort() {
-        this.updateRowGroupMetaData();
-    }
-
-    updateRowGroupMetaData() {
-        this.rowGroupMetadata = {};
-
-        if (this.customers) {
-            for (let i = 0; i < this.customers.length; i++) {
-                let rowData = this.customers[i];
-                let representativeName = rowData.representative.name;
-
-                if (i == 0) {
-                    this.rowGroupMetadata[representativeName] = { index: 0, size: 1 };
-                }
-                else {
-                    let previousRowData = this.customers[i - 1];
-                    let previousRowGroup = previousRowData.representative.name;
-                    if (representativeName === previousRowGroup)
-                        this.rowGroupMetadata[representativeName].size++;
-                    else
-                        this.rowGroupMetadata[representativeName] = { index: i, size: 1 };
-                }
-            }
-        }
     }
 
     calculateCustomerTotal(name) {

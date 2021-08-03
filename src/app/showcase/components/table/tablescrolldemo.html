@@ -181,7 +181,7 @@
     </div>
     <div class="card">
         <h5>Subheader Grouping</h5>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name">
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="min-width:200px">Name</th>
@@ -239,22 +239,22 @@
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
-    &lt;h5&gt;Vertical with Fixed Viewport&lt;/h5&gt;
-    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px"&gt;
+    &lt;h5&gt;Vertical&lt;/h5&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="400px"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Company&lt;/th&gt;
-                &lt;th&gt;Representative&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Representative&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-customer&gt;
             &lt;tr&gt;
-                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-table&gt;
@@ -266,22 +266,22 @@
         to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
 
     &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
-    &lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
+    &lt;p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="&#123;width: '75vw'&#125;" [contentStyle]="&#123;height: '300px'&#125;"&gt;
         &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="flex"&gt;
             &lt;ng-template pTemplate="header"&gt;
                 &lt;tr&gt;
-                    &lt;th&gt;Name&lt;/th&gt;
-                    &lt;th&gt;Country&lt;/th&gt;
-                    &lt;th&gt;Company&lt;/th&gt;
-                    &lt;th&gt;Representative&lt;/th&gt;
+                    &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+                    &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+                    &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+                    &lt;th style="min-width:200px"&gt;Representative&lt;/th&gt;
                 &lt;/tr&gt;
             &lt;/ng-template&gt;
             &lt;ng-template pTemplate="body" let-customer&gt;
                 &lt;tr&gt;
-                    &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-                    &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-                    &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-                    &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                    &lt;td style="min-width:200px"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                    &lt;td style="min-width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                    &lt;td style="min-width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                    &lt;td style="min-width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
                 &lt;/tr&gt;
             &lt;/ng-template&gt;
         &lt;/p-table&gt;
@@ -296,41 +296,45 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Horizontal and Vertical&lt;/h5&gt;
-    &lt;p-table [value]="customers" [scrollable]="true" [style]="&#123;width:'600px'&#125;" scrollHeight="200px"&gt;
-        &lt;ng-template pTemplate="colgroup" let-columns&gt;
-            &lt;colgroup&gt;
-                &lt;col style="width:250px"&gt;
-                &lt;col style="width:250px"&gt;
-                &lt;col style="width:250px"&gt;
-                &lt;col style="width:250px"&gt;
-                &lt;col style="width:250px"&gt;
-                &lt;col style="width:250px"&gt;
-                &lt;col style="width:250px"&gt;
-                &lt;col style="width:250px"&gt;
-            &lt;/colgroup&gt;
-        &lt;/ng-template&gt;
+
+    &lt;p-table [value]="customers" [scrollable]="true"  scrollHeight="400px" scrollDirection="both"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Id&lt;/th&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Date&lt;/th&gt;
-                &lt;th&gt;Company&lt;/th&gt;
-                &lt;th&gt;Status&lt;/th&gt;
-                &lt;th&gt;Activity&lt;/th&gt;
-                &lt;th&gt;Representative&lt;/th&gt;
+                &lt;th style="width:100px"&gt;Id&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Name&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Country&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Date&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Balance&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Company&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Status&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-customer&gt;
             &lt;tr&gt;
-                &lt;td&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="footer"&gt;
+            &lt;tr&gt;
+                &lt;td style="width:100px"&gt;Id&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Name&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Country&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Date&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Balance&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Company&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Status&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Activity&lt;/td&gt;
+                &lt;td style="width:200px"&gt;Representative&lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-table&gt;
@@ -338,29 +342,36 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Frozen Rows&lt;/h5&gt;
-    &lt;p-table [value]="customers" [frozenValue]="frozenValue" [scrollable]="true" scrollHeight="200px"&gt;
+    &lt;p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Name&lt;/th&gt;
                 &lt;th&gt;Country&lt;/th&gt;
                 &lt;th&gt;Company&lt;/th&gt;
                 &lt;th&gt;Representative&lt;/th&gt;
+                &lt;th style="flex: 0 0 4rem"&gt;&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;ng-template pTemplate="frozenbody" let-customer let-index="rowIndex"&gt;
             &lt;tr&gt;
                 &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="flex: 0 0 4rem"&gt;
+                    &lt;button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer,true,index)" class="p-button-sm p-button-text"&gt;&lt;/button&gt;
+                &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="frozenrows" let-customer&gt;
+        &lt;ng-template pTemplate="body" let-customer let-index="rowIndex"&gt;
             &lt;tr&gt;
-                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="flex: 0 0 4rem"&gt;
+                    &lt;button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length &gt;= 2" (click)="toggleLock(customer,false,index)" class="p-button-sm p-button-text"&gt;&lt;/button&gt;
+                &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-table&gt;
@@ -368,23 +379,79 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Frozen Columns&lt;/h5&gt;
-    &lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="customers" [scrollable]="true" scrollHeight="200px" frozenWidth="300px"&gt;
-        &lt;ng-template pTemplate="colgroup" let-columns&gt;
-            &lt;colgroup&gt;
-                &lt;col *ngFor="let col of columns" style="width:300px"&gt;
-            &lt;/colgroup&gt;
-        &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="header" let-columns&gt;
+    &lt;p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Unfreeze Balance'" offLabel="Freeze Balance" [style]="&#123;'width': '12rem'&#125;"&gt;&lt;/p-toggleButton&gt;
+
+    &lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" frozenWidth="300px" styleClass="p-mt-3"&gt;
+        &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th *ngFor="let col of columns"&gt;
-                    &#123;&#123;col.header&#125;&#125;
-                &lt;/th&gt;
+                &lt;th style="width:200px" pFrozenColumn&gt;Name&lt;/th&gt;
+                &lt;th style="width:100px"&gt;Id&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Country&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Date&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Company&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Status&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
+                &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
+                &lt;th style="width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen"&gt;Balance&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-customer let-columns="columns"&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
             &lt;tr&gt;
-                &lt;td *ngFor="let col of columns"&gt;
-                    &#123;&#123;customer[col.field]&#125;&#125;
+                &lt;td style="width:200px" pFrozenColumn&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;td style="width:200px" alignFrozen="right"  pFrozenColumn [frozen]="balanceFrozen"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Subheader Grouping&lt;/h5&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Status&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Date&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="groupheader" let-customer&gt;
+            &lt;tr pRowGroupHeader&gt;
+                &lt;td colspan="5"&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="groupfooter" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td style="text-align: right" class="p-text-bold p-pr-6"&gt;Total Customers: &#123;&#123;calculateCustomerTotal(customer.representative.name)&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;
+            &lt;tr&gt;
+                &lt;td style="min-width:200px"&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;
+                    &#123;&#123;customer.company&#125;&#125;
+                &lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td style="min-width:200px"&gt;
+                    &#123;&#123;customer.date&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -398,13 +465,12 @@ import &#123; Customer &#125; from '../../domain/customer';
 import &#123; CustomerService &#125; from '../../service/customerservice';
 
 @Component(&#123;
-    templateUrl: './tablescrolldemo.html'
+    templateUrl: './tablescrolldemo.html',
+    styleUrls: ['./tablescrolldemo.css']
 &#125;)
 export class TableScrollDemo implements OnInit &#123;
 
     customers: Customer[];
-
-    frozenValue: Customer[];
 
     dialogVisible: boolean;
 
@@ -412,28 +478,23 @@ export class TableScrollDemo implements OnInit &#123;
 
     frozenCols: any[];
 
+    unlockedCustomers: any[];
+
+    lockedCustomers: any[];
+
+    balanceFrozen: boolean = false;
+
+    rowGroupMetadata: any;
+
     constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.customerService.getCustomersLarge().then(data =&gt; this.customers = data);
+        this.customerService.getCustomersMedium().then(data =&gt; &#123;
+            this.customers = data
+        &#125;);
+        this.customerService.getCustomersMedium().then(data =&gt; this.unlockedCustomers = data);
 
-        this.frozenValue = [
-            &#123;
-                id: 1255,
-                name: "James McAdams",
-                country: &#123;
-                    name: "United States",
-                    code: "us"
-                &#125;,
-                company: "McAdams Consulting Ltd",
-                date: "2014-02-13",
-                status: "qualified",
-                activity: 23,
-                representative: &#123;
-                    name: "Ioni Bowcher",
-                    image: "ionibowcher.png"
-                &#125;
-            &#125;,
+        this.lockedCustomers = [
             &#123;
                 id: 5135,
                 name: "Geraldine Bisset",
@@ -457,6 +518,7 @@ export class TableScrollDemo implements OnInit &#123;
         ];
 
         this.scrollableCols = [
+            &#123; field: 'name', header: 'Name' &#125;,
             &#123; field: 'id', header: 'Id' &#125;,
             &#123; field: 'date', header: 'Date' &#125;,
             &#123; field: 'company', header: 'Company' &#125;,
@@ -468,6 +530,48 @@ export class TableScrollDemo implements OnInit &#123;
     showDialog() &#123;
         this.dialogVisible = true;
     &#125;
+
+    toggleLock(data, frozen, index) &#123;
+        if (frozen) &#123;
+            this.lockedCustomers = this.lockedCustomers.filter((c, i) =&gt; i !== index);
+            this.unlockedCustomers.push(data);
+        &#125;
+        else &#123;
+            this.unlockedCustomers = this.unlockedCustomers.filter((c, i) =&gt; i !== index);
+            this.lockedCustomers.push(data);
+        &#125;
+
+        this.unlockedCustomers.sort((val1, val2) =&gt; &#123;
+            return val1.id &lt; val2.id ? -1 : 1;
+        &#125;);
+    &#125;
+
+    calculateCustomerTotal(name) &#123;
+        let total = 0;
+
+        if (this.customers) &#123;
+            for (let customer of this.customers) &#123;
+                if (customer.representative.name === name) &#123;
+                    total++;
+                &#125;
+            &#125;
+        &#125;
+
+        return total;
+    &#125;
+
+    formatCurrency(value) &#123;
+        return value.toLocaleString('en-US', &#123;style: 'currency', currency: 'USD'&#125;);
+    &#125;
+&#125;
+</app-code>
+
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+:host ::ng-deep  .p-frozen-column &#123;
+    font-weight: bold;
+&#125;
+:host ::ng-deep .p-datatable-frozen-tbody &#123;
+    font-weight: bold;
 &#125;
 </app-code>
         </p-tabPanel>

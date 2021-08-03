@@ -25,7 +25,7 @@ import { CustomerService } from '../../service/customerservice';
                 top: 0;
             }
         }
-`]
+    `]
 })
 export class TableStickyDemo implements OnInit {
 
