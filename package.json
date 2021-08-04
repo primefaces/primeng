@@ -11,6 +11,8 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
+        "login": "npm login",
+        "loginout": "npm loginout",
         "build-lib": "ng build primeng-library && gulp build-assets",
         "pack:lib": "npm run build-lib && npm pack ./dist",
         "publish:lib": "npm run build-lib && npm publish ./dist",
