@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "declaration": true,
-      "module": "es2015",
+      "module": "ESNext",
       "target": "es5",
       "baseUrl": ".",
       "stripInternal": true,
