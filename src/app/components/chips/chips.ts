@@ -135,7 +135,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     updateFilledState() {
         if (!this.value || this.value.length === 0) {
-            this.filled = (this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '');
+            this.filled = !!this.inputViewChild?.nativeElement?.value;
         }
         else {
             this.filled = true;
@@ -151,6 +151,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     writeValue(value: any) : void {
         this.value = value;
+        this.updateFilledState();
         this.updateMaxedOut();
         this.cd.markForCheck();
     }
