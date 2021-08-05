@@ -9,14 +9,17 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Template Mode</h5>
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
+        <p-multiSelect
+            [ariaLabelledBy]="'Multi Select' + cities.length + 'items'"
+            [ariaFilterLabel]="'Multi Select' + cities.length + 'items'"
+            [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
 
         <h5>Elipsis Mode</h5>
         <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
 
         <h5>Chips</h5>
         <p-multiSelect [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
-    
+
         <h5>Grouped</h5>
         <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
             <ng-template let-group pTemplate="group">
@@ -45,7 +48,7 @@
                 </div>
             </ng-template>
         </p-multiSelect>
-    
+
         <h5>Virtual Scroll (10000 Items)</h5>
         <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
@@ -136,7 +139,7 @@ export class MultiSelectDemo &#123;
 &#125;
 </app-code>
 
-        
+
             <h5>Chips Display</h5>
             <p>A comma separated list is used by default to display selected items whereas alternative chip mode is provided using the <i>display</i> property to visualize the items as tokens.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -176,8 +179,8 @@ export class MultiSelectDemo &#123;
 </app-code>
 
             <h5>Custom Content</h5>
-            <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. 
-                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, footer and empty filter message can be provided using <i>header</i>, <i>footer</i> and <i>emptyfilter</i> templates. 
+            <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection.
+                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, footer and empty filter message can be provided using <i>header</i>, <i>footer</i> and <i>emptyfilter</i> templates.
                 In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -858,7 +861,7 @@ export class MultiSelectDemo &#123;
 
         this.groupedCities = [
             &#123;
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     &#123;label: 'Berlin', value: 'Berlin'&#125;,
                     &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
@@ -867,7 +870,7 @@ export class MultiSelectDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     &#123;name: 'Chicago', value: 'Chicago'&#125;,
                     &#123;name: 'Los Angeles', value: 'Los Angeles'&#125;,
@@ -876,7 +879,7 @@ export class MultiSelectDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     &#123;name: 'Kyoto', value: 'Kyoto'&#125;,
                     &#123;name: 'Osaka', value: 'Osaka'&#125;,

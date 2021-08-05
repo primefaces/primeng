@@ -123,8 +123,6 @@ export class MultiSelectItem {
                     <ul class="p-multiselect-items p-component" [ngClass]="{'p-multiselect-virtualscroll': virtualScroll}"
                             role="listbox" aria-multiselectable="true"
 
-                            aria-setsize="{{listSet}}"
-                            itemLabel="listbox"
                             [attr.aria-label]="listSet + ' items'"
                             aria-live="polite"
                             aria-atomic="false" >
