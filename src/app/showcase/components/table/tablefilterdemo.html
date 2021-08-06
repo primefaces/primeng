@@ -27,19 +27,24 @@
                 <tr>
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Name 
-                            <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                            Name
+                            <p-columnFilter
+                                [ariaFilterDescription]="'Filter File Name'"
+
+
+                                type="text" field="name" display="menu"></p-columnFilter>
+                            <p [hidden]="true" id="filterFile" class="visually_hidden">Filter File Name</p>
                         </div>
                     </th>
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Country 
+                            Country
                             <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Agent 
+                            Agent
                             <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                 <ng-template pTemplate="header">
                                     <div class="p-px-3 p-pt-3 p-pb-0">
@@ -265,19 +270,19 @@
             &lt;tr&gt;
                 &lt;th&gt;
                     &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Name 
+                        Name
                         &lt;p-columnFilter type="text" field="name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
                     &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Country 
+                        Country
                         &lt;p-columnFilter type="text" field="country.name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
                     &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Agent 
+                        Agent
                         &lt;p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
                             &lt;ng-template pTemplate="header"&gt;
                                 &lt;div class="p-px-3 p-pt-3 p-pb-0"&gt;
@@ -532,7 +537,7 @@ export class TableFilterDemo implements OnInit &#123;
     &#125;
 
 &#125;
-</app-code> 
+</app-code>
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">
