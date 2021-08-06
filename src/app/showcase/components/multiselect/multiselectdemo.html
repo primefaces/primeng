@@ -10,19 +10,30 @@
     <div class="card">
         <h5>Template Mode</h5>
         <p-multiSelect
-            [inputId]="'items'"
-            [ariaLabelledBy]="'Multi Select' + cities.length + 'items'"
-            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items'"
-            [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} items checked"></p-multiSelect>
+            [disabled]="false"
+            [showHeader]="true"
+            [ariaLabelledBy]="'Multi Select' + cities?.length + 'items'"
+            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items checked'"
+            [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} items checked">
+        </p-multiSelect>
 
         <h5>Elipsis Mode</h5>
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
+        <p-multiSelect
+            [ariaLabelledBy]="'Multi Select' + cities?.length + 'items'"
+            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items checked'"
+            [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
 
         <h5>Chips</h5>
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
+        <p-multiSelect
+            [ariaLabelledBy]="'Multi Select' + cities?.length + 'items'"
+            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items checked'"
+            [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
 
         <h5>Grouped</h5>
-        <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
+        <p-multiSelect
+            [ariaLabelledBy]="'Multi Select' + cities?.length + 'items'"
+            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items checked'"
+            [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
             <ng-template let-group pTemplate="group">
                 <div class="p-d-flex p-ai-center">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
@@ -32,7 +43,10 @@
         </p-multiSelect>
 
         <h5>Advanced with Templating and Filtering</h5>
-        <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
+        <p-multiSelect
+            [ariaLabelledBy]="'Multi Select' + cities?.length + 'items'"
+            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items checked'"
+            [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
             <ng-template let-value pTemplate="selectedItems">
                 <div class="country-item country-item-value" *ngFor="let option of selectedCountries1">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />
@@ -51,7 +65,10 @@
         </p-multiSelect>
 
         <h5>Virtual Scroll (10000 Items)</h5>
-        <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
+        <p-multiSelect
+            [ariaLabelledBy]="'Multi Select' + cities?.length + 'items'"
+            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items checked'"
+            [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
