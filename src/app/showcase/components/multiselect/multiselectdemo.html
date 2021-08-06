@@ -10,9 +10,10 @@
     <div class="card">
         <h5>Template Mode</h5>
         <p-multiSelect
+            [inputId]="'items'"
             [ariaLabelledBy]="'Multi Select' + cities.length + 'items'"
-            [ariaFilterLabel]="'Multi Select' + cities.length + 'items'"
-            [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
+            [ariaFilterLabel]="'Multi Select' + selectedCities1?.length + 'items'"
+            [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} items checked"></p-multiSelect>
 
         <h5>Elipsis Mode</h5>
         <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
