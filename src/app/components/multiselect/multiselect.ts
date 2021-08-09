@@ -130,8 +130,6 @@ export class MultiSelectItem {
                 <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <ul class="p-multiselect-items p-component" [ngClass]="{'p-multiselect-virtualscroll': virtualScroll}"
                             aria-multiselectable="true"
-                            aria-setsize="{{listSet}}"
-                            itemLabel="listbox"
                             [attr.aria-label]="listSet + ' items'"
                             aria-live="polite"
                             aria-atomic="false"
@@ -151,9 +149,14 @@ export class MultiSelectItem {
                         <ng-template #itemslist let-optionsToDisplay let-selectedOption="selectedOption">
                             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                                 <ng-template ngFor let-option let-i="index" [ngForOf]="optionsToDisplay">
-                                    <p-multiSelectItem [option]="option" [selected]="isSelected(option)" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)" (onClick)="onOptionClick($event)"
+                                    <p-multiSelectItem
+                                        aria-describedby="pmsVSDrama"
+                                        [option]="option" [selected]="isSelected(option)" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)" (onClick)="onOptionClick($event)"
                                                        (onKeydown)="onOptionKeydown($event)"
                                                        [template]="itemTemplate"></p-multiSelectItem>
+                                    <p id="pmsVSDrama" class="p-hidden">
+                                        {{options.length}} items shown
+                                    </p>
                                 </ng-template>
                             </ng-container>
                             <ng-template #virtualScrollList>
