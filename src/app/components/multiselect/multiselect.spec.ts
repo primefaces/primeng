@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MultiSelect, MultiSelectItemComponent } from './multiselect';
+import { MultiSelect } from './multiselect';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TooltipModule } from 'primeng/tooltip';
@@ -18,8 +18,7 @@ describe('MultiSelect', () => {
 		  TooltipModule
         ],
         declarations: [
-          MultiSelect,
-          MultiSelectItemComponent
+          MultiSelect
         ]
       });
 
