@@ -11,7 +11,7 @@
         <p-table [columns]="selectedColumns" [value]="products">
             <ng-template pTemplate="caption">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
+                               selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeHolder="Choose Columns"></p-multiSelect>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -78,7 +78,7 @@ import &#123; ProductService &#125; from '../../service/productservice';
 export class TableColToggleDemo implements OnInit &#123;
 
     products: Product[];
-    
+
     cols: any[];
 
     _selectedColumns: any[];

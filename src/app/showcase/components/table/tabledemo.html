@@ -42,7 +42,7 @@
                     </th>
                     <th pSortableColumn="representative.name">
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Agent 
+                            Agent
                             <p-sortIcon field="representative.name"></p-sortIcon>
                             <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
                                 <ng-template pTemplate="header">
@@ -51,7 +51,7 @@
                                     </div>
                                 </ng-template>
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                    <p-multiSelect [ngModel]="value" [options]="representatives" placeHolder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-representative-option">
                                                 <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
@@ -939,7 +939,7 @@ export class CustomTableSortDemo implements OnInit &#123;
             <p>Filtering feature provides advanced and flexible options to query the data. Core of the filtering functionality is the <i>p-columnFilter</i> component.</p>
 
             <h4>Data Types</h4>
-            <p>ColumnFilter requires a <i>field</i> to reference a data property along with a <i>type</i> to define the built-in form element to use in filtering. Valid values for the <i>type</i> are the listed below. Each 
+            <p>ColumnFilter requires a <i>field</i> to reference a data property along with a <i>type</i> to define the built-in form element to use in filtering. Valid values for the <i>type</i> are the listed below. Each
             type displays a suitable form element such as calendar for dates. Custom filter elements are also supported with templating.</p>
 
             <ul>
@@ -1031,7 +1031,7 @@ export class AppComponent implements OnInit &#123;
             <h4>Custom Form Elements</h4>
             <p>Using templating, a custom element can be defined as the filter. The template gets the filter value and a filterCallback as parameters
                 so that current filter value can be displayed on the element with support for an event of your choice to trigger the filter. In this example,
-                a dropdown is used to select a value from a list. 
+                a dropdown is used to select a value from a list.
             </p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -1044,7 +1044,7 @@ export class AppComponent implements OnInit &#123;
         &lt;/ng-template&gt;
     &lt;/p-columnFilter&gt;
 &lt;/th&gt;
-</app-code>    
+</app-code>
 
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -1065,7 +1065,7 @@ export class TableFilterDemo implements OnInit &#123;
 
 &#125;
 </app-code>
-            
+
             <h4>Global Filtering</h4>
             <p>Global filtering searches all the fields from a single form element, in order to implement global filtering call the <i>filterGlobal</i> of the table with a value and match mode. If you have static columns and need to use global filtering, <i>globalFilterFields</i> property must be defined to configure which fields should be used in global filtering. Another
                 use case of this property is to change the fields to utilize in global filtering with dynamic columns.
@@ -1253,7 +1253,7 @@ export class TableFilterDemo implements OnInit &#123;
                 </table>
             </div>
 
-            
+
 
             <h5>ColumnFilter Templates</h5>
 			<div class="doc-tablewrapper">
@@ -1271,7 +1271,7 @@ export class TableFilterDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>filter</td>
-                            <td>$implicit: filter value<br /> 
+                            <td>$implicit: filter value<br />
                                 filterCallback: Callback function of the filter
                             </td>
                         </tr>
@@ -3617,7 +3617,7 @@ export class TableDemo implements OnInit &#123;
             &lt;/th&gt;
             &lt;th pSortableColumn="representative.name"&gt;
                 &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                    Agent 
+                    Agent
                     &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;
                     &lt;p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto"&gt;
                         &lt;ng-template pTemplate="header"&gt;

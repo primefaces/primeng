@@ -31,7 +31,7 @@
                     <th>
                         <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                <p-multiSelect [ngModel]="value" [options]="representatives" placeHolder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
                                         <div class="p-multiselect-representative-option">
                                             <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
@@ -131,7 +131,7 @@ export class TableLazyDemo implements OnInit &#123;
     cols: any[];
 
     loading: boolean;
-    
+
     representatives: Representative[];
 
     constructor(private customerService: CustomerService) &#123; &#125;
@@ -153,7 +153,7 @@ export class TableLazyDemo implements OnInit &#123;
         this.loading = true;
     &#125;
 
-    loadCustomers(event: LazyLoadEvent) &#123;  
+    loadCustomers(event: LazyLoadEvent) &#123;
         this.loading = true;
 
         setTimeout(() =&gt; &#123;

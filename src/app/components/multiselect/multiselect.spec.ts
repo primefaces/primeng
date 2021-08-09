@@ -1,15 +1,15 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MultiSelect, MultiSelectItem } from './multiselect';
+import { MultiSelect, MultiSelectItemComponent } from './multiselect';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TooltipModule } from 'primeng/tooltip';
 
 describe('MultiSelect', () => {
-  
+
     let multiselect: MultiSelect;
     let fixture: ComponentFixture<MultiSelect>;
-    
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -19,10 +19,10 @@ describe('MultiSelect', () => {
         ],
         declarations: [
           MultiSelect,
-          MultiSelectItem
+          MultiSelectItemComponent
         ]
       });
-      
+
       fixture = TestBed.createComponent(MultiSelect);
       multiselect = fixture.componentInstance;
     });
@@ -36,7 +36,7 @@ describe('MultiSelect', () => {
 		const inputReadOnlyEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		containerEl.click();
 		fixture.detectChanges();
-		
+
 		expect(showSpy).toHaveBeenCalled();
 		expect(containerEl.className).toContain('p-disabled');
 		expect(inputReadOnlyEl.className).toContain('p-disabled');
@@ -60,7 +60,7 @@ describe('MultiSelect', () => {
 
 		multiselect.dropdownIcon = "Primeng Rocks!";
 		fixture.detectChanges();
-		
+
 		multiselect.cd.detectChanges();
 		expect(dropdownIcon.className).toContain("Primeng Rocks!");
 	});
@@ -71,7 +71,7 @@ describe('MultiSelect', () => {
 		multiselect.style = {'height':'300px'};
 		multiselect.styleClass = "Primeng ROCKS!";
 		fixture.detectChanges();
-		
+
 		multiselect.cd.detectChanges();
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		expect(multiselectEl.className).toContain('Primeng ROCKS!');
@@ -85,7 +85,7 @@ describe('MultiSelect', () => {
 		multiselect.panelStyleClass = "Primeng ROCKS!";
 		multiselect.overlayVisible=true;
 		fixture.detectChanges();
-		
+
 		multiselect.cd.detectChanges();
 		const multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel')).nativeElement;
 		expect(multiselectPanelEl.className).toContain('Primeng ROCKS!');
@@ -374,7 +374,7 @@ describe('MultiSelect', () => {
 		fordEl.nativeElement.click();
 		fiatEl.nativeElement.click();
 		fixture.detectChanges();
-		
+
 		expect(multiselect.value[0]).toEqual('BMW');
 		expect(multiselect.value[1]).toEqual('Ford');
 		expect(fiatEl.nativeElement.className).not.toContain('p-highlight');
@@ -406,7 +406,7 @@ describe('MultiSelect', () => {
 		readOnlyEl.dispatchEvent(new Event('focus'));
 		allCheckedEl.click();
 		fixture.detectChanges();
-		
+
 		expect(multiselect.value.length).toEqual(10);
 		expect(itemClickSpy).toHaveBeenCalled();
 	});
@@ -443,7 +443,7 @@ describe('MultiSelect', () => {
 		const allCheckedEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
 		allCheckedEl.click();
 		fixture.detectChanges();
-		
+
 		expect(multiselect.value.length).toEqual(2);
 		expect(onInputFocusSpy).toHaveBeenCalled();
 		expect(onInputBlur).toHaveBeenCalled();
@@ -521,7 +521,7 @@ describe('MultiSelect', () => {
 			{label: 'VW', value: 'VW'},
 			{label: 'Volvo', value: 'Volvo'}
 		];
-	
+
 		fixture.detectChanges();
 
 		multiselect.resetFilterOnHide = true;
@@ -560,16 +560,16 @@ describe('MultiSelect', () => {
 			const multiselectEl = fixture.debugElement.children[0].nativeElement;
 			multiselectEl.click();
 			fixture.detectChanges();
-	
+
 			const filterInputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
 			filterInputEl.value = "1";
 			filterInputEl.dispatchEvent(new Event('input'));
 			fixture.detectChanges();
-	
+
 			multiselect.cd.detectChanges();
 			const visibleItems = fixture.debugElement.queryAll(By.css('.p-multiselect-items li'))
 				.filter(el => el.styles.display !== 'none');
-			const emptyMesage = fixture.debugElement.query(By.css('.p-multiselect-empty-message')); 
+			const emptyMesage = fixture.debugElement.query(By.css('.p-multiselect-empty-message'));
 			expect(visibleItems.length).toEqual(1);
 			expect(emptyMesage).toBeTruthy();
 			expect(emptyMesage.nativeElement.textContent).toContain("No results found");

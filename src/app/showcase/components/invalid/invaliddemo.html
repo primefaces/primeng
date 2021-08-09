@@ -10,7 +10,7 @@
     <div class="card">
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-4">
-                <input type="text" id="inputtext" pInputText class="ng-invalid ng-dirty" placeholder="InputText"> 
+                <input type="text" id="inputtext" pInputText class="ng-invalid ng-dirty" placeholder="InputText">
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <p-autoComplete inputId="autocomplete" [(ngModel)]="value2" [suggestions]="filteredCountries" (completeMethod)="searchCountry($event)" field="name" class="ng-invalid ng-dirty" placeholder="AutoComplete"></p-autoComplete>
@@ -22,7 +22,7 @@
                 <p-chips inputId="chips" [(ngModel)]="value4" class="ng-invalid ng-dirty" placeholder="Chips"></p-chips>
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5" class="ng-invalid ng-dirty" placeholder="InputMask"></p-inputMask>    
+                <p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5" class="ng-invalid ng-dirty" placeholder="InputMask"></p-inputMask>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <p-inputNumber inputId="inputnumber" [(ngModel)]="value6" class="ng-invalid ng-dirty" placeholder="InputNumber"></p-inputNumber>
@@ -34,7 +34,7 @@
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="cities" [(ngModel)]="value7" optionLabel="name" class="ng-invalid ng-dirty" placeholder="Dropdown"></p-dropdown>
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <p-multiSelect inputId="multiselect" [options]="cities" [(ngModel)]="value7" optionLabel="name" [filter]="false" class="ng-invalid ng-dirty" placeholder="MultiSelect"></p-multiSelect>
+                <p-multiSelect inputId="multiselect" [options]="cities" [(ngModel)]="value7" optionLabel="name" [filter]="false" class="ng-invalid ng-dirty" placeHolder="MultiSelect"></p-multiSelect>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <textarea inputId="textarea" rows="3" cols="30" [(ngModel)]="value9" pInputTextarea class="ng-invalid ng-dirty" placeholder="Textarea"></textarea>
@@ -50,11 +50,11 @@
         <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/invalid" class="btn-viewsource" target="_blank">
             <span>View on GitHub</span>
         </a>
-        
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="p-fluid p-grid"&gt;
     &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;input type="text" id="inputtext" pInputText class="ng-invalid ng-dirty" placeholder="InputText"&gt; 
+        &lt;input type="text" id="inputtext" pInputText class="ng-invalid ng-dirty" placeholder="InputText"&gt;
     &lt;/div&gt;
     &lt;div class="p-field p-col-12 p-md-4"&gt;
         &lt;p-autoComplete inputId="autocomplete" [(ngModel)]="value2" [suggestions]="filteredCountries" (completeMethod)="searchCountry($event)" field="name" class="ng-invalid ng-dirty" placeholder="AutoComplete"&gt;&lt;/p-autoComplete&gt;
@@ -66,7 +66,7 @@
         &lt;p-chips inputId="chips" [(ngModel)]="value4" class="ng-invalid ng-dirty" placeholder="Chips"&gt;&lt;/p-chips&gt;
     &lt;/div&gt;
     &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5" class="ng-invalid ng-dirty" placeholder="InputMask"&gt;&lt;/p-inputMask&gt;    
+        &lt;p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5" class="ng-invalid ng-dirty" placeholder="InputMask"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     &lt;div class="p-field p-col-12 p-md-4"&gt;
         &lt;p-inputNumber inputId="inputnumber" [(ngModel)]="value6" class="ng-invalid ng-dirty" placeholder="InputNumber"&gt;&lt;/p-inputNumber&gt;
@@ -111,7 +111,7 @@ export class FloatLabelDemo &#123;
     value7: any;
 
     value8: any;
-    
+
     value9: any;
 
     constructor(private countryService: CountryService) &#123;
@@ -149,11 +149,11 @@ export class FloatLabelDemo &#123;
                             &#123;cname: 'Townsville', code: 'A-TO'&#125;
                         ]
                     &#125;,
-                    
+
                 ]
             &#125;,
             &#123;
-                name: 'Canada', 
+                name: 'Canada',
                 code: 'CA',
                 states: [
                     &#123;
@@ -170,7 +170,7 @@ export class FloatLabelDemo &#123;
                             &#123;cname: 'Toronto', code: 'C-TO'&#125;
                         ]
                     &#125;,
-                    
+
                 ]
             &#125;,
             &#123;
@@ -217,7 +217,7 @@ export class FloatLabelDemo &#123;
                 filtered.push(country);
             &#125;
         &#125;
-        
+
         this.filteredCountries = filtered;
     &#125;
 &#125;
