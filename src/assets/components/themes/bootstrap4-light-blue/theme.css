@@ -40,6 +40,7 @@
   --surface-card:#ffffff;
   --surface-overlay:#ffffff;
   --surface-border:#dee2e6;
+  --surface-hover:#e9ecef;
 }
 
 * {
