@@ -84,7 +84,9 @@ export class TableService {
                 'p-datatable-scrollable-horizontal': scrollable && scrollDirection === 'horizontal',
                 'p-datatable-scrollable-both': scrollable && scrollDirection === 'both',
                 'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex'),
-                'p-datatable-responsive': responsive}" [attr.id]="id">
+                'p-datatable-responsive': responsive,
+                'p-datatable-grouped-header': headerGroupedTemplate != null,
+                'p-datatable-grouped-footer': footerGroupedTemplate != null}" [attr.id]="id">
             <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
                 <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
@@ -100,24 +102,24 @@ export class TableService {
                 <table #table *ngIf="!virtualScroll" role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="p-datatable-thead">
-                        <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
                     <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="frozenBodyTemplate" [frozen]="true" [ngStyle]="{width: frozenWidth}"></tbody>
                     <tbody class="p-datatable-tbody" [value]="dataToRender" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
-                    <tfoot *ngIf="footerTemplate" class="p-datatable-tfoot">
-                        <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
+                    <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
+                        <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                 </table>
                 <cdk-virtual-scroll-viewport *ngIf="virtualScroll" [itemSize]="virtualRowHeight" tabindex="0" [style.height]="scrollHeight !== 'flex' ? scrollHeight : undefined" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
                     <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                         <thead #tableHeader class="p-datatable-thead">
-                            <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
+                            <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
                         </thead>
                         <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate" [frozen]="true" [ngStyle]="{width: frozenWidth}"></tbody>
                         <tbody class="p-datatable-tbody" [value]="dataToRender" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
-                        <tfoot *ngIf="footerTemplate" class="p-datatable-tfoot">
-                            <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
+                        <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
+                            <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context {$implicit: columns}"></ng-container>
                         </tfoot>
                     </table>
                 </cdk-virtual-scroll-viewport>
@@ -354,6 +356,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     headerTemplate: TemplateRef<any>;
 
+    headerGroupedTemplate: TemplateRef<any>;
+
     bodyTemplate: TemplateRef<any>;
 
     loadingBodyTemplate: TemplateRef<any>;
@@ -363,6 +367,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     frozenRowsTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
+
+    footerGroupedTemplate: TemplateRef<any>;
 
     summaryTemplate: TemplateRef<any>;
 
@@ -499,6 +505,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.headerTemplate = item.template;
                 break;
 
+                case 'headergrouped':
+                    this.headerGroupedTemplate = item.template;
+                break;
+
                 case 'body':
                     this.bodyTemplate = item.template;
                 break;
@@ -509,6 +519,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                break;
+
+                case 'footergrouped':
+                    this.footerGroupedTemplate = item.template;
                 break;
 
                 case 'summary':
