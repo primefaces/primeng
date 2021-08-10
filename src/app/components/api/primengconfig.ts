@@ -79,10 +79,17 @@ export class PrimeNGConfig {
         emptyFilterMessage: 'No results found'
     }
 
+    zIndex = {
+        modal: 1100,
+        overlay: 1000,
+        menu: 1000,
+        tooltip: 1100
+    }
+
     private translationSource = new Subject<any>();
-    
+
     translationObserver = this.translationSource.asObservable();
-    
+
     getTranslation(key: string) {
         return this.translation[key];
     }

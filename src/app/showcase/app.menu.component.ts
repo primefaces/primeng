@@ -109,6 +109,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/slider']" routerLinkActive="router-link-exact-active">Slider</a>
                     <a [routerLink]=" ['/selectbutton']" routerLinkActive="router-link-exact-active">SelectButton</a>
                     <a [routerLink]=" ['/togglebutton']" routerLinkActive="router-link-exact-active">ToggleButton</a>
+                    <a [routerLink]=" ['/treeselect']" routerLinkActive="router-link-exact-active">TreeSelect</a>
                     <a [routerLink]=" ['/tristatecheckbox']" routerLinkActive="router-link-exact-active">TriCheckbox</a>
                 </div>
 
@@ -116,6 +117,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/button']" routerLinkActive="router-link-exact-active">Button</a>
                     <a [routerLink]=" ['/splitbutton']" routerLinkActive="router-link-exact-active">SplitButton</a>
+                    <a [routerLink]=" ['/speeddial']" routerLinkActive="router-link-exact-active">SpeedDial</a>
                 </div>
 
                 <div class="menu-category">Data</div>
@@ -245,6 +247,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/menumodel']" routerLinkActive="router-link-exact-active">MenuModel</a>
                     <a [routerLink]=" ['/breadcrumb']" routerLinkActive="router-link-exact-active">Breadcrumb</a>
                     <a [routerLink]=" ['/contextmenu']" routerLinkActive="router-link-exact-active">ContextMenu</a>
+                    <a [routerLink]=" ['/dock']" routerLinkActive="router-link-exact-active">Dock <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/megamenu']" routerLinkActive="router-link-exact-active">MegaMenu</a>
                     <a [routerLink]=" ['/menu']" routerLinkActive="router-link-exact-active">Menu</a>
                     <a [routerLink]=" ['/menubar']" routerLinkActive="router-link-exact-active">Menubar</a>
@@ -415,6 +418,7 @@ export class AppMenuComponent {
                 {label: 'Slider', value: '/slider'},
                 {label: 'SelectButton', value: '/selectbutton'},
                 {label: 'ToggleButton', value: '/togglebutton'},
+                {label: 'TreeSelect', value: '/treeselect'},
                 {label: 'TriCheckbox', value: '/tristatecheckbox'}
             ]
         },
@@ -422,6 +426,7 @@ export class AppMenuComponent {
             label: 'Button', value: 'button',
             items: [
                 {label: 'Button', value: '/button'},
+                {label: 'SpeedDial', value: '/speeddial'},
                 {label: 'SplitButton', value: '/splitbutton'}
             ]
         },
@@ -548,6 +553,7 @@ export class AppMenuComponent {
                 {label: 'MenuModel', value: '/menumodel'},
                 {label: 'Breadcrumb', value: '/breadcrumb'},
                 {label: 'ContextMenu', value: '/contextmenu'},
+                {label: 'Dock', value: '/dock'},
                 {label: 'MegaMenu', value: '/megamenu'},
                 {label: 'Menu', value: '/menu'},
                 {label: 'Menubar', value: '/menubar'},

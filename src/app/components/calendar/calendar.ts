@@ -5,9 +5,10 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys} from 'primeng/api';
+import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys, OverlayService} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Subscription} from 'rxjs';
+import {ZIndexUtils} from 'primeng/utils';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -43,7 +44,7 @@ export interface LocaleSettings {
                 'p-disabled':disabled,'p-datepicker-timeonly':timeOnly,'p-datepicker-multiple-month': this.numberOfMonths > 1, 'p-datepicker-monthpicker': (view === 'month'), 'p-datepicker-touch-ui': touchUI}"
                 [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}:
                                             {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-                                            [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" *ngIf="inline || overlayVisible">
+                                            [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" (click)="onOverlayClick($event)" *ngIf="inline || overlayVisible">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="!timeOnly">
@@ -445,7 +446,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     set defaultDate(defaultDate: Date) {
         this._defaultDate = defaultDate;
-        
+
         if (this.initialized) {
             const date = defaultDate||new Date();
             this.currentMonth = date.getMonth();
@@ -543,7 +544,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         console.warn("Locale property has no effect, use new i18n API instead.");
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
         const date = this.defaultDate||new Date();
@@ -1200,10 +1201,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onInputClick() {
-        if (this.overlay && this.autoZIndex) {
-            this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-        }
-
         if (this.showOnFocus && !this.overlayVisible) {
             this.showOverlay();
         }
@@ -1226,6 +1223,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else {
             this.hideOverlay();
         }
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     onPrevButtonClick(event) {
@@ -2030,8 +2034,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     this.overlay = event.element;
                     this.appendOverlay();
                     if (this.autoZIndex) {
-                        this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                        if (this.touchUI)
+                            ZIndexUtils.set('modal', this.overlay, this.baseZIndex || this.config.zIndex.modal);
+                        else
+                            ZIndexUtils.set('overlay', this.overlay, this.baseZIndex || this.config.zIndex.overlay);
                     }
+
                     this.alignOverlay();
                     this.onShow.emit(event);
                 }
@@ -2054,6 +2062,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     this.bindScrollListener();
                 }
             break;
+
+            case 'void':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(event.element);
+                }
+            break
         }
     }
 
@@ -2588,6 +2602,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
+        }
+
+        if (this.overlay && this.autoZIndex) {
+            ZIndexUtils.clear(this.overlay);
         }
 
         this.clearTimePickerTimer();

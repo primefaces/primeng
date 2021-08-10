@@ -3,10 +3,10 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Render
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
+import {Header,Footer,SharedModule, PrimeTemplate, PrimeNGConfig} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
 import {RippleModule} from 'primeng/ripple';
-import {UniqueComponentId} from 'primeng/utils';
+import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -34,7 +34,7 @@ const hideAnimation = animation([
                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="header">{{header}}</span>
+                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{header}}</span>
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
@@ -250,7 +250,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     styleElement: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -397,8 +397,8 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-            this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
+            ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
         }
     }
 
@@ -655,9 +655,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
-                    this.close(event);
-                }
+                this.close(event);
             }
         });
     }
@@ -738,6 +736,10 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
         if (this.blockScroll) {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        }
+
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
         }
 
         this.container = null;

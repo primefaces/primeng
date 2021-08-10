@@ -1,15 +1,16 @@
 import {NgModule ,Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Confirmation, ConfirmationService, PrimeNGConfig, TranslationKeys} from 'primeng/api';
+import {Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {ButtonModule} from 'primeng/button';
+import {ZIndexUtils} from 'primeng/utils';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 
 @Component({
     selector: 'p-confirmPopup',
     template: `
-        <div *ngIf="visible" [ngClass]="'p-confirm-popup p-component'" [ngStyle]="style" [class]="styleClass"
+        <div *ngIf="visible" [ngClass]="'p-confirm-popup p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
             [@animation]="{value: 'open', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
             (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
             <div #content class="p-confirm-popup-content">
@@ -80,7 +81,7 @@ export class ConfirmPopup implements OnDestroy {
         this.cd.markForCheck();
     }
 
-    constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
                 this.hide();
@@ -123,7 +124,7 @@ export class ConfirmPopup implements OnDestroy {
 
     align() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
         }
 
         DomHandler.absolutePosition(this.container, this.confirmation.target);
@@ -160,6 +161,13 @@ export class ConfirmPopup implements OnDestroy {
         }
 
         this.hide();
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     bindListeners() {
@@ -245,6 +253,11 @@ export class ConfirmPopup implements OnDestroy {
     onContainerDestroy() {
         this.unbindListeners();
         this.unsubscribeConfirmationSubscriptions();
+
+        if (this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.confirmation = null;
         this.container = null;
     }

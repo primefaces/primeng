@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Message} from 'primeng/api';
+import {Message, PrimeNGConfig} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
@@ -8,6 +8,7 @@ import {UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-toastItem',
@@ -189,11 +190,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     template: TemplateRef<any>;
 
+    constructor(public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+
     styleElement: any;
 
     id: string = UniqueComponentId();
-
-    constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
@@ -220,8 +221,12 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
             this.cd.markForCheck();
         });
+    }
 
-
+    ngAfterViewInit() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
+        }
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -327,6 +332,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
+        }
+
+        if (this.containerViewChild && this.autoZIndex) {
+            ZIndexUtils.clear(this.containerViewChild.nativeElement);
         }
 
         if (this.clearSubscription) {

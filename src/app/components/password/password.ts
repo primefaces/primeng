@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys} from 'primeng/api';
+import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 import {InputTextModule} from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
 
@@ -252,8 +253,8 @@ export const Password_VALUE_ACCESSOR: any = {
             <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()"
                 (blur)="onBlur()" (keyup)="onKeyUp($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
-            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)">
+            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -366,7 +367,7 @@ export class Password implements AfterContentInit,OnInit {
 
     translationSubscription: Subscription;
 
-    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
+    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -403,7 +404,7 @@ export class Password implements AfterContentInit,OnInit {
         switch(event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                this.overlay.style.zIndex = String(DomHandler.generateZIndex());
+                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 this.appendContainer();
                 this.alignOverlay();
                 this.bindScrollListener();
@@ -414,6 +415,14 @@ export class Password implements AfterContentInit,OnInit {
                 this.unbindScrollListener();
                 this.unbindResizeListener();
                 this.overlay = null;
+            break;
+        }
+    }
+
+    onAnimationEnd(event) {
+        switch(event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
             break;
         }
     }
@@ -509,6 +518,13 @@ export class Password implements AfterContentInit,OnInit {
 
     onMaskToggle() {
         this.unmasked = !this.unmasked;
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     testStrength(str) {
@@ -649,6 +665,11 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     ngOnDestroy() {
+        if (this.overlay) {
+            ZIndexUtils.clear(this.overlay);
+            this.overlay = null;
+        }
+
         this.restoreAppend();
         this.unbindResizeListener();
 

@@ -1,0 +1,642 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>Speed Dial</h1>
+        <p>When pressed, a floating action button can display multiple primary actions that can be performed on a page.</p>
+    </div>
+    <app-demoActions github="speeddial" stackblitz="speeddial-demo"></app-demoActions>
+</div>
+
+<div class="content-section implementation">
+    <p-toast></p-toast>
+    <div class="card">
+        <h5>Linear</h5>
+        <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+            <p-speedDial [model]="items" direction="up"></p-speedDial>
+            <p-speedDial [model]="items" direction="down"></p-speedDial>
+            <p-speedDial [model]="items" direction="left"></p-speedDial>
+            <p-speedDial [model]="items" direction="right"></p-speedDial>
+        </div>
+    </div>
+
+    <div class="card">
+        <h5>Circle, Semi-Circle and Quarter-Circle</h5>
+        <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
+            <p-speedDial [model]="items" radius="80" type="circle" buttonClassName="p-button-warning"></p-speedDial>
+            <p-speedDial [model]="items" radius="80" direction="up" type="semi-circle"></p-speedDial>
+            <p-speedDial [model]="items" radius="80" direction="down" type="semi-circle"></p-speedDial>
+            <p-speedDial [model]="items" radius="80" direction="left" type="semi-circle"></p-speedDial>
+            <p-speedDial [model]="items" radius="80" direction="right" type="semi-circle"></p-speedDial>
+            <p-speedDial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
+            <p-speedDial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
+            <p-speedDial [model]="items" radius="120" direction="down-left" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
+            <p-speedDial [model]="items" radius="120" direction="down-right" typ e="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
+        </div>
+    </div>
+
+    <div class="card">
+        <h5>Tooltip</h5>
+        <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
+            <p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up"></p-speedDial>
+            <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up"></p-speedDial>
+        </div>
+    </div>
+
+    <div class="card">
+        <h5>Transition Duration, Icon and No Rotate Animation</h5>
+        <div style="height: 350px; position: relative;" class="speeddial-delay-demo">
+            <p-speedDial [model]="items" direction="up" [transitionDelay]="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"></p-speedDial>
+        </div>
+    </div>
+
+    <div class="card">
+        <h5>Mask</h5>
+        <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
+            <p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>
+        </div>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Documentation">
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;SpeedDialModule&#125; from 'primeng/speeddial';
+</app-code>
+
+                <h5>Getting Started</h5>
+                <p>When pressed, a floating action button can display multiple primary actions that can be performed on a page. It has a collection of additional options defined by the <i>model</i> property.
+                SpeedDial's position is calculated according to the container element with the position type style.</p>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class SpeedDialDemo implements OnInit &#123;
+
+    items: MenuItem[];
+
+    constructor(private messageService: MessageService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;
+                icon: 'pi pi-pencil',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'info', summary: 'Add', detail: 'Data Added' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                icon: 'pi pi-refresh',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'success', summary: 'Update', detail: 'Data Updated' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                icon: 'pi pi-trash',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'error', summary: 'Delete', detail: 'Data Deleted' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                icon: 'pi pi-upload',
+                routerLink: ['/fileupload']
+            &#125;,
+            &#123;
+                icon: 'pi pi-external-link',
+                url: 'http://angular.io'
+
+            &#125;
+        ];
+    &#125;
+&#125;
+</app-code>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-speedDial [model]="items"&gt;&lt;/p-speedDial&gt;
+</app-code>
+
+            <h5>MenuModel API</h5>
+            <p>SpeedDial uses the common MenuModel API to define the items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
+
+            <h5>Type</h5>
+            <p>SpeedDial has 4 types; <i>linear</i>, <i>circle</i>, <i>semi-circle</i> and <i>quarter-circle</i>.</p>
+
+            <h5>Direction</h5>
+            <p>Specifies the opening direction of actions. For the <strong>linear</strong> and <strong>semi-circle</strong> types; <i>up</i>, <i>down</i>, <i>left</i> and <i>right</i>. For the <strong>quarter-circle</strong> type; <i>up-left</i>, <i>up-right</i>, <i>down-left</i> and <i>down-right</i>.</p>
+
+            <h5>Properties</h5>
+            <p>Any property as style and class are passed to the main container element. Following are the additional properties to configure the component.</p>
+
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Unique identifier of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>model</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>MenuModel instance to define the action items.</td>
+                        </tr>
+                        <tr>
+                            <td>visible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifies the visibility of the overlay.</td>
+                        </tr>
+                        <tr>
+                            <td>className</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>direction</td>
+                            <td>string</td>
+                            <td>up</td>
+                            <td>Specifies the opening direction of actions. Valid values are 'up', 'down', 'left', 'right', 'up-left', 'up-right', 'down-left' and 'down-right'</td>
+                        </tr>
+                        <tr>
+                            <td>transitionDelay</td>
+                            <td>number</td>
+                            <td>30</td>
+                            <td>Transition delay step for each action item.</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>string</td>
+                            <td>linear</td>
+                            <td>Specifies the opening type of actions.</td>
+                        </tr>
+                        <tr>
+                            <td>radius</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Radius for *circle types.</td>
+                        </tr>
+                        <tr>
+                            <td>mask</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to show a mask element behind the speeddial</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the component is disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>hideOnClickOutside</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether the actions close when clicked outside.</td>
+                        </tr>
+                        <tr>
+                            <td>buttonClassName</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the button element.</td>
+                        </tr>
+                        <tr>
+                            <td>buttonStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Inline style of the button element.</td>
+                        </tr>
+                        <tr>
+                            <td>buttonTemplate</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Template of button element.</td>
+                        </tr>
+                        <tr>
+                            <td>maskClassName</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the mask element.</td>
+                        </tr>
+                        <tr>
+                            <td>maskStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Inline style of the mask element.</td>
+                        </tr>
+                        <tr>
+                            <td>showIcon</td>
+                            <td>string</td>
+                            <td>pi pi-plus</td>
+                            <td>Show icon of the button element.</td>
+                        </tr>
+                        <tr>
+                            <td>hideIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Hide icon of the button element.</td>
+                        </tr>
+                        <tr>
+                            <td>rotateAnimation</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defined to rotate showIcon when hideIcon is not present.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>button</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Events</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onVisibleChange</td>
+                            <td>visible: Whether the actions are visible.</td>
+                            <td>Fired when the visibility of element changed.</td>
+                        </tr>
+                        <tr>
+                            <td>onClick</td>
+                            <td>event: Browser event.</td>
+                            <td>Fired when the button element clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>onShow</td>
+                            <td>-</td>
+                            <td>Fired when the actions are visible.</td>
+                        </tr>
+                        <tr>
+                            <td>onHide</td>
+                            <td>-</td>
+                            <td>Fired when the actions are hidden.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Styling</h5>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>p-speeddial</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>p-speeddial-button</td>
+                            <td>Button element of speeddial.</td>
+                        </tr>
+                        <tr>
+                            <td>p-speeddial-mask</td>
+                            <td>Mask element of speeddial.</td>
+                        </tr>
+                        <tr>
+                            <td>p-speeddial-list</td>
+                            <td>List of the actions.</td>
+                        </tr>
+                        <tr>
+                            <td>p-speeddial-item</td>
+                            <td>Each action item of list.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Dependencies</h5>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <ng-template pTemplate="content">
+                <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/speeddial" class="btn-viewsource" target="_blank">
+                    <span>View on GitHub</span>
+                </a>
+                <a href="https://stackblitz.com/edit/primeng-speeddial-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                    <span>Edit in StackBlitz</span>
+                </a>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast&gt;&lt;/p-toast&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Linear&lt;/h5&gt;
+    &lt;div style="height: 500px; position: relative;" class="speeddial-linear-demo"&gt;
+        &lt;p-speedDial [model]="items" direction="up"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" direction="down"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" direction="left"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" direction="right"&gt;&lt;/p-speedDial&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Circle, Semi-Circle and Quarter-Circle&lt;/h5&gt;
+    &lt;div style="height: 500px; position: relative;" class="speeddial-circle-demo"&gt;
+        &lt;p-speedDial [model]="items" radius="80" type="circle" buttonClassName="p-button-warning"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="80" direction="up" type="semi-circle"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="80" direction="down" type="semi-circle"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="80" direction="left" type="semi-circle"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="80" direction="right" type="semi-circle"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="120" direction="down-left" type="quarter-circle" buttonClassName="p-button-success"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="items" radius="120" direction="down-right" typ e="quarter-circle" buttonClassName="p-button-success"&gt;&lt;/p-speedDial&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Tooltip&lt;/h5&gt;
+    &lt;div style="height: 350px; position: relative;" class="speeddial-tooltip-demo"&gt;
+        &lt;p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up"&gt;&lt;/p-speedDial&gt;
+        &lt;p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up"&gt;&lt;/p-speedDial&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Transition Duration, Icon and No Rotate Animation&lt;/h5&gt;
+    &lt;div style="height: 350px; position: relative;" class="speeddial-delay-demo"&gt;
+        &lt;p-speedDial [model]="items" direction="up" [transitionDelay]="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"&gt;&lt;/p-speedDial&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Mask&lt;/h5&gt;
+    &lt;div style="height: 350px; position: relative;" class="speeddial-mask-demo"&gt;
+        &lt;p-speedDial [model]="items" direction="up" [mask]="true"&gt;&lt;/p-speedDial&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class SpeedDialDemo implements OnInit &#123;
+
+    items: MenuItem[];
+
+    tooltipItems: MenuItem[];
+
+    leftTooltipItems: MenuItem[];
+
+    constructor(private messageService: MessageService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;
+                icon: 'pi pi-pencil',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'info', summary: 'Add', detail: 'Data Added' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                icon: 'pi pi-refresh',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'success', summary: 'Update', detail: 'Data Updated' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                icon: 'pi pi-trash',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'error', summary: 'Delete', detail: 'Data Deleted' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                icon: 'pi pi-upload',
+                routerLink: ['/fileupload']
+            &#125;,
+            &#123;
+                icon: 'pi pi-external-link',
+                url: 'http://angular.io'
+
+            &#125;
+        ];
+
+        this.tooltipItems = [
+            &#123;
+                tooltip: 'Add',
+                icon: 'pi pi-pencil',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'info', summary: 'Add', detail: 'Data Added' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                tooltip: 'Update',
+                icon: 'pi pi-refresh',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'success', summary: 'Update', detail: 'Data Updated' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                tooltip: 'Delete',
+                icon: 'pi pi-trash',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'error', summary: 'Delete', detail: 'Data Deleted' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                tooltip: 'Upload',
+                icon: 'pi pi-upload',
+                routerLink: ['/fileupload']
+            &#125;,
+            &#123;
+                tooltip: 'Angular Website',
+                icon: 'pi pi-external-link',
+                url: 'http://angular.io'
+            &#125;
+        ];
+
+        this.leftTooltipItems = [
+            &#123;
+                tooltip: 'Add',
+                icon: 'pi pi-pencil',
+                tooltipPosition: 'left',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'info', summary: 'Add', detail: 'Data Added' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                tooltip: 'Update',
+                icon: 'pi pi-refresh',
+                tooltipPosition: 'left',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'success', summary: 'Update', detail: 'Data Updated' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                tooltip: 'Delete',
+                icon: 'pi pi-trash',
+                tooltipPosition: 'left',
+                command: () =&gt; &#123;
+                    this.messageService.add(&#123; severity: 'error', summary: 'Delete', detail: 'Data Deleted' &#125;);
+                &#125;
+            &#125;,
+            &#123;
+                tooltip: 'Upload',
+                icon: 'pi pi-upload',
+                tooltipPosition: 'left',
+                routerLink: ['/fileupload']
+            &#125;,
+            &#123;
+                tooltip: 'Angular Website',
+                icon: 'pi pi-external-link',
+                tooltipPosition: 'left',
+                url: 'http://angular.io'
+            &#125;
+        ];
+    &#125;
+&#125;
+</app-code>
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
+:host ::ng-deep &#123;
+    .speeddial-linear-demo &#123;
+        .p-speeddial-direction-up &#123;
+            left: calc(50% - 2rem);
+            bottom: 0;
+        &#125;
+
+        .p-speeddial-direction-down &#123;
+            left: calc(50% - 2rem);
+            top: 0;
+        &#125;
+
+        .p-speeddial-direction-left &#123;
+            right: 0;
+            top: calc(50% - 2rem);
+        &#125;
+
+        .p-speeddial-direction-right &#123;
+            left: 0;
+            top: calc(50% - 2rem);
+        &#125;
+    &#125;
+
+    .speeddial-circle-demo &#123;
+        .p-speeddial-circle &#123;
+            top: calc(50% - 2rem);
+            left: calc(50% - 2rem);
+        &#125;
+
+        .p-speeddial-semi-circle &#123;
+            &.p-speeddial-direction-up &#123;
+                left: calc(50% - 2rem);
+                bottom: 0;
+            &#125;
+
+            &.p-speeddial-direction-down &#123;
+                left: calc(50% - 2rem);
+                top: 0;
+            &#125;
+
+            &.p-speeddial-direction-left &#123;
+                right: 0;
+                top: calc(50% - 2rem);
+            &#125;
+
+            &.p-speeddial-direction-right &#123;
+                left: 0;
+                top: calc(50% - 2rem);
+            &#125;
+        &#125;
+
+        .p-speeddial-quarter-circle &#123;
+            &.p-speeddial-direction-up-left &#123;
+                right: 0;
+                bottom: 0;
+            &#125;
+
+            &.p-speeddial-direction-up-right &#123;
+                left: 0;
+                bottom: 0;
+            &#125;
+
+            &.p-speeddial-direction-down-left &#123;
+                right: 0;
+                top: 0;
+            &#125;
+
+            &.p-speeddial-direction-down-right &#123;
+                left: 0;
+                top: 0;
+            &#125;
+        &#125;
+    &#125;
+
+    .speeddial-tooltip-demo &#123;
+        .p-speeddial-direction-up &#123;
+            &.speeddial-left &#123;
+                left: 0;
+                bottom: 0;
+            &#125;
+
+            &.speeddial-right &#123;
+                right: 0;
+                bottom: 0;
+            &#125;
+        &#125;
+    &#125;
+
+    .speeddial-delay-demo &#123;
+        .p-speeddial-direction-up &#123;
+            left: calc(50% - 2rem);
+            bottom: 0;
+        &#125;
+    &#125;
+
+    .speeddial-mask-demo &#123;
+        .p-speeddial-direction-up &#123;
+            right: 0;
+            bottom: 0;
+        &#125;
+    &#125;
+
+&#125;
+</app-code>
+            </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-speeddial-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+     </p-tabView>
+</div>

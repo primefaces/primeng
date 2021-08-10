@@ -42,7 +42,7 @@
                     </th>
                     <th pSortableColumn="representative.name">
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Agent 
+                            Agent
                             <p-sortIcon field="representative.name"></p-sortIcon>
                             <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
                                 <ng-template pTemplate="header">
@@ -355,7 +355,9 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>$implicit: Data of the row <br>
                                 rowIndex: Index of the row <br>
                                 columns: Columns collection <br>
-                                expanded: Whether the row is expanded
+                                expanded: Whether the row is expanded <br>
+                                rowgroup: Wheter the row is rowgroup <br>
+                                rowspan: Row span of the rowgroup
                             </td>
                             <td>Content of the tbody element.</td>
                         </tr>
@@ -368,11 +370,6 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>summary</td>
                             <td>-</td>
                             <td>Summary section to display below the table.</td>
-                        </tr>
-                        <tr>
-                            <td>colgroup</td>
-                            <td>$implicit: Columns</td>
-                            <td>ColGroup element of the table to customize columns.</td>
                         </tr>
                         <tr>
                             <td>rowexpansion</td>
@@ -391,11 +388,6 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>Content of the tbody element to display frozen rows.</td>
                         </tr>
                         <tr>
-                            <td>frozenheader</td>
-                            <td>$implicit: Columns</td>
-                            <td>Content of the thead element in frozen side.</td>
-                        </tr>
-                        <tr>
                             <td>frozenbody</td>
                             <td>$implicit: Data of the row <br>
                                 rowIndex: Index of the row <br>
@@ -404,22 +396,28 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>Content of the tbody element in frozen side.</td>
                         </tr>
                         <tr>
-                            <td>frozenfooter</td>
-                            <td>$implicit: Columns</td>
-                            <td>Content of the tfoot element in frozen side.</td>
-                        </tr>
-                        <tr>
-                            <td>frozencolgroup</td>
-                            <td>$implicit: Columns</td>
-                            <td>ColGroup element of the table to customize frozen columns.</td>
-                        </tr>
-                        <tr>
                             <td>frozenrowexpansion</td>
                             <td>$implicit: Data of the row <br>
                                 rowIndex: Index of the row <br>
                                 columns: Columns collection <br>
                             </td>
                             <td>Content of an extended row in frozen side.</td>
+                        </tr>
+                        <tr>
+                            <td>groupheader</td>
+                            <td>$implicit: Data of the row <br>
+                                rowIndex: Index of the row <br>
+                                columns: Columns collection <br>
+                            </td>
+                            <td>Header of the grouped rows.</td>
+                        </tr>
+                        <tr>
+                            <td>groupfooter</td>
+                            <td>$implicit: Data of the row <br>
+                                rowIndex: Index of the row <br>
+                                columns: Columns collection <br>
+                            </td>
+                            <td>Footer of the grouped rows.</td>
                         </tr>
                         <tr>
                             <td>emptymessage</td>
@@ -566,113 +564,184 @@ export class TableColGroupDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/table/colgroup']">live example.</a></p>
 
-            <h5>Row Grouping</h5>
-            <p>Templating features can also be used to implement row grouping functionality, here is an example implementation that uses a metadata object
-                to keep at what index a group starts and how many items it has.</p>
+            <h5>Row Group</h5>
+            <p>Row Grouping comes in two modes, in "subheader" mode rows are grouped by a header row along with an optional group footer. In addition, the groups can be use with
+                Expandable Rows too. On the other hand, the "rowspan" mode uses rowspans instead of a header to group rows. <i>groupRowsBy</i>
+                property defines the field to use in row grouping. Multiple row grouping is available in "rowspan" mode by specifying the <i>groupRowsBy</i> as an array of fields. Sticky Row Group avaiable with <i>pRowGroupHeader</i> directive.</p>
+
+            <p>Example below demonstrates the all grouping alternatives. Note that data needs to be sorted for grouping which can also be done by the table itself by speficying the sort properties.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;h5&gt;Subheader Grouping&lt;/h5&gt;
+&lt;p&gt;Group customers by their representative.&lt;/p&gt;
+&lt;p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Status&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Date&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="groupheader" let-customer&gt;
+        &lt;tr pRowGroupHeader&gt;
+            &lt;td colspan="5"&gt;
+                &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="groupfooter" let-customer&gt;
+        &lt;tr class="p-rowgroup-footer"&gt;
+            &lt;td style="min-width: 80%"&gt;
+                &lt;div style="text-align: right; width: 100%"&gt;Total Customers&lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td style="width: 20%"&gt;&#123;&#123;calculateCustomerTotal(customer.representative.name)&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;
+        &lt;tr&gt;
+            &lt;td style="min-width:200px"&gt;
+                &#123;&#123;customer.name&#125;&#125;
+            &lt;/td&gt;
+            &lt;td style="min-width:200px"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td style="min-width:200px"&gt;
+                &#123;&#123;customer.company&#125;&#125;
+            &lt;/td&gt;
+            &lt;td style="min-width:200px"&gt;
+                &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td style="min-width:200px"&gt;
+                &#123;&#123;customer.date&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h5&gt;Expandable Row Groups&lt;/h5&gt;
+&lt;p&gt;Group customers by their representative.&lt;/p&gt;
+&lt;p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Country&lt;/th&gt;
+            &lt;th&gt;Company&lt;/th&gt;
+            &lt;th&gt;Status&lt;/th&gt;
+            &lt;th&gt;Date&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded"&gt;
+        &lt;tr&gt;
+            &lt;td colspan="5"&gt;
+                &lt;button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
+                &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="groupfooter" let-customer&gt;
+        &lt;tr class="p-rowgroup-footer"&gt;
+            &lt;td colspan="4" style="text-align: right"&gt;Total Customers&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;calculateCustomerTotal(customer.representative.name)&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="rowexpansion" let-customer&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &#123;&#123;customer.name&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &#123;&#123;customer.company&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &#123;&#123;customer.date&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h5&gt;RowSpan Grouping&lt;/h5&gt;
+&lt;p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th style="width:3rem"&gt;#&lt;/th&gt;
+            &lt;th&gt;Representative&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Country&lt;/th&gt;
+            &lt;th&gt;Company&lt;/th&gt;
+            &lt;th&gt;Status&lt;/th&gt;
+            &lt;th&gt;Date&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;rowIndex&#125;&#125;&lt;/td&gt;
+            &lt;td *ngIf="rowgroup" [attr.rowspan]="rowspan"&gt;
+                &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &#123;&#123;customer.name&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &#123;&#123;customer.company&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &#123;&#123;customer.date&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TableRowGroupDemo implements OnInit &#123;
 
-    cars: Car[];
+    customers: Customer[];
 
-    rowGroupMetadata: any;
-
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsMedium().then(cars => &#123;
-            this.cars = cars;
-            this.updateRowGroupMetaData();
+        this.customerService.getCustomersMedium().then(data =&gt; &#123;
+            this.customers = data;
         &#125;);
     &#125;
 
-    onSort() &#123;
-        this.updateRowGroupMetaData();
-    &#125;
+    calculateCustomerTotal(name) &#123;
+        let total = 0;
 
-    updateRowGroupMetaData() &#123;
-        this.rowGroupMetadata = &#123;&#125;;
-        if (this.cars) &#123;
-            for (let i = 0; i &lt; this.cars.length; i++) &#123;
-                let rowData = this.cars[i];
-                let brand = rowData.brand;
-                if (i == 0) &#123;
-                    this.rowGroupMetadata[brand] = &#123; index: 0, size: 1 &#125;;
-                &#125;
-                else &#123;
-                    let previousRowData = this.cars[i - 1];
-                    let previousRowGroup = previousRowData.brand;
-                    if (brand === previousRowGroup)
-                        this.rowGroupMetadata[brand].size++;
-                    else
-                        this.rowGroupMetadata[brand] = &#123; index: i, size: 1 &#125;;
+        if (this.customers) &#123;
+            for (let customer of this.customers) &#123;
+                if (customer.representative.name === name) &#123;
+                    total++;
                 &#125;
             &#125;
         &#125;
-    &#125;
 
+        return total;
+    &#125;
 &#125;
 </app-code>
 
-            <p>Using this metadata rows can be grouped using a subheader that displays the group. Note that grouped data should be sorted so enable <i>sortField</i>
-            so that table applies sorting before grouping if your data is not sorted.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Vin&lt;/th&gt;
-            &lt;th&gt;Year&lt;/th&gt;
-            &lt;th&gt;Color&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex"&gt;
-        &lt;tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex"&gt;
-            &lt;td colspan="3"&gt;
-                &lt;span style="font-weight:bold"&gt;&#123;&#123;rowData.brand&#125;&#125;&lt;/span&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</app-code>
-
-            <p>An alternative grouping could be using rowspans for the group field.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Brand&lt;/th&gt;
-            &lt;th&gt;Vin&lt;/th&gt;
-            &lt;th&gt;Year&lt;/th&gt;
-            &lt;th&gt;Color&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex"&gt;
-        &lt;tr&gt;
-            &lt;td *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.brand].size"&gt;
-                &#123;&#123;rowData.brand&#125;&#125;
-            &lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</app-code>
-
             <p>See the <a [routerLink]="['/table/rowgroup']">live example.</a></p>
-
-            <h5>Multi Field grouping</h5>
-            <p>Previous example uses a single field to group the rows however nothing limits you to implement multiple field grouping as well. Similarly to single
-                grouping, your data should be sorted first, you may use the built-in multiSorting or provide it sorted to the table and create a <i>rowGroupMetadata</i>
-                for multiple fields.
-            </p>
 
             <h5>Paginator</h5>
             <p>Pagination is enabled by setting <i>paginator</i> property to true, rows property defines the number of rows per page and pageLinks specify the the number
@@ -939,7 +1008,7 @@ export class CustomTableSortDemo implements OnInit &#123;
             <p>Filtering feature provides advanced and flexible options to query the data. Core of the filtering functionality is the <i>p-columnFilter</i> component.</p>
 
             <h4>Data Types</h4>
-            <p>ColumnFilter requires a <i>field</i> to reference a data property along with a <i>type</i> to define the built-in form element to use in filtering. Valid values for the <i>type</i> are the listed below. Each 
+            <p>ColumnFilter requires a <i>field</i> to reference a data property along with a <i>type</i> to define the built-in form element to use in filtering. Valid values for the <i>type</i> are the listed below. Each
             type displays a suitable form element such as calendar for dates. Custom filter elements are also supported with templating.</p>
 
             <ul>
@@ -1031,7 +1100,7 @@ export class AppComponent implements OnInit &#123;
             <h4>Custom Form Elements</h4>
             <p>Using templating, a custom element can be defined as the filter. The template gets the filter value and a filterCallback as parameters
                 so that current filter value can be displayed on the element with support for an event of your choice to trigger the filter. In this example,
-                a dropdown is used to select a value from a list. 
+                a dropdown is used to select a value from a list.
             </p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -1044,7 +1113,7 @@ export class AppComponent implements OnInit &#123;
         &lt;/ng-template&gt;
     &lt;/p-columnFilter&gt;
 &lt;/th&gt;
-</app-code>    
+</app-code>
 
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -1065,7 +1134,7 @@ export class TableFilterDemo implements OnInit &#123;
 
 &#125;
 </app-code>
-            
+
             <h4>Global Filtering</h4>
             <p>Global filtering searches all the fields from a single form element, in order to implement global filtering call the <i>filterGlobal</i> of the table with a value and match mode. If you have static columns and need to use global filtering, <i>globalFilterFields</i> property must be defined to configure which fields should be used in global filtering. Another
                 use case of this property is to change the fields to utilize in global filtering with dynamic columns.
@@ -1253,8 +1322,6 @@ export class TableFilterDemo implements OnInit &#123;
                 </table>
             </div>
 
-            
-
             <h5>ColumnFilter Templates</h5>
 			<div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -1271,7 +1338,7 @@ export class TableFilterDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>filter</td>
-                            <td>$implicit: filter value<br /> 
+                            <td>$implicit: filter value<br />
                                 filterCallback: Callback function of the filter
                             </td>
                         </tr>
@@ -1984,34 +2051,6 @@ export class TableEditDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </app-code>
 
-
-            <p><b>Note:</b> Scrollable tables require a column group to support resizing.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" pResizableColumn&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns" class="ui-resizable-column"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</app-code>
-
-
             <p>See the <a [routerLink]="['/table/colresize']">live example.</a></p>
 
             <h5>Column Reordering</h5>
@@ -2199,11 +2238,31 @@ export class TableExportDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </app-code>
 
+            <h5>Column Widths of a Scrollable Table</h5>
+            <p>Scrollable table uses flex layout so there are a couple of rules to consider when adjusting the widths of columns.</p>
+            <ul>
+                <li>Use <i>min-width</i> in vertical scrolling only so that when there is enough space columns may grow and for smaller screens a horizontal scrollbar is displayed to provide responsive design.</li>
+                <li>When horizontal scrolling is enabled, prefer <i>width</i> instead of <i>min-width</i>.</li>
+                <li>In vertical scrolling only, use <i>flex</i> to disable grow and shrink while defining a initial width. When horizontal scrolling is enabled, this is not required as columns do not grow or shrink in horizontal scrolling.</li>
+            </ul>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;ng-template pTemplate="header"&gt;
+    &lt;tr&gt;
+        &lt;th style="flex: 0 0 4rem"&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+&lt;/ng-template&gt;
+&lt;ng-template pTemplate="body" let-customer let-index="rowIndex"&gt;
+    &lt;tr&gt;
+        &lt;td style="flex: 0 0 4rem"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/ng-template&gt;
+</app-code>
+
 
             <h5>Flex Scroll</h5>
             <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
             table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
-
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
@@ -2211,14 +2270,14 @@ export class TableExportDemo implements OnInit &#123;
     &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="flex"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
-                &lt;th *ngFor="let col of columns"&gt;
+                &lt;th *ngFor="let col of columns" style="min-width:200px"&gt;
                     &#123;&#123;col.header&#125;&#125;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
             &lt;tr&gt;
-                &lt;td *ngFor="let col of columns"&gt;
+                &lt;td *ngFor="let col of columns" style="min-width:200px"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
@@ -2235,11 +2294,10 @@ export class TableExportDemo implements OnInit &#123;
             <h5>Full Page Scroll</h5>
             <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/table/flexscroll']">Full Page</a> demo for an example.</p>
 
-
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div class="page-content" style="height: calc(100vh - 100px)"&gt;
+&lt;div class="page-content" style="height: calc(100vh - 149px)"&gt;
     &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="flex"
-        [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
+        [virtualScroll]="true" [virtualRowHeight]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Virtual Scrolling with Lazy Loading and Full Page Viewport
         &lt;/ng-template&gt;
@@ -2251,14 +2309,14 @@ export class TableExportDemo implements OnInit &#123;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-            &lt;tr style="height:34px"&gt;
+            &lt;tr style="height:46px"&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
-            &lt;tr style="height:34px"&gt;
+            &lt;tr style="height:46px"&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &lt;div class="loading-text"&gt;&lt;/div&gt;
                 &lt;/td&gt;
@@ -2269,204 +2327,177 @@ export class TableExportDemo implements OnInit &#123;
 </app-code>
 
 
-            <h5>Horizontal Scroll</h5>
-            <p>In horizontal scrolling, it is required to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
-                use colgroup as below to avoid misalignment issues as it will apply both the header, body and footer sections which are different separate elements internally.</p>
-
+            <h5>Horizontal Scrolling</h5>
+            <p>For horizontal scrolling, it is required to set <i>scrollDirection</i> to "horizontal" and give fixed widths to columns.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [style]="&#123;width:'500px'&#125;"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</app-code>
-
-
-        <p>Horizontal and Vertical scrolling can be combined as well on the same table.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars3" [scrollable]="true" [style]="&#123;width:'500px'&#125;" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</app-code>
-
-
-            <h5>Frozen Rows and Columns</h5>
-            <p>Certain rows can be fixed by using the frozenValue property along with the "frozenrows" template.</p>
-
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars4" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenrows" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;b&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/b&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</app-code>
-
-
-            <p>Particular columns can be made fixed where others remain scrollable, there are two ways to implement this functionality, either
-                define a <i>frozenColumns</i> property if your frozen columns are dynamic or use <i>frozenbody</i> template. The width of the frozen section also
-                must be defined with frozenWidth property. Templates including header, body and footer apply to the frozen section as well, however
-                if require different content for the frozen section use <i>frozenheader</i>, <i>frozenbody</i> and <i>frozenfooter</i> instead. First example below uses
-                dynamic frozen columns and second one demonstrates how to use frozen templates with column grouping.
-            </p>
-
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="200px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:200px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;p-table [value]="sales" [scrollable]="true" scrollHeight="150px" frozenWidth="200px"&gt;
-    &lt;ng-template pTemplate="frozenheader"&gt;
-        &lt;tr&gt;
-            &lt;th style="width:200px;height:84px"&gt;Brand&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenbody" let-sale&gt;
-        &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;sale.brand&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
+&lt;p-table [value]="customers" [scrollable]="true" scrollDirection="horizontal"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th colspan="4"&gt;Sale Rate&lt;/th&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;th colspan="2"&gt;Sales&lt;/th&gt;
-            &lt;th colspan="2"&gt;Profits&lt;/th&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Last Year&lt;/th&gt;
-            &lt;th&gt;This Year&lt;/th&gt;
-            &lt;th&gt;Last Year&lt;/th&gt;
-            &lt;th&gt;This Year&lt;/th&gt;
+            &lt;th style="width:100px"&gt;Id&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Name&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Country&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Date&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Balance&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Company&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Status&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-sale&gt;
+    &lt;ng-template pTemplate="body" let-customer&gt;
         &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;sale.lastYearSale&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.thisYearSale&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.lastYearProfit&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.thisYearProfit&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
+
+            <h5>Horizontal and Vertical Scrolling</h5>
+            <p>Set <i>scrollDirection</i> to "both" and give fixed widths to columns to scroll both ways.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="customers" [scrollable]="true" scrollDirection="both"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th style="width:100px"&gt;Id&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Name&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Country&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Date&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Balance&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Company&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Status&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;tr&gt;
+            &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
 </app-code>
 
 
-            <p>When frozen columns are enabled, frozen and scrollable cells may have content with varying height which leads to misalignment. To avoid a performance hit, Table avoids expensive calculations
-                to align the row heights as it can be easily done with templating.</p>
+            <h5>Frozen Rows</h5>
+            <p>Frozen rows are used to fix certain rows while scrolling, this data is defined with the <i>frozenValue</i> property.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-    &lt;tr style="30px"&gt;
-        &lt;td *ngFor="let col of columns"&gt;
-            &#123;&#123;rowData[col.field]&#125;&#125;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/ng-template&gt;
-</app-code>
-
-
-            <p>When column widths need to vary or resizable columns is activated, use colgroup template to avoid misalignment issues and apply percentage values since table width is 100%.</p>
-
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" [style.width]="col.width"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
+&lt;p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px"&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Country&lt;/th&gt;
+            &lt;th&gt;Company&lt;/th&gt;
+            &lt;th&gt;Representative&lt;/th&gt;
+            &lt;th style="flex: 0 0 4rem"&gt;&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+    &lt;ng-template pTemplate="frozenbody" let-customer let-index="rowIndex"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="flex: 0 0 4rem"&gt;
+                &lt;button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer,true,index)" class="p-button-sm p-button-text"&gt;&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-customer let-index="rowIndex"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="flex: 0 0 4rem"&gt;
+                &lt;button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length &gt;= 2" (click)="toggleLock(customer,false,index)" class="p-button-sm p-button-text"&gt;&lt;/button&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
 </app-code>
 
+            <h6>Frozen Columns</h6>
+            <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition <i>alignFrozen</i> is available to define whether the column should
+            be fixed on the left or right.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" frozenWidth="300px" styleClass="p-mt-3"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th style="width:200px" pFrozenColumn&gt;Name&lt;/th&gt;
+            &lt;th style="width:100px"&gt;Id&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Country&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Date&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Company&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Status&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
+            &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
+            &lt;th style="width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen"&gt;Balance&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+
+    &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;tr&gt;
+            &lt;td style="width:200px" pFrozenColumn&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;td style="width:200px" alignFrozen="right"  pFrozenColumn [frozen]="balanceFrozen"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
+
+            <h5>pFrozenColumn Properties</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>frozen</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to use the frozen or not.</td>
+                        </tr>
+                        <tr>
+                            <td>alignFrozen</td>
+                            <td>string</td>
+                            <td>left</td>
+                            <td>Whether to the column should be fixed on the left or right.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h5>Virtual Scrolling</h5>
             <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
@@ -2779,31 +2810,27 @@ export class TableDemo implements OnInit &#123;
 
 
             <h5>Styling Certain Rows and Columns</h5>
-            <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class. Example here
-                paint the background of the last cell using a colgroup and highlights rows whose year is older than 2000.
-            </p>
+            <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col&gt;
-            &lt;col&gt;
-            &lt;col&gt;
-            &lt;col style="background-color:#FFD54F !important"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
+&lt;p-table [value]="products"&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
+            &lt;th&gt;Code&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Category&lt;/th&gt;
+            &lt;th&gt;Quantity&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [ngClass]="rowData.year &gt; 2010 ? 'old-car' : null"&gt;
-            &lt;td *ngFor="let col of columns" [ngClass]="rowData[col.field] &lt; 2000 ? 'very-old-car' : null"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
+    &lt;ng-template pTemplate="body" let-product&gt;
+        &lt;tr [ngClass]="&#123;'row-accessories': product.category === 'Accessories'&#125;"&gt;
+            &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;
+                &lt;div [ngClass]="&#123;'outofstock': product.quantity === 0, 'lowstock': (product.quantity &gt; 0 && product.quantity &lt; 10),'instock': product.quantity &gt; 10&#125;"&gt;
+                    &#123;&#123;product.quantity&#125;&#125;
+                &lt;/div&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -3617,7 +3644,7 @@ export class TableDemo implements OnInit &#123;
             &lt;/th&gt;
             &lt;th pSortableColumn="representative.name"&gt;
                 &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                    Agent 
+                    Agent
                     &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;
                     &lt;p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto"&gt;
                         &lt;ng-template pTemplate="header"&gt;

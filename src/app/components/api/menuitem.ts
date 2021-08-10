@@ -33,4 +33,20 @@ export interface MenuItem {
     state?: {
         [k: string]: any;
     }
+    tooltipOptions?: {
+        tooltipLabel?: string;
+        tooltipPosition?: string;
+        tooltipEvent?: string;
+        appendTo?: any;
+        positionStyle?: string;
+        tooltipStyleClass?: string;
+        tooltipZIndex?: string;
+        escape?: boolean;
+        disabled?: boolean;
+        positionTop?: number;
+        positionLeft?: number;
+        showDelay?: number;
+        hideDelay?: number;
+        life?: number;
+    }
 }

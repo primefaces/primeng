@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate} from 'primeng/api';
+import {PrimeNGConfig, PrimeTemplate} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 
 @Component({
     selector: 'p-blockUI',
@@ -18,30 +18,30 @@ import {PrimeTemplate} from 'primeng/api';
 export class BlockUI implements AfterViewInit,OnDestroy {
 
     @Input() target: any;
-    
+
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @Input() styleClass: string;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('mask') mask: ElementRef;
-    
+
     _blocked: boolean;
 
     contentTemplate: TemplateRef<any>;
-        
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
-    
+
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+
     @Input() get blocked(): boolean {
         return this._blocked;
     }
-    
+
     set blocked(val: boolean) {
         this._blocked = val;
-        
+
         if (this.mask && this.mask.nativeElement) {
             if (this._blocked)
                 this.block();
@@ -49,7 +49,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
                 this.unblock();
         }
     }
-    
+
     ngAfterViewInit() {
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
@@ -62,14 +62,14 @@ export class BlockUI implements AfterViewInit,OnDestroy {
                 case 'content':
                     this.contentTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;
             }
         });
     }
-        
+
     block() {
         if (this.target) {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
@@ -78,16 +78,17 @@ export class BlockUI implements AfterViewInit,OnDestroy {
         else {
             document.body.appendChild(this.mask.nativeElement);
         }
-        
+
         if (this.autoZIndex) {
-            this.mask.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('modal', this.mask.nativeElement, this.baseZIndex + this.config.zIndex.modal);
         }
     }
-    
+
     unblock() {
+        ZIndexUtils.clear(this.mask.nativeElement);
         this.el.nativeElement.appendChild(this.mask.nativeElement);
     }
-    
+
     ngOnDestroy() {
         this.unblock();
     }
