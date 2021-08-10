@@ -133,6 +133,10 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 DomHandler.addClass(this.target, this.leaveToClass);
             }
         }
+
+        if (this.hideOnOutsideClick) {
+            this.unbindDocumentListener();
+        }
     }
 
     resolveTarget() {
@@ -166,7 +170,6 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 }
                 else  if (!this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !this.target.contains(event.target)) {
                     this.leave();
-                    this.unbindDocumentListener();
                 }
             });
         }
