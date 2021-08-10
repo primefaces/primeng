@@ -253,7 +253,7 @@ export class TieredMenuSub implements OnDestroy {
     template: `
         <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-overlay':popup}" [class]="styleClass" [ngStyle]="style" (click)="onOverlayClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" (click)="preventDocumentDefault=true" *ngIf="!popup || visible">
+            (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" *ngIf="!popup || visible">
             <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" (leafClick)="onLeafClick()"
                 [autoDisplay]="autoDisplay" [popup]="popup"></p-tieredMenuSub>
         </div>
@@ -337,6 +337,8 @@ export class TieredMenu implements OnDestroy {
                 target: this.el.nativeElement
             });
         }
+
+        this.preventDocumentDefault = true;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {

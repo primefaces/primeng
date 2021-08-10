@@ -42,7 +42,7 @@ export class MenuItemContent {
     selector: 'p-menu',
     template: `
         <div #container [ngClass]="{'p-menu p-component': true, 'p-menu-overlay': popup}"
-            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible" (click)="onOverlayClick($event)"
+            [class]="styleClass" [ngStyle]="style" *ngIf="!popup || visible" (click)="onOverlayClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
             <ul class="p-menu-list p-reset">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
@@ -238,6 +238,8 @@ export class Menu implements OnDestroy {
                 target: this.el.nativeElement
             });
         }
+
+        this.preventDocumentDefault=true
     }
 
     bindDocumentClickListener() {

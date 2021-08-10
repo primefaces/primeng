@@ -2,8 +2,9 @@ import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, OverlayService, PrimeNGConfig} from 'primeng/api';
 import {RouterModule} from '@angular/router';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -102,8 +103,9 @@ export class SlideMenuSub implements OnDestroy {
     selector: 'p-slideMenu',
     template: `
         <div #container [ngClass]="{'p-slidemenu p-component':true, 'p-slidemenu-overlay':popup}"
-            [class]="styleClass" [ngStyle]="style" (click)="onClick($event)"
-            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="!popup || visible">
+            [class]="styleClass" [ngStyle]="style" (click)="onOverlayClick($event)"
+            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true"
+            (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" *ngIf="!popup || visible">
             <div class="p-slidemenu-wrapper" [style.height]="left ? viewportHeight + 'px' : 'auto'">
                 <div #slideMenuContent class="p-slidemenu-content">
                     <p-slideMenuSub [item]="model" root="root" [index]="0" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
@@ -187,7 +189,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     viewportUpdated: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngAfterViewChecked() {
         if (!this.viewportUpdated && !this.popup && this.containerViewChild) {
@@ -228,6 +230,17 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         this.cd.markForCheck();
     }
 
+    onOverlayClick(event) {
+        if (this.popup) {
+            this.overlayService.add({
+                originalEvent: event,
+                target: this.el.nativeElement
+            });
+        }
+
+        this.preventDocumentDefault = true;
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch(event.toState) {
             case 'visible':
@@ -250,6 +263,14 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
+            break;
+        }
+    }
+
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
@@ -267,7 +288,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('menu', this.container.nativeElement, this.baseZIndex + this.config.zIndex.menu);
         }
     }
 
@@ -278,10 +299,6 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     onWindowResize() {
         this.hide();
-    }
-
-    onClick(event) {
-        this.preventDocumentDefault = true;
     }
 
     goBack() {
