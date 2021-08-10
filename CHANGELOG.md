@@ -1,5 +1,21 @@
 # Changelog
 
+## [12.0.2](https://github.com/primefaces/primeng/tree/12.0.2) (2021-08-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0...12.0.1)
+
+**Fixed bugs:**
+
+- StyleClass does not open overlay when source is clicked again [\#10491](https://github.com/primefaces/primeng/issues/10491)
+
+## [12.0.1](https://github.com/primefaces/primeng/tree/12.0.1) (2021-07-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0...12.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- pStyleClass Directive [\#10427](https://github.com/primefaces/primeng/issues/10427)
+
 ## [12.0.0](https://github.com/primefaces/primeng/tree/12.0.0) (2021-06-15)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0-rc.1...12.0.0)
@@ -40,6 +56,22 @@
 **Fixed bugs:**
 
 - Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
+
+## [11.4.5](https://github.com/primefaces/primeng/tree/11.4.5) (2021-08-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.4.4...11.4.5)
+
+**Fixed bugs:**
+
+- StyleClass does not open overlay when source is clicked again [\#10492](https://github.com/primefaces/primeng/issues/10492)
+
+## [11.4.4](https://github.com/primefaces/primeng/tree/11.4.4) (2021-07-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.4.3...11.4.4)
+
+**Implemented New Features and Enhancements:**
+
+- pStyleClass Directive [\#10426](https://github.com/primefaces/primeng/issues/10426)
 
 ## [11.4.2](https://github.com/primefaces/primeng/tree/11.4.2) (2021-05-14)
 
