@@ -140,20 +140,6 @@
     display: table-cell;
 }
 
-/* Frozen Columns */
-.p-datatable-frozen-view .p-datatable-scrollable-body {
-    overflow: hidden;
-}
-
-.p-datatable-frozen-view > .p-datatable-scrollable-body > table > .p-datatable-tbody > tr > td:last-child {
-    border-right: 0 none;
-}
-
-.p-datatable-unfrozen-view {
-    position: absolute;
-    top: 0;
-}
-
 /* Flex Scrollable */
 .p-datatable-flex-scrollable {
     display: flex;
