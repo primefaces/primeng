@@ -1,5 +1,34 @@
 # Changelog
 
+## [12.0.0](https://github.com/primefaces/primeng/tree/12.0.0) (2021-06-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0-rc.1...12.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Add gray scheme [\#10340](https://github.com/primefaces/primeng/issues/10340)
+- Responsive Toast [\#10339](https://github.com/primefaces/primeng/issues/10339)
+- Responsive TabMenu and Breadcrumb [\#10338](https://github.com/primefaces/primeng/issues/10338)
+- Toast center positioning enhancement [\#10333](https://github.com/primefaces/primeng/issues/10333)
+- CascadeSelect material theming improvements [\#10314](https://github.com/primefaces/primeng/issues/10314)
+- styleClass and contentStyleClass Support for Message [\#10308](https://github.com/primefaces/primeng/issues/10308)
+- Picklist events not always return an array [\#10284](https://github.com/primefaces/primeng/issues/10284)
+- \[Accessibility\] p-dropdown information is only announced after pressing ctrl+down arrow twice.  [\#10156](https://github.com/primefaces/primeng/issues/10156)
+
+**Fixed bugs:**
+
+- Filtering non existing item in p-dropdown \[filter=true, group=true\] and pressing key down generates error: Dropdown.html:25 ERROR TypeError: Cannot read property '0' of null [\#10332](https://github.com/primefaces/primeng/issues/10332)
+- Table frozen columns not working with colresize expand mode [\#10310](https://github.com/primefaces/primeng/issues/10310)
+- \#10286 for ColorPicker [\#10309](https://github.com/primefaces/primeng/issues/10309)
+- Splitter error : Cannot read property '0' of undefined at Splitter.onResize [\#10286](https://github.com/primefaces/primeng/issues/10286)
+- Button icon css class not set after it has been initialized [\#10277](https://github.com/primefaces/primeng/issues/10277)
+- FileUpload - long filename  [\#10275](https://github.com/primefaces/primeng/issues/10275)
+- p-dialog breakpoints is not working [\#10270](https://github.com/primefaces/primeng/issues/10270)
+- Sidebar wrong animation and close button display [\#10261](https://github.com/primefaces/primeng/issues/10261)
+- Badge with value 0 should use p-badge-no-gutter class [\#10257](https://github.com/primefaces/primeng/issues/10257)
+- Dropdown selecting disabled option throws error using keyboard arrows [\#10252](https://github.com/primefaces/primeng/issues/10252)
+- p-dropdown float label overlaps input when selected value is 0 [\#10245](https://github.com/primefaces/primeng/issues/10245)
+
 ## [12.0.0-rc.1](https://github.com/primefaces/primeng/tree/12.0.0-rc.1) (2021-21-14)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.4.2...12.0.0-rc.1)

@@ -3,9 +3,10 @@ import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys} from 'primeng/api';
-import {ZIndexUtils} from 'primeng/utils'
+import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 import {InputTextModule} from 'primeng/inputtext';
+import { Subscription } from 'rxjs';
 
 @Directive({
     selector: '[pPassword]',
@@ -364,6 +365,7 @@ export class Password implements AfterContentInit,OnInit {
 
     onModelTouched: Function = () => {};
 
+    translationSubscription: Subscription;
 
     constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
 
@@ -393,6 +395,9 @@ export class Password implements AfterContentInit,OnInit {
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.updateUI(this.value || "");
+        });
     }
 
     onAnimationStart(event) {
@@ -672,12 +677,16 @@ export class Password implements AfterContentInit,OnInit {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
     }
 }
 
 @NgModule({
     imports: [CommonModule, InputTextModule],
-    exports: [PasswordDirective, Password],
+    exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password]
 })
 export class PasswordModule { }

@@ -54,7 +54,17 @@ declare let gtag: Function;
                     <a href="https://www.primefaces.org/designer/api/primeng/11.1.0">SASS API</a>
                 </div>
 
-                <div class="menu-category">PrimeFlex</div>
+                <div class="menu-category">PrimeBlocks</div>
+                <div class="menu-items menu-banner">
+                    <a href="https://www.primefaces.org/primeblocks-ng"><img width="100%" alt="PrimeBlocks Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeblocks-dark.png' : 'banner-primeblocks.png')" /></a>
+                </div>
+
+                <div class="menu-category">PrimeFlex v3.0.0</div>
+                <div class="menu-items menu-banner">
+                    <a href="https://www.primefaces.org/primeflex"><img width="100%" alt="PrimeFlex Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
+                </div>
+
+                <div class="menu-category">PrimeFlex v2.0.0</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/primeflex']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Setup</a>
                     <a [routerLink]=" ['/primeflex/display']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Display</a>
@@ -313,6 +323,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/defer']" routerLinkActive="router-link-exact-active">Defer</a>
                     <a [routerLink]=" ['/focustrap']" routerLinkActive="router-link-exact-active">FocusTrap</a>
+                    <a [routerLink]=" ['/styleclass']" routerLinkActive="router-link-exact-active">StyleClass <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
                 </div>
 
@@ -370,18 +381,6 @@ export class AppMenuComponent {
             items: [
                 {label: 'Guide', value: '/theming'},
                 {label: 'Colors', value: '/colors'}
-            ]
-        },
-        {
-            label: 'PrimeFlex', value: 'primeflex',
-            items: [
-                {label: 'Setup', value: '/primeflex'},
-                {label: 'Display', value: '/primeflex/display'},
-                {label: 'Elevation', value: '/primeflex/elevation'},
-                {label: 'FlexBox', value: '/primeflex/flexbox'},
-                {label: 'Form Layout', value: '/primeflex/formlayout'},
-                {label: 'Spacing', value: '/primeflex/spacing'},
-                {label: 'Text', value: '/primeflex/text'}
             ]
         },
         {
@@ -634,6 +633,7 @@ export class AppMenuComponent {
             items: [
                 {label: 'Defer', value: '/defer'},
                 {label: 'FocusTrap', value: '/focustrap'},
+                {label: 'StyleClass', value: '/styleclass'},
                 {label: 'Ripple', value: '/ripple'}
             ]
         },

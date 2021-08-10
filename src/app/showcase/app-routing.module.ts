@@ -93,6 +93,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'splitter', loadChildren: () => import('./components/splitter/splitterdemo.module').then(m => m.SplitterDemoModule)},
             {path: 'steps', loadChildren: () => import('./components/steps/stepsdemo.module').then(m => m.StepsDemoModule)},
             {path: 'support', loadChildren: () => import('./components/support/support.module').then(m => m.SupportModule)},
+            {path: 'styleclass', loadChildren: () => import('./components/styleclass/styleclassdemo.module').then(m => m.StyleClassDemoModule)},
             {path: 'tag', loadChildren: () => import('./components/tag/tagdemo.module').then(m => m.TagDemoModule)},
             {path: 'table', loadChildren: () => import('./components/table/tabledemo.module').then(m => m.TableDemoModule)},
             {path: 'tabmenu', loadChildren: () => import('./components/tabmenu/tabmenudemo.module').then(m => m.TabMenuDemoModule)},

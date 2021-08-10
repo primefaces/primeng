@@ -10,10 +10,10 @@
     <div class="card">
         <h5>Basic</h5>
         <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
-    
+
         <h5>Editable</h5>
         <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" editable="true" optionLabel="name"></p-dropdown>
-    
+
         <h5>Group</h5>
         <p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity3" placeholder="Select a City" [group]="true">
             <ng-template let-group pTemplate="group">
@@ -39,7 +39,7 @@
                 </div>
             </ng-template>
         </p-dropdown>
-    
+
         <h5>Virtual Scroll (10000 Items)</h5>
         <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
     </div>
@@ -616,6 +616,31 @@ clearFilter(dropdown: Dropdown) &#123;
 &#125;
 </app-code>
 
+            <h5>Methods</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>show</td>
+                            <td>-/td>
+                            <td>Displays the panel.</td>
+                        </tr>
+                        <tr>
+                            <td>hide</td>
+                            <td>-</td>
+                            <td>Hides the panel.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Templates</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -802,7 +827,7 @@ export class DropdownDemo &#123;
 
         this.groupedCities = [
             &#123;
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     &#123;label: 'Berlin', value: 'Berlin'&#125;,
                     &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
@@ -811,7 +836,7 @@ export class DropdownDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     &#123;label: 'Chicago', value: 'Chicago'&#125;,
                     &#123;label: 'Los Angeles', value: 'Los Angeles'&#125;,
@@ -820,7 +845,7 @@ export class DropdownDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     &#123;label: 'Kyoto', value: 'Kyoto'&#125;,
                     &#123;label: 'Osaka', value: 'Osaka'&#125;,
@@ -873,7 +898,7 @@ export class CountryService &#123;
 &#125;
 </app-code>
         </p-tabPanel>
-        
+
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
                 <iframe src="https://stackblitz.com/edit/primeng-dropdown-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>

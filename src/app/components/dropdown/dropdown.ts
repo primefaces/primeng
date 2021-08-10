@@ -148,7 +148,7 @@ export class DropdownItem {
         ])
     ],
     host: {
-        '[class.p-inputwrapper-filled]': 'value',
+        '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },
     providers: [DROPDOWN_VALUE_ACCESSOR],
@@ -455,6 +455,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     get emptyFilterMessageLabel(): string {
         return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
+    }
+
+    get filled() {
+        return this.value || this.value != null || this.value != undefined;
     }
 
     updateEditableLabel(): void {
@@ -818,7 +822,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let nextEnabledOption;
 
         if (this.optionsToDisplay && this.optionsToDisplay.length) {
-            for (let i = (index + 1); index < (this.optionsToDisplay.length - 1); i++) {
+            for (let i = (index + 1); i < this.optionsToDisplay.length; i++) {
                 let option = this.optionsToDisplay[i];
                 if (this.isOptionDisabled(option)) {
                     continue;
@@ -873,7 +877,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                             }
                         }
                         else {
-                            this.selectItem(event, this.getOptionGroupChildren(this.optionsToDisplay[0])[0]);
+                            if (this.optionsToDisplay && this.optionsToDisplay.length > 0) {
+                                this.selectItem(event, this.getOptionGroupChildren(this.optionsToDisplay[0])[0]);
+                            }
                         }
                     }
                     else {

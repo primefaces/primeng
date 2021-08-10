@@ -4,6 +4,7 @@ import {Message, PrimeNGConfig} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import {UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
@@ -12,9 +13,9 @@ import { ZIndexUtils } from 'primeng/utils';
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container [attr.id]="message.id" class="p-toast-message" [ngClass]="'p-toast-message-' + message.severity" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
+        <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
                     <span [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
@@ -23,10 +24,10 @@ import { ZIndexUtils } from 'primeng/utils';
                         <div class="p-toast-detail">{{message.detail}}</div>
                     </div>
                 </ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
                 <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
                     <span class="p-toast-icon-close-icon pi pi-times"></span>
                 </button>
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
             </div>
         </div>
     `,
@@ -129,7 +130,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     template: `
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
             <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-                    [template]="template" @toastAnimation [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
+                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)"
+                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
                     [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
         </div>
     `,
@@ -170,6 +172,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
+    @Input() breakpoints: any;
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
@@ -187,6 +191,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     template: TemplateRef<any>;
 
     constructor(public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+
+    styleElement: any;
+
+    id: string = UniqueComponentId();
 
     ngOnInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
@@ -218,6 +226,9 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     ngAfterViewInit() {
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
+        }
+        if (this.breakpoints) {
+            this.createStyle();
         }
     }
 
@@ -279,6 +290,45 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         this.cd.detectChanges();
     }
 
+    onAnimationStart(event: AnimationEvent) {
+        if (event.fromState === 'void' && this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            this.containerViewChild.nativeElement.setAttribute(this.id, '');
+
+        }
+    }
+
+    createStyle() {
+        if (!this.styleElement) {
+            this.styleElement = document.createElement('style');
+            this.styleElement.type = 'text/css';
+            document.head.appendChild(this.styleElement);
+            let innerHTML = '';
+            for (let breakpoint in this.breakpoints) {
+                let breakpointStyle = '';
+                for (let styleProp in this.breakpoints[breakpoint]) {
+                    breakpointStyle += styleProp + ':' + this.breakpoints[breakpoint][styleProp] + ' !important;';
+                }
+                innerHTML += `
+                    @media screen and (max-width: ${breakpoint}) {
+                        .p-toast[${this.id}] {
+                           ${breakpointStyle}
+                        }
+                    }
+                `
+            }
+
+            this.styleElement.innerHTML = innerHTML;
+        }
+    }
+
+    destroyStyle() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;
+        }
+    }
+
     ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
@@ -291,6 +341,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
+
+        this.destroyStyle();
     }
 }
 

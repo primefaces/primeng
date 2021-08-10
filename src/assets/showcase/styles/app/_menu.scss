@@ -36,7 +36,7 @@
         overflow-y: auto;
         flex-grow: 1;
         border-right: 1px solid var(--surface-d);
-        
+
         .menu-category {
             display: block;
             color: var(--text-color-secondary);
@@ -86,12 +86,30 @@
                 }
             }
 
+            &.menu-banner {
+                a {
+                    padding: 0;
+
+                    &:hover {
+                        background-color: transparent;
+
+                        img {
+                            background-color: var(--surface-c);
+                        }
+                    }
+
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+            }
+
             div {
                 &.router-link-exact-active {
                     > a {
                         font-weight: 700;
                     }
-                    
+
                     ul {
                         display: block;
                     }

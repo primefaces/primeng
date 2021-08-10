@@ -10,7 +10,7 @@ import { AppConfigService } from '../../service/appconfigservice';
             display: flex;
             flex-direction: column;
         }
-        
+
         .color-box {
             width: 2.5rem;
             display: flex;
@@ -19,7 +19,7 @@ import { AppConfigService } from '../../service/appconfigservice';
             width: 250px;
             font-weight: bold;
         }
-        
+
         .sample-layout {
             width: 375px;
         }
@@ -27,7 +27,7 @@ import { AppConfigService } from '../../service/appconfigservice';
 })
 export class ColorsDemoComponent {
 
-    colors: any[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'teal', 'orange', 'bluegray', 'purple'];
+    colors: any[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'teal', 'orange', 'bluegray', 'purple', 'gray'];
 
     shades: any[] = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 

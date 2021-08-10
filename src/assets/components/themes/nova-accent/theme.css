@@ -2785,7 +2785,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:enabled:hover {
   background: #116fbf;
+  border-color: #116fbf;
+}
+.fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-block-event .fc-event-main {
   color: #ffffff;
+}
+.fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-dot-event .fc-daygrid-event-dot {
+  background: #116fbf;
   border-color: #116fbf;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:enabled:active {

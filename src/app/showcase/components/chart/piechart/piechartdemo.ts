@@ -11,13 +11,13 @@ export class PieChartDemo implements OnInit {
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
 
     constructor(private configService: AppConfigService) {}
-    
+
     ngOnInit() {
         this.data = {
             labels: ['A','B','C'],
@@ -25,17 +25,17 @@ export class PieChartDemo implements OnInit {
                 {
                     data: [300, 50, 100],
                     backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
+                        "#42A5F5",
+                        "#66BB6A",
+                        "#FFA726"
                     ],
                     hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
+                        "#64B5F6",
+                        "#81C784",
+                        "#FFB74D"
                     ]
                 }
-            ]    
+            ]
         };
 
         this.config = this.configService.config;
@@ -52,9 +52,11 @@ export class PieChartDemo implements OnInit {
 
     getLightTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#495057'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#495057'
+                    }
                 }
             }
         }
@@ -62,9 +64,11 @@ export class PieChartDemo implements OnInit {
 
     getDarkTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#ebedef'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ebedef'
+                    }
                 }
             }
         }
