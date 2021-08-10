@@ -47,6 +47,8 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     
     _selected: boolean;
 
+    _hidden: boolean;
+
     _disabled: boolean;
     
     _header: string;
@@ -102,6 +104,15 @@ export class TabPanel implements AfterContentInit,OnDestroy {
             this.loaded = true;
     }
 
+    @Input() get hidden(): boolean {
+        return this._hidden;
+    }
+
+    set hidden(val: boolean) {
+        this._hidden = val;
+        this.tabView.cd.markForCheck();
+    }
+
     @Input() get disabled(): boolean {
         return this._disabled;
     };
@@ -149,7 +160,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
         <div [ngClass]="'p-tabview p-component'" [ngStyle]="style" [class]="styleClass">
             <ul #navbar class="p-tabview-nav" role="tablist">
                 <ng-template ngFor let-tab [ngForOf]="tabs">
-                    <li role="presentation" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
+                    <li role="presentation" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" [class.hidden]="!!tab.hidden" *ngIf="!tab.closed">
                         <a role="tab" class="p-tabview-nav-link" [attr.id]="tab.id + '-label'" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
                             [attr.aria-selected]="tab.selected" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass"
                             (click)="open($event,tab)" (keydown.enter)="open($event,tab)" pRipple [attr.tabindex]="tab.disabled ? null : '0'">
@@ -349,8 +360,10 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     updateInkBar() {
         let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
-        this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-        this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+        if (tabHeader) {
+	        this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+	        this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+        }
     }
 }
 
