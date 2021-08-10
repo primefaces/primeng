@@ -288,7 +288,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            ZIndexUtils.set('menu', this.container.nativeElement, this.baseZIndex + this.config.zIndex.menu);
+            ZIndexUtils.set('menu', this.containerViewChild.nativeElement, this.baseZIndex + this.config.zIndex.menu);
         }
     }
 
