@@ -1,0 +1,71 @@
+import { ElementRef, AfterViewInit, OnDestroy, Renderer2, NgZone, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { MenuItem, ContextMenuService } from 'primeng/api';
+import { Subject, Subscription } from 'rxjs';
+export declare class ContextMenuSub {
+    item: MenuItem;
+    root: boolean;
+    parentItemKey: any;
+    leafClick: EventEmitter<any>;
+    sublistViewChild: ElementRef;
+    menuitemViewChild: ElementRef;
+    contextMenu: ContextMenu;
+    activeItemKey: string;
+    hideTimeout: any;
+    activeItemKeyChangeSubscription: Subscription;
+    constructor(contextMenu: any);
+    ngOnInit(): void;
+    onItemMouseEnter(event: any, item: any, key: any): void;
+    onItemMouseLeave(event: any, item: any): void;
+    onItemClick(event: any, item: any, menuitem: any, key: any): void;
+    onLeafClick(): void;
+    getKey(index: any): string;
+    isActive(key: any): boolean;
+}
+export declare class ContextMenu implements AfterViewInit, OnDestroy {
+    el: ElementRef;
+    renderer: Renderer2;
+    cd: ChangeDetectorRef;
+    zone: NgZone;
+    contextMenuService: ContextMenuService;
+    model: MenuItem[];
+    global: boolean;
+    target: any;
+    style: any;
+    styleClass: string;
+    appendTo: any;
+    autoZIndex: boolean;
+    baseZIndex: number;
+    triggerEvent: string;
+    onShow: EventEmitter<any>;
+    onHide: EventEmitter<any>;
+    containerViewChild: ElementRef;
+    documentClickListener: any;
+    documentKeydownListener: any;
+    windowResizeListener: any;
+    triggerEventListener: any;
+    ngDestroy$: Subject<unknown>;
+    constructor(el: ElementRef, renderer: Renderer2, cd: ChangeDetectorRef, zone: NgZone, contextMenuService: ContextMenuService);
+    ngAfterViewInit(): void;
+    show(event?: MouseEvent): void;
+    hide(): void;
+    moveOnTop(): void;
+    toggle(event?: MouseEvent): void;
+    position(event?: MouseEvent): void;
+    positionSubmenu(sublist: any): void;
+    isItemMatched(menuitem: any): boolean;
+    findNextItem(menuitem: any, isRepeated?: any): any;
+    findPrevItem(menuitem: any, isRepeated?: any): any;
+    getActiveItem(): any;
+    clearActiveItem(): void;
+    removeActiveFromSubLists(el: any): void;
+    removeActiveFromSublist(menuitem: any): void;
+    bindGlobalListeners(): void;
+    findModelItemFromKey(key: any): any;
+    handleItemClick(event: any, item: any, menuitem: any): void;
+    unbindGlobalListeners(): void;
+    onWindowResize(event: any): void;
+    isOutsideClicked(event: Event): boolean;
+    ngOnDestroy(): void;
+}
+export declare class ContextMenuModule {
+}

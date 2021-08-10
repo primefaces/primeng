@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-fieldset.umd.js",
+  "module": "../fesm2015/primeng-fieldset.js",
+  "es2015": "../fesm2015/primeng-fieldset.js",
+  "esm2015": "../esm2015/fieldset/primeng-fieldset.js",
+  "fesm2015": "../fesm2015/primeng-fieldset.js",
+  "typings": "primeng-fieldset.d.ts",
+  "metadata": "primeng-fieldset.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/fieldset"
+}

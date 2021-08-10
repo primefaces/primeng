@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-skeleton.umd.js",
+  "module": "../fesm2015/primeng-skeleton.js",
+  "es2015": "../fesm2015/primeng-skeleton.js",
+  "esm2015": "../esm2015/skeleton/primeng-skeleton.js",
+  "fesm2015": "../fesm2015/primeng-skeleton.js",
+  "typings": "primeng-skeleton.d.ts",
+  "metadata": "primeng-skeleton.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/skeleton"
+}

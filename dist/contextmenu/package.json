@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-contextmenu.umd.js",
+  "module": "../fesm2015/primeng-contextmenu.js",
+  "es2015": "../fesm2015/primeng-contextmenu.js",
+  "esm2015": "../esm2015/contextmenu/primeng-contextmenu.js",
+  "fesm2015": "../fesm2015/primeng-contextmenu.js",
+  "typings": "primeng-contextmenu.d.ts",
+  "metadata": "primeng-contextmenu.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/contextmenu"
+}

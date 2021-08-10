@@ -1,0 +1,20 @@
+.p-inputswitch {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+}
+
+.p-inputswitch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.p-inputswitch-slider:before {
+    position: absolute;
+    content: "";
+    top: 50%;
+}

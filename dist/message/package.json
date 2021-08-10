@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-message.umd.js",
+  "module": "../fesm2015/primeng-message.js",
+  "es2015": "../fesm2015/primeng-message.js",
+  "esm2015": "../esm2015/message/primeng-message.js",
+  "fesm2015": "../fesm2015/primeng-message.js",
+  "typings": "primeng-message.d.ts",
+  "metadata": "primeng-message.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/message"
+}

@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-api.umd.js",
+  "module": "../fesm2015/primeng-api.js",
+  "es2015": "../fesm2015/primeng-api.js",
+  "esm2015": "../esm2015/api/primeng-api.js",
+  "fesm2015": "../fesm2015/primeng-api.js",
+  "typings": "primeng-api.d.ts",
+  "metadata": "primeng-api.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/api"
+}

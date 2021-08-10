@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-colorpicker.umd.js",
+  "module": "../fesm2015/primeng-colorpicker.js",
+  "es2015": "../fesm2015/primeng-colorpicker.js",
+  "esm2015": "../esm2015/colorpicker/primeng-colorpicker.js",
+  "fesm2015": "../fesm2015/primeng-colorpicker.js",
+  "typings": "primeng-colorpicker.d.ts",
+  "metadata": "primeng-colorpicker.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/colorpicker"
+}

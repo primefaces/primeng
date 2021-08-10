@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-avatargroup.umd.js",
+  "module": "../fesm2015/primeng-avatargroup.js",
+  "es2015": "../fesm2015/primeng-avatargroup.js",
+  "esm2015": "../esm2015/avatargroup/primeng-avatargroup.js",
+  "fesm2015": "../fesm2015/primeng-avatargroup.js",
+  "typings": "primeng-avatargroup.d.ts",
+  "metadata": "primeng-avatargroup.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/avatargroup"
+}

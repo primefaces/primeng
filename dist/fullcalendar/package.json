@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-fullcalendar.umd.js",
+  "module": "../fesm2015/primeng-fullcalendar.js",
+  "es2015": "../fesm2015/primeng-fullcalendar.js",
+  "esm2015": "../esm2015/fullcalendar/primeng-fullcalendar.js",
+  "fesm2015": "../fesm2015/primeng-fullcalendar.js",
+  "typings": "primeng-fullcalendar.d.ts",
+  "metadata": "primeng-fullcalendar.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/fullcalendar"
+}

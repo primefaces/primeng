@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-panel.umd.js",
+  "module": "../fesm2015/primeng-panel.js",
+  "es2015": "../fesm2015/primeng-panel.js",
+  "esm2015": "../esm2015/panel/primeng-panel.js",
+  "fesm2015": "../fesm2015/primeng-panel.js",
+  "typings": "primeng-panel.d.ts",
+  "metadata": "primeng-panel.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/panel"
+}

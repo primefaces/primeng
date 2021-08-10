@@ -1,0 +1,34 @@
+.p-tabview-nav {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    flex-wrap: wrap;
+}
+
+.p-tabview-nav-link {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.p-tabview-ink-bar {
+    display: none;
+    z-index: 1;
+}
+
+.p-tabview-nav-link:focus {
+    z-index: 1;
+}
+
+.p-tabview-title {
+    line-height: 1;
+}
+
+.p-tabview-close {
+    z-index: 1;
+}

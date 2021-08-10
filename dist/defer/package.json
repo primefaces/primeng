@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-defer.umd.js",
+  "module": "../fesm2015/primeng-defer.js",
+  "es2015": "../fesm2015/primeng-defer.js",
+  "esm2015": "../esm2015/defer/primeng-defer.js",
+  "fesm2015": "../fesm2015/primeng-defer.js",
+  "typings": "primeng-defer.d.ts",
+  "metadata": "primeng-defer.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/defer"
+}

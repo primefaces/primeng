@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-card.umd.js",
+  "module": "../fesm2015/primeng-card.js",
+  "es2015": "../fesm2015/primeng-card.js",
+  "esm2015": "../esm2015/card/primeng-card.js",
+  "fesm2015": "../fesm2015/primeng-card.js",
+  "typings": "primeng-card.d.ts",
+  "metadata": "primeng-card.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/card"
+}

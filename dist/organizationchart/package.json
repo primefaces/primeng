@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-organizationchart.umd.js",
+  "module": "../fesm2015/primeng-organizationchart.js",
+  "es2015": "../fesm2015/primeng-organizationchart.js",
+  "esm2015": "../esm2015/organizationchart/primeng-organizationchart.js",
+  "fesm2015": "../fesm2015/primeng-organizationchart.js",
+  "typings": "primeng-organizationchart.d.ts",
+  "metadata": "primeng-organizationchart.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/organizationchart"
+}

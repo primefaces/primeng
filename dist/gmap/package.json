@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-gmap.umd.js",
+  "module": "../fesm2015/primeng-gmap.js",
+  "es2015": "../fesm2015/primeng-gmap.js",
+  "esm2015": "../esm2015/gmap/primeng-gmap.js",
+  "fesm2015": "../fesm2015/primeng-gmap.js",
+  "typings": "primeng-gmap.d.ts",
+  "metadata": "primeng-gmap.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/gmap"
+}

@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-divider.umd.js",
+  "module": "../fesm2015/primeng-divider.js",
+  "es2015": "../fesm2015/primeng-divider.js",
+  "esm2015": "../esm2015/divider/primeng-divider.js",
+  "fesm2015": "../fesm2015/primeng-divider.js",
+  "typings": "primeng-divider.d.ts",
+  "metadata": "primeng-divider.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/divider"
+}

@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-timeline.umd.js",
+  "module": "../fesm2015/primeng-timeline.js",
+  "es2015": "../fesm2015/primeng-timeline.js",
+  "esm2015": "../esm2015/timeline/primeng-timeline.js",
+  "fesm2015": "../fesm2015/primeng-timeline.js",
+  "typings": "primeng-timeline.d.ts",
+  "metadata": "primeng-timeline.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/timeline"
+}

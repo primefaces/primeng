@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-tooltip.umd.js",
+  "module": "../fesm2015/primeng-tooltip.js",
+  "es2015": "../fesm2015/primeng-tooltip.js",
+  "esm2015": "../esm2015/tooltip/primeng-tooltip.js",
+  "fesm2015": "../fesm2015/primeng-tooltip.js",
+  "typings": "primeng-tooltip.d.ts",
+  "metadata": "primeng-tooltip.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/tooltip"
+}

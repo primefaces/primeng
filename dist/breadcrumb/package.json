@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-breadcrumb.umd.js",
+  "module": "../fesm2015/primeng-breadcrumb.js",
+  "es2015": "../fesm2015/primeng-breadcrumb.js",
+  "esm2015": "../esm2015/breadcrumb/primeng-breadcrumb.js",
+  "fesm2015": "../fesm2015/primeng-breadcrumb.js",
+  "typings": "primeng-breadcrumb.d.ts",
+  "metadata": "primeng-breadcrumb.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/breadcrumb"
+}

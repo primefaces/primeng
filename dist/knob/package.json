@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-knob.umd.js",
+  "module": "../fesm2015/primeng-knob.js",
+  "es2015": "../fesm2015/primeng-knob.js",
+  "esm2015": "../esm2015/knob/primeng-knob.js",
+  "fesm2015": "../fesm2015/primeng-knob.js",
+  "typings": "primeng-knob.d.ts",
+  "metadata": "primeng-knob.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/knob"
+}

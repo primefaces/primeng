@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-splitbutton.umd.js",
+  "module": "../fesm2015/primeng-splitbutton.js",
+  "es2015": "../fesm2015/primeng-splitbutton.js",
+  "esm2015": "../esm2015/splitbutton/primeng-splitbutton.js",
+  "fesm2015": "../fesm2015/primeng-splitbutton.js",
+  "typings": "primeng-splitbutton.d.ts",
+  "metadata": "primeng-splitbutton.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/splitbutton"
+}

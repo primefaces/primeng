@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-chips.umd.js",
+  "module": "../fesm2015/primeng-chips.js",
+  "es2015": "../fesm2015/primeng-chips.js",
+  "esm2015": "../esm2015/chips/primeng-chips.js",
+  "fesm2015": "../fesm2015/primeng-chips.js",
+  "typings": "primeng-chips.d.ts",
+  "metadata": "primeng-chips.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/chips"
+}

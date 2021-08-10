@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-listbox.umd.js",
+  "module": "../fesm2015/primeng-listbox.js",
+  "es2015": "../fesm2015/primeng-listbox.js",
+  "esm2015": "../esm2015/listbox/primeng-listbox.js",
+  "fesm2015": "../fesm2015/primeng-listbox.js",
+  "typings": "primeng-listbox.d.ts",
+  "metadata": "primeng-listbox.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/listbox"
+}

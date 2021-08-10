@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-multiselect.umd.js",
+  "module": "../fesm2015/primeng-multiselect.js",
+  "es2015": "../fesm2015/primeng-multiselect.js",
+  "esm2015": "../esm2015/multiselect/primeng-multiselect.js",
+  "fesm2015": "../fesm2015/primeng-multiselect.js",
+  "typings": "primeng-multiselect.d.ts",
+  "metadata": "primeng-multiselect.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/multiselect"
+}

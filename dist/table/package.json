@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-table.umd.js",
+  "module": "../fesm2015/primeng-table.js",
+  "es2015": "../fesm2015/primeng-table.js",
+  "esm2015": "../esm2015/table/primeng-table.js",
+  "fesm2015": "../fesm2015/primeng-table.js",
+  "typings": "primeng-table.d.ts",
+  "metadata": "primeng-table.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/table"
+}

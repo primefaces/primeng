@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-splitter.umd.js",
+  "module": "../fesm2015/primeng-splitter.js",
+  "es2015": "../fesm2015/primeng-splitter.js",
+  "esm2015": "../esm2015/splitter/primeng-splitter.js",
+  "fesm2015": "../fesm2015/primeng-splitter.js",
+  "typings": "primeng-splitter.d.ts",
+  "metadata": "primeng-splitter.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/splitter"
+}

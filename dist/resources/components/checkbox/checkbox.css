@@ -1,0 +1,27 @@
+.p-checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: bottom;
+}
+
+.p-checkbox-disabled {
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.p-checkbox-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p-checkbox {
+    display: inline-flex;
+    vertical-align: bottom;
+    align-items: center;
+}
+
+.p-checkbox-label {
+    line-height: 1;
+}

@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-dynamicdialog.umd.js",
+  "module": "../fesm2015/primeng-dynamicdialog.js",
+  "es2015": "../fesm2015/primeng-dynamicdialog.js",
+  "esm2015": "../esm2015/dynamicdialog/primeng-dynamicdialog.js",
+  "fesm2015": "../fesm2015/primeng-dynamicdialog.js",
+  "typings": "primeng-dynamicdialog.d.ts",
+  "metadata": "primeng-dynamicdialog.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/dynamicdialog"
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"primeng.js","sources":["../../src/app/components/public_api.ts","../../src/app/components/primeng.ts"],"sourcesContent":["export default {};","/**\n * Generated bundle index. Do not edit.\n */\n\nexport * from './public_api';\n"],"names":[],"mappings":"AAAA,iBAAe,EAAE;;ACAjB;;"}

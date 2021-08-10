@@ -1,0 +1,140 @@
+.p-dialog-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    background-color: transparent;
+    transition-property: background-color;
+}
+
+.p-dialog-mask.p-component-overlay {
+    pointer-events: auto;
+}
+
+.p-dialog {
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    max-height: 90%;
+    transform: scale(1);
+    position: relative;
+}
+
+.p-dialog-content {
+    overflow-y: auto;
+}
+
+.p-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.p-dialog-footer {
+    flex-shrink: 0;
+}
+
+.p-dialog .p-dialog-header-icons {
+    display: flex;
+    align-items: center;
+}
+
+.p-dialog .p-dialog-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.p-dialog-mask.p-dialog-mask-leave {
+    background-color: transparent;
+}
+
+
+/* Fluid */
+.p-fluid .p-dialog-footer .p-button {
+    width: auto;
+}
+
+
+/* Top, Bottom, Left, Right, Top* and Bottom* */
+.p-dialog-top .p-dialog,
+.p-dialog-bottom .p-dialog,
+.p-dialog-left .p-dialog,
+.p-dialog-right .p-dialog,
+.p-dialog-top-left .p-dialog,
+.p-dialog-top-right .p-dialog,
+.p-dialog-bottom-left .p-dialog,
+.p-dialog-bottom-right .p-dialog {
+    margin: .75rem;
+    transform: translate3d(0px, 0px, 0px);
+}
+
+/* Maximize */
+.p-dialog-maximized {
+    -webkit-transition: none;
+    transition: none;
+    transform: none;
+    width: 100vw !important;
+    top: 0px !important;
+    left: 0px !important;
+    max-height: 100%;
+    height: 100%;
+}
+.p-dialog-maximized .p-dialog-content {
+    flex-grow: 1;
+}
+
+/* Position */
+.p-dialog-left {
+    justify-content: flex-start;
+}
+.p-dialog-right {
+    justify-content: flex-end;
+}
+.p-dialog-top {
+    align-items: flex-start;
+}
+.p-dialog-top-left {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.p-dialog-top-right {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.p-dialog-bottom {
+    align-items: flex-end;
+}
+.p-dialog-bottom-left {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.p-dialog-bottom-right {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+/* Resizable */
+.p-dialog .p-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+    cursor: se-resize;
+    width: 12px;
+    height: 12px;
+    right: 1px;
+    bottom: 1px;
+}
+
+.p-confirm-dialog .p-dialog-content {
+    display: flex;
+    align-items: center;
+}

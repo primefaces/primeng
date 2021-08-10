@@ -22,9 +22,18 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <li class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)" [attr.aria-label]="label"
             [attr.tabindex]="disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'p-highlight': selected, 'p-disabled': disabled}" pRipple>
+
+
             <div class="p-checkbox p-component">
                 <div class="p-checkbox-box" [ngClass]="{'p-highlight': selected}">
-                    <span class="p-checkbox-icon" [ngClass]="{'pi pi-check': selected}"></span>
+                    <span
+                        aria-atomic="true" aria-describedby="introDrama"
+                        class="p-checkbox-icon" [ngClass]="{'pi pi-check': selected}"></span>
+
+                    <span [hidden]="true" class="p-hidden" value="Checkbox" for="Checkbox" >Select All</span>
+                    <span [hidden]="true" class="p-hidden" id="introDrama">{{label}} {{selected ? 'checked' : 'unchecked'}}</span>
+                    <span [hidden]="true" class="p-hidden" id="checkDrama">Selected Value {{selected ? 'checked' : 'unchecked'}}</span>
+
                 </div>
             </div>
             <span *ngIf="!template">{{label}}</span>
@@ -118,9 +127,14 @@ export class MultiSelectItem {
                             <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
                         </div>
                     </div>
-                    <div class="p-multiselect-filter-container" *ngIf="filter">
-                        <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilterInputChange($event)" class="p-multiselect-filter p-inputtext p-component" [disabled]="disabled"
-                               [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
+                    <div  aria-multiselectable="true"
+                          [attr.aria-label]="listSet + ' items'"
+                          aria-live="polite"
+                          aria-atomic="false"
+                        class="p-multiselect-filter-container" *ngIf="filter">
+                        <input
+                            #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilterInputChange($event)" class="p-multiselect-filter p-inputtext p-component" [disabled]="disabled"
+                               [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="listSet + ' items'">
                         <span class="p-multiselect-filter-icon pi pi-search"></span>
                     </div>
                     <button class="p-multiselect-close p-link" type="button" (click)="close($event)" pRipple>
@@ -132,8 +146,7 @@ export class MultiSelectItem {
                             aria-multiselectable="true"
                             [attr.aria-label]="listSet + ' items'"
                             aria-live="polite"
-                            aria-atomic="false"
-                    >
+                            aria-atomic="false" >
                         <ng-container *ngIf="group">
                             <ng-template ngFor let-optgroup [ngForOf]="optionsToRender">
                                 <li class="p-multiselect-item-group">

@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-button.umd.js",
+  "module": "../fesm2015/primeng-button.js",
+  "es2015": "../fesm2015/primeng-button.js",
+  "esm2015": "../esm2015/button/primeng-button.js",
+  "fesm2015": "../fesm2015/primeng-button.js",
+  "typings": "primeng-button.d.ts",
+  "metadata": "primeng-button.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/button"
+}

@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-captcha.umd.js",
+  "module": "../fesm2015/primeng-captcha.js",
+  "es2015": "../fesm2015/primeng-captcha.js",
+  "esm2015": "../esm2015/captcha/primeng-captcha.js",
+  "fesm2015": "../fesm2015/primeng-captcha.js",
+  "typings": "primeng-captcha.d.ts",
+  "metadata": "primeng-captcha.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/captcha"
+}

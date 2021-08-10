@@ -1,0 +1,276 @@
+.p-datatable {
+    position: relative;
+}
+
+.p-datatable table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.p-datatable .p-sortable-column {
+    cursor: pointer;
+    user-select: none;
+}
+
+.p-datatable .p-sortable-column .p-column-title,
+.p-datatable .p-sortable-column .p-sortable-column-icon,
+.p-datatable .p-sortable-column .p-sortable-column-badge {
+    vertical-align: middle;
+}
+
+.p-datatable .p-sortable-column .p-sortable-column-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-datatable-auto-layout > .p-datatable-wrapper {
+    overflow-x: auto;
+}
+
+.p-datatable-auto-layout > .p-datatable-wrapper > table {
+    table-layout: auto;
+}
+
+.p-datatable-hoverable-rows .p-selectable-row {
+    cursor: pointer;
+}
+
+/* Scrollable */
+.p-datatable-scrollable-wrapper {
+    position: relative;
+}
+
+.p-datatable-scrollable-header,
+.p-datatable-scrollable-footer {
+    overflow: hidden;
+}
+
+.p-datatable-scrollable-body {
+    overflow: auto;
+    position: relative;
+}
+
+.p-datatable-scrollable-body > table > .p-datatable-tbody > tr:first-child > td {
+    border-top: 0 none;
+}
+
+.p-datatable-virtual-table {
+    position: absolute;
+}
+
+/* Frozen Columns */
+.p-datatable-frozen-view .p-datatable-scrollable-body {
+    overflow: hidden;
+}
+
+.p-datatable-frozen-view > .p-datatable-scrollable-body > table > .p-datatable-tbody > tr > td:last-child {
+    border-right: 0 none;
+}
+
+.p-datatable-unfrozen-view {
+    position: absolute;
+    top: 0;
+}
+
+/* Flex Scrollable */
+.p-datatable-flex-scrollable {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.p-datatable-flex-scrollable .p-datatable-scrollable-wrapper,
+.p-datatable-flex-scrollable .p-datatable-scrollable-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.p-datatable-flex-scrollable .p-datatable-scrollable-body,
+.p-datatable-flex-scrollable .p-datatable-virtual-scrollable-body {
+    flex: 1;
+}
+
+/* Resizable */
+.p-datatable-resizable > .p-datatable-wrapper {
+    overflow-x: auto;
+}
+
+.p-datatable-resizable .p-datatable-thead > tr > th,
+.p-datatable-resizable .p-datatable-tfoot > tr > td,
+.p-datatable-resizable .p-datatable-tbody > tr > td {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.p-datatable-resizable .p-resizable-column {
+    background-clip: padding-box;
+    position: relative;
+}
+
+.p-datatable-resizable-fit .p-resizable-column:last-child .p-column-resizer {
+    display: none;
+}
+
+.p-datatable .p-column-resizer {
+    display: block;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: .5rem;
+    height: 100%;
+    padding: 0px;
+    cursor:col-resize;
+    border: 1px solid transparent;
+}
+
+.p-datatable .p-column-resizer-helper {
+    width: 1px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+}
+
+.p-datatable .p-row-editor-init,
+.p-datatable .p-row-editor-save,
+.p-datatable .p-row-editor-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Expand */
+.p-datatable .p-row-toggler {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Reorder */
+.p-datatable-reorder-indicator-up,
+.p-datatable-reorder-indicator-down {
+    position: absolute;
+    display: none;
+}
+
+.p-datatable-reorderablerow-handle {
+    cursor: move;
+}
+
+[pReorderableColumn] {
+    cursor: move;
+}
+
+/* Loader */
+.p-datatable .p-datatable-loading-overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* Filter */
+.p-column-filter-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.p-column-filter-menu {
+    display: inline-flex;
+}
+
+.p-column-filter-row p-columnfilterformelement {
+    flex: 1 1 auto;
+    width: 1%;
+}
+
+.p-column-filter-menu-button,
+.p-column-filter-clear-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.p-column-filter-overlay {
+    position: absolute;
+}
+
+.p-column-filter-row-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.p-column-filter-row-item {
+    cursor: pointer;
+}
+
+.p-column-filter-add-button,
+.p-column-filter-remove-button {
+    justify-content: center;
+}
+
+.p-column-filter-add-button .p-button-label, 
+.p-column-filter-remove-button .p-button-label {
+    flex-grow: 0;
+}
+
+.p-column-filter-buttonbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p-column-filter-buttonbar .p-button {
+    width: auto;
+}
+
+/* Responsive */
+.p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+}
+
+/* Virtual Scroll*/
+
+cdk-virtual-scroll-viewport {
+    outline: 0 none;
+}
+
+@media screen and (max-width: 40em) {
+   .p-datatable.p-datatable-responsive .p-datatable-thead > tr > th,
+   .p-datatable.p-datatable-responsive .p-datatable-tfoot > tr > td {
+        display: none !important;
+    }
+
+    .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
+        text-align: left;
+        display: block;
+        width: 100%;
+        float: left;
+        clear: left;
+        border: 0 none;
+    }
+
+    .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
+        padding: .4rem;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4em 1em -.4em -.4rem;
+        font-weight: bold;
+    }
+}

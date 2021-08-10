@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-progressbar.umd.js",
+  "module": "../fesm2015/primeng-progressbar.js",
+  "es2015": "../fesm2015/primeng-progressbar.js",
+  "esm2015": "../esm2015/progressbar/primeng-progressbar.js",
+  "fesm2015": "../fesm2015/primeng-progressbar.js",
+  "typings": "primeng-progressbar.d.ts",
+  "metadata": "primeng-progressbar.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/progressbar"
+}

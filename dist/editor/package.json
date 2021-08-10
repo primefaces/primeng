@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-editor.umd.js",
+  "module": "../fesm2015/primeng-editor.js",
+  "es2015": "../fesm2015/primeng-editor.js",
+  "esm2015": "../esm2015/editor/primeng-editor.js",
+  "fesm2015": "../fesm2015/primeng-editor.js",
+  "typings": "primeng-editor.d.ts",
+  "metadata": "primeng-editor.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/editor"
+}

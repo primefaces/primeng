@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-tieredmenu.umd.js",
+  "module": "../fesm2015/primeng-tieredmenu.js",
+  "es2015": "../fesm2015/primeng-tieredmenu.js",
+  "esm2015": "../esm2015/tieredmenu/primeng-tieredmenu.js",
+  "fesm2015": "../fesm2015/primeng-tieredmenu.js",
+  "typings": "primeng-tieredmenu.d.ts",
+  "metadata": "primeng-tieredmenu.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/tieredmenu"
+}

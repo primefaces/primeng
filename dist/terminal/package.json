@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-terminal.umd.js",
+  "module": "../fesm2015/primeng-terminal.js",
+  "es2015": "../fesm2015/primeng-terminal.js",
+  "esm2015": "../esm2015/terminal/primeng-terminal.js",
+  "fesm2015": "../fesm2015/primeng-terminal.js",
+  "typings": "primeng-terminal.d.ts",
+  "metadata": "primeng-terminal.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/terminal"
+}

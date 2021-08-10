@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-carousel.umd.js",
+  "module": "../fesm2015/primeng-carousel.js",
+  "es2015": "../fesm2015/primeng-carousel.js",
+  "esm2015": "../esm2015/carousel/primeng-carousel.js",
+  "fesm2015": "../fesm2015/primeng-carousel.js",
+  "typings": "primeng-carousel.d.ts",
+  "metadata": "primeng-carousel.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/carousel"
+}

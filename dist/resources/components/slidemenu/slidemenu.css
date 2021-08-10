@@ -1,0 +1,92 @@
+.p-slidemenu {
+    width: 12.5rem;
+}
+
+.p-slidemenu.p-slidemenu-overlay {
+    position: absolute;
+}
+
+.p-slidemenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.p-slidemenu .p-slidemenu-rootlist {
+    position: absolute;
+    top: 0;
+}
+
+.p-slidemenu .p-submenu-list {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 12.5rem;
+}
+
+.p-slidemenu .p-menuitem-link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.p-slidemenu .p-menuitem-icon {
+    vertical-align: middle;
+}
+
+.p-slidemenu .p-menuitem-text {
+    vertical-align: middle;
+}
+
+.p-slidemenu .p-menuitem {
+    position: relative;
+}
+
+.p-slidemenu .p-menuitem-link .p-submenu-icon {
+    margin-left: auto;
+}
+
+.p-slidemenu .p-slidemenu-wrapper {
+    position: relative;
+}
+
+.p-slidemenu .p-slidemenu-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.p-slidemenu-backward {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    cursor: pointer;
+    display: none;
+}
+
+.p-slidemenu-backward .p-slidemenu-backward-icon {
+    vertical-align: middle;
+}
+
+.p-slidemenu-backward span {
+    vertical-align: middle;
+}
+
+.p-slidemenu .p-menuitem-active {
+    position: static;
+}
+
+.p-slidemenu .p-menuitem-active > .p-submenu > .p-submenu-list {
+    display: block;
+}
+
+.p-slidemenu ul:not(.p-active-submenu) > .p-menuitem:not(.p-menuitem-active),
+.p-slidemenu .p-active-submenu > .p-menuitem-active > .p-submenu > .p-submenu-list {
+    display: none;
+}
+
+.p-slidemenu .p-active-submenu > .p-menuitem-active ~ .p-menuitem {
+    display: block;
+}

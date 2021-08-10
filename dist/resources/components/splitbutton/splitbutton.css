@@ -1,0 +1,27 @@
+.p-splitbutton {
+    display: inline-flex;
+    position: relative;
+}
+
+.p-splitbutton .p-splitbutton-defaultbutton {
+    flex: 1 1 auto;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0 none;
+}
+
+.p-splitbutton-menubutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.p-splitbutton .p-menu {
+    min-width: 100%;
+}
+
+.p-fluid .p-splitbutton  {
+    display: flex;
+}

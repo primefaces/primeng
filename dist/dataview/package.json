@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-dataview.umd.js",
+  "module": "../fesm2015/primeng-dataview.js",
+  "es2015": "../fesm2015/primeng-dataview.js",
+  "esm2015": "../esm2015/dataview/primeng-dataview.js",
+  "fesm2015": "../fesm2015/primeng-dataview.js",
+  "typings": "primeng-dataview.d.ts",
+  "metadata": "primeng-dataview.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/dataview"
+}

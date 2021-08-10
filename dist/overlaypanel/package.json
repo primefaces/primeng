@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-overlaypanel.umd.js",
+  "module": "../fesm2015/primeng-overlaypanel.js",
+  "es2015": "../fesm2015/primeng-overlaypanel.js",
+  "esm2015": "../esm2015/overlaypanel/primeng-overlaypanel.js",
+  "fesm2015": "../fesm2015/primeng-overlaypanel.js",
+  "typings": "primeng-overlaypanel.d.ts",
+  "metadata": "primeng-overlaypanel.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/overlaypanel"
+}

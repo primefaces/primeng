@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-focustrap.umd.js",
+  "module": "../fesm2015/primeng-focustrap.js",
+  "es2015": "../fesm2015/primeng-focustrap.js",
+  "esm2015": "../esm2015/focustrap/primeng-focustrap.js",
+  "fesm2015": "../fesm2015/primeng-focustrap.js",
+  "typings": "primeng-focustrap.d.ts",
+  "metadata": "primeng-focustrap.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/focustrap"
+}

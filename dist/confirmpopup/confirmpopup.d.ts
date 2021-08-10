@@ -1,0 +1,51 @@
+import { ElementRef, ChangeDetectorRef, OnDestroy, Renderer2 } from '@angular/core';
+import { Confirmation, ConfirmationService, PrimeNGConfig } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { AnimationEvent } from '@angular/animations';
+export declare class ConfirmPopup implements OnDestroy {
+    el: ElementRef;
+    private confirmationService;
+    renderer: Renderer2;
+    private cd;
+    config: PrimeNGConfig;
+    key: string;
+    showTransitionOptions: string;
+    hideTransitionOptions: string;
+    autoZIndex: boolean;
+    baseZIndex: number;
+    style: any;
+    styleClass: string;
+    container: HTMLDivElement;
+    subscription: Subscription;
+    confirmation: Confirmation;
+    _visible: boolean;
+    documentClickListener: any;
+    documentResizeListener: any;
+    scrollHandler: any;
+    get visible(): any;
+    set visible(value: any);
+    constructor(el: ElementRef, confirmationService: ConfirmationService, renderer: Renderer2, cd: ChangeDetectorRef, config: PrimeNGConfig);
+    onAnimationStart(event: AnimationEvent): void;
+    onAnimationEnd(event: AnimationEvent): void;
+    align(): void;
+    hide(): void;
+    accept(): void;
+    reject(): void;
+    bindListeners(): void;
+    unbindListeners(): void;
+    bindDocumentClickListener(): void;
+    unbindDocumentClickListener(): void;
+    onWindowResize(): void;
+    bindDocumentResizeListener(): void;
+    unbindDocumentResizeListener(): void;
+    bindScrollListener(): void;
+    unbindScrollListener(): void;
+    unsubscribeConfirmationSubscriptions(): void;
+    onContainerDestroy(): void;
+    restoreAppend(): void;
+    get acceptButtonLabel(): string;
+    get rejectButtonLabel(): string;
+    ngOnDestroy(): void;
+}
+export declare class ConfirmPopupModule {
+}

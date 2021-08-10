@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-dialog.umd.js",
+  "module": "../fesm2015/primeng-dialog.js",
+  "es2015": "../fesm2015/primeng-dialog.js",
+  "esm2015": "../esm2015/dialog/primeng-dialog.js",
+  "fesm2015": "../fesm2015/primeng-dialog.js",
+  "typings": "primeng-dialog.d.ts",
+  "metadata": "primeng-dialog.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/dialog"
+}

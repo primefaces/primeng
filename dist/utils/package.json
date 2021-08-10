@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-utils.umd.js",
+  "module": "../fesm2015/primeng-utils.js",
+  "es2015": "../fesm2015/primeng-utils.js",
+  "esm2015": "../esm2015/utils/primeng-utils.js",
+  "fesm2015": "../fesm2015/primeng-utils.js",
+  "typings": "primeng-utils.d.ts",
+  "metadata": "primeng-utils.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/utils"
+}

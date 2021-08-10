@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-tabmenu.umd.js",
+  "module": "../fesm2015/primeng-tabmenu.js",
+  "es2015": "../fesm2015/primeng-tabmenu.js",
+  "esm2015": "../esm2015/tabmenu/primeng-tabmenu.js",
+  "fesm2015": "../fesm2015/primeng-tabmenu.js",
+  "typings": "primeng-tabmenu.d.ts",
+  "metadata": "primeng-tabmenu.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/tabmenu"
+}

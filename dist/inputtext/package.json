@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-inputtext.umd.js",
+  "module": "../fesm2015/primeng-inputtext.js",
+  "es2015": "../fesm2015/primeng-inputtext.js",
+  "esm2015": "../esm2015/inputtext/primeng-inputtext.js",
+  "fesm2015": "../fesm2015/primeng-inputtext.js",
+  "typings": "primeng-inputtext.d.ts",
+  "metadata": "primeng-inputtext.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/inputtext"
+}

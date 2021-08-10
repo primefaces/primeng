@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-lightbox.umd.js",
+  "module": "../fesm2015/primeng-lightbox.js",
+  "es2015": "../fesm2015/primeng-lightbox.js",
+  "esm2015": "../esm2015/lightbox/primeng-lightbox.js",
+  "fesm2015": "../fesm2015/primeng-lightbox.js",
+  "typings": "primeng-lightbox.d.ts",
+  "metadata": "primeng-lightbox.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/lightbox"
+}

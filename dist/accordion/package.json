@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-accordion.umd.js",
+  "module": "../fesm2015/primeng-accordion.js",
+  "es2015": "../fesm2015/primeng-accordion.js",
+  "esm2015": "../esm2015/accordion/primeng-accordion.js",
+  "fesm2015": "../fesm2015/primeng-accordion.js",
+  "typings": "primeng-accordion.d.ts",
+  "metadata": "primeng-accordion.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/accordion"
+}

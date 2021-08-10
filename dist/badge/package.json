@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-badge.umd.js",
+  "module": "../fesm2015/primeng-badge.js",
+  "es2015": "../fesm2015/primeng-badge.js",
+  "esm2015": "../esm2015/badge/primeng-badge.js",
+  "fesm2015": "../fesm2015/primeng-badge.js",
+  "typings": "primeng-badge.d.ts",
+  "metadata": "primeng-badge.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/badge"
+}

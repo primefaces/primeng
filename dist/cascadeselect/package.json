@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-cascadeselect.umd.js",
+  "module": "../fesm2015/primeng-cascadeselect.js",
+  "es2015": "../fesm2015/primeng-cascadeselect.js",
+  "esm2015": "../esm2015/cascadeselect/primeng-cascadeselect.js",
+  "fesm2015": "../fesm2015/primeng-cascadeselect.js",
+  "typings": "primeng-cascadeselect.d.ts",
+  "metadata": "primeng-cascadeselect.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/cascadeselect"
+}

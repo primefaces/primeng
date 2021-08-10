@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-confirmpopup.umd.js",
+  "module": "../fesm2015/primeng-confirmpopup.js",
+  "es2015": "../fesm2015/primeng-confirmpopup.js",
+  "esm2015": "../esm2015/confirmpopup/primeng-confirmpopup.js",
+  "fesm2015": "../fesm2015/primeng-confirmpopup.js",
+  "typings": "primeng-confirmpopup.d.ts",
+  "metadata": "primeng-confirmpopup.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/confirmpopup"
+}

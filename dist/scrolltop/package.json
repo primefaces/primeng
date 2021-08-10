@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-scrolltop.umd.js",
+  "module": "../fesm2015/primeng-scrolltop.js",
+  "es2015": "../fesm2015/primeng-scrolltop.js",
+  "esm2015": "../esm2015/scrolltop/primeng-scrolltop.js",
+  "fesm2015": "../fesm2015/primeng-scrolltop.js",
+  "typings": "primeng-scrolltop.d.ts",
+  "metadata": "primeng-scrolltop.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/scrolltop"
+}

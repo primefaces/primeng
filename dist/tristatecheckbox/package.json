@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-tristatecheckbox.umd.js",
+  "module": "../fesm2015/primeng-tristatecheckbox.js",
+  "es2015": "../fesm2015/primeng-tristatecheckbox.js",
+  "esm2015": "../esm2015/tristatecheckbox/primeng-tristatecheckbox.js",
+  "fesm2015": "../fesm2015/primeng-tristatecheckbox.js",
+  "typings": "primeng-tristatecheckbox.d.ts",
+  "metadata": "primeng-tristatecheckbox.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/tristatecheckbox"
+}

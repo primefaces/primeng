@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-ripple.umd.js",
+  "module": "../fesm2015/primeng-ripple.js",
+  "es2015": "../fesm2015/primeng-ripple.js",
+  "esm2015": "../esm2015/ripple/primeng-ripple.js",
+  "fesm2015": "../fesm2015/primeng-ripple.js",
+  "typings": "primeng-ripple.d.ts",
+  "metadata": "primeng-ripple.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/ripple"
+}

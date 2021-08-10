@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-confirmdialog.umd.js",
+  "module": "../fesm2015/primeng-confirmdialog.js",
+  "es2015": "../fesm2015/primeng-confirmdialog.js",
+  "esm2015": "../esm2015/confirmdialog/primeng-confirmdialog.js",
+  "fesm2015": "../fesm2015/primeng-confirmdialog.js",
+  "typings": "primeng-confirmdialog.d.ts",
+  "metadata": "primeng-confirmdialog.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/confirmdialog"
+}

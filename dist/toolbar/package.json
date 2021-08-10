@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-toolbar.umd.js",
+  "module": "../fesm2015/primeng-toolbar.js",
+  "es2015": "../fesm2015/primeng-toolbar.js",
+  "esm2015": "../esm2015/toolbar/primeng-toolbar.js",
+  "fesm2015": "../fesm2015/primeng-toolbar.js",
+  "typings": "primeng-toolbar.d.ts",
+  "metadata": "primeng-toolbar.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/toolbar"
+}

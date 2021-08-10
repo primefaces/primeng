@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-fileupload.umd.js",
+  "module": "../fesm2015/primeng-fileupload.js",
+  "es2015": "../fesm2015/primeng-fileupload.js",
+  "esm2015": "../esm2015/fileupload/primeng-fileupload.js",
+  "fesm2015": "../fesm2015/primeng-fileupload.js",
+  "typings": "primeng-fileupload.d.ts",
+  "metadata": "primeng-fileupload.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/fileupload"
+}

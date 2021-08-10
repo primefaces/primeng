@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-tag.umd.js",
+  "module": "../fesm2015/primeng-tag.js",
+  "es2015": "../fesm2015/primeng-tag.js",
+  "esm2015": "../esm2015/tag/primeng-tag.js",
+  "fesm2015": "../fesm2015/primeng-tag.js",
+  "typings": "primeng-tag.d.ts",
+  "metadata": "primeng-tag.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/tag"
+}

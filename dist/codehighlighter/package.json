@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-codehighlighter.umd.js",
+  "module": "../fesm2015/primeng-codehighlighter.js",
+  "es2015": "../fesm2015/primeng-codehighlighter.js",
+  "esm2015": "../esm2015/codehighlighter/primeng-codehighlighter.js",
+  "fesm2015": "../fesm2015/primeng-codehighlighter.js",
+  "typings": "primeng-codehighlighter.d.ts",
+  "metadata": "primeng-codehighlighter.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/codehighlighter"
+}

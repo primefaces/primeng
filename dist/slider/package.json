@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-slider.umd.js",
+  "module": "../fesm2015/primeng-slider.js",
+  "es2015": "../fesm2015/primeng-slider.js",
+  "esm2015": "../esm2015/slider/primeng-slider.js",
+  "fesm2015": "../fesm2015/primeng-slider.js",
+  "typings": "primeng-slider.d.ts",
+  "metadata": "primeng-slider.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/slider"
+}

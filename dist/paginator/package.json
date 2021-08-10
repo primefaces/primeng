@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-paginator.umd.js",
+  "module": "../fesm2015/primeng-paginator.js",
+  "es2015": "../fesm2015/primeng-paginator.js",
+  "esm2015": "../esm2015/paginator/primeng-paginator.js",
+  "fesm2015": "../fesm2015/primeng-paginator.js",
+  "typings": "primeng-paginator.d.ts",
+  "metadata": "primeng-paginator.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/paginator"
+}

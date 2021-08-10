@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-blockui.umd.js",
+  "module": "../fesm2015/primeng-blockui.js",
+  "es2015": "../fesm2015/primeng-blockui.js",
+  "esm2015": "../esm2015/blockui/primeng-blockui.js",
+  "fesm2015": "../fesm2015/primeng-blockui.js",
+  "typings": "primeng-blockui.d.ts",
+  "metadata": "primeng-blockui.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/blockui"
+}

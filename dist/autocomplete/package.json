@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-autocomplete.umd.js",
+  "module": "../fesm2015/primeng-autocomplete.js",
+  "es2015": "../fesm2015/primeng-autocomplete.js",
+  "esm2015": "../esm2015/autocomplete/primeng-autocomplete.js",
+  "fesm2015": "../fesm2015/primeng-autocomplete.js",
+  "typings": "primeng-autocomplete.d.ts",
+  "metadata": "primeng-autocomplete.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/autocomplete"
+}

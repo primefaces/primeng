@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-password.umd.js",
+  "module": "../fesm2015/primeng-password.js",
+  "es2015": "../fesm2015/primeng-password.js",
+  "esm2015": "../esm2015/password/primeng-password.js",
+  "fesm2015": "../fesm2015/primeng-password.js",
+  "typings": "primeng-password.d.ts",
+  "metadata": "primeng-password.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/password"
+}

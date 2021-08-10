@@ -1,0 +1,24 @@
+.p-blockui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    transition-property: background-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-blockui.p-component-overlay {
+    position: absolute;
+}
+
+.p-blockui-document.p-component-overlay {
+    position: fixed;
+}
+
+.p-blockui-leave.p-component-overlay {
+    background-color: transparent;
+}

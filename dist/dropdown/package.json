@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-dropdown.umd.js",
+  "module": "../fesm2015/primeng-dropdown.js",
+  "es2015": "../fesm2015/primeng-dropdown.js",
+  "esm2015": "../esm2015/dropdown/primeng-dropdown.js",
+  "fesm2015": "../fesm2015/primeng-dropdown.js",
+  "typings": "primeng-dropdown.d.ts",
+  "metadata": "primeng-dropdown.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/dropdown"
+}

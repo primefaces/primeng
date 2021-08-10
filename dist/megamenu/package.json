@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-megamenu.umd.js",
+  "module": "../fesm2015/primeng-megamenu.js",
+  "es2015": "../fesm2015/primeng-megamenu.js",
+  "esm2015": "../esm2015/megamenu/primeng-megamenu.js",
+  "fesm2015": "../fesm2015/primeng-megamenu.js",
+  "typings": "primeng-megamenu.d.ts",
+  "metadata": "primeng-megamenu.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/megamenu"
+}

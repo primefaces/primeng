@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/primeng-tabview.umd.js",
+  "module": "../fesm2015/primeng-tabview.js",
+  "es2015": "../fesm2015/primeng-tabview.js",
+  "esm2015": "../esm2015/tabview/primeng-tabview.js",
+  "fesm2015": "../fesm2015/primeng-tabview.js",
+  "typings": "primeng-tabview.d.ts",
+  "metadata": "primeng-tabview.metadata.json",
+  "sideEffects": false,
+  "name": "primeng/tabview"
+}
