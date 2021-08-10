@@ -116,8 +116,7 @@ export declare class MultiSelect implements OnInit, AfterViewInit, AfterContentI
     scrollHandler: any;
     documentResizeListener: any;
     preventModelTouched: boolean;
-    listSet: number;
-    listSubSet: number;
+    ariaOptionsSetSize: number;
     constructor(el: ElementRef, renderer: Renderer2, cd: ChangeDetectorRef, filterService: FilterService, config: PrimeNGConfig);
     ngOnInit(): void;
     ngAfterContentInit(): void;
