@@ -48,7 +48,7 @@ MultiSelectItem.decorators = [
                         aria-atomic="false" aria-describedby="checkDrama"
                         class="p-checkbox-icon" [ngClass]="{'pi pi-check': selected}"></span>
 
-                    <span class="p-hidden-accessible" value="Checkbox" for="Checkbox" >Select All</span>
+                    <span class="p-hidden-accessible" value="Checkbox" for="Checkbox">Select</span>
                     <span class="p-hidden-accessible" id="introDrama">{{label}} {{selected ? 'checked' : 'unchecked'}}</span>
                     <span class="p-hidden-accessible" id="checkDrama">Selected Value {{selected ? 'checked' : 'unchecked'}}</span>
 
@@ -750,16 +750,16 @@ MultiSelect.decorators = [
                 template: `
 
         <p id="filteredItemsDrama" class="p-hidden-accessible">
-            '{{ariaOptionsSetSize}} + ' items filtered'
+            {{ariaOptionsSetSize}} items filtered
         </p>
         <p id="listboxDrama" class="p-hidden-accessible">
-            '{{ariaOptionsSetSize}} + ' items'
+            {{ariaOptionsSetSize}} items
         </p>
         <p id="checkboxDrama" class="p-hidden-accessible">
-            {{ariaOptionsSetSize}} + ' items checked'
+            {{ariaOptionsSetSize}} items checked
         </p>
         <p id="allCheckedDrama" class="p-hidden-accessible">
-            '{{allChecked ? ' all items checked' : ' all items unchecked'}}
+            {{allChecked ? ' all items checked' : ' all items unchecked'}}
         </p>
 
         <div #container [ngClass]="{'p-multiselect p-component':true,
@@ -807,7 +807,7 @@ MultiSelect.decorators = [
                  [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                  [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)">
                 <p id="checkDrama" class="p-hidden-accessible">
-                    {{ariaOptionsSetSize}} + ' items'
+                    {{ariaOptionsSetSize}} items
                 </p>
                 <div class="p-multiselect-header"
                             [attr.aria-labelledby]="ariaLabelledBy"

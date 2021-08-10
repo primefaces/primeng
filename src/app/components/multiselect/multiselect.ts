@@ -31,7 +31,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                         aria-atomic="false" aria-describedby="checkDrama"
                         class="p-checkbox-icon" [ngClass]="{'pi pi-check': selected}"></span>
 
-                    <span class="p-hidden-accessible" value="Checkbox" for="Checkbox" >Select All</span>
+                    <span class="p-hidden-accessible" value="Checkbox" for="Checkbox">Select</span>
                     <span class="p-hidden-accessible" id="introDrama">{{label}} {{selected ? 'checked' : 'unchecked'}}</span>
                     <span class="p-hidden-accessible" id="checkDrama">Selected Value {{selected ? 'checked' : 'unchecked'}}</span>
 
