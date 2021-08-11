@@ -20,23 +20,28 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     selector: 'p-multiSelectItem',
     template: `
         <li
-            aria-atomic="false" aria-describedby="introDrama"
+            aria-atomic="false" aria-describedby="checkDrama" [attr.aria-describedby]="'checkDrama'"
             class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)"
             [attr.tabindex]="disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'p-highlight': selected, 'p-disabled': disabled}" pRipple>
 
-            <div class="p-checkbox p-component">
-                <div class="p-checkbox-box" [ngClass]="{'p-highlight': selected}">
+            <span class="p-hidden-accessible" value="Checkbox" for="Checkbox">Select</span>
+            <div role="checkbox"
+                aria-atomic="false" aria-describedby="checkDrama" [attr.aria-describedby]="'checkDrama'"
+                 class="p-checkbox p-component">
+                <div
+                    aria-atomic="false" aria-describedby="checkDrama" [attr.aria-describedby]="'checkDrama'"
+                    class="p-checkbox-box" [ngClass]="{'p-highlight': selected}">
                     <span
-                        aria-atomic="false" aria-describedby="checkDrama"
+                        aria-atomic="false" aria-describedby="checkDrama" [attr.aria-describedby]="'checkDrama'"
                         class="p-checkbox-icon" [ngClass]="{'pi pi-check': selected}"></span>
 
-                    <span class="p-hidden-accessible" value="Checkbox" for="Checkbox">Select</span>
-                    <span class="p-hidden-accessible" id="introDrama">{{label}} {{selected ? 'checked' : 'unchecked'}}</span>
-                    <span class="p-hidden-accessible" id="checkDrama">Selected Value {{selected ? 'checked' : 'unchecked'}}</span>
+
+                    <span class="p-hidden-accessible" id="checkDrama">{{label}} {{selected ? 'checked' : 'unchecked'}}</span>
 
                 </div>
             </div>
+
             <span *ngIf="!template">{{label}}</span>
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
@@ -137,9 +142,6 @@ export class MultiSelectItem {
             <div *ngIf="overlayVisible" [ngClass]="['p-multiselect-panel p-component']"
                  [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                  [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)">
-                <p id="checkDrama" class="p-hidden-accessible">
-                    {{ariaOptionsSetSize}} items
-                </p>
                 <div class="p-multiselect-header"
                             [attr.aria-labelledby]="ariaLabelledBy"
                             itemLabel="Checkbox"
@@ -178,7 +180,7 @@ export class MultiSelectItem {
                 <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <ul class="p-multiselect-items p-component" [ngClass]="{'p-multiselect-virtualscroll': virtualScroll}"
 
-                        role="list"
+                        role="listbox"
                         [attr.aria-label]="ariaOptionsSetSize + ' items'"
                         [attr.aria-describedby]="ariaOptionsSetSize + ' items'"
 
@@ -199,6 +201,8 @@ export class MultiSelectItem {
                             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                                 <ng-template ngFor let-option let-i="index" [ngForOf]="optionsToDisplay">
                                     <p-multiSelectItem
+
+                                        [attr.aria-describedby]="'pmsVSDrama'"
 
                                         [option]="option" [selected]="isSelected(option)" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
                                         (onClick)="onOptionClick($event)"
