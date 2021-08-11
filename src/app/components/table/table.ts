@@ -83,7 +83,8 @@ export class TableService {
                 'p-datatable-scrollable-vertical': scrollable && scrollDirection === 'vertical',
                 'p-datatable-scrollable-horizontal': scrollable && scrollDirection === 'horizontal',
                 'p-datatable-scrollable-both': scrollable && scrollDirection === 'both',
-                'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex'),
+                'p-datatable-responsive-stack': responsiveLayout === 'stack',
+                'p-datatable-responsive-scroll': responsiveLayout === 'scroll',
                 'p-datatable-responsive': responsive,
                 'p-datatable-grouped-header': headerGroupedTemplate != null,
                 'p-datatable-grouped-footer': footerGroupedTemplate != null}" [attr.id]="id">
@@ -282,6 +283,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() maxBufferPx: number;
 
+    @Input() responsiveLayout: string = 'stack';
+
+    @Input() breakpoint: string = '960px';
+
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -478,6 +483,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     styleElement: any;
 
+    responsiveStyleElement: any;
+
     constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
 
     ngOnInit() {
@@ -489,6 +496,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.restoringFilter) {
                 this.restoringFilter = false;
             }
+        }
+
+        if (this.responsiveLayout === 'stack' && !this.scrollable) {
+            this.createResponsiveStyle();
         }
 
         this.initialized = true;
@@ -2322,6 +2333,53 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         document.head.appendChild(this.styleElement);
     }
 
+    createResponsiveStyle() {
+        if (!this.responsiveStyleElement) {
+            this.responsiveStyleElement = document.createElement('style');
+            this.responsiveStyleElement.type = 'text/css';
+            document.head.appendChild(this.responsiveStyleElement);
+
+            let innerHTML = `
+@media screen and (max-width: ${this.breakpoint}) {
+    #${this.id} .p-datatable-thead > tr > th,
+    #${this.id} .p-datatable-tfoot > tr > td {
+        display: none !important;
+    }
+
+    #${this.id} .p-datatable-tbody > tr > td {
+        display: flex;
+        width: 100% !important;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #${this.id} .p-datatable-tbody > tr > td:not(:last-child) {
+        border: 0 none;
+    }
+
+    #${this.id}.p-datatable-gridlines .p-datatable-tbody > tr > td:last-child {
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+    }
+
+    #${this.id} .p-datatable-tbody > tr > td > .p-column-title {
+        display: block;
+    }
+}
+`;
+
+            this.responsiveStyleElement.innerHTML = innerHTML;
+        }
+    }
+
+    destroyResponsiveStyle() {
+        if (this.responsiveStyleElement) {
+            document.head.removeChild(this.responsiveStyleElement);
+            this.responsiveStyleElement = null;
+        }
+    }
+
     destroyStyleElement() {
         if (this.styleElement) {
             document.head.removeChild(this.styleElement);
@@ -2339,6 +2397,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.destroyStyleElement();
+        this.destroyResponsiveStyle();
     }
 }
 
