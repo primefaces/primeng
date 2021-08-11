@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MegaMenuItem,MenuItem, PrimeTemplate} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 import {RippleModule} from 'primeng/ripple';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: 'p-megaMenu',
@@ -236,8 +237,8 @@ export class MegaMenu implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [MegaMenu,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
+    exports: [MegaMenu,RouterModule,TooltipModule],
     declarations: [MegaMenu]
 })
 export class MegaMenuModule { }

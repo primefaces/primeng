@@ -4,7 +4,8 @@ import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {MenuItem, OverlayService, PrimeNGConfig} from 'primeng/api';
 import {RouterModule} from '@angular/router';
-import { ZIndexUtils } from 'primeng/utils';
+import {ZIndexUtils} from 'primeng/utils';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -381,8 +382,8 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
-    exports: [SlideMenu,RouterModule],
+    imports: [CommonModule,RouterModule,TooltipModule],
+    exports: [SlideMenu,RouterModule,TooltipModule],
     declarations: [SlideMenu,SlideMenuSub]
 })
 export class SlideMenuModule { }

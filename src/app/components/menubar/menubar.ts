@@ -5,6 +5,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { MenuItem, PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'p-menubarSub',
@@ -284,8 +285,8 @@ export class Menubar implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [Menubar,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
+    exports: [Menubar,RouterModule,TooltipModule],
     declarations: [Menubar,MenubarSub]
 })
 export class MenubarModule { }

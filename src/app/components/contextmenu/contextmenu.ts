@@ -7,6 +7,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { RouterModule } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -609,8 +610,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [ContextMenu,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
+    exports: [ContextMenu,RouterModule,TooltipModule],
     declarations: [ContextMenu,ContextMenuSub],
     providers: [ContextMenuService]
 })

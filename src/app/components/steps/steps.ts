@@ -2,7 +2,8 @@ import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, Vi
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule, Router, ActivatedRoute} from '@angular/router';
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: 'p-steps',
@@ -96,8 +97,8 @@ export class Steps implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
-    exports: [Steps,RouterModule],
+    imports: [CommonModule,RouterModule,TooltipModule],
+    exports: [Steps,RouterModule,TooltipModule],
     declarations: [Steps]
 })
 export class StepsModule { }

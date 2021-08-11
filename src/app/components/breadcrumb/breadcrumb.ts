@@ -2,6 +2,7 @@ import {NgModule,Component,Input, Output, EventEmitter,ChangeDetectionStrategy, 
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: 'p-breadcrumb',
@@ -100,8 +101,8 @@ export class Breadcrumb {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
-    exports: [Breadcrumb,RouterModule],
+    imports: [CommonModule,RouterModule,TooltipModule],
+    exports: [Breadcrumb,RouterModule,TooltipModule],
     declarations: [Breadcrumb]
 })
 export class BreadcrumbModule { }

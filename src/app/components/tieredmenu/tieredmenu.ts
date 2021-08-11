@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -486,8 +487,8 @@ export class TieredMenu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [TieredMenu,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
+    exports: [TieredMenu,RouterModule,TooltipModule],
     declarations: [TieredMenu,TieredMenuSub]
 })
 export class TieredMenuModule { }

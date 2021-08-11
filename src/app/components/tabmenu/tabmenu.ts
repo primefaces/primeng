@@ -5,6 +5,7 @@ import {RippleModule} from 'primeng/ripple';
 import {PrimeTemplate, SharedModule} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 import {DomHandler} from 'primeng/dom';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: 'p-tabMenu',
@@ -116,8 +117,8 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,SharedModule,RippleModule],
-    exports: [TabMenu,RouterModule,SharedModule],
+    imports: [CommonModule,RouterModule,SharedModule,RippleModule,TooltipModule],
+    exports: [TabMenu,RouterModule,SharedModule,TooltipModule],
     declarations: [TabMenu]
 })
 export class TabMenuModule { }

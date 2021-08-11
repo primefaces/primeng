@@ -6,6 +6,7 @@ import {MenuItem, OverlayService, PrimeNGConfig} from 'primeng/api';
 import {ZIndexUtils} from 'primeng/utils';
 import {RouterModule} from '@angular/router';
 import {RippleModule} from 'primeng/ripple';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: '[pMenuItemContent]',
@@ -330,8 +331,8 @@ export class Menu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule],
-    exports: [Menu,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
+    exports: [Menu,RouterModule,TooltipModule],
     declarations: [Menu,MenuItemContent]
 })
 export class MenuModule { }

@@ -3,6 +3,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
+import {TooltipModule} from 'primeng/tooltip';
 
 export class BasePanelMenuItem {
 
@@ -184,8 +185,8 @@ export class PanelMenu extends BasePanelMenuItem {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
-    exports: [PanelMenu,RouterModule],
+    imports: [CommonModule,RouterModule,TooltipModule],
+    exports: [PanelMenu,RouterModule,TooltipModule],
     declarations: [PanelMenu,PanelMenuSub]
 })
 export class PanelMenuModule { }
