@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Menubar, MenubarSub } from './menubar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('Menubar', () => {
 
@@ -19,7 +20,8 @@ describe('Menubar', () => {
 			],
 			declarations: [
 				Menubar,
-				MenubarSub
+				MenubarSub,
+                TooltipModule
 			]
 		});
 

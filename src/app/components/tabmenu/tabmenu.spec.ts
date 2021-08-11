@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { TabMenu } from './tabmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('TabMenu', () => {
 
@@ -18,7 +19,8 @@ describe('TabMenu', () => {
 				]),
 			],
 			declarations: [
-				TabMenu
+				TabMenu,
+                TooltipModule
 			]
 		});
 
