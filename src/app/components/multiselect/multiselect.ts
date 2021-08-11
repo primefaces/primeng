@@ -35,10 +35,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     <span
                         aria-atomic="false" aria-describedby="checkDrama" [attr.aria-describedby]="'checkDrama'"
                         class="p-checkbox-icon" [ngClass]="{'pi pi-check': selected}"></span>
-
-
                     <span class="p-hidden-accessible" id="checkDrama">{{label}} {{selected ? 'checked' : 'unchecked'}}</span>
-
                 </div>
             </div>
 
@@ -179,12 +176,9 @@ export class MultiSelectItem {
                 </div>
                 <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <ul class="p-multiselect-items p-component" [ngClass]="{'p-multiselect-virtualscroll': virtualScroll}"
-
-                        role="listbox"
-                        [attr.aria-label]="ariaOptionsSetSize + ' items'"
-                        [attr.aria-describedby]="ariaOptionsSetSize + ' items'"
-
-                    >
+                            role="listbox"
+                            [attr.aria-label]="ariaOptionsSetSize + ' items'"
+                            [attr.aria-describedby]="ariaOptionsSetSize + ' items'" >
                         <ng-container *ngIf="group">
                             <ng-template ngFor let-optgroup [ngForOf]="optionsToRender">
                                 <li class="p-multiselect-item-group">
@@ -201,7 +195,6 @@ export class MultiSelectItem {
                             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                                 <ng-template ngFor let-option let-i="index" [ngForOf]="optionsToDisplay">
                                     <p-multiSelectItem
-
                                         [attr.aria-describedby]="'pmsVSDrama'"
 
                                         [option]="option" [selected]="isSelected(option)" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
@@ -216,9 +209,13 @@ export class MultiSelectItem {
                             <ng-template #virtualScrollList>
                                 <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && !emptyOptions">
                                     <ng-container *cdkVirtualFor="let option of optionsToDisplay; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
-                                        <p-multiSelectItem [option]="option" [selected]="isSelected(option)" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)" (onClick)="onOptionClick($event)"
+                                        <p-multiSelectItem [attr.aria-describedby]="'pmsVSDrama'"
+                                                           [option]="option" [selected]="isSelected(option)" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)" (onClick)="onOptionClick($event)"
                                                            (onKeydown)="onOptionKeydown($event)"
                                                            [template]="itemTemplate" [itemSize]="itemSize"></p-multiSelectItem>
+                                        <p id="pmsVSDrama" class="p-hidden-accessible">
+                                            {{options.length}} items shown
+                                        </p>
                                     </ng-container>
                                 </cdk-virtual-scroll-viewport>
                             </ng-template>
