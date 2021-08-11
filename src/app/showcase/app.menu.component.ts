@@ -109,7 +109,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/slider']" routerLinkActive="router-link-exact-active">Slider</a>
                     <a [routerLink]=" ['/selectbutton']" routerLinkActive="router-link-exact-active">SelectButton</a>
                     <a [routerLink]=" ['/togglebutton']" routerLinkActive="router-link-exact-active">ToggleButton</a>
-                    <a [routerLink]=" ['/treeselect']" routerLinkActive="router-link-exact-active">TreeSelect</a>
+                    <a [routerLink]=" ['/treeselect']" routerLinkActive="router-link-exact-active">TreeSelect <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/tristatecheckbox']" routerLinkActive="router-link-exact-active">TriCheckbox</a>
                 </div>
 
