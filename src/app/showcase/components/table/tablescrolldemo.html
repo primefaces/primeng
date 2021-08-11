@@ -150,7 +150,7 @@
         <h5>Frozen Columns</h5>
         <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Unfreeze Balance'" offLabel="Freeze Balance" [style]="{'width': '12rem'}"></p-toggleButton>
 
-        <p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" frozenWidth="300px" styleClass="p-mt-3">
+        <p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="p-mt-3">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:200px" pFrozenColumn>Name</th>
@@ -381,7 +381,7 @@
     &lt;h5&gt;Frozen Columns&lt;/h5&gt;
     &lt;p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Unfreeze Balance'" offLabel="Freeze Balance" [style]="&#123;'width': '12rem'&#125;"&gt;&lt;/p-toggleButton&gt;
 
-    &lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" frozenWidth="300px" styleClass="p-mt-3"&gt;
+    &lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="p-mt-3"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th style="width:200px" pFrozenColumn&gt;Name&lt;/th&gt;

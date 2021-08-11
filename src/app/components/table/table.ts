@@ -105,7 +105,7 @@ export class TableService {
                     <thead class="p-datatable-thead">
                         <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
-                    <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="frozenBodyTemplate" [frozen]="true" [ngStyle]="{width: frozenWidth}"></tbody>
+                    <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="frozenBodyTemplate" [frozen]="true"></tbody>
                     <tbody class="p-datatable-tbody" [value]="dataToRender" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                     <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
                         <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context {$implicit: columns}"></ng-container>
@@ -117,7 +117,7 @@ export class TableService {
                         <thead #tableHeader class="p-datatable-thead">
                             <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
                         </thead>
-                        <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate" [frozen]="true" [ngStyle]="{width: frozenWidth}"></tbody>
+                        <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate" [frozen]="true"></tbody>
                         <tbody class="p-datatable-tbody" [value]="dataToRender" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                         <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
                             <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context {$implicit: columns}"></ng-container>

@@ -2440,7 +2440,7 @@ export class TableExportDemo implements OnInit &#123;
             be fixed on the left or right.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" frozenWidth="300px" styleClass="p-mt-3"&gt;
+&lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="p-mt-3"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th style="width:200px" pFrozenColumn&gt;Name&lt;/th&gt;
@@ -3175,6 +3175,12 @@ export class TableDemo implements OnInit &#123;
                             <td>When specifies, enables horizontal and/or vertical scrolling.</td>
                         </tr>
                         <tr>
+                            <td>scrollDirection</td>
+                            <td>string</td>
+                            <td>vertical</td>
+                            <td>Orientation of the scrolling, options are "vertical", "horizontal" and "both".</td>
+                        </tr>
+                        <tr>
                             <td>scrollHeight</td>
                             <td>string</td>
                             <td>null</td>
@@ -3197,12 +3203,6 @@ export class TableDemo implements OnInit &#123;
                             <td>number</td>
                             <td>28</td>
                             <td>Height of a row to use in calculations of virtual scrolling.</td>
-                        </tr>
-                        <tr>
-                            <td>frozenWidth</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Width of the frozen columns container.</td>
                         </tr>
                         <tr>
                             <td>responsive</td>
