@@ -2808,7 +2808,28 @@ export class TableDemo implements OnInit &#123;
 &#125;
 </app-code>
 
+            <h5>Responsive</h5>
+            <p>DataTable responsive layout can be achieved in two ways; first approach is displaying a horizontal scrollbar for smaller screens
+                and second one is defining a breakpoint to display the cells of a row as stacked. Scrollable tables use the scroll layout approach internally and do not require additional configuration.</p>
 
+            <h5>Scroll Layout</h5>
+            <p>Set <i>responsiveLayout</i> to scroll to enabled this layout. Note that, when scroll mode is enabled table-layout automatically switches to auto from fixed
+            as a result table widths are likely to differ and resizable columns are not supported. Read more about <a href="https://www.w3schools.com/cssref/pr_tab_table-layout.asp">table-layout</a> for more details.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="products" responsiveLayout="scroll"&gt;
+
+&lt;/p-table&gt;
+</app-code>
+
+            <h5>Stack Layout</h5>
+            <p>In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px'.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-table [value]="products" responsiveLayout="stack" breakpoint="640px"&gt;
+
+&lt;/p-table&gt;
+</app-code>
             <h5>Styling Certain Rows and Columns</h5>
             <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class.</p>
 
@@ -2882,6 +2903,18 @@ export class TableDemo implements OnInit &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of objects to display as frozen.</td>
+                        </tr>
+                        <tr>
+                            <td>responsiveLayout</td>
+                            <td>string</td>
+                            <td>stack</td>
+                            <td>Defines the responsive mode, valid options are "stack" and "scroll".</td>
+                        </tr>
+                        <tr>
+                            <td>breakpoint</td>
+                            <td>string</td>
+                            <td>960px</td>
+                            <td>The breakpoint to define the maximum width boundary when using stack responsive layout.</td>
                         </tr>
                         <tr>
                             <td>style</td>
