@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import * as Chart from 'chart.js';
+import Chart from 'chart.js/auto';
 
 @Component({
     selector: 'p-chart',
@@ -79,14 +79,10 @@ export class UIChart implements AfterViewInit, OnDestroy {
             opts.maintainAspectRatio = false;
         }
 
-        import('chart.js/auto').then((module) => {
-            if (module && module.default) {
-                this.chart = new module.default(this.el.nativeElement.children[0].children[0], {
-                    type: this.type,
-                    data: this.data,
-                    options: this.options
-                });
-            }
+        this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+            type: this.type,
+            data: this.data,
+            options: this.options
         });
     }
 
