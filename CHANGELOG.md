@@ -1,5 +1,39 @@
 # Changelog
 
+## [12.1.0-rc.1](https://github.com/primefaces/primeng/tree/12.1.0-rc.1) (2021-08-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.1...12.1.0-rc.1)
+
+**Breaking changes:**
+- Update Chart.js to 3.3.2  [\#10452](https://github.com/primefaces/primeng/issues/10452)
+- FullCalendar v5 Theme Support [\#10451](https://github.com/primefaces/primeng/issues/10451)
+- DataTable RowGroup Mode [\#10396](https://github.com/primefaces/primeng/issues/10396)
+- New DataTable Scrolling [\#10395](https://github.com/primefaces/primeng/issues/10395)
+
+**Implemented New Features and Enhancements:**
+
+- New Table Responsive layout  [\#10495](https://github.com/primefaces/primeng/issues/10495)
+- Support for scrolling and column groups [\#10489](https://github.com/primefaces/primeng/issues/10489)
+- Tooltip support for Menu Components [\#10422](https://github.com/primefaces/primeng/issues/10422)
+- Dock Component [\#10413](https://github.com/primefaces/primeng/issues/10413)
+- onResizeStart event for p-splitter [\#10384](https://github.com/primefaces/primeng/issues/10384)
+- New Component: SpeedDial [\#10380](https://github.com/primefaces/primeng/issues/10380)
+- Reimplement OverlayService [\#10301](https://github.com/primefaces/primeng/issues/10301)
+- New Component: TreeSelect [\#10299](https://github.com/primefaces/primeng/issues/10299)
+- Customizable ZIndex Layering [\#10298](https://github.com/primefaces/primeng/issues/10298)
+
+**Fixed bugs:**
+
+- Improve resize feature of Dialog [\#10465](https://github.com/primefaces/primeng/issues/10465)
+- A maximizable dialog cannot be maximized properly after its size or position has been changed [\#10464](https://github.com/primefaces/primeng/issues/10464)
+- Overlay aligning calculation defect [\#10447](https://github.com/primefaces/primeng/issues/10447)
+- p-password is not changing when I18N API called [\#10446](https://github.com/primefaces/primeng/issues/10446)
+- Dropdown Array Key Selection skipping last entry. [\#10408](https://github.com/primefaces/primeng/issues/10408)
+- Unsubscription error when running any default component test using Steps [\#10379](https://github.com/primefaces/primeng/issues/10379)
+- TreeTable PartialSelect not working [\#10370](https://github.com/primefaces/primeng/issues/10370)
+- FileUpload Size Calculation is wrong [\#10369](https://github.com/primefaces/primeng/issues/10369)
+- p-password tamplate [\#10355](https://github.com/primefaces/primeng/issues/10355)
+
 ## [12.0.2](https://github.com/primefaces/primeng/tree/12.0.2) (2021-08-10)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0...12.0.1)
