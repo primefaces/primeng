@@ -15,7 +15,7 @@ import { TooltipModule } from 'primeng/tooltip';
 class TestMenuComponent {
 }
 
-fdescribe('Menu', () => {
+describe('Menu', () => {
 
     let menu: Menu;
     let fixture: ComponentFixture<TestMenuComponent>;
