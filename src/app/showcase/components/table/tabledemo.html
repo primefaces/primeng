@@ -2697,39 +2697,7 @@ loadData(event: LazyLoadEvent) &#123;
 &lt;/p-table&gt;
 </app-code>
 
-            <p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
-
-            <h5>Responsive</h5>
-            <p>Table columns are displayed as stacked in responsive mode if the screen size becomes smaller than a certain breakpoint value. This feature is enabled
-            by setting responsive to true and adding an element whose class name is "p-column-title" to the body cells.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars" [responsive]="true"&gt;
-    &lt;ng-template pTemplate="caption"&gt;
-        List of Cars
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;span class="p-column-title"&gt;&#123;&#123;col.header&#125;&#125;&lt;/span&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        There are &#123;&#123;cars?.length&#125;&#125; cars
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</app-code>
-
-            <p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
+            <p>See the <a [routerLink]="['/table/state']">live example.</a></p>
 
             <h5>EmptyMessage</h5>
             <p>When there is no data, <i>emptymessage</i> template can be used to display a message.</p>
@@ -2823,13 +2791,30 @@ export class TableDemo implements OnInit &#123;
 </app-code>
 
             <h5>Stack Layout</h5>
-            <p>In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px'.</p>
+            <p>In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px'. This feature is enabled
+                by setting responsiveLayout to stack and adding an element whose class name is "p-column-title" to the body cells.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" responsiveLayout="stack" breakpoint="640px"&gt;
-
+&lt;p-table [columns]="cols" [value]="customers" responsiveLayout="stack" breakpoint="680px"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &lt;span class="p-column-title"&gt;&#123;&#123;col.header&#125;&#125;&lt;/span&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
 &lt;/p-table&gt;
 </app-code>
+
+<p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
             <h5>Styling Certain Rows and Columns</h5>
             <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class.</p>
 
