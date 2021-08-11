@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "declaration": true,
-      "module": "es2015",
+      "module": "es2020",
       "target": "es5",
       "baseUrl": ".",
       "stripInternal": true,
