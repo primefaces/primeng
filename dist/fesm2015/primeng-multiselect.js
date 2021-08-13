@@ -832,7 +832,7 @@ MultiSelect.decorators = [
                             <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
                         </div>
                     </div>
-                    <div [pTooltip]="'enter filter text'"
+                    <div [pTooltip]="'enter filter text'" [tooltipPosition]="'top'"
                         class="p-multiselect-filter-container" *ngIf="filter">
                         <input
                             #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilterInputChange($event)" class="p-multiselect-filter p-inputtext p-component" [disabled]="disabled"
