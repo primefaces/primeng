@@ -216,7 +216,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() disabled: any;
 
-    @Input() dateFormat: string = 'mm/dd/yy';
+    @Input() dateFormat: string;
 
     @Input() multipleSeparator: string = ',';
 
@@ -2168,7 +2168,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     getDateFormat() {
-        return this.dateFormat;
+        return this.dateFormat||this.getTranslation('dateFormat');
     }
 
     // Ported from jquery-ui datepicker formatDate
