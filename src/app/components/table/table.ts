@@ -83,6 +83,7 @@ export class TableService {
                 'p-datatable-scrollable-vertical': scrollable && scrollDirection === 'vertical',
                 'p-datatable-scrollable-horizontal': scrollable && scrollDirection === 'horizontal',
                 'p-datatable-scrollable-both': scrollable && scrollDirection === 'both',
+                'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex'),
                 'p-datatable-responsive-stack': responsiveLayout === 'stack',
                 'p-datatable-responsive-scroll': responsiveLayout === 'scroll',
                 'p-datatable-responsive': responsive,
