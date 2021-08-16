@@ -10,7 +10,6 @@ export class TableRowGroupDemo implements OnInit {
 
     customers: Customer[];
 
-
     constructor(private customerService: CustomerService) { }
 
     ngOnInit() {

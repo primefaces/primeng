@@ -14,8 +14,6 @@ export class TableScrollDemo implements OnInit {
 
     scrollableCols: any[];
 
-    frozenCols: any[];
-
     unlockedCustomers: any[];
 
     lockedCustomers: any[];
@@ -49,10 +47,6 @@ export class TableScrollDemo implements OnInit {
                     image: "amyelsner.png"
                 }
             }
-        ];
-
-        this.frozenCols = [
-            { field: 'name', header: 'Name' }
         ];
 
         this.scrollableCols = [
