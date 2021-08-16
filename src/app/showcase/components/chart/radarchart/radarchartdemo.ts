@@ -11,7 +11,7 @@ export class RadarChartDemo {
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -59,14 +59,24 @@ export class RadarChartDemo {
 
     getLightTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#495057'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#495057'
+                    }
                 }
             },
-            scale: {
-                gridLines: {
-                    color: '#ebedef'
+            scales: {
+                r: {
+                    pointLabels: {
+                        color: '#495057',
+                    },
+                    grid: {
+                        color: '#ebedef',
+                    },
+                    angleLines: {
+                        color: '#ebedef'
+                    }
                 }
             }
         }
@@ -74,14 +84,24 @@ export class RadarChartDemo {
 
     getDarkTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#ebedef'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ebedef'
+                    }
                 }
             },
-            scale: {
-                gridLines: {
-                    color: 'rgba(255,255,255,0.2)'
+            scales: {
+                r: {
+                    pointLabels: {
+                        color: '#ebedef',
+                    },
+                    grid: {
+                        color: 'rgba(255,255,255,0.2)',
+                    },
+                    angleLines: {
+                        color: 'rgba(255,255,255,0.2)'
+                    }
                 }
             }
         }

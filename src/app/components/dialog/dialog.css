@@ -24,9 +24,9 @@
     transform: scale(1);
     position: relative;
 }
-
 .p-dialog-content {
     overflow-y: auto;
+    flex-grow: 1;
 }
 
 .p-dialog-header {
@@ -83,6 +83,7 @@
     transition: none;
     transform: none;
     width: 100vw !important;
+    height: 100vh !important;
     top: 0px !important;
     left: 0px !important;
     max-height: 100%;

@@ -3,12 +3,13 @@ import { By } from '@angular/platform-browser';
 import { MegaMenu } from './megamenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('MegaMenu', () => {
-  
+
   let megamenu: MegaMenu;
   let fixture: ComponentFixture<MegaMenu>;
-  
+
   beforeEach(() => {
         TestBed.configureTestingModule({
         imports: [
@@ -18,17 +19,18 @@ describe('MegaMenu', () => {
             NoopAnimationsModule
         ],
         declarations: [
-            MegaMenu
+            MegaMenu,
+            TooltipModule
         ]
         });
-        
+
         fixture = TestBed.createComponent(MegaMenu);
         megamenu = fixture.componentInstance;
     });
 
     it('should display by default', () => {
         fixture.detectChanges();
-        
+
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(megaMenuEl).toBeTruthy();
     });
@@ -37,7 +39,7 @@ describe('MegaMenu', () => {
         megamenu.style = {'height' : '300px'};
         megamenu.styleClass = "Primeng ROCKS!";
         fixture.detectChanges();
-        
+
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(megaMenuEl.className).toContain("Primeng ROCKS!");
         expect(megaMenuEl.style.height).toContain("300px");
@@ -66,13 +68,13 @@ describe('MegaMenu', () => {
                     {
                         label: 'TV 4',
                         items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
-                    }    
+                    }
                 ]
             ]
         }
         ];
         fixture.detectChanges();
-        
+
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const spanIconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
         expect(megaMenuEl.className).toContain("p-megamenu-horizontal");
@@ -103,13 +105,13 @@ describe('MegaMenu', () => {
                     {
                         label: 'TV 4',
                         items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
-                    }    
+                    }
                 ]
             ]
         }
         ];
         fixture.detectChanges();
-        
+
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const spanIconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
         const menuItemCustomEl = fixture.debugElement.query(By.css('.p-menuitem.p-menuitem-custom'));
@@ -153,7 +155,7 @@ describe('MegaMenu', () => {
         },
         ];
         fixture.detectChanges();
-        
+
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
         const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
@@ -204,7 +206,7 @@ describe('MegaMenu', () => {
         ];
         const itemClickSpy = spyOn(megamenu, 'itemClick').and.callThrough();
         fixture.detectChanges();
-        
+
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
         const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
@@ -256,7 +258,7 @@ describe('MegaMenu', () => {
         ];
         const itemClickSpy = spyOn(megamenu, 'itemClick').and.callThrough();
         fixture.detectChanges();
-        
+
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
         const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
@@ -309,7 +311,7 @@ describe('MegaMenu', () => {
         },
         ];
         fixture.detectChanges();
-        
+
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
         const submenuEl = fixture.debugElement.query(By.css('.p-megamenu-grid')).queryAll(By.css('ul'));
         const event = new Event('mouseenter');
@@ -350,7 +352,7 @@ describe('MegaMenu', () => {
         }
         ];
         fixture.detectChanges();
-        
+
         let tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
         let event = new Event('mouseenter');
         tvEl.dispatchEvent(event);
@@ -395,7 +397,7 @@ describe('MegaMenu', () => {
         }
         ];
         fixture.detectChanges();
-        
+
         let tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
         let event = new Event('mouseenter');
         tvEl.dispatchEvent(event);
@@ -452,7 +454,7 @@ describe('MegaMenu', () => {
         }
         ];
         fixture.detectChanges();
-        
+
         let tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
         let event = new Event('mouseenter');
         tvEl.dispatchEvent(event);

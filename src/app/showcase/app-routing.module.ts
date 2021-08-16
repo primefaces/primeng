@@ -34,6 +34,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'dataview', loadChildren: () => import('./components/dataview/dataviewdemo.module').then(m => m.DataViewDemoModule)},
             {path: 'defer', loadChildren: () => import('./components/defer/deferdemo.module').then(m => m.DeferDemoModule)},
             {path: 'dialog', loadChildren: () => import('./components/dialog/dialogdemo.module').then(m => m.DialogDemoModule)},
+            {path: 'dock', loadChildren: () => import('./components/dock/dockdemo.module').then(m => m.DockDemoModule)},
             {path: 'divider', loadChildren: () => import('./components/divider/dividerdemo.module').then(m => m.DividerDemoModule)},
             {path: 'dynamicdialog', loadChildren: () => import('./components/dynamicdialog/dynamicdialogdemo.module').then(m => m.DynamicDialogDemoModule)},
             {path: 'dragdrop', loadChildren: () => import('./components/dragdrop/dragdropdemo.module').then(m => m.DragDropDemoModule)},
@@ -87,10 +88,12 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'skeleton', loadChildren: () => import('./components/skeleton/skeletondemo.module').then(m => m.SkeletonDemoModule)},
             {path: 'slidemenu', loadChildren: () => import('./components/slidemenu/slidemenudemo.module').then(m => m.SlideMenuDemoModule)},
             {path: 'slider', loadChildren: () => import('./components/slider/sliderdemo.module').then(m => m.SliderDemoModule)},
+            {path: 'speeddial', loadChildren: () => import('./components/speeddial/speeddialdemo.module').then(m => m.SpeedDialDemoModule)},
             {path: 'splitbutton', loadChildren: () => import('./components/splitbutton/splitbuttondemo.module').then(m => m.SplitButtonDemoModule)},
             {path: 'splitter', loadChildren: () => import('./components/splitter/splitterdemo.module').then(m => m.SplitterDemoModule)},
             {path: 'steps', loadChildren: () => import('./components/steps/stepsdemo.module').then(m => m.StepsDemoModule)},
             {path: 'support', loadChildren: () => import('./components/support/support.module').then(m => m.SupportModule)},
+            {path: 'styleclass', loadChildren: () => import('./components/styleclass/styleclassdemo.module').then(m => m.StyleClassDemoModule)},
             {path: 'tag', loadChildren: () => import('./components/tag/tagdemo.module').then(m => m.TagDemoModule)},
             {path: 'table', loadChildren: () => import('./components/table/tabledemo.module').then(m => m.TableDemoModule)},
             {path: 'tabmenu', loadChildren: () => import('./components/tabmenu/tabmenudemo.module').then(m => m.TabMenuDemoModule)},
@@ -103,10 +106,11 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'toolbar', loadChildren: () => import('./components/toolbar/toolbardemo.module').then(m => m.ToolbarDemoModule)},
             {path: 'tooltip', loadChildren: () => import('./components/tooltip/tooltipdemo.module').then(m => m.TooltipDemoModule)},
             {path: 'tree', loadChildren: () => import('./components/tree/treedemo.module').then(m => m.TreeDemoModule)},
+            {path: 'treeselect', loadChildren: () => import('./components/treeselect/treeselectdemo.module').then(m => m.TreeSelectDemoModule)},
             {path: 'treetable', loadChildren: () => import('./components/treetable/treetabledemo.module').then(m => m.TreeTableDemoModule)},
             {path: 'tristatecheckbox', loadChildren: () => import('./components/tristatecheckbox/tristatecheckboxdemo.module').then(m => m.TriStateCheckboxDemoModule)},
             {path: 'virtualscroller', loadChildren: () => import('./components/virtualscroller/virtualscrollerdemo.module').then(m => m.VirtualScrollerDemoModule)}
-        ], {scrollPositionRestoration: 'enabled'})    
+        ], {scrollPositionRestoration: 'enabled'})
     ],
     exports: [RouterModule]
 })

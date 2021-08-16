@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ButtonModule } from '../button/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
 	template: `<p-slideMenu #menu></p-slideMenu>
@@ -32,7 +33,8 @@ describe('SlideMenu', () => {
 			declarations: [
 				SlideMenu,
 				SlideMenuSub,
-				SlideMenuTestComponent
+				SlideMenuTestComponent,
+                TooltipModule
 			]
 		});
 

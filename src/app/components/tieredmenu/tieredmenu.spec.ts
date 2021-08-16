@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { TieredMenu, TieredMenuSub } from './tieredmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('TieredMenu', () => {
 
@@ -17,7 +18,8 @@ describe('TieredMenu', () => {
 			],
 			declarations: [
 				TieredMenu,
-				TieredMenuSub
+				TieredMenuSub,
+                TooltipModule
 			]
 		});
 

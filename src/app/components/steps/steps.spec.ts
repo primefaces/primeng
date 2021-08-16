@@ -6,6 +6,7 @@ import { Component, NO_ERRORS_SCHEMA, ViewEncapsulation } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
 	template: `<p-steps [model]="items"></p-steps>
@@ -64,7 +65,8 @@ describe('Steps', () => {
 			declarations: [
 				Steps,
 				Toast,
-				TestStpesComponent
+				TestStpesComponent,
+                TooltipModule
 			],
 		});
 

@@ -3,8 +3,8 @@ import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentIni
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
+import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys, OverlayService } from 'primeng/api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TooltipModule } from 'primeng/tooltip';
@@ -19,7 +19,9 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelectItem',
     template: `
+
         <li
+            [attr.aria-label]="label"
             aria-atomic="false" aria-describedby="checkDrama" [attr.aria-describedby]="'checkDrama'"
             class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)"
             [attr.tabindex]="disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
@@ -136,6 +138,7 @@ export class MultiSelectItem {
                 <span class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon"></span>
             </div>
 
+
             <div *ngIf="overlayVisible" [ngClass]="['p-multiselect-panel p-component']"
                  [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                  [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)">
@@ -147,6 +150,7 @@ export class MultiSelectItem {
                             aria-atomic="true" aria-label="" aria-describedby="checkDrama"
 
                             *ngIf="showHeader">
+
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-checkbox p-component" *ngIf="showToggleAll && !selectionLimit" [ngClass]="{'p-checkbox-disabled': disabled || toggleAllDisabled}">
@@ -473,9 +477,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     preventModelTouched: boolean;
 
+
     ariaOptionsSetSize: number = 0;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
         this.updateLabel();
@@ -701,6 +706,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         optionsToRender.forEach(opt => {
             if (!this.group) {
                 const optionDisabled = this.isOptionDisabled(opt);
+
                 if (optionDisabled && this.isSelected(opt)) {
                     val.push(this.getOptionValue(opt));
                 }
@@ -709,6 +715,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 if (opt.items) {
                     opt.items.forEach(option => {
                         const optionDisabled = this.isOptionDisabled(option);
+
                         if (optionDisabled && this.isSelected(option)) {
                             val.push(this.getOptionValue(option));
                         }
@@ -726,13 +733,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
                 this.appendOverlay();
                 if (this.autoZIndex) {
-                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                    ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
@@ -753,6 +767,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             case 'void':
                 this.onOverlayHide();
                 break;
+        }
+    }
+
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
+            break;
         }
     }
 
@@ -1059,8 +1081,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             }
 
             return (visibleOptionsLength === selectedDisabledItemsLength
-                || visibleOptionsLength === selectedEnabledItemsLength
-                || selectedEnabledItemsLength && visibleOptionsLength === (selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength));
+                    || visibleOptionsLength === selectedEnabledItemsLength
+                    || selectedEnabledItemsLength && visibleOptionsLength === (selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength));
         }
     }
 
@@ -1193,6 +1215,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.overlay) {
+            ZIndexUtils.clear(this.overlay);
         }
 
         this.restoreOverlayAppend();

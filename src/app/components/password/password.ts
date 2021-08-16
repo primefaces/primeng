@@ -3,8 +3,10 @@ import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {PrimeNGConfig, PrimeTemplate, TranslationKeys} from 'primeng/api';
+import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 import {InputTextModule} from 'primeng/inputtext';
+import { Subscription } from 'rxjs';
 
 @Directive({
     selector: '[pPassword]',
@@ -248,11 +250,11 @@ export const Password_VALUE_ACCESSOR: any = {
     selector: 'p-password',
     template: `
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
-            <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()" 
+            <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus()"
                 (blur)="onBlur()" (keyup)="onKeyUp($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
-            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" 
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)">
+            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -288,7 +290,7 @@ export const Password_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class Password implements AfterContentInit,OnInit {
-    
+
     @Input() disabled: boolean;
 
     @Input() promptLabel: string;
@@ -334,15 +336,15 @@ export class Password implements AfterContentInit,OnInit {
     headerTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     overlayVisible: boolean = false;
 
     meter: any;
-    
+
     infoText: string;
-    
+
     focused: boolean = false;
-    
+
     unmasked: boolean = false;
 
     mediumCheckRegExp: any;
@@ -363,8 +365,9 @@ export class Password implements AfterContentInit,OnInit {
 
     onModelTouched: Function = () => {};
 
+    translationSubscription: Subscription;
 
-    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
+    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -380,7 +383,7 @@ export class Password implements AfterContentInit,OnInit {
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;
@@ -392,13 +395,16 @@ export class Password implements AfterContentInit,OnInit {
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.updateUI(this.value || "");
+        });
     }
 
     onAnimationStart(event) {
         switch(event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                this.overlay.style.zIndex = String(DomHandler.generateZIndex());
+                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 this.appendContainer();
                 this.alignOverlay();
                 this.bindScrollListener();
@@ -409,6 +415,14 @@ export class Password implements AfterContentInit,OnInit {
                 this.unbindScrollListener();
                 this.unbindResizeListener();
                 this.overlay = null;
+            break;
+        }
+    }
+
+    onAnimationEnd(event) {
+        switch(event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
             break;
         }
     }
@@ -462,7 +476,7 @@ export class Password implements AfterContentInit,OnInit {
             }
         }
     }
-    
+
     updateUI(value) {
         let label = null;
         let meter = null;
@@ -506,6 +520,13 @@ export class Password implements AfterContentInit,OnInit {
         this.unmasked = !this.unmasked;
     }
 
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
+    }
+
     testStrength(str) {
         let level = 0;
 
@@ -522,12 +543,12 @@ export class Password implements AfterContentInit,OnInit {
     writeValue(value: any) : void {
         if (value === undefined)
             this.value = null;
-        else 
+        else
             this.value = value;
 
         if (this.feedback)
             this.updateUI(this.value || "");
-        
+
         this.cd.markForCheck();
     }
 
@@ -593,7 +614,7 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     inputFieldClass() {
-        return {'p-password-input' : true, 
+        return {'p-password-input' : true,
                 'p-disabled': this.disabled
         };
     }
@@ -644,18 +665,28 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     ngOnDestroy() {
+        if (this.overlay) {
+            ZIndexUtils.clear(this.overlay);
+            this.overlay = null;
+        }
+
         this.restoreAppend();
         this.unbindResizeListener();
+
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
         }
     }
 }
 
 @NgModule({
     imports: [CommonModule, InputTextModule],
-    exports: [PasswordDirective, Password],
+    exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password]
 })
 export class PasswordModule { }

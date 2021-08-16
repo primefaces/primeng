@@ -163,7 +163,7 @@ export class MyModel &#123;
     			<li>'' - single quote</li>
     			<li>anything else - literal text</li>
             </ul>
-            
+
             <h5>I18N</h5>
             <p>Translations for the calendar are defined with the <a href="#" [routerLink]="['/i18n']">I18N API</a>.</p>
 
@@ -229,7 +229,7 @@ export class MyModel &#123;
 
             <h5>Touch UI</h5>
             <p>
-                Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices. 
+                Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices.
                 When using Touch UI mode you will typically want to set readonlyInput to prevent keyboard popup for mobile users.
             </p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -237,7 +237,7 @@ export class MyModel &#123;
 </app-code>
 
             <h5>Animation Configuration</h5>
-            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
+            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties,
                 example below disables the animations altogether.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-calendar [(ngModel)]="dateValue" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-calendar&gt;
@@ -936,7 +936,7 @@ export class CalendarDemo &#123;
     date13: Date;
 
     date14: Date;
-    
+
     dates: Date[];
 
     rangeDates: Date[];
@@ -945,22 +945,9 @@ export class CalendarDemo &#123;
 
     maxDate: Date;
 
-    es: any;
-
     invalidDates: Array&lt;Date&gt;
 
     ngOnInit() &#123;
-        this.es = &#123;
-            firstDayOfWeek: 1,
-            dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
-            dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
-            dayNamesMin: [ "D","L","M","X","J","V","S" ],
-            monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
-            monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
-            today: 'Hoy',
-            clear: 'Borrar'
-        &#125;
-
         let today = new Date();
         let month = today.getMonth();
         let year = today.getFullYear();

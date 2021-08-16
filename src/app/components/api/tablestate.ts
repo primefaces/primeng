@@ -10,6 +10,7 @@ export interface TableState {
     filters?: {[s: string]: FilterMetadata | FilterMetadata[];};
     columnWidths?: string;
     tableWidth?: string;
+    wrapperWidth?: string;
     selection?: any;
     columnOrder?: string[];
     expandedRowKeys?: {[s: string]: boolean;};
