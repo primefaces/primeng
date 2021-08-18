@@ -2310,7 +2310,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     updateScrollWidth() {
         if (this.tableViewChild && this.tableViewChild.nativeElement) {
-            this.tableViewChild.nativeElement.style.width = (DomHandler.getWidth(this.tableViewChild.nativeElement.parentElement) - DomHandler.calculateScrollbarHeight())  + 'px';
+            let parentElementHeight = DomHandler.getWidth(this.tableViewChild.nativeElement.parentElement);
+            if (this.tableViewChild.nativeElement.scrollWidth > parentElementHeight) {
+                this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.scrollWidth + 'px';
+            }
+            else {
+                this.tableViewChild.nativeElement.style.width = (parentElementHeight - DomHandler.calculateScrollbarHeight())  + 'px';
+            }
         }
     }
 
