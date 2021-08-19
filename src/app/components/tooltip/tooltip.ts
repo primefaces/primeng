@@ -50,6 +50,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() positionLeft: number;
 
+    @Input('pTooltip') text: string;
+
     @Input("tooltipDisabled") get disabled(): boolean {
         return this._disabled;
     }
@@ -83,8 +85,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     hideTimeout: any;
 
     active: boolean;
-
-    _text: string;
 
     mouseEnterListener: Function;
 
@@ -176,6 +176,21 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         if (simpleChange.text) {
             this.setOption({tooltipLabel: simpleChange.text.currentValue});
+
+            if (this.active) {
+                if (simpleChange.text.currentValue) {
+                    if (this.container && this.container.offsetParent) {
+                        this.updateText();
+                        this.align();
+                    }
+                    else {
+                        this.show();
+                    }
+                }
+                else {
+                    this.hide();
+                }
+            }
         }
 
         if (simpleChange.tooltipOptions) {
@@ -246,28 +261,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
         else {
             this.hide();
-        }
-    }
-
-    get text(): string {
-        return this._text;
-    }
-
-    @Input('pTooltip') set text(text: string) {
-        this._text = text;
-        if (this.active) {
-            if (this._text) {
-                if (this.container && this.container.offsetParent) {
-                    this.updateText();
-					this.align();
-				}
-                else {
-                    this.show();
-                }
-            }
-            else {
-                this.hide();
-            }
         }
     }
 
