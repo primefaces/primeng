@@ -455,6 +455,35 @@ describe('AutoComplete', () => {
 		expect(testComponent.car).toEqual(autocomplete2.value);
 	}));
 
+	it('should use field as value', fakeAsync(() => {
+		autocomplete2.field = "brand";
+		autocomplete2.fieldAsValue = true;
+		autocomplete2.forceSelection = true;
+		fixture.detectChanges();
+
+		const inputEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('.p-inputtext.p-component'));
+		inputEl.nativeElement.dispatchEvent(new Event('focus'));
+		inputEl.nativeElement.focus();
+		inputEl.nativeElement.click();
+		fixture.detectChanges();
+
+		const selectItemSpy = spyOn(autocomplete2, 'selectItem').and.callThrough();
+		inputEl.nativeElement.value = "v";
+		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+		inputEl.nativeElement.dispatchEvent(new Event('input'));
+		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+		tick(300);
+		fixture.detectChanges();
+
+		const firstItemEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('li')).nativeElement;
+		firstItemEl.click();
+		fixture.detectChanges();
+		expect(autocomplete2.value.brand).toEqual("Volvo");
+		expect(selectItemSpy).toHaveBeenCalled();
+		expect(inputEl.nativeElement.value).toEqual(autocomplete2.value.brand);
+		expect(testComponent.car).toEqual(autocomplete2.value);
+	}));
+
 	it('should change minLength', fakeAsync(() => {
 		autocomplete.minLength = 2;
 		fixture.detectChanges();

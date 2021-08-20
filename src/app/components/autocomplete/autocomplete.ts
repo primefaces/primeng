@@ -188,6 +188,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() field: string;
 
+    @Input() fieldAsValue: boolean;
+
     @Input() scrollHeight: string = '200px';
 
     @Input() dropdown: boolean;
@@ -411,7 +413,24 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     writeValue(value: any) : void {
-        this.value = value;
+        let newValue = value;
+        if (this.fieldAsValue) {
+            if (this.multiple) {
+                if (newValue) {
+                    newValue = value.map((element:any) => {
+                        return {
+                            [this.field]: element
+                        };
+                    });
+                }
+            }
+            else {
+                newValue = {
+                    [this.field]: value
+                };
+            }
+        }
+        this.value = newValue;
         this.filled = this.value && this.value != '';
         this.updateInputField();
         this.cd.markForCheck();
@@ -502,13 +521,23 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             this.value = this.value||[];
             if (!this.isSelected(option) || !this.unique) {
                 this.value = [...this.value,option];
-                this.onModelChange(this.value);
+                let valueToModel  = this.value;
+                if (this.fieldAsValue) {
+                    valueToModel = this.value.map((element) => {
+                        return this.resolveFieldData(element)
+                    });
+                }
+                this.onModelChange(valueToModel);
             }
         }
         else {
+            let valueToModel  = option;
+            if (this.fieldAsValue) {
+                valueToModel = this.resolveFieldData(option);
+            }
             this.inputEL.nativeElement.value =  this.resolveFieldData(option);
             this.value = option;
-            this.onModelChange(this.value);
+            this.onModelChange(valueToModel);
         }
 
         this.onSelect.emit(option);
