@@ -1,5 +1,21 @@
 # Changelog
 
+## [12.1.0-rc.2](https://github.com/primefaces/primeng/tree/12.1.0-rc.2) (2021-08-20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0-rc.1...12.1.0-rc.2)
+
+**Implemented New Features and Enhancements:**
+
+- TreeSelect missing Tree option propagateSelectionDown and propagateSelectionUp [\#10504](https://github.com/primefaces/primeng/issues/10504)
+- dateFormat option for I18N API [\#10503](https://github.com/primefaces/primeng/issues/10503)
+
+**Fixed bugs:**
+
+- Display issue of p-dropdown in p-dialog [\#10517](https://github.com/primefaces/primeng/issues/10517)
+- PrimeNG 12.1 pTooltip text display lags behind bound input change [\#10516](https://github.com/primefaces/primeng/issues/10516)
+- pFrozenColumn is moving when position set to left [\#10513](https://github.com/primefaces/primeng/issues/10513)
+- FlexScroll not working with VirtualScroll [\#10505](https://github.com/primefaces/primeng/issues/10505)
+
 ## [12.1.0-rc.1](https://github.com/primefaces/primeng/tree/12.1.0-rc.1) (2021-08-11)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.0.1...12.1.0-rc.1)
