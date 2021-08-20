@@ -54,6 +54,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AppCodeModule } from '../../app.code.component';
 import { AppDemoActionsModule } from '../../app.demoactions.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
 	imports: [
@@ -81,6 +82,7 @@ import { AppDemoActionsModule } from '../../app.demoactions.component';
         TabViewModule,
         ToggleButtonModule,
         RatingModule,
+        SkeletonModule,
         AppCodeModule,
 		AppDemoActionsModule
 	],
