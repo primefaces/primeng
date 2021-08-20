@@ -5,7 +5,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
 import { ButtonModule } from '../button/button';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   template: `<p-menu #menu></p-menu>
@@ -25,7 +24,6 @@ describe('Menu', () => {
         imports: [
           NoopAnimationsModule,
           RouterTestingModule,
-          TooltipModule,
           ButtonModule
         ],
         declarations: [

@@ -3,7 +3,6 @@ import { By } from '@angular/platform-browser';
 import { Breadcrumb } from './breadcrumb';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TooltipModule } from 'primeng/tooltip';
 
 describe('Breadcrumb', () => {
 
@@ -19,8 +18,7 @@ describe('Breadcrumb', () => {
 				NoopAnimationsModule
 			],
 			declarations: [
-				Breadcrumb,
-                TooltipModule
+				Breadcrumb
 			]
 		});
 

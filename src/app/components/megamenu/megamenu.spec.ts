@@ -3,7 +3,6 @@ import { By } from '@angular/platform-browser';
 import { MegaMenu } from './megamenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TooltipModule } from 'primeng/tooltip';
 
 describe('MegaMenu', () => {
 
@@ -19,8 +18,7 @@ describe('MegaMenu', () => {
             NoopAnimationsModule
         ],
         declarations: [
-            MegaMenu,
-            TooltipModule
+            MegaMenu
         ]
         });
 
