@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Basic</h5>
         <p-autoComplete [(ngModel)]="selectedCountry" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
-    
+
         <h5>Dropdown and Templating</h5>
         <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
             <ng-template let-country pTemplate="item">
@@ -20,9 +20,9 @@
                 </div>
             </ng-template>
         </p-autoComplete>
-    
+
         <h5>Grouped</h5>
-        <p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true">
+        <p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [dropdown]="true">
             <ng-template let-group pTemplate="group">
                 <div class="p-d-flex p-ai-center">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
@@ -197,7 +197,7 @@ export class AutoCompleteDemo &#123;
 </app-code>
 
             <h5>Animation Configuration</h5>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -689,7 +689,7 @@ export class AutoCompleteDemo &#123;
 &lt;/p-autoComplete&gt;
 
 &lt;h5&gt;Grouped&lt;/h5&gt;
-&lt;p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true"&gt;
+&lt;p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
         &lt;div class="p-d-flex p-ai-center"&gt;
             &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
@@ -714,20 +714,22 @@ export class AutoCompleteDemo &#123;
 
     selectedCountry: any;
 
+    selectedCity: any;
+
     selectedItem: any;
-    
+
     countries: any[];
-    
+
     items: any[];
-        
+
     filteredCountries: any[];
 
     filteredItems: any[];
 
     selectedCountries: any[];
-    
+
     selectedCountryAdvanced: any[];
-    
+
     filteredBrands: any[];
 
     groupedCities: SelectItemGroup[];
@@ -735,15 +737,15 @@ export class AutoCompleteDemo &#123;
     filteredGroups: any[];
 
     constructor(private countryService: CountryService, private filterService: FilterService) &#123; &#125;
-    
-    ngOnInit() &#123;        
+
+    ngOnInit() &#123;
         this.countryService.getCountries().then(countries =&gt; &#123;
             this.countries = countries;
         &#125;);
 
         this.groupedCities = [
             &#123;
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     &#123;label: 'Berlin', value: 'Berlin'&#125;,
                     &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
@@ -752,7 +754,7 @@ export class AutoCompleteDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     &#123;label: 'Chicago', value: 'Chicago'&#125;,
                     &#123;label: 'Los Angeles', value: 'Los Angeles'&#125;,
@@ -761,7 +763,7 @@ export class AutoCompleteDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     &#123;label: 'Kyoto', value: 'Kyoto'&#125;,
                     &#123;label: 'Osaka', value: 'Osaka'&#125;,
@@ -776,7 +778,7 @@ export class AutoCompleteDemo &#123;
             this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
         &#125;
     &#125;
-    
+
     filterCountry(event) &#123;
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
@@ -788,7 +790,7 @@ export class AutoCompleteDemo &#123;
                 filtered.push(country);
             &#125;
         &#125;
-        
+
         this.filteredCountries = filtered;
     &#125;
 
@@ -803,7 +805,7 @@ export class AutoCompleteDemo &#123;
                 filtered.push(item);
             &#125;
         &#125;
-        
+
         this.filteredItems = filtered;
     &#125;
 
