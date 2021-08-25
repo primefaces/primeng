@@ -11,7 +11,7 @@
 
     <div class="card">
         <h5>Cell Editing</h5>
-        <p-table [value]="products1" dataKey="id">
+        <p-table [value]="products1" dataKey="id" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -69,7 +69,7 @@
 
     <div class="card">
     <h5>Row Editing</h5>
-        <p-table [value]="products2" dataKey="id" editMode="row">
+        <p-table [value]="products2" dataKey="id" editMode="row" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -147,7 +147,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Cell Editing&lt;/h5&gt;
-    &lt;p-table [value]="products1" dataKey="id"&gt;
+    &lt;p-table [value]="products1" dataKey="id" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Code&lt;/th&gt;
@@ -205,7 +205,7 @@
 
 &lt;div class="card"&gt;
 &lt;h5&gt;Row Editing&lt;/h5&gt;
-    &lt;p-table [value]="products2" dataKey="id" editMode="row"&gt;
+    &lt;p-table [value]="products2" dataKey="id" editMode="row" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Code&lt;/th&gt;
@@ -312,7 +312,7 @@ export class TableEditDemo implements OnInit &#123;
         if (product.price &gt; 0) &#123;
             delete this.clonedProducts[product.id];
             this.messageService.add(&#123;severity:'success', summary: 'Success', detail:'Product is updated'&#125;);
-        &#125;  
+        &#125;
         else &#123;
             this.messageService.add(&#123;severity:'error', summary: 'Error', detail:'Invalid Price'&#125;);
         &#125;
@@ -325,7 +325,7 @@ export class TableEditDemo implements OnInit &#123;
 
 &#125;
 </app-code>
-   
+
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

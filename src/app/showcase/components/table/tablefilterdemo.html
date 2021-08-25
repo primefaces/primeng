@@ -11,9 +11,9 @@
         <h5>Filter Menu</h5>
         <p>Filters are displayed in an overlay.</p>
         <p-table #dt1 [value]="customers" dataKey="id"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name','country.name','representative.name','status']">
+            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex">
                     <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
@@ -27,19 +27,19 @@
                 <tr>
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Name 
+                            Name
                             <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Country 
+                            Country
                             <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th>
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            Agent 
+                            Agent
                             <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                 <ng-template pTemplate="header">
                                     <div class="p-px-3 p-pt-3 p-pb-0">
@@ -149,9 +149,9 @@
         <h5>Filter Row</h5>
         <p>Filters are displayed inline within a separate row.</p>
         <p-table #dt2 [value]="customers" dataKey="id"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name','country.name','representative.name','status']">
+            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex">
                     <span class="p-input-icon-left p-ml-auto">
@@ -249,7 +249,7 @@
     &lt;h5&gt;Filter Menu&lt;/h5&gt;
     &lt;p&gt;Filters are displayed in an overlay.&lt;/p&gt;
     &lt;p-table #dt1 [value]="customers" dataKey="id"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
         [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
         &lt;ng-template pTemplate="caption"&gt;
@@ -265,19 +265,19 @@
             &lt;tr&gt;
                 &lt;th&gt;
                     &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Name 
+                        Name
                         &lt;p-columnFilter type="text" field="name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
                     &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Country 
+                        Country
                         &lt;p-columnFilter type="text" field="country.name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
                     &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Agent 
+                        Agent
                         &lt;p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
                             &lt;ng-template pTemplate="header"&gt;
                                 &lt;div class="p-px-3 p-pt-3 p-pb-0"&gt;
@@ -387,7 +387,7 @@
     &lt;h5&gt;Filter Row&lt;/h5&gt;
     &lt;p&gt;Filters are displayed inline within a separate row.&lt;/p&gt;
     &lt;p-table #dt2 [value]="customers" dataKey="id"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
         [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
         &lt;ng-template pTemplate="caption"&gt;
@@ -532,7 +532,7 @@ export class TableFilterDemo implements OnInit &#123;
     &#125;
 
 &#125;
-</app-code> 
+</app-code>
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

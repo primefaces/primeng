@@ -17,7 +17,7 @@
                 <input type="text" value="PrimeNG" pInputText>
             </ng-template>
         </p-inplace>
-    
+
         <h5>Image</h5>
         <p-inplace>
             <ng-template pTemplate="display">
@@ -30,7 +30,7 @@
                 <img src="assets/showcase/images/demo/galleria/galleria5.jpg" alt="Nature">
             </ng-template>
         </p-inplace>
-    
+
         <h5>Data</h5>
         <p-inplace>
             <ng-template pTemplate="display">
@@ -40,7 +40,7 @@
                 </div>
             </ng-template>
             <ng-template pTemplate="content">
-                <p-table [value]="cars">
+                <p-table [value]="cars" responsiveLayout="scroll">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Vin</th>
@@ -286,7 +286,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="content"&gt;
-        &lt;p-table [value]="cars"&gt;
+        &lt;p-table [value]="cars" responsiveLayout="scroll"&gt;
             &lt;ng-template pTemplate="header"&gt;
                 &lt;tr&gt;
                     &lt;th&gt;Vin&lt;/th&gt;

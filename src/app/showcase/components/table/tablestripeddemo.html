@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products" styleClass="p-datatable-striped">
+        <p-table [value]="products" styleClass="p-datatable-striped" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -40,7 +40,7 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" styleClass="p-datatable-striped"&gt;
+&lt;p-table [value]="products" styleClass="p-datatable-striped" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th&gt;Code&lt;/th&gt;
@@ -77,10 +77,10 @@ export class TableStripedDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.productService.getProductsSmall().then(data => this.products = data);
     &#125;
-    
+
 &#125;
 </app-code>
-  
+
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

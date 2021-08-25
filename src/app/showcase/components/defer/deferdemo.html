@@ -15,7 +15,7 @@
 
     <div pDefer (onLoad)="initData()">
         <ng-template>
-            <p-table [value]="cars">
+            <p-table [value]="cars" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Vin</th>
@@ -135,7 +135,7 @@ this.cars = //initialize
 
 &lt;div pDefer (onLoad)="initData()"&gt;
     &lt;ng-template&gt;
-        &lt;p-table [value]="cars"&gt;
+        &lt;p-table [value]="cars" responsiveLayout="scroll"&gt;
             &lt;ng-template pTemplate="header"&gt;
                 &lt;tr&gt;
                     &lt;th&gt;Vin&lt;/th&gt;
@@ -168,7 +168,7 @@ export class DeferDemo &#123;
         this.messageService.add(&#123;severity:'success', summary:'Data Initialized', detail:'Render Completed'&#125;);
         this.carService.getCarsSmall().then(cars => this.cars = cars);
      &#125;
-     
+
  &#125;
 </app-code>
 

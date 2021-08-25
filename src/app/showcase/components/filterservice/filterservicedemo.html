@@ -8,7 +8,7 @@
 
 <div class="content-section implementation ui-fluid">
     <div class="card">
-        <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
+        <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -58,7 +58,7 @@ export class FilterServiceDemo implements OnInit &#123;
         this.filterService.filters.endsWith(value, 'NG');                          //true
         this.filterService.filters.lt(10, 20);                                     //true
         this.filterService.filters.gt(50, 20);                                     //true
-        this.filterService.filters.in(value, ['PrimeFaces', 'PrimeNG']);           //true        
+        this.filterService.filters.in(value, ['PrimeFaces', 'PrimeNG']);           //true
     &#125;
 &#125;
 </app-code>
@@ -74,7 +74,7 @@ this.filterService.register('isPrimeNumber', (value, filter): boolean => &#123;
     if (value === undefined || value === null) &#123;
         return false;
     &#125;
-    
+
     return value.toString() === filter.toString();
 &#125;);
 
@@ -292,11 +292,11 @@ export class FilterServiceDemo implements OnInit &#123;
             if (filter === undefined || filter === null || filter.trim() === '') &#123;
                 return true;
             &#125;
-    
+
             if (value === undefined || value === null) &#123;
                 return false;
             &#125;
-            
+
             return value.toString() === filter.toString();
         &#125;);
 

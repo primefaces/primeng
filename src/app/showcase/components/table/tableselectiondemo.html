@@ -35,8 +35,8 @@
     <div class="card">
         <h5>Multiple</h5>
         <p>In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices metakey or shiftkey are required. Setting metaKeySelection property as false enables multiple selection without meta key.</p>
-        
-        <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts1" [metaKeySelection]="true" dataKey="code">
+
+        <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts1" [metaKeySelection]="true" dataKey="code" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Multiple Selection with MetaKey
             </ng-template>
@@ -58,7 +58,7 @@
             </ng-template>
         </p-table>
 
-        <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts2" styleClass="p-mt-5" dataKey="code">
+        <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts2" styleClass="p-mt-5" dataKey="code" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Multiple Selection without MetaKey
             </ng-template>
@@ -85,7 +85,7 @@
         <h5>Column Selection</h5>
         <p>Selection using custom elements.</p>
 
-        <p-table [value]="products">
+        <p-table [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -112,7 +112,7 @@
     <div class="card">
         <h5>Events</h5>
         <p>onRowSelect and onRowUnselect are available as selection events.</p>
-        <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct2" dataKey="code"
+        <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct2" dataKey="code" responsiveLayout="scroll"
             (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
             <ng-template pTemplate="header">
                 <tr>
@@ -136,7 +136,7 @@
     <div class="card">
         <h5>RadioButton</h5>
         <p>Single selection can also be handled using radio buttons by enabling the selectionMode property of column as "single".</p>
-        <p-table [value]="products" [(selection)]="selectedProduct3" dataKey="code">
+        <p-table [value]="products" [(selection)]="selectedProduct3" dataKey="code" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem"></th>
@@ -164,7 +164,7 @@
         <h5>Checkbox Selection</h5>
         <p>Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".</p>
 
-        <p-table [value]="products" [(selection)]="selectedProducts3" dataKey="code">
+        <p-table [value]="products" [(selection)]="selectedProducts3" dataKey="code" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem">
@@ -207,7 +207,7 @@
 &lt;div class="card"&gt;
     &lt;h5&gt;Single&lt;/h5&gt;
     &lt;p&gt;In single mode, a row is selected on click event of a row. If the row is already selected then the row gets unselected.&lt;/p&gt;
-    &lt;p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct1" dataKey="code"&gt;
+    &lt;p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct1" dataKey="code" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Code&lt;/th&gt;
@@ -230,8 +230,8 @@
 &lt;div class="card"&gt;
     &lt;h5&gt;Multiple&lt;/h5&gt;
     &lt;p&gt;In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices metakey or shiftkey are required. Setting metaKeySelection property as false enables multiple selection without meta key.&lt;/p&gt;
-    
-    &lt;p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts1" [metaKeySelection]="true" dataKey="code"&gt;
+
+    &lt;p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts1" [metaKeySelection]="true" dataKey="code" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Multiple Selection with MetaKey
         &lt;/ng-template&gt;
@@ -280,7 +280,7 @@
     &lt;h5&gt;Column Selection&lt;/h5&gt;
     &lt;p&gt;Selection using custom elements.&lt;/p&gt;
 
-    &lt;p-table [value]="products"&gt;
+    &lt;p-table [value]="products" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Code&lt;/th&gt;
@@ -307,7 +307,7 @@
 &lt;div class="card"&gt;
     &lt;h5&gt;Events&lt;/h5&gt;
     &lt;p&gt;onRowSelect and onRowUnselect are available as selection events.&lt;/p&gt;
-    &lt;p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct2" dataKey="code"
+    &lt;p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct2" dataKey="code" responsiveLayout="scroll"
         (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
@@ -331,7 +331,7 @@
 &lt;div class="card"&gt;
     &lt;h5&gt;RadioButton&lt;/h5&gt;
     &lt;p&gt;Single selection can also be handled using radio buttons by enabling the selectionMode property of column as "single".&lt;/p&gt;
-    &lt;p-table [value]="products" [(selection)]="selectedProduct3" dataKey="code"&gt;
+    &lt;p-table [value]="products" [(selection)]="selectedProduct3" dataKey="code" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th style="width: 3rem"&gt;&lt;/th&gt;
@@ -359,7 +359,7 @@
     &lt;h5&gt;Checkbox Selection&lt;/h5&gt;
     &lt;p&gt;Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".&lt;/p&gt;
 
-    &lt;p-table [value]="products" [(selection)]="selectedProducts3" dataKey="code"&gt;
+    &lt;p-table [value]="products" [(selection)]="selectedProducts3" dataKey="code" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th style="width: 3rem"&gt;
