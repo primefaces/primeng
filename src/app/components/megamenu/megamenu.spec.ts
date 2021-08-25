@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MegaMenu } from './megamenu';
+import { MegaMenu, MegaMenuModule } from './megamenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -15,10 +15,8 @@ describe('MegaMenu', () => {
             RouterTestingModule.withRoutes([
                 { path: 'test', component: MegaMenu }
             ]),
-            NoopAnimationsModule
-        ],
-        declarations: [
-            MegaMenu
+            NoopAnimationsModule,
+            MegaMenuModule
         ]
         });
 

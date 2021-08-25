@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Steps } from './steps';
+import { Steps, StepsModule } from './steps';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA, ViewEncapsulation } from '@angular/core';
 import { Toast } from 'primeng/toast';
@@ -60,9 +60,9 @@ describe('Steps', () => {
 			imports: [
 				NoopAnimationsModule,
 				RouterTestingModule,
+                StepsModule
 			],
 			declarations: [
-				Steps,
 				Toast,
 				TestStpesComponent
 
