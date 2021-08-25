@@ -1,5 +1,14 @@
 # Changelog
 
+## [12.1.0](https://github.com/primefaces/primeng/tree/12.1.0) (2021-08-25)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0-rc.2...12.1.0)
+
+**Fixed bugs:**
+
+- Table Header Checkbox not working when lazy loading enabled [\#10532](https://github.com/primefaces/primeng/issues/10532)
+- AutoZIndex support for DynamicDialog [\#10526](https://github.com/primefaces/primeng/issues/10526)
+
 ## [12.1.0-rc.2](https://github.com/primefaces/primeng/tree/12.1.0-rc.2) (2021-08-20)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0-rc.1...12.1.0-rc.2)
