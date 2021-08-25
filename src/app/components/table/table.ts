@@ -3941,7 +3941,7 @@ export class TableHeaderCheckbox  {
         }
         else {
             const val = this.dt.value;
-            const length = this.dt.lazy ? this.dt._totalRecords : val?.length;
+            const length = this.dt.lazy ? this.dt._totalRecords : val ? val.length : 0;
             return (val && length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === length);
         }
     }
