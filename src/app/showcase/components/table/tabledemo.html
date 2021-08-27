@@ -351,6 +351,11 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>Content of the thead element.</td>
                         </tr>
                         <tr>
+                            <td>headergrouped</td>
+                            <td>$implicit: Columns</td>
+                            <td>Content of the thead element.</td>
+                        </tr>
+                        <tr>
                             <td>body</td>
                             <td>$implicit: Data of the row <br>
                                 rowIndex: Index of the row <br>
@@ -363,6 +368,11 @@ export class DynamicColumnsDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>footer</td>
+                            <td>$implicit: Columns</td>
+                            <td>Content of the tfoot element.</td>
+                        </tr>
+                        <tr>
+                            <td>footergrouped</td>
                             <td>$implicit: Columns</td>
                             <td>Content of the tfoot element.</td>
                         </tr>
@@ -501,7 +511,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/sections']">live example.</a></p>
 
             <h5>Column Grouping</h5>
-            <p>Columns can easily be grouped using templating. Let's start with sample data of sales of brands per year.</p>
+            <p>Columns can easily be grouped using templating. Let's start with sample data of sales of brands per year. Note that if you use Scrollable table you should use headergrouped and footergrouped templates instead of header and footer templates. </p>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TableColGroupDemo implements OnInit &#123;
