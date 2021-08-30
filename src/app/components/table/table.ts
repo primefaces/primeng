@@ -2310,7 +2310,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     updateScrollWidth() {
         if (this.tableViewChild && this.tableViewChild.nativeElement) {
-            this.tableViewChild.nativeElement.style.width = (DomHandler.getWidth(this.tableViewChild.nativeElement.parentElement) - DomHandler.calculateScrollbarHeight())  + 'px';
+            let parentElementHeight = DomHandler.getWidth(this.tableViewChild.nativeElement.parentElement);
+            if (this.tableViewChild.nativeElement.scrollWidth > parentElementHeight) {
+                this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.scrollWidth + 'px';
+            }
+            else {
+                this.tableViewChild.nativeElement.style.width = (parentElementHeight - DomHandler.calculateScrollbarHeight())  + 'px';
+            }
         }
     }
 
@@ -3949,14 +3955,14 @@ export class TableHeaderCheckbox  {
 
     updateCheckedState() {
         this.cd.markForCheck();
-
-        if (this.dt.filteredValue) {
+        if (this.dt.filteredValue && !this.dt.lazy) {
             const val = this.dt.filteredValue;
             return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.isAllFilteredValuesChecked());
         }
         else {
             const val = this.dt.value;
-            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
+            const length = this.dt.lazy ? this.dt._totalRecords : val ? val.length : 0;
+            return (val && length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === length);
         }
     }
 

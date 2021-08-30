@@ -13,7 +13,7 @@
     <div class="card">
         <h5>Subheader Grouping</h5>
         <p>Group customers by their representative.</p>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name">
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="min-width:200px">Name</th>
@@ -65,7 +65,7 @@
     <div class="card">
         <h5>Expandable Row Groups</h5>
         <p>Group customers by their representative.</p>
-        <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name">
+        <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>
@@ -115,7 +115,7 @@
 
     <div class="card">
         <h5>RowSpan Grouping</h5>
-        <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single">
+        <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:3rem">#</th>
@@ -170,7 +170,7 @@
 &lt;div class="card"&gt;
     &lt;h5&gt;Subheader Grouping&lt;/h5&gt;
     &lt;p&gt;Group customers by their representative.&lt;/p&gt;
-    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name"&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
@@ -222,7 +222,7 @@
 &lt;div class="card"&gt;
     &lt;h5&gt;Expandable Row Groups&lt;/h5&gt;
     &lt;p&gt;Group customers by their representative.&lt;/p&gt;
-    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name"&gt;
+    &lt;p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Name&lt;/th&gt;
@@ -272,7 +272,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;RowSpan Grouping&lt;/h5&gt;
-    &lt;p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single"&gt;
+    &lt;p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th style="width:3rem"&gt;#&lt;/th&gt;

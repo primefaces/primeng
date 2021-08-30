@@ -1,9 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TabMenu } from './tabmenu';
+import { TabMenu, TabMenuModule } from './tabmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TooltipModule } from 'primeng/tooltip';
 
 describe('TabMenu', () => {
 
@@ -17,10 +16,7 @@ describe('TabMenu', () => {
 				RouterTestingModule.withRoutes([
 					{ path: 'test', component: TabMenu }
 				]),
-			],
-			declarations: [
-				TabMenu,
-                TooltipModule
+                TabMenuModule
 			]
 		});
 

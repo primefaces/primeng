@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { PanelMenu, PanelMenuSub } from './panelmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TooltipModule } from 'primeng/tooltip';
+import { PanelModule } from '../panel/panel';
 
 describe('PanelMenu', () => {
 
@@ -14,12 +14,8 @@ describe('PanelMenu', () => {
 		TestBed.configureTestingModule({
 			imports: [
 				NoopAnimationsModule,
-				RouterTestingModule
-			],
-			declarations: [
-				PanelMenu,
-				PanelMenuSub,
-                TooltipModule
+				RouterTestingModule,
+                PanelModule
 			]
 		});
 

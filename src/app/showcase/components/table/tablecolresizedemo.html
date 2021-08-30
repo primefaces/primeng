@@ -32,7 +32,7 @@
 
     <div class="card">
         <h5>Expand Mode</h5>
-        <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines">
+        <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Code</th>
@@ -54,7 +54,7 @@
 
     <div class="card">
         <h5>Scrollable</h5>
-        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines">
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Name</th>
@@ -76,7 +76,7 @@
 
     <div class="card">
         <h5>Scrollable with Variable Width</h5>
-        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines">
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn style="width:25%">Name</th>
@@ -131,7 +131,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Expand Mode&lt;/h5&gt;
-    &lt;p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines"&gt;
+    &lt;p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pResizableColumn&gt;Code&lt;/th&gt;
@@ -153,7 +153,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Scrollable&lt;/h5&gt;
-    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines"&gt;;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pResizableColumn&gt;Name&lt;/th&gt;
@@ -175,7 +175,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Scrollable with Variable Width&lt;/h5&gt;
-    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines"&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="colgroup"&gt;
             &lt;colgroup&gt;
                 &lt;col style="width:25%"&gt;

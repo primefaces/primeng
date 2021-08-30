@@ -49,7 +49,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
             <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: value, options: options}"></ng-container>
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
-                <p-tree [value]="options" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
+                <p-tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
                     [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)"
                     (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)"></p-tree>
                 <div *ngIf="emptyOptions" class="p-treeselect-empty-message">
@@ -110,6 +110,10 @@ export class TreeSelect implements AfterContentInit {
     @Input() emptyMessage: string;
 
     @Input() appendTo: any;
+
+    @Input() propagateSelectionDown: boolean = true;
+
+    @Input() propagateSelectionUp: boolean = true;
 
     @Input() get options(): any[] {
         return this._options;

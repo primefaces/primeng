@@ -49,7 +49,7 @@
             <ng-template pTemplate="loadingbody" let-columns="columns">
                 <tr style="height:40px">
                     <td *ngFor="let col of columns">
-                        <div class="loading-text"></div>
+                        <p-skeleton [ngStyle]="{'width': '100%'}"></p-skeleton>
                     </td>
                 </tr>
             </ng-template>
@@ -111,6 +111,7 @@
             &lt;tr style="height:40px"&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &lt;div class="loading-text"&gt;&lt;/div&gt;
+                    &lt;p-skeleton [ngStyle]="&#123;'width': '100%'&#125;"&gt;&lt;/p-skeleton&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -125,17 +126,7 @@ import &#123;CarService&#125; from '../../service/carservice';
 import &#123;LazyLoadEvent&#125; from 'primeng/api';
 
 @Component(&#123;
-    templateUrl: './tablevirtualscrolldemo.html',
-    styles: [`
-        .loading-text &#123;
-            display: block;
-            background-color: #f1f1f1;
-            min-height: 19px;
-            animation: pulse 1s infinite ease-in-out;
-            text-indent: -99999px;
-            overflow: hidden;
-        &#125;
-    `]
+    templateUrl: './tablevirtualscrolldemo.html'
 &#125;)
 export class TableVirtualScrollDemo implements OnInit &#123;
 

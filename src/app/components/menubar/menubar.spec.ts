@@ -1,9 +1,8 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Menubar, MenubarSub } from './menubar';
+import { Menubar, MenubarModule, MenubarSub } from './menubar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TooltipModule } from 'primeng/tooltip';
 
 describe('Menubar', () => {
 
@@ -16,12 +15,8 @@ describe('Menubar', () => {
 				NoopAnimationsModule,
 				RouterTestingModule.withRoutes([
 					{ path: 'test', component: Menubar }
-				])
-			],
-			declarations: [
-				Menubar,
-				MenubarSub,
-                TooltipModule
+				]),
+                MenubarModule
 			]
 		});
 

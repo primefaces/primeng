@@ -1237,7 +1237,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
         if (this.overlay) {
             ZIndexUtils.clear(this.overlay);
-            this.overlay = null;
         }
 
         this.restoreOverlayAppend();

@@ -9,7 +9,7 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Single Column</h5>
-        <p-table [value]="products1">
+        <p-table [value]="products1" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
@@ -30,12 +30,12 @@
             </ng-template>
         </p-table>
     </div>
-   
+
     <div class="card">
         <h5>Multiple Columns</h5>
         <p>Use metakey to add a column to the sort selection.</p>
 
-        <p-table [value]="products2" sortMode="multiple">
+        <p-table [value]="products2" sortMode="multiple" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
@@ -59,7 +59,7 @@
 
     <div class="card">
         <h5>Custom Sort</h5>
-        <p-table [value]="products3" (sortFunction)="customSort($event)" [customSort]="true">
+        <p-table [value]="products3" (sortFunction)="customSort($event)" [customSort]="true" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
@@ -212,7 +212,7 @@ export class TableSortDemo implements OnInit &#123;
             return (event.order * result);
         &#125;);
     &#125;
-    
+
 &#125;
 </app-code>
 

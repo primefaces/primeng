@@ -169,9 +169,9 @@ export class ModelComponent &#123;
         Header content here
     &lt;/ng-template&gt;
     Content
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         //buttons
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 </app-code>
 
@@ -400,6 +400,12 @@ Content
                             <td>string</td>
                             <td>pi pi-times</td>
                             <td>Name of the close icon.</td>
+                        </tr>
+                        <tr>
+                            <td>expandAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the close button for accessibility.</td>
                         </tr>
                         <tr>
                             <td>minimizeIcon</td>

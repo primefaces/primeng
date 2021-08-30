@@ -1,11 +1,10 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Menu, MenuItemContent } from './menu';
+import { Menu, MenuModule } from './menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
 import { ButtonModule } from '../button/button';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   template: `<p-menu #menu></p-menu>
@@ -25,12 +24,10 @@ describe('Menu', () => {
         imports: [
           NoopAnimationsModule,
           RouterTestingModule,
-          TooltipModule,
-          ButtonModule
+          ButtonModule,
+          MenuModule
         ],
         declarations: [
-          Menu,
-          MenuItemContent,
           TestMenuComponent
         ]
       });

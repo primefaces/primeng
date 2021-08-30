@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="sales">
+        <p-table [value]="sales" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th rowspan="3">Product</th>
@@ -55,7 +55,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="sales"&gt;
+&lt;p-table [value]="sales" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th rowspan="3"&gt;Product&lt;/th&gt;

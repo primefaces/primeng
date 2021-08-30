@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products">
+        <p-table [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -38,9 +38,9 @@
             <a href="https://stackblitz.com/edit/primeng-tablebasic-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-            
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products"&gt;
+&lt;p-table [value]="products" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th&gt;Code&lt;/th&gt;
@@ -79,7 +79,7 @@ export class TableBasicDemo implements OnInit &#123;
     &#125;
 &#125;
 </app-code>
-  
+
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

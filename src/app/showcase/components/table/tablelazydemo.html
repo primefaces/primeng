@@ -9,7 +9,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+        <p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)" responsiveLayout="scroll"
             [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
             <ng-template pTemplate="header">
                 <tr>
@@ -67,7 +67,7 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+&lt;p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)" responsiveLayout="scroll"
     [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['name','country.name', 'company', 'representative.name']"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
