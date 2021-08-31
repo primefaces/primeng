@@ -1910,11 +1910,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let colWidth = index === colIndex ? newColumnWidth : (nextColumnWidth && index === colIndex + 1) ? nextColumnWidth : width;
             innerHTML += `
                 #${this.id} .p-datatable-thead > tr > th:nth-child(${index+1}) {
-                    flex: 0 0 ${colWidth}px;
+                    flex: 0 0 ${colWidth}px !important;
                 }
 
                 #${this.id} .p-datatable-tbody > tr > td:nth-child(${index+1}) {
-                    flex: 0 0 ${colWidth}px;
+                    flex: 0 0 ${colWidth}px !important;
                 }
             `
         });
