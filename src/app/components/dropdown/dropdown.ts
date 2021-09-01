@@ -122,13 +122,13 @@ export class DropdownItem {
                             <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
                                 {{emptyFilterMessageLabel}}
                             </ng-container>
-                            <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                            <ng-template #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-template>
                         </li>
                         <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message">
                             <ng-container *ngIf="!emptyTemplate; else empty">
                                 {{emptyMessageLabel}}
                             </ng-container>
-                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            <ng-template #empty *ngTemplateOutlet="emptyTemplate"></ng-template>
                         </li>
                     </ul>
                 </div>
@@ -845,7 +845,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 else {
                     if (this.group) {
                         let selectedItemIndex = this.selectedOption ? this.findOptionGroupIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
-                        
+
                         if (selectedItemIndex !== -1) {
                             let nextItemIndex = selectedItemIndex.itemIndex + 1;
                             if (nextItemIndex < (this.getOptionGroupChildren(this.optionsToDisplay[selectedItemIndex.groupIndex]).length)) {
