@@ -10,7 +10,7 @@
     border-right: 0 none;
 }
 
-.p-splitbutton-menubutton {
+.p-splitbutton .p-splitbutton-menubutton {
     display: flex;
     align-items: center;
     justify-content: center;
