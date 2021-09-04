@@ -4374,6 +4374,7 @@ export class ColumnFilter implements AfterContentInit {
 
     initFieldFilterConstraint() {
         let defaultMatchMode = this.getDefaultMatchMode();
+        this.dt.filters['global']  = { value: null, matchMode: defaultMatchMode};
         this.dt.filters[this.field] = this.display == 'row' ? {value: null, matchMode: defaultMatchMode} : [{value: null, matchMode: defaultMatchMode, operator: this.operator}];
     }
 
