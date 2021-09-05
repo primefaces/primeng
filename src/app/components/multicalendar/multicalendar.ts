@@ -6,7 +6,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { SharedModule, PrimeNGConfig, MenuItem } from 'primeng/api';
+import { SharedModule, PrimeNGConfig, MenuItem, OverlayService } from 'primeng/api';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { Calendar } from 'primeng/calendar';
@@ -215,8 +215,8 @@ export class MultiCalendar extends Calendar {
 
     calendarType: CalendarType = CalendarType.Gregorian;
 
-    constructor(el: ElementRef, renderer: Renderer2, cd: ChangeDetectorRef, zone: NgZone, config: PrimeNGConfig) {
-        super(el, renderer, cd, zone, config);
+    constructor(el: ElementRef, renderer: Renderer2, cd: ChangeDetectorRef, zone: NgZone, config: PrimeNGConfig, overlayService: OverlayService) {
+        super(el, renderer, cd, zone, config, overlayService);
         this.showIcon = true;
         this.monthNavigator = true;
         this.yearNavigator = true;
