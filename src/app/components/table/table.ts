@@ -21,6 +21,7 @@ import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
+import { Directionality } from '@angular/cdk/bidi';
 
 @Injectable()
 export class TableService {
@@ -75,6 +76,7 @@ export class TableService {
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
             [ngClass]="{'p-datatable p-component': true,
+                'p-component-rtl' : rtl,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
                 'p-datatable-auto-layout': autoLayout,
                 'p-datatable-resizable': resizableColumns,
@@ -288,6 +290,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() breakpoint: string = '960px';
 
+    @Input() rtl: boolean = undefined;
+
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -486,7 +490,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     responsiveStyleElement: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService, public dir: Directionality) { }
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -502,6 +506,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.responsiveLayout === 'stack' && !this.scrollable) {
             this.createResponsiveStyle();
         }
+
+        if (this.rtl == undefined)
+            this.rtl = this.dir.value === 'rtl';
 
         this.initialized = true;
     }
@@ -1845,6 +1852,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onColumnResizeEnd() {
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
+        delta = delta * (this.rtl ? -1 : 1);
         let columnWidth = this.resizeColumnElement.offsetWidth;
         let newColumnWidth = columnWidth + delta;
         let minWidth = this.resizeColumnElement.style.minWidth||15;

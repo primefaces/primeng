@@ -63,6 +63,11 @@ export class TableScrollDemo implements OnInit {
         this.dialogVisible = true;
     }
 
+    rtlDialogVisible: boolean;
+    showDialogRTL() {
+        this.rtlDialogVisible = true;
+    }
+
     toggleLock(data, frozen, index) {
         if (frozen) {
             this.lockedCustomers = this.lockedCustomers.filter((c, i) => i !== index);
