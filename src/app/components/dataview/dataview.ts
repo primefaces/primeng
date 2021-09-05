@@ -24,11 +24,11 @@ import { Subscription } from 'rxjs';
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
             <div class="p-dataview-content">
-                <div class="p-grid p-nogutter">
+                <div class="p-grid p-nogutter grid grid-nogutter">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                     </ng-template>
-                    <div *ngIf="isEmpty()" class="p-col">
+                    <div *ngIf="isEmpty()" class="p-col col">
                             <div class="p-dataview-emptymessage">
                             <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
                                     {{emptyMessageLabel}}
@@ -131,7 +131,7 @@ export class DataView implements OnInit,AfterContentInit,OnDestroy,BlockableUI,O
     itemTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
-    
+
     emptyMessageTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;

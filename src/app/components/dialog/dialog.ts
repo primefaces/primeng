@@ -3,10 +3,10 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Render
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
+import {Header,Footer,SharedModule, PrimeTemplate, PrimeNGConfig} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
 import {RippleModule} from 'primeng/ripple';
-import {UniqueComponentId} from 'primeng/utils';
+import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -34,7 +34,7 @@ const hideAnimation = animation([
                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="header">{{header}}</span>
+                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{header}}</span>
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
@@ -43,7 +43,7 @@ const hideAnimation = animation([
                         <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                         </button>
-                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)" tabindex="-1" pRipple>
+                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" [attr.aria-label]="closeAriaLabel" (click)="close($event)" (keydown.enter)="close($event)" tabindex="-1" pRipple>
                             <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                         </button>
                     </div>
@@ -122,7 +122,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() appendTo: any;
 
-    @Input() breakpoints: any[];
+    @Input() breakpoints: any;
 
     @Input() styleClass: string;
 
@@ -159,6 +159,8 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() closeIcon: string = 'pi pi-times';
+
+    @Input() closeAriaLabel: string;
 
     @Input() minimizeIcon: string = 'pi pi-window-minimize';
 
@@ -250,7 +252,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     styleElement: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -397,8 +399,8 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-            this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
+            ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
         }
     }
 
@@ -417,7 +419,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
                     }
                 `
             }
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }
@@ -655,9 +657,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
-                    this.close(event);
-                }
+                this.close(event);
             }
         });
     }
@@ -738,6 +738,10 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
         if (this.blockScroll) {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        }
+
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
         }
 
         this.container = null;

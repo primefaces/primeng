@@ -1,10 +1,8 @@
-import {
-    NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Directive, Optional, AfterContentInit,
-    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2
-} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Directive, Optional, AfterContentInit,
+    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -14,7 +12,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { SortMeta } from 'primeng/api';
 import { TableState } from 'primeng/api';
 import { FilterMetadata } from 'primeng/api';
@@ -22,13 +20,12 @@ import { Injectable } from '@angular/core';
 import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { Directionality } from '@angular/cdk/bidi';
+import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Injectable()
 export class TableService {
 
-    private sortSource = new Subject<SortMeta | SortMeta[]>();
+    private sortSource = new Subject<SortMeta|SortMeta[]>();
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
     private valueSource = new Subject<any>();
@@ -44,7 +41,7 @@ export class TableService {
     columnsSource$ = this.columnsSource.asObservable();
     resetSource$ = this.resetSource.asObservable();
 
-    onSort(sortMeta: SortMeta | SortMeta[]) {
+    onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
     }
 
@@ -76,16 +73,22 @@ export class TableService {
 @Component({
     selector: 'p-table',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass" data-scrollselectors=".p-datatable-scrollable-body, .p-datatable-unfrozen-view .p-datatable-scrollable-body"
+        <div #container [ngStyle]="style" [class]="styleClass"
             [ngClass]="{'p-datatable p-component': true,
-                'p-component-rtl' : rtl,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
                 'p-datatable-auto-layout': autoLayout,
                 'p-datatable-resizable': resizableColumns,
                 'p-datatable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'p-datatable-scrollable': scrollable,
+                'p-datatable-scrollable-vertical': scrollable && scrollDirection === 'vertical',
+                'p-datatable-scrollable-horizontal': scrollable && scrollDirection === 'horizontal',
+                'p-datatable-scrollable-both': scrollable && scrollDirection === 'both',
                 'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex'),
-                'p-datatable-responsive': responsive}">
+                'p-datatable-responsive-stack': responsiveLayout === 'stack',
+                'p-datatable-responsive-scroll': responsiveLayout === 'scroll',
+                'p-datatable-responsive': responsive,
+                'p-datatable-grouped-header': headerGroupedTemplate != null,
+                'p-datatable-grouped-footer': footerGroupedTemplate != null}" [attr.id]="id">
             <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
                 <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
@@ -97,22 +100,31 @@ export class TableService {
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
 
-            <div class="p-datatable-wrapper" *ngIf="!scrollable">
-                <table role="grid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+            <div #wrapper class="p-datatable-wrapper" [ngStyle]="{height: scrollHeight}">
+                <table #table *ngIf="!virtualScroll" role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="p-datatable-thead">
-                        <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
-                    <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
-                    <tfoot *ngIf="footerTemplate" class="p-datatable-tfoot">
-                        <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
+                    <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="frozenBodyTemplate" [frozen]="true"></tbody>
+                    <tbody class="p-datatable-tbody" [value]="dataToRender" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
+                    <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
+                        <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                 </table>
-            </div>
-
-            <div class="p-datatable-scrollable-wrapper" *ngIf="scrollable">
-               <div class="p-datatable-scrollable-view p-datatable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div class="p-datatable-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="rtl ? {right: frozenWidth, width: 'calc(100% - '+frozenWidth+')'} : {left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
+                <cdk-virtual-scroll-viewport *ngIf="virtualScroll" [itemSize]="virtualRowHeight" tabindex="0" [style.height]="scrollHeight !== 'flex' ? scrollHeight : undefined" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
+                    <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
+                        <thead #tableHeader class="p-datatable-thead">
+                            <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
+                        </thead>
+                        <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate" [frozen]="true"></tbody>
+                        <tbody class="p-datatable-tbody" [value]="dataToRender" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
+                        <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
+                            <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context {$implicit: columns}"></ng-container>
+                        </tfoot>
+                    </table>
+                </cdk-virtual-scroll-viewport>
             </div>
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -220,6 +232,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() scrollable: boolean;
 
+    @Input() scrollDirection: string = "vertical";
+
+    @Input() rowGroupMode: string;
+
     @Input() scrollHeight: string;
 
     @Input() virtualScroll: boolean;
@@ -262,11 +278,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() editMode: string = 'cell';
 
+    @Input() groupRowsBy: any;
+
     @Input() minBufferPx: number;
 
     @Input() maxBufferPx: number;
 
-    @Input() rtl: boolean = undefined;
+    @Input() responsiveLayout: string = 'stack';
+
+    @Input() breakpoint: string = '960px';
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -318,11 +338,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
 
+    @ViewChild('wrapper') wrapperViewChild: ElementRef;
+
     @ViewChild('table') tableViewChild: ElementRef;
 
-    @ViewChild('scrollableView') scrollableViewChild;
+    @ViewChild('tableHeader') tableHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollableFrozenView') scrollableFrozenViewChild;
+    @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -340,6 +362,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     headerTemplate: TemplateRef<any>;
 
+    headerGroupedTemplate: TemplateRef<any>;
+
     bodyTemplate: TemplateRef<any>;
 
     loadingBodyTemplate: TemplateRef<any>;
@@ -350,11 +374,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     footerTemplate: TemplateRef<any>;
 
+    footerGroupedTemplate: TemplateRef<any>;
+
     summaryTemplate: TemplateRef<any>;
 
     colGroupTemplate: TemplateRef<any>;
 
     expandedRowTemplate: TemplateRef<any>;
+
+    groupHeaderTemplate: TemplateRef<any>;
+
+    groupFooterTemplate: TemplateRef<any>;
+
+    rowspanTemplate: TemplateRef<any>;
 
     frozenExpandedRowTemplate: TemplateRef<any>;
 
@@ -400,7 +432,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCellRowIndex: number;
 
-    editingCellClick: boolean;
+    selfClick: boolean;
 
     documentEditListener: any;
 
@@ -436,7 +468,25 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public dir: Directionality) { }
+    wrapperWidthState: string;
+
+    overlaySubscription: Subscription;
+
+    virtualScrollSubscription: Subscription;
+
+    resizeColumnElement;
+
+    columnResizing: boolean = false;
+
+    rowGroupHeaderStyleObject: any = {};
+
+    id: string = UniqueComponentId();
+
+    styleElement: any;
+
+    responsiveStyleElement: any;
+
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -449,8 +499,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if (this.rtl == undefined)
-            this.rtl = this.dir.value === 'rtl';
+        if (this.responsiveLayout === 'stack' && !this.scrollable) {
+            this.createResponsiveStyle();
+        }
 
         this.initialized = true;
     }
@@ -460,75 +511,95 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             switch (item.getType()) {
                 case 'caption':
                     this.captionTemplate = item.template;
-                    break;
+                break;
 
                 case 'header':
                     this.headerTemplate = item.template;
-                    break;
+                break;
+
+                case 'headergrouped':
+                    this.headerGroupedTemplate = item.template;
+                break;
 
                 case 'body':
                     this.bodyTemplate = item.template;
-                    break;
+                break;
 
                 case 'loadingbody':
                     this.loadingBodyTemplate = item.template;
-                    break;
+                break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                    break;
+                break;
+
+                case 'footergrouped':
+                    this.footerGroupedTemplate = item.template;
+                break;
 
                 case 'summary':
                     this.summaryTemplate = item.template;
-                    break;
+                break;
 
                 case 'colgroup':
                     this.colGroupTemplate = item.template;
-                    break;
+                break;
 
                 case 'rowexpansion':
                     this.expandedRowTemplate = item.template;
-                    break;
+                break;
+
+                case 'groupheader':
+                    this.groupHeaderTemplate = item.template;
+                break;
+
+                case 'rowspan':
+                    this.rowspanTemplate = item.template;
+                break;
+
+                case 'groupfooter':
+                    this.groupFooterTemplate = item.template;
+                break;
 
                 case 'frozenrows':
                     this.frozenRowsTemplate = item.template;
-                    break;
+                break;
 
                 case 'frozenheader':
                     this.frozenHeaderTemplate = item.template;
-                    break;
+                break;
 
                 case 'frozenbody':
                     this.frozenBodyTemplate = item.template;
-                    break;
+                break;
 
                 case 'frozenfooter':
                     this.frozenFooterTemplate = item.template;
-                    break;
+                break;
 
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
-                    break;
+                break;
 
                 case 'frozenrowexpansion':
                     this.frozenExpandedRowTemplate = item.template;
-                    break;
+                break;
 
                 case 'emptymessage':
                     this.emptyMessageTemplate = item.template;
-                    break;
+                break;
 
                 case 'paginatorleft':
                     this.paginatorLeftTemplate = item.template;
-                    break;
+                break;
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
-                    break;
+                break;
 
                 case 'paginatordropdownitem':
                     this.paginatorDropdownItemTemplate = item.template;
-                    break;
+                break;
             }
         });
     }
@@ -536,6 +607,17 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     ngAfterViewInit() {
         if (this.isStateful() && this.resizableColumns) {
             this.restoreColumnWidths();
+        }
+
+        if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
+            this.updateScrollWidth();
+        }
+
+        if (this.scrollable && this.virtualScroll) {
+            this.virtualScrollSubscription =  this.virtualScrollBody.renderedRangeStream.subscribe(range => {
+                let top = range.start * this.virtualRowHeight * -1;
+                this.tableHeaderViewChild.nativeElement.style.top = top + 'px';
+            });
         }
     }
 
@@ -559,14 +641,22 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             this.tableService.onValueChange(simpleChange.value.currentValue);
+
+            if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
+                this.updateScrollWidth();
+            }
         }
 
         if (simpleChange.columns) {
             this._columns = simpleChange.columns.currentValue;
             this.tableService.onColumnsChange(simpleChange.columns.currentValue);
 
-            if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored) {
+            if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
                 this.restoreColumnOrder();
+            }
+
+            if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
+                this.updateScrollWidth();
             }
         }
 
@@ -574,7 +664,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._sortField = simpleChange.sortField.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
+            if ( !this.lazy || this.initialized ) {
                 if (this.sortMode === 'single') {
                     this.sortSingle();
                 }
@@ -585,7 +675,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._sortOrder = simpleChange.sortOrder.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
+            if ( !this.lazy || this.initialized ) {
                 if (this.sortMode === 'single') {
                     this.sortSingle();
                 }
@@ -677,11 +767,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._selection = val;
     }
 
+    get dataToRender() {
+        let data = this.filteredValue||this.value;
+        return data ? ((this.paginator && !this.lazy) ? (data.slice(this.first, this.first + this.rows)) : data) : [];
+    }
+
     updateSelectionKeys() {
         if (this.dataKey && this._selection) {
             this.selectionKeys = {};
             if (Array.isArray(this._selection)) {
-                for (let data of this._selection) {
+                for(let data of this._selection) {
                     this.selectionKeys[String(ObjectUtils.resolveFieldData(data, this.dataKey))] = 1;
                 }
             }
@@ -914,9 +1009,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
         else if (this.sortMode === 'multiple') {
             let sorted = false;
-            if (this.multiSortMeta) {
-                for (let i = 0; i < this.multiSortMeta.length; i++) {
-                    if (this.multiSortMeta[i].field == field) {
+            if (this.multiSortMeta) {
+                for(let i = 0; i < this.multiSortMeta.length; i++) {
+                    if (this.multiSortMeta[i].field == field) {
                         sorted = true;
                         break;
                     }
@@ -927,7 +1022,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     handleRowClick(event) {
-        let target = (<HTMLElement>event.originalEvent.target);
+        let target = (<HTMLElement> event.originalEvent.target);
         let targetNode = target.nodeName;
         let parentNode = target.parentElement && target.parentElement.nodeName;
         if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' ||
@@ -956,7 +1051,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.rangeRowIndex = event.rowIndex;
 
                 if (metaSelection) {
-                    let metaKey = event.originalEvent.metaKey || event.originalEvent.ctrlKey;
+                    let metaKey = event.originalEvent.metaKey||event.originalEvent.ctrlKey;
 
                     if (selected && metaKey) {
                         if (this.isSingleSelectionMode()) {
@@ -966,14 +1061,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         }
                         else {
                             let selectionIndex = this.findIndexInSelection(rowData);
-                            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                            this._selection = this.selection.filter((val,i) => i!=selectionIndex);
                             this.selectionChange.emit(this.selection);
                             if (dataKeyValue) {
                                 delete this.selectionKeys[dataKeyValue];
                             }
                         }
 
-                        this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                        this.onRowUnselect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row'});
                     }
                     else {
                         if (this.isSingleSelectionMode()) {
@@ -986,21 +1081,21 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         }
                         else if (this.isMultipleSelectionMode()) {
                             if (metaKey) {
-                                this._selection = this.selection || [];
+                                this._selection = this.selection||[];
                             }
                             else {
                                 this._selection = [];
                                 this.selectionKeys = {};
                             }
 
-                            this._selection = [...this.selection, rowData];
+                            this._selection = [...this.selection,rowData];
                             this.selectionChange.emit(this.selection);
                             if (dataKeyValue) {
                                 this.selectionKeys[dataKeyValue] = 1;
                             }
                         }
 
-                        this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
+                        this.onRowSelect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex});
                     }
                 }
                 else {
@@ -1064,7 +1159,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = rowData;
                 this.contextMenuSelectionChange.emit(rowData);
-                this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: rowData, index: event.rowIndex });
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, data: rowData, index: event.rowIndex});
                 this.contextMenu.show(event.originalEvent);
                 this.tableService.onContextMenu(rowData);
             }
@@ -1095,7 +1190,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 this.tableService.onSelectionChange();
                 this.contextMenu.show(event.originalEvent);
-                this.onContextMenuSelect.emit({ originalEvent: event, data: rowData, index: event.rowIndex });
+                this.onContextMenuSelect.emit({originalEvent: event, data: rowData, index: event.rowIndex});
             }
         }
     }
@@ -1122,7 +1217,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         let rangeRowsData = [];
-        for (let i = rangeStart; i <= rangeEnd; i++) {
+        for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if (!this.isSelected(rangeRowData)) {
                 rangeRowsData.push(rangeRowData);
@@ -1134,7 +1229,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
         this.selectionChange.emit(this.selection);
-        this.onRowSelect.emit({ originalEvent: event, data: rangeRowsData, type: 'row' });
+        this.onRowSelect.emit({originalEvent: event, data: rangeRowsData, type: 'row'});
     }
 
     clearSelectionRange(event: MouseEvent) {
@@ -1153,15 +1248,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             rangeEnd = this.rangeRowIndex;
         }
 
-        for (let i = rangeStart; i <= rangeEnd; i++) {
+        for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.value[i];
             let selectionIndex = this.findIndexInSelection(rangeRowData);
-            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+            this._selection = this.selection.filter((val,i) => i!=selectionIndex);
             let dataKeyValue: string = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
-            this.onRowUnselect.emit({ originalEvent: event, data: rangeRowData, type: 'row' });
+            this.onRowUnselect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
         }
     }
 
@@ -1195,13 +1290,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return index;
     }
 
-    toggleRowWithRadio(event: any, rowData: any) {
+    toggleRowWithRadio(event: any, rowData:any) {
         this.preventSelectionSetterPropagation = true;
 
         if (this.selection != rowData) {
             this._selection = rowData;
             this.selectionChange.emit(this.selection);
-            this.onRowSelect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton' });
+            this.onRowSelect.emit({originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton'});
 
             if (this.dataKey) {
                 this.selectionKeys = {};
@@ -1211,7 +1306,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         else {
             this._selection = null;
             this.selectionChange.emit(this.selection);
-            this.onRowUnselect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton' });
+            this.onRowUnselect.emit({originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton'});
         }
 
         this.tableService.onSelectionChange();
@@ -1222,7 +1317,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRowWithCheckbox(event, rowData: any) {
-        this.selection = this.selection || [];
+        this.selection = this.selection||[];
         let selected = this.isSelected(rowData);
         let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
         this.preventSelectionSetterPropagation = true;
@@ -1253,12 +1348,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
-        this._selection = check ? this.filteredValue ? this.filteredValue.slice() : this.value.slice() : [];
+        this._selection = check ? this.filteredValue ? this.filteredValue.slice(): this.value.slice() : [];
         this.preventSelectionSetterPropagation = true;
         this.updateSelectionKeys();
         this.selectionChange.emit(this._selection);
         this.tableService.onSelectionChange();
-        this.onHeaderCheckboxToggle.emit({ originalEvent: event, checked: check });
+        this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
 
         if (this.isStateful()) {
             this.saveState();
@@ -1328,7 +1423,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (!this.columns && !this.globalFilterFields)
                         throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
                     else
-                        globalFilterFieldsArray = this.globalFilterFields || this.columns;
+                        globalFilterFieldsArray = this.globalFilterFields||this.columns;
                 }
 
                 this.filteredValue = [];
@@ -1364,9 +1459,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     }
 
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
-                        for (let j = 0; j < globalFilterFieldsArray.length; j++) {
-                            let globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                            globalMatch = this.filterService.filters[(<FilterMetadata>this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata>this.filters['global']).value, this.filterLocale);
+                        for(let j = 0; j < globalFilterFieldsArray.length; j++) {
+                            let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
+                            globalMatch = this.filterService.filters[(<FilterMetadata> this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata> this.filters['global']).value, this.filterLocale);
 
                             if (globalMatch) {
                                 break;
@@ -1447,7 +1542,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata>this.filters['global']).value : null,
+            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata> this.filters['global']).value : null,
             multiSortMeta: this.multiSortMeta
         };
     }
@@ -1562,26 +1657,58 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.virtualScroll)
             this.scrollToVirtualIndex(0);
         else
-            this.scrollTo({ top: 0 });
+            this.scrollTo({top: 0});
     }
 
     public scrollToVirtualIndex(index: number) {
-        if (this.scrollableViewChild) {
-            this.scrollableViewChild.scrollToVirtualIndex(index);
+        if (this.virtualScrollBody) {
+            this.virtualScrollBody.scrollToIndex(index);
         }
+    }
 
-        if (this.scrollableFrozenViewChild) {
-            this.scrollableFrozenViewChild.scrollToVirtualIndex(index);
+    virtualScrollTimeout: any;
+
+    virtualPage: number;
+
+    onScrollIndexChange(index: number) {
+        if (this.lazy) {
+            if (this.virtualScrollTimeout) {
+                clearTimeout(this.virtualScrollTimeout);
+            }
+
+            this.virtualScrollTimeout = setTimeout(() => {
+                let page = Math.floor(index / this.rows);
+                let virtualScrollOffset = page === 0 ? 0 : (page - 1) * this.rows;
+                let virtualScrollChunkSize = page === 0 ? this.rows * 2 : this.rows * 3;
+
+                if (page !== this.virtualPage) {
+                    this.virtualPage = page;
+                    this.onLazyLoad.emit({
+                        first: virtualScrollOffset,
+                        rows: virtualScrollChunkSize,
+                        sortField: this.sortField,
+                        sortOrder: this.sortOrder,
+                        filters: this.filters,
+                        globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata> this.filters['global']).value : null,
+                        multiSortMeta: this.multiSortMeta
+                    });
+                }
+            }, this.virtualScrollDelay);
         }
     }
 
     public scrollTo(options) {
-        if (this.scrollableViewChild) {
-            this.scrollableViewChild.scrollTo(options);
+        if (this.virtualScrollBody) {
+            this.virtualScrollBody.scrollTo(options);
         }
-
-        if (this.scrollableFrozenViewChild) {
-            this.scrollableFrozenViewChild.scrollTo(options);
+        else {
+            if (this.wrapperViewChild.nativeElement.scrollTo) {
+                this.wrapperViewChild.nativeElement.scrollTo(options);
+            }
+            else {
+                this.wrapperViewChild.nativeElement.scrollLeft = options.left;
+                this.wrapperViewChild.nativeElement.scrollTop = options.top;
+            }
         }
     }
 
@@ -1600,7 +1727,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
             this.documentEditListener = (event) => {
-                if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
+                if (this.editingCell && !this.selfClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event, index: this.editingCellRowIndex });
@@ -1609,9 +1736,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.editingCellRowIndex = null;
                     this.unbindDocumentEditListener();
                     this.cd.markForCheck();
+
+                    if (this.overlaySubscription) {
+                        this.overlaySubscription.unsubscribe();
+                    }
                 }
 
-                this.editingCellClick = false;
+                this.selfClick = false;
             };
 
             document.addEventListener('click', this.documentEditListener);
@@ -1695,6 +1826,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onColumnResizeBegin(event) {
         let containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
+        this.resizeColumnElement = event.target.parentElement;
+        this.columnResizing = true;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
         this.onColumnResize(event);
         event.preventDefault();
@@ -1710,66 +1843,47 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.resizeHelperViewChild.nativeElement.style.display = 'block';
     }
 
-    onColumnResizeEnd(event, column) {
+    onColumnResizeEnd() {
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
-        delta = delta * (this.rtl ? -1 : 1);
-        let columnWidth = column.offsetWidth;
-        let minWidth = parseInt(column.style.minWidth || 15);
-
-        if (columnWidth + delta < minWidth) {
-            delta = minWidth - columnWidth;
-        }
-
-        const newColumnWidth = columnWidth + delta;
+        let columnWidth = this.resizeColumnElement.offsetWidth;
+        let newColumnWidth = columnWidth + delta;
+        let minWidth = this.resizeColumnElement.style.minWidth||15;
 
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
-                let nextColumn = column.nextElementSibling;
-                while (!nextColumn.offsetParent) {
-                    nextColumn = nextColumn.nextElementSibling;
-                }
+                let nextColumn = this.resizeColumnElement.nextElementSibling;
+                let nextColumnWidth = nextColumn.offsetWidth - delta;
 
-                if (nextColumn) {
-                    let nextColumnWidth = nextColumn.offsetWidth - delta;
-                    let nextColumnMinWidth = nextColumn.style.minWidth || 15;
-
-                    if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
-                        if (this.scrollable) {
-                            let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table') || DomHandler.findSingle(scrollableView, '.p-datatable-virtual-scrollable-body table');
-                            let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-header-table');
-                            let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-footer-table');
-                            let resizeColumnIndex = DomHandler.index(column);
-
-                            this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
-                            this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
-                            this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                if (newColumnWidth > 15 && nextColumnWidth > 15) {
+                    if (!this.scrollable) {
+                        this.resizeColumnElement.style.width = newColumnWidth + 'px';
+                        if(nextColumn) {
+                            nextColumn.style.width = nextColumnWidth + 'px';
                         }
-                        else {
-                            column.style.width = newColumnWidth + 'px';
-                            if (nextColumn) {
-                                nextColumn.style.width = nextColumnWidth + 'px';
-                            }
-                        }
+                    }
+                    else {
+                        this.resizeTableCells(newColumnWidth, nextColumnWidth);
                     }
                 }
             }
             else if (this.columnResizeMode === 'expand') {
-                if (newColumnWidth >= minWidth) {
-                    if (this.scrollable) {
-                        this.setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta);
-                    }
-                    else {
-                        this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
-                        column.style.width = newColumnWidth + 'px';
-                        let containerWidth = this.tableViewChild.nativeElement.style.width;
-                        this.containerViewChild.nativeElement.style.width = containerWidth + 'px';
-                    }
+                let tableWidth = this.tableViewChild.nativeElement.offsetWidth + delta;
+
+                if (!this.scrollable) {
+                    this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
+                    this.resizeColumnElement.style.width = newColumnWidth + 'px';
+                }
+                else {
+                    this.resizeTableCells(newColumnWidth, null);
+                    let scrollbarWidth = DomHandler.calculateScrollbarWidth(this.wrapperViewChild.nativeElement);
+                    let isWrapperInViewport = this.containerViewChild.nativeElement.offsetWidth > tableWidth + scrollbarWidth;
+                    this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
+                    this.wrapperViewChild.nativeElement.style.width = isWrapperInViewport ? tableWidth + scrollbarWidth + 'px' : 'auto';
                 }
             }
 
             this.onColResize.emit({
-                element: column,
+                element: this.resizeColumnElement,
                 delta: delta
             });
 
@@ -1782,70 +1896,29 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.removeClass(this.containerViewChild.nativeElement, 'p-unselectable-text');
     }
 
-    setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta) {
-        let scrollableView = column ? this.findParentScrollableView(column) : this.containerViewChild.nativeElement;
-        let scrollableBody = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport');
-        let scrollableHeader = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-header');
-        let scrollableFooter = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-footer');
-        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.p-datatable-scrollable-body table') || DomHandler.findSingle(scrollableView, 'cdk-virtual-scroll-viewport table');
-        let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.p-datatable-scrollable-header-table');
-        let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.p-datatable-scrollable-footer-table');
+    resizeTableCells(newColumnWidth, nextColumnWidth) {
+        let colIndex = DomHandler.index(this.resizeColumnElement);
+        let widths = [];
+        let headers = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-thead > tr > th');
+        headers.forEach(header => widths.push(DomHandler.getOuterWidth(header)));
 
-        const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
-        const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
-        const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth >= scrollableBodyTableWidth;
+        this.destroyStyleElement();
+        this.createStyleElement();
 
-        let setWidth = (container, table, width, isContainerInViewport) => {
-            if (container && table) {
-                container.style.width = isContainerInViewport ? width + DomHandler.calculateScrollbarWidth(scrollableBody) + 'px' : 'auto'
-                table.style.width = width + 'px';
-            }
-        };
-
-        setWidth(scrollableBody, scrollableBodyTable, scrollableBodyTableWidth, isContainerInViewport);
-        setWidth(scrollableHeader, scrollableHeaderTable, scrollableHeaderTableWidth, isContainerInViewport);
-        setWidth(scrollableFooter, scrollableFooterTable, scrollableHeaderTableWidth, isContainerInViewport);
-
-        if (column) {
-            let resizeColumnIndex = DomHandler.index(column);
-
-            this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
-            this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
-            this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
-        }
-    }
-
-    findParentScrollableView(column) {
-        if (column) {
-            let parent = column.parentElement;
-            while (parent && !DomHandler.hasClass(parent, 'p-datatable-scrollable-view')) {
-                parent = parent.parentElement;
-            }
-
-            return parent;
-        }
-        else {
-            return null;
-        }
-    }
-
-    resizeColGroup(table, resizeColumnIndex, newColumnWidth, nextColumnWidth) {
-        if (table) {
-            let colGroup = table.children[0].nodeName === 'COLGROUP' ? table.children[0] : null;
-
-            if (colGroup) {
-                let col = colGroup.children[resizeColumnIndex];
-                let nextCol = col.nextElementSibling;
-                col.style.width = newColumnWidth + 'px';
-
-                if (nextCol && nextColumnWidth) {
-                    nextCol.style.width = nextColumnWidth + 'px';
+        let innerHTML = '';
+        widths.forEach((width,index) => {
+            let colWidth = index === colIndex ? newColumnWidth : (nextColumnWidth && index === colIndex + 1) ? nextColumnWidth : width;
+            innerHTML += `
+                #${this.id} .p-datatable-thead > tr > th:nth-child(${index+1}) {
+                    flex: 0 0 ${colWidth}px !important;
                 }
-            }
-            else {
-                throw "Scrollable tables require a colgroup to support resizable columns";
-            }
-        }
+
+                #${this.id} .p-datatable-tbody > tr > td:nth-child(${index+1}) {
+                    flex: 0 0 ${colWidth}px !important;
+                }
+            `
+        });
+        this.styleElement.innerHTML = innerHTML;
     }
 
     onColumnDragStart(event, columnElement) {
@@ -2015,16 +2088,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isEmpty() {
-        let data = this.filteredValue || this.value;
+        let data = this.filteredValue||this.value;
         return data == null || data.length == 0;
     }
 
-    getBlockableElement(): HTMLElement {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
     getStorage() {
-        switch (this.stateStorage) {
+        switch(this.stateStorage) {
             case 'local':
                 return window.localStorage;
 
@@ -2094,7 +2167,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         const storage = this.getStorage();
         const stateString = storage.getItem(this.stateKey);
         const dateFormat = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/;
-        const reviver = function (key, value) {
+        const reviver = function(key, value) {
             if (typeof value === "string" && dateFormat.test(value)) {
                 return new Date(value);
             }
@@ -2136,6 +2209,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.resizableColumns) {
                 this.columnWidthsState = state.columnWidths;
                 this.tableWidthState = state.tableWidth;
+                this.wrapperWidthState = state.wrapperWidth;
             }
 
             if (state.expandedRowKeys) {
@@ -2154,13 +2228,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     saveColumnWidths(state) {
         let widths = [];
-        let headers = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-thead > tr:first-child > th');
-        headers.map(header => widths.push(DomHandler.getOuterWidth(header)));
+        let headers = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-thead > tr > th');
+        headers.forEach(header => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = this.scrollable ? DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-scrollable-header-table').style.width :
-                DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth =  DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.wrapperWidth = this.wrapperViewChild.nativeElement.style.width;
         }
     }
 
@@ -2168,26 +2242,37 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.columnWidthsState) {
             let widths = this.columnWidthsState.split(',');
 
-            if (this.columnResizeMode === 'expand' && this.tableWidthState) {
-                if (this.scrollable) {
-                    this.setScrollableItemsWidthOnExpandResize(null, this.tableWidthState, 0);
-                }
-                else {
+            if (this.columnResizeMode === 'expand') {
+                if (this.tableWidthState)
                     this.tableViewChild.nativeElement.style.width = this.tableWidthState;
-                }
+
+                if (this.wrapperWidthState)
+                    this.wrapperViewChild.nativeElement.style.width = this.wrapperWidthState;
             }
 
-            if (this.scrollable) {
-                let headerCols = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-scrollable-header-table > colgroup > col');
-                let bodyCols = this.virtualScroll ? DomHandler.find(this.containerViewChild.nativeElement, 'cdk-virtual-scroll-viewport table > colgroup > col') : DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-scrollable-body table > colgroup > col');
+            this.createStyleElement();
 
-                headerCols.map((col, index) => col.style.width = widths[index] + 'px');
-                bodyCols.map((col, index) => col.style.width = widths[index] + 'px');
+            if (this.scrollable && widths && widths.length > 0) {
+                    let innerHTML = '';
+                    widths.forEach((width,index) => {
+                        innerHTML += `
+                            #${this.id} .p-datatable-thead > tr > th:nth-child(${index+1}) {
+                                flex: 0 0 ${width}px;
+                            }
+
+                            #${this.id} .p-datatable-tbody > tr > td:nth-child(${index+1}) {
+                                flex: 0 0 ${width}px;
+                            }
+                        `
+                    });
+                this.styleElement.innerHTML = innerHTML;
             }
             else {
-                let headers = DomHandler.find(this.tableViewChild.nativeElement, '.p-datatable-thead > tr:first-child > th');
-                headers.map((header, index) => header.style.width = widths[index] + 'px');
+                DomHandler.find(this.tableViewChild.nativeElement, '.p-datatable-thead > tr > th').forEach((header, index) => {
+                    header.style.width = widths[index] + 'px';
+                });
             }
+
         }
     }
 
@@ -2195,7 +2280,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.columns) {
             let columnOrder: string[] = [];
             this.columns.map(column => {
-                columnOrder.push(column.field || column.key)
+                columnOrder.push(column.field||column.key)
             });
 
             state.columnOrder = columnOrder;
@@ -2211,7 +2296,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (columnOrder) {
                 let reorderedColumns = [];
 
-                columnOrder.map(key => {
+                columnOrder.map(key =>  {
                     let col = this.findColumnByKey(key);
                     if (col) {
                         reorderedColumns.push(col)
@@ -2219,6 +2304,18 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 });
                 this.columnOrderStateRestored = true;
                 this.columns = reorderedColumns;
+            }
+        }
+    }
+
+    updateScrollWidth() {
+        if (this.tableViewChild && this.tableViewChild.nativeElement) {
+            let parentElementHeight = DomHandler.getWidth(this.tableViewChild.nativeElement.parentElement);
+            if (this.tableViewChild.nativeElement.scrollWidth > parentElementHeight) {
+                this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.scrollWidth + 'px';
+            }
+            else {
+                this.tableViewChild.nativeElement.style.width = (parentElementHeight - DomHandler.calculateScrollbarHeight())  + 'px';
             }
         }
     }
@@ -2237,10 +2334,77 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    createStyleElement() {
+        this.styleElement = document.createElement('style');
+        this.styleElement.type = 'text/css';
+        document.head.appendChild(this.styleElement);
+    }
+
+    createResponsiveStyle() {
+        if (!this.responsiveStyleElement) {
+            this.responsiveStyleElement = document.createElement('style');
+            this.responsiveStyleElement.type = 'text/css';
+            document.head.appendChild(this.responsiveStyleElement);
+
+            let innerHTML = `
+@media screen and (max-width: ${this.breakpoint}) {
+    #${this.id} .p-datatable-thead > tr > th,
+    #${this.id} .p-datatable-tfoot > tr > td {
+        display: none !important;
+    }
+
+    #${this.id} .p-datatable-tbody > tr > td {
+        display: flex;
+        width: 100% !important;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #${this.id} .p-datatable-tbody > tr > td:not(:last-child) {
+        border: 0 none;
+    }
+
+    #${this.id}.p-datatable-gridlines .p-datatable-tbody > tr > td:last-child {
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+    }
+
+    #${this.id} .p-datatable-tbody > tr > td > .p-column-title {
+        display: block;
+    }
+}
+`;
+
+            this.responsiveStyleElement.innerHTML = innerHTML;
+        }
+    }
+
+    destroyResponsiveStyle() {
+        if (this.responsiveStyleElement) {
+            document.head.removeChild(this.responsiveStyleElement);
+            this.responsiveStyleElement = null;
+        }
+    }
+
+    destroyStyleElement() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;
+        }
+    }
+
     ngOnDestroy() {
         this.unbindDocumentEditListener();
         this.editingCell = null;
         this.initialized = null;
+
+        if (this.virtualScrollSubscription) {
+            this.virtualScrollSubscription.unsubscribe();
+        }
+
+        this.destroyStyleElement();
+        this.destroyResponsiveStyle();
     }
 }
 
@@ -2248,28 +2412,47 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     selector: '[pTableBody]',
     template: `
         <ng-container *ngIf="!dt.expandedRowTemplate && !dt.virtualScroll">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
+                <ng-container *ngIf="dt.groupHeaderTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
+                    <ng-container *ngTemplateOutlet="dt.groupHeaderTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="dt.rowGroupMode !== 'rowspan'">
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="dt.rowGroupMode === 'rowspan'">
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen, rowgroup: shouldRenderRowspan(value, rowData, rowIndex), rowspan: calculateRowGroupSize(value, rowData, rowIndex)}"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="dt.groupFooterTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
+                    <ng-container *ngTemplateOutlet="dt.groupFooterTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
+                </ng-container>
             </ng-template>
         </ng-container>
         <ng-container *ngIf="!dt.expandedRowTemplate && dt.virtualScroll">
-            <ng-template cdkVirtualFor let-rowData let-rowIndex="index" [cdkVirtualForOf]="dt.filteredValue||dt.value" [cdkVirtualForTrackBy]="dt.rowTrackBy" [cdkVirtualForTemplateCacheSize]="0">
-                <ng-container *ngTemplateOutlet="rowData ? template: dt.loadingBodyTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
+            <ng-template cdkVirtualFor let-rowData let-rowIndex="index" [cdkVirtualForOf]="value" [cdkVirtualForTrackBy]="dt.rowTrackBy" [cdkVirtualForTemplateCacheSize]="0">
+                <ng-container *ngTemplateOutlet="rowData ? template: dt.loadingBodyTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
             </ng-template>
         </ng-container>
         <ng-container *ngIf="dt.expandedRowTemplate && !(frozen && dt.frozenExpandedRowTemplate)">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
+                <ng-container *ngIf="!dt.groupHeaderTemplate">
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="dt.groupHeaderTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
+                    <ng-container *ngTemplateOutlet="dt.groupHeaderTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
+                </ng-container>
                 <ng-container *ngIf="dt.isRowExpanded(rowData)">
-                    <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
+                    <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, frozen: frozen}"></ng-container>
+                    <ng-container *ngIf="dt.groupFooterTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
+                        <ng-container *ngTemplateOutlet="dt.groupFooterTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
+                    </ng-container>
                 </ng-container>
             </ng-template>
         </ng-container>
         <ng-container *ngIf="dt.frozenExpandedRowTemplate && frozen">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData)), frozen: frozen}"></ng-container>
                 <ng-container *ngIf="dt.isRowExpanded(rowData)">
-                    <ng-container *ngTemplateOutlet="dt.frozenExpandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
+                    <ng-container *ngTemplateOutlet="dt.frozenExpandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, frozen: frozen}"></ng-container>
                 </ng-container>
             </ng-template>
         </ng-container>
@@ -2283,17 +2466,45 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None
 })
-export class TableBody implements OnDestroy {
+export class TableBody implements AfterViewInit, OnDestroy {
 
     @Input("pTableBody") columns: any[];
 
     @Input("pTableBodyTemplate") template: TemplateRef<any>;
 
+    @Input() get value(): any[] {
+        return this._value;
+    }
+    set value(val: any[]) {
+        this._value = val;
+        if (this.frozenRows) {
+            this.updateFrozenRowStickyPosition();
+        }
+
+        if (this.dt.scrollable && this.dt.rowGroupMode === 'subheader') {
+            this.updateFrozenRowGroupHeaderStickyPosition();
+        }
+    }
+
     @Input() frozen: boolean;
+
+    @Input() frozenRows: boolean;
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
+    _value: any[];
+
+    ngAfterViewInit() {
+        if (this.frozenRows) {
+            this.updateFrozenRowStickyPosition();
+        }
+
+        if (this.dt.scrollable && this.dt.rowGroupMode === 'subheader') {
+            this.updateFrozenRowGroupHeaderStickyPosition();
+        }
+    }
+
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef, public el: ElementRef) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
             if (this.dt.virtualScroll) {
                 this.cd.detectChanges();
@@ -2301,312 +2512,151 @@ export class TableBody implements OnDestroy {
         });
     }
 
+    shouldRenderRowGroupHeader(value, rowData, i) {
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let prevRowData = value[i - 1];
+        if (prevRowData) {
+            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
+            return currentRowFieldData !== previousRowFieldData;
+        }
+        else {
+            return true;
+        }
+    }
+
+    shouldRenderRowGroupFooter(value, rowData, i) {
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let nextRowData = value[i + 1];
+        if (nextRowData) {
+            let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
+            return currentRowFieldData !== nextRowFieldData;
+        }
+        else {
+            return true;
+        }
+    }
+
+    shouldRenderRowspan(value, rowData, i) {
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let prevRowData = value[i - 1];
+        if (prevRowData) {
+            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
+            return currentRowFieldData !== previousRowFieldData;
+        }
+        else {
+            return true;
+        }
+    }
+
+    calculateRowGroupSize(value, rowData, index) {
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let nextRowFieldData = currentRowFieldData;
+        let groupRowSpan = 0;
+
+        while (currentRowFieldData === nextRowFieldData) {
+            groupRowSpan++;
+            let nextRowData = value[++index];
+            if (nextRowData) {
+                nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
+            }
+            else {
+                break;
+            }
+        }
+
+        return groupRowSpan === 1 ? null : groupRowSpan;
+    }
+
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
+
+    updateFrozenRowStickyPosition() {
+        this.el.nativeElement.style.top = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling) + 'px';
+    }
+
+    updateFrozenRowGroupHeaderStickyPosition() {
+        if (this.el.nativeElement.previousElementSibling) {
+            let tableHeaderHeight = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling);
+            this.dt.rowGroupHeaderStyleObject.top = tableHeaderHeight + 'px';
+        }
+    }
 }
 
-@Component({
-    selector: '[pScrollableView]',
-    template: `
-        <div #scrollHeader class="p-datatable-scrollable-header">
-            <div #scrollHeaderBox class="p-datatable-scrollable-header-box">
-                <table class="p-datatable-scrollable-header-table" [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
-                    <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <thead class="p-datatable-thead">
-                        <ng-container *ngTemplateOutlet="frozen ? dt.frozenHeaderTemplate||dt.headerTemplate : dt.headerTemplate; context {$implicit: columns}"></ng-container>
-                    </thead>
-                    <tbody class="p-datatable-tbody">
-                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
-                            <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                        </ng-template>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <ng-container *ngIf="!dt.virtualScroll; else virtualScrollTemplate">
-            <div #scrollBody class="p-datatable-scrollable-body" [ngStyle]="{'max-height': dt.scrollHeight !== 'flex' ? scrollHeight : undefined, 'overflow-y': !frozen && dt.scrollHeight ? 'scroll' : undefined}">
-                <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
-                    <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
-                </table>
-                <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
-            </div>
-        </ng-container>
-        <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" tabindex="0" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined"
-                    [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
-                <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
-                    <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
-                </table>
-                <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
-            </cdk-virtual-scroll-viewport>
-        </ng-template>
-        <div #scrollFooter class="p-datatable-scrollable-footer">
-            <div #scrollFooterBox class="p-datatable-scrollable-footer-box">
-                <table class="p-datatable-scrollable-footer-table" [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
-                    <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <tfoot class="p-datatable-tfoot">
-                        <ng-container *ngTemplateOutlet="frozen ? dt.frozenFooterTemplate||dt.footerTemplate : dt.footerTemplate; context {$implicit: columns}"></ng-container>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    `,
-    changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.None
+@Directive({
+    selector: '[pRowGroupHeader]',
+    host: {
+        '[class.p-rowgroup-header]': 'true',
+        '[style.top]': "getFrozenRowGroupHeaderStickyPosition"
+    }
 })
-export class ScrollableView implements AfterViewInit, OnDestroy {
+export class RowGroupHeader {
 
-    @Input("pScrollableView") columns: any[];
+    constructor(public dt: Table) { }
 
-    @Input() frozen: boolean;
-
-    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
-
-    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
-
-    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
-
-    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
-
-    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
-
-    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
-
-    @ViewChild('scrollableAligner') scrollableAlignerViewChild: ElementRef;
-
-    @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
-
-    headerScrollListener: any;
-
-    bodyScrollListener: any;
-
-    footerScrollListener: any;
-
-    frozenSiblingBody: HTMLDivElement;
-
-    preventBodyScrollPropagation: boolean;
-
-    _scrollHeight: string;
-
-    virtualScrollTimeout: any;
-
-    virtualPage: number;
-
-    @Input() get scrollHeight(): string {
-        return this._scrollHeight;
+    get getFrozenRowGroupHeaderStickyPosition() {
+        return this.dt.rowGroupHeaderStyleObject ? this.dt.rowGroupHeaderStyleObject.top : '';
     }
-    set scrollHeight(val: string) {
-        this._scrollHeight = val;
-        if (val != null && (val.includes('%') || val.includes('calc'))) {
-            console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.')
-        }
+ }
 
-        if (this.dt.virtualScroll && this.virtualScrollBody) {
-            this.virtualScrollBody.ngOnInit();
-        }
+@Directive({
+    selector: '[pFrozenColumn]',
+    host: {
+        '[class.p-frozen-column]': 'frozen'
+    }
+})
+export class FrozenColumn implements AfterViewInit {
+
+    @Input() get frozen(): boolean {
+        return this._frozen;
     }
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
+    set frozen(val: boolean) {
+        this._frozen = val;
+        this.updateStickyPosition();
+    }
+
+    @Input() alignFrozen: string = "left";
+
+    constructor(private el: ElementRef) { }
 
     ngAfterViewInit() {
-        if (!this.frozen) {
-            if (this.dt.frozenColumns || this.dt.frozenBodyTemplate) {
-                DomHandler.addClass(this.el.nativeElement, 'p-datatable-unfrozen-view');
-            }
+        this.updateStickyPosition();
+    }
 
-            let frozenView = this.el.nativeElement.previousElementSibling;
-            if (frozenView) {
-                if (this.dt.virtualScroll)
-                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-virtual-scrollable-body');
-                else
-                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-scrollable-body');
-            }
+    _frozen: boolean = true;
 
-            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
-
-            if (this.dt.rtl) {
-                this.scrollHeaderBoxViewChild.nativeElement.style.paddingLeft = scrollBarWidth + 'px';
-
-                if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                    this.scrollFooterBoxViewChild.nativeElement.style.paddingLeft = scrollBarWidth + 'px';
+    updateStickyPosition() {
+        if (this._frozen) {
+            if (this.alignFrozen === 'right') {
+                let right = 0;
+                let next = this.el.nativeElement.nextElementSibling;
+                if (next) {
+                    right = DomHandler.getOuterWidth(next) + parseFloat(next.style.right);
                 }
+                this.el.nativeElement.style.right = right + 'px';
             }
             else {
-                this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
-
-                if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                    this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                let left = 0;
+                let prev = this.el.nativeElement.previousElementSibling;
+                if (prev) {
+                    left = DomHandler.getOuterWidth(prev) + parseFloat(prev.style.left);
                 }
-            }
-        }
-        else {
-            if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
-                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
-            }
-        }
-
-        this.bindEvents();
-    }
-
-    bindEvents() {
-        this.zone.runOutsideAngular(() => {
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                this.headerScrollListener = this.onHeaderScroll.bind(this);
-                this.scrollHeaderViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
+                this.el.nativeElement.style.left = left + 'px';
             }
 
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                this.footerScrollListener = this.onFooterScroll.bind(this);
-                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
-            }
+            let filterRow = this.el.nativeElement.parentElement.nextElementSibling;
 
-            if (!this.frozen) {
-                this.bodyScrollListener = this.onBodyScroll.bind(this);
-
-                if (this.dt.virtualScroll)
-                    this.virtualScrollBody.getElementRef().nativeElement.addEventListener('scroll', this.bodyScrollListener);
-                else
-                    this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
-            }
-        });
-    }
-
-    unbindEvents() {
-        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
-        }
-
-        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
-        }
-
-        if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-            this.scrollBodyViewChild.nativeElement.removeEventListener('scroll', this.bodyScrollListener);
-        }
-
-        if (this.virtualScrollBody && this.virtualScrollBody.getElementRef()) {
-            this.virtualScrollBody.getElementRef().nativeElement.removeEventListener('scroll', this.bodyScrollListener);
-        }
-    }
-
-    onHeaderScroll() {
-        const scrollLeft = this.scrollHeaderViewChild.nativeElement.scrollLeft;
-
-        this.scrollBodyViewChild.nativeElement.scrollLeft = scrollLeft;
-
-        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterViewChild.nativeElement.scrollLeft = scrollLeft;
-        }
-
-        this.preventBodyScrollPropagation = true;
-    }
-
-    onFooterScroll() {
-        const scrollLeft = this.scrollFooterViewChild.nativeElement.scrollLeft;
-        this.scrollBodyViewChild.nativeElement.scrollLeft = scrollLeft;
-
-        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderViewChild.nativeElement.scrollLeft = scrollLeft;
-        }
-
-        this.preventBodyScrollPropagation = true;
-    }
-
-    onBodyScroll(event) {
-        if (this.preventBodyScrollPropagation) {
-            this.preventBodyScrollPropagation = false;
-            return;
-        }
-
-        if (this.dt.rtl) {
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = event.target.scrollLeft + 'px';
-            }
-
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                this.scrollFooterBoxViewChild.nativeElement.style.marginRight = event.target.scrollLeft + 'px';
+            if (filterRow) {
+                let index = DomHandler.index(this.el.nativeElement);
+                filterRow.children[index].style.left = this.el.nativeElement.style.left;
+                filterRow.children[index].style.right = this.el.nativeElement.style.right;
             }
         }
-        else {
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
-            }
-
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
-            }
-        }
-
-        if (this.frozenSiblingBody) {
-            this.frozenSiblingBody.scrollTop = event.target.scrollTop;
-        }
-    }
-
-    onScrollIndexChange(index: number) {
-        if (this.dt.lazy) {
-            if (this.virtualScrollTimeout) {
-                clearTimeout(this.virtualScrollTimeout);
-            }
-
-            this.virtualScrollTimeout = setTimeout(() => {
-                let page = Math.floor(index / this.dt.rows);
-                let virtualScrollOffset = page === 0 ? 0 : (page - 1) * this.dt.rows;
-                let virtualScrollChunkSize = page === 0 ? this.dt.rows * 2 : this.dt.rows * 3;
-
-                if (page !== this.virtualPage) {
-                    this.virtualPage = page;
-                    this.dt.onLazyLoad.emit({
-                        first: virtualScrollOffset,
-                        rows: virtualScrollChunkSize,
-                        sortField: this.dt.sortField,
-                        sortOrder: this.dt.sortOrder,
-                        filters: this.dt.filters,
-                        globalFilter: this.dt.filters && this.dt.filters['global'] ? (<FilterMetadata>this.dt.filters['global']).value : null,
-                        multiSortMeta: this.dt.multiSortMeta
-                    });
-                }
-            }, this.dt.virtualScrollDelay);
-        }
-    }
-
-    getPageCount() {
-        let dataToRender = this.dt.filteredValue || this.dt.value;
-        let dataLength = dataToRender ? dataToRender.length : 0;
-        return Math.ceil(dataLength / this.dt.rows);
-    }
-
-    scrollToVirtualIndex(index: number): void {
-        if (this.virtualScrollBody) {
-            this.virtualScrollBody.scrollToIndex(index);
-        }
-    }
-
-    scrollTo(options): void {
-        if (this.virtualScrollBody) {
-            this.virtualScrollBody.scrollTo(options);
-        }
-        else {
-            if (this.scrollBodyViewChild.nativeElement.scrollTo) {
-                this.scrollBodyViewChild.nativeElement.scrollTo(options);
-            }
-            else {
-                this.scrollBodyViewChild.nativeElement.scrollLeft = options.left;
-                this.scrollBodyViewChild.nativeElement.scrollTop = options.top;
-            }
-        }
-    }
-
-    ngOnDestroy() {
-        this.unbindEvents();
-        this.frozenSiblingBody = null;
     }
 }
-
 @Directive({
     selector: '[pSortableColumn]',
     host: {
@@ -2650,7 +2700,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        if (this.isEnabled() && !this.isFilterElement(<HTMLElement>event.target)) {
+        if (this.isEnabled() && !this.isFilterElement(<HTMLElement> event.target)) {
             this.updateSortState();
             this.dt.sort({
                 originalEvent: event,
@@ -2710,7 +2760,7 @@ export class SortIcon implements OnInit, OnDestroy {
         this.updateSortState();
     }
 
-    onClick(event) {
+    onClick(event){
         event.preventDefault();
     }
 
@@ -2720,7 +2770,7 @@ export class SortIcon implements OnInit, OnDestroy {
         }
         else if (this.dt.sortMode === 'multiple') {
             let sortMeta = this.dt.getSortMeta(this.field);
-            this.sortOrder = sortMeta ? sortMeta.order : 0;
+            this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
 
         this.cd.markForCheck();
@@ -2860,19 +2910,19 @@ export class SelectableRow implements OnInit, OnDestroy {
     @HostListener('keydown.end')
     onPageDownKeyDown() {
         if (this.dt.virtualScroll) {
-            DomHandler.findSingle(this.dt.scrollableViewChild.el.nativeElement, 'cdk-virtual-scroll-viewport').focus();
+            this.dt.virtualScrollBody.elementRef.nativeElement.focus();
         }
     }
 
     @HostListener('keydown.space')
     onSpaceKeydown() {
         if (this.dt.virtualScroll && !this.dt.editingCell) {
-            DomHandler.findSingle(this.dt.scrollableViewChild.el.nativeElement, 'cdk-virtual-scroll-viewport').focus();
+            this.dt.virtualScrollBody.elementRef.nativeElement.focus();
         }
     }
 
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
-        let nextRow = <HTMLTableRowElement>row.nextElementSibling;
+        let nextRow = <HTMLTableRowElement> row.nextElementSibling;
         if (nextRow) {
             if (DomHandler.hasClass(nextRow, 'p-selectable-row'))
                 return nextRow;
@@ -2885,7 +2935,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
-        let prevRow = <HTMLTableRowElement>row.previousElementSibling;
+        let prevRow = <HTMLTableRowElement> row.previousElementSibling;
         if (prevRow) {
             if (DomHandler.hasClass(prevRow, 'p-selectable-row'))
                 return prevRow;
@@ -3107,7 +3157,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     }
 
     onDocumentMouseUp(event: MouseEvent) {
-        this.dt.onColumnResizeEnd(event, this.el.nativeElement);
+        this.dt.onColumnResizeEnd();
         this.unbindDocumentEvents();
     }
 
@@ -3238,7 +3288,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[pEditableColumn]'
 })
-export class EditableColumn implements AfterViewInit {
+export class EditableColumn implements AfterViewInit, OnDestroy {
 
     @Input("pEditableColumn") data: any;
 
@@ -3250,7 +3300,9 @@ export class EditableColumn implements AfterViewInit {
 
     @Input() pFocusCellSelector: string;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
+    overlayEventListener;
+
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -3261,7 +3313,7 @@ export class EditableColumn implements AfterViewInit {
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
-            this.dt.editingCellClick = true;
+            this.dt.selfClick = true;
 
             if (this.dt.editingCell) {
                 if (this.dt.editingCell !== this.el.nativeElement) {
@@ -3282,7 +3334,7 @@ export class EditableColumn implements AfterViewInit {
     openCell() {
         this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, this.rowIndex);
         DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
-        this.dt.onEditInit.emit({ field: this.field, data: this.data, index: this.rowIndex });
+        this.dt.onEditInit.emit({field: this.field, data: this.data, index: this.rowIndex});
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 let focusCellSelector = this.pFocusCellSelector || 'input, textarea, select';
@@ -3293,19 +3345,31 @@ export class EditableColumn implements AfterViewInit {
                 }
             }, 50);
         });
+
+        this.overlayEventListener = (e) => {
+            if (this.el && this.el.nativeElement.contains(e.target)) {
+                this.dt.selfClick = true;
+            }
+        }
+
+        this.dt.overlaySubscription = this.dt.overlayService.clickObservable.subscribe(this.overlayEventListener);
     }
 
     closeEditingCell(completed, event) {
         if (completed)
-            this.dt.onEditComplete.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
+            this.dt.onEditComplete.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex});
         else
-            this.dt.onEditCancel.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
+            this.dt.onEditCancel.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex});
 
         DomHandler.removeClass(this.dt.editingCell, 'p-cell-editing');
         this.dt.editingCell = null;
         this.dt.editingCellData = null;
         this.dt.editingCellField = null;
         this.dt.unbindDocumentEditListener();
+
+        if (this.dt.overlaySubscription) {
+            this.dt.overlaySubscription.unsubscribe();
+        }
     }
 
     @HostListener('keydown.enter', ['$event'])
@@ -3337,7 +3401,7 @@ export class EditableColumn implements AfterViewInit {
         if (this.isEnabled()) {
             if (event.shiftKey)
                 this.moveToPreviousCell(event);
-            else {
+            else{
                 this.moveToNextCell(event);
             }
         }
@@ -3528,6 +3592,12 @@ export class EditableColumn implements AfterViewInit {
         return this.pEditableColumnDisabled !== true;
     }
 
+    ngOnDestroy() {
+        if (this.dt.overlaySubscription) {
+            this.dt.overlaySubscription.unsubscribe();
+        }
+    }
+
 }
 
 @Directive({
@@ -3539,7 +3609,7 @@ export class EditableRow {
 
     @Input() pEditableRowDisabled: boolean;
 
-    constructor(public el: ElementRef) { }
+    constructor(public el: ElementRef) {}
 
     isEnabled() {
         return this.pEditableRowDisabled !== true;
@@ -3552,7 +3622,7 @@ export class EditableRow {
 })
 export class InitEditableRow {
 
-    constructor(public dt: Table, public editableRow: EditableRow) { }
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3567,7 +3637,7 @@ export class InitEditableRow {
 })
 export class SaveEditableRow {
 
-    constructor(public dt: Table, public editableRow: EditableRow) { }
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3581,7 +3651,7 @@ export class SaveEditableRow {
 })
 export class CancelEditableRow {
 
-    constructor(public dt: Table, public editableRow: EditableRow) { }
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3628,7 +3698,7 @@ export class CellEditor implements AfterContentInit {
 
     get editing(): boolean {
         return (this.dt.editingCell && this.editableColumn && this.dt.editingCell === this.editableColumn.el.nativeElement) ||
-            (this.editableRow && this.dt.editMode === 'row' && this.dt.isRowEditing(this.editableRow.data));
+                (this.editableRow && this.dt.editMode === 'row' && this.dt.isRowEditing(this.editableRow.data));
     }
 
 }
@@ -3641,8 +3711,7 @@ export class CellEditor implements AfterContentInit {
                 <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="disabled" [attr.aria-label]="ariaLabel">
             </div>
-            <div #box [ngClass]="{'p-radiobutton-box p-component':true,
-                'p-highlight':checked, 'p-disabled':disabled}" role="radio" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{'p-radiobutton-box p-component':true, 'p-highlight':checked, 'p-disabled':disabled}" role="radio" [attr.aria-checked]="checked">
                 <div class="p-radiobutton-icon"></div>
             </div>
         </div>
@@ -3650,7 +3719,7 @@ export class CellEditor implements AfterContentInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TableRadioButton {
+export class TableRadioButton  {
 
     @Input() disabled: boolean;
 
@@ -3724,7 +3793,7 @@ export class TableRadioButton {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TableCheckbox {
+export class TableCheckbox  {
 
     @Input() disabled: boolean;
 
@@ -3800,7 +3869,7 @@ export class TableCheckbox {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TableHeaderCheckbox {
+export class TableHeaderCheckbox  {
 
     @ViewChild('box') boxViewChild: ElementRef;
 
@@ -3866,14 +3935,14 @@ export class TableHeaderCheckbox {
 
     updateCheckedState() {
         this.cd.markForCheck();
-
-        if (this.dt.filteredValue) {
+        if (this.dt.filteredValue && !this.dt.lazy) {
             const val = this.dt.filteredValue;
             return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.isAllFilteredValuesChecked());
         }
         else {
             const val = this.dt.value;
-            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
+            const length = this.dt.lazy ? this.dt._totalRecords : val ? val.length : 0;
+            return (val && length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === length);
         }
     }
 
@@ -3900,7 +3969,7 @@ export class ReorderableRowHandle implements AfterViewInit {
 
     @Input("pReorderableRowHandle") index: number;
 
-    constructor(public el: ElementRef) { }
+    constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
         DomHandler.addClass(this.el.nativeElement, 'p-datatable-reorderablerow-handle');
@@ -3928,7 +3997,7 @@ export class ReorderableRow implements AfterViewInit {
 
     dropListener: any;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -4074,7 +4143,7 @@ export class ColumnFilterFormElement implements OnInit {
 
     filterCallback: Function;
 
-    constructor(public dt: Table) { }
+    constructor(public dt: Table) {}
 
     ngOnInit() {
         this.filterCallback = value => {
@@ -4111,11 +4180,11 @@ export class ColumnFilterFormElement implements OnInit {
             <p-columnFilterFormElement *ngIf="display === 'row'" class="p-fluid" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
                                     [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
             <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" aria-haspopup="true" [attr.aria-expanded]="overlayVisible"
-                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}" 
+                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}"
                 (click)="toggleMenu()" (keydown)="onToggleButtonKeyDown($event)"><span class="pi pi-filter-icon pi-filter"></span></button>
             <button #icon *ngIf="showMenuButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-filter-slash"></span></button>
-            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" 
-                [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (keydown.escape)="onEscape()">
+            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" (click)="onContentClick()"
+                [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" (keydown.escape)="onEscape()">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
                 <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
                     <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
@@ -4153,7 +4222,7 @@ export class ColumnFilterFormElement implements OnInit {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({ opacity: 0, transform: 'scaleY(0.8)' }),
+                style({opacity: 0, transform: 'scaleY(0.8)'}),
                 animate('.12s cubic-bezier(0, 0, 0.2, 1)')
             ]),
             transition(':leave', [
@@ -4217,7 +4286,9 @@ export class ColumnFilter implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+
+    overlaySubscription: Subscription;
 
     headerTemplate: TemplateRef<any>;
 
@@ -4243,6 +4314,10 @@ export class ColumnFilter implements AfterContentInit {
 
     resetSubscription: Subscription;
 
+    selfClick: boolean;
+
+    overlayEventListener;
+
     ngOnInit() {
         if (!this.dt.filters[this.field]) {
             this.initFieldFilterConstraint();
@@ -4261,45 +4336,45 @@ export class ColumnFilter implements AfterContentInit {
         this.generateOperatorOptions();
     }
 
-    generateMatchModeOptions() {
+    generateMatchModeOptions() {
         this.matchModes = this.matchModeOptions ||
-            this.config.filterMatchModeOptions[this.type]?.map(key => {
-                return { label: this.config.getTranslation(key), value: key }
-            });
+        this.config.filterMatchModeOptions[this.type]?.map(key => {
+            return {label: this.config.getTranslation(key), value: key}
+        });
     }
 
-    generateOperatorOptions() {
+    generateOperatorOptions() {
         this.operatorOptions = [
-            { label: this.config.getTranslation(TranslationKeys.MATCH_ALL), value: FilterOperator.AND },
-            { label: this.config.getTranslation(TranslationKeys.MATCH_ANY), value: FilterOperator.OR }
+            {label: this.config.getTranslation(TranslationKeys.MATCH_ALL), value: FilterOperator.AND},
+            {label: this.config.getTranslation(TranslationKeys.MATCH_ANY), value: FilterOperator.OR}
         ];
     }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch (item.getType()) {
+            switch(item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                    break;
+                break;
 
                 case 'filter':
                     this.filterTemplate = item.template;
-                    break;
+                break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                    break;
+                break;
 
                 default:
                     this.filterTemplate = item.template;
-                    break;
+                break;
             }
         });
     }
 
     initFieldFilterConstraint() {
         let defaultMatchMode = this.getDefaultMatchMode();
-        this.dt.filters[this.field] = this.display == 'row' ? { value: null, matchMode: defaultMatchMode } : [{ value: null, matchMode: defaultMatchMode, operator: this.operator }];
+        this.dt.filters[this.field] = this.display == 'row' ? {value: null, matchMode: defaultMatchMode} : [{value: null, matchMode: defaultMatchMode, operator: this.operator}];
     }
 
     onMenuMatchModeChange(value: any, filterMeta: FilterMetadata) {
@@ -4311,15 +4386,15 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     onRowMatchModeChange(matchMode: string) {
-        (<FilterMetadata>this.dt.filters[this.field]).matchMode = matchMode;
+        (<FilterMetadata> this.dt.filters[this.field]).matchMode = matchMode;
         this.dt._filter();
         this.hide();
     }
 
     onRowMatchModeKeyDown(event: KeyboardEvent) {
-        let item = <HTMLLIElement>event.target;
+        let item = <HTMLLIElement> event.target;
 
-        switch (event.key) {
+        switch(event.key) {
             case 'ArrowDown':
                 var nextItem = this.findNextItem(item);
                 if (nextItem) {
@@ -4329,7 +4404,7 @@ export class ColumnFilter implements AfterContentInit {
                 }
 
                 event.preventDefault();
-                break;
+            break;
 
             case 'ArrowUp':
                 var prevItem = this.findPrevItem(item);
@@ -4340,7 +4415,7 @@ export class ColumnFilter implements AfterContentInit {
                 }
 
                 event.preventDefault();
-                break;
+            break;
         }
     }
 
@@ -4350,21 +4425,21 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isRowMatchModeSelected(matchMode: string) {
-        return (<FilterMetadata>this.dt.filters[this.field]).matchMode === matchMode;
+        return (<FilterMetadata> this.dt.filters[this.field]).matchMode === matchMode;
     }
 
     addConstraint() {
-        (<FilterMetadata[]>this.dt.filters[this.field]).push({ value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator() });
+        (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator()});
         this.dt._filter();
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
-        this.dt.filters[this.field] = (<FilterMetadata[]>this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
+        this.dt.filters[this.field] = (<FilterMetadata[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
         this.dt._filter();
     }
 
     onOperatorChange(value) {
-        (<FilterMetadata[]>this.dt.filters[this.field]).forEach(filterMeta => {
+        (<FilterMetadata[]> this.dt.filters[this.field]).forEach(filterMeta => {
             filterMeta.operator = value;
             this.operator = value;
         });
@@ -4379,11 +4454,11 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     onToggleButtonKeyDown(event: KeyboardEvent) {
-        switch (event.key) {
+        switch(event.key) {
             case 'Escape':
             case 'Tab':
                 this.overlayVisible = false;
-                break;
+            break;
 
             case 'ArrowDown':
                 if (this.overlayVisible) {
@@ -4397,7 +4472,7 @@ export class ColumnFilter implements AfterContentInit {
                     this.overlayVisible = true;
                     event.preventDefault();
                 }
-                break;
+            break;
         }
     }
 
@@ -4407,21 +4482,25 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     findNextItem(item: HTMLLIElement) {
-        let nextItem = <HTMLLIElement>item.nextElementSibling;
+        let nextItem = <HTMLLIElement> item.nextElementSibling;
 
         if (nextItem)
-            return DomHandler.hasClass(nextItem, 'p-column-filter-separator') ? this.findNextItem(nextItem) : nextItem;
+            return DomHandler.hasClass(nextItem, 'p-column-filter-separator')  ? this.findNextItem(nextItem) : nextItem;
         else
             return item.parentElement.firstElementChild;
     }
 
     findPrevItem(item: HTMLLIElement) {
-        let prevItem = <HTMLLIElement>item.previousElementSibling;
+        let prevItem = <HTMLLIElement> item.previousElementSibling;
 
         if (prevItem)
-            return DomHandler.hasClass(prevItem, 'p-column-filter-separator') ? this.findPrevItem(prevItem) : prevItem;
+            return DomHandler.hasClass(prevItem, 'p-column-filter-separator')  ? this.findPrevItem(prevItem) : prevItem;
         else
-            return item.parentElement.lastElementChild;
+        return item.parentElement.lastElementChild;
+    }
+
+    onContentClick() {
+        this.selfClick = true;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -4430,16 +4509,36 @@ export class ColumnFilter implements AfterContentInit {
                 this.overlay = event.element;
 
                 document.body.appendChild(this.overlay);
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
                 this.bindScrollListener();
-                break;
+
+                this.overlayEventListener = (e) => {
+                    if (this.overlay && this.overlay.contains(e.target)) {
+                        this.selfClick = true;
+                    }
+                }
+
+                this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
+            break;
 
             case 'void':
                 this.onOverlayHide();
-                break;
+
+                if (this.overlaySubscription) {
+                    this.overlaySubscription.unsubscribe();
+                }
+            break;
+        }
+    }
+
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
+            break;
         }
     }
 
@@ -4460,7 +4559,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     getDefaultOperator(): string {
-        return this.dt.filters ? (<FilterMetadata[]>this.dt.filters[this.field])[0].operator : this.operator;
+        return this.dt.filters ? (<FilterMetadata[]> this.dt.filters[this.field])[0].operator: this.operator;
     }
 
     hasRowFilter() {
@@ -4468,7 +4567,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get fieldConstraints(): FilterMetadata[] {
-        return this.dt.filters ? <FilterMetadata[]>this.dt.filters[this.field] : null;
+        return this.dt.filters ? <FilterMetadata[]> this.dt.filters[this.field] : null;
     }
 
     get showRemoveIcon(): boolean {
@@ -4476,7 +4575,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get showMenuButton(): boolean {
-        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
+        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean': true);
     }
 
     get isShowOperator(): boolean {
@@ -4511,7 +4610,7 @@ export class ColumnFilter implements AfterContentInit {
         let fieldFilter = this.dt.filters[this.field];
         if (fieldFilter) {
             if (Array.isArray(fieldFilter))
-                return !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
+                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value);
             else
                 return !this.dt.isFilterBlank(fieldFilter.value);
         }
@@ -4531,9 +4630,11 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', event => {
-                if (this.isOutsideClicked(event)) {
+                if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
                     this.hide();
                 }
+
+                this.selfClick = false;
             });
         }
     }
@@ -4542,6 +4643,7 @@ export class ColumnFilter implements AfterContentInit {
         if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
+            this.selfClick = false;
         }
     }
 
@@ -4601,6 +4703,7 @@ export class ColumnFilter implements AfterContentInit {
     ngOnDestroy() {
         if (this.overlay) {
             this.el.nativeElement.appendChild(this.overlay);
+            ZIndexUtils.clear(this.overlay);
             this.onOverlayHide();
         }
 
@@ -4611,14 +4714,18 @@ export class ColumnFilter implements AfterContentInit {
         if (this.resetSubscription) {
             this.resetSubscription.unsubscribe();
         }
+
+        if (this.overlaySubscription) {
+            this.overlaySubscription.unsubscribe();
+        }
     }
 }
 
 @NgModule({
-    imports: [CommonModule, PaginatorModule, InputTextModule, DropdownModule, ScrollingModule, FormsModule, ButtonModule, SelectButtonModule, CalendarModule, InputNumberModule, TriStateCheckboxModule],
-    exports: [Table, SharedModule, SortableColumn, SelectableRow, RowToggler, ContextMenuRow, ResizableColumn, ReorderableColumn, EditableColumn, CellEditor, SortIcon,
-        TableRadioButton, TableCheckbox, TableHeaderCheckbox, ReorderableRowHandle, ReorderableRow, SelectableRowDblClick, EditableRow, InitEditableRow, SaveEditableRow, CancelEditableRow, ScrollingModule, ColumnFilter],
-    declarations: [Table, SortableColumn, SelectableRow, RowToggler, ContextMenuRow, ResizableColumn, ReorderableColumn, EditableColumn, CellEditor, TableBody, ScrollableView, SortIcon,
-        TableRadioButton, TableCheckbox, TableHeaderCheckbox, ReorderableRowHandle, ReorderableRow, SelectableRowDblClick, EditableRow, InitEditableRow, SaveEditableRow, CancelEditableRow, ColumnFilter, ColumnFilterFormElement]
+    imports: [CommonModule,PaginatorModule,InputTextModule,DropdownModule,ScrollingModule,FormsModule,ButtonModule,SelectButtonModule,CalendarModule,InputNumberModule,TriStateCheckboxModule],
+    exports: [Table,SharedModule,SortableColumn,FrozenColumn,RowGroupHeader,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,
+            TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow,ScrollingModule,ColumnFilter],
+    declarations: [Table,SortableColumn,FrozenColumn,RowGroupHeader,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,SortIcon,
+            TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow,ColumnFilter,ColumnFilterFormElement]
 })
 export class TableModule { }

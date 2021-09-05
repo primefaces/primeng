@@ -3,8 +3,8 @@ import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentIni
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
+import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys, OverlayService } from 'primeng/api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TooltipModule } from 'primeng/tooltip';
@@ -19,7 +19,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelectItem',
     template: `
-        <li class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)" [attr.aria-label]="label" 
+        <li class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)" [attr.aria-label]="label"
             [attr.tabindex]="disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'p-highlight': selected, 'p-disabled': disabled}" pRipple>
             <div class="p-checkbox p-component">
@@ -98,8 +98,8 @@ export class MultiSelectItem {
             <div [ngClass]="{'p-multiselect-trigger':true}">
                 <span class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon"></span>
             </div>
-            <div *ngIf="overlayVisible" [ngClass]="['p-multiselect-panel p-component']" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)">
+            <div *ngIf="overlayVisible" [ngClass]="['p-multiselect-panel p-component']" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"onOverlayAnimationEnd
+                (@overlayAnimation.done)="onOverlayAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)" (click)="onOverlayClick($event)" >
                 <div class="p-multiselect-header" *ngIf="showHeader">
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -402,7 +402,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     preventModelTouched: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
         this.updateLabel();
@@ -583,8 +583,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.disabled || this.toggleAllDisabled || this.readonly) {
             return;
         }
-        
-        let allChecked = this.allChecked;     
+
+        let allChecked = this.allChecked;
 
         if (allChecked)
             this.uncheckAll();
@@ -592,7 +592,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.checkAll();
 
         this.onModelChange(this.value);
-        this.onChange.emit({ originalEvent: event, value: this.value });        
+        this.onChange.emit({ originalEvent: event, value: this.value });
         this.updateFilledState();
         this.updateLabel();
         event.preventDefault();
@@ -604,7 +604,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
         optionsToRender.forEach(opt => {
             if (!this.group) {
-                let optionDisabled = this.isOptionDisabled(opt); 
+                let optionDisabled = this.isOptionDisabled(opt);
                 if (!optionDisabled || (optionDisabled && this.isSelected(opt))) {
                     val.push(this.getOptionValue(opt));
                 }
@@ -614,7 +614,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
                 if (subOptions) {
                     subOptions.forEach(option => {
-                        let optionDisabled = this.isOptionDisabled(option); 
+                        let optionDisabled = this.isOptionDisabled(option);
                         if (!optionDisabled || (optionDisabled && this.isSelected(option))) {
                             val.push(this.getOptionValue(option));
                         }
@@ -632,7 +632,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
         optionsToRender.forEach(opt => {
             if (!this.group) {
-                let optionDisabled = this.isOptionDisabled(opt); 
+                let optionDisabled = this.isOptionDisabled(opt);
                 if (optionDisabled && this.isSelected(opt)) {
                     val.push(this.getOptionValue(opt));
                 }
@@ -640,7 +640,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             else {
                 if (opt.items) {
                     opt.items.forEach(option => {
-                        let optionDisabled = this.isOptionDisabled(option); 
+                        let optionDisabled = this.isOptionDisabled(option);
                         if (optionDisabled && this.isSelected(option)) {
                             val.push(this.getOptionValue(option));
                         }
@@ -658,13 +658,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
                 this.appendOverlay();
                 if (this.autoZIndex) {
-                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                    ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
@@ -684,6 +691,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
             case 'void':
                 this.onOverlayHide();
+            break;
+        }
+    }
+
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
             break;
         }
     }
@@ -940,16 +955,16 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             let unselectedDisabledItemsLength = 0;
             let selectedEnabledItemsLength = 0;
             let visibleOptionsLength = this.group ? 0 : this.optionsToRender.length;
-            
+
             for (let option of optionsToRender) {
                 if (!this.group) {
                     let disabled = this.isOptionDisabled(option);
                     let selected = this.isSelected(option);
-    
+
                     if (disabled) {
                         if (selected)
                             selectedDisabledItemsLength++;
-                        else 
+                        else
                             unselectedDisabledItemsLength++;
                     }
                     else {
@@ -963,11 +978,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                     for (let opt of this.getOptionGroupChildren(option)) {
                         let disabled = this.isOptionDisabled(opt);
                         let selected = this.isSelected(opt);
-        
+
                         if (disabled) {
                             if (selected)
                                 selectedDisabledItemsLength++;
-                            else 
+                            else
                                 unselectedDisabledItemsLength++;
                         }
                         else {
@@ -983,8 +998,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
 
-            return (visibleOptionsLength === selectedDisabledItemsLength 
-                    || visibleOptionsLength === selectedEnabledItemsLength 
+            return (visibleOptionsLength === selectedDisabledItemsLength
+                    || visibleOptionsLength === selectedEnabledItemsLength
                     || selectedEnabledItemsLength && visibleOptionsLength === (selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength));
         }
     }
@@ -1007,7 +1022,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     hasFilter() {
-        return this._filterValue && this._filterValue.trim().length > 0; 
+        return this._filterValue && this._filterValue.trim().length > 0;
     }
 
     onFilterInputChange(event: KeyboardEvent) {
@@ -1033,7 +1048,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this._filteredOptions = filteredGroups;
             }
             else {
-                this._filteredOptions = this.filterService.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);        
+                this._filteredOptions = this.filterService.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);
             }
         }
         else {
@@ -1116,6 +1131,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.overlay) {
+            ZIndexUtils.clear(this.overlay);
         }
 
         this.restoreOverlayAppend();

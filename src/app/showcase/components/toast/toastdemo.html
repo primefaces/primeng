@@ -44,7 +44,7 @@
         <button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"></button>
         <button type="button" pButton pRipple (click)="showTopCenter()" label="Top Center" class="p-button-warning"></button>
         <button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"></button>
-        
+
         <h5>Multiple</h5>
         <button type="button" pButton pRipple (click)="showMultiple()" label="Multiple" class="p-button-warning"></button>
         <button type="button" pButton pRipple (click)="showSticky()" label="Sticky"></button>
@@ -132,6 +132,18 @@ import &#123;ToastModule&#125; from 'primeng/toast';
                             <td>null</td>
                             <td>Arbitrary object to associate with the message.</td>
                         </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the message.</td>
+                        </tr>
+                        <tr>
+                            <td>contentStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the content.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -140,7 +152,7 @@ import &#123;ToastModule&#125; from 'primeng/toast';
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 </app-code>
-       
+
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;MessageService&#125; from 'primeng/api';
@@ -149,18 +161,18 @@ import &#123;MessageService&#125; from 'primeng/api';
     templateUrl: './my.component.html'
 &#125;)
 export class MyComponent &#123;
-    
+
     constructor(private messageService: MessageService) &#123;&#125;
-    
+
     addSingle() &#123;
         this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
     &#125;
-    
+
     addMultiple() &#123;
         this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
                                     &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
     &#125;
-    
+
     clear() &#123;
         this.messageService.clear();
     &#125;
@@ -237,8 +249,14 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 &lt;/p-toast&gt;
 </app-code>
 
+            <h5>Responsive</h5>
+            <p>Toast styling can be adjusted per screen size with the <i>breakpoints</i> option. The value of <i>breakpoints</i> should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast [breakpoints]="&#123;'920px': &#123;width: '100%', right: '0', left: '0'&#125;&#125;"&gt;&lt;/p-toast&gt;
+</app-code>
+
             <h5>Animation Configuration</h5>
-            <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties, 
+            <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties,
                 example below disables the animations altogether.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -249,7 +267,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [showTransformOptions]="'translateX(100%)'"&gt;&lt;/p-toast&gt;
 </app-code>
-            
+
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -329,6 +347,12 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                             <td>It does not add the new message if there is already a toast displayed with the same content</td>
                         </tr>
                         <tr>
+                            <td>breakpoints</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Object literal to define styles per screen size.</td>
+                        </tr>
+                        <tr>
                             <td>preventDuplicates</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -337,7 +361,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                     </tbody>
                 </table>
             </div>
-            
+
             <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -467,7 +491,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
     &lt;button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"&gt;&lt;/button&gt;
     &lt;button type="button" pButton pRipple (click)="showTopCenter()" label="Top Center" class="p-button-warning"&gt;&lt;/button&gt;
     &lt;button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"&gt;&lt;/button&gt;
-    
+
     &lt;h5&gt;Multiple&lt;/h5&gt;
     &lt;button type="button" pButton pRipple (click)="showMultiple()" label="Multiple" class="p-button-warning"&gt;&lt;/button&gt;
     &lt;button type="button" pButton pRipple (click)="showSticky()" label="Sticky"&gt;&lt;/button&gt;
@@ -488,7 +512,7 @@ import &#123;MessageService&#125; from 'primeng/api';
     templateUrl: './toastdemo.html',
     styleUrls: ['./toastdemo.scss'],
     providers: [MessageService]
-    
+
 &#125;)
 export class ToastDemo &#123;
 
@@ -550,7 +574,7 @@ export class ToastDemo &#123;
     onReject() &#123;
         this.messageService.clear('c');
     &#125;
-    
+
     clear() &#123;
         this.messageService.clear();
     &#125;

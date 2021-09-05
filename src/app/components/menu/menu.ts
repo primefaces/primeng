@@ -2,9 +2,11 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Render
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, OverlayService, PrimeNGConfig} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 import {RouterModule} from '@angular/router';
 import {RippleModule} from 'primeng/ripple';
+import {TooltipModule} from 'primeng/tooltip';
 import { Directionality } from '@angular/cdk/bidi';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -42,11 +44,9 @@ export class MenuItemContent {
 @Component({
     selector: 'p-menu',
     template: `
-        <div #container [ngClass]="{'p-menu p-component': true, 
-        'p-component-rtl' : rtl,
-        'p-menu-overlay': popup}"
-            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible"
-            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+        <div #container [ngClass]="{'p-menu p-component': true,'p-component-rtl' : rtl, 'p-menu-overlay': popup}"
+            [class]="styleClass" [ngStyle]="style" *ngIf="!popup || visible" (click)="onOverlayClick($event)"
+            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
             <ul class="p-menu-list p-reset">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}"></li>
@@ -61,7 +61,7 @@ export class MenuItemContent {
                 </ng-template>
                 <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{'p-hidden': item.visible === false}"></li>
-                    <li class="p-menuitem" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'p-hidden': item.visible === false}" [ngStyle]="item.style" [class]="item.styleClass"></li>
+                    <li class="p-menuitem" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'p-hidden': item.visible === false}" [ngStyle]="item.style" [class]="item.styleClass" pTooltip [tooltipOptions]="item.tooltipOptions"></li>
                 </ng-template>
             </ul>
         </div>
@@ -125,7 +125,7 @@ export class Menu implements OnInit, OnDestroy {
 
     relativeAlign: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef,private dir: Directionality) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService,private dir: Directionality) {}
 
     ngOnInit() {
 
@@ -172,6 +172,16 @@ export class Menu implements OnInit, OnDestroy {
         }
     }
 
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'void':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(event.element);
+                }
+            break;
+        }
+    }
+
     alignOverlay() {
         if (this.relativeAlign)
             DomHandler.relativePosition(this.container, this.target);
@@ -196,7 +206,7 @@ export class Menu implements OnInit, OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('menu', this.container, this.baseZIndex + this.config.zIndex.menu);
         }
     }
 
@@ -230,6 +240,17 @@ export class Menu implements OnInit, OnDestroy {
         if (this.popup) {
             this.hide();
         }
+    }
+
+    onOverlayClick(event) {
+        if (this.popup) {
+            this.overlayService.add({
+                originalEvent: event,
+                target: this.el.nativeElement
+            });
+        }
+
+        this.preventDocumentDefault=true
     }
 
     bindDocumentClickListener() {
@@ -298,6 +319,10 @@ export class Menu implements OnInit, OnDestroy {
                 this.scrollHandler = null;
             }
 
+            if (this.container && this.autoZIndex) {
+                ZIndexUtils.clear(this.container);
+            }
+
             this.restoreOverlayAppend();
             this.onOverlayHide();
         }
@@ -316,8 +341,8 @@ export class Menu implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ScrollingModule,RouterModule,RippleModule],
-    exports: [ScrollingModule,Menu,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule,TooltipModule,ScrollingModule],
+    exports: [Menu,RouterModule,TooltipModule,ScrollingModule],
     declarations: [Menu,MenuItemContent]
 })
 export class MenuModule { }

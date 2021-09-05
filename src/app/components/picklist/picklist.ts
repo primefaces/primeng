@@ -28,7 +28,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
-                
+
                 <ul #sourcelist class="p-picklist-list p-picklist-source" cdkDropList [cdkDropListData]="source" (cdkDropListDropped)="onDrop($event, SOURCE_LIST)"
                     [ngStyle]="sourceStyle" role="listbox" aria-multiselectable="multiple">
                     <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="sourceTrackBy || trackBy" let-i="index" let-l="last">
@@ -346,7 +346,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.filterValueSource = query;
         else if (listType === this.TARGET_LIST)
             this.filterValueTarget = query;
-        
+
         this.filter(data, listType);
     }
 
@@ -376,7 +376,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         else
             return this.filterValueTarget ? (!this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0) : (!this.target || this.target.length === 0);
     }
-    
+
 
     isVisibleInList(data: any[], item: any, filterValue: string): boolean {
         if (filterValue && filterValue.trim().length) {
@@ -616,19 +616,19 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     onDrop(event: CdkDragDrop<string[]>, listType: number) {
         let isTransfer = event.previousContainer !== event.container;
         let dropIndexes = this.getDropIndexes(event.previousIndex, event.currentIndex, listType, isTransfer, event.item.data);
-        
+
         if (listType === this.SOURCE_LIST) {
             if (isTransfer) {
                 transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
-                
+
                 if (this.visibleOptionsTarget)
                     this.visibleOptionsTarget.splice(event.previousIndex, 1);
-                
-                this.onMoveToSource.emit({items: event.item.data});
+
+                this.onMoveToSource.emit({items: [event.item.data]});
             }
             else {
                 moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
-                this.onSourceReorder.emit({items: event.item.data});
+                this.onSourceReorder.emit({items: [event.item.data]});
             }
 
             if (this.filterValueSource) {
@@ -638,15 +638,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         else {
             if (isTransfer) {
                 transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
-                
+
                 if (this.visibleOptionsSource)
                     this.visibleOptionsSource.splice(event.previousIndex, 1);
-                
-                this.onMoveToTarget.emit({items: event.item.data});
+
+                this.onMoveToTarget.emit({items: [event.item.data]});
             }
             else {
                 moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
-                this.onTargetReorder.emit({items: event.item.data});
+                this.onTargetReorder.emit({items: [event.item.data]});
             }
 
             if (this.filterValueTarget) {
@@ -673,7 +673,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     findFilteredCurrentIndex(visibleOptions, index, options) {
         if (visibleOptions.length === index) {
             let toIndex = ObjectUtils.findIndexInList(visibleOptions[index-1], options);
-            
+
             return toIndex + 1;
         }
         else {
@@ -753,39 +753,39 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 .p-picklist[${this.id}] {
                     flex-direction: column;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons {
                     padding: var(--content-padding);
                     flex-direction: row;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons .p-button {
                     margin-right: var(--inline-spacing);
                     margin-bottom: 0;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
                     margin-right: 0;
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-right:before {
                     content: "\\e930"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-double-right:before {
                     content: "\\e92c"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-left:before {
                     content: "\\e933"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-double-left:before {
                     content: "\\e92f"
                 }
             }
             `;
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }

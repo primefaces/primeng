@@ -9,7 +9,7 @@ import {MenuModule, Menu} from 'primeng/menu';
     template: `
         <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
-            <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
+            <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled" [attr.aria-label]="expandAriaLabel"></button>
             <p-menu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo"
                     [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-menu>
         </div>
@@ -25,35 +25,37 @@ export class SplitButton {
     @Input() icon: string;
 
     @Input() iconPos: string = 'left';
-        
+
     @Input() label: string;
-    
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() menuStyle: any;
-    
+
     @Input() menuStyleClass: string;
-    
+
     @Input() disabled: boolean;
 
     @Input() tabindex: number;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() dir: string;
+
+    @Input() expandAriaLabel: string;
 
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
 
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
     @ViewChild('menu') menu: Menu;
@@ -61,7 +63,7 @@ export class SplitButton {
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
-          
+
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
         this.menu.toggle({currentTarget: this.containerViewChild.nativeElement, relativeAlign: this.appendTo == null});

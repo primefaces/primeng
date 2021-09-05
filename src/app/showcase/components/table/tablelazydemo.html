@@ -9,7 +9,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+        <p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)" responsiveLayout="scroll"
             [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
             <ng-template pTemplate="header">
                 <tr>
@@ -67,7 +67,7 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+&lt;p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)" responsiveLayout="scroll"
     [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['name','country.name', 'company', 'representative.name']"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -131,7 +131,7 @@ export class TableLazyDemo implements OnInit &#123;
     cols: any[];
 
     loading: boolean;
-    
+
     representatives: Representative[];
 
     constructor(private customerService: CustomerService) &#123; &#125;
@@ -153,7 +153,7 @@ export class TableLazyDemo implements OnInit &#123;
         this.loading = true;
     &#125;
 
-    loadCustomers(event: LazyLoadEvent) &#123;  
+    loadCustomers(event: LazyLoadEvent) &#123;
         this.loading = true;
 
         setTimeout(() =&gt; &#123;

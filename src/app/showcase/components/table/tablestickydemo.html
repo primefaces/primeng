@@ -89,18 +89,26 @@ import &#123; CustomerService &#125; from '../../service/customerservice';
     templateUrl: './tablestickydemo.html',
     styleUrls: ['./tabledemo.scss'],
     styles: [`
-        :host ::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th &#123;
+        :host ::ng-deep .p-datatable .p-datatable-thead > tr > th &#123;
             position: -webkit-sticky;
             position: sticky;
-            top: 69px;
+            top: 0;
+        &#125;
+
+        .layout-news-active :host ::ng-deep .p-datatable tr > th &#123;
+            top: 0;
         &#125;
 
         @media screen and (max-width: 64em) &#123;
-            :host ::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th &#123;
-                top: 99px;
+            :host ::ng-deep .p-datatable .p-datatable-thead > tr > th &#123;
+                top: 0;
+            &#125;
+
+            .layout-news-active :host ::ng-deep .p-datatable tr > th &#123;
+                top: 0;
             &#125;
         &#125;
-`]
+    `]
 &#125;)
 export class TableStickyDemo implements OnInit &#123;
 
@@ -113,7 +121,7 @@ export class TableStickyDemo implements OnInit &#123;
     &#125;
 
 &#125;
-</app-code> 
+</app-code>
 
         </p-tabPanel>
 

@@ -5,6 +5,8 @@ import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { DynamicDialogRef } from './dynamicdialog-ref';
+import { ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig } from 'primeng/api';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -81,7 +83,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     transformOptions: string = "scale(0.7)";
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
+			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig) { }
 
 	ngAfterViewInit() {
 		this.loadChildComponent(this.childComponentType);
@@ -99,9 +101,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	moveOnTop() {
         if (this.config.autoZIndex !== false) {
-			const zIndex = (this.config.baseZIndex||0) + (++DomHandler.zindex);
-			this.container.style.zIndex = String(zIndex);
-			this.maskViewChild.nativeElement.style.zIndex = String(zIndex - 1);
+            ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeNGConfig.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
 		}
     }
 
@@ -133,6 +134,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	onContainerDestroy() {
 		this.unbindGlobalListeners();
+
+        if (this.container && this.config.autoZIndex !== false) {
+            ZIndexUtils.clear(this.container);
+        }
 
         if (this.config.modal !== false) {
             this.disableModality();

@@ -49,7 +49,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
     <p-table class="filterTable" #dt [columns]="cols" [value]="cars">
         <ng-template pTemplate="caption">
-            <div style="text-align: right">        
+            <div style="text-align: right">
                 <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" class="globalFilter" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
             </div>
@@ -405,7 +405,7 @@ class TestBasicTableComponent {
 
 }
 describe('Table', () => {
-  
+
     let table: Table;
     let filterTable: Table;
     let sortTable: Table;
@@ -460,14 +460,14 @@ describe('Table', () => {
 
     it('should display by default', () => {
         fixture.detectChanges();
-  
+
         const tableEl = fixture.debugElement.query(By.css('div'));
         expect(tableEl.nativeElement).toBeTruthy();
     });
 
     it('should display 10 rows', () => {
         fixture.detectChanges();
-  
+
         const tableEl = fixture.debugElement.query(By.css('div'));
         const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(10);
@@ -475,7 +475,7 @@ describe('Table', () => {
 
     it('should use sections', () => {
         fixture.detectChanges();
-        
+
         expect(table.captionTemplate).toBeTruthy();
         expect(table.footerTemplate).toBeTruthy();
         expect(table.summaryTemplate).toBeTruthy();
@@ -500,7 +500,7 @@ describe('Table', () => {
         table.paginator = true;
         table.rows = 5;
         fixture.detectChanges();
-        
+
         const tableEl = fixture.debugElement.query(By.css('div'));
         const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(5);
@@ -564,7 +564,7 @@ describe('Table', () => {
 
         filterTable.globalFilterFields = ['year','color','brand']
         fixture.detectChanges();
-        
+
         const globalFilter = fixture.debugElement.query(By.css(".globalFilter"));
         globalFilter.nativeElement.value = "dsad231";
         globalFilter.nativeElement.dispatchEvent(new Event("input"));
@@ -578,7 +578,7 @@ describe('Table', () => {
 
     it('should use endsWith filter and show 1 item. It should clear the filter and show 10 item.', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("231ff","vin","endsWith");
         tick(300);
         fixture.detectChanges();
@@ -596,7 +596,7 @@ describe('Table', () => {
 
     it('should use equals filter and show 1 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("dsad231ff","vin","equals");
         tick(300);
         fixture.detectChanges();
@@ -608,7 +608,7 @@ describe('Table', () => {
 
     it('should use not equals filter and show 9 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("dsad231ff","vin","notEquals");
         tick(300);
         fixture.detectChanges();
@@ -620,7 +620,7 @@ describe('Table', () => {
 
     it('should use in filter and show 1 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter(["BMW",null],"brand","in");
         tick(300);
         fixture.detectChanges();
@@ -637,7 +637,7 @@ describe('Table', () => {
 
     it('should use lt filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","lt");
         tick(300);
         fixture.detectChanges();
@@ -649,7 +649,7 @@ describe('Table', () => {
 
     it('should use lte filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","lte");
         tick(300);
         fixture.detectChanges();
@@ -661,7 +661,7 @@ describe('Table', () => {
 
     it('should use gt filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","gt");
         tick(300);
         fixture.detectChanges();
@@ -673,7 +673,7 @@ describe('Table', () => {
 
     it('should use gte filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","gte");
         tick(300);
         fixture.detectChanges();
@@ -758,7 +758,7 @@ describe('Table', () => {
         fixture.detectChanges();
         basicSelectionTable.dataKey = null;
         fixture.detectChanges();
-        
+
         const selectableRows = fixture.debugElement.queryAll(By.css(".selectableRow"));
         const vwEl = selectableRows[0];
         vwEl.nativeElement.click();
@@ -961,7 +961,7 @@ describe('Table', () => {
         vwRadioEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         vwRadioEl.nativeElement.click();
         fixture.detectChanges();
-        
+
         expect(vwRadioEl.query(By.css(".p-radiobutton-box")).nativeElement.className).toContain("p-focus");
         vwRadioEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
@@ -983,14 +983,14 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const checkboxRows = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
         expect(checkboxRows.length).toEqual(10);
         const vwCheckboxEl = checkboxRows[0].query(By.css("div"));
         vwCheckboxEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         vwCheckboxEl.nativeElement.click();
         fixture.detectChanges();
-        
+
         expect(vwCheckboxEl.query(By.css(".p-checkbox-box")).nativeElement.className).toContain("p-focus");
         vwCheckboxEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
@@ -1014,13 +1014,13 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const checkboxRows = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
         const vwCheckboxEl = checkboxRows[0].query(By.css("div"));
         const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
         headerCheckbox.query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
-        
+
         expect(headerCheckbox.query(By.css(".p-checkbox-box")).nativeElement.className).toContain("p-focus");
         headerCheckbox.nativeElement.click();
         headerCheckbox.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
@@ -1045,7 +1045,7 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
         headerCheckbox.nativeElement.click();
         fixture.detectChanges();
@@ -1072,7 +1072,7 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
         headerCheckbox.nativeElement.click();
         fixture.detectChanges();
@@ -1326,13 +1326,11 @@ describe('Table', () => {
 
         expect(onColumnResizeSpy).toHaveBeenCalled();
         const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
-        const resizeColGroupSpy = spyOn(colResizeTable,"resizeColGroup").and.callThrough();
         event.initEvent("mouseup");
         document.dispatchEvent(event as MouseEvent);
         fixture.detectChanges();
 
         expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizeColGroupSpy).toHaveBeenCalled();
         expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
@@ -1440,7 +1438,7 @@ describe('Table', () => {
         expect(reorderableTable.rowDragging).toBeTruthy();
         expect(reorderableTable.draggedRowIndex).toEqual(0);
         dragEvent.initEvent('dragover', true,true);
-        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth + 1; 
+        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth + 1;
         const onRowDragOverSpy = spyOn(reorderableTable,"onRowDragOver").and.callThrough();
         reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
@@ -1512,7 +1510,7 @@ describe('Table', () => {
         event.initEvent('contextmenu');
         rowEls[1].nativeElement.dispatchEvent(event);
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTable.contextMenuSelection.brand).toEqual("VW");
@@ -1534,7 +1532,7 @@ describe('Table', () => {
         event.initEvent('contextmenu');
         rowEls[1].nativeElement.dispatchEvent(event);
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTable.selection.brand).toEqual("VW");
@@ -1557,7 +1555,7 @@ describe('Table', () => {
         rowEls[1].nativeElement.dispatchEvent(event);
         rowEls[2].nativeElement.click();
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTable.selection[0].brand).toEqual("VW");
@@ -1566,9 +1564,9 @@ describe('Table', () => {
     });
 
     it('should call saveState and clearState (session)', () => {
-        stateTable.columnResizeMode = "expand";       
+        stateTable.columnResizeMode = "expand";
         fixture.detectChanges();
-        
+
         stateTable.selection = null;
         stateTable.clearState();
         stateTable.stateStorage = "session";
@@ -1623,9 +1621,9 @@ describe('Table', () => {
     });
 
     it('should call saveState and clearState (local)', () => {
-        stateTable.columnResizeMode = "expand";       
+        stateTable.columnResizeMode = "expand";
         fixture.detectChanges();
-        
+
         stateTable.selection = null;
         stateTable.clearState();
         stateTable.stateStorage = "local";

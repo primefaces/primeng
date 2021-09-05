@@ -12,7 +12,7 @@
     <div class="card">
         <h5>Basic</h5>
         <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
-    
+
         <h5>Severities</h5>
         <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
         <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary p-mb-2"></p-splitButton>
@@ -40,7 +40,7 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
 </app-code>
 
             <h5>Animation Configuration</h5>
-            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
+            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties,
                 example below disables the animations altogether.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
@@ -137,6 +137,12 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
                             <td>string</td>
                             <td>195ms ease-in</td>
                             <td>Transition options of the hide animation.</td>
+                        </tr>
+                        <tr>
+                            <td>expandAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the expand button for accessibility.</td>
                         </tr>
                     </tbody>
                 </table>

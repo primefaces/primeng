@@ -1,5 +1,109 @@
 # Changelog
 
+## [12.1.0](https://github.com/primefaces/primeng/tree/12.1.0) (2021-08-25)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0-rc.2...12.1.0)
+
+**Fixed bugs:**
+
+- Table Header Checkbox not working when lazy loading enabled [\#10532](https://github.com/primefaces/primeng/issues/10532)
+- AutoZIndex support for DynamicDialog [\#10526](https://github.com/primefaces/primeng/issues/10526)
+
+## [12.1.0-rc.2](https://github.com/primefaces/primeng/tree/12.1.0-rc.2) (2021-08-20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0-rc.1...12.1.0-rc.2)
+
+**Implemented New Features and Enhancements:**
+
+- TreeSelect missing Tree option propagateSelectionDown and propagateSelectionUp [\#10504](https://github.com/primefaces/primeng/issues/10504)
+- dateFormat option for I18N API [\#10503](https://github.com/primefaces/primeng/issues/10503)
+
+**Fixed bugs:**
+
+- Display issue of p-dropdown in p-dialog [\#10517](https://github.com/primefaces/primeng/issues/10517)
+- PrimeNG 12.1 pTooltip text display lags behind bound input change [\#10516](https://github.com/primefaces/primeng/issues/10516)
+- pFrozenColumn is moving when position set to left [\#10513](https://github.com/primefaces/primeng/issues/10513)
+- FlexScroll not working with VirtualScroll [\#10505](https://github.com/primefaces/primeng/issues/10505)
+
+## [12.1.0-rc.1](https://github.com/primefaces/primeng/tree/12.1.0-rc.1) (2021-08-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.1...12.1.0-rc.1)
+
+**Breaking changes:**
+- Update Chart.js to 3.3.2  [\#10452](https://github.com/primefaces/primeng/issues/10452)
+- FullCalendar v5 Theme Support [\#10451](https://github.com/primefaces/primeng/issues/10451)
+- DataTable RowGroup Mode [\#10396](https://github.com/primefaces/primeng/issues/10396)
+- New DataTable Scrolling [\#10395](https://github.com/primefaces/primeng/issues/10395)
+
+**Implemented New Features and Enhancements:**
+
+- New Table Responsive layout  [\#10495](https://github.com/primefaces/primeng/issues/10495)
+- Support for scrolling and column groups [\#10489](https://github.com/primefaces/primeng/issues/10489)
+- Tooltip support for Menu Components [\#10422](https://github.com/primefaces/primeng/issues/10422)
+- Dock Component [\#10413](https://github.com/primefaces/primeng/issues/10413)
+- onResizeStart event for p-splitter [\#10384](https://github.com/primefaces/primeng/issues/10384)
+- New Component: SpeedDial [\#10380](https://github.com/primefaces/primeng/issues/10380)
+- Reimplement OverlayService [\#10301](https://github.com/primefaces/primeng/issues/10301)
+- New Component: TreeSelect [\#10299](https://github.com/primefaces/primeng/issues/10299)
+- Customizable ZIndex Layering [\#10298](https://github.com/primefaces/primeng/issues/10298)
+
+**Fixed bugs:**
+
+- Improve resize feature of Dialog [\#10465](https://github.com/primefaces/primeng/issues/10465)
+- A maximizable dialog cannot be maximized properly after its size or position has been changed [\#10464](https://github.com/primefaces/primeng/issues/10464)
+- Overlay aligning calculation defect [\#10447](https://github.com/primefaces/primeng/issues/10447)
+- p-password is not changing when I18N API called [\#10446](https://github.com/primefaces/primeng/issues/10446)
+- Dropdown Array Key Selection skipping last entry. [\#10408](https://github.com/primefaces/primeng/issues/10408)
+- Unsubscription error when running any default component test using Steps [\#10379](https://github.com/primefaces/primeng/issues/10379)
+- TreeTable PartialSelect not working [\#10370](https://github.com/primefaces/primeng/issues/10370)
+- FileUpload Size Calculation is wrong [\#10369](https://github.com/primefaces/primeng/issues/10369)
+- p-password tamplate [\#10355](https://github.com/primefaces/primeng/issues/10355)
+
+## [12.0.2](https://github.com/primefaces/primeng/tree/12.0.2) (2021-08-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0...12.0.1)
+
+**Fixed bugs:**
+
+- StyleClass does not open overlay when source is clicked again [\#10491](https://github.com/primefaces/primeng/issues/10491)
+
+## [12.0.1](https://github.com/primefaces/primeng/tree/12.0.1) (2021-07-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0...12.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- pStyleClass Directive [\#10427](https://github.com/primefaces/primeng/issues/10427)
+
+## [12.0.0](https://github.com/primefaces/primeng/tree/12.0.0) (2021-06-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.0.0-rc.1...12.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Add gray scheme [\#10340](https://github.com/primefaces/primeng/issues/10340)
+- Responsive Toast [\#10339](https://github.com/primefaces/primeng/issues/10339)
+- Responsive TabMenu and Breadcrumb [\#10338](https://github.com/primefaces/primeng/issues/10338)
+- Toast center positioning enhancement [\#10333](https://github.com/primefaces/primeng/issues/10333)
+- CascadeSelect material theming improvements [\#10314](https://github.com/primefaces/primeng/issues/10314)
+- styleClass and contentStyleClass Support for Message [\#10308](https://github.com/primefaces/primeng/issues/10308)
+- Picklist events not always return an array [\#10284](https://github.com/primefaces/primeng/issues/10284)
+- \[Accessibility\] p-dropdown information is only announced after pressing ctrl+down arrow twice.  [\#10156](https://github.com/primefaces/primeng/issues/10156)
+
+**Fixed bugs:**
+
+- Filtering non existing item in p-dropdown \[filter=true, group=true\] and pressing key down generates error: Dropdown.html:25 ERROR TypeError: Cannot read property '0' of null [\#10332](https://github.com/primefaces/primeng/issues/10332)
+- Table frozen columns not working with colresize expand mode [\#10310](https://github.com/primefaces/primeng/issues/10310)
+- \#10286 for ColorPicker [\#10309](https://github.com/primefaces/primeng/issues/10309)
+- Splitter error : Cannot read property '0' of undefined at Splitter.onResize [\#10286](https://github.com/primefaces/primeng/issues/10286)
+- Button icon css class not set after it has been initialized [\#10277](https://github.com/primefaces/primeng/issues/10277)
+- FileUpload - long filename  [\#10275](https://github.com/primefaces/primeng/issues/10275)
+- p-dialog breakpoints is not working [\#10270](https://github.com/primefaces/primeng/issues/10270)
+- Sidebar wrong animation and close button display [\#10261](https://github.com/primefaces/primeng/issues/10261)
+- Badge with value 0 should use p-badge-no-gutter class [\#10257](https://github.com/primefaces/primeng/issues/10257)
+- Dropdown selecting disabled option throws error using keyboard arrows [\#10252](https://github.com/primefaces/primeng/issues/10252)
+- p-dropdown float label overlaps input when selected value is 0 [\#10245](https://github.com/primefaces/primeng/issues/10245)
+
 ## [12.0.0-rc.1](https://github.com/primefaces/primeng/tree/12.0.0-rc.1) (2021-21-14)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/11.4.2...12.0.0-rc.1)
@@ -11,6 +115,22 @@
 **Fixed bugs:**
 
 - Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
+
+## [11.4.5](https://github.com/primefaces/primeng/tree/11.4.5) (2021-08-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.4.4...11.4.5)
+
+**Fixed bugs:**
+
+- StyleClass does not open overlay when source is clicked again [\#10492](https://github.com/primefaces/primeng/issues/10492)
+
+## [11.4.4](https://github.com/primefaces/primeng/tree/11.4.4) (2021-07-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/11.4.3...11.4.4)
+
+**Implemented New Features and Enhancements:**
+
+- pStyleClass Directive [\#10426](https://github.com/primefaces/primeng/issues/10426)
 
 ## [11.4.2](https://github.com/primefaces/primeng/tree/11.4.2) (2021-05-14)
 

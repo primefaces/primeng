@@ -126,7 +126,7 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class CarouselDemo &#123;
-    constructor(private carService: CarService) &#123; 
+    constructor(private carService: CarService) &#123;
         this.responsiveOptions = [
             &#123;
                 breakpoint: '1024px',
@@ -240,7 +240,7 @@ export class CarouselDemo &#123;
                         <tr>
                             <td>showNavigators</td>
                             <td>boolean</td>
-                            <td>false</td>
+                            <td>true</td>
                             <td>Whether to display navigation buttons in container.</td>
                         </tr>
                         <tr>
@@ -499,10 +499,10 @@ export class CarouselDemo &#123;
 export class CarouselDemo &#123;
 
     products: Product[];
-	
+
 	responsiveOptions;
 
-	constructor(private productService: ProductService) &#123; 
+	constructor(private productService: ProductService) &#123;
 		this.responsiveOptions = [
             &#123;
                 breakpoint: '1024px',
@@ -527,7 +527,7 @@ export class CarouselDemo &#123;
 			this.products = products;
 		&#125;);
     &#125;
-    
+
 &#125;
 </app-code>
 
