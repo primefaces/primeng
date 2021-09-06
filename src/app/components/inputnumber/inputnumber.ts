@@ -590,7 +590,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     allowMinusSign() {
-        return this.min === null || this.min < 0;
+        return this.min == null || this.min < 0;
     }
 
     isMinusSign(char) {
@@ -830,11 +830,11 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     validateValue(value) {
-        if (this.min !== null && value < this.min) {
+        if (this.min != null && value < this.min) {
             return this.min;
         }
 
-        if (this.max !== null && value > this.max) {
+        if (this.max != null && value > this.max) {
             return this.max;
         }
 
