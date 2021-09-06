@@ -1,5 +1,5 @@
 
-import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation, ChangeDetectorRef, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -92,6 +92,26 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() allowEmpty: boolean = true;
 
+    @Input() locale: string;
+
+    @Input() localeMatcher: string;
+
+    @Input() mode: string = "decimal";
+
+    @Input() currency: string;
+
+    @Input() currencyDisplay: string;
+
+    @Input() useGrouping: boolean = true;
+
+    @Input() minFractionDigits: number;
+
+    @Input() maxFractionDigits: number;
+
+    @Input() prefix: string;
+
+    @Input() suffix: string;
+
     @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
@@ -146,118 +166,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     _index: any;
 
-    _localeOption: string;
-
-    _localeMatcherOption: string;
-
-    _modeOption: string = "decimal";
-
-    _currencyOption: string;
-
-    _currencyDisplayOption: string;
-
-    _useGroupingOption: boolean = true;
-
-    _minFractionDigitsOption: number;
-
-    _maxFractionDigitsOption: number;
-
-    _prefixOption: string;
-
-    _suffixOption: string;
-
     _disabled: boolean;
-
-    @Input() get locale(): string {
-        return this._localeOption;
-    }
-
-    set locale(localeOption: string) {
-        this._localeOption = localeOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get localeMatcher(): string {
-        return this._localeMatcherOption;
-    }
-
-    set localeMatcher(localeMatcherOption: string) {
-        this._localeMatcherOption = localeMatcherOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get mode(): string {
-        return this._modeOption;
-    }
-
-    set mode(modeOption: string) {
-        this._modeOption = modeOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get currency(): string {
-        return this._currencyOption;
-    }
-
-    set currency(currencyOption: string) {
-        this._currencyOption = currencyOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get currencyDisplay(): string {
-        return this._currencyDisplayOption;
-    }
-
-    set currencyDisplay(currencyDisplayOption: string) {
-        this._currencyDisplayOption = currencyDisplayOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get useGrouping(): boolean {
-        return this._useGroupingOption;
-    }
-
-    set useGrouping(useGroupingOption: boolean) {
-        this._useGroupingOption = useGroupingOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get minFractionDigits(): number {
-        return this._minFractionDigitsOption;
-    }
-
-    set minFractionDigits(minFractionDigitsOption: number) {
-        this._minFractionDigitsOption = minFractionDigitsOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get maxFractionDigits(): number {
-        return this._maxFractionDigitsOption;
-    }
-
-    set maxFractionDigits(maxFractionDigitsOption: number) {
-        this._maxFractionDigitsOption = maxFractionDigitsOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get prefix(): string {
-        return this._prefixOption;
-    }
-
-    set prefix(prefixOption: string) {
-        this._prefixOption = prefixOption;
-        this.updateConstructParser();
-    }
-
-    @Input() get suffix(): string {
-        return this._suffixOption;
-    }
-
-    set suffix(suffixOption: string) {
-        this._suffixOption = suffixOption;
-        this.updateConstructParser();
-    }
-
 
     @Input() get disabled(): boolean {
         return this._disabled;
@@ -274,6 +183,13 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     constructor(public el: ElementRef, private cd: ChangeDetectorRef) { }
+
+    ngOnChanges(simpleChange: SimpleChanges) {
+        const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
+        if (props.some(p => !!simpleChange[p])) {
+            this.updateConstructParser();
+        }
+    }
 
     ngOnInit() {
         this.constructParser();
