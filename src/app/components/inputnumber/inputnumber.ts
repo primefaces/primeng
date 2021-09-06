@@ -13,21 +13,21 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber',
     template: `
-        <span [ngClass]="{'p-inputnumber p-component': true,'p-inputnumber-buttons-stacked': !readonly && this.showButtons && this.buttonLayout === 'stacked',
-                'p-inputnumber-buttons-horizontal': !readonly && this.showButtons && this.buttonLayout === 'horizontal', 'p-inputnumber-buttons-vertical': !readonly && this.showButtons && this.buttonLayout === 'vertical'}"
+        <span [ngClass]="{'p-inputnumber p-component': true,'p-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked',
+                'p-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal', 'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'}"
                 [ngStyle]="style" [class]="styleClass">
             <input #input [ngClass]="'p-inputnumber-input'" [ngStyle]="inputStyle" [class]="inputStyleClass" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
                 [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel"
                 [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.aria-valuemin]="min" [attr.aria-valuemax]="max" [readonly]="readonly"
                 (input)="onUserInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
                 (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
-            <span class="p-inputnumber-button-group" *ngIf="!readonly && showButtons && buttonLayout === 'stacked'">
+            <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
                 <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" [disabled]="disabled"
                     (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp()"></button>
                 <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-down': true}" [class]="decrementButtonClass" [icon]="decrementButtonIcon" [disabled]="disabled"
                     (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp()" (mouseleave)="onDownButtonMouseLeave()" (keydown)="onDownButtonKeyDown($event)" (keyup)="onDownButtonKeyUp()"></button>
             </span>
-            <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" *ngIf="!readonly && showButtons && buttonLayout !== 'stacked'" [disabled]="disabled"
+            <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" *ngIf="showButtons && buttonLayout !== 'stacked'" [disabled]="disabled"
                 (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp()"></button>
             <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-down': true}" [class]="decrementButtonClass" [icon]="decrementButtonIcon" *ngIf="showButtons && buttonLayout !== 'stacked'" [disabled]="disabled"
                 (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp()" (mouseleave)="onDownButtonMouseLeave()" (keydown)="onDownButtonKeyDown($event)" (keyup)="onDownButtonKeyUp()"></button>
@@ -335,6 +335,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     repeat(event, interval, dir) {
+        if (this.readonly) {
+            return;
+        }
+
         let i = interval || 500;
 
         this.clearTimer();
@@ -408,9 +412,6 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onUserInput(event) {
-        if (this.readonly) {
-            return;
-        }
         if (this.isSpecialChar) {
             event.target.value = this.lastValue;
         }
@@ -418,10 +419,6 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyDown(event) {
-        if (this.readonly) {
-            return;
-        }
-
         this.lastValue = event.target.value;
         if (event.shiftKey || event.altKey) {
             this.isSpecialChar = true;
@@ -574,9 +571,6 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyPress(event) {
-        if (this.readonly) {
-            return;
-        }
         event.preventDefault();
         let code = event.which || event.keyCode;
         let char = String.fromCharCode(code);
@@ -589,9 +583,6 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onPaste(event) {
-        if (this.readonly) {
-            return;
-        }
         if (!this.disabled) {
             event.preventDefault();
             let data = (event.clipboardData || window['clipboardData']).getData('Text');
@@ -963,18 +954,11 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputFocus(event) {
-        if (this.readonly) {
-            return;
-        }
         this.focused = true;
         this.onFocus.emit(event);
     }
 
     onInputBlur(event) {
-        if (this.readonly) {
-            return;
-        }
-
         this.focused = false;
 
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
