@@ -836,7 +836,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     validateValue(value) {
-        if (value === '-' || value == null) { // Minus sign
+        if (value === '-' || value == null) {
             return null;
         }
 
