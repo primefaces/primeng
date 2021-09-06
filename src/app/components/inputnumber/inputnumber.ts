@@ -90,6 +90,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() step: number = 1;
 
+    @Input() allowEmpty: boolean = true;
+
     @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
@@ -885,6 +887,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
         if (valueStr != null) {
             newValue = this.parseValue(valueStr);
+            newValue = !newValue && !this.allowEmpty ? 0 : newValue;
             this.updateInput(newValue, insertedValueStr, operation, valueStr);
 
             this.handleOnInput(event, currentValue, newValue);
@@ -1045,7 +1048,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     formattedValue() {
-        return this.formatValue(this.value);
+        const val = !this.value && !this.allowEmpty ? 0 : this.value;
+        return this.formatValue(val);
     }
 
     updateModel(event, value) {
