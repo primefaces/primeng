@@ -266,7 +266,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             this.focused = false;
 
         this._disabled = disabled;
-        
+
         if (this.timer)
             this.clearTimer();
     }
@@ -829,9 +829,9 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         if (valueStr != null) {
             newValue = this.parseValue(valueStr);
             this.updateInput(newValue, insertedValueStr, operation);
-        }
 
-        this.handleOnInput(event, currentValue, newValue);
+            this.handleOnInput(event, currentValue, newValue);
+        }
     }
 
     handleOnInput(event, currentValue, newValue) {
