@@ -601,7 +601,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     isMinusSign(char) {
-        if (this._minusSign.test(char)) {
+        if (this._minusSign.test(char) || char === '-') {
             this._minusSign.lastIndex = 0;
             return true;
         }
