@@ -49,7 +49,10 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     providers: [COLORPICKER_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./colorpicker.css']
+    styleUrls: ['./colorpicker.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
 

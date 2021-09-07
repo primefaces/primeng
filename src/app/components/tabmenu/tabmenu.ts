@@ -41,7 +41,10 @@ import {TooltipModule} from 'primeng/tooltip';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tabmenu.css']
+    styleUrls: ['./tabmenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked {
 

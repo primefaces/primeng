@@ -73,7 +73,10 @@ export class BasePanelMenuItem {
             transition('void => *', animate(0))
         ])
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class PanelMenuSub extends BasePanelMenuItem {
 
@@ -135,9 +138,12 @@ export class PanelMenuSub extends BasePanelMenuItem {
             transition('void => *', animate(0))
         ])
     ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./panelmenu.css']
+    styleUrls: ['./panelmenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class PanelMenu extends BasePanelMenuItem {
 

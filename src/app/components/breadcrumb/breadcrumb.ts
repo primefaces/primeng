@@ -54,9 +54,12 @@ import {TooltipModule} from 'primeng/tooltip';
             </ul>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./breadcrumb.css']
+    styleUrls: ['./breadcrumb.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Breadcrumb {
 

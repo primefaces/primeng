@@ -29,9 +29,12 @@ import { TooltipModule } from 'primeng/tooltip';
             </ul>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./dock.css']
+    styleUrls: ['./dock.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Dock implements AfterContentInit {
 

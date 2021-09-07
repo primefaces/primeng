@@ -45,7 +45,10 @@ const hideAnimation = animation([
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./sidebar.css']
+    styleUrls: ['./sidebar.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 

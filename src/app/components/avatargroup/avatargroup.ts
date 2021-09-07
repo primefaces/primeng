@@ -10,12 +10,15 @@ import { CommonModule } from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./avatargroup.css']
+    styleUrls: ['./avatargroup.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class AvatarGroup {
 
     @Input() styleClass: string;
-    
+
     @Input() style: any;
 }
 

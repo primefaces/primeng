@@ -84,7 +84,10 @@ import {TooltipModule} from 'primeng/tooltip';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./megamenu.css']
+    styleUrls: ['./megamenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class MegaMenu implements AfterContentInit {
 

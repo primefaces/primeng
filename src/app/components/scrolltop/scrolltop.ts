@@ -27,7 +27,10 @@ import { PrimeNGConfig } from 'primeng/api';
             transition('void => open', animate('{{showTransitionParams}}')),
             transition('open => void', animate('{{hideTransitionParams}}')),
         ])
-    ]
+    ],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ScrollTop implements OnInit, OnDestroy {
 

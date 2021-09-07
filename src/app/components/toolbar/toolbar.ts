@@ -17,7 +17,10 @@ import {BlockableUI, PrimeTemplate} from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./toolbar.css']
+    styleUrls: ['./toolbar.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Toolbar implements AfterContentInit,BlockableUI {
 

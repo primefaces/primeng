@@ -51,7 +51,10 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./orderlist.css']
+    styleUrls: ['./orderlist.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
 
@@ -100,7 +103,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     public itemTemplate: TemplateRef<any>;
 
     public headerTemplate: TemplateRef<any>;
-    
+
     public emptyMessageTemplate: TemplateRef<any>;
 
     public emptyFilterMessageTemplate: TemplateRef<any>;
@@ -462,7 +465,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                     }
                 }
             `;
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }

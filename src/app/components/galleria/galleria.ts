@@ -20,7 +20,10 @@ import { RippleModule } from 'primeng/ripple';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./galleria.css']
+    styleUrls: ['./galleria.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Galleria implements OnChanges, OnDestroy {
 

@@ -94,7 +94,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./picklist.css']
+    styleUrls: ['./picklist.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class PickList implements AfterViewChecked,AfterContentInit {
 

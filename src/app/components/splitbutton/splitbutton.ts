@@ -16,7 +16,10 @@ import {MenuModule, Menu} from 'primeng/menu';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./splitbutton.css']
+    styleUrls: ['./splitbutton.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class SplitButton {
 

@@ -39,7 +39,10 @@ import { TooltipModule } from 'primeng/tooltip';
             </ng-template>
         </ul>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ContextMenuSub {
 
@@ -176,7 +179,10 @@ export class ContextMenuSub {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./contextmenu.css']
+    styleUrls: ['./contextmenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ContextMenu implements AfterViewInit, OnDestroy {
 

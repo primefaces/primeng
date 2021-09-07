@@ -96,6 +96,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         ])
     ],
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible'
     },

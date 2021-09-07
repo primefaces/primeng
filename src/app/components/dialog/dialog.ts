@@ -70,9 +70,12 @@ const hideAnimation = animation([
             ])
         ])
     ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css']
+    styleUrls: ['../dialog/dialog.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 

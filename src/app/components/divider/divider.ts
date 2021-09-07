@@ -12,7 +12,10 @@ import { CommonModule } from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./divider.css']
+    styleUrls: ['./divider.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Divider {
 
@@ -21,12 +24,10 @@ export class Divider {
     @Input() style: any;
 
     @Input() layout: string = "horizontal";
-    
+
     @Input() type: string = "solid";
 
     @Input() align: string;
-
-    
 
     containerClass() {
         return {

@@ -5,7 +5,10 @@ import {RippleModule} from 'primeng/ripple';
 import {PrimeTemplate} from 'primeng/api';
 
 @Directive({
-    selector: '[pButton]'
+    selector: '[pButton]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
 
@@ -182,7 +185,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Button implements AfterContentInit {
 

@@ -144,7 +144,10 @@ export class TableService {
     providers: [TableService],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./table.css']
+    styleUrls: ['./table.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
 
@@ -2464,7 +2467,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TableBody implements AfterViewInit, OnDestroy {
 
@@ -2588,7 +2594,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[pRowGroupHeader]',
     host: {
-        '[class.p-rowgroup-header]': 'true',
+        'class': 'p-rowgroup-header p-element',
         '[style.top]': "getFrozenRowGroupHeaderStickyPosition"
     }
 })
@@ -2604,6 +2610,7 @@ export class RowGroupHeader {
 @Directive({
     selector: '[pFrozenColumn]',
     host: {
+        'class': 'p-element',
         '[class.p-frozen-column]': 'frozen'
     }
 })
@@ -2660,6 +2667,7 @@ export class FrozenColumn implements AfterViewInit {
 @Directive({
     selector: '[pSortableColumn]',
     host: {
+        'class': 'p-element',
         '[class.p-sortable-column]': 'isEnabled()',
         '[class.p-highlight]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
@@ -2740,7 +2748,10 @@ export class SortableColumn implements OnInit, OnDestroy {
         <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{getMultiSortMetaIndex() + 1}}</span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class SortIcon implements OnInit, OnDestroy {
 
@@ -2808,6 +2819,7 @@ export class SortIcon implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRow]',
     host: {
+        'class': 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
@@ -2962,6 +2974,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRowDblClick]',
     host: {
+        'class': 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected'
     }
@@ -3018,6 +3031,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[pContextMenuRow]',
     host: {
+        'class': 'p-element',
         '[class.p-highlight-contextmenu]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
@@ -3069,7 +3083,10 @@ export class ContextMenuRow {
 }
 
 @Directive({
-    selector: '[pRowToggler]'
+    selector: '[pRowToggler]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class RowToggler {
 
@@ -3093,7 +3110,10 @@ export class RowToggler {
 }
 
 @Directive({
-    selector: '[pResizableColumn]'
+    selector: '[pResizableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ResizableColumn implements AfterViewInit, OnDestroy {
 
@@ -3175,7 +3195,10 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pReorderableColumn]'
+    selector: '[pReorderableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
@@ -3286,7 +3309,10 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pEditableColumn]'
+    selector: '[pEditableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class EditableColumn implements AfterViewInit, OnDestroy {
 
@@ -3601,7 +3627,10 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pEditableRow]'
+    selector: '[pEditableRow]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class EditableRow {
 
@@ -3618,7 +3647,10 @@ export class EditableRow {
 }
 
 @Directive({
-    selector: '[pInitEditableRow]'
+    selector: '[pInitEditableRow]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class InitEditableRow {
 
@@ -3633,7 +3665,10 @@ export class InitEditableRow {
 }
 
 @Directive({
-    selector: '[pSaveEditableRow]'
+    selector: '[pSaveEditableRow]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class SaveEditableRow {
 
@@ -3647,7 +3682,10 @@ export class SaveEditableRow {
 }
 
 @Directive({
-    selector: '[pCancelEditableRow]'
+    selector: '[pCancelEditableRow]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class CancelEditableRow {
 
@@ -3670,7 +3708,10 @@ export class CancelEditableRow {
             <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class CellEditor implements AfterContentInit {
 
@@ -3717,7 +3758,10 @@ export class CellEditor implements AfterContentInit {
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TableRadioButton  {
 
@@ -3791,7 +3835,10 @@ export class TableRadioButton  {
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TableCheckbox  {
 
@@ -3867,7 +3914,10 @@ export class TableCheckbox  {
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TableHeaderCheckbox  {
 
@@ -3963,7 +4013,10 @@ export class TableHeaderCheckbox  {
 }
 
 @Directive({
-    selector: '[pReorderableRowHandle]'
+    selector: '[pReorderableRowHandle]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ReorderableRowHandle implements AfterViewInit {
 
@@ -3977,7 +4030,10 @@ export class ReorderableRowHandle implements AfterViewInit {
 }
 
 @Directive({
-    selector: '[pReorderableRow]'
+    selector: '[pReorderableRow]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ReorderableRow implements AfterViewInit {
 
@@ -4109,7 +4165,10 @@ export class ReorderableRow implements AfterViewInit {
             </ng-container>
         </ng-template>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ColumnFilterFormElement implements OnInit {
 
@@ -4230,7 +4289,10 @@ export class ColumnFilterFormElement implements OnInit {
             ])
         ])
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ColumnFilter implements AfterContentInit {
 

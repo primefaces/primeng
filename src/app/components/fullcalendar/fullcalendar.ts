@@ -6,18 +6,21 @@ import {Calendar} from '@fullcalendar/core';
     selector: 'p-fullCalendar',
     template: '<div [ngStyle]="style" [class]="styleClass"></div>',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
-        
+
     @Input() style: any;
 
     @Input() styleClass: string;
-             
+
     initialized: boolean;
-            
+
     calendar: any;
-    
+
     config: any;
 
     _options: any;
@@ -25,7 +28,7 @@ export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
     _events: any[];
 
     constructor(public el: ElementRef) {}
-    
+
     ngOnInit() {
         this.config = {
             theme: true
@@ -37,13 +40,13 @@ export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
             }
         }
     }
-    
+
     ngAfterViewChecked() {
         if (!this.initialized && this.el.nativeElement.offsetParent) {
             this.initialize();
         }
     }
-    
+
     @Input() get events(): any {
         return this._events;
     }
@@ -77,7 +80,7 @@ export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
         this.calendar = new Calendar(this.el.nativeElement.children[0], this.config);
         this.calendar.render();
         this.initialized = true;
-        
+
         if (this.events) {
             this.calendar.removeAllEventSources();
             this.calendar.addEventSource(this.events);
@@ -87,13 +90,13 @@ export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
     getCalendar() {
         return this.calendar;
     }
-     
+
     ngOnDestroy() {
         if (this.calendar) {
             this.calendar.destroy();
             this.initialized = false;
             this.calendar = null;
-        }        
+        }
     }
 }
 

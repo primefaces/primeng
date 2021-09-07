@@ -11,7 +11,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked, 'p-disabled': disabled, 'p-focus': focused}" 
+        <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked, 'p-disabled': disabled, 'p-focus': focused}"
             [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
@@ -23,7 +23,10 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     providers: [INPUTSWITCH_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputswitch.css']
+    styleUrls: ['./inputswitch.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class InputSwitch implements ControlValueAccessor {
 
@@ -42,7 +45,7 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() readonly: boolean;
 
     @Input() ariaLabelledBy: string;
-    
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     checked: boolean = false;
@@ -104,7 +107,7 @@ export class InputSwitch implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();

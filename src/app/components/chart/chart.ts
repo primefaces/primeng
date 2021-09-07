@@ -10,7 +10,10 @@ import Chart from 'chart.js/auto';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class UIChart implements AfterViewInit, OnDestroy {
 

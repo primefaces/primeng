@@ -51,7 +51,10 @@ import { ZIndexUtils } from 'primeng/utils';
         ])
     ],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
 
@@ -144,7 +147,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./toast.css']
+    styleUrls: ['./toast.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Toast implements OnInit,AfterContentInit,OnDestroy {
 

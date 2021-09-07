@@ -42,7 +42,10 @@ import { Subscription } from 'rxjs';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./overlaypanel.css']
+    styleUrls: ['./overlaypanel.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
 

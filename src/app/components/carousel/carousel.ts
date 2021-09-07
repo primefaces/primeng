@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
 
@@ -57,7 +57,10 @@ import { UniqueComponentId } from 'primeng/utils';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./carousel.css']
+    styleUrls: ['./carousel.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Carousel implements AfterContentInit {
 
@@ -77,31 +80,31 @@ export class Carousel implements AfterContentInit {
 			else if (val < this._page ) {
 				this.step(1, val);
 			}
-		} 
+		}
 
 		this._page = val;
 	}
-		
+
 	@Input() get numVisible():number {
 		return this._numVisible;
 	}
 	set numVisible(val:number) {
 		this._numVisible = val;
 	}
-		
+
 	@Input() get numScroll():number {
 		return this._numVisible;
 	}
 	set numScroll(val:number) {
 		this._numScroll = val;
 	}
-	
+
 	@Input() responsiveOptions: any[];
-	
+
 	@Input() orientation = "horizontal";
-	
+
 	@Input() verticalViewPortHeight = "300px";
-	
+
 	@Input() contentClass: string = "";
 
 	@Input() indicatorsContentClass: string = "";
@@ -118,7 +121,7 @@ export class Carousel implements AfterContentInit {
 	set value(val) {
 		this._value = val;
 	}
-	
+
 	@Input() circular: boolean = false;
 
 	@Input() showIndicators: boolean = true;
@@ -130,7 +133,7 @@ export class Carousel implements AfterContentInit {
 	@Input() style: any;
 
 	@Input() styleClass: string;
-	
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
 	@ViewChild('itemsContainer') itemsContainer: ElementRef;
@@ -194,13 +197,13 @@ export class Carousel implements AfterContentInit {
 	swipeThreshold: number = 20;
 
     itemTemplate: TemplateRef<any>;
-    
+
     headerTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
 
-	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) { 
-		this.totalShiftedItems = this.page * this.numScroll * -1; 
+	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) {
+		this.totalShiftedItems = this.page * this.numScroll * -1;
 	}
 
 	ngOnChanges(simpleChange: SimpleChanges) {
@@ -211,7 +214,7 @@ export class Carousel implements AfterContentInit {
 		}
 
 		if (this.isCreated) {
-			
+
 			if (simpleChange.numVisible) {
 				if (this.responsiveOptions) {
 					this.defaultNumVisible = this.numVisible;
@@ -277,12 +280,12 @@ export class Carousel implements AfterContentInit {
 	ngAfterContentChecked() {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
-		
+
 		if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
 			if (this.autoplayInterval) {
 				this.stopAutoplay();
 			}
-			
+
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
 			let page = this._page;
@@ -293,7 +296,7 @@ export class Carousel implements AfterContentInit {
 					page: this.page
 				});
 			}
-			
+
 			totalShiftedItems = (page * this._numScroll) * -1;
             if (isCircular) {
                 totalShiftedItems -= this._numVisible;
@@ -319,7 +322,7 @@ export class Carousel implements AfterContentInit {
 			if (this.totalDots() > 0  && this.itemsContainer.nativeElement) {
 				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 			}
-			
+
 			this.isCreated = true;
 
 			if (this.autoplayInterval && this.isAutoplay()) {
@@ -436,7 +439,7 @@ export class Carousel implements AfterContentInit {
 			this.cd.markForCheck();
 		}
 	}
-	
+
 	setCloneItems() {
 		this.clonedItemsForStarting = [];
 		this.clonedItemsForFinishing = [];
@@ -511,7 +514,7 @@ export class Carousel implements AfterContentInit {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
-		
+
 		if (e && e.cancelable) {
 			e.preventDefault();
 		}
@@ -524,7 +527,7 @@ export class Carousel implements AfterContentInit {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
-		
+
 		if (index > page) {
 			this.navForward(e, index);
 		}
@@ -592,7 +595,7 @@ export class Carousel implements AfterContentInit {
 					this.step(-1, this.page + 1);
 				}
 			}
-		}, 
+		},
 		this.autoplayInterval);
 	}
 

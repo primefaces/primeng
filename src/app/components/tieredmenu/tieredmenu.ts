@@ -38,7 +38,10 @@ import { TooltipModule } from 'primeng/tooltip';
             </ng-template>
         </ul>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TieredMenuSub implements OnDestroy {
 
@@ -272,7 +275,10 @@ export class TieredMenuSub implements OnDestroy {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tieredmenu.css']
+    styleUrls: ['./tieredmenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TieredMenu implements OnDestroy {
 

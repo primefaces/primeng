@@ -3,7 +3,10 @@ import { NgModule, Directive, ElementRef, Input, Renderer2, OnDestroy, AfterView
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
-    selector: '[pStyleClass]'
+    selector: '[pStyleClass]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class StyleClass implements AfterViewInit, OnDestroy {
 

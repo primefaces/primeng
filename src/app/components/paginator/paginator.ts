@@ -54,7 +54,10 @@ import {SharedModule} from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./paginator.css']
+    styleUrls: ['./paginator.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Paginator implements OnInit, OnChanges {
 
@@ -67,9 +70,9 @@ export class Paginator implements OnInit, OnChanges {
     @Input() styleClass: string;
 
     @Input() alwaysShow: boolean = true;
-    
+
     @Input() templateLeft: TemplateRef<any>;
-    
+
     @Input() templateRight: TemplateRef<any>;
 
     @Input() dropdownAppendTo: any;
@@ -85,7 +88,7 @@ export class Paginator implements OnInit, OnChanges {
     @Input() totalRecords: number = 0;
 
     @Input() rows: number = 0;
-    
+
     @Input() rowsPerPageOptions: any[];
 
     @Input() showJumpToPageDropdown: boolean;
@@ -99,7 +102,7 @@ export class Paginator implements OnInit, OnChanges {
     pageItems: SelectItem[];
 
     rowsPerPageItems: SelectItem[];
-    
+
     paginatorState: any;
 
     _first: number = 0;
@@ -107,7 +110,7 @@ export class Paginator implements OnInit, OnChanges {
     _page: number = 0;
 
     constructor(private cd: ChangeDetectorRef) {}
-    
+
     ngOnInit() {
         this.updatePaginatorState();
     }
@@ -269,7 +272,7 @@ export class Paginator implements OnInit, OnChanges {
     onPageDropdownChange(event) {
         this.changePage(event.value);
     }
-    
+
     updatePaginatorState() {
         this.paginatorState = {
             page: this.getPage(),

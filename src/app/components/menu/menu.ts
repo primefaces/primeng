@@ -26,7 +26,10 @@ import {TooltipModule} from 'primeng/tooltip';
             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
         </a>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class MenuItemContent {
 
@@ -77,7 +80,10 @@ export class MenuItemContent {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./menu.css']
+    styleUrls: ['./menu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Menu implements OnDestroy {
 

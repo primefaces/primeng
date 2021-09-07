@@ -36,7 +36,10 @@ import { RouterModule } from '@angular/router';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./speeddial.css']
+    styleUrls: ['./speeddial.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 

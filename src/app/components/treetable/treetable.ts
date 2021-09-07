@@ -105,7 +105,10 @@ export class TreeTableService {
     `,
     providers: [TreeTableService],
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./treetable.css']
+    styleUrls: ['./treetable.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
 
@@ -1676,7 +1679,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
         </ng-container>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTBody {
 
@@ -1746,7 +1752,10 @@ export class TTBody {
             </div>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTScrollableView implements AfterViewInit, OnDestroy {
 
@@ -1946,6 +1955,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[ttSortableColumn]',
     host: {
+        'class': 'p-element',
         '[class.p-sortable-column]': 'isEnabled()',
         '[class.p-highlight]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
@@ -2015,7 +2025,10 @@ export class TTSortableColumn implements OnInit, OnDestroy {
         <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTSortIcon implements OnInit, OnDestroy {
 
@@ -2062,7 +2075,10 @@ export class TTSortIcon implements OnInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[ttResizableColumn]'
+    selector: '[ttResizableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
@@ -2142,7 +2158,10 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[ttReorderableColumn]'
+    selector: '[ttReorderableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
@@ -2255,6 +2274,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[ttSelectableRow]',
     host: {
+        'class': 'p-element',
         '[class.p-highlight]': 'selected'
     }
 })
@@ -2321,6 +2341,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttSelectableRowDblClick]',
     host: {
+        'class': 'p-element',
         '[class.p-highlight]': 'selected'
     }
 })
@@ -2373,6 +2394,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttContextMenuRow]',
     host: {
+        'class': 'p-element',
         '[class.p-highlight-contextmenu]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
@@ -2435,7 +2457,10 @@ export class TTContextMenuRow {
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTCheckbox  {
 
@@ -2500,7 +2525,10 @@ export class TTCheckbox  {
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTHeaderCheckbox  {
 
@@ -2580,7 +2608,10 @@ export class TTHeaderCheckbox  {
 }
 
 @Directive({
-    selector: '[ttEditableColumn]'
+    selector: '[ttEditableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTEditableColumn implements AfterViewInit {
 
@@ -2771,7 +2802,10 @@ export class TTEditableColumn implements AfterViewInit {
             <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TreeTableCellEditor implements AfterContentInit {
 
@@ -2801,6 +2835,7 @@ export class TreeTableCellEditor implements AfterContentInit {
 @Directive({
     selector: '[ttRow]',
     host: {
+        'class': 'p-element',
         '[attr.tabindex]': '"0"'
     }
 })
@@ -2889,7 +2924,10 @@ export class TTRow {
             <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
         </button>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TreeTableToggler {
 

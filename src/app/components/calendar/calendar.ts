@@ -188,6 +188,7 @@ export interface LocaleSettings {
         ])
     ],
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focus'
     },

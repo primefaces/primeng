@@ -41,7 +41,10 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./confirmpopup.css']
+    styleUrls: ['./confirmpopup.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ConfirmPopup implements OnDestroy {
 

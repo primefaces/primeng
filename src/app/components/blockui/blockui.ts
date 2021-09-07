@@ -13,7 +13,10 @@ import {ZIndexUtils} from 'primeng/utils';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./blockui.css']
+    styleUrls: ['./blockui.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class BlockUI implements AfterViewInit,OnDestroy {
 

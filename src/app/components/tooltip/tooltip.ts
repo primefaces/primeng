@@ -22,7 +22,10 @@ export interface TooltipOptions {
 }
 
 @Directive({
-    selector: '[pTooltip]'
+    selector: '[pTooltip]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
 

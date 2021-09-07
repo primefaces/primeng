@@ -37,7 +37,10 @@ import { TooltipModule } from 'primeng/tooltip';
             </ng-template>
         </ul>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class MenubarSub implements OnDestroy {
 
@@ -189,7 +192,10 @@ export class MenubarSub implements OnDestroy {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./menubar.css']
+    styleUrls: ['./menubar.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Menubar implements AfterContentInit, OnDestroy {
 

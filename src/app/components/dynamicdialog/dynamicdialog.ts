@@ -54,7 +54,10 @@ const hideAnimation = animation([
     ],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css']
+    styleUrls: ['../dialog/dialog.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 

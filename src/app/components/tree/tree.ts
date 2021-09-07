@@ -87,7 +87,10 @@ import {RippleModule} from 'primeng/ripple';
             </table>
         </ng-template>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class UITreeNode implements OnInit {
 
@@ -511,7 +514,7 @@ export class UITreeNode implements OnInit {
     selector: 'p-tree',
     template: `
         <div [ngClass]="{'p-tree p-component':true,'p-tree-selectable':selectionMode,
-                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
+                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}"
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
@@ -566,7 +569,10 @@ export class UITreeNode implements OnInit {
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tree.css']
+    styleUrls: ['./tree.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,BlockableUI {
 
@@ -1093,7 +1099,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                         dropNode: null,
                         index: dragNodeIndex
                     });
-                    
+
                     this.processTreeDrop(dragNode, dragNodeIndex);
                 }
             }

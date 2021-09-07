@@ -5,7 +5,7 @@ import {BlockableUI, PrimeTemplate, SharedModule} from 'primeng/api';
 @Component({
     selector: 'p-timeline',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-timeline p-component': true, 
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-timeline p-component': true,
                 'p-timeline-left': align === 'left',
                 'p-timeline-right': align === 'right',
                 'p-timeline-top': align === 'top',
@@ -34,7 +34,10 @@ import {BlockableUI, PrimeTemplate, SharedModule} from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./timeline.css']
+    styleUrls: ['./timeline.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Timeline implements AfterContentInit, BlockableUI {
 

@@ -50,7 +50,10 @@ import { Subscription } from 'rxjs';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./dataview.css']
+    styleUrls: ['./dataview.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DataView implements OnInit,AfterContentInit,OnDestroy,BlockableUI,OnChanges {
 
@@ -378,7 +381,10 @@ export class DataView implements OnInit,AfterContentInit,OnDestroy,BlockableUI,O
             </button>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DataViewLayoutOptions  {
 

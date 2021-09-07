@@ -5,13 +5,19 @@ import {PrimeTemplate} from 'primeng/api';
 
 @Component({
     selector: 'p-inplaceDisplay',
-    template: '<ng-content></ng-content>'
+    template: '<ng-content></ng-content>',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class InplaceDisplay {}
 
 @Component({
     selector: 'p-inplaceContent',
-    template: '<ng-content></ng-content>'
+    template: '<ng-content></ng-content>',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class InplaceContent {}
 
@@ -19,7 +25,7 @@ export class InplaceContent {}
     selector: 'p-inplace',
     template: `
         <div [ngClass]="{'p-inplace p-component': true, 'p-inplace-closable': closable}" [ngStyle]="style" [class]="styleClass">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"   
+            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"
                 [ngClass]="{'p-disabled':disabled}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
                 <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
@@ -33,7 +39,10 @@ export class InplaceContent {}
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inplace.css']
+    styleUrls: ['./inplace.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Inplace implements AfterContentInit {
 

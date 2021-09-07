@@ -5,7 +5,10 @@ import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
 
 @Directive({
-    selector: '[pBadge]'
+    selector: '[pBadge]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class BadgeDirective implements AfterViewInit, OnDestroy {
 
@@ -96,7 +99,10 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./badge.css']
+    styleUrls: ['./badge.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Badge {
 

@@ -27,7 +27,10 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <span *ngIf="!template">{{label||'empty'}}</span>
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
-    `
+    `,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DropdownItem {
 
@@ -148,6 +151,7 @@ export class DropdownItem {
         ])
     ],
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },

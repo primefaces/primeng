@@ -23,7 +23,10 @@ export const KNOB_VALUE_ACCESSOR: any = {
     providers: [KNOB_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./knob.css']
+    styleUrls: ['./knob.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Knob {
 
@@ -70,7 +73,7 @@ export class Knob {
     minRadians: number = 4 * Math.PI / 3;
 
     maxRadians: number = -Math.PI / 3;
-    
+
     value: number = null;
 
     windowMouseMoveListener: any;

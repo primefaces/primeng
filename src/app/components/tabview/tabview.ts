@@ -19,20 +19,23 @@ let idx: number = 0;
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </ng-container>
         </div>
-    `
+    `,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TabPanel implements AfterContentInit,OnDestroy {
-    
+
     @Input() closable: boolean;
-    
+
     @Input() headerStyle: any;
-    
+
     @Input() headerStyleClass: string;
-    
+
     @Input() cache: boolean = true;
 
     @Input() tooltip: any;
-    
+
     @Input() tooltipPosition: string = 'top';
 
     @Input() tooltipPositionStyle: string = 'absolute';
@@ -40,25 +43,25 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     @Input() tooltipStyleClass: string;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     closed: boolean;
-    
+
     view: EmbeddedViewRef<any>;
-    
+
     _selected: boolean;
 
     _disabled: boolean;
-    
+
     _header: string;
 
     _leftIcon: string;
 
     _rightIcon: string;
-    
+
     loaded: boolean;
-    
+
     id: string = `p-tabpanel-${idx++}`;
-    
+
     contentTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
@@ -79,21 +82,21 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                 case 'content':
                     this.contentTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;
             }
         });
     }
-    
+
     @Input() get selected(): boolean {
         return this._selected;
     }
 
     set selected(val: boolean) {
         this._selected = val;
-        
+
         if (!this.loaded) {
             this.cd.detectChanges();
         }
@@ -110,11 +113,11 @@ export class TabPanel implements AfterContentInit,OnDestroy {
         this._disabled = disabled;
         this.tabView.cd.markForCheck();
     }
-    
+
     @Input() get header(): string {
         return this._header;
     }
-    
+
     set header(header: string) {
         this._header = header;
         this.tabView.cd.markForCheck();
@@ -137,7 +140,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
         this._rightIcon = rightIcon;
         this.tabView.cd.markForCheck();
     }
-    
+
     ngOnDestroy() {
         this.view = null;
     }
@@ -172,22 +175,25 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     `,
    changeDetection: ChangeDetectionStrategy.OnPush,
    encapsulation: ViewEncapsulation.None,
-   styleUrls: ['./tabview.css']
+   styleUrls: ['./tabview.css'],
+   host: {
+    'class': 'p-element'
+}
 })
 export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     @Input() orientation: string = 'top';
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() controlClose: boolean;
 
     @ViewChild('navbar') navbar: ElementRef;
 
     @ViewChild('inkbar') inkbar: ElementRef;
-    
+
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -195,22 +201,22 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
-    
+
     initialized: boolean;
-    
+
     tabs: TabPanel[];
-    
+
     _activeIndex: number;
-    
+
     preventActiveIndexPropagation: boolean;
 
     tabChanged: boolean;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
-      
+
     ngAfterContentInit() {
         this.initTabs();
-        
+
         this.tabPanels.changes.subscribe(_ => {
             this.initTabs();
         });
@@ -222,7 +228,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             this.tabChanged = false;
         }
     }
-    
+
     initTabs(): void {
         this.tabs = this.tabPanels.toArray();
         let selectedTab: TabPanel = this.findSelectedTab();
@@ -237,7 +243,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
         this.cd.markForCheck();
     }
-    
+
     open(event: Event, tab: TabPanel) {
         if (tab.disabled) {
             if (event) {
@@ -245,13 +251,13 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             }
             return;
         }
-        
+
         if (!tab.selected) {
             let selectedTab: TabPanel = this.findSelectedTab();
             if (selectedTab) {
                 selectedTab.selected = false
             }
-            
+
             this.tabChanged = true;
             tab.selected = true;
             let selectedTabIndex = this.findTabIndex(tab);
@@ -259,12 +265,12 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             this.activeIndexChange.emit(selectedTabIndex);
             this.onChange.emit({originalEvent: event, index: selectedTabIndex});
         }
-        
+
         if (event) {
             event.preventDefault();
         }
     }
-    
+
     close(event: Event, tab: TabPanel) {
         if (this.controlClose) {
             this.onClose.emit({
@@ -282,10 +288,10 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
                 index: this.findTabIndex(tab)
             });
         }
-        
+
         event.stopPropagation();
     }
-    
+
     closeTab(tab: TabPanel) {
         if (tab.disabled) {
             return;
@@ -301,10 +307,10 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
                 }
             }
         }
-        
+
         tab.closed = true;
     }
-    
+
     findSelectedTab() {
         for(let i = 0; i < this.tabs.length; i++) {
             if (this.tabs[i].selected) {
@@ -313,7 +319,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         }
         return null;
     }
-    
+
     findTabIndex(tab: TabPanel) {
         let index = -1;
         for(let i = 0; i < this.tabs.length; i++) {
@@ -324,11 +330,11 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         }
         return index;
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-    
+
     @Input() get activeIndex(): number {
         return this._activeIndex;
     }

@@ -11,8 +11,7 @@ import { Subscription } from 'rxjs';
 @Directive({
     selector: '[pPassword]',
     host: {
-        '[class.p-inputtext]': 'true',
-        '[class.p-component]': 'true',
+        'class': 'p-inputtext p-component p-element',
         '[class.p-filled]': 'filled'
     }
 })
@@ -281,6 +280,7 @@ export const Password_VALUE_ACCESSOR: any = {
         ])
     ],
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled()',
         '[class.p-inputwrapper-focus]': 'focused'
     },

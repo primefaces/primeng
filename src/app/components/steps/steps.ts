@@ -33,7 +33,10 @@ import {TooltipModule} from 'primeng/tooltip';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./steps.css']
+    styleUrls: ['./steps.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Steps implements OnInit, OnDestroy {
 

@@ -31,7 +31,10 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class MultiSelectItem {
 
@@ -182,6 +185,7 @@ export class MultiSelectItem {
         ])
     ],
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focus || overlayVisible'
     },

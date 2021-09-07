@@ -44,6 +44,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
         (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused'
     },
@@ -104,7 +105,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onKeydown: EventEmitter<any> = new EventEmitter();
 
     value: any;
@@ -406,7 +407,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             end;
         let iPhone = /iphone/i.test(DomHandler.getUserAgent());
         this.oldVal = this.inputViewChild.nativeElement.value;
-        
+
         this.onKeydown.emit(e);
 
         //backspace, delete, and escape get special treatment

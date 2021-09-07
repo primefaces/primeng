@@ -39,7 +39,10 @@ import {TooltipModule} from 'primeng/tooltip';
             </ng-template>
         </ul>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class SlideMenuSub implements OnDestroy {
 
@@ -130,7 +133,10 @@ export class SlideMenuSub implements OnDestroy {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./slidemenu.css']
+    styleUrls: ['./slidemenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class SlideMenu implements AfterViewChecked, OnDestroy {
 

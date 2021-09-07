@@ -28,6 +28,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         </div>
     `,
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focus'
     },
