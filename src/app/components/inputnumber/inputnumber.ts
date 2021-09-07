@@ -1010,6 +1010,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             clearInterval(this.timer);
         }
     }
+
+    getFormatter() {
+        return this.numberFormat;
+    }
 }
 
 @NgModule({
