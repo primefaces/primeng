@@ -925,6 +925,12 @@ export class InputNumber implements OnInit,ControlValueAccessor {
                 this._group.lastIndex = 0;
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             }
+            else if (inputValue === '-' && operation === 'insert') {
+                this.input.nativeElement.setSelectionRange(0, 0);
+                const index = this.initCursor();
+                const selectionEnd = index + insertedValueStr.length + 1;
+                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+            }
             else {
                 selectionEnd = selectionEnd + (newLength - currentLength);
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
@@ -939,7 +945,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             let decimalCharIndex = val2.search(this._decimal);
             this._decimal.lastIndex = 0;
 
-            return val1.split(this._decimal)[0] + (decimalCharIndex !== -1 ? val2.slice(decimalCharIndex) : '');
+            return decimalCharIndex !== -1 ? (val1.split(this._decimal)[0] + val2.slice(decimalCharIndex)) : val1;
         }
 
         return val1;
