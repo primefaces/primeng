@@ -151,7 +151,7 @@ export class DropdownItem {
         ])
     ],
     host: {
-        'class': 'p-element',
+        'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },

@@ -76,7 +76,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
         ])
     ],
     host: {
-        'class': 'p-element',
+        'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': '!emptyValue',
         '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
     },

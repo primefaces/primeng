@@ -38,7 +38,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inputnumber.css'],
     host: {
-        'class': 'p-element',
+        'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused'
     }
