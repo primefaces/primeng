@@ -4878,7 +4878,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-top-right-radius: 2px;
   border-top-left-radius: 2px;
   transition: box-shadow 0.2s;
-  margin: 0 0.5rem -2px 0;
+  margin: 0 0.5rem 0 0;
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link .p-menuitem-icon {
   margin-right: 0.5rem;
