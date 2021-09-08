@@ -3779,9 +3779,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-right: 0;
 }
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  border: none;
-  border-width: 0 0 0 0;
-  border-color: transparent transparent transparent transparent;
+  border: solid rgba(255, 255, 255, 0.12);
+  border-width: 0 0 1px 0;
+  border-color: transparent transparent rgba(255, 255, 255, 0.12) transparent;
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
   padding: 1rem 1.5rem;
@@ -3794,16 +3794,16 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: none;
+  box-shadow: inset none;
 }
 .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
   background: rgba(206, 147, 216, 0.04);
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.6);
 }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   background: transparent;
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
   color: #CE93D8;
 }
 .p-tabview .p-tabview-left-icon {
@@ -3814,6 +3814,18 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tabview .p-tabview-close {
   margin-left: 0.5rem;
+}
+.p-tabview .p-tabview-nav-btn.p-link {
+  background: transparent;
+  color: #CE93D8;
+  width: 3rem;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+}
+.p-tabview .p-tabview-nav-btn.p-link:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset none;
 }
 .p-tabview .p-tabview-panels {
   background: transparent;
@@ -4940,9 +4952,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-right: 0;
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
-  border: none;
-  border-width: 0 0 0 0;
-  border-color: transparent transparent transparent transparent;
+  border: solid rgba(255, 255, 255, 0.12);
+  border-width: 0 0 1px 0;
+  border-color: transparent transparent rgba(255, 255, 255, 0.12) transparent;
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
   padding: 1rem 1.5rem;
@@ -4962,12 +4974,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link {
   background: rgba(206, 147, 216, 0.04);
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.6);
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
   background: transparent;
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
   color: #CE93D8;
 }
 

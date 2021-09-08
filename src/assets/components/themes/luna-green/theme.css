@@ -3758,7 +3758,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.1rem white;
+  box-shadow: inset 0 0 0 0.1rem white;
 }
 .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
   background: #191919;
@@ -3778,6 +3778,18 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tabview .p-tabview-close {
   margin-left: 0.5rem;
+}
+.p-tabview .p-tabview-nav-btn.p-link {
+  background: #C5E1A5;
+  color: #212529;
+  width: 2.357rem;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+}
+.p-tabview .p-tabview-nav-btn.p-link:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 0.1rem white;
 }
 .p-tabview .p-tabview-panels {
   background: #323232;
