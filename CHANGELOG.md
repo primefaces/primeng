@@ -6,6 +6,7 @@
 
 **Implemented New Features and Enhancements:**
 
+- Scrollable Tabs [\#10119](https://github.com/primefaces/primeng/issues/10119)
 - Add p-inputwrapper class to form components [\#10591](https://github.com/primefaces/primeng/issues/10591)
 - Add p-element class to the host element on all components [\#10590](https://github.com/primefaces/primeng/issues/10590)
 - Add getFormatter method to InputNumber [\#10588](https://github.com/primefaces/primeng/issues/10588)
