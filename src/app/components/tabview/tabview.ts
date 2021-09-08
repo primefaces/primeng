@@ -149,25 +149,35 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 @Component({
     selector: 'p-tabView',
     template: `
-        <div [ngClass]="'p-tabview p-component'" [ngStyle]="style" [class]="styleClass">
-            <ul #navbar class="p-tabview-nav" role="tablist">
-                <ng-template ngFor let-tab [ngForOf]="tabs">
-                    <li role="presentation" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
-                        <a role="tab" class="p-tabview-nav-link" [attr.id]="tab.id + '-label'" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
-                            [attr.aria-selected]="tab.selected" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass"
-                            (click)="open($event,tab)" (keydown.enter)="open($event,tab)" pRipple [attr.tabindex]="tab.disabled ? null : '0'">
-                            <ng-container *ngIf="!tab.headerTemplate">
-                                <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
-                                <span class="p-tabview-title">{{tab.header}}</span>
-                                <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
-                            </ng-container>
-                            <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
-                            <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event,tab)"></span>
-                        </a>
-                    </li>
-                </ng-template>
-                <li #inkbar class="p-tabview-ink-bar"></li>
-            </ul>
+        <div [ngClass]="{'p-tabview p-component': true, 'p-tabview-scrollable': scrollable}" [ngStyle]="style" [class]="styleClass">
+            <div class="p-tabview-nav-container">
+                <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
+                    <span class="pi pi-chevron-left"></span>
+                </button>
+                <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)">
+                    <ul #navbar class="p-tabview-nav" role="tablist">
+                        <ng-template ngFor let-tab [ngForOf]="tabs">
+                            <li role="presentation" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
+                                <a role="tab" class="p-tabview-nav-link" [attr.id]="tab.id + '-label'" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
+                                    [attr.aria-selected]="tab.selected" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass"
+                                    (click)="open($event,tab)" (keydown.enter)="open($event,tab)" pRipple [attr.tabindex]="tab.disabled ? null : '0'">
+                                    <ng-container *ngIf="!tab.headerTemplate">
+                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
+                                        <span class="p-tabview-title">{{tab.header}}</span>
+                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
+                                    </ng-container>
+                                    <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
+                                    <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event,tab)"></span>
+                                </a>
+                            </li>
+                        </ng-template>
+                        <li #inkbar class="p-tabview-ink-bar"></li>
+                    </ul>
+                </div>
+                <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
+                    <span class="pi pi-chevron-right"></span>
+                </button>
+            </div>
             <div class="p-tabview-panels">
                 <ng-content></ng-content>
             </div>
@@ -190,7 +200,15 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     @Input() controlClose: boolean;
 
+    @Input() scrollable: boolean;
+
+    @ViewChild('content') content: ElementRef;
+
     @ViewChild('navbar') navbar: ElementRef;
+
+    @ViewChild('prevBtn') prevBtn: ElementRef;
+
+    @ViewChild('nextBtn') nextBtn: ElementRef;
 
     @ViewChild('inkbar') inkbar: ElementRef;
 
@@ -211,6 +229,10 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
     preventActiveIndexPropagation: boolean;
 
     tabChanged: boolean;
+
+    backwardIsDisabled: boolean = true;
+
+    forwardIsDisabled: boolean = false;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
@@ -264,6 +286,8 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             this.preventActiveIndexPropagation = true;
             this.activeIndexChange.emit(selectedTabIndex);
             this.onChange.emit({originalEvent: event, index: selectedTabIndex});
+
+            this.updateScrollBar(selectedTabIndex);
         }
 
         if (event) {
@@ -350,6 +374,8 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             this.findSelectedTab().selected = false;
             this.tabs[this._activeIndex].selected = true;
             this.tabChanged = true;
+
+            this.updateScrollBar(val);
         }
     }
 
@@ -357,6 +383,46 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
         this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
         this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+    }
+
+    updateScrollBar(index) {
+        let tabHeader = this.navbar.nativeElement.children[index];
+        tabHeader.scrollIntoView({ block: 'nearest' })
+    }
+
+    updateButtonState() {
+        const content = this.content.nativeElement;
+        const { scrollLeft, scrollWidth } = content;
+        const width = DomHandler.getWidth(content);
+
+        this.backwardIsDisabled = scrollLeft === 0;
+        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+    }
+
+    onScroll(event) {
+        this.scrollable && this.updateButtonState();
+
+        event.preventDefault();
+    }
+
+    getVisibleButtonWidths() {
+        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => el ? acc + DomHandler.getWidth(el) : acc, 0);
+    }
+
+    navBackward() {
+        const content = this.content.nativeElement;
+        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const pos = content.scrollLeft - width;
+        content.scrollLeft = pos <= 0 ? 0 : pos;
+    }
+
+    navForward() {
+        const content = this.content.nativeElement;
+        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const pos = content.scrollLeft + width;
+        const lastPos = content.scrollWidth - width;
+
+        content.scrollLeft = pos >= lastPos ? lastPos : pos;
     }
 }
 
