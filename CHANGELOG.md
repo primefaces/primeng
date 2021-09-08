@@ -1,5 +1,37 @@
 # Changelog
 
+## [12.1.1](https://github.com/primefaces/primeng/tree/12.1.1) (2021-09-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0...12.1.1)
+
+**Implemented New Features and Enhancements:**
+
+- Add p-inputwrapper class to form components [\#10591](https://github.com/primefaces/primeng/issues/10591)
+- Add p-element class to the host element on all components [\#10590](https://github.com/primefaces/primeng/issues/10590)
+- Add getFormatter method to InputNumber [\#10588](https://github.com/primefaces/primeng/issues/10588)
+- Add allowEmpty property to InputNumber [\#10583](https://github.com/primefaces/primeng/issues/10583)
+- InputNumber behaves odd when trying to insert fracitonal digits [\#10582](https://github.com/primefaces/primeng/issues/10582)
+- Dropdown Accessibility Enhancements [\#10562](https://github.com/primefaces/primeng/issues/10562)
+- closeAriaLabel for SplitButton [\#10553](https://github.com/primefaces/primeng/issues/10553)
+- expandAriaLabel for SplitButton [\#10552](https://github.com/primefaces/primeng/issues/10552)
+- InputNumber on mobile works like textinput [\#10142](https://github.com/primefaces/primeng/issues/10142)
+- Add \[readonly\] attribute to p-inputNumber [\#9827](https://github.com/primefaces/primeng/issues/9827)
+- InputNumber: cannot insert fractional digits when minFractionDigits=0 [\#9272](https://github.com/primefaces/primeng/issues/9272)
+
+**Fixed bugs:**
+
+- Thumbnails are not displayed correctly on Galleria if numVisible is greater than the length of value [\#10594](https://github.com/primefaces/primeng/issues/10594)
+- InputNumber input event returns wrong value [\#10581](https://github.com/primefaces/primeng/issues/10581)
+- Input number caret issue with negatives [\#10565](https://github.com/primefaces/primeng/issues/10565)
+- Scrollable Resizing Table not working Variable Width [\#10561](https://github.com/primefaces/primeng/issues/10561)
+- inputnumber  : both prefix and currency  Input error [\#10521](https://github.com/primefaces/primeng/issues/10521)
+- Negative sign in front of number is not possible for Finnish or Swedish locale. [\#10409](https://github.com/primefaces/primeng/issues/10409)
+- InputNumber: setting "min" to anything greater than 0 implies "required" [\#10056](https://github.com/primefaces/primeng/issues/10056)
+- p-inputNumber uses wrong border radius in p-inputGroup [\#9949](https://github.com/primefaces/primeng/issues/9949)
+- InputNumber - unable to enter negative with minFractionDigits set [\#9516](https://github.com/primefaces/primeng/issues/9516)
+- Updating minFractionDigits and maxFractionDigits results in error [\#9466](https://github.com/primefaces/primeng/issues/9466)
+- InputNumber: issues with decimal separator for some locales, 0s are added to input [\#9399](https://github.com/primefaces/primeng/issues/9399)
+
 ## [12.1.0](https://github.com/primefaces/primeng/tree/12.1.0) (2021-08-25)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0-rc.2...12.1.0)
