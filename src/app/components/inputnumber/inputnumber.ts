@@ -217,10 +217,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         const numerals = [...new Intl.NumberFormat(this.locale, {useGrouping: false}).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [d, i]));
         this._numeral = new RegExp(`[${numerals.join('')}]`, 'g');
-        this._decimal = this.getDecimalExpression();
         this._group = this.getGroupingExpression();
         this._minusSign = this.getMinusSignExpression();
         this._currency = this.getCurrencyExpression();
+        this._decimal = this.getDecimalExpression();
         this._suffix = this.getSuffixExpression();
         this._prefix = this.getPrefixExpression();
         this._index = d => index.get(d);
@@ -237,8 +237,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     getDecimalExpression() {
-        const formatter = new Intl.NumberFormat(this.locale, {useGrouping: false});
-        return new RegExp(`[${formatter.format(1.1).trim().replace(this._numeral, '')}]`, 'g');
+        const formatter = new Intl.NumberFormat(this.locale, {...this.getOptions(), useGrouping: false});
+        return new RegExp(`[${formatter.format(1.1).replace(this._currency, '').trim().replace(this._numeral, '')}]`, 'g');
     }
 
     getGroupingExpression() {
@@ -254,8 +254,9 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     getCurrencyExpression() {
         if (this.currency) {
-            const formatter = new Intl.NumberFormat(this.locale, {style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay});
-            return new RegExp(`[${formatter.format(1).replace(/\s/g, '').replace(this._numeral, '').replace(this._decimal, '').replace(this._group, '')}]`, 'g');
+            const formatter = new Intl.NumberFormat(this.locale, {style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay,
+                minimumFractionDigits: 0, maximumFractionDigits: 0});
+            return new RegExp(`[${formatter.format(1).replace(/\s/g, '').replace(this._numeral, '').replace(this._group, '')}]`, 'g');
         }
 
         return new RegExp(`[]`,'g');
