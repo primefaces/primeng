@@ -10,12 +10,12 @@ import { RippleModule } from 'primeng/ripple';
     template: `
         <div *ngIf="fullScreen;else windowed">
             <div *ngIf="visible" #mask [ngClass]="{'p-galleria-mask p-component-overlay':true, 'p-galleria-visible': this.visible}" [class]="maskClass">
-                <p-galleriaContent [value]="value" [activeIndex]="activeIndex" (maskHide)="onMaskHide()" (activeItemChange)="onActiveItemChange($event)" [ngStyle]="containerStyle"></p-galleriaContent>
+                <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisible" (maskHide)="onMaskHide()" (activeItemChange)="onActiveItemChange($event)" [ngStyle]="containerStyle"></p-galleriaContent>
             </div>
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
+            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
         </ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -145,6 +145,10 @@ export class Galleria implements OnChanges, OnDestroy {
                 }
             }
         }
+
+        if (simpleChanges.value && simpleChanges.value.currentValue?.length < this.numVisible) {
+            this.numVisible = simpleChanges.value.currentValue.length;
+        }
     }
 
     onMaskHide() {
@@ -189,7 +193,7 @@ export class Galleria implements OnChanges, OnDestroy {
                     (startSlideShow)="startSlideShow()" (stopSlideShow)="stopSlideShow()"></p-galleriaItem>
 
                 <p-galleriaThumbnails *ngIf="galleria.showThumbnails" [containerId]="id" [value]="value" (onActiveIndexChange)="onActiveIndexChange($event)" [activeIndex]="activeIndex" [templates]="galleria.templates"
-                    [numVisible]="galleria.numVisible" [responsiveOptions]="galleria.responsiveOptions" [circular]="galleria.circular"
+                    [numVisible]="numVisible" [responsiveOptions]="galleria.responsiveOptions" [circular]="galleria.circular"
                     [isVertical]="isVertical()" [contentHeight]="galleria.verticalThumbnailViewPortHeight" [showThumbnailNavigators]="galleria.showThumbnailNavigators"
                     [slideShowActive]="slideShowActive" (stopSlideShow)="stopSlideShow()"></p-galleriaThumbnails>
             </div>
@@ -211,6 +215,8 @@ export class GalleriaContent {
     }
 
     @Input() value: any[] = [];
+
+    @Input() numVisible: number;
 
     @Output() maskHide: EventEmitter<any> = new EventEmitter();
 
