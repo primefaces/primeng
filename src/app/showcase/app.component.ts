@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => {
             this.config = config;
-            localStorage.setItem('theme', this.config.theme);
+            localStorage.setItem('primeng-theme', this.config.theme);
         });
 
         this.router.events.subscribe(event => {
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (queryString)
             appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
         else
-            appTheme = localStorage.getItem('theme');
+            appTheme = localStorage.getItem('primeng-theme');
 
         if (appTheme) {
             let darkTheme = this.isDarkTheme(appTheme);
