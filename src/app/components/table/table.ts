@@ -471,8 +471,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    wrapperWidthState: string;
-
     overlaySubscription: Subscription;
 
     virtualScrollSubscription: Subscription;
@@ -612,10 +610,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.restoreColumnWidths();
         }
 
-        if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
-            this.updateScrollWidth();
-        }
-
         if (this.scrollable && this.virtualScroll) {
             this.virtualScrollSubscription =  this.virtualScrollBody.renderedRangeStream.subscribe(range => {
                 let top = range.start * this.virtualRowHeight * -1;
@@ -644,10 +638,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             this.tableService.onValueChange(simpleChange.value.currentValue);
-
-            if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
-                this.updateScrollWidth();
-            }
         }
 
         if (simpleChange.columns) {
@@ -656,10 +646,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
                 this.restoreColumnOrder();
-            }
-
-            if (this.scrollable && (this.scrollDirection !== 'vertical'|| this.rowGroupMode === 'subheader')) {
-                this.updateScrollWidth();
             }
         }
 
@@ -1871,18 +1857,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
             else if (this.columnResizeMode === 'expand') {
                 let tableWidth = this.tableViewChild.nativeElement.offsetWidth + delta;
+                this.tableViewChild.nativeElement.style.minWidth = tableWidth + 'px';
+                this.resizeColumnElement.style.width = newColumnWidth + 'px';
 
-                if (!this.scrollable) {
+                if (!this.scrollable)
                     this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
-                    this.resizeColumnElement.style.width = newColumnWidth + 'px';
-                }
-                else {
+                else
                     this.resizeTableCells(newColumnWidth, null);
-                    let scrollbarWidth = DomHandler.calculateScrollbarWidth(this.wrapperViewChild.nativeElement);
-                    let isWrapperInViewport = this.containerViewChild.nativeElement.offsetWidth > tableWidth + scrollbarWidth;
-                    this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
-                    this.wrapperViewChild.nativeElement.style.width = isWrapperInViewport ? tableWidth + scrollbarWidth + 'px' : 'auto';
-                }
             }
 
             this.onColResize.emit({
@@ -2212,7 +2193,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.resizableColumns) {
                 this.columnWidthsState = state.columnWidths;
                 this.tableWidthState = state.tableWidth;
-                this.wrapperWidthState = state.wrapperWidth;
             }
 
             if (state.expandedRowKeys) {
@@ -2237,7 +2217,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (this.columnResizeMode === 'expand') {
             state.tableWidth =  DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
-            state.wrapperWidth = this.wrapperViewChild.nativeElement.style.width;
         }
     }
 
@@ -2245,12 +2224,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.columnWidthsState) {
             let widths = this.columnWidthsState.split(',');
 
-            if (this.columnResizeMode === 'expand') {
-                if (this.tableWidthState)
-                    this.tableViewChild.nativeElement.style.width = this.tableWidthState;
-
-                if (this.wrapperWidthState)
-                    this.wrapperViewChild.nativeElement.style.width = this.wrapperWidthState;
+            if (this.columnResizeMode === 'expand' && this.tableWidthState) {
+                this.tableViewChild.nativeElement.style.width = this.tableWidthState;
+                this.tableViewChild.nativeElement.style.minWidth = this.tableWidthState;
+                this.containerViewChild.nativeElement.style.width = this.tableWidthState;
             }
 
             this.createStyleElement();
@@ -2307,18 +2284,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 });
                 this.columnOrderStateRestored = true;
                 this.columns = reorderedColumns;
-            }
-        }
-    }
-
-    updateScrollWidth() {
-        if (this.tableViewChild && this.tableViewChild.nativeElement) {
-            let parentElementHeight = DomHandler.getWidth(this.tableViewChild.nativeElement.parentElement);
-            if (this.tableViewChild.nativeElement.scrollWidth > parentElementHeight) {
-                this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.scrollWidth + 'px';
-            }
-            else {
-                this.tableViewChild.nativeElement.style.width = (parentElementHeight - DomHandler.calculateScrollbarHeight())  + 'px';
             }
         }
     }

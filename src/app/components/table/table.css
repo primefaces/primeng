@@ -4,7 +4,7 @@
 
 .p-datatable table {
     border-collapse: collapse;
-    width: 100%;
+    min-width: 100%;
     table-layout: fixed;
 }
 
@@ -50,10 +50,6 @@
 .p-datatable-scrollable .p-datatable-wrapper {
     position: relative;
     overflow: auto;
-}
-
-.p-datatable-scrollable .p-datatable-table {
-    display: block;
 }
 
 .p-datatable-scrollable .p-datatable-thead,
