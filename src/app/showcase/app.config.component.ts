@@ -118,6 +118,16 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                         </div>
 
+                        <h5>Tailwind</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'tailwind-light', false)">
+                                    <img src="assets/showcase/images/themes/tailwind-light.png" alt="Tailwind Light" />
+                                </button>
+                                <span>Tailwind Light</span>
+                            </div>
+                        </div>
+
                         <h5>Fluent UI</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
