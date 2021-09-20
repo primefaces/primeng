@@ -48,6 +48,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'fullcalendar', loadChildren: () => import('./components/fullcalendar/fullcalendardemo.module').then(m => m.FullCalendarDemoModule)},
             {path: 'galleria', loadChildren: () => import('./components/galleria/galleriademo.module').then(m => m.GalleriaDemoModule)},
             {path: 'gmap', loadChildren: () => import('./components/gmap/gmapdemo.module').then(m => m.GMapDemoModule)},
+            {path: 'image', loadChildren: () => import('./components/image/imagedemo.module').then(m => m.ImageDemoModule)},
             {path: 'inplace', loadChildren: () => import('./components/inplace/inplacedemo.module').then(m => m.InplaceDemoModule)},
             {path: 'inputmask', loadChildren: () => import('./components/inputmask/inputmaskdemo.module').then(m => m.InputMaskDemoModule)},
             {path: 'inputnumber', loadChildren: () => import('./components/inputnumber/inputnumberdemo.module').then(m => m.InputNumberDemoModule)},

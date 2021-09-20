@@ -296,6 +296,7 @@ declare let gtag: Function;
                             </ul>
                         </div>
                     </div>
+                    <a [routerLink]=" ['/image']" routerLinkActive="router-link-exact-active">Image <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">DragDrop</div>
@@ -587,7 +588,8 @@ export class AppMenuComponent {
         {
             label: 'Media', value: 'media',
             items: [
-                {label: 'Carousel', value: '/carousel'}
+                {label: 'Carousel', value: '/carousel'},
+                {label: 'Image', value: '/image'}
             ]
         },
         {
