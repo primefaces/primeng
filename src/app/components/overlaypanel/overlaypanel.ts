@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
         <div *ngIf="render" [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
             [@animation]="{value: (overlayVisible ? 'open': 'close'), params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
-            <div class="p-overlaypanel-content">
+            <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
@@ -177,6 +177,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             target: this.el.nativeElement
         });
 
+        this.selfClick = true;
+    }
+
+    onContentClick() {
         this.selfClick = true;
     }
 
