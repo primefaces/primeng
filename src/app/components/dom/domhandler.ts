@@ -442,6 +442,10 @@ export class DomHandler {
         return /(android)/i.test(navigator.userAgent);
     }
 
+    public static isTouchDevice() {
+        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+    }
+
     public static appendChild(element: any, target: any) {
         if (this.isElement(target))
             target.appendChild(element);
