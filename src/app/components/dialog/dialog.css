@@ -8,8 +8,6 @@
     justify-content: center;
     align-items: center;
     pointer-events: none;
-    background-color: transparent;
-    transition-property: background-color;
 }
 
 .p-dialog-mask.p-component-overlay {
@@ -52,11 +50,6 @@
     overflow: hidden;
     position: relative;
 }
-
-.p-dialog-mask.p-dialog-mask-leave {
-    background-color: transparent;
-}
-
 
 /* Fluid */
 .p-fluid .p-dialog-footer .p-button {

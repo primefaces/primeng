@@ -37,7 +37,7 @@ export interface LocaleSettings {
                 <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [attr.aria-required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick()" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.inputmode]="touchUI ? 'off' : null"
                     [ngClass]="'p-inputtext p-component'" autocomplete="off" [attr.aria-labelledby]="ariaLabelledBy"
-                    ><button type="button" [icon]="icon" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="p-datepicker-trigger"
+                    ><button type="button" [attr.aria-label]="iconAriaLabel" [icon]="icon" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="p-datepicker-trigger"
                     [disabled]="disabled" tabindex="0"></button>
             </ng-template>
             <div #contentWrapper [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'p-datepicker p-component': true, 'p-datepicker-inline':inline,
@@ -215,6 +215,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() ariaLabelledBy: string;
 
+    @Input() iconAriaLabel: string;
+
     @Input() disabled: any;
 
     @Input() dateFormat: string;
@@ -386,6 +388,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     timePickerTimer:any;
 
     documentClickListener: any;
+
+    animationEndListener: any;
 
     ticksTo1970: number;
 
@@ -2103,7 +2107,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
-            let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker';
+            let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker p-component-overlay p-component-overlay-enter';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
 			this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -2116,25 +2120,31 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     disableModality() {
         if (this.mask) {
-            document.body.removeChild(this.mask);
-            let bodyChildren = document.body.children;
-            let hasBlockerMasks: boolean;
-            for (let i = 0; i < bodyChildren.length; i++) {
-                let bodyChild = bodyChildren[i];
-                if (DomHandler.hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
-                    hasBlockerMasks = true;
-                    break;
-                }
-            }
-
-            if (!hasBlockerMasks) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
-            }
-
-            this.unbindMaskClickListener();
-
-            this.mask = null;
+            DomHandler.addClass(this.mask, 'p-component-overlay-leave');
+            this.animationEndListener = this.destroyMask.bind(this);
+            this.mask.addEventListener('animationend', this.animationEndListener);
         }
+    }
+
+    destroyMask() {
+        document.body.removeChild(this.mask);
+        let bodyChildren = document.body.children;
+        let hasBlockerMasks: boolean;
+        for (let i = 0; i < bodyChildren.length; i++) {
+            let bodyChild = bodyChildren[i];
+            if (DomHandler.hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
+                hasBlockerMasks = true;
+                break;
+            }
+        }
+
+        if (!hasBlockerMasks) {
+            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        }
+
+        this.unbindAnimationEndListener();
+        this.unbindMaskClickListener();
+        this.mask = null;
     }
 
     unbindMaskClickListener() {
@@ -2142,6 +2152,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.maskClickListener();
             this.maskClickListener = null;
 		}
+    }
+
+    unbindAnimationEndListener() {
+        if (this.animationEndListener && this.mask) {
+            this.mask.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener = null;
+        }
     }
 
     writeValue(value: any) : void {
@@ -2587,12 +2604,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onOverlayHide() {
+        if (this.mask) {
+            this.destroyMask();
+        }
+
         this.unbindDocumentClickListener();
-        this.unbindMaskClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.overlay = null;
-        this.disableModality();
     }
 
     ngOnDestroy() {

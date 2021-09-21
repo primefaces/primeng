@@ -21,7 +21,7 @@ const hideAnimation = animation([
     selector: 'p-dialog',
     template: `
         <div *ngIf="maskVisible" [class]="maskStyleClass"
-            [ngClass]="{'p-dialog-mask': true, 'p-component-overlay': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
+            [ngClass]="{'p-dialog-mask': true, 'p-component-overlay p-component-overlay-enter': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
                 'p-dialog-left': position === 'left',
                 'p-dialog-right': position === 'right',
                 'p-dialog-top': position === 'top',
@@ -709,6 +709,12 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
                 if (this.focusOnShow) {
                     this.focus();
+                }
+            break;
+
+            case 'void':
+                if (this.modal) {
+                    DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
             break;
         }

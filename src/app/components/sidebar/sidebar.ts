@@ -1,10 +1,10 @@
-import {NgModule,Component,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef} from '@angular/core';
-import {trigger, style, transition, animate, animation, useAnimation} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {RippleModule} from 'primeng/ripple';
-import {DomHandler} from 'primeng/dom';
-import {PrimeNGConfig, PrimeTemplate} from 'primeng/api';
-import {ZIndexUtils} from 'primeng/utils';
+import { NgModule, Component, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import { trigger, style, transition, animate, animation, useAnimation } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { RippleModule } from 'primeng/ripple';
+import { DomHandler } from 'primeng/dom';
+import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { ZIndexUtils } from 'primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -82,7 +82,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @Output() visibleChange:EventEmitter<any> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
 
@@ -102,9 +102,11 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentEscapeListener: Function;
 
+    animationEndListener: any;
+
     contentTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
 
     ngAfterViewInit() {
         this.initialized = true;
@@ -112,14 +114,14 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -128,7 +130,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         return this._visible;
     }
 
-    set visible(val:boolean) {
+    set visible(val: boolean) {
         this._visible = val;
     }
 
@@ -142,16 +144,16 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         switch (value) {
             case 'left':
                 this.transformOptions = "translate3d(-100%, 0px, 0px)";
-            break;
+                break;
             case 'right':
                 this.transformOptions = "translate3d(100%, 0px, 0px)";
-            break;
+                break;
             case 'bottom':
                 this.transformOptions = "translate3d(0px, 100%, 0px)";
-            break;
+                break;
             case 'top':
                 this.transformOptions = "translate3d(0px, -100%, 0px)";
-            break;
+                break;
         }
     }
 
@@ -196,9 +198,9 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
-            DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask');
+            DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
 
-            if (this.dismissible){
+            if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                     if (this.dismissible) {
                         this.close(event);
@@ -215,17 +217,26 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     disableModality() {
         if (this.mask) {
-            this.unbindMaskClickListener();
-            document.body.removeChild(this.mask);
-            if (this.blockScroll) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
-            }
-            this.mask = null;
+            DomHandler.addClass(this.mask, 'p-component-overlay-leave');
+            this.animationEndListener = this.destroyModal.bind(this);
+            this.mask.addEventListener('animationend', this.animationEndListener);
         }
     }
 
-    onAnimationStart(event){
-        switch(event.toState) {
+    destroyModal() {
+        this.unbindMaskClickListener();
+        document.body.removeChild(this.mask);
+
+        if (this.blockScroll) {
+            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        }
+
+        this.unbindAnimationEndListener();
+        this.mask = null;
+    }
+
+    onAnimationStart(event) {
+        switch (event.toState) {
             case 'visible':
                 this.container = event.element;
                 this.appendContainer();
@@ -234,20 +245,17 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 if (this.closeOnEscape) {
                     this.bindDocumentEscapeListener();
                 }
-            break;
-
-            case 'void':
-                this.hide();
-                this.unbindGlobalListeners();
-            break;
+                break;
         }
     }
 
-    onAnimationEnd(event){
-        switch(event.toState) {
+    onAnimationEnd(event) {
+        switch (event.toState) {
             case 'void':
+                this.hide();
                 ZIndexUtils.clear(this.container);
-            break;
+                this.unbindGlobalListeners();
+                break;
         }
     }
 
@@ -289,13 +297,21 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     unbindGlobalListeners() {
         this.unbindMaskClickListener();
         this.unbindDocumentEscapeListener();
+        this.unbindAnimationEndListener();
+    }
+
+    unbindAnimationEndListener() {
+        if (this.animationEndListener && this.mask) {
+            this.mask.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener = null;
+        }
     }
 
     ngOnDestroy() {
         this.initialized = false;
 
         if (this.visible) {
-            this.hide();
+            this.destroyModal();
         }
 
         if (this.appendTo && this.container) {
@@ -307,12 +323,12 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
 
         this.container = null;
-		this.unbindGlobalListeners();
+        this.unbindGlobalListeners();
     }
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
+    imports: [CommonModule, RippleModule],
     exports: [Sidebar],
     declarations: [Sidebar]
 })
