@@ -1033,6 +1033,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this._filterValue = (<HTMLInputElement> event.target).value;
         this.activateFilter();
         this.onFilter.emit({originalEvent: event, filter: this._filterValue});
+        this.cd.detectChanges();
+        this.alignOverlay();
     }
 
     activateFilter() {
