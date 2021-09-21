@@ -40,6 +40,7 @@
   --surface-overlay:#ffffff;
   --surface-border:#dee2e6;
   --surface-hover:#e9ecef;
+  --maskbg: rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -82,6 +83,31 @@
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem rgba(136, 60, 174, 0.5);
+}
+
+.p-component-overlay-enter {
+  animation: p-component-overlay-enter-animation 150ms forwards;
+}
+
+.p-component-overlay-leave {
+  animation: p-component-overlay-leave-animation 150ms forwards;
+}
+
+@keyframes p-component-overlay-enter-animation {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: var(--maskbg);
+  }
+}
+@keyframes p-component-overlay-leave-animation {
+  from {
+    background-color: var(--maskbg);
+  }
+  to {
+    background-color: transparent;
+  }
 }
 
 :root {
@@ -3943,10 +3969,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-left: 1rem;
 }
 
-.p-dialog-mask.p-component-overlay {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
 .p-overlaypanel {
   background: #ffffff;
   color: #212529;
@@ -4025,10 +4047,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-sidebar .p-sidebar-content {
   padding: 1.25rem;
-}
-
-.p-sidebar-mask.p-component-overlay {
-  background: rgba(0, 0, 0, 0.4);
 }
 
 .p-tooltip .p-tooltip-text {
@@ -4958,7 +4976,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2rem rgba(136, 60, 174, 0.5);
+  box-shadow: inset 0 0 0 0.2rem rgba(136, 60, 174, 0.5);
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link {
   background: #ffffff;
@@ -5363,8 +5381,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: 0 0 0 0.2rem rgba(136, 60, 174, 0.5);
 }
 
-.p-galleria-mask.p-component-overlay {
-  background-color: rgba(0, 0, 0, 0.9);
+.p-galleria-mask {
+  --maskbg: rgba(0, 0, 0, 0.9);
 }
 
 .p-image-mask {
@@ -5470,10 +5488,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   min-width: 3rem;
   height: 3rem;
   line-height: 3rem;
-}
-
-.p-blockui.p-component-overlay {
-  background: rgba(0, 0, 0, 0.4);
 }
 
 .p-chip {
