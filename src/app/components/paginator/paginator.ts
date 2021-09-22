@@ -5,6 +5,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {SelectItem} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {SharedModule} from 'primeng/api';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @Component({
     selector: 'p-paginator',
@@ -38,6 +39,7 @@ import {SharedModule} from 'primeng/api';
                     class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
                 <span class="p-paginator-icon pi pi-angle-double-right"></span>
             </button>
+            <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="getPage()" class="p-paginator-page-input" (ngModelChange)="changePage($event)"></p-inputNumber>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" styleClass="p-paginator-rpp-options"
                 (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight">
                 <ng-container *ngIf="dropdownItemTemplate">
@@ -92,6 +94,8 @@ export class Paginator implements OnInit, OnChanges {
     @Input() rowsPerPageOptions: any[];
 
     @Input() showJumpToPageDropdown: boolean;
+
+    @Input() showJumpToPageInput: boolean;
 
     @Input() showPageLinks: boolean = true;
 
@@ -169,7 +173,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     getPageCount() {
-        return Math.ceil(this.totalRecords/this.rows)||1;
+        return Math.ceil(this.totalRecords/this.rows);
     }
 
     calculatePageLinkBoundaries() {
@@ -285,7 +289,7 @@ export class Paginator implements OnInit, OnChanges {
 
     get currentPageReport() {
         return this.currentPageReportTemplate
-                .replace("{currentPage}", String(this.getPage() + 1))
+                .replace("{currentPage}", String(this.getPageCount() > 0 ? this.getPage() + 1 : 0))
                 .replace("{totalPages}", String(this.getPageCount()))
                 .replace("{first}", String((this.totalRecords > 0) ? this._first + 1 : 0))
                 .replace("{last}", String(Math.min(this._first + this.rows, this.totalRecords)))
@@ -295,8 +299,8 @@ export class Paginator implements OnInit, OnChanges {
 }
 
 @NgModule({
-    imports: [CommonModule,DropdownModule,FormsModule,SharedModule,RippleModule],
-    exports: [Paginator,DropdownModule,FormsModule,SharedModule],
+    imports: [CommonModule,DropdownModule,InputNumberModule,FormsModule,SharedModule,RippleModule],
+    exports: [Paginator,DropdownModule,InputNumberModule,FormsModule,SharedModule],
     declarations: [Paginator]
 })
 export class PaginatorModule { }
