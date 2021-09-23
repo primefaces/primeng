@@ -285,6 +285,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() groupRowsBy: any;
 
+    @Input() groupRowsByOrder: number = 1;
+
     @Input() minBufferPx: number;
 
     @Input() maxBufferPx: number;
@@ -631,9 +633,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (!this.lazy) {
                 this.totalRecords = (this._value ? this._value.length : 0);
 
-                if (this.sortMode == 'single' && this.sortField)
+                if (this.sortMode == 'single' && (this.sortField || this.groupRowsBy))
                     this.sortSingle();
-                else if (this.sortMode == 'multiple' && this.multiSortMeta)
+                else if (this.sortMode == 'multiple' && (this.multiSortMeta || this.groupRowsBy))
                     this.sortMultiple();
                 else if (this.hasFilter())       //sort already filters
                     this._filter();
@@ -662,9 +664,27 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
+        if (simpleChange.groupRowsBy) {
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
         if (simpleChange.sortOrder) {
             this._sortOrder = simpleChange.sortOrder.currentValue;
 
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
+        if (simpleChange.groupRowsByOrder) {
             //avoid triggering lazy load prior to lazy initialization at onInit
             if ( !this.lazy || this.initialized ) {
                 if (this.sortMode === 'single') {
@@ -867,7 +887,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     sortSingle() {
-        if (this.sortField && this.sortOrder) {
+        let field = this.sortField || this.groupRowsBy;
+        let order = this.sortField ? this.sortOrder : this.groupRowsByOrder;
+        if (this.groupRowsBy && this.sortField && this.groupRowsBy !== this.sortField) {
+            this._multiSortMeta = [this.getGroupRowsMeta(), {field: this.sortField, order: this.sortOrder}];
+            this.sortMultiple();
+            return;
+        }
+
+        if (field && order) {
             if (this.restoringSort) {
                 this.restoringSort = false;
             }
@@ -880,14 +908,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.sortFunction.emit({
                         data: this.value,
                         mode: this.sortMode,
-                        field: this.sortField,
-                        order: this.sortOrder
+                        field: field,
+                        order: order
                     });
                 }
                 else {
                     this.value.sort((data1, data2) => {
-                        let value1 = ObjectUtils.resolveFieldData(data1, this.sortField);
-                        let value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
+                        let value1 = ObjectUtils.resolveFieldData(data1, field);
+                        let value2 = ObjectUtils.resolveFieldData(data2, field);
                         let result = null;
 
                         if (value1 == null && value2 != null)
@@ -901,7 +929,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         else
                             result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
 
-                        return (this.sortOrder * result);
+                        return (order * result);
                     });
 
                     this._value = [...this.value];
@@ -913,8 +941,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             let sortMeta: SortMeta = {
-                field: this.sortField,
-                order: this.sortOrder
+                field: field,
+                order: order
             };
 
             this.onSort.emit(sortMeta);
@@ -923,6 +951,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     sortMultiple() {
+        if (this.groupRowsBy) {
+            if (!this._multiSortMeta)
+                this._multiSortMeta = [this.getGroupRowsMeta()]
+            else if (this.multiSortMeta[0].field !== this.groupRowsBy)
+                this._multiSortMeta = [this.getGroupRowsMeta(), ...this._multiSortMeta]
+        }
+
         if (this.multiSortMeta) {
             if (this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -2310,6 +2345,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         document.head.appendChild(this.styleElement);
     }
 
+    getGroupRowsMeta() {
+        return {field: this.groupRowsBy, order: this.groupRowsByOrder};
+    }
+
     createResponsiveStyle() {
         if (!this.responsiveStyleElement) {
             this.responsiveStyleElement = document.createElement('style');
@@ -2712,7 +2751,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
-        <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{getMultiSortMetaIndex() + 1}}</span>
+        <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{getBadgeValue()}}</span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -2770,6 +2809,12 @@ export class SortIcon implements OnInit, OnDestroy {
         }
 
         return index;
+    }
+
+    getBadgeValue() {
+        let index = this.getMultiSortMetaIndex();
+
+        return this.dt.groupRowsBy && index > -1 ? index : index + 1;
     }
 
     isMultiSorted() {
