@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     class TestCheckboxComponent {
         checked: boolean = false;
     }
-  
+
 describe('Checkbox', () => {
 
     let checkbox: Checkbox;
@@ -39,8 +39,9 @@ describe('Checkbox', () => {
     });
 
     it('should check the input on click', () => {
+        checkbox.binary = true;
         fixture.detectChanges();
-        
+
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
         boxEl.click();
         fixture.detectChanges();
@@ -70,6 +71,7 @@ describe('Checkbox', () => {
     });
 
     it('should get a label name inputId tabindex style styleClass and labelStyleClass', () => {
+        checkbox.binary = true;
         checkbox.label = "Primeng ROCKS!";
         checkbox.name = "primeng";
         checkbox.inputId = "primeng";
@@ -149,6 +151,7 @@ describe('Checkbox', () => {
     });
 
     it('should have default checkbox icon', () => {
+        checkbox.binary = true;
         fixture.detectChanges();
 
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
@@ -161,6 +164,7 @@ describe('Checkbox', () => {
     });
 
     it('should have custom checkbox icon', () => {
+        checkbox.binary = true;
         fixture.detectChanges();
 
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
@@ -175,7 +179,7 @@ describe('Checkbox', () => {
 
     it('should call handleChange', () => {
         fixture.detectChanges();
-        
+
         checkbox.binary = true;
         const handleChangeSpy = spyOn(checkbox,"handleChange").and.callThrough();
         const input = fixture.nativeElement.querySelector('input');

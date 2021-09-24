@@ -281,7 +281,7 @@ import { RouterTestingModule } from '@angular/router/testing';
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:2.5em"></th>
-                <th *ngFor="let col of columns" pReorderableColumn>
+                <th *ngFor="let col of columns" style="width: 25%;" pReorderableColumn>
                     {{col.header}}
                 </th>
             </tr>
@@ -291,7 +291,7 @@ import { RouterTestingModule } from '@angular/router/testing';
                 <td>
                     <i class="pi pi-bars" pReorderableRowHandle></i>
                 </td>
-                <td *ngFor="let col of columns">
+                <td *ngFor="let col of columns" style="width: 25%;">
                     {{rowData[col.field]}}
                 </td>
             </tr>
