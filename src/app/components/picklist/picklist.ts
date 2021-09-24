@@ -12,10 +12,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-picklist p-component'" cdkDropListGroup>
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
                 <div class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate">
@@ -49,10 +49,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-transfer-buttons">
-                <button type="button" pButton pRipple icon="pi pi-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
+                <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple icon="pi pi-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
+                <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
+                <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple icon="pi pi-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
+                <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper">
                 <div class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate">
@@ -85,10 +85,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-target-controls" *ngIf="showTargetControls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
             </div>
         </div>
     `,
@@ -106,6 +106,22 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() target: any[];
 
     @Input() sourceHeader: string;
+
+    @Input() rightButtonAriaLabel: string;
+
+    @Input() leftButtonAriaLabel: string;
+
+    @Input() allRightButtonAriaLabel: string;
+
+    @Input() allLeftButtonAriaLabel: string;
+
+    @Input() upButtonAriaLabel: string;
+
+    @Input() downButtonAriaLabel: string;
+
+    @Input() topButtonAriaLabel: string;
+
+    @Input() bottomButtonAriaLabel: string;
 
     @Input() targetHeader: string;
 
