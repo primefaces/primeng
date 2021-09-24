@@ -1,5 +1,44 @@
 # Changelog
 
+## [12.2.0-rc.1](https://github.com/primefaces/primeng/tree/12.2.0-rc.1) (2021-09-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.1.1...12.2.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Tree | aria-label support for the toggler icon [\#10670](https://github.com/primefaces/primeng/issues/10670)
+- Breadcrumb | aria-label support for Home Icon [\#10669](https://github.com/primefaces/primeng/issues/10669)
+- Menu | aria-role support [\#10668](https://github.com/primefaces/primeng/issues/10668)
+- Picklist | aria-label support for Buttons [\#10667](https://github.com/primefaces/primeng/issues/10667)
+- Autocomplete - aria-label for dropdown [\#10666](https://github.com/primefaces/primeng/issues/10666)
+- Disable the navigation helpers when paginator empty [\#10661](https://github.com/primefaces/primeng/issues/10661)
+- Add contains Method to ObjectUtils [\#10657](https://github.com/primefaces/primeng/issues/10657)
+- Add trueValue-falseValue to Checkbox [\#10656](https://github.com/primefaces/primeng/issues/10656)
+- Make Dock component mobile friendly [\#10654](https://github.com/primefaces/primeng/issues/10654)
+- Set Paginator Page from InputNumber [\#10653](https://github.com/primefaces/primeng/issues/10653)
+- Add trueValue-falseValue to InputSwitch [\#10650](https://github.com/primefaces/primeng/issues/10650)
+- Incorrect Sizing due to filter input width of dropdown [\#10649](https://github.com/primefaces/primeng/issues/10649)
+- Aria Label for Calendar's Icon [\#10641](https://github.com/primefaces/primeng/issues/10641)
+- Improve Galleria animation on FullScreen mode [\#10640](https://github.com/primefaces/primeng/issues/10640)
+- Modal layer enter-leave transition [\#10639](https://github.com/primefaces/primeng/issues/10639)
+- Tabindex property for Dialog's Close Button [\#10632](https://github.com/primefaces/primeng/issues/10632)
+- Image Component [\#10631](https://github.com/primefaces/primeng/issues/10631)
+- Tailwind Theme [\#10629](https://github.com/primefaces/primeng/issues/10629)
+
+**Fixed bugs:**
+
+- DataTable row group and sortable columns are not working together [\#10663](https://github.com/primefaces/primeng/issues/10663)
+- Paginator's Inputnumber displays index instead of current page [\#10660](https://github.com/primefaces/primeng/issues/10660)
+- CurrentPageReport displays wrong value [\#10652](https://github.com/primefaces/primeng/issues/10652)
+- Material themes secondary text color issue [\#10651](https://github.com/primefaces/primeng/issues/10651)
+- Filtered Dropdown unusable on Windows Tablet [\#10648](https://github.com/primefaces/primeng/issues/10648)
+- Tooltip: word wrap [\#10647](https://github.com/primefaces/primeng/issues/10647)
+- Extra space between MultiSelect and filter list [\#10644](https://github.com/primefaces/primeng/issues/10644)
+- DataTable - The showClearButton literally doesn't do anything [\#10643](https://github.com/primefaces/primeng/issues/10643)
+- Overlay panel hide when clicking on a label inside of it [\#10642](https://github.com/primefaces/primeng/issues/10642)
+- DataTable doesn't work as expected when the container is resized. [\#10623](https://github.com/primefaces/primeng/issues/10623)
+- p-checkbox causes layout issues when used inside an overflow: auto div [\#9725](https://github.com/primefaces/primeng/issues/9725)
+
 ## [12.1.1](https://github.com/primefaces/primeng/tree/12.1.1) (2021-09-08)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.1.0...12.1.1)
