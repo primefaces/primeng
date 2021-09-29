@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { DropdownModule} from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { FilterMatchMode, SharedModule } from 'primeng/api';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -579,14 +579,14 @@ describe('Table', () => {
     it('should use endsWith filter and show 1 item. It should clear the filter and show 10 item.', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter("231ff","vin","endsWith");
+        filterTable.filter("231ff","vin",FilterMatchMode.ENDS_WITH);
         tick(300);
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
-        filterTable.filter(null,"vin","endsWith");
+        filterTable.filter(null,"vin",FilterMatchMode.ENDS_WITH);
         tick(300);
         fixture.detectChanges();
 
@@ -597,7 +597,7 @@ describe('Table', () => {
     it('should use equals filter and show 1 item', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter("dsad231ff","vin","equals");
+        filterTable.filter("dsad231ff","vin",FilterMatchMode.EQUALS);
         tick(300);
         fixture.detectChanges();
 
@@ -609,7 +609,7 @@ describe('Table', () => {
     it('should use not equals filter and show 9 item', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter("dsad231ff","vin","notEquals");
+        filterTable.filter("dsad231ff","vin",FilterMatchMode.NOT_EQUALS);
         tick(300);
         fixture.detectChanges();
 
@@ -621,14 +621,14 @@ describe('Table', () => {
     it('should use in filter and show 1 item', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter(["BMW",null],"brand","in");
+        filterTable.filter(["BMW",null],"brand",FilterMatchMode.IN);
         tick(300);
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
-        filterTable.filter([],"brand","in");
+        filterTable.filter([],"brand",FilterMatchMode.IN);
         tick(300);
         fixture.detectChanges();
 
@@ -638,7 +638,7 @@ describe('Table', () => {
     it('should use lt filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter("2005","year","lt");
+        filterTable.filter("2005","year",FilterMatchMode.LESS_THAN);
         tick(300);
         fixture.detectChanges();
 
@@ -650,7 +650,7 @@ describe('Table', () => {
     it('should use lte filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter("2005","year","lte");
+        filterTable.filter("2005","year",FilterMatchMode.LESS_THAN_OR_EQUAL_TO);
         tick(300);
         fixture.detectChanges();
 
@@ -662,7 +662,7 @@ describe('Table', () => {
     it('should use gt filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter("2005","year","gt");
+        filterTable.filter("2005","year",FilterMatchMode.GREATER_THAN);
         tick(300);
         fixture.detectChanges();
 
@@ -674,7 +674,7 @@ describe('Table', () => {
     it('should use gte filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
 
-        filterTable.filter("2005","year","gte");
+        filterTable.filter("2005","year",FilterMatchMode.GREATER_THAN_OR_EQUAL_TO);
         tick(300);
         fixture.detectChanges();
 
@@ -1050,7 +1050,7 @@ describe('Table', () => {
         headerCheckbox.nativeElement.click();
         fixture.detectChanges();
 
-        checkboxSelectionTable.filter("v","brand","contains");
+        checkboxSelectionTable.filter("v","brand",FilterMatchMode.CONTAINS);
         tick(300);
         fixture.detectChanges();
 
@@ -1060,7 +1060,7 @@ describe('Table', () => {
         rowCheckboxs[0].query(By.css("div")).nativeElement.click();
         fixture.detectChanges();
 
-        checkboxSelectionTable.filter("v","brand","contains");
+        checkboxSelectionTable.filter("v","brand",FilterMatchMode.CONTAINS);
         tick(300);
         fixture.detectChanges();
 
@@ -1077,7 +1077,7 @@ describe('Table', () => {
         headerCheckbox.nativeElement.click();
         fixture.detectChanges();
 
-        checkboxSelectionTable.filter("v","brand","contains");
+        checkboxSelectionTable.filter("v","brand",FilterMatchMode.CONTAINS);
         tick(300);
         fixture.detectChanges();
 
@@ -1087,7 +1087,7 @@ describe('Table', () => {
         rowCheckboxs[0].query(By.css("div")).nativeElement.click();
         fixture.detectChanges();
 
-        checkboxSelectionTable.filter("v","brand","contains");
+        checkboxSelectionTable.filter("v","brand",FilterMatchMode.CONTAINS);
         tick(300);
         fixture.detectChanges();
 

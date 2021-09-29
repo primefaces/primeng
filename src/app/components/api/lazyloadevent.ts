@@ -1,5 +1,5 @@
 import { SortMeta } from './sortmeta';
-import { FilterMetadata } from './filtermetadata';
+import { FilterMetadata, FilterMetadataWithOperator } from './filtermetadata';
 
 export interface LazyLoadEvent {
     first?: number;
@@ -7,6 +7,6 @@ export interface LazyLoadEvent {
     sortField?: string;
     sortOrder?: number;
     multiSortMeta?: SortMeta[];
-    filters?: {[s: string]: FilterMetadata;};
+    filters?: {[s: string]: FilterMetadata | FilterMetadataWithOperator[];};
     globalFilter?: any;
 }

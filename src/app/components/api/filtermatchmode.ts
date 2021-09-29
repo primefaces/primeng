@@ -1,22 +1,22 @@
-export class FilterMatchMode {
-    public static readonly STARTS_WITH = 'startsWith';
-    public static readonly CONTAINS = 'contains';
-    public static readonly NOT_CONTAINS = 'notContains';
-    public static readonly ENDS_WITH = 'endsWith';
-    public static readonly EQUALS = 'equals';
-    public static readonly NOT_EQUALS = 'notEquals';
-    public static readonly IN = 'in';
-    public static readonly LESS_THAN = 'lt';
-    public static readonly LESS_THAN_OR_EQUAL_TO = 'lte';
-    public static readonly GREATER_THAN = 'gt';
-    public static readonly GREATER_THAN_OR_EQUAL_TO = 'gte';
-    public static readonly BETWEEN = 'between';
-    public static readonly IS = 'is';
-    public static readonly IS_NOT = 'isNot';
-    public static readonly BEFORE = 'before';
-    public static readonly AFTER = 'after';
-    public static readonly DATE_IS = 'dateIs';
-    public static readonly DATE_IS_NOT = 'dateIsNot';
-    public static readonly DATE_BEFORE = 'dateBefore';
-    public static readonly DATE_AFTER = 'dateAfter';
+export enum FilterMatchMode {
+    STARTS_WITH = "startsWith",
+    CONTAINS = "contains",
+    NOT_CONTAINS = "notContains",
+    ENDS_WITH = "endsWith",
+    EQUALS = "equals",
+    NOT_EQUALS = "notEquals",
+    IN = "in",
+    LESS_THAN = "lt",
+    LESS_THAN_OR_EQUAL_TO = "lte",
+    GREATER_THAN = "gt",
+    GREATER_THAN_OR_EQUAL_TO = "gte",
+    BETWEEN = "between",
+    IS = "is",
+    IS_NOT = "isNot",
+    BEFORE = "before",
+    AFTER = "after",
+    DATE_IS = "dateIs",
+    DATE_IS_NOT = "dateIsNot",
+    DATE_BEFORE = "dateBefore",
+    DATE_AFTER = "dateAfter",
 }

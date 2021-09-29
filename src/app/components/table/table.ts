@@ -2,7 +2,7 @@ import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Di
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService, FilterMetadataWithOperator } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -221,7 +221,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
+    @Input() filters: { [s: string]: FilterMetadata | FilterMetadataWithOperator[] } = {};
 
     @Input() globalFilterFields: string[];
 
@@ -825,12 +825,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    sort(event) {
-        let originalEvent = event.originalEvent;
-
+    sort({ originalEvent, field }: { originalEvent: any; field: string }) {
         if (this.sortMode === 'single') {
-            this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
-            this._sortField = event.field;
+            this._sortOrder = (this.sortField === field) ? this.sortOrder * -1 : this.defaultSortOrder;
+            this._sortField = field;
 
             if (this.resetPageOnSort) {
                 this._first = 0;
@@ -845,11 +843,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
         if (this.sortMode === 'multiple') {
             let metaKey = originalEvent.metaKey || originalEvent.ctrlKey;
-            let sortMeta = this.getSortMeta(event.field);
+            let sortMeta = this.getSortMeta(field);
 
             if (sortMeta) {
                 if (!metaKey) {
-                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }];
+                    this._multiSortMeta = [{ field, order: sortMeta.order * -1 }];
 
                     if (this.resetPageOnSort) {
                         this._first = 0;
@@ -873,7 +871,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         this.firstChange.emit(this._first);
                     }
                 }
-                this._multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
+                this._multiSortMeta.push({ field, order: this.defaultSortOrder });
             }
 
             this.sortMultiple();
@@ -1391,7 +1389,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     /* Legacy Filtering for custom elements */
-    filter(value: any, field: string, matchMode: string) {
+    filter(value: any, field: string, matchMode: FilterMatchMode) {
         if (this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
@@ -4316,9 +4314,9 @@ export class ColumnFilter implements AfterContentInit {
 
     @Input() showMenu: boolean = true;
 
-    @Input() matchMode: string;
+    @Input() matchMode: FilterMatchMode;
 
-    @Input() operator: string = FilterOperator.AND;
+    @Input() operator: FilterOperator = FilterOperator.AND;
 
     @Input() showOperator: boolean = true;
 
@@ -4459,7 +4457,7 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 
-    onRowMatchModeChange(matchMode: string) {
+    onRowMatchModeChange(matchMode: FilterMatchMode) {
         (<FilterMetadata> this.dt.filters[this.field]).matchMode = matchMode;
         this.dt._filter();
         this.hide();
@@ -4503,17 +4501,17 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     addConstraint() {
-        (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator()});
+        (<FilterMetadataWithOperator[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator()});
         this.dt._filter();
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
-        this.dt.filters[this.field] = (<FilterMetadata[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
+        this.dt.filters[this.field] = (<FilterMetadataWithOperator[]> this.dt.filters[this.field]).filter(meta => meta !== filterMeta);
         this.dt._filter();
     }
 
     onOperatorChange(value) {
-        (<FilterMetadata[]> this.dt.filters[this.field]).forEach(filterMeta => {
+        (<FilterMetadataWithOperator[]> this.dt.filters[this.field]).forEach(filterMeta => {
             filterMeta.operator = value;
             this.operator = value;
         });
@@ -4616,7 +4614,7 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 
-    getDefaultMatchMode(): string {
+    getDefaultMatchMode(): FilterMatchMode {
         if (this.matchMode) {
             return this.matchMode;
         }
@@ -4632,16 +4630,16 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 
-    getDefaultOperator(): string {
-        return this.dt.filters ? (<FilterMetadata[]> this.dt.filters[this.field])[0].operator: this.operator;
+    getDefaultOperator(): FilterOperator {
+        return this.dt.filters ? (<FilterMetadataWithOperator[]> this.dt.filters[this.field])[0].operator: this.operator;
     }
 
     hasRowFilter() {
         return this.dt.filters[this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[this.field]).value);
     }
 
-    get fieldConstraints(): FilterMetadata[] {
-        return this.dt.filters ? <FilterMetadata[]> this.dt.filters[this.field] : null;
+    get fieldConstraints(): FilterMetadataWithOperator[] {
+        return this.dt.filters ? <FilterMetadataWithOperator[]> this.dt.filters[this.field] : null;
     }
 
     get showRemoveIcon(): boolean {
@@ -4684,7 +4682,7 @@ export class ColumnFilter implements AfterContentInit {
         let fieldFilter = this.dt.filters[this.field];
         if (fieldFilter) {
             if (Array.isArray(fieldFilter))
-                return !this.dt.isFilterBlank((<FilterMetadata[]> fieldFilter)[0].value);
+                return !this.dt.isFilterBlank((<FilterMetadataWithOperator[]> fieldFilter)[0].value);
             else
                 return !this.dt.isFilterBlank(fieldFilter.value);
         }

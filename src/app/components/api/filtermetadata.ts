@@ -1,5 +1,12 @@
+import { FilterMatchMode } from "./filtermatchmode";
+import { FilterOperator } from "./filteroperator";
+
 export interface FilterMetadata {
-    value?: any;
-    matchMode?: string;
-    operator?: string;
+    value: any;
+    matchMode: FilterMatchMode;
+}
+export interface FilterMetadataWithOperator {
+    value: any;
+    matchMode: FilterMatchMode;
+    operator: FilterOperator;
 }

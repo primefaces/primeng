@@ -114,7 +114,7 @@ export class FilterService {
                 return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) != ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
         },
 
-        in: (value, filter: any[]):boolean => {
+        in: (value, filter: any[], _):boolean => {
             if (filter === undefined || filter === null || filter.length === 0) {
                 return true;
             }
@@ -128,7 +128,7 @@ export class FilterService {
             return false;
         },
 
-        between: (value, filter: any[]):boolean => {
+        between: (value, filter: any[], _):boolean => {
             if (filter == null || filter[0] == null || filter[1] == null) {
                 return true;
             }
@@ -143,7 +143,7 @@ export class FilterService {
                 return filter[0] <= value && value <= filter[1];
         },
 
-        lt: (value, filter, filterLocale?):boolean => {
+        lt: (value, filter, _):boolean => {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -158,7 +158,7 @@ export class FilterService {
                 return value < filter;
         },
 
-        lte: (value, filter, filterLocale?):boolean => {
+        lte: (value, filter, _):boolean => {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -173,7 +173,7 @@ export class FilterService {
                 return value <= filter;
         },
 
-        gt: (value, filter, filterLocale?):boolean => {
+        gt: (value, filter, _):boolean => {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -188,7 +188,7 @@ export class FilterService {
                 return value > filter;
         },
 
-        gte: (value, filter, filterLocale?):boolean => {
+        gte: (value, filter, _):boolean => {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -219,7 +219,7 @@ export class FilterService {
             return this.filters.gt(value, filter, filterLocale);
         },
 
-        dateIs: (value, filter): boolean => {
+        dateIs: (value, filter, _): boolean => {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -231,7 +231,7 @@ export class FilterService {
             return value.toDateString() === filter.toDateString();
         },
 
-        dateIsNot: (value, filter): boolean => {
+        dateIsNot: (value, filter, _): boolean => {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -243,7 +243,7 @@ export class FilterService {
             return value.toDateString() !== filter.toDateString();
         },
 
-        dateBefore: (value, filter): boolean =>  {
+        dateBefore: (value, filter, _): boolean =>  {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -255,7 +255,7 @@ export class FilterService {
             return value.getTime() < filter.getTime();
         },
 
-        dateAfter: (value, filter): boolean =>  {
+        dateAfter: (value, filter, _): boolean =>  {
             if (filter === undefined || filter === null) {
                 return true;
             }
