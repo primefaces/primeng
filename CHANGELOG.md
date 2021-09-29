@@ -1,5 +1,11 @@
 # Changelog
 
+## [12.2.0](https://github.com/primefaces/primeng/tree/12.2.0) (2021-09-29)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.2.0-rc.1...12.2.0)
+
+- No changes.
+
 ## [12.2.0-rc.1](https://github.com/primefaces/primeng/tree/12.2.0-rc.1) (2021-09-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.1.1...12.2.0-rc.1)
