@@ -41,6 +41,7 @@
   --surface-border:#rgba(0,0,0,.12);
   --surface-hover:rgba(0,0,0,.04);
   --maskbg: rgba(0, 0, 0, 0.32);
+  --focus-ring: none;
 }
 
 /* roboto-regular - latin-ext_latin */

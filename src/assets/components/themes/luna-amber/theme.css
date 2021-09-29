@@ -41,6 +41,7 @@
   --surface-border:#4b4b4b;
   --surface-hover:#4c4c4c;
   --maskbg: rgba(0, 0, 0, 0.4);
+  --focus-ring: 0 0 0 0.1rem white;
 }
 
 * {
