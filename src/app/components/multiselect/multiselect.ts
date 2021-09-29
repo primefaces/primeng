@@ -396,6 +396,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     public headerCheckboxFocus: boolean;
 
+    public checkedAllOptions: boolean;
+
     _options: any[];
 
     maxSelectionLimitReached: boolean;
@@ -543,6 +545,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.checkSelectionLimit();
         }
 
+        this.isAllOptionsChecked();
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event.originalEvent, value: this.value, itemValue: optionValue});
         this.updateLabel();
@@ -628,6 +631,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         });
 
         this.value = val;
+        this.isAllOptionsChecked();
     }
 
     uncheckAll() {
@@ -654,6 +658,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         });
 
         this.value = val;
+        this.isAllOptionsChecked();
+    }
+
+    isAllOptionsChecked() {
+        this.checkedAllOptions = this.value?.length === this.optionsToRender.length;
     }
 
     show() {
@@ -953,8 +962,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let optionsToRender = this.optionsToRender;
         if (!optionsToRender || optionsToRender.length === 0) {
             return false;
-        }
-        else {
+        } else if ( this.checkedAllOptions ){
+            return true;
+        } else {
             let selectedDisabledItemsLength = 0;
             let unselectedDisabledItemsLength = 0;
             let selectedEnabledItemsLength = 0;
