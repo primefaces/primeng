@@ -35,7 +35,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     _options: any = {};
 
-    chart: any;
+    chart: Chart;
 
     constructor(public el: ElementRef) {}
 
@@ -85,7 +85,8 @@ export class UIChart implements AfterViewInit, OnDestroy {
         this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
             type: this.type,
             data: this.data,
-            options: this.options
+            options: this.options,
+            plugins: this.plugins
         });
     }
 
