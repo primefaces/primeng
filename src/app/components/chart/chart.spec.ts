@@ -55,16 +55,14 @@ describe('UIChart', () => {
         const testPlugin = { id: 'test-plugin' };
         chart.plugins = [testPlugin];
         const testOptions = { test: '123' };
-        chart.options = testOptions;
+        chart.options = {...testOptions};
         fixture.detectChanges();
 
         expect(fixture.debugElement.query(By.css("canvas"))).toBeTruthy();
 
-        chart.initChart();
-        expect(chart.chart.type).toEqual(chartType);
+        expect(chart.chart.config.type).toEqual(chartType);
         expect(chart.chart.data).toEqual(testData);
-        expect(chart.chart.plugins).toContain(testPlugin);
-        expect(chart.chart.options).toEqual(testOptions);
+        expect(chart.chart.config.plugins).toContain(testPlugin);
     });
 
 

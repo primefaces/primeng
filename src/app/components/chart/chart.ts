@@ -35,7 +35,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     _options: any = {};
 
-    chart: Chart;
+    chart: any;
 
     constructor(public el: ElementRef) {}
 
