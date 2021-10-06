@@ -7,33 +7,6 @@ describe('UIChart', () => {
 
     let chart: UIChart;
     let fixture: ComponentFixture<UIChart>;
-    const testData = {
-        datasets: [{
-            data: [
-                11,
-                16,
-                7,
-                3,
-                14
-            ],
-            backgroundColor: [
-                "#42A5F5",
-                "#66BB6A",
-                "#FFA726",
-                "#26C6DA",
-                "#7E57C2"
-            ],
-            label: 'My dataset'
-        }],
-        labels: [
-            "Red",
-            "Green",
-            "Yellow",
-            "Grey",
-            "Blue"
-        ]
-    };
-
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -49,23 +22,43 @@ describe('UIChart', () => {
     });
 
     it('should created', () => {
+        const testData = {
+            datasets: [{
+                data: [
+                    11,
+                    16,
+                    7,
+                    3,
+                    14
+                ],
+                backgroundColor: [
+                    "#42A5F5",
+                    "#66BB6A",
+                    "#FFA726",
+                    "#26C6DA",
+                    "#7E57C2"
+                ],
+                label: 'My dataset'
+            }],
+            labels: [
+                "Red",
+                "Green",
+                "Yellow",
+                "Grey",
+                "Blue"
+            ]
+        };
+
         chart.data = testData;
-        chart.type = "polarArea";
-        chart.plugins = [{ id: 'test-plugin' }];
+        const chartType = "polarArea";
+        chart.type = chartType;
+        const testPlugin = { id: 'test-plugin' };
+        chart.plugins = [testPlugin];
+        const testOptions = { test: '123' };
+        chart.options = testOptions;
         fixture.detectChanges();
 
         expect(fixture.debugElement.query(By.css("canvas"))).toBeTruthy();
-    });
-
-    it('should set all chart properties', () => {
-        const chartType = "bar";
-        chart.data = testData;
-        chart.type = chartType;
-        const testOptions = { test: '123' };
-        chart.options = testOptions;
-        const testPlugin = { id: 'test-plugin' };
-        chart.plugins = [testPlugin];
-        fixture.detectChanges();
 
         chart.initChart();
         expect(chart.chart.type).toEqual(chartType);
@@ -73,6 +66,7 @@ describe('UIChart', () => {
         expect(chart.chart.plugins).toContain(testPlugin);
         expect(chart.chart.options).toEqual(testOptions);
     });
+
 
     it('should call onCanvasClick', () => {
         chart.data = {
