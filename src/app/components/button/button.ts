@@ -82,9 +82,11 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         }
 
         let iconClass = this.getIconClass();
+
         if(iconClass) {
             DomHandler.addMultipleClasses(iconElement, iconClass);
         }
+
         let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label')
 
         if (labelEl)
