@@ -17,6 +17,7 @@ export class InputText implements DoCheck, AfterViewInit {
     }
 
     ngAfterViewInit() {
+        this.updateFilledState();
         this.cd.detectChanges();
     }
 
