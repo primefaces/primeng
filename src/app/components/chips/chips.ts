@@ -111,6 +111,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                 break;
             }
         });
+
         this.updateFilledState()
     }
 
