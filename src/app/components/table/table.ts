@@ -715,7 +715,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return this._value;
     }
     set value(val: any[]) {
-        this._value = val;
+        this._value = [...val];
     }
 
     @Input() get columns(): any[] {
