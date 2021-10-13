@@ -7,7 +7,6 @@ describe('UIChart', () => {
 
     let chart: UIChart;
     let fixture: ComponentFixture<UIChart>;
-
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -23,7 +22,7 @@ describe('UIChart', () => {
     });
 
     it('should created', () => {
-        chart.data = {
+        const testData = {
             datasets: [{
                 data: [
                     11,
@@ -49,11 +48,23 @@ describe('UIChart', () => {
                 "Blue"
             ]
         };
-        chart.type = "polarArea";
+
+        chart.data = testData;
+        const chartType = "polarArea";
+        chart.type = chartType;
+        const testPlugin = { id: 'test-plugin' };
+        chart.plugins = [testPlugin];
+        const testOptions = { test: '123' };
+        chart.options = {...testOptions};
         fixture.detectChanges();
 
         expect(fixture.debugElement.query(By.css("canvas"))).toBeTruthy();
+
+        expect(chart.chart.config.type).toEqual(chartType);
+        expect(chart.chart.data).toEqual(testData);
+        expect(chart.chart.config.plugins).toContain(testPlugin);
     });
+
 
     it('should call onCanvasClick', () => {
         chart.data = {
@@ -85,7 +96,7 @@ describe('UIChart', () => {
         chart.height = '200px';
         chart.width = '200px';
         chart.type = "polarArea";
-        const canvasOnClickSpy = spyOn(chart,"onCanvasClick").and.callThrough();
+        const canvasOnClickSpy = spyOn(chart, "onCanvasClick").and.callThrough();
         const canvas = fixture.debugElement.query(By.css("canvas"));
         fixture.detectChanges();
 
