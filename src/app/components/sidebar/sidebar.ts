@@ -255,7 +255,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 this.hide();
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
-                break;
+            break;
         }
     }
 
@@ -297,7 +297,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     unbindGlobalListeners() {
         this.unbindMaskClickListener();
         this.unbindDocumentEscapeListener();
-        this.unbindAnimationEndListener();
     }
 
     unbindAnimationEndListener() {
@@ -324,6 +323,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.container = null;
         this.unbindGlobalListeners();
+        this.unbindAnimationEndListener();
     }
 }
 
