@@ -943,15 +943,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             //space
             case 32:
-            case 32:
-                if (!this.overlayVisible){
-                    this.show();
-                }
-                else {
-                    this.hide();
-                }
+                if (search) {
+                    if (!this.overlayVisible){
+                        this.show();
+                    }
+                    else {
+                        this.hide();
+                    }
 
-                event.preventDefault();
+                    event.preventDefault();
+                }
             break;
 
             //enter
