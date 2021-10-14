@@ -630,7 +630,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     }
 
     onKeyDown(event) {
-        switch(event.key) {
+        switch(event.code) {
             case 'Down':
             case 'ArrowDown':
                 if (this.overlayVisible) {
@@ -639,6 +639,16 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
                 else if (event.altKey && this.options && this.options.length) {
                     this.show();
                 }
+                event.preventDefault();
+            break;
+
+            case 'Space':
+            case 'Enter':
+                if (!this.overlayVisible)
+                    this.show();
+                else
+                    this.hide();
+
                 event.preventDefault();
             break;
 
