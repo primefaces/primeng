@@ -1,5 +1,34 @@
 # Changelog
 
+## [12.2.1](https://github.com/primefaces/primeng/tree/12.2.1) (2021-10-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.2.0...12.2.1)
+
+**Implemented New Features and Enhancements:**
+
+- Feature Request: Upgrade to ChartJS 3 [\#10078](https://github.com/primefaces/primeng/issues/10078)
+- Integrate pTooltip with pMenu\* via MenuModel API extension [\#4714](https://github.com/primefaces/primeng/issues/4714)
+- CascadeSelect | Enter and Space support for toggle  [\#10742](https://github.com/primefaces/primeng/issues/10742)
+- BlockUI | Modal layer enter-leave transition  [\#10741](https://github.com/primefaces/primeng/issues/10741)
+- p-password | onFocus and onBlur Event [\#10736](https://github.com/primefaces/primeng/issues/10736)
+- Add onClear event to dropdown [\#10712](https://github.com/primefaces/primeng/issues/10712)
+- Dropdown Accessibility | Ensures every form element has a label" [\#10701](https://github.com/primefaces/primeng/issues/10701)
+- Improve scrollbar style on BreadCrumb and TabMenu [\#10698](https://github.com/primefaces/primeng/issues/10698)
+
+**Fixed bugs:**
+
+- Spaces are not accepted in p-dropdown-filter [\#10739](https://github.com/primefaces/primeng/issues/10739)
+- Tooltip hideDelay bug [\#10735](https://github.com/primefaces/primeng/issues/10735)
+- multiselect applies disabled UI state to all items when selectionLimit is reached and chip is removed [\#10734](https://github.com/primefaces/primeng/issues/10734)
+- float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
+- pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)
+- p-radioButton causes layout issues when used inside an overflow: auto div \(all elements with p-hidden-accessible?\) [\#10718](https://github.com/primefaces/primeng/issues/10718)
+- float-label pInputText problem [\#10716](https://github.com/primefaces/primeng/issues/10716)
+- Dropdown overlay bug - baseZIndex property is unused in PrimeNG 12.2.0 [\#10713](https://github.com/primefaces/primeng/issues/10713)
+- V12 - sidebar doesn't remove mask [\#10682](https://github.com/primefaces/primeng/issues/10682)
+- The "plugins" property is not assigned when creating the Chart object [\#10664](https://github.com/primefaces/primeng/issues/10664)
+- Cannot read property 'trim' of undefined with ButtonDirective  [\#10354](https://github.com/primefaces/primeng/issues/10354)
+
 ## [12.2.0](https://github.com/primefaces/primeng/tree/12.2.0) (2021-09-29)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.2.0-rc.1...12.2.0)
