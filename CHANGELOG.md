@@ -6,7 +6,6 @@
 
 **Implemented New Features and Enhancements:**
 
-- Feature Request: Upgrade to ChartJS 3 [\#10078](https://github.com/primefaces/primeng/issues/10078)
 - Integrate pTooltip with pMenu\* via MenuModel API extension [\#4714](https://github.com/primefaces/primeng/issues/4714)
 - CascadeSelect | Enter and Space support for toggle  [\#10742](https://github.com/primefaces/primeng/issues/10742)
 - BlockUI | Modal layer enter-leave transition  [\#10741](https://github.com/primefaces/primeng/issues/10741)
