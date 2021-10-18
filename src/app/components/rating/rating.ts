@@ -21,7 +21,10 @@ export const RATING_VALUE_ACCESSOR: any = {
     providers: [RATING_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./rating.css']
+    styleUrls: ['./rating.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Rating implements OnInit,ControlValueAccessor {
 
@@ -49,23 +52,23 @@ export class Rating implements OnInit,ControlValueAccessor {
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
-    constructor(private cd: ChangeDetectorRef) {} 
-    
+    constructor(private cd: ChangeDetectorRef) {}
+
     value: number;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     public starsArray: number[];
-    
+
     ngOnInit() {
         this.starsArray = [];
         for(let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
     }
-    
+
     rate(event, i: number): void {
         if (!this.readonly&&!this.disabled) {
             this.value = (i + 1);
@@ -76,9 +79,9 @@ export class Rating implements OnInit,ControlValueAccessor {
                 value: (i+1)
             });
         }
-        event.preventDefault();        
+        event.preventDefault();
     }
-    
+
     clear(event): void {
         if (!this.readonly&&!this.disabled) {
             this.value = null;
@@ -88,12 +91,12 @@ export class Rating implements OnInit,ControlValueAccessor {
         }
         event.preventDefault();
     }
-    
+
     writeValue(value: any) : void {
         this.value = value;
         this.cd.detectChanges();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -101,7 +104,7 @@ export class Rating implements OnInit,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();

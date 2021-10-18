@@ -111,7 +111,7 @@
             </div>
         </div>
         <h5>DataTable</h5>
-        <p-table [value]="products">
+        <p-table [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -233,7 +233,7 @@ import &#123;SkeletonModule&#125; from 'primeng/skeleton';
 						</tbody>
 					</table>
                 </div>
-                
+
 				<h5>Styling</h5>
 				<p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
 				<div class="doc-tablewrapper">
@@ -272,7 +272,7 @@ import &#123;SkeletonModule&#125; from 'primeng/skeleton';
             <a href="https://stackblitz.com/edit/primeng-skeleton-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-            
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;div class="p-grid p-formgrid"&gt;
@@ -378,7 +378,7 @@ import &#123;SkeletonModule&#125; from 'primeng/skeleton';
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;h5&gt;DataTable&lt;/h5&gt;
-    &lt;p-table [value]="products"&gt;
+    &lt;p-table [value]="products" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Code&lt;/th&gt;

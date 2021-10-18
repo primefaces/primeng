@@ -4,6 +4,9 @@ import {DomHandler} from 'primeng/dom';
 
 @Directive({
     selector: '[pFocusTrap]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class FocusTrap {
 

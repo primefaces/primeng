@@ -25,7 +25,7 @@ import {RippleModule} from 'primeng/ripple';
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" [attr.tabindex]="0"
                     [ngClass]="{'p-treenode-selectable':tree.selectionMode && node.selectable !== false,'p-treenode-dragover':draghoverNode, 'p-highlight':isSelected()}" role="treeitem"
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()" [attr.aria-label]="node.label">
-                    <button type="button" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
+                    <button type="button" [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!node.expanded,'pi-chevron-down':node.expanded}"></span>
                     </button>
                     <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-disabled': node.selectable === false}" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
@@ -66,7 +66,7 @@ import {RippleModule} from 'primeng/ripple';
                         <td class="p-treenode" [ngClass]="{'p-treenode-collapsed':!node.expanded}">
                             <div class="p-treenode-content" tabindex="0" [ngClass]="{'p-treenode-selectable':tree.selectionMode,'p-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
                                 (touchend)="onNodeTouchEnd()" (keydown)="onNodeKeydown($event)">
-                                <span class="p-tree-toggler pi pi-fw" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()" (click)="toggle($event)"></span>
+                                <span [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler pi pi-fw" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()" (click)="toggle($event)"></span>
                                 <span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span>
                                 <span class="p-treenode-label">
                                     <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
@@ -87,7 +87,10 @@ import {RippleModule} from 'primeng/ripple';
             </table>
         </ng-template>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class UITreeNode implements OnInit {
 
@@ -511,7 +514,7 @@ export class UITreeNode implements OnInit {
     selector: 'p-tree',
     template: `
         <div [ngClass]="{'p-tree p-component':true,'p-tree-selectable':selectionMode,
-                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
+                'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}"
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
@@ -566,7 +569,10 @@ export class UITreeNode implements OnInit {
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tree.css']
+    styleUrls: ['./tree.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,BlockableUI {
 
@@ -619,6 +625,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     @Input() emptyMessage: string = '';
 
     @Input() ariaLabel: string;
+
+    @Input() togglerAriaLabel: string;
 
     @Input() ariaLabelledBy: string;
 
@@ -1093,7 +1101,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                         dropNode: null,
                         index: dragNodeIndex
                     });
-                    
+
                     this.processTreeDrop(dragNode, dragNodeIndex);
                 }
             }

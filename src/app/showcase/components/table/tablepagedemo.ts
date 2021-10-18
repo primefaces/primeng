@@ -38,5 +38,4 @@ export class TablePageDemo implements OnInit {
     isFirstPage(): boolean {
         return this.customers ? this.first === 0 : true;
     }
-    
 }

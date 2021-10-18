@@ -3,25 +3,28 @@ import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,TemplateRef,Embedd
 import {CommonModule} from '@angular/common';
 
 @Directive({
-    selector: '[pDefer]'
+    selector: '[pDefer]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DeferredLoader implements AfterViewInit,OnDestroy {
-        
+
     @Output() onLoad: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(TemplateRef) template: TemplateRef<any>;
-        
+
     documentScrollListener: Function;
-    
+
     view: EmbeddedViewRef<any>;
-            
+
     constructor(public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
-    
+
     ngAfterViewInit() {
         if (this.shouldLoad()) {
             this.load();
         }
-        
+
         if (!this.isLoaded()) {
             this.documentScrollListener = this.renderer.listen('window', 'scroll', () => {
                 if (this.shouldLoad()) {
@@ -32,7 +35,7 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
             });
         }
     }
-    
+
     shouldLoad(): boolean {
         if (this.isLoaded()) {
             return false;
@@ -41,24 +44,24 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
             let rect = this.el.nativeElement.getBoundingClientRect();
             let docElement = document.documentElement;
             let winHeight = docElement.clientHeight;
-            
+
             return (winHeight >= rect.top);
         }
     }
-    
-    load(): void { 
+
+    load(): void {
         this.view = this.viewContainer.createEmbeddedView(this.template);
         this.onLoad.emit();
         this.cd.detectChanges();
     }
-    
+
     isLoaded() {
         return this.view != null;
     }
-            
+
     ngOnDestroy() {
         this.view = null;
-        
+
         if (this.documentScrollListener) {
             this.documentScrollListener();
         }

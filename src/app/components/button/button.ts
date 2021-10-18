@@ -5,7 +5,10 @@ import {RippleModule} from 'primeng/ripple';
 import {PrimeTemplate} from 'primeng/api';
 
 @Directive({
-    selector: '[pButton]'
+    selector: '[pButton]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
 
@@ -78,7 +81,12 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             DomHandler.addClass(iconElement, iconPosClass);
         }
 
-        DomHandler.addMultipleClasses(iconElement, this.getIconClass());
+        let iconClass = this.getIconClass();
+
+        if(iconClass) {
+            DomHandler.addMultipleClasses(iconElement, iconClass);
+        }
+
         let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label')
 
         if (labelEl)
@@ -106,7 +114,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     removeIconElement() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
-        this.el.nativeElement.removeChild(iconElement)
+        this.el.nativeElement.removeChild(iconElement);
     }
 
     @Input() get label(): string {
@@ -118,7 +126,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         if (this.initialized) {
             DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
-            this.setIconClass();
+
+            if (this.loading || this.icon) {
+                this.setIconClass();
+            }
             this.setStyleClass();
         }
     }
@@ -182,7 +193,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Button implements AfterContentInit {
 

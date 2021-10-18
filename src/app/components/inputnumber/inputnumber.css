@@ -1,3 +1,4 @@
+p-inputnumber,
 .p-inputnumber {
     display: inline-flex;
 }
@@ -87,6 +88,7 @@
     flex: 1 1 auto;
 }
 
+.p-fluid p-inputnumber,
 .p-fluid .p-inputnumber {
     width: 100%;
 }

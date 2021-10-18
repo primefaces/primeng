@@ -66,7 +66,10 @@ import {Subscription} from 'rxjs';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./fileupload.css']
+    styleUrls: ['./fileupload.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestroy,BlockableUI {
 

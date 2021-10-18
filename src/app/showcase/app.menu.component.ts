@@ -50,8 +50,8 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/theming']" routerLinkActive="router-link-exact-active">Guide</a>
                     <a href="https://www.primefaces.org/designer/primeng">Theme Designer</a>
                     <a href="https://www.primefaces.org/designer-ng">Visual Editor</a>
-                    <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors <span class="p-tag">New</span></a>
-                    <a href="https://www.primefaces.org/designer/api/primeng/11.1.0">SASS API</a>
+                    <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors</a>
+                    <a href="https://www.primefaces.org/designer/api/primeng/12.1.0">SASS API</a>
                 </div>
 
                 <div class="menu-category">PrimeBlocks</div>
@@ -62,6 +62,18 @@ declare let gtag: Function;
                 <div class="menu-category">PrimeFlex v3.0.0</div>
                 <div class="menu-items menu-banner">
                     <a href="https://www.primefaces.org/primeflex"><img width="100%" alt="PrimeFlex Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
+                </div>
+
+                <div class="menu-category">PrimeFlex v2.0.0</div>
+                <div class="menu-items">
+                    <a [routerLink]=" ['/primeflex']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Setup</a>
+                    <a [routerLink]=" ['/primeflex/display']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Display</a>
+                    <a [routerLink]=" ['/primeflex/elevation']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Elevation</a>
+                    <a [routerLink]=" ['/primeflex/flexbox']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">FlexBox</a>
+                    <a [routerLink]=" ['/primeflex/formlayout']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Form Layout</a>
+                    <a [routerLink]=" ['/primeflex/grid']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Grid System</a>
+                    <a [routerLink]=" ['/primeflex/spacing']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Spacing</a>
+                    <a [routerLink]=" ['/primeflex/text']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Text</a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
@@ -91,12 +103,13 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/keyfilter']" routerLinkActive="router-link-exact-active">KeyFilter</a>
                     <a [routerLink]=" ['/listbox']" routerLinkActive="router-link-exact-active">Listbox</a>
                     <a [routerLink]=" ['/multiselect']" routerLinkActive="router-link-exact-active">MultiSelect</a>
-                    <a [routerLink]=" ['/password']" routerLinkActive="router-link-exact-active">Password <span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['/password']" routerLinkActive="router-link-exact-active">Password</a>
                     <a [routerLink]=" ['/radiobutton']" routerLinkActive="router-link-exact-active">RadioButton</a>
                     <a [routerLink]=" ['/rating']" routerLinkActive="router-link-exact-active">Rating</a>
                     <a [routerLink]=" ['/slider']" routerLinkActive="router-link-exact-active">Slider</a>
                     <a [routerLink]=" ['/selectbutton']" routerLinkActive="router-link-exact-active">SelectButton</a>
                     <a [routerLink]=" ['/togglebutton']" routerLinkActive="router-link-exact-active">ToggleButton</a>
+                    <a [routerLink]=" ['/treeselect']" routerLinkActive="router-link-exact-active">TreeSelect <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/tristatecheckbox']" routerLinkActive="router-link-exact-active">TriCheckbox</a>
                 </div>
 
@@ -104,6 +117,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/button']" routerLinkActive="router-link-exact-active">Button</a>
                     <a [routerLink]=" ['/splitbutton']" routerLinkActive="router-link-exact-active">SplitButton</a>
+                    <a [routerLink]=" ['/speeddial']" routerLinkActive="router-link-exact-active">SpeedDial <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Data</div>
@@ -116,7 +130,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/paginator']" routerLinkActive="router-link-exact-active">Paginator</a>
                     <a [routerLink]=" ['/picklist']" routerLinkActive="router-link-exact-active">PickList</a>
                     <div>
-                        <a tabindex="0" (click)="toggleSubmenu($event, '/table')">Table</a>
+                        <a tabindex="0" (click)="toggleSubmenu($event, '/table')">Table  <span class="p-tag">New</span></a>
                         <div [@submenu]="isSubmenuActive('/table') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['/table']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
@@ -132,7 +146,7 @@ declare let gtag: Function;
                                 <li><a [routerLink]=" ['/table/filter']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Filter </a></li>
                                 <li><a [routerLink]=" ['/table/selection']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Selection</a></li>
                                 <li><a [routerLink]=" ['/table/lazy']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Lazy</a></li>
-                                <li><a [routerLink]=" ['/table/scroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
+                                <li><a [routerLink]=" ['/table/scroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Scroll <span class="p-tag">New</span></a></li>
                                 <li><a [routerLink]=" ['/table/virtualscroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">VirtualScroll</a></li>
                                 <li><a [routerLink]=" ['/table/flexscroll']" target="_blank" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">FlexScroll</a></li>
                                 <li><a [routerLink]=" ['/table/rowexpansion']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">RowExpand</a></li>
@@ -233,6 +247,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/menumodel']" routerLinkActive="router-link-exact-active">MenuModel</a>
                     <a [routerLink]=" ['/breadcrumb']" routerLinkActive="router-link-exact-active">Breadcrumb</a>
                     <a [routerLink]=" ['/contextmenu']" routerLinkActive="router-link-exact-active">ContextMenu</a>
+                    <a [routerLink]=" ['/dock']" routerLinkActive="router-link-exact-active">Dock <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/megamenu']" routerLinkActive="router-link-exact-active">MegaMenu</a>
                     <a [routerLink]=" ['/menu']" routerLinkActive="router-link-exact-active">Menu</a>
                     <a [routerLink]=" ['/menubar']" routerLinkActive="router-link-exact-active">Menubar</a>
@@ -281,6 +296,7 @@ declare let gtag: Function;
                             </ul>
                         </div>
                     </div>
+                    <a [routerLink]=" ['/image']" routerLinkActive="router-link-exact-active">Image <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">DragDrop</div>
@@ -403,6 +419,7 @@ export class AppMenuComponent {
                 {label: 'Slider', value: '/slider'},
                 {label: 'SelectButton', value: '/selectbutton'},
                 {label: 'ToggleButton', value: '/togglebutton'},
+                {label: 'TreeSelect', value: '/treeselect'},
                 {label: 'TriCheckbox', value: '/tristatecheckbox'}
             ]
         },
@@ -410,6 +427,7 @@ export class AppMenuComponent {
             label: 'Button', value: 'button',
             items: [
                 {label: 'Button', value: '/button'},
+                {label: 'SpeedDial', value: '/speeddial'},
                 {label: 'SplitButton', value: '/splitbutton'}
             ]
         },
@@ -536,6 +554,7 @@ export class AppMenuComponent {
                 {label: 'MenuModel', value: '/menumodel'},
                 {label: 'Breadcrumb', value: '/breadcrumb'},
                 {label: 'ContextMenu', value: '/contextmenu'},
+                {label: 'Dock', value: '/dock'},
                 {label: 'MegaMenu', value: '/megamenu'},
                 {label: 'Menu', value: '/menu'},
                 {label: 'Menubar', value: '/menubar'},
@@ -569,7 +588,8 @@ export class AppMenuComponent {
         {
             label: 'Media', value: 'media',
             items: [
-                {label: 'Carousel', value: '/carousel'}
+                {label: 'Carousel', value: '/carousel'},
+                {label: 'Image', value: '/image'}
             ]
         },
         {
@@ -615,6 +635,7 @@ export class AppMenuComponent {
             items: [
                 {label: 'Defer', value: '/defer'},
                 {label: 'FocusTrap', value: '/focustrap'},
+                {label: 'StyleClass', value: '/styleclass'},
                 {label: 'Ripple', value: '/ripple'}
             ]
         },

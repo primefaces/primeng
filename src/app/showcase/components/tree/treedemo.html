@@ -466,9 +466,9 @@ export class TreeDemoComponent implements OnInit &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
-&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true"
     [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="p-fluid"&gt;
-    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;
 &lt;/p-dialog&gt;
 </app-code>
 
@@ -652,6 +652,12 @@ onDrop(event) &#123;
                             <td>string</td>
                             <td>pi pi-spinner</td>
                             <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
+                        </tr>
+                        <tr>
+                            <td>togglerAriaLabel</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>Defines a string that labels the toggler icon for accessibility.</td>
                         </tr>
                         <tr>
                             <td>validateDrop</td>
@@ -930,16 +936,16 @@ import &#123;TreeNode&#125; from 'primeng/api';
 export class TreeBasicDemo implements OnInit &#123;
 
     files1: TreeNode[];
-    
+
     files2: TreeNode[];
-    
+
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files1 = files);
         this.nodeService.getFiles().then(files => this.files2 = files);
     &#125;
-    
+
     expandAll()&#123;
         this.files2.forEach( node => &#123;
             this.expandRecursive(node, true);
@@ -951,7 +957,7 @@ export class TreeBasicDemo implements OnInit &#123;
             this.expandRecursive(node, false);
         &#125; );
     &#125;
-    
+
     private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
         node.expanded = isExpand;
         if (node.children)&#123;

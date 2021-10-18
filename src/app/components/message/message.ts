@@ -21,7 +21,10 @@ import {CommonModule} from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./message.css']
+    styleUrls: ['./message.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class UIMessage {
 

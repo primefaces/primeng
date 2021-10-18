@@ -15,14 +15,14 @@
                 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
                 <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
             </ng-template>
-    
+
             <ng-template pTemplate="right">
                 <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
                 <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
             </ng-template>
         </p-toolbar>
-    
-        <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
+
+        <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
             [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -94,7 +94,7 @@
                     </ng-template>
                 </p-dropdown>
             </div>
-    
+
             <div class="p-field">
                 <label class="p-mb-3">Category</label>
                 <div class="p-formgrid p-grid">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="p-formgrid p-grid">
                 <div class="p-field p-col">
                     <label for="price">Price</label>
@@ -128,7 +128,7 @@
                 </div>
             </div>
         </ng-template>
-        
+
         <ng-template pTemplate="footer">
             <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
             <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
@@ -164,7 +164,7 @@
         &lt;/ng-template&gt;
     &lt;/p-toolbar&gt;
 
-    &lt;p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
+    &lt;p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [showCurrentPageReport]="true"&gt;
         &lt;ng-template pTemplate="caption"&gt;
@@ -269,7 +269,7 @@
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-    
+
     &lt;ng-template pTemplate="footer"&gt;
         &lt;button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"&gt;&lt;/button&gt;
         &lt;button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"&gt;&lt;/button&gt;
@@ -365,13 +365,13 @@ export class TableCrudDemo implements OnInit &#123;
         this.productDialog = false;
         this.submitted = false;
     &#125;
-    
+
     saveProduct() &#123;
         this.submitted = true;
 
         if (this.product.name.trim()) &#123;
             if (this.product.id) &#123;
-                this.products[this.findIndexById(this.product.id)] = this.product;                
+                this.products[this.findIndexById(this.product.id)] = this.product;
                 this.messageService.add(&#123;severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000&#125;);
             &#125;
             else &#123;
@@ -409,7 +409,7 @@ export class TableCrudDemo implements OnInit &#123;
     &#125;
 &#125;
 </app-code>
-  
+
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

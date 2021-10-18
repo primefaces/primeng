@@ -5,6 +5,7 @@ import {RippleModule} from 'primeng/ripple';
 import {PrimeTemplate, SharedModule} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 import {DomHandler} from 'primeng/dom';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: 'p-tabMenu',
@@ -13,7 +14,9 @@ import {DomHandler} from 'primeng/dom';
             <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
                 <li *ngFor="let item of model; let i = index" role="tab" [ngStyle]="item.style" [class]="item.styleClass" [attr.aria-selected]="activeItem==item" [attr.aria-expanded]="activeItem==item"
                     [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight': usesActiveItem ? activeItem==item : rLA?.isActive,'p-hidden': item.visible === false}"
-                    #rLA="routerLinkActive" routerLinkActive>
+                    #rLA="routerLinkActive" routerLinkActive
+                    pTooltip [tooltipOptions]="item.tooltipOptions"
+                    >
                     <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
                         [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                         <ng-container *ngIf="!itemTemplate">
@@ -41,7 +44,10 @@ import {DomHandler} from 'primeng/dom';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tabmenu.css']
+    styleUrls: ['./tabmenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked {
 
@@ -77,7 +83,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
@@ -123,8 +129,8 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,SharedModule,RippleModule],
-    exports: [TabMenu,RouterModule,SharedModule],
+    imports: [CommonModule,RouterModule,SharedModule,RippleModule,TooltipModule],
+    exports: [TabMenu,RouterModule,SharedModule,TooltipModule],
     declarations: [TabMenu]
 })
 export class TabMenuModule { }

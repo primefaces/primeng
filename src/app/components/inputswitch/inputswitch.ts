@@ -11,11 +11,11 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked, 'p-disabled': disabled, 'p-focus': focused}" 
+        <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused}"
             [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
             <div class="p-hidden-accessible">
-                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
-                    (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" role="switch" [attr.aria-checked]="checked" [attr.aria-labelledby]="ariaLabelledBy"/>
+                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked()" (change)="onInputChange($event)"
+                    (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" role="switch" [attr.aria-checked]="checked()" [attr.aria-labelledby]="ariaLabelledBy"/>
             </div>
             <span class="p-inputswitch-slider"></span>
         </div>
@@ -23,7 +23,10 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     providers: [INPUTSWITCH_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputswitch.css']
+    styleUrls: ['./inputswitch.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class InputSwitch implements ControlValueAccessor {
 
@@ -41,11 +44,15 @@ export class InputSwitch implements ControlValueAccessor {
 
     @Input() readonly: boolean;
 
+    @Input() trueValue: any = true;
+
+    @Input() falseValue: any = false;
+
     @Input() ariaLabelledBy: string;
-    
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    checked: boolean = false;
+    modelValue: any = false;
 
     focused: boolean = false;
 
@@ -71,15 +78,15 @@ export class InputSwitch implements ControlValueAccessor {
     }
 
     toggle(event: Event) {
-        this.updateModel(event, !this.checked);
+        this.updateModel(event, !this.checked());
     }
 
     updateModel(event: Event, value: boolean) {
-        this.checked = value;
-        this.onModelChange(this.checked);
+        this.modelValue = value ? this.trueValue : this.falseValue;
+        this.onModelChange(this.modelValue);
         this.onChange.emit({
             originalEvent: event,
-            checked: this.checked
+            checked: this.modelValue
         });
     }
 
@@ -92,8 +99,8 @@ export class InputSwitch implements ControlValueAccessor {
         this.onModelTouched();
     }
 
-    writeValue(checked: any) : void {
-        this.checked = checked;
+    writeValue(value: any) : void {
+        this.modelValue = value;
         this.cd.markForCheck();
     }
 
@@ -104,10 +111,14 @@ export class InputSwitch implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();
+    }
+
+    checked() {
+        return this.modelValue === this.trueValue;
     }
 }
 

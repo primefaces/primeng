@@ -22,6 +22,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./splitter.css'],
     host: {
+        'class': 'p-element',
         '[class.p-splitter-panel-nested]': 'nested'
     }
 })

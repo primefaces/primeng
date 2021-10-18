@@ -15,22 +15,25 @@ import {CommonModule} from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./progressbar.css']
+    styleUrls: ['./progressbar.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ProgressBar {
 
     @Input() value: any;
-    
+
     @Input() showValue: boolean = true;
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() unit: string = '%';
-    
+
     @Input() mode: string = 'determinate';
-    
+
 }
 
 @NgModule({

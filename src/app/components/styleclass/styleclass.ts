@@ -3,7 +3,10 @@ import { NgModule, Directive, ElementRef, Input, Renderer2, OnDestroy, AfterView
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
-    selector: '[pStyleClass]'
+    selector: '[pStyleClass]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class StyleClass implements AfterViewInit, OnDestroy {
 
@@ -133,6 +136,10 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 DomHandler.addClass(this.target, this.leaveToClass);
             }
         }
+
+        if (this.hideOnOutsideClick) {
+            this.unbindDocumentListener();
+        }
     }
 
     resolveTarget() {
@@ -166,7 +173,6 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 }
                 else  if (!this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !this.target.contains(event.target)) {
                     this.leave();
-                    this.unbindDocumentListener();
                 }
             });
         }

@@ -30,5 +30,4 @@ export class AppNewsComponent {
     redirect() {
         window.location.href = "https://www.primefaces.org/primeblocks-ng";
     }
-    
 }

@@ -63,7 +63,10 @@ const hideAnimation = animation([
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css']
+    styleUrls: ['../dialog/dialog.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
@@ -510,7 +513,7 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
-        
+
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
