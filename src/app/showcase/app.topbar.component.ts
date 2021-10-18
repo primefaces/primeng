@@ -90,6 +90,12 @@ import { Subscription } from 'rxjs';
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
                         <li>
+                            <a href="https://www.primefaces.org/layouts/verona-ng">
+                                <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
+                                <span>Verona</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="https://www.primefaces.org/layouts/atlantis-ng">
                                 <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-logo.svg">
                                 <span>Atlantis</span>
@@ -189,12 +195,6 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/layouts/avalon-ng">
                                 <img alt="Avalon" src="assets/showcase/images/layouts/avalon-logo.png">
                                 <span>Avalon</span><span class="theme-badge bootstrap">bootstrap</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.primefaces.org/layouts/verona-ng">
-                                <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
-                                <span>Verona</span>
                             </a>
                         </li>
                         <li>
