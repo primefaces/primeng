@@ -222,6 +222,18 @@
 
 - Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.6-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.7) (2021-10-18)
+- multiselect applies disabled UI state to all items when selectionLimit is reached and chip is removed [\#10734](https://github.com/primefaces/primeng/issues/10734)
+- float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
+- pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)
+- p-radioButton causes layout issues when used inside an overflow: auto div [\#10718](https://github.com/primefaces/primeng/issues/10718)
+- float-label pInputText problem [\#10716](https://github.com/primefaces/primeng/issues/10716)
+- Thumbnails are not displayed correctly on Galleria if numVisible is greater than the length of value [\#10594](https://github.com/primefaces/primeng/issues/10594)
+- Improve resize feature of Dialog [\#10465](https://github.com/primefaces/primeng/issues/10465)
+- A maximizable dialog cannot be maximized properly after its size or position has been changed [\#10464](https://github.com/primefaces/primeng/issues/10464)
+- Unsubscription error when running any default component test using Steps [\#10379](https://github.com/primefaces/primeng/issues/10379)
+- FileUpload Size Calculation is wrong [\#10369](https://github.com/primefaces/primeng/issues/10369)
+- p-checkbox causes layout issues when used inside an overflow: auto div [\#9725](https://github.com/primefaces/primeng/issues/9725)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.6-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.6) (2021-10-05)
 - Improve scrollbar style on BreadCrumb and TabMenu [\#10698](https://github.com/primefaces/primeng/issues/10698)
@@ -686,6 +698,18 @@
 **Closed issues:**
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.4) (2021-10-18)
+- float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
+- pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)
+- p-radioButton causes layout issues when used inside an overflow: auto div [\#10718](https://github.com/primefaces/primeng/issues/10718)
+- float-label pInputText problem [\#10716](https://github.com/primefaces/primeng/issues/10716)
+- Thumbnails are not displayed correctly on Galleria if numVisible is greater than the length of value [\#10594](https://github.com/primefaces/primeng/issues/10594)
+- Improve resize feature of Dialog [\#10465](https://github.com/primefaces/primeng/issues/10465)
+- A maximizable dialog cannot be maximized properly after its size or position has been changed [\#10464](https://github.com/primefaces/primeng/issues/10464)
+- Unsubscription error when running any default component test using Steps [\#10379](https://github.com/primefaces/primeng/issues/10379)
+- FileUpload Size Calculation is wrong [\#10369](https://github.com/primefaces/primeng/issues/10369)
+- p-checkbox causes layout issues when used inside an overflow: auto div [\#9725](https://github.com/primefaces/primeng/issues/9725)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.3-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.3) (2021-10-05)
 - Improve scrollbar style on BreadCrumb and TabMenu [\#10698](https://github.com/primefaces/primeng/issues/10698)
