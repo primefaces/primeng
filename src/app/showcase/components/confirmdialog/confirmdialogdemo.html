@@ -10,10 +10,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+        <p-confirmDialog appendTo="body" [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
         <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"></p-button>
         <p-button (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
-    
+
         <h5>Position</h5>
         <div class="p-grid p-dir-col">
             <div class="p-col">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
-    
+
         <p-toast></p-toast>
     </div>
 </div>
@@ -459,7 +459,7 @@ export class ConfirmDialogDemo &#123;
                     </tbody>
                 </table>
             </div>
-            
+
             <h5>Templates</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -573,9 +573,9 @@ import &#123;ConfirmationService, ConfirmEventType, MessageService&#125; from 'p
     providers: [ConfirmationService,MessageService]
 &#125;)
 export class ConfirmDialogDemo &#123;
-    
+
     position: string;
-    
+
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) &#123;&#125;
 
     confirm1() &#123;
@@ -598,7 +598,7 @@ export class ConfirmDialogDemo &#123;
             &#125;
         &#125;);
     &#125;
-    
+
     confirm2() &#123;
         this.confirmationService.confirm(&#123;
             message: 'Do you want to delete this record?',

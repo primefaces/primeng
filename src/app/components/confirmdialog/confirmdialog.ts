@@ -297,16 +297,15 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
                 this.wrapper = this.container.parentElement;
                 this.contentContainer = DomHandler.findSingle(this.container, '.p-dialog-content');
                 this.container.setAttribute(this.id, '');
+                this.appendContainer();
+                this.moveOnTop();
+                this.bindGlobalListeners();
+                this.enableModality();
 
                 const element = this.getElementToFocus();
                 if (element) {
                     element.focus();
                 }
-
-                this.appendContainer();
-                this.moveOnTop();
-                this.bindGlobalListeners();
-                this.enableModality();
             break;
         }
     }
