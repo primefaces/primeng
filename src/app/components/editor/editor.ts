@@ -46,9 +46,9 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     <button class="ql-list" value="bullet" aria-label="Unordered List" type="button"></button>
                     <select class="ql-align">
                         <option selected></option>
-                        <option value="center"></option>
-                        <option value="right"></option>
-                        <option value="justify"></option>
+                        <option value="center">center</option>
+                        <option value="right">right</option>
+                        <option value="justify">justify</option>
                     </select>
                 </span>
                 <span class="ql-formats">
