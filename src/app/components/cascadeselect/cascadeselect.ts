@@ -81,7 +81,7 @@ export class CascadeSelectSub implements OnInit {
 
     _parentActive: boolean;
 
-    constructor(private el: ElementRef) { }
+    constructor(private el: ElementRef, private cascadeSelect: CascadeSelect) { }
 
     ngOnInit() {
         if (this.selectionPath && this.options && !this.dirty) {
@@ -203,6 +203,11 @@ export class CascadeSelectSub implements OnInit {
 
             case 'Enter':
                 this.onOptionClick(event, option);
+            break;
+
+            case 'Tab':
+            case 'Escape':
+                this.cascadeSelect.hide();
             break;
         }
 
@@ -652,15 +657,12 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
                 event.preventDefault();
             break;
 
+            case 'Tab':
             case 'Escape':
                 if (this.overlayVisible) {
                     this.hide();
                     event.preventDefault();
                 }
-            break;
-
-            case 'Tab':
-                this.hide();
             break;
         }
     }
