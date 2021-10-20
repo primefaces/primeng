@@ -182,7 +182,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() editable: boolean;
 
-    @Input() appendTo: any = "body";
+    @Input() appendTo: any;
 
     @Input() tabindex: number;
 
