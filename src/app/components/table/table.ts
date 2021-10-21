@@ -2297,7 +2297,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.columns) {
             let columnOrder: string[] = [];
             this.columns.map(column => {
-                columnOrder.push(column.field||column.key)
+                columnOrder.push(column.key || column.field)
             });
 
             state.columnOrder = columnOrder;
