@@ -312,7 +312,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 this.handleStepChange(newValue, this.value);
             }
             else {
-                this.handleValue = handleValue;
+                this.handleValue = Math.min(100, handleValue);
                 this.updateValue(newValue, event);
             }
         }
@@ -404,7 +404,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
             else if (this.value > this.max)
                 this.handleValue = 100;
             else
-                this.handleValue = (this.value - this.min) * 100 / (this.max - this.min);
+                this.handleValue = Math.min(100, (this.value - this.min) * 100 / (this.max - this.min));
         }
     }
 
@@ -461,7 +461,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     getValueFromHandle(handleValue: number): number {
-        return (this.max - this.min) * (handleValue / 100) + this.min;
+        return Math.min(this.max, (this.max - this.min) * (handleValue / 100) + this.min);
     }
 
 	getDecimalsCount(value: number): number {
