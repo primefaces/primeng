@@ -50,6 +50,8 @@ export class ConfirmPopup implements OnDestroy {
 
     @Input() key: string;
 
+    @Input() defaultFocus: string = "accept";
+
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
@@ -114,6 +116,11 @@ export class ConfirmPopup implements OnDestroy {
             document.body.appendChild(this.container);
             this.align();
             this.bindListeners();
+
+            const element = this.getElementToFocus();
+            if (element) {
+                element.focus();
+            }
         }
     }
 
@@ -122,6 +129,19 @@ export class ConfirmPopup implements OnDestroy {
             case 'void':
                 this.onContainerDestroy();
             break;
+        }
+    }
+
+    getElementToFocus() {
+        switch(this.defaultFocus) {
+            case 'accept':
+                return DomHandler.findSingle(this.container, '.p-confirm-popup-accept');
+
+            case 'reject':
+                return DomHandler.findSingle(this.container, '.p-confirm-popup-reject');
+
+            case 'none':
+                return null;
         }
     }
 
