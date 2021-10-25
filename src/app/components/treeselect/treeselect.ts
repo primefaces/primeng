@@ -253,6 +253,15 @@ export class TreeSelect implements AfterContentInit {
                     this.show();
                     event.preventDefault();
                 }
+                else if (this.overlayVisible && this.overlayEl) {
+                    let focusableElements = DomHandler.getFocusableElements(this.overlayEl);
+
+                    if (focusableElements && focusableElements.length > 0) {
+                        focusableElements[0].focus();
+                    }
+
+                    event.preventDefault();
+                }
             break;
 
             //space
