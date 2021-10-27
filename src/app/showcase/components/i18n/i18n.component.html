@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy &#123;
             dynamically changing the language in the application.</p>
 
         <h5>en.json</h5>
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>   
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 &#123;
     "primeng": &#123;
         "startsWith": "Starts with",
@@ -46,11 +46,15 @@ export class AppComponent implements OnInit, OnDestroy &#123;
         "lt": "Less than",
         "lte": "Less than or equal to",
         "gt": "Greater than",
-        "gte": "Great then or equals",
+        "gte": "Greater than or equal to",
         "is": "Is",
         "isNot": "Is not",
         "before": "Before",
         "after": "After",
+        "dateIs": "Date is",
+        "dateIsNot": "Date is not",
+        "dateBefore": "Date is before",
+        "dateAfter": "Date is after",
         "clear": "Clear",
         "apply": "Apply",
         "matchAll": "Match All",
@@ -67,6 +71,7 @@ export class AppComponent implements OnInit, OnDestroy &#123;
         "dayNamesMin": ["Su","Mo","Tu","We","Th","Fr","Sa"],
         "monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
         "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "dateFormat": "mm/dd/yy",
         "today": "Today",
         "weekHeader": "Wk",
         "weak": 'Weak',
@@ -157,7 +162,7 @@ export class AppComponent implements OnInit, OnDestroy &#123;
                     </tr>
                     <tr>
                         <td>gte</td>
-                        <td>Great then or equals</td>
+                        <td>Greater than or equal to</td>
                     </tr>
                     <tr>
                         <td>is</td>
@@ -174,6 +179,22 @@ export class AppComponent implements OnInit, OnDestroy &#123;
                     <tr>
                         <td>after</td>
                         <td>After</td>
+                    </tr>
+                    <tr>
+                        <td>dateIs</td>
+                        <td>Date is</td>
+                    </tr>
+                    <tr>
+                        <td>dateIsNot</td>
+                        <td>Date is not</td>
+                    </tr>
+                    <tr>
+                        <td>dateBefore</td>
+                        <td>Date is before</td>
+                    </tr>
+                    <tr>
+                        <td>dateAfter</td>
+                        <td>Date is after</td>
                     </tr>
                     <tr>
                         <td>clear</td>
@@ -238,6 +259,10 @@ export class AppComponent implements OnInit, OnDestroy &#123;
                     <tr>
                         <td>monthNamesShort</td>
                         <td>["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]</td>
+                    </tr>
+                    <tr>
+                        <td>dateFormat</td>
+                        <td>mm/dd/yy</td>
                     </tr>
                     <tr>
                         <td>today</td>
