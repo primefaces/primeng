@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 import {TooltipModule} from 'primeng/tooltip';
-import { DomHandler } from 'primeng/dom';
+import {DomHandler} from 'primeng/dom';
 
 export class BasePanelMenuItem {
 
