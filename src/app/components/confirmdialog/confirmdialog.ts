@@ -7,7 +7,7 @@ import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 import {Subscription} from 'rxjs';
-import {UniqueComponentId} from 'primeng/utils';
+import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
 
 const showAnimation = animation([
@@ -421,8 +421,8 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-            this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
+            ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
         }
     }
 
@@ -445,7 +445,7 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which == 27 && (this.option('closeOnEscape') && this.closable)) {
-                    if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
+                    if (parseInt(this.container.style.zIndex) === ZIndexUtils.get(this.container) && this.visible) {
                         this.close(event);
                     }
                 }
@@ -496,6 +496,10 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
     }
 
     onOverlayHide() {
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.disableModality();
         this.unbindGlobalListeners();
         this.container = null;
