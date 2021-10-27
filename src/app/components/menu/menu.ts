@@ -65,7 +65,7 @@ export class MenuItemContent {
 
             case 'Space':
             case 'Enter':
-                if (listItem && DomHandler.hasClass(listItem, 'p-disabled')) {
+                if (listItem && !DomHandler.hasClass(listItem, 'p-disabled')) {
                     listItem.children[0].click();
                 }
 
