@@ -16,6 +16,10 @@
     height: 166px;
 }
 
+.p-colorpicker-panel.p-colorpicker-alpha {
+    height: 191px;
+}
+
 .p-colorpicker-overlay-panel {
     position: absolute;
     top: 0;
@@ -28,6 +32,7 @@
 
 .p-colorpicker-panel .p-colorpicker-content {
     position: relative;
+    height: 100%;
 }
 
 .p-colorpicker-panel .p-colorpicker-color-selector {
@@ -39,22 +44,22 @@
 }
 
 .p-colorpicker-panel .p-colorpicker-color {
-     width: 150px;
-     height: 150px;
+    width: 150px;
+    height: 150px;
 }
 
 .p-colorpicker-panel .p-colorpicker-color-handle {
-     position: absolute;
-     top: 0px;
-     left: 150px;
-     border-radius: 100%;
-     width: 10px;
-     height: 10px;
-     border-width: 1px;
-     border-style: solid;
-     margin: -5px 0 0 -5px;
-     cursor: pointer;
-     opacity: .85;
+    position: absolute;
+    top: 0px;
+    left: 150px;
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    border-width: 1px;
+    border-style: solid;
+    margin: -5px 0 0 -5px;
+    cursor: pointer;
+    opacity: 0.85;
 }
 
 .p-colorpicker-panel .p-colorpicker-hue {
@@ -63,19 +68,42 @@
     top: 8px;
     left: 167px;
     position: absolute;
-    opacity: .85;
+    opacity: 0.85;
 }
 
 .p-colorpicker-panel .p-colorpicker-hue-handle {
-     position: absolute;
-     top: 150px;
-     left: 0px;
-     width: 21px;
-     margin-left: -2px;
-     margin-top: -5px;
-     height: 10px;
-     border-width: 2px;
-     border-style: solid;
-     opacity: .85;
-     cursor: pointer;
+    position: absolute;
+    top: 150px;
+    left: 0px;
+    width: 21px;
+    margin-left: -2px;
+    margin-top: -5px;
+    height: 10px;
+    border-width: 2px;
+    border-style: solid;
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+.p-colorpicker-panel .p-colorpicker-alpha {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    height: 17px;
+    background-size: 100% 100%;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAAQCAYAAAD06IYnAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AIWDwYQlZMa3gAAAWVJREFUaN7tmEGO6jAQRCsOArHgBpyAJYGjcGocxAm4A2IHpmoWE0eBH+ezmFlNvU06shJ3W6VEelWMUQAIIF9f6qZpimsA1LYtS2uF51/u27YVAFZVRUkEoGHdPV/sIcbIEIIkUdI/9Xa7neyv61+SWFUVAVCSct00TWn2fv6u3+Ecfd3tXzy/0+nEUu+SPjo/kqzrmiQpScN6v98XewfA8/lMkiLJ2WxGSUopcT6fM6U0NX9/frfbjev1WtfrlZfLhYfDQQHG/AIOlnGwjINlHCxjHCzjYJm/TJWdCwquJXseFFzGwDNNeiKMOJTO8xQdDQaeB29+K9efeLaBo9J7vdvtJj1RjFFjfiv7qv95tjx/7leSQgh93e1ffMeIp6O+YQjho/N791t1XVOSSI7N//K+4/GoxWLBx+PB5/Op5XLJ+/3OlJJWqxU3m83ovv5iGf8KjYNlHCxjHCzjYBkHy5gf5gusvQU7U37jTAAAAABJRU5ErkJggg==);
+    cursor: pointer;
+}
+
+.p-colorpicker-panel .p-colorpicker-alpha-handle {
+    position: relative;
+    top: -2px;
+    width: 10px;
+    height: 21px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ffffff;
+    opacity: 0.85;
+    margin-left: -4px;
 }
