@@ -366,7 +366,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             ),
             s: this.value.s,
             b: this.value.b,
-            a: this.value.a
+            a: this.value.a,
         });
 
         this.updateColorSelector();
@@ -474,10 +474,6 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     writeValue(value: any): void {
         if (value) {
-            if (this.useAlpha && value.a == null) {
-                value.a = 1;
-            }
-
             switch (this.format) {
                 case "hex":
                     this.value = this.HEXtoHSB(value);
@@ -850,16 +846,20 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     HEXtoRGB(hex) {
-        let hexValue = parseInt(
-            hex.indexOf("#") > -1 ? hex.substring(1) : hex,
-            16
-        );
-        return {
-            r: hexValue >> 16,
-            g: (hexValue & 0x00ff00) >> 8,
-            b: hexValue & 0x0000ff,
+        const cleanHexStr = hex.indexOf("#") > -1 ? hex.substring(1) : hex;
+
+        const rgba = {
+            r: parseInt(cleanHexStr.slice(0, 2), 16),
+            g: parseInt(cleanHexStr.slice(2, 4), 16),
+            b: parseInt(cleanHexStr.slice(4, 6), 16),
             a: 1,
         };
+
+        if (cleanHexStr.length === 8) {
+            rgba.a = parseInt(cleanHexStr.slice(6, 8), 16) / 255;
+        }
+
+        return rgba;
     }
 
     HEXtoHSB(hex) {
@@ -958,7 +958,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         };
     }
 
-    RGBtoHEX(rgba) {        
+    RGBtoHEX(rgba) {
         var hex = [
             rgba.r.toString(16),
             rgba.g.toString(16),
