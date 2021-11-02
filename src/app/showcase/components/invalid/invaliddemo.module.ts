@@ -18,6 +18,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { PasswordModule } from 'primeng/password';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 import { AppCodeModule } from '../../app.code.component';
 import { AppDemoActionsModule } from '../../app.demoactions.component';
@@ -39,6 +41,8 @@ import { AppDemoActionsModule } from '../../app.demoactions.component';
 		DropdownModule,
 		MultiSelectModule,
 		InputTextareaModule,
+        PasswordModule,
+        TreeSelectModule,
 		FormsModule,
 		AppDemoActionsModule,
         AppCodeModule

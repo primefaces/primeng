@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import { CountryService } from '../../service/countryservice';
+import { NodeService } from '../../service/nodeservice';
 
 @Component({
     templateUrl: './invaliddemo.html'
@@ -11,6 +12,8 @@ export class InvalidDemo {
     cascadeSelectCountries: any[];
 
     cities: any[];
+
+    files: any[];
 
     filteredCountries: any[];
 
@@ -29,10 +32,15 @@ export class InvalidDemo {
     value7: any;
 
     value8: any;
-    
+
     value9: any;
 
-    constructor(private countryService: CountryService) {
+    value10: any;
+
+    value11: any;
+
+
+    constructor(private countryService: CountryService, private nodeService: NodeService) {
         this.cities = [
             {name: 'New York', code: 'NY'},
             {name: 'Rome', code: 'RM'},
@@ -67,11 +75,11 @@ export class InvalidDemo {
                             {cname: 'Townsville', code: 'A-TO'}
                         ]
                     },
-                    
+
                 ]
             },
             {
-                name: 'Canada', 
+                name: 'Canada',
                 code: 'CA',
                 states: [
                     {
@@ -88,7 +96,7 @@ export class InvalidDemo {
                             {cname: 'Toronto', code: 'C-TO'}
                         ]
                     },
-                    
+
                 ]
             },
             {
@@ -123,6 +131,8 @@ export class InvalidDemo {
                 ]
             }
         ];
+
+        this.nodeService.getFiles().then(files => this.files = files);
     }
 
     searchCountry(event) {
@@ -135,7 +145,7 @@ export class InvalidDemo {
                 filtered.push(country);
             }
         }
-        
+
         this.filteredCountries = filtered;
     }
 }
