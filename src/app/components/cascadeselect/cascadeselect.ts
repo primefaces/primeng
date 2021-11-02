@@ -1,4 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy, OnInit, AfterContentInit} from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy, OnInit, AfterContentInit, Inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig, OverlayService } from 'primeng/api';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
@@ -81,7 +81,11 @@ export class CascadeSelectSub implements OnInit {
 
     _parentActive: boolean;
 
-    constructor(private el: ElementRef, private cascadeSelect: CascadeSelect) { }
+    cascadeSelect: CascadeSelect;
+
+    constructor(@Inject(forwardRef(() => CascadeSelect)) cascadeSelect, private el: ElementRef) {
+        this.cascadeSelect = cascadeSelect as CascadeSelect;
+    }
 
     ngOnInit() {
         if (this.selectionPath && this.options && !this.dirty) {
@@ -169,6 +173,8 @@ export class CascadeSelectSub implements OnInit {
                 if (nextItem) {
                     nextItem.children[0].focus();
                 }
+
+                event.preventDefault();
             break;
 
             case 'Up':
@@ -177,6 +183,8 @@ export class CascadeSelectSub implements OnInit {
                 if (prevItem) {
                     prevItem.children[0].focus();
                 }
+
+                event.preventDefault();
             break;
 
             case 'Right':
@@ -189,6 +197,8 @@ export class CascadeSelectSub implements OnInit {
                         this.activeOption = option;
                     }
                 }
+
+                event.preventDefault();
             break;
 
             case 'Left':
@@ -199,19 +209,23 @@ export class CascadeSelectSub implements OnInit {
                 if (parentList) {
                     parentList.children[0].focus();
                 }
+
+                event.preventDefault();
             break;
 
             case 'Enter':
                 this.onOptionClick(event, option);
+
+                event.preventDefault();
             break;
 
             case 'Tab':
             case 'Escape':
                 this.cascadeSelect.hide();
+
+                event.preventDefault();
             break;
         }
-
-        event.preventDefault();
     }
 
     position() {
