@@ -1,5 +1,34 @@
 # Changelog
 
+## [12.2.2](https://github.com/primefaces/primeng/tree/12.2.2) (2021-11-02)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.2.1...12.2.2)
+
+**Implemented New Features and Enhancements:**
+
+- Material | Use box-shadow for outlined Buttons [\#10799](https://github.com/primefaces/primeng/issues/10799)
+- Material Focus Improvements [\#10798](https://github.com/primefaces/primeng/issues/10798)
+- Multiselect missing itemValue in OnChange callback after removeChip [\#10789](https://github.com/primefaces/primeng/issues/10789)
+- PanelMenu | Keyboard Support [\#10784](https://github.com/primefaces/primeng/issues/10784)
+- SlideMenu | Keyboard Support [\#10781](https://github.com/primefaces/primeng/issues/10781)
+- Dynamic Dialog | BlockUI | Modal layer enter-leave transition  [\#10775](https://github.com/primefaces/primeng/issues/10775)
+- TreeSelect | Keyboard Support [\#10774](https://github.com/primefaces/primeng/issues/10774)
+- ConfirmPopup | Default Focus support [\#10772](https://github.com/primefaces/primeng/issues/10772)
+- Menu | Keyboard Support [\#10771](https://github.com/primefaces/primeng/issues/10771)
+- ZIndexUtils Support for ConfirmDialog [\#10762](https://github.com/primefaces/primeng/issues/10762)
+- Dropdown appendTo default changed to "body" in PrimeNG 12 [\#10751](https://github.com/primefaces/primeng/issues/10751)
+- CascadeSelect | Keyboard Exit Functionality [\#10749](https://github.com/primefaces/primeng/issues/10749)
+- Editor missing some text in template file [\#10745](https://github.com/primefaces/primeng/issues/10745)
+- p-Table: resizing a scrollable table resizes the expanded row [\#10609](https://github.com/primefaces/primeng/issues/10609)
+
+**Fixed bugs:**
+
+- MultiSelect and Listbox | Header Checkbox Should be focusable [\#10797](https://github.com/primefaces/primeng/issues/10797)
+- Dropdown | autoDisplayFirst not update value of dropdown [\#10768](https://github.com/primefaces/primeng/issues/10768)
+- Password and TreeSelect | Invalid styles are missing [\#10766](https://github.com/primefaces/primeng/issues/10766)
+- If appendTo property of confirmDialog is set, defaultFocus doesn't work [\#10722](https://github.com/primefaces/primeng/issues/10722)
+- Dropdown - scroll to selected item [\#10346](https://github.com/primefaces/primeng/issues/10346)
+
 ## [12.2.1](https://github.com/primefaces/primeng/tree/12.2.1) (2021-10-14)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.2.0...12.2.1)
