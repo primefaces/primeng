@@ -1356,7 +1356,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   background-color: #4b4b4b;
 }
 
-.p-password.p-invalid.p-component > .p-inputtext {
+p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   border-color: #e57373;
 }
 
@@ -1648,7 +1648,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-.p-treeselect.p-invalid.p-component {
+
+p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-color: #e57373;
 }
 
