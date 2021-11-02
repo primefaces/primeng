@@ -101,7 +101,7 @@ export class TableService {
                 [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showJumpToPageInput]="showJumpToPageInput" [showPageLinks]="showPageLinks"></p-paginator>
 
             <div #wrapper class="p-datatable-wrapper" [ngStyle]="{height: scrollHeight}">
-                <table #table *ngIf="!virtualScroll" role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+                <table #table *ngIf="!virtualScroll" role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [attr.id]="id+'-table'">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="p-datatable-thead">
                         <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
@@ -113,7 +113,7 @@ export class TableService {
                     </tfoot>
                 </table>
                 <cdk-virtual-scroll-viewport *ngIf="virtualScroll" [itemSize]="virtualRowHeight" tabindex="0" [style.height]="scrollHeight !== 'flex' ? scrollHeight : undefined" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
-                    <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+                    <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [attr.id]="id+'-table'">
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                         <thead #tableHeader class="p-datatable-thead">
                             <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
@@ -1920,7 +1920,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     resizeTableCells(newColumnWidth, nextColumnWidth) {
         let colIndex = DomHandler.index(this.resizeColumnElement);
         let widths = [];
-        let headers = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-thead > tr > th');
+        const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
+        let headers = DomHandler.find(tableHead, 'tr > th');
         headers.forEach(header => widths.push(DomHandler.getOuterWidth(header)));
 
         this.destroyStyleElement();
@@ -1930,11 +1931,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         widths.forEach((width,index) => {
             let colWidth = index === colIndex ? newColumnWidth : (nextColumnWidth && index === colIndex + 1) ? nextColumnWidth : width;
             innerHTML += `
-                #${this.id} .p-datatable-thead > tr > th:nth-child(${index+1}) {
+                #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index+1}) {
                     flex: 0 0 ${colWidth}px !important;
                 }
 
-                #${this.id} .p-datatable-tbody > tr > td:nth-child(${index+1}) {
+                #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index+1}) {
                     flex: 0 0 ${colWidth}px !important;
                 }
             `
@@ -2273,11 +2274,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     let innerHTML = '';
                     widths.forEach((width,index) => {
                         innerHTML += `
-                            #${this.id} .p-datatable-thead > tr > th:nth-child(${index+1}) {
+                            #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index+1}) {
                                 flex: 0 0 ${width}px;
                             }
 
-                            #${this.id} .p-datatable-tbody > tr > td:nth-child(${index+1}) {
+                            #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index+1}) {
                                 flex: 0 0 ${width}px;
                             }
                         `
