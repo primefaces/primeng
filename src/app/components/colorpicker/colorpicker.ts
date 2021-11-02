@@ -856,7 +856,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         };
 
         if (cleanHexStr.length === 8) {
-            rgba.a = parseInt(cleanHexStr.slice(6, 8), 16) / 255;
+            rgba.a = Number(
+                (parseInt(cleanHexStr.slice(6, 8), 16) / 255).toFixed(2)
+            );
         }
 
         return rgba;
