@@ -22,7 +22,7 @@ import { DomHandler } from 'primeng/dom';
                         <h4>Component Scale</h4>
                         <div class="config-scale">
                             <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text" [disabled]="scale === scales[0]"></button>
-                            <i class="pi pi-circle-on" *ngFor="let s of scales" [ngClass]="{'scale-active': s === scale}"></i>
+                            <i class="pi pi-circle-fill" *ngFor="let s of scales" [ngClass]="{'scale-active': s === scale}"></i>
                             <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text" [disabled]="scale === scales[scales.length - 1]"></button>
                         </div>
 

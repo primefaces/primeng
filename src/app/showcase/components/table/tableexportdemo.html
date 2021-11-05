@@ -11,7 +11,7 @@
         <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex">
-                    <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
                     <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
                     <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
                     <button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
@@ -49,7 +49,7 @@
 &lt;p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div class="p-d-flex"&gt;
-            &lt;button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"&gt;&lt;/button&gt;
             &lt;button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"&gt;&lt;/button&gt;
             &lt;button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"&gt;&lt;/button&gt;
             &lt;button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"&gt;&lt;/button&gt;

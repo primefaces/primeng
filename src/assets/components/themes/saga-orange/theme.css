@@ -1454,7 +1454,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 .p-rating .p-rating-icon:first-child {
   margin-left: 0;
 }
-.p-rating .p-rating-icon.pi-star {
+.p-rating .p-rating-icon.pi-star-fill {
   color: #FFC107;
 }
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon:hover {

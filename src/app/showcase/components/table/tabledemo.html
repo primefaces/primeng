@@ -2129,7 +2129,7 @@ export class TableEditDemo implements OnInit &#123;
 &lt;p-table #dt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div class="ui-helper-clearfix" style="text-align: left"&gt;
-            &lt;button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
