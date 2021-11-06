@@ -5484,7 +5484,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   margin-right: 0.5rem;
 }
 .p-chip .pi-chip-remove-icon {
-  border-radius: 3px;
+  border-radius: 50%;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .p-chip .pi-chip-remove-icon:focus {

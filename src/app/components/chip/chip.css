@@ -12,7 +12,8 @@
 }
 
 .pi-chip-remove-icon {
-    line-height: 1.5;
+    border-radius: 50%;
+    line-height: 1;
     cursor: pointer;
 }
 
