@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 
+type Filterable = string | Record<string, undefined | null | unknown & {
+    toString(): string;
+}>;
+
 @Injectable({providedIn: 'root'})
 export class FilterService {
 
-    filter(value: any[], fields: any[], filterValue: any, filterMatchMode: string, filterLocale?: string) {
-        let filteredItems: any[] = [];
+    filter(value: Filterable[], fields: any[], filterValue: any, filterMatchMode: string, filterLocale?: string) {
+        const filteredItems: Filterable[] = [];
 
         if (value) {
-            for (let item of value) {
-                for (let field of fields) {
-                    let fieldValue = ObjectUtils.resolveFieldData(item, field);
 
-                    if (this.filters[filterMatchMode](fieldValue, filterValue, filterLocale)) {
+            for (const item of value) {
+                if (typeof item === 'string') {
+                    if (this.filters[filterMatchMode](item, filterValue, filterLocale)) {
                         filteredItems.push(item);
-                        break;
+                    }
+                } else {
+                    for (const field of fields) {
+                        const fieldValue = ObjectUtils.resolveFieldData(item, field);
+                        if (this.filters[filterMatchMode](fieldValue, filterValue, filterLocale)) {
+                            filteredItems.push(item);
+                            break;
+                        }
                     }
                 }
             }
