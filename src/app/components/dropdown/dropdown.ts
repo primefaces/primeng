@@ -17,6 +17,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export const SearchTimeoutDefault = 250;
+
 @Component({
     selector: 'p-dropdownItem',
     template: `
@@ -256,6 +258,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() autofocusFilter: boolean = true;
 
+    @Input() searchTimeout = SearchTimeoutDefault;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
@@ -285,6 +289,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     private _disabled: boolean;
+    private searchTimeoutID: number | null;
 
     @Input() get disabled(): boolean {
         return this._disabled;
@@ -359,8 +364,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     searchValue: string;
 
     searchIndex: number;
-
-    searchTimeout: any;
 
     previousSearchChar: string;
 
@@ -989,8 +992,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     search(event: KeyboardEvent) {
-        if (this.searchTimeout) {
-            clearTimeout(this.searchTimeout);
+        if (this.searchTimeoutID) {
+            clearTimeout(this.searchTimeoutID);
         }
 
         const char = event.key;
@@ -1017,9 +1020,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.selectedOptionUpdated = true;
         }
 
-        this.searchTimeout = setTimeout(() => {
+        this.searchTimeoutID = setTimeout(() => {
             this.searchValue = null;
-        }, 250);
+        }, this.searchTimeout) as unknown as number;
     }
 
     searchOption(index) {
