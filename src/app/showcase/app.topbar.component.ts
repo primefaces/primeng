@@ -240,6 +240,7 @@ import { Subscription } from 'rxjs';
                         <li><a href="https://discord.gg/gzKFYnpmCY"><span>Discord Chat</span></a></li>
                         <li><a [routerLink]="['/lts']"><span>LTS</span></a></li>
                         <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
+                        <li><a href="https://gear.primefaces.org" target="_blank"><span>Gear Store</span></a></li>
                         <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
                         <li><a [routerLink]="['/support']"><span>Support</span></a></li>
                         <li><a href="https://twitter.com/prime_ng?lang=en" target="_blank"><span>Twitter</span></a></li>
