@@ -443,7 +443,7 @@ export class DomHandler {
     }
 
     public static isTouchDevice() {
-        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
     }
 
     public static appendChild(element: any, target: any) {

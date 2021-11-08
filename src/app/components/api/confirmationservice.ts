@@ -22,6 +22,6 @@ export class ConfirmationService {
     }
 
     onAccept() {
-        this.acceptConfirmationSource.next();
+        this.acceptConfirmationSource.next(null);
     }
 }

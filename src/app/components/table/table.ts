@@ -46,11 +46,11 @@ export class TableService {
     }
 
     onSelectionChange() {
-        this.selectionSource.next();
+        this.selectionSource.next(null);
     }
 
     onResetChange() {
-        this.resetSource.next();
+        this.resetSource.next(null);
     }
 
     onContextMenu(data: any) {
@@ -1659,24 +1659,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             type: 'text/csv;charset=utf-8;'
         });
 
-        if (window.navigator.msSaveOrOpenBlob) {
-            navigator.msSaveOrOpenBlob(blob, this.exportFilename + '.csv');
+        let link = document.createElement("a");
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        if (link.download !== undefined) {
+            link.setAttribute('href', URL.createObjectURL(blob));
+            link.setAttribute('download', this.exportFilename + '.csv');
+            link.click();
         }
         else {
-            let link = document.createElement("a");
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            if (link.download !== undefined) {
-                link.setAttribute('href', URL.createObjectURL(blob));
-                link.setAttribute('download', this.exportFilename + '.csv');
-                link.click();
-            }
-            else {
-                csv = 'data:text/csv;charset=utf-8,' + csv;
-                window.open(encodeURI(csv));
-            }
-            document.body.removeChild(link);
+            csv = 'data:text/csv;charset=utf-8,' + csv;
+            window.open(encodeURI(csv));
         }
+        document.body.removeChild(link);
     }
 
     public resetScrollTop() {

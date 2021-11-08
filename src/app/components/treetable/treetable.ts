@@ -32,7 +32,7 @@ export class TreeTableService {
     }
 
     onSelectionChange() {
-        this.selectionSource.next();
+        this.selectionSource.next(null);
     }
 
     onContextMenu(node: any) {
