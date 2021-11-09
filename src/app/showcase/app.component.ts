@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => {
             this.config = config;
-            localStorage.setItem('primeng-theme', this.config.theme);
+            localStorage.setItem('primeng-theme-13', this.config.theme);
         });
 
         this.router.events.subscribe(event => {
