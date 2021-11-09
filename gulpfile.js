@@ -73,5 +73,5 @@ gulp.task('readme', function() {
 });
 
 //Building project with run sequence
-gulp.task('build-assets', ['clean','copy-component-css', 'build-css-prod', 'images', 'themes', 'readme']);
+gulp.task('build-assets', gulp.series['clean','copy-component-css', 'build-css-prod', 'images', 'themes', 'readme']);
 
