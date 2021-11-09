@@ -56,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (queryString)
             appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
         else
-            appTheme = localStorage.getItem('primeng-theme');
+            appTheme = localStorage.getItem('primeng-theme-13');
 
         if (appTheme) {
             let darkTheme = this.isDarkTheme(appTheme);
