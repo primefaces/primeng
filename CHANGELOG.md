@@ -1,5 +1,25 @@
 # Changelog
 
+## [13.0.0-rc.1](https://github.com/primefaces/primeng/tree/13.0.0-rc.1) (2021-11-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.2.2...13.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- New Theme Lara 🎨  [\#10830](https://github.com/primefaces/primeng/issues/10830)
+- Update to PrimeIcons v5.0.0 [\#10811](https://github.com/primefaces/primeng/issues/10811)
+- Update to Angular 13 [\#10810](https://github.com/primefaces/primeng/issues/10810)
+- Match @angular 12 libraries to allow rxjs upgrade to v7.x [\#10804](https://github.com/primefaces/primeng/issues/10804)
+
+**Fixed bugs:**
+
+- The `escape` property does not work for label in Slide Menu component [\#10827](https://github.com/primefaces/primeng/issues/10827)
+- Button | loadingIcon is not displayed when icon is not provided [\#10822](https://github.com/primefaces/primeng/issues/10822)
+- sidebar causes javascript error if modal=false [\#10813](https://github.com/primefaces/primeng/issues/10813)
+- Dismissable Mask and Escape on Dynamic Dialogue [\#10809](https://github.com/primefaces/primeng/issues/10809)
+- Wrong zIndex for p-toast [\#10801](https://github.com/primefaces/primeng/issues/10801)
+- TypeError: Cannot read properties of undefined \(reading 'style'\) at FrozenColumn.updateStickyPosition [\#10794](https://github.com/primefaces/primeng/issues/10794)
+
 ## [12.2.2](https://github.com/primefaces/primeng/tree/12.2.2) (2021-11-02)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.2.1...12.2.2)
