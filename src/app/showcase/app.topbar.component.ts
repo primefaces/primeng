@@ -53,6 +53,10 @@ import { Subscription } from 'rxjs';
                         <li><a (click)="changeTheme($event, 'fluent-light', false)"><img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light" /><span>Fluent Light</span></a></li>
 
                         <li class="topbar-submenu-header">PRIMEONE</li>
+                        <li><a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="assets/showcase/images/themes/lara-light-indigo.svg" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="assets/showcase/images/themes/lara-light-purple.svg" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="assets/showcase/images/themes/lara-dark-indigo.svg" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="assets/showcase/images/themes/lara-dark-purple.svg" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-blue', false)"><img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" /><span>Saga Blue</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-green', false)"><img src="assets/showcase/images/themes/saga-green.png" alt="Saga Green" /><span>Saga Green</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-orange', false)"><img src="assets/showcase/images/themes/saga-orange.png" alt="Saga Orange" /><span>Saga Orange</span></a></li>
@@ -297,6 +301,10 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'mdc-light-deeppurple': 'md-light-deeppurple.svg',
         'mdc-dark-indigo': 'md-dark-indigo.svg',
         'mdc-dark-deeppurple': 'md-dark-deeppurple.svg',
+        'lara-light-indigo': 'lara-light-indigo.svg',
+        'lara-light-purple': 'lara-light-purple.svg',
+        'lara-dark-indigo': 'lara-dark-indigo.svg',
+        'lara-dark-purple': 'lara-dark-purple.svg',
         'saga-blue': 'saga-blue.png',
         'saga-green': 'saga-green.png',
         'saga-orange': 'saga-orange.png',

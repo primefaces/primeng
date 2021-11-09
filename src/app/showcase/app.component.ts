@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     news_key = 'primenews';
 
-    theme: string = "saga-blue";
+    theme: string = "lara-light-indigo";
 
     public subscription: Subscription;
 
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         let appTheme;
         const queryString = window.location.search;
-        
+
         if (queryString)
             appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
         else
@@ -136,7 +136,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (this.config.theme === 'nano')
             this.applyScale(12);
-        
+
     }
 
     isDarkTheme(theme) {
