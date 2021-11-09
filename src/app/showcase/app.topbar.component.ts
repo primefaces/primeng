@@ -54,8 +54,8 @@ import { Subscription } from 'rxjs';
 
                         <li class="topbar-submenu-header">PRIMEONE</li>
                         <li><a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="assets/showcase/images/themes/lara-light-indigo.svg" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a></li>
-                        <li><a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="assets/showcase/images/themes/lara-light-purple.svg" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a></li>
                         <li><a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="assets/showcase/images/themes/lara-dark-indigo.svg" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="assets/showcase/images/themes/lara-light-purple.svg" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a></li>
                         <li><a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="assets/showcase/images/themes/lara-dark-purple.svg" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-blue', false)"><img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" /><span>Saga Blue</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-green', false)"><img src="assets/showcase/images/themes/saga-green.png" alt="Saga Green" /><span>Saga Green</span></a></li>
