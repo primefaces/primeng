@@ -17,14 +17,14 @@ import { RouterModule } from '@angular/router';
                 </ng-container>
             </button>
             <ul #list class="p-speeddial-list" role="menu">
-                <li *ngFor="let item of model; let i = index" [ngStyle]="getItemStyle(i)" class="p-speeddial-item" pTooltip [tooltipOptions]="item.tooltipOptions">
-                    <a *ngIf="isClickableRouterLink(item); else elseBlock" pRipple [routerLink]="item.routerLink" [queryParams]="item.queryParams" class="p-speeddial-action" [ngClass]="{'p-disabled':item.disabled,'p-hidden': item.visible === false}"  role="menuitem" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" (click)="onItemClick($event, item)" (keydown.enter)="onItemClick($event, item, i)"
+                <li *ngFor="let item of model; let i = index" [ngStyle]="getItemStyle(i)" class="p-speeddial-item" pTooltip [tooltipOptions]="item.tooltipOptions" [ngClass]="'p-hidden': item.visible === false">
+                    <a *ngIf="isClickableRouterLink(item); else elseBlock" pRipple [routerLink]="item.routerLink" [queryParams]="item.queryParams" class="p-speeddial-action" [ngClass]="{'p-disabled':item.disabled}"  role="menuitem" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" (click)="onItemClick($event, item)" (keydown.enter)="onItemClick($event, item, i)"
                         [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled || readonly ? null : (item.tabindex ? item.tabindex : '0')"
                         [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                     </a>
                     <ng-template #elseBlock>
-                        <a [attr.href]="item.url||null" class="p-speeddial-action" role="menuitem" pRipple (click)="onItemClick($event, item)" [ngClass]="{'p-disabled':item.disabled,,'p-hidden': item.visible === false}"
+                        <a [attr.href]="item.url||null" class="p-speeddial-action" role="menuitem" pRipple (click)="onItemClick($event, item)" [ngClass]="{'p-disabled':item.disabled}"
                             (keydown.enter)="onItemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                         </a>
