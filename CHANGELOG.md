@@ -271,7 +271,21 @@
 
 - Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.6-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.7) (2021-10-18)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.8-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.8) (2021-11-11)
+- The escape property does not work for label in Slide Menu component [\#10827](https://github.com/primefaces/primeng/issues/10827)
+- MultiSelect and Listbox | Header Checkbox Should be focusable [\#10797](https://github.com/primefaces/primeng/issues/10797)
+- Dropdown | autoDisplayFirst not update value of dropdown [\#10768](https://github.com/primefaces/primeng/issues/10768)
+- If appendTo property of confirmDialog is set, defaultFocus doesn't work [\#10722](https://github.com/primefaces/primeng/issues/10722)
+- Filtered Dropdown unusable on Windows Tablet [\#10648](https://github.com/primefaces/primeng/issues/10648)
+- Extra space between MultiSelect and filter list [\#10644](https://github.com/primefaces/primeng/issues/10644)
+- Dropdown - scroll to selected item [\#10346](https://github.com/primefaces/primeng/issues/10346)
+- Table frozen columns not working with colresize expand mode [\#10310](https://github.com/primefaces/primeng/issues/10310)
+- 10286 for ColorPicker [\#10309](https://github.com/primefaces/primeng/issues/10309)
+- Splitter error : Cannot read property '0' of undefined at Splitter.onResize [\#10286](https://github.com/primefaces/primeng/issues/10286)
+- FileUpload - long filename [\#10275](https://github.com/primefaces/primeng/issues/10275)
+- Sidebar wrong animation and close button display [\#10261](https://github.com/primefaces/primeng/issues/10261)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.7-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.7) (2021-10-18)
 - multiselect applies disabled UI state to all items when selectionLimit is reached and chip is removed [\#10734](https://github.com/primefaces/primeng/issues/10734)
 - float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
 - pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)
@@ -747,6 +761,18 @@
 **Closed issues:**
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.5) (2021-11-11)
+- The escape property does not work for label in Slide Menu component [\#10827](https://github.com/primefaces/primeng/issues/10827)
+- Dropdown | autoDisplayFirst not update value of dropdown [\#10768](https://github.com/primefaces/primeng/issues/10768)
+- If appendTo property of confirmDialog is set, defaultFocus doesn't work [\#10722](https://github.com/primefaces/primeng/issues/10722)
+- Filtered Dropdown unusable on Windows Tablet [\#10648](https://github.com/primefaces/primeng/issues/10648)
+- Extra space between MultiSelect and filter list [\#10644](https://github.com/primefaces/primeng/issues/10644)
+- Dropdown - scroll to selected item [\#10346](https://github.com/primefaces/primeng/issues/10346)
+- Table frozen columns not working with colresize expand mode [\#10310](https://github.com/primefaces/primeng/issues/10310)
+- 10286 for ColorPicker [\#10309](https://github.com/primefaces/primeng/issues/10309)
+- FileUpload - long filename [\#10275](https://github.com/primefaces/primeng/issues/10275)
+- Sidebar wrong animation and close button display [\#10261](https://github.com/primefaces/primeng/issues/10261)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.4) (2021-10-18)
 - float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
