@@ -2942,6 +2942,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .fc.fc-theme-standard a {
   color: rgba(255, 255, 255, 0.87);
 }
+.fc.fc-theme-standard .fc-highlight {
+  color: rgba(255, 255, 255, 0.87);
+  background: rgba(196, 181, 253, 0.16);
+}
 
 .p-orderlist .p-orderlist-controls {
   padding: 1.25rem;
@@ -4162,6 +4166,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: rgba(255, 255, 255, 0.87);
   border: 1px solid #444c56;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
   width: 12.5rem;
 }
 .p-contextmenu .p-menuitem-link {
@@ -4203,6 +4208,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #3d444d;
   border: 1px solid #444c56;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
 }
 .p-contextmenu .p-menuitem {
   margin: 0;
