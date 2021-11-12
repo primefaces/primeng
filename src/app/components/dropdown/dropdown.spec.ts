@@ -58,7 +58,7 @@ class TestDropdownComponent {
 		this.selectedCity = {name: 'New York', code: 'NY'};
 	}
 }
-fdescribe('Dropdown', () => {
+describe('Dropdown', () => {
     
     let dropdown: Dropdown;
     let testDropdown: Dropdown;
@@ -429,7 +429,7 @@ fdescribe('Dropdown', () => {
 		expect(dropdown.selectedOption.name).toEqual("Paris");
 	});
 
-	fit('should select with up key and skip disabled options', () => {
+	it('should select with up key and skip disabled options', () => {
 		dropdown.optionDisabled = 'inactive'
 		dropdown.options = [
 			{name: 'New York', code: 'NY'},
