@@ -153,7 +153,7 @@ export class OrganizationChart implements AfterContentInit {
         this._selection = val;
 
         if (this.initialized)
-            this.selectionSource.next();
+            this.selectionSource.next(null);
     }
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
@@ -239,7 +239,7 @@ export class OrganizationChart implements AfterContentInit {
             }
 
             this.selectionChange.emit(this.selection);
-            this.selectionSource.next();
+            this.selectionSource.next(null);
         }
     }
 

@@ -32,7 +32,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._initialStyleClass = this.el.nativeElement.className;
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
 
-        if (this.icon) {
+        if (this.icon || this.loading) {
             this.createIconEl();
         }
 

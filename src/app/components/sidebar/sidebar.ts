@@ -225,7 +225,10 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     destroyModal() {
         this.unbindMaskClickListener();
-        document.body.removeChild(this.mask);
+
+        if (this.mask) {
+            document.body.removeChild(this.mask);
+        }
 
         if (this.blockScroll) {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
@@ -273,7 +276,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                if (parseInt(this.container.style.zIndex)  === ZIndexUtils.getCurrent()) {
                     this.close(event);
                 }
             }
@@ -309,7 +312,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     ngOnDestroy() {
         this.initialized = false;
 
-        if (this.visible) {
+        if (this.visible && this.modal) {
             this.destroyModal();
         }
 
