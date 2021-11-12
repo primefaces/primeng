@@ -73,7 +73,7 @@ export class SlideMenuSub implements OnDestroy {
     }
     activeItem: any;
 
-    itemClick(event, item: MenuItem, listitem: any) {
+    itemClick(event, item: MenuItem, listitem: any) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -429,7 +429,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
-    onOverlayHide() {
+    onOverlayHide() {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
