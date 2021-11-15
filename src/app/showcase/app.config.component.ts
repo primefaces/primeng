@@ -142,25 +142,25 @@ import { DomHandler } from 'primeng/dom';
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-light-indigo', false)">
-                                    <img src="assets/showcase/images/themes/lara-light-indigo.svg" alt="Lara Light Indigo" />
+                                    <img src="assets/showcase/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" />
                                 </button>
                                 <span>Lara Light Indigo</span>
                             </div>
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-dark-indigo', true)">
-                                <img src="assets/showcase/images/themes/lara-dark-indigo.svg" alt="Lara Dark Indigo" />
+                                <img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" />
                                 </button>
                                 <span>Lara Dark Indigo</span>
                             </div>
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-light-purple', false)">
-                                    <img src="assets/showcase/images/themes/lara-light-purple.svg" alt="Lara Light Purple" />
+                                    <img src="assets/showcase/images/themes/lara-light-purple.png" alt="Lara Light Purple" />
                                 </button>
                                 <span>Lara Light Purple</span>
                             </div>
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-dark-purple', true)">
-                                    <img src="assets/showcase/images/themes/lara-dark-purple.svg" alt="Lara Dark Purple" />
+                                    <img src="assets/showcase/images/themes/lara-dark-purple.png" alt="Lara Dark Purple" />
                                 </button>
                                 <span>Lara Dark Purple</span>
                             </div>
