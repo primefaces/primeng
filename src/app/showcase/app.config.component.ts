@@ -134,11 +134,10 @@ import { DomHandler } from 'primeng/dom';
                                 <button class="p-link" (click)="changeTheme($event, 'fluent-light', false)">
                                     <img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light"/>
                                 </button>
-                                <span>Light</span>
+                                <span>Fluent Light</span>
                             </div>
                         </div>
-
-                        <h5>PrimeOne Design</h5>
+                        <h5>PrimeOne Design - 2022</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-light-indigo', false)">
@@ -164,6 +163,35 @@ import { DomHandler } from 'primeng/dom';
                                 </button>
                                 <span>Lara Dark Purple</span>
                             </div>
+
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-light-blue', false)">
+                                    <img src="assets/showcase/images/themes/lara-light-blue.png" alt="Lara Light Blue" />
+                                </button>
+                                <span>Lara Light Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-dark-blue', true)">
+                                <img src="assets/showcase/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" />
+                                </button>
+                                <span>Lara Dark Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-light-teal', false)">
+                                    <img src="assets/showcase/images/themes/lara-light-teal.png" alt="Lara Light Teal" />
+                                </button>
+                                <span>Lara Light Teal</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-dark-teal', true)">
+                                    <img src="assets/showcase/images/themes/lara-dark-teal.png" alt="Lara Dark Teal" />
+                                </button>
+                                <span>Lara Dark Teal</span>
+                            </div>
+                        </div>
+
+                        <h5>PrimeOne Design - 2021</h5>
+                        <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'saga-blue', false)">
                                     <img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" />

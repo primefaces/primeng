@@ -32,6 +32,7 @@ import { AppConfigComponent } from './app.config.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
 import { AppDemoActionsModule } from './app.demoactions.component';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
     declarations: [
@@ -51,6 +52,7 @@ import { AppDemoActionsModule } from './app.demoactions.component';
         BrowserAnimationsModule,
         AutoCompleteModule,
         ButtonModule,
+        BadgeModule,
         RadioButtonModule,
         InputSwitchModule,
         TooltipModule,
