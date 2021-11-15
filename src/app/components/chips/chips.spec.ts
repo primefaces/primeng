@@ -295,7 +295,7 @@ describe('Chips', () => {
 		expect(chips.value[0]).toEqual("primeng");
 	});
 
-	it('should use field varaible', () => {
+	it('should use field variable', () => {
 		chips.field = "name";
 		chips.value = [{ 'name': 'primeng' }];
 		fixture.detectChanges();
@@ -306,7 +306,7 @@ describe('Chips', () => {
 		expect(chips.value[0].name).toEqual("primeng");
 	});
 
-	it('should use field varaible (2)', () => {
+	it('should use field variable (2)', () => {
 		chips.field = "name.primeng";
 		chips.value = [{
 			'name': {

@@ -55,7 +55,7 @@ describe('TriStateCheckbox', () => {
 		expect(labelEl.textContent).toContain("Primeng!");
 	});
 
-	it('should change stlye and styleClass', () => {
+	it('should change style and styleClass', () => {
 		tristate.styleClass = "Primeng ROCKS!";
 		tristate.style = { 'height': '300px' };
 		fixture.detectChanges();

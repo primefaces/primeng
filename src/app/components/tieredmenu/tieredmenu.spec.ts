@@ -235,7 +235,7 @@ describe('TieredMenu', () => {
 		expect(hideSpy).toHaveBeenCalled();
 	});
 
-	it('should use popup with diffrent appendTo', () => {
+	it('should use popup with different appendTo', () => {
 		tieredmenu.model = [
 			{
 				label: 'File',
