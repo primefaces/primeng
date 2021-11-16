@@ -1,5 +1,5 @@
 import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
-            ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+            ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from 'primeng/button';
@@ -9,8 +9,9 @@ import {DomHandler} from 'primeng/dom';
 import {Message, TranslationKeys} from 'primeng/api';
 import {PrimeTemplate,SharedModule,PrimeNGConfig} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'p-fileUpload',
@@ -18,7 +19,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
         <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="p-fileupload-buttonbar">
                 <span class="p-button p-component p-fileupload-choose" [ngClass]="{'p-focus': focus, 'p-disabled':disabled || isChooseDisabled()}" (focus)="onFocus()" (blur)="onBlur()" pRipple
-                    (click)="choose()" (keydown.enter)="choose()" tabindex="0"> 
+                    (click)="choose()" (keydown.enter)="choose()" tabindex="0">
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
                     <span class="p-button-label">{{chooseButtonLabel}}</span>
@@ -38,7 +39,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                     <div *ngIf="!fileTemplate">
                         <div class="p-fileupload-row" *ngFor="let file of files; let i = index;">
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
-                            <div>{{file.name}}</div>
+                            <div class="p-fileupload-filename">{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
                             <div>
                                 <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading"></button>
@@ -65,9 +66,12 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./fileupload.css']
+    styleUrls: ['./fileupload.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
-export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
+export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestroy,BlockableUI {
 
     @Input() name: string;
 
@@ -124,7 +128,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     @Input() mode: string = 'advanced';
 
     @Input() headers: HttpHeaders;
-    
+
     @Input() customUpload: boolean;
 
     @Input() fileLimit: number;
@@ -197,6 +201,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
+    translationSubscription: Subscription;
+
     constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef, public config: PrimeNGConfig){}
 
     ngAfterContentInit() {
@@ -218,6 +224,13 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                     this.fileTemplate = item.template;
                 break;
             }
+        });
+    }
+
+
+    ngOnInit() {
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.cd.markForCheck();
         });
     }
 
@@ -350,9 +363,9 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     upload() {
         if (this.customUpload) {
             if (this.fileLimit) {
-                this.uploadedFileCount += this.files.length; 
+                this.uploadedFileCount += this.files.length;
             }
-            
+
             this.uploadHandler.emit({
                 files: this.files
             });
@@ -388,7 +401,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
                             if (event['status'] >= 200 && event['status'] < 300) {
                                 if (this.fileLimit) {
-                                    this.uploadedFileCount += this.files.length; 
+                                    this.uploadedFileCount += this.files.length;
                                 }
 
                                 this.onUpload.emit({originalEvent: event, files: this.files});
@@ -522,7 +535,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         if (bytes == 0) {
             return '0 B';
         }
-        let k = 1024,
+        let k = 1000,
         dm = 3,
         sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
         i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -556,6 +569,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     ngOnDestroy() {
         if (this.content && this.content.nativeElement) {
             this.content.nativeElement.removeEventListener('dragover', this.onDragOver);
+        }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
         }
     }
 }

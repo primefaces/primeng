@@ -3,6 +3,7 @@
         <h1>Paginator</h1>
         <p>Paginator is a generic component to display content in paged format.</p>
     </div>
+    <app-demoActions github="paginator" stackblitz="paginator-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -192,6 +193,12 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>Whether to display a dropdown to navigate to any page.</td>
                         </tr>
                         <tr>
+                            <td>showJumpToPageInput</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display a input to navigate to any page.</td>
+                        </tr>
+                        <tr>
                             <td>showPageLinks</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -327,10 +334,6 @@ export class MyComponent &#123;
 &lt;/div&gt;
 </app-code>
 <app-code lang="css">
-.p-button.p-button-icon-only &#123;
-    border-radius: 0;
-&#125;
-
 .image-gallery &#123;
     text-align: center;
     padding: 1rem;

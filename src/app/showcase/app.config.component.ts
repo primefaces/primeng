@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'app-config',
@@ -21,7 +22,7 @@ import { Subscription } from 'rxjs';
                         <h4>Component Scale</h4>
                         <div class="config-scale">
                             <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text" [disabled]="scale === scales[0]"></button>
-                            <i class="pi pi-circle-on" *ngFor="let s of scales" [ngClass]="{'scale-active': s === scale}"></i>
+                            <i class="pi pi-circle-fill" *ngFor="let s of scales" [ngClass]="{'scale-active': s === scale}"></i>
                             <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text" [disabled]="scale === scales[scales.length - 1]"></button>
                         </div>
 
@@ -117,17 +118,79 @@ import { Subscription } from 'rxjs';
                             </div>
                         </div>
 
+                        <h5>Tailwind</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'tailwind-light', false)">
+                                    <img src="assets/showcase/images/themes/tailwind-light.png" alt="Tailwind Light" />
+                                </button>
+                                <span>Tailwind Light</span>
+                            </div>
+                        </div>
+
                         <h5>Fluent UI</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'fluent-light', false)">
                                     <img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light"/>
                                 </button>
-                                <span>Light</span>
+                                <span>Fluent Light</span>
+                            </div>
+                        </div>
+                        <h5>PrimeOne Design - 2022</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-light-indigo', false)">
+                                    <img src="assets/showcase/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" />
+                                </button>
+                                <span>Lara Light Indigo</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-dark-indigo', true)">
+                                <img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" />
+                                </button>
+                                <span>Lara Dark Indigo</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-light-purple', false)">
+                                    <img src="assets/showcase/images/themes/lara-light-purple.png" alt="Lara Light Purple" />
+                                </button>
+                                <span>Lara Light Purple</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-dark-purple', true)">
+                                    <img src="assets/showcase/images/themes/lara-dark-purple.png" alt="Lara Dark Purple" />
+                                </button>
+                                <span>Lara Dark Purple</span>
+                            </div>
+
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-light-blue', false)">
+                                    <img src="assets/showcase/images/themes/lara-light-blue.png" alt="Lara Light Blue" />
+                                </button>
+                                <span>Lara Light Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-dark-blue', true)">
+                                <img src="assets/showcase/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" />
+                                </button>
+                                <span>Lara Dark Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-light-teal', false)">
+                                    <img src="assets/showcase/images/themes/lara-light-teal.png" alt="Lara Light Teal" />
+                                </button>
+                                <span>Lara Light Teal</span>
+                            </div>
+                            <div class="p-col-3">
+                                <button class="p-link" (click)="changeTheme($event, 'lara-dark-teal', true)">
+                                    <img src="assets/showcase/images/themes/lara-dark-teal.png" alt="Lara Dark Teal" />
+                                </button>
+                                <span>Lara Dark Teal</span>
                             </div>
                         </div>
 
-                        <h5>PrimeOne Design</h5>
+                        <h5>PrimeOne Design - 2021</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'saga-blue', false)">
@@ -302,6 +365,16 @@ import { Subscription } from 'rxjs';
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/verona-ng">
+                                    <img alt="Verona" src="assets/showcase/images/layouts/verona-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
+                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/ultima-ng">
                                     <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
                                 </a>
@@ -382,11 +455,6 @@ import { Subscription } from 'rxjs';
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/verona-ng">
-                                    <img alt="Verona" src="assets/showcase/images/layouts/verona-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/manhattan-ng">
                                     <img alt="Manhattan" src="assets/showcase/images/layouts/manhattan-ng.jpg">
                                 </a>
@@ -404,11 +472,6 @@ import { Subscription } from 'rxjs';
                             <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/morpheus-ng">
                                     <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-12 p-md-4">
@@ -485,6 +548,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     onRippleChange() {
         this.configService.updateConfig(this.config);
+        if (this.config.ripple)
+            DomHandler.removeClass(document.body, 'p-ripple-disabled');
+        else
+            DomHandler.addClass(document.body, 'p-ripple-disabled');
     }
 
     bindOutsideClickListener() {

@@ -3,7 +3,7 @@
         <h1>Textarea</h1>
         <p>Textarea is a multi-line text input element.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="inputtextarea" stackblitz="inputtextarea-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -32,7 +32,7 @@ import &#123;InputTextareaModule&#125; from 'primeng/inputtextarea';
 
             <h5>Getting Started</h5>
             <p>InputTextarea is applied to an input field with pInputTextarea directive.</p>
-                    
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;textarea pInputTextarea&gt;&lt;/textarea&gt;
 </app-code>
@@ -77,7 +77,7 @@ import &#123;InputTextareaModule&#125; from 'primeng/inputtextarea';
                     </tbody>
                 </table>
             </div>
-            
+
             <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -131,6 +131,12 @@ import &#123;InputTextareaModule&#125; from 'primeng/inputtextarea';
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Default&lt;/h5&gt;
 &lt;textarea rows="5" cols="30" pInputTextarea&gt;&lt;/textarea&gt;
+
+&lt;h5&gt;Float Label&lt;/h5&gt;
+&lt;span class="p-float-label"&gt;
+    &lt;textarea id="float-input" rows="5" cols="30" pInputTextarea&gt;&lt;/textarea&gt;
+    &lt;label for="float-input"&gt;Summary&lt;/label&gt;
+&lt;/span&gt;
 
 &lt;h5&gt;AutoResize&lt;/h5&gt;
 &lt;textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;

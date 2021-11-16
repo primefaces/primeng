@@ -1,9 +1,10 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
-import {Header,Footer,PrimeTemplate,SharedModule,FilterService} from 'primeng/api';
+import {Header,Footer,PrimeTemplate,SharedModule,FilterService, TranslationKeys, PrimeNGConfig} from 'primeng/api';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockableUI} from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-dataView',
@@ -23,12 +24,17 @@ import {BlockableUI} from 'primeng/api';
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showPageLinks]="showPageLinks"></p-paginator>
             <div class="p-dataview-content">
-                <div class="p-grid p-nogutter">
+                <div class="p-grid p-nogutter grid grid-nogutter">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                     </ng-template>
-                    <div *ngIf="isEmpty()" class="p-col">
-                        <div class="p-dataview-emptymessage">{{emptyMessage}}</div>
+                    <div *ngIf="isEmpty()" class="p-col col">
+                            <div class="p-dataview-emptymessage">
+                            <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
+                                    {{emptyMessageLabel}}
+                            </ng-container>
+                            <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,9 +50,12 @@ import {BlockableUI} from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./dataview.css']
+    styleUrls: ['./dataview.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
-export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
+export class DataView implements OnInit,AfterContentInit,OnDestroy,BlockableUI,OnChanges {
 
     @Input() paginator: boolean;
 
@@ -78,7 +87,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     @Input() lazy: boolean;
 
-    @Input() emptyMessage: string = 'No records found';
+    @Input() emptyMessage: string = '';
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -126,6 +135,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     headerTemplate: TemplateRef<any>;
 
+    emptyMessageTemplate: TemplateRef<any>;
+
     footerTemplate: TemplateRef<any>;
 
     paginatorLeftTemplate: TemplateRef<any>;
@@ -142,6 +153,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     _layout: string = 'list';
 
+    translationSubscription: Subscription;
+
     @Input() get layout(): string {
         return this._layout;
     }
@@ -154,12 +167,16 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         }
     }
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
+
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.cd.markForCheck();
+        });
         this.initialized = true;
     }
 
@@ -202,6 +219,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
                 case 'paginatordropdownitem':
                     this.paginatorDropdownItemTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
                 break;
 
                 case 'header':
@@ -312,6 +333,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         return this.el.nativeElement.children[0];
     }
 
+
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+    }
+
     filter(filter: string, filterMatchMode:string ="contains") {
         this.filterValue = filter;
 
@@ -335,6 +362,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     hasFilter() {
         return this.filterValue && this.filterValue.trim().length > 0;
     }
+
+    ngOnDestroy() {
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
+    }
 }
 
 @Component({
@@ -348,7 +381,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
             </button>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DataViewLayoutOptions  {
 

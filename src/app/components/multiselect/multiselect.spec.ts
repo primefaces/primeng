@@ -572,6 +572,6 @@ describe('MultiSelect', () => {
 			const emptyMesage = fixture.debugElement.query(By.css('.p-multiselect-empty-message')); 
 			expect(visibleItems.length).toEqual(1);
 			expect(emptyMesage).toBeTruthy();
-			expect(emptyMesage.nativeElement.textContent).toEqual("No results found");
+			expect(emptyMesage.nativeElement.textContent).toContain("No results found");
 	});
 });

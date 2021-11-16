@@ -7,8 +7,8 @@ import {KeyFilterDemoRoutingModule} from './keyfilterdemo-routing.module';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
-import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -19,7 +19,7 @@ import {AppCodeModule} from '../../app.code.component';
 		InputTextModule,
 		MessageModule,
 		TabViewModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

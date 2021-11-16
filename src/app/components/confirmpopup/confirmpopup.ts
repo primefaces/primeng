@@ -1,15 +1,16 @@
 import {NgModule ,Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Confirmation, ConfirmationService, PrimeNGConfig, TranslationKeys} from 'primeng/api';
+import {Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {ButtonModule} from 'primeng/button';
+import {ZIndexUtils} from 'primeng/utils';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 
 @Component({
     selector: 'p-confirmPopup',
     template: `
-        <div *ngIf="visible" [ngClass]="'p-confirm-popup p-component'" [ngStyle]="style" [class]="styleClass"
+        <div *ngIf="visible" [ngClass]="'p-confirm-popup p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
             [@animation]="{value: 'open', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
             (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
             <div #content class="p-confirm-popup-content">
@@ -40,11 +41,16 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./confirmpopup.css']
+    styleUrls: ['./confirmpopup.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ConfirmPopup implements OnDestroy {
 
     @Input() key: string;
+
+    @Input() defaultFocus: string = "accept";
 
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
@@ -80,7 +86,7 @@ export class ConfirmPopup implements OnDestroy {
         this.cd.markForCheck();
     }
 
-    constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
                 this.hide();
@@ -110,6 +116,11 @@ export class ConfirmPopup implements OnDestroy {
             document.body.appendChild(this.container);
             this.align();
             this.bindListeners();
+
+            const element = this.getElementToFocus();
+            if (element) {
+                element.focus();
+            }
         }
     }
 
@@ -121,9 +132,22 @@ export class ConfirmPopup implements OnDestroy {
         }
     }
 
+    getElementToFocus() {
+        switch(this.defaultFocus) {
+            case 'accept':
+                return DomHandler.findSingle(this.container, '.p-confirm-popup-accept');
+
+            case 'reject':
+                return DomHandler.findSingle(this.container, '.p-confirm-popup-reject');
+
+            case 'none':
+                return null;
+        }
+    }
+
     align() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
         }
 
         DomHandler.absolutePosition(this.container, this.confirmation.target);
@@ -160,6 +184,13 @@ export class ConfirmPopup implements OnDestroy {
         }
 
         this.hide();
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     bindListeners() {
@@ -245,6 +276,11 @@ export class ConfirmPopup implements OnDestroy {
     onContainerDestroy() {
         this.unbindListeners();
         this.unsubscribeConfirmationSubscriptions();
+
+        if (this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.confirmation = null;
         this.container = null;
     }

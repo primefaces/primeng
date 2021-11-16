@@ -3,6 +3,7 @@
         <h1>TabMenu</h1>
         <p>TabMenu is a navigation component that displays items as tab headers. Example below uses nested routes with TabMenu.</p>
     </div>
+    <app-demoActions github="tabmenu" stackblitz="tabmenu-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -17,7 +18,8 @@
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TabMenuModule&#125; from 'primeng/tabmenu';
-import &#123;MenuItem&#125; from 'primeng/api';</app-code>
+import &#123;MenuItem&#125; from 'primeng/api';
+</app-code>
 
             <h5>MenuModel API</h5>
             <p>TabMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
@@ -25,7 +27,8 @@ import &#123;MenuItem&#125; from 'primeng/api';</app-code>
             <h5>Getting Started</h5>
             <p>TabMenu requires a collection of menuitems as its <i>model</i>.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;</app-code>
+&lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;
+</app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
@@ -118,6 +121,25 @@ export class TabMenuDemo &#123;
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <h5>Templates of TabPanel</h5>
+            <div class="doc-tablewrapper">
+               <table class="doc-table">
+                     <thead>
+                        <tr>
+                           <th>Name</th>
+                           <th>Parameters</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>item</td>
+                           <td>$implicit: Data of the menu item <br />
+                            index: Index of the option</td>
+                        </tr>
+                     </tbody>
+               </table>
             </div>
             
             <h5>Styling</h5>

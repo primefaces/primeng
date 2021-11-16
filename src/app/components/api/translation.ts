@@ -34,10 +34,13 @@ export interface Translation {
     dayNamesMin?: string[];
     monthNames?: string[];
     monthNamesShort?: string[];
+    dateFormat?: string;
     today?: string;
     weekHeader?: string;
     weak?: string;
     medium?: string;
     strong?: string;
     passwordPrompt?: string;
+    emptyMessage?: string;
+    emptyFilterMessage?: string;
 }

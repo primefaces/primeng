@@ -3,11 +3,12 @@
         <h1>Table <span>Dynamic Columns</span></h1>
         <p>Columns can be defined dynamically using the *ngFor directive.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tabledynamic-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [columns]="cols" [value]="products">
+        <p-table [columns]="cols" [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -37,7 +38,7 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="products"&gt;
+&lt;p-table [columns]="cols" [value]="products" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -83,7 +84,7 @@ export class TableDynamicDemo implements OnInit &#123;
     &#125;
 &#125;
 </app-code>
-  
+
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

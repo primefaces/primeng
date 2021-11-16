@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     news_key = 'primenews';
 
-    theme: string = "saga-blue";
+    theme: string = "lara-light-indigo";
 
     public subscription: Subscription;
 
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => {
             this.config = config;
-            localStorage.setItem('theme', this.config.theme);
+            localStorage.setItem('primeng-theme-13', this.config.theme);
         });
 
         this.router.events.subscribe(event => {
@@ -52,11 +52,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
         let appTheme;
         const queryString = window.location.search;
-        
+
         if (queryString)
             appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
         else
-            appTheme = localStorage.getItem('theme');
+            appTheme = localStorage.getItem('primeng-theme-13');
 
         if (appTheme) {
             let darkTheme = this.isDarkTheme(appTheme);
@@ -136,7 +136,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (this.config.theme === 'nano')
             this.applyScale(12);
-        
+
     }
 
     isDarkTheme(theme) {

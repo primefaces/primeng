@@ -7,31 +7,39 @@ import { CountryService } from '../../service/countryservice';
 export class AutoCompleteDemo {
 
     selectedCountry: any;
-    
+
+    selectedCity: any;
+
+    selectedItem: any;
+
     countries: any[];
-        
+
+    items: any[];
+
     filteredCountries: any[];
 
+    filteredItems: any[];
+
     selectedCountries: any[];
-    
+
     selectedCountryAdvanced: any[];
-    
+
     filteredBrands: any[];
-    
+
     groupedCities: SelectItemGroup[];
 
     filteredGroups: any[];
 
     constructor(private countryService: CountryService, private filterService: FilterService) { }
-    
-    ngOnInit() {        
+
+    ngOnInit() {
         this.countryService.getCountries().then(countries => {
             this.countries = countries;
         });
 
         this.groupedCities = [
             {
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     {label: 'Berlin', value: 'Berlin'},
                     {label: 'Frankfurt', value: 'Frankfurt'},
@@ -40,7 +48,7 @@ export class AutoCompleteDemo {
                 ]
             },
             {
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     {label: 'Chicago', value: 'Chicago'},
                     {label: 'Los Angeles', value: 'Los Angeles'},
@@ -49,7 +57,7 @@ export class AutoCompleteDemo {
                 ]
             },
             {
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     {label: 'Kyoto', value: 'Kyoto'},
                     {label: 'Osaka', value: 'Osaka'},
@@ -58,20 +66,41 @@ export class AutoCompleteDemo {
                 ]
             }
         ];
+
+        this.items = [];
+        for (let i = 0; i < 10000; i++) {
+            this.items.push({label: 'Item ' + i, value: 'Item ' + i});
+        }
     }
-    
+
     filterCountry(event) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
         let query = event.query;
+
         for(let i = 0; i < this.countries.length; i++) {
             let country = this.countries[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
         }
-        
+
         this.filteredCountries = filtered;
+    }
+
+    filterItems(event) {
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        let filtered : any[] = [];
+        let query = event.query;
+
+        for(let i = 0; i < this.items.length; i++) {
+            let item = this.items[i];
+            if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(item);
+            }
+        }
+
+        this.filteredItems = filtered;
     }
 
     filterGroupedCity(event) {

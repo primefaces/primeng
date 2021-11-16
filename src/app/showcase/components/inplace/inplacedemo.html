@@ -3,6 +3,7 @@
         <h1>Inplace</h1>
         <p>Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.</p>
     </div>
+    <app-demoActions github="inplace" stackblitz="inplace-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -16,7 +17,7 @@
                 <input type="text" value="PrimeNG" pInputText>
             </ng-template>
         </p-inplace>
-    
+
         <h5>Image</h5>
         <p-inplace>
             <ng-template pTemplate="display">
@@ -29,7 +30,7 @@
                 <img src="assets/showcase/images/demo/galleria/galleria5.jpg" alt="Nature">
             </ng-template>
         </p-inplace>
-    
+
         <h5>Data</h5>
         <p-inplace>
             <ng-template pTemplate="display">
@@ -39,7 +40,7 @@
                 </div>
             </ng-template>
             <ng-template pTemplate="content">
-                <p-table [value]="cars">
+                <p-table [value]="cars" responsiveLayout="scroll">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Vin</th>
@@ -192,6 +193,28 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                 </table>
             </div>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>display</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>content</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -263,7 +286,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="content"&gt;
-        &lt;p-table [value]="cars"&gt;
+        &lt;p-table [value]="cars" responsiveLayout="scroll"&gt;
             &lt;ng-template pTemplate="header"&gt;
                 &lt;tr&gt;
                     &lt;th&gt;Vin&lt;/th&gt;

@@ -3,11 +3,12 @@
         <h1>Table <span>Style</span></h1>
         <p>Certain rows or cells can easily be styled based on conditions.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tablestyle-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products">
+        <p-table [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -43,7 +44,7 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products"&gt;
+&lt;p-table [value]="products" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th&gt;Code&lt;/th&gt;
@@ -80,17 +81,17 @@ import &#123; ProductService &#125; from '../../service/productservice';
             color: #FF5252;
             text-decoration: line-through;
         &#125;
-        
+
         .lowstock &#123;
             font-weight: 700;
             color: #FFA726;
         &#125;
-        
+
         .instock &#123;
             font-weight: 700;
             color: #66BB6A;
         &#125;
-        
+
         :host ::ng-deep .row-accessories &#123;
             background-color: rgba(0,0,0,.15) !important;
         &#125;

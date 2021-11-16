@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Sidebar } from './sidebar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,15 +37,18 @@ describe('Sidebar', () => {
 		sidebar = fixture.debugElement.query(By.css('p-sidebar')).componentInstance;
 	});
 
-	it('should change style and styleClass', () => {
+	it('should change style and styleClass', fakeAsync(() => {
 		sidebar.style = { 'height': '300px' };
 		sidebar.styleClass = "Primeng rocks!";
+		const buttonEl = fixture.debugElement.children[1].nativeElement;
+		buttonEl.click();
 		fixture.detectChanges();
 
+		tick(150);
 		const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		expect(containerEl.className).toContain("Primeng rocks!");
-		expect(containerEl.style.height).toContain('300px')
-	});
+		expect(containerEl.style.height).toContain('300px');
+	}));
 
 	it('should not show icon', () => {
 		sidebar.showCloseIcon = false;
@@ -55,8 +58,13 @@ describe('Sidebar', () => {
 		expect(closeEl).toBeFalsy();
 	});
 
-	it('should set positions', () => {
+	it('should set positions', fakeAsync(() => {
+		const buttonEl = fixture.debugElement.children[1].nativeElement;
+		buttonEl.click();
+
 		fixture.detectChanges();
+		
+		tick(150);
 		const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		expect(containerEl.className).toContain('p-sidebar-left');
 		sidebar.position = 'right';
@@ -74,31 +82,30 @@ describe('Sidebar', () => {
 
 		sidebar.cd.detectChanges();
 		expect(containerEl.className).toContain('p-sidebar-top');
-	});
+	}));
 
-	it('should open', () => {
+	it('should open', fakeAsync(() => {
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
 		const sidebarOpenSpy = spyOn(sidebar, 'show').and.callThrough();
 		buttonEl.click();
 		fixture.detectChanges();
 
-		const containerEl = fixture.debugElement.query(By.css('div'));
-		expect(containerEl.nativeElement.style.opacity).toEqual('1');
+		tick(150);
 		expect(sidebarOpenSpy).toHaveBeenCalled();
-	});
+	}));
 
-	it('should open fullscreen', () => {
+	it('should open fullscreen', fakeAsync(() => {
 		sidebar.fullScreen = true;
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
 		const sidebarOpenSpy = spyOn(sidebar, 'show').and.callThrough();
 		buttonEl.click();
 		fixture.detectChanges();
 
+		tick(150);
 		const containerEl = fixture.debugElement.query(By.css('div'));
-		expect(containerEl.nativeElement.style.opacity).toEqual('1');
 		expect(sidebarOpenSpy).toHaveBeenCalled();
 		expect(containerEl.nativeElement.className).toContain('p-sidebar-full');
-	});
+	}));
 
 	it('should close', () => {
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
@@ -111,7 +118,7 @@ describe('Sidebar', () => {
 		fixture.detectChanges();
 
 		const containerEl = fixture.debugElement.query(By.css('div'));
-		expect(containerEl.nativeElement.style.opacity).toBeFalsy();
+		expect(containerEl).toBeFalsy();
 		expect(sidebarCloseSpy).toHaveBeenCalled();
 	});
 
@@ -127,13 +134,11 @@ describe('Sidebar', () => {
 		buttonEl.click();
 		fixture.detectChanges();
 
-		expect(visibleOption).toEqual("visible");
 		expect(visibleChangeCount).toEqual(0);
 		const closeEl = fixture.debugElement.query(By.css('div')).query(By.css('button')).nativeElement;
 		closeEl.click();
 		fixture.detectChanges();
 
-		expect(visibleOption).toEqual("hide");
 		expect(visibleChangeCount).toEqual(1);
 	});
 

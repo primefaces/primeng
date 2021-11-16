@@ -9,7 +9,10 @@ import { CommonModule } from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./skeleton.css']
+    styleUrls: ['./skeleton.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Skeleton {
 
@@ -26,7 +29,7 @@ export class Skeleton {
     @Input() size: string = null;
 
     @Input() width: string = "100%";
-    
+
     @Input() height: string = "1rem";
 
     containerClass() {

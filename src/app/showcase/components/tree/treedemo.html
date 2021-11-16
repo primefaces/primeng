@@ -3,6 +3,7 @@
         <h1>Tree</h1>
         <p>Tree is used to display hierarchical data.</p>
     </div>
+    <app-demoActions github="tree" stackblitz="tree-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -148,7 +149,7 @@ import &#123;TreeNode&#125; from 'primeng/api';
                             <td>emptyMessage</td>
                             <td>string</td>
                             <td>No records found.</td>
-                            <td>Text to display when there is no data.</td>
+                            <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -330,6 +331,21 @@ export class TreeDemoComponent implements OnInit &#123;
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
                 <i>expandedIcon</i> and <i>collapsedIcon</i> instead.</p>
 
+            <h5>Sections</h5>
+            <p>Sections can be customized using <i>header</i>, <i>footer</i> and <i>empty</i> templates.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tree [value]="files"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        Header Content
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="empty"&gt;
+        No records found
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        Footer Content
+    &lt;/ng-template&gt;
+&lt;/p-tree&gt;
+</app-code>
             <h5>Templating</h5>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets
                 the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
@@ -450,9 +466,9 @@ export class TreeDemoComponent implements OnInit &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
-&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true"
     [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="p-fluid"&gt;
-    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;
 &lt;/p-dialog&gt;
 </app-code>
 
@@ -638,6 +654,12 @@ onDrop(event) &#123;
                             <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
                         </tr>
                         <tr>
+                            <td>togglerAriaLabel</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>Defines a string that labels the toggler icon for accessibility.</td>
+                        </tr>
+                        <tr>
                             <td>validateDrop</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -778,6 +800,57 @@ onDrop(event) &#123;
                 </table>
             </div>
 
+            <h5>Methods</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>resetFilter</td>
+                            <td>-</td>
+                            <td>Resets filtering.</td>
+                        </tr>
+                        <tr>
+                            <td>_filter</td>
+                            <td>value: string</td>
+                            <td>Applies filter by given value.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Parameters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>header</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>empty</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>footer</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -863,16 +936,16 @@ import &#123;TreeNode&#125; from 'primeng/api';
 export class TreeBasicDemo implements OnInit &#123;
 
     files1: TreeNode[];
-    
+
     files2: TreeNode[];
-    
+
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files1 = files);
         this.nodeService.getFiles().then(files => this.files2 = files);
     &#125;
-    
+
     expandAll()&#123;
         this.files2.forEach( node => &#123;
             this.expandRecursive(node, true);
@@ -884,7 +957,7 @@ export class TreeBasicDemo implements OnInit &#123;
             this.expandRecursive(node, false);
         &#125; );
     &#125;
-    
+
     private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
         node.expanded = isExpand;
         if (node.children)&#123;

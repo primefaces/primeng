@@ -9,23 +9,23 @@ import { CustomerService } from '../../service/customerservice';
         :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
             position: -webkit-sticky;
             position: sticky;
-            top: 69px;
+            top: 0;
         }
 
         .layout-news-active :host ::ng-deep .p-datatable tr > th {
-            top: 139px;
+            top: 0;
         }
 
         @media screen and (max-width: 64em) {
             :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-                top: 99px;
+                top: 0;
             }
 
             .layout-news-active :host ::ng-deep .p-datatable tr > th {
-                top: 169px;
+                top: 0;
             }
         }
-`]
+    `]
 })
 export class TableStickyDemo implements OnInit {
 

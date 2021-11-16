@@ -3,6 +3,7 @@
         <h1>Text</h1>
         <p>Manage the alignment and the styling of a text with <a href="https://github.com/primefaces/primeflex">PrimeFlex</a> text utilities.</p>
     </div>
+    <app-demoActions github="primeflex" stackblitz="primeflex-text-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -125,6 +126,18 @@
     &lt;div class="p-mb-3 p-text-italic"&gt;Italic&lt;/div&gt;
 &lt;/div&gt;
 </app-code>
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component&#125; from '@angular/core';
+
+@Component (&#123;
+    styles: [`
+        .demo-container &#123;
+            border: 1px solid var(--surface-d);
+        &#125;
+    `]
+&#125;)
+export class GridDemo &#123;&#125;
+    </app-code>
         </p-tabPanel>
     </p-tabView>
 </div>

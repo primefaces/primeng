@@ -8,15 +8,19 @@ import { IconService } from '../../service/iconservice';
 export class IconsComponent implements OnInit {
 
     icons: any [];
-    
-	filteredIcons: any [];
-    
+
+	filteredIcons: any[];
+
     selectedIcon: any;
-        
+
     constructor(private iconService: IconService) {}
 
 	ngOnInit() {
 		this.iconService.getIcons().subscribe(data => {
+            data = data.filter(value => {
+                return value.icon.tags.indexOf('deprecate') === -1;
+            });
+
             let icons = data;
             icons.sort((icon1, icon2) => {
                 if(icon1.properties.name < icon2.properties.name)
@@ -34,7 +38,7 @@ export class IconsComponent implements OnInit {
 
     onFilter(event: KeyboardEvent): void {
         let searchText = (<HTMLInputElement> event.target).value;
-  
+
 		if (!searchText) {
             this.filteredIcons = this.icons
         }

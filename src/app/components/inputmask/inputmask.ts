@@ -44,6 +44,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
         (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused'
     },

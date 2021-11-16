@@ -4,8 +4,8 @@ import {InputTextareaDemo} from './inputtextareademo';
 import {InputTextareaDemoRoutingModule} from './inputtextareademo-routing.module';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TabViewModule} from 'primeng/tabview';
-import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -13,7 +13,7 @@ import {AppCodeModule} from '../../app.code.component';
 		InputTextareaDemoRoutingModule,
         InputTextareaModule,
 		TabViewModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

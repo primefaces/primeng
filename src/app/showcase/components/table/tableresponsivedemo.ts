@@ -3,8 +3,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    templateUrl: './tableresponsivedemo.html',
-    styleUrls: ['./tableresponsivedemo.scss']
+    templateUrl: './tableresponsivedemo.html'
 })
 export class TableResponsiveDemo implements OnInit {
 
@@ -21,8 +20,10 @@ export class TableResponsiveDemo implements OnInit {
             { field: 'code', header: 'Code' },
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' }
+            { field: 'quantity', header: 'Quantity' },
+            { field: 'inventoryStatus', header: 'Status' },
+            { field: 'rating', header: 'Rating' }
         ];
     }
-    
+
 }

@@ -7,6 +7,7 @@ import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {AppCodeModule} from '../../app.code.component';
         PanelModule,
         TableModule,
 		TabViewModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

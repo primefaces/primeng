@@ -7,6 +7,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -16,6 +17,7 @@ import {AppCodeModule} from '../../app.code.component';
         SidebarModule,
         ButtonModule,
 		TabViewModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

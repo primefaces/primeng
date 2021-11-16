@@ -20,7 +20,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {PrimeFlexDemoRoutingModule} from './primeflexdemo-routing.module';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
-import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -37,7 +37,7 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 		PrimeFlexDemoRoutingModule,
 		TabViewModule,
 		AppCodeModule,
-        AppInputStyleSwitchModule
+        AppDemoActionsModule,
 	],
 	declarations: [
         PrimeFlexSetup,

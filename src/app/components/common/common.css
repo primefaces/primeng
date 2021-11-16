@@ -92,6 +92,10 @@ button {
     user-select: none;
 }
 
+.p-link:disabled {
+	cursor: default;
+}
+
 .p-sr-only {
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);

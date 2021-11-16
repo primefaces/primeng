@@ -27,6 +27,8 @@
 
 .p-autocomplete .p-autocomplete-panel {
     min-width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .p-autocomplete-panel {
