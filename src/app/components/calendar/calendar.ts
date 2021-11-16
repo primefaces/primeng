@@ -8,7 +8,7 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys, OverlayService} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {ZIndexUtils} from 'primeng/utils';
+import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -55,20 +55,22 @@ export interface LocaleSettings {
                                     <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
                                 </button>
                                 <div class="p-datepicker-title">
-                                    <span class="p-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{getTranslation('monthNames')[month.month]}}</span>
-                                    <select tabindex="0" class="p-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
-                                        <option [value]="i" *ngFor="let monthName of getTranslation('monthNames');let i = index" [selected]="i === month.month">{{monthName}}</option>
-                                    </select>
-                                    <select tabindex="0" class="p-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
-                                        <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
-                                    </select>
-                                    <span class="p-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
+                                    <button type="button" (click)="switchToMonthView($event)" *ngIf="currentView === 'date'" class="p-datepicker-month p-link" [disabled]="switchViewButtonDisabled()">
+                                        {{getMonthName(month.month)}}
+                                    </button>
+                                    <button type="button" (click)="switchToYearView($event)" *ngIf="currentView !== 'year'" class="p-datepicker-year p-link" [disabled]="switchViewButtonDisabled()">
+                                        {{currentYear}}
+                                    </button>
+                                    <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
+                                        <ng-container *ngIf="!decadeTemplate">{{yearPickerValues()[0]}} - {{yearPickerValues()[yearPickerValues().length - 1]}}</ng-container>
+                                        <ng-container *ngTemplateOutlet="decadeTemplate; context: {$implicit: yearPickerValues}"></ng-container>
+                                    </span>
                                 </div>
-                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" type="button" pRipple>
+                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" [style.display]="numberOfMonths === 1 ? 'inline-flex' : (i === numberOfMonths -1) ? 'inline-flex' : 'none'" type="button" pRipple>
                                     <span class="p-datepicker-next-icon pi pi-chevron-right"></span>
                                 </button>
                             </div>
-                            <div class="p-datepicker-calendar-container" *ngIf="view ==='date'">
+                            <div class="p-datepicker-calendar-container" *ngIf="currentView ==='date'">
                                 <table class="p-datepicker-calendar">
                                     <thead>
                                         <tr>
@@ -102,9 +104,14 @@ export interface LocaleSettings {
                             </div>
                         </div>
                     </div>
-                    <div class="p-monthpicker" *ngIf="view === 'month'">
-                        <span *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i), 'p-disabled':!isSelectable(1, i, this.currentYear, false)}" pRipple>
+                    <div class="p-monthpicker" *ngIf="currentView === 'month'">
+                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i), 'p-disabled':!isSelectable(1, i, this.currentYear, false)}" pRipple>
                             {{m}}
+                        </span>
+                    </div>
+                    <div class="p-yearpicker" *ngIf="currentView === 'year'">
+                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event,y)" class="p-yearpicker-year" [ngClass]="{'p-highlight': isYearSelected(y)}" pRipple>
+                            {{y}}
                         </span>
                     </div>
                 </ng-container>
@@ -287,8 +294,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() hideOnDateTimeSelect: boolean = true;
 
-    @Input() numberOfMonths: number = 1;
-
     @Input() view: string = 'date';
 
     @Input() touchUI: boolean;
@@ -355,8 +360,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     months: any[];
 
-    monthPickerValues: any[];
-
     weekDays: string[];
 
     currentMonth: number;
@@ -376,6 +379,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     maskClickListener: Function;
 
     overlay: HTMLDivElement;
+
+    responsiveStyleElement: any;
 
     overlayVisible: boolean;
 
@@ -421,6 +426,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     disabledDateTemplate: TemplateRef<any>;
 
+    decadeTemplate: TemplateRef<any>;
+
     _disabledDates: Array<Date>;
 
     _disabledDays: Array<number>;
@@ -444,6 +451,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     translationSubscription: Subscription;
 
     _locale: LocaleSettings;
+
+    _responsiveOptions: any[];
+
+    currentView: string;
+
+    attributeSelector: string;
+
+    _numberOfMonths: number = 1;
 
     @Input() get defaultDate(): Date {
         return this._defaultDate;
@@ -544,6 +559,29 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
        return this._locale;
     }
 
+    @Input() get responsiveOptions(): any[] {
+        return this._responsiveOptions;
+    };
+
+    set responsiveOptions(responsiveOptions: any[]) {
+        this._responsiveOptions = responsiveOptions;
+
+        this.destroyResponsiveStyleElement();
+        this.createResponsiveStyle();
+    }
+
+
+    @Input() get numberOfMonths(): number {
+        return this._numberOfMonths;
+    }
+
+    set numberOfMonths(numberOfMonths: number) {
+        this._numberOfMonths = numberOfMonths;
+
+        this.destroyResponsiveStyleElement();
+        this.createResponsiveStyle();
+    }
+
     @Input()
     set locale(newLocale: LocaleSettings) {
         console.warn("Locale property has no effect, use new i18n API instead.");
@@ -552,18 +590,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
+        this.attributeSelector = UniqueComponentId();
         const date = this.defaultDate||new Date();
+        this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
+        this.currentView = this.view;
 
         if (this.view === 'date') {
             this.createWeekDays();
             this.initTime(date);
             this.createMonths(this.currentMonth, this.currentYear);
             this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) + Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
-        }
-        else if (this.view === 'month') {
-            this.createMonthPickerValues();
         }
 
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
@@ -578,6 +616,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             switch (item.getType()) {
                 case 'date':
                     this.dateTemplate = item.template;
+                break;
+
+                case 'decade':
+                    this.decadeTemplate = item.template;
                 break;
 
                 case 'disabledDate':
@@ -597,6 +639,20 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 break;
             }
         });
+    }
+
+    ngAfterViewInit() {
+        if (this.inline) {
+            this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
+
+            if (!this.disabled) {
+                this.initFocusableCell();
+                if (this.numberOfMonths === 1) {
+                    this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild.nativeElement) + 'px';
+                }
+            }
+        }
+
     }
 
     getTranslation(option: string) {
@@ -621,12 +677,23 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    createMonthPickerValues() {
-        this.monthPickerValues = [];
-        let monthLabels = this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT);
+    monthPickerValues() {
+        let monthPickerValues = [];
         for (let i = 0; i <= 11; i++) {
-            this.monthPickerValues.push(monthLabels[i]);
+            monthPickerValues.push(this.config.getTranslation('monthNames')[i]);
         }
+
+        return monthPickerValues;
+    }
+
+    yearPickerValues() {
+        let yearPickerValues = [];
+        let base = this.currentYear -  (this.currentYear % 10);
+        for (let i = 0; i < 10; i++) {
+            yearPickerValues.push(base + i);
+        }
+
+        return yearPickerValues;
     }
 
     createMonths(month: number, year: number) {
@@ -727,8 +794,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     navBackward(event) {
-        event.stopPropagation();
-
         if (this.disabled) {
             event.preventDefault();
             return;
@@ -736,8 +801,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         this.isMonthNavigate = true;
 
-        if (this.view === 'month') {
+        if (this.currentView === 'month') {
             this.decrementYear();
+            setTimeout(()=> {
+                this.updateFocus();
+            },1);
+        }
+        else if (this.currentView === 'year') {
+            this.decrementDecade();
             setTimeout(()=> {
                 this.updateFocus();
             },1);
@@ -757,8 +828,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     navForward(event) {
-        event.stopPropagation();
-
         if (this.disabled) {
             event.preventDefault();
             return;
@@ -766,8 +835,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         this.isMonthNavigate = true;
 
-        if (this.view === 'month') {
+        if (this.currentView === 'month') {
             this.incrementYear();
+            setTimeout(()=> {
+                this.updateFocus();
+            },1);
+        }
+        else if (this.currentView === 'year') {
+            this.incrementDecade();
             setTimeout(()=> {
                 this.updateFocus();
             },1);
@@ -795,6 +870,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    decrementDecade() {
+        this.currentYear = this.currentYear - 10;
+    }
+
+    incrementDecade() {
+        this.currentYear = this.currentYear + 10;
+    }
+
     incrementYear() {
         this.currentYear++;
 
@@ -802,6 +885,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             let difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
             this.populateYearOptions(this.yearOptions[0] + difference, this.yearOptions[this.yearOptions.length - 1] + difference);
         }
+    }
+
+    switchToMonthView(event) {
+        this.currentView = 'month';
+        event.preventDefault();
+    }
+
+    switchToYearView(event) {
+        this.currentView = 'year';
+        event.preventDefault();
     }
 
     onDateSelect(event, dateMeta) {
@@ -850,8 +943,26 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onMonthSelect(event, index) {
-        if (!DomHandler.hasClass(event.target, 'p-disabled')) {
+        if (this.view === 'month') {
             this.onDateSelect(event, {year: this.currentYear, month: index, day: 1, selectable: true});
+        }
+        else {
+            this.currentMonth = index;
+            this.currentView = 'date';
+            this.createMonths(this.currentMonth, this.currentYear);
+            this.cd.markForCheck();
+            this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
+        }
+    }
+
+    onYearSelect(event, year) {
+        if (this.view === 'year') {
+            this.onDateSelect(event, {year: year, month: 0, day: 1, selectable: true});
+        }
+        else {
+            this.currentYear = year;
+            this.currentView = 'month';
+            this.onYearChange.emit({month: this.currentMonth + 1, year: this.currentYear});
         }
     }
 
@@ -1085,9 +1196,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    isMonthSelected(month: number): boolean {
-        let day = this.value ? (Array.isArray(this.value) ? this.value[0].getDate() : this.value.getDate()) : 1;
-        return this.isSelected({year: this.currentYear, month: month, day: day, selectable: true});
+    isComparable() {
+        return this.value != null && typeof this.value !== 'string';
+    }
+
+    isMonthSelected(month) {
+        return this.isComparable() ? (this.value.getMonth() === month && this.value.getFullYear() === this.currentYear) : false;
+    }
+
+    isYearSelected(year) {
+        return this.isComparable() ? (this.value.getFullYear() === year) : false;
     }
 
     isDateEquals(value, dateMeta) {
@@ -1235,6 +1353,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             originalEvent: event,
             target: this.el.nativeElement
         });
+    }
+
+    getMonthName(index) {
+        return this.config.getTranslation('monthNames')[index];
+    }
+
+
+    switchViewButtonDisabled() {
+        return this.numberOfMonths > 1 || this.disabled;
     }
 
     onPrevButtonClick(event) {
@@ -1477,6 +1604,76 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 if (!this.inline) {
                     this.trapFocus(event);
                 }
+                break;
+            }
+
+            default:
+                //no op
+            break;
+        }
+    }
+
+
+    onYearCellKeydown(event, index) {
+        const cell = event.currentTarget;
+
+        switch (event.which) {
+            //arrows
+            case 38:
+            case 40: {
+                cell.tabIndex = '-1';
+                var cells = cell.parentElement.children;
+                var cellIndex = DomHandler.index(cell);
+                let nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex -3];
+                if (nextCell) {
+                    nextCell.tabIndex = '0';
+                    nextCell.focus();
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //left arrow
+            case 37: {
+                cell.tabIndex = '-1';
+                let prevCell = cell.previousElementSibling;
+                if (prevCell) {
+                    prevCell.tabIndex = '0';
+                    prevCell.focus();
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //right arrow
+            case 39: {
+                cell.tabIndex = '-1';
+                let nextCell = cell.nextElementSibling;
+                if (nextCell) {
+                    nextCell.tabIndex = '0';
+                    nextCell.focus();
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //enter
+            case 13: {
+                this.onMonthSelect(event, index);
+                event.preventDefault();
+                break;
+            }
+
+            //escape
+            case 27: {
+                this.overlayVisible = false;
+                event.preventDefault();
+                break;
+            }
+
+            //tab
+            case 9: {
+                this.trapFocus(event);
                 break;
             }
 
@@ -2037,6 +2234,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
+                    this.overlay.setAttribute(this.attributeSelector, '');
                     this.appendOverlay();
                     if (this.autoZIndex) {
                         if (this.touchUI)
@@ -2095,11 +2293,21 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.touchUI) {
             this.enableModality(this.overlay);
         }
-        else {
-            if (this.appendTo)
+        else if(this.overlay) {
+            if (this.appendTo) {
+                if (this.view === 'date') {
+                    this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
+                    this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild.nativeElement + 'px');
+                }
+                else {
+                    this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild.nativeElement) + 'px';
+                }
+
                 DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
-            else
+            }
+            else{
                 DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+            }
         }
     }
 
@@ -2528,12 +2736,61 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.onClearClick.emit(event);
     }
 
+    createResponsiveStyle() {
+        if (this.numberOfMonths > 1 && this.responsiveOptions) {
+            if (!this.responsiveStyleElement) {
+                this.responsiveStyleElement = document.createElement('style');
+                this.responsiveStyleElement.type = 'text/css';
+                document.body.appendChild(this.responsiveStyleElement);
+            }
+
+            let innerHTML = '';
+            if (this.responsiveOptions) {
+                let responsiveOptions = [...this.responsiveOptions]
+                    .filter(o => !!(o.breakpoint && o.numMonths))
+                    .sort((o1, o2) => -1 * o1.breakpoint.localeCompare(o2.breakpoint, undefined, { numeric: true }));
+
+                for (let i = 0; i < responsiveOptions.length; i++) {
+                    let { breakpoint, numMonths } = responsiveOptions[i];
+                    let styles = `
+                        .p-datepicker[${this.attributeSelector}] .p-datepicker-group:nth-child(${numMonths}) .p-datepicker-next {
+                            display: inline-flex !important;
+                        }
+                    `;
+
+                    for (let j = numMonths; j < this.numberOfMonths; j++) {
+                        styles += `
+                            .p-datepicker[${this.attributeSelector}] .p-datepicker-group:nth-child(${j + 1}) {
+                                display: none !important;
+                            }
+                        `
+                    }
+
+                    innerHTML += `
+                        @media screen and (max-width: ${breakpoint}) {
+                            ${styles}
+                        }
+                    `
+                }
+            }
+
+            this.responsiveStyleElement.innerHTML = innerHTML;
+        }
+    }
+
+    destroyResponsiveStyleElement() {
+        if (this.responsiveStyleElement) {
+            this.responsiveStyleElement.remove();
+            this.responsiveStyleElement = null;
+        }
+    }
+
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.zone.runOutsideAngular(() => {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-                this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
+                this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
                         this.zone.run(() => {
                             this.hideOverlay();
@@ -2604,6 +2861,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onOverlayHide() {
+        this.currentView = this.view;
+
         if (this.mask) {
             this.destroyMask();
         }
@@ -2628,6 +2887,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             ZIndexUtils.clear(this.overlay);
         }
 
+        this.destroyResponsiveStyleElement();
         this.clearTimePickerTimer();
         this.restoreOverlayAppend();
         this.onOverlayHide();
