@@ -680,7 +680,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     monthPickerValues() {
         let monthPickerValues = [];
         for (let i = 0; i <= 11; i++) {
-            monthPickerValues.push(this.config.getTranslation('monthNames')[i]);
+            monthPickerValues.push(this.config.getTranslation('monthNamesShort')[i]);
         }
 
         return monthPickerValues;
@@ -803,15 +803,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (this.currentView === 'month') {
             this.decrementYear();
-            setTimeout(()=> {
-                this.updateFocus();
-            },1);
+            setTimeout(() => {
+                this.updateFocus()
+            }, 1);
         }
         else if (this.currentView === 'year') {
             this.decrementDecade();
-            setTimeout(()=> {
-                this.updateFocus();
-            },1);
+            setTimeout(() => {
+                this.updateFocus()
+            }, 1);
         }
         else {
             if (this.currentMonth === 0) {
@@ -837,15 +837,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (this.currentView === 'month') {
             this.incrementYear();
-            setTimeout(()=> {
-                this.updateFocus();
-            },1);
+            setTimeout(() => {
+                this.updateFocus()
+            }, 1);
         }
         else if (this.currentView === 'year') {
             this.incrementDecade();
-            setTimeout(()=> {
-                this.updateFocus();
-            },1);
+            setTimeout(() => {
+                this.updateFocus()
+            }, 1);
         }
         else {
             if (this.currentMonth === 11) {
@@ -1516,7 +1516,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
 
             //enter
-            case 13: {
+            //space
+            case 13:
+            case 32: {
                 this.onDateSelect(event, date);
                 event.preventDefault();
                 break;
@@ -1569,6 +1571,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     prevCell.tabIndex = '0';
                     prevCell.focus();
                 }
+                else {
+                    this.navigationState = {backward: true};
+                    this.navBackward(event);
+                }
+
                 event.preventDefault();
                 break;
             }
@@ -1581,6 +1588,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
                 }
+                else {
+                    this.navigationState = {backward: false};
+                    this.navForward(event);
+                }
+
                 event.preventDefault();
                 break;
             }
@@ -1592,8 +1604,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 break;
             }
 
-            //escape
-            case 27: {
+            //enter
+            //space
+            case 13:
+            case 32: {
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -1624,7 +1638,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 cell.tabIndex = '-1';
                 var cells = cell.parentElement.children;
                 var cellIndex = DomHandler.index(cell);
-                let nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex -3];
+                let nextCell = cells[event.which === 40 ? cellIndex + 2 : cellIndex -2];
                 if (nextCell) {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
@@ -1641,6 +1655,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     prevCell.tabIndex = '0';
                     prevCell.focus();
                 }
+                else {
+                    this.navigationState = {backward: true};
+                    this.navBackward(event);
+                }
+
                 event.preventDefault();
                 break;
             }
@@ -1653,13 +1672,20 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
                 }
+                else {
+                    this.navigationState = {backward: false};
+                    this.navForward(event);
+                }
+
                 event.preventDefault();
                 break;
             }
 
             //enter
-            case 13: {
-                this.onMonthSelect(event, index);
+            //space
+            case 13:
+            case 32: {
+                this.onYearSelect(event, index);
                 event.preventDefault();
                 break;
             }
@@ -1713,6 +1739,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     updateFocus() {
         let cell;
+
         if (this.navigationState) {
             if (this.navigationState.button) {
                 this.initFocusableCell();
@@ -1724,11 +1751,32 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
             else {
                 if (this.navigationState.backward) {
-                    let cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
-                    cell = cells[cells.length - 1];
+                    let cells;
+
+                    if (this.currentView === 'month') {
+                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                    }
+                    else if (this.currentView === 'year') {
+                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                    }
+                    else {
+                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    }
+
+                    if (cells && cells.length > 0) {
+                        cell = cells[cells.length - 1];
+                    }
                 }
                 else {
-                    cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    if (this.currentView === 'month') {
+                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                    }
+                    else if (this.currentView === 'year') {
+                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                    }
+                    else {
+                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    }
                 }
 
                 if (cell) {
@@ -1746,7 +1794,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     initFocusableCell() {
         let cell;
-        if (this.view === 'month') {
+
+        if (this.currentView === 'month') {
             let cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
             let selectedCell= DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-highlight');
             cells.forEach(cell => cell.tabIndex = -1);
@@ -1754,6 +1803,17 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
             if (cells.length === 0) {
                 let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
+                disabledCells.forEach(cell => cell.tabIndex = -1);
+            }
+        }
+        else if (this.currentView === 'year') {
+            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+            let selectedCell= DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year.p-highlight');
+            cells.forEach(cell => cell.tabIndex = -1);
+            cell = selectedCell || cells[0];
+
+            if (cells.length === 0) {
+                let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
                 disabledCells.forEach(cell => cell.tabIndex = -1);
             }
         }
@@ -1770,6 +1830,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (cell) {
             cell.tabIndex = '0';
+
+            if (!this.navigationState || !this.navigationState.button) {
+                setTimeout(() => {
+                    cell.focus();
+                }, 1);
+            }
         }
     }
 
@@ -2297,7 +2363,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             if (this.appendTo) {
                 if (this.view === 'date') {
                     this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
-                    this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild.nativeElement + 'px');
+                    this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild.nativeElement) + 'px';
                 }
                 else {
                     this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild.nativeElement) + 'px';
