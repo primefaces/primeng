@@ -1600,7 +1600,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     public exportCSV(options?: any) {
         let data;
         let csv = '';
-        let columns = this.frozenColumns ? [...this.frozenColumns, ...this.columns] : this.columns;
+        let columns = this.columns;
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
