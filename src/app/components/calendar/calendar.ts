@@ -804,13 +804,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.currentView === 'month') {
             this.decrementYear();
             setTimeout(() => {
-                this.updateFocus()
+                this.updateFocus();
             }, 1);
         }
         else if (this.currentView === 'year') {
             this.decrementDecade();
             setTimeout(() => {
-                this.updateFocus()
+                this.updateFocus();
             }, 1);
         }
         else {
@@ -838,13 +838,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.currentView === 'month') {
             this.incrementYear();
             setTimeout(() => {
-                this.updateFocus()
+                this.updateFocus();
             }, 1);
         }
         else if (this.currentView === 'year') {
             this.incrementDecade();
             setTimeout(() => {
-                this.updateFocus()
+                this.updateFocus();
             }, 1);
         }
         else {
