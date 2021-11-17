@@ -1,6 +1,6 @@
-import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList} from '@angular/core';
+import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList, Inject, PLATFORM_ID} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import {RippleModule} from 'primeng/ripple'; 
 import {PrimeTemplate} from 'primeng/api'; 
 
@@ -23,21 +23,26 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     
     public _initialStyleClass: string;
 
-    constructor(public el: ElementRef) {}
+    private doc?: Document;
+
+    constructor(public el: ElementRef, @Inject(DOCUMENT) document?: any) {
+        this.doc = document as Document;
+    }
     
     ngAfterViewInit() {
         this._initialStyleClass = this.el.nativeElement.className;
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
-
         if (this.icon) {
+            let iconElement = this.doc.createElement("span");
             this.createIconEl();
         }
         
-        let labelElement = document.createElement("span");
+        let labelElement = this.doc.createElement("span");
         if (this.icon && !this.label) {
             labelElement.setAttribute('aria-hidden', 'true');
         }
         labelElement.className = 'p-button-label';
+        labelElement.appendChild(this.doc.createTextNode(this.label||'&nbsp;'));
 
         if (this.label)
             labelElement.appendChild(document.createTextNode(this.label));
