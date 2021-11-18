@@ -5583,7 +5583,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #A5B4FC;
 }
 .p-progressbar .p-progressbar-label {
-  color: rgba(255, 255, 255, 0.87);
+  color: #1c2127;
   line-height: 1.5rem;
 }
 
