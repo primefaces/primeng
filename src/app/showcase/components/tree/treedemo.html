@@ -786,8 +786,9 @@ onDrop(event) &#123;
                             <td>onNodeDrop</td>
                             <td>event.originalEvent: browser event <br>
                                 event.dragNode: Dragged node instance <br>
-                                event.dropNode: Dropped node instance.
-                                event.index: Index of the dropped node within siblings.</td>
+                                event.dropNode: Dropped node instance.<br>
+                                event.index: Index of the dropped node within siblings.<br>
+                                event.dropPointPosition: 0 if dropped on node, -1 before and 1 after the node</td>
                             <td>Callback to invoke when a node is dropped.</td>
                         </tr>
                         <tr>
