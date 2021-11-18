@@ -210,6 +210,7 @@ export class UITreeNode implements OnInit {
                     dragNode: dragNode,
                     dropNode: this.node,
                     index: this.index,
+                    dropPointPosition: position,
                     accept: () => {
                         this.processPointDrop(dropParams);
                     }
@@ -221,7 +222,8 @@ export class UITreeNode implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node,
-                    index: this.index
+                    index: this.index,
+                    dropPointPosition: position,
                 });
             }
         }
@@ -327,6 +329,7 @@ export class UITreeNode implements OnInit {
                         dragNode: dragNode,
                         dropNode: this.node,
                         index: this.index,
+                        dropPointPosition: 0,
                         accept: () => {
                             this.processNodeDrop(dropParams);
                         }
@@ -338,7 +341,8 @@ export class UITreeNode implements OnInit {
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: this.node,
-                        index: this.index
+                        index: this.index,
+                        dropPointPosition: 0,
                     });
                 }
             }
@@ -1089,6 +1093,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                         dragNode: dragNode,
                         dropNode: null,
                         index: dragNodeIndex,
+                        dropPointPosition: 0,
                         accept: () => {
                             this.processTreeDrop(dragNode, dragNodeIndex);
                         }
@@ -1099,7 +1104,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: null,
-                        index: dragNodeIndex
+                        index: dragNodeIndex,
+                        dropPointPosition: 0,
                     });
 
                     this.processTreeDrop(dragNode, dragNodeIndex);
