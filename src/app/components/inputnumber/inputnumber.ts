@@ -414,6 +414,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onUserInput(event) {
+        if(this.readonly) {
+            return;
+        }
+
         if (this.isSpecialChar) {
             event.target.value = this.lastValue;
         }
@@ -421,6 +425,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyDown(event) {
+        if(this.readonly) {
+            return;
+        }
+
         this.lastValue = event.target.value;
         if (event.shiftKey || event.altKey) {
             this.isSpecialChar = true;
@@ -573,6 +581,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyPress(event) {
+        if (this.readonly) {
+            return;
+        }
+
         event.preventDefault();
         let code = event.which || event.keyCode;
         let char = String.fromCharCode(code);
@@ -585,7 +597,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onPaste(event) {
-        if (!this.disabled) {
+        if (!this.disabled && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || window['clipboardData']).getData('Text');
             if (data) {
@@ -793,7 +805,9 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputClick() {
-        this.initCursor();
+        if(!this.readonly) {
+            this.initCursor();
+        }
     }
 
     isNumeralChar(char) {
