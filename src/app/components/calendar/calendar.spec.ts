@@ -1,11 +1,11 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Calendar } from './calendar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { Calendar } from './calendar';
 
 describe('Calendar', () => {
 
@@ -1893,4 +1893,37 @@ describe('Calendar', () => {
 		expect(calendar.currentMinute).toEqual(10);
 		expect(calendar.pm).toEqual(false);
 	});
+
+	it('should accept single date on input for range selection', () => {
+		calendar.selectionMode = 'range';
+		fixture.detectChanges();
+
+		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+		const focusEvent = new Event('focus');
+		inputEl.click();
+		calendar.isKeydown = true;
+		inputEl.dispatchEvent(focusEvent);
+		fixture.detectChanges();
+
+		const updateModelSpy = spyOn(calendar, 'updateModel').and.callThrough();
+		const updateUISpy = spyOn(calendar, 'updateUI').and.callThrough();
+		const event = { 'target': { 'value': '07/01/2008' } };
+		debugger
+		calendar.onUserInput(event);
+		fixture.detectChanges();
+
+		calendar.cd.detectChanges();
+		const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
+		const firstEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
+		const monthSpanEl = fixture.debugElement.query(By.css('.p-datepicker-month')).nativeElement;
+		const yearSpanEl = fixture.debugElement.query(By.css('.p-datepicker-year')).nativeElement;
+		expect(updateUISpy).toHaveBeenCalled();
+		expect(updateModelSpy).toHaveBeenCalled();
+		expect(calendar.currentMonth).toEqual(6);
+		expect(calendar.currentYear).toEqual(2008);
+		expect(firstEl.className).toContain("p-highlight");
+		expect(monthSpanEl.textContent).toEqual("July");
+		expect(yearSpanEl.textContent).toEqual("2008");
+	});
+		
 });

@@ -1,14 +1,13 @@
-import {NgModule,Component,ElementRef,OnDestroy,OnInit,Input,Output,EventEmitter,forwardRef,Renderer2,
-        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,NgZone,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {RippleModule} from 'primeng/ripple';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys, OverlayService} from 'primeng/api';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {ZIndexUtils} from 'primeng/utils';
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
+import { ZIndexUtils } from 'primeng/utils';
+import { Subscription } from 'rxjs';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1913,7 +1912,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
         } else if (value.every(v => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false))) {
             if (this.isRangeSelection()) {
-                isValid = value.length > 1 && value[1] > value[0] ? true : false;
+                isValid = (value.length > 1 && value[1] > value[0] ? true : false) || value.length == 1;
             }
         }
         return isValid;
