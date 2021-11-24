@@ -256,7 +256,7 @@ import { RouterTestingModule } from '@angular/router/testing';
             </tr>
         </ng-template>
     </p-table>
-    <p-table class="colResizeTable" [columns]="cols" [value]="cars" [resizableColumns]="true">
+    <p-table class="colResizeTable" responsiveLayout="scroll" [columns]="cols" [value]="cars" [resizableColumns]="true">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" >
@@ -277,7 +277,7 @@ import { RouterTestingModule } from '@angular/router/testing';
             </tr>
         </ng-template>
     </p-table>
-    <p-table class="reorderableTable" [columns]="cols" [value]="cars" [reorderableColumns]="true">
+    <p-table class="reorderableTable" responsiveLayout="scroll" [columns]="cols" [value]="cars" [reorderableColumns]="true">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:2.5em"></th>
@@ -315,7 +315,7 @@ import { RouterTestingModule } from '@angular/router/testing';
     </p-table>
 
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table class="stateTable" #dt1 [columns]="cols2" [value]="cars2" [paginator]="true" [rows]="3" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+    <p-table class="stateTable" #dt1 [columns]="cols2" responsiveLayout="scroll" [value]="cars2" [paginator]="true" [rows]="3" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
         selectionMode="single" stateKey="statedemo">
         <ng-template pTemplate="header" let-columns>
             <tr>

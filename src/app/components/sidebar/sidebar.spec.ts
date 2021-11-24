@@ -38,6 +38,7 @@ describe('Sidebar', () => {
 	});
 
 	it('should change style and styleClass', fakeAsync(() => {
+		sidebar.modal = false;
 		sidebar.style = { 'height': '300px' };
 		sidebar.styleClass = "Primeng rocks!";
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
@@ -51,6 +52,7 @@ describe('Sidebar', () => {
 	}));
 
 	it('should not show icon', () => {
+		sidebar.modal = false;
 		sidebar.showCloseIcon = false;
 		fixture.detectChanges();
 
@@ -59,11 +61,12 @@ describe('Sidebar', () => {
 	});
 
 	it('should set positions', fakeAsync(() => {
+		sidebar.modal = false;
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
 		buttonEl.click();
 
 		fixture.detectChanges();
-		
+
 		tick(150);
 		const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		expect(containerEl.className).toContain('p-sidebar-left');
@@ -85,6 +88,7 @@ describe('Sidebar', () => {
 	}));
 
 	it('should open', fakeAsync(() => {
+		sidebar.modal = false;
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
 		const sidebarOpenSpy = spyOn(sidebar, 'show').and.callThrough();
 		buttonEl.click();
@@ -95,6 +99,7 @@ describe('Sidebar', () => {
 	}));
 
 	it('should open fullscreen', fakeAsync(() => {
+		sidebar.modal = false;
 		sidebar.fullScreen = true;
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
 		const sidebarOpenSpy = spyOn(sidebar, 'show').and.callThrough();
@@ -107,7 +112,7 @@ describe('Sidebar', () => {
 		expect(containerEl.nativeElement.className).toContain('p-sidebar-full');
 	}));
 
-	it('should close', () => {
+	it('should close', fakeAsync(() => {
 		const buttonEl = fixture.debugElement.children[1].nativeElement;
 		const sidebarCloseSpy = spyOn(sidebar, 'close').and.callThrough();
 		buttonEl.click();
@@ -115,14 +120,17 @@ describe('Sidebar', () => {
 
 		const closeEl = fixture.debugElement.query(By.css('div')).query(By.css('button')).nativeElement;
 		closeEl.click();
+        tick(300);
 		fixture.detectChanges();
 
 		const containerEl = fixture.debugElement.query(By.css('div'));
 		expect(containerEl).toBeFalsy();
 		expect(sidebarCloseSpy).toHaveBeenCalled();
-	});
+        sidebar.destroyModal();
+	}));
 
 	it('should listen emitters', () => {
+        sidebar.modal = false;
 		fixture.detectChanges();
 
 		const buttonEl = fixture.debugElement.children[1].nativeElement;

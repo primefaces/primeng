@@ -294,8 +294,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() hideOnDateTimeSelect: boolean = true;
 
-    @Input() view: string = 'date';
-
     @Input() touchUI: boolean;
 
     @Input() timeSeparator: string = ":";
@@ -459,6 +457,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     attributeSelector: string;
 
     _numberOfMonths: number = 1;
+
+    _view: string = 'date';
+
+    @Input() get view(): string {
+        return this._view;
+    };
+
+    set view(view: string) {
+        this._view = view;
+        this.currentView = this._view;
+    }
+
 
     @Input() get defaultDate(): Date {
         return this._defaultDate;
@@ -652,7 +662,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 }
             }
         }
-
     }
 
     getTranslation(option: string) {

@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,
-        ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+        ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation, ViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {SharedModule,PrimeTemplate, PrimeNGConfig, OverlayService} from 'primeng/api';
@@ -331,7 +331,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onContainerDestroy() {
-        this.target = null;
+        if (!(this.cd as ViewRef).destroyed) {
+            this.target = null;
+        }
+
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
@@ -347,7 +350,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             ZIndexUtils.clear(this.container);
         }
 
-        this.target = null;
+        if (!(this.cd as ViewRef).destroyed) {
+            this.target = null;
+        }
+
         this.destroyCallback = null;
         if (this.container) {
             this.restoreAppend();

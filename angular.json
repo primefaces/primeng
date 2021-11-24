@@ -122,7 +122,8 @@
                 "src/upload.php"
               ],
               "styles": [
-                "src/styles.scss"
+                "src/styles.scss",
+                "src/assets/components/themes/lara-light-indigo/theme.css"
               ],
               "scripts": []
             }
