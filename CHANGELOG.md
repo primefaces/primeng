@@ -1,5 +1,23 @@
 # Changelog
 
+## [13.0.0](https://github.com/primefaces/primeng/tree/13.0.0) (2021-11-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.0-rc.2...13.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Calendar | Add space key support for time pickers [\#10863](https://github.com/primefaces/primeng/issues/10863)
+- Year Picker for Calendar [\#10856](https://github.com/primefaces/primeng/issues/10856)
+- Add responsiveOptions property to Calendar [\#10855](https://github.com/primefaces/primeng/issues/10855)
+
+**Fixed bugs:**
+
+- readonly not working on p-inputNumber [\#10866](https://github.com/primefaces/primeng/issues/10866)
+- Table | Row expansion table header scrolls above the main table header [\#10864](https://github.com/primefaces/primeng/issues/10864)
+- ProgressBar: color text accessibility issue [\#10862](https://github.com/primefaces/primeng/issues/10862)
+- Failed to execute 'querySelectorAll' \(not a valid selector\) error when tabbing out of calendar component [\#10859](https://github.com/primefaces/primeng/issues/10859)
+- Angular 13 Editor not loading properly "ERROR TypeError: \({get default\(value}\) is not a constructor" primeng-editor.mjs:29 [\#10834](https://github.com/primefaces/primeng/issues/10834)
+
 ## [13.0.0-rc.1](https://github.com/primefaces/primeng/tree/13.0.0-rc.1) (2021-11-09)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.2.2...13.0.0-rc.1)
