@@ -19,7 +19,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-autoComplete',
     template: `
-        <span #container [ngClass]="{'p-autocomplete p-component':true,'p-autocomplete-dd':dropdown,'p-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
+        <span #container [ngClass]="{'p-autocomplete p-component':true,'p-autocomplete-dd':dropdown,'p-autocomplete-multiple':multiple, 'p-input-icon-left':showIcon}" [ngStyle]="style" [class]="styleClass">
+            <i [class]="icon" *ngIf="showIcon"></i>
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" [autocomplete]="autocomplete" [attr.required]="required" [attr.name]="name"
             class="p-autocomplete-input p-inputtext p-component" [ngClass]="{'p-autocomplete-dd-input':dropdown,'p-disabled': disabled}" [value]="inputFieldValue" aria-autocomplete="list" [attr.aria-controls]="listId" role="searchbox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
@@ -146,6 +147,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     @Input() appendTo: any;
 
     @Input() autoHighlight: boolean;
+
+    @Input() showIcon: boolean;
+
+    @Input() icon: string = 'pi pi-search';
 
     @Input() forceSelection: boolean;
 

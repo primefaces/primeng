@@ -95,6 +95,25 @@ describe('AutoComplete', () => {
 		expect(multiContainer.nativeElement.className).toContain('p-disabled');
 	});
 
+	it('should show icon', () => {
+		autocomplete.showIcon = true;
+		fixture.detectChanges();
+
+		const spanEl = fixture.debugElement.query(By.css('span'));
+		const iEl = fixture.debugElement.query(By.css('i'));
+		expect(spanEl.nativeElement.className).toContain('p-input-icon-left');
+		expect(iEl.nativeNode.outerHTML).toContain("pi pi-search");
+	});
+
+	it('should change icon', () => {
+		autocomplete.showIcon = true;
+		autocomplete.icon = "Primeng ROCKS!";
+		fixture.detectChanges();
+
+		const iEl = fixture.debugElement.query(By.css('i'));
+		expect(iEl.nativeNode.outerHTML).toContain("Primeng ROCKS!");
+	});
+
 	it('should display dropdown icon', () => {
 		autocomplete.dropdown = true;
 		fixture.detectChanges();
