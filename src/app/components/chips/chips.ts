@@ -156,6 +156,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     writeValue(value: any) : void {
         this.value = value;
         this.updateMaxedOut();
+        this.updateFilledState();
         this.cd.markForCheck();
     }
 
