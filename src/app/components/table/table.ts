@@ -1579,6 +1579,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._multiSortMeta = null;
         this.tableService.onSort(null);
 
+        if (this.filters['global']) {
+            (<FilterMetadata> this.filters['global']).value = null;
+        }
+
         this.filteredValue = null;
         this.tableService.onResetChange();
 
