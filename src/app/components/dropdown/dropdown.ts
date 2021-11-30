@@ -811,7 +811,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.optionsToDisplay && this.optionsToDisplay.length) {
             for (let i = (index - 1); 0 <= i; i--) {
                 let option = this.optionsToDisplay[i];
-                if (option.disabled) {
+                if (this.isOptionDisabled(option)) {
                     continue;
                 }
                 else {

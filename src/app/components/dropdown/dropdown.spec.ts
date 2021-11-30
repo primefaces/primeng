@@ -429,6 +429,27 @@ describe('Dropdown', () => {
 		expect(dropdown.selectedOption.name).toEqual("Paris");
 	});
 
+	it('should select with up key and skip disabled options', () => {
+		dropdown.optionDisabled = 'inactive'
+		dropdown.options = [
+			{name: 'New York', code: 'NY'},
+			{name: 'Rome', code: 'RM'},
+			{name: 'London', code: 'LDN'},
+			{name: 'Istanbul', code: 'IST', inactive: true},
+			{name: 'Paris', code: 'PRS', inactive: true}
+		];
+		fixture.detectChanges();
+		
+		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+		const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.which = 38 ;
+		keydownEvent.initEvent('keydown', true, true);
+		inputEl.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		expect(dropdown.selectedOption.name).toEqual("London");
+	});
+
 	it('should select with filter', () => {
 		dropdown.options = [
 			{label: 'New York', value: 'NY'},
