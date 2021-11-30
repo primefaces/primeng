@@ -1,12 +1,12 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ViewRef} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {MenuItem, OverlayService, PrimeNGConfig} from 'primeng/api';
-import {ZIndexUtils} from 'primeng/utils';
-import {RouterModule} from '@angular/router';
-import {RippleModule} from 'primeng/ripple';
-import {TooltipModule} from 'primeng/tooltip';
+import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef } from '@angular/core';
+import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
+import { ZIndexUtils } from 'primeng/utils';
+import { RouterModule } from '@angular/router';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: '[pMenuItemContent]',
@@ -52,7 +52,7 @@ export class MenuItemContent {
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
             case 'ArrowUp':
                 var prevItem = this.findPrevItem(listItem);
@@ -61,7 +61,7 @@ export class MenuItemContent {
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
             case 'Space':
             case 'Enter':
@@ -70,10 +70,10 @@ export class MenuItemContent {
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
             default:
-            break;
+                break;
         }
     }
 
@@ -101,7 +101,7 @@ export class MenuItemContent {
     template: `
         <div #container [ngClass]="{'p-menu p-component': true, 'p-menu-overlay': popup}"
             [class]="styleClass" [ngStyle]="style" *ngIf="!popup || visible" (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" >
+            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
             <ul class="p-menu-list p-reset" role="menu">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}" role="separator"></li>
@@ -124,12 +124,12 @@ export class MenuItemContent {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                style({ opacity: 0, transform: 'scaleY(0.8)' }),
                 animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
+            ]),
+            transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -181,7 +181,7 @@ export class Menu implements OnDestroy {
 
     relativeAlign: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) { }
 
     toggle(event) {
         if (this.visible)
@@ -201,7 +201,7 @@ export class Menu implements OnDestroy {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 if (this.popup) {
                     this.container = event.element;
@@ -213,22 +213,22 @@ export class Menu implements OnDestroy {
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                 }
-            break;
+                break;
 
             case 'void':
                 this.onOverlayHide();
                 this.onHide.emit({});
-            break;
+                break;
         }
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'void':
                 if (this.autoZIndex) {
                     ZIndexUtils.clear(event.element);
                 }
-            break;
+                break;
         }
     }
 
@@ -270,7 +270,7 @@ export class Menu implements OnDestroy {
         this.hide();
     }
 
-    itemClick(event, item: MenuItem) {
+    itemClick(event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -300,7 +300,7 @@ export class Menu implements OnDestroy {
             });
         }
 
-        this.preventDocumentDefault=true
+        this.preventDocumentDefault = true
     }
 
     bindDocumentClickListener() {
@@ -394,8 +394,8 @@ export class Menu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
-    exports: [Menu,RouterModule,TooltipModule],
-    declarations: [Menu,MenuItemContent]
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
+    exports: [Menu, RouterModule, TooltipModule],
+    declarations: [Menu, MenuItemContent]
 })
 export class MenuModule { }
