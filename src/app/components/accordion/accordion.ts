@@ -133,9 +133,11 @@ export class AccordionTab implements AfterContentInit,OnDestroy {
         else {
             if (!this.accordion.multiple) {
                 for (var i = 0; i < this.accordion.tabs.length; i++) {
-                    this.accordion.tabs[i].selected = false;
-                    this.accordion.tabs[i].selectedChange.emit(false);
-                    this.accordion.tabs[i].changeDetector.markForCheck();
+                    if (this.accordion.tabs[i].selected) {
+                        this.accordion.tabs[i].selected = false;
+                        this.accordion.tabs[i].selectedChange.emit(false);
+                        this.accordion.tabs[i].changeDetector.markForCheck();
+                    }
                 }
             }
 
