@@ -87,6 +87,12 @@
     width: 100%;
 }
 
+.p-input-icon-left > i {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+}
+
 .p-fluid .p-autocomplete {
     display: flex;
 }
