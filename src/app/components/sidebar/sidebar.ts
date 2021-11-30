@@ -178,6 +178,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
 
         this.onShow.emit({});
+        this.visibleChange.emit(true);
     }
 
     hide() {
