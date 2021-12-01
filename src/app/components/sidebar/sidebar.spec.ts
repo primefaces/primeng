@@ -120,10 +120,10 @@ describe('Sidebar', () => {
 
 		const closeEl = fixture.debugElement.query(By.css('div')).query(By.css('button')).nativeElement;
 		closeEl.click();
-        tick(300);
 		fixture.detectChanges();
 
-		const containerEl = fixture.debugElement.query(By.css('div'));
+        tick(300);
+        const containerEl = fixture.debugElement.query(By.css('div'));
 		expect(containerEl).toBeFalsy();
 		expect(sidebarCloseSpy).toHaveBeenCalled();
         sidebar.destroyModal();
