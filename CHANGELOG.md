@@ -1,5 +1,26 @@
 # Changelog
 
+## [13.0.1](https://github.com/primefaces/primeng/tree/13.0.1) (2021-12-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.0...13.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- Menu | Submenu Tooltip Support [\#10675](https://github.com/primefaces/primeng/issues/10675)
+
+**Fixed bugs:**
+
+- Calendar | Year Picker and Month Picker empty when using Range and Multiple options [\#10906](https://github.com/primefaces/primeng/issues/10906)
+- Table header hides when scrolling [\#10887](https://github.com/primefaces/primeng/issues/10887)
+- p-sidebar not trigger visibleChange output event [\#10884](https://github.com/primefaces/primeng/issues/10884)
+- DynamicDialog does not block interaction with elements behind the mask [\#10882](https://github.com/primefaces/primeng/issues/10882)
+- Dropdown bug with selection via up key [\#10843](https://github.com/primefaces/primeng/issues/10843)
+- SpeedDial items visible even if MenuItem object property "visible" is false [\#10831](https://github.com/primefaces/primeng/issues/10831)
+- ExpressionChangedAfterItHasBeenCheckedError in table virtual scrolling after upgrading to 12.1.1 [\#10659](https://github.com/primefaces/primeng/issues/10659)
+- Wrong emit on accordion open [\#10509](https://github.com/primefaces/primeng/issues/10509)
+- Table | global filter doesn't reset on Table.clear\(\) [\#10246](https://github.com/primefaces/primeng/issues/10246)
+- Chips float label does not work when value is updated programmatically  [\#9289](https://github.com/primefaces/primeng/issues/9289)
+
 ## [13.0.0](https://github.com/primefaces/primeng/tree/13.0.0) (2021-11-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.0.0-rc.2...13.0.0)
