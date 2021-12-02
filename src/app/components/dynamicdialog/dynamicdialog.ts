@@ -124,7 +124,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 			break;
 
 			case 'void':
-                if (this.config.modal !== false) {
+                if (this.wrapper && this.config.modal !== false) {
                     DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
 			break;
