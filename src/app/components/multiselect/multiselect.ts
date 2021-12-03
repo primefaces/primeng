@@ -406,6 +406,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     preventModelTouched: boolean;
 
+    preventDocumentDefault: boolean;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
@@ -1076,9 +1078,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (this.isOutsideClicked(event)) {
+                if (!this.preventDocumentDefault && this.isOutsideClicked(event)) {
                     this.hide();
                 }
+                this.preventDocumentDefault = false;
+                this.cd.markForCheck();
             });
         }
     }

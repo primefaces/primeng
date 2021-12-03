@@ -376,6 +376,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     preventModelTouched: boolean;
 
+    preventDocumentDefault: boolean;
+
     id: string = UniqueComponentId();
 
     labelId: string;
@@ -672,6 +674,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     show() {
         this.overlayVisible = true;
+        this.preventDocumentDefault = true;
+        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -1184,11 +1188,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (this.isOutsideClicked(event)) {
+                if (!this.preventDocumentDefault && this.isOutsideClicked(event)) {
                     this.hide();
                     this.unbindDocumentClickListener();
                 }
-
+                this.preventDocumentDefault = false;
                 this.cd.markForCheck();
             });
         }
