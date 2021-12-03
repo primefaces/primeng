@@ -661,6 +661,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     show() {
         if (!this.overlayVisible){
             this.overlayVisible = true;
+            this.preventDocumentDefault = true;
+            this.cd.markForCheck();
         }
     }
 
