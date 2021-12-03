@@ -713,7 +713,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
             break;
 
             case 'void':
-                if (this.modal) {
+                if (this.wrapper && this.modal) {
                     DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
             break;
