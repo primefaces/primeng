@@ -448,7 +448,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     translationSubscription: Subscription;
 
-    firstDaoOfWeekSubscription: Subscription;
+    firstDayOfWeekSubscription: Subscription;
 
     _locale: LocaleSettings;
 
@@ -2970,8 +2970,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.translationSubscription.unsubscribe();
         }
 
-        if (this.firstDaoOfWeekSubscription) {
-            this.firstDaoOfWeekSubscription.unsubscribe();
+        if (this.firstDayOfWeekSubscription) {
+            this.firstDayOfWeekSubscription.unsubscribe();
         }
 
         if (this.overlay && this.autoZIndex) {
