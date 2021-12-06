@@ -460,6 +460,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     _view: string = 'date';
 
+    preventFocus: boolean;
+
     @Input() get view(): string {
         return this._view;
     };
@@ -1844,11 +1846,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (cell) {
             cell.tabIndex = '0';
 
-            if (!this.navigationState || !this.navigationState.button) {
+            if (!this.preventFocus && (!this.navigationState || !this.navigationState.button)) {
                 setTimeout(() => {
                     cell.focus();
                 }, 1);
             }
+
+            this.preventFocus = false;
         }
     }
 
@@ -2280,6 +2284,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     showOverlay() {
         if (!this.overlayVisible) {
             this.updateUI();
+
+            if (!this.touchUI) {
+                this.preventFocus = true;
+            }
+
             this.overlayVisible = true;
         }
     }
