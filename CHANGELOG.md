@@ -59,6 +59,18 @@
 - Wrong zIndex for p-toast [\#10801](https://github.com/primefaces/primeng/issues/10801)
 - TypeError: Cannot read properties of undefined \(reading 'style'\) at FrozenColumn.updateStickyPosition [\#10794](https://github.com/primefaces/primeng/issues/10794)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [12.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/12.2.4) (2021-12-06)
+- TypeError: Cannot read properties of undefined (reading 'classList') at Function.addClass [\#10909](https://github.com/primefaces/primeng/issues/10909)
+- Table header hides when scrolling [\#10887](https://github.com/primefaces/primeng/issues/10887)
+- p-sidebar not trigger visibleChange output event [\#10884](https://github.com/primefaces/primeng/issues/10884)
+- DynamicDialog does not block interaction with elements behind the mask [\#10882](https://github.com/primefaces/primeng/issues/10882)
+- readonly not working on p-inputNumber [\#10866](https://github.com/primefaces/primeng/issues/10866)
+- Table | Row expansion table header scrolls above the main table header [\#10864](https://github.com/primefaces/primeng/issues/10864)
+- Dropdown bug with selection via up key [\#10843](https://github.com/primefaces/primeng/issues/10843)
+- SpeedDial items visible even if MenuItem object property "visible" is false [\#10831](https://github.com/primefaces/primeng/issues/10831)
+- ExpressionChangedAfterItHasBeenCheckedError in table virtual scrolling after upgrading to 12.1.1 [\#10659](https://github.com/primefaces/primeng/issues/10659)
+- Table | global filter doesn't reset on Table.clear() [\#10246](https://github.com/primefaces/primeng/issues/10246)
+
 ## [12.2.2](https://github.com/primefaces/primeng/tree/12.2.2) (2021-11-02)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.2.1...12.2.2)
@@ -309,6 +321,18 @@
 **Fixed bugs:**
 
 - Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.9-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.9) (2021-12-06)
+- p-sidebar not trigger visibleChange output event [\#10884](https://github.com/primefaces/primeng/issues/10884)
+- readonly not working on p-inputNumber [\#10866](https://github.com/primefaces/primeng/issues/10866)
+- Dropdown bug with selection via up key [\#10843](https://github.com/primefaces/primeng/issues/10843)
+- Multiselect missing itemValue in OnChange callback after removeChip [\#10789](https://github.com/primefaces/primeng/issues/10789)
+- CascadeSelect | Keyboard Exit Functionality [\#10749](https://github.com/primefaces/primeng/issues/10749)
+- CascadeSelect | Enter and Space support for toggle [\#10742](https://github.com/primefaces/primeng/issues/10742)
+- Add onClear event to dropdown [\#10712](https://github.com/primefaces/primeng/issues/10712)
+- p-password is not changing when I18N API called [\#10446](https://github.com/primefaces/primeng/issues/10446)
+- TreeTable PartialSelect not working [\#10370](https://github.com/primefaces/primeng/issues/10370)
+- Table | global filter doesn't reset on Table.clear()  [\#10246](https://github.com/primefaces/primeng/issues/10246)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.8-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.8) (2021-11-11)
 - The escape property does not work for label in Slide Menu component [\#10827](https://github.com/primefaces/primeng/issues/10827)
