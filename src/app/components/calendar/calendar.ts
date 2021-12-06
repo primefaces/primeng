@@ -55,10 +55,10 @@ export interface LocaleSettings {
                                     <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
                                 </button>
                                 <div class="p-datepicker-title">
-                                    <button type="button" (click)="switchToMonthView($event)" *ngIf="currentView === 'date'" class="p-datepicker-month p-link" [disabled]="switchViewButtonDisabled()">
+                                    <button type="button" (click)="switchToMonthView($event)" (keydown)="onContainerButtonKeydown($event)" *ngIf="currentView === 'date'" class="p-datepicker-month p-link" [disabled]="switchViewButtonDisabled()">
                                         {{getMonthName(month.month)}}
                                     </button>
-                                    <button type="button" (click)="switchToYearView($event)" *ngIf="currentView !== 'year'" class="p-datepicker-year p-link" [disabled]="switchViewButtonDisabled()">
+                                    <button type="button" (click)="switchToYearView($event)" (keydown)="onContainerButtonKeydown($event)" *ngIf="currentView !== 'year'" class="p-datepicker-year p-link" [disabled]="switchViewButtonDisabled()">
                                         {{currentYear}}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
@@ -1623,6 +1623,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             //space
             case 13:
             case 32: {
+                this.overlayVisible = false;
+                event.preventDefault();
+                break;
+            }
+
+            //escape
+            case 27: {
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
