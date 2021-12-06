@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { Translation } from './translation';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
 
     ripple: boolean = false;
@@ -66,9 +66,9 @@ export class PrimeNGConfig {
         cancel: 'Cancel',
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-        monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December"],
-        monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        dayNamesMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+        monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         dateFormat: 'mm/dd/yy',
         today: 'Today',
         weekHeader: 'Wk',
@@ -91,12 +91,22 @@ export class PrimeNGConfig {
 
     translationObserver = this.translationSource.asObservable();
 
+    private firstDayOfWeekSource = new Subject<number>();
+
+    firstDayOfWeekObserver = this.firstDayOfWeekSource.asObservable();
+
+
     getTranslation(key: string) {
         return this.translation[key];
     }
 
     setTranslation(value: Translation) {
-        this.translation = {...this.translation, ...value};
+        this.translation = { ...this.translation, ...value };
         this.translationSource.next(this.translation);
+    }
+    setFirstDayOfWeek(value: number) {
+        if ((value >= 0) && (value < 7)) {
+            this.firstDayOfWeekSource.next(value);
+        }
     }
 }

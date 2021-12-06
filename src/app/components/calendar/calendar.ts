@@ -448,6 +448,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     translationSubscription: Subscription;
 
+    firstDaoOfWeekSubscription: Subscription;
+
     _locale: LocaleSettings;
 
     _responsiveOptions: any[];
@@ -613,6 +615,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.createMonths(this.currentMonth, this.currentYear);
             this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) + Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
         }
+
+        this.firstDayOfWeekSubscription = this.config.firstDayOfWeekObserver.subscribe((value:number) => {
+            this.firstDayOfWeek = value;
+            this.createWeekDays();
+        });
+
 
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.createWeekDays();
@@ -2960,6 +2968,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
+        }
+
+        if (this.firstDaoOfWeekSubscription) {
+            this.firstDaoOfWeekSubscription.unsubscribe();
         }
 
         if (this.overlay && this.autoZIndex) {
