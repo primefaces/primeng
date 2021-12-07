@@ -270,13 +270,13 @@ export class Menu implements OnDestroy {
         this.hide();
     }
 
-    itemClick(event, item: MenuItem) {
+    itemClick(event: PointerEvent, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
         }
 
-        if (!item.url) {
+        if (!item.url && !event.ctrlKey) {
             event.preventDefault();
         }
 
