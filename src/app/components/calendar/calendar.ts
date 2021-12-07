@@ -345,7 +345,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 this.isMonthNavigate = false;
             }
             else {
-                this.initFocusableCell();
+                if (!this.focus) {
+                    this.initFocusableCell();
+                }
             }
         }
     };
@@ -2339,6 +2341,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     this.overlay = event.element;
                     this.overlay.setAttribute(this.attributeSelector, '');
                     this.appendOverlay();
+                    this.updateFocus();
                     if (this.autoZIndex) {
                         if (this.touchUI)
                             ZIndexUtils.set('modal', this.overlay, this.baseZIndex || this.config.zIndex.modal);
