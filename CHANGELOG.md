@@ -1,5 +1,21 @@
 # Changelog
 
+## [13.0.02](https://github.com/primefaces/primeng/tree/13.0.02) (2021-12-07)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.1...13.0.02)
+
+**Implemented New Features and Enhancements:**
+
+- Calendar | Escape Support For Month and Year Picker [\#10923](https://github.com/primefaces/primeng/issues/10923)
+
+**Fixed bugs:**
+
+- BreadCrumb | cursor is missing when href is not defined [\#10933](https://github.com/primefaces/primeng/issues/10933)
+- Calendar | Year Picker and Month Picker empty when value empty and using Range or Multiple Selection [\#10931](https://github.com/primefaces/primeng/issues/10931)
+- Calendar manual input doesn't work [\#10922](https://github.com/primefaces/primeng/issues/10922)
+- Some menu components not supporting ctrl click to open new duplicate screen [\#10919](https://github.com/primefaces/primeng/issues/10919)
+- TypeError: Cannot read properties of undefined \(reading 'classList'\) at Function.addClass [\#10909](https://github.com/primefaces/primeng/issues/10909)
+
 ## [13.0.1](https://github.com/primefaces/primeng/tree/13.0.1) (2021-12-01)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.0.0...13.0.1)
