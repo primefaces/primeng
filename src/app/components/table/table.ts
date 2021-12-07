@@ -2260,7 +2260,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.columnResizeMode === 'expand' && this.tableWidthState) {
                 this.tableViewChild.nativeElement.style.width = this.tableWidthState;
                 this.tableViewChild.nativeElement.style.minWidth = this.tableWidthState;
-                this.containerViewChild.nativeElement.style.width = this.tableWidthState;
+                this.wrapperViewChild.nativeElement.style.width = this.tableWidthState;
             }
 
             this.createStyleElement();
