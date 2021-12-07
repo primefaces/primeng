@@ -79,7 +79,7 @@ export class SlideMenuSub implements OnDestroy {
             return;
         }
 
-        if (!item.url) {
+        if (!item.url && !item.routerLink) {
             event.preventDefault();
         }
 
