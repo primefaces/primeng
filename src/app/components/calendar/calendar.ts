@@ -1212,15 +1212,23 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isMonthSelected(month) {
-        let value = this.isRangeSelection() ? this.value[0] : this.value;
+        if (this.isComparable()) {
+            let value = this.isRangeSelection() ? this.value[0] : this.value;
 
-        return !this.isMultipleSelection() && this.isComparable() ? (value.getMonth() === month && value.getFullYear() === this.currentYear) : false;
+            return !this.isMultipleSelection() ? (value.getMonth() === month && value.getFullYear() === this.currentYear) : false;
+        }
+
+        return false;
     }
 
     isYearSelected(year) {
-        let value = this.isRangeSelection() ? this.value[0] : this.value;
+        if (this.isComparable()) {
+            let value = this.isRangeSelection() ? this.value[0] : this.value;
 
-        return !this.isMultipleSelection() && this.isComparable() ? (value.getFullYear() === year) : false;
+            return !this.isMultipleSelection() ? (value.getFullYear() === year) : false;
+        }
+
+        return false;
     }
 
     isDateEquals(value, dateMeta) {
