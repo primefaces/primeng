@@ -505,7 +505,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         const option = event.option;
 
         if (!this.isOptionDisabled(option)) {
-            this.selectItem(event, option);
+            this.selectItem(event.originalEvent, option);
             this.accessibleViewChild.nativeElement.focus();
         }
 
@@ -522,7 +522,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.onModelChange(this.value);
             this.updateEditableLabel();
             this.onChange.emit({
-                originalEvent: event.originalEvent,
+                originalEvent: event,
                 value: this.value
             });
 
