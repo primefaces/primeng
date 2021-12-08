@@ -12,7 +12,7 @@
         <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
 
         <h5>Editable</h5>
-        <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" editable="true" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [editable]="true" optionLabel="name"></p-dropdown>
 
         <h5>Group</h5>
         <p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity3" placeholder="Select a City" [group]="true">
@@ -737,7 +737,7 @@ export class DropdownDemo &#123;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
 
 &lt;h5&gt;Editable&lt;/h5&gt;
-&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity2" editable="true" optionLabel="name"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [editable]="true" optionLabel="name"&gt;&lt;/p-dropdown&gt;
 
 &lt;h5&gt;Group&lt;/h5&gt;
 &lt;p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity3" placeholder="Select a City" [group]="true"&gt;
