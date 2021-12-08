@@ -56,7 +56,7 @@ import {Subscription} from 'rxjs';
         <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'">
             <p-messages [value]="msgs" [enableService]="false"></p-messages>
             <span [ngClass]="{'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !chooseLabel, 'p-fileupload-choose-selected': hasFiles(),'p-focus': focus, 'p-disabled':disabled}"
-                [ngStyle]="style" [class]="styleClass" (mouseup)="onBasicUploaderClick()" (keydown)="onBasicUploaderClick()" tabindex="0" pRipple>
+                [ngStyle]="style" [class]="styleClass" (mouseup)="onBasicUploaderClick()" (keydown)="onBasicKeydown($event)" tabindex="0" pRipple>
                 <span class="p-button-icon p-button-icon-left pi" [ngClass]="hasFiles()&&!auto ? uploadIcon : chooseIcon"></span>
                 <span class="p-button-label">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
                 <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
@@ -548,6 +548,17 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
             this.upload();
         else
             this.basicFileInput.nativeElement.click();
+    }
+
+    onBasicKeydown(event: KeyboardEvent) {
+        switch(event.code) {
+            case 'Space':
+            case 'Enter':
+                this.onBasicUploaderClick();
+
+                event.preventDefault();
+            break;
+        }
     }
 
     getBlockableElement(): HTMLElement {
