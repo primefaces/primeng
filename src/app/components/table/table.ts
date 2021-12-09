@@ -100,7 +100,7 @@ export class TableService {
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showJumpToPageInput]="showJumpToPageInput" [showPageLinks]="showPageLinks"></p-paginator>
 
-            <div #wrapper class="p-datatable-wrapper" [ngStyle]="{height: scrollHeight}">
+            <div #wrapper class="p-datatable-wrapper" [ngStyle]="{'max-height': scrollHeight}">
                 <table #table *ngIf="!virtualScroll" role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [attr.id]="id+'-table'">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="p-datatable-thead">
