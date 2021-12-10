@@ -1798,4 +1798,18 @@ describe('Calendar', () => {
 		expect(calendar.currentMinute).toEqual(10);
 		expect(calendar.pm).toEqual(false);
 	});
+
+	it('should parse day of year correctly', () => {
+		const format = 'yoo';
+
+		const parsedDate1: Date = calendar.parseDate('21031', format);
+		const parsedDate2: Date = calendar.parseDate('21344', format);
+
+		expect(parsedDate1.getFullYear()).toEqual(2021);
+		expect(parsedDate1.getMonth()).toEqual(0);
+		expect(parsedDate1.getDate()).toEqual(31);
+		expect(parsedDate2.getFullYear()).toEqual(2021);
+		expect(parsedDate2.getMonth()).toEqual(11);
+		expect(parsedDate2.getDate()).toEqual(10);
+	});
 });
