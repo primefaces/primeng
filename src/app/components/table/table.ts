@@ -3945,6 +3945,8 @@ export class TableHeaderCheckbox  {
 
     @Input() ariaLabel: string;
 
+    @Input() selectionBehavior?: 'page' | 'all';
+
     checked: boolean;
 
     selectionChangeSubscription: Subscription;
@@ -3963,6 +3965,8 @@ export class TableHeaderCheckbox  {
 
     ngOnInit() {
         this.checked = this.updateCheckedState();
+        this.selectionBehavior =
+            this.selectionBehavior || (this.dt.lazy ? "all" : "page");
     }
 
     onClick(event: Event) {
@@ -4005,7 +4009,7 @@ export class TableHeaderCheckbox  {
         }
         else {
             const val = this.dt.value;
-            const length = this.dt.lazy ? this.dt._totalRecords : val ? val.length : 0;
+            const length = this.selectionBehavior === 'all' ? this.dt._totalRecords : val ? val.length : 0;
             return (val && length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === length);
         }
     }
