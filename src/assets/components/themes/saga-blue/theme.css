@@ -5678,3 +5678,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
   background-color: #2196F3;
 }
+
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
+  box-shadow: inset 0 2px 0 0 #2196F3;
+}
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
+  box-shadow: inset 0 -2px 0 0 #2196F3;
+}

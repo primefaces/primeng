@@ -5707,3 +5707,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-button.p-button-danger:enabled:focus {
   box-shadow: 0 0 0 2px #1c2127, 0 0 0 4px rgba(252, 165, 165, 0.7), 0 1px 2px 0 rgba(0, 0, 0, 0);
 }
+
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
+  box-shadow: inset 0 2px 0 0 #C4B5FD;
+}
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
+  box-shadow: inset 0 -2px 0 0 #C4B5FD;
+}

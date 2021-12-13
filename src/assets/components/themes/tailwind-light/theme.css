@@ -5773,3 +5773,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box.p-focus {
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #6366F1, 0 1px 2px 0 rgba(0, 0, 0, 0);
 }
+
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
+  box-shadow: inset 0 2px 0 0 #4F46E5;
+}
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
+  box-shadow: inset 0 -2px 0 0 #4F46E5;
+}

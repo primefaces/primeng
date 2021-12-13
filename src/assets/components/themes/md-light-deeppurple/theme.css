@@ -6336,6 +6336,13 @@ p-chips.ng-dirty.ng-invalid .p-chips .p-chips-multiple-container:not(.p-disabled
   background-color: rgba(0, 0, 0, 0.03);
 }
 
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
+  box-shadow: inset 0 2px 0 0 #673AB7;
+}
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
+  box-shadow: inset 0 -2px 0 0 #673AB7;
+}
+
 .p-dropdown .p-inputtext, .p-dropdown .p-dropdown-trigger {
   background-image: none;
   background: transparent;

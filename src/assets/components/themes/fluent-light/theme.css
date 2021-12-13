@@ -5816,3 +5816,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   outline: 1px solid #605e5c;
   outline-offset: 2px;
 }
+
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
+  box-shadow: inset 0 2px 0 0 #0078d4;
+}
+.p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
+  box-shadow: inset 0 -2px 0 0 #0078d4;
+}
