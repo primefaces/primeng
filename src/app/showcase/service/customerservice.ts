@@ -36,7 +36,7 @@ export class CustomerService {
             .then(data => { return data; });
     }
 
-    getCustomers(params) {
+    getCustomers(params?: any) {
         return this.http.get<any>(environment.apiUrl, {params: params}).toPromise();
     }
 }

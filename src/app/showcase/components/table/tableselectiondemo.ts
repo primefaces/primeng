@@ -23,6 +23,8 @@ export class TableSelectionDemo implements OnInit {
 
     selectedProducts3: Product[];
 
+    selectedProducts4: Product[];
+
     constructor(private productService: ProductService, private messageService: MessageService) { }
 
     ngOnInit() {
