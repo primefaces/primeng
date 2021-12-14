@@ -3092,6 +3092,18 @@ export class TableDemo implements OnInit &#123;
                             <td>Selected row in single mode or an array of values in multiple mode.</td>
                         </tr>
                         <tr>
+                            <td>selectionPageOnly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled with paginator and checkbox selection mode, the select all checkbox in the header will select all rows on the current page.</td>
+                        </tr>
+                        <tr>
+                            <td>selectAll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether all data is selected.</td>
+                        </tr>
+                        <tr>
                             <td>contextMenuSelection</td>
                             <td>any</td>
                             <td>null</td>
@@ -3475,6 +3487,12 @@ export class TableDemo implements OnInit &#123;
                             <td>onStateRestore</td>
                             <td>state: Table state</td>
                             <td>Callback to invoke table state is restored.</td>
+                        </tr>
+                        <tr>
+                            <td>selectAllChange</td>
+                            <td>event.originalEvent: Browser event <br>
+                                event.checked: State of the header checkbox</td>
+                            <td>Callback to invoke when all data is selected. The selectAll property is required for this callback.</td>
                         </tr>
                     </tbody>
                 </table>
