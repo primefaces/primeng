@@ -197,6 +197,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() selectionMode: string;
 
+    @Input() selectionPageOnly: boolean;
+
+    @Output() selectAllChange: EventEmitter<any> = new EventEmitter();
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() contextMenuSelection: any;
@@ -452,6 +456,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     preventSelectionSetterPropagation: boolean;
 
     _selection: any;
+
+    _selectAll: boolean | null = null;
 
     anchorRowIndex: number;
 
@@ -709,6 +715,20 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
             this.preventSelectionSetterPropagation = false;
         }
+
+        if (simpleChange.selectAll) {
+            this._selectAll = simpleChange.selectAll.currentValue;
+
+            if (!this.preventSelectionSetterPropagation) {
+                this.updateSelectionKeys();
+                this.tableService.onSelectionChange();
+
+                if (this.isStateful()) {
+                    this.saveState();
+                }
+            }
+            this.preventSelectionSetterPropagation = false;
+        }
     }
 
     @Input() get value(): any[] {
@@ -775,6 +795,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     set selection(val: any) {
+        this._selection = val;
+    }
+
+    @Input() get selectAll(): boolean | null {
+        return this._selection;
+    }
+
+    set selectAll(val: boolean | null) {
         this._selection = val;
     }
 
@@ -1374,15 +1402,24 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
-        this._selection = check ? this.filteredValue ? this.filteredValue.slice(): this.value.slice() : [];
-        this.preventSelectionSetterPropagation = true;
-        this.updateSelectionKeys();
-        this.selectionChange.emit(this._selection);
-        this.tableService.onSelectionChange();
-        this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
+        if (this._selectAll !== null) {
+            this.selectAllChange.emit({originalEvent: event, checked: check});
+        }
+        else {
+            const data = this.selectionPageOnly ? this.dataToRender : (this.filteredValue || this.value || []);
+            let selection = this.selectionPageOnly && this._selection ? this._selection.filter(s => !data.some(d => this.equals(s, d))) : [];
+            check && (selection = this.frozenValue ? [...selection, ...this.frozenValue, ...data] : [...selection, ...data]);
 
-        if (this.isStateful()) {
-            this.saveState();
+            this._selection = selection;
+            this.preventSelectionSetterPropagation = true;
+            this.updateSelectionKeys();
+            this.selectionChange.emit(this._selection);
+            this.tableService.onSelectionChange();
+            this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
+
+            if (this.isStateful()) {
+                this.saveState();
+            }
         }
     }
 
@@ -3999,14 +4036,15 @@ export class TableHeaderCheckbox  {
 
     updateCheckedState() {
         this.cd.markForCheck();
-        if (this.dt.filteredValue && !this.dt.lazy) {
-            const val = this.dt.filteredValue;
-            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.isAllFilteredValuesChecked());
+
+       if (this.dt._selectAll !== null) {
+            return this.dt._selectAll;
         }
         else {
-            const val = this.dt.value;
-            const length = this.dt.lazy ? this.dt._totalRecords : val ? val.length : 0;
-            return (val && length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === length);
+            const data = this.dt.selectionPageOnly ? this.dt.dataToRender : (this.dt.filteredValue || this.dt.value || []);
+            const val = this.dt.frozenValue ? [...this.dt.frozenValue, ...data] : data;
+
+            return val && this.dt.selection && val.every(v => this.dt.selection.some(s => this.dt.equals(v, s)));
         }
     }
 
