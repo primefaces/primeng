@@ -963,6 +963,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //enter
             case 13:
                 if (this.overlayVisible && (!this.filter || (this.optionsToDisplay && this.optionsToDisplay.length > 0))) {
+                    if (this.filterValue && this.filterValue.length) {
+                        let selectedItemIndex = this.optionsToDisplay[0];
+                        this.selectItem(event, selectedItemIndex);
+                    }
                     this.hide();
                 }
 
