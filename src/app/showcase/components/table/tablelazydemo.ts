@@ -15,8 +15,12 @@ export class TableLazyDemo implements OnInit {
     cols: any[];
 
     loading: boolean;
-    
+
     representatives: Representative[];
+
+    selectAll: boolean = false;
+
+    selectedCustomers: Customer[];
 
     constructor(private customerService: CustomerService) { }
 
@@ -37,7 +41,7 @@ export class TableLazyDemo implements OnInit {
         this.loading = true;
     }
 
-    loadCustomers(event: LazyLoadEvent) {  
+    loadCustomers(event: LazyLoadEvent) {
         this.loading = true;
 
         setTimeout(() => {
@@ -47,5 +51,25 @@ export class TableLazyDemo implements OnInit {
                 this.loading = false;
             })
         }, 1000);
+    }
+
+    onSelectionChange(value = []) {
+        this.selectAll = value.length === this.totalRecords;
+        this.selectedCustomers = value;
+    }
+
+    onSelectAllChange(event) {
+        const checked = event.checked;
+
+        if (checked) {
+            this.customerService.getCustomers().then(res => {
+                this.selectedCustomers = res.customers;
+                this.selectAll = true;
+            });
+        }
+        else {
+            this.selectedCustomers = [];
+            this.selectAll = false;
+        }
     }
 }
