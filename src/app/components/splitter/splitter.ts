@@ -102,7 +102,7 @@ export class Splitter {
 
     prevPanelSize = null;
 
-    _panelSizes: number[] = null;
+    _panelSizes: number[] = [];
 
     prevPanelIndex = null;
 
