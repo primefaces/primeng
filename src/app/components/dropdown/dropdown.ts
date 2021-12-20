@@ -1193,7 +1193,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                     this.unbindDocumentClickListener();
                 }
                 this.preventDocumentDefault = false;
-                this.cd.markForCheck();
             });
         }
     }

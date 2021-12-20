@@ -1084,7 +1084,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                     this.hide();
                 }
                 this.preventDocumentDefault = false;
-                this.cd.markForCheck();
             });
         }
     }
