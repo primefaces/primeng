@@ -31,7 +31,7 @@ export class TableService {
     private valueSource = new Subject<any>();
     private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
-    private resetSource = new Subject();
+    private resetSource = new Subject<boolean>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
@@ -49,8 +49,8 @@ export class TableService {
         this.selectionSource.next(null);
     }
 
-    onResetChange() {
-        this.resetSource.next(null);
+    onResetChange(isLazy) {
+        this.resetSource.next(isLazy);
     }
 
     onContextMenu(data: any) {
@@ -1621,7 +1621,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.filteredValue = null;
-        this.tableService.onResetChange();
+        this.tableService.onResetChange(this.lazy);
 
         this.first = 0;
         this.firstChange.emit(this.first);
@@ -4442,8 +4442,14 @@ export class ColumnFilter implements AfterContentInit {
             this.generateOperatorOptions();
         });
 
-        this.resetSubscription = this.dt.tableService.resetSource$.subscribe(() => {
-            this.clearFilter();
+        this.resetSubscription = this.dt.tableService.resetSource$.subscribe((isLazy) => {
+            if (isLazy) {
+                this.initFieldFilterConstraint();
+                if (this.hideOnClear)
+                    this.hide();
+            } else {
+                this.clearFilter();
+            }
         })
 
         this.generateMatchModeOptions();
