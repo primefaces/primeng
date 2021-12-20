@@ -44,8 +44,6 @@ export class Splitter {
 
     @Input() gutterSize: number = 4;
 
-    @Input() panelSizes: number[] = [];
-
     @Input() minSizes: number[] = [];
 
     @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
@@ -55,6 +53,26 @@ export class Splitter {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+
+    @Input() get panelSizes(): number[] {
+        return this._panelSizes;
+    }
+
+    set panelSizes(val: number[]) {
+        this._panelSizes = val;
+
+        if (this.el && this.el.nativeElement && this.panels.length > 0) {
+            let children = [...this.el.nativeElement.children[0].children].filter(child => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let _panelSizes = [];
+
+            this.panels.map((panel, i) => {
+                let panelInitialSize = this.panelSizes.length -1 >= i ? this.panelSizes[i]: null;
+                let panelSize = panelInitialSize || (100 / this.panels.length);
+                _panelSizes[i] = panelSize;
+                children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + ((this.panels.length - 1) * this.gutterSize) + 'px)';
+            });
+        }
+    }
 
     nested = false;
 
@@ -84,7 +102,7 @@ export class Splitter {
 
     prevPanelSize = null;
 
-    _panelSizes = null;
+    _panelSizes: number[] = null;
 
     prevPanelIndex = null;
 
