@@ -7,7 +7,7 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
             <div class="layout-news-container" (click)="redirect()">
                 <img class="layout-news-logo p-ml-2" src="assets/showcase/images/topbar-newyear-logo.svg">
                 <h3 class="layout-news-header p-px-2">DISCOUNT UP TO 50% ON EVERYTHING AT PRIMESTORE</h3>
-                <a href="https://www.primefaces.org/primeblocks-ng" target="_blank"  style="text-decoration: none" class="layout-news-button">
+                <a href="https://www.primefaces.org/store" target="_blank"  style="text-decoration: none" class="layout-news-button">
                     Read More
                 </a>
                 <a tabindex="0" class="layout-news-close" (click)="hideNews($event)">
