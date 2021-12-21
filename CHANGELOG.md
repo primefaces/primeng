@@ -1,5 +1,25 @@
 # Changelog
 
+## [13.0.3](https://github.com/primefaces/primeng/tree/13.0.3) (2021-12-20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.02...13.0.3)
+
+**Implemented New Features and Enhancements:**
+
+- Add selectionPageOnly property to DataTable [\#10967](https://github.com/primefaces/primeng/issues/10967)
+- Improve table row reorder highlight [\#10959](https://github.com/primefaces/primeng/issues/10959)
+- Improve lazy loading and select all implementation on DataTable [\#10951](https://github.com/primefaces/primeng/issues/10951)
+
+**Fixed bugs:**
+
+- Splitter control not allowing changing of panelSize dynamically [\#10981](https://github.com/primefaces/primeng/issues/10981)
+- Table | Frozen Columns not working when created partial dynamically  [\#10960](https://github.com/primefaces/primeng/issues/10960)
+- p-dropdown onChange - return null when using keyboard navigation [\#10940](https://github.com/primefaces/primeng/issues/10940)
+- p-calendar: Keyboard/mouse interaction with time selector controls behave differently [\#10937](https://github.com/primefaces/primeng/issues/10937)
+- TabView: p-tabview-ink-bar doesn't follow the size of TabPanel header property change [\#10837](https://github.com/primefaces/primeng/issues/10837)
+- Problem with keydown for FileUpload component [\#10575](https://github.com/primefaces/primeng/issues/10575)
+- Dropdown is not opening programmatically using the `show\(\)` method  [\#10454](https://github.com/primefaces/primeng/issues/10454)
+
 ## [13.0.02](https://github.com/primefaces/primeng/tree/13.0.02) (2021-12-07)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.0.1...13.0.02)
