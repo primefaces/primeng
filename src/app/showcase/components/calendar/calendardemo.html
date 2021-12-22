@@ -170,8 +170,8 @@ export class MyModel &#123;
             <h5>Time</h5>
             <p>TimePicker is enabled with  <i>showTime</i> property and 24 (default) or 12 hour mode is configured using <i>hourFormat</i> option.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-calendar [(ngModel)]="value" showTime="true" hourFormat="12"&gt;&lt;/p-calendar&gt;
-&lt;p-calendar [(ngModel)]="value" showTime="true" hourFormat="24"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="value" showTime="true" [hourFormat]="12"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="value" showTime="true" [hourFormat]="24"&gt;&lt;/p-calendar&gt;
 </app-code>
 
             <h5>Date Restriction</h5>
@@ -441,12 +441,6 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>24</td>
                             <td>Specifies 12 or 24 hour format.</td>
-                        </tr>
-                        <tr>
-                            <td>locale</td>
-                            <td>object</td>
-                            <td>null</td>
-                            <td>An object having regional configuration properties for the calendar.</td>
                         </tr>
                         <tr>
                             <td>timeOnly</td>
@@ -886,7 +880,7 @@ export class MyModel &#123;
 
     &lt;div class="p-field p-col-12 p-md-4"&gt;
         &lt;label for="timeonly"&gt;Time / 12h&lt;/label&gt;
-        &lt;p-calendar [(ngModel)]="date8" [timeOnly]="true" hourFormat="12" inputId="timeonly"&gt;&lt;/p-calendar&gt;
+        &lt;p-calendar [(ngModel)]="date8" [timeOnly]="true" [hourFormat]="12" inputId="timeonly"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
     &lt;div class="p-field p-col-12 p-md-4"&gt;
