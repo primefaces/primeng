@@ -3836,12 +3836,12 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     template: `
-        <div class="p-radiobutton p-component" (click)="onClick($event)">
+        <div #container class="p-radiobutton p-component" [ngClass]="{'p-radiobutton-focused':focused}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="disabled" [attr.aria-label]="ariaLabel">
             </div>
-            <div #box [ngClass]="{'p-radiobutton-box p-component':true, 'p-highlight':checked, 'p-disabled':disabled}" role="radio" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{'p-radiobutton-box p-component':true, 'p-highlight':checked, 'p-focus':focused, 'p-disabled':disabled}" role="radio" [attr.aria-checked]="checked">
                 <div class="p-radiobutton-icon"></div>
             </div>
         </div>
@@ -3866,9 +3866,9 @@ export class TableRadioButton  {
 
     @Input() ariaLabel: string;
 
-    @ViewChild('box') boxViewChild: ElementRef;
-
     checked: boolean;
+
+    focused: boolean;
 
     subscription: Subscription;
 
@@ -3894,11 +3894,11 @@ export class TableRadioButton  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = true;
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = false;
     }
 
     ngOnDestroy() {
@@ -3912,13 +3912,13 @@ export class TableRadioButton  {
 @Component({
     selector: 'p-tableCheckbox',
     template: `
-        <div class="p-checkbox p-component" (click)="onClick($event)">
+        <div #container class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled"
                 [attr.required]="required" [attr.aria-label]="ariaLabel">
             </div>
             <div #box [ngClass]="{'p-checkbox-box p-component':true,
-                'p-highlight':checked, 'p-disabled':disabled}" role="checkbox" [attr.aria-checked]="checked">
+                'p-highlight':checked, 'p-focus':focused, 'p-disabled':disabled}" role="checkbox" [attr.aria-checked]="checked">
                 <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
@@ -3945,9 +3945,9 @@ export class TableCheckbox  {
 
     @Input() ariaLabel: string;
 
-    @ViewChild('box') boxViewChild: ElementRef;
-
     checked: boolean;
+
+    focused: boolean;
 
     subscription: Subscription;
 
@@ -3973,11 +3973,11 @@ export class TableCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = true;
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = false;
     }
 
     ngOnDestroy() {
@@ -3991,13 +3991,13 @@ export class TableCheckbox  {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <div class="p-checkbox p-component" (click)="onClick($event)">
+        <div #container class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="isDisabled()" [attr.aria-label]="ariaLabel">
             </div>
             <div #box [ngClass]="{'p-checkbox-box':true,
-                'p-highlight':checked, 'p-disabled': isDisabled()}" role="checkbox" [attr.aria-checked]="checked">
+                'p-highlight':checked, 'p-focus':focused, 'p-disabled': isDisabled()}" role="checkbox" [attr.aria-checked]="checked">
                 <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
@@ -4012,6 +4012,8 @@ export class TableHeaderCheckbox  {
 
     @ViewChild('box') boxViewChild: ElementRef;
 
+    @ViewChild('container') containerViewChild: ElementRef;
+
     @Input() disabled: boolean;
 
     @Input() inputId: string;
@@ -4021,6 +4023,8 @@ export class TableHeaderCheckbox  {
     @Input() ariaLabel: string;
 
     checked: boolean;
+
+    focused: boolean;
 
     selectionChangeSubscription: Subscription;
 
@@ -4051,11 +4055,11 @@ export class TableHeaderCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = true;
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = false;
     }
 
     isDisabled() {

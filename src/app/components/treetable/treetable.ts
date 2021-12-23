@@ -2446,12 +2446,12 @@ export class TTContextMenuRow {
 @Component({
     selector: 'p-treeTableCheckbox',
     template: `
-        <div class="p-checkbox p-component" (click)="onClick($event)">
+        <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
             </div>
             <div #box [ngClass]="{'p-checkbox-box':true,
-                'p-highlight':checked, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled':disabled}"  role="checkbox" [attr.aria-checked]="checked">
+                'p-highlight':checked, 'p-focus':focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled':disabled}"  role="checkbox" [attr.aria-checked]="checked">
                 <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':checked, 'pi-minus': rowNode.node.partialSelected}"></span>
             </div>
         </div>
@@ -2468,9 +2468,9 @@ export class TTCheckbox  {
 
     @Input("value") rowNode: any;
 
-    @ViewChild('box') boxViewChild: ElementRef;
-
     checked: boolean;
+
+    focused: boolean;
 
     subscription: Subscription;
 
@@ -2496,11 +2496,11 @@ export class TTCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = true;
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = false;
     }
 
     ngOnDestroy() {
@@ -2514,12 +2514,12 @@ export class TTCheckbox  {
 @Component({
     selector: 'p-treeTableHeaderCheckbox',
     template: `
-        <div class="p-checkbox p-component" (click)="onClick($event, cb.checked)">
+        <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused}" (click)="onClick($event, cb.checked)">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!tt.value||tt.value.length === 0">
             </div>
             <div #box [ngClass]="{'p-checkbox-box':true,
-                'p-highlight':checked, 'p-disabled': (!tt.value || tt.value.length === 0)}"  role="checkbox" [attr.aria-checked]="checked">
+                'p-highlight':checked, 'p-focus':focused, 'p-disabled': (!tt.value || tt.value.length === 0)}"  role="checkbox" [attr.aria-checked]="checked">
                 <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
@@ -2535,6 +2535,8 @@ export class TTHeaderCheckbox  {
     @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
+
+    focused: boolean;
 
     disabled: boolean;
 
@@ -2565,11 +2567,11 @@ export class TTHeaderCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = true;
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = false;
     }
 
     ngOnDestroy() {
