@@ -213,6 +213,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() metaKeySelection: boolean;
 
+    @Input() rowSelectable;
+
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
     @Input() lazy: boolean = false;
@@ -1063,9 +1065,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
         else if (this.sortMode === 'multiple') {
             let sorted = false;
-            if (this.multiSortMeta) {
+            if (this.multiSortMeta) {
                 for(let i = 0; i < this.multiSortMeta.length; i++) {
-                    if (this.multiSortMeta[i].field == field) {
+                    if (this.multiSortMeta[i].field == field) {
                         sorted = true;
                         break;
                     }
@@ -1086,6 +1088,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (this.selectionMode) {
+            let rowData = event.rowData;
+            let rowIndex = event.rowIndex;
+
             this.preventSelectionSetterPropagation = true;
             if (this.isMultipleSelectionMode() && event.originalEvent.shiftKey && this.anchorRowIndex != null) {
                 DomHandler.clearSelection();
@@ -1093,16 +1098,20 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.clearSelectionRange(event.originalEvent);
                 }
 
-                this.rangeRowIndex = event.rowIndex;
-                this.selectRange(event.originalEvent, event.rowIndex);
+                this.rangeRowIndex = rowIndex;
+                this.selectRange(event.originalEvent, rowIndex);
             }
             else {
-                let rowData = event.rowData;
                 let selected = this.isSelected(rowData);
+
+                if (!selected && !this.isRowSelectable(rowData, rowIndex)) {
+                    return;
+                }
+
                 let metaSelection = this.rowTouched ? false : this.metaKeySelection;
                 let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
-                this.anchorRowIndex = event.rowIndex;
-                this.rangeRowIndex = event.rowIndex;
+                this.anchorRowIndex = rowIndex;
+                this.rangeRowIndex = rowIndex;
 
                 if (metaSelection) {
                     let metaKey = event.originalEvent.metaKey||event.originalEvent.ctrlKey;
@@ -1149,7 +1158,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             }
                         }
 
-                        this.onRowSelect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex});
+                        this.onRowSelect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row', index: rowIndex});
                     }
                 }
                 else {
@@ -1158,12 +1167,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             this._selection = null;
                             this.selectionKeys = {};
                             this.selectionChange.emit(this.selection);
-                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
+                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: rowIndex });
                         }
                         else {
                             this._selection = rowData;
                             this.selectionChange.emit(this.selection);
-                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
+                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: rowIndex });
                             if (dataKeyValue) {
                                 this.selectionKeys = {};
                                 this.selectionKeys[dataKeyValue] = 1;
@@ -1175,7 +1184,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             let selectionIndex = this.findIndexInSelection(rowData);
                             this._selection = this.selection.filter((val, i) => i != selectionIndex);
                             this.selectionChange.emit(this.selection);
-                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
+                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: rowIndex });
                             if (dataKeyValue) {
                                 delete this.selectionKeys[dataKeyValue];
                             }
@@ -1183,7 +1192,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         else {
                             this._selection = this.selection ? [...this.selection, rowData] : [rowData];
                             this.selectionChange.emit(this.selection);
-                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
+                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: rowIndex });
                             if (dataKeyValue) {
                                 this.selectionKeys[dataKeyValue] = 1;
                             }
@@ -1209,6 +1218,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     handleRowRightClick(event) {
         if (this.contextMenu) {
             const rowData = event.rowData;
+            const rowIndex = event.rowIndex;
 
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = rowData;
@@ -1223,6 +1233,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
 
                 if (!selected) {
+                    if (!this.isRowSelectable(rowData, rowIndex)) {
+                        return;
+                    }
+
                     if (this.isSingleSelectionMode()) {
                         this.selection = rowData;
                         this.selectionChange.emit(rowData);
@@ -1274,6 +1288,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if (!this.isSelected(rangeRowData)) {
+                if (!this.isRowSelectable(rangeRowData, rowIndex)) {
+                    continue;
+                }
+
                 rangeRowsData.push(rangeRowData);
                 this._selection = [...this.selection, rangeRowData];
                 let dataKeyValue: string = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
@@ -1344,10 +1362,22 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return index;
     }
 
+    isRowSelectable(data, index) {
+        if (this.rowSelectable && !this.rowSelectable({ data, index })) {
+            return false;
+        }
+
+        return true;
+    }
+
     toggleRowWithRadio(event: any, rowData:any) {
         this.preventSelectionSetterPropagation = true;
 
         if (this.selection != rowData) {
+            if (!this.isRowSelectable(rowData, event.rowIndex)) {
+                return;
+            }
+
             this._selection = rowData;
             this.selectionChange.emit(this.selection);
             this.onRowSelect.emit({originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton'});
@@ -1386,6 +1416,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
         else {
+            if (!this.isRowSelectable(rowData, event.rowIndex)) {
+                return;
+            }
+
             this._selection = this.selection ? [...this.selection, rowData] : [rowData];
             this.selectionChange.emit(this.selection);
             this.onRowSelect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'checkbox' });
@@ -1408,7 +1442,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         else {
             const data = this.selectionPageOnly ? this.dataToRender : (this.filteredValue || this.value || []);
             let selection = this.selectionPageOnly && this._selection ? this._selection.filter(s => !data.some(d => this.equals(s, d))) : [];
-            check && (selection = this.frozenValue ? [...selection, ...this.frozenValue, ...data] : [...selection, ...data]);
+
+            if (check) {
+                selection = this.frozenValue ? [...selection, ...this.frozenValue, ...data] : [...selection, ...data];
+                selection = this.rowSelectable ? selection.filter((data, index) => this.rowSelectable({ data, index })) : selection;
+            }
 
             this._selection = selection;
             this.preventSelectionSetterPropagation = true;
@@ -4043,25 +4081,11 @@ export class TableHeaderCheckbox  {
         else {
             const data = this.dt.selectionPageOnly ? this.dt.dataToRender : (this.dt.filteredValue || this.dt.value || []);
             const val = this.dt.frozenValue ? [...this.dt.frozenValue, ...data] : data;
+            const selectableVal = this.dt.rowSelectable ? val.filter((data, index) => this.dt.rowSelectable({ data, index })) : val;
 
-            return val && this.dt.selection && val.every(v => this.dt.selection.some(s => this.dt.equals(v, s)));
+            return selectableVal && this.dt.selection && selectableVal.every(v => this.dt.selection.some(s => this.dt.equals(v, s)));
         }
     }
-
-    isAllFilteredValuesChecked() {
-        if (!this.dt.filteredValue) {
-            return false;
-        }
-        else {
-            for (let rowData of this.dt.filteredValue) {
-                if (!this.dt.isSelected(rowData)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
-
 }
 
 @Directive({
