@@ -215,6 +215,32 @@
                 </tr>
             </ng-template>
         </p-table>
+
+        <h6>Controlled Selection</h6>
+        <p-table [value]="products" [(selection)]="selectedProducts5" dataKey="code" responsiveLayout="scroll" [rowSelectable]="isRowSelectable">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th style="min-width:200px">Code</th>
+                    <th style="min-width:200px">Name</th>
+                    <th style="min-width:200px">Category</th>
+                    <th style="min-width:200px">Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="product" [disabled]="isOutOfStock(product)"></p-tableCheckbox>
+                    </td>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 </div>
 
@@ -468,7 +494,11 @@ export class TableSelectionDemo implements OnInit &#123;
 
     selectedProducts4: Product[];
 
-    constructor(private productService: ProductService, private messageService: MessageService) &#123; &#125;
+    selectedProducts5: Product[];
+
+    constructor(private productService: ProductService, private messageService: MessageService) &#123;
+        this.isRowSelectable = this.isRowSelectable.bind(this);
+    &#125;
 
     ngOnInit() &#123;
         this.productService.getProductsSmall().then(data =&gt; this.products = data);
@@ -484,6 +514,14 @@ export class TableSelectionDemo implements OnInit &#123;
 
     onRowUnselect(event) &#123;
         this.messageService.add(&#123;severity:'info', summary:'Product Unselected',  detail: event.data.name&#125;);
+    &#125;
+
+    isRowSelectable(event) &#123;
+        return !this.isOutOfStock(event.data);
+    &#125;
+
+    isOutOfStock(data) &#123;
+        return data.inventoryStatus === 'OUTOFSTOCK';
     &#125;
 
 &#125;

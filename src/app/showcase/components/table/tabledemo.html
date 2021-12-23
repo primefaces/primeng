@@ -3129,6 +3129,15 @@ export class TableDemo implements OnInit &#123;
                             <td>Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
                         <tr>
+                            <td>rowSelectable</td>
+                            <td>function</td>
+                            <td>null</td>
+                            <td>A function to decide whether a row is selectable. Need to return boolean value.<br/>
+                                event.data: Field data.<br>
+                                event.index: Index of data.
+                            </td>
+                        </tr>
+                        <tr>
                             <td>rowTrackBy</td>
                             <td>Function</td>
                             <td>null</td>
