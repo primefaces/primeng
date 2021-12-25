@@ -660,7 +660,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
     bindDocumentEscapeListener() {
         const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
+        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keyup', (event) => {
             if (event.which == 27) {
                 this.close(event);
             }
