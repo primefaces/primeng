@@ -300,8 +300,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() focusTrap: boolean = true;
 
-    @Input() firstDayOfWeek: number = 0;
-
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
@@ -460,6 +458,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     _numberOfMonths: number = 1;
 
+    _firstDayOfWeek: number;
+
     _view: string = 'date';
 
     preventFocus: boolean;
@@ -596,6 +596,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.createResponsiveStyle();
     }
 
+    @Input() get firstDayOfWeek(): number {
+        return this._numberOfMonths;
+    }
+
+    set firstDayOfWeek(firstDayOfWeek: number) {
+        this._firstDayOfWeek = firstDayOfWeek;
+
+        this.createWeekDays();
+    }
+
     @Input()
     set locale(newLocale: LocaleSettings) {
         console.warn("Locale property has no effect, use new i18n API instead.");
@@ -682,7 +692,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     createWeekDays() {
         this.weekDays = [];
-        let dayIndex = this.firstDayOfWeek;
+        let dayIndex = this.getFirstDateOfWeek();
         let dayLabels = this.getTranslation(TranslationKeys.DAY_NAMES_MIN);
         for (let i = 0; i < 7; i++) {
             this.weekDays.push(dayLabels[dayIndex]);
@@ -1178,7 +1188,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     getSundayIndex() {
-        return this.firstDayOfWeek > 0 ? 7 - this.firstDayOfWeek : 0;
+        let firstDayOfWeek = this.getFirstDateOfWeek();
+
+        return firstDayOfWeek > 0 ? 7 - firstDayOfWeek : 0;
     }
 
     isSelected(dateMeta): boolean {
@@ -2501,6 +2513,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     getDateFormat() {
         return this.dateFormat||this.getTranslation('dateFormat');
+    }
+
+    getFirstDateOfWeek() {
+        return this._firstDayOfWeek||this.getTranslation(TranslationKeys.FIRST_DAY_OF_WEEK);
     }
 
     // Ported from jquery-ui datepicker formatDate
