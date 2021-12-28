@@ -250,7 +250,7 @@ export const Password_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
             <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onInputFocus($event)"
-                (blur)="onInputBlur($event)" (keyup)="onKeyUp($event)" />
+                (blur)="onInputBlur($event)" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
             <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
@@ -472,6 +472,12 @@ export class Password implements AfterContentInit,OnInit {
         }
 
         this.onBlur.emit(event);
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            this.overlayVisible = false;
+        }
     }
 
     onKeyUp(event) {
