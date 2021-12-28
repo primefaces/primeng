@@ -1040,60 +1040,6 @@ describe('Table', () => {
         expect(checkboxSelectionTable.selection).toEqual([]);
     });
 
-    it('should headerCheckbox changing by filtering', fakeAsync(() => {
-        fixture.detectChanges();
-
-        checkboxSelectionTable.stateKey = "vin";
-        fixture.detectChanges();
-
-        const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
-        headerCheckbox.nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        const rowCheckboxs = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
-        expect(rowCheckboxs.length).toEqual(2);
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(true);
-        rowCheckboxs[0].query(By.css("div")).nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(false);
-    }));
-
-    it('should headerCheckbox changing by filtering', fakeAsync(() => {
-        fixture.detectChanges();
-
-        checkboxSelectionTable.stateKey = "vin";
-        fixture.detectChanges();
-
-        const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
-        headerCheckbox.nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        const rowCheckboxs = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
-        expect(rowCheckboxs.length).toEqual(2);
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(true);
-        rowCheckboxs[0].query(By.css("div")).nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(false);
-    }));
-
     it('should open cell', () => {
         fixture.detectChanges();
 
