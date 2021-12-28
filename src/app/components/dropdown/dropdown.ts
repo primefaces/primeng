@@ -698,7 +698,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
 
                         if (selectedListItem) {
-                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'start' });
+                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
                         }
                     }
                 }
