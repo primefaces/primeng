@@ -8,6 +8,7 @@
 
 - Globally configure p-calendar firstDayOfWeek  [\#9635](https://github.com/primefaces/primeng/issues/9635)
 - Add rowSelectable property to DataTable [\#6736](https://github.com/primefaces/primeng/issues/6736)
+- New Color Scheme for Lara Dark [\#11012](https://github.com/primefaces/primeng/issues/11012)
 
 **Fixed bugs:**
 
