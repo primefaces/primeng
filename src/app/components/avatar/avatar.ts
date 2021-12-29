@@ -6,9 +6,9 @@ import { CommonModule } from '@angular/common';
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
-            <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{label}}</span>
-            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img [src]="image" *ngIf="image"></ng-template>
+            <img [src]="image" *ngIf="image; else iconTemplate">
+            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else labelTemplate"></span></ng-template>
+            <ng-template #labelTemplate><span class="p-avatar-text" *ngIf="label">{{label}}</span></ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
