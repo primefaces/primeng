@@ -170,7 +170,7 @@
     white-space: nowrap;
 }
 
-.p-datatable-resizable .p-resizable-column {
+.p-datatable-resizable .p-resizable-column:not(.p-forzen-column) {
     background-clip: padding-box;
     position: relative;
 }
