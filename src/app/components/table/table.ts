@@ -4087,7 +4087,7 @@ export class TableHeaderCheckbox  {
             const val = this.dt.frozenValue ? [...this.dt.frozenValue, ...data] : data;
             const selectableVal = this.dt.rowSelectable ? val.filter((data, index) => this.dt.rowSelectable({ data, index })) : val;
 
-            return selectableVal && this.dt.selection && selectableVal.every(v => this.dt.selection.some(s => this.dt.equals(v, s)));
+            return ObjectUtils.isNotEmpty(selectableVal) && ObjectUtils.isNotEmpty(this.dt.selection) && selectableVal.every(v => this.dt.selection.some(s => this.dt.equals(v, s)));
         }
     }
 }
