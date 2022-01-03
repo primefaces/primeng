@@ -8,6 +8,69 @@
 
 <div class="content-section implementation">
     <div class="card">
+        <p-table
+  [value]="customers"
+  scrollDirection="both"
+  [resizableColumns]="true"
+  columnResizeMode="expand"
+  [scrollable]="true"
+  scrollHeight="400px"
+  styleClass="p-mt-3"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width:200px" pResizableColumn pFrozenColumn>Name</th>
+      <th style="width:200px" pResizableColumn pFrozenColumn>Id</th>
+      <th style="width:200px" pResizableColumn pFrozenColumn>Country</th>
+      <th style="width:200px" pResizableColumn>Date</th>
+      <th style="width:200px" pResizableColumn>Company</th>
+      <th style="width:200px" pResizableColumn>Status</th>
+      <th style="width:200px" pResizableColumn>Activity</th>
+      <th style="width:200px" pResizableColumn>Representative</th>
+      <th style="width:200px" pResizableColumn>Date</th>
+      <th style="width:200px" pResizableColumn>Company</th>
+      <th style="width:200px" pResizableColumn>Status</th>
+      <th style="width:200px" pResizableColumn>Activity</th>
+      <th style="width:200px" pResizableColumn>Representative</th>
+      <th
+        style="width:200px"
+        alignFrozen="right"
+        pFrozenColumn
+        [frozen]="balanceFrozen"
+      >
+        Balance
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-customer>
+    <tr>
+      <td style="width:200px" pFrozenColumn>{{ customer.name }}</td>
+      <td style="width:200px" pFrozenColumn>{{ customer.id }}</td>
+      <td style="width:200px" pFrozenColumn>{{ customer.country.name }}</td>
+      <td style="width:200px">{{ customer.date }}</td>
+      <td style="width:200px">{{ customer.company }}</td>
+      <td style="width:200px">{{ customer.status }}</td>
+      <td style="width:200px">{{ customer.activity }}</td>
+      <td style="width:200px">{{ customer.representative.name }}</td>
+      <td style="width:200px">{{ customer.date }}</td>
+      <td style="width:200px">{{ customer.company }}</td>
+      <td style="width:200px">{{ customer.status }}</td>
+      <td style="width:200px">{{ customer.activity }}</td>
+      <td style="width:200px">{{ customer.representative.name }}</td>
+      <td
+        style="width:200px"
+        alignFrozen="right"
+        pFrozenColumn
+        [frozen]="balanceFrozen"
+      >
+        {{customer.balance}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+    </div>
+    <div class="card">
         <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
