@@ -105,7 +105,7 @@ export interface LocaleSettings {
                         </div>
                     </div>
                     <div class="p-monthpicker" *ngIf="currentView === 'month'">
-                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i), 'p-disabled':!isSelectable(1, i, this.currentYear, false)}" pRipple>
+                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i)}" pRipple>
                             {{m}}
                         </span>
                     </div>
