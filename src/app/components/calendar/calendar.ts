@@ -59,7 +59,7 @@ export interface LocaleSettings {
                                         {{getMonthName(month.month)}}
                                     </button>
                                     <button type="button" (click)="switchToYearView($event)" (keydown)="onContainerButtonKeydown($event)" *ngIf="currentView !== 'year'" class="p-datepicker-year p-link" [disabled]="switchViewButtonDisabled()">
-                                        {{month.year}}
+                                        {{getYear(month)}}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
                                         <ng-container *ngIf="!decadeTemplate">{{yearPickerValues()[0]}} - {{yearPickerValues()[yearPickerValues().length - 1]}}</ng-container>
@@ -1396,6 +1396,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         return this.config.getTranslation('monthNames')[index];
     }
 
+    getYear(month) {
+        return this.currentView === 'month' ? this.currentYear : month.year;
+     }
 
     switchViewButtonDisabled() {
         return this.numberOfMonths > 1 || this.disabled;
