@@ -365,7 +365,7 @@ import { DomHandler } from 'primeng/dom';
                         <p>Beautifully crafted premium <a href="https://cli.angular.io/">Angular CLI</a> application templates by the PrimeTek design team.</p>
                         <div class="p-grid premium-themes">
                             <div class="p-col-12 p-md-4">
-                                <a href="https://www.primefaces.org/layouts/sakai-ng">
+                                <a href="https://www.primefaces.org/sakai-ng">
                                     <img alt="Sakai" src="assets/showcase/images/layouts/sakai-ng.png">
                                 </a>
                             </div>

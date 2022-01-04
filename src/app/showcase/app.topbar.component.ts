@@ -104,7 +104,7 @@ import { Subscription } from 'rxjs';
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
                         <li>
-                            <a href="https://www.primefaces.org/layouts/sakai-ng">
+                            <a href="https://www.primefaces.org/sakai-ng">
                                 <img alt="Sakai" src="assets/showcase/images/layouts/sakai-logo.svg">
                                 <span>Sakai</span>
                             </a>
