@@ -37,7 +37,8 @@ let idx: number = 0;
         trigger('tabContent', [
             state('hidden', style({
                 height: '0',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                visibility: 'hidden'
             })),
             state('visible', style({
                 height: '*'
