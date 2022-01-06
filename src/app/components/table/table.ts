@@ -2012,6 +2012,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index+1}) {
                     flex: 0 0 ${colWidth}px !important;
                 }
+
+                #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index+1}) {
+                    flex: 0 0 ${colWidth}px !important;
+                }
             `
         });
         this.styleElement.innerHTML = innerHTML;
