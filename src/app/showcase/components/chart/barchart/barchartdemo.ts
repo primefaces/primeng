@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppConfigService} from '../../../service/appconfigservice';
 import {AppConfig} from '../../../domain/appconfig';
@@ -6,7 +6,7 @@ import {AppConfig} from '../../../domain/appconfig';
 @Component({
     templateUrl: './barchartdemo.html'
 })
-export class BarChartDemo {
+export class BarChartDemo implements OnInit, OnDestroy {
 
     basicData: any;
 
@@ -511,5 +511,11 @@ export class BarChartDemo {
                 }
             }
         };
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

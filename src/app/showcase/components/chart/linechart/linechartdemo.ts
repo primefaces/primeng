@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {AppConfigService} from '../../../service/appconfigservice';
@@ -8,7 +8,7 @@ import {AppConfig} from '../../../domain/appconfig';
     templateUrl: './linechartdemo.html',
     providers: [MessageService]
 })
-export class LineChartDemo implements OnInit {
+export class LineChartDemo implements OnInit, OnDestroy {
 
     basicData: any;
 
@@ -300,5 +300,11 @@ export class LineChartDemo implements OnInit {
                 }
             }
         };
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }
