@@ -1407,6 +1407,20 @@ describe('Table', () => {
         expect(onRowDragLeaveSpy).toHaveBeenCalled();
     });
 
+    it('should export csv with bom', () => {
+        fixture.detectChanges();
+
+        let spyObj:HTMLElement = document.createElement("a");
+        spyOn(document, 'createElement').and.returnValue(spyObj);
+        fixture.detectChanges();
+
+        basicSelectionTable.exportCSV({bom:true});
+        fixture.detectChanges();
+
+        expect(document.createElement).toHaveBeenCalledTimes(1);
+        expect(document.createElement).toHaveBeenCalledWith('a');
+    });
+
     it('should export csv selection only', () => {
         fixture.detectChanges();
 

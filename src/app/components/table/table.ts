@@ -1681,6 +1681,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let csv = '';
         let columns = this.columns;
 
+        //UTF-8 BOM
+        if (options && options.bom) {
+            csv = '\uFEFF';
+        }
+
         if (options && options.selectionOnly) {
             data = this.selection || [];
         }
