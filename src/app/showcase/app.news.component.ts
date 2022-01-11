@@ -5,10 +5,9 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
     template: `
         <div class="layout-news">
             <div class="layout-news-container" (click)="redirect()">
-                <img class="layout-news-logo p-ml-2" src="assets/showcase/images/topbar-newyear-logo.svg">
-                <h3 class="layout-news-header p-px-2">DISCOUNT UP TO 50% ON EVERYTHING AT PRIMESTORE</h3>
-                <a href="https://www.primefaces.org/store" target="_blank"  style="text-decoration: none" class="layout-news-button">
-                    Read More
+                <img class="layouts-news-mockup-image" src="assets/showcase/images/topbar-primeblocks-device.png">
+                <a href="https://www.primefaces.org/primeblocks-ng" target="_blank"  style="text-decoration: none" class="layout-news-button">
+                    LEARN MORE<i class="pi pi-angle-right"></i>
                 </a>
                 <a tabindex="0" class="layout-news-close" (click)="hideNews($event)">
                     <i class="pi pi-times"></i>
@@ -29,6 +28,6 @@ export class AppNewsComponent {
     }
 
     redirect() {
-        window.open('https://www.primefaces.org/store"', '_blank');
+        window.open('https://www.primefaces.org/primeblocks-ng"', '_blank');
     }
 }
