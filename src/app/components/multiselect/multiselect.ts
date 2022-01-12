@@ -1046,7 +1046,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.hasFilter() && this._options) {
             let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
             if (this.group) {
-                let searchFields: string[] = (this.optionLabel || 'label').split(',');
 
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
