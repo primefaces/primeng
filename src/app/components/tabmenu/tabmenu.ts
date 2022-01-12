@@ -117,6 +117,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
                 item: item
             });
         }
+
         this.activeItem = item;
         this.tabChanged = true;
     }
