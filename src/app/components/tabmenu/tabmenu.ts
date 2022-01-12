@@ -105,10 +105,14 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         return item === this.activeItem;
     }
 
-    itemClick(event: Event, item: MenuItem) {
+    itemClick(event: Event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
+        }
+
+        if (!item.url && !item.routerLink) {
+            event.preventDefault();
         }
 
         if (item.command) {

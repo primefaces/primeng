@@ -68,7 +68,7 @@ export class Steps implements OnInit, OnDestroy {
 
         this.activeIndexChange.emit(i);
 
-        if (!item.url) {
+        if (!item.url && !item.routerLink) {
             event.preventDefault();
         }
 

@@ -146,7 +146,7 @@ export class MegaMenu implements AfterContentInit {
             return;
         }
 
-        if (!item.url) {
+        if (!item.url && !item.routerLink) {
             event.preventDefault();
         }
 
