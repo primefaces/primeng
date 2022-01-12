@@ -86,10 +86,13 @@ export class Steps implements OnInit, OnDestroy {
     }
 
     isActive(item: MenuItem, index: number) {
-        if (item.routerLink)
-            return this.router.isActive(item.routerLink, false) || this.router.isActive(this.router.createUrlTree([item.routerLink], {relativeTo: this.route}).toString(), false);
-        else
-            return index === this.activeIndex;
+        if (item.routerLink){
+            let routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+
+            return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
+        }
+
+        return index === this.activeIndex;
     }
 
     ngOnDestroy() {

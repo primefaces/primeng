@@ -96,10 +96,13 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
     }
 
     isActive(item: MenuItem) {
-        if (item.routerLink)
-            return this.router.isActive(item.routerLink, false) || this.router.isActive(this.router.createUrlTree([item.routerLink], {relativeTo: this.route}).toString(), false);
-        else
-        return item === this.activeItem
+        if (item.routerLink){
+            let routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+
+            return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
+        }
+            
+        return item === this.activeItem;
     }
 
     itemClick(event: Event, item: MenuItem) {
@@ -114,7 +117,6 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
                 item: item
             });
         }
-
         this.activeItem = item;
         this.tabChanged = true;
     }
