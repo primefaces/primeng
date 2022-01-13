@@ -353,7 +353,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ViewChild('wrapper') wrapperViewChild: ElementRef;
 
-    @ViewChild('table', { static: false }) tableViewChild: ElementRef;
+    @ViewChild('table') tableViewChild: ElementRef;
 
     @ViewChild('tableHeader') tableHeaderViewChild: ElementRef;
 
@@ -1801,7 +1801,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.virtualScrollBody) {
             this.virtualScrollBody.scrollTo(options);
         }
-        else  if (this.wrapperViewChild?.nativeElement) {
+        else  if (this.wrapperViewChild && this.wrapperViewChild.nativeElement) {
             if (this.wrapperViewChild.nativeElement.scrollTo) {
                 this.wrapperViewChild.nativeElement.scrollTo(options);
             }
