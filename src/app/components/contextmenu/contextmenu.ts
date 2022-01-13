@@ -212,6 +212,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     documentClickListener: any;
 
+    documentTriggerListener: any;
+
     documentKeydownListener: any;
 
     windowResizeListener: any;
@@ -219,6 +221,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     triggerEventListener: any;
 
     ngDestroy$ = new Subject();
+
+    preventDocumentDefault: boolean = false;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) { }
 
@@ -233,9 +237,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
         else if (this.target) {
             this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
+                this.preventDocumentDefault = true;
                 this.show(event);
                 event.preventDefault();
-                event.stopPropagation();
             });
         }
 
@@ -417,6 +421,13 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                     this.hide();
                 }
             });
+
+            this.documentTriggerListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
+                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !this.preventDocumentDefault) {
+                    this.hide();
+                }
+                this.preventDocumentDefault = false;
+            });
         }
 
         this.zone.runOutsideAngular(() => {
@@ -571,6 +582,11 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
+        }
+
+        if (this.documentTriggerListener) {
+            this.documentTriggerListener();
+            this.documentTriggerListener = null;
         }
 
         if (this.windowResizeListener) {
