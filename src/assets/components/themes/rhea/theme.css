@@ -832,6 +832,9 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
 .p-input-filled .p-dropdown:not(.p-disabled).p-focus {
   background-color: #f4f4f4;
 }
+.p-input-filled .p-dropdown:not(.p-disabled).p-focus .p-inputtext {
+  background-color: transparent;
+}
 
 .p-editor-container .p-editor-toolbar {
   background: #7B95A3;

@@ -1801,7 +1801,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.virtualScrollBody) {
             this.virtualScrollBody.scrollTo(options);
         }
-        else {
+        else  if (this.wrapperViewChild && this.wrapperViewChild.nativeElement) {
             if (this.wrapperViewChild.nativeElement.scrollTo) {
                 this.wrapperViewChild.nativeElement.scrollTo(options);
             }
