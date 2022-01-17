@@ -9,26 +9,26 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Drag and Drop to Table</h5>
-        <div class="p-grid">
-            <div class="p-col-12 p-md-6 drag-column">
+        <div class="grid">
+            <div class="col-12 md:col-6 drag-column">
                 <div *ngFor="let product of availableProducts">
                     <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         <div class="image-container">
                                 <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                         </div>
                         <div class="product-list-detail">
-                            <h5 class="p-mb-2">{{product.name}}</h5>
+                            <h5 class="mb-2">{{product.name}}</h5>
                             <i class="pi pi-tag product-category-icon"></i>
                             <span class="product-category">{{product.category}}</span>
                         </div>
                         <div class="product-list-action">
-                            <h6 class="p-mb-2">${{product.price}}</h6>
+                            <h6 class="mb-2">${{product.price}}</h6>
                             <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="p-col-12 p-md-6 drop-column" pDroppable="products" (onDrop)="drop()">
+            <div class="p-col-12 md:col-6 drop-column" pDroppable="products" (onDrop)="drop()">
             <p-table [value]="selectedProducts">
                 <ng-template pTemplate="header">
                     <tr>
@@ -230,26 +230,26 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 <h5>Drag and Drop to Table</h5>
-&lt;div class="p-grid"&gt;
-    &lt;div class="p-col-12 p-md-6 drag-column"&gt;
+&lt;div class="grid"&gt;
+    &lt;div class="col-12 md:col-6 drag-column"&gt;
         &lt;div *ngFor="let product of availableProducts"&gt;
             &lt;div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()"&gt;
                 &lt;div class="image-container"&gt;
                         &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
                 &lt;/div&gt;
                 &lt;div class="product-list-detail"&gt;
-                    &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                    &lt;h5 class="mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
                     &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
                     &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
                 &lt;/div&gt;
                 &lt;div class="product-list-action"&gt;
-                    &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;h6 class="mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
                     &lt;span class="'product-badge status-'&#123;&#123;product.inventoryStatus.toLowerCase()&#125;&#125;"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-6 drop-column" pDroppable="products" (onDrop)="drop()"&gt;
+    &lt;div class="col-12 md:col-6 drop-column" pDroppable="products" (onDrop)="drop()"&gt;
     &lt;p-table [value]="selectedProducts"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
