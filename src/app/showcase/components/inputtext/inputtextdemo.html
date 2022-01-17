@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Basic</h5>
         <input type="text" pInputText [(ngModel)]="value1"> 
-        <span class="p-ml-2">{{value1}}</span>
+        <span class="ml-2">{{value1}}</span>
         
         <h5>Float Label</h5>
         <span class="p-float-label">
@@ -31,17 +31,17 @@
         </span>
 
         <h5>Help Text</h5>
-        <div class="p-field">
-            <label for="username1">Username</label>
-            <input id="username1" type="username" aria-describedby="username1-help" pInputText [(ngModel)]="value4" />
-            <small id="username1-help">Enter your username to reset your password.</small>
+        <div class="field">
+            <label for="username1" class="block">Username</label>
+            <input id="username1" type="username" aria-describedby="username1-help" pInputText [(ngModel)]="value4"/>
+            <small id="username1-help" class="block">Enter your username to reset your password.</small>
         </div>
 
         <h5>Invalid</h5>
-        <div class="p-field">
-            <label for="username2">Username</label>
+        <div class="field">
+            <label for="username2" class="block">Username</label>
             <input id="username2" type="username" aria-describedby="username2-help" class="ng-invalid ng-dirty" pInputText />
-            <small id="username2-help" class="p-error">Username is not available.</small>
+            <small id="username2-help" class="p-error block">Username is not available.</small>
         </div>
 
         <h5>Invalid with Float Label</h5>
@@ -201,13 +201,13 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/inputtext" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-            <a href="https://stackblitz.com/edit/primeng-inputtext-demo" class="btn-viewsource p-ml-2" target="_blank">
+            <a href="https://stackblitz.com/edit/primeng-inputtext-demo" class="btn-viewsource ml-2" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;input type="text" pInputText [(ngModel)]="value1"&gt; 
-&lt;span class="p-ml-2"&gt;&#123;&#123;value1&#125;&#125;&lt;/span&gt;
+&lt;span class="ml-2"&gt;&#123;&#123;value1&#125;&#125;&lt;/span&gt;
 
 &lt;h5&gt;Float Label&lt;/h5&gt;
 &lt;span class="p-float-label"&gt;
@@ -228,17 +228,17 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 &lt;/span&gt;
 
 &lt;h5&gt;Help Text&lt;/h5&gt;
-&lt;div class="p-field"&gt;
-    &lt;label for="username1"&gt;Username&lt;/label&gt;
+&lt;div class="field"&gt;
+    &lt;label for="username1" class="block"&gt;Username&lt;/label&gt;
     &lt;input id="username1" type="username" aria-describedby="username1-help" pInputText [(ngModel)]="value4" /&gt;
-    &lt;small id="username1-help"&gt;Enter your username to reset your password.&lt;/small&gt;
+    &lt;small id="username1-help" class="block"&gt;Enter your username to reset your password.&lt;/small&gt;
 &lt;/div&gt;
 
 &lt;h5&gt;Invalid&lt;/h5&gt;
-&lt;div class="p-field"&gt;
-    &lt;label for="username2"&gt;Username&lt;/label&gt;
+&lt;div class="field"&gt;
+    &lt;label for="username2" class="block"&gt;Username&lt;/label&gt;
     &lt;input id="username2" type="username" aria-describedby="username2-help" class="ng-invalid ng-dirty" pInputText /&gt;
-    &lt;small id="username2-help" class="p-error"&gt;Username is not available.&lt;/small&gt;
+    &lt;small id="username2-help" class="p-error block"&gt;Username is not available.&lt;/small&gt;
 &lt;/div&gt;
 
 &lt;h5&gt;Invalid with Float Label&lt;/h5&gt;
