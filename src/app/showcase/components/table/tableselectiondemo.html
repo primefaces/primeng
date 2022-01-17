@@ -456,10 +456,38 @@
                 &lt;td&gt;
                     &lt;p-tableCheckbox [value]="product"&gt;&lt;/p-tableCheckbox&gt;
                 &lt;/td&gt;
-                &lt;td&gt;{{product.code}}&lt;/td&gt;
-                &lt;td&gt;{{product.name}}&lt;/td&gt;
-                &lt;td&gt;{{product.category}}&lt;/td&gt;
-                &lt;td&gt;{{product.quantity}}&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+
+
+
+    &lt;h6&gt;Controlled Selection&lt;/h6&gt;
+    &lt;p-table [value]="products" [(selection)]="selectedProducts5" dataKey="code" responsiveLayout="scroll" [rowSelectable]="isRowSelectable"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th style="width: 3rem"&gt;
+                    &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+                &lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Code&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Category&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Quantity&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &lt;p-tableCheckbox [value]="product" [disabled]="isOutOfStock(product)"&gt;&lt;/p-tableCheckbox&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-table&gt;
