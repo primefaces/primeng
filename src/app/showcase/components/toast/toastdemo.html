@@ -14,17 +14,17 @@
 
     <p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
-            <div class="p-flex p-flex-column" style="flex: 1">
-                <div class="p-text-center">
+            <div class="flex flex-column" style="flex: 1">
+                <div class="text-center">
                     <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
                     <h4>{{message.summary}}</h4>
                     <p>{{message.detail}}</p>
                 </div>
-                <div class="p-grid p-fluid">
-                    <div class="p-col-6">
+                <div class="grid p-fluid">
+                    <div class="col-6">
                         <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
                     </div>
-                    <div class="p-col-6">
+                    <div class="col-6">
                         <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
                     </div>
                 </div>
@@ -34,11 +34,11 @@
 
     <div class="card">
         <h5>Severities</h5>
-        <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success p-mb-2"></button>
-        <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info p-mb-2"></button>
-        <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning p-mb-2"></button>
-        <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger p-mb-2"></button>
-        <button type="button" pButton pRipple (click)="showCustom()" label="Custom" class="p-button-help p-mb-2"></button>
+        <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success mb-2"></button>
+        <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info mb-2"></button>
+        <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning mb-2"></button>
+        <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger mb-2"></button>
+        <button type="button" pButton pRipple (click)="showCustom()" label="Custom" class="p-button-help mb-2"></button>
 
         <h5>Positions</h5>
         <button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"></button>
@@ -230,17 +230,17 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
-        &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
-            &lt;div class="p-text-center"&gt;
+        &lt;div class="flex flex-column" style="flex: 1"&gt;
+            &lt;div class="text-center"&gt;
                 &lt;i class="pi pi-exclamation-triangle" style="font-size: 3rem"&gt;&lt;/i&gt;
                 &lt;h4&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h4&gt;
                 &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
             &lt;/div&gt;
-            &lt;div class="p-grid p-fluid"&gt;
-                &lt;div class="p-col-6"&gt;
+            &lt;div class="grid p-fluid"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"&gt;&lt;/button&gt;
                 &lt;/div&gt;
-                &lt;div class="p-col-6"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"&gt;&lt;/button&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -462,17 +462,17 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 
 &lt;p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
-        &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
-            &lt;div class="p-text-center"&gt;
+        &lt;div class="flex flex-column" style="flex: 1"&gt;
+            &lt;div class="text-center"&gt;
                 &lt;i class="pi pi-exclamation-triangle" style="font-size: 3rem"&gt;&lt;/i&gt;
                 &lt;h4&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h4&gt;
                 &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
             &lt;/div&gt;
-            &lt;div class="p-grid p-fluid"&gt;
-                &lt;div class="p-col-6"&gt;
+            &lt;div class="grid p-fluid"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"&gt;&lt;/button&gt;
                 &lt;/div&gt;
-                &lt;div class="p-col-6"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"&gt;&lt;/button&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -482,10 +482,10 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Severities&lt;/h5&gt;
-    &lt;button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success p-mb-2"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info p-mb-2"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning p-mb-2"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger p-mb-2"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success mb-2"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info mb-2"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning mb-2"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger mb-2"&gt;&lt;/button&gt;
 
     &lt;h5&gt;Positions&lt;/h5&gt;
     &lt;button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"&gt;&lt;/button&gt;
