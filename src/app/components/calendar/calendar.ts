@@ -597,7 +597,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     @Input() get firstDayOfWeek(): number {
-        return this._numberOfMonths;
+        return this._firstDayOfWeek;
     }
 
     set firstDayOfWeek(firstDayOfWeek: number) {
