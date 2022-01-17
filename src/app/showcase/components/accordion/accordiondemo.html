@@ -187,10 +187,10 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
 <p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Programmatic&lt;/h5&gt;
-&lt;div class="p-py-3"&gt;
+&lt;div class="py-3"&gt;
     &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
         
 &lt;p-accordion&gt;
@@ -508,10 +508,10 @@ onTabOpen(e) &#123;
 &lt;/p-accordion&gt;
     
 &lt;h5&gt;Programmatic&lt;/h5&gt;
-&lt;div class="p-py-3"&gt;
+&lt;div class="py-3"&gt;
     &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
     
 &lt;p-accordion&gt;
