@@ -22,7 +22,7 @@ npm install primeicons --save
 &lt;i class="pi pi-times"&gt;&lt;/i&gt;
 </app-code>
 
-<i class="pi pi-check p-mr-2"></i>
+<i class="pi pi-check mr-2"></i>
 <i class="pi pi-times"></i>
 
     <h5>Size</h5>
@@ -87,8 +87,8 @@ export class MenuDemo &#123;
         <input class="icon-filter" (input)="onFilter($event)" pInputText placeholder="Search an icon">
     </div>
 
-    <div class="p-grid icons-list">
-        <div class="p-col-12 p-md-2" *ngFor="let icon of filteredIcons">
+    <div class="grid icons-list">
+        <div class="col-12 md:col-2" *ngFor="let icon of filteredIcons">
             <i class="pi pi-{{icon.properties.name}}"></i>
             <div>pi-{{icon.properties.name}}</div>
         </div>

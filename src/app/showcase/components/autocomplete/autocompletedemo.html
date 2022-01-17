@@ -24,8 +24,8 @@
         <h5>Grouped</h5>
         <p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [dropdown]="true">
             <ng-template let-group pTemplate="group">
-                <div class="p-d-flex p-ai-center">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
+                <div class="flex align-items-center">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
                     <span>{{group.label}}</span>
                 </div>
             </ng-template>
