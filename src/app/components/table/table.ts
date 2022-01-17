@@ -1955,26 +1955,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 let nextColumnWidth = nextColumn.offsetWidth - delta;
 
                 if (newColumnWidth > 15 && nextColumnWidth > 15) {
-                    if (!this.scrollable) {
-                        this.resizeColumnElement.style.width = newColumnWidth + 'px';
-                        if(nextColumn) {
-                            nextColumn.style.width = nextColumnWidth + 'px';
-                        }
-                    }
-                    else {
-                        this.resizeTableCells(newColumnWidth, nextColumnWidth);
-                    }
+                    this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             }
             else if (this.columnResizeMode === 'expand') {
                 let tableWidth = this.tableViewChild.nativeElement.offsetWidth + delta;
+                this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
                 this.tableViewChild.nativeElement.style.minWidth = tableWidth + 'px';
-                this.resizeColumnElement.style.width = newColumnWidth + 'px';
 
-                if (!this.scrollable)
-                    this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
-                else
-                    this.resizeTableCells(newColumnWidth, null);
+                this.resizeTableCells(newColumnWidth, null);
             }
 
             this.onColResize.emit({
@@ -2004,20 +1993,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let innerHTML = '';
         widths.forEach((width,index) => {
             let colWidth = index === colIndex ? newColumnWidth : (nextColumnWidth && index === colIndex + 1) ? nextColumnWidth : width;
+            let style = this.scrollable ? `flex: 1 1 ${colWidth}px !important` : `width: ${colWidth}px !important`;
             innerHTML += `
-                #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index+1}) {
-                    flex: 0 0 ${colWidth}px !important;
-                }
-
-                #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index+1}) {
-                    flex: 0 0 ${colWidth}px !important;
-                }
-
-                #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index+1}) {
-                    flex: 0 0 ${colWidth}px !important;
+                #${this.id} .p-datatable-thead > tr > th:nth-child(${index + 1}),
+                #${this.id} .p-datatable-tbody > tr > td:nth-child(${index + 1}),
+                #${this.id} .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
+                    ${style}
                 }
             `
         });
+
         this.styleElement.innerHTML = innerHTML;
     }
 
@@ -2346,29 +2331,24 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.containerViewChild.nativeElement.style.width = this.tableWidthState;
             }
 
-            this.createStyleElement();
+            if (ObjectUtils.isNotEmpty(widths)) {
+                this.createStyleElement();
+                
+                let innerHTML = '';
+                widths.forEach((width,index) => {
+                    let style = this.scrollable ? `flex: 1 1 ${width}px !important` : `width: ${width}px !important`;
 
-            if (this.scrollable && widths && widths.length > 0) {
-                    let innerHTML = '';
-                    widths.forEach((width,index) => {
-                        innerHTML += `
-                            #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index+1}) {
-                                flex: 0 0 ${width}px;
-                            }
+                    innerHTML += `
+                        #${this.id} .p-datatable-thead > tr > th:nth-child(${index + 1}),
+                        #${this.id} .p-datatable-tbody > tr > td:nth-child(${index + 1}),
+                        #${this.id} .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
+                            ${style}
+                        }
+                    `
+                });
 
-                            #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index+1}) {
-                                flex: 0 0 ${width}px;
-                            }
-                        `
-                    });
                 this.styleElement.innerHTML = innerHTML;
             }
-            else {
-                DomHandler.find(this.tableViewChild.nativeElement, '.p-datatable-thead > tr > th').forEach((header, index) => {
-                    header.style.width = widths[index] + 'px';
-                });
-            }
-
         }
     }
 
