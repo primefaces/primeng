@@ -10,7 +10,7 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Fit Mode</h5>
-        <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines">
+        <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Code</th>
@@ -109,7 +109,7 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Fit Mode&lt;/h5&gt;
-    &lt;p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines"&gt;
+    &lt;p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pResizableColumn&gt;Code&lt;/th&gt;
