@@ -45,7 +45,7 @@
         <p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"></p-button>
         <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
             [draggable]="false" [resizable]="false">
-            <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                 laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                <ng-template pTemplate="footer">
@@ -80,17 +80,17 @@
         </p-dialog>
 
         <h5>Position</h5>
-        <div class="p-grid p-dir-col">
-            <div class="p-col">
+        <div class="grid flex-column">
+            <div class="p-col mb-2">
                 <p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"></p-button>
             </div>
-            <div class="p-col">
+            <div class="p-col mb-2">
                 <p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
             </div>
-            <div class="p-col">
+            <div class="p-col mb-2">
                 <p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"></p-button>
@@ -592,7 +592,7 @@ Content
 &lt;p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
 &lt;p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;"
     [draggable]="false" [resizable]="false"&gt;
-    &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    &lt;p class="m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;ng-template pTemplate="footer"&gt;
@@ -628,17 +628,17 @@ Content
 &lt;/p-dialog&gt;
 
 &lt;h5&gt;Position&lt;/h5&gt;
-&lt;div class="p-grid p-dir-col"&gt;
-    &lt;div class="p-col"&gt;
+&lt;div class="grid flex-column"&gt;
+    &lt;div class="p-col mb-2"&gt;
         &lt;p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;div class="p-col"&gt;
+    &lt;div class="p-col mb-2"&gt;
         &lt;p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;div class="p-col"&gt;
+    &lt;div class="p-col mb-2"&gt;
         &lt;p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;

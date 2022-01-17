@@ -11,23 +11,23 @@
     <div class="card">
         <h5>Basic</h5>
         <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
-        <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"></p-button>
+        <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="mr-2"></p-button>
         <p-button (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
 
         <h5>Position</h5>
-        <div class="p-grid p-dir-col">
-            <div class="p-col">
-                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help p-mr-2"></p-button>
+        <div class="grid flex-column">
+            <div class="p-col mb-2">
+                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help mr-2"></p-button>
                 <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
             </div>
-            <div class="p-col">
-                <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning p-mr-2"></p-button>
-                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning p-mr-2"></p-button>
+            <div class="p-col mb-2">
+                <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning mr-2"></p-button>
+                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning mr-2"></p-button>
                 <p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
             </div>
             <div class="p-col">
-                <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success p-mr-2"></p-button>
-                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success p-mr-2"></p-button>
+                <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success mr-2"></p-button>
+                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success mr-2"></p-button>
                 <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"></p-button>
             </div>
         </div>
@@ -539,23 +539,23 @@ export class ConfirmDialogDemo &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"&gt;&lt;/p-confirmDialog&gt;
-&lt;p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"&gt;&lt;/p-button&gt;
+&lt;p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="mr-2"&gt;&lt;/p-button&gt;
 &lt;p-button (click)="confirm2()" icon="pi pi-times" label="Delete"&gt;&lt;/p-button&gt;
 
 &lt;h5&gt;Position&lt;/h5&gt;
-&lt;div class="p-grid p-dir-col"&gt;
-    &lt;div class="p-col"&gt;
-        &lt;p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help p-mr-2"&gt;&lt;/p-button&gt;
+&lt;div class="grid flex-column"&gt;
+    &lt;div class="p-col mb-2"&gt;
+        &lt;p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help mr-2"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;div class="p-col"&gt;
-        &lt;p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning p-mr-2"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning p-mr-2"&gt;&lt;/p-button&gt;
+    &lt;div class="p-col mb-2"&gt;
+        &lt;p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning mr-2"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;div class="p-col"&gt;
-        &lt;p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
+    &lt;div class="p-col mb-2"&gt;
+        &lt;p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success mr-2"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
