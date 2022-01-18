@@ -2369,7 +2369,6 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #ffffff;
   color: #212529;
   transition: box-shadow 0.15s;
-  outline-color: rgba(38, 143, 255, 0.5);
 }
 .p-datatable .p-datatable-tbody > tr > td {
   text-align: left;
@@ -2407,6 +2406,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save {
   margin-right: 0.5rem;
+}
+.p-datatable .p-datatable-tbody > tr:focus {
+  outline: 0.15rem solid rgba(38, 143, 255, 0.5);
+  outline-offset: 0.15rem;
 }
 .p-datatable .p-datatable-tbody > tr.p-highlight {
   background: #007bff;
@@ -3295,7 +3298,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+  box-shadow: inset 0 0 0 0.15rem rgba(38, 143, 255, 0.5);
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
   background: #007bff;
@@ -3453,7 +3456,6 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #ffffff;
   color: #212529;
   transition: box-shadow 0.15s;
-  outline-color: rgba(38, 143, 255, 0.5);
 }
 .p-treetable .p-treetable-tbody > tr > td {
   text-align: left;
@@ -3486,6 +3488,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
   color: #212529;
+}
+.p-treetable .p-treetable-tbody > tr:focus {
+  outline: 0.15rem solid rgba(38, 143, 255, 0.5);
+  outline-offset: -0.15rem;
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight {
   background: #007bff;

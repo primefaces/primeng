@@ -576,7 +576,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight {
   color: rgba(255, 255, 255, 0.87);
@@ -1203,7 +1203,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 .p-listbox .p-listbox-list .p-listbox-item:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-listbox .p-listbox-list .p-listbox-item .p-checkbox {
   margin-right: 0.5rem;
@@ -1345,7 +1345,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
   margin-right: 0.5rem;
@@ -2350,14 +2350,13 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #FFD54F;
 }
 .p-datatable .p-sortable-column:focus {
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
   outline: 0 none;
 }
 .p-datatable .p-datatable-tbody > tr {
   background: #1f2d40;
   color: rgba(255, 255, 255, 0.87);
   transition: box-shadow 0.2s;
-  outline-color: #ffe284;
 }
 .p-datatable .p-datatable-tbody > tr > td {
   text-align: left;
@@ -2395,6 +2394,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save {
   margin-right: 0.5rem;
+}
+.p-datatable .p-datatable-tbody > tr:focus {
+  outline: 0.15rem solid #ffe284;
+  outline-offset: 0.15rem;
 }
 .p-datatable .p-datatable-tbody > tr.p-highlight {
   background: rgba(255, 213, 79, 0.16);
@@ -2616,7 +2619,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-separator {
   border-top: 1px solid #304562;
@@ -2991,7 +2994,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-orderlist .p-orderlist-list .p-orderlist-item:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
   color: rgba(255, 255, 255, 0.87);
@@ -3186,7 +3189,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-picklist .p-picklist-list .p-picklist-item:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-picklist .p-picklist-list .p-picklist-item.p-highlight {
   color: rgba(255, 255, 255, 0.87);
@@ -3283,7 +3286,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
   background: rgba(255, 213, 79, 0.16);
@@ -3441,7 +3444,6 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #1f2d40;
   color: rgba(255, 255, 255, 0.87);
   transition: box-shadow 0.2s;
-  outline-color: #ffe284;
 }
 .p-treetable .p-treetable-tbody > tr > td {
   text-align: left;
@@ -3474,6 +3476,10 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
   color: rgba(255, 255, 255, 0.87);
+}
+.p-treetable .p-treetable-tbody > tr:focus {
+  outline: 0.15rem solid #ffe284;
+  outline-offset: -0.15rem;
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight {
   background: rgba(255, 213, 79, 0.16);
@@ -4219,7 +4225,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-contextmenu .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-contextmenu .p-submenu-list {
   padding: 0.25rem 0;
@@ -4351,7 +4357,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link,
 .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
@@ -4401,7 +4407,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-megamenu .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-megamenu .p-megamenu-panel {
   background: #1f2d40;
@@ -4492,7 +4498,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-menu .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-menu.p-menu-overlay {
   background: #1f2d40;
@@ -4558,7 +4564,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-menubar .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
   padding: 0.75rem 1rem;
@@ -4593,7 +4599,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link,
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
@@ -4714,7 +4720,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus {
     outline: 0 none;
     outline-offset: 0;
-    box-shadow: inset 0 0 0 1px #ffe284;
+    box-shadow: inset 0 0 0 0.15rem #ffe284;
   }
   .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link > .p-submenu-icon {
     margin-left: auto;
@@ -4847,7 +4853,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-panelmenu-icon {
   margin-right: 0.5rem;
@@ -4923,7 +4929,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-slidemenu .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-slidemenu.p-slidemenu-overlay {
   background: #1f2d40;
@@ -5082,7 +5088,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-tieredmenu .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 1px #ffe284;
+  box-shadow: inset 0 0 0 0.15rem #ffe284;
 }
 .p-tieredmenu.p-tieredmenu-overlay {
   background: #1f2d40;
