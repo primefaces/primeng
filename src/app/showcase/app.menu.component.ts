@@ -59,14 +59,10 @@ declare let gtag: Function;
                     <a href="https://www.primefaces.org/primeblocks-ng"><img width="100%" alt="PrimeBlocks Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeblocks-dark.png' : 'banner-primeblocks.png')" /></a>
                 </div>
 
-                <div class="menu-category">PrimeFlex v3.0.0</div>
-                <div class="menu-items menu-banner">
-                    <a href="https://www.primefaces.org/primeflex"><img width="100%" alt="PrimeFlex Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeflex-dark.svg' : 'banner-primeflex.svg')" /></a>
-                </div>
-
-                <div class="menu-category">PrimeFlex v2.0.0</div>
+                <div class="menu-category">PrimeFlex</div>
                 <div class="menu-items">
-                    <a href="#">Guide</a>
+                    <a href="https://www.primefaces.org/primeflex">PrimeFlex v3</a>
+                    <a href="https://github.com/primefaces/primeflex/wiki/PrimeFlex-v2">PrimeFlex v2</a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
