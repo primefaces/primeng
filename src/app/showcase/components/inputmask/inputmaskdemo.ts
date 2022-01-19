@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
     templateUrl: './inputmaskdemo.html',
     styles: [`
-        .p-col-12 > span {
+        .col-12 > span {
             display: block;
             margin-bottom: .5em;
         }

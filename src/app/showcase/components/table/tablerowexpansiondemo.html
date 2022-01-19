@@ -26,7 +26,7 @@
                         <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                     </td>
                     <td>{{product.name}}</td>
-                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
+                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                     <td>{{product.price | currency:'USD'}}</td>
                     <td>{{product.category}}</td>
                     <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
@@ -36,7 +36,7 @@
             <ng-template pTemplate="rowexpansion" let-product>
                 <tr>
                     <td colspan="7">
-                        <div class="p-p-3">
+                        <div class="p-3">
                             <p-table [value]="product.orders" dataKey="id">
                                 <ng-template pTemplate="header">
                                     <tr>
@@ -100,7 +100,7 @@
                 &lt;button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
             &lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /&gt;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
@@ -110,7 +110,7 @@
     &lt;ng-template pTemplate="rowexpansion" let-product&gt;
         &lt;tr&gt;
             &lt;td colspan="7"&gt;
-                &lt;div class="p-p-3"&gt;
+                &lt;div class="p-3"&gt;
                     &lt;p-table [value]="product.orders" dataKey="id"&gt;
                         &lt;ng-template pTemplate="header"&gt;
                             &lt;tr&gt;

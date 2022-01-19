@@ -9,114 +9,114 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Numerals</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-field p-col-12 p-md-3">
+        <div class="grid p-fluid">
+            <div class="field col-12 md:col-3">
                 <label for="integeronly">Integer Only</label>
                 <p-inputNumber inputId="integeronly" [(ngModel)]="value1">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="withoutgrouping">Without Grouping</label>
                 <p-inputNumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="minmaxfraction">Min-Max Fraction Digits</label>
                 <p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="minmax">Min-Max Boundaries</label>
                 <p-inputNumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="locale-user">User Locale</label>
                 <p-inputNumber [(ngModel)]="value5" inputId="locale-user" [minFractionDigits]="2">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="locale-us">United States Locale</label>
                 <p-inputNumber [(ngModel)]="value6" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="locale-german">German Locale</label>
                 <p-inputNumber [(ngModel)]="value7" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="locale-indian">Indian Locale</label>
                 <p-inputNumber [(ngModel)]="value8" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2">
                 </p-inputNumber>
             </div>
         </div>
         <h5>Currency</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-field p-col-12 p-md-3">
+        <div class="grid p-fluid">
+            <div class="field col-12 md:col-3">
                 <label for="currency-us">United States</label>
                 <p-inputNumber [(ngModel)]="value9" inputId="currency-us" mode="currency" currency="USD" locale="en-US">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="currency-germany">Germany</label>
                 <p-inputNumber [(ngModel)]="value10" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="currency-india">India</label>
                 <p-inputNumber [(ngModel)]="value11" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="currency-japan">Japan</label>
                 <p-inputNumber [(ngModel)]="value12" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP">
                 </p-inputNumber>
             </div>
         </div>
         <h5>Prefix and Suffix</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-field p-col-12 p-md-3">
+        <div class="grid p-fluid">
+            <div class="field col-12 md:col-3">
                 <label for="mile">Mile</label>
                 <p-inputNumber [(ngModel)]="value13" inputId="mile" suffix=" mi">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="percent">Percent</label>
                 <p-inputNumber [(ngModel)]="value14" inputId="percent" prefix="%">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="expiry">Expiry</label>
                 <p-inputNumber [(ngModel)]="value15" inputId="expiry" prefix="Expires in " suffix=" days">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="temperature">Temperature</label>
                 <p-inputNumber [(ngModel)]="value16" prefix="&uarr; " inputId="temperature" suffix="℃" [min]="0" [max]="40">
                 </p-inputNumber>
             </div>
         </div>
         <h5>Buttons</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-field p-col-12 p-md-3">
+        <div class="grid p-fluid">
+            <div class="field col-12 md:col-3">
                 <label for="stacked">Stacked</label>
                 <p-inputNumber [(ngModel)]="value17" [showButtons]="true" inputId="stacked" mode="currency" currency="USD">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="horizontal">Horizontal with Step</label>
                 <p-inputNumber [(ngModel)]="value18" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25"
                 decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR">
                 </p-inputNumber>
             </div>
-            <div class="p-field p-col-12 p-md-3">
+            <div class="field col-12 md:col-3">
                 <label for="minmax-buttons">Min-Max Boundaries</label>
                 <p-inputNumber [(ngModel)]="value20" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100">
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-field p-col-12 p-md-3">
+        <div class="field col-12 md:col-3">
             <label for="vertical" style="display: block">Vertical</label>
             <p-inputNumber [(ngModel)]="value19" [style]="{'width':'4rem'}" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
             decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
@@ -591,116 +591,116 @@ Vertical
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div class="p-grid p-fluid"&gt;
+&lt;div class="grid p-fluid"&gt;
 &lt;h5&gt;Numerals&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="integeronly"&gt;Integer Only&lt;/label&gt;
         &lt;p-inputNumber inputId="integeronly" [(ngModel)]="value1"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="withoutgrouping"&gt;Without Grouping&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="minmaxfraction"&gt;Min-Max Fraction Digits&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="minmax"&gt;Min-Max Boundaries&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="locale-user"&gt;User Locale&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value5" inputId="locale-user" [minFractionDigits]="2"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="locale-us"&gt;United States Locale&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value6" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="locale-german"&gt;German Locale&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value7" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="locale-indian"&gt;Indian Locale&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value8" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;h5&gt;Currency&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="currency-us"&gt;United States&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value9" inputId="currency-us" mode="currency" currency="USD" locale="en-US"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="currency-germany"&gt;Germany&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value10" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="currency-india"&gt;India&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value11" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="currency-japan"&gt;Japan&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value12" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;h5&gt;Prefix and Suffix&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="mile"&gt;Mile&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value13" inputId="mile" suffix=" mi"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="percent"&gt;Percent&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value14" inputId="percent" prefix="%"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="expiry"&gt;Expiry&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value15" inputId="expiry" prefix="Expires in " suffix=" days"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="temperature"&gt;Temperature&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value16" prefix="&uarr; " inputId="temperature" suffix="℃" [min]="0" [max]="40"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;h5&gt;Buttons&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="stacked"&gt;Stacked&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value17" [showButtons]="true" inputId="stacked" mode="currency" currency="USD"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="horizontal"&gt;Horizontal with Step&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value18" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25"
         decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-3"&gt;
+    &lt;div class="field col-12 md:col-3"&gt;
         &lt;label for="minmax-buttons"&gt;Min-Max Boundaries&lt;/label&gt;
         &lt;p-inputNumber [(ngModel)]="value20" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100"&gt;
         &lt;/p-inputNumber&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="p-field p-col-12 p-md-3"&gt;
+&lt;div class="field col-12 md:col-3"&gt;
     &lt;label for="vertical" style="display: block"&gt;Vertical&lt;/label&gt;
     &lt;p-inputNumber [(ngModel)]="value19" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
     decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"&gt;

@@ -9,30 +9,30 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <div class="p-field-checkbox">
+        <div class="field-checkbox">
             <p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"></p-checkbox>
             <label for="binary">{{checked}}</label>
         </div>
         <h5>Multiple</h5>
-        <div class="p-field-checkbox">
+        <div class="field-checkbox">
             <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
             <label for="ny">New York</label>
         </div>
-        <div class="p-field-checkbox">
+        <div class="field-checkbox">
             <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
             <label for="sf">San Francisco</label>
         </div>
-        <div class="p-field-checkbox">
+        <div class="field-checkbox">
             <p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"></p-checkbox>
             <label for="la">Los Angeles</label>
         </div>
-        <div class="p-field-checkbox">
+        <div class="field-checkbox">
             <p-checkbox name="group1" value="Chicago" [(ngModel)]="selectedCities" inputId="ch"></p-checkbox>
             <label for="ch">Chicago</label>
         </div>
 
         <h5>Dynamic Values, Preselection, Value Binding and Disabled Option</h5>
-        <div *ngFor="let category of categories" class="p-field-checkbox">
+        <div *ngFor="let category of categories" class="field-checkbox">
             <p-checkbox name="group2" value="category" [value]="category"  [(ngModel)]="selectedCategories" [inputId]="category.key" [disabled]="category.key === 'R'"></p-checkbox>
             <label [for]="category.key">{{category.name}}</label>
         </div>
@@ -323,30 +323,30 @@ export class ModelComponent &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;div class="p-field-checkbox"&gt;
+&lt;div class="field-checkbox"&gt;
     &lt;p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"&gt;&lt;/p-checkbox&gt;
     &lt;label for="binary"&gt;&#123;&#123;checked&#125;&#125;&lt;/label&gt;
 &lt;/div&gt;
 &lt;h5&gt;Multiple&lt;/h5&gt;
-&lt;div class="p-field-checkbox"&gt;
+&lt;div class="field-checkbox"&gt;
     &lt;p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"&gt;&lt;/p-checkbox&gt;
     &lt;label for="ny"&gt;New York&lt;/label&gt;
 &lt;/div&gt;
-&lt;div class="p-field-checkbox"&gt;
+&lt;div class="field-checkbox"&gt;
     &lt;p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"&gt;&lt;/p-checkbox&gt;
     &lt;label for="sf"&gt;San Francisco&lt;/label&gt;
 &lt;/div&gt;
-&lt;div class="p-field-checkbox"&gt;
+&lt;div class="field-checkbox"&gt;
     &lt;p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"&gt;&lt;/p-checkbox&gt;
     &lt;label for="la"&gt;Los Angeles&lt;/label&gt;
 &lt;/div&gt;
-&lt;div class="p-field-checkbox"&gt;
+&lt;div class="field-checkbox"&gt;
     &lt;p-checkbox name="group1" value="Chicago" [(ngModel)]="selectedCities" inputId="ch"&gt;&lt;/p-checkbox&gt;
     &lt;label for="ch"&gt;Chicago&lt;/label&gt;
 &lt;/div&gt;
 
 &lt;h5&gt;Dynamic Values, Preselection, Value Binding and Disabled Option&lt;/h5&gt;
-&lt;div *ngFor="let category of categories" class="p-field-checkbox"&gt;
+&lt;div *ngFor="let category of categories" class="field-checkbox"&gt;
     &lt;p-checkbox name="group2" value="category" [value]="category"  [(ngModel)]="selectedCategories" [inputId]="category.key" [disabled]="category.key === 'R'"&gt;&lt;/p-checkbox&gt;
     &lt;label [for]="category.key"&gt;&#123;&#123;category.name&#125;&#125;&lt;/label&gt;
 &lt;/div&gt;

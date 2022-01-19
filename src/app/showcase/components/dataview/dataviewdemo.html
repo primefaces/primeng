@@ -11,9 +11,9 @@
         <p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
             [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
             <ng-template pTemplate="header">
-                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
-                    <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                <div class="flex flex-column md:flex-row md:justify-content-between">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                    <span class="p-input-icon-left mb-2 md:mb-0">
                         <i class="pi pi-search"></i>
                         <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
                     </span>
@@ -21,7 +21,7 @@
                 </div>
             </ng-template>
             <ng-template let-product pTemplate="listItem">
-                <div class="p-col-12">
+                <div class="col-12">
                     <div class="product-list-item">
                         <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/>
                         <div class="product-list-detail">
@@ -39,7 +39,7 @@
                 </div>
             </ng-template>
             <ng-template let-product pTemplate="gridItem">
-                <div class="p-col-12 p-md-4">
+                <div class="col-12 md:col-4">
                     <div class="product-grid-item card">
                         <div class="product-grid-item-top">
                             <div>
@@ -145,7 +145,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -164,7 +164,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -189,7 +189,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -211,7 +211,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -244,7 +244,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -274,7 +274,7 @@ loadData(event) &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -672,9 +672,9 @@ export class DataViewSortDemo implements OnInit &#123;
     &lt;p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
         [sortField]="sortField" [sortOrder]="sortOrder" layout="grid"&gt;
         &lt;ng-template pTemplate="header"&gt;
-            &lt;div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between"&gt;
-                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"&gt;&lt;/p-dropdown&gt;
-                &lt;span class="p-input-icon-left p-mb-2 p-mb-md-0"&gt;
+            &lt;div class="flex flex-column md:flex-row md:justify-content-between"&gt;
+                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"&gt;&lt;/p-dropdown&gt;
+                &lt;span class="p-input-icon-left mb-2 md:mb-0"&gt;
                     &lt;i class="pi pi-search"&gt;&lt;/i&gt;
                     &lt;input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)"&gt;
                 &lt;/span&gt;
@@ -682,7 +682,7 @@ export class DataViewSortDemo implements OnInit &#123;
             &lt;/div&gt;
         &lt;/ng-template&gt;
         &lt;ng-template let-product pTemplate="listItem"&gt;
-            &lt;div class="p-col-12"&gt;
+            &lt;div class="col-12"&gt;
                 &lt;div class="product-list-item"&gt;
                     &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/&gt;
                     &lt;div class="product-list-detail"&gt;
@@ -700,7 +700,7 @@ export class DataViewSortDemo implements OnInit &#123;
             &lt;/div&gt;
         &lt;/ng-template&gt;
         &lt;ng-template let-product pTemplate="gridItem"&gt;
-            &lt;div class="p-col-12 p-md-4"&gt;
+            &lt;div class="col-12 md:col-4"&gt;
                 &lt;div class="product-grid-item card"&gt;
                     &lt;div class="product-grid-item-top"&gt;
                         &lt;div&gt;
