@@ -8,7 +8,7 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys, OverlayService} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
+import {UniqueComponentId, ZIndexUtils, ObjectUtils} from 'primeng/utils';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1026,8 +1026,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     formatDateTime(date) {
-        let formattedValue = null;
-        if (date) {
+        let formattedValue = this.keepInvalid ? date : null;
+
+        if (this.isValidDate(date)) {
             if (this.timeOnly) {
                 formattedValue = this.formatTime(date);
             }
@@ -1246,7 +1247,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isDateEquals(value, dateMeta) {
-        if (value)
+        if (value && value instanceof Date)
             return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else
             return false;
@@ -2210,7 +2211,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         catch(err) {
             //invalid date
-            this.updateModel(null);
+            let value = this.keepInvalid ? val : null;
+            this.updateModel(value);
         }
 
         this.filled = val != null && val.length;
@@ -2296,11 +2298,17 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         value.setSeconds(time.second);
     }
 
+    isValidDate(date) {
+        return date instanceof Date && ObjectUtils.isNotEmpty(date);
+    }
+
     updateUI() {
-        let val = this.value||this.defaultDate||new Date();
-        if (Array.isArray(val)){
-            val = val[0];
+        let propValue = this.value;
+        if (Array.isArray(propValue)) {
+            propValue = propValue[0];
         }
+
+        let val = this.defaultDate && this.isValidDate(this.defaultDate) ? this.defaultDate : (propValue && this.isValidDate(propValue) ? propValue : new Date())
 
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();
@@ -2493,7 +2501,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     writeValue(value: any) : void {
         this.value = value;
         if (this.value && typeof this.value === 'string') {
-            this.value = this.parseValueFromString(this.value);
+            try {
+                this.value = this.parseValueFromString(this.value);
+            }
+            catch{
+                this.value = value;
+            }
         }
 
         this.updateInputfield();
