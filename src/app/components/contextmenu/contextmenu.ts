@@ -237,7 +237,6 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
         else if (this.target) {
             this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
-                this.preventDocumentDefault = true;
                 this.show(event);
                 event.preventDefault();
             });
@@ -256,6 +255,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.position(event);
         this.moveOnTop();
         this.containerViewChild.nativeElement.style.display = 'block';
+        this.preventDocumentDefault = true;
         DomHandler.fadeIn(this.containerViewChild.nativeElement, 250);
         this.bindGlobalListeners();
 
