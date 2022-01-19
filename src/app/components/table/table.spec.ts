@@ -1169,7 +1169,6 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
@@ -1208,7 +1207,6 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
