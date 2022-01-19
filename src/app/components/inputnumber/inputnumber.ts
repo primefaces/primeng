@@ -1,9 +1,10 @@
-
-import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation, ChangeDetectorRef, SimpleChanges} from '@angular/core';
+import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation, ChangeDetectorRef, SimpleChanges, OnChanges} from "@angular/core";
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+
+type NumberValue = number | "-" | null;
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -43,8 +44,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class.p-inputwrapper-focus]': 'focused'
     }
 })
-export class InputNumber implements OnInit,ControlValueAccessor {
-
+export class InputNumber implements OnInit, ControlValueAccessor, OnChanges {
     @Input() showButtons: boolean = false;
 
     @Input() format: boolean = true;
@@ -55,7 +55,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() styleClass: string;
 
-    @Input() style: any;
+    @Input() style: { [key: string]: any };
 
     @Input() placeholder: string;
 
@@ -129,47 +129,47 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Output() onKeyDown: EventEmitter<any> = new EventEmitter();
 
-    value: number;
+    private value: NumberValue;
 
-    onModelChange: Function = () => {};
+    private onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => {};
+    private onModelTouched: Function = () => {};
 
     focused: boolean;
 
-    initialized: boolean;
+    private initialized: boolean;
 
-    groupChar: string = '';
+    private groupChar: string = '';
 
-    prefixChar: string = '';
+    private prefixChar: string = '';
 
-    suffixChar: string = '';
+    private suffixChar: string = '';
 
-    isSpecialChar: boolean;
+    private isSpecialChar: boolean;
 
-    timer: any;
+    private timer: any;
 
-    lastValue: string;
+    private lastValue: string;
 
-    _numeral: any;
+    private _numeral: RegExp;
 
-    numberFormat: any;
+    private numberFormat: Intl.NumberFormat;
 
-    _decimal: any;
+    private _decimal: RegExp;
 
-    _group: any;
+    private _group: RegExp;
 
-    _minusSign: any;
+    private _minusSign: RegExp;
 
-    _currency: any;
+    private _currency: RegExp;
 
-    _prefix: any;
+    private _prefix: RegExp;
 
-    _suffix: any;
+    private _suffix: RegExp;
 
-    _index: any;
+    private _index: (key: string) => string;
 
-    _disabled: boolean;
+    private _disabled: boolean;
 
     @Input() get disabled(): boolean {
         return this._disabled;
@@ -223,7 +223,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this._decimal = this.getDecimalExpression();
         this._suffix = this.getSuffixExpression();
         this._prefix = this.getPrefixExpression();
-        this._index = d => index.get(d);
+        this._index = d => index.get(d).toString();
     }
 
     updateConstructParser() {
@@ -287,7 +287,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return new RegExp(`${this.escapeRegExp(this.suffixChar||'')}`, 'g');
     }
 
-    formatValue(value) {
+    formatValue(value: string | number | null) {
         if (value != null) {
             if (value === '-') { // Minus sign
                 return value;
@@ -295,7 +295,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
             if (this.format) {
                 let formatter = new Intl.NumberFormat(this.locale, this.getOptions());
-                let formattedValue = formatter.format(value);
+                let formattedValue = formatter.format(Number(value));
                 if (this.prefix) {
                     formattedValue = this.prefix + formattedValue;
                 }
@@ -313,7 +313,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return '';
     }
 
-    parseValue(text) {
+    parseValue(text: string): NumberValue {
         let filteredText = text
                             .replace(this._suffix, '')
                             .replace(this._prefix, '')
@@ -336,7 +336,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return null;
     }
 
-    repeat(event, interval, dir) {
+    repeat(event: Event, interval: number, dir: number) {
         if (this.readonly) {
             return;
         }
@@ -351,10 +351,15 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.spin(event, dir);
     }
 
-    spin(event, dir) {
+    spin(event: Event, dir: number) {
         let step = this.step * dir;
         let currentValue = this.parseValue(this.input.nativeElement.value) || 0;
-        let newValue = this.validateValue(currentValue + step);
+        let newValue: number;
+        if (currentValue === '-') {
+            newValue = -step;
+        } else {
+            newValue = this.validateValue(Number(currentValue) + step);
+        }
         if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
             return;
         }
@@ -362,10 +367,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.updateInput(newValue, null, 'spin', null);
         this.updateModel(event, newValue);
 
-        this.handleOnInput(event, currentValue, newValue);
+        this.handleOnInput(event, currentValue == '-' ? 0 : Number(currentValue), newValue);
     }
 
-    onUpButtonMouseDown(event) {
+    onUpButtonMouseDown(event: Event) {
         this.input.nativeElement.focus();
         this.repeat(event, null, 1);
         event.preventDefault();
@@ -379,7 +384,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.clearTimer();
     }
 
-    onUpButtonKeyDown(event) {
+    onUpButtonKeyDown(event: KeyboardEvent) {
         if (event.keyCode === 32 || event.keyCode === 13) {
             this.repeat(event, null, 1);
         }
@@ -389,7 +394,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.clearTimer();
     }
 
-    onDownButtonMouseDown(event) {
+    onDownButtonMouseDown(event: Event) {
         this.input.nativeElement.focus();
         this.repeat(event, null, -1);
         event.preventDefault();
@@ -407,37 +412,37 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.clearTimer();
     }
 
-    onDownButtonKeyDown(event) {
+    onDownButtonKeyDown(event: KeyboardEvent) {
         if (event.keyCode === 32 || event.keyCode === 13) {
             this.repeat(event, null, -1);
         }
     }
 
-    onUserInput(event) {
+    onUserInput(event: Event) {
         if(this.readonly) {
             return;
         }
 
         if (this.isSpecialChar) {
-            event.target.value = this.lastValue;
+            (event.target as any).value = this.lastValue;
         }
         this.isSpecialChar = false;
     }
 
-    onInputKeyDown(event) {
+    onInputKeyDown(event: KeyboardEvent) {
         if(this.readonly) {
             return;
         }
 
-        this.lastValue = event.target.value;
+        this.lastValue = (event.target as any).value;
         if (event.shiftKey || event.altKey) {
             this.isSpecialChar = true;
             return;
         }
 
-        let selectionStart = event.target.selectionStart;
-        let selectionEnd = event.target.selectionEnd;
-        let inputValue = event.target.value;
+        let selectionStart = (event.target as any).selectionStart;
+        let selectionEnd = (event.target as any).selectionEnd;
+        let inputValue = (event.target as any).value;
         let newValueStr = null;
 
         if (event.altKey) {
@@ -580,7 +585,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.onKeyDown.emit(event);
     }
 
-    onInputKeyPress(event) {
+    onInputKeyPress(event: KeyboardEvent) {
         if (this.readonly) {
             return;
         }
@@ -596,7 +601,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         }
     }
 
-    onPaste(event) {
+    onPaste(event: ClipboardEvent) {
         if (!this.disabled && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || window['clipboardData']).getData('Text');
@@ -613,7 +618,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return this.min == null || this.min < 0;
     }
 
-    isMinusSign(char) {
+    isMinusSign(char: string) {
         if (this._minusSign.test(char) || char === '-') {
             this._minusSign.lastIndex = 0;
             return true;
@@ -622,7 +627,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return false;
     }
 
-    isDecimalSign(char) {
+    isDecimalSign(char: string) {
         if (this._decimal.test(char)) {
             this._decimal.lastIndex = 0;
             return true;
@@ -635,7 +640,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return this.mode === 'decimal';
     }
 
-    getDecimalCharIndexes(val) {
+    getDecimalCharIndexes(val: string) {
         let decimalCharIndex = val.search(this._decimal);
         this._decimal.lastIndex = 0;
 
@@ -646,7 +651,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return { decimalCharIndex, decimalCharIndexWithoutPrefix };
     }
 
-    getCharIndexes(val) {
+    getCharIndexes(val: string) {
         const decimalCharIndex = val.search(this._decimal);
         this._decimal.lastIndex = 0;
         const minusCharIndex = val.search(this._minusSign);
@@ -659,18 +664,18 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex };
     }
 
-    insert(event, text, sign = { isDecimalSign: false, isMinusSign: false }) {
+    insert(event: Event, text: string, sign = { isDecimalSign: false, isMinusSign: false }) {
         const minusCharIndexOnText = text.search(this._minusSign);
         this._minusSign.lastIndex = 0;
         if (!this.allowMinusSign() && minusCharIndexOnText !== -1) {
             return;
         }
 
-        let selectionStart = this.input.nativeElement.selectionStart;
-        let selectionEnd = this.input.nativeElement.selectionEnd;
-        let inputValue = this.input.nativeElement.value.trim();
+        let selectionStart: number = this.input.nativeElement.selectionStart;
+        let selectionEnd: number = this.input.nativeElement.selectionEnd;
+        let inputValue: string = this.input.nativeElement.value.trim();
         const { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex } = this.getCharIndexes(inputValue);
-        let newValueStr;
+        let newValueStr: string;
 
         if (sign.isMinusSign) {
             if (selectionStart === 0) {
@@ -714,7 +719,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         }
     }
 
-    insertText(value, text, start, end) {
+    insertText(value: string, text: string, start: number, end: number) {
         let textSplit = text === '.' ? text : text.split('.');
 
         if (textSplit.length === 2) {
@@ -736,7 +741,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         }
     }
 
-    deleteRange(value, start, end) {
+    deleteRange(value: string, start: number, end: number) {
         let newValueStr;
 
         if ((end - start) === value.length)
@@ -810,7 +815,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         }
     }
 
-    isNumeralChar(char) {
+    isNumeralChar(char: string) {
         if (char.length === 1 && (this._numeral.test(char) || this._decimal.test(char) || this._group.test(char) || this._minusSign.test(char))) {
             this.resetRegex();
             return true;
@@ -826,7 +831,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this._minusSign.lastIndex =  0;
     }
 
-    updateValue(event, valueStr, insertedValueStr, operation) {
+    updateValue(event: Event, valueStr: string, insertedValueStr: string, operation: string) {
         let currentValue = this.input.nativeElement.value;
         let newValue = null;
 
@@ -839,13 +844,14 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         }
     }
 
-    handleOnInput(event, currentValue, newValue) {
+    handleOnInput(event: Event, currentValue: string | number, newValue: number) {
         if (this.isValueChanged(currentValue, newValue)) {
             this.onInput.emit({ originalEvent: event, value: newValue });
+            this.onModelChange(newValue);
         }
     }
 
-    isValueChanged(currentValue, newValue) {
+    isValueChanged(currentValue: string | number, newValue: string | number) {
         if (newValue === null && currentValue !== null) {
             return true;
         }
@@ -858,7 +864,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return false;
     }
 
-    validateValue(value) {
+    validateValue(value: NumberValue) {
         if (value === '-' || value == null) {
             return null;
         }
@@ -874,7 +880,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return value;
     }
 
-    updateInput(value, insertedValueStr, operation, valueStr) {
+    updateInput(value: NumberValue, insertedValueStr: string, operation: string, valueStr: string) {
         insertedValueStr = insertedValueStr || '';
 
         let inputValue = this.input.nativeElement.value;
@@ -955,7 +961,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.input.nativeElement.setAttribute('aria-valuenow', value);
     }
 
-    concatValues(val1, val2) {
+    concatValues(val1: string, val2: string) {
         if (val1 && val2) {
             let decimalCharIndex = val2.search(this._decimal);
             this._decimal.lastIndex = 0;
@@ -966,7 +972,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return val1;
     }
 
-    getDecimalLength(value) {
+    getDecimalLength(value: string) {
         if (value) {
             const valueSplit = value.split(this._decimal);
 
@@ -981,12 +987,12 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return 0;
     }
 
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         this.focused = true;
         this.onFocus.emit(event);
     }
 
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focused = false;
 
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
@@ -1002,7 +1008,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return this.formatValue(val);
     }
 
-    updateModel(event, value) {
+    updateModel(event: Event, value: number) {
         if (this.value !== value) {
             this.value = value;
             this.onModelChange(value);
