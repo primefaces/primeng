@@ -5,15 +5,15 @@ import {Component} from '@angular/core';
     template: `
         <div class="layout-footer">
             <div class="layout-footer-left">
-                <span>PrimeNG 13.0.4 by </span>
+                <span>PrimeNG 13.1.1-SNAPSHOT by </span>
                 <a href="https://www.primetek.com.tr">PrimeTek</a>
             </div>
 
             <div class="layout-footer-right">
-                <a href="https://github.com/primefaces/primeng" class="p-mr-3">
+                <a href="https://github.com/primefaces/primeng" class="mr-3">
                     <i class="pi pi-github"></i>
                 </a>
-                <a href="https://twitter.com/prime_ng" class="p-mr-3">
+                <a href="https://twitter.com/prime_ng" class="mr-3">
                     <i class="pi pi-twitter"></i>
                 </a>
 

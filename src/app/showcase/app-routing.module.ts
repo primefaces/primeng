@@ -76,7 +76,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'panelmenu', loadChildren: () => import('./components/panelmenu/panelmenudemo.module').then(m => m.PanelMenuDemoModule)},
             {path: 'password', loadChildren: () => import('./components/password/passworddemo.module').then(m => m.PasswordDemoModule)},
             {path: 'picklist', loadChildren: () => import('./components/picklist/picklistdemo.module').then(m => m.PickListDemoModule)},
-            {path: 'primeflex', loadChildren: () => import('./components/primeflex/primeflexdemo.module').then(m => m.PrimeFlexDemoModule)},
             {path: 'progressbar', loadChildren: () => import('./components/progressbar/progressbardemo.module').then(m => m.ProgressBarDemoModule)},
             {path: 'progressspinner', loadChildren: () => import('./components/progressspinner/progressspinnerdemo.module').then(m => m.ProgressSpinnerDemoModule)},
             {path: 'radiobutton', loadChildren: () => import('./components/radiobutton/radiobuttondemo.module').then(m => m.RadioButtonDemoModule)},

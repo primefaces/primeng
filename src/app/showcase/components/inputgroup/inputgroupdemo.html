@@ -9,15 +9,15 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Addons</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-4">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                     <input type="text" pInputText placeholder="Username">         
                 </div>
             </div>
             
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">$</span>
                     <input type="text" pInputText placeholder="Price">   
@@ -25,7 +25,7 @@
                 </div>
             </div>
                     
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">www</span>
                     <input type="text" pInputText placeholder="Website">      
@@ -34,8 +34,8 @@
         </div>
             
         <h5>Multiple Addons</h5>
-        <div class="p-grid">
-            <div class="p-col-12">
+        <div class="grid">
+            <div class="col-12">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-tags" style="line-height: 1.25;"></i></span>  
                     <span class="p-inputgroup-addon"><i class="pi pi-shopping-cart" style="line-height: 1.25;"></i></span>   
@@ -47,22 +47,22 @@
         </div>
         
         <h5>Button Addons</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-4">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <button type="button" pButton pRipple label="Search"></button>
                     <input type="text" pInputText placeholder="Keyword">         
                 </div>
             </div>
             
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <input type="text" pInputText placeholder="Keyword">   
                     <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"></button>      
                 </div>
             </div>
                     
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <button type="button" pButton pRipple icon="pi pi-check" styleClass="p-button-success"></button>    
                     <input type="text" pInputText placeholder="Vote">   
@@ -72,24 +72,24 @@
         </div>
 
         <h5>Checkbox and RadioButton</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-12">
+        <div class="grid p-fluid">
+            <div class="col-12">
                 <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><p-checkbox></p-checkbox></span>
+                    <span class="p-inputgroup-addon"><p-checkbox [(ngModel)]="checkbox1" [binary]="true"></p-checkbox></span>
                     <input type="text" pInputText placeholder="Username">         
                 </div>
             </div>
             
-            <div class="p-col-12 p-md-12">
+            <div class="col-12">
                 <div class="p-inputgroup">
                     <input type="text" pInputText placeholder="Price">   
                     <span class="p-inputgroup-addon"><p-radioButton name="category" value="price" [(ngModel)]="category"></p-radioButton></span>      
                 </div>
             </div>
                     
-            <div class="p-col-12 p-md-12">
+            <div class="col-12">
                 <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><p-checkbox></p-checkbox></span>
+                    <span class="p-inputgroup-addon"><p-checkbox [(ngModel)]="checkbox2" [binary]="true"></p-checkbox></span>
                     <input type="text" pInputText placeholder="Website">      
                     <span class="p-inputgroup-addon"><p-radioButton name="category" value="site" [(ngModel)]="category"></p-radioButton></span> 
                 </div>
@@ -110,15 +110,15 @@
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Addons&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-user"&gt;&lt;/i&gt;&lt;/span&gt;
             &lt;input type="text" pInputText placeholder="Username"&gt;         
         &lt;/div&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;$&lt;/span&gt;
             &lt;input type="text" pInputText placeholder="Price"&gt;   
@@ -126,7 +126,7 @@
         &lt;/div&gt;
     &lt;/div&gt;
             
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;www&lt;/span&gt;
             &lt;input type="text" pInputText placeholder="Website"&gt;      
@@ -135,8 +135,8 @@
 &lt;/div&gt;
     
 &lt;h5&gt;Multiple Addons&lt;/h5&gt;
-&lt;div class="p-grid"&gt;
-    &lt;div class="p-col-12"&gt;
+&lt;div class="grid"&gt;
+    &lt;div class="col-12"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-tags" style="line-height: 1.25;"&gt;&lt;/i&gt;&lt;/span&gt;  
             &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-shopping-cart" style="line-height: 1.25;"&gt;&lt;/i&gt;&lt;/span&gt;   
@@ -148,22 +148,22 @@
 &lt;/div&gt;
 
 &lt;h5&gt;Button Addons&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;button type="button" pButton pRipple label="Search"&gt;&lt;/button&gt;
             &lt;input type="text" pInputText placeholder="Keyword"&gt;         
         &lt;/div&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;input type="text" pInputText placeholder="Keyword"&gt;   
             &lt;button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"&gt;&lt;/button&gt;      
         &lt;/div&gt;
     &lt;/div&gt;
             
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;button type="button" pButton pRipple icon="pi pi-check" styleClass="p-button-success"&gt;&lt;/button&gt;    
             &lt;input type="text" pInputText placeholder="Vote"&gt;   
@@ -173,22 +173,22 @@
 &lt;/div&gt;
 
 &lt;h5&gt;Checkbox and RadioButton&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-col-12 p-md-12"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="col-12"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;&lt;p-checkbox&gt;&lt;/p-checkbox&gt;&lt;/span&gt;
             &lt;input type="text" pInputText placeholder="Username"&gt;         
         &lt;/div&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-12"&gt;
+    &lt;div class="col-12"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;input type="text" pInputText placeholder="Price"&gt;   
             &lt;span class="p-inputgroup-addon"&gt;&lt;p-radioButton name="category" value="price" [(ngModel)]="category"&gt;&lt;/p-radioButton&gt;&lt;/span&gt;      
         &lt;/div&gt;
     &lt;/div&gt;
             
-    &lt;div class="p-col-12 p-md-12"&gt;
+    &lt;div class="col-12"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;&lt;p-checkbox&gt;&lt;/p-checkbox&gt;&lt;/span&gt;
             &lt;input type="text" pInputText placeholder="Website"&gt;      

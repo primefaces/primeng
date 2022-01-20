@@ -16,7 +16,7 @@
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;"/>
                 </div>
             </ng-template>
@@ -32,7 +32,7 @@
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;"/>
                 </div>
             </ng-template>
@@ -41,8 +41,8 @@
 
     <div class="card">
         <h5>Custom Contents</h5>
-        <div *ngIf="images" class="p-grid" style="max-width: 400px;">
-            <div *ngFor="let image of images; let index = index;" class="p-col-3" key="index">
+        <div *ngIf="images" class="grid" style="max-width: 400px;">
+            <div *ngFor="let image of images; let index = index;" class="col-3" key="index">
                 <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)"/>
             </div>
         </div>
@@ -52,7 +52,7 @@
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;"/>
                 </div>
             </ng-template>
@@ -139,7 +139,7 @@ export class GalleriaFullscreenDemo implements OnInit &#123;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;div class="grid grid-nogutter justify-content-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" style="display: block;"/&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -152,7 +152,7 @@ export class GalleriaFullscreenDemo implements OnInit &#123;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;div class="grid grid-nogutter justify-content-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" style="display: block;"/&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -165,13 +165,13 @@ export class GalleriaFullscreenDemo implements OnInit &#123;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;div class="grid grid-nogutter justify-content-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" style="display: block;"/&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;div *ngIf="images" class="p-grid" style="max-width: 400px;"&gt;
-    &lt;div *ngFor="let image of images; let index = index;" class="p-col-3" key="index"&gt;
+&lt;div *ngIf="images" class="grid" style="max-width: 400px;"&gt;
+    &lt;div *ngFor="let image of images; let index = index;" class="col-3" key="index"&gt;
         &lt;img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)"/&gt;
     &lt;/div&gt;
 &lt;/div&gt;

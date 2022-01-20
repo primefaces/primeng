@@ -20,8 +20,8 @@
         <h5>Grouped</h5>
         <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
             <ng-template let-group pTemplate="group">
-                <div class="p-d-flex p-ai-center">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
+                <div class="flex align-items-center">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
                     <span>{{group.label}}</span>
                 </div>
             </ng-template>
@@ -757,8 +757,8 @@ export class MultiSelectDemo &#123;
 &lt;h5&gt;Grouped&lt;/h5&gt;
 &lt;p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
-        &lt;div class="p-d-flex p-ai-center"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+        &lt;div class="flex align-items-center"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
             &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;

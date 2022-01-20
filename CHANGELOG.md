@@ -1,6 +1,34 @@
 # Changelog
 
-## [13.0.4:](https://github.com/primefaces/primeng/tree/HEAD)
+## [13.1.0:](https://github.com/primefaces/primeng/tree/HEAD)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.4...13.1.0)
+
+**Implemented New Features and Enhancements:**
+
+- Update themes for list shadow style [\#11083](https://github.com/primefaces/primeng/issues/11083)
+- Calendar | KeepInvalid Support [\#11089](https://github.com/primefaces/primeng/issues/11089)
+- Improve resizable structure on DataTable [\#11082](https://github.com/primefaces/primeng/issues/11082)
+- MegaMenu | RouterLink CtrlKey support [\#11049](https://github.com/primefaces/primeng/issues/11049)
+
+**Fixed bugs:**
+
+- Calendar firstDayOfWeek returns the number of months [\#11070](https://github.com/primefaces/primeng/issues/11070)
+- Dropdown | filled background problem [\#11069](https://github.com/primefaces/primeng/issues/11069)
+- Multiple ContextMenu's on the same page/component do not work as expected [\#11048](https://github.com/primefaces/primeng/issues/11048)
+- TypeError: Cannot read properties of undefined (reading 'nativeElement') with scrollable and state enabled table [\#10792](https://github.com/primefaces/primeng/issues/10792)
+- p-tree node toggler button is shrunk until not visible if label starts to not fit the node [\#11039](https://github.com/primefaces/primeng/issues/11039)
+- multi select with group ignores filterBy option [\#11036](https://github.com/primefaces/primeng/issues/11036)
+- TabMenu and Steps | All items with routerLink being highlighted [\#11028](https://github.com/primefaces/primeng/issues/11028)
+- Table | Footer is not align when resize mode is enable. [\#10979](https://github.com/primefaces/primeng/issues/10979)
+- Table border is not showing in Firefox browser [\#11010](https://github.com/primefaces/primeng/issues/11010)
+- Calendar | Some Months are disabled when using disabled dates [\#11027](https://github.com/primefaces/primeng/issues/11027)
+- Calendar | Displayed year doesn't update for month picker [\#11024](https://github.com/primefaces/primeng/issues/11024)
+- TableHeaderCheckbox is checked when the selection array is empty [\#11025](https://github.com/primefaces/primeng/issues/11025)
+- Table | ColResize Expand Mode not Compatible with Table Scroll [\#11021](https://github.com/primefaces/primeng/issues/11021)
+- Material Light | Surface Border is invalid [\#11015](https://github.com/primefaces/primeng/issues/11015)
+
+## [13.0.4:](https://github.com/primefaces/primeng/tree/13.0.4)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.0.3...13.0.4)
 

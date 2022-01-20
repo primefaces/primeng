@@ -2505,7 +2505,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 this.value = this.parseValueFromString(this.value);
             }
             catch{
-                this.value = value;
+                if (this.keepInvalid) {
+                    this.value = value;
+                }
             }
         }
 
