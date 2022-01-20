@@ -376,7 +376,7 @@ export class AppMenuComponent {
         {
             label: 'PrimeIcons', value: 'primeicons',
             items: [
-                {label: 'Icons v4.1', value: '/icons'}
+                {label: 'Icons v5', value: '/icons'}
             ]
         },
         {
