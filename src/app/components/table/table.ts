@@ -23,6 +23,16 @@ import { Subject, Subscription } from 'rxjs';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 
+
+export interface FilterDefinition {
+    [s: string]: FilterMetadata | FilterMetadata[];
+}
+
+export interface FilterOutput {
+    filters: FilterDefinition;
+    filteredValue: any[];
+}
+
 @Injectable()
 export class TableService {
 
@@ -227,7 +237,7 @@ export class Table implements OnInit, OnDestroy, AfterViewInit, AfterContentInit
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
+    @Input() filters: FilterDefinition = {};
 
     @Input() globalFilterFields: string[];
 
@@ -309,7 +319,7 @@ export class Table implements OnInit, OnDestroy, AfterViewInit, AfterContentInit
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
 
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    @Output() onFilter: EventEmitter<FilterOutput> = new EventEmitter();
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -479,6 +489,7 @@ export class Table implements OnInit, OnDestroy, AfterViewInit, AfterContentInit
 
     columnOrderStateRestored: boolean;
 
+    @Input()
     columnWidthsState: string;
 
     tableWidthState: string;
