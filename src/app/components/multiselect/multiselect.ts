@@ -290,7 +290,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() display: string = 'comma';
 
-    @Input() autocomplete: string = 'default-value';
+    @Input() autocomplete: string = 'on';
 
     @ViewChild('container') containerViewChild: ElementRef;
 
