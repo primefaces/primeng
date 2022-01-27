@@ -369,6 +369,9 @@ export class DomHandler {
     }
 
     public static getWidth(el): number {
+        if(!el) {
+            return 0;
+        }
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
