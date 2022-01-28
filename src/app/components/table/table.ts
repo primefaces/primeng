@@ -3820,7 +3820,7 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     template: `
-        <div #container class="p-radiobutton p-component" [ngClass]="{'p-radiobutton-focused':focused, 'p-radiobutton-disabled': disabled}" (click)="onClick($event)">
+        <div class="p-radiobutton p-component" [ngClass]="{'p-radiobutton-focused':focused, 'p-radiobutton-disabled': disabled}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="disabled" [attr.aria-label]="ariaLabel">
@@ -3896,7 +3896,7 @@ export class TableRadioButton  {
 @Component({
     selector: 'p-tableCheckbox',
     template: `
-        <div #container class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused, 'p-checkbox-disabled': disabled}" (click)="onClick($event)">
+        <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused, 'p-checkbox-disabled': disabled}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled"
                 [attr.required]="required" [attr.aria-label]="ariaLabel">
@@ -3975,7 +3975,7 @@ export class TableCheckbox  {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <div #container class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused, 'p-checkbox-disabled': disabled}" (click)="onClick($event)">
+        <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused, 'p-checkbox-disabled': isDisabled()}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="isDisabled()" [attr.aria-label]="ariaLabel">
@@ -3995,8 +3995,6 @@ export class TableCheckbox  {
 export class TableHeaderCheckbox  {
 
     @ViewChild('box') boxViewChild: ElementRef;
-
-    @ViewChild('container') containerViewChild: ElementRef;
 
     @Input() disabled: boolean;
 
