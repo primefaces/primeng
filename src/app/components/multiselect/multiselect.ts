@@ -1047,8 +1047,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     activateFilter() {
         if (this.hasFilter() && this._options) {
             let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
-            if (this.group) {
 
+            if (this.group) {
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
                     let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
@@ -1084,7 +1084,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 if (!this.preventDocumentDefault && this.isOutsideClicked(event)) {
                     this.hide();
                 }
-                
+
                 this.preventDocumentDefault = false;
             });
         }
