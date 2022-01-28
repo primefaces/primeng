@@ -1084,6 +1084,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 if (!this.preventDocumentDefault && this.isOutsideClicked(event)) {
                     this.hide();
                 }
+                
                 this.preventDocumentDefault = false;
             });
         }
