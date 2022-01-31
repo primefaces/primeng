@@ -145,6 +145,17 @@
 - Wrong zIndex for p-toast [\#10801](https://github.com/primefaces/primeng/issues/10801)
 - TypeError: Cannot read properties of undefined \(reading 'style'\) at FrozenColumn.updateStickyPosition [\#10794](https://github.com/primefaces/primeng/issues/10794)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [12.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/12.2.5) (2022-01-31)
+- p-tree node toggler button is shrunk until not visible if label starts to not fit the node [\#11039](https://github.com/primefaces/primeng/issues/11039)
+- multi select with group ignores filterBy option [\#11036](https://github.com/primefaces/primeng/issues/11036)
+- Material Light | Surface Border is invalid [\#11015](https://github.com/primefaces/primeng/issues/11015)
+- Table Selection | Disabled checkbox getting pointer cursor [\#11004](https://github.com/primefaces/primeng/issues/11004)
+- Table, TreeTable | Checkbox and RadioButton Focus Missing on Material [\#10996](https://github.com/primefaces/primeng/issues/10996)
+- Problem with keydown for FileUpload component [\#10575](https://github.com/primefaces/primeng/issues/10575)
+- calendar firstDayOfWeek won't change dinamically [\#10574](https://github.com/primefaces/primeng/issues/10574)
+- Wrong emit on accordion open [\#10509](https://github.com/primefaces/primeng/issues/10509)
+- Dropdown is not opening programmatically using the show() method [\#10454](https://github.com/primefaces/primeng/issues/10454)
+- Globally configure p-calendar firstDayOfWeek [\#9635](https://github.com/primefaces/primeng/issues/9635)
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [12.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/12.2.4) (2021-12-06)
 - TypeError: Cannot read properties of undefined (reading 'classList') at Function.addClass [\#10909](https://github.com/primefaces/primeng/issues/10909)
 - Table header hides when scrolling [\#10887](https://github.com/primefaces/primeng/issues/10887)
@@ -407,6 +418,18 @@
 **Fixed bugs:**
 
 - Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.10-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.10) (2022-01-31)
+- p-tree node toggler button is shrunk until not visible if label starts to not fit the node [\#11039](https://github.com/primefaces/primeng/issues/11039)
+- multi select with group ignores filterBy option [\#11036](https://github.com/primefaces/primeng/issues/11036)
+- Material Light | Surface Border is invalid [\#11015](https://github.com/primefaces/primeng/issues/11015)
+- Table Selection | Disabled checkbox getting pointer cursor [\#11004](https://github.com/primefaces/primeng/issues/11004)
+- Table, TreeTable | Checkbox and RadioButton Focus Missing on Material [\#10996](https://github.com/primefaces/primeng/issues/10996)
+- Problem with keydown for FileUpload component [\#10575](https://github.com/primefaces/primeng/issues/10575)
+- calendar firstDayOfWeek won't change dinamically [\#10574](https://github.com/primefaces/primeng/issues/10574)
+- Wrong emit on accordion open [\#10509](https://github.com/primefaces/primeng/issues/10509)
+- Dropdown is not opening programmatically using the show() method [\#10454](https://github.com/primefaces/primeng/issues/10454)
+- Globally configure p-calendar firstDayOfWeek [\#9635](https://github.com/primefaces/primeng/issues/9635)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.9-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.9) (2021-12-06)
 - p-sidebar not trigger visibleChange output event [\#10884](https://github.com/primefaces/primeng/issues/10884)
