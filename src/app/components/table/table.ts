@@ -3994,8 +3994,6 @@ export class TableCheckbox  {
 })
 export class TableHeaderCheckbox  {
 
-    @ViewChild('box') boxViewChild: ElementRef;
-
     @Input() disabled: boolean;
 
     @Input() inputId: string;
