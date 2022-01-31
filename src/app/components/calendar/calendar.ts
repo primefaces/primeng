@@ -2308,8 +2308,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             propValue = propValue[0];
         }
 
-        let val = this.defaultDate && this.isValidDate(this.defaultDate) ? this.defaultDate : (propValue && this.isValidDate(propValue) ? propValue : new Date())
-
+        let val = this.defaultDate && this.isValidDate(this.defaultDate) && !this.value ? this.defaultDate : (propValue && this.isValidDate(propValue) ? propValue : new Date());
+        
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();
         this.createMonths(this.currentMonth, this.currentYear);
