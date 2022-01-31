@@ -9,7 +9,7 @@
 <div class="content-section implementation">
     <div class="card">
         <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"  responsiveLayout="scroll"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
             <ng-template pTemplate="caption">
