@@ -149,24 +149,6 @@ describe('Calendar', () => {
 		expect(panelEl.nativeElement.className).toContain('p-datepicker-inline')
 	});
 
-	it('should change locale (view month)', () => {
-		const createMonthPickerValuesSpy = spyOn(calendar, 'createMonthPickerValues').and.callThrough();
-		calendar.view = "month";
-		calendar.locale = {
-			firstDayOfWeek: 1,
-			dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
-			dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-			dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-			monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-			monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
-			today: 'Hoy',
-			clear: 'Borrar'
-		};
-		fixture.detectChanges();
-
-		expect(createMonthPickerValuesSpy).toHaveBeenCalled();
-	});
-
 	it('should select next month and call navForward', () => {
 		fixture.detectChanges();
 
@@ -344,41 +326,6 @@ describe('Calendar', () => {
 		}
 	});
 
-	it('should use year and month navigator', () => {
-
-		calendar.monthNavigator = true;
-		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2030";
-		fixture.detectChanges();
-
-		const onMonthDropdownChangeSpy = spyOn(calendar, 'onMonthDropdownChange').and.callThrough();
-		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		const focusEvent = new Event('focus');
-		inputEl.click();
-		inputEl.dispatchEvent(focusEvent);
-		fixture.detectChanges();
-
-		const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
-		expect(navigators.length).toEqual(2);
-		const monthDropdownEl = navigators[0];
-		const yearDropdownEl = navigators[1];
-		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "1";
-		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2019";
-		yearDropdownEl.nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(calendar.currentMonth).toEqual(1);
-		expect(calendar.currentYear).toEqual(2019);
-		const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-		const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
-		dates[17].nativeElement.click();
-		fixture.detectChanges();
-		expect(calendar.inputFieldValue).toEqual("02/18/2019");
-		expect(onMonthDropdownChangeSpy).toHaveBeenCalled();
-	});
-
 	it('should show time', () => {
 		const date = new Date(2017, 8, 23, 15, 12);
 		calendar.defaultDate = date;
@@ -411,13 +358,6 @@ describe('Calendar', () => {
 		const decrementHourEl = hourPicker.queryAll(By.css('.p-link'))[1];
 		const incrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[0];
 		const decrementMinuteEl = minutePicker.queryAll(By.css('.p-link'))[1];
-		const monthDropdownEl = navigators[0];
-		const yearDropdownEl = navigators[1];
-		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "7";
-		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2008";
-		yearDropdownEl.nativeElement.dispatchEvent(event);
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
 		incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
@@ -448,14 +388,6 @@ describe('Calendar', () => {
 		expect(decrementMinuteSpy).toHaveBeenCalled();
 		expect(incrementMinuteSpy).toHaveBeenCalled();
 		expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toEqual(calendar.inputFieldValue);
-		if (calendar.currentHour < 10 && calendar.currentMinute < 10)
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " 0" + calendar.currentHour + ":0" + calendar.currentMinute);
-		else if (calendar.currentHour < 10)
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " 0" + calendar.currentHour + ":" + calendar.currentMinute);
-		else if (calendar.currentMinute < 10)
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " " + calendar.currentHour + ":0" + calendar.currentMinute);
-		else
-			expect(calendar.inputFieldValue).toEqual("08/08/2008" + " " + calendar.currentHour + ":" + calendar.currentMinute);
 	});
 
 	it('should only time', () => {
@@ -504,28 +436,15 @@ describe('Calendar', () => {
 	});
 
 	it('should select multiple', () => {
+		calendar.defaultDate = new Date(2017, 8, 23, 11, 12);
+		jasmine.clock().mockDate(new Date(2017, 8, 23, 11, 12));
 		calendar.selectionMode = "multiple";
-		calendar.monthNavigator = true;
-		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2030";
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const focusEvent = new Event('focus');
 		inputEl.click();
 		inputEl.dispatchEvent(focusEvent);
-		fixture.detectChanges();
-
-		let defaultHour = calendar.currentHour;
-		let defaultMinute = calendar.currentMinute;
-		const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
-		const monthDropdownEl = navigators[0];
-		const yearDropdownEl = navigators[1];
-		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "7";
-		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2008";
-		yearDropdownEl.nativeElement.dispatchEvent(event);
 		fixture.detectChanges();
 
 		const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
@@ -545,33 +464,20 @@ describe('Calendar', () => {
 
 		expect(inputEl.value).toEqual(calendar.inputFieldValue);
 		expect(calendar.value.length).toEqual(2);
-		expect(calendar.inputFieldValue).toEqual("08/08/2008, 08/09/2008");
+		expect(calendar.inputFieldValue).toEqual("09/08/2017, 09/09/2017");
 	});
 
 	it('should select multiple with dataType string', () => {
+		calendar.defaultDate = new Date(2017, 8, 23, 11, 12);
+		jasmine.clock().mockDate(new Date(2017, 8, 23, 11, 12));
 		calendar.selectionMode = "multiple";
 		calendar.dataType = "string";
-		calendar.monthNavigator = true;
-		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2030";
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const focusEvent = new Event('focus');
 		inputEl.click();
 		inputEl.dispatchEvent(focusEvent);
-		fixture.detectChanges();
-
-		let defaultHour = calendar.currentHour;
-		let defaultMinute = calendar.currentMinute;
-		const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
-		const monthDropdownEl = navigators[0];
-		const yearDropdownEl = navigators[1];
-		const event = new Event('change');
-		monthDropdownEl.nativeElement.value = "7";
-		monthDropdownEl.nativeElement.dispatchEvent(event);
-		yearDropdownEl.nativeElement.value = "2008";
-		yearDropdownEl.nativeElement.dispatchEvent(event);
 		fixture.detectChanges();
 
 		const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
@@ -591,7 +497,7 @@ describe('Calendar', () => {
 
 		expect(inputEl.value).toEqual(calendar.inputFieldValue);
 		expect(calendar.value.length).toEqual(2);
-		expect(calendar.inputFieldValue).toEqual("08/08/2008, 08/09/2008");
+		expect(calendar.inputFieldValue).toEqual("09/08/2017, 09/09/2017");
 	});
 
 	it('should select today and clear input with button bar', fakeAsync(() => {
@@ -669,7 +575,6 @@ describe('Calendar', () => {
 	});
 
 	it('should show month picker', fakeAsync(() => {
-
 		calendar.view = "month";
 		calendar.dateFormat = "mm";
 		fixture.detectChanges();
@@ -686,7 +591,7 @@ describe('Calendar', () => {
 		const janEl = monthpickerEl.query(By.css('span')).nativeElement;
 		expect(monthpickerEl).toBeTruthy();
 		expect(panelEl.className).toContain("p-datepicker-monthpicker");
-		expect(janEl.textContent).toContain(calendar.monthPickerValues[0]);
+		expect(janEl.textContent).toContain("Jan");
 		janEl.click();
 		fixture.detectChanges();
 
@@ -725,6 +630,8 @@ describe('Calendar', () => {
 		expect(inputEl.value).toEqual(calendar.inputFieldValue);
 		expect(onDateSelectSpy).toHaveBeenCalled();
 		expect(onOverlayAnimationStartSpy).toHaveBeenCalled();
+        calendar.destroyMask();
+        tick(300)
 	}));
 
 	it('should select date with keyboardEvent', () => {
@@ -753,8 +660,8 @@ describe('Calendar', () => {
 		expect(calendar.currentMonth).toEqual(6);
 		expect(calendar.currentYear).toEqual(2008);
 		expect(firstEl.className).toContain("p-highlight");
-		expect(monthSpanEl.textContent).toEqual("July");
-		expect(yearSpanEl.textContent).toEqual("2008");
+		expect(monthSpanEl.textContent).toContain("July");
+		expect(yearSpanEl.textContent).toContain("2008");
 	});
 
 	it('should listen onfocus', () => {
@@ -853,28 +760,6 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		expect(onMonthChangeValue).toBeTruthy();
-	});
-
-	it('should listen onYearChange', () => {
-		calendar.yearNavigator = true;
-		fixture.detectChanges();
-
-		let onYearChangeValue;
-		calendar.onYearChange.subscribe(value => onYearChangeValue = value);
-		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-		const focusEvent = new Event('focus');
-		inputEl.click();
-		inputEl.dispatchEvent(focusEvent);
-		fixture.detectChanges();
-
-		const navigators = fixture.debugElement.query(By.css('.p-datepicker-title')).queryAll(By.css('select'));
-		const yearDropdownEl = navigators[0];
-		const event = new Event('change');
-		yearDropdownEl.nativeElement.value = "2019";
-		yearDropdownEl.nativeElement.dispatchEvent(event);
-		fixture.detectChanges();
-
-		expect(onYearChangeValue).toBeTruthy();
 	});
 
 	it('should show hourFormat', () => {
@@ -1001,8 +886,8 @@ describe('Calendar', () => {
 		const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
 		expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
 		expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
-		expect(yearEl.nativeElement.textContent).toEqual("2017");
-		expect(monthEl.nativeElement.textContent).toEqual("September");
+		expect(yearEl.nativeElement.textContent).toContain("2017");
+		expect(monthEl.nativeElement.textContent).toContain("September");
 		expect(calendar.currentMonth).toEqual(8);
 		expect(calendar.currentHour).toEqual(11);
 		expect(calendar.currentMinute).toEqual(12);
@@ -1573,7 +1458,7 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const currentMonthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(currentMonthEl.nativeElement.textContent).toEqual("January");
+		expect(currentMonthEl.nativeElement.textContent).toContain("January");
 		expect(calendar.currentMonth).toEqual(0);
 		expect(calendar.currentYear).toEqual(2018);
 		expect(navForwardSpy).toHaveBeenCalled();
@@ -1597,16 +1482,18 @@ describe('Calendar', () => {
 		fixture.detectChanges();
 
 		const currentMonthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-		expect(currentMonthEl.nativeElement.textContent).toEqual("December");
+		expect(currentMonthEl.nativeElement.textContent).toContain("December");
 		expect(calendar.currentMonth).toEqual(11);
 		expect(calendar.currentYear).toEqual(2016);
 		expect(navBackwardSpy).toHaveBeenCalled();
 	});
 
-	it('should change yearRange', () => {
+	it('should use Year Picker', () => {
+		const date = new Date(2017, 0, 23);
+		calendar.defaultDate = date;
+		jasmine.clock().mockDate(date);
 		calendar.dateFormat = "mm/yy";
-		calendar.yearNavigator = true;
-		calendar.yearRange = "2000:2019";
+        calendar.view = 'year';
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1615,10 +1502,10 @@ describe('Calendar', () => {
 		inputEl.dispatchEvent(focusEvent);
 		fixture.detectChanges();
 
-		const yearSelectEl = fixture.debugElement.query(By.css('.p-datepicker-year'));
-		const yearsEls = yearSelectEl.queryAll(By.css('option'));
-		expect(yearsEls.length).toEqual(20);
-		expect(yearsEls[19].nativeElement.textContent).toEqual("2019");
+		const yearSelectEl = fixture.debugElement.query(By.css('.p-yearpicker'));
+		const yearsEls = yearSelectEl.queryAll(By.css('.p-yearpicker-year'));
+		expect(yearsEls.length).toEqual(10);
+		expect(yearsEls[9].nativeElement.textContent).toContain("2019");
 	});
 
 	it('should change tabindex', () => {

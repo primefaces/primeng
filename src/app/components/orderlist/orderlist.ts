@@ -19,8 +19,9 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                 <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
             </div>
             <div class="p-orderlist-list-container">
-                <div class="p-orderlist-header" *ngIf="header">
-                    <div class="p-orderlist-title">{{header}}</div>
+                <div class="p-orderlist-header" *ngIf="header || headerTemplate">
+                    <div class="p-orderlist-title" *ngIf="!headerTemplate">{{header}}</div>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-orderlist-filter-container" *ngIf="filterBy">
                     <div class="p-orderlist-filter">
@@ -31,18 +32,29 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                 <ul #listelement cdkDropList (cdkDropListDropped)="onDrop($event)" class="p-orderlist-list" [ngStyle]="listStyle">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
-                             [style.display]="(isItemVisible(item) ? 'block' : 'none')" role="option" [attr.aria-selected]="isSelected(item)">
+                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd()" (keydown)="onItemKeydown($event,item,i)"
+                             *ngIf="isItemVisible(item)" role="option" [attr.aria-selected]="isSelected(item)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
+                    <ng-container *ngIf="isEmpty() && (emptyMessageTemplate || emptyFilterMessageTemplate)">
+                        <li *ngIf="!filterValue || !emptyFilterMessageTemplate" class="p-orderlist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                        </li>
+                        <li *ngIf="filterValue" class="p-orderlist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageTemplate"></ng-container>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./orderlist.css']
+    styleUrls: ['./orderlist.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
 
@@ -64,7 +76,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() metaKeySelection: boolean = true;
 
-    @Input() dragdrop: boolean;
+    @Input() dragdrop: boolean = false;
 
     @Input() controlsPosition: string = 'left';
 
@@ -89,6 +101,12 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public itemTemplate: TemplateRef<any>;
+
+    public headerTemplate: TemplateRef<any>;
+
+    public emptyMessageTemplate: TemplateRef<any>;
+
+    public emptyFilterMessageTemplate: TemplateRef<any>;
 
     _selection: any[];
 
@@ -129,6 +147,18 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
+                break;
+
+                case 'emptyfilter':
+                    this.emptyFilterMessageTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
                 break;
 
                 default:
@@ -229,12 +259,16 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         }
     }
 
-    onItemTouchEnd(event) {
+    onItemTouchEnd() {
         this.itemTouched = true;
     }
 
     isSelected(item: any) {
         return ObjectUtils.findIndexInList(item, this.selection) != -1;
+    }
+
+    isEmpty() {
+        return this.filterValue ? (!this.visibleOptions || this.visibleOptions.length === 0) : (!this.value || this.value.length === 0);
     }
 
     moveUp() {
@@ -253,6 +287,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                     break;
                 }
             }
+
+            if (this.dragdrop && this.filterValue)
+                this.filter();
 
             this.movedUp = true;
             this.onReorder.emit(this.selection);
@@ -273,6 +310,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                     break;
                 }
             }
+
+            if (this.dragdrop && this.filterValue)
+                this.filter();
 
             this.onReorder.emit(this.selection);
             this.listViewChild.nativeElement.scrollTop = 0;
@@ -296,6 +336,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && this.filterValue)
+                this.filter();
+
             this.movedDown = true;
             this.onReorder.emit(this.selection);
         }
@@ -316,14 +359,30 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && this.filterValue)
+                this.filter();
+
             this.onReorder.emit(this.selection);
             this.listViewChild.nativeElement.scrollTop = this.listViewChild.nativeElement.scrollHeight;
         }
     }
 
     onDrop(event: CdkDragDrop<string[]>) {
-        if (event.previousIndex !== event.currentIndex) {
-            moveItemInArray(this.value, event.previousIndex, event.currentIndex);
+        let previousIndex =  event.previousIndex;
+        let currentIndex = event.currentIndex;
+
+        if (previousIndex !== currentIndex) {
+
+            if (this.visibleOptions) {
+                if (this.filterValue) {
+                    previousIndex =  ObjectUtils.findIndexInList(event.item.data, this.value);
+                    currentIndex = ObjectUtils.findIndexInList(this.visibleOptions[currentIndex], this.value);
+                }
+
+                moveItemInArray(this.visibleOptions, event.previousIndex, event.currentIndex);
+            }
+
+            moveItemInArray(this.value, previousIndex, currentIndex);
             this.onReorder.emit([event.item.data]);
         }
     }
@@ -406,7 +465,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                     }
                 }
             `;
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }

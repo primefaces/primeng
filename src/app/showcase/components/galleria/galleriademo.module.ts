@@ -16,6 +16,7 @@ import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
 import {GalleriaCaptionDemo} from './galleriacaptiondemo';
 import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -24,6 +25,7 @@ import {AppCodeModule} from '../../app.code.component';
         GalleriaModule,
         TabViewModule,
 		AppCodeModule,
+		AppDemoActionsModule,
 		ButtonModule
 	],
 	declarations: [

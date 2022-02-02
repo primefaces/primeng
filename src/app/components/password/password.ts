@@ -1,16 +1,17 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, Component, AfterContentInit, ViewChild, ChangeDetectorRef, forwardRef} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, Component, AfterContentInit, ViewChild, ChangeDetectorRef, forwardRef, Output, EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {PrimeNGConfig, PrimeTemplate, TranslationKeys} from 'primeng/api';
+import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule} from 'primeng/api';
+import {ZIndexUtils} from 'primeng/utils';
 import {InputTextModule} from 'primeng/inputtext';
+import { Subscription } from 'rxjs';
 
 @Directive({
     selector: '[pPassword]',
     host: {
-        '[class.p-inputtext]': 'true',
-        '[class.p-component]': 'true',
+        'class': 'p-inputtext p-component p-element',
         '[class.p-filled]': 'filled'
     }
 })
@@ -248,11 +249,11 @@ export const Password_VALUE_ACCESSOR: any = {
     selector: 'p-password',
     template: `
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
-            <input #input pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onFocus($event)" 
-                (blur)="onBlur($event)" (keyup)="onKeyUp($event)" />
+            <input #input [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onInputFocus($event)"
+                (blur)="onInputBlur($event)" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" />
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
-            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" 
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)">
+            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -278,13 +279,18 @@ export const Password_VALUE_ACCESSOR: any = {
               ])
         ])
     ],
+    host: {
+        'class': 'p-element p-inputwrapper',
+        '[class.p-inputwrapper-filled]': 'filled()',
+        '[class.p-inputwrapper-focus]': 'focused'
+    },
     providers: [Password_VALUE_ACCESSOR],
     styleUrls: ['./password.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class Password implements AfterContentInit,OnInit {
-    
+
     @Input() disabled: boolean;
 
     @Input() promptLabel: string;
@@ -298,6 +304,8 @@ export class Password implements AfterContentInit,OnInit {
     @Input() mediumLabel: string;
 
     @Input() strongLabel: string;
+
+    @Input() inputId: string;
 
     @Input() feedback: boolean = true;
 
@@ -321,6 +329,10 @@ export class Password implements AfterContentInit,OnInit {
 
     @ViewChild('input') input: ElementRef;
 
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
     contentTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
@@ -328,15 +340,15 @@ export class Password implements AfterContentInit,OnInit {
     headerTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     overlayVisible: boolean = false;
 
     meter: any;
-    
+
     infoText: string;
-    
+
     focused: boolean = false;
-    
+
     unmasked: boolean = false;
 
     mediumCheckRegExp: any;
@@ -357,8 +369,9 @@ export class Password implements AfterContentInit,OnInit {
 
     onModelTouched: Function = () => {};
 
+    translationSubscription: Subscription;
 
-    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
+    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -374,7 +387,7 @@ export class Password implements AfterContentInit,OnInit {
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;
@@ -386,23 +399,34 @@ export class Password implements AfterContentInit,OnInit {
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.updateUI(this.value || "");
+        });
     }
 
     onAnimationStart(event) {
         switch(event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                this.overlay.style.zIndex = String(DomHandler.generateZIndex());
+                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 this.appendContainer();
                 this.alignOverlay();
                 this.bindScrollListener();
                 this.bindResizeListener();
             break;
 
-            case 'hidden':
+            case 'void':
                 this.unbindScrollListener();
                 this.unbindResizeListener();
                 this.overlay = null;
+            break;
+        }
+    }
+
+    onAnimationEnd(event) {
+        switch(event.toState) {
+            case 'void':
+                ZIndexUtils.clear(event.element);
             break;
         }
     }
@@ -427,20 +451,31 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     onInput(event)  {
-        this.onModelChange(event.target.value);
+        this.value = event.target.value;
+        this.onModelChange(this.value);
         this.onModelTouched();
     }
 
-    onFocus(event) {
+    onInputFocus(event: Event) {
         this.focused = true;
         if (this.feedback) {
             this.overlayVisible = true;
         }
+
+        this.onFocus.emit(event);
     }
 
-    onBlur(event) {
+    onInputBlur(event: Event) {
         this.focused = false;
         if (this.feedback) {
+            this.overlayVisible = false;
+        }
+
+        this.onBlur.emit(event);
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
             this.overlayVisible = false;
         }
     }
@@ -448,51 +483,62 @@ export class Password implements AfterContentInit,OnInit {
     onKeyUp(event) {
         if (this.feedback) {
             let value = event.target.value;
-            let label = null;
-            let meter = null;
-
-            switch (this.testStrength(value)) {
-                case 1:
-                    label = this.weakText();
-                    meter = {
-                        strength: 'weak',
-                        width: '33.33%'
-                    };
-                    break;
-
-                case 2:
-                    label = this.mediumText();
-                    meter = {
-                        strength: 'medium',
-                        width: '66.66%'
-                    };
-                    break;
-
-                case 3:
-                    label = this.strongText();
-                    meter = {
-                        strength: 'strong',
-                        width: '100%'
-                    };
-                    break;
-
-                default:
-                    label = this.promptText();
-                    meter = null;
-                    break;
-            }
-
-            this.meter = meter;
-            this.infoText = label;
+            this.updateUI(value);
 
             if (!this.overlayVisible) {
                 this.overlayVisible = true;
             }
         }
-    }    
+    }
+
+    updateUI(value) {
+        let label = null;
+        let meter = null;
+
+        switch (this.testStrength(value)) {
+            case 1:
+                label = this.weakText();
+                meter = {
+                    strength: 'weak',
+                    width: '33.33%'
+                };
+                break;
+
+            case 2:
+                label = this.mediumText();
+                meter = {
+                    strength: 'medium',
+                    width: '66.66%'
+                };
+                break;
+
+            case 3:
+                label = this.strongText();
+                meter = {
+                    strength: 'strong',
+                    width: '100%'
+                };
+                break;
+
+            default:
+                label = this.promptText();
+                meter = null;
+                break;
+        }
+
+        this.meter = meter;
+        this.infoText = label;
+    }
 
     onMaskToggle() {
         this.unmasked = !this.unmasked;
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     testStrength(str) {
@@ -511,9 +557,12 @@ export class Password implements AfterContentInit,OnInit {
     writeValue(value: any) : void {
         if (value === undefined)
             this.value = null;
-        else 
+        else
             this.value = value;
-        
+
+        if (this.feedback)
+            this.updateUI(this.value || "");
+
         this.cd.markForCheck();
     }
 
@@ -574,14 +623,12 @@ export class Password implements AfterContentInit,OnInit {
 
     containerClass() {
         return {'p-password p-component p-inputwrapper': true,
-            'p-inputwrapper-filled': this.filled(),
-            'p-inputwrapper-focus': this.focused,
             'p-input-icon-right': this.toggleMask
         };
     }
 
     inputFieldClass() {
-        return {'p-password-input' : true, 
+        return {'p-password-input' : true,
                 'p-disabled': this.disabled
         };
     }
@@ -632,18 +679,28 @@ export class Password implements AfterContentInit,OnInit {
     }
 
     ngOnDestroy() {
+        if (this.overlay) {
+            ZIndexUtils.clear(this.overlay);
+            this.overlay = null;
+        }
+
         this.restoreAppend();
         this.unbindResizeListener();
+
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
         }
     }
 }
 
 @NgModule({
     imports: [CommonModule, InputTextModule],
-    exports: [PasswordDirective, Password],
+    exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password]
 })
 export class PasswordModule { }

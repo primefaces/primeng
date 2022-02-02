@@ -3,6 +3,7 @@
         <h1>TabView</h1>
         <p>TabView is a container component to group content with tabs.</p>
     </div>
+    <app-demoActions github="tabview" stackblitz="tabview-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -13,7 +14,7 @@
             <p-tabPanel header="Header I">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>    
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-tabPanel>
             <p-tabPanel header="Header II">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -23,7 +24,7 @@
             <p-tabPanel header="Header III">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                     cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>    
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-tabPanel>
         </p-tabView>
     </div>
@@ -31,15 +32,15 @@
     <div class="card">
         <h5>Programmatic</h5>
         <div style="padding: .5em 0 1em 0">
-            <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1rd"></p-button>
-            <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2rd" [style]="{'margin-left': '.5em'}"></p-button>
-            <p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd" [style]="{'margin-left': '.5em'}"></p-button>
+            <p-button (click)="activeIndex1 = 0" styleClass="p-button-text" label="Activate 1rd"></p-button>
+            <p-button (click)="activeIndex1 = 1" styleClass="p-button-text" label="Activate 2rd" [style]="{'margin-left': '.5em'}"></p-button>
+            <p-button (click)="activeIndex1 = 2" styleClass="p-button-text" label="Activate 3rd" [style]="{'margin-left': '.5em'}"></p-button>
         </div>
-        <p-tabView [(activeIndex)]="activeIndex">
+        <p-tabView [(activeIndex)]="activeIndex1">
             <p-tabPanel header="Header I">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>  
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-tabPanel>
             <p-tabPanel header="Header II">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -49,7 +50,7 @@
             <p-tabPanel header="Header III">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                     cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>   
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-tabPanel>
         </p-tabView>
     </div>
@@ -60,7 +61,7 @@
             <p-tabPanel header="Header I">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>  
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-tabPanel>
             <p-tabPanel header="Header II">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -70,9 +71,9 @@
             <p-tabPanel header="Header III">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                     cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>   
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-tabPanel>
-            <p-tabPanel [disabled]="true" header="Header IV"> 
+            <p-tabPanel [disabled]="true" header="Header IV">
             </p-tabPanel>
         </p-tabView>
     </div>
@@ -87,7 +88,7 @@
                 </ng-template>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>  
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-tabPanel>
             <p-tabPanel header="Header II">
                 <ng-template pTemplate = "header">
@@ -106,7 +107,7 @@
                 </ng-template>
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                     cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>   
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-tabPanel>
         </p-tabView>
     </div>
@@ -117,7 +118,7 @@
             <p-tabPanel header="Header I" [selected]="true">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                         ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-tabPanel>
             <p-tabPanel header="Header II" [closable]="true">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -130,7 +131,21 @@
                         Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
             </p-tabPanel>
         </p-tabView>
+    </div>
 
+    <div class="card">
+        <h5>Scrollable</h5>
+        <div style="padding: .5em 0 1em 0">
+            <p-button (click)="activeIndex2 = 0" styleClass="p-button-text" label="Activate 1rd"></p-button>
+            <p-button (click)="activeIndex2 = 29" styleClass="p-button-text" label="Activate 30th" [style]="{'margin-left': '.5em'}"></p-button>
+            <p-button (click)="activeIndex2 = 49" styleClass="p-button-text" label="Activate 50th" [style]="{'margin-left': '.5em'}"></p-button>
+        </div>
+
+        <p-tabView [(activeIndex)]="activeIndex2" [scrollable]="true">
+            <p-tabPanel *ngFor="let tab of scrollableTabs;" [header]="tab.title">
+                <p>{{tab.content}}</p>
+            </p-tabPanel>
+        </p-tabView>
     </div>
 
     <div class="card">
@@ -139,14 +154,14 @@
             <p-tabPanel header="Header I" leftIcon="pi pi-calendar" tooltip="1972">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                         ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-tabPanel>
             <p-tabPanel header="Header II" rightIcon="pi pi-inbox" tooltip="1974">
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
                         voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
             </p-tabPanel>
-            <p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990">
+            <p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star-fill" tooltip="1990">
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                         cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
                         Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
@@ -198,6 +213,22 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
        Content 1
     &lt;/p-tabPanel&gt;
     &lt;p-tabPanel header="Header 2" [selected]="true"&gt;
+        Content 2
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 3"&gt;
+        Content 3
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</app-code>
+
+            <h5>Scrollable</h5>
+            <p>Enable <i>scrollable</i> property to display buttons at each side of the tab headers that scrolls the tab list.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tabView [scrollable]="true"&gt;
+    &lt;p-tabPanel header="Header 1"&gt;
+       Content 1
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 2"&gt;
         Content 2
     &lt;/p-tabPanel&gt;
     &lt;p-tabPanel header="Header 3"&gt;
@@ -349,6 +380,12 @@ export class TabViewDemo &#123;
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                        <tr>
+                            <td>scrollable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled displays buttons at each side of the tab headers to scroll the tab list.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -476,6 +513,28 @@ handleChange(e) &#123;
 &#125;
 </app-code>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Parameters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>header</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>content</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
 
@@ -531,7 +590,7 @@ handleChange(e) &#123;
         &lt;p-tabPanel header="Header I"&gt;
             &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;    
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;/p-tabPanel&gt;
         &lt;p-tabPanel header="Header II"&gt;
             &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -541,7 +600,7 @@ handleChange(e) &#123;
         &lt;p-tabPanel header="Header III"&gt;
             &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                 cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;    
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
         &lt;/p-tabPanel&gt;
     &lt;/p-tabView&gt;
 &lt;/div&gt;
@@ -549,15 +608,15 @@ handleChange(e) &#123;
 &lt;div class="card"&gt;
     &lt;h5&gt;Programmatic&lt;/h5&gt;
     &lt;div style="padding: .5em 0 1em 0"&gt;
-        &lt;p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1rd"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2rd" style="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
-        &lt;p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd" style="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="activeIndex1 = 0" styleClass="p-button-text" label="Activate 1rd"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="activeIndex1 = 1" styleClass="p-button-text" label="Activate 2rd" style="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="activeIndex1 = 2" styleClass="p-button-text" label="Activate 3rd" style="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;p-tabView [(activeIndex)]="activeIndex"&gt;
+    &lt;p-tabView [(activeIndex)]="activeIndex1"&gt;
         &lt;p-tabPanel header="Header I"&gt;
             &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;  
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;/p-tabPanel&gt;
         &lt;p-tabPanel header="Header II"&gt;
             &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -567,7 +626,7 @@ handleChange(e) &#123;
         &lt;p-tabPanel header="Header III"&gt;
             &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                 cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;   
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
         &lt;/p-tabPanel&gt;
     &lt;/p-tabView&gt;
 &lt;/div&gt;
@@ -578,7 +637,7 @@ handleChange(e) &#123;
     &lt;p-tabPanel header="Header I"&gt;
         &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
             ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;  
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
     &lt;p-tabPanel header="Header II"&gt;
         &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -588,9 +647,9 @@ handleChange(e) &#123;
     &lt;p-tabPanel header="Header III"&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
             cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;   
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel [disabled]="true" header="Header IV"&gt; 
+    &lt;p-tabPanel [disabled]="true" header="Header IV"&gt;
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
 &lt;/div&gt;
@@ -605,7 +664,7 @@ handleChange(e) &#123;
         &lt;/ng-template&gt;
         &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
             ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;  
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
     &lt;p-tabPanel header="Header II"&gt;
         &lt;ng-template pTemplate = "header"&gt;
@@ -624,7 +683,7 @@ handleChange(e) &#123;
         &lt;/ng-template&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
             cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;   
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
 &lt;/div&gt;
@@ -635,7 +694,7 @@ handleChange(e) &#123;
     &lt;p-tabPanel header="Header I" [selected]="true"&gt;
         &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt; 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
     &lt;p-tabPanel header="Header II" [closable]="true"&gt;
         &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
@@ -648,7 +707,21 @@ handleChange(e) &#123;
                 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
+&lt;/div&gt;
 
+&lt;div class="card"&gt;
+    &lt;h5&gt;Scrollable&lt;/h5&gt;
+    &lt;div style="padding: .5em 0 1em 0"&gt;
+        &lt;p-button (click)="activeIndex2 = 0" styleClass="p-button-text" label="Activate 1rd"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="activeIndex2 = 29" styleClass="p-button-text" label="Activate 30th" [style]="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="activeIndex2 = 49" styleClass="p-button-text" label="Activate 50th" [style]="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
+    &lt;/div&gt;
+
+    &lt;p-tabView [(activeIndex)]="activeIndex2" [scrollable]="true"&gt;
+        &lt;p-tabPanel *ngFor="let tab of scrollableTabs;" [header]="tab.title"&gt;
+            &lt;p&gt;&#123;&#123;tab.content&#125;&#125;&lt;/p&gt;
+        &lt;/p-tabPanel&gt;
+    &lt;/p-tabView&gt;
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
@@ -657,14 +730,14 @@ handleChange(e) &#123;
     &lt;p-tabPanel header="Header I" leftIcon="pi pi-calendar" tooltip="1972"&gt;
         &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt; 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
     &lt;p-tabPanel header="Header II" rightIcon="pi pi-inbox" tooltip="1974"&gt;
         &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
                 architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
                 voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990"&gt;
+    &lt;p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star-fill" tooltip="1990"&gt;
         &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                 cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
                 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
@@ -676,7 +749,11 @@ handleChange(e) &#123;
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabViewDemo &#123;
 
-    activeIndex: number = 0;
+    activeIndex1: number = 0;
+
+    activeIndex2: number = 0;
+
+    scrollableTabs: any[] = Array.from(&#123; length: 50 &#125;, (_, i) => (&#123; title: `Tab $&#123;i + 1&#125;`, content: `Tab $&#123;i + 1&#125; Content` &#125;));
 
 &#125;
 </app-code>

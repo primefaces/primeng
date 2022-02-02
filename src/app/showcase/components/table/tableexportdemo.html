@@ -3,17 +3,18 @@
         <h1>Table <span>Export</span></h1>
         <p>Table data can be exported to various formats.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tableexport-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts">
+        <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
-                <div class="p-d-flex">
-                    <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
-                    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
-                    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
-                    <button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+                <div class="flex">
+                    <button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})" class="p-button-info ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -40,15 +41,18 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-tableexport-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts"&gt;
+&lt;p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="caption"&gt;
-        &lt;div class="p-d-flex"&gt;
-            &lt;button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"&gt;&lt;/button&gt;
+        &lt;div class="flex"&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="mr-2" pTooltip="CSV" tooltipPosition="bottom"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" class="p-button-info ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -72,6 +76,7 @@
 import &#123; Component, OnInit &#125; from '@angular/core';
 import &#123; Product &#125; from '../../domain/product';
 import &#123; ProductService &#125; from '../../service/productservice';
+import * as FileSaver from 'file-saver';
 
 @Component(&#123;
     templateUrl: './tableexportdemo.html'
@@ -121,19 +126,21 @@ export class TableExportDemo implements OnInit &#123;
     &#125;
 
     saveAsExcelFile(buffer: any, fileName: string): void &#123;
-        import("file-saver").then(FileSaver =&gt; &#123;
-            let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-            let EXCEL_EXTENSION = '.xlsx';
-            const data: Blob = new Blob([buffer], &#123;
-                type: EXCEL_TYPE
-            &#125;);
-            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], &#123;
+            type: EXCEL_TYPE
         &#125;);
+        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
     &#125;
 &#125;
 </app-code>
 
         </p-tabPanel>
-
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tableexport-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
     </p-tabView>
 </div>

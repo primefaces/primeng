@@ -30,10 +30,13 @@ export class TranslationKeys {
     public static readonly DAY_NAMES_MIN = 'dayNamesMin';
     public static readonly MONTH_NAMES = 'monthNames';
     public static readonly MONTH_NAMES_SHORT = 'monthNamesShort';
+    public static readonly FIRST_DAY_OF_WEEK = 'firstDayOfWeek';
     public static readonly TODAY = 'today';
     public static readonly WEEK_HEADER = 'weekHeader';
     public static readonly WEAK = 'weak';
     public static readonly MEDIUM = 'medium';
     public static readonly STRONG = 'strong';
     public static readonly PASSWORD_PROMPT = 'passwordPrompt';
+    public static readonly EMPTY_MESSAGE = 'emptyMessage';
+    public static readonly EMPTY_FILTER_MESSAGE = 'emptyFilterMessage';
 }

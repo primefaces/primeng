@@ -3,6 +3,7 @@
         <h1>Messages</h1>
         <p>Messages is used to display alerts inline.</p>
     </div>
+    <app-demoActions github="messages" stackblitz="messages-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -11,7 +12,7 @@
         <p-messages [(value)]="msgs1" [enableService]="false"></p-messages>
 
         <h5>Dynamic</h5>
-        <button type="button" pButton pRipple (click)="addMessages()" label="Show" class="p-mr-2"></button>
+        <button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
         <button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear" class="p-button-secondary"></button>
 
         <p-messages [(value)]="msgs2" [enableService]="false"></p-messages>
@@ -24,29 +25,29 @@
         <p-messages severity="info">
             <ng-template pTemplate>
                 <img src="assets/showcase/images/primeng.svg" width="32" />
-                <div class="p-ml-2">Always bet on Prime.</div>
+                <div class="ml-2">Always bet on Prime.</div>
             </ng-template>
         </p-messages>
 
         <h5>Inline Message</h5>
         <p>p-message component is used to display inline messages mostly within forms.</p>
-        <p-message severity="info" text="Message Content" styleClass="p-mr-2"></p-message>
-        <p-message severity="success" text="Message Content" styleClass="p-mr-2"></p-message>  
-        <p-message severity="warn" text="Message Content" styleClass="p-mr-2"></p-message>  
+        <p-message severity="info" text="Message Content" styleClass="mr-2"></p-message>
+        <p-message severity="success" text="Message Content" styleClass="mr-2"></p-message>  
+        <p-message severity="warn" text="Message Content" styleClass="mr-2"></p-message>  
         <p-message severity="error" text="Message Content"></p-message>
         
-        <div class="p-mt-4">
-            <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid p-mr-2">
+        <div class="mt-4">
+            <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2">
             <p-message severity="error" text="Field is required"></p-message>
         </div>
         
-        <div class="p-mt-4">
-            <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid p-mr-2">
+        <div class="mt-4">
+            <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2">
             <p-message severity="error"></p-message>
         </div>
 
         <h5>Form Layout</h5>
-        <div class="p-field p-fluid">
+        <div class="field p-fluid">
             <label for="username">Username</label>
             <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
             <small id="username-help" class="p-error">Username is not available.</small>
@@ -164,7 +165,7 @@ import &#123;MessageService&#125; from 'primeng/api';
 &lt;p-messages severity="info"&gt;
     &lt;ng-template pTemplate&gt;
         &lt;img src="assets/showcase/images/primeng.svg" width="32" /&gt;
-        &lt;div class="p-ml-2"&gt;Always bet on Prime.&lt;/div&gt;
+        &lt;div class="ml-2"&gt;Always bet on Prime.&lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-messages&gt;
 </app-code>
@@ -252,6 +253,24 @@ import &#123;MessageService&#125; from 'primeng/api';
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+               <table class="doc-table">
+                     <thead>
+                        <tr>
+                           <th>Name</th>
+                           <th>Parameters</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>content</td>
+                           <td>-</td>
+                        </tr>
+                     </tbody>
+               </table>
             </div>
 
             <h5>Properties of Message Component</h5>
@@ -419,7 +438,7 @@ import &#123;MessageService&#125; from 'primeng/api';
 &lt;p-messages [(value)]="msgs1" [enableService]="false"&gt;&lt;/p-messages&gt;
 
 &lt;h5&gt;Dynamic&lt;/h5&gt;
-&lt;button type="button" pButton pRipple (click)="addMessages()" label="Show" class="p-mr-2"&gt;&lt;/button&gt;
+&lt;button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"&gt;&lt;/button&gt;
 &lt;button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear" class="p-button-secondary"&gt;&lt;/button&gt;
 
 &lt;p-messages [(value)]="msgs2" [enableService]="false"&gt;&lt;/p-messages&gt;
@@ -432,29 +451,29 @@ import &#123;MessageService&#125; from 'primeng/api';
 &lt;p-messages severity="info"&gt;
     &lt;ng-template pTemplate&gt;
         &lt;img src="assets/showcase/images/primeng.svg" width="32" /&gt;
-        &lt;div class="p-ml-2"&gt;Always bet on Prime.&lt;/div&gt;
+        &lt;div class="ml-2"&gt;Always bet on Prime.&lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-messages&gt;
 
 &lt;h5&gt;Inline Message&lt;/h5&gt;
 &lt;p&gt;p-message component is used to display inline messages mostly within forms.&lt;/p&gt;
-&lt;p-message severity="info" text="Message Content" styleClass="p-mr-2"&gt;&lt;/p-message&gt;
-&lt;p-message severity="success" text="Message Content" styleClass="p-mr-2"&gt;&lt;/p-message&gt;  
-&lt;p-message severity="warn" text="Message Content" styleClass="p-mr-2"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="info" text="Message Content" styleClass="mr-2"&gt;&lt;/p-message&gt;
+&lt;p-message severity="success" text="Message Content" styleClass="mr-2"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="warn" text="Message Content" styleClass="mr-2"&gt;&lt;/p-message&gt;  
 &lt;p-message severity="error" text="Message Content"&gt;&lt;/p-message&gt;
 
-&lt;div class="p-mt-4"&gt;
-    &lt;input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid p-mr-2"&gt;
+&lt;div class="mt-4"&gt;
+    &lt;input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2"&gt;
     &lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
 &lt;/div&gt;
 
-&lt;div class="p-mt-4"&gt;
-    &lt;input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid p-mr-2"&gt;
+&lt;div class="mt-4"&gt;
+    &lt;input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2"&gt;
     &lt;p-message severity="error"&gt;&lt;/p-message&gt;
 &lt;/div&gt;
 
 &lt;h5&gt;Form Layout&lt;/h5&gt;
-&lt;div class="p-field p-fluid"&gt;
+&lt;div class="field p-fluid"&gt;
     &lt;label for="username"&gt;Username&lt;/label&gt;
     &lt;input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText /&gt;
     &lt;small id="username-help" class="p-error"&gt;Username is not available.&lt;/small&gt;

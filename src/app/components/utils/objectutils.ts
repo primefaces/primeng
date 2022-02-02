@@ -133,6 +133,17 @@ export class ObjectUtils {
         return index;
     }
 
+    public static contains(value, list) {
+        if (value != null && list && list.length) {
+            for (let val of list) {
+                if (this.equals(value, val))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     public static removeAccents(str) {
         if (str && str.search(/[\xC0-\xFF]/g) > -1) {
             str = str
@@ -158,7 +169,19 @@ export class ObjectUtils {
                     .replace(/[\xFE]/g, "p")
                     .replace(/[\xFD\xFF]/g, "y");
         }
-      
+
         return str;
-      }
+    }
+
+    public static isEmpty(value) {
+        return (
+            value === null || value === undefined || value === '' ||
+            (Array.isArray(value) && value.length === 0) ||
+            (!(value instanceof Date) && typeof value === 'object' && Object.keys(value).length === 0)
+        );
+    }
+
+    public static isNotEmpty(value) {
+        return !this.isEmpty(value);
+    }
 }

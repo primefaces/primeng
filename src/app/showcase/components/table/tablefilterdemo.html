@@ -3,6 +3,7 @@
         <h1>Table <span>Filter</span></h1>
         <p>Filtering feature provides advanced and flexible options to query the data. Tip: Visit the <a [routerLink]="['/filterservice']">FilterService</a> for a custom filtering example.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tablefilter-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -10,13 +11,13 @@
         <h5>Filter Menu</h5>
         <p>Filters are displayed in an overlay.</p>
         <p-table #dt1 [value]="customers" dataKey="id"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name','country.name','representative.name','status']">
+            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
-                <div class="p-d-flex">
+                <div class="flex">
                     <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
-                    <span class="p-input-icon-left p-ml-auto">
+                    <span class="p-input-icon-left ml-auto">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                     </span>
@@ -25,24 +26,24 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th>
-                        <div class="p-d-flex p-jc-between p-ai-center">
-                            Name 
+                        <div class="flex justify-content-center align-items-center">
+                            Name
                             <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-jc-between p-ai-center">
-                            Country 
+                        <div class="flex justify-content-center align-items-center">
+                            Country
                             <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-jc-between p-ai-center">
-                            Agent 
+                        <div class="flex justify-content-center align-items-center">
+                            Agent
                             <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                 <ng-template pTemplate="header">
-                                    <div class="p-px-3 p-pt-3 p-pb-0">
-                                        <span class="p-text-bold">Agent Picker</span>
+                                    <div class="px-3 pt-3 pb-0">
+                                        <span class="font-bold">Agent Picker</span>
                                     </div>
                                 </ng-template>
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -50,7 +51,7 @@
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-representative-option">
                                                 <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
-                                                <span class="p-ml-1">{{option.name}}</span>
+                                                <span class="ml-1">{{option.name}}</span>
                                             </div>
                                         </ng-template>
                                     </p-multiSelect>
@@ -59,19 +60,19 @@
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-jc-between p-ai-center">
+                        <div class="flex justify-content-center align-items-center">
                             Date
                             <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-jc-between p-ai-center">
+                        <div class="flex justify-content-center align-items-center">
                             Balance
                             <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-jc-between p-ai-center">
+                        <div class="flex justify-content-center align-items-center">
                             Status
                             <p-columnFilter field="status" matchMode="equals" display="menu">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -85,12 +86,12 @@
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-jc-between p-ai-center">
+                        <div class="flex justify-content-center align-items-center">
                             Activity
                             <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                 <ng-template pTemplate="filter" let-filter="filterCallback">
-                                    <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="p-m-3"></p-slider>
-                                    <div class="p-d-flex p-ai-center p-jc-between p-px-2">
+                                    <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
+                                    <div class="flex align-items-center justify-content-center px-2">
                                         <span>{{activityValues[0]}}</span>
                                         <span>{{activityValues[1]}}</span>
                                     </div>
@@ -99,7 +100,7 @@
                         </div>
                     </th>
                     <th style="width: 8rem">
-                        <div class="p-d-flex p-jc-between p-ai-center">
+                        <div class="flex justify-content-center align-items-center">
                             Verified
                             <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
                         </div>
@@ -131,7 +132,7 @@
                     <td>
                         <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
                     </td>
-                    <td class="p-text-center">
+                    <td class="text-center">
                         <i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
                     </td>
                 </tr>
@@ -148,12 +149,12 @@
         <h5>Filter Row</h5>
         <p>Filters are displayed inline within a separate row.</p>
         <p-table #dt2 [value]="customers" dataKey="id"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name','country.name','representative.name','status']">
+            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
-                <div class="p-d-flex">
-                    <span class="p-input-icon-left p-ml-auto">
+                <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                     </span>
@@ -181,7 +182,7 @@
                                     <ng-template let-option pTemplate="item">
                                         <div class="p-multiselect-representative-option">
                                             <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
-                                            <span class="p-ml-1">{{option.name}}</span>
+                                            <span class="ml-1">{{option.name}}</span>
                                         </div>
                                     </ng-template>
                                 </p-multiSelect>
@@ -248,13 +249,13 @@
     &lt;h5&gt;Filter Menu&lt;/h5&gt;
     &lt;p&gt;Filters are displayed in an overlay.&lt;/p&gt;
     &lt;p-table #dt1 [value]="customers" dataKey="id"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
         [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
         &lt;ng-template pTemplate="caption"&gt;
-            &lt;div class="p-d-flex"&gt;
+            &lt;div class="flex"&gt;
                 &lt;button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"&gt;&lt;/button&gt;
-                &lt;span class="p-input-icon-left p-ml-auto"&gt;
+                &lt;span class="p-input-icon-left ml-auto"&gt;
                     &lt;i class="pi pi-search"&gt;&lt;/i&gt;
                     &lt;input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" /&gt;
                 &lt;/span&gt;
@@ -263,24 +264,24 @@
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Name 
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
+                        Name
                         &lt;p-columnFilter type="text" field="name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Country 
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
+                        Country
                         &lt;p-columnFilter type="text" field="country.name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
-                        Agent 
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
+                        Agent
                         &lt;p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
                             &lt;ng-template pTemplate="header"&gt;
-                                &lt;div class="p-px-3 p-pt-3 p-pb-0"&gt;
-                                    &lt;span class="p-text-bold"&gt;Agent Picker&lt;/span&gt;
+                                &lt;div class="px-3 pt-3 pb-0"&gt;
+                                    &lt;span class="font-bold"&gt;Agent Picker&lt;/span&gt;
                                 &lt;/div&gt;
                             &lt;/ng-template&gt;
                             &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
@@ -288,7 +289,7 @@
                                     &lt;ng-template let-option pTemplate="item"&gt;
                                         &lt;div class="p-multiselect-representative-option"&gt;
                                             &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                                            &lt;span class="p-ml-1"&gt;&#123;&#123;option.name&#125;&#125;&lt;/span&gt;
+                                            &lt;span class="ml-1"&gt;&#123;&#123;option.name&#125;&#125;&lt;/span&gt;
                                         &lt;/div&gt;
                                     &lt;/ng-template&gt;
                                 &lt;/p-multiSelect&gt;
@@ -297,19 +298,19 @@
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
                         Date
                         &lt;p-columnFilter type="date" field="date" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
                         Balance
                         &lt;p-columnFilter type="numeric" field="balance" display="menu" currency="USD"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
                         Status
                         &lt;p-columnFilter field="status" matchMode="equals" display="menu"&gt;
                             &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
@@ -323,12 +324,12 @@
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
                         Activity
                         &lt;p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
                             &lt;ng-template pTemplate="filter" let-filter="filterCallback"&gt;
-                                &lt;p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="p-m-3"&gt;&lt;/p-slider&gt;
-                                &lt;div class="p-d-flex p-ai-center p-jc-between p-px-2"&gt;
+                                &lt;p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"&gt;&lt;/p-slider&gt;
+                                &lt;div class="flex align-items-center justify-content-center px-2"&gt;
                                     &lt;span&gt;&#123;&#123;activityValues[0]&#125;&#125;&lt;/span&gt;
                                     &lt;span&gt;&#123;&#123;activityValues[1]&#125;&#125;&lt;/span&gt;
                                 &lt;/div&gt;
@@ -337,7 +338,7 @@
                     &lt;/div&gt;
                 &lt;/th&gt;
                 &lt;th style="width: 8rem"&gt;
-                    &lt;div class="p-d-flex p-jc-between p-ai-center"&gt;
+                    &lt;div class="flex justify-content-center align-items-center"&gt;
                         Verified
                         &lt;p-columnFilter type="boolean" field="verified" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
@@ -369,7 +370,7 @@
                 &lt;td&gt;
                     &lt;p-progressBar [value]="customer.activity" [showValue]="false"&gt;&lt;/p-progressBar&gt;
                 &lt;/td&gt;
-                &lt;td class="p-text-center"&gt;
+                &lt;td class="text-center"&gt;
                     &lt;i class="pi" [ngClass]="&#123;'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified&#125;"&gt;&lt;/i&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
@@ -386,12 +387,12 @@
     &lt;h5&gt;Filter Row&lt;/h5&gt;
     &lt;p&gt;Filters are displayed inline within a separate row.&lt;/p&gt;
     &lt;p-table #dt2 [value]="customers" dataKey="id"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
         [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
         &lt;ng-template pTemplate="caption"&gt;
-            &lt;div class="p-d-flex"&gt;
-                &lt;span class="p-input-icon-left p-ml-auto"&gt;
+            &lt;div class="flex"&gt;
+                &lt;span class="p-input-icon-left ml-auto"&gt;
                     &lt;i class="pi pi-search"&gt;&lt;/i&gt;
                     &lt;input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" /&gt;
                 &lt;/span&gt;
@@ -419,7 +420,7 @@
                                 &lt;ng-template let-option pTemplate="item"&gt;
                                     &lt;div class="p-multiselect-representative-option"&gt;
                                         &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                                        &lt;span class="p-ml-1"&gt;&#123;&#123;option.name&#125;&#125;&lt;/span&gt;
+                                        &lt;span class="ml-1"&gt;&#123;&#123;option.name&#125;&#125;&lt;/span&gt;
                                     &lt;/div&gt;
                                 &lt;/ng-template&gt;
                             &lt;/p-multiSelect&gt;
@@ -531,7 +532,7 @@ export class TableFilterDemo implements OnInit &#123;
     &#125;
 
 &#125;
-</app-code> 
+</app-code>
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

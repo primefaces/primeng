@@ -58,7 +58,10 @@ export class RadioControlRegistry {
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
 
@@ -107,13 +110,11 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     constructor(public cd: ChangeDetectorRef, private injector: Injector, private registry: RadioControlRegistry) {}
 
     ngOnInit() {
-        if (this.formControlName) {
-            this.control = this.injector.get(NgControl);
-            this.checkName();
-            this.registry.add(this.control, this);
-        }
+        this.control = this.injector.get(NgControl);
+        this.checkName();
+        this.registry.add(this.control, this);
     }
-    
+
     handleClick(event, radioButton, focus) {
         event.preventDefault();
 
@@ -127,17 +128,13 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
             radioButton.focus();
         }
     }
-    
+
     select(event) {
         if (!this.disabled) {
             this.inputViewChild.nativeElement.checked = true;
             this.checked = true;
             this.onModelChange(this.value);
-            
-            if (this.formControlName) {
-                this.registry.select(this);
-            }
-
+            this.registry.select(this);
             this.onClick.emit(event);
         }
     }
@@ -185,9 +182,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.formControlName) {
-            this.registry.remove(this);
-        }
+        this.registry.remove(this);
     }
 
     private checkName() {

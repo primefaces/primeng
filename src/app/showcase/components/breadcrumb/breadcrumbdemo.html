@@ -5,6 +5,7 @@
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
         </div>
     </div>
+    <app-demoActions github="breadcrumb" stackblitz="breadcrumb-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -27,12 +28,12 @@ import &#123;MenuItem&#125; from 'primeng/api';
 
             <h5>Getting Started</h5>
             <p>Breadcrumb requires a collection of menuitems connected to its model property.</p>
-            
+
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class BreadcrumbDemo implements OnInit &#123;
 
     private items: MenuItem[];
-    
+
     ngOnInit() &#123;
         this.items = [
             &#123;label:'Categories'&#125;,
@@ -87,6 +88,12 @@ export class BreadcrumbDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>homeAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the home icon for accessibility.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -160,9 +167,9 @@ export class BreadcrumbDemo implements OnInit &#123;
 export class BreadcrumbDemo implements OnInit &#123;
 
     items: MenuItem[];
-    
+
     home: MenuItem;
-    
+
     ngOnInit() &#123;
         this.items = [
             &#123;label: 'Computer'&#125;,
@@ -171,10 +178,10 @@ export class BreadcrumbDemo implements OnInit &#123;
             &#123;label: 'Backpacks'&#125;,
             &#123;label: 'Item'&#125;
         ];
-        
+
         this.home = &#123;icon: 'pi pi-home', routerLink: '/'&#125;;
     &#125;
-    
+
 &#125;
 </app-code>
 

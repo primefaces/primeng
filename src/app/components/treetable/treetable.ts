@@ -32,7 +32,7 @@ export class TreeTableService {
     }
 
     onSelectionChange() {
-        this.selectionSource.next();
+        this.selectionSource.next(null);
     }
 
     onContextMenu(node: any) {
@@ -105,7 +105,10 @@ export class TreeTableService {
     `,
     providers: [TreeTableService],
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./treetable.css']
+    styleUrls: ['./treetable.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
 
@@ -1626,6 +1629,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
+                    this.editingCellField = null;
+                    this.editingCellData = null;
                     this.unbindDocumentEditListener();
                 }
 
@@ -1646,6 +1651,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     ngOnDestroy() {
         this.unbindDocumentEditListener();
         this.editingCell = null;
+        this.editingCellField = null;
+        this.editingCellData = null;
         this.initialized = null;
     }
 
@@ -1672,7 +1679,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
         </ng-container>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTBody {
 
@@ -1742,7 +1752,10 @@ export class TTBody {
             </div>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTScrollableView implements AfterViewInit, OnDestroy {
 
@@ -1942,6 +1955,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[ttSortableColumn]',
     host: {
+        'class': 'p-element',
         '[class.p-sortable-column]': 'isEnabled()',
         '[class.p-highlight]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
@@ -2011,7 +2025,10 @@ export class TTSortableColumn implements OnInit, OnDestroy {
         <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTSortIcon implements OnInit, OnDestroy {
 
@@ -2058,7 +2075,10 @@ export class TTSortIcon implements OnInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[ttResizableColumn]'
+    selector: '[ttResizableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
@@ -2138,7 +2158,10 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[ttReorderableColumn]'
+    selector: '[ttReorderableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
@@ -2251,6 +2274,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[ttSelectableRow]',
     host: {
+        'class': 'p-element',
         '[class.p-highlight]': 'selected'
     }
 })
@@ -2317,6 +2341,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttSelectableRowDblClick]',
     host: {
+        'class': 'p-element',
         '[class.p-highlight]': 'selected'
     }
 })
@@ -2369,6 +2394,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttContextMenuRow]',
     host: {
+        'class': 'p-element',
         '[class.p-highlight-contextmenu]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
@@ -2420,18 +2446,21 @@ export class TTContextMenuRow {
 @Component({
     selector: 'p-treeTableCheckbox',
     template: `
-        <div class="p-checkbox p-component" (click)="onClick($event)">
+        <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused}" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
             </div>
             <div #box [ngClass]="{'p-checkbox-box':true,
-                'p-highlight':checked, 'p-disabled':disabled}"  role="checkbox" [attr.aria-checked]="checked">
+                'p-highlight':checked, 'p-focus':focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled':disabled}"  role="checkbox" [attr.aria-checked]="checked">
                 <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':checked, 'pi-minus': rowNode.node.partialSelected}"></span>
             </div>
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTCheckbox  {
 
@@ -2439,9 +2468,9 @@ export class TTCheckbox  {
 
     @Input("value") rowNode: any;
 
-    @ViewChild('box') boxViewChild: ElementRef;
-
     checked: boolean;
+
+    focused: boolean;
 
     subscription: Subscription;
 
@@ -2467,11 +2496,11 @@ export class TTCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = true;
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = false;
     }
 
     ngOnDestroy() {
@@ -2485,24 +2514,29 @@ export class TTCheckbox  {
 @Component({
     selector: 'p-treeTableHeaderCheckbox',
     template: `
-        <div class="p-checkbox p-component" (click)="onClick($event, cb.checked)">
+        <div class="p-checkbox p-component" [ngClass]="{'p-checkbox-focused':focused}" (click)="onClick($event, cb.checked)">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!tt.value||tt.value.length === 0">
             </div>
             <div #box [ngClass]="{'p-checkbox-box':true,
-                'p-highlight':checked, 'p-disabled': (!tt.value || tt.value.length === 0)}"  role="checkbox" [attr.aria-checked]="checked">
+                'p-highlight':checked, 'p-focus':focused, 'p-disabled': (!tt.value || tt.value.length === 0)}"  role="checkbox" [attr.aria-checked]="checked">
                 <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTHeaderCheckbox  {
 
     @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
+
+    focused: boolean;
 
     disabled: boolean;
 
@@ -2533,11 +2567,11 @@ export class TTHeaderCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = true;
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
+        this.focused = false;
     }
 
     ngOnDestroy() {
@@ -2576,7 +2610,10 @@ export class TTHeaderCheckbox  {
 }
 
 @Directive({
-    selector: '[ttEditableColumn]'
+    selector: '[ttEditableColumn]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TTEditableColumn implements AfterViewInit {
 
@@ -2767,7 +2804,10 @@ export class TTEditableColumn implements AfterViewInit {
             <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TreeTableCellEditor implements AfterContentInit {
 
@@ -2797,6 +2837,7 @@ export class TreeTableCellEditor implements AfterContentInit {
 @Directive({
     selector: '[ttRow]',
     host: {
+        'class': 'p-element',
         '[attr.tabindex]': '"0"'
     }
 })
@@ -2885,7 +2926,10 @@ export class TTRow {
             <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
         </button>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TreeTableToggler {
 

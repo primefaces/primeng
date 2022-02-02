@@ -3,6 +3,7 @@
         <h1>Toast</h1>
         <p>Toast is used to display messages in an overlay.</p>
     </div>
+    <app-demoActions github="toast" stackblitz="toast-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -13,17 +14,17 @@
 
     <p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
-            <div class="p-flex p-flex-column" style="flex: 1">
-                <div class="p-text-center">
+            <div class="flex flex-column" style="flex: 1">
+                <div class="text-center">
                     <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
                     <h4>{{message.summary}}</h4>
                     <p>{{message.detail}}</p>
                 </div>
-                <div class="p-grid p-fluid">
-                    <div class="p-col-6">
+                <div class="grid p-fluid">
+                    <div class="col-6">
                         <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
                     </div>
-                    <div class="p-col-6">
+                    <div class="col-6">
                         <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
                     </div>
                 </div>
@@ -33,17 +34,17 @@
 
     <div class="card">
         <h5>Severities</h5>
-        <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-        <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-        <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-        <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
-        <button type="button" pButton pRipple (click)="showCustom()" label="Custom" class="p-button-help"></button>
+        <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success mb-2"></button>
+        <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info mb-2"></button>
+        <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning mb-2"></button>
+        <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger mb-2"></button>
+        <button type="button" pButton pRipple (click)="showCustom()" label="Custom" class="p-button-help mb-2"></button>
 
         <h5>Positions</h5>
         <button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"></button>
         <button type="button" pButton pRipple (click)="showTopCenter()" label="Top Center" class="p-button-warning"></button>
         <button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"></button>
-        
+
         <h5>Multiple</h5>
         <button type="button" pButton pRipple (click)="showMultiple()" label="Multiple" class="p-button-warning"></button>
         <button type="button" pButton pRipple (click)="showSticky()" label="Sticky"></button>
@@ -131,6 +132,18 @@ import &#123;ToastModule&#125; from 'primeng/toast';
                             <td>null</td>
                             <td>Arbitrary object to associate with the message.</td>
                         </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the message.</td>
+                        </tr>
+                        <tr>
+                            <td>contentStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the content.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -139,7 +152,7 @@ import &#123;ToastModule&#125; from 'primeng/toast';
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast&gt;&lt;/p-toast&gt;
 </app-code>
-       
+
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;MessageService&#125; from 'primeng/api';
@@ -148,18 +161,18 @@ import &#123;MessageService&#125; from 'primeng/api';
     templateUrl: './my.component.html'
 &#125;)
 export class MyComponent &#123;
-    
+
     constructor(private messageService: MessageService) &#123;&#125;
-    
+
     addSingle() &#123;
         this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
     &#125;
-    
+
     addMultiple() &#123;
         this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
                                     &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
     &#125;
-    
+
     clear() &#123;
         this.messageService.clear();
     &#125;
@@ -217,17 +230,17 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
-        &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
-            &lt;div class="p-text-center"&gt;
+        &lt;div class="flex flex-column" style="flex: 1"&gt;
+            &lt;div class="text-center"&gt;
                 &lt;i class="pi pi-exclamation-triangle" style="font-size: 3rem"&gt;&lt;/i&gt;
                 &lt;h4&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h4&gt;
                 &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
             &lt;/div&gt;
-            &lt;div class="p-grid p-fluid"&gt;
-                &lt;div class="p-col-6"&gt;
+            &lt;div class="grid p-fluid"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"&gt;&lt;/button&gt;
                 &lt;/div&gt;
-                &lt;div class="p-col-6"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"&gt;&lt;/button&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -236,8 +249,14 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 &lt;/p-toast&gt;
 </app-code>
 
+            <h5>Responsive</h5>
+            <p>Toast styling can be adjusted per screen size with the <i>breakpoints</i> option. The value of <i>breakpoints</i> should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-toast [breakpoints]="&#123;'920px': &#123;width: '100%', right: '0', left: '0'&#125;&#125;"&gt;&lt;/p-toast&gt;
+</app-code>
+
             <h5>Animation Configuration</h5>
-            <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties, 
+            <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties,
                 example below disables the animations altogether.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -248,7 +267,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toast [showTransformOptions]="'translateX(100%)'"&gt;&lt;/p-toast&gt;
 </app-code>
-            
+
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -328,6 +347,12 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                             <td>It does not add the new message if there is already a toast displayed with the same content</td>
                         </tr>
                         <tr>
+                            <td>breakpoints</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Object literal to define styles per screen size.</td>
+                        </tr>
+                        <tr>
                             <td>preventDuplicates</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -336,7 +361,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                     </tbody>
                 </table>
             </div>
-            
+
             <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -354,6 +379,24 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                             <td>Callback to invoke when a message is closed.</td>
                         </tr>
                     </tbody>
+                </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Parameters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>message</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
                 </table>
             </div>
 
@@ -419,17 +462,17 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 
 &lt;p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
-        &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
-            &lt;div class="p-text-center"&gt;
+        &lt;div class="flex flex-column" style="flex: 1"&gt;
+            &lt;div class="text-center"&gt;
                 &lt;i class="pi pi-exclamation-triangle" style="font-size: 3rem"&gt;&lt;/i&gt;
                 &lt;h4&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h4&gt;
                 &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
             &lt;/div&gt;
-            &lt;div class="p-grid p-fluid"&gt;
-                &lt;div class="p-col-6"&gt;
+            &lt;div class="grid p-fluid"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"&gt;&lt;/button&gt;
                 &lt;/div&gt;
-                &lt;div class="p-col-6"&gt;
+                &lt;div class="col-6"&gt;
                     &lt;button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"&gt;&lt;/button&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -439,16 +482,16 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Severities&lt;/h5&gt;
-    &lt;button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success mb-2"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info mb-2"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning mb-2"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger mb-2"&gt;&lt;/button&gt;
 
     &lt;h5&gt;Positions&lt;/h5&gt;
     &lt;button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"&gt;&lt;/button&gt;
     &lt;button type="button" pButton pRipple (click)="showTopCenter()" label="Top Center" class="p-button-warning"&gt;&lt;/button&gt;
     &lt;button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"&gt;&lt;/button&gt;
-    
+
     &lt;h5&gt;Multiple&lt;/h5&gt;
     &lt;button type="button" pButton pRipple (click)="showMultiple()" label="Multiple" class="p-button-warning"&gt;&lt;/button&gt;
     &lt;button type="button" pButton pRipple (click)="showSticky()" label="Sticky"&gt;&lt;/button&gt;
@@ -469,7 +512,7 @@ import &#123;MessageService&#125; from 'primeng/api';
     templateUrl: './toastdemo.html',
     styleUrls: ['./toastdemo.scss'],
     providers: [MessageService]
-    
+
 &#125;)
 export class ToastDemo &#123;
 
@@ -531,7 +574,7 @@ export class ToastDemo &#123;
     onReject() &#123;
         this.messageService.clear('c');
     &#125;
-    
+
     clear() &#123;
         this.messageService.clear();
     &#125;

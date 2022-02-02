@@ -3,6 +3,7 @@
         <h1>Galleria <span>Caption</span></h1>
         <p>Caption displays a description for an item.</p>
     </div>
+    <app-demoActions github="galleria"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -12,7 +13,7 @@
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </div>
             </ng-template>
@@ -67,7 +68,7 @@ export class GalleriaCaptionDemo implements OnInit &#123;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;div class="grid grid-nogutter justify-content-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;

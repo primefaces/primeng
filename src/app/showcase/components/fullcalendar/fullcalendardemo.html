@@ -3,211 +3,18 @@
         <h1>FullCalendar</h1>
         <p>An event calendar based on the <a href="https://fullcalendar.io/">FullCalendar</a> library.</p>
     </div>
+    <app-demoActions github="fullcalendar"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+        <full-calendar [options]="options"></full-calendar>
     </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
-        <p-tabPanel header="Documentation">
-            <h5>Import</h5>
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;FullCalendarModule&#125; from 'primeng/fullcalendar';
-</app-code>
-
-            <h5>Getting Started</h5>
-            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.1.0+</a> so FullCalendar core needs to be included in your project. For complete documentation and samples please refer to the <a href="https://fullcalendar.io/">FullCalendar website</a>.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-npm install @fullcalendar/core@4.1.0 --save
-</app-code>
-    
-            <h5>Plugins</h5>
-            <p>FullCalendar is plugin based so install the plugins you require and define them with the options property.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-npm install @fullcalendar/daygrid --save
-npm install @fullcalendar/timegrid --save
-npm install @fullcalendar/interaction --save
-</app-code>
-
-            <p>Styles of the core and plugins required can be defined in angular.json or with CSS imports.</p>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-"styles": [
-    "node_modules/@fullcalendar/core/main.min.css",
-    "node_modules/@fullcalendar/daygrid/main.min.css",
-    "node_modules/@fullcalendar/timegrid/main.min.css",
-    //...
-</app-code>
-
-            <h5>Event API</h5>
-            <p>Events should be an array and defined using the events property. In this example, we'll be utilizing a service to load our data. See the <a href="https://fullcalendar.io/docs">documentation</a> for 
-            more information about the Event API.</p>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-@Injectable()
-export class EventService &#123;
-    
-    constructor(private http: Http) &#123;&#125;
-
-    getEvents() &#123;
-        return this.http.get('showcase/resources/data/calendarevents.json')
-                    .toPromise()
-                    .then(res =&gt; &lt;any[]&gt; res.json().data)
-                    .then(data =&gt; &#123; return data; &#125;);
-    &#125;
-&#125;
-</app-code>
-
-            <p>Sample events data as JSON.</p>
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-&#123;
-    "data": [
-        &#123;
-            "id": 1,
-    		"title": "All Day Event",
-    		"start": "2017-02-01"
-        &#125;,
-    	&#123;
-            "id": 2,
-    		"title": "Long Event",
-    		"start": "2017-02-07",
-    		"end": "2017-02-10"
-        &#125;,
-    	&#123;
-    		"id": 3,
-    		"title": "Repeating Event",
-    		"start": "2017-02-09T16:00:00"
-        &#125;,
-        //...
-</app-code>
-
-        <h5>Putting It Together</h5>
-        <p>FullCalendar has a long list of customization parameters that are defined with the options property. Example below customizes the views, defaultDate and header.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
-</app-code>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-
-export class FullCalendarDemo implements OnInit &#123;
-
-    events: any[];
-
-    options: any;
-            
-    constructor(private eventService: EventService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
-        
-        this.options = &#123;
-            plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-            defaultDate: '2017-02-01',
-            header: &#123;
-                left: 'prev,next',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            &#125;
-        &#125;
-    &#125;
-
-&#125;
-</app-code>
-
-            <h5>Change Detection</h5>
-            <p>Updates to the events or options are reflected to the UI whenever a change occurs. An important note here is that UI update only happens whenever a new instance is created
-                on these twp properties. Simply changing the events array without creating a new instance of the array or updating a property inside options will have no effect.
-            </p>
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-update() &#123;
-    //incorrect
-    this.events.push(&#123;
-        "title": "Conference",
-        "start": "2016-01-11",
-        "end": "2016-01-13"
-    &#125;);
-
-    //correct
-    this.events = [...this.events, &#123;
-        "title": "Conference",
-        "start": "2016-01-11",
-        "end": "2016-01-13"
-    &#125;];
-
-    //incorrect
-    this.options.weekends = false;
-
-    //correct
-    this.options = &#123;...this.options, weekends: false&#125;;
-&#125;
-</app-code>
-
-            <h5>Callbacks</h5>
-            <p>Callbacks of the FullCalendar are also defined with the options property.</p>
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-this.options = &#123;
-    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-    header: &#123;
-        left: 'prev,next',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
-    &#125;,
-    dateClick: (e) =>  &#123;
-        //handle date click
-    &#125;
-&#125;
-</app-code>
-
-            <h5>Methods</h5>
-            <p>Methods of the underlying calendar instance is accessible using the reference of the components getCalendar() API.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-fullCalendar #fc [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
-</app-code>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-@ViewChild('fc') fc: FullCalendar;
-
-gotoDate(date: Date) &#123;
-    this.fc.getCalendar().gotoDate(date);
-&#125;
-</app-code>
-            
-            <h5>Properties</h5>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>events</td>
-                            <td>array</td>
-                            <td>An array of events to display.</td>
-                        </tr>
-                        <tr>
-                            <td>options</td>
-                            <td>Object</td>
-                            <td>A configuration object to define properties of FullCalendar.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-                        
-            <h5>Dependencies</h5>
-            <p><a href="https://fullcalendar.io/docs/v4">FullCalendar</a>.</p>
-        </p-tabPanel>
+        <p-tabPanel header="Documentation"><p>As it is not a component from PrimeNG, refer to the FullCalendar <a target="_blank" href="https://fullcalendar.io/docs/angular">documentation</a> for more information.</p></p-tabPanel>
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fullcalendar" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
@@ -217,40 +24,95 @@ gotoDate(date: Date) &#123;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;NgModule&#125; from '@angular/core';
+import &#123;CommonModule&#125; from '@angular/common';
+import &#123;FormsModule&#125; from '@angular/forms';
+import &#123;FullCalendarModule&#125; from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import &#123;FullCalendarDemo&#125; from './fullcalendardemo';
+import &#123;FullCalendarDemoRoutingModule&#125; from './fullcalendardemo-routing.module';
+import &#123;DialogModule&#125; from 'primeng/dialog';
+import &#123;InputTextModule&#125; from 'primeng/inputtext';
+import &#123;CalendarModule&#125; from 'primeng/calendar';
+import &#123;CheckboxModule&#125; from 'primeng/checkbox';
+import &#123;ButtonModule&#125; from 'primeng/button';
+import &#123;TabViewModule&#125; from 'primeng/tabview';
+import &#123;AppCodeModule&#125; from '../../app.code.component';
+import &#123;AppDemoActionsModule&#125; from '../../app.demoactions.component';
 
+FullCalendarModule.registerPlugins([
+    dayGridPlugin,
+    timeGridPlugin,
+    interactionPlugin
+]);
+
+@NgModule(&#123;
+	imports: [
+		CommonModule,
+        FormsModule,
+		FullCalendarDemoRoutingModule,
+        FullCalendarModule,
+        DialogModule,
+        InputTextModule,
+        CalendarModule,
+        CheckboxModule,
+        ButtonModule,
+        TabViewModule,
+        AppDemoActionsModule,
+        AppCodeModule
+	],
+	declarations: [
+		FullCalendarDemo
+	]
+&#125;)
+export class FullCalendarDemoModule &#123;&#125;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;EventService&#125; from '../../service/eventservice';
+
+@Component(&#123;
+    templateUrl: './fullcalendardemo.html'
+&#125;)
 export class FullCalendarDemo implements OnInit &#123;
 
     events: any[];
 
     options: any;
-            
+
+    header: any;
+
     constructor(private eventService: EventService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
-        
+        this.eventService.getEvents().then(events => &#123;
+            this.events = events;
+            this.options = &#123;...this.options, ...&#123;events: events&#125;&#125;;
+        &#125;);
+
         this.options = &#123;
-            plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-            defaultDate: '2017-02-01',
-            header: &#123;
-                left: 'prev,next',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            &#125;,
-            editable: true
+                initialDate : '2019-01-01',
+                headerToolbar: &#123;
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                &#125;,
+                editable: true,
+                selectable:true,
+                selectMirror: true,
+                dayMaxEvents: true
         &#125;;
     &#125;
-
 &#125;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()
 export class EventService &#123;
-    
+
     constructor(private http: Http) &#123;&#125;
 
     getEvents() &#123;
@@ -260,6 +122,9 @@ export class EventService &#123;
                     .then(data =&gt; &#123; return data; &#125;);
     &#125;
 &#125;
+</app-code>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;full-calendar [options]="options"&gt;&lt;/full-calendar&gt;
 </app-code>
         </p-tabPanel>
     </p-tabView>

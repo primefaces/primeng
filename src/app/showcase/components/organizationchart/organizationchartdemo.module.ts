@@ -7,6 +7,7 @@ import {ToastModule} from 'primeng/toast';
 import {PanelModule} from 'primeng/panel';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import {AppCodeModule} from '../../app.code.component';
         ToastModule,
         PanelModule,
 		TabViewModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		OrganizationChartDemo

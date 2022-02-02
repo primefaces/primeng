@@ -36,7 +36,7 @@
         overflow-y: auto;
         flex-grow: 1;
         border-right: 1px solid var(--surface-d);
-        
+
         .menu-category {
             display: block;
             color: var(--text-color-secondary);
@@ -60,7 +60,8 @@
 
             a {
                 color: var(--text-color);
-                display: block;
+                display: flex;
+                align-items: center;
                 padding: .5rem;
                 border-radius: 3px;
                 cursor: pointer;
@@ -83,6 +84,26 @@
                 .p-tag {
                     padding-top:.125rem;
                     padding-bottom: .125rem;
+                    margin-left: .5rem;
+                    line-height: 1.5;
+                }
+            }
+
+            &.menu-banner {
+                a {
+                    padding: 0;
+
+                    &:hover {
+                        background-color: transparent;
+
+                        img {
+                            background-color: var(--surface-c);
+                        }
+                    }
+
+                    &:focus {
+                        box-shadow: none;
+                    }
                 }
             }
 
@@ -91,7 +112,7 @@
                     > a {
                         font-weight: 700;
                     }
-                    
+
                     ul {
                         display: block;
                     }

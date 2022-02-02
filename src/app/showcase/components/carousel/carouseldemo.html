@@ -3,6 +3,7 @@
         <h1>Carousel</h1>
         <p>Carousel is a content slider featuring various customization options.</p>
     </div>
+    <app-demoActions github="carousel" stackblitz="carousel-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation carousel-demo">
@@ -14,16 +15,16 @@
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="product-item-content">
-                        <div class="p-mb-3">
+                        <div class="mb-3">
                             <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                         </div>
                         <div>
-                            <h4 class="p-mb-1">{{product.name}}</h4>
-                            <h6 class="p-mt-0 p-mb-3">${{product.price}}</h6>
+                            <h4 class="mb-1">{{product.name}}</h4>
+                            <h6 class="mt-0 mb-3">${{product.price}}</h6>
                             <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-                            <div class="car-buttons p-mt-5">
-                                <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"></p-button>
-                                <p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"></p-button>
+                            <div class="car-buttons mt-5">
+                                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                                <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
                                 <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
                             </div>
                         </div>
@@ -40,16 +41,16 @@
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="product-item-content">
-                        <div class="p-mb-3">
+                        <div class="mb-3">
                             <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                         </div>
                         <div>
-                            <h4 class="p-mb-1">{{product.name}}</h4>
-                            <h6 class="p-mt-0 p-mb-3">${{product.price}}</h6>
+                            <h4 class="mb-1">{{product.name}}</h4>
+                            <h6 class="mt-0 mb-3">${{product.price}}</h6>
                             <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-                            <div class="car-buttons p-mt-5">
-                                <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"></p-button>
-                                <p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"></p-button>
+                            <div class="car-buttons mt-5">
+                                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                                <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
                                 <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
                             </div>
                         </div>
@@ -66,16 +67,16 @@
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="product-item-content">
-                        <div class="p-mb-3">
+                        <div class="mb-3">
                             <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                         </div>
                         <div>
-                            <h4 class="p-mb-1">{{product.name}}</h4>
-                            <h6 class="p-mt-0 p-mb-3">${{product.price}}</h6>
+                            <h4 class="mb-1">{{product.name}}</h4>
+                            <h6 class="mt-0 mb-3">${{product.price}}</h6>
                             <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-                            <div class="car-buttons p-mt-5">
-                                <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"></p-button>
-                                <p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"></p-button>
+                            <div class="car-buttons mt-5">
+                                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                                <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
                                 <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
                             </div>
                         </div>
@@ -125,7 +126,7 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class CarouselDemo &#123;
-    constructor(private carService: CarService) &#123; 
+    constructor(private carService: CarService) &#123;
         this.responsiveOptions = [
             &#123;
                 breakpoint: '1024px',
@@ -214,7 +215,7 @@ export class CarouselDemo &#123;
                         </tr>
                         <tr>
                             <td>style</td>
-                            <td>string</td>
+                            <td>object</td>
                             <td>null</td>
                             <td>Inline style of the component.</td>
                         </tr>
@@ -229,6 +230,18 @@ export class CarouselDemo &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if scrolling would be infinite.</td>
+                        </tr>
+                        <tr>
+                            <td>showIndicators</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display indicator container.</td>
+                        </tr>
+                        <tr>
+                            <td>showNavigators</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to display navigation buttons in container.</td>
                         </tr>
                         <tr>
                             <td>autoplayInterval</td>
@@ -273,10 +286,28 @@ export class CarouselDemo &#123;
                             <td>Style class of main content.</td>
                         </tr>
                         <tr>
-                            <td>dotsContainerClass</td>
+                            <td>indicatorsContentClass</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the paginator items.</td>
+                        </tr>
+                        <tr>
+                            <td>indicatorsContentStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Style of the paginator items.</td>
+                        </tr>
+                        <tr>
+                            <td>indicatorStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the indicators.</td>
+                        </tr>
+                        <tr>
+                            <td>indicatorStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style of the indicators.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -301,6 +332,33 @@ export class CarouselDemo &#123;
                     </tbody>
                 </table>
             </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>item</td>
+                            <td>$implicit: Data of the item</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -370,16 +428,16 @@ export class CarouselDemo &#123;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="product-item-content"&gt;
-                &lt;div class="p-mb-3"&gt;
+                &lt;div class="mb-3"&gt;
                     &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
                 &lt;/div&gt;
                 &lt;div&gt;
-                    &lt;h4 class="p-mb-1"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h4&gt;
-                    &lt;h6 class="p-mt-0 p-mb-3"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;h4 class="mb-1"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h4&gt;
+                    &lt;h6 class="mt-0 mb-3"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
                     &lt;span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
-                    &lt;div class="car-buttons p-mt-5"&gt;
-                        &lt;p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"&gt;&lt;/p-button&gt;
-                        &lt;p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"&gt;&lt;/p-button&gt;
+                    &lt;div class="car-buttons mt-5"&gt;
+                        &lt;p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"&gt;&lt;/p-button&gt;
+                        &lt;p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"&gt;&lt;/p-button&gt;
                         &lt;p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"&gt;&lt;/p-button&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
@@ -394,16 +452,16 @@ export class CarouselDemo &#123;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="product-item-content"&gt;
-                &lt;div class="p-mb-3"&gt;
+                &lt;div class="mb-3"&gt;
                     &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
                 &lt;/div&gt;
                 &lt;div&gt;
-                    &lt;h4 class="p-mb-1"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h4&gt;
-                    &lt;h6 class="p-mt-0 p-mb-3"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;h4 class="mb-1"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h4&gt;
+                    &lt;h6 class="mt-0 mb-3"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
                     &lt;span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
-                    &lt;div class="car-buttons p-mt-5"&gt;
-                        &lt;p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"&gt;&lt;/p-button&gt;
-                        &lt;p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"&gt;&lt;/p-button&gt;
+                    &lt;div class="car-buttons mt-5"&gt;
+                        &lt;p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"&gt;&lt;/p-button&gt;
+                        &lt;p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"&gt;&lt;/p-button&gt;
                         &lt;p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"&gt;&lt;/p-button&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
@@ -418,16 +476,16 @@ export class CarouselDemo &#123;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="product-item-content"&gt;
-                &lt;div class="p-mb-3"&gt;
+                &lt;div class="mb-3"&gt;
                     &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
                 &lt;/div&gt;
                 &lt;div&gt;
-                    &lt;h4 class="p-mb-1"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h4&gt;
-                    &lt;h6 class="p-mt-0 p-mb-3"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;h4 class="mb-1"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h4&gt;
+                    &lt;h6 class="mt-0 mb-3"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
                     &lt;span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
-                    &lt;div class="car-buttons p-mt-5"&gt;
-                        &lt;p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"&gt;&lt;/p-button&gt;
-                        &lt;p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"&gt;&lt;/p-button&gt;
+                    &lt;div class="car-buttons mt-5"&gt;
+                        &lt;p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"&gt;&lt;/p-button&gt;
+                        &lt;p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"&gt;&lt;/p-button&gt;
                         &lt;p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"&gt;&lt;/p-button&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
@@ -441,10 +499,10 @@ export class CarouselDemo &#123;
 export class CarouselDemo &#123;
 
     products: Product[];
-	
+
 	responsiveOptions;
 
-	constructor(private productService: ProductService) &#123; 
+	constructor(private productService: ProductService) &#123;
 		this.responsiveOptions = [
             &#123;
                 breakpoint: '1024px',
@@ -469,7 +527,7 @@ export class CarouselDemo &#123;
 			this.products = products;
 		&#125;);
     &#125;
-    
+
 &#125;
 </app-code>
 

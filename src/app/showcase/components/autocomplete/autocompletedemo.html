@@ -3,14 +3,14 @@
         <h1>AutoComplete</h1>
         <p>AutoComplete is an input component that provides real-time suggestions when being typed.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="autocomplete" stackblitz="autocomplete-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
-    
+        <p-autoComplete [(ngModel)]="selectedCountry" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
+
         <h5>Dropdown and Templating</h5>
         <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
             <ng-template let-country pTemplate="item">
@@ -20,15 +20,19 @@
                 </div>
             </ng-template>
         </p-autoComplete>
-    
+
         <h5>Grouped</h5>
-        <p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true">
+        <p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [dropdown]="true">
             <ng-template let-group pTemplate="group">
-                <div class="p-d-flex p-ai-center">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/>
+                <div class="flex align-items-center">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
                     <span>{{group.label}}</span>
                 </div>
             </ng-template>
+        </p-autoComplete>
+
+        <h5>Virtual Scroll (10000 Items)</h5>
+        <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [itemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true">
         </p-autoComplete>
 
         <h5>Multiple</h5>
@@ -193,7 +197,7 @@ export class AutoCompleteDemo &#123;
 </app-code>
 
             <h5>Animation Configuration</h5>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -392,11 +396,18 @@ export class AutoCompleteDemo &#123;
                             <td>text</td>
                             <td>Type of the input, defaults to "text".</td>
                         </tr>
+
+                        <tr>
+                            <td>showEmptyMessage</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to show the empty message or not.</td>
+                        </tr>
                         <tr>
                             <td>emptyMessage</td>
                             <td>string</td>
-                            <td>null</td>
-                            <td>Message to display when there are no results for a query.</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                         <tr>
                             <td>immutable</td>
@@ -467,6 +478,12 @@ export class AutoCompleteDemo &#123;
                             <td>Specifies one or more IDs in the DOM that labels the input field.</td>
                         </tr>
                         <tr>
+                            <td>dropdownAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the dropdown button for accessibility.</td>
+                        </tr>
+                        <tr>
                             <td>unique</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -477,6 +494,18 @@ export class AutoCompleteDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Used to define a string that autocomplete attribute the current element.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>itemSize</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of an item in the list for VirtualScrolling.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -557,6 +586,41 @@ export class AutoCompleteDemo &#123;
                 </table>
             </div>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>item</td>
+                            <td>$implicit: Data of the option <br />
+                                index: Index of the option</td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>$implicit: Group option</td>
+                        </tr>
+                        <tr>
+                            <td>selectedItem</td>
+                            <td>$implicit: value</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -618,7 +682,7 @@ export class AutoCompleteDemo &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
+&lt;p-autoComplete [(ngModel)]="selectedCountry" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
 
 &lt;h5&gt;Dropdown and Templating&lt;/h5&gt;
 &lt;p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true"&gt;
@@ -631,13 +695,17 @@ export class AutoCompleteDemo &#123;
 &lt;/p-autoComplete&gt;
 
 &lt;h5&gt;Grouped&lt;/h5&gt;
-&lt;p-autoComplete [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true"&gt;
+&lt;p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
-        &lt;div class="p-d-flex p-ai-center"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'p-mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+        &lt;div class="flex align-items-center"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
             &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
+&lt;/p-autoComplete&gt;
+
+&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+&lt;p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [itemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"&gt;
 &lt;/p-autoComplete&gt;
 
 &lt;h5&gt;Multiple&lt;/h5&gt;
@@ -651,31 +719,39 @@ export class AutoCompleteDemo &#123;
 export class AutoCompleteDemo &#123;
 
     selectedCountry: any;
-    
+
+    selectedCity: any;
+
+    selectedItem: any;
+
     countries: any[];
-        
+
+    items: any[];
+
     filteredCountries: any[];
 
+    filteredItems: any[];
+
     selectedCountries: any[];
-    
+
     selectedCountryAdvanced: any[];
-    
+
     filteredBrands: any[];
-    
+
     groupedCities: SelectItemGroup[];
 
     filteredGroups: any[];
 
     constructor(private countryService: CountryService, private filterService: FilterService) &#123; &#125;
-    
-    ngOnInit() &#123;        
+
+    ngOnInit() &#123;
         this.countryService.getCountries().then(countries =&gt; &#123;
             this.countries = countries;
         &#125;);
 
         this.groupedCities = [
             &#123;
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     &#123;label: 'Berlin', value: 'Berlin'&#125;,
                     &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
@@ -684,7 +760,7 @@ export class AutoCompleteDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     &#123;label: 'Chicago', value: 'Chicago'&#125;,
                     &#123;label: 'Los Angeles', value: 'Los Angeles'&#125;,
@@ -693,7 +769,7 @@ export class AutoCompleteDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     &#123;label: 'Kyoto', value: 'Kyoto'&#125;,
                     &#123;label: 'Osaka', value: 'Osaka'&#125;,
@@ -702,20 +778,41 @@ export class AutoCompleteDemo &#123;
                 ]
             &#125;
         ];
+
+        this.items = [];
+        for (let i = 0; i &lt; 10000; i++) &#123;
+            this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
+        &#125;
     &#125;
-    
+
     filterCountry(event) &#123;
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
         let query = event.query;
+
         for(let i = 0; i &lt; this.countries.length; i++) &#123;
             let country = this.countries[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
                 filtered.push(country);
             &#125;
         &#125;
-        
+
         this.filteredCountries = filtered;
+    &#125;
+
+    filterItems(event) &#123;
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        let filtered : any[] = [];
+        let query = event.query;
+
+        for(let i = 0; i &lt; this.items.length; i++) &#123;
+            let item = this.items[i];
+            if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
+                filtered.push(item);
+            &#125;
+        &#125;
+
+        this.filteredItems = filtered;
     &#125;
 
     filterGroupedCity(event) &#123;

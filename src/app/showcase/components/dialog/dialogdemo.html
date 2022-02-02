@@ -3,13 +3,14 @@
         <h1>Dialog</h1>
         <p>Dialog is a container to display content in an overlay window.</p>
     </div>
+    <app-demoActions github="dialog" stackblitz="dialog-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
         <p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"></p-button>
-        <p-dialog header="Header" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+        <p-dialog header="Header" [(visible)]="displayBasic" [style]="{width: '50vw'}">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
@@ -18,19 +19,19 @@
                 <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>
             </ng-template>
         </p-dialog>
-    
+
         <p-button (click)="showBasicDialog2()" icon="pi pi-external-link" label="Long Content"></p-button>
-        <p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="{width: '50vw'}" [baseZIndex]="10000">
+        <p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="{width: '50vw'}">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
                 ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
                 culpa qui officia deserunt mollit anim id est laborum.</p>
-    
+
             <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
                 dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
                 qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
                 quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
                 vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-    
+
             <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
                 similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
                 cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
@@ -39,12 +40,12 @@
                 <p-button icon="pi pi-check" (click)="displayBasic2=false" label="Ok" styleClass="p-button-text"></p-button>
             </ng-template>
         </p-dialog>
-    
+
         <h5>Modal</h5>
         <p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"></p-button>
-        <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+        <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
             [draggable]="false" [resizable]="false">
-            <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                 laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                <ng-template pTemplate="footer">
@@ -54,7 +55,7 @@
 
         <h5>Responsive</h5>
         <p-button (click)="showResponsiveDialog()" icon="pi pi-external-link" label="Show"></p-button>
-        <p-dialog header="Header" [(visible)]="displayResponsive" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        <p-dialog header="Header" [(visible)]="displayResponsive" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
@@ -64,10 +65,10 @@
                 <p-button (click)="displayResponsive=false" label="Yes" styleClass="p-button-text"></p-button>
                </ng-template>
         </p-dialog>
-    
+
         <h5>Maximizable</h5>
         <p-button (click)="showMaximizableDialog()" icon="pi pi-external-link" label="Show"></p-button>
-        <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
+        <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
             [draggable]="false" [resizable]="false">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -77,25 +78,25 @@
                    <p-button icon="pi pi-check" (click)="displayMaximizable=false" label="Ok" styleClass="p-button-text"></p-button>
                </ng-template>
         </p-dialog>
-    
+
         <h5>Position</h5>
-        <div class="p-grid p-dir-col">
-            <div class="p-col">
+        <div class="grid flex-column">
+            <div class="col mb-2">
                 <p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"></p-button>
             </div>
-            <div class="p-col">
+            <div class="col mb-2">
                 <p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
             </div>
-            <div class="p-col">
+            <div class="col mb-2">
                 <p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"></p-button>
                 <p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"></p-button>
             </div>
         </div>
-        <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+        <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
             [draggable]="false" [resizable]="false">
             <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
@@ -168,9 +169,9 @@ export class ModelComponent &#123;
         Header content here
     &lt;/ng-template&gt;
     Content
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         //buttons
-    &lt;/p-footer&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 </app-code>
 
@@ -401,6 +402,18 @@ Content
                             <td>Name of the close icon.</td>
                         </tr>
                         <tr>
+                            <td>closeAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the close button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>closeTabindex</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Index of the close button in tabbing order.</td>
+                        </tr>
+                        <tr>
                             <td>minimizeIcon</td>
                             <td>string</td>
                             <td>pi pi-window-minimize</td>
@@ -456,6 +469,32 @@ Content
                             <td>onMaximize</td>
                             <td>event: Event object</td>
                             <td>Callback to invoke when dialog maximized or unmaximized.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>content</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
                         </tr>
                     </tbody>
                 </table>
@@ -518,7 +557,7 @@ Content
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
-&lt;p-dialog header="Header" [(visible)]="displayBasic" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+&lt;p-dialog header="Header" [(visible)]="displayBasic" [style]="&#123;width: '50vw'&#125;"&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
@@ -529,7 +568,7 @@ Content
 &lt;/p-dialog&gt;
 
 &lt;p-button (click)="showBasicDialog2()" icon="pi pi-external-link" label="Long Content"&gt;&lt;/p-button&gt;
-&lt;p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+&lt;p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="&#123;width: '50vw'&#125;"&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
         ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
         culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
@@ -551,9 +590,9 @@ Content
 
 &lt;h5&gt;Modal&lt;/h5&gt;
 &lt;p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
-&lt;p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
+&lt;p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;"
     [draggable]="false" [resizable]="false"&gt;
-    &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    &lt;p class="m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;ng-template pTemplate="footer"&gt;
@@ -563,7 +602,7 @@ Content
 
 &lt;h5&gt;Responsive&lt;/h5&gt;
 &lt;p-button (click)="showResponsiveDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
-&lt;p-dialog header="Header" [(visible)]="displayResponsive" [breakpoints]="&#123;'960px': '75vw'&#125;" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" 
+&lt;p-dialog header="Header" [(visible)]="displayResponsive" [breakpoints]="&#123;'960px': '75vw'&#125;" [style]="&#123;width: '50vw'&#125;"
     [draggable]="false" [resizable]="false"&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -577,7 +616,7 @@ Content
 
 &lt;h5&gt;Maximizable&lt;/h5&gt;
 &lt;p-button (click)="showMaximizableDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
-&lt;p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
+&lt;p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true"
     [draggable]="false" [resizable]="false"&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -589,23 +628,23 @@ Content
 &lt;/p-dialog&gt;
 
 &lt;h5&gt;Position&lt;/h5&gt;
-&lt;div class="p-grid p-dir-col"&gt;
-    &lt;div class="p-col"&gt;
+&lt;div class="grid flex-column"&gt;
+    &lt;div class="col mb-2"&gt;
         &lt;p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;div class="p-col"&gt;
+    &lt;div class="col mb-2"&gt;
         &lt;p-button (click)="showPositionDialog('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;div class="p-col"&gt;
+    &lt;div class="col mb-2"&gt;
         &lt;p-button (click)="showPositionDialog('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
         &lt;p-button (click)="showPositionDialog('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
+&lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;"
     [draggable]="false" [resizable]="false"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.

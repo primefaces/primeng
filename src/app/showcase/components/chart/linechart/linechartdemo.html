@@ -3,6 +3,7 @@
         <h1>Line Chart</h1>
         <p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</p>
     </div>
+    <app-demoActions github="chart/linechart"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -46,7 +47,7 @@
 &lt;/div&gt;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-export class LineChartDemo &#123;
+export class LineChartDemo implements OnInit &#123;
 
     basicData: any;
 
@@ -57,7 +58,7 @@ export class LineChartDemo &#123;
     lineStylesData: any;
 
     basicOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -72,16 +73,18 @@ export class LineChartDemo &#123;
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     fill: false,
-                    borderColor: '#42A5F5'
+                    borderColor: '#42A5F5',
+                    tension: .4
                 &#125;,
                 &#123;
                     label: 'Second Dataset',
                     data: [28, 48, 40, 19, 86, 27, 90],
                     fill: false,
-                    borderColor: '#FFA726'
+                    borderColor: '#FFA726',
+                    tension: .4
                 &#125;
             ]
-        &#125;
+        &#125;;
 
         this.multiAxisData = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -89,36 +92,60 @@ export class LineChartDemo &#123;
                 label: 'Dataset 1',
                 fill: false,
                 borderColor: '#42A5F5',
-                yAxisID: 'y-axis-1',
+                yAxisID: 'y',
+                tension: .4,
                 data: [65, 59, 80, 81, 56, 55, 10]
             &#125;, &#123;
                 label: 'Dataset 2',
                 fill: false,
                 borderColor: '#00bb7e',
-                yAxisID: 'y-axis-2',
+                yAxisID: 'y1',
+                tension: .4,
                 data: [28, 48, 40, 19, 86, 27, 90]
             &#125;]
         &#125;;
 
         this.multiAxisOptions = &#123;
-            responsive: true,
-            hoverMode: 'index',
             stacked: false,
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;,
             scales: &#123;
-                yAxes: [&#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y: &#123;
                     type: 'linear',
                     display: true,
                     position: 'left',
-                    id: 'y-axis-1',
-                &#125;, &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y1: &#123;
                     type: 'linear',
                     display: true,
                     position: 'right',
-                    id: 'y-axis-2',
-                    gridLines: &#123;
-                        drawOnChartArea: false
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        drawOnChartArea: false,
+                        color: '#ebedef'
                     &#125;
-                &#125;]
+                &#125;
             &#125;
         &#125;;
 
@@ -129,6 +156,7 @@ export class LineChartDemo &#123;
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     fill: false,
+                    tension: .4,
                     borderColor: '#42A5F5'
                 &#125;,
                 &#123;
@@ -136,6 +164,7 @@ export class LineChartDemo &#123;
                     data: [28, 48, 40, 19, 86, 27, 90],
                     fill: false,
                     borderDash: [5, 5],
+                    tension: .4,
                     borderColor: '#66BB6A'
                 &#125;,
                 &#123;
@@ -143,11 +172,12 @@ export class LineChartDemo &#123;
                     data: [12, 51, 62, 33, 21, 62, 45],
                     fill: true,
                     borderColor: '#FFA726',
+                    tension: .4,
                     backgroundColor: 'rgba(255,167,38,0.2)'
                 &#125;
             ]
         &#125;;
-        
+
         this.config = this.configService.config;
         this.updateChartOptions();
         this.subscription = this.configService.configUpdate$.subscribe(config =&gt; &#123;
@@ -157,7 +187,7 @@ export class LineChartDemo &#123;
     &#125;
 
     updateChartOptions() &#123;
-        if (this.config.dark) 
+        if (this.config.dark)
             this.applyDarkTheme();
         else
             this.applyLightTheme();
@@ -165,108 +195,150 @@ export class LineChartDemo &#123;
 
     applyLightTheme() &#123;
         this.basicOptions = &#123;
-            legend: &#123;
-                labels: &#123;
-                    fontColor: '#495057'
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
                 &#125;
             &#125;,
             scales: &#123;
-                xAxes: [&#123;
+                x: &#123;
                     ticks: &#123;
-                        fontColor: '#495057'
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
                     &#125;
-                &#125;],
-                yAxes: [&#123;
+                &#125;,
+                y: &#123;
                     ticks: &#123;
-                        fontColor: '#495057'
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
                     &#125;
-                &#125;]
+                &#125;
             &#125;
         &#125;;
 
-        this.multiAxisOptions.scales.xAxes = [&#123;
-                ticks: &#123;
-                    fontColor: '#495057'
+        this.multiAxisOptions = &#123;
+            stacked: false,
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
                 &#125;,
-                gridLines: &#123;
-                    color: '#ebedef'
+                y: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y1: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        drawOnChartArea: false,
+                        color: '#ebedef'
+                    &#125;
                 &#125;
             &#125;
-        ];
-        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
-            fontColor: '#495057'
         &#125;;
-        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
-            color: '#ebedef'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
-            fontColor: '#495057'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
-            color: '#ebedef'
-        &#125;;
-        this.multiAxisOptions.legend = &#123;
-            labels:  &#123;
-                fontColor: '#495057'
-            &#125;
-        &#125;;
-        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
     &#125;
 
     applyDarkTheme() &#123;
         this.basicOptions = &#123;
-            legend: &#123;
-                labels: &#123;
-                    fontColor: '#ebedef'
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
                 &#125;
             &#125;,
             scales: &#123;
-                xAxes: [&#123;
+                x: &#123;
                     ticks: &#123;
-                        fontColor: '#ebedef'
+                        color: '#ebedef'
                     &#125;,
-                    gridLines: &#123;
+                    grid: &#123;
                         color: 'rgba(255,255,255,0.2)'
                     &#125;
-                &#125;],
-                yAxes: [&#123;
+                &#125;,
+                y: &#123;
                     ticks: &#123;
-                        fontColor: '#ebedef'
+                        color: '#ebedef'
                     &#125;,
-                    gridLines: &#123;
+                    grid: &#123;
                         color: 'rgba(255,255,255,0.2)'
                     &#125;
-                &#125;]
+                &#125;
             &#125;
         &#125;;
 
-        this.multiAxisOptions.scales.xAxes = [&#123;
-                ticks: &#123;
-                    fontColor: '#ebedef'
+        this.multiAxisOptions = &#123;
+            stacked: false,
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
                 &#125;,
-                gridLines: &#123;
-                    color: 'rgba(255,255,255,0.2)'
+                y: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;,
+                y1: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        drawOnChartArea: false,
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
                 &#125;
             &#125;
-        ];
-        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
-            fontColor: '#ebedef'
         &#125;;
-        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
-            color: 'rgba(255,255,255,0.2)'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
-            fontColor: '#ebedef'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
-            color: 'rgba(255,255,255,0.2)'
-        &#125;;
-        this.multiAxisOptions.legend = &#123;
-            labels:  &#123;
-                fontColor: '#ebedef'
-            &#125;
-        &#125;;
-        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
     &#125;
 &#125;
 </app-code>

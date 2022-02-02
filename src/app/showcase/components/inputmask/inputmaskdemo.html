@@ -3,38 +3,38 @@
         <h1>InputMask</h1>
         <p>InputMask component is used to enter input in a certain format such as numeric, date, currency and phone.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="inputmask" stackblitz="inputmask-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-6 p-lg-4">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6 lg:col-4">
                 <span>Basic</span>
                 <p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"></p-inputMask>
             </div>
             
-            <div class="p-col-12 p-md-6 p-lg-4">
+            <div class="col-12 md:col-6 lg:col-4">
                 <span>SSN</span>
                 <p-inputMask mask="999-99-9999" [(ngModel)]="val2" placeholder="999-99-9999"></p-inputMask>
             </div>
             
-            <div class="p-col-12 p-md-6 p-lg-4">
+            <div class="col-12 md:col-6 lg:col-4">
                 <span>Date</span>
                 <p-inputMask mask="99/99/9999" [(ngModel)]="val3" placeholder="99/99/9999" slotChar="mm/dd/yyyy"></p-inputMask>
             </div>
             
-            <div class="p-col-12 p-md-6 p-lg-4">
+            <div class="col-12 md:col-6 lg:col-4">
                 <span>Phone</span>
                 <p-inputMask mask="(999) 999-9999" [(ngModel)]="val4" placeholder="(999) 999-9999"></p-inputMask>
             </div>
             
-            <div class="p-col-12 p-md-6 p-lg-4">
+            <div class="col-12 md:col-6 lg:col-4">
                 <span>Phone Ext</span>
                 <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="val5" placeholder="(999) 999-9999? x99999"></p-inputMask>
             </div>
             
-            <div class="p-col-12 p-md-6 p-lg-4">
+            <div class="col-12 md:col-6 lg:col-4">
                 <span>Serial Number</span>
                 <p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"></p-inputMask>
             </div>
@@ -310,33 +310,33 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="col-12 md:col-6 lg:col-4"&gt;
         &lt;span&gt;Basic&lt;/span&gt;
         &lt;p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
+    &lt;div class="col-12 md:col-6 lg:col-4"&gt;
         &lt;span&gt;SSN&lt;/span&gt;
         &lt;p-inputMask mask="999-99-9999" [(ngModel)]="val2" placeholder="999-99-9999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
+    &lt;div class="col-12 md:col-6 lg:col-4"&gt;
         &lt;span&gt;Date&lt;/span&gt;
         &lt;p-inputMask mask="99/99/9999" [(ngModel)]="val3" placeholder="99/99/9999" slotChar="mm/dd/yyyy"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
+    &lt;div class="col-12 md:col-6 lg:col-4"&gt;
         &lt;span&gt;Phone&lt;/span&gt;
         &lt;p-inputMask mask="(999) 999-9999" [(ngModel)]="val4" placeholder="(999) 999-9999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
+    &lt;div class="col-12 md:col-6 lg:col-4"&gt;
         &lt;span&gt;Phone Ext&lt;/span&gt;
         &lt;p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="val5" placeholder="(999) 999-9999? x99999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
-    &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
+    &lt;div class="col-12 md:col-6 lg:col-4"&gt;
         &lt;span&gt;Serial Number&lt;/span&gt;
         &lt;p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;

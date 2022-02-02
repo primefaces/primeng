@@ -17,7 +17,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
             </div>
             <div class="p-checkbox-box" (click)="onClick($event,input)"  role="checkbox" [attr.aria-checked]="value === true"
                 [ngClass]="{'p-highlight':value!=null,'p-disabled':disabled,'p-focus':focused}">
-                <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':value==true,'pi-times':value==false}"></span>
+                <span class="p-checkbox-icon" [ngClass]="value === true ? checkboxTrueIcon : value === false ? checkboxFalseIcon : ''"></span>
             </div>
         </div>
         <label class="p-checkbox-label" (click)="onClick($event,input)"
@@ -26,7 +26,10 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
 
@@ -49,6 +52,10 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     @Input() label: string;
 
     @Input() readonly: boolean;
+
+    @Input() checkboxTrueIcon: string = 'pi pi-check';
+
+    @Input() checkboxFalseIcon: string = 'pi pi-times';
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 

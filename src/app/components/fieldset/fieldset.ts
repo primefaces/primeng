@@ -3,7 +3,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';
 
 let idx: number = 0;
 
@@ -24,7 +24,7 @@ let idx: number = 0;
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </ng-template>
             </legend>
-            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}" 
+            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}"
                         [attr.aria-labelledby]="id" [attr.aria-hidden]="collapsed"
                          (@fieldsetContent.done)="onToggleDone($event)" role="region">
                 <div class="p-fieldset-content">
@@ -49,7 +49,10 @@ let idx: number = 0;
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./fieldset.css']
+    styleUrls: ['./fieldset.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Fieldset implements AfterContentInit,BlockableUI {
 
@@ -60,27 +63,27 @@ export class Fieldset implements AfterContentInit,BlockableUI {
     @Input() collapsed: boolean = false;
 
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     public animating: boolean;
 
     headerTemplate: TemplateRef<any>;
 
     contentTemplate: TemplateRef<any>;
-    
+
     constructor(private el: ElementRef) {}
-    
+
     id: string = `p-fieldset-${idx++}`;
 
     ngAfterContentInit() {
@@ -96,38 +99,38 @@ export class Fieldset implements AfterContentInit,BlockableUI {
             }
         });
     }
-        
+
     toggle(event) {
         if (this.animating) {
             return false;
         }
-        
+
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
-        
+
         if (this.collapsed)
             this.expand(event);
         else
             this.collapse(event);
-            
-        this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});   
+
+        this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});
         event.preventDefault();
     }
-    
+
     expand(event) {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
     }
-    
+
     collapse(event) {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-    
+
     onToggleDone(event: Event) {
         this.animating = false;
     }

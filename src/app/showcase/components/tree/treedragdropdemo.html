@@ -3,6 +3,7 @@
         <h1>Tree <span>DragDrop</span></h1>
         <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
     </div>
+    <app-demoActions github="tree" stackblitz="treedragdrop-demo"></app-demoActions>
 </div>
 <div class="content-section implementation">
     <div class="card">
@@ -12,20 +13,20 @@
 
         <h5>Multiple Trees</h5>
         <p>Node reordering between multiple tree based on scope constraints.</p>
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-4">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
                 <h4>Files</h4>
                 <p>Can transfer to Server 2.</p>
                 <p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2"></p-tree>
             </div>
 
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <h4>Server 1</h4>
                 <p>Can transfer to Files.</p>
                 <p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"></p-tree>
             </div>
 
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <h4>Server 2</h4>
                 <p>Can transfer to Server 1.</p>
                 <p-tree [value]="files4" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"></p-tree>
@@ -51,20 +52,20 @@
 
 &lt;h5&gt;Multiple Trees&lt;/h5&gt;
 &lt;p&gt;Node reordering between multiple tree based on scope constraints.&lt;/p&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;h4&gt;Files&lt;/h4&gt;
         &lt;p&gt;Can transfer to Server 2.&lt;/p&gt;
         &lt;p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;h4&gt;Server 1&lt;/h4&gt;
         &lt;p&gt;Can transfer to Files.&lt;/p&gt;
         &lt;p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;h4&gt;Server 2&lt;/h4&gt;
         &lt;p&gt;Can transfer to Server 1.&lt;/p&gt;
         &lt;p-tree [value]="files4" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;

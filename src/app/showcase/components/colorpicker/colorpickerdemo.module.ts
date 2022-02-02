@@ -6,6 +6,8 @@ import {ColorPickerDemoRoutingModule} from './colorpickerdemo-routing.module';
 import {ColorPickerModule} from 'primeng/colorpicker';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
 	imports: [
@@ -14,6 +16,8 @@ import {AppCodeModule} from '../../app.code.component';
 		ColorPickerDemoRoutingModule,
         ColorPickerModule,
 		TabViewModule,
+		AppDemoActionsModule,
+		ButtonModule,
 		AppCodeModule
 	],
 	declarations: [

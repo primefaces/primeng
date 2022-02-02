@@ -254,7 +254,7 @@ describe('Dropdown', () => {
 		filterInputEl.nativeElement.value = "n";
 		filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		const event = {'target':{'value':'n'}};
-		dropdown.onFilter(event)
+		dropdown.onFilterInputChange(event)
 		fixture.detectChanges();
 
 		items=fixture.debugElement.query(By.css('.p-dropdown-items'));
@@ -282,14 +282,14 @@ describe('Dropdown', () => {
 		filterInputEl.nativeElement.value = "primeng";
 		filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		const event = {'target':{'value':'primeng'}};
-		dropdown.onFilter(event)
+		dropdown.onFilterInputChange(event)
 		fixture.detectChanges();
 
 		const items = fixture.debugElement.query(By.css('.p-dropdown-items'));
 		const emptyMesage = items.children[0]; 
 		expect(items.nativeElement.children.length).toEqual(1);
 		expect(emptyMesage).toBeTruthy();
-		expect(emptyMesage.nativeElement.textContent).toEqual("No results found");
+		expect(emptyMesage.nativeElement.textContent).toContain("No results found");
 	}));
 
 	it('should open with down and altkey', () => {
@@ -427,6 +427,27 @@ describe('Dropdown', () => {
 		fixture.detectChanges();
 
 		expect(dropdown.selectedOption.name).toEqual("Paris");
+	});
+
+	it('should select with up key and skip disabled options', () => {
+		dropdown.optionDisabled = 'inactive'
+		dropdown.options = [
+			{name: 'New York', code: 'NY'},
+			{name: 'Rome', code: 'RM'},
+			{name: 'London', code: 'LDN'},
+			{name: 'Istanbul', code: 'IST', inactive: true},
+			{name: 'Paris', code: 'PRS', inactive: true}
+		];
+		fixture.detectChanges();
+		
+		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+		const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.which = 38 ;
+		keydownEvent.initEvent('keydown', true, true);
+		inputEl.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		expect(dropdown.selectedOption.name).toEqual("London");
 	});
 
 	it('should select with filter', () => {

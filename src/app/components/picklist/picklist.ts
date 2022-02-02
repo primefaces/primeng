@@ -5,21 +5,22 @@ import {SharedModule,PrimeTemplate,FilterService} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {RippleModule} from 'primeng/ripple';
 import {CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {UniqueComponentId} from 'primeng/utils';
+import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 
 @Component({
     selector: 'p-pickList',
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-picklist p-component'" cdkDropListGroup>
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
-                <div class="p-picklist-header" *ngIf="sourceHeader">
-                    <div class="p-picklist-title">{{sourceHeader}}</div>
+                <div class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate">
+                    <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate">{{sourceHeader}}</div>
+                    <ng-container *ngTemplateOutlet="sourceHeaderTemplate"></ng-container>
                 </div>
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showSourceFilter !== false">
                     <div class="p-picklist-filter">
@@ -27,32 +28,36 @@ import {UniqueComponentId} from 'primeng/utils';
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
-                
+
                 <ul #sourcelist class="p-picklist-list p-picklist-source" cdkDropList [cdkDropListData]="source" (cdkDropListDropped)="onDrop($event, SOURCE_LIST)"
                     [ngStyle]="sourceStyle" role="listbox" aria-multiselectable="multiple">
                     <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="sourceTrackBy || trackBy" let-i="index" let-l="last">
-                        <li [ngClass]="{'p-picklist-item':true,'p-highlight':isSelected(item,selectedItemsSource),'p-disabled': disabled}" pRipple cdkDrag [cdkDragData]="item"
-                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsSource,onSourceSelect)"
-                            [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'" tabindex="0" role="option" [attr.aria-selected]="isSelected(item, selectedItemsSource)">
+                        <li [ngClass]="{'p-picklist-item':true,'p-highlight':isSelected(item,selectedItemsSource),'p-disabled': disabled}" pRipple cdkDrag [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
+                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd()" (keydown)="onItemKeydown($event,item,selectedItemsSource,onSourceSelect)"
+                            *ngIf="isItemVisible(item, SOURCE_LIST)" tabindex="0" role="option" [attr.aria-selected]="isSelected(item, selectedItemsSource)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
-                    <ng-container *ngIf="(source == null || source.length === 0) && emptyMessageSourceTemplate">
-                        <li class="p-picklist-empty-message">
+                    <ng-container *ngIf="isEmpty(SOURCE_LIST) && (emptyMessageSourceTemplate || emptyFilterMessageSourceTemplate)">
+                        <li class="p-picklist-empty-message" *ngIf="!filterValueSource || !emptyFilterMessageSourceTemplate">
                             <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate"></ng-container>
+                        </li>
+                        <li class="p-picklist-empty-message" *ngIf="filterValueSource">
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageSourceTemplate"></ng-container>
                         </li>
                     </ng-container>
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-transfer-buttons">
-                <button type="button" pButton pRipple icon="pi pi-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
+                <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple icon="pi pi-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
+                <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
+                <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple icon="pi pi-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
+                <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper">
-                <div class="p-picklist-header" *ngIf="targetHeader">
-                    <div class="p-picklist-title" *ngIf="targetHeader">{{targetHeader}}</div>
+                <div class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate">
+                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate">{{targetHeader}}</div>
+                    <ng-container *ngTemplateOutlet="targetHeaderTemplate"></ng-container>
                 </div>
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showTargetFilter !== false">
                     <div class="p-picklist-filter">
@@ -63,30 +68,36 @@ import {UniqueComponentId} from 'primeng/utils';
                 <ul #targetlist class="p-picklist-list p-picklist-target" cdkDropList [cdkDropListData]="target" (cdkDropListDropped)="onDrop($event, TARGET_LIST)"
                     [ngStyle]="targetStyle" role="listbox" aria-multiselectable="multiple">
                     <ng-template ngFor let-item [ngForOf]="target" [ngForTrackBy]="targetTrackBy || trackBy" let-i="index" let-l="last">
-                        <li [ngClass]="{'p-picklist-item':true,'p-highlight':isSelected(item,selectedItemsTarget), 'p-disabled': disabled}" pRipple cdkDrag [cdkDragData]="item"
-                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsTarget,onTargetSelect)"
-                            [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'" tabindex="0" role="option" [attr.aria-selected]="isSelected(item, selectedItemsTarget)">
+                        <li [ngClass]="{'p-picklist-item':true,'p-highlight':isSelected(item,selectedItemsTarget), 'p-disabled': disabled}" pRipple cdkDrag [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
+                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd()" (keydown)="onItemKeydown($event,item,selectedItemsTarget,onTargetSelect)"
+                            *ngIf="isItemVisible(item, TARGET_LIST)" tabindex="0" role="option" [attr.aria-selected]="isSelected(item, selectedItemsTarget)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
-                    <ng-container *ngIf="(target == null || target.length === 0) && emptyMessageTargetTemplate">
-                        <li class="p-picklist-empty-message">
+                    <ng-container *ngIf="isEmpty(TARGET_LIST) && (emptyMessageTargetTemplate || emptyFilterMessageTargetTemplate)">
+                        <li class="p-picklist-empty-message" *ngIf="!filterValueTarget || !emptyFilterMessageTargetTemplate">
                             <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate"></ng-container>
+                        </li>
+                        <li class="p-picklist-empty-message" *ngIf="filterValueTarget">
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageTargetTemplate"></ng-container>
                         </li>
                     </ng-container>
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-target-controls" *ngIf="showTargetControls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./picklist.css']
+    styleUrls: ['./picklist.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class PickList implements AfterViewChecked,AfterContentInit {
 
@@ -95,6 +106,22 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() target: any[];
 
     @Input() sourceHeader: string;
+
+    @Input() rightButtonAriaLabel: string;
+
+    @Input() leftButtonAriaLabel: string;
+
+    @Input() allRightButtonAriaLabel: string;
+
+    @Input() allLeftButtonAriaLabel: string;
+
+    @Input() upButtonAriaLabel: string;
+
+    @Input() downButtonAriaLabel: string;
+
+    @Input() topButtonAriaLabel: string;
+
+    @Input() bottomButtonAriaLabel: string;
 
     @Input() targetHeader: string;
 
@@ -116,7 +143,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Input() metaKeySelection: boolean = true;
 
-    @Input() dragdrop: boolean;
+    @Input() dragdrop: boolean = false;
 
     @Input() style: any;
 
@@ -204,7 +231,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     emptyMessageSourceTemplate: TemplateRef<any>;
 
+    emptyFilterMessageSourceTemplate: TemplateRef<any>;
+
     emptyMessageTargetTemplate: TemplateRef<any>;
+
+    emptyFilterMessageTargetTemplate: TemplateRef<any>;
+
+    sourceHeaderTemplate: TemplateRef<any>;
+
+    targetHeaderTemplate: TemplateRef<any>;
 
     readonly SOURCE_LIST = -1;
 
@@ -226,13 +261,29 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.itemTemplate = item.template;
                 break;
 
+                case 'sourceHeader':
+                    this.sourceHeaderTemplate = item.template;
+                break;
+
+                case 'targetHeader':
+                    this.targetHeaderTemplate = item.template;
+                break;
+
                 case 'emptymessagesource':
                     this.emptyMessageSourceTemplate = item.template;
                 break;
 
+                case 'emptyfiltermessagesource':
+                    this.emptyFilterMessageSourceTemplate = item.template;
+                break;
+
                 case 'emptymessagetarget':
                     this.emptyMessageTargetTemplate = item.template;
-                    break;
+                break;
+
+                case 'emptyfiltermessagetarget':
+                    this.emptyFilterMessageTargetTemplate = item.template;
+                break;
 
                 default:
                     this.itemTemplate = item.template;
@@ -310,19 +361,22 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     onFilter(event: KeyboardEvent, data: any[], listType: number) {
         let query = ((<HTMLInputElement> event.target).value.trim() as any).toLocaleLowerCase(this.filterLocale);
-        this.filter(query, data, listType);
+        if (listType === this.SOURCE_LIST)
+            this.filterValueSource = query;
+        else if (listType === this.TARGET_LIST)
+            this.filterValueTarget = query;
+
+        this.filter(data, listType);
     }
 
-    filter(query: string, data: any[], listType: number) {
+    filter(data: any[], listType: number) {
         let searchFields = this.filterBy.split(',');
 
         if (listType === this.SOURCE_LIST) {
-            this.filterValueSource = query;
             this.visibleOptionsSource = this.filterService.filter(data, searchFields, this.filterValueSource, this.filterMatchMode, this.filterLocale);
             this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
         }
         else if (listType === this.TARGET_LIST) {
-            this.filterValueTarget = query;
             this.visibleOptionsTarget = this.filterService.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode, this.filterLocale);
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
@@ -334,6 +388,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         else
             return this.isVisibleInList(this.visibleOptionsTarget, item, this.filterValueTarget);
     }
+
+    isEmpty(listType: number) {
+        if (listType == this.SOURCE_LIST)
+            return this.filterValueSource ? (!this.visibleOptionsSource || this.visibleOptionsSource.length === 0) : (!this.source || this.source.length === 0);
+        else
+            return this.filterValueTarget ? (!this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0) : (!this.target || this.target.length === 0);
+    }
+
 
     isVisibleInList(data: any[], item: any, filterValue: string): boolean {
         if (filterValue && filterValue.trim().length) {
@@ -348,7 +410,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
 
-    onItemTouchEnd(event) {
+    onItemTouchEnd() {
         if (this.disabled) {
             return;
         }
@@ -358,15 +420,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     private sortByIndexInList(items: any[], list: any) {
         return items.sort((item1, item2) =>
-            this.findIndexInList(item1, list) - this.findIndexInList(item2, list));
+            ObjectUtils.findIndexInList(item1, list) - ObjectUtils.findIndexInList(item2, list));
     }
 
-    moveUp(listElement, list, selectedItems, callback) {
+    moveUp(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = list[selectedItemIndex];
@@ -379,18 +441,21 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
+                this.filter(list, listType);
+
             this.movedUp = true;
             this.reorderedListElement = listElement;
             callback.emit({items: selectedItems});
         }
     }
 
-    moveTop(listElement, list, selectedItems, callback) {
+    moveTop(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = list.splice(selectedItemIndex,1)[0];
@@ -401,17 +466,20 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
+                this.filter(list, listType);
+
             listElement.scrollTop = 0;
             callback.emit({items: selectedItems});
         }
     }
 
-    moveDown(listElement, list, selectedItems, callback) {
+    moveDown(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != (list.length - 1)) {
                     let movedItem = list[selectedItemIndex];
@@ -424,18 +492,21 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
+                this.filter(list, listType);
+
             this.movedDown = true;
             this.reorderedListElement = listElement;
             callback.emit({items: selectedItems});
         }
     }
 
-    moveBottom(listElement, list, selectedItems, callback) {
+    moveBottom(listElement, list, selectedItems, callback, listType) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != (list.length - 1)) {
                     let movedItem = list.splice(selectedItemIndex,1)[0];
@@ -446,6 +517,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST)))
+                this.filter(list, listType);
+
             listElement.scrollTop = listElement.scrollHeight;
             callback.emit({items: selectedItems});
         }
@@ -455,8 +529,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         if (this.selectedItemsSource && this.selectedItemsSource.length) {
             for(let i = 0; i < this.selectedItemsSource.length; i++) {
                 let selectedItem = this.selectedItemsSource[i];
-                if (this.findIndexInList(selectedItem, this.target) == -1) {
-                    this.target.push(this.source.splice(this.findIndexInList(selectedItem, this.source),1)[0]);
+                if (ObjectUtils.findIndexInList(selectedItem, this.target) == -1) {
+                    this.target.push(this.source.splice(ObjectUtils.findIndexInList(selectedItem, this.source),1)[0]);
+
+                    if (this.visibleOptionsSource)
+                        this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource),1);
                 }
             }
             this.onMoveToTarget.emit({
@@ -465,7 +542,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(this.filterValueTarget, this.target, this.TARGET_LIST);
+                this.filter(this.target, this.TARGET_LIST);
             }
         }
     }
@@ -490,8 +567,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(this.filterValueTarget, this.target, this.TARGET_LIST);
+                this.filter(this.target, this.TARGET_LIST);
             }
+
+            this.visibleOptionsSource = [];
         }
     }
 
@@ -499,8 +578,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         if (this.selectedItemsTarget && this.selectedItemsTarget.length) {
             for(let i = 0; i < this.selectedItemsTarget.length; i++) {
                 let selectedItem = this.selectedItemsTarget[i];
-                if (this.findIndexInList(selectedItem, this.source) == -1) {
-                    this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
+                if (ObjectUtils.findIndexInList(selectedItem, this.source) == -1) {
+                    this.source.push(this.target.splice(ObjectUtils.findIndexInList(selectedItem, this.target),1)[0]);
+
+                    if (this.visibleOptionsTarget)
+                        this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget),1)[0]
                 }
             }
             this.onMoveToSource.emit({
@@ -510,7 +592,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(this.filterValueSource, this.source, this.SOURCE_LIST);
+                this.filter(this.source, this.SOURCE_LIST);
             }
         }
     }
@@ -535,8 +617,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(this.filterValueSource, this.source, this.SOURCE_LIST);
+                this.filter(this.source, this.SOURCE_LIST);
             }
+
+            this.visibleOptionsTarget = [];
         }
     }
 
@@ -545,40 +629,74 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
 
     findIndexInSelection(item: any, selectedItems: any[]): number {
-        return this.findIndexInList(item, selectedItems);
-    }
-
-    findIndexInList(item: any, list: any): number {
-        let index: number = -1;
-
-        if (list) {
-            for(let i = 0; i < list.length; i++) {
-                if (list[i] == item) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-
-        return index;
+        return ObjectUtils.findIndexInList(item, selectedItems);
     }
 
     onDrop(event: CdkDragDrop<string[]>, listType: number) {
-        if (event.previousContainer === event.container) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        let isTransfer = event.previousContainer !== event.container;
+        let dropIndexes = this.getDropIndexes(event.previousIndex, event.currentIndex, listType, isTransfer, event.item.data);
 
-            if (listType == this.SOURCE_LIST)
-                this.onSourceReorder.emit([event.item.data]);
-            else
-                this.onTargetReorder.emit([event.item.data]);
-        } 
+        if (listType === this.SOURCE_LIST) {
+            if (isTransfer) {
+                transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+
+                if (this.visibleOptionsTarget)
+                    this.visibleOptionsTarget.splice(event.previousIndex, 1);
+
+                this.onMoveToSource.emit({items: [event.item.data]});
+            }
+            else {
+                moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                this.onSourceReorder.emit({items: [event.item.data]});
+            }
+
+            if (this.filterValueSource) {
+                this.filter(this.source, this.SOURCE_LIST);
+            }
+        }
         else {
-            transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+            if (isTransfer) {
+                transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
 
-            if (listType == this.SOURCE_LIST)
-                this.onMoveToSource.emit([event.item.data]);
-            else
-                this.onMoveToTarget.emit([event.item.data]);
+                if (this.visibleOptionsSource)
+                    this.visibleOptionsSource.splice(event.previousIndex, 1);
+
+                this.onMoveToTarget.emit({items: [event.item.data]});
+            }
+            else {
+                moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                this.onTargetReorder.emit({items: [event.item.data]});
+            }
+
+            if (this.filterValueTarget) {
+                this.filter(this.target, this.TARGET_LIST);
+            }
+        }
+    }
+
+    getDropIndexes(fromIndex, toIndex, droppedList, isTransfer, data) {
+        let previousIndex, currentIndex;
+
+        if (droppedList === this.SOURCE_LIST) {
+            previousIndex = isTransfer ? this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex : this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex;
+            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(this.visibleOptionsSource, toIndex, this.source) : toIndex;
+        }
+        else {
+            previousIndex = isTransfer ? this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex : this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex;
+            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(this.visibleOptionsTarget, toIndex, this.target) : toIndex;
+        }
+
+        return {previousIndex, currentIndex};
+    }
+
+    findFilteredCurrentIndex(visibleOptions, index, options) {
+        if (visibleOptions.length === index) {
+            let toIndex = ObjectUtils.findIndexInList(visibleOptions[index-1], options);
+
+            return toIndex + 1;
+        }
+        else {
+            return ObjectUtils.findIndexInList(visibleOptions[index], options);
         }
     }
 
@@ -654,39 +772,39 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 .p-picklist[${this.id}] {
                     flex-direction: column;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons {
                     padding: var(--content-padding);
                     flex-direction: row;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons .p-button {
                     margin-right: var(--inline-spacing);
                     margin-bottom: 0;
                 }
-            
+
                 .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
                     margin-right: 0;
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-right:before {
                     content: "\\e930"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-double-right:before {
                     content: "\\e92c"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-left:before {
                     content: "\\e933"
                 }
-            
+
                 .p-picklist[${this.id}] .pi-angle-double-left:before {
                     content: "\\e92f"
                 }
             }
             `;
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }

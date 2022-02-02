@@ -3,6 +3,7 @@
         <h1>Button</h1>
         <p>Button is an extension to standard button element with icons and theming.</p>
     </div>
+    <app-demoActions github="button" stackblitz="button-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -73,6 +74,15 @@
         <button pButton pRipple type="button" label="Help" class="p-button-outlined p-button-help"></button>
         <button pButton pRipple type="button" label="Danger" class="p-button-outlined p-button-danger"></button>
 
+        <h5>Rounded Outlined Buttons</h5>
+        <button pButton pRipple type="button" label="Primary" class="p-button-outlined p-button-rounded"></button>
+        <button pButton pRipple type="button" label="Secondary" class="p-button-outlined p-button-rounded p-button-secondary"></button>
+        <button pButton pRipple type="button" label="Success" class="p-button-outlined p-button-rounded p-button-success"></button>
+        <button pButton pRipple type="button" label="Info" class="p-button-outlined p-button-rounded p-button-info"></button>
+        <button pButton pRipple type="button" label="Warning" class="p-button-outlined p-button-rounded p-button-warning"></button>
+        <button pButton pRipple type="button" label="Help" class="p-button-outlined p-button-rounded p-button-help"></button>
+        <button pButton pRipple type="button" label="Danger" class="p-button-outlined p-button-rounded p-button-danger"></button>
+
         <h5>Rounded Icon Buttons</h5>
         <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"></button>
         <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary"></button>
@@ -104,6 +114,24 @@
         <h5>Badges</h5>
         <p-button label="Emails" badge="8"></p-button>
         <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+
+        <h5>Loading</h5>
+        <p-button label="Search" icon="pi pi-search" [loading]="loading[0]" (onClick)="load(0)"></p-button>
+        <p-button label="Search" icon="pi pi-search" iconPos="right" [loading]="loading[1]" (onClick)="load(1)"></p-button>
+        <p-button icon="pi pi-search" [loading]="loading[2]" (onClick)="load(2)"></p-button>
+        <p-button label="Search" [loading]="loading[3]" (onClick)="load(3)"></p-button>
+
+        <h5>Templating</h5>
+        <p-button styleClass="px-3">
+            <ng-template pTemplate="content">
+                <img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem"/>
+            </ng-template>
+        </p-button>
+
+        <p-button styleClass="p-button-outlined">
+            <img alt="logo" src="assets/showcase/images/primeng-icon.svg" style="width: 1.5rem"/>
+            <span class="ml-2 font-bold">PrimeNG</span>
+        </p-button>
 
         <h5>Button Set</h5>
         <span class="p-buttonset">
@@ -250,6 +278,12 @@ export class Model &#123;
 &lt;button pButton type="button" label="Large" icon="pi pi-check" class="p-button-lg"&gt;&lt;/button&gt;
 </app-code>
 
+                <h5>Loading State</h5>
+                <p>Button displays a <i>loadingIcon</i> when <i>loading</i> property is enabled.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;button pButton type="button" label="Small" icon="pi pi-check" [loading]="isLoading" &gt;&lt;/button&gt;
+&lt;p-button label="Search" icon="pi pi-search" [loading]="isLoading"&gt;&lt;/p-button&gt;
+</app-code>
             <h5>Properties of pButton</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -279,6 +313,18 @@ export class Model &#123;
                             <td>string</td>
                             <td>left</td>
                             <td>Position of the icon, valid values are "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>loading</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the button is in loading state.</td>
+                        </tr>
+                        <tr>
+                            <td>loadingIcon</td>
+                            <td>string</td>
+                            <td>pi pi-spinner pi-spin</td>
+                            <td>Icon to display in loading state.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -321,6 +367,30 @@ export class Model &#123;
                             <td>Position of the icon, valid values are "left" and "right".</td>
                         </tr>
                         <tr>
+                            <td>badge</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Value of the badge.</td>
+                        </tr>
+                        <tr>
+                            <td>badgeClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the badge.</td>
+                        </tr>
+                        <tr>
+                            <td>loading</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the button is in loading state.</td>
+                        </tr>
+                        <tr>
+                            <td>loadingIcon</td>
+                            <td>string</td>
+                            <td>pi pi-spinner pi-spin</td>
+                            <td>Icon to display in loading state.</td>
+                        </tr>
+                        <tr>
                             <td>disabled</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -355,6 +425,24 @@ export class Model &#123;
                             <td>event</td>
                             <td>null</td>
                             <td>Callback to execute when button loses focus.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>content</td>
+                            <td>-</td>
                         </tr>
                     </tbody>
                 </table>
@@ -466,6 +554,15 @@ export class Model &#123;
 &lt;button pButton pRipple type="button" label="Help" class="p-button-outlined p-button-help"&gt;&lt;/button&gt;
 &lt;button pButton pRipple type="button" label="Danger" class="p-button-outlined p-button-danger"&gt;&lt;/button&gt;
 
+&lt;h5&gt;Rounded Outlined Buttons&lt;/h5&gt;
+&lt;button pButton pRipple type="button" label="Primary" class="p-button-outlined p-button-rounded"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Secondary" class="p-button-outlined p-button-rounded p-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Success" class="p-button-outlined p-button-rounded p-button-success"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Info" class="p-button-outlined p-button-rounded p-button-info"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Warning" class="p-button-outlined p-button-rounded p-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Help" class="p-button-outlined p-button-rounded p-button-help"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" label="Danger" class="p-button-outlined p-button-rounded p-button-danger"&gt;&lt;/button&gt;
+
 &lt;h5&gt;Rounded Icon Buttons&lt;/h5&gt;
 &lt;button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"&gt;&lt;/button&gt;
 &lt;button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary"&gt;&lt;/button&gt;
@@ -498,6 +595,24 @@ export class Model &#123;
 &lt;p-button label="Emails" badge="8"&gt;&lt;/p-button&gt;
 &lt;p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"&gt;&lt;/p-button&gt;
 
+&lt;h5&gt;Loading&lt;/h5&gt;
+&lt;p-button label="Search" icon="pi pi-search" [loading]="loading[0]" (onClick)="load(0)"&gt;&lt;/p-button&gt;
+&lt;p-button label="Search" icon="pi pi-search" iconPos="right" [loading]="loading[1]" (onClick)="load(1)"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-search" [loading]="loading[2]" (onClick)="load(2)"&gt;&lt;/p-button&gt;
+&lt;p-button label="Search" [loading]="loading[3]" (onClick)="load(3)"&gt;&lt;/p-button&gt;
+
+&lt;h5&gt;Templating&lt;/h5&gt;
+&lt;p-button styleClass="px-3"&gt;
+    &lt;ng-template pTemplate="content"&gt;
+        &lt;img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem"/&gt;
+    &lt;/ng-template&gt;
+&lt;/p-button&gt;
+
+&lt;p-button styleClass="p-button-outlined"&gt;
+    &lt;img alt="logo" src="assets/showcase/images/primeng-icon.svg" style="width: 1.5rem"/&gt;
+    &lt;span class="ml-2 font-bold"&gt;PrimeNG&lt;/span&gt;
+&lt;/p-button&gt;
+
 &lt;h5&gt;Button Set&lt;/h5&gt;
 &lt;span class="p-buttonset"&gt;
     &lt;button pButton pRipple label="Save" icon="pi pi-check"&gt;&lt;/button&gt;
@@ -514,6 +629,13 @@ export class Model &#123;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class ButtonDemo &#123;
+
+    loading = [false, false, false, false]
+
+    load(index) &#123;
+        this.loading[index] = true;
+        setTimeout(() => this.loading[index] = false, 1000);
+    &#125;
 
 &#125;
 </app-code>

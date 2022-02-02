@@ -1,11 +1,11 @@
 import {NgModule ,Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BlockableUI, PrimeTemplate} from 'primeng/api';
+import {BlockableUI, PrimeTemplate, SharedModule} from 'primeng/api';
 
 @Component({
     selector: 'p-timeline',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-timeline p-component': true, 
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-timeline p-component': true,
                 'p-timeline-left': align === 'left',
                 'p-timeline-right': align === 'right',
                 'p-timeline-top': align === 'top',
@@ -34,7 +34,10 @@ import {BlockableUI, PrimeTemplate} from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./timeline.css']
+    styleUrls: ['./timeline.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Timeline implements AfterContentInit, BlockableUI {
 
@@ -84,7 +87,7 @@ export class Timeline implements AfterContentInit, BlockableUI {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Timeline],
+    exports: [Timeline, SharedModule],
     declarations: [Timeline]
 })
 export class TimelineModule { }

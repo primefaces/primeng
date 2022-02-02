@@ -3,11 +3,12 @@
         <h1>Table <span>Column Toggle</span></h1>
         <p>This demo uses a multiselect component to implement toggleable columns.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tablecoltoggle-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [columns]="selectedColumns" [value]="products">
+        <p-table [columns]="selectedColumns" [value]="products"  responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
                     selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
@@ -42,7 +43,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="selectedColumns" [value]="products"&gt;
+&lt;p-table [columns]="selectedColumns" [value]="products"  responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
             selectedItemsLabel="&#123;0&#125; columns selected" [style]="&#123;minWidth: '200px'&#125;" placeholder="Choose Columns"&gt;&lt;/p-multiSelect&gt;
@@ -77,7 +78,7 @@ import &#123; ProductService &#125; from '../../service/productservice';
 export class TableColToggleDemo implements OnInit &#123;
 
     products: Product[];
-    
+
     cols: any[];
 
     _selectedColumns: any[];

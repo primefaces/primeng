@@ -14,7 +14,10 @@ import { CommonModule } from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./chip.css']
+    styleUrls: ['./chip.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Chip {
 

@@ -3,6 +3,7 @@
         <h1>Accordion</h1>
         <p>Accordion groups a collection of contents in tabs.</p>
     </div>
+    <app-demoActions github="accordion" stackblitz="accordion-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -48,10 +49,10 @@
         </p-accordion>
             
         <h5>Programmatic</h5>
-        <div class="p-py-3">
+        <div class="py-3">
             <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"></p-button>
-            <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"></p-button>
-            <p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"></p-button>
+            <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2" label="Toggle 2st"></p-button>
+            <p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text ml-2" label="Toggle 3st"></p-button>
         </div>
             
         <p-accordion>
@@ -186,10 +187,10 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
 <p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Programmatic&lt;/h5&gt;
-&lt;div class="p-py-3"&gt;
+&lt;div class="py-3"&gt;
     &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
         
 &lt;p-accordion&gt;
@@ -405,6 +406,28 @@ onTabOpen(e) &#123;
 &#125;
 </app-code>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>content</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
 
@@ -485,10 +508,10 @@ onTabOpen(e) &#123;
 &lt;/p-accordion&gt;
     
 &lt;h5&gt;Programmatic&lt;/h5&gt;
-&lt;div class="p-py-3"&gt;
+&lt;div class="py-3"&gt;
     &lt;p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
-    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2" label="Toggle 2st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text ml-2" label="Toggle 3st"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
     
 &lt;p-accordion&gt;

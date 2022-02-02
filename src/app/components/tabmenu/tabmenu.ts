@@ -1,18 +1,19 @@
-import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
+import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {PrimeTemplate, SharedModule} from 'primeng/api';
-import {RouterModule} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {DomHandler} from 'primeng/dom';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
     selector: 'p-tabMenu',
     template: `
         <div [ngClass]="'p-tabmenu p-component'" [ngStyle]="style" [class]="styleClass">
             <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
-                <li *ngFor="let item of model; let i = index" role="tab" [attr.aria-selected]="activeItem==item" [attr.aria-expanded]="activeItem==item"
-                    [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight':activeItem==item,'p-hidden': item.visible === false}">
+                <li *ngFor="let item of model; let i = index" role="tab" [ngStyle]="item.style" [class]="item.styleClass" [attr.aria-selected]="isActive(item)" [attr.aria-expanded]="isActive(item)"
+                    [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight':isActive(item),'p-hidden': item.visible === false}" pTooltip [tooltipOptions]="item.tooltipOptions">
                     <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
                         [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                         <ng-container *ngIf="!itemTemplate">
@@ -40,7 +41,10 @@ import {DomHandler} from 'primeng/dom';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tabmenu.css']
+    styleUrls: ['./tabmenu.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked {
 
@@ -64,13 +68,15 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 
     tabChanged: boolean;
 
+    constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
@@ -89,10 +95,24 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         }
     }
 
-    itemClick(event: Event, item: MenuItem) {
+    isActive(item: MenuItem) {
+        if (item.routerLink){
+            let routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+
+            return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
+        }
+            
+        return item === this.activeItem;
+    }
+
+    itemClick(event: Event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
+        }
+
+        if (!item.url && !item.routerLink) {
+            event.preventDefault();
         }
 
         if (item.command) {
@@ -116,8 +136,8 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,SharedModule,RippleModule],
-    exports: [TabMenu,RouterModule,SharedModule],
+    imports: [CommonModule,RouterModule,SharedModule,RippleModule,TooltipModule],
+    exports: [TabMenu,RouterModule,SharedModule,TooltipModule],
     declarations: [TabMenu]
 })
 export class TabMenuModule { }

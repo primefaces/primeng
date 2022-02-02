@@ -3,6 +3,7 @@
         <h1>OrderList</h1>
         <p>OrderList is used to managed the order of a collection.</p>
     </div>
+    <app-demoActions github="orderlist" stackblitz="orderlist-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -14,12 +15,12 @@
                             <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                     </div>
                     <div class="product-list-detail">
-                        <h5 class="p-mb-2">{{product.name}}</h5>
+                        <h5 class="mb-2">{{product.name}}</h5>
                         <i class="pi pi-tag product-category-icon"></i>
                         <span class="product-category">{{product.category}}</span>
                     </div>
                     <div class="product-list-action">
-                        <h6 class="p-mb-2">${{product.price}}</h6>
+                        <h6 class="mb-2">${{product.price}}</h6>
                         <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                     </div>
                 </div>
@@ -37,12 +38,12 @@
 npm install @angular/cdk --save
 </app-code>
 
-            <h3>Import</h3>
+            <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;OrderListModule&#125; from 'primeng/orderlist';
 </app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>OrderList requires an array as its value and a ng-template for its content where each item in the array
                  can be accessed inside the ng-template using a local <i>ng-template</i> variable.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -67,11 +68,11 @@ export class MyComponent &#123;
 &#125;
 </app-code>
 
-            <h3>Multiple Selection</h3>
+            <h5>Multiple Selection</h5>
             <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
             devices metaKeySelection is turned off automatically.</p>
 
-            <h3>Selection Binding</h3>
+            <h5>Selection Binding</h5>
             <p>The optional <i>selection</i> property is provided in case you'd like to a two-way binding to the selections.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
@@ -97,7 +98,7 @@ export class MyComponent &#123;
 &#125;
 </app-code>
 
-            <h3>Filtering</h3>
+            <h5>Filtering</h5>
             <p>Items can be filtered using an input field by enabling the <i>filterBy</i> property that specifies the fields to use in filtering.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" filterBy="brand"&gt;&lt;/p-orderList&gt;
@@ -108,13 +109,13 @@ export class MyComponent &#123;
 &lt;p-orderList [value]="cars" filterBy="brand,color,address.city"&gt;&lt;/p-orderList&gt;
 </app-code>
 
-            <h3>DragDrop</h3>
+            <h5>DragDrop</h5>
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-orderList [value]="cars" [dragdrop]="true"&gt;
 </app-code>
 
-            <h3>Buttons Location</h3>
+            <h5>Buttons Location</h5>
             <p>Buttons that control the ordering are displayed at the left side of the list by default, <i>controlsPosition</i> property enables customizing the location. Currently
                 right is the available alternative.
             </p>
@@ -122,7 +123,7 @@ export class MyComponent &#123;
 &lt;p-orderList [value]="cars" controlsPosition="right"&gt;
 </app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -229,7 +230,7 @@ export class MyComponent &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -261,7 +262,37 @@ export class MyComponent &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>item</td>
+                            <td>$implicit: Data of the item</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>empty</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>emptyfilter</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -307,12 +338,12 @@ export class MyComponent &#123;
                     &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
             &lt;/div&gt;
             &lt;div class="product-list-detail"&gt;
-                &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                &lt;h5 class="mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
                 &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
                 &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
             &lt;div class="product-list-action"&gt;
-                &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                &lt;h6 class="mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
                 &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
         &lt;/div&gt;

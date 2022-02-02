@@ -1,36 +1,37 @@
+    <app-demoActions github="galleria"></app-demoActions>
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Badge</h1>
         <p>Badge is a small status indicator for another element.</p>
     </div>
+    <app-demoActions github="badge" stackblitz="badge-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
         <h5>Numbers</h5>
         <div class="badges">
-            <p-badge [value]="2" styleClass="p-mr-2"></p-badge>
-            <p-badge [value]="8" severity="success" styleClass="p-mr-2"></p-badge>
-            <p-badge [value]="4" severity="info" styleClass="p-mr-2"></p-badge>
-            <p-badge [value]="12" severity="warning" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="2" styleClass="mr-2"></p-badge>
+            <p-badge [value]="8" severity="success" styleClass="mr-2"></p-badge>
+            <p-badge [value]="4" severity="info" styleClass="mr-2"></p-badge>
+            <p-badge [value]="12" severity="warning" styleClass="mr-2"></p-badge>
             <p-badge [value]="3" severity="danger"></p-badge>
         </div>
 
         <h5>Positioned Badge</h5>
-        <i class="pi pi-bell p-mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
-        <i class="pi pi-calendar p-mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
+        <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
+        <i class="pi pi-calendar mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
         <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
 
-
         <h5>Inline Button Badge</h5>
-        <p-button label="Emails" badge="8" styleClass="p-mr-2"></p-button>
+        <p-button label="Emails" badge="8" styleClass="mr-2"></p-button>
         <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
 
         <h5>Sizes</h5>
         <div class="badges">
-            <p-badge [value]="2" styleClass="p-mr-2"></p-badge>
-            <p-badge [value]="4" size="large" severity="warning" styleClass="p-mr-2"></p-badge>
-            <p-badge [value]="6" size="xlarge" severity="success" styleClass="p-mr-2"></p-badge>
+            <p-badge [value]="2" styleClass="mr-2"></p-badge>
+            <p-badge [value]="4" size="large" severity="warning" styleClass="mr-2"></p-badge>
+            <p-badge [value]="6" size="xlarge" severity="success" styleClass="mr-2"></p-badge>
         </div>
     </div>
 </div>
@@ -79,7 +80,7 @@ import &#123;BadgeModule&#125; from 'primeng/badge';
             <h5>Button Badges</h5>
             <p>Buttons provide integrated badge support with the <i>badge</i> and <i>badgeClass</i> properties.
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-button label="Emails" badge="8" styleClass="p-mr-2"&gt;&lt;/p-button&gt;
+&lt;p-button label="Emails" badge="8" styleClass="mr-2"&gt;&lt;/p-button&gt;
 &lt;p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"&gt;&lt;/p-button&gt;
 </app-code>
 
@@ -210,28 +211,28 @@ import &#123;BadgeModule&#125; from 'primeng/badge';
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Numbers&lt;/h5&gt;
 &lt;div class="badges"&gt;
-    &lt;p-badge [value]="2" styleClass="p-mr-2"&gt;&lt;/p-badge&gt;
-    &lt;p-badge [value]="8" severity="success" styleClass="p-mr-2"&gt;&lt;/p-badge&gt;
-    &lt;p-badge [value]="4" severity="info" styleClass="p-mr-2"&gt;&lt;/p-badge&gt;
-    &lt;p-badge [value]="12" severity="warning" styleClass="p-mr-2"&gt;&lt;/p-badge&gt;
+    &lt;p-badge [value]="2" styleClass="mr-2"&gt;&lt;/p-badge&gt;
+    &lt;p-badge [value]="8" severity="success" styleClass="mr-2"&gt;&lt;/p-badge&gt;
+    &lt;p-badge [value]="4" severity="info" styleClass="mr-2"&gt;&lt;/p-badge&gt;
+    &lt;p-badge [value]="12" severity="warning" styleClass="mr-2"&gt;&lt;/p-badge&gt;
     &lt;p-badge [value]="3" severity="danger"&gt;&lt;/p-badge&gt;
 &lt;/div&gt;
 
 &lt;h5&gt;Positioned Badge&lt;/h5&gt;
-&lt;i class="pi pi-bell p-mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"&gt;&lt;/i&gt;
-&lt;i class="pi pi-calendar p-mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"&gt;&lt;/i&gt;
+&lt;i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"&gt;&lt;/i&gt;
+&lt;i class="pi pi-calendar mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"&gt;&lt;/i&gt;
 &lt;i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"&gt;&lt;/i&gt;
 
 
 &lt;h5&gt;Inline Button Badge&lt;/h5&gt;
-&lt;p-button label="Emails" badge="8" styleClass="p-mr-2"&gt;&lt;/p-button&gt;
+&lt;p-button label="Emails" badge="8" styleClass="mr-2"&gt;&lt;/p-button&gt;
 &lt;p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"&gt;&lt;/p-button&gt;
 
 &lt;h5&gt;Sizes&lt;/h5&gt;
 &lt;div class="badges"&gt;
-    &lt;p-badge [value]="2" styleClass="p-mr-2"&gt;&lt;/p-badge&gt;
-    &lt;p-badge [value]="4" size="large" severity="warning" styleClass="p-mr-2"&gt;&lt;/p-badge&gt;
-    &lt;p-badge [value]="6" size="xlarge" severity="success" styleClass="p-mr-2"&gt;&lt;/p-badge&gt;
+    &lt;p-badge [value]="2" styleClass="mr-2"&gt;&lt;/p-badge&gt;
+    &lt;p-badge [value]="4" size="large" severity="warning" styleClass="mr-2"&gt;&lt;/p-badge&gt;
+    &lt;p-badge [value]="6" size="xlarge" severity="success" styleClass="mr-2"&gt;&lt;/p-badge&gt;
 &lt;/div&gt;
 </app-code>
         </p-tabPanel>

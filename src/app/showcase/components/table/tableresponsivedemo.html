@@ -3,24 +3,61 @@
         <h1>Table <span>Responsive</span></h1>
         <span>DataTable display can be optimized according for different screen sizes, this example demonstrates a demo where columns are stacked on a small screens.</span>
     </div>
+    <app-demoActions github="table" stackblitz="tableresponsive-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [columns]="cols" [value]="products" styleClass="p-datatable-responsive-demo">
+        <p-table responsiveLayout="scroll" [value]="products">
+            <ng-template pTemplate="caption">
+                Scroll
+            </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
-                        {{col.header}}
-                    </th>
+                    <th>Name </th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Reviews</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <ng-template pTemplate="body" let-product let-columns="columns">
                 <tr>
-                    <td *ngFor="let col of columns">
-                        <span class="p-column-title">{{col.header}}</span>
-                        {{rowData[col.field]}}
-                    </td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price | currency:'USD'}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+                    <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <p-table responsiveLayout="stack" [value]="products">
+            <ng-template pTemplate="caption">
+                Stack
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Reviews</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-columns="columns">
+                <tr>
+                    <td><span class="p-column-title">Name</span>{{product.name}}</td>
+                    <td><span class="p-column-title">Price</span>{{product.price | currency:'USD'}}</td>
+                    <td><span class="p-column-title">Category</span>{{product.category}}</td>
+                    <td><span class="p-column-title">Quantity</span>{{product.quantity}}</td>
+                    <td><span class="p-column-title">Status</span><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+                    <td><span class="p-column-title">Reviews</span><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                 </tr>
             </ng-template>
         </p-table>
@@ -38,23 +75,61 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="products" styleClass="p-datatable-responsive-demo"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;span class="p-column-title"&gt;&#123;&#123;col.header&#125;&#125;&lt;/span&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
+&lt;div class="card"&gt;
+    &lt;p-table responsiveLayout="scroll" [value]="products"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            Scroll
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name &lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
+                &lt;th&gt;Category&lt;/th&gt;
+                &lt;th&gt;Quantity&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Reviews&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product let-columns="columns"&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;p-table responsiveLayout="stack" [value]="products"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            Stack
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name &lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
+                &lt;th&gt;Category&lt;/th&gt;
+                &lt;th&gt;Quantity&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Reviews&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product let-columns="columns"&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;span class="p-column-title"&gt;Name&lt;/span&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;span class="p-column-title"&gt;Price&lt;/span&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;span class="p-column-title"&gt;Category&lt;/span&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;span class="p-column-title"&gt;Quantity&lt;/span&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&lt;span class="p-column-title"&gt;Status&lt;/span&gt;&lt;span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span class="p-column-title"&gt;Reviews&lt;/span&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -63,73 +138,20 @@ import &#123; Product &#125; from '../../domain/product';
 import &#123; ProductService &#125; from '../../service/productservice';
 
 @Component(&#123;
-    templateUrl: './tableresponsivedemo.html',
-    styleUrls: ['./tableresponsivedemo.scss']
+    templateUrl: './tableresponsivedemo.html'
 &#125;)
 export class TableResponsiveDemo implements OnInit &#123;
 
     products: Product[];
 
-    cols: any[];
-
     constructor(private productService: ProductService) &#123; &#125;
 
     ngOnInit() &#123;
         this.productService.getProductsSmall().then(data =&gt; this.products = data);
-
-        this.cols = [
-            &#123; field: 'code', header: 'Code' &#125;,
-            &#123; field: 'name', header: 'Name' &#125;,
-            &#123; field: 'category', header: 'Category' &#125;,
-            &#123; field: 'quantity', header: 'Quantity' &#125;
-        ];
     &#125;
-    
+
 &#125;
 </app-code>
-
-<app-code lang="css" ngNonBindable ngPreserveWhitespaces>
-:host ::ng-deep &#123;    
-    .p-datatable-responsive-demo .p-datatable-tbody &gt; tr &gt; td .p-column-title &#123;
-        display: none;
-    &#125;
-&#125;
-
-@media screen and (max-width: 40rem) &#123;
-    :host ::ng-deep &#123;
-        .p-datatable &#123;
-            &.p-datatable-responsive-demo &#123;
-                .p-datatable-thead &gt; tr &gt; th,
-                .p-datatable-tfoot &gt; tr &gt; td &#123;
-                    display: none !important;
-                &#125;
-
-                .p-datatable-tbody &gt; tr &gt; td &#123;
-                    text-align: left;
-                    display: block;
-                    width: 100%;
-                    float: left;
-                    clear: left;
-                    border: 0 none;
-
-                    .p-column-title &#123;
-                        padding: .4rem;
-                        min-width: 30%;
-                        display: inline-block;
-                        margin: -.4em 1em -.4em -.4rem;
-                        font-weight: bold;
-                    &#125;
-
-                    &:last-child &#123;
-                        border-bottom: 1px solid var(--surface-d);
-                    &#125;
-                &#125;
-            &#125;
-        &#125;
-    &#125;
-&#125;
-</app-code>
-
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

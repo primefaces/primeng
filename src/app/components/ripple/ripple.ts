@@ -6,7 +6,7 @@ import { PrimeNGConfig } from 'primeng/api';
 @Directive({
     selector: '[pRipple]',
     host: {
-        '[class.p-ripple]': 'true'
+        'class': 'p-ripple p-element'
     }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
@@ -21,7 +21,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
         if (this.config && this.config.ripple) {
             this.zone.runOutsideAngular(() => {
                 this.create();
-    
+
                 this.mouseDownListener = this.onMouseDown.bind(this);
                 this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
             });
@@ -33,23 +33,23 @@ export class Ripple implements AfterViewInit, OnDestroy {
         if (!ink || getComputedStyle(ink, null).display === 'none') {
             return;
         }
-    
+
         DomHandler.removeClass(ink, 'p-ink-active');
         if (!DomHandler.getHeight(ink) && !DomHandler.getWidth(ink)) {
             let d = Math.max(DomHandler.getOuterWidth(this.el.nativeElement), DomHandler.getOuterHeight(this.el.nativeElement));
             ink.style.height = d + 'px';
             ink.style.width = d + 'px';
         }
-    
+
         let offset = DomHandler.getOffset(this.el.nativeElement);
         let x = event.pageX - offset.left + document.body.scrollTop - DomHandler.getWidth(ink) / 2;
         let y = event.pageY - offset.top + document.body.scrollLeft - DomHandler.getHeight(ink) / 2;
-    
+
         ink.style.top = y + 'px';
         ink.style.left = x + 'px';
         DomHandler.addClass(ink, 'p-ink-active');
     }
-    
+
     getInk() {
         for (let i = 0; i < this.el.nativeElement.children.length; i++) {
             if (this.el.nativeElement.children[i].className.indexOf('p-ink') !== -1) {
@@ -74,7 +74,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
         let ink = document.createElement('span');
         ink.className = 'p-ink';
         this.el.nativeElement.appendChild(ink);
-    
+
         this.animationListener = this.onAnimationEnd.bind(this);
         ink.addEventListener('animationend', this.animationListener);
     }

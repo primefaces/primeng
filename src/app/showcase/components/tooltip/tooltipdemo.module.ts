@@ -8,6 +8,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -18,6 +19,7 @@ import {RippleModule} from 'primeng/ripple';
 		TabViewModule,
 		AppCodeModule,
 		ButtonModule,
+		AppDemoActionsModule,
 		RippleModule
 	],
 	declarations: [

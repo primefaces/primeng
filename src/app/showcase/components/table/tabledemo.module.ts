@@ -51,7 +51,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TabViewModule } from 'primeng/tabview';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AppCodeModule } from '../../app.code.component';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
 	imports: [
@@ -77,8 +80,11 @@ import { AppCodeModule } from '../../app.code.component';
         ToolbarModule,
         FileUploadModule,
         TabViewModule,
+        ToggleButtonModule,
         RatingModule,
-        AppCodeModule
+        SkeletonModule,
+        AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		TableDemo,

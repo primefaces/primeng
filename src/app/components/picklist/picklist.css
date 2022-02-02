@@ -21,6 +21,7 @@
 }
 
 .p-picklist-item {
+    display: block;
     cursor: pointer;
     overflow: hidden;
     position: relative;

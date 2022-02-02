@@ -3,45 +3,46 @@
         <h1>Knob</h1>
         <p>Knob is a form component to define number inputs with a dial.</p>
     </div>
+    <app-demoActions github="knob" stackblitz="knob-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <div class="p-grid p-formgrid p-text-center">
-            <div class="p-field p-col-12 p-md-4">
+        <div class="grid formgrid text-center">
+            <div class="field col-12 md:col-4">
                 <h5>Basic</h5>
                 <p-knob [(ngModel)]="value1"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <h5>Readonly</h5>
                 <p-knob [(ngModel)]="value2" [readonly]="true"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <h5>Disabled</h5>
                 <p-knob [(ngModel)]="value3" [disabled]="true"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
-                <h5 class="p-mt-3">Min/Max</h5>
+            <div class="field col-12 md:col-4">
+                <h5 class="mt-3">Min/Max</h5>
                 <p-knob [(ngModel)]="value4" [min]="-50" [max]="50"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
-                <h5 class="p-mt-3">Step</h5>
+            <div class="field col-12 md:col-4">
+                <h5 class="mt-3">Step</h5>
                 <p-knob [(ngModel)]="value5" [step]="10"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
-                <h5 class="p-mt-3">Template</h5>
+            <div class="field col-12 md:col-4">
+                <h5 class="mt-3">Template</h5>
                 <p-knob [(ngModel)]="value6" valueTemplate="{value}%"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
-                <h5 class="p-mt-3">Stroke</h5>
+            <div class="field col-12 md:col-4">
+                <h5 class="mt-3">Stroke</h5>
                 <p-knob [(ngModel)]="value7" [strokeWidth]="5"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
-                <h5 class="p-mt-3">Size</h5>
+            <div class="field col-12 md:col-4">
+                <h5 class="mt-3">Size</h5>
                 <p-knob [(ngModel)]="value8" [size]="200"></p-knob>
             </div>
-            <div class="p-field p-col-12 p-md-4">
-                <h5 class="p-mt-3">Color</h5>
+            <div class="field col-12 md:col-4">
+                <h5 class="mt-3">Color</h5>
                 <p-knob [(ngModel)]="value9" valueColor="SlateGray" rangeColor="MediumTurquoise"></p-knob>
             </div>
         </div>
@@ -247,41 +248,41 @@ value: number = 0;
             </a>
             
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div class="p-grid p-formgrid p-text-center"&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+&lt;div class="grid formgrid text-center"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;h5&gt;Basic&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value1"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;h5&gt;Readonly&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value2" [readonly]="true"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;h5&gt;Disabled&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value3" [disabled]="true"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;h5 class="p-mt-3"&gt;Min/Max&lt;/h5&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
+        &lt;h5 class="mt-3"&gt;Min/Max&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value4" [min]="-50" [max]="50"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;h5 class="p-mt-3"&gt;Step&lt;/h5&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
+        &lt;h5 class="mt-3"&gt;Step&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value5" [step]="10"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;h5 class="p-mt-3"&gt;Template&lt;/h5&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
+        &lt;h5 class="mt-3"&gt;Template&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value6" valueTemplate="&#123;value&#125;%"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;h5 class="p-mt-3"&gt;Stroke&lt;/h5&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
+        &lt;h5 class="mt-3"&gt;Stroke&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value7" [strokeWidth]="5"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;h5 class="p-mt-3"&gt;Size&lt;/h5&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
+        &lt;h5 class="mt-3"&gt;Size&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value8" [size]="200"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
-        &lt;h5 class="p-mt-3"&gt;Color&lt;/h5&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
+        &lt;h5 class="mt-3"&gt;Color&lt;/h5&gt;
         &lt;p-knob [(ngModel)]="value9" valueColor="SlateGray" rangeColor="MediumTurquoise"&gt;&lt;/p-knob&gt;
     &lt;/div&gt;
 &lt;/div&gt;

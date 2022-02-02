@@ -50,12 +50,12 @@
 &lt;div [ngStyle]="&#123;backgroundColor:'var(--blue-500)'&#125;"&gt;&lt;/div&gt;
 </app-code>
 
-    <div class="card"> 
-        <div class="p-d-flex p-flex-wrap">
-            <div *ngFor="let color of colors" class="color-stack p-mr-6 p-mb-6">
+    <div class="card">
+        <div class="flex flex-wrap">
+            <div *ngFor="let color of colors" class="color-stack mr-6 mb-6">
                 <div *ngFor="let shade of shades">
                     <div *ngIf="shade !== 0" class="color-box" [ngStyle]="{backgroundColor:'var(--'+color+'-'+shade, color: (shade > 500 ? '#fff': '#000')}">
-                        {{color}}-{{shade}} 
+                        {{color}}-{{shade}}
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
     <div class="card">
         <div class="color-stack">
             <div *ngFor="let shade of shades">
-                <div *ngIf="shade !== 0" class="color-box" [ngStyle]="{backgroundColor:'var(--surface-'+shade, color: config.dark ? '#fff': (shade > 500 ? '#fff': '#000')}">
+                <div class="color-box" [ngStyle]="{backgroundColor:'var(--surface-'+shade, color: (config.dark ? (shade > 400 ? '#000': '#fff') : (shade > 500 ? '#fff' : '#000'))}">
                     surface-{{shade}}
                 </div>
             </div>

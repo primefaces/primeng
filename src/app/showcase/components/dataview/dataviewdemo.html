@@ -3,6 +3,7 @@
         <h1>DataView</h1>
         <p>DataView displays data in grid or list layout with pagination and sorting features.</p>
     </div>
+    <app-demoActions github="dataview" stackblitz="dataview-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -10,9 +11,9 @@
         <p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
             [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
             <ng-template pTemplate="header">
-                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
-                    <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                <div class="flex flex-column md:flex-row md:justify-content-between">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                    <span class="p-input-icon-left mb-2 md:mb-0">
                         <i class="pi pi-search"></i>
                         <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
                     </span>
@@ -20,7 +21,7 @@
                 </div>
             </ng-template>
             <ng-template let-product pTemplate="listItem">
-                <div class="p-col-12">
+                <div class="col-12">
                     <div class="product-list-item">
                         <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/>
                         <div class="product-list-detail">
@@ -38,7 +39,7 @@
                 </div>
             </ng-template>
             <ng-template let-product pTemplate="gridItem">
-                <div class="p-col-12 p-md-4">
+                <div class="col-12 md:col-4">
                     <div class="product-grid-item card">
                         <div class="product-grid-item-top">
                             <div>
@@ -67,15 +68,15 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
+            <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DataViewModule&#125; from 'primeng/dataview';
 </app-code>
 
-            <h3>PrimeFlex</h3>
+            <h5>PrimeFlex</h5>
             <p>DataView utilizes PrimeFlex so it is required to be installed in your application. Refer to the <a [routerLink]="['/flexgrid']">documentation</a> for details.</p>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. <i>list</i> and <i>grid</i>.</p>
 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
@@ -131,7 +132,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Layouts</h3>
+            <h5>Layouts</h5>
             <p>DataView has two layout modes; "list" and "grid" where a separate template is used to render an item in each mode. In list mode name of the template is "listItem" whereas
                 in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/flexgrid']">PrimeFlex</a> style class of your choice.</p>
             <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
@@ -144,14 +145,14 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Sections</h3>
+            <h5>Sections</h5>
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -163,7 +164,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -171,7 +172,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>DataViewLayoutOptions</h3>
+            <h5>DataViewLayoutOptions</h5>
             <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. <i>p-dataViewLayoutOptions</i> is a helper component
                 to display a buttonset to choose the layout mode in DataView. Location of the <i>p-dataViewLayoutOptions</i> should be inside the DataView component. If you prefer a different UI element
                 you can create your own that updates the layout property of the DataView.
@@ -188,7 +189,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -198,7 +199,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Paginator</h3>
+            <h5>Paginator</h5>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
                 of page links to display. To customize the paginator, use <i>paginatorLeftTemplate</i>, <i>paginatorRightTemplate</i> and <i>paginatorDropdownItemTemplate</i> templates.</p>
 
@@ -210,7 +211,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -227,7 +228,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Lazy Loading</h3>
+            <h5>Lazy Loading</h5>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
              onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using <i>onLazyLoad</i> that actually loads the data from a remote datasource. <i>onLazyLoad</i> gets an event object
             that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
@@ -243,7 +244,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -257,7 +258,7 @@ loadData(event) &#123;
 &#125;
 </app-code>
 
-            <h3>Sorting</h3>
+            <h5>Sorting</h5>
             <p><i>sortField</i> and <i>sortOrder</i> properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
                 Here is an example that uses a dropdown where simply updating the <i>sortField</i> - <i>sortOrder</i> bindings of the DataView initiates sorting.</p>
 
@@ -273,7 +274,7 @@ loadData(event) &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="p-col-12 p-md-3"&gt;
+        &lt;div class="col-12 md:col-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -320,7 +321,7 @@ export class DataViewSortDemo implements OnInit &#123;
 &#125;
 </app-code>
 
-            <h3>Filtering</h3>
+            <h5>Filtering</h5>
             <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component,
                 for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
                 Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
@@ -340,12 +341,12 @@ export class DataViewSortDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </app-code>
 
-            <h3>Custom UI Elements</h3>
+            <h5>Custom UI Elements</h5>
             <p>As mentioned above, layout options selector, sorting and filtering are baked-in and no strict UI is enforces to make it possible to come up with your own UI elements
                 to enable these features.
             </p>
 
-            <h3>Loading Status</h3>
+            <h5>Loading Status</h5>
             <p>DataView has a loading property, when enabled a spinner icon is displayed to indicate data load.
                 An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
 
@@ -355,7 +356,7 @@ export class DataViewSortDemo implements OnInit &#123;
 &lt;/p-dataview&gt;
 </app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -475,7 +476,7 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>emptyMessage</td>
                             <td>string</td>
                             <td>No records found.</td>
-                            <td>Text to display when there is no data.</td>
+                            <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -529,7 +530,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -567,7 +568,51 @@ export class DataViewSortDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorLeft</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorRight</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>gridItem</td>
+                            <td>$implicit: Data of the grid <br />
+                                index: Index of the grid</td>
+                        </tr>
+                        <tr>
+                            <td>listItemTemplate</td>
+                            <td>$implicit: Data of the row <br />
+                                index: Index of the row</td>
+                        </tr>
+                        <tr>
+                            <td>empty</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -610,7 +655,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>PrimeFlex.</p>
         </p-tabPanel>
 
@@ -627,9 +672,9 @@ export class DataViewSortDemo implements OnInit &#123;
     &lt;p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
         [sortField]="sortField" [sortOrder]="sortOrder" layout="grid"&gt;
         &lt;ng-template pTemplate="header"&gt;
-            &lt;div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between"&gt;
-                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"&gt;&lt;/p-dropdown&gt;
-                &lt;span class="p-input-icon-left p-mb-2 p-mb-md-0"&gt;
+            &lt;div class="flex flex-column md:flex-row md:justify-content-between"&gt;
+                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"&gt;&lt;/p-dropdown&gt;
+                &lt;span class="p-input-icon-left mb-2 md:mb-0"&gt;
                     &lt;i class="pi pi-search"&gt;&lt;/i&gt;
                     &lt;input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)"&gt;
                 &lt;/span&gt;
@@ -637,7 +682,7 @@ export class DataViewSortDemo implements OnInit &#123;
             &lt;/div&gt;
         &lt;/ng-template&gt;
         &lt;ng-template let-product pTemplate="listItem"&gt;
-            &lt;div class="p-col-12"&gt;
+            &lt;div class="col-12"&gt;
                 &lt;div class="product-list-item"&gt;
                     &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/&gt;
                     &lt;div class="product-list-detail"&gt;
@@ -655,7 +700,7 @@ export class DataViewSortDemo implements OnInit &#123;
             &lt;/div&gt;
         &lt;/ng-template&gt;
         &lt;ng-template let-product pTemplate="gridItem"&gt;
-            &lt;div class="p-col-12 p-md-4"&gt;
+            &lt;div class="col-12 md:col-4"&gt;
                 &lt;div class="product-grid-item card"&gt;
                     &lt;div class="product-grid-item-top"&gt;
                         &lt;div&gt;

@@ -17,10 +17,12 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { PasswordModule } from 'primeng/password';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 import { AppCodeModule } from '../../app.code.component';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -39,8 +41,10 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 		DropdownModule,
 		MultiSelectModule,
 		InputTextareaModule,
+        PasswordModule,
+        TreeSelectModule,
 		FormsModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
         AppCodeModule
 	],
 	declarations: [

@@ -3,6 +3,7 @@
         <h1>PickList</h1>
         <p>PickList is used to reorder items between different lists.</p>
     </div>
+    <app-demoActions github="picklist" stackblitz="picklist-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -16,12 +17,12 @@
                             <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                     </div>
                     <div class="product-list-detail">
-                        <h5 class="p-mb-2">{{product.name}}</h5>
+                        <h5 class="mb-2">{{product.name}}</h5>
                         <i class="pi pi-tag product-category-icon"></i>
                         <span class="product-category">{{product.category}}</span>
                     </div>
                     <div class="product-list-action">
-                        <h6 class="p-mb-2">${{product.price}}</h6>
+                        <h6 class="mb-2">${{product.price}}</h6>
                         <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                     </div>
                 </div>
@@ -100,37 +101,6 @@ This dragdrop property also supports cross list actions.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" [dragdrop]="true"&gt;&lt;/p-pickList&gt;
 </app-code>
-
-            <h5>Templates</h5>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Parameters</th>
-                        <th>Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>item</td>
-                            <td>item: List item <br />
-                                index: Index of the item</td>
-                            <td>Content of an item in the list.</td>
-                        </tr>
-                        <tr>
-                            <td>emptymessagesource</td>
-                            <td>-</td>
-                            <td>Content to display when there is no item available for selection.</td>
-                        </tr>
-                        <tr>
-                            <td>emptymessagetarget</td>
-                            <td>-</td>
-                            <td>Content to display when there is no element selected.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -303,6 +273,54 @@ This dragdrop property also supports cross list actions.</p>
                             <td>null</td>
                             <td>Defines a string that labels the filter input of target list.</td>
                         </tr>
+                        <tr>
+                            <td>rightButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to right button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>leftButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to left button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>allRightButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to all right button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>allLeftButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to all left button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>upButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to up button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>downButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to down button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>topButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to top button for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>bottomButtonAriaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the move to bottom button for accessibility.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -402,6 +420,49 @@ This dragdrop property also supports cross list actions.</p>
 &lt;button type="button" pButton (click)="pl.resetFilter()" label="Reset"&gt;&lt;/button&gt;
 </app-code>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>item</td>
+                            <td>$implicit: Data of the item<br />
+                                index: Index of the item</td>
+                        </tr>
+                        <tr>
+                            <td>sourceHeader</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>targetHeader</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>emptymessagesource</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>emptyfiltermessagesource</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>emptymessagetarget</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>emptyfiltermessagetarget</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -462,12 +523,12 @@ This dragdrop property also supports cross list actions.</p>
                     &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
             &lt;/div&gt;
             &lt;div class="product-list-detail"&gt;
-                &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                &lt;h5 class="mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
                 &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
                 &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
             &lt;div class="product-list-action"&gt;
-                &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                &lt;h6 class="mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
                 &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -479,9 +540,9 @@ This dragdrop property also supports cross list actions.</p>
 export class PickListDemo &#123;
 
     sourceProducts: Product[];
-    
+
     targetProducts: Product[];
-    
+
     constructor(private carService: ProductService) &#123; &#125;
 
     ngOnInit() &#123;

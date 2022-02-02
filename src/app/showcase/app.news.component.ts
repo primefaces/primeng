@@ -4,12 +4,10 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
     selector: 'app-news',
     template: `
         <div class="layout-news">
-            <div class="layout-news-container">
-                <a href="https://www.primefaces.org/store" target="_blank">
-                    <img class="layouts-news-mockup-image" src="assets/showcase/images/topbar-primesale-2021.png">
-                </a>
-                <a href="https://www.primefaces.org/store" target="_blank"  style="text-decoration: none" class="layout-news-button">
-                    LEARN MORE
+            <div class="layout-news-container" (click)="redirect()">
+                <img class="layouts-news-mockup-image" src="assets/showcase/images/topbar-primeblocks-device.png">
+                <a href="https://www.primefaces.org/primeblocks-ng" target="_blank"  style="text-decoration: none" class="layout-news-button">
+                    LEARN MORE<i class="pi pi-angle-right"></i>
                 </a>
                 <a tabindex="0" class="layout-news-close" (click)="hideNews($event)">
                     <i class="pi pi-times"></i>
@@ -28,5 +26,8 @@ export class AppNewsComponent {
         this.onNewsHide.emit();
         event.preventDefault();
     }
-    
+
+    redirect() {
+        window.open('https://www.primefaces.org/primeblocks-ng"', '_blank');
+    }
 }

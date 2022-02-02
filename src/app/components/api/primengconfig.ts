@@ -69,18 +69,29 @@ export class PrimeNGConfig {
         dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
         monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December"],
         monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        dateFormat: 'mm/dd/yy',
+        firstDayOfWeek: 0,
         today: 'Today',
         weekHeader: 'Wk',
         weak: 'Weak',
         medium: 'Medium',
         strong: 'Strong',
-        passwordPrompt: 'Enter a password'
+        passwordPrompt: 'Enter a password',
+        emptyMessage: 'No results found',
+        emptyFilterMessage: 'No results found'
+    }
+
+    zIndex = {
+        modal: 1100,
+        overlay: 1000,
+        menu: 1000,
+        tooltip: 1100
     }
 
     private translationSource = new Subject<any>();
-    
+
     translationObserver = this.translationSource.asObservable();
-    
+
     getTranslation(key: string) {
         return this.translation[key];
     }

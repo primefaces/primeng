@@ -28,6 +28,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         </div>
     `,
     host: {
+        'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focus'
     },
@@ -110,6 +111,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                 break;
             }
         });
+
+        this.updateFilledState();
     }
 
     onClick() {
@@ -129,13 +132,14 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                 });
                 this.inputViewChild.nativeElement.value = '';
             }
+
             this.updateFilledState();
         }
     }
 
     updateFilledState() {
         if (!this.value || this.value.length === 0) {
-            this.filled = (this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '');
+            this.filled = (this.inputViewChild && this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '');
         }
         else {
             this.filled = true;
@@ -152,6 +156,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     writeValue(value: any) : void {
         this.value = value;
         this.updateMaxedOut();
+        this.updateFilledState();
         this.cd.markForCheck();
     }
 

@@ -3,7 +3,7 @@
         <h1>Chips</h1>
         <p>Chips is used to enter multiple values on an input field.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="chips" stackblitz="chips-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation p-fluid">
@@ -17,7 +17,7 @@
         <h5>Template</h5>
         <p-chips [(ngModel)]="values3">
             <ng-template let-item pTemplate="item">
-                {{item}} - (active) <span class="pi pi-user p-ml-2"></span>
+                {{item}} - (active) <i class="pi pi-user ml-2"></i>
             </ng-template>
         </p-chips>
     </div>
@@ -55,7 +55,7 @@ export class MyModel &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-chips [(ngModel)]="values"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
-        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user"&gt;&lt;/i&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user ml-2"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </app-code>
@@ -211,6 +211,24 @@ export class MyModel &#123;
                 </table>
             </div>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>chip</td>
+                            <td>$implicit: value</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -267,7 +285,7 @@ export class MyModel &#123;
 &lt;h5&gt;ng-template&lt;/h5&gt;
 &lt;p-chips [(ngModel)]="values3"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
-        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user p-ml-2"&gt;&lt;/i&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user ml-2"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </app-code>

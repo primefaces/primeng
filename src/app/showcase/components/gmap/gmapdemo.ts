@@ -7,7 +7,7 @@ declare var google: any;
     templateUrl: './gmapdemo.html',
     providers: [MessageService],
     styles: [`
-        .p-col-2 {
+        .col-2 {
             display: flex;
             align-self: center;
         }

@@ -3,6 +3,7 @@
         <h1>Timeline</h1>
         <p>Timeline visualizes a series of chained events.</p>
     </div>
+    <app-demoActions github="timeline" stackblitz="timeline-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -49,13 +50,13 @@
         <h5>Customized</h5>
         <p-timeline [value]="events1" align="alternate" styleClass="customized-timeline">
             <ng-template pTemplate="marker" let-event>
-                <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
+                <span class="custom-marker shadow-2" [style.backgroundColor]="event.color">
                     <i [ngClass]="event.icon"></i>
                 </span>
             </ng-template>
             <ng-template pTemplate="content" let-event>
                 <p-card [header]="event.status" [subheader]="event.date">
-                    <img *ngIf="event.image" [src]="'assets/showcase/images/demo/product/' + event.image" [alt]="event.name" width="200" class="p-shadow-2" />
+                    <img *ngIf="event.image" [src]="'assets/showcase/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow-2" />
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
                         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
                     <button pButton label="Read more" class="p-button-text"></button>
@@ -182,13 +183,13 @@ export class TimelineDemo implements OnInit &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-timeline [value]="events1" align="alternate"&gt;
     &lt;ng-template pTemplate="marker" let-event&gt;
-        &lt;span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color"&gt;
+        &lt;span class="custom-marker shadow-2" [style.backgroundColor]="event.color"&gt;
             &lt;i [ngClass]="event.icon"&gt;&lt;/i&gt;
         &lt;/span&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="content" let-event&gt;
         &lt;p-card [header]="event.status" [subheader]="event.date"&gt;
-            &lt;img *ngIf="event.image" [src]="'assets/showcase/images/demo/product/' + event.image" [alt]="event.name" width="200" class="p-shadow-2" /&gt;
+            &lt;img *ngIf="event.image" [src]="'assets/showcase/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow-2" /&gt;
             &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
                 quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/p&gt;
             &lt;button pButton label="Read more" class="p-button-text"&gt;&lt;/button&gt;
@@ -238,6 +239,32 @@ export class TimelineDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>opposite</td>
+                            <td>$implicit: Data of the timeline event</td>
+                        </tr>
+                        <tr>
+                            <td>marker</td>
+                            <td>$implicit: Data of the timeline event</td>
+                        </tr>
+                        <tr>
+                            <td>content</td>
+                            <td>$implicit: Data of the timeline event</td>
                         </tr>
                     </tbody>
                 </table>
@@ -369,13 +396,13 @@ export class TimelineDemo implements OnInit &#123;
     &lt;h5&gt;Customized&lt;/h5&gt;
     &lt;p-timeline [value]="events1" align="alternate" styleClass="customized-timeline"&gt;
         &lt;ng-template pTemplate="marker" let-event&gt;
-            &lt;span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color"&gt;
+            &lt;span class="custom-marker shadow-2" [style.backgroundColor]="event.color"&gt;
                 &lt;i [ngClass]="event.icon"&gt;&lt;/i&gt;
             &lt;/span&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="content" let-event&gt;
             &lt;p-card [header]="event.status" [subheader]="event.date"&gt;
-                &lt;img *ngIf="event.image" [src]="'assets/showcase/images/demo/product/' + event.image" [alt]="event.name" width="200" class="p-shadow-2" /&gt;
+                &lt;img *ngIf="event.image" [src]="'assets/showcase/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow-2" /&gt;
                 &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
                     quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/p&gt;
                 &lt;button pButton label="Read more" class="p-button-text"&gt;&lt;/button&gt;

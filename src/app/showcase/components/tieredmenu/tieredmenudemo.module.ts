@@ -6,6 +6,7 @@ import {TieredMenuModule} from 'primeng/tieredmenu';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,8 @@ import {AppCodeModule} from '../../app.code.component';
         TieredMenuModule,
         ButtonModule,
 		TabViewModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		TieredMenuDemo

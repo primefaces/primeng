@@ -10,6 +10,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BadgeModule } from 'primeng/badge';
 import { AppCodeModule } from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -22,6 +23,7 @@ import { AppCodeModule } from '../../app.code.component';
 		AvatarModule,
 		AvatarGroupModule,
 		BadgeModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [
