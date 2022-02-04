@@ -1696,7 +1696,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         for (let i = 0; i < columns.length; i++) {
             let column = columns[i];
             if (column.exportable !== false && column.field) {
-                csv += '"' + (column.header || column.field) + '"';
+                csv += '"' + (column.exportHeader || column.header || column.field) + '"';
 
                 if (i < (columns.length - 1)) {
                     csv += this.csvSeparator;

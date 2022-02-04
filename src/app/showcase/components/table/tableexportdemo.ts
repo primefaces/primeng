@@ -22,7 +22,7 @@ export class TableExportDemo implements OnInit {
         this.productService.getProductsSmall().then(data => this.products = data);
 
         this.cols = [
-            { field: 'code', header: 'Code' },
+            { field: 'code', header: 'Code', customHeader: 'Product Code' },
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
             { field: 'quantity', header: 'Quantity' }

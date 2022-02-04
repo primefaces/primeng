@@ -97,7 +97,7 @@ export class TableExportDemo implements OnInit &#123;
         this.productService.getProductsSmall().then(data =&gt; this.products = data);
 
         this.cols = [
-            &#123; field: 'code', header: 'Code' &#125;,
+            &#123; field: 'code', header: 'Code', customHeader: 'Product Code' &#125;,
             &#123; field: 'name', header: 'Name' &#125;,
             &#123; field: 'category', header: 'Category' &#125;,
             &#123; field: 'quantity', header: 'Quantity' &#125;
