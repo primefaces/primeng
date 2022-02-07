@@ -23,7 +23,7 @@ import {MenuModule, Menu} from 'primeng/menu';
 })
 export class SplitButton {
 
-    @Input() model: MenuItem[];
+    @Input() model: readonly MenuItem[];
 
     @Input() icon: string;
 
