@@ -342,11 +342,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return this._placeholder;
     }
 
-    @Input() get options(): any[] {
+    @Input() get options(): readonly any[] {
         return this._options;
     }
 
-    set options(val: any[]) {
+    set options(val: readonly any[]) {
         this._options = val;
         this.updateLabel();
     }
@@ -398,7 +398,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     public headerCheckboxFocus: boolean;
 
-    _options: any[];
+    _options: readonly any[];
 
     maxSelectionLimitReached: boolean;
 
@@ -940,7 +940,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
-    searchLabelByValue(val: any, options: any[]): string {
+    searchLabelByValue(val: any, options: readonly any[]): string {
         let label = null;
 
         for (let i = 0; i < options.length; i++) {
@@ -1015,7 +1015,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
-    get optionsToRender(): any[] {
+    get optionsToRender(): readonly any[] {
         return this._filteredOptions || this.options;
     }
 
