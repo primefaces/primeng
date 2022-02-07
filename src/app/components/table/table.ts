@@ -499,6 +499,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     responsiveStyleElement: any;
 
+    _exportHeader:string;
+
     constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
 
     ngOnInit() {
@@ -811,6 +813,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     get dataToRender() {
         let data = this.filteredValue||this.value;
         return data ? ((this.paginator && !this.lazy) ? (data.slice(this.first, this.first + this.rows)) : data) : [];
+    }
+
+    @Input() get exportHeader(): string | null {
+        return this._exportHeader;
+    }
+
+    set exportHeader(val: string | null) {
+        this._exportHeader = val;
     }
 
     updateSelectionKeys() {
@@ -1696,7 +1706,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         for (let i = 0; i < columns.length; i++) {
             let column = columns[i];
             if (column.exportable !== false && column.field) {
-                csv += '"' + (column.exportHeader || column.header || column.field) + '"';
+                csv += '"' + (column[this.exportHeader] || column.header || column.field) + '"';
 
                 if (i < (columns.length - 1)) {
                     csv += this.csvSeparator;
