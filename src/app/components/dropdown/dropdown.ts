@@ -324,7 +324,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     selectedOption: any;
 
-    _options: any[];
+    _options: readonly any[];
 
     value: any;
 
@@ -332,7 +332,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     onModelTouched: Function = () => {};
 
-    optionsToDisplay: any[];
+    optionsToDisplay: readonly any[];
 
     hover: boolean;
 
@@ -431,11 +431,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.listId = this.id + '_list';
     }
 
-    @Input() get options(): any[] {
+    @Input() get options(): readonly any[] {
         return this._options;
     }
 
-    set options(val: any[]) {
+    set options(val: readonly any[]) {
         this._options = val;
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
@@ -1079,7 +1079,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return null;
     }
 
-    findOptionIndex(val: any, opts: any[]): number {
+    findOptionIndex(val: any, opts: readonly any[]): number {
         let index: number = -1;
         if (opts) {
             for (let i = 0; i < opts.length; i++) {
@@ -1093,7 +1093,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return index;
     }
 
-    findOptionGroupIndex(val: any, opts: any[]): any {
+    findOptionGroupIndex(val: any, opts: readonly any[]): any {
         let groupIndex, itemIndex;
 
         if (opts) {
@@ -1115,7 +1115,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    findOption(val: any, opts: any[], inGroup?: boolean): SelectItem {
+    findOption(val: any, opts: readonly any[], inGroup?: boolean): SelectItem {
         if (this.group && !inGroup) {
             let opt: SelectItem;
             if (opts && opts.length) {
