@@ -6,6 +6,10 @@
     overflow: hidden;
 }
 
+.p-tabview-scrollable > .p-tabview-nav {
+    flex-flow: nowrap;
+}
+
 .p-tabview-nav-content {
     overflow-x: auto;
     overflow-y: hidden;
@@ -20,6 +24,7 @@
     padding: 0;
     list-style-type: none;
     flex: 1 1 auto;
+    flex-flow: wrap;
 }
 
 .p-tabview-nav-link {
