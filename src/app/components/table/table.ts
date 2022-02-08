@@ -2712,7 +2712,7 @@ export class FrozenColumn implements AfterViewInit {
                 let right = 0;
                 let next = this.el.nativeElement.nextElementSibling;
                 if (next) {
-                    right = DomHandler.getOuterWidth(next) + parseFloat(next.style.right);
+                    right = DomHandler.getOuterWidth(next) + (parseFloat(next.style.right) || 0);
                 }
                 this.el.nativeElement.style.right = right + 'px';
             }
