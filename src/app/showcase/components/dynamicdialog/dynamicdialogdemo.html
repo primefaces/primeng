@@ -114,7 +114,7 @@ export class CarsListDemo &#123;
     constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;
-        //id: this.config.id
+        //id: this.config.data.id
         this.carService.getCarsSmall(id).then(cars => this.cars = cars);
     &#125;
 &#125;
@@ -140,7 +140,7 @@ export class CarsListDemo &#123;
     constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;
-        //id: this.config.id
+        //id: this.config.data.id
         this.carService.getCarsSmall(id).then(cars => this.cars = cars);
     &#125;
 
