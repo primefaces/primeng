@@ -12,7 +12,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     selector: 'p-inputSwitch',
     template: `
         <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused}"
-            [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
+            [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)" style="transform: scale({{getComponentSize()}})">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked()" (change)="onInputChange($event)"
                     (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" role="switch" [attr.aria-checked]="checked()" [attr.aria-labelledby]="ariaLabelledBy"/>
@@ -31,6 +31,10 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
 export class InputSwitch implements ControlValueAccessor {
 
     @Input() style: any;
+
+    @Input() size: string = "medium";
+
+    @Input() label: string;
 
     @Input() styleClass: string;
 
@@ -119,6 +123,16 @@ export class InputSwitch implements ControlValueAccessor {
 
     checked() {
         return this.modelValue === this.trueValue;
+    }
+
+    getComponentSize(){
+        if(this.size === 'small'){
+            return 0.8;
+        } else if (this.size === 'large'){
+            return 1.2
+        } else {
+            return 1;
+        }
     }
 }
 
