@@ -283,6 +283,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() exportFunction;
 
+    @Input() exportHeader: string;
+
     @Input() stateKey: string;
 
     @Input() stateStorage: string = 'session';
@@ -1676,6 +1678,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.clear();
     }
 
+    getExportHeader(column) {
+        return column[this.exportHeader] || column.header || column.field;
+    }
+
     public exportCSV(options?: any) {
         let data;
         let csv = '';
@@ -1696,7 +1702,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         for (let i = 0; i < columns.length; i++) {
             let column = columns[i];
             if (column.exportable !== false && column.field) {
-                csv += '"' + (column.header || column.field) + '"';
+                csv += '"' + this.getExportHeader(column) + '"';
 
                 if (i < (columns.length - 1)) {
                     csv += this.csvSeparator;
