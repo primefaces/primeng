@@ -21,11 +21,13 @@ const hideAnimation = animation([
 	selector: 'p-dynamicDialog',
 	template: `
         <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false}">
-            <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
+            <div 
+                [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl,'p-dialog-draggable': config.draggable}"
+                [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
-                <div class="p-dialog-header" *ngIf="config.showHeader === false ? false: true">
+                <div class="p-dialog-header" *ngIf="config.showHeader === false ? false: true" (mousedown)="initDrag($event)">
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons">
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
@@ -84,6 +86,20 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     maskClickListener: Function;
 
     transformOptions: string = "scale(0.7)";
+    
+    @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
+    
+    dragging: boolean;
+    
+    documentDragListener: any;
+    
+    documentDragEndListener: any;
+    
+    lastPageX: number;
+    
+    lastPageY: number;
+        
+    _style: any = {};
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
 			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig) { }
@@ -140,6 +156,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	onContainerDestroy() {
 		this.unbindGlobalListeners();
+        
+        this.dragging = false;
 
         if (this.container && this.config.autoZIndex !== false) {
             ZIndexUtils.clear(this.container);
@@ -230,6 +248,67 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             });
         }
     }
+    
+  initDrag(event: MouseEvent) {
+    if (
+      DomHandler.hasClass(event.target, 'p-dialog-header-icon') ||
+      DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')
+    ) {
+      return;
+    }
+
+    if (this.config.draggable) {
+      this.dragging = true;
+      this.lastPageX = event.pageX;
+      this.lastPageY = event.pageY;
+
+      this.container.style.margin = '0';
+      DomHandler.addClass(document.body, 'p-unselectable-text');
+    }
+  }
+
+  onDrag(event: MouseEvent) {
+    if (this.dragging) {
+      const containerWidth = DomHandler.getOuterWidth(this.container);
+      const containerHeight = DomHandler.getOuterHeight(this.container);
+      const deltaX = event.pageX - this.lastPageX;
+      const deltaY = event.pageY - this.lastPageY;
+      const offset = DomHandler.getOffset(this.container);
+      const leftPos = offset.left + deltaX;
+      const topPos = offset.top + deltaY;
+      const viewport = DomHandler.getViewport();
+
+      this.container.style.position = 'fixed';
+
+      if (this.config.keepInViewport) {
+        if (leftPos >= this.config.minX && leftPos + containerWidth < viewport.width) {
+          this._style.left = `${leftPos}px`;
+          this.lastPageX = event.pageX;
+          this.container.style.left = `${leftPos}px`;
+        }
+
+        if (topPos >= this.config.minY && topPos + containerHeight < viewport.height) {
+          this._style.top = `${topPos}px`;
+          this.lastPageY = event.pageY;
+          this.container.style.top = `${topPos}px`;
+        }
+      } else {
+        this.lastPageX = event.pageX;
+        this.container.style.left = `${leftPos}px`;
+        this.lastPageY = event.pageY;
+        this.container.style.top = `${topPos}px`;
+      }
+    }
+  }
+
+  endDrag(event: MouseEvent) {
+    if (this.dragging) {
+      this.dragging = false;
+      DomHandler.removeClass(document.body, 'p-unselectable-text');
+      this.cd.detectChanges();
+      this.onDragEnd.emit(event);
+    }
+  }
 
 	bindGlobalListeners() {
         this.bindDocumentKeydownListener();
@@ -237,11 +316,19 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         if (this.config.closeOnEscape !== false && this.config.closable !== false) {
             this.bindDocumentEscapeListener();
         }
+        
+        if (this.config.draggable) {
+            this.bindDocumentDragListener();
+            this.bindDocumentDragEndListener();
+        }
     }
 
     unbindGlobalListeners() {
         this.unbindDocumentKeydownListener();
         this.unbindDocumentEscapeListener();
+        
+        this.unbindDocumentDragListener();
+        this.unbindDocumentDragEndListener();
     }
 
     bindDocumentKeydownListener() {
@@ -283,6 +370,34 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.maskClickListener = null;
         }
     }
+    
+   bindDocumentDragListener() {
+    this.zone.runOutsideAngular(() => {
+      this.documentDragListener = this.onDrag.bind(this);
+      window.document.addEventListener('mousemove', this.documentDragListener);
+    });
+  }
+
+  unbindDocumentDragListener() {
+    if (this.documentDragListener) {
+      window.document.removeEventListener('mousemove', this.documentDragListener);
+      this.documentDragListener = null;
+    }
+  }
+
+  bindDocumentDragEndListener() {
+    this.zone.runOutsideAngular(() => {
+      this.documentDragEndListener = this.endDrag.bind(this);
+      window.document.addEventListener('mouseup', this.documentDragEndListener);
+    });
+  }
+
+  unbindDocumentDragEndListener() {
+    if (this.documentDragEndListener) {
+      window.document.removeEventListener('mouseup', this.documentDragEndListener);
+      this.documentDragEndListener = null;
+    }
+  }
 
 	ngOnDestroy() {
 		this.onContainerDestroy();
