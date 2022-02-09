@@ -913,11 +913,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     switchToMonthView(event) {
         this.currentView = 'month';
         event.preventDefault();
+        this.restoreContainerHeight();
     }
 
     switchToYearView(event) {
         this.currentView = 'year';
         event.preventDefault();
+        this.restoreContainerHeight();
     }
 
     onDateSelect(event, dateMeta) {
@@ -2423,6 +2425,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.enableModality(this.overlay);
         }
         else if(this.overlay) {
+
             if (this.appendTo) {
                 if (this.view === 'date') {
                     this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
@@ -2436,8 +2439,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
             else{
                 DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+
             }
         }
+    }
+
+    restoreContainerHeight(){
+        this.overlay.style.minHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement) + 'px';
     }
 
     enableModality(element) {
