@@ -2212,8 +2212,6 @@ export class TableExportDemo implements OnInit &#123;
     &#125;
 &#125;
 </app-code>
-
-
             <p>See the <a [routerLink]="['/table/export']">live example.</a></p>
 
             <h5>Scrolling</h5>
@@ -3361,6 +3359,12 @@ export class TableDemo implements OnInit &#123;
                             <td>number</td>
                             <td>null</td>
                             <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
+                        </tr>
+                        <tr>
+                            <td>exportHeader</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Custom export header of the column to be exported as CSV.</td>
                         </tr>
                     </tbody>
                 </table>
