@@ -16,4 +16,8 @@ export class DynamicDialogConfig {
 	closable?: boolean;
 	showHeader?: boolean;
 	modal?: boolean;
+    draggable?: boolean = true;
+    minX?: number = 0;
+    minY?: number = 0;
+    keepInViewport?: boolean = true;
 }
