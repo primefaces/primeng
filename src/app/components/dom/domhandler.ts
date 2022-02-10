@@ -442,6 +442,10 @@ export class DomHandler {
         return /(android)/i.test(navigator.userAgent);
     }
 
+    public static isTouchDevice() {
+        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+    }
+
     public static appendChild(element: any, target: any) {
         if (this.isElement(target))
             target.appendChild(element);
@@ -585,7 +589,7 @@ export class DomHandler {
                 [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]):not(.p-disabled)`
             );
 
             let visibleFocusableElements = [];

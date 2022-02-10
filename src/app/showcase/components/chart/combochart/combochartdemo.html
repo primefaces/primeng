@@ -13,7 +13,7 @@
 </div>
 
 <div class="content-section documentation">
-    
+
 
     <p-tabView>
         <p-tabPanel header="Source">
@@ -24,12 +24,12 @@
 &lt;p-chart type="bar" [data]="data" [options]="chartOptions"&gt;&lt;/p-chart&gt;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-export class DoughnutChartDemo &#123;
+export class ComboChartDemo &#123;
 
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -84,18 +84,35 @@ export class DoughnutChartDemo &#123;
                 ]
             &#125;]
         &#125;;
-        this.chartOptions = &#123;
-            responsive: true,
-            title: &#123;
-                display: true,
-                text: 'Combo Bar Line Chart'
+
+        this.chartOptions =  &#123;
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;
             &#125;,
-            tooltips: &#123;
-                mode: 'index',
-                intersect: true
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
             &#125;
         &#125;;
-        
+
         this.config = this.configService.config;
         this.updateChartOptions();
         this.subscription = this.configService.configUpdate$.subscribe(config =&gt; &#123;
@@ -105,63 +122,73 @@ export class DoughnutChartDemo &#123;
     &#125;
 
     updateChartOptions() &#123;
-        if (this.config.dark) 
+        if (this.config.dark)
             this.applyDarkTheme();
         else
             this.applyLightTheme();
     &#125;
 
     applyLightTheme() &#123;
-            this.chartOptions = &#123;
+        this.chartOptions = &#123;
+            plugins: &#123;
                 legend: &#123;
                     labels: &#123;
-                        fontColor: '#495057'
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
                     &#125;
                 &#125;,
-                scales: &#123;
-                    xAxes: [&#123;
-                        ticks: &#123;
-                            fontColor: '#495057'
-                        &#125;
-                    &#125;],
-                    yAxes: [&#123;
-                        ticks: &#123;
-                            fontColor: '#495057'
-                        &#125;
-                    &#125;]
+                y: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
                 &#125;
             &#125;
+        &#125;
     &#125;
 
     applyDarkTheme() &#123;
         this.chartOptions = &#123;
-            legend: &#123;
-                labels: &#123;
-                    fontColor: '#ebedef'
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
                 &#125;
             &#125;,
             scales: &#123;
-                xAxes: [&#123;
+                x: &#123;
                     ticks: &#123;
-                        fontColor: '#ebedef'
+                        color: '#ebedef'
                     &#125;,
-                    gridLines: &#123;
+                    grid: &#123;
                         color: 'rgba(255,255,255,0.2)'
                     &#125;
-                &#125;],
-                yAxes: [&#123;
+                &#125;,
+                y: &#123;
                     ticks: &#123;
-                        fontColor: '#ebedef'
+                        color: '#ebedef'
                     &#125;,
-                    gridLines: &#123;
+                    grid: &#123;
                         color: 'rgba(255,255,255,0.2)'
                     &#125;
-                &#125;]
+                &#125;
             &#125;
         &#125;;
     &#125;
 &#125;
-</app-code>            
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>

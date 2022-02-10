@@ -4,9 +4,9 @@ import {trigger,style,transition,animate,AnimationEvent} from '@angular/animatio
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate, TranslationKeys, PrimeNGConfig, OverlayService} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
+import {ObjectUtils, UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
 
@@ -37,10 +37,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             aria-autocomplete="list" [attr.aria-controls]="listId" role="searchbox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'">
                 </li>
             </ul>
-            <i *ngIf="loading" class="p-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" class="p-autocomplete-dropdown" [disabled]="disabled" pRipple
+            <i *ngIf="loading" class="p-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" [attr.aria-label]="dropdownAriaLabel" class="p-autocomplete-dropdown" [disabled]="disabled" pRipple
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
-            <div #panel *ngIf="overlayVisible" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+            <div #panel *ngIf="overlayVisible" (click)="onOverlayClick($event)" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="{'p-autocomplete-virtualscroll': virtualScroll}">
                     <ng-container *ngIf="group">
                         <ng-template ngFor let-optgroup [ngForOf]="suggestions">
@@ -71,9 +72,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 </ng-container>
                             </cdk-virtual-scroll-viewport>
                         </ng-template>
-                        <li *ngIf="noResults && emptyMessage" class="p-autocomplete-emptymessage p-autocomplete-item">{{emptyMessage}}</li>
+                        <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message">
+                            <ng-container *ngIf="!emptyTemplate; else empty">
+                                {{emptyMessageLabel}}
+                            </ng-container>
+                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                        </li>
                     </ng-template>
                 </ul>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </span>
     `,
@@ -89,6 +96,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         ])
     ],
     host: {
+        'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible'
     },
@@ -149,6 +157,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() ariaLabel: string;
 
+    @Input() dropdownAriaLabel: string;
+
     @Input() ariaLabelledBy: string;
 
     @Input() dropdownIcon: string = "pi pi-chevron-down";
@@ -184,6 +194,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     @Input() scrollHeight: string = '200px';
 
     @Input() dropdown: boolean;
+
+    @Input() showEmptyMessage: boolean;
 
     @Input() dropdownMode: string = 'blank';
 
@@ -227,8 +239,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     itemTemplate: TemplateRef<any>;
 
+    emptyTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
+
     selectedItemTemplate: TemplateRef<any>;
-    
+
     groupTemplate: TemplateRef<any>;
 
     value: any;
@@ -279,7 +297,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     virtualScrollSelectedIndex: number;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, public config: PrimeNGConfig, public overlayService: OverlayService) {
         this.differ = differs.find([]).create(null);
         this.listId = UniqueComponentId() + '_list';
     }
@@ -316,7 +334,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     if (this.virtualScroll && this.viewPort) {
                         let range = this.viewPort.getRenderedRange();
                         this.updateVirtualScrollSelectedIndex();
-                        
+
                         if (range.start > this.virtualScrollSelectedIndex || range.end < this.virtualScrollSelectedIndex) {
                             this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex);
                         }
@@ -342,7 +360,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             else {
                 this.noResults = true;
 
-                if (this.emptyMessage) {
+                if (this.showEmptyMessage) {
                     this.show();
                     this.suggestionsUpdated = true;
                 }
@@ -368,6 +386,18 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
                 case 'selectedItem':
                     this.selectedItemTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
                 break;
 
                 default:
@@ -511,9 +541,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 this.overlay = event.element;
                 this.itemsWrapper = this.virtualScroll ? DomHandler.findSingle(this.overlay, '.cdk-virtual-scroll-viewport') : this.overlay;
                 this.appendOverlay();
+
                 if (this.autoZIndex) {
-                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                    ZIndexUtils.set('overlay', this.overlay, this.baseZIndex + this.config.zIndex.overlay);
                 }
+
                 this.alignOverlay();
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
@@ -525,6 +557,23 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 this.onOverlayHide();
             break;
         }
+    }
+
+    onOverlayAnimationEnd(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'void':
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(event.element);
+                }
+            break;
+        }
+    }
+
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
     }
 
     appendOverlay() {
@@ -588,6 +637,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             this.multiInputEL.nativeElement.focus();
         else
             this.inputEL.nativeElement.focus();
+    }
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
     removeItem(item: any) {
@@ -934,6 +987,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
+
+        if (this.overlay) {
+            ZIndexUtils.clear(this.overlay);
+        }
+
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }

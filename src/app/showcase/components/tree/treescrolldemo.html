@@ -16,12 +16,12 @@
             to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
 
         <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
-        <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+        <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true"
             [resizable]="true" [contentStyle]="{height: '300px'}" styleClass="p-fluid">
             <p-tree [value]="files2" scrollHeight="flex"></p-tree>
             <ng-template pTemplate="footer">
                 <button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Ok" class="p-button-text"></button>
-            </ng-template> 
+            </ng-template>
         </p-dialog>
 
         <h5>Virtual Scroll</h5>
@@ -49,12 +49,12 @@
     to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
 
 &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
-&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true"
     [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="p-fluid"&gt;
-    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;
     &lt;ng-template pTemplate="footer"&gt;
         &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Ok" class="p-button-text"&gt;&lt;/button&gt;
-    &lt;/ng-template&gt; 
+    &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 
 &lt;h5&gt;Virtual Scroll&lt;/h5&gt;
@@ -77,7 +77,7 @@ export class TreeScrollDemo implements OnInit &#123;
     files3: TreeNode[];
 
     dialogVisible: boolean;
-    
+
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
@@ -94,9 +94,9 @@ export class TreeScrollDemo implements OnInit &#123;
             collapsedIcon: 'pi pi-folder',
             children: Array.from(&#123;length: children&#125;).map((_,j) => &#123;
                 return &#123;
-                    label: 'Node ' + i + '.' + j, 
-                    data: 'Node ' + i + '.' + j, 
-                    icon: 'pi pi-file-o'
+                    label: 'Node ' + i + '.' + j,
+                    data: 'Node ' + i + '.' + j,
+                    icon: 'pi pi-file'
                 &#125;
             &#125;)
         &#125;;

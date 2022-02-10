@@ -55,6 +55,15 @@
         display: inline;
         border-radius: 4px 4px 0 0;
     }
+
+    a {
+        color: #2196f3;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .section-newfeatures {

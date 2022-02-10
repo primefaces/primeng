@@ -19,8 +19,9 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                 <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
             </div>
             <div class="p-orderlist-list-container">
-                <div class="p-orderlist-header" *ngIf="header">
-                    <div class="p-orderlist-title">{{header}}</div>
+                <div class="p-orderlist-header" *ngIf="header || headerTemplate">
+                    <div class="p-orderlist-title" *ngIf="!headerTemplate">{{header}}</div>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-orderlist-filter-container" *ngIf="filterBy">
                     <div class="p-orderlist-filter">
@@ -36,13 +37,24 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                     </ng-template>
+                    <ng-container *ngIf="isEmpty() && (emptyMessageTemplate || emptyFilterMessageTemplate)">
+                        <li *ngIf="!filterValue || !emptyFilterMessageTemplate" class="p-orderlist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                        </li>
+                        <li *ngIf="filterValue" class="p-orderlist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageTemplate"></ng-container>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./orderlist.css']
+    styleUrls: ['./orderlist.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
 
@@ -90,6 +102,12 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     public itemTemplate: TemplateRef<any>;
 
+    public headerTemplate: TemplateRef<any>;
+
+    public emptyMessageTemplate: TemplateRef<any>;
+
+    public emptyFilterMessageTemplate: TemplateRef<any>;
+
     _selection: any[];
 
     movedUp: boolean;
@@ -129,6 +147,18 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
+                break;
+
+                case 'emptyfilter':
+                    this.emptyFilterMessageTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
                 break;
 
                 default:
@@ -235,6 +265,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     isSelected(item: any) {
         return ObjectUtils.findIndexInList(item, this.selection) != -1;
+    }
+
+    isEmpty() {
+        return this.filterValue ? (!this.visibleOptions || this.visibleOptions.length === 0) : (!this.value || this.value.length === 0);
     }
 
     moveUp() {
@@ -431,7 +465,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                     }
                 }
             `;
-            
+
             this.styleElement.innerHTML = innerHTML;
         }
     }

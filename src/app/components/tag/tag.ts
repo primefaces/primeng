@@ -12,7 +12,10 @@ import { CommonModule } from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tag.css']
+    styleUrls: ['./tag.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Tag {
 
@@ -21,13 +24,13 @@ export class Tag {
     @Input() style: any;
 
     @Input() severity: string;
-    
+
     @Input() value: string;
 
     @Input() icon: string;
 
     @Input() rounded: boolean;
-    
+
 
     containerClass() {
         return {

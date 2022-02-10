@@ -1,12 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: './sidebardemo.html',
-    styles: [`
-        :host ::ng-deep button {
-            margin-right: .25em;
-        }
-    `]
+    templateUrl: './sidebardemo.html'
 })
 export class SidebarDemo {
 

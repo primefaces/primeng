@@ -7,7 +7,8 @@ import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 import {Subscription} from 'rxjs';
-import {UniqueComponentId} from 'primeng/utils';
+import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
+import { RippleModule } from 'primeng/ripple';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -44,8 +45,8 @@ const hideAnimation = animation([
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
-                    <button type="button" pButton [icon]="option('rejectIcon')" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
-                    <button type="button" pButton [icon]="option('acceptIcon')" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
+                    <button type="button" pRipple pButton [icon]="option('rejectIcon')" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-dialog-reject'" [class]="option('rejectButtonStyleClass')" *ngIf="option('rejectVisible')" [attr.aria-label]="rejectAriaLabel"></button>
+                    <button type="button" pRipple pButton [icon]="option('acceptIcon')" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')" [attr.aria-label]="acceptAriaLabel"></button>
                 </div>
             </div>
         </div>
@@ -62,7 +63,10 @@ const hideAnimation = animation([
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css']
+    styleUrls: ['../dialog/dialog.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
@@ -222,6 +226,8 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
     confirmationOptions: Confirmation;
 
+    translationSubscription: Subscription;
+
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
@@ -268,6 +274,12 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
         if (this.breakpoints) {
             this.createStyle();
         }
+
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            if (this.visible) {
+                this.cd.markForCheck();
+            }
+        });
     }
 
     option(name: string) {
@@ -285,16 +297,15 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
                 this.wrapper = this.container.parentElement;
                 this.contentContainer = DomHandler.findSingle(this.container, '.p-dialog-content');
                 this.container.setAttribute(this.id, '');
+                this.appendContainer();
+                this.moveOnTop();
+                this.bindGlobalListeners();
+                this.enableModality();
 
                 const element = this.getElementToFocus();
                 if (element) {
                     element.focus();
                 }
-
-                this.appendContainer();
-                this.moveOnTop();
-                this.bindGlobalListeners();
-                this.enableModality();
             break;
         }
     }
@@ -410,8 +421,8 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-            this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
+            ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
         }
     }
 
@@ -434,7 +445,7 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which == 27 && (this.option('closeOnEscape') && this.closable)) {
-                    if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
+                    if (parseInt(this.container.style.zIndex) === ZIndexUtils.get(this.container) && this.visible) {
                         this.close(event);
                     }
                 }
@@ -485,6 +496,10 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
     }
 
     onOverlayHide() {
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.disableModality();
         this.unbindGlobalListeners();
         this.container = null;
@@ -501,6 +516,11 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
+
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
+
         this.destroyStyle();
     }
 
@@ -530,7 +550,7 @@ export class ConfirmDialog implements AfterContentInit,OnInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
+    imports: [CommonModule,ButtonModule,RippleModule],
     exports: [ConfirmDialog,ButtonModule,SharedModule],
     declarations: [ConfirmDialog]
 })

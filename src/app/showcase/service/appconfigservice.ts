@@ -6,16 +6,16 @@ import { AppConfig } from '../domain/appconfig';
 export class AppConfigService {
 
     config: AppConfig = {
-        theme: 'saga-blue',
+        theme: 'lara-light-indigo',
         dark: false,
         inputStyle: 'outlined',
         ripple: true
     };
-    
+
     private configUpdate = new Subject<AppConfig>();
-    
+
     configUpdate$ = this.configUpdate.asObservable();
-    
+
     updateConfig(config: AppConfig) {
         this.config = config;
         this.configUpdate.next(config);

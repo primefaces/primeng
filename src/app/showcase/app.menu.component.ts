@@ -50,25 +50,24 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/theming']" routerLinkActive="router-link-exact-active">Guide</a>
                     <a href="https://www.primefaces.org/designer/primeng">Theme Designer</a>
                     <a href="https://www.primefaces.org/designer-ng">Visual Editor</a>
-                    <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors <span class="p-tag">New</span></a>
-                    <a href="https://www.primefaces.org/designer/api/primeng/11.1.0">SASS API</a>
+                    <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors</a>
+                    <a href="https://www.primefaces.org/designer/api/primeng/13.0.0">SASS API</a>
+                </div>
+
+                <div class="menu-category">PrimeBlocks</div>
+                <div class="menu-items menu-banner">
+                    <a href="https://www.primefaces.org/primeblocks-ng"><img width="100%" alt="PrimeBlocks Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeblocks-dark.png' : 'banner-primeblocks.png')" /></a>
                 </div>
 
                 <div class="menu-category">PrimeFlex</div>
                 <div class="menu-items">
-                    <a [routerLink]=" ['/primeflex']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Setup</a>
-                    <a [routerLink]=" ['/primeflex/display']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Display</a>
-                    <a [routerLink]=" ['/primeflex/elevation']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Elevation</a>
-                    <a [routerLink]=" ['/primeflex/flexbox']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">FlexBox</a>
-                    <a [routerLink]=" ['/primeflex/formlayout']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Form Layout</a>
-                    <a [routerLink]=" ['/primeflex/grid']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Grid System</a>
-                    <a [routerLink]=" ['/primeflex/spacing']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Spacing</a>
-                    <a [routerLink]=" ['/primeflex/text']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Text</a>
+                    <a href="https://www.primefaces.org/primeflex">PrimeFlex v3</a>
+                    <a href="https://github.com/primefaces/primeflex/wiki/PrimeFlex-v2">PrimeFlex v2</a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
                 <div class="menu-items">
-                    <a [routerLink]=" ['/icons']" routerLinkActive="router-link-exact-active">Icons v4.1</a>
+                    <a [routerLink]=" ['/icons']" routerLinkActive="router-link-exact-active">Icons v5</a>
                 </div>
 
                 <div class="menu-category">Form</div>
@@ -93,12 +92,13 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/keyfilter']" routerLinkActive="router-link-exact-active">KeyFilter</a>
                     <a [routerLink]=" ['/listbox']" routerLinkActive="router-link-exact-active">Listbox</a>
                     <a [routerLink]=" ['/multiselect']" routerLinkActive="router-link-exact-active">MultiSelect</a>
-                    <a [routerLink]=" ['/password']" routerLinkActive="router-link-exact-active">Password <span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['/password']" routerLinkActive="router-link-exact-active">Password</a>
                     <a [routerLink]=" ['/radiobutton']" routerLinkActive="router-link-exact-active">RadioButton</a>
                     <a [routerLink]=" ['/rating']" routerLinkActive="router-link-exact-active">Rating</a>
                     <a [routerLink]=" ['/slider']" routerLinkActive="router-link-exact-active">Slider</a>
                     <a [routerLink]=" ['/selectbutton']" routerLinkActive="router-link-exact-active">SelectButton</a>
                     <a [routerLink]=" ['/togglebutton']" routerLinkActive="router-link-exact-active">ToggleButton</a>
+                    <a [routerLink]=" ['/treeselect']" routerLinkActive="router-link-exact-active">TreeSelect <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/tristatecheckbox']" routerLinkActive="router-link-exact-active">TriCheckbox</a>
                 </div>
 
@@ -106,6 +106,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/button']" routerLinkActive="router-link-exact-active">Button</a>
                     <a [routerLink]=" ['/splitbutton']" routerLinkActive="router-link-exact-active">SplitButton</a>
+                    <a [routerLink]=" ['/speeddial']" routerLinkActive="router-link-exact-active">SpeedDial <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Data</div>
@@ -118,7 +119,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/paginator']" routerLinkActive="router-link-exact-active">Paginator</a>
                     <a [routerLink]=" ['/picklist']" routerLinkActive="router-link-exact-active">PickList</a>
                     <div>
-                        <a tabindex="0" (click)="toggleSubmenu($event, '/table')">Table</a>
+                        <a tabindex="0" (click)="toggleSubmenu($event, '/table')">Table  <span class="p-tag">New</span></a>
                         <div [@submenu]="isSubmenuActive('/table') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['/table']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
@@ -134,7 +135,7 @@ declare let gtag: Function;
                                 <li><a [routerLink]=" ['/table/filter']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Filter </a></li>
                                 <li><a [routerLink]=" ['/table/selection']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Selection</a></li>
                                 <li><a [routerLink]=" ['/table/lazy']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Lazy</a></li>
-                                <li><a [routerLink]=" ['/table/scroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
+                                <li><a [routerLink]=" ['/table/scroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Scroll <span class="p-tag">New</span></a></li>
                                 <li><a [routerLink]=" ['/table/virtualscroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">VirtualScroll</a></li>
                                 <li><a [routerLink]=" ['/table/flexscroll']" target="_blank" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">FlexScroll</a></li>
                                 <li><a [routerLink]=" ['/table/rowexpansion']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">RowExpand</a></li>
@@ -235,6 +236,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/menumodel']" routerLinkActive="router-link-exact-active">MenuModel</a>
                     <a [routerLink]=" ['/breadcrumb']" routerLinkActive="router-link-exact-active">Breadcrumb</a>
                     <a [routerLink]=" ['/contextmenu']" routerLinkActive="router-link-exact-active">ContextMenu</a>
+                    <a [routerLink]=" ['/dock']" routerLinkActive="router-link-exact-active">Dock <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/megamenu']" routerLinkActive="router-link-exact-active">MegaMenu</a>
                     <a [routerLink]=" ['/menu']" routerLinkActive="router-link-exact-active">Menu</a>
                     <a [routerLink]=" ['/menubar']" routerLinkActive="router-link-exact-active">Menubar</a>
@@ -283,13 +285,14 @@ declare let gtag: Function;
                             </ul>
                         </div>
                     </div>
+                    <a [routerLink]=" ['/image']" routerLinkActive="router-link-exact-active">Image <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">DragDrop</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/dragdrop']" routerLinkActive="router-link-exact-active">Drag&amp;Drop</a>
                 </div>
-                
+
                 <div class="menu-category">Misc</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/avatar']" routerLinkActive="router-link-exact-active">Avatar</a>
@@ -310,6 +313,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['/defer']" routerLinkActive="router-link-exact-active">Defer</a>
                     <a [routerLink]=" ['/focustrap']" routerLinkActive="router-link-exact-active">FocusTrap</a>
+                    <a [routerLink]=" ['/styleclass']" routerLinkActive="router-link-exact-active">StyleClass <span class="p-tag">New</span></a>
                     <a [routerLink]=" ['/ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
                 </div>
 
@@ -349,46 +353,34 @@ export class AppMenuComponent {
 
     routes = [
         {
-            label: 'General', value: 'general', 
+            label: 'General', value: 'general',
             items: [
                 {label: 'Setup', value: '/setup'},
                 {label: 'Locale', value: '/i18n'}
             ]
         },
         {
-            label: 'Support', value: 'support', 
+            label: 'Support', value: 'support',
             items: [
                 {label: 'Long Term Support', value: '/lts'},
                 {label: 'PRO Support', value: '/support'}
             ]
         },
         {
-            label: 'Theming', value: 'theming', 
+            label: 'Theming', value: 'theming',
             items: [
                 {label: 'Guide', value: '/theming'},
                 {label: 'Colors', value: '/colors'}
             ]
         },
         {
-            label: 'PrimeFlex', value: 'primeflex', 
+            label: 'PrimeIcons', value: 'primeicons',
             items: [
-                {label: 'Setup', value: '/primeflex'},
-                {label: 'Display', value: '/primeflex/display'},
-                {label: 'Elevation', value: '/primeflex/elevation'},
-                {label: 'FlexBox', value: '/primeflex/flexbox'},
-                {label: 'Form Layout', value: '/primeflex/formlayout'},
-                {label: 'Spacing', value: '/primeflex/spacing'},
-                {label: 'Text', value: '/primeflex/text'}
+                {label: 'Icons v5', value: '/icons'}
             ]
         },
         {
-            label: 'PrimeIcons', value: 'primeicons', 
-            items: [
-                {label: 'Icons v4.1', value: '/icons'}
-            ]
-        },
-        {
-            label: 'Form', value: 'form', 
+            label: 'Form', value: 'form',
             items: [
                 {label: 'AutoComplete', value: '/autocomplete'},
                 {label: 'Calendar', value: '/calendar'},
@@ -416,18 +408,20 @@ export class AppMenuComponent {
                 {label: 'Slider', value: '/slider'},
                 {label: 'SelectButton', value: '/selectbutton'},
                 {label: 'ToggleButton', value: '/togglebutton'},
+                {label: 'TreeSelect', value: '/treeselect'},
                 {label: 'TriCheckbox', value: '/tristatecheckbox'}
             ]
         },
         {
-            label: 'Button', value: 'button', 
+            label: 'Button', value: 'button',
             items: [
                 {label: 'Button', value: '/button'},
+                {label: 'SpeedDial', value: '/speeddial'},
                 {label: 'SplitButton', value: '/splitbutton'}
             ]
         },
         {
-            label: 'Data', value: 'data', 
+            label: 'Data', value: 'data',
             items: [
                 {label: 'DataView', value: '/dataview'},
                 {label: 'FullCalendar', value: '/fullcalendar'},
@@ -442,7 +436,7 @@ export class AppMenuComponent {
         },
 
         {
-            label: 'Table', value: 'table', 
+            label: 'Table', value: 'table',
             items: [
                 {label: 'Documentation', value: '/table'},
                 {label: 'Basic', value: '/table/basic'},
@@ -476,7 +470,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Tree', value: 'tree', 
+            label: 'Tree', value: 'tree',
             items: [
                 {label: 'Documentation', value: '/tree'},
                 {label: 'Templating', value: '/tree/templating'},
@@ -490,7 +484,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'TreeTable', value: 'treetable', 
+            label: 'TreeTable', value: 'treetable',
             items: [
                 {label: 'Documentation', value: '/treetable'},
                 {label: 'Templating', value: '/treetable/templating'},
@@ -512,7 +506,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Panel', value: 'panel', 
+            label: 'Panel', value: 'panel',
             items: [
                 {label: 'Accordion', value: '/accordion'},
                 {label: 'Card', value: '/card'},
@@ -526,7 +520,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Overlay', value: 'overlay', 
+            label: 'Overlay', value: 'overlay',
             items: [
                 {label: 'ConfirmDialog', value: '/confirmdialog'},
                 {label: 'ConfirmPopup', value: '/confirmpopup'},
@@ -538,17 +532,18 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'File', value: 'fileupload', 
+            label: 'File', value: 'fileupload',
             items: [
                 {label: 'Upload', value: '/fileupload'}
             ]
         },
         {
-            label: 'Menu', value: 'menu', 
+            label: 'Menu', value: 'menu',
             items: [
                 {label: 'MenuModel', value: '/menumodel'},
                 {label: 'Breadcrumb', value: '/breadcrumb'},
                 {label: 'ContextMenu', value: '/contextmenu'},
+                {label: 'Dock', value: '/dock'},
                 {label: 'MegaMenu', value: '/megamenu'},
                 {label: 'Menu', value: '/menu'},
                 {label: 'Menubar', value: '/menubar'},
@@ -560,7 +555,7 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Chart', value: 'chart', 
+            label: 'Chart', value: 'chart',
             items: [
                 {label: 'ChartModel', value: '/chart'},
                 {label: 'Bar', value: '/chart/bar'},
@@ -573,20 +568,21 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Messages', value: 'messages', 
+            label: 'Messages', value: 'messages',
             items: [
                 {label: 'Messages', value: '/messages'},
                 {label: 'Toast', value: '/toast'}
             ]
         },
         {
-            label: 'Media', value: 'media', 
+            label: 'Media', value: 'media',
             items: [
-                {label: 'Carousel', value: '/carousel'}
+                {label: 'Carousel', value: '/carousel'},
+                {label: 'Image', value: '/image'}
             ]
         },
         {
-            label: 'Galleria', value: 'galleria', 
+            label: 'Galleria', value: 'galleria',
             items: [
                 {label: 'Documentation', value: '/galleria'},
                 {label: 'Programmatic', value: '/galleria/programmatic'},
@@ -601,13 +597,13 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'DragDrop', value: 'dragdrop', 
+            label: 'DragDrop', value: 'dragdrop',
             items: [
                 {label: 'DragDrop', value: '/dragdrop'}
             ]
         },
         {
-            label: 'Misc', value: 'misc', 
+            label: 'Misc', value: 'misc',
             items: [
                 {label: 'Avatar', value: '/avatar'},
                 {label: 'Badge', value: '/badge'},
@@ -624,15 +620,16 @@ export class AppMenuComponent {
             ]
         },
         {
-            label: 'Directives', value: 'directives', 
+            label: 'Directives', value: 'directives',
             items: [
                 {label: 'Defer', value: '/defer'},
                 {label: 'FocusTrap', value: '/focustrap'},
+                {label: 'StyleClass', value: '/styleclass'},
                 {label: 'Ripple', value: '/ripple'}
             ]
         },
         {
-            label: 'Utilities', value: 'utilities', 
+            label: 'Utilities', value: 'utilities',
             items: [
                 {label: 'FilterService', value: '/filterservice'}
             ]
@@ -660,7 +657,7 @@ export class AppMenuComponent {
                         this.scrollable = true;
                     }
                 }
-    
+
                 if (routerEvent instanceof NavigationEnd && !this.submenuRouting && this.scrollable){
                     setTimeout(() => {
                         this.scrollToSelectedRoute();
@@ -706,7 +703,7 @@ export class AppMenuComponent {
     scrollToSelectedRoute() {
         let routeEl = DomHandler.findSingle(this.el.nativeElement, '.router-link-exact-active');
 
-        if (routeEl) 
+        if (routeEl)
             routeEl.scrollIntoView({inline: 'start'});
 
         this.scrollable = false;

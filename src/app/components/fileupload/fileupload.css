@@ -39,3 +39,7 @@
 .p-fluid .p-fileupload .p-button {
     width: auto;
 }
+
+.p-fileupload-filename {
+    word-break: break-all;
+}

@@ -9,25 +9,25 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <div class="p-field-radiobutton">
+        <div class="field-radiobutton">
             <p-radioButton name="city" value="Chicago" [(ngModel)]="city" inputId="city1"></p-radioButton>
             <label for="city1">Chicago</label>
         </div>
-        <div class="p-field-radiobutton">
+        <div class="field-radiobutton">
             <p-radioButton name="city" value="Los Angeles" [(ngModel)]="city" inputId="city2"></p-radioButton>
             <label for="city2">Los Angeles</label>
         </div>
-        <div class="p-field-radiobutton">
+        <div class="field-radiobutton">
             <p-radioButton name="city" value="New York" [(ngModel)]="city" inputId="city3"></p-radioButton>
             <label for="city3">New York</label>
         </div>
-        <div class="p-field-radiobutton">
+        <div class="field-radiobutton">
             <p-radioButton name="city" value="San Francisco" [(ngModel)]="city" inputId="city4"></p-radioButton>
             <label for="city4">San Francisco</label>
         </div>
 
         <h5>Dynamic Values, Preselection, Value Binding and Disabled Option</h5>
-        <div *ngFor="let category of categories" class="p-field-checkbox">
+        <div *ngFor="let category of categories" class="field-checkbox">
             <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" [disabled]="category.key === 'R'"></p-radioButton>
             <label [for]="category.key">{{category.name}}</label>
         </div>
@@ -268,25 +268,25 @@ export class ModelComponent &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;div class="p-field-radiobutton"&gt;
+&lt;div class="field-radiobutton"&gt;
     &lt;p-radioButton name="city" value="Chicago" [(ngModel)]="city" inputId="city1"&gt;&lt;/p-radioButton&gt;
     &lt;label for="city1"&gt;Chicago&lt;/label&gt;
 &lt;/div&gt;
-&lt;div class="p-field-radiobutton"&gt;
+&lt;div class="field-radiobutton"&gt;
     &lt;p-radioButton name="city" value="Los Angeles" [(ngModel)]="city" inputId="city2"&gt;&lt;/p-radioButton&gt;
     &lt;label for="city2"&gt;Los Angeles&lt;/label&gt;
 &lt;/div&gt;
-&lt;div class="p-field-radiobutton"&gt;
+&lt;div class="field-radiobutton"&gt;
     &lt;p-radioButton name="city" value="New York" [(ngModel)]="city" inputId="city3"&gt;&lt;/p-radioButton&gt;
     &lt;label for="city3"&gt;New York&lt;/label&gt;
 &lt;/div&gt;
-&lt;div class="p-field-radiobutton"&gt;
+&lt;div class="field-radiobutton"&gt;
     &lt;p-radioButton name="city" value="San Francisco" [(ngModel)]="city" inputId="city4"&gt;&lt;/p-radioButton&gt;
     &lt;label for="city4"&gt;San Francisco&lt;/label&gt;
 &lt;/div&gt;
 
 &lt;h5&gt;Dynamic Values, Preselection, Value Binding and Disabled Option&lt;/h5&gt;
-&lt;div *ngFor="let category of categories" class="p-field-checkbox"&gt;
+&lt;div *ngFor="let category of categories" class="field-checkbox"&gt;
     &lt;p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" [disabled]="category.key === 'R'"&gt;&lt;/p-radioButton&gt;
     &lt;label [for]="category.key"&gt;&#123;&#123;category.name&#125;&#125;&lt;/label&gt;
 &lt;/div&gt;

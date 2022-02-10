@@ -14,7 +14,7 @@ npm install primeicons --save
 </app-code>
 
     <h5>Getting Started</h5>
-    <p>PrimeIcons use the <strong>pi pi-&#123;icon&#125;</strong> syntax such as <strong>pi pi-check</strong>. 
+    <p>PrimeIcons use the <strong>pi pi-&#123;icon&#125;</strong> syntax such as <strong>pi pi-check</strong>.
         A standalone icon can be displayed using an element such as <i>i</i> or <i>span</i></p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -22,7 +22,7 @@ npm install primeicons --save
 &lt;i class="pi pi-times"&gt;&lt;/i&gt;
 </app-code>
 
-<i class="pi pi-check p-mr-2"></i>
+<i class="pi pi-check mr-2"></i>
 <i class="pi pi-times"></i>
 
     <h5>Size</h5>
@@ -84,11 +84,11 @@ export class MenuDemo &#123;
     <h5>List of Icons</h5>
     <p>Here is the current list of PrimeIcons, more icons will be added periodically. You may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
     <div>
-        <input class="icon-filter" (input)="onFilter($event)" pInputText placeholder="Search an icon"> 
+        <input class="icon-filter" (input)="onFilter($event)" pInputText placeholder="Search an icon">
     </div>
 
-    <div class="p-grid icons-list">
-        <div class="p-col-12 p-md-2" *ngFor="let icon of filteredIcons">
+    <div class="grid icons-list">
+        <div class="col-12 sm:col-6 md:col-4 lg:col-2 mb-4" *ngFor="let icon of filteredIcons">
             <i class="pi pi-{{icon.properties.name}}"></i>
             <div>pi-{{icon.properties.name}}</div>
         </div>

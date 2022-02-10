@@ -25,7 +25,7 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {InputTextModule} from 'primeng/inputtext';
@@ -44,6 +44,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
         (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused'
     },
@@ -51,7 +52,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
+export class InputMask implements OnInit,ControlValueAccessor {
 
     @Input() type: string = 'text';
 
@@ -104,7 +105,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onKeydown: EventEmitter<any> = new EventEmitter();
 
     value: any;
@@ -406,7 +407,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             end;
         let iPhone = /iphone/i.test(DomHandler.getUserAgent());
         this.oldVal = this.inputViewChild.nativeElement.value;
-        
+
         this.onKeydown.emit(e);
 
         //backspace, delete, and escape get special treatment
@@ -645,10 +646,6 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     focus() {
         this.inputViewChild.nativeElement.focus();
-    }
-
-    ngOnDestroy() {
-
     }
 }
 

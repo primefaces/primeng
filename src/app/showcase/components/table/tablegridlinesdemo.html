@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products" styleClass="p-datatable-gridlines">
+        <p-table [value]="products" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Header
             </ng-template>
@@ -44,9 +44,9 @@
             <a href="https://stackblitz.com/edit/primeng-tablegridlines-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-                        
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" styleClass="p-datatable-gridlines"&gt;
+&lt;p-table [value]="products" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         Header
     &lt;/ng-template&gt;

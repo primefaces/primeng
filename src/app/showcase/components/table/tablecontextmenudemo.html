@@ -12,7 +12,7 @@
     <p-contextMenu #cm [model]="items"></p-contextMenu>
 
     <div class="card">
-        <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code">
+        <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code"  responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Code</th>
@@ -49,7 +49,7 @@
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 
 &lt;div class="card"&gt;
-    &lt;p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code"&gt;
+    &lt;p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th&gt;Code&lt;/th&gt;

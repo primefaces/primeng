@@ -76,7 +76,7 @@ describe('InputSwitch', () => {
 		inputSwitchEl.click();
 		fixture.detectChanges();
 
-		expect(inputswitch.checked).toEqual(true);
+		expect(inputswitch.checked()).toEqual(true);
 		expect(data.checked).toEqual(true);
 		expect(toggleSpy).toHaveBeenCalled();
 	});
@@ -130,7 +130,7 @@ describe('InputSwitch', () => {
 
 		expect(updateModelSpy).toHaveBeenCalled();
 		expect(onInputChangeSpy).toHaveBeenCalled();
-		expect(inputswitch.checked).toEqual(true);
+		expect(inputswitch.checked()).toEqual(true);
 	});
 
 	it('should change disabled', () => {

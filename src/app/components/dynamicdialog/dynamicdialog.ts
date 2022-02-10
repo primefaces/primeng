@@ -5,6 +5,8 @@ import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { DynamicDialogRef } from './dynamicdialog-ref';
+import { ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig } from 'primeng/api';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -18,7 +20,7 @@ const hideAnimation = animation([
 @Component({
 	selector: 'p-dynamicDialog',
 	template: `
-        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-dialog-mask-scrollblocker': config.modal !== false}">
+        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false}">
             <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
@@ -52,7 +54,10 @@ const hideAnimation = animation([
     ],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css']
+    styleUrls: ['../dialog/dialog.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
@@ -81,7 +86,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     transformOptions: string = "scale(0.7)";
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
+			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig) { }
 
 	ngAfterViewInit() {
 		this.loadChildComponent(this.childComponentType);
@@ -99,9 +104,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	moveOnTop() {
         if (this.config.autoZIndex !== false) {
-			const zIndex = (this.config.baseZIndex||0) + (++DomHandler.zindex);
-			this.container.style.zIndex = String(zIndex);
-			this.maskViewChild.nativeElement.style.zIndex = String(zIndex - 1);
+            ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeNGConfig.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
 		}
     }
 
@@ -120,19 +124,26 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 			break;
 
 			case 'void':
-				this.onContainerDestroy();
+                if (this.wrapper && this.config.modal !== false) {
+                    DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
+                }
 			break;
 		}
 	}
 
 	onAnimationEnd(event: AnimationEvent) {
 		if (event.toState === 'void') {
+            this.onContainerDestroy();
 			this.dialogRef.destroy();
 		}
 	}
 
 	onContainerDestroy() {
 		this.unbindGlobalListeners();
+
+        if (this.container && this.config.autoZIndex !== false) {
+            ZIndexUtils.clear(this.container);
+        }
 
         if (this.config.modal !== false) {
             this.disableModality();
@@ -252,7 +263,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + (this.config.baseZIndex ? this.config.baseZIndex : 0))) {
+                if (parseInt(this.container.style.zIndex) == ZIndexUtils.getCurrent()) {
 					this.hide();
 				}
             }

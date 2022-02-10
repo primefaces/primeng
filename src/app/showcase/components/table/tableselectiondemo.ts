@@ -23,7 +23,13 @@ export class TableSelectionDemo implements OnInit {
 
     selectedProducts3: Product[];
 
-    constructor(private productService: ProductService, private messageService: MessageService) { }
+    selectedProducts4: Product[];
+
+    selectedProducts5: Product[];
+
+    constructor(private productService: ProductService, private messageService: MessageService) {
+        this.isRowSelectable = this.isRowSelectable.bind(this);
+    }
 
     ngOnInit() {
         this.productService.getProductsSmall().then(data => this.products = data);
@@ -41,4 +47,11 @@ export class TableSelectionDemo implements OnInit {
         this.messageService.add({severity:'info', summary:'Product Unselected',  detail: event.data.name});
     }
 
+    isRowSelectable(event) {
+        return !this.isOutOfStock(event.data);
+    }
+
+    isOutOfStock(data) {
+        return data.inventoryStatus === 'OUTOFSTOCK';
+    }
 }

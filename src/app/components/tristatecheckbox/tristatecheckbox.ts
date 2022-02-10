@@ -26,7 +26,10 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
 

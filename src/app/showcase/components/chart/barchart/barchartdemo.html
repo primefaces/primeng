@@ -14,7 +14,7 @@
 
     <div class="card">
         <h5>Horizontal</h5>
-        <p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"></p-chart>
+        <p-chart type="bar" [data]="basicData" [options]="horizontalOptions"></p-chart>
     </div>
 
     <div class="card">
@@ -43,7 +43,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Horizontal&lt;/h5&gt;
-    &lt;p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"&gt;&lt;/p-chart&gt;
+    &lt;p-chart type="bar" [data]="basicData" [options]="horizontalOptions"&gt;&lt;/p-chart&gt;
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
@@ -60,7 +60,7 @@
 export class BarChartDemo &#123;
 
     basicData: any;
-    
+
     basicOptions: any;
 
     multiAxisData: any;
@@ -72,7 +72,9 @@ export class BarChartDemo &#123;
     stackedData: any;
 
     stackedOptions: any;
-    
+
+    horizontalOptions: any;
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -109,46 +111,93 @@ export class BarChartDemo &#123;
                     '#FFCA28',
                     '#26A69A'
                 ],
-                yAxisID: 'y-axis-1',
+                yAxisID: 'y',
                 data: [65, 59, 80, 81, 56, 55, 10]
             &#125;, &#123;
                 label: 'Dataset 2',
                 backgroundColor: '#78909C',
-                yAxisID: 'y-axis-2',
+                yAxisID: 'y1',
                 data: [28, 48, 40, 19, 86, 27, 90]
             &#125;]
         &#125;;
 
         this.multiAxisOptions = &#123;
-            responsive: true,
-            tooltips: &#123;
-                mode: 'index',
-                intersect: true
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;,
+                tooltips: &#123;
+                    mode: 'index',
+                    intersect: true
+                &#125;
             &#125;,
             scales: &#123;
-                yAxes: [&#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y: &#123;
                     type: 'linear',
                     display: true,
                     position: 'left',
-                    id: 'y-axis-1',
                     ticks: &#123;
                         min: 0,
-                        max: 100
+                        max: 100,
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
                     &#125;
                 &#125;,
-                &#123;
+                y1: &#123;
                     type: 'linear',
                     display: true,
                     position: 'right',
-                    id: 'y-axis-2',
-                    gridLines: &#123;
-                        drawOnChartArea: false
+                    grid: &#123;
+                        drawOnChartArea: false,
+                        color: '#ebedef'
                     &#125;,
                     ticks: &#123;
                         min: 0,
-                        max: 100
+                        max: 100,
+                        color: '#495057'
                     &#125;
-                &#125;]
+                &#125;
+            &#125;
+        &#125;;
+
+        this.horizontalOptions = &#123;
+            indexAxis: 'y',
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
             &#125;
         &#125;;
 
@@ -211,7 +260,7 @@ export class BarChartDemo &#123;
                 &#125;]
             &#125;
         &#125;;
-        
+
         this.config = this.configService.config;
         this.updateChartOptions();
         this.subscription = this.configService.configUpdate$.subscribe(config =&gt; &#123;
@@ -221,7 +270,7 @@ export class BarChartDemo &#123;
     &#125;
 
     updateChartOptions() &#123;
-        if (this.config.dark) 
+        if (this.config.dark)
             this.applyDarkTheme();
         else
             this.applyLightTheme();
@@ -229,150 +278,294 @@ export class BarChartDemo &#123;
 
     applyDarkTheme() &#123;
         this.basicOptions = &#123;
-            legend: &#123;
-                labels: &#123;
-                    fontColor: '#ebedef'
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
                 &#125;
             &#125;,
             scales: &#123;
-                xAxes: [&#123;
+                x: &#123;
                     ticks: &#123;
-                        fontColor: '#ebedef'
+                        color: '#ebedef'
                     &#125;,
-                    gridLines: &#123;
+                    grid: &#123;
                         color: 'rgba(255,255,255,0.2)'
                     &#125;
-                &#125;],
-                yAxes: [&#123;
-                    ticks: &#123;
-                        fontColor: '#ebedef'
-                    &#125;,
-                    gridLines: &#123;
-                        color: 'rgba(255,255,255,0.2)'
-                    &#125;
-                &#125;]
-            &#125;
-        &#125;;
-
-        this.stackedOptions.scales.xAxes[0].ticks = &#123;
-            fontColor: '#ebedef'
-        &#125;;
-        this.stackedOptions.scales.xAxes[0].gridLines = &#123;
-            color: 'rgba(255,255,255,0.2)'
-        &#125;;
-        this.stackedOptions.scales.yAxes[0].ticks = &#123;
-            fontColor: '#ebedef'
-        &#125;;
-        this.stackedOptions.scales.yAxes[0].gridLines = &#123;
-            color: 'rgba(255,255,255,0.2)'
-        &#125;;
-        this.stackedOptions.legend = &#123;
-            labels:  &#123;
-                fontColor: '#ebedef'
-            &#125;
-        &#125;;
-        this.stackedOptions = &#123;...this.stackedOptions&#125;;
-
-        this.multiAxisOptions.scales.xAxes = [&#123;
-                ticks: &#123;
-                    fontColor: '#ebedef'
                 &#125;,
-                gridLines: &#123;
-                    color: 'rgba(255,255,255,0.2)'
+                y: &#123;
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
                 &#125;
             &#125;
-        ];
-        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
-            fontColor: '#ebedef'
         &#125;;
-        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
-            color: 'rgba(255,255,255,0.2)'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
-            fontColor: '#ebedef'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
-            color: 'rgba(255,255,255,0.2)'
-        &#125;;
-        this.multiAxisOptions.legend = &#123;
-            labels:  &#123;
-                fontColor: '#ebedef'
+
+        this.horizontalOptions = &#123;
+            indexAxis: 'y',
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;
             &#125;
         &#125;;
-        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
+
+        this.multiAxisOptions = &#123;
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                tooltips: &#123;
+                    mode: 'index',
+                    intersect: true
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: &#123;
+                        min: 0,
+                        max: 100,
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;,
+                y1: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    grid: &#123;
+                        drawOnChartArea: false,
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;,
+                    ticks: &#123;
+                        min: 0,
+                        max: 100,
+                        color: '#ebedef'
+                    &#125;
+                &#125;
+            &#125;
+        &#125;;
+
+        this.stackedOptions = &#123;
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                tooltips: &#123;
+                    mode: 'index',
+                    intersect: false
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    stacked: true,
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    stacked: true,
+                    ticks: &#123;
+                        color: '#ebedef'
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;
+            &#125;
+        &#125;;
     &#125;
-    
+
     applyLightTheme() &#123;
         this.basicOptions = &#123;
-            legend: &#123;
-                labels: &#123;
-                    fontColor: '#495057'
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
                 &#125;
             &#125;,
             scales: &#123;
-                xAxes: [&#123;
+                x: &#123;
                     ticks: &#123;
-                        fontColor: '#495057'
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
                     &#125;
-                &#125;],
-                yAxes: [&#123;
-                    ticks: &#123;
-                        fontColor: '#495057'
-                    &#125;
-                &#125;]
-            &#125;
-        &#125;;
-
-        this.stackedOptions.scales.xAxes[0].ticks = &#123;
-            fontColor: '#495057'
-        &#125;;
-        this.stackedOptions.scales.xAxes[0].gridLines = &#123;
-            color: '#ebedef'
-        &#125;;
-        this.stackedOptions.scales.yAxes[0].ticks = &#123;
-            fontColor: '#495057'
-        &#125;;
-        this.stackedOptions.scales.yAxes[0].gridLines = &#123;
-            color: '#ebedef'
-        &#125;;
-        this.stackedOptions.legend = &#123;
-            labels:  &#123;
-                fontColor: '#495057'
-            &#125;
-        &#125;;
-        this.stackedOptions = &#123;...this.stackedOptions&#125;;
-
-        this.multiAxisOptions.scales.xAxes = [&#123;
-                ticks: &#123;
-                    fontColor: '#495057'
                 &#125;,
-                gridLines: &#123;
-                    color: '#ebedef'
+                y: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
                 &#125;
             &#125;
-        ];
-        this.multiAxisOptions.scales.yAxes[0].ticks = &#123;
-            fontColor: '#495057'
         &#125;;
-        this.multiAxisOptions.scales.yAxes[0].gridLines = &#123;
-            color: '#ebedef'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].ticks = &#123;
-            fontColor: '#495057'
-        &#125;;
-        this.multiAxisOptions.scales.yAxes[1].gridLines = &#123;
-            color: '#ebedef'
-        &#125;;
-        this.multiAxisOptions.legend = &#123;
-            labels:  &#123;
-                fontColor: '#495057'
+
+        this.horizontalOptions = &#123;
+            indexAxis: 'y',
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
             &#125;
         &#125;;
-        this.multiAxisOptions = &#123;...this.multiAxisOptions&#125;;
-    &#125;
 
+        this.multiAxisOptions = &#123;
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;,
+                tooltips: &#123;
+                    mode: 'index',
+                    intersect: true
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: &#123;
+                        min: 0,
+                        max: 100,
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y1: &#123;
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    grid: &#123;
+                        drawOnChartArea: false,
+                        color: '#ebedef'
+                    &#125;,
+                    ticks: &#123;
+                        min: 0,
+                        max: 100,
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;
+        &#125;;
+
+        this.stackedOptions = &#123;
+            plugins: &#123;
+                tooltips: &#123;
+                    mode: 'index',
+                    intersect: false
+                &#125;,
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                x: &#123;
+                    stacked: true,
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;,
+                y: &#123;
+                    stacked: true,
+                    ticks: &#123;
+                        color: '#495057'
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
+            &#125;
+        &#125;;
+    &#125;
 &#125;
-</app-code>            
+
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>

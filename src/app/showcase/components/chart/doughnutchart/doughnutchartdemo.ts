@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppConfigService} from '../../../service/appconfigservice';
 import {AppConfig} from '../../../domain/appconfig';
@@ -6,12 +6,12 @@ import {AppConfig} from '../../../domain/appconfig';
 @Component({
     templateUrl: './doughnutchartdemo.html'
 })
-export class DoughnutChartDemo {
+export class DoughnutChartDemo implements OnInit, OnDestroy {
 
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -35,9 +35,9 @@ export class DoughnutChartDemo {
                         "#FFCE56"
                     ]
                 }
-            ]    
+            ]
         };
-        
+
         this.config = this.configService.config;
         this.updateChartOptions();
         this.subscription = this.configService.configUpdate$.subscribe(config => {
@@ -52,9 +52,11 @@ export class DoughnutChartDemo {
 
     getLightTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#495057'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#495057'
+                    }
                 }
             }
         }
@@ -62,11 +64,19 @@ export class DoughnutChartDemo {
 
     getDarkTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#ebedef'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ebedef'
+                    }
                 }
             }
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 }

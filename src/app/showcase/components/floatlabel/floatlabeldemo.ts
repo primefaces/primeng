@@ -34,6 +34,8 @@ export class FloatLabelDemo {
 
     value10: any;
 
+    value11: any;
+
     valueIconLeft: any;
 
     valueIconRight: any;

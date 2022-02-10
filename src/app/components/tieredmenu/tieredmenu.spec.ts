@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TieredMenu, TieredMenuSub } from './tieredmenu';
+import { TieredMenu, TieredMenuModule, TieredMenuSub } from './tieredmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -13,11 +13,8 @@ describe('TieredMenu', () => {
 		TestBed.configureTestingModule({
 			imports: [
 				NoopAnimationsModule,
-				RouterTestingModule
-			],
-			declarations: [
-				TieredMenu,
-				TieredMenuSub
+				RouterTestingModule,
+                TieredMenuModule
 			]
 		});
 

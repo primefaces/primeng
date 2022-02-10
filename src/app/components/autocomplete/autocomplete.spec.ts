@@ -302,6 +302,7 @@ describe('AutoComplete', () => {
 
 	it('should show emptyMessage', fakeAsync(() => {
 		autocomplete.emptyMessage = "Primeng ROCKS!";
+		autocomplete.showEmptyMessage = true;
 		fixture.detectChanges();
 
 		const inputEl = fixture.debugElement.query(By.css('.p-inputtext.p-component'));
@@ -310,15 +311,7 @@ describe('AutoComplete', () => {
 		inputEl.nativeElement.click();
 		fixture.detectChanges();
 
-		inputEl.nativeElement.value = "v";
-		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
-		inputEl.nativeElement.dispatchEvent(new Event('input'));
-		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
-		inputEl.nativeElement.value = "x";
-		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
-		inputEl.nativeElement.dispatchEvent(new Event('input'));
-		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
-		inputEl.nativeElement.value = "c";
+		inputEl.nativeElement.value = "PRIMENG";
 		inputEl.nativeElement.dispatchEvent(new Event('keydown'));
 		inputEl.nativeElement.dispatchEvent(new Event('input'));
 		inputEl.nativeElement.dispatchEvent(new Event('keyup'));
@@ -329,7 +322,7 @@ describe('AutoComplete', () => {
 		expect(autocomplete.suggestions.length).toEqual(0);
 		expect(suggestionsEls.length).toEqual(1);
 		expect(testComponent.filteredBrands.length).toEqual(0);
-		expect(suggestionsEls[0].nativeElement.textContent).toEqual(autocomplete.emptyMessage);
+		expect(suggestionsEls[0].nativeElement.textContent).toContain(autocomplete.emptyMessage);
 	}));
 
 	it('should use autoHighlight', fakeAsync(() => {
