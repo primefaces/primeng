@@ -1,6 +1,23 @@
 # Changelog
 
-## [13.1.0:](https://github.com/primefaces/primeng/tree/HEAD)
+## [13.1.1:](https://github.com/primefaces/primeng/tree/HEAD) (2022-02-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.1.0...13.1.1)
+
+**Implemented New Features and Enhancements:**
+
+- Custom Table CSV Export Headers [\#11120](https://github.com/primefaces/primeng/issues/11120)
+- MultiSelect | Filter autocomplete attribute support [\#11100](https://github.com/primefaces/primeng/issues/11100)
+
+**Fixed bugs:**
+
+- FullCalendar | Bootstrap background highlight is wrong [\#11152](https://github.com/primefaces/primeng/issues/11152)
+- PrimeNG Calendar (p-calendar) Loses alignment when positioned at the top of the input and the user clicks in the year/month [\#11040](https://github.com/primefaces/primeng/issues/11040)
+- Progress value in ProgressBar not clearly visible (theme Material Design) [\#11146](https://github.com/primefaces/primeng/issues/11146)
+- P-calendar defaultDate not work correctly [\#11104](https://github.com/primefaces/primeng/issues/11104)
+- Table multiple frozen columns aligned on the right [\#11134](https://github.com/primefaces/primeng/issues/11134)
+
+## [13.1.0:](https://github.com/primefaces/primeng/tree/13.1.0) (2022-01-19)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.0.4...13.1.0)
 

@@ -6828,7 +6828,7 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   border-radius: 0;
 }
 .p-progressbar .p-progressbar-label {
-  display: none;
+  display: none !important;
 }
 
 .p-radiobutton {

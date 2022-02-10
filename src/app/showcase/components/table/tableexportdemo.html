@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll">
+        <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll" [exportHeader]="'customExportHeader'">
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
@@ -46,7 +46,7 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll"&gt;
+&lt;p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" responsiveLayout="scroll" [exportHeader]="'customExportHeader'"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div class="flex"&gt;
             &lt;button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="mr-2" pTooltip="CSV" tooltipPosition="bottom"&gt;&lt;/button&gt;
@@ -97,7 +97,7 @@ export class TableExportDemo implements OnInit &#123;
         this.productService.getProductsSmall().then(data =&gt; this.products = data);
 
         this.cols = [
-            &#123; field: 'code', header: 'Code' &#125;,
+            &#123; field: 'code', header: 'Code', customExportHeader: 'Product Code' &#125;,
             &#123; field: 'name', header: 'Name' &#125;,
             &#123; field: 'category', header: 'Category' &#125;,
             &#123; field: 'quantity', header: 'Quantity' &#125;

@@ -912,11 +912,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     switchToMonthView(event) {
         this.currentView = 'month';
+        this.cd.detectChanges();
+        this.alignOverlay();
         event.preventDefault();
     }
 
     switchToYearView(event) {
         this.currentView = 'year';
+        this.cd.detectChanges();
+        this.alignOverlay();
         event.preventDefault();
     }
 

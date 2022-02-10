@@ -5699,4 +5699,8 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   content: "/";
 }
 
+.fc.fc-theme-standard .fc-highlight {
+  background: #e7d8ef;
+}
+
 /* Customizations to the designer theme should be defined here */
