@@ -15,9 +15,9 @@ let idx: number = 0;
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div class="p-panel-icons">
+                <div class="p-panel-icons" role="tablist">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
+                    <button *ngIf="toggleable" type="button" [attr.aria-label]="'collapse button'" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
                         (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
                         <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                     </button>
