@@ -1,5 +1,41 @@
-.p-tabmenu {
+
+
+.p-tabmenu-nav-container {
+    position: relative;
+}
+
+.p-tabmenu-scrollable .p-tabmenu-nav-container {
+    overflow: hidden;
+}
+
+.p-tabmenu-nav-content {
     overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior: contain auto;
+}
+
+.p-tabmenu-nav-btn {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-tabmenu-nav-prev {
+    left: 0;
+}
+
+.p-tabmenu-nav-next {
+    right: 0;
+}
+
+.p-tabview-nav-content::-webkit-scrollbar {
+    display: none;
 }
 
 .p-tabmenu-nav {
@@ -7,7 +43,12 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
-    flex-wrap: nowrap;
+    flex: 1 1 auto;
+    /* display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    flex-wrap: nowrap; */
 }
 
 .p-tabmenu-nav a {
@@ -34,6 +75,6 @@
     z-index: 1;
 }
 
-.p-tabmenu::-webkit-scrollbar {
+.p-tabmenu-nav-content::-webkit-scrollbar {
     display: none;
 }
