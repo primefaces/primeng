@@ -273,6 +273,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             ZIndexUtils.clear(this.containerViewChild.nativeElement);
         }
 
+        this.clearActiveItem();
         this.unbindGlobalListeners();
         this.onHide.emit();
     }
