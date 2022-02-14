@@ -1,11 +1,11 @@
 .p-panel-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
 .p-panel-title {
     line-height: 1;
+    order:1;
 }
 
 .p-panel-header-icon {
@@ -16,4 +16,20 @@
     text-decoration: none;
     overflow: hidden;
     position: relative;
+}
+
+.p-panel-icons-end {
+    order: 2;
+    margin-left: auto;
+}
+
+.p-panel-icons-start {
+    order: 0;
+    margin-right: 1rem;
+}
+
+.p-panel-icons-center {
+    order: 2;
+    width:100%;
+    text-align:center;
 }
