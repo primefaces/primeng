@@ -2,6 +2,7 @@ import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionSt
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import {trigger,style,transition,animate, AnimationEvent,} from '@angular/animations';
+import { SafeUrl } from '@angular/platform-browser';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 
@@ -71,7 +72,7 @@ export class Image implements AfterContentInit {
 
     @Input() style: any;
 
-    @Input() src: string;
+    @Input() src: string | SafeUrl;
 
     @Input() alt: string;
 
