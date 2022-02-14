@@ -803,7 +803,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     onInputBlur(event) {
         this.focus = false;
         this.onBlur.emit({originalEvent: event});
-
         if (!this.preventModelTouched) {
             this.onModelTouched();
         }
@@ -814,14 +813,16 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.readonly) {
             return;
         }
-
         switch(event.originalEvent.which) {
 
-            //down
+            //down & tab
             case 40:
+            case 9:
                 var nextItem = this.findNextItem(event.originalEvent.target.parentElement);
                 if (nextItem) {
                     nextItem.focus();
+                } else {
+                    this.hide();
                 }
 
                 event.originalEvent.preventDefault();
