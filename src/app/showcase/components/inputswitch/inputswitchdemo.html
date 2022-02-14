@@ -9,7 +9,7 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-inputSwitch [(ngModel)]="checked1" label="checkbox" size="medium"></p-inputSwitch>
+        <p-inputSwitch [(ngModel)]="checked1" label="checkbox"></p-inputSwitch>
 
         <h5>PreSelection</h5>
         <p-inputSwitch [(ngModel)]="checked2"></p-inputSwitch>
@@ -125,6 +125,12 @@ export class ModelComponent &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Value in unchecked state.</td>
+                        </tr>
+                        <tr>
+                            <td>size</td>
+                            <td>string</td>
+                            <td>medium</td>
+                            <td>Size of the component, valid values are "small", "medium", and "large".</td>
                         </tr>
                     </tbody>
                 </table>

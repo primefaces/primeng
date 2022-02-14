@@ -129,7 +129,7 @@ export class InputSwitch implements ControlValueAccessor {
         if(this.size === 'small'){
             return 0.8;
         } else if (this.size === 'large'){
-            return 1.2
+            return 1.5
         } else {
             return 1;
         }
