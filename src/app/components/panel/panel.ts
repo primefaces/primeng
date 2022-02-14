@@ -15,7 +15,7 @@ let idx: number = 0;
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div class="p-panel-icons" [ngClass]="{'p-panel-icons-start': iconPos === 'left', 'p-panel-icons-end': iconPos ==='right', 'p-panel-icons-center': iconPos === 'center'}">
+                <div class="p-panel-icons" [ngClass]="{'p-panel-icons-left': iconPos === 'left', 'p-panel-icons-right': iconPos ==='right', 'p-panel-icons-center': iconPos === 'center'}">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                     <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
                         (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
