@@ -8,7 +8,13 @@
 
 <div class="content-section implementation">
     <div class="card">
+        <h5>Default</h5>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
+    </div>
+
+    <div class="card">
+        <h5>Scrollable</h5>
+        <p-tabMenu [scrollable]="true" [model]="scrollableItems" [activeItem]="activeItem2"></p-tabMenu>
     </div>
 </div>
 
@@ -50,8 +56,8 @@ export class TabMenuDemo &#123;
             <h5>ActiveItem</h5>
             <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;</app-code>
-
+&lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;
+</app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
     
@@ -81,6 +87,25 @@ export class TabMenuDemo &#123;
         //item content
     &lt;/ng-template&gt;
 &lt;/p-tabMenu&gt;
+</app-code>
+
+<h5>Scrollable</h5>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-tabMenu [model]="scrollableItems" [activeItem]="activeItem2"&gt;&lt;/p-tabMenu&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+export class TabMenuDemo &#123;
+
+    scrollableItems: MenuItem[];
+
+    activeItem2: MenuItem;
+
+    ngOnInit() &#123;
+        this.scrollableItems = Array.from(&#123; length: 50 &#125;, (_, i) => (&#123; label: `Tab $&#123;i + 1&#125;`, icon: `pi pi-fw pi-display` &#125;));
+        this.activeItem2 = this.scrollableItems[0];
+    &#125;
+&#125;
 </app-code>
 
             <h5>Properties</h5>
@@ -118,6 +143,12 @@ export class TabMenuDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled displays buttons at each side of the tab headers to scroll the tab list.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -195,6 +226,8 @@ export class TabMenuDemo &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabMenu [model]="items" [activeItem]="activeItem"&gt;&lt;/p-tabMenu&gt;
+
+&lt;p-tabMenu [model]="scrollableItems" [activeItem]="activeItem2"&gt;&lt;/p-tabMenu&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -202,7 +235,11 @@ export class TabMenuDemo &#123;
     
     items: MenuItem[];
 
+    scrollableItems: MenuItem[];
+
     activeItem: MenuItem;
+
+    activeItem2: MenuItem;
 
     ngOnInit() &#123;
         this.items = [
@@ -213,7 +250,11 @@ export class TabMenuDemo &#123;
             &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
 
+        this.scrollableItems = Array.from(&#123; length: 50 &#125;, (_, i) => (&#123; label: `Tab $&#123;i + 1&#125;`, icon: `pi pi-fw pi-display` &#125;));
+
         this.activeItem = this.items[0];
+
+        this.activeItem2 = this.scrollableItems[0];
     &#125;
 
 &#125;

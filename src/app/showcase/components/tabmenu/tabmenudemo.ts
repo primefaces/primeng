@@ -8,7 +8,11 @@ export class TabMenuDemo {
     
     items: MenuItem[];
 
+    scrollableItems: MenuItem[];
+
     activeItem: MenuItem;
+
+    activeItem2: MenuItem;
 
     ngOnInit() {
         this.items = [
@@ -19,6 +23,10 @@ export class TabMenuDemo {
             {label: 'Settings', icon: 'pi pi-fw pi-cog'}
         ];
 
+        this.scrollableItems = Array.from({ length: 50 }, (_, i) => ({ label: `Tab ${i + 1}`, icon: `pi pi-fw pi-display` }));
+
         this.activeItem = this.items[0];
+
+        this.activeItem2 = this.scrollableItems[0];
     }
 }
