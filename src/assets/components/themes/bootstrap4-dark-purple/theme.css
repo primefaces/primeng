@@ -3810,6 +3810,19 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: rgba(255, 255, 255, 0.87);
   border-top: 0 none;
 }
+.p-panel .p-panel-icons-right {
+  order: 2;
+  margin-left: auto;
+}
+.p-panel .p-panel-icons-left {
+  order: 0;
+  margin-right: 0.5rem;
+}
+.p-panel .p-panel-icons-center {
+  order: 2;
+  width: 100%;
+  text-align: center;
+}
 
 .p-scrollpanel .p-scrollpanel-bar {
   background: #3f4b5b;
