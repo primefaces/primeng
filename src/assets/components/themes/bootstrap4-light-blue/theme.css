@@ -3810,6 +3810,19 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #212529;
   border-top: 0 none;
 }
+.p-panel .p-panel-icons-end {
+  order: 2;
+  margin-left: auto;
+}
+.p-panel .p-panel-icons-start {
+  order: 0;
+  margin-right: 0.5rem;
+}
+.p-panel .p-panel-icons-center {
+  order: 2;
+  width: 100%;
+  text-align: center;
+}
 
 .p-scrollpanel .p-scrollpanel-bar {
   background: #efefef;
@@ -5058,24 +5071,6 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #ffffff;
   border-color: #dee2e6 #dee2e6 #ffffff #dee2e6;
   color: #495057;
-}
-.p-tabmenu .p-tabmenu-left-icon {
-  margin-right: 0.5rem;
-}
-.p-tabmenu .p-tabmenu-right-icon {
-  margin-left: 0.5rem;
-}
-.p-tabmenu .p-tabmenu-nav-btn.p-link {
-  background: #ffffff;
-  color: #495057;
-  width: 2.357rem;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 0;
-}
-.p-tabmenu .p-tabmenu-nav-btn.p-link:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: inset 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 
 .p-tieredmenu {
