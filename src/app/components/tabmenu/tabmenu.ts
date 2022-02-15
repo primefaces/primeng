@@ -166,7 +166,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+        this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
     }
 
 
@@ -193,7 +193,6 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
-
         content.scrollLeft = pos >= lastPos ? lastPos : pos;
     }
 }
