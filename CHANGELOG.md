@@ -1,5 +1,28 @@
 # Changelog
 
+## [13.2.0:](https://github.com/primefaces/primeng/tree/HEAD) (2022-02-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.1.1...13.2.0)
+
+**Implemented New Features and Enhancements:**
+
+- Custom Table CSV Export Headers [\#11120](https://github.com/primefaces/primeng/issues/11120)
+- Striped Rows for OrderList and PickList [\#11190](https://github.com/primefaces/primeng/issues/11190)
+- Knob surface letters replaced with new surface variables [\#11189](https://github.com/primefaces/primeng/issues/11189)
+- Dropdown, button, inputSwitch, calendar, panel, autoComplete, inputNumber, inputText accessibility problems [\#11168](https://github.com/primefaces/primeng/issues/11168)
+- Hide multiselect panel on living by TAB key [\#11088](https://github.com/primefaces/primeng/issues/11088)
+- Alignment of Icon in Header of Collapsible Panel [\#11175](https://github.com/primefaces/primeng/issues/11175)
+- Scrollable TabMenu support [\#11154](https://github.com/primefaces/primeng/issues/11154)
+- Calendar | hide timepicker on month/year select [\#11180](https://github.com/primefaces/primeng/issues/11180)
+- p-image does not allow src to be of type SafeUrl [\#11143](https://github.com/primefaces/primeng/issues/11143)
+- confirmDialog documentation says acceptIcon and rejectIcon default values are null, but source code specifies default values [\#10430](https://github.com/primefaces/primeng/issues/10430)
+
+**Fixed bugs:**
+
+- Tabview and TabMenu | ForwardButton not hidden correctly [\#11197](https://github.com/primefaces/primeng/issues/11197)
+- Dynamic contextmenu items cause null exception in ContextMenu.positionSubmenu [\#11173](https://github.com/primefaces/primeng/issues/11173)
+
+
 ## [13.1.1:](https://github.com/primefaces/primeng/tree/HEAD) (2022-02-09)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.1.0...13.1.1)
@@ -1304,7 +1327,7 @@
 - Deprecate ng-content in favor of ng-template [\#8775](https://github.com/primefaces/primeng/issues/8775)
 - Multiple Messages display should support multiple severities [\#8767](https://github.com/primefaces/primeng/issues/8767)
 - Remove ui-g [\#8761](https://github.com/primefaces/primeng/issues/8761)
-- Migrate all components to use ChangeDetectionStrategy.OnPush [\#8688](https://github.com/primefaces/primeng/issues/8688)
+- Migrate all components to use ChangeDetectionStrategy.**OnPush** [\#8688](https://github.com/primefaces/primeng/issues/8688)
 - Remove deprecated style classes [\#8630](https://github.com/primefaces/primeng/issues/8630)
 - Deprecate Responsive Table [\#8611](https://github.com/primefaces/primeng/issues/8611)
 - Listbox filter width problem when showToggleAll=false [\#8541](https://github.com/primefaces/primeng/issues/8541)
