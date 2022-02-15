@@ -1326,7 +1326,7 @@
 - Deprecate ng-content in favor of ng-template [\#8775](https://github.com/primefaces/primeng/issues/8775)
 - Multiple Messages display should support multiple severities [\#8767](https://github.com/primefaces/primeng/issues/8767)
 - Remove ui-g [\#8761](https://github.com/primefaces/primeng/issues/8761)
-- Migrate all components to use ChangeDetectionStrategy.OnPush [\#8688](https://github.com/primefaces/primeng/issues/8688)
+- Migrate all components to use ChangeDetectionStrategy.**OnPush** [\#8688](https://github.com/primefaces/primeng/issues/8688)
 - Remove deprecated style classes [\#8630](https://github.com/primefaces/primeng/issues/8630)
 - Deprecate Responsive Table [\#8611](https://github.com/primefaces/primeng/issues/8611)
 - Listbox filter width problem when showToggleAll=false [\#8541](https://github.com/primefaces/primeng/issues/8541)
