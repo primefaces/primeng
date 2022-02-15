@@ -227,7 +227,7 @@ export class TabMenuDemo &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-tabMenu [model]="items" [activeItem]="activeItem"&gt;&lt;/p-tabMenu&gt;
 
-&lt;p-tabMenu [model]="scrollableItems" [activeItem]="activeItem2"&gt;&lt;/p-tabMenu&gt;
+&lt;p-tabMenu [model]="scrollableItems" [scrollable]="true" [activeItem]="activeItem2"&gt;&lt;/p-tabMenu&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -250,7 +250,7 @@ export class TabMenuDemo &#123;
             &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
 
-        this.scrollableItems = Array.from(&#123; length: 50 &#125;, (_, i) => (&#123; label: `Tab $&#123;i + 1&#125;`, icon: `pi pi-fw pi-display` &#125;));
+        this.scrollableItems = Array.from(&#123; length: 50 &#125;, (_, i) => (&#123; label: `Tab $&#123;i + 1&#125;`&#125;));
 
         this.activeItem = this.items[0];
 

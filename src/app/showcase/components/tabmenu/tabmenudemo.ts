@@ -23,7 +23,7 @@ export class TabMenuDemo {
             {label: 'Settings', icon: 'pi pi-fw pi-cog'}
         ];
 
-        this.scrollableItems = Array.from({ length: 50 }, (_, i) => ({ label: `Tab ${i + 1}`, icon: `pi pi-fw pi-display` }));
+        this.scrollableItems = Array.from({ length: 50 }, (_, i) => ({label: `Tab ${i + 1}`}));
 
         this.activeItem = this.items[0];
 
