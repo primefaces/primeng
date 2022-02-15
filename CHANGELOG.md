@@ -22,7 +22,6 @@
 - Tabview and TabMenu | ForwardButton not hidden correctly [\#11197](https://github.com/primefaces/primeng/issues/11197)
 - Dynamic contextmenu items cause null exception in ContextMenu.positionSubmenu [\#11173](https://github.com/primefaces/primeng/issues/11173)
 
-
 ## [13.1.1:](https://github.com/primefaces/primeng/tree/HEAD) (2022-02-09)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.1.0...13.1.1)
