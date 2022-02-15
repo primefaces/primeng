@@ -10,7 +10,7 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
 @Component({
     selector: 'p-orderList',
     template: `
-        <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
+        <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
                 <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
@@ -85,6 +85,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() filterMatchMode: string = "contains";
 
     @Input() breakpoint: string = "960px";
+
+    @Input() stripedRows: boolean;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
