@@ -10,7 +10,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 @Component({
     selector: 'p-pickList',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-picklist p-component'" cdkDropListGroup>
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-picklist p-component': true, 'p-picklist-striped': stripedRows}" cdkDropListGroup>
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
                 <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
                 <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
@@ -170,6 +170,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() filterMatchMode: string = "contains";
 
     @Input() breakpoint: string = "960px";
+
+    @Input() stripedRows: boolean;
 
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
 

@@ -399,7 +399,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+        this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
     }
 
     onScroll(event) {
