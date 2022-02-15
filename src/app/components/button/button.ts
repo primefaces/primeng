@@ -172,7 +172,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-button',
     template: `
-        <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled || loading"
+        <button [attr.type]="type" [attr.aria-label]="ariaLabel" [class]="styleClass" [ngStyle]="style" [disabled]="disabled || loading"
             [ngClass]="{'p-button p-component':true,
                         'p-button-icon-only': (icon && !label),
                         'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
@@ -221,6 +221,8 @@ export class Button implements AfterContentInit {
     @Input() styleClass: string;
 
     @Input() badgeClass: string;
+
+    @Input() ariaLabel: string;
 
     contentTemplate: TemplateRef<any>;
 

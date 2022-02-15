@@ -842,6 +842,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.onOptionClick(event);
                 event.originalEvent.preventDefault();
             break;
+
+            case 9:
+                this.hide();
+            break;
         }
     }
 
