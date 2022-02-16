@@ -33,7 +33,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => {
             this.config = config;
-            localStorage.setItem('primeng-theme-13', this.config.theme);
         });
 
         this.router.events.subscribe(event => {
@@ -55,9 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (queryString)
             appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
-        else
-            appTheme = localStorage.getItem('primeng-theme-13');
-
+            
         if (appTheme) {
             let darkTheme = this.isDarkTheme(appTheme);
             this.changeTheme({
@@ -122,9 +119,13 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event) {
-        let themeElement = document.getElementById('theme-link');
-        themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.theme, event.theme));
+        let themeLink = document.getElementById('theme-link');
+        let href = 'themes/' + event.theme + '/theme.css';
+
+        // themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.theme, event.theme));
         this.theme = event.theme;
+
+        this.replaceLink(themeLink, href)
 
         this.config.dark = event.dark;
         this.config.theme = this.theme;
@@ -137,6 +138,18 @@ export class AppComponent implements OnInit, OnDestroy {
         if (this.config.theme === 'nano')
             this.applyScale(12);
 
+    }
+
+    replaceLink(linkElement, href) {
+        const id = linkElement.getAttribute('id');
+        const cloneLinkElement = linkElement.cloneNode(true);
+        cloneLinkElement.setAttribute('href', href);
+        cloneLinkElement.setAttribute('id', id + '-clone');
+        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
+        cloneLinkElement.addEventListener('load', () => {
+            linkElement.remove();
+            cloneLinkElement.setAttribute('id', id);
+        });
     }
 
     isDarkTheme(theme) {
