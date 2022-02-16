@@ -54,7 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (queryString)
             appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
-            
+
         if (appTheme) {
             let darkTheme = this.isDarkTheme(appTheme);
             this.changeTheme({
@@ -121,8 +121,6 @@ export class AppComponent implements OnInit, OnDestroy {
     changeTheme(event) {
         let themeLink = document.getElementById('theme-link');
         let href = 'themes/' + event.theme + '/theme.css';
-
-        // themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.theme, event.theme));
         this.theme = event.theme;
 
         this.replaceLink(themeLink, href)
