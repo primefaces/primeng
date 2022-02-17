@@ -1,12 +1,12 @@
-<!-- <div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive}">
+<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive}">
+    <app-news *ngIf="newsActive" (onNewsHide)="hideNews()"></app-news>
     <app-topbar (menuButtonClick)="onMenuButtonClick()"></app-topbar>
-    <app-menu [active]="menuActive"></app-menu>
     <app-config></app-config>
+    <app-menu [active]="menuActive"></app-menu>
     <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
-
+    
     <div class="layout-content">
         <router-outlet></router-outlet>
         <app-footer></app-footer>
     </div>
-</div> -->
-<router-outlet></router-outlet>
+</div>

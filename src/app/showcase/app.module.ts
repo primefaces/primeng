@@ -33,6 +33,8 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
 import { AppDemoActionsModule } from './app.demoactions.component';
 import { BadgeModule } from 'primeng/badge';
+import { LandingComponent } from './components/landing/landing.component';
+import { AppMainComponent } from './app.main.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,9 @@ import { BadgeModule } from 'primeng/badge';
         AppTopBarComponent,
         AppMenuComponent,
         AppConfigComponent,
-        AppFooterComponent
+        AppFooterComponent,
+        LandingComponent,
+        AppMainComponent
     ],
     imports: [
         FormsModule,

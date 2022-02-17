@@ -1,0 +1,38 @@
+<!-- NAV -->
+<section #containerElement [ngClass]="{'landing-header pad-section': true, 'landing-header-active': menuActive}">
+    <span>
+        <img src="../../../../assets/showcase/images/primeng-icon.svg" alt="PrimeNG">
+    </span>
+    
+    <div class="flex align-items-center">
+        <nav class="scalein origin-top">
+            <ol class="list-none m-0 p-0 flex flex-column lg:flex-row flex-wrap lg:flex-nowrap lg:align-items-center font-semibold">
+                <li class="mr-0 lg:mr-2">
+                    <a [routerLink]="['/setup']">
+                        <img src="../../../../assets/showcase/images/landing-new/core-icon.svg" alt="Primeng core">
+                        <span>Components</span>
+                    </a>
+                </li>
+                <li class="mr-0 lg:mr-2">
+                    <a href="https://www.primefaces.org/primeblocks-react">
+                        <img src="../../../../assets/showcase/images/landing-new/blocks-icon.svg" alt="Primeng blocks">
+                        <span>Blocks</span>
+                    </a>
+                </li>
+                <li class="mr-0 lg:mr-2">
+                    <a [routerLink]="['/setup']">
+                        <img src="../../../../assets/showcase/images/landing-new/designer-icon.svg" alt="Primeng designer">
+                        <span>Designer</span>
+                    </a>
+                </li>
+                <li class="mr-0 lg:mr-2">
+                    <a [routerLink]="['/setup']">
+                        <img src="../../../../assets/showcase/images/landing-new/templates-icon.svg" alt="Primeng templates">
+                        <span>Templates</span>
+                    </a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</section>
+<!-- NAV -->
