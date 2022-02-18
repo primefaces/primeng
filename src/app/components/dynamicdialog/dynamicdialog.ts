@@ -193,7 +193,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (event.which === 9) {
+        if (event.key === 'Tab') {
             event.preventDefault();
 
             let focusableElements = DomHandler.getFocusableElements(this.container);
@@ -218,6 +218,12 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                             focusableElements[focusedIndex + 1].focus();
                     }
                 }
+            }
+        }
+
+        if (event.key === 'Enter') {
+            if(this.visible){
+                event.preventDefault();   
             }
         }
     }
