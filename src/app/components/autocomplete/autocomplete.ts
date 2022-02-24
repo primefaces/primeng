@@ -127,6 +127,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() placeholder: string;
 
+    @Input() max: number;
+    
     @Input() readonly: boolean;
 
     @Input() disabled: boolean;
@@ -221,6 +223,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @ViewChild('container') containerEL: ElementRef;
 
+    @ViewChild('inputtext') inputViewChild: ElementRef;
+    
     @ViewChild('in') inputEL: ElementRef;
 
     @ViewChild('multiIn') multiInputEL: ElementRef;
@@ -417,6 +421,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.value = value;
         this.filled = this.value && this.value != '';
         this.updateInputField();
+        this.updateFilledState();
         this.cd.markForCheck();
     }
 
@@ -516,7 +521,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
         this.onSelect.emit(option);
         this.updateFilledState();
-
+        this.updateMaxedOut();
+        
         if (focus) {
             this.itemClicked = true;
             this.focusInput();
@@ -650,6 +656,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.onModelChange(this.value);
         this.updateFilledState();
         this.onUnselect.emit(removedValue);
+        this.updateMaxedOut();
     }
 
     onKeydown(event) {
@@ -976,7 +983,16 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.overlay = null;
         this.onHide.emit();
     }
-
+    
+    updateMaxedOut() {
+        if (this.inputViewChild && this.inputViewChild.nativeElement) {
+            if (this.max && this.value && this.max === this.value.length)
+                this.inputViewChild.nativeElement.disabled = true;
+            else
+                this.inputViewChild.nativeElement.disabled = this.disabled || false;
+        }
+    }
+    
     ngOnDestroy() {
         if (this.forceSelectionUpdateModelTimeout) {
             clearTimeout(this.forceSelectionUpdateModelTimeout);
