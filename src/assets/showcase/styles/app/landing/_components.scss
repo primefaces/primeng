@@ -22,4 +22,8 @@
         background: transparent;
         border-color: transparent;
     }
+    
+    .p-datepicker-month, .p-datepicker-year{
+        color: var(--home-primary-text-color);
+    }
 }

@@ -118,25 +118,28 @@ export class AppMainComponent implements OnInit {
 
     changeTheme(event) {
         let themeLink = document.getElementById('theme-link');
-        let href = 'themes/' + event.theme + '/theme.css';
-        this.theme = event.theme;
+        let href = 'assets/components/themes/' + event.theme + '/theme.css';
 
         this.replaceLink(themeLink, href)
 
-        this.config.dark = event.dark;
-        this.config.theme = this.theme;
-        this.configService.updateConfig(this.config);
+        if(this.config){
+            this.config.dark = event.dark;
+            this.config.theme = event.theme;
+            this.configService.updateConfig(this.config);
+         
+            if (this.config.theme === 'nano')
+                this.applyScale(12);
+        }
 
         if (event.theme.startsWith('md')) {
             this.config.ripple = true;
         }
 
-        if (this.config.theme === 'nano')
-            this.applyScale(12);
 
     }
 
     replaceLink(linkElement, href) {
+        console.log(linkElement)
         const id = linkElement.getAttribute('id');
         const cloneLinkElement = linkElement.cloneNode(true);
         cloneLinkElement.setAttribute('href', href);

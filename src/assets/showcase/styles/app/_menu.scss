@@ -5,7 +5,6 @@
     height: 100%;
     background-color: var(--surface-a);
     width: 250px;
-    border-right: 1px solid var(--surface-d);
     user-select: none;
     transition: transform .4s cubic-bezier(.05,.74,.2,.99);
     display: flex;
@@ -16,9 +15,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-bottom: 1px solid var(--surface-d);
         z-index: 1;
-        border-right: 1px solid var(--surface-d);
 
         img {
             width: 180px;
@@ -35,17 +32,15 @@
         padding: 0 1rem;
         overflow-y: auto;
         flex-grow: 1;
-        border-right: 1px solid var(--surface-d);
 
         .menu-category {
             display: block;
-            color: var(--text-color-secondary);
+            color: var(--surface-900);
             font-weight: 600;
             user-select: none;
             padding: 1.5rem 0 1rem 0;
             font-size: 0.857rem;
             text-transform: uppercase;
-            border-top: 1px solid var(--surface-d);
 
             &:first-child {
                 border-top: 0 none;
@@ -134,7 +129,6 @@
 
     .layout-sidebar-filter {
         padding: 1.25rem 1rem;
-        border-bottom: 1px solid var(--surface-d);
         background-color: var(--surface-a);
     }
 }
