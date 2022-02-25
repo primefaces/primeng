@@ -501,6 +501,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     responsiveStyleElement: any;
 
+    sorted: boolean;
+
     constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
 
     ngOnInit() {
@@ -519,6 +521,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.initialized = true;
+    }
+
+    toggleSorted(event){
+        if (this.sorted == null || this.sorted == undefined) {
+            this.sorted = true;
+            this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
+            this._sortField = event.field;
+        } else if (this.sorted == true) {
+            this.sorted = false;
+        } else if (this.sorted == false) {
+            this.sorted = null
+            this.clear();
+        }
     }
 
     ngAfterContentInit() {
@@ -631,7 +646,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             });
         }
     }
-
+    
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored) {
@@ -863,6 +878,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.sortMode === 'single') {
             this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this._sortField = event.field;
+            this.toggleSorted(event);
 
             if (this.resetPageOnSort) {
                 this._first = 0;
@@ -1655,6 +1671,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._sortOrder = this.defaultSortOrder;
         this._multiSortMeta = null;
         this.tableService.onSort(null);
+        this._value = this.value.sort((a,b) => a.id - b.id)
+        this.cd.markForCheck();
 
         if (this.filters['global']) {
             (<FilterMetadata> this.filters['global']).value = null;
@@ -2787,7 +2805,6 @@ export class SortableColumn implements OnInit, OnDestroy {
                 originalEvent: event,
                 field: this.field
             });
-
             DomHandler.clearSelection();
         }
     }
