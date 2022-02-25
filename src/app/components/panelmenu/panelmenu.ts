@@ -121,7 +121,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'">
             <ng-container *ngFor="let item of model;let f=first;let l=last;">
-                <div class="p-panelmenu-panel" [ngClass]="{'p-hidden': item.visible === false}">
+                <div class="p-panelmenu-panel" *ngIf="visible(item)">
                     <div [ngClass]="{'p-component p-panelmenu-header':true, 'p-highlight':item.expanded,'p-disabled':item.disabled}" [class]="item.styleClass" [ngStyle]="item.style" pTooltip [tooltipOptions]="item.tooltipOptions">
                         <a *ngIf="!item.routerLink" [attr.href]="item.url" (click)="handleClick($event,item)" (keydown)="onItemKeyDown($event)" [attr.tabindex]="item.disabled ? null : '0'" [attr.id]="item.id"
                            [attr.target]="item.target" [attr.title]="item.title" class="p-panelmenu-header-link" [attr.aria-expanded]="item.expanded" [attr.id]="item.id + '_header'" [attr.aria-controls]="item.id +'_content'">
@@ -227,6 +227,10 @@ export class PanelMenu extends BasePanelMenuItem {
             default:
             break;
         }
+    }
+
+    visible(item) {
+        return item.visible !== false;
     }
 
 }
