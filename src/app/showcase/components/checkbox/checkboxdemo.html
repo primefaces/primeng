@@ -36,6 +36,12 @@
             <p-checkbox name="group2" value="category" [value]="category"  [(ngModel)]="selectedCategories" [inputId]="category.key" [disabled]="category.key === 'R'"></p-checkbox>
             <label [for]="category.key">{{category.name}}</label>
         </div>
+
+        <h5>Custom state icons</h5>
+        <div class="field-checkbox">
+            <p-checkbox name="group1" value="Direction" [(ngModel)]="checked2" inputId="ud" checkboxIcon="pi pi-chevron-up" checkboxUncheckedIcon="pi pi-chevron-down"></p-checkbox>
+            <label for="ud">Direction</label>
+        </div>
     </div>
 </div>
 
@@ -196,6 +202,12 @@ export class ModelComponent &#123;
                             <td>string</td>
                             <td>pi pi-check</td>
                             <td>Icon class of the checkbox icon.</td>
+                        </tr>
+                        <tr>
+                            <td>checkboxUncheckedIcon</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>Icon class of the checkbox icon when it is unchecked.</td>
                         </tr>
                         <tr>
                             <td>readonly</td>

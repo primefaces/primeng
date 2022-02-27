@@ -220,4 +220,29 @@ describe('TriStateCheckbox', () => {
 		expect(onKeydownSpy).toHaveBeenCalled();
 		expect(tristate.value).toBeTruthy();
 	});
+
+    it('should display null icon if it is specified', () => {
+        tristate.checkboxNullIcon = 'pi pi-minus';
+        fixture.detectChanges();
+
+        const labelEl = fixture.debugElement.query(By.css('.p-checkbox-icon')).nativeElement;
+        expect(labelEl.classList).toContain('pi-minus');
+    });
+
+    it('should highlight checkbox when value is null only if checkboxNullIcon is set', () => {
+        tristate.value = null;
+        tristate.checkboxNullIcon = 'pi pi-minus';
+        fixture.detectChanges();
+        const labelEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
+        expect(labelEl.classList).toContain('p-highlight');
+    });
+
+    it('should not highlight checkbox when there is no checkboxNullIcon specified', () => {
+        tristate.value = null;
+        tristate.checkboxNullIcon = '';
+        fixture.detectChanges();
+        fixture.detectChanges();
+        const labelEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
+        expect(labelEl.classList).not.toContain('p-highlight');
+    });
 });

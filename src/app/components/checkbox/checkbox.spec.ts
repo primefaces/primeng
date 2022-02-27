@@ -188,4 +188,28 @@ describe('Checkbox', () => {
 
         expect(handleChangeSpy).toHaveBeenCalled();
     });
+
+    it('should display null icon if it is specified', () => {
+        checkbox.checkboxUncheckedIcon = 'pi pi-times';
+        fixture.detectChanges();
+
+        const labelEl = fixture.debugElement.query(By.css('.p-checkbox-icon')).nativeElement;
+        expect(labelEl.classList).toContain('pi-times');
+    });
+
+    it('should highlight checkbox when value is null only if checkboxUncheckedIcon is set', () => {
+        checkbox.value = false;
+        checkbox.checkboxUncheckedIcon = 'pi pi-times';
+        fixture.detectChanges();
+        const labelEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
+        expect(labelEl.classList).toContain('p-highlight');
+    });
+
+    it('should not highlight checkbox when there is no checkboxUncheckedIcon specified', () => {
+        checkbox.value = false;
+        checkbox.checkboxUncheckedIcon = '';
+        fixture.detectChanges();
+        const labelEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
+        expect(labelEl.classList).not.toContain('p-highlight');
+    });
 });

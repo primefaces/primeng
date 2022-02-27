@@ -8,9 +8,16 @@
 
 <div class="content-section implementation">
     <div class="card">
+        <h5>Default</h5>
         <div class="field-checkbox m-0">
             <p-triStateCheckbox [(ngModel)]="value"></p-triStateCheckbox>
             <label>{{value == null ? 'null' : value}}</label>
+        </div>
+
+        <h5>Custom state icons</h5>
+        <div class="field-checkbox m-0">
+            <p-triStateCheckbox [(ngModel)]="value2" checkboxTrueIcon="pi pi-chevron-up" checkboxFalseIcon="pi pi-chevron-down" checkboxNullIcon="pi pi-minus"></p-triStateCheckbox>
+            <label>Direction: {{ value2 === true ? 'UP' : value2 === false ? 'DOWN' : 'STOPPED' }}</label>
         </div>
     </div>
 </div>
@@ -120,6 +127,12 @@ export class ModelComponent &#123;
                             <td>string</td>
                             <td>pi pi-times</td>
                             <td>Specifies the icon for checkbox false value.</td>
+                        </tr>
+                        <tr>
+                            <td>checkboxNullIcon</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>Specifies the icon for checkbox null value.</td>
                         </tr>
                     </tbody>
                 </table>

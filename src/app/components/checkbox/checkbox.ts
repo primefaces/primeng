@@ -18,8 +18,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.aria-checked]="checked()" [attr.required]="required">
             </div>
             <div class="p-checkbox-box" (click)="onClick($event,cb,true)"
-                        [ngClass]="{'p-highlight': checked(), 'p-disabled': disabled, 'p-focus': focused}">
-                <span class="p-checkbox-icon" [ngClass]="checked() ? checkboxIcon : null"></span>
+                        [ngClass]="{'p-highlight': checked() || checkboxUncheckedIcon, 'p-disabled': disabled, 'p-focus': focused}">
+                <span class="p-checkbox-icon" [ngClass]="checked() ? checkboxIcon : checkboxUncheckedIcon"></span>
             </div>
         </div>
         <label (click)="onClick($event,cb,true)" [class]="labelStyleClass"
@@ -63,6 +63,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() formControl: FormControl;
 
     @Input() checkboxIcon: string = 'pi pi-check';
+
+    @Input() checkboxUncheckedIcon: string = '';
 
     @Input() readonly: boolean;
 
