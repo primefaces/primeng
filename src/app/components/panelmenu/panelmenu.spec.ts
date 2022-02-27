@@ -63,7 +63,7 @@ describe('PanelMenu', () => {
 		fixture.detectChanges();
 
 		const panelEl = fixture.debugElement.query(By.css('.p-panelmenu-panel'));
-		expect(panelEl.nativeElement.className).toContain("p-hidden");
+		expect(panelEl).toBe(null);
 	});
 
 	it('should change item style styleClass and disable ', () => {
