@@ -236,6 +236,16 @@
   --purple-700:#6d1b7b;
   --purple-800:#561561;
   --purple-900:#3e1046;
+  --red-50:#fef6f5;
+  --red-100:#fcd2cf;
+  --red-200:#faaea9;
+  --red-300:#f88a82;
+  --red-400:#f6675c;
+  --red-500:#f44336;
+  --red-600:#cf392e;
+  --red-700:#ab2f26;
+  --red-800:#86251e;
+  --red-900:#621b16;
 }
 
 .p-autocomplete .p-autocomplete-loader {
@@ -378,16 +388,14 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-datepicker-header .p-datepicker-title {
   line-height: 2rem;
 }
-.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
-.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
-  color: rgba(255, 255, 255, 0.87);
-  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-  font-weight: 500;
-  padding: 0.5rem;
+.p-datepicker .p-datepicker-header .p-datepicker-title select {
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
-.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year:enabled:hover,
-.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:enabled:hover {
-  color: #9FA8DA;
+.p-datepicker .p-datepicker-header .p-datepicker-title select:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
+  border-color: #9FA8DA;
 }
 .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
   margin-right: 0.5rem;
@@ -485,20 +493,8 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   color: #9FA8DA;
   background: rgba(159, 168, 218, 0.16);
 }
-.p-datepicker .p-yearpicker {
-  margin: 0.5rem 0;
-}
-.p-datepicker .p-yearpicker .p-yearpicker-year {
-  padding: 0.5rem;
-  transition: none;
-  border-radius: 4px;
-}
-.p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight {
-  color: #9FA8DA;
-  background: rgba(159, 168, 218, 0.16);
-}
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group {
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
   padding-right: 0.5rem;
   padding-left: 0.5rem;
   padding-top: 0;
@@ -506,10 +502,10 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group:first-child {
   padding-left: 0;
-  border-left: 0 none;
 }
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group:last-child {
   padding-right: 0;
+  border-right: 0 none;
 }
 .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):hover {
   background: rgba(255, 255, 255, 0.04);
@@ -519,18 +515,10 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   outline-offset: 0;
   box-shadow: none;
 }
-.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):not(.p-highlight):hover {
+.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-highlight):not(.p-disabled):hover {
   background: rgba(255, 255, 255, 0.04);
 }
-.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: none;
-}
-.p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):not(.p-highlight):hover {
-  background: rgba(255, 255, 255, 0.04);
-}
-.p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):focus {
+.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-highlight):not(.p-disabled):focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
@@ -731,7 +719,7 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
 
 .p-colorpicker-panel {
   background: #2b2b2b;
-  border: 1px solid #1e1e1e;
+  border-color: 1px solid #1e1e1e;
 }
 .p-colorpicker-panel .p-colorpicker-color-handle,
 .p-colorpicker-panel .p-colorpicker-hue-handle {
@@ -855,9 +843,6 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
 }
 .p-input-filled .p-dropdown:not(.p-disabled).p-focus {
   background-color: rgba(255, 255, 255, 0.1);
-}
-.p-input-filled .p-dropdown:not(.p-disabled).p-focus .p-inputtext {
-  background-color: transparent;
 }
 
 .p-editor-container .p-editor-toolbar {
@@ -1401,7 +1386,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
+.p-password.p-invalid.p-component > .p-inputtext {
   border-color: #f44435;
 }
 
@@ -1503,7 +1488,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 .p-rating .p-rating-icon:first-child {
   margin-left: 0;
 }
-.p-rating .p-rating-icon.pi-star-fill {
+.p-rating .p-rating-icon.pi-star {
   color: #9FA8DA;
 }
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon:hover {
@@ -1685,8 +1670,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-
-p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
+.p-treeselect.p-invalid.p-component {
   border-color: #f44435;
 }
 
