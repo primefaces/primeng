@@ -43,7 +43,7 @@
                 <button type="button" class="linkbox header-button inline-flex align-items-center justify-content-center" (click)="toggleDarkMode()">
                     <i class="pi pi-{{config.dark ? 'sun' : 'moon'}}"></i>
                 </button>
-                <button pButton type="button" class="linkbox header-button inline-flex align-items-center justify-content-center lg:hidden ml-2 menu-button" (click)="menuActive = !menuActive">
+                <button class="linkbox header-button inline-flex align-items-center justify-content-center lg:hidden ml-2 menu-button" (click)="menuActive = !menuActive">
                     <i class="pi pi-bars"></i>
                 </button>
             </div>
@@ -53,35 +53,41 @@
             <div class="hero-inner z-2 relative">
                 <div class="flex flex-column md:align-items-center md:flex-row">
                     <div class="p-2 flex flex-row md:flex-column">
-                        <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex align-items-center justify-content-center">
-                            <div class="flex flex-column align-items-center">
-                                <img src="../../../../assets/showcase/images/landing-new/templates-icon.svg" alt="primeng templates" />
-                                <div class="name">
-                                    <b>Templates</b>
-                                    <span>Spectacular Designs</span>
+                        <a href="https://www.primefaces.org/store" target="_blank">
+                            <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex align-items-center justify-content-center">
+                                <div class="flex flex-column align-items-center">
+                                    <img src="../../../../assets/showcase/images/landing-new/templates-icon.svg" alt="primeng templates" />
+                                    <div class="name">
+                                        <b>Templates</b>
+                                        <span>Spectacular Designs</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation ml-4 md:ml-0 md:mt-4 flex align-items-center justify-content-center" >
-                            <div class="flex flex-column align-items-center">
-                                <img src="../../../../assets/showcase/images/landing-new/designer-icon.svg" alt="primeng templates" />
-                                <div class="name">
-                                    <b>Theme Designer</b>
-                                    <span>Create Your Own</span>
+                        </a>
+                        <a href="https://primefaces.org/designer-ng" target="_blank">
+                            <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation ml-4 md:ml-0 md:mt-4 flex align-items-center justify-content-center" >
+                                <div class="flex flex-column align-items-center">
+                                    <img src="../../../../assets/showcase/images/landing-new/designer-icon.svg" alt="primeng templates" />
+                                    <div class="name">
+                                        <b>Theme Designer</b>
+                                        <span>Create Your Own</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="p-2 flex flex-row md:flex-column">
-                        <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex align-items-center justify-content-center" >
-                            <div class="flex flex-column align-items-center">
-                                <img src="../../../../assets/showcase/images/landing-new/core-icon.svg" alt="primeng core" />
-                                <div class="name">
-                                    <b>Open Source</b>
-                                    <span>80+ UI Components</span>
+                        <a href="https://github.com/primefaces/primeng" target="_blank">
+                            <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex align-items-center justify-content-center" >
+                                <div class="flex flex-column align-items-center">
+                                    <img src="../../../../assets/showcase/images/landing-new/core-icon.svg" alt="primeng core" />
+                                    <div class="name">
+                                        <b>Open Source</b>
+                                        <span>80+ UI Components</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         <a [routerLink]="['showcase/setup']">
                             <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation logo hidden md:flex my-4 align-items-center justify-content-center">
                                 <div class="hero-box-inner text-center">
@@ -92,26 +98,30 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex ml-4 md:ml-0 align-items-center justify-content-center" >
-                            <div class="flex flex-column align-items-center">
-                                <img src="../../../../assets/showcase/images/landing-new/css-icon.svg" alt="primeng icons" />
-                                <div class="name">
-                                    <b>CSS Utilities</b>
-                                    <span>PrimeFlex CSS</span>
+                        <a href="https://primefaces.org/primeflex/" target="_blank">
+                            <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex ml-4 md:ml-0 align-items-center justify-content-center" >
+                                <div class="flex flex-column align-items-center">
+                                    <img src="../../../../assets/showcase/images/landing-new/css-icon.svg" alt="primeng icons" />
+                                    <div class="name">
+                                        <b>CSS Utilities</b>
+                                        <span>PrimeFlex CSS</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="p-2 flex flex-row md:flex-column">
-                        <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex align-items-center justify-content-center">
-                            <div class="flex flex-column align-items-center">
-                                <img src="../../../../assets/showcase/images/landing-new/blocks-icon.svg" alt="primeng templates" />
-                                <div class="name">
-                                    <b>Prime Blocks</b>
-                                    <span>280+ UI Blocks</span>
+                        <a href="https://primefaces.org/primeblocks-ng" target="_blank">
+                            <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex align-items-center justify-content-center">
+                                <div class="flex flex-column align-items-center">
+                                    <img src="../../../../assets/showcase/images/landing-new/blocks-icon.svg" alt="primeng templates" />
+                                    <div class="name">
+                                        <b>Prime Blocks</b>
+                                        <span>280+ UI Blocks</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         <a [routerLink]="['showcase/icons']">
                             <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation flex ml-4 md:ml-0 md:mt-4 align-items-center justify-content-center">
                                 <div class="flex flex-column align-items-center">
@@ -132,7 +142,7 @@
     
             <section class="landing-getstarted flex flex-column md:flex-row align-items-center justify-content-center mt-8 z-1">
                 
-                <a class="linkbox active font-semibold py-3 px-4 fadeinleft animation-duration-2000 animation-ease-out" href="/setup">
+                <a class="linkbox active font-semibold py-3 px-4 fadeinleft animation-duration-2000 animation-ease-out" [routerLink]="'showcase/setup'">
                     Get Started 
                     <i class="pi pi-arrow-right ml-3"></i>
                 </a>
@@ -161,7 +171,7 @@
                 </a>
             </a>
         </div>
-        <div class="components-main flex mt-7 relative md:justify-content-center overflow-auto">
+        <div class="components-main flex mt-7 relative md:justify-content-center overflow-auto flex-wrap">
             <div class="flex flex-column px-3 py-8 z-1">
                 <div class="box p-4 mb-5">
                     <span class="text-secondary font-medium block mb-3">Balance</span>
@@ -226,7 +236,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="flex flex-column justify-content-start px-3 z-1">
+            <div class="flex flex-column justify-content-start px-3 z-1 mx-auto md:mx-0">
                 <div class="box p-4 mb-5">
                     <div class="surface-card mb-4 w-20rem text-center p-5" [style]="{'border-radius':'10px'}">
                         <img src="../../../../assets/showcase/images/landing-new/watch.png" alt="Watch"/>
@@ -314,9 +324,9 @@
         <div class="section-header">Themes</div>
         <p class="section-detail">Crafted on a design-agnostic infrastructure, choose from a vast amount of themes such as material, bootstrap, tailwind, primeone or develop your own.</p>
         <div class="flex flex-wrap justify-content-center">
-            <button pButton class="font-medium linkbox mr-3 mt-4" (click)="changeTheme({theme: 'lara-dark-indigo', dark: true})">PrimeOne</button>
-            <button pButton class="font-medium linkbox mr-3 mt-4" (click)="changeTheme({theme: 'md-dark-indigo', dark: true})">Material</button>
-            <button pButton class="font-medium linkbox mr-3 mt-4" (click)="changeTheme({theme: 'bootstrap4-dark-blue', dark: true})">Bootstrap</button>
+            <button pButton class="font-medium linkbox mr-3 mt-4" (click)="changeTableTheme({theme: 'lara-dark-indigo', dark: true})">PrimeOne</button>
+            <button pButton class="font-medium linkbox mr-3 mt-4" (click)="changeTableTheme({theme: 'md-dark-indigo', dark: true})">Material</button>
+            <button pButton class="font-medium linkbox mr-3 mt-4" (click)="changeTableTheme({theme: 'bootstrap4-dark-blue', dark: true})">Bootstrap</button>
             <a type="button" class="font-medium p-link linkbox mt-4" href="https://www.primefaces.org/designer-ng">more...</a>
         </div>
         <div class="themes-main flex mt-7 justify-content-center pad-section" [style]="{'background-size': 'cover'}" [ngStyle]="{'background-image': config.dark ? 'url(../../../../assets/showcase/images/landing-new/wave-dark-alt.svg)' : 'url(../../../../assets/showcase/images/landing-new/wave-light-alt.svg)'}">
@@ -438,7 +448,7 @@
         <div class="section-header">PrimeBlocks</div>
         <p class="section-detail">280+ ready to copy-paste UI blocks to build spectacular applications in no time.</p>
         <div class="flex justify-content-center mt-4">
-            <a href="https://www.primefaces.org/primeblocks-ng" class="font-semibold p-3 border-round flex align-items-center linkbox active">
+            <a href="https://www.primefaces.org/primeblocks-ng" target="_blank" class="font-semibold p-3 border-round flex align-items-center linkbox active">
                 <span>Learn More</span>
                 <i class="pi pi-arrow-right ml-2"></i>
             </a>
@@ -537,7 +547,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex -ml-8">
+            <div class="flex ml-8">
                 <div class="prime-block p-1 flex align-self-stretch flex-column">
                     <div class="block-header py-3 px-4 flex justify-content-between align-items-center">
                         <div class="logo pr-5">
@@ -1150,7 +1160,7 @@
                 <ul class="list-none p-0 m-0">
                     <li class="font-bold mb-5">General</li>
                     <li class="mb-4">
-                        <a [routerLink]="['/setup']">
+                        <a [routerLink]="['showcase/setup']">
                             <a class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Get Started</a>
                         </a>
                     </li>

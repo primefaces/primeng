@@ -1,4 +1,4 @@
-<div class="layout-wrapper">
+<div class="layout-wrapper {{config.dark ? 'layout-wrapper-dark' : 'layout-wrapper-light'}}">
     <app-topbar (menuButtonClick)="onMenuButtonClick()"></app-topbar>
     <app-config></app-config>
     <app-menu [active]="menuActive"></app-menu>

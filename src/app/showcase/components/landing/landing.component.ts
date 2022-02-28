@@ -189,6 +189,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     ];
 
     this.bindScrollListener();
+    this.initTheme();
   }
 
   ngAfterViewInit() {
@@ -201,6 +202,12 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     this.unbindScrollListener();
+  }
+  initTheme(){
+    if(this.config.dark)
+      this.appMain.changeTheme({...this.config, theme: 'lara-dark-indigo'});
+    else 
+      this.appMain.changeTheme({...this.config, theme: 'lara-light-indigo'});
   }
 
   bindScrollListener() {
@@ -228,28 +235,21 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.checked = event.checked
   }
 
-  changeTheme(value) {
+  toggleDarkMode() {
+    this.config.dark = !this.config.dark;
+    let theme =  this.config.dark ? this.theme.replace('light', 'dark') : this.theme.replace('dark', 'light');
+    this.config = {...this.config, dark: this.config.dark, theme: theme};
 
-    let themeLink = document.getElementById('home-link');
-    let href = 'assets/showcase/styles/app/landing/themes/' + value.theme + '/theme.css';
-    this.theme = value.theme;
-    
-    this.appMain.replaceLink(themeLink, href);
-    
-    this.config.dark = value.dark;
-    this.config.theme = value.theme;
+    this.appMain.changeTheme(this.config);
+    this.changeTableTheme(this.config);
     this.configService.updateConfig(this.config);
   }
 
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-    let theme =  this.darkMode ? this.theme.replace('light', 'dark') : this.theme.replace('dark', 'light');
-    this.config = {...this.config, dark: this.darkMode, theme: theme};
+  changeTableTheme(value){
+    value.theme = this.config.dark ? value.theme.replace('light', 'dark') : value.theme.replace('dark', 'light');
 
-    this.configService.updateConfig(this.config);
-
-    this.appMain.changeTheme(this.config);
-    this.changeTheme(this.config);
+    let href = 'assets/showcase/styles/app/landing/themes/' + value.theme + '/theme.css';
+    document.getElementById('home-table-link').setAttribute('href', href)
   }
 
   changeFont() {

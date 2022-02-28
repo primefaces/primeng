@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
@@ -117,11 +117,9 @@ export class AppMainComponent implements OnInit {
     }
 
     changeTheme(event) {
-        let themeLink = document.getElementById('theme-link');
         let href = 'assets/components/themes/' + event.theme + '/theme.css';
-
-        this.replaceLink(themeLink, href)
-
+        document.getElementById('theme-link').setAttribute('href', href);
+        
         if(this.config){
             this.config.dark = event.dark;
             this.config.theme = event.theme;
@@ -135,20 +133,6 @@ export class AppMainComponent implements OnInit {
             this.config.ripple = true;
         }
 
-
-    }
-
-    replaceLink(linkElement, href) {
-        console.log(linkElement)
-        const id = linkElement.getAttribute('id');
-        const cloneLinkElement = linkElement.cloneNode(true);
-        cloneLinkElement.setAttribute('href', href);
-        cloneLinkElement.setAttribute('id', id + '-clone');
-        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-        cloneLinkElement.addEventListener('load', () => {
-            linkElement.remove();
-            cloneLinkElement.setAttribute('id', id);
-        });
     }
 
     isDarkTheme(theme) {

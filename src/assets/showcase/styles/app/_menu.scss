@@ -29,7 +29,7 @@
     }
 
     .layout-menu {
-        padding: 0 1rem;
+        padding: 0 2rem;
         overflow-y: auto;
         flex-grow: 1;
 
@@ -57,8 +57,8 @@
                 color: var(--text-color);
                 display: flex;
                 align-items: center;
-                padding: .5rem;
-                border-radius: 3px;
+                padding: 0.5rem 0.75rem;
+                border-radius: 10px;
                 cursor: pointer;
 
                 &:hover {
