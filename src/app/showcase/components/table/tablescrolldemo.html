@@ -150,7 +150,7 @@
         <h5>Frozen Columns</h5>
         <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Unfreeze Balance'" offLabel="Freeze Balance" [style]="{'width': '12rem'}"></p-toggleButton>
 
-        <p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3 p-datatable-striped">
+        <p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:200px" pFrozenColumn>Name</th>
