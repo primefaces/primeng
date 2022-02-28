@@ -95,6 +95,8 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.config = this.configService.config;
     this.subscription = this.configService.configUpdate$.subscribe(config => {
         this.config = config;
+        this.appMain.changeTheme(config);
+        this.changeTableTheme(config);
     });
 
     this.chartData = {
@@ -203,6 +205,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     this.unbindScrollListener();
   }
+  
   initTheme(){
     if(this.config.dark)
       this.appMain.changeTheme({...this.config, theme: 'lara-dark-indigo'});
@@ -240,8 +243,6 @@ export class LandingComponent implements OnInit, OnDestroy {
     let theme =  this.config.dark ? this.theme.replace('light', 'dark') : this.theme.replace('dark', 'light');
     this.config = {...this.config, dark: this.config.dark, theme: theme};
 
-    this.appMain.changeTheme(this.config);
-    this.changeTableTheme(this.config);
     this.configService.updateConfig(this.config);
   }
 

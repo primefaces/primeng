@@ -6,8 +6,8 @@ import { AppMainComponent } from './app.main.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
-            {path: '', component: LandingComponent},
-            {path: 'showcase', component: AppMainComponent, 
+            {path: '', component: LandingComponent, pathMatch: 'full'},
+            {path: '', component: AppMainComponent, 
                 children:[
                     {path: '', redirectTo:'setup', pathMatch:'full'},
                     {path: 'setup', loadChildren: () => import('./components/setup/setup.module').then(m => m.SetupModule)},
