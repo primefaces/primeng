@@ -681,7 +681,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.overlay = event.element;
                 this.appendOverlay();
                 if (this.autoZIndex) {
-                    ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
+                    ZIndexUtils.set('overlay', this.overlay, this.baseZIndex + this.config.zIndex.overlay);
                 }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
