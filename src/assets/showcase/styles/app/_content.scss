@@ -4,14 +4,14 @@
     flex-direction: column;
     
     .layout-content {
-        padding-top:70px;
         margin-left: 250px;
+        padding-top: 70px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
 
         .content-section {
-            padding: 2rem;
+            padding: 2rem 4rem;
             flex-grow: 1;
 
             &.introduction {
@@ -20,79 +20,68 @@
                 display: flex;
                 align-items: top;
                 justify-content: space-between;
-
+    
                 .feature-intro {
                     h1 {
                         color: var(--surface-900);
-                        span {
-                            font-weight: 400;
-                            color: var(--text-color-secondary);
-                        }
                     }
-
+    
                     p {
-                        font-size:1.25rem;
                         margin: 0;
+                        font-size: 1.25rem;
                     }
-
+    
                     a {
                         text-decoration: none;
                         color: $linkColor;
                         font-weight: 600;
-
+    
                         &:hover {
                             text-decoration: underline;
                         }
                     }
                 }
-
-                app-demoActions {
-                    display: flex;
-                    justify-content: flex-end;
-
+    
+                .app-demoactions {
                     .p-button-icon-only {
                         padding: .5rem 0;
                     }
                 }
-
-                .app-inputstyleswitch {
-                    margin-left: 2rem;
-                }
             }
-
+    
             &.implementation {
                 color: var(--text-color);
-
+    
                 +.documentation {
                     padding-top: 0;
                 }
             }
-
+    
             &.documentation {
                 color: var(--text-color);
-
+    
                 li {
                     line-height: 1.5;
                 }
-
+    
                 a {
                     text-decoration: none;
                     color: $linkColor;
                     font-weight: 600;
-
+    
                     &:hover {
                         text-decoration: underline;
                     }
                 }
-
+    
                 .doc-tablewrapper {
                     margin: 1rem 0;
                     overflow: auto;
                     border-radius: 10px;
                 }
-
+    
                 i:not([class~="pi"]) {
-                    background-color: var(--surface-a);
+                    background-color: var(--surface-card);
                     color: #2196f3;
                     font-family: Monaco, courier, monospace;
                     font-style: normal;
@@ -104,23 +93,23 @@
                     font-weight: 600;
                     margin: 0 2px;
                 }
-
+    
                 .p-tabview {
                     background: transparent;
                     border: 0 none;
-
+    
                     .p-tabview-nav {
                         border-radius: 0;
                         padding: 0;
-                        border-bottom: 1px solid var(--surface-d);
+                        border-bottom: 1px solid var(--surface-border);
                         background-color: transparent;
-
+    
                         li {
                             margin-right: 0;
                             border: 0 none;
                             top: 1px;
                             line-height: 1;
-
+    
                             a, a:visited {
                                 color: var(--text-color-secondary);
                                 text-shadow: none;
@@ -130,50 +119,52 @@
                                 border-bottom: 1px solid transparent;
                                 margin-bottom: -1px;
                                 transition: border-bottom-color .2s;
-
+    
                                 &:focus {
-                                    @include focused-inset();
+                                    outline: 0 none;
+                                    transition: background-color .2s, box-shadow .2s;
+                                    box-shadow: inset 0 0 0 0.2em $focusBorderColor;
                                 }
-
+    
                                 &:hover {
                                     background: transparent;
                                     text-decoration: none;
                                 }
                             }
-
+    
                             &.p-highlight a,
                             &.p-highlight:hover a {
                                 background: transparent;
                                 color: var(--primary-color);
                                 border-bottom: 1px solid var(--primary-color);
                             }
-
+    
                             &:not(.p-highlight):not(.p-disabled):hover a {
                                 color: var(--text-color);
                                 border-bottom: 1px solid var(--primary-color);
                             }
                         }
-
+    
                         .p-tabview-ink-bar {
                             display: none;
                         }
                     }
-
+    
                     .p-tabview-panels {
                         background: transparent;
                         border: 0 none;
                         padding: 2rem 1rem;
-
+    
                         .btn-viewsource {
                             display: inline-block;
                             padding: .5rem 1rem;
                         }
-
+    
                         a {
                             text-decoration: none;
                             color: $linkColor;
                             font-weight: 600;
-
+    
                             &:hover {
                                 text-decoration: underline;
                             }
@@ -181,31 +172,36 @@
                     }
                 }
             }
-
+    
             .doc-table {
                 border-collapse: collapse;
                 width: 100%;
-                background-color: var(--surface-a);
-
+                background-color: var(--surface-card);
+    
                 th {
-                    border-bottom: 1px solid var(--surface-d);
+                    border-bottom: 1px solid var(--surface-border);
                     padding: 1rem;
                     text-align: left;
+                    white-space: nowrap;
                 }
-
+    
                 tbody {
+                    tr:hover {
+                        background: var(--surface-hover);
+                    }
+    
                     td {
                         padding: 1rem;
-                        border-bottom: 1px solid var(--surface-d);
-
+                        border-bottom: 1px solid var(--surface-border);
+    
                         &:first-child {
-                            font-family: "Courier New", monospace;
-                            font-weight: bold;
+                            font-family: ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,Liberation Mono,monospace;
+                            font-weight: 700;
                             color: var(--text-color-secondary);
                         }
                     }
                 }
-
+    
                 &.browsers {
                     td {
                         &:first-child {
@@ -217,40 +213,18 @@
                 }
             }
         }
-
+    
         .card {
             background: var(--surface-card);
             padding: 2rem;
-            box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
             border-radius: 10px;
             margin-bottom: 2rem;
-
+    
             .card-header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
-        }
-
-        .fluid-video {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
-
-            iframe {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
-        }
-
-        > .ng-star-inserted {
-            display: flex;
-            flex-grow: 1;
-            flex-direction: column;
         }
     }
 }

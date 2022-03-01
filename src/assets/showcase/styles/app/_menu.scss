@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    background-color: var(--surface-a);
+    background-color: var(--surface-overlay);
     width: 250px;
     user-select: none;
     transition: transform .4s cubic-bezier(.05,.74,.2,.99);
@@ -16,10 +16,6 @@
         justify-content: center;
         align-items: center;
         z-index: 1;
-
-        img {
-            width: 180px;
-        }
 
         &:focus {
             outline: 0 none;
@@ -34,17 +30,19 @@
         flex-grow: 1;
 
         .menu-category {
-            display: block;
+            display: flex;
+            align-items: center;
             color: var(--surface-900);
-            font-weight: 600;
+            font-weight: 700;
             user-select: none;
-            padding: 1.5rem 0 1rem 0;
+            padding: .5rem .25rem;
             font-size: 0.857rem;
             text-transform: uppercase;
 
-            &:first-child {
-                border-top: 0 none;
-                padding-top: 1rem;
+            .layout-menu-badge {
+                padding: .14rem .5rem;
+                font-size: .7rem;
+                line-height: 1.4;
             }
         }
 
@@ -57,48 +55,36 @@
                 color: var(--text-color);
                 display: flex;
                 align-items: center;
-                padding: 0.5rem 0.75rem;
+                padding: .5rem .75rem;
                 border-radius: 10px;
                 cursor: pointer;
+                
+                .layout-menu-badge {
+                    padding: .14rem .5rem;
+                    font-size: .7rem;
+                    line-height: 1.4;
+                }
 
                 &:hover {
-                    background-color: var(--surface-c);
+                    background-color: var(--surface-hover);
                 }
 
                 &:focus {
                     z-index: 1;
                     outline: 0 none;
                     transition: box-shadow .2s;
-                    box-shadow: 0 0 0 0.2em $focusBorderColor;
+                    box-shadow: var(--focus-ring);
                 }
 
                 &.router-link-exact-active {
                     font-weight: 700;
+                    color: var(--primary-color);
                 }
 
                 .p-tag {
                     padding-top:.125rem;
                     padding-bottom: .125rem;
                     margin-left: .5rem;
-                    line-height: 1.5;
-                }
-            }
-
-            &.menu-banner {
-                a {
-                    padding: 0;
-
-                    &:hover {
-                        background-color: transparent;
-
-                        img {
-                            background-color: var(--surface-c);
-                        }
-                    }
-
-                    &:focus {
-                        box-shadow: none;
-                    }
                 }
             }
 
@@ -107,7 +93,7 @@
                     > a {
                         font-weight: 700;
                     }
-
+                    
                     ul {
                         display: block;
                     }
@@ -125,10 +111,17 @@
                 }
             }
         }
+
+        .menu-image {
+            padding: 0 0 1rem 0;
+            
+            img {
+                width: 100%;
+            }
+        }
     }
 
     .layout-sidebar-filter {
-        padding: 1.25rem 1rem;
-        background-color: var(--surface-a);
+        padding: 1rem 2rem 2rem;
     }
 }
