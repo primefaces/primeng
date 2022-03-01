@@ -59,6 +59,10 @@
     
             &.documentation {
                 color: var(--text-color);
+
+                h1{
+                    color: var(--surface-900);
+                }
     
                 li {
                     line-height: 1.5;

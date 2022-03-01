@@ -37,6 +37,8 @@
         }
 
         .logo {
+            display: block;
+
             img{
                 width: 150px;
             }
@@ -53,18 +55,16 @@
             margin: 0;
 
             > li {
-                height: 40px;
-                line-height: 40px;
                 width: 25%;
+                margin-right: 0;
 
                 > a {
-                    padding-bottom: 0;
-                    height: 40px;
-                    line-height: 38px;
+                    display: flex;
+                    height: 100%;
                     width: 100%;
-                    font-size: 12px;
-                    font-weight: 600;
-                    min-width: auto;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 0;
                 }
 
                 &.topbar-submenu > ul {
@@ -75,8 +75,10 @@
     }
 
     .layout-sidebar {
+        top: 0;
+        z-index: 1102;
+        height: 100%;
         transform: translateX(-100%);
-        z-index: 9999;
 
         &.active {
             transform: translateX(0);
@@ -94,7 +96,6 @@
 
                     .app-inputstyleswitch {
                         margin-top: 1.5rem;
-                        margin-left: 0;
                     }
                 }
             }
