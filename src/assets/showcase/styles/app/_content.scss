@@ -4,6 +4,7 @@
     flex-direction: column;
     
     .layout-content {
+        padding-top:70px;
         margin-left: 250px;
         flex-grow: 1;
         display: flex;
@@ -14,7 +15,6 @@
             flex-grow: 1;
 
             &.introduction {
-                background-color: var(--surface-b);
                 color: var(--text-color);
                 padding-bottom: 0;
                 display: flex;
@@ -23,6 +23,7 @@
 
                 .feature-intro {
                     h1 {
+                        color: var(--surface-900);
                         span {
                             font-weight: 400;
                             color: var(--text-color-secondary);
@@ -30,6 +31,7 @@
                     }
 
                     p {
+                        font-size:1.25rem;
                         margin: 0;
                     }
 
@@ -59,7 +61,6 @@
             }
 
             &.implementation {
-                background-color: var(--surface-b);
                 color: var(--text-color);
 
                 +.documentation {
@@ -68,7 +69,6 @@
             }
 
             &.documentation {
-                background-color: var(--surface-b);
                 color: var(--text-color);
 
                 li {
@@ -88,6 +88,7 @@
                 .doc-tablewrapper {
                     margin: 1rem 0;
                     overflow: auto;
+                    border-radius: 10px;
                 }
 
                 i:not([class~="pi"]) {
@@ -218,10 +219,10 @@
         }
 
         .card {
-            background: var(--surface-e);
+            background: var(--surface-card);
             padding: 2rem;
             box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-            border-radius: 4px;
+            border-radius: 10px;
             margin-bottom: 2rem;
 
             .card-header {
