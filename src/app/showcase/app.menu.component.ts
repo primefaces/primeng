@@ -16,8 +16,8 @@ declare let gtag: Function;
             <a [routerLink]="['/']" class="logo">
                 <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" />
             </a>
-            <div class="layout-sidebar-filter p-fluid p-input-filled">
-                <p-autoComplete [group]="true" [(ngModel)]="selectedRoute" [minLength]="2" [suggestions]="filteredRoutes" scrollHeight="300px" (onSelect)="onSelect($event)" placeholder="Search by name..." (completeMethod)="filterGroupedRoute($event)" field="label">
+            <div class="layout-sidebar-filter p-fluid">
+                <p-autoComplete [group]="true" [(ngModel)]="selectedRoute" [minLength]="2" [suggestions]="filteredRoutes" scrollHeight="300px" (onSelect)="onSelect($event)" placeholder="Search" (completeMethod)="filterGroupedRoute($event)" field="label">
                 </p-autoComplete>
             </div>
             <div class="layout-menu">
@@ -55,8 +55,9 @@ declare let gtag: Function;
                 </div>
 
                 <div class="menu-category">PrimeBlocks</div>
-                <div class="menu-items menu-banner">
-                    <a href="https://www.primefaces.org/primeblocks-ng"><img width="100%" alt="PrimeBlocks Logo" [src]="'assets/showcase/images/' + (config.dark ? 'banner-primeblocks-dark.png' : 'banner-primeblocks.png')" /></a>
+                <div class="menu-items">
+                    <a href="https://www.primefaces.org/primeblocks-ng/#/free" target="_blank">Free Blocks</a>
+                    <a href="https://www.primefaces.org/primeblocks-ng/#/" target="_blank">All Blocks</a>
                 </div>
 
                 <div class="menu-category">PrimeFlex</div>
