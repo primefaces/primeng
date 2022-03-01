@@ -6291,6 +6291,9 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
 .p-calendar-w-btn.p-calendar-disabled {
   opacity: 0.38;
 }
+.p-calendar-w-btn.p-calendar-disabled .p-inputtext {
+  opacity: 1;
+}
 
 .p-datepicker .p-datepicker-header {
   border-bottom: 0 none;
