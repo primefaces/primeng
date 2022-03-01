@@ -283,6 +283,8 @@ export class LandingComponent implements OnInit, OnDestroy {
             ? value.theme.replace("light", "dark")
             : value.theme.replace("dark", "light");
 
+        this.theme = value.theme;
+
         let href =
             "assets/showcase/styles/app/landing/themes/" +
             value.theme +
