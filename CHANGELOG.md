@@ -1,5 +1,24 @@
 # Changelog
 
+## [13.2.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-02)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.2.0...13.2.1)
+
+**Implemented New Features and Enhancements:**
+
+- Themes | Red Color Palette [\#11243](https://github.com/primefaces/primeng/issues/11243)
+- Change lara to use system font [\#11215](https://github.com/primefaces/primeng/issues/11215)
+
+**Fixed bugs:**
+- Multiselect overlay bug - baseZIndex property is unused [\#11191](https://github.com/primefaces/primeng/issues/11191)
+- Bug on Dark Themes related with fixed columns [\#11245](https://github.com/primefaces/primeng/issues/11245)
+- Material Calendar | Disabled Calendar getting opacity twice [\#11250](https://github.com/primefaces/primeng/issues/11250)
+- Lara Light Blue | Primary Button Hover is not Changing [\#11244](https://github.com/primefaces/primeng/issues/11244)
+- Breadcrumb | tooltip alignment fails if breadcrumb item has long text [\#11228](https://github.com/primefaces/primeng/issues/11228)
+- PanelMenu border top not always visible [\#11112](https://github.com/primefaces/primeng/issues/11112)
+- Material DataTable extension border typo fix [\#11248](https://github.com/primefaces/primeng/issues/11248)
+
+
 ## [13.2.0:](https://github.com/primefaces/primeng/tree/HEAD) (2022-02-15)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.1.1...13.2.0)

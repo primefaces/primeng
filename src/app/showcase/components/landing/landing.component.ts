@@ -84,14 +84,14 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     selectedOptions: string[] = ['1'];
 
-    theme: string = 'lara-light-indigo';
+    theme: string = 'lara-light-blue';
 
     constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.config = this.configService.config;
-        this.changeTableTheme(this.config.dark ? 'lara-dark-indigo' : 'lara-light-indigo');
-        this.configService.updateConfig({...this.config, ...{theme: this.config.dark ? 'lara-dark-indigo' : 'lara-light-indigo'}})
+        this.changeTableTheme(this.config.dark ? 'lara-dark-blue' : 'lara-light-blue');
+        this.configService.updateConfig({...this.config, ...{theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue'}})
 
         this.chartData = {
             labels: [
@@ -252,7 +252,7 @@ export class LandingComponent implements OnInit, OnDestroy {
             : this.theme.replace("dark", "light");
         this.config = { ...this.config, dark: this.config.dark, theme: theme };
 
-        this.configService.updateConfig({...this.configService.config, ...{theme: this.config.dark ? 'lara-dark-indigo' : 'lara-light-indigo', dark: this.config.dark}});
+        this.configService.updateConfig({...this.configService.config, ...{theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue', dark: this.config.dark}});
         this.changeTableTheme(theme);
     }
 

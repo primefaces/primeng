@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public subscription: Subscription;
 
     ngOnInit() {
-        this.config = {theme: 'lara-light-indigo', dark: false}
+        this.config = {theme: 'lara-light-blue', dark: false}
 
         this.subscription = this.configService.configUpdate$.subscribe( config => {
             const linkElement = document.getElementById('theme-link');
