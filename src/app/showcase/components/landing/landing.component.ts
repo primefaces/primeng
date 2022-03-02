@@ -42,9 +42,9 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     selectedValue: string = "C";
 
-    checked: boolean = false;
+    checked: boolean = true;
 
-    selectedVal: any;
+    selectedVal: number = 1;
 
     rangeValues = [20, 80];
 
@@ -64,11 +64,11 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     fonts: any[];
 
-    selectedFont: any;
+    selectedFont: string = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol';
 
-    inputStyle: any;
+    inputStyle: string = 'outlined';
 
-    size: any;
+    size: string = 'normal';
 
     selectedCity: City;
 
@@ -189,7 +189,10 @@ export class LandingComponent implements OnInit, OnDestroy {
                 label: "Trebuches MS",
                 value: "Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif",
             },
-            { label: "Verdana", value: "Verdana,Geneva,sans-serif" },
+            { 
+                label: "Verdana", 
+                value: "Verdana,Geneva,sans-serif" 
+            }
         ];
 
         this.cities = [

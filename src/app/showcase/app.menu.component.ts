@@ -14,7 +14,7 @@ declare let gtag: Function;
     template: `
         <div class="layout-sidebar" [ngClass]="{'active': active}">
             <a [routerLink]="['/']" class="logo">
-                <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" />
+                <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" height="41"/>
             </a>
             <div class="layout-sidebar-filter p-fluid">
                 <p-autoComplete [group]="true" [(ngModel)]="selectedRoute" [minLength]="2" [suggestions]="filteredRoutes" scrollHeight="300px" (onSelect)="onSelect($event)" placeholder="Search" (completeMethod)="filterGroupedRoute($event)" field="label">

@@ -3,7 +3,7 @@
     .designer-demo {
         --dd-primary:#03C4E8;
         --dd-primary-darker:#029dba;
-        --dd-font: Inter;
+        --dd-font: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 
         .p-component {
             font-family: var(--dd-font);
@@ -91,6 +91,8 @@
             .p-listbox-list .p-listbox-item.p-highlight {
                 background-color: transparent;
                 box-shadow: inset 0 0 0 0.15rem var(--dd-primary);
+                color: var(--dd-primary);
+                font-weight: medium;
             }
         }
 

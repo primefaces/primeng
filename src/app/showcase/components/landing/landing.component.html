@@ -3,7 +3,7 @@
         <section #containerElement class="landing-header pad-section" [ngClass]="{'landing-header-active': menuActive}">
             <span>
                 <a href="/">
-                    <img src="../../../../assets/showcase/images/primeng-logo-{{config.dark ? 'light' : 'dark'}}.svg" alt="PrimeNG">
+                    <img src="../../../../assets/showcase/images/primeng-logo-{{config.dark ? 'light' : 'dark'}}.svg" alt="PrimeNG" class="landing-header-logo">
                 </a>
             </span>
             
@@ -94,8 +94,9 @@
                             <div class="hero-box w-10rem h-10rem md:w-12rem md:h-12rem animation logo hidden md:flex my-4 align-items-center justify-content-center">
                                 <div class="hero-box-inner text-center">
                                     <img src="../../../../assets/showcase/images/landing-new/overview-icon.svg" alt="primeng main" />
-                                    <div class="name">
-                                        <b class="font-bold">NEXT-GEN ANGULAR UI</b>
+                                    <div class="name flex flex-column">
+                                        <b class="font-bold mb-1">NEXT-GEN</b>
+                                        <b class="font-bold">ANGULAR UI</b>
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +263,7 @@
                         <p-inputSwitch class="ml-auto" [(ngModel)]="checked" (onChange)="handleChange($event)"></p-inputSwitch>
                     </div>
                     <div class="mt-5">
-                        <p-selectButton [(ngModel)]="selectedVal" [options]="selectButtonOptions" optionLabel="name"></p-selectButton>
+                        <p-selectButton [(ngModel)]="selectedVal" [options]="selectButtonOptions" optionLabel="name" optionValue="value"></p-selectButton>
                     </div>
                 </div>
             </div>
@@ -326,9 +327,9 @@
         <div class="section-header">Themes</div>
         <p class="section-detail">Crafted on a design-agnostic infrastructure, choose from a vast amount of themes such as material, bootstrap, tailwind, primeone or develop your own.</p>
         <div class="flex flex-wrap justify-content-center">
-            <button pButton class="font-medium linkbox mr-3 mt-4" [ngClass]="{'active': theme.startsWith('lara')}" (click)="changeTableTheme(config.dark ? 'lara-dark-indigo' : 'lara-light-indigo')">PrimeOne</button>
-            <button pButton class="font-medium linkbox mr-3 mt-4" [ngClass]="{'active': theme.startsWith('md')}" (click)="changeTableTheme(config.dark ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
-            <button pButton class="font-medium linkbox mr-3 mt-4" [ngClass]="{'active': theme.startsWith('bootstrap')}" (click)="changeTableTheme(config.dark ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
+            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{'active': theme.startsWith('lara')}" (click)="changeTableTheme(config.dark ? 'lara-dark-indigo' : 'lara-light-indigo')">PrimeOne</button>
+            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{'active': theme.startsWith('md')}" (click)="changeTableTheme(config.dark ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
+            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{'active': theme.startsWith('bootstrap')}" (click)="changeTableTheme(config.dark ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
             <a type="button" class="font-medium p-link linkbox mt-4" href="https://www.primefaces.org/designer-ng" target="_blank">more...</a>
         </div>
         <div class="themes-main flex mt-7 justify-content-center pad-section" [style]="{'background-size': 'cover'}" [ngStyle]="{'background-image': config.dark ? 'url(../../../../assets/showcase/images/landing-new/wave-dark-alt.svg)' : 'url(../../../../assets/showcase/images/landing-new/wave-light-alt.svg)'}">

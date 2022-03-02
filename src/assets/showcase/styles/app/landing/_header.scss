@@ -11,6 +11,10 @@
     align-items: center;
     justify-content: space-between;
 
+    .landing-header-logo {
+        height: 2.5rem;
+    }
+
     &.landing-header-sticky {
         background-color: var(--home-header-bg);
         backdrop-filter: blur(12px);
