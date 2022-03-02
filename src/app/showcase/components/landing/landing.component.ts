@@ -1,5 +1,5 @@
 import { Component,ElementRef,OnInit,ViewChild,OnDestroy, ChangeDetectorRef } from "@angular/core";
-import { MenuItem, TreeNode } from "primeng/api";
+import { MenuItem, SelectItem, TreeNode } from "primeng/api";
 import { NodeService } from "../../service/nodeservice";
 import { CustomerService } from "../../service/customerservice";
 import { Table } from "primeng/table";
@@ -32,7 +32,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     items: MenuItem[];
 
-    selectButtonOptions: any;
+    selectButtonOptions: SelectItem[];
 
     treeData: TreeNode[];
 
@@ -48,21 +48,21 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     rangeValues = [20, 80];
 
-    date1: any;
+    date1: Date;
 
-    date2: any;
+    date2: Date;
 
-    customers: any;
+    customers: Customer[];
 
     selectedCustomers: Customer[];
 
     representatives: Representative[];
 
-    statuses: any[];
+    statuses: SelectItem[];
 
     loading: boolean = true;
 
-    fonts: any[];
+    fonts: SelectItem[];
 
     selectedFont: string = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol';
 
@@ -74,7 +74,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     cities: City[];
 
-    price: any;
+    price: number;
 
     config: AppConfig;
 
@@ -136,9 +136,9 @@ export class LandingComponent implements OnInit, OnDestroy {
         };
 
         this.selectButtonOptions = [
-            { name: "Prime", value: 1 },
-            { name: "Angular", value: 2 },
-            { name: "Themes", value: 3 },
+            { label: "Prime", value: 1 },
+            { label: "Angular", value: 2 },
+            { label: "Themes", value: 3 },
         ];
 
         this.items = [
