@@ -124,7 +124,7 @@
               ],
               "styles": [
                 "src/styles.scss",
-                "src/assets/components/themes/lara-light-indigo/theme.css"
+                "src/assets/components/themes/lara-light-blue/theme.css"
               ],
               "scripts": []
             }

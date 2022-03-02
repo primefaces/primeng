@@ -20,7 +20,7 @@ export class AppMainComponent implements OnInit {
 
     news_key = 'primenews';
 
-    theme: string = "lara-light-indigo";
+    theme: string = "lara-light-blue";
 
     public subscription: Subscription;
 
