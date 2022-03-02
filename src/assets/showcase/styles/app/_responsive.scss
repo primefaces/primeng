@@ -1,3 +1,10 @@
+@media screen and (min-width: 1729px) {
+    .layout-content-inner {
+        width: 1478px;
+        margin: 0 auto;
+    }
+}
+
 @media screen and (max-width: 1280px) {
     .layout-wrapper {
         .layout-news {
@@ -18,17 +25,20 @@
     }
 
     .layout-topbar {
-        margin-left: 0;
         height: 110px;
         flex-wrap: wrap;
         justify-content: space-between;
         padding: 0;
+        left: 0;
+        width: 100%;
 
         .menu-button {
             display: block;
         }
 
         .logo {
+            display: block;
+
             img{
                 width: 150px;
             }
@@ -40,25 +50,21 @@
         }
 
         .topbar-menu {
-            background-color: var(--surface-a);
             width: 100%;
             height: 40px;
             margin: 0;
-            border-top: 1px solid var(--surface-d);
 
             > li {
-                height: 40px;
-                line-height: 40px;
                 width: 25%;
+                margin-right: 0;
 
                 > a {
-                    padding-bottom: 0;
-                    height: 40px;
-                    line-height: 38px;
+                    display: flex;
+                    height: 100%;
                     width: 100%;
-                    font-size: 12px;
-                    font-weight: 600;
-                    min-width: auto;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 0;
                 }
 
                 &.topbar-submenu > ul {
@@ -69,8 +75,10 @@
     }
 
     .layout-sidebar {
+        top: 0;
+        z-index: 1102;
+        height: 100%;
         transform: translateX(-100%);
-        z-index: 999;
 
         &.active {
             transform: translateX(0);
@@ -80,6 +88,7 @@
     .layout-wrapper {
         .layout-content {
             margin-left: 0;
+            padding-top:110px;
 
             .content-section {
                 &.introduction {
@@ -87,7 +96,6 @@
 
                     .app-inputstyleswitch {
                         margin-top: 1.5rem;
-                        margin-left: 0;
                     }
                 }
             }
@@ -142,11 +150,6 @@
         }
 
         .layout-config {
-            .layout-config-button {
-                left: auto;
-                right: -52px;
-            }
-
             &.layout-config-active {
                 width: 100%;
             }

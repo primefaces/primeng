@@ -30,8 +30,8 @@ import {TooltipModule} from 'primeng/tooltip';
                 </li>
                 <li class="p-breadcrumb-chevron pi pi-chevron-right" *ngIf="model&&home"></li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li [class]="item.styleClass" [ngStyle]="item.style" [ngClass]="{'p-disabled':item.disabled}">
-                        <a *ngIf="!item.routerLink" [attr.href]="item.url ? item.url : null" class="p-menuitem-link" (click)="itemClick($event, item)" pTooltip [tooltipOptions]="item.tooltipOptions"
+                    <li [class]="item.styleClass" [ngStyle]="item.style" [ngClass]="{'p-disabled':item.disabled}" pTooltip [tooltipOptions]="item.tooltipOptions">
+                        <a *ngIf="!item.routerLink" [attr.href]="item.url ? item.url : null" class="p-menuitem-link" (click)="itemClick($event, item)"
                             [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'">
                             <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon"></span>
                             <ng-container *ngIf="item.label">

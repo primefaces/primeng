@@ -14,7 +14,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
         <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused}"
             [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
             <div class="p-hidden-accessible">
-                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked()" (change)="onInputChange($event)"
+                <input #cb type="checkbox" [attr.aria-label]="ariaLabel" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked()" (change)="onInputChange($event)"
                     (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" role="switch" [attr.aria-checked]="checked()" [attr.aria-labelledby]="ariaLabelledBy"/>
             </div>
             <span class="p-inputswitch-slider"></span>
@@ -47,6 +47,8 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() trueValue: any = true;
 
     @Input() falseValue: any = false;
+
+    @Input() ariaLabel:string;
 
     @Input() ariaLabelledBy: string;
 

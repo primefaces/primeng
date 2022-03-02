@@ -115,7 +115,7 @@ export interface LocaleSettings {
                         </span>
                     </div>
                 </ng-container>
-                <div class="p-timepicker" *ngIf="showTime||timeOnly">
+                <div class="p-timepicker" *ngIf="(showTime||timeOnly) && currentView === 'date'">
                     <div class="p-hour-picker">
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="incrementHour($event)" (keydown.space)="incrementHour($event)" (mousedown)="onTimePickerElementMouseDown($event, 0, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (keyup.enter)="onTimePickerElementMouseUp($event)" (keyup.space)="onTimePickerElementMouseUp($event)" (mouseleave)="onTimePickerElementMouseLeave()" pRipple>
                             <span class="pi pi-chevron-up"></span>
