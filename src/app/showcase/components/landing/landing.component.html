@@ -3,7 +3,7 @@
         <section #containerElement class="landing-header pad-section" [ngClass]="{'landing-header-active': menuActive}">
             <span>
                 <a href="/">
-                    <img src="../../../../assets/showcase/images/primeng-logo-{{config.dark ? 'light' : 'dark'}}.svg" alt="PrimeNG">
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/primeng-logo-light.svg' : '../../../../assets/showcase/images/primeng-logo-dark.svg'" alt="PrimeNG">
                 </a>
             </span>
             
@@ -43,7 +43,7 @@
                     <i class="pi pi-discord"></i>
                 </a>
                 <button type="button" class="linkbox header-button inline-flex align-items-center justify-content-center" (click)="toggleDarkMode()">
-                    <i class="pi pi-{{config.dark ? 'sun' : 'moon'}}"></i>
+                    <i class="pi" [ngClass]="{'pi-sun': config.dark, 'pi-moon': !config.dark}"></i>
                 </button>
                 <button class="linkbox header-button inline-flex align-items-center justify-content-center lg:hidden ml-2 menu-button" (click)="menuActive = !menuActive">
                     <i class="pi pi-bars"></i>
@@ -151,7 +151,7 @@
                 
                 <div class="box download-box font-medium p-3 px-4 mt-3 md:mt-0 md:ml-3 bg-transparent inline-flex align-items-center fadeinright animation-duration-2000 animation-ease-out">
                     <i class="download-icon pi pi-download mr-3"></i>
-                    <span class="font-bold" :style="{fontFamily:'monaco'}">npm i primeng</span>
+                    <span class="font-bold" style="font-family:monaco">npm i primeng</span>
                 </div>
             </section>
     
@@ -412,7 +412,7 @@
                         </td>
                         <td style="width:14%; min-width:14rem;">
                             <span class="p-column-title">Representative</span>
-                            <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                            <img [alt]="customer.representative.name" [src]="'assets/showcase/images/demo/avatar/' + customer.representative.image" width="32" style="vertical-align: middle" />
                             <span class="image-text">{{customer.representative.name}}</span>
                         </td>
                         <td style="width:14%; min-width:8rem;">
@@ -615,8 +615,8 @@
                     </div>
                     <div class="block-content flex-1 my-5 mx-4 flex flex-column">
                         <div class="block-main  h-full flex justify-content-center align-items-center flex-column px-2">
-                            <div class="flex justify-content-between  ">
-                                <div class="block-item  w-3 flex justify-content-between flex-column ">
+                            <div class="flex justify-content-between">
+                                <div class="block-item w-3 flex justify-content-between flex-column ">
                                     <div class="bar w-full "></div>
                                     <div class="flex align-items-center mt-3">
                                         <div class="circle circle-small circle-highlight mr-2"></div>
@@ -744,7 +744,7 @@
                         <div class="bar w-2rem my-3"></div>
                     </div>
                     <div class="block-content flex-1 my-5 mx-4 flex flex-column">
-                        <div class="block-main  h-full flex justify-content-center align-items-center flex-column px-2">
+                        <div class="block-main h-full flex justify-content-center align-items-center flex-column px-2">
                             <div class="flex justify-content-between">
                                 <div class="block-item block-item-table block-item-active animation-1 flex ">
                                     <div class="bar w-3rem mx-3"></div>
@@ -753,27 +753,27 @@
                                     <div class="bar w-3rem mx-3"></div>
                                 </div>
                             </div>
-                            <div class="block-item block-item-col  flex ">
+                            <div class="block-item block-item-col flex ">
                                 <div class="flex">
-                                    <div class="circle circle-small circle-highlight -mr-1"></div>
+                                    <div class="circle circle-small circle-highlight mr-1"></div>
                                     <div class="bar w-3rem mx-3"></div>
                                 </div>
                                 <div class="bar w-3rem mx-3"></div>
                                 <div class="bar w-3rem mx-3"></div>
                                 <div class="bar w-3rem mx-3"></div>
                             </div>
-                            <div class="block-item block-item-col  flex ">
+                            <div class="block-item block-item-col flex ">
                                 <div class="flex">
-                                    <div class="circle circle-small circle-highlight -mr-1"></div>
+                                    <div class="circle circle-small circle-highlight mr-1"></div>
                                     <div class="bar w-3rem mx-3"></div>
                                 </div>
                                 <div class="bar w-3rem mx-3"></div>
                                 <div class="bar w-3rem mx-3"></div>
                                 <div class="bar w-3rem mx-3"></div>
                             </div>
-                            <div class="block-item block-item-col  flex ">
+                            <div class="block-item block-item-col flex">
                                 <div class="flex">
-                                    <div class="circle circle-small circle-highlight -mr-1"></div>
+                                    <div class="circle circle-small circle-highlight mr-1"></div>
                                     <div class="bar w-3rem mx-3"></div>
                                 </div>
                                 <div class="bar w-3rem mx-3"></div>
@@ -828,7 +828,7 @@
             <div class="box p-4 flex flex-column md:flex-row z-1 designer-editor">
                 <div class="mr-0 md:mr-4 p-4 designer-controls box border-bottom-1 border-left-none border-right-none border-top-none md:border-bottom-none md:border-right-1" [style]="{'border-radius': '10px'}">
                     <div class="text-center mb-4">
-                        <img src="../../../../assets/showcase/images/landing-new/designer-{{config.dark ? 'light' : 'dark'}}.svg" />
+                        <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/designer-light.svg' : '../../../../assets/showcase/images/landing-new/designer-dark.svg'" />
                     </div>
                     <div class="p-fluid">
                         <span class="font-semibold block mb-3">Primary</span>
@@ -1033,62 +1033,62 @@
         <div class="grid mt-7">
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/fox-{{config.dark ? 'light' : 'dark'}}.svg" alt="fox logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/fox-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/fox-dark.svg'" alt="fox logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/airbus-{{config.dark ? 'light' : 'dark'}}.svg" alt="airbus logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/airbus-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/airbus-dark.svg'" alt="airbus logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/mercedes-{{config.dark ? 'light' : 'dark'}}.svg" alt="mercedes logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/mercedes-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/mercedes-dark.svg'" alt="mercedes logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/ebay-{{config.dark ? 'light' : 'dark'}}.svg" alt="ebay logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/ebay-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/ebay-dark.svg'" alt="ebay logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/ford-{{config.dark ? 'light' : 'dark'}}.svg" alt="ford logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/ford-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/ford-dark.svg'" alt="ford logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/vw-{{config.dark ? 'light' : 'dark'}}.svg" alt="volkswage logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/vw-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/vw-dark.svg'" alt="volkswage logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/intel-{{config.dark ? 'light' : 'dark'}}.svg" alt="intel logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/intel-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/intel-dark.svg'" alt="intel logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/unicredit-{{config.dark ? 'light' : 'dark'}}.svg" alt="unicredit logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/unicredit-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/unicredit-dark.svg'" alt="unicredit logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/lufthansa-{{config.dark ? 'light' : 'dark'}}.svg" alt="lufthansa logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/lufthansa-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/lufthansa-dark.svg'" alt="lufthansa logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/nvidia-{{config.dark ? 'light' : 'dark'}}.svg" alt="nvidia logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/nvidia-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/nvidia-dark.svg'" alt="nvidia logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/verizon-{{config.dark ? 'light' : 'dark'}}.svg" alt="verizon logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/verizon-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/verizon-dark.svg'" alt="verizon logo" />
                 </div>
             </div>
             <div class="col-6 md:col-4 lg:col-3 xl:col-2 flex justify-content-center p-3">
                 <div class="box w-10rem h-10rem flex justify-content-center align-items-center bg-transparent">
-                    <img src="../../../../assets/showcase/images/landing-new/whouses/amex-{{config.dark ? 'light' : 'dark'}}.svg" alt="american express logo" />
+                    <img [src]="config.dark ? '../../../../assets/showcase/images/landing-new/whouses/amex-light.svg' : '../../../../assets/showcase/images/landing-new/whouses/amex-dark.svg'" alt="american express logo" />
                 </div>
             </div>
         </div>
