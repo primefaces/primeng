@@ -382,8 +382,6 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        let themeElement = document.getElementById('theme-link');
-        themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
         this.configService.updateConfig({...this.config, ...{theme, dark}});
         this.activeMenuIndex = null;
         event.preventDefault();

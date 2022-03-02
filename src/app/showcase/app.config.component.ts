@@ -545,14 +545,9 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        let themeElement = document.getElementById('theme-link');
-        let landingThemeElement = document.getElementById('home-table-link');
-        themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
-        landingThemeElement.setAttribute('href', landingThemeElement.getAttribute('href').replace(this.config.theme, dark ? 'lara-dark-indigo' : 'lara-light-indigo'));
-        
         this.configService.updateConfig({...this.config, ...{theme, dark}});
         event.preventDefault();
-    }
+    } 
 
     onRippleChange() {
         this.configService.updateConfig(this.config);

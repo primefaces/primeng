@@ -4,18 +4,15 @@ import { NodeService } from "../../service/nodeservice";
 import { CustomerService } from "../../service/customerservice";
 import { Table } from "primeng/table";
 import { AppConfigService } from "../../service/appconfigservice";
-import { Subscription } from "rxjs";
 import { AppConfig } from "../../domain/appconfig";
-import { AppMainComponent } from "../../app.main.component";
-import { Country, Customer, Representative } from "../../domain/customer";
+import { Customer, Representative } from "../../domain/customer";
 interface City {
     name: string;
     code: string;
 }
 @Component({
     selector: "landing",
-    templateUrl: "./landing.component.html",
-    providers: [AppMainComponent],
+    templateUrl: "./landing.component.html"
 })
 export class LandingComponent implements OnInit, OnDestroy {
 	
@@ -79,27 +76,20 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     price: any;
 
-    subscription: Subscription;
-
     config: AppConfig;
 
     darkMode: boolean = false;
 
     setAnimation: boolean = false;
 
-    theme: string = "lara-light-indigo";
+    theme: string = 'lara-light-indigo';
 
-    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, public appMain: AppMainComponent, private cd: ChangeDetectorRef) {}
+    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(
-            (config) => {
-                this.config = config;
-                this.appMain.changeTheme(config);
-                this.changeTableTheme(config);
-            }
-        );
+        this.changeTableTheme(this.config.dark ? 'lara-dark-indigo' : 'lara-light-indigo');
+        this.configService.updateConfig({...this.config, ...{theme: this.config.dark ? 'lara-dark-indigo' : 'lara-light-indigo'}})
 
         this.chartData = {
             labels: [
@@ -210,7 +200,6 @@ export class LandingComponent implements OnInit, OnDestroy {
         ];
 
         this.bindScrollListener();
-        this.initTheme();
     }
 
     ngAfterViewInit() {
@@ -219,24 +208,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-
         this.unbindScrollListener();
-    }
-
-    initTheme() {
-        if (this.config.dark)
-            this.appMain.changeTheme({
-                ...this.config,
-                theme: "lara-dark-indigo",
-            });
-        else
-            this.appMain.changeTheme({
-                ...this.config,
-                theme: "lara-light-indigo",
-            });
     }
 
     bindScrollListener() {
@@ -275,21 +247,32 @@ export class LandingComponent implements OnInit, OnDestroy {
             : this.theme.replace("dark", "light");
         this.config = { ...this.config, dark: this.config.dark, theme: theme };
 
-        this.configService.updateConfig(this.config);
+        this.configService.updateConfig({...this.configService.config, ...{theme: this.config.dark ? 'lara-dark-indigo' : 'lara-light-indigo', dark: this.config.dark}});
+        this.changeTableTheme(theme);
     }
 
-    changeTableTheme(value) {
-        value.theme = this.config.dark
-            ? value.theme.replace("light", "dark")
-            : value.theme.replace("dark", "light");
+    changeTableTheme(newTheme) {
+        let linkElement = document.getElementById("home-table-link");
+        this.replaceLink(linkElement, newTheme);
+        this.theme = newTheme;
+    }
 
-        this.theme = value.theme;
-
-        let href =
-            "assets/showcase/styles/app/landing/themes/" +
-            value.theme +
-            "/theme.css";
-        document.getElementById("home-table-link").setAttribute("href", href);
+    replaceLink(linkElement, theme) {
+        const id = linkElement.getAttribute('id');
+        const tableThemeTokens = linkElement.getAttribute('href').split('/');
+        const currentTableTheme = tableThemeTokens[tableThemeTokens.length - 2];
+        if (currentTableTheme !== theme) {
+            const cloneLinkElement = linkElement.cloneNode(true);
+            cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
+            cloneLinkElement.setAttribute('id', id + '-clone');
+    
+            linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
+    
+            cloneLinkElement.addEventListener('load', () => {
+                linkElement.remove();
+                cloneLinkElement.setAttribute('id', id);
+            });
+        }
     }
 
     changeFont() {

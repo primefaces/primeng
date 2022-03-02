@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
@@ -46,20 +46,6 @@ export class AppMainComponent implements OnInit {
         });
 
         this.newsActive = this.newsActive && this.isNewsStorageExpired();
-
-        let appTheme;
-        const queryString = window.location.search;
-
-        if (queryString)
-            appTheme = new URLSearchParams(queryString.substring(1)).get('theme');
-
-        if (appTheme) {
-            let darkTheme = this.isDarkTheme(appTheme);
-            this.changeTheme({
-                theme: appTheme,
-                dark: darkTheme
-            });
-        }
     }
 
     onMenuButtonClick() {
@@ -114,25 +100,6 @@ export class AppMainComponent implements OnInit {
         }
 
         return false;
-    }
-
-    changeTheme(event) {
-        let href = 'assets/components/themes/' + event.theme + '/theme.css';
-        document.getElementById('theme-link').setAttribute('href', href);
-        
-        if(this.config){
-            this.config.dark = event.dark;
-            this.config.theme = event.theme;
-            this.configService.updateConfig(this.config);
-         
-            if (this.config.theme === 'nano')
-                this.applyScale(12);
-        }
-
-        if (event.theme.startsWith('md')) {
-            this.config.ripple = true;
-        }
-
     }
 
     isDarkTheme(theme) {
