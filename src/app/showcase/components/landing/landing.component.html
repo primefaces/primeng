@@ -263,7 +263,7 @@
                         <p-inputSwitch class="ml-auto" [(ngModel)]="checked" (onChange)="handleChange($event)"></p-inputSwitch>
                     </div>
                     <div class="mt-5">
-                        <p-selectButton [(ngModel)]="selectedVal" [options]="selectButtonOptions" optionLabel="name" optionValue="value"></p-selectButton>
+                        <p-selectButton [(ngModel)]="selectedVal" [options]="selectButtonOptions"></p-selectButton>
                     </div>
                 </div>
             </div>
@@ -336,7 +336,7 @@
             <div class="box overflow-hidden z-1 p-5 table-container">
                 <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"  responsiveLayout="scroll"
-                [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['name','country.name','representative.name','status']">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Customers</h5>
