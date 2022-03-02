@@ -253,7 +253,7 @@ import { Subscription } from 'rxjs';
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 3)">{{versions ? versions[0].version : 'Latest'}}</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width:100%">
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width: 100%; min-width: 125px;">
                         <li *ngFor="let v of versions">
                             <a [href]="v.url">{{v.version}}</a>
                         </li>
