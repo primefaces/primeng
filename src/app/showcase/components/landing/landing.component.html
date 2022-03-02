@@ -910,11 +910,11 @@
                             <span class="font-semibold mb-2 block mb-3 mt-5  p-component">Checkboxes</span>
                             <div class="flex flex-column xl:flex-row xl:align-items-center">
                                 <div class="flex align-items-center">
-                                    <p-checkbox inputId="cb1"  name="cbvalue" value="1"></p-checkbox>
+                                    <p-checkbox inputId="cb1" [(ngModel)]="selectedOptions"  name="cbvalue" value="1"></p-checkbox>
                                     <label for="cb1" class="ml-2 font-medium p-component white-space-nowrap">Option 1</label>
                                 </div>
                                 <div class="flex align-items-center mt-3 xl:mt-0 xl:ml-4">
-                                    <p-checkbox inputId="cb2" name="cbvalue" value="2"></p-checkbox>
+                                    <p-checkbox inputId="cb2" [(ngModel)]="selectedOptions" name="cbvalue" value="2"></p-checkbox>
                                     <label for="cb2" class="ml-2 font-medium p-component white-space-nowrap">Option 2</label>
                                 </div>
                             </div>

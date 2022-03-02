@@ -82,6 +82,8 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     setAnimation: boolean = false;
 
+    selectedOptions: string[] = ['1'];
+
     theme: string = 'lara-light-indigo';
 
     constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef) {}
