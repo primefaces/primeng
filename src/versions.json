@@ -1,0 +1,16 @@
+{
+    "versions": [
+        {
+            "version": "v13.2.0",
+            "url": "https://www.primefaces.org/primeng/showcase"
+        },
+        {
+            "version": "v12.2.5-lts",
+            "url": "https://www.primefaces.org/primeng-v12-lts"
+        },
+        {
+            "version": "v11.4.10-lts",
+            "url": "https://www.primefaces.org/primeng-v11-lts"
+        }
+    ]
+}

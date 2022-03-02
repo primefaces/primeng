@@ -39,7 +39,9 @@
               "assets": [
                 "src/favicon.png",
                 "src/assets",
-                "src/upload.php"
+                "src/upload.php",
+                "src/versions.json",
+                "src/.htaccess"
               ],
               "styles": [
                 "src/assets/showcase/styles/app/app.scss",
