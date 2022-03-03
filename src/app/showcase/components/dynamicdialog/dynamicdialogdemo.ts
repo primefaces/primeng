@@ -20,7 +20,8 @@ export class DynamicDialogDemo implements OnDestroy {
             header: 'Choose a Product',
             width: '70%',
             contentStyle: {"max-height": "500px", "overflow": "auto"},
-            baseZIndex: 10000
+            baseZIndex: 10000,
+            focusOnShow: true
         });
 
         this.ref.onClose.subscribe((product: Product) =>{
