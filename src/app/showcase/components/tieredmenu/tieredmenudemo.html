@@ -8,8 +8,8 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5>Inline</h5>
-        <p-tieredMenu [model]="items"></p-tieredMenu>
+        <h5 #inline>Inline</h5>
+        <p-tieredMenu [model]="items" [appendTo]="inline"></p-tieredMenu>
     
         <h5>Popup</h5>
         <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>

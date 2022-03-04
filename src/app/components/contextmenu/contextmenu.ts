@@ -325,6 +325,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     positionSubmenu(sublist) {
+        console.log(sublist)
         let parentMenuItem = sublist.parentElement.parentElement;
         let viewport = DomHandler.getViewport();
         let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);

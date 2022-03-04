@@ -40,6 +40,6 @@
 
 .p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list {
     display: block;
-    left: 100%;
+    /* left: 100%; */
     top: 0;
 }
