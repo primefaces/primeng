@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, forwardRef, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild, Inject } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
@@ -13,10 +13,10 @@ import { TooltipModule } from 'primeng/tooltip';
     template: `
         <ul #sublist [ngClass]="{'p-submenu-list': !root}">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" #listItem class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}"></li>
-                <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" [ngStyle]="child.style" [class]="child.styleClass" pTooltip [tooltipOptions]="child.tooltipOptions">
+                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}"></li>
+                <li *ngIf="!child.separator" [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" [ngStyle]="child.style" [class]="child.styleClass" pTooltip [tooltipOptions]="child.tooltipOptions">
                     <a *ngIf="!child.routerLink" (keydown)="onItemKeyDown($event, child)" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                         (click)="onItemClick($event, child, listItem)" (mouseenter)="onItemMouseEnter($event, child, listItem)"
+                         (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event, child)"
                          [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
                          [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -78,8 +78,6 @@ export class TieredMenuSub implements OnDestroy {
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
 
-    @ViewChild('listItem') menuItemViewChild: ElementRef;
-
     _parentActive: boolean;
 
     documentClickListener: any;
@@ -90,17 +88,9 @@ export class TieredMenuSub implements OnDestroy {
 
     tieredMenu: TieredMenu;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => TieredMenu)) tieredMenu) {
-        this.tieredMenu = tieredMenu as TieredMenu;
-    }
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
-    ngOnInit(){
-        // if (DomHandler.hasClass(this.sublistViewChild.nativeElement, 'p-menuitem-active')) {
-        //     this.tieredMenu.positionSubmenu(this.sublistViewChild.nativeElement);
-        // }
-    }
-
-    onItemClick(event, item, listItem) {
+    onItemClick(event, item) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -118,7 +108,7 @@ export class TieredMenuSub implements OnDestroy {
         }
 
         if (item.items) {
-            this.tieredMenu.positionSubmenu(this.sublistViewChild)
+            this.positionSubmenu(this.sublistViewChild)
 
             if (this.activeItem && item === this.activeItem) {
                 this.activeItem = null;
@@ -137,7 +127,7 @@ export class TieredMenuSub implements OnDestroy {
         }
     }
 
-    onItemMouseEnter(event, item, listItem) {
+    onItemMouseEnter(event, item) {
         if (item.disabled || this.mobileActive) {
             event.preventDefault();
             return;
@@ -151,12 +141,35 @@ export class TieredMenuSub implements OnDestroy {
         }
 
         if (item.items) {
-            this.tieredMenu.positionSubmenu(this.sublistViewChild)
+            this.positionSubmenu(this.sublistViewChild)
         }
 
         else {
             this.activeItem = item;
             this.bindDocumentClickListener();
+        }
+    }
+
+    positionSubmenu(sublist){
+        const parentMenuItem = sublist.nativeElement.parentElement.parentElement;
+        const viewport = DomHandler.getViewport();
+        const sublistWidth = sublist.nativeElement.offsetParent ? sublist.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
+        const itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem.children[0]);
+        const containerOffset = DomHandler.getOffset(parentMenuItem.parentElement)
+        
+        if (DomHandler.hasClass(sublist.nativeElement, 'p-submenu-list')) {
+
+            const children = sublist.nativeElement.querySelector('.p-submenu-list');
+
+            if (children) {
+                let availableSpace = viewport.width - containerOffset.left - DomHandler.calculateScrollbarWidth();
+
+                if (Math.abs(availableSpace - itemOuterWidth - containerOffset.left) < sublistWidth) {
+                    children.style.left = - sublistWidth + 'px';
+                } else { 
+                    children.style.left = '100%';
+                }
+            }
         }
     }
 
@@ -512,39 +525,6 @@ export class TieredMenu implements OnDestroy {
             this.onOverlayHide();
         }
     }
-
-    positionSubmenu(sublist){
-        let parentMenuItem = sublist.nativeElement.parentElement.parentElement;
-        let viewport = DomHandler.getViewport();
-        let sublistWidth = sublist.nativeElement.offsetParent ? sublist.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
-        let itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem.children[0]);
-        let containerOffset = DomHandler.getOffset
-        
-        console.log(sublist, parentMenuItem)
-        sublist.nativeElement.style.left =+ 173 + 'px';
-
-        // console.log('parent',parentMenuItem)
-        // console.log('vp',viewport)
-        // console.log('subW',sublistWidth)
-        // console.log('subH',sublistHeight)
-        // console.log('itemOW',itemOuterWidth)
-        // console.log('itemOH',itemOuterHeight)
-        // console.log('CO',containerOffset)
-
-        // sublist.nativeElement.style.zIndex = ++DomHandler.zindex;
-
-        // if(sublistWidth + itemOuterWidth > viewport.width) {
-            
-        //     sublist.style.left = -173 + 'px';
-
-        // } else {
-        //     // sublist.style.position = 'absolute'
-        //     sublist.style.left = itemOuterWidth + 'px';
-        // }
-
-        this.cd.detectChanges();
-    }
-
 }
 
 @NgModule({

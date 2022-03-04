@@ -106,6 +106,20 @@ export class TieredMenuDemo {
                icon:'pi pi-fw pi-calendar',
                items:[
                   {
+                     label:'Archieve',
+                     icon:'pi pi-fw pi-calendar-times',
+                     items:[
+                        {
+                           label:'Remove',
+                           icon:'pi pi-fw pi-calendar-minus'
+                        },
+                        {
+                           label:'Remove',
+                           icon:'pi pi-fw pi-calendar-minus'
+                        }
+                     ]
+                  },
+                  {
                      label:'Edit',
                      icon:'pi pi-fw pi-pencil',
                      items:[
@@ -120,16 +134,7 @@ export class TieredMenuDemo {
 
                      ]
                   },
-                  {
-                     label:'Archieve',
-                     icon:'pi pi-fw pi-calendar-times',
-                     items:[
-                        {
-                           label:'Remove',
-                           icon:'pi pi-fw pi-calendar-minus'
-                        }
-                     ]
-                  }
+                  
                ]
             },
             {
