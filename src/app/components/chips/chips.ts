@@ -21,9 +21,9 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <span *ngIf="!disabled" class="p-chips-token-icon pi pi-times-circle" (click)="removeItem($event,i)"></span>
                 </li>
                 <li class="p-chips-input-token">
-                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.list]="suggestionId" (keydown)="onKeydown($event)"
+                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.list]="datalistId" (keydown)="onKeydown($event)"
                     (input)="onInput()" (paste)="onPaste($event)" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
-                    <datalist id="{{suggestionId}}">
+                    <datalist id="{{datalistId}}">
                         <option *ngFor="let suggestion of suggestions" [attr.value]="suggestion"></option>
                     </datalist>
                 </li>
@@ -102,15 +102,15 @@ export class Chips implements AfterContentInit,AfterViewInit,ControlValueAccesso
 
     filled: boolean;
 
-    suggestionId: any;
+    datalistId: any;
 
     static instanceCounter: number = 0;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {
         if (this.inputId == null) {
-            this.inputId = "chips-".concat((++Chips.instanceCounter).toString());
+            this.inputId = "p-chips-".concat((++Chips.instanceCounter).toString());
         }
-        this.suggestionId = this.inputId.concat("-suggestions");
+        this.datalistId = this.inputId.concat("-datalist");
     }
 
     ngAfterContentInit() {
@@ -130,12 +130,12 @@ export class Chips implements AfterContentInit,AfterViewInit,ControlValueAccesso
     }
 
     ngAfterViewInit() {
-        const suggestions = document.getElementById(this.inputId);
+        const inputEl = document.getElementById(this.inputId);
         let eventSource = null;
-        suggestions.addEventListener('keydown', (e: any) => {
+        inputEl.addEventListener('keydown', (e: any) => {
             eventSource = e.key ? 'input' : 'list';
         });
-        suggestions.addEventListener('input', (e: any) => {
+        inputEl.addEventListener('input', (e: any) => {
             const value = e.target.value;
             if (eventSource === 'list') {
                 this.addItem(event, value, true);
