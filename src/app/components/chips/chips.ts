@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,AfterViewInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
@@ -21,8 +21,11 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <span *ngIf="!disabled" class="p-chips-token-icon pi pi-times-circle" (click)="removeItem($event,i)"></span>
                 </li>
                 <li class="p-chips-input-token">
-                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)"
+                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.list]="suggestionId" (keydown)="onKeydown($event)"
                     (input)="onInput()" (paste)="onPaste($event)" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                    <datalist id="{{suggestionId}}">
+                        <option *ngFor="let suggestion of suggestions" [attr.value]="suggestion"></option>
+                    </datalist>
                 </li>
             </ul>
         </div>
@@ -37,7 +40,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./chips.css']
 })
-export class Chips implements AfterContentInit,ControlValueAccessor {
+export class Chips implements AfterContentInit,AfterViewInit,ControlValueAccessor {
 
     @Input() style: any;
 
@@ -69,6 +72,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() separator: string;
 
+    @Input() suggestions: any;
+
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
 
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
@@ -97,7 +102,16 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     filled: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    suggestionId: any;
+
+    static instanceCounter: number = 0;
+
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {
+        if (this.inputId == null) {
+            this.inputId = "chips-".concat((++Chips.instanceCounter).toString());
+        }
+        this.suggestionId = this.inputId.concat("-suggestions");
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -113,6 +127,20 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         });
 
         this.updateFilledState();
+    }
+
+    ngAfterViewInit() {
+        const suggestions = document.getElementById(this.inputId);
+        let eventSource = null;
+        suggestions.addEventListener('keydown', (e: any) => {
+            eventSource = e.key ? 'input' : 'list';
+        });
+        suggestions.addEventListener('input', (e: any) => {
+            const value = e.target.value;
+            if (eventSource === 'list') {
+                this.addItem(event, value, true);
+            }
+        });
     }
 
     onClick() {
