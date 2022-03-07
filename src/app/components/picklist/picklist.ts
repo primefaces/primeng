@@ -319,6 +319,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.movedDown = false;
             this.reorderedListElement = null;
         }
+
         this.initButtonState();
     }
 
@@ -652,8 +653,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     initButtonState(){
         this.moveRightDisabled = !this.selectedItemsSource.length ? true : null;
         this.moveLeftDisabled = !this.selectedItemsTarget.length ? true : null;
-        this.moveAllLeftDisabled = !this.selectedItemsTarget.length ? true : null;
-        this.moveAllRightDisabled = !this.selectedItemsSource.length ? true : null;
+        this.moveAllRightDisabled = this.source && this.source.length ? null : true;
+        this.moveAllLeftDisabled = this.target && this.target.length ? null : true;
         this.cd.detectChanges();
     }
 
@@ -853,7 +854,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     destroyStyle() {
         if (this.styleElement) {
             document.head.removeChild(this.styleElement);
-            this.styleElement = null;``
+            this.styleElement = null;
         }
     }
 
