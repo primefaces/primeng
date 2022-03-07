@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-pickList [disableButtons]="['source-bottom']" [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
+        <p-pickList [disableButtons]="['source-bottom']" [keepFocus]="true" [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
             [responsive]="true" [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}" filterBy="name"
             sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
             <ng-template let-product pTemplate="item">
@@ -332,6 +332,12 @@ This dragdrop property also supports cross list actions.</p>
                             <td>array</td>
                             <td>null</td>
                             <td>Defines which buttons will be disabled. Valid values are 'source-up', 'source-top', 'source-down', 'source-bottom', 'target-up', 'target-top', 'target-down', 'target-bottom', 'right', 'all-right', 'left', 'all-left'.</td>
+                        </tr>
+                        <tr>
+                            <td>keepFocus</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Keeps focus on the last selected item.</td>
                         </tr>
                     </tbody>
                 </table>

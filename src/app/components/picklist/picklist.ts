@@ -175,6 +175,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Input() stripedRows: boolean;
 
+    @Input() keepFocus: boolean;
+
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
 
     @Output() onMoveAllToSource: EventEmitter<any> = new EventEmitter();
@@ -553,11 +555,19 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.onMoveToTarget.emit({
                 items: this.selectedItemsSource
             });
-            this.selectedItemsSource = [];
-
+            
             if (this.filterValueTarget) {
                 this.filter(this.target, this.TARGET_LIST);
+            
             }
+
+            this.cd.detectChanges();
+
+            if (this.keepFocus) {
+                this.stayOnFocus(this.TARGET_LIST);        
+            }
+
+            this.selectedItemsSource = [];
         }
     }
 
@@ -603,11 +613,35 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 items: this.selectedItemsTarget
             });
 
-            this.selectedItemsTarget = [];
-
             if (this.filterValueSource) {
                 this.filter(this.source, this.SOURCE_LIST);
             }
+        }
+
+        this.cd.detectChanges();
+
+        if(this.keepFocus) {
+            this.stayOnFocus(this.SOURCE_LIST);        
+        }
+        
+        this.selectedItemsTarget = [];
+    }
+
+    stayOnFocus(source) {
+        if (source === this.SOURCE_LIST) {
+            const children = this.listViewSourceChild.nativeElement.children;
+            
+            children[children.length - 1].focus();
+            
+            this.onItemClick(event, this.selectedItemsTarget[0], this.selectedItemsSource, this.onSourceSelect)   
+        }
+
+        if (source === this.TARGET_LIST) {
+            const children = this.listViewTargetChild.nativeElement.children;
+            
+            children[children.length - 1].focus();
+            
+            this.onItemClick(event, this.selectedItemsSource[0], this.selectedItemsTarget, this.onSourceSelect);
         }
     }
 
