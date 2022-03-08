@@ -151,11 +151,11 @@ export class TieredMenuSub implements OnDestroy {
     }
 
     positionSubmenu(sublist){
-        const parentMenuItem = sublist.nativeElement.parentElement.parentElement;
+        const parentMenuItem = sublist.nativeElement.parentElement;
         const viewport = DomHandler.getViewport();
         const sublistWidth = sublist.nativeElement.offsetParent ? sublist.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
         const itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem.children[0]);
-        const containerOffset = DomHandler.getOffset(parentMenuItem.parentElement)
+        const containerOffset = DomHandler.getOffset(parentMenuItem)
         
         if (DomHandler.hasClass(sublist.nativeElement, 'p-submenu-list')) {
 
