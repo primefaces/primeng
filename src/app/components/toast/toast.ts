@@ -13,13 +13,13 @@ import { ZIndexUtils } from 'primeng/utils';
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
+        <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']" [class.p-toast-content-rtl]="isRTL"  [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
                     <span [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
-                    <div class="p-toast-message-text">
+                    <div class="p-toast-message-text" [ngClass]="{'mr-3' : isRTL}">
                         <div class="p-toast-summary">{{message.summary}}</div>
                         <div class="p-toast-detail">{{message.detail}}</div>
                     </div>
@@ -59,6 +59,8 @@ import { ZIndexUtils } from 'primeng/utils';
 export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Input() message: Message;
+
+    @Input() isRTL: boolean;
 
     @Input() index: number;
 
@@ -132,7 +134,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     selector: 'p-toast',
     template: `
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
-            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
+            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [isRTL]="msg.isRTL || isRTL" [index]="i" (onClose)="onMessageClose($event)"
                     [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" (@toastAnimation.done)="onAnimationEnd($event)"
                     [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
                     [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
@@ -179,6 +181,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
     @Input() breakpoints: any;
+
+    @Input() isRTL: boolean;
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 

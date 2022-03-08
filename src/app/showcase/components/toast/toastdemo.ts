@@ -12,7 +12,7 @@ export class ToastDemo {
     constructor(private messageService: MessageService) {}
 
     showSuccess() {
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content', isRTL: true});
     }
 
     showInfo() {

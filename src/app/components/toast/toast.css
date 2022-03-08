@@ -66,3 +66,7 @@
 .p-toast-icon-close.p-link {
 	cursor: pointer;
 }
+
+.p-toast-content-rtl {
+    direction: rtl;
+}

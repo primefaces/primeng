@@ -5613,6 +5613,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-toast .p-toast-message.p-toast-message-info .p-toast-icon-close {
   color: #01579B;
 }
+.p-toast .p-toast-message.p-toast-content-rtl.p-toast-message-info {
+  border-width: 0 0 0 0;
+}
 .p-toast .p-toast-message.p-toast-message-success {
   background: #C8E6C9;
   border: solid transparent;
@@ -6290,9 +6293,6 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
 }
 .p-calendar-w-btn.p-calendar-disabled {
   opacity: 0.38;
-}
-.p-calendar-w-btn.p-calendar-disabled .p-inputtext {
-  opacity: 1;
 }
 
 .p-datepicker .p-datepicker-header {

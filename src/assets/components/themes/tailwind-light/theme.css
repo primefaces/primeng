@@ -5624,6 +5624,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-toast .p-toast-message.p-toast-message-info .p-toast-icon-close {
   color: #2563EB;
 }
+.p-toast .p-toast-message.p-toast-content-rtl.p-toast-message-info {
+  border-width: 0 6px 0 0;
+}
 .p-toast .p-toast-message.p-toast-message-success {
   background: #ECFDF5;
   border: none;
