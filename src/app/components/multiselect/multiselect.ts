@@ -79,7 +79,7 @@ export class MultiSelectItem {
             'p-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="p-hidden-accessible">
-                <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
+                <input #in type="text" [attr.label]="label" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
                        [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible"
                        [attr.aria-labelledby]="ariaLabelledBy" role="listbox">
             </div>
@@ -227,6 +227,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() dataKey: string;
 
     @Input() name: string;
+
+    @Input() label: string;
 
     @Input() ariaLabelledBy: string;
 

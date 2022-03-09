@@ -247,7 +247,7 @@ export class CascadeSelectSub implements OnInit {
         <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input #focusInput type="text" [attr.id]="inputId" readonly [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()"  (keydown)="onKeyDown($event)" [attr.tabindex]="tabindex"
-                    aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy">
+                    aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy" [attr.label]="inputLabel" [attr.aria-label]="ariaLabel">
             </div>
             <span [ngClass]="labelClass()">
                 <ng-container *ngIf="valueTemplate;else defaultValueTemplate">
@@ -320,6 +320,10 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     @Input() tabindex: string;
 
     @Input() ariaLabelledBy: string;
+
+    @Input() inputLabel: string;
+
+    @Input() ariaLabel: string;
 
     @Input() appendTo: any;
 
@@ -641,7 +645,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
-    label() {
+    label   () {
         if (this.selectionPath)
             return this.getOptionLabel(this.selectionPath[this.selectionPath.length - 1]);
         else
