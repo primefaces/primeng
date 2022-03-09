@@ -12,10 +12,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'p-picklist p-component': true, 'p-picklist-striped': stripedRows}" cdkDropListGroup>
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
-                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
-                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
-                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
-                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="sourceMoveDisabled()" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="sourceMoveDisabled()" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="sourceMoveDisabled()" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="sourceMoveDisabled()" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder,SOURCE_LIST)"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
                 <div class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate">
@@ -49,10 +49,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-transfer-buttons">
-                <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple icon="pi pi-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
-                <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
-                <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple icon="pi pi-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
-                <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
+                <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple icon="pi pi-angle-right" [disabled]="moveRightDisabled()" (click)="moveRight()"></button>
+                <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-right" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()"></button>
+                <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple icon="pi pi-angle-left" [disabled]="moveLeftDisabled()" (click)="moveLeft()"></button>
+                <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-left" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper">
                 <div class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate">
@@ -85,10 +85,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-target-controls" *ngIf="showTargetControls">
-                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
-                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
-                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
-                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="targetMoveDisabled()" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-up" [disabled]="targetMoveDisabled()" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple icon="pi pi-angle-down" [disabled]="targetMoveDisabled()" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-down" [disabled]="targetMoveDisabled()" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder,TARGET_LIST)"></button>
             </div>
         </div>
     `,
@@ -248,7 +248,6 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     readonly TARGET_LIST = 1;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
-
 
     ngOnInit() {
         if (this.responsive) {
@@ -809,6 +808,34 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
             this.styleElement.innerHTML = innerHTML;
         }
+    }
+
+    sourceMoveDisabled(){
+        if(this.disabled || !this.selectedItemsSource.length) {
+            return true;
+        }
+    }
+
+    targetMoveDisabled(){
+        if(this.disabled || !this.selectedItemsTarget.length) {
+            return true;
+        }
+    }
+
+    moveRightDisabled() {
+        return this.disabled || ObjectUtils.isEmpty(this.selectedItemsSource);
+    }
+
+    moveLeftDisabled() {
+        return this.disabled || ObjectUtils.isEmpty(this.selectedItemsTarget);
+    }
+
+    moveAllRightDisabled() {
+        return this.disabled || ObjectUtils.isEmpty(this.source);
+    }
+
+    moveAllLeftDisabled() {
+        return this.disabled || ObjectUtils.isEmpty(this.target);
     }
 
     destroyStyle() {
