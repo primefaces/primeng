@@ -4,7 +4,7 @@ import { ObjectUtils } from 'primeng/utils';
 @Injectable({providedIn: 'root'})
 export class FilterService {
 
-    filter(value: any[], fields: any[], filterValue: any, filterMatchMode: string, filterLocale?: string) {
+    filter(value: readonly any[], fields: any[], filterValue: any, filterMatchMode: string, filterLocale?: string) {
         let filteredItems: any[] = [];
 
         if (value) {
@@ -22,20 +22,20 @@ export class FilterService {
 
         return filteredItems;
     }
-    
+
     public filters = {
         startsWith: (value, filter, filterLocale?):boolean =>  {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
-    
+
             return stringValue.slice(0, filterValue.length) === filterValue;
         },
 
@@ -43,14 +43,14 @@ export class FilterService {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
-    
+
             return stringValue.indexOf(filterValue) !== -1;
         },
 
@@ -58,14 +58,14 @@ export class FilterService {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
-    
+
             return stringValue.indexOf(filterValue) === -1;
         },
 
@@ -73,14 +73,14 @@ export class FilterService {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
-    
+
             return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
         },
 
@@ -88,11 +88,11 @@ export class FilterService {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             if (value.getTime && filter.getTime)
                 return value.getTime() === filter.getTime();
             else
@@ -103,11 +103,11 @@ export class FilterService {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return false;
             }
-    
+
             if (value === undefined || value === null) {
                 return true;
             }
-    
+
             if (value.getTime && filter.getTime)
                 return value.getTime() !== filter.getTime();
             else
@@ -118,13 +118,13 @@ export class FilterService {
             if (filter === undefined || filter === null || filter.length === 0) {
                 return true;
             }
-    
+
             for (let i = 0; i < filter.length; i++) {
                 if (ObjectUtils.equals(value, filter[i])) {
                     return true;
                 }
             }
-    
+
             return false;
         },
 
@@ -132,11 +132,11 @@ export class FilterService {
             if (filter == null || filter[0] == null || filter[1] == null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             if (value.getTime)
             return filter[0].getTime() <= value.getTime() && value.getTime() <= filter[1].getTime();
             else
@@ -147,11 +147,11 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             if (value.getTime && filter.getTime)
                 return value.getTime() < filter.getTime();
             else
@@ -162,11 +162,11 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             if (value.getTime && filter.getTime)
                 return value.getTime() <= filter.getTime();
             else
@@ -177,11 +177,11 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             if (value.getTime && filter.getTime)
                 return value.getTime() > filter.getTime();
             else
@@ -192,11 +192,11 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-    
+
             if (value.getTime && filter.getTime)
                 return value.getTime() >= filter.getTime();
             else
@@ -223,7 +223,7 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
@@ -235,7 +235,7 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
@@ -247,7 +247,7 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
@@ -259,14 +259,14 @@ export class FilterService {
             if (filter === undefined || filter === null) {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
 
             return value.getTime() > filter.getTime();
         }
-    
+
     }
 
     register(rule: string, fn: Function) {
