@@ -173,6 +173,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Input() stripedRows: boolean;
 
+    @Input() keepSelection: boolean = false;
+
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
 
     @Output() onMoveAllToSource: EventEmitter<any> = new EventEmitter();
@@ -537,9 +539,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                         this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource),1);
                 }
             }
+
             this.onMoveToTarget.emit({
                 items: this.selectedItemsSource
             });
+
+            if (this.keepSelection) {
+                this.selectedItemsTarget = [...this.selectedItemsTarget, ...this.selectedItemsSource]
+            }
+
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
@@ -565,6 +573,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 items: movedItems
             });
 
+            if (this.keepSelection) {
+                this.selectedItemsTarget = [...this.selectedItemsTarget, ...this.selectedItemsSource]
+            }
+
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
@@ -586,10 +598,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                         this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget),1)[0]
                 }
             }
+
             this.onMoveToSource.emit({
                 items: this.selectedItemsTarget
             });
 
+            if (this.keepSelection) {
+                this.selectedItemsSource = [...this.selectedItemsSource, ...this.selectedItemsTarget]
+            }
+            
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
@@ -614,6 +631,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.onMoveAllToSource.emit({
                 items: movedItems
             });
+
+            if (this.keepSelection) {
+                this.selectedItemsSource = [...this.selectedItemsSource, ...this.selectedItemsTarget]
+            }
 
             this.selectedItemsTarget = [];
 
@@ -640,6 +661,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         if (listType === this.SOURCE_LIST) {
             if (isTransfer) {
                 transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                let selectedItemIndex  = ObjectUtils.findIndexInList(event.item.data, this.selectedItemsTarget);
+
+                if (selectedItemIndex != -1) {
+                    this.selectedItemsTarget.splice(selectedItemIndex,1);
+
+                    if (this.keepSelection) {
+                        this.selectedItemsTarget.push(event.item.data);
+                    }
+                }
 
                 if (this.visibleOptionsTarget)
                     this.visibleOptionsTarget.splice(event.previousIndex, 1);
@@ -658,6 +688,16 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         else {
             if (isTransfer) {
                 transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+
+                let selectedItemIndex = ObjectUtils.findIndexInList(event.item.data, this.selectedItemsSource);
+
+                if (selectedItemIndex != -1) {
+                    this.selectedItemsSource.splice(selectedItemIndex,1);
+
+                    if (this.keepSelection) {
+                        this.selectedItemsTarget.push(event.item.data);
+                    }
+                }
 
                 if (this.visibleOptionsSource)
                     this.visibleOptionsSource.splice(event.previousIndex, 1);
