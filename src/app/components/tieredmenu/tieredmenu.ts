@@ -318,6 +318,8 @@ export class TieredMenu implements OnDestroy {
 
     visible: boolean;
 
+    relativeAlign: boolean;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     toggle(event) {
@@ -331,6 +333,7 @@ export class TieredMenu implements OnDestroy {
 
     show(event) {
         this.target = event.currentTarget;
+        this.relativeAlign = event.relativeAlign;
         this.visible = true;
         this.parentActive = true;
         this.preventDocumentDefault = true;
@@ -355,7 +358,7 @@ export class TieredMenu implements OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.appendOverlay();
-                    DomHandler.absolutePosition(this.container, this.target);
+                    this.alignOverlay();
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
@@ -366,6 +369,13 @@ export class TieredMenu implements OnDestroy {
                 this.onOverlayHide();
             break;
         }
+    }
+
+    alignOverlay() {
+        if (this.relativeAlign)
+            DomHandler.relativePosition(this.container, this.target);
+        else
+            DomHandler.absolutePosition(this.container, this.target);
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
@@ -399,6 +409,7 @@ export class TieredMenu implements OnDestroy {
 
     hide() {
         this.visible = false;
+        this.relativeAlign = false;
         this.parentActive = false;
         this.cd.markForCheck();
     }

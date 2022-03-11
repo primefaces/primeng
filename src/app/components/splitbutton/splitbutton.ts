@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MenuItem, PrimeTemplate} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {MenuModule, Menu} from 'primeng/menu';
+import { TieredMenuModule, TieredMenu } from '../tieredmenu/tieredmenu';
 
 @Component({
     selector: 'p-splitButton',
@@ -17,8 +18,8 @@ import {MenuModule, Menu} from 'primeng/menu';
                 <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
             </ng-template>
             <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled" [attr.aria-label]="expandAriaLabel"></button>
-            <p-menu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo"
-                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-menu>
+            <p-tieredMenu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo"
+                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-tieredMenu>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,7 +69,7 @@ export class SplitButton {
 
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
-    @ViewChild('menu') menu: Menu;
+    @ViewChild('menu') menu: TieredMenu;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -100,8 +101,8 @@ export class SplitButton {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,MenuModule],
-    exports: [SplitButton,ButtonModule],
+    imports: [CommonModule,ButtonModule,MenuModule, TieredMenuModule],
+    exports: [SplitButton,ButtonModule, TieredMenuModule],
     declarations: [SplitButton]
 })
 export class SplitButtonModule { }
