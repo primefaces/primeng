@@ -4457,7 +4457,7 @@ export class ColumnFilter implements AfterContentInit {
         });
 
         this.resetSubscription = this.dt.tableService.resetSource$.subscribe(() => {
-            this.clearFilter();
+            this.initFieldFilterConstraint();
         })
 
         this.generateMatchModeOptions();
