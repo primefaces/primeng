@@ -92,6 +92,24 @@
     z-index: 1;
 }
 
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-virtual-scrollable-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-virtual-scrollable-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 .p-datatable-scrollable .p-frozen-column {
     position: sticky;
     background: inherit;

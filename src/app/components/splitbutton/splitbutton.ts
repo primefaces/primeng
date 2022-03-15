@@ -2,8 +2,8 @@ import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ViewChild,Change
 import {CommonModule} from '@angular/common';
 import {MenuItem, PrimeTemplate} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
-import {MenuModule, Menu} from 'primeng/menu';
-import { TieredMenuModule, TieredMenu } from '../tieredmenu/tieredmenu';
+import {MenuModule} from 'primeng/menu';
+import { TieredMenuModule, TieredMenu } from 'primeng/tieredmenu';
 
 @Component({
     selector: 'p-splitButton',
