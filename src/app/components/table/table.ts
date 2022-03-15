@@ -350,8 +350,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ViewChild('table') tableViewChild: ElementRef;
 
-    @ViewChild('tableHeader') tableHeaderViewChild: ElementRef;
-
     @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
@@ -479,8 +477,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     tableWidthState: string;
 
     overlaySubscription: Subscription;
-
-    virtualScrollSubscription: Subscription;
 
     resizeColumnElement;
 
@@ -615,13 +611,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     ngAfterViewInit() {
         if (this.isStateful() && this.resizableColumns) {
             this.restoreColumnWidths();
-        }
-
-        if (this.scrollable && this.virtualScroll) {
-            this.virtualScrollSubscription =  this.virtualScrollBody.renderedRangeStream.subscribe(range => {
-                let top = range.start * this.virtualRowHeight * -1;
-                this.tableHeaderViewChild.nativeElement.style.top = top + 'px';
-            });
         }
     }
 
@@ -2474,10 +2463,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.editingCell = null;
         this.initialized = null;
         this.virtualScrollInitialized = null;
-
-        if (this.virtualScrollSubscription) {
-            this.virtualScrollSubscription.unsubscribe();
-        }
 
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
