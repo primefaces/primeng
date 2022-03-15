@@ -1776,6 +1776,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     virtualPage: number;
 
+    virtualScrollInitialized: boolean = false;
+
     onScrollIndexChange(index: number) {
         if (this.lazy) {
             if (this.virtualScrollTimeout) {
@@ -1789,15 +1791,21 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 if (page !== this.virtualPage) {
                     this.virtualPage = page;
-                    this.onLazyLoad.emit({
-                        first: virtualScrollOffset,
-                        rows: virtualScrollChunkSize,
-                        sortField: this.sortField,
-                        sortOrder: this.sortOrder,
-                        filters: this.filters,
-                        globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata> this.filters['global']).value : null,
-                        multiSortMeta: this.multiSortMeta
-                    });
+
+                    if (this.lazyLoadOnInit || this.virtualScrollInitialized) {
+                        this.onLazyLoad.emit({
+                            first: virtualScrollOffset,
+                            rows: virtualScrollChunkSize,
+                            sortField: this.sortField,
+                            sortOrder: this.sortOrder,
+                            filters: this.filters,
+                            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata> this.filters['global']).value : null,
+                            multiSortMeta: this.multiSortMeta
+                        });
+                    }
+                    else {
+                        this.virtualScrollInitialized = true;
+                    }
                 }
             }, this.virtualScrollDelay);
         }
@@ -2472,6 +2480,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.unbindDocumentEditListener();
         this.editingCell = null;
         this.initialized = null;
+        this.virtualScrollInitialized = null;
 
         if (this.virtualScrollSubscription) {
             this.virtualScrollSubscription.unsubscribe();
