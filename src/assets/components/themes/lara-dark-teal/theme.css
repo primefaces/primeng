@@ -364,14 +364,16 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-datepicker-header .p-datepicker-title {
   line-height: 2rem;
 }
-.p-datepicker .p-datepicker-header .p-datepicker-title select {
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
+  color: rgba(255, 255, 255, 0.87);
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  font-weight: 700;
+  padding: 0.5rem;
 }
-.p-datepicker .p-datepicker-header .p-datepicker-title select:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: 0 0 0 0.2rem rgba(94, 234, 212, 0.5);
-  border-color: #5EEAD4;
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year:enabled:hover,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:enabled:hover {
+  color: #5EEAD4;
 }
 .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
   margin-right: 0.5rem;
@@ -469,8 +471,20 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   color: rgba(255, 255, 255, 0.87);
   background: rgba(94, 234, 212, 0.16);
 }
+.p-datepicker .p-yearpicker {
+  margin: 0.5rem 0;
+}
+.p-datepicker .p-yearpicker .p-yearpicker-year {
+  padding: 0.5rem;
+  transition: box-shadow 0.2s;
+  border-radius: 6px;
+}
+.p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight {
+  color: rgba(255, 255, 255, 0.87);
+  background: rgba(94, 234, 212, 0.16);
+}
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group {
-  border-right: 1px solid #0b213f;
+  border-left: 1px solid #0b213f;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
   padding-top: 0;
@@ -478,10 +492,10 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group:first-child {
   padding-left: 0;
+  border-left: 0 none;
 }
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group:last-child {
   padding-right: 0;
-  border-right: 0 none;
 }
 .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):hover {
   background: rgba(255, 255, 255, 0.03);
@@ -491,10 +505,18 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem rgba(94, 234, 212, 0.5);
 }
-.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-highlight):not(.p-disabled):hover {
+.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):not(.p-highlight):hover {
   background: rgba(255, 255, 255, 0.03);
 }
-.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-highlight):not(.p-disabled):focus {
+.p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem rgba(94, 234, 212, 0.5);
+}
+.p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):not(.p-highlight):hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem rgba(94, 234, 212, 0.5);
@@ -695,7 +717,7 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
 
 .p-colorpicker-panel {
   background: #071426;
-  border-color: 1px solid #0b213f;
+  border: 1px solid #0b213f;
 }
 .p-colorpicker-panel .p-colorpicker-color-handle,
 .p-colorpicker-panel .p-colorpicker-hue-handle {
@@ -819,6 +841,9 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
 }
 .p-input-filled .p-dropdown:not(.p-disabled).p-focus {
   background-color: #0b213f;
+}
+.p-input-filled .p-dropdown:not(.p-disabled).p-focus .p-inputtext {
+  background-color: transparent;
 }
 
 .p-editor-container .p-editor-toolbar {
@@ -1362,7 +1387,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   background-color: #0b213f;
 }
 
-.p-password.p-invalid.p-component > .p-inputtext {
+p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   border-color: #FCA5A5;
 }
 
@@ -1464,7 +1489,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 .p-rating .p-rating-icon:first-child {
   margin-left: 0;
 }
-.p-rating .p-rating-icon.pi-star {
+.p-rating .p-rating-icon.pi-star-fill {
   color: #5EEAD4;
 }
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon:hover {
@@ -1646,7 +1671,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
-.p-treeselect.p-invalid.p-component {
+
+p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-color: #FCA5A5;
 }
 
