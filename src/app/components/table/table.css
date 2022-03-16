@@ -74,11 +74,17 @@
     align-items: center;
 }
 
-.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead,
-.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-virtual-scrollable-body > .cdk-virtual-scroll-content-wrapper > .p-datatable-table > .p-datatable-thead {
-    position: sticky;
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead {
     top: 0;
     z-index: 1;
+}
+
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead {
+    position: sticky;
+}
+
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table.p-datatable-virtual-scroll > .p-datatable-thead {
+    position: relative;
 }
 
 .p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-frozen-tbody {

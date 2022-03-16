@@ -101,9 +101,9 @@ export class TableService {
                 [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showJumpToPageInput]="showJumpToPageInput" [showPageLinks]="showPageLinks"></p-paginator>
 
             <div #wrapper class="p-datatable-wrapper" [ngStyle]="{height: scrollHeight}">
-                <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [attr.id]="id+'-table'" [style.height]="scrollHeight !== 'flex' && virtualScroll ? scrollHeight : undefined">
+                <table #table role="table" class="p-datatable-table" [class.p-datatable-virtual-scroll]="virtualScroll" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [attr.id]="id+'-table'" [style.height]="scrollHeight !== 'flex' && virtualScroll ? scrollHeight : undefined">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <thead class="p-datatable-thead">
+                    <thead #tableHeader class="p-datatable-thead">
                         <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
                     <cdk-virtual-scroll-viewport *ngIf="virtualScroll" [itemSize]="virtualRowHeight" tabindex="0" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
@@ -350,6 +350,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ViewChild('table') tableViewChild: ElementRef;
 
+    @ViewChild('tableHeader') tableHeaderViewChild: ElementRef;
+
     @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
@@ -477,6 +479,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     tableWidthState: string;
 
     overlaySubscription: Subscription;
+
+    virtualScrollSubscription: Subscription;
 
     resizeColumnElement;
 
@@ -611,6 +615,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     ngAfterViewInit() {
         if (this.isStateful() && this.resizableColumns) {
             this.restoreColumnWidths();
+        }
+
+        if (this.scrollable && this.virtualScroll) {
+            this.virtualScrollSubscription = this.virtualScrollBody.elementScrolled().subscribe(() => {
+                this.tableHeaderViewChild.nativeElement.style.left = -1 * this.virtualScrollBody.measureScrollOffset('left') + 'px';
+            })
         }
     }
 
