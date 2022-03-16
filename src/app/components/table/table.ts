@@ -100,8 +100,8 @@ export class TableService {
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showFirstLastIcon]="showFirstLastIcon" [dropdownItemTemplate]="paginatorDropdownItemTemplate" [showCurrentPageReport]="showCurrentPageReport" [showJumpToPageDropdown]="showJumpToPageDropdown" [showJumpToPageInput]="showJumpToPageInput" [showPageLinks]="showPageLinks"></p-paginator>
 
-            <div #wrapper class="p-datatable-wrapper" [ngStyle]="{height: scrollHeight}">
-                <table #table role="table" class="p-datatable-table" [class.p-datatable-virtual-scroll]="virtualScroll" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [attr.id]="id+'-table'" [style.height]="scrollHeight !== 'flex' && virtualScroll ? scrollHeight : undefined">
+            <div #wrapper class="p-datatable-wrapper" [class.p-datatable-virtual-scroll]="virtualScroll" [ngStyle]="{height: scrollHeight}">
+                <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [attr.id]="id+'-table'" [style.height]="scrollHeight !== 'flex' && virtualScroll ? scrollHeight : undefined">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead #tableHeader class="p-datatable-thead">
                         <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: columns}"></ng-container>

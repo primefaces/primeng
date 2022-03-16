@@ -83,8 +83,12 @@
     position: sticky;
 }
 
-.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table.p-datatable-virtual-scroll > .p-datatable-thead {
+.p-datatable-scrollable > .p-datatable-wrapper.p-datatable-virtual-scroll > .p-datatable-table > .p-datatable-thead {
     position: relative;
+}
+
+.p-datatable-scrollable > .p-datatable-wrapper.p-datatable-virtual-scroll {
+    overflow: hidden;
 }
 
 .p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-frozen-tbody {
