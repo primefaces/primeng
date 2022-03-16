@@ -2474,6 +2474,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.initialized = null;
         this.virtualScrollInitialized = null;
 
+        if (this.virtualScrollSubscription) {
+            this.virtualScrollSubscription.unsubscribe();
+        }
+
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
     }
