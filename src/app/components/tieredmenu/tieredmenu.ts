@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
@@ -11,7 +11,7 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'p-tieredMenuSub',
     template: `
-        <ul [ngClass]="{'p-submenu-list': !root}">
+        <ul #sublist [ngClass]="{'p-submenu-list': !root}">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" [ngStyle]="child.style" [class]="child.styleClass" pTooltip [tooltipOptions]="child.tooltipOptions">
@@ -69,8 +69,12 @@ export class TieredMenuSub implements OnDestroy {
 
             if (!value)
                 this.activeItem = null;
+            else
+                this.positionSubmenu()
         }
     }
+
+    @ViewChild('sublist') sublistViewChild: ElementRef;
 
     @Output() leafClick: EventEmitter<any> = new EventEmitter();
 
@@ -194,6 +198,23 @@ export class TieredMenuSub implements OnDestroy {
             originalEvent: event,
             element: listItem
         });
+    }
+
+    positionSubmenu() {
+        let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
+        console.log(sublist)
+
+        if (sublist) {
+            const parentItem = sublist.parentElement.parentElement;
+            const containerOffset = DomHandler.getOffset(parentItem);
+            const viewport = DomHandler.getViewport();
+            const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
+            const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+    
+            if ((parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
+                DomHandler.addClass(sublist, 'p-submenu-list-flipped');
+            }
+        }
     }
 
     findNextItem(item) {
