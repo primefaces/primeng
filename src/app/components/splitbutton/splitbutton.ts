@@ -2,7 +2,6 @@ import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ViewChild,Change
 import {CommonModule} from '@angular/common';
 import {MenuItem, PrimeTemplate} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
-import {MenuModule} from 'primeng/menu';
 import { TieredMenuModule, TieredMenu } from 'primeng/tieredmenu';
 
 @Component({
@@ -101,7 +100,7 @@ export class SplitButton {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,MenuModule, TieredMenuModule],
+    imports: [CommonModule,ButtonModule, TieredMenuModule],
     exports: [SplitButton,ButtonModule, TieredMenuModule],
     declarations: [SplitButton]
 })
