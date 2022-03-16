@@ -202,7 +202,6 @@ export class TieredMenuSub implements OnDestroy {
 
     positionSubmenu() {
         let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
-        console.log(sublist)
 
         if (sublist) {
             const parentItem = sublist.parentElement.parentElement;
