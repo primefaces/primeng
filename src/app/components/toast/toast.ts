@@ -305,7 +305,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     onAnimationEnd(event: AnimationEvent) {
         if (event.toState === 'void') {
-            if (this.autoZIndex) {
+            if (this.autoZIndex && !this.messages.length ) {
                 ZIndexUtils.clear(this.containerViewChild.nativeElement);
             }
         }
