@@ -11,6 +11,22 @@
         {
             "version": "v11.4.10-lts",
             "url": "https://www.primefaces.org/primeng-v11-lts"
+        },
+        {
+            "version": "v10.1.5-lts",
+            "url": "https://www.primefaces.org/primeng-v10-lts"
+        },
+        {
+            "version": "v9.2.8-lts",
+            "url": "https://www.primefaces.org/primeng-v9-lts"
+        },
+        {
+            "version": "v8.2.9-lts",
+            "url": "https://www.primefaces.org/primeng-v8-lts"
+        },
+        {
+            "version": "v7.2.6-lts",
+            "url": "https://www.primefaces.org/primeng-v7-lts"
         }
     ]
 }
