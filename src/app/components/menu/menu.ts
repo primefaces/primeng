@@ -13,7 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
     template: `
         <a *ngIf="!item.routerLink"  (keydown)="onItemKeyDown($event)" [attr.href]="item.url||null" class="p-menuitem-link" [attr.tabindex]="item.disabled ? null : '0'" [attr.data-automationid]="item.automationId" [target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
             [ngClass]="{'p-disabled':item.disabled}" (click)="menu.itemClick($event, item)" role="menuitem" [target]="item.target">
-            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
+            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
             <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
         </a>
