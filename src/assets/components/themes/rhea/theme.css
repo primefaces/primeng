@@ -4208,6 +4208,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-radius: 2px;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
   border: 1px solid #f1f1f1;
+  background: #7B95A3;
 }
 .p-dialog .p-dialog-header {
   border-bottom: 1px solid #7B95A3;
