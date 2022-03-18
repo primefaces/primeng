@@ -23,7 +23,7 @@ let idx: number = 0;
                     </button>
                 </div>
             </div>
-            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity:'0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1'}}" (@panelContent.done)="onToggleDone($event)"
+            <div [attr.id]="id + '-content'" class="p-toggleable-content p-panel-body" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity:'0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1'}}" (@panelContent.done)="onToggleDone($event)"
                 role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id  + '-titlebar'">
                 <div class="p-panel-content">
                     <ng-content></ng-content>
@@ -41,6 +41,7 @@ let idx: number = 0;
         trigger('panelContent', [
             state('hidden', style({
                 height: '0',
+                borderBottom: '0',
                 overflow: 'hidden'
             })),
             state('void', style({

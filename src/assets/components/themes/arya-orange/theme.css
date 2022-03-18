@@ -4058,19 +4058,26 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-panel .p-panel-content {
   padding: 1rem;
-  border: 1px solid #383838;
   background: #1e1e1e;
   color: rgba(255, 255, 255, 0.87);
-  border-bottom-right-radius: 3px;
+  border: 0 none;
   border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.p-panel .p-panel-body {
+  border: 1px solid #383838;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   border-top: 0 none;
+  background: #1e1e1e;
 }
 .p-panel .p-panel-footer {
   padding: 0.5rem 1rem;
-  border: 1px solid #383838;
   background: #1e1e1e;
   color: rgba(255, 255, 255, 0.87);
-  border-top: 0 none;
+  border-top: 1px solid #383838;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 .p-panel .p-panel-icons-end {
   order: 2;
