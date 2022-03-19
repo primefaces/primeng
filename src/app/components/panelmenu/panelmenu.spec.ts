@@ -63,7 +63,7 @@ describe('PanelMenu', () => {
 		fixture.detectChanges();
 
 		const panelEl = fixture.debugElement.query(By.css('.p-panelmenu-panel'));
-		expect(panelEl).toBe(null);
+		expect(panelEl).toBeFalsy();
 	});
 
 	it('should change item style styleClass and disable ', () => {

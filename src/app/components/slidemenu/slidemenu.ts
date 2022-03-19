@@ -17,7 +17,7 @@ import {TooltipModule} from 'primeng/tooltip';
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listitem [ngClass]="{'p-menuitem':true,'p-menuitem-active':listitem==activeItem,'p-hidden': child.visible === false}" pTooltip [tooltipOptions]="child.tooltipOptions"
                     [class]="child.styleClass" [ngStyle]="child.style">
-                    <a *ngIf="!child.routerLink" (keydown)="onItemKeyDown($event)"  [attr.href]="child.url" class="p-menuitem-link" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
+                    <a *ngIf="!child.routerLink" (keydown)="onItemKeyDown($event)"  [attr.href]="child.url" class="p-menuitem-link" [target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'p-disabled':child.disabled}" [attr.tabindex]="child.disabled || !isActive ? null : '0'"
                         (click)="itemClick($event, child, listitem)">
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -27,7 +27,7 @@ import {TooltipModule} from 'primeng/tooltip';
                     </a>
                     <a *ngIf="child.routerLink" (keydown)="onItemKeyDown($event)"  [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url" class="p-menuitem-link"
-                        [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled || !isActive ? null : '0'"
+                        [target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled || !isActive ? null : '0'"
                         [ngClass]="{'p-disabled':child.disabled}"
                         (click)="itemClick($event, child, listitem)"
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-topbar',
     template: `
-        <div class="layout-topbar">
+        <div class="layout-topbar" #containerElement>
             <a class="menu-button" (click)="onMenuButtonClick($event)">
                 <i class="pi pi-bars"></i>
             </a>
@@ -17,15 +17,14 @@ import { Subscription } from 'rxjs';
                 <img [src]="'assets/showcase/images/themes/' + logoMap[config.theme]" />
             </div>
             <ul #topbarMenu class="topbar-menu">
-                <li><a [routerLink]="['/setup']">Get Started</a></li>
                 <li class="topbar-submenu">
-                    <a tabindex="0" (click)="toggleMenu($event, 0)"><span pBadge severity="danger">Themes</span></a>
+                    <a tabindex="0" (click)="toggleMenu($event, 0)">Themes</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 0" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">THEMING</li>
-                        <li><a [routerLink]="['/theming']"><i class="pi pi-fw pi-file"></i><span>Guide</span></a></li>
+                        <li><a [routerLink]="['/showcase/theming']"><i class="pi pi-fw pi-file"></i><span>Guide</span></a></li>
                         <li><a href="https://www.primefaces.org/designer/primeng"><i class="pi pi-fw pi-palette"></i><span>Designer</span></a></li>
                         <li><a href="https://www.primefaces.org/designer-ng"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a></li>
-                        <li><a [routerLink]="['/icons']"><i class="pi pi-fw pi-info-circle"></i><span>Icons</span></a></li>
+                        <li><a [routerLink]="['/showcase/icons']"><i class="pi pi-fw pi-info-circle"></i><span>Icons</span></a></li>
                         <li><a href="https://www.figma.com/community/file/890589747170608208"><i class="pi pi-fw pi-pencil"></i><span>Figma UI Kit</span></a></li>
 
                         <li class="topbar-submenu-header">BOOTSTRAP</li>
@@ -250,26 +249,11 @@ import { Subscription } from 'rxjs';
                     </ul>
                 </li>
                 <li class="topbar-submenu">
-                    <a tabindex="0" (click)="toggleMenu($event, 2)">Resources</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
-                        <li><a [routerLink]="['/support']"><span>Support</span></a></li>
-                        <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Forum</span></a></li>
-                        <li><a href="https://discord.gg/gzKFYnpmCY"><span>Discord Chat</span></a></li>
-                        <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
-                        <li><a [routerLink]="['/lts']"><span>LTS</span></a></li>
-                        <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
-                        <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>
-                        <li><a href="https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw" target="_blank"><span>PrimeTV</span></a></li>
-                        <li><a href="https://twitter.com/prime_ng?lang=en" target="_blank"><span>Twitter</span></a></li>
-                        <li><a href="https://www.primefaces.org/whouses" target="_blank"><span>Who Uses</span></a></li>
-                        <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
-                        <li><a href="https://gear.primefaces.org" target="_blank"><span>Gear Store</span></a></li>
-                        <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
-                    </ul>
+                    <a tabindex="0" href="https://www.primefaces.org/primeblocks-ng/" target="_blank">Blocks</a>
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 3)">{{versions ? versions[0].version : 'Latest'}}</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width:100%">
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width: 100%; min-width: 125px;">
                         <li *ngFor="let v of versions">
                             <a [href]="v.url">{{v.version}}</a>
                         </li>
@@ -295,6 +279,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     @Output() menuButtonClick: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
+
+    @ViewChild('containerElement') containerElement: ElementRef;
 
     activeMenuIndex: number;
 
@@ -358,6 +344,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     versions: any[];
 
+    scrollListener: any;
+
     constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
 
     ngOnInit() {
@@ -370,7 +358,23 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
                 this.activeMenuIndex = null;
              }
         });
+
+        this.bindScrollListener();
     }
+
+    bindScrollListener() {
+        if (!this.scrollListener) {
+          this.scrollListener = () => {
+            if (window.scrollY > 0) {
+              this.containerElement.nativeElement.classList.add('layout-topbar-sticky');
+            } else {
+              this.containerElement.nativeElement.classList.remove('layout-topbar-sticky');
+            }
+          }
+        }
+    
+        window.addEventListener('scroll', this.scrollListener);
+      }
 
     onMenuButtonClick(event: Event) {
         this.menuButtonClick.emit();
@@ -378,8 +382,6 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        let themeElement = document.getElementById('theme-link');
-        themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
         this.configService.updateConfig({...this.config, ...{theme, dark}});
         this.activeMenuIndex = null;
         event.preventDefault();

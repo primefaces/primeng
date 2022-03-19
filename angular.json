@@ -39,9 +39,13 @@
               "assets": [
                 "src/favicon.png",
                 "src/assets",
-                "src/upload.php"
+                "src/showcase",
+                "src/upload.php",
+                "src/versions.json",
+                "src/.htaccess"
               ],
               "styles": [
+                "src/assets/showcase/styles/app/app.scss",
                 "src/styles.scss"
               ],
               "scripts": [
@@ -65,7 +69,14 @@
                     "with": "src/environments/environment.prod.ts"
                   }
                 ],
-                "optimization": true,
+                "optimization": {
+                  "scripts": true,
+                  "styles": {
+                    "minify": true,
+                    "inlineCritical": false
+                  },
+                  "fonts": true
+                },
                 "outputHashing": "all",
                 "sourceMap": false,
                 "namedChunks": false,
@@ -123,7 +134,7 @@
               ],
               "styles": [
                 "src/styles.scss",
-                "src/assets/components/themes/lara-light-indigo/theme.css"
+                "src/assets/components/themes/lara-light-blue/theme.css"
               ],
               "scripts": []
             }

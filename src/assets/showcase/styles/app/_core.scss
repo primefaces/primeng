@@ -23,7 +23,7 @@ body {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: var(--surface-a);
+    background-color: var(--surface-ground);
     font-family: var(--font-family);
     font-weight: normal;
     color: var(--text-color);
@@ -100,17 +100,19 @@ input[type="number"] {
 }
 
 pre[class*="language-"] {
+    border-radius: 15px !important;
     &:before, &:after {
         display: none !important;
     }
 
     code {
-        border-left: 10px solid var(--surface-d) !important;
+        border-left: 1rem solid transparent !important;
         box-shadow: none !important;
-        background: var(--surface-e) !important;
-        margin: 1em 0;
-        color: var(--text-color);
+        background: var(--surface-card) !important;
+        margin: 0;
+        color: var(--surface-900);
         font-size: 14px;
+        border-radius: 10px !important;
 
         .token {
             &.tag,

@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import { TicketService } from './ticketservice';
-import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 
 

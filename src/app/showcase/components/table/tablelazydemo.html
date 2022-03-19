@@ -38,7 +38,7 @@
                     <th>
                         <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                <p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
                                         <div class="p-multiselect-representative-option">
                                             <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
@@ -104,7 +104,7 @@
             &lt;th&gt;
                 &lt;p-columnFilter field="representative" matchMode="in" [showMenu]="false"&gt;
                     &lt;ng-template pTemplate="filter" let-value let-filter="filterCallback"&gt;
-                        &lt;p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
+                        &lt;p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name"&gt;
                             &lt;ng-template let-option pTemplate="item"&gt;
                                 &lt;div class="p-multiselect-representative-option"&gt;
                                     &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
