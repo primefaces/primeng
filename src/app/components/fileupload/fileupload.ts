@@ -133,6 +133,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
 
     @Input() fileLimit: number;
 
+    @Input() fileSizeLocale: string;
+
+    @Input() fileSizeLocaleMatcher: string;
+
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
     @Output() onSend: EventEmitter<any> = new EventEmitter();
@@ -540,7 +544,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
         sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
         i = Math.floor(Math.log(bytes) / Math.log(k));
 
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        const fileSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+        return Intl.NumberFormat(this.fileSizeLocale, this.getFileSizeLocaleOptions()).format(fileSize) + ' ' + sizes[i];
     }
 
     onBasicUploaderClick() {
@@ -564,6 +569,13 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     getBlockableElement(): HTMLElement {
       return this.el.nativeElement.children[0];
     }
+
+    getFileSizeLocaleOptions() {
+        return {
+            localeMatcher: this.fileSizeLocaleMatcher,
+            useGrouping: false
+        }
+    } 
 
     get chooseButtonLabel(): string {
         return this.chooseLabel || this.config.getTranslation(TranslationKeys.CHOOSE);

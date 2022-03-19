@@ -21,6 +21,16 @@
                 </ng-template>
         </p-fileUpload>
 
+        <h5>Advanced With German File Size Locale</h5>
+        <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+                multiple="multiple" accept="image/*" maxFileSize="1000000" fileSizeLocale="de-DE">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+        </p-fileUpload>
+
         <h5>Basic</h5>
         <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
 
@@ -83,6 +93,20 @@ import &#123;HttpClientModule&#125; from '@angular/common/http';
                 <li>invalidFileSizeMessageSummary: '&#123;0&#125;: Invalid file size, '</li>
                 <li>invalidFileSizeMessageDetail: string = 'maximum upload size is &#123;0&#125;.'</li>
             </ul>
+
+            <h5>File Size Locale</h5>
+            <p><i>fileSizeLocale</i> option is available to set the localization information for the file size label such as grouping and decimal symbols where default value is the browser locale. <br>
+                Locales are defined per <a href="https://tools.ietf.org/html/rfc5646">BCP Language Tag</a>.</p>
+
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+German Locale
+&lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
+        accept="image/*" fileSizeLocale="de-DE"&gt;&lt;/p-fileUpload&gt;
+
+United States Locale
+&lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
+        accept="image/*" fileSizeLocale="en-US"&gt;&lt;/p-fileUpload&gt;
+</app-code>
 
             <h5>Templating</h5>
             <p>File list UI is customizable using a ng-template called "file" that gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable.
@@ -191,6 +215,20 @@ myUploader(event) &#123;
                             <td>number</td>
                             <td>null</td>
                             <td>Maximum number of files that can be uploaded.</td>
+                        </tr>
+                        <tr>
+                            <td>fileSizeLocale</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Locale to be used in formatting the file size.</td>
+                        </tr>
+                        <tr>
+                            <td>fileSizeLocaleMatcher</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". 
+                                See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation">Locale Negotation</a> for details.
+                            </td>
                         </tr>
                         <tr>
                             <td>invalidFileSizeMessageSummary</td>
