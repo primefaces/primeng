@@ -6,7 +6,8 @@ import {CommonModule} from '@angular/common';
     template: `
         <div [class]="styleClass" [ngStyle]="style" role="progressbar" aria-valuemin="0" [attr.aria-valuenow]="value" aria-valuemax="100"
             [ngClass]="{'p-progressbar p-component': true, 'p-progressbar-determinate': (mode === 'determinate'), 'p-progressbar-indeterminate': (mode === 'indeterminate')}">
-            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex">
+            <div *ngIf="mode === 'determinate'" class="p-progressbar-value" [style.width]="value + '%'" style="display:flex"
+                [ngClass]="{'p-progressbar-value-animate': (disableChangeAnimation === false)}">
                 <div *ngIf="showValue" class="p-progressbar-label" [style.display]="value != null && value !== 0 ? 'flex' : 'none'">{{value}}{{unit}}</div>
             </div>
             <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container">
@@ -34,6 +35,8 @@ export class ProgressBar {
     @Input() unit: string = '%';
 
     @Input() mode: string = 'determinate';
+
+    @Input() disableChangeAnimation: boolean = false;
 
 }
 

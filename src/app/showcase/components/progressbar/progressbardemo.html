@@ -13,6 +13,9 @@
         <h5>Dynamic</h5>
         <p-progressBar [value]="value"></p-progressBar>
 
+        <h5>Dynamic with disabled change animation</h5>
+        <p-progressBar [value]="fastChangingValue" [disableChangeAnimation]="true"></p-progressBar>
+
         <h5>Static</h5>
         <p-progressBar></p-progressBar>
 
@@ -43,7 +46,12 @@ export class ModelComponent &#123;
 &#125;
 </app-code>
 
-            <p>Indeterminate has no such a requirement and is simple enabled using <i>mode</i> property.</p>
+            <p>If you have values that change very fast/often, you should disable the transition animation to avoid display errors:</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-progressBar [value]="fastChangingValue" [disableChangeAnimation]="true"&gt;&lt;/p-progressBar&gt;
+</app-code>
+
+            <p>Indeterminate has no value requirement and is simply enabled using the <i>mode</i> property.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-progressBar mode="indeterminate"&gt;&lt;/p-progressBar&gt;
@@ -84,6 +92,12 @@ export class ModelComponent &#123;
                             <td>string</td>
                             <td>determinate</td>
                             <td>Defines the mode of the progress, valid values are "determinate" and "indeterminate".</td>
+                        </tr>
+                        <tr>
+                            <td>disableChangeAnimation</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Enable/Disable the animation of the value transition.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -143,6 +157,9 @@ export class ModelComponent &#123;
     &lt;h5&gt;Dynamic&lt;/h5&gt;
     &lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
 
+    &lt;h5>Dynamic without transition animation&lt;/h5&gt;
+    &lt;p-progressBar [value]="fastChangingValue" [disableChangeAnimation]="true"&gt;&lt;/p-progressBar&gt;
+
     &lt;h5&gt;Static&lt;/h5&gt;
     &lt;p-progressBar&gt;&lt;/p-progressBar&gt;
 
@@ -155,11 +172,12 @@ export class ModelComponent &#123;
 export class ProgressBarDemo &#123;
 
     value: number = 0;
+    fastChangingValue: number = 0;
 
     constructor(private messageService: MessageService) &#123;&#125;
 
     ngOnInit() &#123;
-        let interval = setInterval(() => &#123;
+        const interval = setInterval(() => &#123;
             this.value = this.value + Math.floor(Math.random() * 10) + 1;
             if (this.value >= 100) &#123;
                 this.value = 100;
@@ -167,6 +185,13 @@ export class ProgressBarDemo &#123;
                 clearInterval(interval);
             &#125;
         &#125;, 2000);
+
+        const fastInterval = setInterval(() => &#123;
+            this.fastChangingValue++;
+            if(this.fastChangingValue > 100) &#123;
+                this.fastChangingValue = 0;
+            &#125;
+        &#125;, 15);
     &#125;
 
 &#125;

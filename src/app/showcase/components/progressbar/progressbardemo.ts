@@ -8,11 +8,12 @@ import {MessageService} from 'primeng/api';
 export class ProgressBarDemo {
 
     value: number = 0;
-    
+    fastChangingValue: number = 0;
+
     constructor(private messageService: MessageService) {}
 
     ngOnInit() {
-        let interval = setInterval(() => {
+        const interval = setInterval(() => {
             this.value = this.value + Math.floor(Math.random() * 10) + 1;
             if (this.value >= 100) {
                 this.value = 100;
@@ -20,6 +21,12 @@ export class ProgressBarDemo {
                 clearInterval(interval);
             }
         }, 2000);
-    }
 
+        const fastInterval = setInterval(() => {
+            this.fastChangingValue++;
+            if(this.fastChangingValue > 100) {
+                this.fastChangingValue = 0;
+            }
+        }, 15);
+    }
 }
