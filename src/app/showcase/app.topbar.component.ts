@@ -406,6 +406,13 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         }
     }
 
+    unbindScrollListener() {
+        if (this.scrollListener) {
+            window.removeEventListener('scroll', this.scrollListener);
+            this.scrollListener = null;
+        }
+    }
+
     toggleMenu(event: Event, index: number) {
         this.activeMenuIndex = this.activeMenuIndex === index ? null : index;
         event.preventDefault();
@@ -431,5 +438,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+
+        this.unbindScrollListener();
     }
 }
