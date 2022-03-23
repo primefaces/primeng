@@ -173,6 +173,16 @@ export class ObjectUtils {
         return str;
     }
 
+    public static htmlEncode(str){
+        if (str) {
+            return str.replace(/[^\w. ]/gi, function(c){
+                return '&#'+c.charCodeAt(0)+';';
+            });
+        }
+
+        return null;
+    }
+
     public static isEmpty(value) {
         return (
             value === null || value === undefined || value === '' ||
