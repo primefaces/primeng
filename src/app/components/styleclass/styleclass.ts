@@ -171,7 +171,8 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 if (getComputedStyle(this.target).getPropertyValue('position') === 'static') {
                     this.unbindDocumentListener();
                 }
-                else  if (!this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !this.target.contains(event.target)) {
+                else  if (this.target.offsetParent !== null && !this.el.nativeElement.isSameNode(event.target) 
+                    && !this.el.nativeElement.contains(event.target) && !this.target.contains(event.target)) {
                     this.leave();
                 }
             });
