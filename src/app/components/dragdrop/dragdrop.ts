@@ -200,10 +200,11 @@ export class Droppable implements AfterViewInit, OnDestroy {
     @HostListener('drop', ['$event'])
     drop(event) {
         if (this.allowDrop(event)) {
-            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
             event.preventDefault();
             this.onDrop.emit(event);
         }
+        // Always remove the class from the dropped element
+        DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
     }
 
     @HostListener('dragenter', ['$event'])
