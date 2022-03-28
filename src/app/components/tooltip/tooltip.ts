@@ -1,7 +1,7 @@
 import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, Input, NgZone, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils'
+import { ZIndexUtils } from 'primeng/utils'
 import { PrimeNGConfig } from 'primeng/api';
 
 export interface TooltipOptions {
@@ -70,7 +70,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         tooltipEvent: 'hover',
         appendTo: 'body',
         tooltipZIndex: 'auto',
-        escape: false,
+        escape: true,
         positionTop: 0,
         positionLeft: 0
     }
@@ -332,8 +332,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.tooltipText.appendChild(document.createTextNode(this.getOption('tooltipLabel')));
         }
         else {
-            let tooltipLabel = ObjectUtils.htmlEncode(this.getOption('tooltipLabel'));
-            this.tooltipText.innerHTML = tooltipLabel;
+            this.tooltipText.innerHTML = this.getOption('tooltipLabel');
         }
     }
 
