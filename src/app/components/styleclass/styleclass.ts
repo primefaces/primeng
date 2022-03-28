@@ -168,15 +168,21 @@ export class StyleClass implements AfterViewInit, OnDestroy {
     bindDocumentListener() {
         if (!this.documentListener) {
             this.documentListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', event => {
-                if (getComputedStyle(this.target).getPropertyValue('position') === 'static') {
+                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static')
                     this.unbindDocumentListener();
-                }
-                else  if (this.target.offsetParent !== null && !this.el.nativeElement.isSameNode(event.target) 
-                    && !this.el.nativeElement.contains(event.target) && !this.target.contains(event.target)) {
+                else if (this.isOutsideClick(event))
                     this.leave();
-                }
             });
         }
+    }
+
+    isVisible() {
+        return this.target.offsetParent !== null;
+    }
+
+    isOutsideClick(event: MouseEvent) {
+        return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && 
+            !this.target.contains(<HTMLElement> event.target);
     }
 
     unbindDocumentListener() {
