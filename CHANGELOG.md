@@ -1,5 +1,16 @@
 # Changelog
 
+## [13.3.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-28)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.0...13.3.1)
+
+**Implemented New Features and Enhancements:**
+
+- Tooltip | Escape encode enhancement [\#11332](https://github.com/primefaces/primeng/issues/11332)
+
+**Fixed bugs:**
+- pStyleClass may fail to enter the element [\#11341](https://github.com/primefaces/primeng/issues/11341)
+
 ## [13.3.0](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-16)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.2.1...13.3.0)
