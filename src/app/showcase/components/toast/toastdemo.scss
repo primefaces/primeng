@@ -22,3 +22,9 @@ button {
         }
     }
 }
+
+:host ::ng-deep { 
+    .p-toast{
+        z-index:4;
+    }
+}
