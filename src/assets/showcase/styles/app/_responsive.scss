@@ -80,9 +80,12 @@
     .layout-wrapper {
         .layout-content {
             margin-left: 0;
-            padding-top:110px;
+            padding-top: 110px;
 
             .content-section {
+                padding-left: 2rem;
+                padding-right: 2rem;
+
                 &.introduction {
                     flex-direction: column;
 
@@ -167,20 +170,11 @@
         }
     }
 
-    .layout-topbar {
-        .topbar-menu {
-            > li {
-                &.topbar-submenu {
-                    position: static;
-
-                    > ul {
-                        top: 110px;
-                        position: fixed;
-                        right: auto;
-                        left: 0;
-                        width: 100vw;
-                    }
-                }
+    .layout-wrapper {
+        .layout-content {
+            .content-section {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
     }

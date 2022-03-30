@@ -70,7 +70,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         tooltipEvent: 'hover',
         appendTo: 'body',
         tooltipZIndex: 'auto',
-        escape: false,
+        escape: true,
         positionTop: 0,
         positionLeft: 0
     }
