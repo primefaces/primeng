@@ -26,7 +26,7 @@ let idx: number = 0;
             </legend>
             <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}"
                         [attr.aria-labelledby]="id" [attr.aria-hidden]="collapsed"
-                         (@fieldsetContent.done)="onToggleDone($event)" role="region">
+                         (@fieldsetContent.done)="onToggleDone()" role="region">
                 <div class="p-fieldset-content">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -131,7 +131,7 @@ export class Fieldset implements AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    onToggleDone(event: AnimationEvent) {
+    onToggleDone() {
         this.animating = false;
     }
 
