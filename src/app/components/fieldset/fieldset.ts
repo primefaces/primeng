@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, QueryList, ContentChildren, TemplateRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
@@ -26,7 +26,7 @@ let idx: number = 0;
             </legend>
             <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}"
                         [attr.aria-labelledby]="id" [attr.aria-hidden]="collapsed"
-                         (@fieldsetContent.done)="onToggleDone($event)" role="region">
+                         (@fieldsetContent.done)="onToggleDone()" role="region">
                 <div class="p-fieldset-content">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -131,7 +131,7 @@ export class Fieldset implements AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    onToggleDone(event: Event) {
+    onToggleDone() {
         this.animating = false;
     }
 
