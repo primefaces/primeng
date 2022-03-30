@@ -101,13 +101,15 @@ import { Subscription } from 'rxjs';
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 1)">Templates</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
-                        <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
+                        <li class="topbar-submenu-header">FREE ADMIN TEMPLATE</li>
                         <li>
                             <a href="https://www.primefaces.org/sakai-ng">
                                 <img alt="Sakai" src="assets/showcase/images/layouts/sakai-logo.svg">
                                 <span>Sakai</span>
                             </a>
                         </li>
+                        <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
+
                         <li>
                             <a href="https://www.primefaces.org/layouts/verona-ng">
                                 <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
@@ -201,7 +203,7 @@ import { Subscription } from 'rxjs';
                         <li>
                             <a href="https://www.primefaces.org/layouts/apollo-ng">
                                 <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.png">
-                                <span>Apollo</span>
+                                <span>Apollo</span><span class="theme-badge darkmode">darkmode</span>
                             </a>
                         </li>
                         <li>
