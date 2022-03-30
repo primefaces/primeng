@@ -46,13 +46,10 @@
             </ng-template>
         </p-multiSelect>
     
-        <h5>Virtual Scroll</h5>
-        <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
-            <ng-template let-country pTemplate="item">
-                <div class="country-item">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
-                    <div>{{country.name}}</div>
-                </div>
+        <h5>Virtual Scroll (1000 Items)</h5>
+        <p-multiSelect [options]="virtualItems" [showToggleAll]="false" [(ngModel)]="selectedItems" optionLabel="label" [virtualScroll]="true" [filter]="true" [itemSize]="44" placeholder="Select Item" class="multiselect-custom-virtual-scroll">
+            <ng-template let-item pTemplate="item">
+                <div>{{item.label}}</div>
             </ng-template>
         </p-multiSelect>
     </div>

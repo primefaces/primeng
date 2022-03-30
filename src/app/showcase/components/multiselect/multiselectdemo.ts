@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {CountryService} from '../../service/countryservice';
 import {SelectItemGroup} from 'primeng/api';
 
 interface City {
@@ -36,9 +35,11 @@ export class MultiSelectDemo {
 
     countries: City[];
 
-    virtualCountries: Country[];
+    virtualItems: any[];
 
-    constructor(private countryService: CountryService) {
+    selectedItems: any[];
+
+    constructor() {
         this.cities = [
             {name: 'New York', code: 'NY'},
             {name: 'Rome', code: 'RM'},
@@ -89,9 +90,7 @@ export class MultiSelectDemo {
                 ]
             }
         ];
-
-        this.countryService.getCountries().then(countries => {
-            this.virtualCountries = countries;
-        });
+        
+        this.virtualItems = Array.from({ length: 1000 }, (_, i) => ({ label: `Item #${i}`, value: i }))
     }
 }
