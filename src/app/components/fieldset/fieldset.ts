@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, QueryList, ContentChildren, TemplateRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
@@ -131,7 +131,7 @@ export class Fieldset implements AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    onToggleDone(event: Event) {
+    onToggleDone(event: AnimationEvent) {
         this.animating = false;
     }
 
