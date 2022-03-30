@@ -1,5 +1,16 @@
 # Changelog
 
+## [13.3.2](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.1...13.3.2)
+
+**Fixed bugs:**
+- Calendar | Loses alignment when switching from year/month to date view [\#11362](https://github.com/primefaces/primeng/issues/11362)
+- Dialog | Scrolling breaks draggable dialog [\#11284](https://github.com/primefaces/primeng/issues/11284)
+- Event listener leak in ReorderableRow and ReorderableColumn [\#11357](https://github.com/primefaces/primeng/issues/11357)
+- Toast | z-index shouldn't removed when other toasts are shown [\#11313](https://github.com/primefaces/primeng/issues/11313)
+- Tooltip escape parameter not working after update [\#11348](https://github.com/primefaces/primeng/issues/11348)
+
 ## [13.3.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-28)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.3.0...13.3.1)
