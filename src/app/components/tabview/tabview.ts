@@ -438,7 +438,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
     }
 
     calculateAvailableSpace(){ 
-        if(this.containerEl){
+        if (this.containerEl) {
             const containerWidth = DomHandler.getOuterWidth(this.containerEl.nativeElement);
             const elementWidth = DomHandler.getOuterWidth(this.navbar.nativeElement.firstChild);
             const elementCount = this.navbar.nativeElement.children.length - 1;
