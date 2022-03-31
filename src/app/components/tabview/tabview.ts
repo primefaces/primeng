@@ -150,9 +150,9 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 @Component({
     selector: 'p-tabView',
     template: `
-        <div [ngClass]="{'p-tabview p-component': true, 'p-tabview-scrollable': scrollable}" [ngStyle]="style" [class]="styleClass">
-            <div class="p-tabview-nav-container">
-                <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
+        <div [ngClass]="{'p-tabview p-component': true, 'p-tabview-scrollable': scrollable && scroll}" [ngStyle]="style" [class]="styleClass">
+            <div #containerEl class="p-tabview-nav-container">
+                <button *ngIf="scrollable && !backwardIsDisabled && scroll" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
                     <span class="pi pi-chevron-left"></span>
                 </button>
                 <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)">
@@ -175,7 +175,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                         <li #inkbar class="p-tabview-ink-bar"></li>
                     </ul>
                 </div>
-                <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
+                <button *ngIf="scrollable && !forwardIsDisabled && scroll" #nextBtn class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
                     <span class="pi pi-chevron-right"></span>
                 </button>
             </div>
@@ -203,6 +203,8 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     @Input() scrollable: boolean;
 
+    @ViewChild('containerEl') containerEl: ElementRef;
+
     @ViewChild('content') content: ElementRef;
 
     @ViewChild('navbar') navbar: ElementRef;
@@ -229,6 +231,8 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     preventActiveIndexPropagation: boolean;
 
+    scroll: boolean = null;
+
     tabChanged: boolean;
 
     backwardIsDisabled: boolean = true;
@@ -250,6 +254,11 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
             this.updateInkBar();
             this.tabChanged = false;
         }
+
+        if(this.scroll === null || this.scroll === undefined) {
+            this.calculateAvailableSpace();
+        }
+
     }
 
     initTabs(): void {
@@ -426,6 +435,22 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         const lastPos = content.scrollWidth - width;
 
         content.scrollLeft = pos >= lastPos ? lastPos : pos;
+    }
+
+    calculateAvailableSpace(){ 
+        if(this.containerEl){
+            const containerWidth = DomHandler.getOuterWidth(this.containerEl.nativeElement);
+            const elementWidth = DomHandler.getOuterWidth(this.navbar.nativeElement.firstChild);
+            const elementCount = this.navbar.nativeElement.children.length - 1;
+
+            if (elementWidth * elementCount > containerWidth) {
+                this.scroll = true;
+            } else {
+                this.scroll = false;
+            }
+
+            this.cd.markForCheck();
+        }
     }
 }
 
