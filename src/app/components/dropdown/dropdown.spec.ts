@@ -100,6 +100,8 @@ describe('Dropdown', () => {
 		expect(containerEl.className).toContain('p-disabled')
 		expect(hiddenEl.disabled).toEqual(true);
 		expect(editableInputEl.disabled).toEqual(true);
+		expect(hiddenEl.attributes.getNamedItem('aria-disabled')).toBeTruthy();
+		expect(editableInputEl.attributes.getNamedItem("aria-disabled")).toBeTruthy();
 	});
 
 	it('should change dropdown icon', () => {
