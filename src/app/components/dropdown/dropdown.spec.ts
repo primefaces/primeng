@@ -546,4 +546,11 @@ describe('Dropdown', () => {
 
 		expect(groupDropdown.selectedOption.label).toEqual("Mercedes");
 	});
+
+	[null, undefined, ''].map(value => it('should return filled false when value is not provided', () => {
+		dropdown.value = value;
+		fixture.detectChanges();
+
+		expect(dropdown.filled).toBeFalsy();
+	}));
 });

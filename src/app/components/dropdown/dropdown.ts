@@ -475,7 +475,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
     }
 
-    get filled() {
+    get filled(): boolean {
+        if (typeof this.value === 'string') return !!this.value;
+        
         return this.value || this.value != null || this.value != undefined;
     }
 
