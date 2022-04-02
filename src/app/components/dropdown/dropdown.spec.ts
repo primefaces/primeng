@@ -88,7 +88,7 @@ describe('Dropdown', () => {
       dropdown = fixture.componentInstance;
     });
 
-	it('should disabled', () => {
+	it('should be disabled', () => {
 		fixture.componentInstance.disabled=true;
 		fixture.componentInstance.editable=true;
 		fixture.detectChanges();
