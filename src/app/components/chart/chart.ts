@@ -17,8 +17,6 @@ import Chart from 'chart.js/auto';
 })
 export class UIChart implements AfterViewInit, OnDestroy {
 
-    @Input() type: string;
-
     @Input() plugins: any[] = [];
 
     @Input() width: string;
@@ -30,6 +28,8 @@ export class UIChart implements AfterViewInit, OnDestroy {
     @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
+    
+    _type: string;
 
     _data: any;
 
@@ -38,6 +38,11 @@ export class UIChart implements AfterViewInit, OnDestroy {
     chart: any;
 
     constructor(public el: ElementRef) {}
+
+    @Input() set type (val: string){
+        this._type = type;
+        this.reinit();
+    }
 
     @Input() get data(): any {
         return this._data;
@@ -83,7 +88,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
         }
 
         this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
-            type: this.type,
+            type: this._type,
             data: this.data,
             options: this.options,
             plugins: this.plugins
