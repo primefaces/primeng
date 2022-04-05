@@ -22,7 +22,7 @@ import {TooltipModule} from 'primeng/tooltip';
                             <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
                                 [target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                                 <ng-container *ngIf="!itemTemplate">
-                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>
@@ -33,7 +33,7 @@ import {TooltipModule} from 'primeng/tooltip';
                                 [target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                 [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
                                 <ng-container *ngIf="!itemTemplate">
-                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>

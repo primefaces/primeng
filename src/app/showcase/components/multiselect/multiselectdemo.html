@@ -46,7 +46,7 @@
             </ng-template>
         </p-multiSelect>
     
-        <h5>Virtual Scroll (10000 Items)</h5>
+        <h5>Virtual Scroll</h5>
         <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
@@ -789,7 +789,7 @@ export class MultiSelectDemo &#123;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+&lt;h5&gt;Virtual Scroll&lt;/h5&gt;
 &lt;p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;

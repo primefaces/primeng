@@ -4212,6 +4212,10 @@ export class ReorderableRow implements AfterViewInit {
 
         event.preventDefault()
     }
+
+    ngOnDestroy() {
+        this.unbindEvents();
+    }
 }
 
 @Component({

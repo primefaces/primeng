@@ -1,5 +1,49 @@
 # Changelog
 
+## [13.3.2](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.1...13.3.2)
+
+**Fixed bugs:**
+- Calendar | Loses alignment when switching from year/month to date view [\#11362](https://github.com/primefaces/primeng/issues/11362)
+- Dialog | Scrolling breaks draggable dialog [\#11284](https://github.com/primefaces/primeng/issues/11284)
+- Event listener leak in ReorderableRow and ReorderableColumn [\#11357](https://github.com/primefaces/primeng/issues/11357)
+- Toast | z-index shouldn't removed when other toasts are shown [\#11313](https://github.com/primefaces/primeng/issues/11313)
+- Tooltip escape parameter not working after update [\#11348](https://github.com/primefaces/primeng/issues/11348)
+
+## [13.3.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-28)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.0...13.3.1)
+
+**Implemented New Features and Enhancements:**
+
+- Tooltip | Escape encode enhancement [\#11332](https://github.com/primefaces/primeng/issues/11332)
+
+**Fixed bugs:**
+- pStyleClass may fail to enter the element [\#11341](https://github.com/primefaces/primeng/issues/11341)
+
+## [13.3.0](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-16)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.2.1...13.3.0)
+
+**Implemented New Features and Enhancements:**
+
+- SplitButton | TieredMenu Support [\#11301](https://github.com/primefaces/primeng/issues/11301)
+- SplitButton | Templating Support [\#11300](https://github.com/primefaces/primeng/issues/11300)
+- OrderList | disabled support [\#11298](https://github.com/primefaces/primeng/issues/11298)
+- OrderList | Transfer buttons disable check [\#11297](https://github.com/primefaces/primeng/issues/11297)
+- PickList | Keep selection after moving an item [\#11283](https://github.com/primefaces/primeng/issues/11283)
+- PickList | Transfer buttons disable check [\#11281](https://github.com/primefaces/primeng/issues/11281)
+- Password, CascadeSelect, MultiSelect | ariaLabel and label does not exist [\#11277](https://github.com/primefaces/primeng/issues/11277)
+
+**Fixed bugs:**
+- Picklist | Selection is not updated when drag and drop transfer [\#11296](https://github.com/primefaces/primeng/issues/11296)
+- TieredMenu | responsive is not correct [\#11276](https://github.com/primefaces/primeng/issues/11276)
+- Property target does not working on p-menu [\#11226](https://github.com/primefaces/primeng/issues/11226)
+- Virtual Scroll with Lazy Loading fires onLazyLoad when lazyLoadOnInit is false [\#10414](https://github.com/primefaces/primeng/issues/10414)
+- Clear filter on table calls multiple times onLazyLoad [\#9980](https://github.com/primefaces/primeng/issues/9980)
+
+
 ## [13.2.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-02)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.2.0...13.2.1)

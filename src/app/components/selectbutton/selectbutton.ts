@@ -116,9 +116,26 @@ export class SelectButton implements ControlValueAccessor {
                 this.removeOption(option);
             else
                 this.value = [...(this.value||[]), this.getOptionValue(option)];
+
+            this.onModelChange(this.value);
+
+            this.onChange.emit({
+                originalEvent: event,
+                value: this.value
+            });
         }
         else {
-            this.value = this.getOptionValue(option);
+            let value = this.getOptionValue(option);
+            
+            if (this.value !== value) {
+                this.value = this.getOptionValue(option);
+                this.onModelChange(this.value);
+
+                this.onChange.emit({
+                    originalEvent: event,
+                    value: this.value
+                });
+            }
         }
 
         this.onOptionClick.emit({
@@ -127,12 +144,6 @@ export class SelectButton implements ControlValueAccessor {
             index: index
         });
 
-        this.onModelChange(this.value);
-
-        this.onChange.emit({
-            originalEvent: event,
-            value: this.value
-        });
     }
 
     onBlur() {

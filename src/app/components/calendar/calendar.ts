@@ -911,16 +911,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     switchToMonthView(event) {
-        this.currentView = 'month';
-        this.cd.detectChanges();
-        this.alignOverlay();
+        this.setCurrentView('month');
         event.preventDefault();
     }
 
     switchToYearView(event) {
-        this.currentView = 'year';
-        this.cd.detectChanges();
-        this.alignOverlay();
+        this.setCurrentView('year');
         event.preventDefault();
     }
 
@@ -975,9 +971,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         else {
             this.currentMonth = index;
-            this.currentView = 'date';
             this.createMonths(this.currentMonth, this.currentYear);
-            this.cd.markForCheck();
+            this.setCurrentView('date');
             this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
         }
     }
@@ -988,7 +983,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         else {
             this.currentYear = year;
-            this.currentView = 'month';
+            this.setCurrentView('month');
             this.onYearChange.emit({month: this.currentMonth + 1, year: this.currentYear});
         }
     }
@@ -1060,6 +1055,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else {
             this.currentHour = hours;
         }
+    }
+
+    setCurrentView(currentView: string) {
+        this.currentView = currentView;
+        this.cd.detectChanges();
+        this.alignOverlay();
     }
 
     selectDate(dateMeta) {
