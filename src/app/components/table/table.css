@@ -129,6 +129,10 @@
     z-index: 1;
 }
 
+.p-datatable-scrollable-vertical .p-datatable-virtual-scroll thead {
+    padding-right: 17px;
+}
+
 .p-datatable-scrollable-both .p-datatable-thead > tr > th,
 .p-datatable-scrollable-both .p-datatable-tbody > tr > td,
 .p-datatable-scrollable-both .p-datatable-tfoot > tr > td,
