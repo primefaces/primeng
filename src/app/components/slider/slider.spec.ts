@@ -413,4 +413,25 @@ describe('Slider', () => {
 
         expect(slider.values[1]).toEqual(80);
     });
+
+    it('should use correct handle when both are at max',() => {
+        slider.range = true;
+        slider.handleValues = [0,100];
+        slider.values = [20,80];
+        slider.min = 20;
+        slider.max = 80;
+        slider.handleIndex = 0
+        fixture.detectChanges();
+
+        slider.updateValue(110);
+        fixture.detectChanges();
+        
+        const sliderHandlers = fixture.debugElement.queryAll(By.css(".p-slider-handle"));
+        const firstSliderHandler = sliderHandlers[1];
+        firstSliderHandler.nativeElement.dispatchEvent(new Event("mousedown"));
+
+        expect(slider.handleIndex).toEqual(0);
+        slider.ngOnDestroy();
+        fixture.detectChanges();
+    });
 });
