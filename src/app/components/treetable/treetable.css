@@ -109,7 +109,7 @@ p-treetabletoggler + p-treetablecheckbox + span {
     height: 100%;
 }
 
-.p-treetable-flex-scrollable .p-treetable-scrollable-body {
+.p-treetable-flex-scrollable .p-treetable-virtual-scrollable-body {
     flex: 1;
 }
 
