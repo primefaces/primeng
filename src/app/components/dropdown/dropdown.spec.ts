@@ -23,7 +23,7 @@ class TestDropdownComponent {
 
 	groupedCars = [
 		{
-			label: 'Germany', value: 'germany.png', 
+			label: 'Germany', value: 'germany.png',
 			items: [
 				{label: 'Audi', value: 'Audi'},
 				{label: 'BMW', value: 'BMW'},
@@ -31,7 +31,7 @@ class TestDropdownComponent {
 			]
 		},
 		{
-			label: 'USA', value: 'usa.png', 
+			label: 'USA', value: 'usa.png',
 			items: [
 				{label: 'Cadillac', value: 'Cadillac'},
 				{label: 'Ford', value: 'Ford'},
@@ -39,7 +39,7 @@ class TestDropdownComponent {
 			]
 		},
 		{
-			label: 'Japan', value: 'japan.png', 
+			label: 'Japan', value: 'japan.png',
 			items: [
 				{label: 'Honda', value: 'Honda'},
 				{label: 'Mazda', value: 'Mazda'},
@@ -59,13 +59,13 @@ class TestDropdownComponent {
 	}
 }
 describe('Dropdown', () => {
-    
+
     let dropdown: Dropdown;
     let testDropdown: Dropdown;
     let groupDropdown: Dropdown;
 	let fixture: ComponentFixture<Dropdown>;
 	let groupFixture: ComponentFixture<TestDropdownComponent>;
-    
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -80,7 +80,7 @@ describe('Dropdown', () => {
 		  TestDropdownComponent
         ]
       }).compileComponents();
-      
+
 	  fixture = TestBed.createComponent(Dropdown);
 	  groupFixture = TestBed.createComponent(TestDropdownComponent);
 	  groupDropdown = groupFixture.debugElement.children[0].componentInstance;
@@ -149,7 +149,7 @@ describe('Dropdown', () => {
 			{name: 'Paris', code: 'PRS'}
 		];
 		fixture.detectChanges();
-		
+
 		const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
 		container.click();
 		fixture.detectChanges();
@@ -168,7 +168,7 @@ describe('Dropdown', () => {
 			{name: 'Paris', code: 'PRS'}
 		];
 		fixture.detectChanges();
-		
+
 		const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
 		container.click();
 		fixture.detectChanges();
@@ -190,7 +190,7 @@ describe('Dropdown', () => {
 			{name: 'Paris', code: 'PRS'}
 		];
 		fixture.detectChanges();
-		
+
 		const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
 		container.click();
 		fixture.detectChanges();
@@ -212,7 +212,7 @@ describe('Dropdown', () => {
 		];
 		dropdown.showClear=true;
 		fixture.detectChanges();
-		
+
 		const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
 		container.click();
 		fixture.detectChanges();
@@ -241,7 +241,40 @@ describe('Dropdown', () => {
 			{label: 'Paris', code: 'PRS'}
 		];
 		fixture.detectChanges();
-		
+
+		const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
+		container.click();
+		fixture.detectChanges();
+
+		let items=fixture.debugElement.query(By.css('.p-dropdown-items'));
+		expect(items.nativeElement.children.length).toEqual(3);
+		const filterDiv = fixture.debugElement.query(By.css('.p-dropdown-filter-container'));
+		expect(filterDiv).toBeTruthy();
+		const filterInputEl = fixture.debugElement.query(By.css('.p-dropdown-filter'));
+		filterInputEl.nativeElement.value = "n";
+		filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
+		const event = {'target':{'value':'n'}};
+		dropdown.onFilterInputChange(event)
+		fixture.detectChanges();
+
+		items=fixture.debugElement.query(By.css('.p-dropdown-items'));
+		expect(items.nativeElement.children.length).toEqual(3);
+	}));
+
+	it('should filtered (options is an array of strings)', async(() => {
+		dropdown.filter = true;
+		dropdown.filterValue = "n";
+		fixture.detectChanges();
+
+		dropdown.options = [
+			'New York',
+			'Rome',
+			'London',
+			'Istanbul',
+			'Paris'
+		];
+		fixture.detectChanges();
+
 		const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
 		container.click();
 		fixture.detectChanges();
@@ -271,7 +304,7 @@ describe('Dropdown', () => {
 		];
 		dropdown.filter = true;
 		fixture.detectChanges();
-		
+
 		const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
 		container.click();
 		fixture.detectChanges();
@@ -286,7 +319,7 @@ describe('Dropdown', () => {
 		fixture.detectChanges();
 
 		const items = fixture.debugElement.query(By.css('.p-dropdown-items'));
-		const emptyMesage = items.children[0]; 
+		const emptyMesage = items.children[0];
 		expect(items.nativeElement.children.length).toEqual(1);
 		expect(emptyMesage).toBeTruthy();
 		expect(emptyMesage.nativeElement.textContent).toContain("No results found");
@@ -302,7 +335,7 @@ describe('Dropdown', () => {
 		];
 		dropdown.appendTo = 'body';
 		fixture.detectChanges();
-		
+
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 40;
@@ -328,7 +361,7 @@ describe('Dropdown', () => {
 		];
 		dropdown.appendTo = 'body';
 		fixture.detectChanges();
-		
+
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 32;
@@ -366,7 +399,7 @@ describe('Dropdown', () => {
 
 		groupFixture.debugElement.children[2].nativeElement.click();
 		groupFixture.detectChanges();
-		
+
 		expect(testDropdown.selectedOption.name).toEqual("New York");
 		const inputEl = groupFixture.debugElement.children[1].query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
@@ -393,7 +426,7 @@ describe('Dropdown', () => {
 		];
 		dropdown.appendTo = document.body;
 		fixture.detectChanges();
-		
+
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 40;
@@ -418,7 +451,7 @@ describe('Dropdown', () => {
 			{name: 'Paris', code: 'PRS'}
 		];
 		fixture.detectChanges();
-		
+
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 38 ;
@@ -439,7 +472,7 @@ describe('Dropdown', () => {
 			{name: 'Paris', code: 'PRS', inactive: true}
 		];
 		fixture.detectChanges();
-		
+
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 38 ;
@@ -459,7 +492,7 @@ describe('Dropdown', () => {
 			{label: 'Paris', value: 'PRS'}
 		];
 		fixture.detectChanges();
-		
+
 		const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
         keydownEvent.which = 40;
@@ -479,7 +512,7 @@ describe('Dropdown', () => {
 
 	it('should groupSelect with down key', () => {
 		groupFixture.detectChanges();
-		
+
 
 		const inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
@@ -502,7 +535,7 @@ describe('Dropdown', () => {
 
 	it('should groupSelect with up key', () => {
 		groupFixture.detectChanges();
-		
+
 
 		const inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
@@ -528,7 +561,7 @@ describe('Dropdown', () => {
 
 	it('should groupSelect with filter', () => {
 		groupFixture.detectChanges();
-		
+
 
 		const inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
