@@ -1,5 +1,6 @@
-<div class="landing {{config.dark ? 'landing-dark' : 'landing-light'}}">
+<div class="landing {{config.dark ? 'landing-dark' : 'landing-light'}}" [ngClass]="{'landing-news-active': app.newsActive}">
     <div class="landing-intro">
+        <app-news *ngIf="app.newsActive && app.announcement" (onNewsHide)="app.onNewsClose()" [announcement]="app.announcement"></app-news>
         <section #containerElement class="landing-header pad-section" [ngClass]="{'landing-header-active': menuActive}">
             <span>
                 <a href="/">

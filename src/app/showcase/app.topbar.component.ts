@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Input, OnInit, 
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
-import { VersionService } from './service/versionservice';
+import { JsonService } from './service/jsonservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 
@@ -348,12 +348,12 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     scrollListener: any;
 
-    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
+    constructor(private router: Router, private JsonService: JsonService, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
-        this.versionService.getVersions().then(data => this.versions = data);
+        this.JsonService.getVersions().then(data => this.versions = data);
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {

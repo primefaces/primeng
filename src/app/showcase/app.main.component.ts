@@ -4,6 +4,7 @@ import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 import { PrimeNGConfig } from 'primeng/api';
+import { AppComponent } from './app.component';
 
 declare let gtag: Function;
 
@@ -24,7 +25,7 @@ export class AppMainComponent implements OnInit {
 
     public subscription: Subscription;
 
-    constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig) {}
+    constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) {}
 
     ngOnInit() {
         this.primengConfig.ripple = true;

@@ -35,7 +35,7 @@ import { NodeService } from './service/nodeservice';
 import { IconService } from './service/iconservice';
 import { CustomerService } from './service/customerservice';
 import { PhotoService } from './service/photoservice';
-import { VersionService } from './service/versionservice';
+import { JsonService } from './service/jsonservice';
 import { AppConfigService } from './service/appconfigservice';
 import { ProductService } from './service/productservice';
 
@@ -93,7 +93,7 @@ import { AppMainComponent } from './app.main.component';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CarService,CountryService,EventService,NodeService,IconService,CustomerService,PhotoService,VersionService,AppConfigService, ProductService
+        CarService,CountryService,EventService,NodeService,IconService,CustomerService,PhotoService,JsonService,AppConfigService, ProductService
     ],
     bootstrap: [AppComponent]
 })
