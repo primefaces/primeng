@@ -1,4 +1,4 @@
-<div class="content-section implementation">
+<div class="content-section implementation" style="height: calc(100vh - 149px)">
     <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="flex"
         [virtualScroll]="true" [virtualRowHeight]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
         <ng-template pTemplate="caption">
