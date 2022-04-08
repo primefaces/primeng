@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="customers">
+        <p-table [value]="customers" scrollHeight="400px" [scrollable]="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>
@@ -50,7 +50,7 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="customers"&gt;
+&lt;p-table [value]="customers" scrollHeight="400px" [scrollable]="true"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th&gt;Name&lt;/th&gt;
