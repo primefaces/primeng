@@ -116,7 +116,7 @@ import { AppMainComponent } from './app.main.component';
                     {path: 'virtualscroller', loadChildren: () => import('./components/virtualscroller/virtualscrollerdemo.module').then(m => m.VirtualScrollerDemoModule)}
                 ],
             },
-        ],{scrollPositionRestoration: 'enabled'})
+        ],{scrollPositionRestoration: 'enabled', useHash: false})
     ],
     exports: [RouterModule]
 })
