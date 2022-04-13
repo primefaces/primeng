@@ -20,10 +20,10 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-dropdownItem',
     template: `
-        <li (click)="onOptionClick($event)" role="option" pRipple
+        <li class="p-dropdown-item" (click)="onOptionClick($event)" role="option" pRipple
             [attr.aria-label]="label" [attr.aria-selected]="selected"
             [ngStyle]="{'height': itemSize + 'px'}" [id]="selected ? 'p-highlighted-option':''"
-            [ngClass]="{'p-dropdown-item':true, 'p-highlight': selected, 'p-disabled': disabled}">
+            [ngClass]="{'p-highlight': selected, 'p-disabled': disabled}">
             <span *ngIf="!template">{{label||'empty'}}</span>
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
@@ -135,7 +135,10 @@ export class DropdownItem {
                         </li>
                     </ul>
                 </div>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                <div class="p-dropdown-footer" *ngIf="footerTemplate">
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
             </div>
         </div>
     `,
