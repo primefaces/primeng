@@ -1,5 +1,17 @@
 # Changelog
 
+## [13.3.3](https://github.com/primefaces/primeng/tree/HEAD) (2022-04-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.2...13.3.3)
+
+**Implemented New Features and Enhancements:**
+
+- Primary Color Palette [\#11413](https://github.com/primefaces/primeng/issues/11413)
+
+**Fixed bugs:**
+- onChange event triggered for selectButton even when no change occurs [\#11384](https://github.com/primefaces/primeng/issues/11384)
+- TreeTable | FlexScroll not working [\#11390](https://github.com/primefaces/primeng/issues/11390)
+
 ## [13.3.2](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.3.1...13.3.2)
