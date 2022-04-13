@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, Component, AfterContentInit, ViewChild, ChangeDetectorRef, forwardRef, Output, EventEmitter} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, Component, AfterContentInit, ViewChild, ChangeDetectorRef, forwardRef, Output, EventEmitter, Pipe, PipeTransform} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
@@ -239,6 +239,17 @@ export class PasswordDirective implements OnDestroy,DoCheck {
     }
 }
 
+type Mapper<T, G> = (item: T, ...args: any[]) => G;
+
+@Pipe({
+    name: 'mapper',
+    pure: true
+})
+export class MapperPipe implements PipeTransform {
+    public transform<T, G>(value: T, mapper: Mapper<T, G>, ...args: unknown[]): G {
+        return mapper(value, ...args);
+    }
+}
 
 export const Password_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -248,11 +259,11 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
-            <input #input [attr.label]="label" [attr.aria-label]="ariaLabel" [attr.aria-labelledBy]="ariaLabelledBy" [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onInputFocus($event)"
+        <div [ngClass]="toggleMask | mapper: containerClass" [ngStyle]="style" [class]="styleClass">
+            <input #input [attr.label]="label" [attr.aria-label]="ariaLabel" [attr.aria-labelledBy]="ariaLabelledBy" [attr.id]="inputId" pInputText [ngClass]="disabled | mapper: inputFieldClass" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="unmasked | mapper: inputType" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" />
             <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
-            <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
+            <i *ngIf="toggleMask" [ngClass]="unmasked | mapper: toggleIconClass" (click)="onMaskToggle()"></i>
             <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -261,7 +272,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-meter">
-                        <div [ngClass]="strengthClass()" [ngStyle]="{'width': meter ? meter.width : ''}"></div>
+                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{'width': meter ? meter.width : ''}"></div>
                     </div>
                     <div className="p-password-info">{{infoText}}</div>
                 </ng-template>
@@ -634,24 +645,24 @@ export class Password implements AfterContentInit,OnInit {
         }
     }
 
-    containerClass() {
+    containerClass(toggleMask: boolean) {
         return {'p-password p-component p-inputwrapper': true,
-            'p-input-icon-right': this.toggleMask
+            'p-input-icon-right': toggleMask
         };
     }
 
-    inputFieldClass() {
+    inputFieldClass(disabled: boolean) {
         return {'p-password-input' : true,
-                'p-disabled': this.disabled
+                'p-disabled': disabled
         };
     }
 
-    toggleIconClass() {
-        return this.unmasked ? 'pi pi-eye-slash' : 'pi pi-eye';
+    toggleIconClass(unmasked: boolean) {
+        return unmasked ? 'pi pi-eye-slash' : 'pi pi-eye';
     }
 
-    strengthClass() {
-        return `p-password-strength ${this.meter ? this.meter.strength : ''}`;
+    strengthClass(meter: any) {
+        return `p-password-strength ${meter ? meter.strength : ''}`;
     }
 
     filled() {
@@ -683,8 +694,8 @@ export class Password implements AfterContentInit,OnInit {
         }
     }
 
-    inputType() {
-        return this.unmasked ? 'text' : 'password';
+    inputType(unmasked: boolean) {
+        return unmasked ? 'text' : 'password';
     }
 
     getTranslation(option: string) {
@@ -721,6 +732,6 @@ export class Password implements AfterContentInit,OnInit {
 @NgModule({
     imports: [CommonModule, InputTextModule],
     exports: [PasswordDirective, Password, SharedModule],
-    declarations: [PasswordDirective, Password]
+    declarations: [PasswordDirective, Password, MapperPipe]
 })
 export class PasswordModule { }
