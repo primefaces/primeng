@@ -27,7 +27,7 @@ import { AppConfigService } from '../../service/appconfigservice';
 })
 export class ColorsDemoComponent {
 
-    colors: any[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'red', 'teal', 'orange', 'bluegray', 'purple', 'gray'];
+    colors: any[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'red', 'teal', 'orange', 'bluegray', 'purple', 'gray', 'primary'];
 
     shades: any[] = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
