@@ -1243,9 +1243,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     isYearSelected(year) {
         if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
-
-            return !this.isMultipleSelection() ? (value.getFullYear() === year) : false;
+            if (this.isMultipleSelection()) {
+                return false
+            }
+            else if (this.isRangeSelection()) {
+                if (this.value[1])
+                    return this.isYearEquals(this.value[0], year) || this.isYearEquals(this.value[1], year) || this.isYearBetween(this.value[0], this.value[1], year);
+                else
+                    return this.isYearEquals(this.value[0], year)
+            }
+            else {
+                return this.isYearEquals(this.value, year);
+            }
         }
 
         return false;
@@ -1263,6 +1272,20 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (start && end) {
             let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
+        }
+
+        return between;
+    }
+
+    isYearEquals(value, year) {
+        if (value && value instanceof Date) return value.getFullYear() === year;
+        else return false;
+    }
+
+    isYearBetween(start, end, year) {
+        let between: boolean = false;
+        if (start && start instanceof Date && end && end instanceof Date) {
+            return start.getFullYear() <= year && end.getFullYear() >= year;
         }
 
         return between;
