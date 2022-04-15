@@ -12,8 +12,6 @@ export class TableLazyDemo implements OnInit {
 
     totalRecords: number;
 
-    cols: any[];
-
     loading: boolean;
 
     representatives: Representative[];
