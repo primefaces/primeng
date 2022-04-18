@@ -645,7 +645,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
-    label   () {
+    label() {
         if (this.selectionPath)
             return this.getOptionLabel(this.selectionPath[this.selectionPath.length - 1]);
         else
