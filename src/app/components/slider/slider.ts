@@ -445,7 +445,6 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 }
                 else if (value < this.values[0]) {
                     this.offset = this.handleValues[1];
-
                 }
                 this.sliderHandleEnd.nativeElement.focus();
             }
@@ -453,8 +452,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
             this.diff = Math.abs(this.handleValues[0] - this.handleValues[1]);
             this.offset = Math.min(this.handleValues[0], this.handleValues[1])
             this.values[this.handleIndex] = this.getNormalizedValue(value);
-            this.values = this.values.slice();
-            this.onModelChange(this.values);
+            let newValues = [this.minVal, this.maxVal];
+            this.onModelChange(newValues);
             this.onChange.emit({event: event, values: this.values});
         }
         else {
@@ -497,6 +496,13 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     ngOnDestroy() {
         this.unbindDragListeners();
+    }
+
+    get minVal () {
+        return Math.min(this.values[1], this.values[0]);
+    }
+    get maxVal () {
+        return Math.max(this.values[1], this.values[0]);
     }
 }
 
