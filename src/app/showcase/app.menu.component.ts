@@ -53,6 +53,11 @@ declare let gtag: Function;
                     <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors</a>
                     <a href="https://www.primefaces.org/designer/api/primeng/13.0.0">SASS API</a>
                 </div>
+                
+                <div class="menu-category">Accessibility</div>
+                <div class="menu-items">
+                    <a [routerLink]=" ['/accessibility']" routerLinkActive="router-link-exact-active">Overview</a>
+                </div>
 
                 <div class="menu-category">PrimeBlocks</div>
                 <div class="menu-items">
@@ -372,6 +377,12 @@ export class AppMenuComponent {
             items: [
                 {label: 'Guide', value: '/theming'},
                 {label: 'Colors', value: '/colors'}
+            ]
+        },
+        {
+            label: 'Accessibility', value: 'accessibility',
+            items: [
+                {label: 'Overview', value: '/accessibility'},
             ]
         },
         {
