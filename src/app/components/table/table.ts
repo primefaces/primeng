@@ -1953,7 +1953,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
         let columnWidth = this.resizeColumnElement.offsetWidth;
         let newColumnWidth = columnWidth + delta;
-        let minWidth = this.resizeColumnElement.style.minWidth||15;
+        let minWidth = Number.parseInt(getComputedStyle(this.resizeColumnElement).minWidth)||15;
 
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
@@ -2339,7 +2339,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (ObjectUtils.isNotEmpty(widths)) {
                 this.createStyleElement();
-                
+
                 let innerHTML = '';
                 widths.forEach((width,index) => {
                     let style = this.scrollable ? `flex: 1 1 ${width}px !important` : `width: ${width}px !important`;
