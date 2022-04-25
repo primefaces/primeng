@@ -110,7 +110,7 @@ export interface LocaleSettings {
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event,y)" class="p-yearpicker-year" [ngClass]="{'p-highlight': isYearSelected(y)}" pRipple>
+                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event,y)" class="p-yearpicker-year" [ngClass]="{'p-highlight': isYearSelected(y), 'p-disabled': isLessThanMinYear(y) || isGreaterThanMaxYear(y)}" pRipple>
                             {{y}}
                         </span>
                     </div>
@@ -1289,6 +1289,26 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
 
         return between;
+    }
+
+    isLessThanMinYear(year) {
+        if (this.minDate) {
+          if (year < this.minDate.getFullYear()) {
+            return true;
+          }
+        }
+
+        return false;
+    }
+
+    isGreaterThanMaxYear(year) {
+        if (this.maxDate) {
+          if (this.maxDate.getFullYear() < year) {
+            return true;
+          }
+        }
+
+        return false;
     }
 
     isSingleSelection(): boolean {
