@@ -1697,6 +1697,50 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-radius: 6px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
+.p-treeselect-panel .p-treeselect-header {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid #dee2e6;
+  color: #343a40;
+  background: #f8f9fa;
+  margin: 0;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-filter-container {
+  margin-right: 0.5rem;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-filter-container .p-treeselect-filter {
+  padding-right: 1.75rem;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-filter-container .p-treeselect-filter-icon {
+  right: 0.75rem;
+  color: #6c757d;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-filter-container.p-treeselect-clearable-filter .p-treeselect-filter {
+  padding-right: 3.5rem;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-filter-container.p-treeselect-clearable-filter .p-treeselect-filter-clear-icon {
+  right: 2.5rem;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-close {
+  width: 2rem;
+  height: 2rem;
+  color: #6c757d;
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-close:enabled:hover {
+  color: #343a40;
+  border-color: transparent;
+  background: #e9ecef;
+}
+.p-treeselect-panel .p-treeselect-header .p-treeselect-close:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #C7D2FE;
+}
 .p-treeselect-panel .p-treeselect-items-wrapper .p-tree {
   border: 0 none;
 }

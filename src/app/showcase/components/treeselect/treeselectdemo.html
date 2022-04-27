@@ -16,6 +16,9 @@
 
         <h5>Checkbox</h5>
         <p-treeSelect [(ngModel)]="selectedNodes2" [options]="nodes3" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>
+
+        <h5>Filter</h5>
+        <p-treeSelect [(ngModel)]="selectedNodes3" [options]="nodes4" [filter]="true" [filterInputAutoFocus]="true" (onFilter)="logVal($event)"[metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>
     </div>
 </div>
 
@@ -350,6 +353,36 @@ export class TreeSelectDemoComponent implements OnInit &#123;
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                                 can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified, displays an input field to filter the items.</td>
+                        </tr>
+                        <tr>
+                            <td>filterBy</td>
+                            <td>string</td>
+                            <td>label</td>
+                            <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
+                        </tr>
+                        <tr>
+                            <td>filterMode</td>
+                            <td>string</td>
+                            <td>lenient</td>
+                            <td>Mode for filtering valid values are "lenient" and "strict". Default is lenient.</td>
+                        </tr>
+                        <tr>
+                            <td>filterPlaceholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Placeholder text to show when filter input is empty.</td>
+                        </tr>
+                        <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -374,6 +407,12 @@ export class TreeSelectDemoComponent implements OnInit &#123;
                             <td>onHide</td>
                             <td>-</td>
                             <td>Callback to invoke when the overlay is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onFilter</td>
+                            <td>event.filter: Filter value used in filtering.<br>
+                                event.filteredValue: Filtered data after running the filtering.</td>
+                            <td>Callback to invoke when data is filtered.</td>
                         </tr>
                         <tr>
                             <td>onNodeSelect</td>

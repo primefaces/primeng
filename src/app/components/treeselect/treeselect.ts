@@ -6,7 +6,7 @@ import {animate, style, transition, trigger, AnimationEvent} from '@angular/anim
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {ConnectedOverlayScrollHandler, DomHandler} from 'primeng/dom';
 import {TreeModule} from 'primeng/tree';
-import {ZIndexUtils} from 'primeng/utils'
+import {ObjectUtils, ZIndexUtils} from 'primeng/utils'
 
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
@@ -44,14 +44,22 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
         <div class="p-treeselect-trigger">
             <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
         </div>
-
         <div #overlayRef class="p-treeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
             <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: value, options: options}"></ng-container>
+            <div class="p-treeselect-header" *ngIf="filter">
+                <div class="p-treeselect-filter-container">
+                <input #filter type="text" autocomplete="off" class="p-treeselect-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
+                    <span class="p-treeselect-filter-icon pi pi-search"></span>
+                </div>
+                <button class="p-treeselect-close p-link" (click)="hide()">
+                    <span class="p-treeselect-filter-icon pi pi-times"></span>
+                </button>
+            </div>
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
                 <p-tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
                     [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)"
-                    (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)"></p-tree>
+                    (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)" [filteredNodes]="filteredNodes"></p-tree>
                 <div *ngIf="emptyOptions" class="p-treeselect-empty-message">
                     <ng-container *ngIf="!emptyTemplate; else empty">
                         {{emptyMessageText}}
@@ -112,9 +120,23 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() appendTo: any;
 
+    @Input() filter: boolean = false;
+
+    @Input() filterBy: string = 'label';
+
+    @Input() filterMode: string = 'lenient';
+
+    @Input() filterPlaceholder: string;
+
+    @Input() filterLocale: string;
+
+    @Input() filterInputAutoFocus: boolean = true;
+
     @Input() propagateSelectionDown: boolean = true;
 
     @Input() propagateSelectionUp: boolean = true;
+
+    @Input() resetFilterOnHide: boolean = false;
 
     @Input() get options(): any[] {
         return this._options;
@@ -134,6 +156,8 @@ export class TreeSelect implements AfterContentInit {
 
     @ViewChild('focusInput') focusInput: ElementRef;
 
+    @ViewChild('filter') filterViewChild: ElementRef;
+
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
@@ -145,6 +169,12 @@ export class TreeSelect implements AfterContentInit {
     @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+
+    public filteredNodes: TreeNode[];
+    
+    serializedValue: any[];
 
     valueTemplate: TemplateRef<any>;
 
@@ -238,7 +268,7 @@ export class TreeSelect implements AfterContentInit {
             if (this.overlayVisible){
                 this.hide();
             }
-            else
+            else 
                 this.show();
 
             this.focusInput.nativeElement.focus();
@@ -296,6 +326,10 @@ export class TreeSelect implements AfterContentInit {
     }
 
     hide() {
+        if (this.filter && this.resetFilterOnHide) {
+            this.resetFilter();
+        }
+
         this.overlayVisible = false;
         this.cd.markForCheck();
     }
@@ -425,6 +459,11 @@ export class TreeSelect implements AfterContentInit {
 
     onOverlayEnter() {
         ZIndexUtils.set('overlay', this.overlayEl, this.config.zIndex.overlay);
+
+        if(this.filter && this.filterInputAutoFocus) {
+            this.filterViewChild.nativeElement.focus();
+        }
+
         this.appendContainer();
         this.alignOverlay();
         this.bindOutsideClickListener();
@@ -448,6 +487,120 @@ export class TreeSelect implements AfterContentInit {
 
     onBlur() {
         this.focused = false;
+    }
+
+    onFilterInputChange(event) {
+        if (this.filter) {
+            this.onFilter.emit(event);
+        } else {
+            return;
+        }
+    }
+
+    getRootNode() {
+        return this.filteredNodes ? this.filteredNodes : this.options;
+    }
+
+    isNodeLeaf(node) {
+        return node.leaf == false ? false : !(node.children && node.children.length);
+    }
+
+    _filter(value) {
+        let filterValue = value;
+        if (filterValue === '') {
+            this.filteredNodes = null;
+        }
+        else {
+            this.filteredNodes = [];
+            const searchFields: string[] = this.filterBy.split(',');
+            const filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(this.filterLocale);
+            const isStrictMode = this.filterMode === 'strict';
+            for(let node of this.options) {
+                let copyNode = {...node};
+                let paramsWithoutNode = {searchFields, filterText, isStrictMode};
+                if ((isStrictMode && (this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
+                    (!isStrictMode && (this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
+                    this.filteredNodes.push(copyNode);
+                }
+            }
+        }
+
+        this.updateSerializedValue();
+
+        this.onFilter.emit({
+            filter: filterValue,
+            filteredValue: this.filteredNodes
+        });
+    }
+
+    updateSerializedValue() {
+        this.serializedValue = [];
+        this.serializeNodes(null, this.getRootNode(), 0, true);
+    }
+
+    serializeNodes(parent, nodes, level, visible) {
+        if (nodes && nodes.length) {
+            for(let node of nodes) {
+                node.parent = parent;
+                const rowNode = {
+                    node: node,
+                    parent: parent,
+                    level: level,
+                    visible: visible && (parent ? parent.expanded : true)
+                };
+                this.serializedValue.push(rowNode);
+
+                if (rowNode.visible && node.expanded) {
+                    this.serializeNodes(node, node.children, level + 1, rowNode.visible);
+                }
+            }
+        }
+    }
+
+    findFilteredNodes(node, paramsWithoutNode) {
+        if (node) {
+            let matched = false;
+            if (node.children) {
+                let childNodes = [...node.children];
+                node.children = [];
+                for (let childNode of childNodes) {
+                    let copyChildNode = {...childNode};
+                    if (this.isFilterMatched(copyChildNode, paramsWithoutNode)) {
+                        matched = true;
+                        node.children.push(copyChildNode);
+                    }
+                }
+            }
+
+            if (matched) {
+                node.expanded = true;
+                return true;
+            }
+        }
+    }
+
+    isFilterMatched(node, {searchFields, filterText, isStrictMode}) {
+        let matched = false;
+        for(let field of searchFields) {
+            let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLocaleLowerCase(this.filterLocale);
+            if (fieldValue.indexOf(filterText) > -1) {
+                matched = true;
+            }
+        }
+
+        if (!matched || (isStrictMode && !this.isNodeLeaf(node))) {
+            matched = this.findFilteredNodes(node, {searchFields, filterText, isStrictMode}) || matched;
+        }
+
+        return matched;
+    }
+
+    resetFilter() {
+        this.filteredNodes = null;
+
+        if (this.filterViewChild && this.filterViewChild.nativeElement) {
+            this.filterViewChild.nativeElement.value = '';
+        }
     }
 
     writeValue(value: any) : void {

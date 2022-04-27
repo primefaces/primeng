@@ -16,10 +16,14 @@ export class TreeSelectDemo {
     nodes2: any[];
 
     nodes3: any[];
+    
+    nodes4: any[];
 
     selectedNodes1: any[] = [];
 
     selectedNodes2: any[] = [];
+
+    selectedNodes3: any[] = [];
 
     selectedNode: any;
 
@@ -29,5 +33,10 @@ export class TreeSelectDemo {
         this.nodeService.getFiles().then(files => this.nodes1 = files);
         this.nodeService.getFiles().then(files => this.nodes2 = files);
         this.nodeService.getFiles().then(files => this.nodes3 = files);
+        this.nodeService.getFiles().then(files => this.nodes4 = files);
+    }
+
+    logVal(event) {
+        console.log(event)
     }
 }
