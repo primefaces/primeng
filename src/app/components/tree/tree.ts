@@ -640,7 +640,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() filterPlaceholder: string;
 
-    @Input() public filteredNodes: TreeNode[];
+    public filteredNodes: TreeNode[];
 
     @Input() filterLocale: string;
 

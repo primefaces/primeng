@@ -530,6 +530,9 @@ export class TreeSelectDemoComponent implements OnInit &#123;
 
 &lt;h5&gt;Checkbox&lt;/h5&gt;
 &lt;p-treeSelect [(ngModel)]="selectedNodes2" [options]="nodes3" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"&gt;&lt;/p-treeSelect&gt;
+
+&lt;h5&gt;Filter&lt;/h5&gt;
+&lt;p-treeSelect [(ngModel)]="selectedNodes3" [options]="nodes4" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true"&gt;&lt;/p-treeSelect&gt;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeSelectModule &#123;
@@ -538,6 +541,8 @@ export class TreeSelectModule &#123;
     nodes2: any[];
 
     nodes3: any[];
+
+    nodes4: any[];
 
     selectedNodes1: any[] = [];
 
@@ -551,6 +556,7 @@ export class TreeSelectModule &#123;
         this.nodeService.getFiles().then(files => this.nodes1 = files);
         this.nodeService.getFiles().then(files => this.nodes2 = files);
         this.nodeService.getFiles().then(files => this.nodes3 = files);
+        this.nodeService.getFiles().then(files => this.nodes4 = files);
     &#125;
 &#125;
 </app-code>
