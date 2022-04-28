@@ -365,7 +365,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     get rangeStartLeft() {
-        return this.isVertical() ? 'auto' : this.handleValues[0] + '%';
+        return this.isVertical() ? null : this.handleValues[0] + '%';
     }
 
     get rangeStartBottom() {
@@ -373,7 +373,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     get rangeEndLeft() {
-        return this.isVertical() ? 'auto' : this.handleValues[1] + '%';
+        return this.isVertical() ? null : this.handleValues[1] + '%';
     }
 
     get rangeEndBottom() {
