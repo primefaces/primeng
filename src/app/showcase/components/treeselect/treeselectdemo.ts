@@ -35,8 +35,4 @@ export class TreeSelectDemo {
         this.nodeService.getFiles().then(files => this.nodes3 = files);
         this.nodeService.getFiles().then(files => this.nodes4 = files);
     }
-
-    logVal(event) {
-        console.log(event)
-    }
 }
