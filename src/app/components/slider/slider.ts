@@ -15,8 +15,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'p-slider p-component':true,'p-disabled':disabled,
             'p-slider-horizontal':orientation == 'horizontal','p-slider-vertical':orientation == 'vertical','p-slider-animate':animate}"
             (click)="onBarClick($event)">
-            <span *ngIf="range && orientation == 'horizontal'" class="p-slider-range" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
-            <span *ngIf="range && orientation == 'vertical'" class="p-slider-range" [ngStyle]="{'bottom':handleValues[0] + '%',height: (handleValues[1] - handleValues[0] + '%')}"></span>
+            <span *ngIf="range && orientation == 'horizontal'" class="p-slider-range" [ngStyle]="{'left':offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'}"></span>
+            <span *ngIf="range && orientation == 'vertical'" class="p-slider-range" [ngStyle]="{'bottom':offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'}"></span>
             <span *ngIf="!range && orientation=='vertical'" class="p-slider-range" [ngStyle]="{'height': handleValue + '%'}"></span>
             <span *ngIf="!range && orientation=='horizontal'" class="p-slider-range" [ngStyle]="{'width': handleValue + '%'}"></span>
             <span #sliderHandle *ngIf="!range" [attr.tabindex]="disabled ? null : tabindex" (keydown)="onHandleKeydown($event)" class="p-slider-handle" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)"
@@ -79,6 +79,12 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     public handleValue: number;
 
     public handleValues: number[] = [];
+
+    diff: number;
+
+    offset: number;
+
+    bottom: number;
 
     public onModelChange: Function = () => {};
 
@@ -418,28 +424,36 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                     this.handleValues[0] = 0;
                 }
                 else if (value > this.values[1]) {
-                    value = this.values[1];
-                    this.handleValues[0] = this.handleValues[1];
+                    
+                    if(value > this.max){
+                        value = this.max;
+                        this.handleValues[0] = 100;
+                    }
+                    this.handleValues[0] = value;
                 }
-
                 this.sliderHandleStart.nativeElement.focus();
             }
             else {
                 if (value > this.max) {
                     value = this.max;
                     this.handleValues[1] = 100;
+                    this.offset = this.handleValues[1];
+
+                } else if (value < this.min) {
+                    value = this.min;
+                    this.handleValues[1] = value;
                 }
                 else if (value < this.values[0]) {
-                    value = this.values[0];
-                    this.handleValues[1] = this.handleValues[0];
+                    this.offset = this.handleValues[1];
                 }
-
                 this.sliderHandleEnd.nativeElement.focus();
             }
 
+            this.diff = Math.abs(this.handleValues[0] - this.handleValues[1]);
+            this.offset = Math.min(this.handleValues[0], this.handleValues[1])
             this.values[this.handleIndex] = this.getNormalizedValue(value);
-            this.values = this.values.slice();
-            this.onModelChange(this.values);
+            let newValues = [this.minVal, this.maxVal];
+            this.onModelChange(newValues);
             this.onChange.emit({event: event, values: this.values});
         }
         else {
@@ -482,6 +496,13 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     ngOnDestroy() {
         this.unbindDragListeners();
+    }
+
+    get minVal () {
+        return Math.min(this.values[1], this.values[0]);
+    }
+    get maxVal () {
+        return Math.max(this.values[1], this.values[0]);
     }
 }
 
