@@ -322,6 +322,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     show() {
         this.overlayVisible = true;
+        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
