@@ -1278,37 +1278,19 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isYearEquals(value, year) {
-        if (value && value instanceof Date) return value.getFullYear() === year;
-        else return false;
+        return (value && value instanceof Date && value.getFullYear() === year);
     }
 
     isYearBetween(start, end, year) {
-        let between: boolean = false;
-        if (start && start instanceof Date && end && end instanceof Date) {
-            return start.getFullYear() <= year && end.getFullYear() >= year;
-        }
-
-        return between;
+        return start && start instanceof Date && end && end instanceof Date && start.getFullYear() <= year && end.getFullYear() >= year
     }
 
     isLessThanMinYear(year) {
-        if (this.minDate) {
-          if (year < this.minDate.getFullYear()) {
-            return true;
-          }
-        }
-
-        return false;
+        return this.minDate && year < this.minDate.getFullYear()
     }
 
     isGreaterThanMaxYear(year) {
-        if (this.maxDate) {
-          if (this.maxDate.getFullYear() < year) {
-            return true;
-          }
-        }
-
-        return false;
+        return this.maxDate && this.maxDate.getFullYear() < year
     }
 
     isSingleSelection(): boolean {
