@@ -49,7 +49,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: value, options: options}"></ng-container>
             <div class="p-treeselect-header" *ngIf="filter">
                 <div class="p-treeselect-filter-container">
-                <input #filter type="text" autocomplete="off" class="p-treeselect-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="onFilterInput($event)">
+                <input #filter type="text" autocomplete="off" class="p-treeselect-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="onFilterInput($event)" [value]="filterValue">
                     <span class="p-treeselect-filter-icon pi pi-search"></span>
                 </div>
                 <button class="p-treeselect-close p-link" (click)="hide()">
@@ -59,7 +59,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
                 <p-tree #tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
                     [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)"
-                    (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus"></p-tree>
+                    (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus" [filteredNodes]="filteredNodes"></p-tree>
                 <div *ngIf="emptyOptions" class="p-treeselect-empty-message">
                     <ng-container *ngIf="!emptyTemplate; else empty">
                         {{emptyMessageText}}
@@ -136,7 +136,7 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() propagateSelectionUp: boolean = true;
 
-    @Input() resetFilterOnHide: boolean = false;
+    @Input() resetFilterOnHide: boolean = true;
 
     @Input() get options(): any[] {
         return this._options;
@@ -175,6 +175,8 @@ export class TreeSelect implements AfterContentInit {
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
 
     public filteredNodes: TreeNode[];
+
+    filterValue: string = null;
     
     serializedValue: any[];
 
@@ -324,8 +326,8 @@ export class TreeSelect implements AfterContentInit {
     }
 
     onFilterInput(event) {
-        const value = event.target.value;
-        this.treeViewChild._filter(value);
+        this.filterValue = event.target.value;
+        this.treeViewChild._filter(this.filterValue);
         this.onFilter.emit({
             originalEvent: event,
             filteredValue: this.treeViewChild.filteredNodes
@@ -337,12 +339,18 @@ export class TreeSelect implements AfterContentInit {
     }
 
     hide() {
-        if (this.filter && this.resetFilterOnHide) {
-            this.treeViewChild.resetFilter();
-        }
-
         this.overlayVisible = false;
+        this.resetFilter();
         this.cd.markForCheck();
+    }
+
+    resetFilter() {
+        if (this.filter && !this.resetFilterOnHide) {
+            this.filteredNodes = this.treeViewChild.filteredNodes;
+            this.treeViewChild.resetFilter();
+        } else {
+            this.filterValue = null;
+        }
     }
 
     onOverlayClick(event) {
