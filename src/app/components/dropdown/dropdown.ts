@@ -695,12 +695,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.bindDocumentResizeListener();
                 this.bindScrollListener();
 
-                if (this.options && this.options.length) {
+                if (this.itemsWrapper && this.options && this.options.length) {
                     if (!this.virtualScroll) {
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
 
                         if (selectedListItem) {
-                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
+                            this.itemsWrapper.scrollTop = selectedListItem.offsetTop - this.itemsWrapper.offsetHeight / 2;
                         }
                     }
                 }
