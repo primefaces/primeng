@@ -1033,6 +1033,14 @@ p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
   border-color: #e7a3a3;
 }
 
+p-inputmask.p-inputmask-clearable .p-inputtext {
+  padding-right: 1.858rem;
+}
+p-inputmask.p-inputmask-clearable .p-inputmask-clear-icon {
+  color: #a6a6a6;
+  right: 0.429rem;
+}
+
 p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   border-color: #e7a3a3;
 }

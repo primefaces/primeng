@@ -39,18 +39,23 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-inputMask',
-    template: `<input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
-        [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
-        (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
-        (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
+    template: `
+        <input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
+            [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
+            (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
+            (input)="onInputChange($event)" (paste)="handleInputChange($event)">
+        <i *ngIf="value != null && filled && showClear && !disabled" class="p-inputmask-clear-icon pi pi-times" (click)="clear()"></i>
+    `,
     host: {
         'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused'
+        '[class.p-inputwrapper-focus]': 'focused',
+        '[class.p-inputmask-clearable]': 'showClear && !disabled'
     },
     providers: [INPUTMASK_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./inputmask.css']
 })
 export class InputMask implements OnInit,ControlValueAccessor {
 
@@ -59,6 +64,8 @@ export class InputMask implements OnInit,ControlValueAccessor {
     @Input() slotChar: string = '_';
 
     @Input() autoClear: boolean = true;
+
+    @Input() showClear: boolean = true;
 
     @Input() style: any;
 
@@ -107,6 +114,8 @@ export class InputMask implements OnInit,ControlValueAccessor {
     @Output() onInput: EventEmitter<any> = new EventEmitter();
 
     @Output() onKeydown: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     value: any;
 
@@ -646,6 +655,13 @@ export class InputMask implements OnInit,ControlValueAccessor {
 
     focus() {
         this.inputViewChild.nativeElement.focus();
+    }
+
+    clear() {
+        this.inputViewChild.nativeElement.value = '';
+        this.value = null;
+        this.onModelChange(this.value);
+        this.onClear.emit();
     }
 }
 
