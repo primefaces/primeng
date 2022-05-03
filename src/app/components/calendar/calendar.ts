@@ -226,8 +226,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() disabled: any;
 
-    @Input() dateFormat: string;
-
     @Input() multipleSeparator: string = ',';
 
     @Input() rangeSeparator: string = '-';
@@ -409,6 +407,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     _minDate: Date;
 
     _maxDate: Date;
+	
+	_dateFormat: string;
 
     _showTime: boolean;
 
@@ -515,6 +515,19 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
+	
+	
+	@Input() get dateFormat(): string {
+		return this._dateFormat;
+	}
+
+	set dateFormat(dateFormat: string) {
+		this._dateFormat = dateFormat;
+
+		if (dateFormat) {
+		  this.updateInputfield();
+		}
+	}
 
     @Input() get disabledDates(): Date[] {
         return this._disabledDates;
