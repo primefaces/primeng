@@ -3488,7 +3488,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
 
     @HostListener('keydown.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
-        if (this.isEnabled()) {
+        if (this.isEnabled() && !event.shiftKey) {
             if (this.dt.isEditingCellValid()) {
                 this.closeEditingCell(true, event);
             }
