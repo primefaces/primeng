@@ -106,7 +106,7 @@ export class DropdownItem {
                         <ng-template #itemslist let-options let-selectedOption="selectedOption">
                             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                                 <ng-template ngFor let-option let-i="index" [ngForOf]="options">
-                                    <p-dropdownItem [option]="option" [selected]="selectedOption == option" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
+                                    <p-dropdownItem [attr.aria-label]="getOptionLabel(option)" [option]="option" [selected]="selectedOption == option" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
                                                     (onClick)="onItemClick($event)"
                                                     [template]="itemTemplate"></p-dropdownItem>
                                 </ng-template>
@@ -114,7 +114,7 @@ export class DropdownItem {
                             <ng-template #virtualScrollList>
                                 <cdk-virtual-scroll-viewport (scrolledIndexChange)="scrollToSelectedVirtualScrollElement()" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
                                     <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
-                                        <p-dropdownItem [option]="option" [selected]="selectedOption == option" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
+                                        <p-dropdownItem [attr.aria-label]="getOptionLabel(option)" [option]="option" [selected]="selectedOption == option" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
                                                                    (onClick)="onItemClick($event)"
                                                                    [template]="itemTemplate"></p-dropdownItem>
                                     </ng-container>
@@ -325,6 +325,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     emptyTemplate: TemplateRef<any>;
 
     selectedOption: any;
+    
+    lastEmitChanges: { originalEvent: any, value: any };
+
+    @Input()
+     emitchangeOn: 'item-selected' | 'close-drop-down' = 'item-selected';
 
     _options: any[];
 
@@ -523,12 +528,26 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.selectedOption = option;
             this.value = this.getOptionValue(option);
 
-            this.onModelChange(this.value);
-            this.updateEditableLabel();
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
+           this.lastEmitChanges = {
+           originalEvent: event,
+           value: this.value
+            }
+
+        if(this.emitchangeOn === 'item-selected'){
+        this.onModelChange(this.value);
+        this.onChange.emit(this.lastEmitChanges);
+        }
+
+        this.updateEditableLabel();
+
+        this.lastEmitChanges = {
+        originalEvent: event,
+        value: this.value
+        }
+
+         if(this.emitchangeOn === 'item-selected'){
+        this.onChange.emit(this.lastEmitChanges);
+        }
 
             if (this.virtualScroll) {
                 setTimeout(() => {
@@ -676,6 +695,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     show() {
         this.overlayVisible = true;
+        this.preventDocumentDefault = true;
         this.cd.markForCheck();
     }
 
@@ -781,6 +801,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
         if (this.virtualScroll) {
             this.virtualAutoScrolled = false;
+        }
+        
+        if(this.emitchangeOn === 'close-drop-down' && this.selectedOption !== this.lastEmitChanges.value){
+            this.onChange.emit(this.lastEmitChanges);
+            this.onModelChange(this.lastEmitChanges.value);
         }
 
         this.cd.markForCheck();
