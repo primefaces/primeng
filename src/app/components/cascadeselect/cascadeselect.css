@@ -84,3 +84,15 @@
     left: 100%;
     top: 0;
 }
+
+.p-cascadeselect-clear-icon {
+    position: absolute;
+    top: 50%;
+    right: 18%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-cascadeselect-clearable {
+    position: relative;
+} 

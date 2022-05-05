@@ -55,3 +55,14 @@
 .p-fluid .p-treeselect {
     display: flex;
 }
+
+.p-treeselect-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-treeselect-clearable {
+    position: relative;
+} 

@@ -20,7 +20,8 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <span *ngIf="!itemTemplate" class="p-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
                     <span *ngIf="!disabled" class="p-chips-token-icon pi pi-times-circle" (click)="removeItem($event,i)"></span>
                 </li>
-                <li class="p-chips-input-token">
+                <li class="p-chips-input-token" [ngClass]="{'p-chips-clearable': showClear && !disabled}">
+                <i *ngIf="value != null && filled && !disabled && showClear" class="p-chips-clear-icon pi pi-times" (click)="clear()"></i>
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)"
                     (input)="onInput()" (paste)="onPaste($event)" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
@@ -68,6 +69,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() addOnBlur: boolean;
 
     @Input() separator: string;
+    
+    @Input() showClear: boolean = true;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
 
@@ -78,6 +81,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onChipClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('inputtext') inputViewChild: ElementRef;
 
@@ -241,6 +246,13 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         if (preventDefault) {
             event.preventDefault();
         }
+    }
+
+    clear() {
+        this.value = null;
+        this.updateFilledState();
+        this.onModelChange(this.value);
+        this.onClear.emit();
     }
 
     onKeydown(event: KeyboardEvent): void {

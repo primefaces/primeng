@@ -94,3 +94,14 @@
 .p-fluid .p-autocomplete-dd .p-autocomplete-input {
     width: 1%;
 }
+
+.p-autocomplete-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-autocomplete-clearable {
+    position: relative;
+} 
