@@ -328,12 +328,9 @@ p-autocomplete.p-autocomplete-clearable .p-autocomplete-clear-icon {
   right: 0.429rem;
 }
 
-p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-inputtext {
-  padding-right: 1.429rem;
-}
 p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-autocomplete-clear-icon {
   color: #848484;
-  right: 1.9305rem;
+  right: 2.786rem;
 }
 
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
@@ -556,12 +553,9 @@ p-calendar.p-calendar-clearable .p-calendar-clear-icon {
   right: 0.429rem;
 }
 
-p-calendar.p-calendar-clearable.p-calendar-show-icon .p-inputtext {
-  padding-right: 1.858rem;
-}
 p-calendar.p-calendar-clearable.p-calendar-show-icon .p-calendar-clear-icon {
   color: #848484;
-  right: 1.9305rem;
+  right: 2.786rem;
 }
 
 @media screen and (max-width: 769px) {
@@ -661,7 +655,7 @@ p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-label {
 }
 p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
   color: #848484;
-  right: 1.287rem;
+  right: 2.357rem;
 }
 
 .p-checkbox {
@@ -761,6 +755,10 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
 
 p-chips.p-chips-clearable .p-inputtext {
   padding-right: 1.429rem;
+}
+p-chips.p-chips-clearable .p-chips-clear-icon {
+  color: #848484;
+  right: 0.429rem;
 }
 
 .p-colorpicker-preview,
@@ -1097,14 +1095,11 @@ p-inputnumber.p-inputnumber-clearable .p-inputnumber-clear-icon {
   right: 0.429rem;
 }
 
-p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
-  padding-right: 1.858rem;
-}
 p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-stacked .p-inputnumber-clear-icon {
-  right: 2.145rem;
+  right: 2.786rem;
 }
 p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
-  right: 2.145rem;
+  right: 2.786rem;
 }
 
 .p-inputswitch {
@@ -1472,7 +1467,7 @@ p-multiselect.p-multiselect-clearable .p-multiselect-label-container {
 }
 p-multiselect.p-multiselect-clearable .p-multiselect-clear-icon {
   color: #848484;
-  right: 1.716rem;
+  right: 2.357rem;
 }
 
 p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
@@ -1510,11 +1505,11 @@ p-password.p-password-clearable .p-password-clear-icon {
 }
 
 p-password.p-password-clearable.p-password-mask .p-password-input {
-  padding-right: 2.716rem;
+  padding-right: 3.287rem;
 }
 p-password.p-password-clearable.p-password-mask .p-password-clear-icon {
   color: #848484;
-  right: 1.287rem;
+  right: 1.858rem;
 }
 
 .p-radiobutton {
@@ -1859,7 +1854,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-label-container {
 }
 p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #848484;
-  right: 1.716rem;
+  right: 2.357rem;
 }
 
 .p-button {

@@ -328,12 +328,9 @@ p-autocomplete.p-autocomplete-clearable .p-autocomplete-clear-icon {
   right: 0.75rem;
 }
 
-p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-inputtext {
-  padding-right: 1.75rem;
-}
 p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-autocomplete-clear-icon {
   color: rgba(255, 255, 255, 0.6);
-  right: 3.375rem;
+  right: 3.75rem;
 }
 
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
@@ -556,12 +553,9 @@ p-calendar.p-calendar-clearable .p-calendar-clear-icon {
   right: 0.75rem;
 }
 
-p-calendar.p-calendar-clearable.p-calendar-show-icon .p-inputtext {
-  padding-right: 2.5rem;
-}
 p-calendar.p-calendar-clearable.p-calendar-show-icon .p-calendar-clear-icon {
   color: rgba(255, 255, 255, 0.6);
-  right: 3.375rem;
+  right: 3.75rem;
 }
 
 @media screen and (max-width: 769px) {
@@ -661,7 +655,7 @@ p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-label {
 }
 p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
   color: rgba(255, 255, 255, 0.6);
-  right: 2.25rem;
+  right: 3rem;
 }
 
 .p-checkbox {
@@ -761,6 +755,10 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
 
 p-chips.p-chips-clearable .p-inputtext {
   padding-right: 1.75rem;
+}
+p-chips.p-chips-clearable .p-chips-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 0.75rem;
 }
 
 .p-colorpicker-preview,
@@ -1097,9 +1095,6 @@ p-inputnumber.p-inputnumber-clearable .p-inputnumber-clear-icon {
   right: 0.75rem;
 }
 
-p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
-  padding-right: 2.5rem;
-}
 p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-stacked .p-inputnumber-clear-icon {
   right: 3.75rem;
 }
@@ -1510,11 +1505,11 @@ p-password.p-password-clearable .p-password-clear-icon {
 }
 
 p-password.p-password-clearable.p-password-mask .p-password-input {
-  padding-right: 4rem;
+  padding-right: 4.25rem;
 }
 p-password.p-password-clearable.p-password-mask .p-password-clear-icon {
   color: rgba(255, 255, 255, 0.6);
-  right: 2.25rem;
+  right: 2.5rem;
 }
 
 .p-radiobutton {
