@@ -680,12 +680,12 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
   background-color: #dcdcdc;
 }
 
-p-cascadeselect.p-cascadeselect-clearable .p-inputtext {
-  padding-right: 3rem;
+p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-label {
+  padding-right: 1rem;
 }
 p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
   color: rgba(0, 0, 0, 0.6);
-  right: 1rem;
+  right: 3rem;
 }
 
 .p-checkbox {

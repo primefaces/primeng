@@ -257,8 +257,8 @@ export class CascadeSelectSub implements OnInit {
                     {{label()}}
                 </ng-template>
             </span>
-            <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
             <i *ngIf="!optionCleared && filled && !disabled && showClear" class="p-cascadeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
+            <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
             <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
@@ -288,7 +288,7 @@ export class CascadeSelectSub implements OnInit {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused || overlayVisible',
-        '[class.p-autocomplete-clearable]': 'showClear && !disabled'
+        '[class.p-cascadeselect-clearable]': 'showClear && !disabled'
     },
     providers: [CASCADESELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
