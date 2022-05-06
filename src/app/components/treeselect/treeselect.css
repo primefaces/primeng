@@ -52,6 +52,43 @@
     overflow: auto;
 }
 
+.p-treeselect-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p-treeselect-filter-container {
+    position: relative;
+    flex: 1 1 auto;
+}
+
+.p-treeselect-filter-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+}
+
+.p-treeselect-filter-container .p-inputtext {
+    width: 100%;
+}
+
+.p-treeselect-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    margin-left: auto;
+}
+
+.p-treeselect-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+}
+
 .p-fluid .p-treeselect {
     display: flex;
 }

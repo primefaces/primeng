@@ -596,8 +596,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
 
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
-            this.selectedOption = this.optionsToDisplay[0];
+            if(this.group) {
+                this.selectedOption = this.optionsToDisplay[0].items[0];
+            } else {
+                this.selectedOption = this.optionsToDisplay[0];
+            }
             this.value = this.getOptionValue(this.selectedOption);
+            this.onModelChange(this.value);
+        }
+        else if (!this.selectedOption) {
+            this.value = null;
             this.onModelChange(this.value);
         }
 

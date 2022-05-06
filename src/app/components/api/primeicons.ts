@@ -26,8 +26,8 @@ export class PrimeIcons {
     public static readonly ARROW_UP = 'pi pi-arrow-up';
     public static readonly ARROW_UP_LEFT = 'pi pi-arrow-up-left';
     public static readonly ARROW_UP_RIGHT = 'pi pi-arrow-up-right';
-    public static readonly ARROW_H = 'pi pi-arrow-h';
-    public static readonly ARROW_V = 'pi pi-arrow-v';
+    public static readonly ARROW_H = 'pi pi-arrows-h';
+    public static readonly ARROW_V = 'pi pi-arrows-v';
     public static readonly AT = 'pi pi-at';
     public static readonly BACKWARD = 'pi pi-backward';
     public static readonly BAN = 'pi pi-ban';

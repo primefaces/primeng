@@ -5,8 +5,8 @@ import {OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationK
 import {animate, style, transition, trigger, AnimationEvent} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {ConnectedOverlayScrollHandler, DomHandler} from 'primeng/dom';
-import {TreeModule} from 'primeng/tree';
-import {ZIndexUtils, ObjectUtils} from 'primeng/utils'
+import {Tree, TreeModule} from 'primeng/tree';
+import {ZIndexUtils} from 'primeng/utils';
 
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
@@ -46,14 +46,22 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
         <div class="p-treeselect-trigger">
             <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
         </div>
-
         <div #overlayRef class="p-treeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
             <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: value, options: options}"></ng-container>
+            <div class="p-treeselect-header" *ngIf="filter">
+                <div class="p-treeselect-filter-container">
+                <input #filter type="text" autocomplete="off" class="p-treeselect-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="onFilterInput($event)" [value]="filterValue">
+                    <span class="p-treeselect-filter-icon pi pi-search"></span>
+                </div>
+                <button class="p-treeselect-close p-link" (click)="hide()">
+                    <span class="p-treeselect-filter-icon pi pi-times"></span>
+                </button>
+            </div>
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
-                <p-tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
+                <p-tree #tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
                     [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)"
-                    (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)"></p-tree>
+                    (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus" [filteredNodes]="filteredNodes"></p-tree>
                 <div *ngIf="emptyOptions" class="p-treeselect-empty-message">
                     <ng-container *ngIf="!emptyTemplate; else empty">
                         {{emptyMessageText}}
@@ -115,11 +123,26 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() appendTo: any;
 
+    @Input() filter: boolean = false;
+
+    @Input() filterBy: string = 'label';
+
+    @Input() filterMode: string = 'lenient';
+
+    @Input() filterPlaceholder: string;
+
+    @Input() filterLocale: string;
+
+    @Input() filterInputAutoFocus: boolean = true;
+
     @Input() propagateSelectionDown: boolean = true;
 
     @Input() propagateSelectionUp: boolean = true;
 
     @Input() showClear: boolean = true;
+
+    @Input() resetFilterOnHide: boolean = true;
+
 
     @Input() get options(): any[] {
         return this._options;
@@ -139,6 +162,10 @@ export class TreeSelect implements AfterContentInit {
 
     @ViewChild('focusInput') focusInput: ElementRef;
 
+    @ViewChild('filter') filterViewChild: ElementRef;
+
+    @ViewChild('tree') treeViewChild: Tree;
+
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
@@ -147,11 +174,19 @@ export class TreeSelect implements AfterContentInit {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-	@Output() onClear: EventEmitter<any> = new EventEmitter();
+	  @Output() onClear: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
+
+    public filteredNodes: TreeNode[];
+
+    filterValue: string = null;
+    
+    serializedValue: any[];
 
     valueTemplate: TemplateRef<any>;
 
@@ -245,7 +280,7 @@ export class TreeSelect implements AfterContentInit {
             if (this.overlayVisible){
                 this.hide();
             }
-            else
+            else 
                 this.show();
 
             this.focusInput.nativeElement.focus();
@@ -298,12 +333,22 @@ export class TreeSelect implements AfterContentInit {
         }
     }
 
+    onFilterInput(event) {
+        this.filterValue = event.target.value;
+        this.treeViewChild._filter(this.filterValue);
+        this.onFilter.emit({
+            originalEvent: event,
+            filteredValue: this.treeViewChild.filteredNodes
+        });
+    }
+
     show() {
         this.overlayVisible = true;
     }
 
     hide() {
         this.overlayVisible = false;
+        this.resetFilter();
         this.cd.markForCheck();
     }
 
@@ -318,6 +363,16 @@ export class TreeSelect implements AfterContentInit {
 
     checkValue() {
         return this.value !== null && ObjectUtils.isNotEmpty(this.value)
+    }
+
+    resetFilter() {
+        if (this.filter && !this.resetFilterOnHide) {
+            this.filteredNodes = this.treeViewChild.filteredNodes;
+            this.treeViewChild.resetFilter();
+        } 
+        else {
+            this.filterValue = null;
+        }
     }
 
     onOverlayClick(event) {
@@ -445,6 +500,11 @@ export class TreeSelect implements AfterContentInit {
 
     onOverlayEnter() {
         ZIndexUtils.set('overlay', this.overlayEl, this.config.zIndex.overlay);
+
+        if(this.filter && this.filterInputAutoFocus) {
+            this.filterViewChild.nativeElement.focus();
+        }
+
         this.appendContainer();
         this.alignOverlay();
         this.bindOutsideClickListener();
