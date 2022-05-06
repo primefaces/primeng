@@ -556,6 +556,14 @@ p-calendar.p-calendar-clearable .p-calendar-clear-icon {
   right: 0.429rem;
 }
 
+p-calendar.p-calendar-clearable.p-calendar-show-icon .p-inputtext {
+  padding-right: 1.858rem;
+}
+p-calendar.p-calendar-clearable.p-calendar-show-icon .p-calendar-clear-icon {
+  color: #848484;
+  right: 1.9305rem;
+}
+
 @media screen and (max-width: 769px) {
   .p-datepicker table th, .p-datepicker table td {
     padding: 0.25rem;

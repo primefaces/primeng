@@ -37,7 +37,7 @@ export interface LocaleSettings {
                 <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [attr.aria-required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick()" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.inputmode]="touchUI ? 'off' : null"
                     [ngClass]="'p-inputtext p-component'" autocomplete="off" [attr.aria-labelledby]="ariaLabelledBy">
-                    <i *ngIf="showClear && !disabled && value != null" [style.right]="showIcon ? '14%' : ''" class="p-calendar-clear-icon pi pi-times" (click)="clear()"></i>
+                    <i *ngIf="showClear && !disabled && value != null" class="p-calendar-clear-icon pi pi-times" (click)="clear()"></i>
                     <button type="button" [attr.aria-label]="iconAriaLabel" [icon]="icon" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="p-datepicker-trigger"
                     [disabled]="disabled" tabindex="0"></button>
             </ng-template>
@@ -199,7 +199,8 @@ export interface LocaleSettings {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focus',
-        '[class.p-calendar-clearable]': 'showClear && !disabled'
+        '[class.p-calendar-clearable]': 'showClear && !disabled',
+        '[class.p-calendar-show-icon]': 'showIcon'
     },
     providers: [CALENDAR_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
