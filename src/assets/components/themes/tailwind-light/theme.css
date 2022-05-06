@@ -1112,12 +1112,12 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   border-color: #f0a9a7;
 }
 
-p-treeselect.p-inputnumber-clearable .p-inputnumber-label-container {
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
   padding-right: 2.5rem;
 }
-p-treeselect.p-inputnumber-clearable .p-inputnumber-clear-icon {
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-clear-icon {
   color: #71717A;
-  right: 3rem;
+  right: 2.25rem;
 }
 
 .p-inputswitch {

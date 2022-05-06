@@ -1077,12 +1077,12 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   border-color: #a80000;
 }
 
-p-treeselect.p-inputnumber-clearable .p-inputnumber-label-container {
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
   padding-right: 1.858rem;
 }
-p-treeselect.p-inputnumber-clearable .p-inputnumber-clear-icon {
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-clear-icon {
   color: #848484;
-  right: 1.716rem;
+  right: 1.287rem;
 }
 
 .p-inputswitch {
