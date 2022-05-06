@@ -328,6 +328,14 @@ p-autocomplete.p-autocomplete-clearable .p-autocomplete-clear-icon {
   right: 0.75rem;
 }
 
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-inputtext {
+  padding-right: 1.75rem;
+}
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-autocomplete-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 3.375rem;
+}
+
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #FCA5A5;
 }
@@ -1479,9 +1487,20 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   background: #93deac;
 }
 
+p-password.p-password-clearable .p-password-input {
+  padding-right: 2.5rem;
+}
 p-password.p-password-clearable .p-password-clear-icon {
   color: rgba(255, 255, 255, 0.6);
-  right: 3rem;
+  right: 0.75rem;
+}
+
+p-password.p-password-clearable.p-password-mask .p-password-input {
+  padding-right: 4rem;
+}
+p-password.p-password-clearable.p-password-mask .p-password-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 2.25rem;
 }
 
 .p-radiobutton {

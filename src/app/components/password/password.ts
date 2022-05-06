@@ -251,7 +251,7 @@ export const Password_VALUE_ACCESSOR: any = {
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
             <input #input [attr.label]="label" [attr.aria-label]="ariaLabel" [attr.aria-labelledBy]="ariaLabelledBy" [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" />
-            <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" [style.right]="toggleMask ? '15%' : '4%'" (click)="clear()"></i>
+            <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
             <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
@@ -284,7 +284,8 @@ export const Password_VALUE_ACCESSOR: any = {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled()',
         '[class.p-inputwrapper-focus]': 'focused',
-        '[class.p-password-clearable]': 'showClear'
+        '[class.p-password-clearable]': 'showClear',
+        '[class.p-password-mask]': 'toggleMask'
     },
     providers: [Password_VALUE_ACCESSOR],
     styleUrls: ['./password.css'],

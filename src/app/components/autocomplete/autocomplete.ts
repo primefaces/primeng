@@ -24,8 +24,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             class="p-autocomplete-input p-inputtext p-component" [ngClass]="{'p-autocomplete-dd-input':dropdown,'p-disabled': disabled}" [value]="inputFieldValue" aria-autocomplete="list" role="searchbox"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required">
-            <i *ngIf="!multiple && inputValue && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" [style.left]="dropdown ? '72%' : ''"  (click)="clear()"></i>
-            <i *ngIf="multiple && value && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" [style.left]="dropdown ? '72%' : ''" (click)="clear()"></i>
+            <i *ngIf="!multiple && inputValue && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
+            <i *ngIf="multiple && value && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
             <ul *ngIf="multiple" #multiContainer class="p-autocomplete-multiple-container p-component p-inputtext" [ngClass]="{'p-disabled':disabled,'p-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="p-autocomplete-token">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: val}"></ng-container>
@@ -101,7 +101,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible',
-        '[class.p-autocomplete-clearable]': 'showClear && !disabled'
+        '[class.p-autocomplete-clearable]': 'showClear && !disabled',
+        '[class.p-autocomplete-dropdown]': 'dropdown',
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,

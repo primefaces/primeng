@@ -363,6 +363,14 @@ p-autocomplete.p-autocomplete-clearable .p-autocomplete-clear-icon {
   right: 0.75rem;
 }
 
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-inputtext {
+  padding-right: 1.75rem;
+}
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-autocomplete-clear-icon {
+  color: #71717A;
+  right: 3.375rem;
+}
+
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #f0a9a7;
 }
@@ -1514,9 +1522,20 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   background: #22C55E;
 }
 
+p-password.p-password-clearable .p-password-input {
+  padding-right: 2.5rem;
+}
 p-password.p-password-clearable .p-password-clear-icon {
   color: #71717A;
-  right: 3rem;
+  right: 0.75rem;
+}
+
+p-password.p-password-clearable.p-password-mask .p-password-input {
+  padding-right: 4rem;
+}
+p-password.p-password-clearable.p-password-mask .p-password-clear-icon {
+  color: #71717A;
+  right: 2.25rem;
 }
 
 .p-radiobutton {
