@@ -6,7 +6,7 @@ import {animate, style, transition, trigger, AnimationEvent} from '@angular/anim
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {ConnectedOverlayScrollHandler, DomHandler} from 'primeng/dom';
 import {Tree, TreeModule} from 'primeng/tree';
-import {ZIndexUtils} from 'primeng/utils';
+import {ObjectUtils, ZIndexUtils} from 'primeng/utils';
 
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
