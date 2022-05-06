@@ -3,9 +3,9 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterC
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {RippleModule} from 'primeng/ripple';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
+import {SharedModule,PrimeTemplate,BlockableUI} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
+import {Subscription} from 'rxjs';
 
 let idx: number = 0;
 
@@ -120,8 +120,13 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     set header(header: string) {
         this._header = header;
-        this.tabView.updateInkBar();
-        this.tabView.cd.markForCheck();
+
+        // We have to wait for the rendering and then retrieve the actual size element from the DOM.
+        // in future `Promise.resolve` can be changed to `queueMicrotask` (if ie11 support will be dropped)
+        Promise.resolve().then(() => {
+            this.tabView.updateInkBar();
+            this.tabView.cd.markForCheck();
+        });
     }
 
     @Input() get leftIcon(): string {
@@ -191,7 +196,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     'class': 'p-element'
 }
 })
-export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
+export class TabView implements AfterContentInit,AfterViewChecked,OnDestroy,BlockableUI {
 
     @Input() orientation: string = 'top';
 
@@ -234,13 +239,15 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
     backwardIsDisabled: boolean = true;
 
     forwardIsDisabled: boolean = false;
+    
+    private tabChangesSubscription!: Subscription;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.initTabs();
 
-        this.tabPanels.changes.subscribe(_ => {
+        this.tabChangesSubscription = this.tabPanels.changes.subscribe(_ => {
             this.initTabs();
         });
     }
@@ -249,6 +256,12 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         if (this.tabChanged) {
             this.updateInkBar();
             this.tabChanged = false;
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.tabChangesSubscription) {
+            this.tabChangesSubscription.unsubscribe();
         }
     }
 
@@ -356,7 +369,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         return index;
     }
 
-    getBlockableElement(): HTMLElement {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
@@ -382,7 +395,12 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     updateInkBar() {
         if (this.navbar) {
-            let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+            const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+
+            if (!tabHeader) {
+                return;
+            }
+
             this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
             this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
         }
