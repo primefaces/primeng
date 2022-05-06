@@ -51,6 +51,6 @@
     cursor: pointer;
 }
 
-.p-chips-clearable {
+.p-chips-clearable .p-inputtext {
     position: relative;
 } 
