@@ -320,6 +320,22 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   font-weight: 600;
 }
 
+p-autocomplete.p-autocomplete-clearable .p-inputtext {
+  padding-right: 2rem;
+}
+p-autocomplete.p-autocomplete-clearable .p-autocomplete-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 0.5rem;
+}
+
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-inputtext {
+  padding-right: 1.5rem;
+}
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-autocomplete-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 2.25rem;
+}
+
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #ef9a9a;
 }
@@ -532,6 +548,22 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   box-shadow: 0 0 0 1px #a7d8a9;
 }
 
+p-calendar.p-calendar-clearable .p-inputtext {
+  padding-right: 2rem;
+}
+p-calendar.p-calendar-clearable .p-calendar-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 0.5rem;
+}
+
+p-calendar.p-calendar-clearable.p-calendar-show-icon .p-inputtext {
+  padding-right: 2rem;
+}
+p-calendar.p-calendar-clearable.p-calendar-show-icon .p-calendar-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 2.25rem;
+}
+
 @media screen and (max-width: 769px) {
   .p-datepicker table th, .p-datepicker table td {
     padding: 0;
@@ -622,6 +654,14 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
 }
 .p-input-filled .p-cascadeselect:not(.p-disabled).p-focus {
   background-color: #304562;
+}
+
+p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-label {
+  padding-right: 0.5rem;
+}
+p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 1.5rem;
 }
 
 .p-checkbox {
@@ -717,6 +757,10 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 
 p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   border-color: #ef9a9a;
+}
+
+p-chips.p-chips-clearable .p-inputtext {
+  padding-right: 1.5rem;
 }
 
 .p-colorpicker-preview,
@@ -1043,6 +1087,24 @@ p-inputmask.p-inputmask-clearable .p-inputmask-clear-icon {
 
 p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   border-color: #ef9a9a;
+}
+
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
+  padding-right: 2rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 0.5rem;
+}
+
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
+  padding-right: 2rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-stacked .p-inputnumber-clear-icon {
+  right: 2.5rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
+  right: 2.5rem;
 }
 
 .p-inputswitch {
@@ -1405,6 +1467,14 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   background-color: #304562;
 }
 
+p-multiselect.p-multiselect-clearable .p-multiselect-label-container {
+  padding-right: 1.5rem;
+}
+p-multiselect.p-multiselect-clearable .p-multiselect-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 2rem;
+}
+
 p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   border-color: #ef9a9a;
 }
@@ -1429,6 +1499,22 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
 }
 .p-password-panel .p-password-meter .p-password-strength.strong {
   background: #C5E1A5;
+}
+
+p-password.p-password-clearable .p-password-input {
+  padding-right: 2rem;
+}
+p-password.p-password-clearable .p-password-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 0.5rem;
+}
+
+p-password.p-password-clearable.p-password-mask .p-password-input {
+  padding-right: 3rem;
+}
+p-password.p-password-clearable.p-password-mask .p-password-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 1.5rem;
 }
 
 .p-radiobutton {
@@ -1766,6 +1852,14 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-input-filled .p-treeselect:not(.p-disabled).p-focus {
   background-color: #304562;
+}
+
+p-treeselect.p-treeselect-clearable .p-treeselect-label-container {
+  padding-right: 1.5rem;
+}
+p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
+  color: rgba(255, 255, 255, 0.6);
+  right: 2rem;
 }
 
 .p-button {

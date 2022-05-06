@@ -320,6 +320,22 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   font-weight: 700;
 }
 
+p-autocomplete.p-autocomplete-clearable .p-inputtext {
+  padding-right: 1.858rem;
+}
+p-autocomplete.p-autocomplete-clearable .p-autocomplete-clear-icon {
+  color: #888888;
+  right: 0.429rem;
+}
+
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-inputtext {
+  padding-right: 1.429rem;
+}
+p-autocomplete.p-autocomplete-clearable.p-autocomplete-dropdown .p-autocomplete-clear-icon {
+  color: #888888;
+  right: 1.9305rem;
+}
+
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #e57373;
 }
@@ -532,6 +548,22 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   box-shadow: 0 0 0 0.1rem white;
 }
 
+p-calendar.p-calendar-clearable .p-inputtext {
+  padding-right: 1.858rem;
+}
+p-calendar.p-calendar-clearable .p-calendar-clear-icon {
+  color: #888888;
+  right: 0.429rem;
+}
+
+p-calendar.p-calendar-clearable.p-calendar-show-icon .p-inputtext {
+  padding-right: 1.858rem;
+}
+p-calendar.p-calendar-clearable.p-calendar-show-icon .p-calendar-clear-icon {
+  color: #888888;
+  right: 1.9305rem;
+}
+
 @media screen and (max-width: 769px) {
   .p-datepicker table th, .p-datepicker table td {
     padding: 0;
@@ -622,6 +654,14 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
 }
 .p-input-filled .p-cascadeselect:not(.p-disabled).p-focus {
   background-color: #4b4b4b;
+}
+
+p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-label {
+  padding-right: 0.429rem;
+}
+p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
+  color: #888888;
+  right: 1.287rem;
 }
 
 .p-checkbox {
@@ -721,6 +761,10 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 
 p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   border-color: #e57373;
+}
+
+p-chips.p-chips-clearable .p-inputtext {
+  padding-right: 1.429rem;
 }
 
 .p-colorpicker-preview,
@@ -1047,6 +1091,24 @@ p-inputmask.p-inputmask-clearable .p-inputmask-clear-icon {
 
 p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   border-color: #e57373;
+}
+
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
+  padding-right: 1.858rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-clear-icon {
+  color: #888888;
+  right: 0.429rem;
+}
+
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
+  padding-right: 1.858rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-stacked .p-inputnumber-clear-icon {
+  right: 2.145rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
+  right: 2.145rem;
 }
 
 .p-inputswitch {
@@ -1409,6 +1471,14 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   background-color: #4b4b4b;
 }
 
+p-multiselect.p-multiselect-clearable .p-multiselect-label-container {
+  padding-right: 1.429rem;
+}
+p-multiselect.p-multiselect-clearable .p-multiselect-clear-icon {
+  color: #888888;
+  right: 1.716rem;
+}
+
 p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   border-color: #e57373;
 }
@@ -1433,6 +1503,22 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
 }
 .p-password-panel .p-password-meter .p-password-strength.strong {
   background: #AED581;
+}
+
+p-password.p-password-clearable .p-password-input {
+  padding-right: 1.858rem;
+}
+p-password.p-password-clearable .p-password-clear-icon {
+  color: #888888;
+  right: 0.429rem;
+}
+
+p-password.p-password-clearable.p-password-mask .p-password-input {
+  padding-right: 2.716rem;
+}
+p-password.p-password-clearable.p-password-mask .p-password-clear-icon {
+  color: #888888;
+  right: 1.287rem;
 }
 
 .p-radiobutton {
@@ -1778,6 +1864,14 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-input-filled .p-treeselect:not(.p-disabled).p-focus {
   background-color: #4b4b4b;
+}
+
+p-treeselect.p-treeselect-clearable .p-treeselect-label-container {
+  padding-right: 1.429rem;
+}
+p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
+  color: #888888;
+  right: 1.716rem;
 }
 
 .p-button {

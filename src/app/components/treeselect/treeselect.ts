@@ -6,7 +6,7 @@ import {animate, style, transition, trigger, AnimationEvent} from '@angular/anim
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {ConnectedOverlayScrollHandler, DomHandler} from 'primeng/dom';
 import {Tree, TreeModule} from 'primeng/tree';
-import {ZIndexUtils} from 'primeng/utils'
+import {ZIndexUtils} from 'primeng/utils';
 
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
@@ -40,6 +40,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     </ng-template>
                 </ng-template>
             </div>
+            <i *ngIf="checkValue() && !disabled && showClear" class="p-treeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
+
         </div>
         <div class="p-treeselect-trigger">
             <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
@@ -86,7 +88,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': '!emptyValue',
-        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible',
+        '[class.p-treeselect-clearable]': 'showClear && !disabled'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TREESELECT_VALUE_ACCESSOR],
@@ -136,7 +139,10 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() propagateSelectionUp: boolean = true;
 
+    @Input() showClear: boolean = true;
+
     @Input() resetFilterOnHide: boolean = true;
+
 
     @Input() get options(): any[] {
         return this._options;
@@ -167,6 +173,8 @@ export class TreeSelect implements AfterContentInit {
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
+
+	  @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
@@ -344,11 +352,25 @@ export class TreeSelect implements AfterContentInit {
         this.cd.markForCheck();
     }
 
+    clear(event) {
+        this.value = null;
+        this.resetExpandedNodes();
+        this.onModelChange(this.value);
+        this.onClear.emit();
+
+        event.stopPropagation()
+    }
+
+    checkValue() {
+        return this.value !== null && ObjectUtils.isNotEmpty(this.value)
+    }
+
     resetFilter() {
         if (this.filter && !this.resetFilterOnHide) {
             this.filteredNodes = this.treeViewChild.filteredNodes;
             this.treeViewChild.resetFilter();
-        } else {
+        } 
+        else {
             this.filterValue = null;
         }
     }

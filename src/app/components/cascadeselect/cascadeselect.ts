@@ -257,6 +257,7 @@ export class CascadeSelectSub implements OnInit {
                     {{label()}}
                 </ng-template>
             </span>
+            <i *ngIf="!optionCleared && filled && !disabled && showClear" class="p-cascadeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
@@ -286,7 +287,8 @@ export class CascadeSelectSub implements OnInit {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible',
+        '[class.p-cascadeselect-clearable]': 'showClear && !disabled'
     },
     providers: [CASCADESELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -335,6 +337,8 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Input() hideTransitionOptions: string = '.1s linear';
 
+    @Input() showClear: boolean = true;
+
     @ViewChild('focusInput') focusInputEl: ElementRef;
 
     @ViewChild('container') containerEl: ElementRef;
@@ -347,6 +351,8 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
+
     @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
@@ -354,6 +360,8 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     selectionPath: any = null;
+
+    optionCleared: boolean = false;
 
     focused: boolean = false;
 
@@ -473,6 +481,16 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     hide() {
         this.onBeforeHide.emit();
         this.overlayVisible = false;
+        this.cd.markForCheck();
+    }
+
+    clear(event) {
+        this.optionCleared = true;
+        this.value = null;
+        this.selectionPath = null;
+        this.onClear.emit();
+        this.onModelChange(this.value);
+        event.stopPropagation();
         this.cd.markForCheck();
     }
 
@@ -646,7 +664,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     }
 
     label   () {
-        if (this.selectionPath)
+        if (this.selectionPath && !this.optionCleared)
             return this.getOptionLabel(this.selectionPath[this.selectionPath.length - 1]);
         else
             return this.placeholder||'p-emptylabel';

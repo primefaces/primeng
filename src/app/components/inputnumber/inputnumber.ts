@@ -21,6 +21,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.min]="min" [attr.max]="max" [readonly]="readonly" inputmode="decimal"
                 (input)="onUserInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
                 (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
+            <i *ngIf="buttonLayout != 'vertical' && showClear && value" class="p-inputnumber-clear-icon pi pi-times" (click)="clear()"></i>
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
                 <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" [disabled]="disabled"
                     (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp()"></button>
@@ -40,7 +41,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused'
+        '[class.p-inputwrapper-focus]': 'focused',
+        '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
     }
 })
 export class InputNumber implements OnInit,ControlValueAccessor {
@@ -119,6 +121,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() inputStyleClass: string;
 
+    @Input() showClear: boolean = true;
+
     @ViewChild('input') input: ElementRef;
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
@@ -128,6 +132,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onKeyDown: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     value: number;
 
@@ -363,6 +369,12 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.updateModel(event, newValue);
 
         this.handleOnInput(event, currentValue, newValue);
+    }
+
+    clear() {
+        this.value = null;
+        this.onModelChange(this.value);
+        this.onClear.emit();
     }
 
     onUpButtonMouseDown(event) {

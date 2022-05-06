@@ -100,3 +100,14 @@ p-inputnumber,
 .p-fluid .p-inputnumber-buttons-vertical .p-inputnumber-input {
     width: 100%;
 }
+
+.p-inputnumber-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-inputnumber-clearable {
+    position: relative;
+}

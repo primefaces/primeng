@@ -20,9 +20,12 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <span *ngIf="!itemTemplate" class="p-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
                     <span *ngIf="!disabled" class="p-chips-token-icon pi pi-times-circle" (click)="removeItem($event,i)"></span>
                 </li>
-                <li class="p-chips-input-token">
-                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)"
-                    (input)="onInput()" (paste)="onPaste($event)" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                <li class="p-chips-input-token" [ngClass]="{'p-chips-clearable': showClear && !disabled}">
+                <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)"
+                (input)="onInput()" (paste)="onPaste($event)" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                </li>
+                <li>
+                    <i *ngIf="value != null && filled && !disabled && showClear" class="p-chips-clear-icon pi pi-times" (click)="clear()"></i>
                 </li>
             </ul>
         </div>
@@ -30,7 +33,8 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus'
+        '[class.p-inputwrapper-focus]': 'focus',
+        '[class.p-chips-clearable]': 'showClear',
     },
     providers: [CHIPS_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,6 +72,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() addOnBlur: boolean;
 
     @Input() separator: string;
+    
+    @Input() showClear: boolean = true;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
 
@@ -78,6 +84,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onChipClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('inputtext') inputViewChild: ElementRef;
 
@@ -241,6 +249,13 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         if (preventDefault) {
             event.preventDefault();
         }
+    }
+
+    clear() {
+        this.value = null;
+        this.updateFilledState();
+        this.onModelChange(this.value);
+        this.onClear.emit();
     }
 
     onKeydown(event: KeyboardEvent): void {
