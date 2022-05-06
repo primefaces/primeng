@@ -329,7 +329,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     lastEmitChanges: { originalEvent: any, value: any };
 
     @Input()
-     emitchangeOn: 'item-selected' | 'close-drop-down' = 'item-selected';
+    emitchangeOn: 'item-selected' | 'close-drop-down' = 'item-selected';
 
     _options: any[];
 
@@ -523,39 +523,39 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }, 150);
     }
 
-    selectItem(event, option) {
-        if (this.selectedOption != option) {
-            this.selectedOption = option;
-            this.value = this.getOptionValue(option);
+selectItem(event, option) {
+    if (this.selectedOption != option) {
+        this.selectedOption = option;
+        this.value = this.getOptionValue(option);
 
-           this.lastEmitChanges = {
-           originalEvent: event,
-           value: this.value
-            }
+        this.lastEmitChanges = {
+            originalEvent: event,
+            value: this.value
+        }
 
-        if(this.emitchangeOn === 'item-selected'){
-        this.onModelChange(this.value);
-        this.onChange.emit(this.lastEmitChanges);
+        if (this.emitchangeOn === 'item-selected') {
+            this.onModelChange(this.value);
+            this.onChange.emit(this.lastEmitChanges);
         }
 
         this.updateEditableLabel();
 
         this.lastEmitChanges = {
-        originalEvent: event,
-        value: this.value
+            originalEvent: event,
+            value: this.value
         }
 
-         if(this.emitchangeOn === 'item-selected'){
-        this.onChange.emit(this.lastEmitChanges);
+        if (this.emitchangeOn === 'item-selected') {
+            this.onChange.emit(this.lastEmitChanges);
         }
 
-            if (this.virtualScroll) {
-                setTimeout(() => {
-                    this.viewPortOffsetTop = this.viewPort ? this.viewPort.measureScrollOffset() : 0;
-                }, 1);
-            }
+        if (this.virtualScroll) {
+            setTimeout(() => {
+                this.viewPortOffsetTop = this.viewPort ? this.viewPort.measureScrollOffset() : 0;
+            }, 1);
         }
     }
+}
 
     ngAfterViewChecked() {
         if (this.optionsChanged && this.overlayVisible) {
@@ -803,7 +803,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.virtualAutoScrolled = false;
         }
         
-        if(this.emitchangeOn === 'close-drop-down' && this.selectedOption !== this.lastEmitChanges.value){
+        if (this.emitchangeOn === 'close-drop-down' && this.selectedOption !== this.lastEmitChanges.value) {
             this.onChange.emit(this.lastEmitChanges);
             this.onModelChange(this.lastEmitChanges.value);
         }
