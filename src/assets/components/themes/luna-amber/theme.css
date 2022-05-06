@@ -1098,7 +1098,17 @@ p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
 }
 p-inputnumber.p-inputnumber-clearable .p-inputnumber-clear-icon {
   color: #888888;
-  right: 1.287rem;
+  right: 0.429rem;
+}
+
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
+  padding-right: 1.858rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-stacked .p-inputnumber-clear-icon {
+  right: 2.145rem;
+}
+p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
+  right: 2.145rem;
 }
 
 .p-inputswitch {
@@ -1462,7 +1472,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
 }
 
 p-multiselect.p-multiselect-clearable .p-multiselect-label-container {
-  padding-right: 1.858rem;
+  padding-right: 1.429rem;
 }
 p-multiselect.p-multiselect-clearable .p-multiselect-clear-icon {
   color: #888888;
