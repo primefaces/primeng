@@ -47,7 +47,6 @@
 .p-chips-clear-icon {
     position: absolute;
     top: 50%;
-    right: 1%;
     margin-top: -.5rem;
     cursor: pointer;
 }

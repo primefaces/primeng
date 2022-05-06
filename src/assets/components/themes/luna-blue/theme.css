@@ -764,11 +764,7 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
 }
 
 p-chips.p-chips-clearable .p-inputtext {
-  padding-right: 1.858rem;
-}
-p-chips.p-chips-clearable .p-chips-clear-icon {
-  color: #888888;
-  right: 0.429rem;
+  padding-right: 1.429rem;
 }
 
 .p-colorpicker-preview,
