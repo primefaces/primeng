@@ -521,11 +521,11 @@ export class UITreeNode implements OnInit {
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <div *ngIf="filter" class="p-tree-filter-container">
-                <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
-                    <span class="p-tree-filter-icon pi pi-search"></span>
-            </div>
+                <div *ngIf="filter" class="p-tree-filter-container">
+                    <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
+                        (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
+                        <span class="p-tree-filter-icon pi pi-search"></span>
+                </div>
             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                 <div class="p-tree-wrapper" [style.max-height]="scrollHeight">
                     <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
@@ -640,6 +640,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() filterPlaceholder: string;
 
+    @Input() filteredNodes: TreeNode[];
+
     @Input() filterLocale: string;
 
     @Input() scrollHeight: string;
@@ -691,8 +693,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     public dragStartSubscription: Subscription;
 
     public dragStopSubscription: Subscription;
-
-    public filteredNodes: TreeNode[];
 
     constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig) {}
 
