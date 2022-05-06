@@ -752,6 +752,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         } else {
             if (event.which === 40 && this.suggestions) {
                 this.search(event,event.target.value);
+            } else if((event.ctrlKey && event.key === 'z') && !this.multiple) {
+                this.inputEL.nativeElement.value =  this.resolveFieldData(null);
+                this.value = '';
+                this.onModelChange(this.value);
+            } else if ((event.ctrlKey && event.key === 'z') && this.multiple) {
+                this.value.pop();
+                this.onModelChange(this.value);
+                this.updateFilledState();
             }
         }
 
