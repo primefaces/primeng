@@ -1855,7 +1855,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 
 p-treeselect.p-treeselect-clearable .p-treeselect-label-container {
-  padding-right: 2rem;
+  padding-right: 1.5rem;
 }
 p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: rgba(255, 255, 255, 0.6);
