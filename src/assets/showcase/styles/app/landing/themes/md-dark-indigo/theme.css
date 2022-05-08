@@ -784,7 +784,7 @@
 }
 .landing-themes .p-slider:not(.p-disabled) .p-slider-handle:hover {
   background: #9FA8DA;
-  border-color: 0 none;
+  border-color: #9FA8DA;
 }
 .landing-themes .p-button {
   color: #121212;
