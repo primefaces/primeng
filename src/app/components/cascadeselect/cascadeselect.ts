@@ -337,7 +337,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Input() hideTransitionOptions: string = '.1s linear';
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @ViewChild('focusInput') focusInputEl: ElementRef;
 

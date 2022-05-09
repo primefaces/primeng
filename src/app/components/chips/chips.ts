@@ -73,7 +73,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() separator: string;
     
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
 

@@ -173,7 +173,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() completeOnFocus: boolean = false;
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 

@@ -65,7 +65,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
 
     @Input() autoClear: boolean = true;
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @Input() style: any;
 

@@ -296,7 +296,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() autocomplete: string = 'on';
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @ViewChild('container') containerViewChild: ElementRef;
 

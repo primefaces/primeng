@@ -121,7 +121,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() inputStyleClass: string;
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @ViewChild('input') input: ElementRef;
 
