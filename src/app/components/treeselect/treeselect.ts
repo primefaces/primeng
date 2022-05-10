@@ -139,7 +139,7 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() propagateSelectionUp: boolean = true;
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @Input() resetFilterOnHide: boolean = true;
 

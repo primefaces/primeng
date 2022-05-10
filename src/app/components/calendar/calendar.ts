@@ -272,7 +272,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() showWeek: boolean = false;
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
 
     @Input() dataType: string = 'date';
 

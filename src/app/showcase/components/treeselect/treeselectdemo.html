@@ -389,6 +389,12 @@ export class TreeSelectDemoComponent implements OnInit &#123;
                             <td>true</td>
                             <td>Clears the filter value when hiding the dropdown.</td>
                         </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -439,6 +445,11 @@ export class TreeSelectDemoComponent implements OnInit &#123;
                             <td>onNodeCollapse</td>
                             <td>node: Node instance</td>
                             <td>Callback to invoke when a node is collapsed.</td>
+                        </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field is cleared.</td>
                         </tr>
                     </tbody>
                 </table>

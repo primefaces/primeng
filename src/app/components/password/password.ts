@@ -336,7 +336,7 @@ export class Password implements AfterContentInit,OnInit {
 
     @Input() placeholder: string;
 
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = false;
     
     @ViewChild('input') input: ElementRef;
 
