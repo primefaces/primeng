@@ -2175,6 +2175,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.droppedRowIndex != null) {
             let dropIndex = (this.draggedRowIndex > this.droppedRowIndex) ? this.droppedRowIndex : (this.droppedRowIndex === 0) ? 0 : this.droppedRowIndex - 1;
             ObjectUtils.reorderArray(this.value, this.draggedRowIndex, dropIndex);
+            
+            if (this.virtualScroll) {
+                this._value = [...this._value]
+            }
 
             this.onRowReorder.emit({
                 dragIndex: this.draggedRowIndex,
