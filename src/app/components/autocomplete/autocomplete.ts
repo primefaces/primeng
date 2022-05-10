@@ -101,8 +101,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible',
-        '[class.p-autocomplete-clearable]': 'showClear && !disabled',
-        '[class.p-autocomplete-dropdown]': 'dropdown',
+        '[class.p-autocomplete-clearable]': 'showClear && !disabled'
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
