@@ -61,13 +61,13 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
                 <p-tree #tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
                     [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)"
-                    (onNodeSelect)="onSelect($event)" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus" [filteredNodes]="filteredNodes"></p-tree>
-                <div *ngIf="emptyOptions" class="p-treeselect-empty-message">
-                    <ng-container *ngIf="!emptyTemplate; else empty">
-                        {{emptyMessageText}}
-                    </ng-container>
-                    <ng-container *ngTemplateOutlet="emptyTemplate;"></ng-container>
-                </div>
+                    (onNodeSelect)="onSelect($event)" [emptyMessage]="emptyMessage" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus" [filteredNodes]="filteredNodes">
+                        <ng-container *ngIf="emptyTemplate">
+                            <ng-template pTemplate="empty">
+                                <ng-container *ngTemplateOutlet="emptyTemplate;"></ng-container>
+                            </ng-template>
+                        </ng-container>    
+                </p-tree>
             </div>
             <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: value, options: options}"></ng-container>
         </div>
@@ -119,7 +119,7 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() panelClass: string;
 
-    @Input() emptyMessage: string;
+    @Input() emptyMessage: string = '';
 
     @Input() appendTo: any;
 
@@ -661,10 +661,6 @@ export class TreeSelect implements AfterContentInit {
             'p-placeholder': this.label === this.placeholder,
             'p-treeselect-label-empty': !this.placeholder && this.emptyValue
         }
-    }
-
-    get emptyMessageText() {
-        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
     get emptyValue() {
