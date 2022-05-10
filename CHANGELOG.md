@@ -1,5 +1,27 @@
 # Changelog
 
+## [13.4.0](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.3...13.4.0)
+
+**Implemented New Features and Enhancements:**
+
+- Input Components | Clear support [\#11471](https://github.com/primefaces/primeng/issues/11471)
+- TreeSelect | Filter [\#11461](https://github.com/primefaces/primeng/issues/11461)
+- Dropdown value is not cleared when options change [\#8806](https://github.com/primefaces/primeng/issues/8806)
+- Slider | Range slider can not be dragged to the left when both thumbs overlap [\#11427](https://github.com/primefaces/primeng/issues/11427)
+- add iconStyle in MenuModel API [\#11258](https://github.com/primefaces/primeng/issues/11258)
+  
+**Fixed bugs:**
+- Row reordering in table not working with virtual scroll [\#9817](https://github.com/primefaces/primeng/issues/9817)
+- TreeSelect | Duplicate Empty Message [\#11497](https://github.com/primefaces/primeng/issues/11497)
+- PrimeIcons.ts contains invalid icons [\#11472](https://github.com/primefaces/primeng/issues/11472)
+- p-autocomplete does not clears selected object when CTRL-Z is pressed in textbox [\#9842](https://github.com/primefaces/primeng/issues/9842)
+- Dropdown | auto-selects group entries instead of first entry inside first group [\#11485](https://github.com/primefaces/primeng/issues/11485)
+- p-colorPicker onInputClick using a button not working [\#11438](https://github.com/primefaces/primeng/issues/11438)
+- More than one dropdown can be opened at a time [\#11455](https://github.com/primefaces/primeng/issues/11455)
+- Slider Range | Vertical handles not aligned [\#11463](https://github.com/primefaces/primeng/issues/11463)
+
 ## [13.3.3](https://github.com/primefaces/primeng/tree/HEAD) (2022-04-13)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.3.2...13.3.3)
