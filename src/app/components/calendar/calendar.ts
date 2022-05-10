@@ -199,8 +199,7 @@ export interface LocaleSettings {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focus',
-        '[class.p-calendar-clearable]': 'showClear && !disabled',
-        '[class.p-calendar-show-icon]': 'showIcon'
+        '[class.p-calendar-clearable]': 'showClear && !disabled'
     },
     providers: [CALENDAR_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
