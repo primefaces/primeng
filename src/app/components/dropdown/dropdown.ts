@@ -1,13 +1,13 @@
 import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
-        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef,ChangeDetectionStrategy, ViewEncapsulation,Injector} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {OverlayService, PrimeNGConfig, SelectItem, TranslationKeys} from 'primeng/api';
 import {SharedModule,PrimeTemplate, FilterService} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils,UniqueComponentId,ZIndexUtils} from 'primeng/utils';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl} from '@angular/forms';
 import {TooltipModule} from 'primeng/tooltip';
 import {RippleModule} from 'primeng/ripple';
 
@@ -386,7 +386,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     listId: string;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public zone: NgZone,
+        public filterService: FilterService,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        public injector: Injector
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -457,7 +466,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.activateFilter();
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit() {
         if (this.editable) {
             this.updateEditableLabel();
         }
@@ -577,7 +586,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.value = value;
-        this.updateSelectedOption(value);
+        this.updateSelectedOption(value, false);
         this.updateEditableLabel();
         this.cd.markForCheck();
     }
@@ -592,21 +601,25 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.optionsToDisplay = this.options;
     }
 
-    updateSelectedOption(val: any): void {
+    updateSelectedOption(val: any, shouldNotifyParentControl = true): void {
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
 
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
-            if(this.group) {
-                this.selectedOption = this.optionsToDisplay[0].items[0];
-            } else {
-                this.selectedOption = this.optionsToDisplay[0];
-            }
+            const [optionToDisplay] = this.optionsToDisplay;
+
+            this.selectedOption = this.group ? optionToDisplay.items[0] : optionToDisplay;
+
             this.value = this.getOptionValue(this.selectedOption);
-            this.onModelChange(this.value);
-        }
-        else if (!this.selectedOption) {
+
+            if (shouldNotifyParentControl) {
+                this.onModelChange(this.value);
+            }
+        } else if (!this.selectedOption) {
             this.value = null;
-            this.onModelChange(this.value);
+
+            if (shouldNotifyParentControl) {
+                this.onModelChange(this.value);
+            }
         }
 
         this.selectedOptionUpdated = true;
@@ -1251,12 +1264,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     clear(event: Event) {
         this.value = null;
-        this.onModelChange(this.value);
+
+        // It resets the status and value of the parent control. (do not use onModelChange, it triggers validators on the parent control)
+        this.injector.get(NgControl)?.reset(null);
+
         this.onChange.emit({
             originalEvent: event,
             value: this.value
         });
-        this.updateSelectedOption(this.value);
+        this.updateSelectedOption(this.value, false);
         this.updateEditableLabel();
         this.onClear.emit(event);
     }
