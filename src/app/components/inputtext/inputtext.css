@@ -86,3 +86,11 @@
     display: block;
     width: 100%;
 }
+
+.p-float-label .p-inputtext::placeholder {
+    opacity: 0;
+}
+
+.p-float-label .p-inputtext:focus::placeholder {
+    opacity: 1;
+}
