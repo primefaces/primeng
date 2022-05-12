@@ -510,7 +510,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
         if (!this.isOptionDisabled(option)) {
             this.selectItem(event.originalEvent, option);
-            this.accessibleViewChild.nativeElement.focus();
+            this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
         }
 
         setTimeout(() => {
@@ -631,7 +631,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.onClick.emit(event);
-        this.accessibleViewChild.nativeElement.focus();
+        this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
 
         if (this.overlayVisible)
             this.hide();
