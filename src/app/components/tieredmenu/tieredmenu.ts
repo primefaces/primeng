@@ -152,12 +152,12 @@ export class TieredMenuSub implements OnDestroy {
         this.leafClick.emit();
     }
 
-    onItemKeyDown(event, item) {
+    onItemKeyDown(event, item: MenuItem) {
         let listItem = event.currentTarget.parentElement;
 
         switch (event.key) {
             case 'ArrowDown':
-                var nextItem = this.findNextItem(listItem);
+                const nextItem = this.findNextItem(listItem);
                 if (nextItem) {
                     nextItem.children[0].focus();
                 }
@@ -166,7 +166,7 @@ export class TieredMenuSub implements OnDestroy {
             break;
 
             case 'ArrowUp':
-                var prevItem = this.findPrevItem(listItem);
+                const prevItem = this.findPrevItem(listItem);
                 if (prevItem) {
                     prevItem.children[0].focus();
                 }
@@ -189,6 +189,14 @@ export class TieredMenuSub implements OnDestroy {
 
                 event.preventDefault();
             break;
+
+            case 'Enter':
+                if (!item.routerLink) {
+                    this.onItemClick(event, item);
+                }
+
+            break;
+
 
             default:
             break;
