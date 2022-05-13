@@ -277,7 +277,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                if (parseInt(this.container.style.zIndex) === ZIndexUtils.get(this.container)) {
                     this.close(event);
                 }
             }
