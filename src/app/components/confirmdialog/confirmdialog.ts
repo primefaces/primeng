@@ -23,7 +23,7 @@ const hideAnimation = animation([
     selector: 'p-confirmDialog',
     template: `
         <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
-            <div [ngClass]="{'p-dialog p-confirm-dialog p-component':true,'p-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
+            <div [ngClass]="{'p-dialog p-confirm-dialog p-component':true,'p-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
                 <div class="p-dialog-header" *ngIf="headerTemplate">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
