@@ -118,8 +118,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             else if (this.getOption('tooltipEvent') === 'focus') {
                 this.focusListener = this.onFocus.bind(this);
                 this.blurListener = this.onBlur.bind(this);
-                this.el.nativeElement.addEventListener('focus', this.focusListener);
-                this.el.nativeElement.addEventListener('blur', this.blurListener);
+
+                let target = this.getTarget(this.el.nativeElement);
+                target.addEventListener('focus', this.focusListener);
+                target.addEventListener('blur', this.blurListener);
             }
         });
     }
@@ -455,6 +457,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     getOption(option: string) {
         return this._tooltipOptions[option];
+    }
+
+    getTarget(el) {
+        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input'): el;
     }
 
     preAlign(position: string) {
