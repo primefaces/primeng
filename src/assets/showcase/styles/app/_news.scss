@@ -15,16 +15,22 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        min-width: 0%;
     }
 
     .layout-news-text {
         line-height: 1.5;
         display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        min-width: 0%;
     }
 
     .layout-news-link {
         margin-left: .5rem;
         line-height: 1.5;
+        white-space: nowrap;
 
         &:hover {
             text-decoration: underline;
@@ -40,6 +46,7 @@
         border-radius: 50%;
         width: 1.5rem;
         height: 1.5rem;
+        margin-left:.5rem;
         transition: background-color .3s;
 
         &:hover {
