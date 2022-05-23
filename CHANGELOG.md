@@ -1,5 +1,14 @@
 # Changelog
 
+## [13.4.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.4.0...13.4.1)
+
+
+**Fixed bugs:**
+- Dropdown value not set properly when options come later than value [\#11526](https://github.com/primefaces/primeng/issues/11526)
+- pTooltip | focus event does not work with p-components [\#11535](https://github.com/primefaces/primeng/issues/11535)
+
 ## [13.4.0](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-10)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.3.3...13.4.0)
