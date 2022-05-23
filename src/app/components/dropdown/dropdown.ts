@@ -441,6 +441,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this._options = val;
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
+
+        this.selectedOption = this.findOption(this.value, this.optionsToDisplay);
+        if (!this.selectedOption) {
+            this.value = null;
+            this.onModelChange(this.value);
+        }
+
         this.optionsChanged = true;
 
         if (this._filterValue && this._filterValue.length) {
@@ -602,10 +609,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.selectedOption = this.optionsToDisplay[0];
             }
             this.value = this.getOptionValue(this.selectedOption);
-            this.onModelChange(this.value);
-        }
-        else if (!this.selectedOption) {
-            this.value = null;
             this.onModelChange(this.value);
         }
 
