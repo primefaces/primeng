@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-lib": "ng build primeng-library && gulp build-assets"
+    "build-lib": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets"
   },
   "repository": {
     "type": "git",
