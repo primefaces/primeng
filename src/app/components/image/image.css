@@ -48,6 +48,10 @@
     align-items: center;
 }
 
+.p-image-action.p-link[disabled] {
+    opacity: 0.5;
+}
+
 .p-image-preview {
     transition: transform .15s;
     max-width: 100vw;

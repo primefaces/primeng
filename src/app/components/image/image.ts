@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList, Output, EventEmitter, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList, Output, EventEmitter, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import {trigger,style,transition,animate, AnimationEvent,} from '@angular/animations';
@@ -20,20 +20,20 @@ import { ZIndexUtils } from 'primeng/utils';
                 </ng-template>
             </div>
             <div #mask class="p-image-mask p-component-overlay p-component-overlay-enter" *ngIf="maskVisible" (click)="onMaskClick()">
-                <div class="p-image-toolbar">
+                <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
                     <button class="p-image-action p-link" (click)="rotateRight()" type="button">
                         <i class="pi pi-refresh"></i>
                     </button>
                     <button class="p-image-action p-link" (click)="rotateLeft()" type="button">
                         <i class="pi pi-undo"></i>
                     </button>
-                    <button class="p-image-action p-link" (click)="zoomOut()" type="button" [disabled]="zoomDisabled()">
+                    <button class="p-image-action p-link" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled">
                         <i class="pi pi-search-minus"></i>
                     </button>
-                    <button class="p-image-action p-link" (click)="zoomIn()" type="button" [disabled]="zoomDisabled()">
+                    <button class="p-image-action p-link" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled">
                         <i class="pi pi-search-plus"></i>
                     </button>
-                    <button class="p-image-action p-link" type="button">
+                    <button class="p-image-action p-link" type="button" (click)="closePreview()">
                         <i class="pi pi-times"></i>
                     </button>
                 </div>
@@ -112,6 +112,21 @@ export class Image implements AfterContentInit {
 
     wrapper: HTMLElement;
 
+    public get isZoomOutDisabled(): boolean {
+        return this.scale - this.zoomSettings.step <= this.zoomSettings.min;
+    }
+
+    public get isZoomInDisabled(): boolean {
+        return this.scale + this.zoomSettings.step >= this.zoomSettings.max;
+    }
+
+    private zoomSettings = {
+        default: 1,
+        step: 0.1,
+        max: 1.5,
+        min: 0.5
+    }
+
     constructor(private config: PrimeNGConfig, private cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
@@ -137,9 +152,7 @@ export class Image implements AfterContentInit {
 
     onMaskClick() {
         if (!this.previewClick) {
-            this.previewVisible = false;
-            this.rotate = 0;
-            this.scale = 1;
+            this.closePreview();
         }
 
         this.previewClick = false;
@@ -160,17 +173,13 @@ export class Image implements AfterContentInit {
     }
 
     zoomIn() {
-        this.scale = this.scale + 0.1;
+        this.scale = this.scale + this.zoomSettings.step;
         this.previewClick = true;
     }
 
     zoomOut() {
-        this.scale = this.scale - 0.1;
+        this.scale = this.scale - this.zoomSettings.step;
         this.previewClick = true;
-    }
-
-    zoomDisabled() {
-        return this.scale <= 0.5 || this.scale >= 1.5;
     }
 
     onAnimationStart(event: AnimationEvent) {
@@ -227,6 +236,16 @@ export class Image implements AfterContentInit {
             'p-image p-component': true,
             'p-image-preview-container': this.preview
         };
+    }
+
+    handleToolbarClick(event: MouseEvent): void {
+        event.stopPropagation();
+    }
+
+    closePreview(): void {
+        this.previewVisible = false;
+        this.rotate = 0;
+        this.scale = this.zoomSettings.default;
     }
 }
 
