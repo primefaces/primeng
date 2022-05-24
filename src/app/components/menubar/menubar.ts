@@ -2,7 +2,7 @@ import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDete
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
-import { MenuItem, PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -291,8 +291,8 @@ export class Menubar implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
-    exports: [Menubar,RouterModule,TooltipModule],
+    imports: [CommonModule,RouterModule,RippleModule,TooltipModule,SharedModule],
+    exports: [Menubar,RouterModule,TooltipModule,SharedModule],
     declarations: [Menubar,MenubarSub]
 })
 export class MenubarModule { }
