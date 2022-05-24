@@ -74,7 +74,7 @@ describe('InputMask', () => {
         inputmask.mask = "99-999999";
         fixture.detectChanges();
 
-        const keydownSpy = spyOn(inputmask, "onKeyDown").and.callThrough();
+        const keydownSpy = spyOn(inputmask, "onInputKeydown").and.callThrough();
         const onKeyPressSpy = spyOn(inputmask, "onKeyPress").and.callThrough();
         const onInputSpy = spyOn(inputmask, "onInputChange").and.callThrough();
         const onInputBlurSpy = spyOn(inputmask, "onInputBlur").and.callThrough();

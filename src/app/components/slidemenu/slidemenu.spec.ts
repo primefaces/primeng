@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SlideMenu, SlideMenuSub } from './slidemenu';
+import { SlideMenu, SlideMenuModule, SlideMenuSub } from './slidemenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
@@ -27,11 +27,10 @@ describe('SlideMenu', () => {
 			imports: [
 				NoopAnimationsModule,
 				RouterTestingModule,
-				ButtonModule
+				ButtonModule,
+                SlideMenuModule
 			],
 			declarations: [
-				SlideMenu,
-				SlideMenuSub,
 				SlideMenuTestComponent
 			]
 		});

@@ -3,6 +3,7 @@
         <h1>ProgressBar</h1>
         <p>ProgressBar is a process status indicator.</p>
     </div>
+    <app-demoActions github="progressbar" stackblitz="progressbar-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -11,10 +12,10 @@
     <div class="card">
         <h5>Dynamic</h5>
         <p-progressBar [value]="value"></p-progressBar>
-    
+
         <h5>Static</h5>
-        <p-progressBar [value]="50"></p-progressBar>
-    
+        <p-progressBar></p-progressBar>
+
         <h5>Indeterminate</h5>
         <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
     </div>
@@ -143,7 +144,7 @@ export class ModelComponent &#123;
     &lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
 
     &lt;h5&gt;Static&lt;/h5&gt;
-    &lt;p-progressBar [value]="50"&gt;&lt;/p-progressBar&gt;
+    &lt;p-progressBar&gt;&lt;/p-progressBar&gt;
 
     &lt;h5&gt;Indeterminate&lt;/h5&gt;
     &lt;p-progressBar mode="indeterminate" [style]="&#123;'height': '6px'&#125;"&gt;&lt;/p-progressBar&gt;

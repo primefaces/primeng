@@ -15,9 +15,9 @@ let idx: number = 0;
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div class="p-panel-icons">
+                <div role="tablist" class="p-panel-icons" [ngClass]="{'p-panel-icons-start': iconPos === 'start', 'p-panel-icons-end': iconPos ==='end', 'p-panel-icons-center': iconPos === 'center'}">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
+                    <button *ngIf="toggleable" type="button" [attr.aria-label]="'collapse button'" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
                         (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
                         <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                     </button>
@@ -29,7 +29,7 @@ let idx: number = 0;
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
-                
+
                 <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
@@ -54,9 +54,12 @@ let idx: number = 0;
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./panel.css']
+    styleUrls: ['./panel.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Panel implements AfterContentInit,BlockableUI {
 
@@ -65,25 +68,27 @@ export class Panel implements AfterContentInit,BlockableUI {
     @Input() header: string;
 
     @Input() collapsed: boolean = false;
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
+    @Input() iconPos: string = "end";
+
     @Input() expandIcon: string = 'pi pi-plus';
-    
+
     @Input() collapseIcon: string = 'pi pi-minus';
-  
+
     @Input() showHeader: boolean = true;
 
     @Input() toggler: string = "icon";
-    
+
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChild(Footer) footerFacet;
@@ -91,7 +96,7 @@ export class Panel implements AfterContentInit,BlockableUI {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public iconTemplate: TemplateRef<any>;
-    
+
     animating: boolean;
 
     headerTemplate: TemplateRef<any>;
@@ -99,9 +104,9 @@ export class Panel implements AfterContentInit,BlockableUI {
     contentTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
-    
+
     id: string = `p-panel-${idx++}`;
-    
+
     constructor(private el: ElementRef) { }
 
     ngAfterContentInit() {
@@ -141,39 +146,39 @@ export class Panel implements AfterContentInit,BlockableUI {
             this.toggle(event);
         }
     }
-    
+
     toggle(event: Event) {
         if (this.animating) {
             return false;
         }
-        
+
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
-        
+
         if (this.toggleable) {
             if (this.collapsed)
                 this.expand(event);
             else
                 this.collapse(event);
         }
-        
+
         event.preventDefault();
     }
-    
+
     expand(event) {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
     }
-    
+
     collapse(event) {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-    
+
     onToggleDone(event: Event) {
         this.animating = false;
         this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});

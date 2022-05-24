@@ -5,12 +5,13 @@
             is visited again, table would render the data using its last settings.
         </p>
     </div>
+    <app-demoActions github="table" stackblitz="tablestate-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
         <h5>Session Storage</h5>
-        <p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers"
+        <p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
             [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
                 <tr>
@@ -66,7 +67,7 @@
 
     <div class="card">
         <h5>Local Storage</h5>
-        <p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers"
+        <p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
             [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
             <ng-template pTemplate="header">
                 <tr>
@@ -77,16 +78,16 @@
                 </tr>
                 <tr>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter">
                     </th>
                 </tr>
             </ng-template>
@@ -130,11 +131,11 @@
             <a href="https://stackblitz.com/edit/primeng-tablestate-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-            
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Session Storage&lt;/h5&gt;
-    &lt;p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers"
+    &lt;p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
         [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
@@ -190,7 +191,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Local Storage&lt;/h5&gt;
-    &lt;p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers"
+    &lt;p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
         [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
@@ -201,16 +202,16 @@
             &lt;/tr&gt;
             &lt;tr&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter"&gt;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -270,9 +271,9 @@ export class TableStateDemo implements OnInit &#123;
         this.customerService.getCustomersMedium().then(data =&gt; this.customers1 = data);
         this.customerService.getCustomersMedium().then(data =&gt; this.customers2 = data);
     &#125;
-    
+
 &#125;
-</app-code> 
+</app-code>
 
         </p-tabPanel>
 

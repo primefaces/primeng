@@ -3,6 +3,7 @@
         <h1>Dynamic Dialog</h1>
         <p>Dialogs can be created dynamically with any component as the content using a DialogService.</p>
     </div>
+    <app-demoActions github="dynamicdialog" stackblitz="dynamicdialog-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -67,7 +68,7 @@ export class DynamicDialogDemo &#123;
 </app-code>
 
             <p>Displaying a dialog is done with the open method where the first parameter is the type of component to load and the second parameter is the configuration of the Dialog such as header, width and more.</p>
-                
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
 </app-code>
@@ -109,7 +110,7 @@ import &#123;DynamicDialogConfig&#125; from 'primeng/dynamicdialog';
 export class CarsListDemo &#123;
 
     cars: Car[];
-            
+
     constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;
@@ -135,7 +136,7 @@ import &#123;DynamicDialogConfig&#125; from 'primeng/dynamicdialog';
 export class CarsListDemo &#123;
 
     cars: Car[];
-            
+
     constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;
@@ -401,7 +402,7 @@ export class DynamicDialogDemo implements OnDestroy &#123;
 
             <h5>CarsListDemo</h5>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" [paginator]="true" [rows]="5" [responsive]="true"&gt;
+&lt;p-table [value]="products" responsiveLayout="scroll" [paginator]="true" [rows]="5" [responsive]="true"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="vin"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
@@ -429,7 +430,7 @@ export class DynamicDialogDemo implements OnDestroy &#123;
 export class ProductListDemo &#123;
 
     products: Product[];
-            
+
     constructor(private productService: ProductService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;

@@ -13,7 +13,10 @@ import { CommonModule } from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./avatar.css']
+    styleUrls: ['./avatar.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Avatar {
 

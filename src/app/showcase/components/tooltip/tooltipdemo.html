@@ -3,26 +3,27 @@
         <h1>Tooltip</h1>
         <p>Tooltip directive provides advisory information for a component.</p>
     </div>
+    <app-demoActions github="tooltip" stackblitz="tooltip-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
         <h5>Positions</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-3">
-                <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">                
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-3">
+                <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">
             </div>
-            <div class="p-col-12 p-md-3">
+            <div class="col-12 md:col-3">
                 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top">
             </div>
-            <div class="p-col-12 p-md-3">
+            <div class="col-12 md:col-3">
                 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom">
             </div>
-            <div class="p-col-12 p-md-3">
+            <div class="col-12 md:col-3">
                 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left">
             </div>
         </div>
-        
+
         <h5>Focus and Blur</h5>
         <input type="text" pInputText pTooltip="Enter your username" placeholder="Right" tooltipEvent="focus">
 
@@ -41,15 +42,15 @@ import &#123;TooltipModule&#125; from 'primeng/tooltip';
 
             <h5>Getting Started</h5>
             <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
-            
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pTooltip="Enter your username"&gt;
 </app-code>
 
             <h5>Position</h5>
-            <p>There are four choices to position the tooltip, default value is "right" and alternatives are "top", "bottom", "left". Position is 
+            <p>There are four choices to position the tooltip, default value is "right" and alternatives are "top", "bottom", "left". Position is
             specified using <i>tooltipPosition</i> attribute.</p>
-            
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;input type="text" pTooltip="Enter your username" tooltipPosition="top"&gt;
 </app-code>
@@ -76,7 +77,7 @@ import &#123;TooltipModule&#125; from 'primeng/tooltip';
     &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right" [appendTo]="container"&gt;
 &lt;/div&gt;
 </app-code>
-            
+
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -195,7 +196,7 @@ import &#123;TooltipModule&#125; from 'primeng/tooltip';
             <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
-        
+
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tooltip" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
@@ -205,17 +206,17 @@ import &#123;TooltipModule&#125; from 'primeng/tooltip';
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Positions&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right"&gt;                
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="col-12 md:col-3"&gt;
+        &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
+    &lt;div class="col-12 md:col-3"&gt;
         &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
+    &lt;div class="col-12 md:col-3"&gt;
         &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
+    &lt;div class="col-12 md:col-3"&gt;
         &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left"&gt;
     &lt;/div&gt;
 &lt;/div&gt;

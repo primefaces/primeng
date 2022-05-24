@@ -7,6 +7,7 @@ import {PanelModule} from 'primeng/panel';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import { SplitterModule } from 'primeng/splitter';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import { SplitterModule } from 'primeng/splitter';
         PanelModule,
 		TabViewModule,
 		SplitterModule,
-		AppCodeModule
+		AppCodeModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		SplitterDemo

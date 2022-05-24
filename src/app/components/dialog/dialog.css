@@ -8,8 +8,6 @@
     justify-content: center;
     align-items: center;
     pointer-events: none;
-    background-color: transparent;
-    transition-property: background-color;
 }
 
 .p-dialog-mask.p-component-overlay {
@@ -24,9 +22,9 @@
     transform: scale(1);
     position: relative;
 }
-
 .p-dialog-content {
     overflow-y: auto;
+    flex-grow: 1;
 }
 
 .p-dialog-header {
@@ -34,6 +32,10 @@
     align-items: center;
     justify-content: space-between;
     flex-shrink: 0;
+}
+
+.p-dialog-draggable .p-dialog-header {
+    cursor: move;
 }
 
 .p-dialog-footer {
@@ -52,11 +54,6 @@
     overflow: hidden;
     position: relative;
 }
-
-.p-dialog-mask.p-dialog-mask-leave {
-    background-color: transparent;
-}
-
 
 /* Fluid */
 .p-fluid .p-dialog-footer .p-button {
@@ -83,6 +80,9 @@
     transition: none;
     transform: none;
     width: 100vw !important;
+    height: 100vh !important;
+    top: 0px !important;
+    left: 0px !important;
     max-height: 100%;
     height: 100%;
 }

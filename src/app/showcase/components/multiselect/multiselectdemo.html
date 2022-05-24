@@ -3,18 +3,31 @@
         <h1>MultiSelect</h1>
         <p>MultiSelect is used to multiple values from a list of options.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="multiselect" stackblitz="multiselect-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <h5>Basic</h5>
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
+        <h5>Template Mode</h5>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
+
+        <h5>Elipsis Mode</h5>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
 
         <h5>Chips</h5>
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
     
-        <h5>Templating</h5>
+        <h5>Grouped</h5>
+        <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
+            <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
+                    <span>{{group.label}}</span>
+                </div>
+            </ng-template>
+        </p-multiSelect>
+
+        <h5>Advanced with Templating and Filtering</h5>
         <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
             <ng-template let-value pTemplate="selectedItems">
                 <div class="country-item country-item-value" *ngFor="let option of selectedCountries1">
@@ -33,7 +46,7 @@
             </ng-template>
         </p-multiSelect>
     
-        <h5>Virtual Scroll (10000 Items)</h5>
+        <h5>Virtual Scroll</h5>
         <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
@@ -164,7 +177,8 @@ export class MultiSelectDemo &#123;
 
             <h5>Custom Content</h5>
             <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. 
-                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header and footer can be provided using <i>header</i> and <i>footer</i> templates.</p>
+                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, footer and empty filter message can be provided using <i>header</i>, <i>footer</i> and <i>emptyfilter</i> templates. 
+                In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
@@ -236,6 +250,20 @@ export class MultiSelectDemo &#123;
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
+            <h5>Selected Items Label</h5>
+            <p>When the max number of selected items to display is reached, an ellipsis is used to indicate a text overflow. This behavior can be customized with the <i>selectedItemsLabel</i> property that accepts a template string such as ""&#123;0&#125;" items selected" where the parameter is the number
+                of selected items.</p>
+
+            <h6>Ellipsis Overflow</h6>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" &gt;&lt;/p-multiSelect&gt;
+</app-code>
+
+            <h6>Custom Label</h6>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [maxSelectedLabels]="5" [selectedItemsLabel]="'&#123;0&#125; items selected'"&gt;&lt;/p-multiSelect&gt;
+</app-code>
+
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -259,6 +287,12 @@ export class MultiSelectDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Defines a string that labels the filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label of the input for accessibility.</td>
                         </tr>
                         <tr>
                             <td>ariaLabelledBy</td>
@@ -411,6 +445,24 @@ export class MultiSelectDemo &#123;
                             <td>Name of the disabled field of an option.</td>
                         </tr>
                         <tr>
+                            <td>optionGroupLabel</td>
+                            <td>string</td>
+                            <td>label</td>
+                            <td>Name of the label field of an option group.</td>
+                        </tr>
+                        <tr>
+                            <td>optionGroupChildren</td>
+                            <td>string</td>
+                            <td>items</td>
+                            <td>Name of the options field of an option group.</td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display options as grouped when nested options are provided.</td>
+                        </tr>
+                        <tr>
                             <td>overlayVisible</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -435,6 +487,18 @@ export class MultiSelectDemo &#123;
                             <td>When present, it specifies that the component cannot be edited.</td>
                         </tr>
                         <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
+                        </tr>
+                        <tr>
+                            <td>emptyFilterMessage</td>
+                            <td>string</td>
+                            <td>No results found</td>
+                            <td>Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.</td>
+                        </tr>
+                        <tr>
                             <td>resetFilterOnHide</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -449,8 +513,8 @@ export class MultiSelectDemo &#123;
                         <tr>
                             <td>selectedItemsLabel</td>
                             <td>string</td>
-                            <td>&#123;0&#125; items selected</td>
-                            <td>Label to display after exceeding max selected labels.</td>
+                            <td>ellipsis</td>
+                            <td>Label to display after exceeding max selected labels e.g. (&#123;0&#125; items selected), defaults "ellipsis" keyword to indicate a text-overflow.</td>
                         </tr>
                         <tr>
                             <td>selectionLimit</td>
@@ -524,6 +588,12 @@ export class MultiSelectDemo &#123;
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -553,6 +623,12 @@ export class MultiSelectDemo &#123;
                             <td>Callback to invoke when value changes.</td>
                         </tr>
                         <tr>
+                            <td>onFilter</td>
+                            <td>event.originalEvent: Browser event <br />
+                                event.filter: Filter value used in filtering.</td>
+                            <td>Callback to invoke when data is filtered.</td>
+                        </tr>
+                        <tr>
                             <td>onFocus</td>
                             <td>event.originalEvent: browser event</td>
                             <td>Callback to invoke when multiselect receives focus.</td>
@@ -571,6 +647,53 @@ export class MultiSelectDemo &#123;
                             <td>onPanelHide</td>
                             <td>-</td>
                             <td>Callback to invoke when overlay panel becomes hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field is cleared.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>item</td>
+                            <td>$implicit: Data of the item</td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>$implicit: Data of the group item</td>
+                        </tr>
+                         <tr>
+                            <td>selectedItems</td>
+                            <td>$implicit: value</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>empty</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>emptyfilter</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
                         </tr>
                     </tbody>
                 </table>
@@ -639,13 +762,26 @@ export class MultiSelectDemo &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
+&lt;h5&gt;Template Mode&lt;/h5&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="&#123;0&#125; items selected"&gt;&lt;/p-multiSelect&gt;
+
+&lt;h5&gt;Elipsis Mode&lt;/h5&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
 
 &lt;h5&gt;Chips&lt;/h5&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name" display="chip"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"&gt;&lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Templating&lt;/h5&gt;
+&lt;h5&gt;Grouped&lt;/h5&gt;
+&lt;p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip"&gt;
+    &lt;ng-template let-group pTemplate="group"&gt;
+        &lt;div class="flex align-items-center"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+            &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-multiSelect&gt;
+
+&lt;h5&gt;Advanced with Templating and Filtering&lt;/h5&gt;
 &lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
     &lt;ng-template let-value pTemplate="selectedItems"&gt;
         &lt;div class="country-item country-item-value" *ngFor="let option of selectedCountries1"&gt;
@@ -664,7 +800,7 @@ export class MultiSelectDemo &#123;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+&lt;h5&gt;Virtual Scroll&lt;/h5&gt;
 &lt;p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
@@ -698,12 +834,18 @@ export class MultiSelectDemo &#123;
     selectedCities1: City[];
 
     selectedCities2: City[];
-    
+
+    selectedCities3: any[];
+
+    selectedCities4: any[];
+
     selectedCountries1: Country[];
 
     selectedCountries2: Country[];
 
     cities: City[];
+
+    groupedCities: SelectItemGroup[];
 
     countries: City[];
 
@@ -731,45 +873,80 @@ export class MultiSelectDemo &#123;
             &#123;name: 'United States', code: 'US'&#125;
         ];
 
-        this.countryService.getCountries().then(countries => &#123;
+        this.groupedCities = [
+            &#123;
+                label: 'Germany', value: 'de', 
+                items: [
+                    &#123;label: 'Berlin', value: 'Berlin'&#125;,
+                    &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
+                    &#123;label: 'Hamburg', value: 'Hamburg'&#125;,
+                    &#123;label: 'Munich', value: 'Munich'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'USA', value: 'us', 
+                items: [
+                    &#123;name: 'Chicago', value: 'Chicago'&#125;,
+                    &#123;name: 'Los Angeles', value: 'Los Angeles'&#125;,
+                    &#123;name: 'New York', value: 'New York'&#125;,
+                    &#123;name: 'San Francisco', value: 'San Francisco'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Japan', value: 'jp', 
+                items: [
+                    &#123;name: 'Kyoto', value: 'Kyoto'&#125;,
+                    &#123;name: 'Osaka', value: 'Osaka'&#125;,
+                    &#123;name: 'Tokyo', value: 'Tokyo'&#125;,
+                    &#123;name: 'Yokohama', value: 'Yokohama'&#125;
+                ]
+            &#125;
+        ];
+
+        this.countryService.getCountries().then(countries =&gt; &#123;
             this.virtualCountries = countries;
         &#125;);
     &#125;
+
 &#125;
 </app-code>
 
 <app-code lang="css" ngNonBindable ngPreserveWhitespaces>
-    :host ::ng-deep .p-multiselect &#123;
-        min-width: 15rem;
+ :host ::ng-deep .p-multiselect &#123;
+    min-width: 15rem;
+    width: 18rem;
+&#125;
+
+:host ::ng-deep .multiselect-custom &#123;
+    .p-multiselect-label &#123;
+        padding-top: .25rem;
+        padding-bottom: .25rem;
     &#125;
-    
-    :host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect &#123;
-        min-width: 20rem;
-    &#125;
-    
-    :host ::ng-deep .multiselect-custom &#123;
-        .p-multiselect-label &#123;
-            padding-top: .25rem;
-            padding-bottom: .25rem;
-        &#125;
-    
-        .country-item-value &#123;
-            padding: .25rem .5rem;
-            border-radius: 3px;
-            display: inline-flex;
-            margin-right: .5rem;
-            background-color: var(--primary-color);
-            color: var(--primary-color-text);
-    
-            img.flag &#123;
-                width: 17px;
-            &#125;
-        &#125;
-    
-        .country-placeholder &#123;
-            padding: 0.25rem;
+
+    .country-item-value &#123;
+        padding: .25rem .5rem;
+        border-radius: 3px;
+        display: inline-flex;
+        margin-right: .5rem;
+        background-color: var(--primary-color);
+        color: var(--primary-color-text);
+
+        img.flag &#123;
+            width: 17px;
         &#125;
     &#125;
+
+    .country-placeholder &#123;
+        padding: 0.25rem;
+    &#125;
+&#125;
+:host ::ng-deep &#123;
+    @media screen and (max-width: 640px) &#123;
+        .p-multiselect &#123;
+            width: 100%;
+        &#125;
+    &#125;
+&#125;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 @Injectable()

@@ -3,6 +3,7 @@
         <h1>Divider</h1>
         <p>Divider is used to separate contents.</p>
     </div>
+    <app-demoActions github="divider" stackblitz="divider-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -69,8 +70,8 @@
             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         
         <p-divider align="left">
-            <div class="p-d-inline-flex p-ai-center">
-                <i class="pi pi-user p-mr-2"></i>
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
                 <b>Icon</b>
             </div>
         </p-divider>
@@ -97,7 +98,7 @@
     </div>
     <div class="card">
         <h5>Vertical</h5>
-        <div class="p-d-flex">
+        <div class="flex">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -118,26 +119,26 @@
 
     <div class="card">
         <h5>Vertical with Content</h5>
-        <div class="p-grid">
-            <div class="p-col-5 p-d-flex p-ai-center p-jc-center">
+        <div class="grid">
+            <div class="col-5 flex align-items-center justify-content-center">
                 <div class="p-fluid">
-                    <div class="p-field">
+                    <div class="field">
                         <label for="username">Username</label>
                         <input pInputText id="username" type="text" />
                     </div>
-                    <div class="p-field">
+                    <div class="field">
                         <label for="password">Password</label>
                         <input pInputText id="password" type="password" />
                     </div>
                     <p-button label="Login"></p-button>
                  </div>
             </div>
-            <div class="p-col-2">
+            <div class="col-2">
                 <p-divider layout="vertical">
                     <b>OR</b>
                 </p-divider>
             </div>
-            <div class="p-col-5 p-d-flex p-ai-center p-jc-center">
+            <div class="col-5 flex align-items-center justify-content-center">
                 <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success"></p-button>
             </div>
         </div>
@@ -171,7 +172,7 @@ import &#123;DividerModule&#125; from 'primeng/divider';
             <h5>Vertical Divider</h5>
             <p>Vertical divider is enabled by setting the <i>layout</i> property as "vertical".</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div class="p-d-flex"&gt;
+&lt;div class="flex"&gt;
     &lt;div&gt;Content 1&lt;/div&gt;
     &lt;p-divider layout="vertical"&gt;&lt;/p-divider&gt;
     &lt;div&gt;Content 2&lt;/div&lt
@@ -188,8 +189,8 @@ import &#123;DividerModule&#125; from 'primeng/divider';
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div&gt;Content 1&lt;/div&gt;
 &lt;p-divider align="left" type="dashed"&gt;
-    &lt;div class="p-d-inline-flex p-ai-center"&gt;
-        &lt;i class="pi pi-user p-mr-2"&gt;&lt;/i&gt;
+    &lt;div class="inline-flex align-items-center"&gt;
+        &lt;i class="pi pi-user mr-2"&gt;&lt;/i&gt;
         &lt;b&gt;Icon&lt;/b&gt;
     &lt;/div&gt;
 &lt;/p-divider&gt;
@@ -391,8 +392,8 @@ import &#123;DividerModule&#125; from 'primeng/divider';
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     
     &lt;p-divider align="left"&gt;
-        &lt;div class="p-d-inline-flex p-ai-center"&gt;
-            &lt;i class="pi pi-user p-mr-2"&gt;&lt;/i&gt;
+        &lt;div class="inline-flex align-items-center"&gt;
+            &lt;i class="pi pi-user mr-2"&gt;&lt;/i&gt;
             &lt;b&gt;Icon&lt;/b&gt;
         &lt;/div&gt;
     &lt;/p-divider&gt;
@@ -419,7 +420,7 @@ import &#123;DividerModule&#125; from 'primeng/divider';
 &lt;/div&gt;
 &lt;div class="card"&gt;
     &lt;h5&gt;Vertical&lt;/h5&gt;
-    &lt;div class="p-d-flex"&gt;
+    &lt;div class="flex"&gt;
         &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
             ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
@@ -440,26 +441,26 @@ import &#123;DividerModule&#125; from 'primeng/divider';
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Vertical with Content&lt;/h5&gt;
-    &lt;div class="p-grid"&gt;
-        &lt;div class="p-col-5 p-d-flex p-ai-center p-jc-center"&gt;
+    &lt;div class="grid"&gt;
+        &lt;div class="col-5 flex align-items-center justify-content-center"&gt;
             &lt;div class="p-fluid"&gt;
-                &lt;div class="p-field"&gt;
+                &lt;div class="field"&gt;
                     &lt;label for="username"&gt;Username&lt;/label&gt;
                     &lt;input pInputText id="username" type="text" /&gt;
                 &lt;/div&gt;
-                &lt;div class="p-field"&gt;
+                &lt;div class="field"&gt;
                     &lt;label for="password"&gt;Password&lt;/label&gt;
                     &lt;input pInputText id="password" type="password" /&gt;
                 &lt;/div&gt;
                 &lt;p-button label="Login"&gt;&lt;/p-button&gt;
                 &lt;/div&gt;
         &lt;/div&gt;
-        &lt;div class="p-col-2"&gt;
+        &lt;div class="col-2"&gt;
             &lt;p-divider layout="vertical"&gt;
                 &lt;b&gt;OR&lt;/b&gt;
             &lt;/p-divider&gt;
         &lt;/div&gt;
-        &lt;div class="p-col-5 p-d-flex p-ai-center p-jc-center"&gt;
+        &lt;div class="col-5 flex align-items-center justify-content-center"&gt;
             &lt;p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success"&gt;&lt;/p-button&gt;
         &lt;/div&gt;
     &lt;/div&gt;

@@ -2,97 +2,73 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 997;
-    height: 70px;
+    z-index: 1100;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    background-image: url("../../images/topbar-poseidon-bg.jpg");
+    height: 2rem;
+    padding: 0 2rem;
 
-    .layout-news-container {
-        width: 100%;
-        height: 100%;
+    .layout-news-content {
+        flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #ffffff;
-        font-weight: bold;
-        font-size: 20px;
+        min-width: 0%;
+    }
 
-        .layout-news-details {
-            display: flex;
-            align-items: center;
-            z-index: 1;
+    .layout-news-text {
+        line-height: 1.5;
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        min-width: 0%;
+    }
 
-            .rate {
-                color: #f2b837;
-                font-size: 25px;
-                font-weight: bold;
-                margin: 0 .25rem;
-            }
+    .layout-news-link {
+        margin-left: .5rem;
+        line-height: 1.5;
+        white-space: nowrap;
 
-            .helper-text {
-                background-color: #f2b837;
-                color: #212121;
-                padding: 0 0.2rem;
-                margin-right: 0.3rem;
-            }
-        }
-
-        img.layouts-news-mockup-image {
-            height: 70px;
-        }
-
-        .layout-news-button {
-            border: 1px solid #ffffff;
-            color: #ffffff;
-            font-size: 15px;
-            padding: .3em .3em .5em 1em;
-            font-weight: bold;
-            border-radius: 3px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-            transition: background-color 0.15s;
-            margin-left: 2em;
-            position: relative;
-            z-index: 1;
-
-            &:hover {
-                background-color: rgba(255, 255, 255, 0.25);
-            }
+        &:hover {
+            text-decoration: underline;
         }
     }
 
     .layout-news-close {
+        line-height: 1.5;
         cursor: pointer;
-        color: #fff;
-        position: absolute;
-        z-index: 2;
-        right: 28px;
-        background-color: rgba(0,0,0,.3);
-        border-radius: 50%;
-        display: flex;
+        display: inline-flex;
         justify-content: center;
         align-items: center;
-        width: 23px;
-        height: 23px;
+        border-radius: 50%;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-left:.5rem;
+        transition: background-color .3s;
+
+        &:hover {
+            background-color: rgba(255,255,255,.2);
+        }
+    } 
+}
+
+.landing-news-active {
+    .landing-header {
+        top: 2rem;
     }
 }
 
-.layout-wrapper.layout-news-active {
-    .layout-topbar {
-        top: 70px;
-    }
-
-    .layout-sidebar {
-        top: 140px;
-        height: calc(100% - 140px);
+.layout-news-active {
+    .layout-sidebar,
+    .layout-topbar,
+    .layout-config {
+        top: 2rem;
     }
 
     .layout-content {
-        padding-top: 140px;
+        padding-top: 7rem;
     }
 }

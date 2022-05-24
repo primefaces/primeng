@@ -25,7 +25,7 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {InputTextModule} from 'primeng/inputtext';
@@ -39,25 +39,33 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-inputMask',
-    template: `<input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
-        [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
-        (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
-        (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
+    template: `
+        <input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
+            [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
+            (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
+            (input)="onInputChange($event)" (paste)="handleInputChange($event)">
+        <i *ngIf="value != null && filled && showClear && !disabled" class="p-inputmask-clear-icon pi pi-times" (click)="clear()"></i>
+    `,
     host: {
+        'class': 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused'
+        '[class.p-inputwrapper-focus]': 'focused',
+        '[class.p-inputmask-clearable]': 'showClear && !disabled'
     },
     providers: [INPUTMASK_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./inputmask.css']
 })
-export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
+export class InputMask implements OnInit,ControlValueAccessor {
 
     @Input() type: string = 'text';
 
     @Input() slotChar: string = '_';
 
     @Input() autoClear: boolean = true;
+
+    @Input() showClear: boolean = false;
 
     @Input() style: any;
 
@@ -104,6 +112,10 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
+
+    @Output() onKeydown: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     value: any;
 
@@ -393,7 +405,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    onKeyDown(e) {
+    onInputKeydown(e) {
         if (this.readonly) {
             return;
         }
@@ -404,6 +416,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             end;
         let iPhone = /iphone/i.test(DomHandler.getUserAgent());
         this.oldVal = this.inputViewChild.nativeElement.value;
+
+        this.onKeydown.emit(e);
 
         //backspace, delete, and escape get special treatment
         if (k === 8 || k === 46 || (iPhone && k === 127)) {
@@ -643,8 +657,11 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         this.inputViewChild.nativeElement.focus();
     }
 
-    ngOnDestroy() {
-
+    clear() {
+        this.inputViewChild.nativeElement.value = '';
+        this.value = null;
+        this.onModelChange(this.value);
+        this.onClear.emit();
     }
 }
 

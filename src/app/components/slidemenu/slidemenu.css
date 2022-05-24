@@ -4,6 +4,8 @@
 
 .p-slidemenu.p-slidemenu-overlay {
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .p-slidemenu ul {

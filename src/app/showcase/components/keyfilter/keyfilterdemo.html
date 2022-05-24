@@ -3,35 +3,35 @@
         <h1>KeyFilter</h1>
         <p>KeyFilter directive restricts user input based on a regular expression.</p>
     </div>
-    <app-inputStyleSwitch></app-inputStyleSwitch>
+    <app-demoActions github="keyfilter" stackblitz="keyfilter-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
         <h5>Filtering</h5>
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-4">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText pKeyFilter="int" placeholder="Integers">
             </div>
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText pKeyFilter="num" placeholder="Numbers">
             </div>
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText pKeyFilter="money" placeholder="Money">
             </div>
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText pKeyFilter="hex" placeholder="Hex">
             </div>
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText pKeyFilter="alpha" placeholder="Alphabetic">
             </div>
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText pKeyFilter="alphanum" placeholder="Alphanumeric">
             </div>
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText [pKeyFilter]="blockSpecial" placeholder="Block # < > * !">
             </div>
-            <div class="p-col-12 p-md-4">
+            <div class="col-12 md:col-4">
                 <input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key">
             </div>
         </div>
@@ -137,29 +137,29 @@ export class KeyFilterDemo &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Filtering&lt;/h5&gt;
-&lt;div class="p-grid p-fluid"&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+&lt;div class="grid p-fluid"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="int" placeholder="Integers"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="num" placeholder="Numbers"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="money" placeholder="Money"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="hex" placeholder="Hex"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="alpha" placeholder="Alphabetic"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText pKeyFilter="alphanum" placeholder="Alphanumberic"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText [pKeyFilter]="blockSpecial" placeholder="Block # &lt; &gt; * !"&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
+    &lt;div class="col-12 md:col-4"&gt;
         &lt;input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key"&gt;
     &lt;/div&gt;
 &lt;/div&gt;

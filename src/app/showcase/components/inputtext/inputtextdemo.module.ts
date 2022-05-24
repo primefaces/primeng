@@ -7,7 +7,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
-import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -17,7 +17,7 @@ import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
         InputTextModule,
         ButtonModule,
 		TabViewModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
         AppCodeModule
 	],
 	declarations: [

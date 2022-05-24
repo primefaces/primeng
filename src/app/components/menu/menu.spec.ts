@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Menu, MenuItemContent } from './menu';
+import { Menu, MenuModule } from './menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
@@ -15,31 +15,30 @@ class TestMenuComponent {
 }
 
 describe('Menu', () => {
-  
+
     let menu: Menu;
     let fixture: ComponentFixture<TestMenuComponent>;
-    
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
           RouterTestingModule,
-          ButtonModule
+          ButtonModule,
+          MenuModule
         ],
         declarations: [
-          Menu,
-          MenuItemContent,
           TestMenuComponent
         ]
       });
-      
+
       fixture = TestBed.createComponent(TestMenuComponent);
       menu = fixture.debugElement.children[0].componentInstance;
     });
 
     it('should display by default', () => {
       fixture.detectChanges();
-      
+
       const containerEl = fixture.debugElement.query(By.css('.p-menu'));
       expect(containerEl).toBeTruthy();
     });
@@ -47,7 +46,7 @@ describe('Menu', () => {
     it('should not display container', () => {
       menu.popup = true;
       fixture.detectChanges();
-      
+
       const containerEl = fixture.debugElement.query(By.css('.p-menu'));
       expect(containerEl).toBeFalsy();
     });
@@ -56,9 +55,9 @@ describe('Menu', () => {
       menu.style = {'height' : '300px'};
       menu.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
-      
+
       const containerEl = fixture.debugElement.query(By.css('.p-menu'));
-      expect(containerEl.nativeElement.className).toContain("Primeng ROCKS!");      
+      expect(containerEl.nativeElement.className).toContain("Primeng ROCKS!");
       expect(containerEl.nativeElement.className).toContain(menu.styleClass);
       expect(containerEl.nativeElement.style.height).toEqual(menu.style.height);
       expect(containerEl.nativeElement.style.height).toEqual("300px");
@@ -68,7 +67,7 @@ describe('Menu', () => {
       const hasSubMenuSpy = spyOn(menu, 'hasSubMenu').and.callThrough();
       menu.model  = [{
         label: 'File',
-      }]; 
+      }];
       fixture.detectChanges();
 
       expect(hasSubMenuSpy).toHaveBeenCalled();
@@ -80,10 +79,10 @@ describe('Menu', () => {
       menu.model  = [{
         label: 'File',
         items: [
-          {label: 'New', icon: 'pi pi-fw pi-plus'},
+          {label: 'News', icon: 'pi pi-fw pi-plus'},
           {label: 'Download', icon: 'pi pi-fw pi-download'}
         ]
-      }]; 
+      }];
       fixture.detectChanges();
 
       expect(hasSubMenuSpy).toHaveBeenCalled();
@@ -97,7 +96,7 @@ describe('Menu', () => {
           {label: 'New', icon: 'pi pi-fw pi-plus'},
           {label: 'Download', icon: 'pi pi-fw pi-download'}
         ]
-      }]; 
+      }];
       fixture.detectChanges();
 
       const itemsEl = fixture.debugElement.queryAll(By.css('a'));
@@ -111,9 +110,9 @@ describe('Menu', () => {
           {label: 'New', icon: 'pi pi-fw pi-plus',style:{'height':'300px'},styleClass:"Primeng ROCKS!"},
           {label: 'Download', icon: 'pi pi-fw pi-download',style:{'height':'300px'},styleClass:"Primeng ROCKS!"}
         ]
-      }]; 
+      }];
       fixture.detectChanges();
-      
+
       const menuItemsEl = fixture.debugElement.queryAll(By.css('.p-menuitem'));
       expect(menuItemsEl.length).toEqual(2);
       for(let menuItem of menuItemsEl){
@@ -130,13 +129,13 @@ describe('Menu', () => {
           {separator:true},
           {label: 'Download', icon: 'pi pi-fw pi-download'}
         ]
-      }]; 
+      }];
       fixture.detectChanges();
-      
+
       const seperatorEl = fixture.debugElement.query(By.css('.p-menu-separator'));
       const menuItemsEl = fixture.debugElement.queryAll(By.css('li'));
       expect(seperatorEl).toBeTruthy();
-      expect(menuItemsEl.length).toEqual(4); 
+      expect(menuItemsEl.length).toEqual(4);
     });
 
     it('should change target title icon and url', () => {
@@ -145,9 +144,9 @@ describe('Menu', () => {
         items: [
           {label: 'New', icon: 'primeng',target:"primeng",title:"primeng",url:"primeng"},
         ]
-      }]; 
+      }];
       fixture.detectChanges();
-      
+
       const menuItemLink = fixture.debugElement.query(By.css('.p-menuitem-link'));
       const iconEl = fixture.debugElement.query(By.css('.p-menuitem-icon'));
       expect(menuItemLink.nativeElement.href).toContain("primeng");
@@ -162,9 +161,9 @@ describe('Menu', () => {
         items: [
           {label: 'New', icon: 'pi pi-fw pi-plus',disabled:true},
         ]
-      }]; 
+      }];
       fixture.detectChanges();
-      
+
       const menuItemLink = fixture.debugElement.query(By.css('.p-menuitem-link'));
       expect(menuItemLink.nativeElement.className).toContain("p-disabled");
     });
@@ -175,10 +174,10 @@ describe('Menu', () => {
         items: [
           {label: 'New', icon: 'pi pi-fw pi-plus'},
         ]
-      }]; 
+      }];
       const itemClickSpy = spyOn(menu, 'itemClick').and.callThrough();
       fixture.detectChanges();
-      
+
       const menuItemLink = fixture.debugElement.query(By.css('.p-menuitem-link'));
       menuItemLink.nativeElement.click();
       expect(itemClickSpy).toHaveBeenCalled();
@@ -191,9 +190,9 @@ describe('Menu', () => {
         items: [
           {label: 'New', icon: 'pi pi-fw pi-plus'},
         ]
-      }]; 
+      }];
       fixture.detectChanges();
-      
+
       const toggleSpy = spyOn(menu, 'toggle').and.callThrough();
       const popupButtonEl = fixture.debugElement.query(By.css('button'));
       popupButtonEl.nativeElement.click();
@@ -217,9 +216,9 @@ describe('Menu', () => {
         items: [
           {label: 'New', icon: 'pi pi-fw pi-plus'},
         ]
-      }]; 
+      }];
       fixture.detectChanges();
-      
+
       const itemClickSpy = spyOn(menu, 'itemClick').and.callThrough();
       const hideSpy = spyOn(menu, 'hide').and.callThrough();
       const popupButtonEl = fixture.debugElement.query(By.css('button'));

@@ -3,50 +3,58 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {SharedModule,PrimeTemplate,FilterService} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
-import {ObjectUtils} from 'primeng/utils';
+import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
+import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'p-orderList',
     template: `
-        <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
+        <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp($event)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown($event)"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-down" (click)="moveDown()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
             </div>
             <div class="p-orderlist-list-container">
-                <div class="p-orderlist-header" *ngIf="header">
-                    <div class="p-orderlist-title">{{header}}</div>
+                <div class="p-orderlist-header" *ngIf="header || headerTemplate">
+                    <div class="p-orderlist-title" *ngIf="!headerTemplate">{{header}}</div>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-orderlist-filter-container" *ngIf="filterBy">
                     <div class="p-orderlist-filter">
-                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
+                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" [disabled]="disabled" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
                         <span class="p-orderlist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
-                <ul #listelement class="p-orderlist-list" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
+                <ul #listelement cdkDropList (cdkDropListDropped)="onDrop($event)" class="p-orderlist-list" [ngStyle]="listStyle">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
-                        <li class="p-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)"
-                            [ngClass]="{'p-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
-                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" pRipple
-                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
-                            [style.display]="isItemVisible(item) ? 'block' : 'none'" role="option" [attr.aria-selected]="isSelected(item)"
-                            [attr.draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
+                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item), 'p-disabled': disabled}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
+                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd()" (keydown)="onItemKeydown($event,item,i)"
+                             *ngIf="isItemVisible(item)" role="option" [attr.aria-selected]="isSelected(item)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
-                        <li class="p-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)"
-                            [ngClass]="{'p-orderlist-droppoint-highlight': (i + 1 === dragOverItemIndex)}"></li>
                     </ng-template>
+                    <ng-container *ngIf="isEmpty() && (emptyMessageTemplate || emptyFilterMessageTemplate)">
+                        <li *ngIf="!filterValue || !emptyFilterMessageTemplate" class="p-orderlist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                        </li>
+                        <li *ngIf="filterValue" class="p-orderlist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageTemplate"></ng-container>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./orderlist.css']
+    styleUrls: ['./orderlist.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
 
@@ -68,13 +76,19 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() metaKeySelection: boolean = true;
 
-    @Input() dragdrop: boolean;
+    @Input() dragdrop: boolean = false;
 
     @Input() controlsPosition: string = 'left';
 
     @Input() ariaFilterLabel: string;
 
     @Input() filterMatchMode: string = "contains";
+
+    @Input() breakpoint: string = "960px";
+
+    @Input() stripedRows: boolean;
+
+    @Input() disabled: boolean = false;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
@@ -92,7 +106,13 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     public itemTemplate: TemplateRef<any>;
 
-    _selection: any[];
+    public headerTemplate: TemplateRef<any>;
+
+    public emptyMessageTemplate: TemplateRef<any>;
+
+    public emptyFilterMessageTemplate: TemplateRef<any>;
+
+    _selection: any[] = [];
 
     movedUp: boolean;
 
@@ -100,11 +120,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     itemTouched: boolean;
 
-    draggedItemIndex: number;
+    styleElement: any;
 
-    dragOverItemIndex: number;
-
-    dragging: boolean;
+    id: string = UniqueComponentId();
 
     public filterValue: string;
 
@@ -122,11 +140,29 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         this._selection = val;
     }
 
+    ngOnInit() {
+        if (this.responsive) {
+            this.createStyle();
+        }
+    }
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+
+                case 'empty':
+                    this.emptyMessageTemplate = item.template;
+                break;
+
+                case 'emptyfilter':
+                    this.emptyFilterMessageTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
                 break;
 
                 default:
@@ -227,7 +263,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         }
     }
 
-    onItemTouchEnd(event) {
+    onItemTouchEnd() {
         this.itemTouched = true;
     }
 
@@ -235,7 +271,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         return ObjectUtils.findIndexInList(item, this.selection) != -1;
     }
 
-    moveUp(event) {
+    isEmpty() {
+        return this.filterValue ? (!this.visibleOptions || this.visibleOptions.length === 0) : (!this.value || this.value.length === 0);
+    }
+
+    moveUp() {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
@@ -252,12 +292,15 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && this.filterValue)
+                this.filter();
+
             this.movedUp = true;
-            this.onReorder.emit(event);
+            this.onReorder.emit(this.selection);
         }
     }
 
-    moveTop(event) {
+    moveTop() {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
@@ -272,12 +315,15 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            this.onReorder.emit(event);
+            if (this.dragdrop && this.filterValue)
+                this.filter();
+
+            this.onReorder.emit(this.selection);
             this.listViewChild.nativeElement.scrollTop = 0;
         }
     }
 
-    moveDown(event) {
+    moveDown() {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
@@ -294,12 +340,15 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
+            if (this.dragdrop && this.filterValue)
+                this.filter();
+
             this.movedDown = true;
-            this.onReorder.emit(event);
+            this.onReorder.emit(this.selection);
         }
     }
 
-    moveBottom(event) {
+    moveBottom() {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
@@ -314,50 +363,31 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 }
             }
 
-            this.onReorder.emit(event);
+            if (this.dragdrop && this.filterValue)
+                this.filter();
+
+            this.onReorder.emit(this.selection);
             this.listViewChild.nativeElement.scrollTop = this.listViewChild.nativeElement.scrollHeight;
         }
     }
 
-    onDragStart(event: DragEvent, index: number) {
-        event.dataTransfer.setData('text', 'b');    // For firefox
-        (<HTMLLIElement> event.target).blur();
-        this.dragging = true;
-        this.draggedItemIndex = index;
-    }
+    onDrop(event: CdkDragDrop<string[]>) {
+        let previousIndex =  event.previousIndex;
+        let currentIndex = event.currentIndex;
 
-    onDragOver(event: DragEvent, index: number) {
-        if (this.dragging && this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
-            this.dragOverItemIndex = index;
-            event.preventDefault();
-        }
-    }
+        if (previousIndex !== currentIndex) {
 
-    onDragLeave(event: DragEvent) {
-        this.dragOverItemIndex = null;
-    }
+            if (this.visibleOptions) {
+                if (this.filterValue) {
+                    previousIndex =  ObjectUtils.findIndexInList(event.item.data, this.value);
+                    currentIndex = ObjectUtils.findIndexInList(this.visibleOptions[currentIndex], this.value);
+                }
 
-    onDrop(event: DragEvent, index: number) {
-        let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
-        ObjectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
-        this.dragOverItemIndex = null;
-        this.onReorder.emit(event);
-        event.preventDefault();
-    }
+                moveItemInArray(this.visibleOptions, event.previousIndex, event.currentIndex);
+            }
 
-    onDragEnd(event: DragEvent) {
-        this.dragging = false;
-    }
-
-    onListMouseMove(event: MouseEvent) {
-        if (this.dragging) {
-            let offsetY = this.listViewChild.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
-            let bottomDiff = (offsetY + this.listViewChild.nativeElement.clientHeight) - event.pageY;
-            let topDiff = (event.pageY - offsetY);
-            if (bottomDiff < 25 && bottomDiff > 0)
-                this.listViewChild.nativeElement.scrollTop += 15;
-            else if (topDiff < 25 && topDiff > 0)
-                this.listViewChild.nativeElement.scrollTop -= 15;
+            moveItemInArray(this.value, previousIndex, currentIndex);
+            this.onReorder.emit([event.item.data]);
         }
     }
 
@@ -410,11 +440,61 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         else
             return null;
     }
+
+    moveDisabled(){
+        if(this.disabled || !this.selection.length) {
+            return true;
+        }
+    }
+
+    createStyle() {
+        if (!this.styleElement) {
+            this.el.nativeElement.children[0].setAttribute(this.id, '');
+            this.styleElement = document.createElement('style');
+            this.styleElement.type = 'text/css';
+            document.head.appendChild(this.styleElement);
+
+            let innerHTML = `
+                @media screen and (max-width: ${this.breakpoint}) {
+                    .p-orderlist[${this.id}] {
+                        flex-direction: column;
+                    }
+
+                    .p-orderlist[${this.id}] .p-orderlist-controls {
+                        padding: var(--content-padding);
+                        flex-direction: row;
+                    }
+
+                    .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
+                        margin-right: var(--inline-spacing);
+                        margin-bottom: 0;
+                    }
+
+                    .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
+                        margin-right: 0;
+                    }
+                }
+            `;
+
+            this.styleElement.innerHTML = innerHTML;
+        }
+    }
+
+    destroyStyle() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;``
+        }
+    }
+
+    ngOnDestroy() {
+        this.destroyStyle();
+    }
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,SharedModule,RippleModule],
-    exports: [OrderList,SharedModule],
+    imports: [CommonModule,ButtonModule,SharedModule,RippleModule,DragDropModule],
+    exports: [OrderList,SharedModule,DragDropModule],
     declarations: [OrderList]
 })
 export class OrderListModule { }

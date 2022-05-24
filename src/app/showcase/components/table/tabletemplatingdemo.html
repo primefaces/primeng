@@ -3,13 +3,14 @@
         <h1>Table <span>Templating</span></h1>
         <p>Table provides templates to customize the content of various sections such as caption and summary.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tablesections-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products">
+        <p-table [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
-                <div class="p-d-flex p-ai-center p-jc-between">
+                <div class="flex align-items-center justify-content-between">
                     Products
                     <p-button icon="pi pi-refresh"></p-button>
                 </div>
@@ -27,7 +28,7 @@
             <ng-template pTemplate="body" let-product>
                 <tr>
                     <td>{{product.name}}</td>
-                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
+                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                     <td>{{product.price | currency:'USD'}}</td>
                     <td>{{product.category}}</td>
                     <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
@@ -35,7 +36,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
-                <div class="p-d-flex p-ai-center p-jc-between">
+                <div class="flex align-items-center justify-content-between">
                     In total there are {{products ? products.length : 0 }} products.
                 </div>
             </ng-template>
@@ -54,9 +55,9 @@
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products"&gt;
+&lt;p-table [value]="products" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="caption"&gt;
-        &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
+        &lt;div class="flex align-items-center justify-content-between"&gt;
             Products
             &lt;p-button icon="pi pi-refresh"&gt;&lt;/p-button&gt;
         &lt;/div&gt;
@@ -74,7 +75,7 @@
     &lt;ng-template pTemplate="body" let-product&gt;
         &lt;tr&gt;
             &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /&gt;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
@@ -82,7 +83,7 @@
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
-        &lt;div class="p-d-flex p-ai-center p-jc-between"&gt;
+        &lt;div class="flex align-items-center justify-content-between"&gt;
             In total there are &#123;&#123;products ? products.length : 0 &#125;&#125; products.
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -110,7 +111,7 @@ export class TableTemplatingDemo implements OnInit &#123;
 </app-code>
 
         </p-tabPanel>
-        
+
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
                 <iframe src="https://stackblitz.com/edit/primeng-tablesections-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>

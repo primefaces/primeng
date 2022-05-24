@@ -69,8 +69,8 @@ describe('TabView', () => {
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
-		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-		const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
+		const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[1].nativeElement;
 		expect(firstTabViewNavEl.textContent).toContain("Primeng ROCKS!");
 		expect(secondTabViewNavEl.textContent).toContain("Primeng ROCKS!");
 	});
@@ -82,7 +82,7 @@ describe('TabView', () => {
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
-		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
 		expect(firstTabViewNavEl.className).toContain("p-disabled");
 	});
 
@@ -126,7 +126,7 @@ describe('TabView', () => {
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
-		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
 		expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
 		expect(firstTabViewNavEl.style.height).toContain("300px");
 	});
@@ -157,9 +157,9 @@ describe('TabView', () => {
 		fixture.detectChanges();
 
 		tabview.cd.detectChanges();
-		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
-		const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
-		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
+		const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
+		const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[1].nativeElement;
+		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[2].nativeElement;
 		expect(firstTabViewNavEl.className).not.toContain('p-highlight');
 		expect(secondTabViewNavEl.className).toContain('p-highlight');
 		expect(thirdTabViewNavEl.className).not.toContain('p-highlight');
@@ -180,7 +180,7 @@ describe('TabView', () => {
 		tabview.activeIndex = 2;
 		fixture.detectChanges();
 
-		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
+		const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[2].nativeElement;
 		expect(thirdTabViewNavEl.textContent).toContain("Godfather III");
 	});
 });

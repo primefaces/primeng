@@ -15,6 +15,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { AppCodeModule } from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { AppCodeModule } from '../../app.code.component';
 		CalendarModule,
 		MultiSelectModule,
 		DropdownModule,
-		EditorModule
+		EditorModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		FocusTrapDemo

@@ -1,25 +1,39 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RadioButton } from './radiobutton';
+import { RadioButton, RadioButtonModule } from './radiobutton';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+
+@Component({
+	template: `
+        <p-radioButton [(ngModel)]="city" ></p-radioButton>
+    `
+})
+class TestRadioButtonComponent {
+    city: string;
+}
 
 describe('RadioButton', () => {
 
     let radiobutton: RadioButton;
-    let fixture: ComponentFixture<RadioButton>;
+    let fixture: ComponentFixture<TestRadioButtonComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                NoopAnimationsModule
+                NoopAnimationsModule,
+                RadioButtonModule,
+                ReactiveFormsModule,
+                FormsModule
             ],
             declarations: [
-                RadioButton
+                TestRadioButtonComponent
             ]
         });
 
-        fixture = TestBed.createComponent(RadioButton);
-        radiobutton = fixture.componentInstance;
+        fixture = TestBed.createComponent(TestRadioButtonComponent);
+        radiobutton = fixture.debugElement.children[0].componentInstance;
     });
 
     it('should change name inputId value style styleClass label labelStyleClass and tabIndex', () => {
@@ -60,6 +74,7 @@ describe('RadioButton', () => {
     });
 
     it('should disabled', () => {
+        radiobutton.value = "prime";
         radiobutton.disabled = true;
         radiobutton.label = "prime"
         fixture.detectChanges();
@@ -78,13 +93,13 @@ describe('RadioButton', () => {
 
         expect(handleClickSpy).toHaveBeenCalled();
         expect(selectSpy).not.toHaveBeenCalled();
-        expect(radiobutton.checked).toEqual(undefined);
+        expect(radiobutton.checked).toBeFalsy();
         labelEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(handleClickSpy).toHaveBeenCalledTimes(1);
         expect(selectSpy).toHaveBeenCalled();
-        expect(radiobutton.checked).toEqual(undefined);
+        expect(radiobutton.checked).toBeFalsy();
     });
 
     it('should click checkbox', () => {

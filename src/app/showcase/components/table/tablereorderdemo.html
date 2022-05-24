@@ -3,11 +3,12 @@
         <h1>Table <span>Reorder</span></h1>
         <p>Order of the columns and rows can be changed using drag and drop.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tablereorder-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products" [columns]="cols" [reorderableColumns]="true">
+        <p-table [value]="products" [columns]="cols" [reorderableColumns]="true" responsiveLayout="scroll">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th style="width:3rem"></th>
@@ -40,7 +41,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" [columns]="cols" [reorderableColumns]="true"&gt;
+&lt;p-table [value]="products" [columns]="cols" [reorderableColumns]="true" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th style="width:3rem"&gt;&lt;/th&gt;
@@ -89,7 +90,7 @@ export class TableReorderDemo implements OnInit &#123;
         ];
     &#125;
 &#125;
-</app-code> 
+</app-code>
         </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

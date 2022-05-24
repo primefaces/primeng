@@ -17,9 +17,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
-import { AppCodeModule } from '../../app.code.component';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
 	imports: [
@@ -31,6 +33,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
 		InputTextModule,
 		AutoCompleteModule,
 		CalendarModule,
+		CascadeSelectModule,
 		ChipsModule,
 		InputMaskModule,
 		InputNumberModule,
@@ -38,8 +41,9 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
 		MultiSelectModule,
 		InputTextareaModule,
 		FormsModule,
-		AppInputStyleSwitchModule,
-        AppCodeModule
+		AppDemoActionsModule,
+        AppCodeModule,
+		PasswordModule
 	],
 	declarations: [
 		FloatLabelDemo

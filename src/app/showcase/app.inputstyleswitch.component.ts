@@ -4,18 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { AppConfigService} from './service/appconfigservice';
 import { Subscription } from 'rxjs';
 import { AppConfig } from './domain/appconfig';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'app-inputStyleSwitch',
     template: `
         <div class="app-inputstyleswitch">
             <h4>Input Style</h4>
-            <div class="p-formgroup-inline">
-                <div class="p-field-radiobutton">
+            <div class="formgroup-inline">
+                <div class="field-radiobutton">
                     <p-radioButton name="inputstyle" value="outlined" [(ngModel)]="config.inputStyle" (onClick)="onChange()" inputId="input_outlined"></p-radioButton>
                     <label for="input_outlined">Outlined</label>
                 </div>
-                <div class="p-field-radiobutton">
+                <div class="field-radiobutton">
                     <p-radioButton name="inputstyle" value="filled" [(ngModel)]="config.inputStyle" (onClick)="onChange()" inputId="input_filled"></p-radioButton>
                     <label for="input_filled">Filled</label>
                 </div>
@@ -40,6 +41,11 @@ export class AppInputStyleSwitchComponent implements OnInit, OnDestroy {
 
     onChange() {
         this.configService.updateConfig(this.config);
+
+        if (this.config.inputStyle === 'filled')
+            DomHandler.addClass(document.body, 'p-input-filled');
+        else
+            DomHandler.removeClass(document.body, 'p-input-filled');
     }
 
     ngOnDestroy() {

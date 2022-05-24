@@ -1,7 +1,7 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy, OnInit, AfterContentInit} from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy, OnInit, AfterContentInit, Inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
+import { SharedModule, PrimeTemplate, PrimeNGConfig, OverlayService } from 'primeng/api';
+import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -17,7 +17,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub',
     template: `
-        <ul class="p-cascadeselect-panel p-cascadeselect-items" role="listbox" aria-orientation="horizontal">
+        <ul class="p-cascadeselect-panel p-cascadeselect-items" [ngClass]="{'p-cascadeselect-panel-root': root}" role="listbox" aria-orientation="horizontal">
             <ng-template ngFor let-option [ngForOf]="options" let-i="index">
                 <li [ngClass]="getItemClass(option)" role="none">
                     <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, option)" tabindex="0" (keydown)="onKeyDown($event, option, i)" pRipple>
@@ -81,7 +81,11 @@ export class CascadeSelectSub implements OnInit {
 
     _parentActive: boolean;
 
-    constructor(private el: ElementRef) { }
+    cascadeSelect: CascadeSelect;
+
+    constructor(@Inject(forwardRef(() => CascadeSelect)) cascadeSelect, private el: ElementRef) {
+        this.cascadeSelect = cascadeSelect as CascadeSelect;
+    }
 
     ngOnInit() {
         if (this.selectionPath && this.options && !this.dirty) {
@@ -149,7 +153,7 @@ export class CascadeSelectSub implements OnInit {
 
     getItemClass(option) {
         return {
-            'p-cascadeselect-item': true, 
+            'p-cascadeselect-item': true,
             'p-cascadeselect-item-group': this.isOptionGroup(option),
             'p-cascadeselect-item-active p-highlight': this.isOptionActive(option)
         }
@@ -169,6 +173,8 @@ export class CascadeSelectSub implements OnInit {
                 if (nextItem) {
                     nextItem.children[0].focus();
                 }
+
+                event.preventDefault();
             break;
 
             case 'Up':
@@ -177,6 +183,8 @@ export class CascadeSelectSub implements OnInit {
                 if (prevItem) {
                     prevItem.children[0].focus();
                 }
+
+                event.preventDefault();
             break;
 
             case 'Right':
@@ -189,6 +197,8 @@ export class CascadeSelectSub implements OnInit {
                         this.activeOption = option;
                     }
                 }
+
+                event.preventDefault();
             break;
 
             case 'Left':
@@ -199,14 +209,23 @@ export class CascadeSelectSub implements OnInit {
                 if (parentList) {
                     parentList.children[0].focus();
                 }
+
+                event.preventDefault();
             break;
 
             case 'Enter':
                 this.onOptionClick(event, option);
+
+                event.preventDefault();
+            break;
+
+            case 'Tab':
+            case 'Escape':
+                this.cascadeSelect.hide();
+
+                event.preventDefault();
             break;
         }
-
-        event.preventDefault();
     }
 
     position() {
@@ -228,7 +247,7 @@ export class CascadeSelectSub implements OnInit {
         <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input #focusInput type="text" [attr.id]="inputId" readonly [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()"  (keydown)="onKeyDown($event)" [attr.tabindex]="tabindex"
-                    aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy">
+                    aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy" [attr.label]="inputLabel" [attr.aria-label]="ariaLabel">
             </div>
             <span [ngClass]="labelClass()">
                 <ng-container *ngIf="valueTemplate;else defaultValueTemplate">
@@ -238,16 +257,17 @@ export class CascadeSelectSub implements OnInit {
                     {{label()}}
                 </ng-template>
             </span>
+            <i *ngIf="!optionCleared && filled && !disabled && showClear" class="p-cascadeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
-            <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" 
+            <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
                 <div class="p-cascadeselect-items-wrapper">
-                    <p-cascadeSelectSub [options]="options" [selectionPath]="selectionPath" class="p-cascadeselect-items" 
+                    <p-cascadeSelectSub [options]="options" [selectionPath]="selectionPath" class="p-cascadeselect-items"
                         [optionLabel]="optionLabel" [optionValue]="optionValue" [level]="0" [optionTemplate]="optionTemplate"
-                        [optionGroupLabel]="optionGroupLabel" [optionGroupChildren]="optionGroupChildren" 
-                        (onSelect)="onOptionSelect($event)" (onGroupSelect)="onOptionGroupSelect()" [dirty]="dirty" [root]="true">
+                        [optionGroupLabel]="optionGroupLabel" [optionGroupChildren]="optionGroupChildren"
+                        (onSelect)="onOptionSelect($event)" (onGroupSelect)="onOptionGroupSelect($event)" [dirty]="dirty" [root]="true">
                     </p-cascadeSelectSub>
                 </div>
             </div>
@@ -265,8 +285,10 @@ export class CascadeSelectSub implements OnInit {
         ])
     ],
     host: {
+        'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible',
+        '[class.p-cascadeselect-clearable]': 'showClear && !disabled'
     },
     providers: [CASCADESELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -287,10 +309,10 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Input() optionGroupLabel: string;
 
-    @Input() optionGroupChildren: string;
+    @Input() optionGroupChildren: any[];
 
     @Input() placeholder: string;
-    
+
     @Input() value: string;
 
     @Input() dataKey: string;
@@ -298,10 +320,14 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     @Input() inputId: string;
 
     @Input() tabindex: string;
-    
+
     @Input() ariaLabelledBy: string;
 
-    @Input() appendTo: string;
+    @Input() inputLabel: string;
+
+    @Input() ariaLabel: string;
+
+    @Input() appendTo: any;
 
     @Input() disabled: boolean;
 
@@ -310,6 +336,8 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
+
+    @Input() showClear: boolean = false;
 
     @ViewChild('focusInput') focusInputEl: ElementRef;
 
@@ -323,6 +351,8 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
+
     @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
@@ -331,7 +361,11 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     selectionPath: any = null;
 
+    optionCleared: boolean = false;
+
     focused: boolean = false;
+
+    filled: boolean = false;
 
     overlayVisible: boolean = false;
 
@@ -342,9 +376,9 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     optionTemplate: TemplateRef<any>;
 
     outsideClickListener: any;
-    
+
     scrollHandler: any;
-    
+
     resizeListener: any;
 
     overlayEl: any;
@@ -353,7 +387,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     onModelTouched: Function = () => {};
 
-    constructor(private el: ElementRef, private cd: ChangeDetectorRef) { }
+    constructor(private el: ElementRef, private cd: ChangeDetectorRef, private config: PrimeNGConfig, public overlayService: OverlayService) { }
 
     ngOnInit() {
         this.updateSelectionPath();
@@ -413,7 +447,12 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
             }
         }
 
-        this.selectionPath = path;            
+        this.selectionPath = path;
+        this.updateFilledState();
+    }
+
+    updateFilledState() {
+        this.filled = !(this.selectionPath == null || this.selectionPath.length == 0);
     }
 
     findModelOptionInGroup(option, level) {
@@ -430,7 +469,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         else if ((ObjectUtils.equals(this.value, this.getOptionValue(option), this.dataKey))) {
             return [option];
         }
-        
+
         return null;
     }
 
@@ -442,6 +481,16 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     hide() {
         this.onBeforeHide.emit();
         this.overlayVisible = false;
+        this.cd.markForCheck();
+    }
+
+    clear(event) {
+        this.optionCleared = true;
+        this.value = null;
+        this.selectionPath = null;
+        this.onClear.emit();
+        this.onModelChange(this.value);
+        event.stopPropagation();
         this.cd.markForCheck();
     }
 
@@ -470,6 +519,13 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         this.focused = false;
     }
 
+    onOverlayClick(event) {
+        this.overlayService.add({
+            originalEvent: event,
+            target: this.el.nativeElement
+        });
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
@@ -488,7 +544,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     }
 
     onOverlayEnter() {
-        this.overlayEl.style.zIndex = String(DomHandler.generateZIndex());
+        ZIndexUtils.set('overlay', this.overlayEl, this.config.zIndex.overlay);
         this.appendContainer();
         this.alignOverlay();
         this.bindOutsideClickListener();
@@ -502,6 +558,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         this.unbindScrollListener();
         this.unbindResizeListener();
         this.onHide.emit();
+        ZIndexUtils.clear(this.overlayEl);
         this.overlayEl = null;
         this.dirty = false;
     }
@@ -606,15 +663,15 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
-    label() {
-        if (this.selectionPath)
+    label   () {
+        if (this.selectionPath && !this.optionCleared)
             return this.getOptionLabel(this.selectionPath[this.selectionPath.length - 1]);
         else
             return this.placeholder||'p-emptylabel';
     }
 
     onKeyDown(event) {
-        switch(event.key) {
+        switch(event.code) {
             case 'Down':
             case 'ArrowDown':
                 if (this.overlayVisible) {
@@ -626,15 +683,22 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
                 event.preventDefault();
             break;
 
+            case 'Space':
+            case 'Enter':
+                if (!this.overlayVisible)
+                    this.show();
+                else
+                    this.hide();
+
+                event.preventDefault();
+            break;
+
+            case 'Tab':
             case 'Escape':
                 if (this.overlayVisible) {
                     this.hide();
                     event.preventDefault();
                 }
-            break;
-
-            case 'Tab':
-                this.hide();
             break;
         }
     }
@@ -643,9 +707,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         return {
             'p-cascadeselect p-component p-inputwrapper': true,
             'p-disabled': this.disabled,
-            'p-focus': this.focused,
-            'p-inputwrapper-filled': this.value,
-            'p-inputwrapper-focus': this.focused
+            'p-focus': this.focused
         };
     }
 

@@ -3,11 +3,12 @@
         <h1>Table <span>Row Expansion</span></h1>
         <p>A row can be expanded to display additional content.</p>
     </div>
+    <app-demoActions github="table" stackblitz="tablerowexpansion-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products" dataKey="name">
+        <p-table [value]="products" dataKey="name" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem"></th>
@@ -25,7 +26,7 @@
                         <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                     </td>
                     <td>{{product.name}}</td>
-                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
+                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                     <td>{{product.price | currency:'USD'}}</td>
                     <td>{{product.category}}</td>
                     <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
@@ -35,7 +36,7 @@
             <ng-template pTemplate="rowexpansion" let-product>
                 <tr>
                     <td colspan="7">
-                        <div class="p-p-3">
+                        <div class="p-3">
                             <p-table [value]="product.orders" dataKey="id">
                                 <ng-template pTemplate="header">
                                     <tr>
@@ -43,7 +44,7 @@
                                         <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
                                         <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
                                         <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
-                                        <th pSortableColumn="stats">Status <p-sortIcon field="status"></p-sortIcon></th>
+                                        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
                                         <th style="width: 4rem"></th>
                                     </tr>
                                 </ng-template>
@@ -81,7 +82,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" dataKey="name"&gt;
+&lt;p-table [value]="products" dataKey="name" responsiveLayout="scroll"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th style="width: 3rem"&gt;&lt;/th&gt;
@@ -99,7 +100,7 @@
                 &lt;button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
             &lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /&gt;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
@@ -109,7 +110,7 @@
     &lt;ng-template pTemplate="rowexpansion" let-product&gt;
         &lt;tr&gt;
             &lt;td colspan="7"&gt;
-                &lt;div class="p-p-3"&gt;
+                &lt;div class="p-3"&gt;
                     &lt;p-table [value]="product.orders" dataKey="id"&gt;
                         &lt;ng-template pTemplate="header"&gt;
                             &lt;tr&gt;
@@ -117,7 +118,7 @@
                                 &lt;th pSortableColumn="customer"&gt;Customer &lt;p-sortIcon field="customer"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
                                 &lt;th pSortableColumn="date"&gt;Date &lt;p-sortIcon field="date"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
                                 &lt;th pSortableColumn="amount"&gt;Amount &lt;p-sortIcon field="amount"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                                &lt;th pSortableColumn="stats"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                                &lt;th pSortableColumn="status"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
                                 &lt;th style="width: 4rem"&gt;&lt;/th&gt;
                             &lt;/tr&gt;
                         &lt;/ng-template&gt;
@@ -161,12 +162,12 @@ export class TableRowExpansionDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.productService.getProductsWithOrdersSmall().then(data =&gt; this.products = data);
     &#125;
-    
+
 &#125;
 </app-code>
         </p-tabPanel>
 
-       
+
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
                 <iframe src="https://stackblitz.com/edit/primeng-tablerowexpansion-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>

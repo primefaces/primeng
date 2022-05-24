@@ -3,13 +3,14 @@
         <h1>Menubar</h1>
         <p>Menubar is a horizontal menu component.</p>
     </div>
+    <app-demoActions github="menubar" stackblitz="menubar-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
         <p-menubar [model]="items">
             <ng-template pTemplate="start">
-                <img src="assets/showcase/images/primeng.svg" height="40" class="p-mr-2">
+                <img src="assets/showcase/images/primeng.svg" height="40" class="mr-2">
             </ng-template>
             <ng-template pTemplate="end">
                 <input type="text" pInputText placeholder="Search">
@@ -132,6 +133,28 @@ export class MenubarDemo &#123;
                 </table>
             </div>
 
+            <h5>Templates</h5>
+            <div class="doc-tablewrapper">
+               <table class="doc-table">
+                     <thead>
+                        <tr>
+                           <th>Name</th>
+                           <th>Parameters</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>start</td>
+                           <td>-</td>
+                        </tr>
+                        <tr>
+                           <td>end</td>
+                           <td>-</td>
+                        </tr>
+                     </tbody>
+               </table>
+            </div>
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -185,7 +208,7 @@ export class MenubarDemo &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menubar [model]="items"&gt;
     &lt;ng-template pTemplate="start"&gt;
-        &lt;img src="assets/showcase/images/primeng.svg" height="40" class="p-mr-2"&gt;
+        &lt;img src="assets/showcase/images/primeng.svg" height="40" class="mr-2"&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="end"&gt;
         &lt;input type="text" pInputText placeholder="Search"&gt;

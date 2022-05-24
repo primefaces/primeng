@@ -12,7 +12,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
     selector: 'p-knob',
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-        <svg viewBox="0 0 100 100" [style.width]="size" [style.height]="size" (click)="onClick($event)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
+        <svg viewBox="0 0 100 100" [style.width]="size + 'px'" [style.height]="size + 'px'" (click)="onClick($event)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
             (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
             <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
             <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
@@ -23,7 +23,10 @@ export const KNOB_VALUE_ACCESSOR: any = {
     providers: [KNOB_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./knob.css']
+    styleUrls: ['./knob.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Knob {
 
@@ -35,7 +38,7 @@ export class Knob {
 
     @Input() valueColor: string = "var(--primary-color, Black)";
 
-    @Input() rangeColor: string = "var(--surface-d, LightGray)";
+    @Input() rangeColor: string = "var(--surface-border, LightGray)";
 
     @Input() textColor: string = "var(--text-color-secondary, Black)";
 
@@ -70,7 +73,7 @@ export class Knob {
     minRadians: number = 4 * Math.PI / 3;
 
     maxRadians: number = -Math.PI / 3;
-    
+
     value: number = null;
 
     windowMouseMoveListener: any;

@@ -5,8 +5,8 @@ import {AutoCompleteDemo} from './autocompletedemo';
 import {AutoCompleteDemoRoutingModule} from './autocompletedemo-routing.module';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {TabViewModule} from 'primeng/tabview';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
-import { AppCodeModule } from '../../app.code.component';
+import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -15,7 +15,7 @@ import { AppCodeModule } from '../../app.code.component';
 		AutoCompleteDemoRoutingModule,
         AutoCompleteModule,
 		TabViewModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

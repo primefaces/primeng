@@ -14,7 +14,7 @@ import {BlockableUI} from 'primeng/api';
             </div>
             <div #content class="p-virtualscroller-content">
                 <div class="p-virtualscroller-list">
-                    <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)">
+                    <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" tabindex="0" [itemSize]="itemSize" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)">
                         <ng-container *cdkVirtualFor="let item of value; trackBy: trackBy; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd;">
                             <div [ngStyle]="{'height': itemSize + 'px'}" class="p-virtualscroller-item">
                                 <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: {$implicit: item, index: i, count: c, first: f, last: l, even: e, odd: o}"></ng-container>
@@ -30,18 +30,22 @@ import {BlockableUI} from 'primeng/api';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./virtualscroller.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     @Input() value: any[];
 
-    @Input() itemSize: number; 
+    @Input() itemSize: number;
 
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() scrollHeight: any;
 
     @Input() lazy: boolean;
@@ -53,13 +57,13 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     @Input() maxBufferPx: number;
 
     @Input() delay: number = 250;
-  
+
     @Input() trackBy: Function = (index: number, item: any) => item;
-                
+
     @ContentChild(Header) header: Header;
 
     @ContentChild(Footer) footer: Footer;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
@@ -130,7 +134,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
@@ -148,7 +152,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
                 let page = Math.floor(index / this.rows);
                 let virtualScrollOffset = page === 0 ? 0 : (page - 1) * this.rows;
                 let virtualScrollChunkSize = page === 0 ? this.rows * 2 : this.rows * 3;
-  
+
                 if (page !== this.virtualPage) {
                     this.virtualPage = page;
                     this.onLazyLoad.emit({first: virtualScrollOffset, rows: virtualScrollChunkSize});

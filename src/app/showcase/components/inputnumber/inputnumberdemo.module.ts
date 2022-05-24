@@ -5,8 +5,8 @@ import {InputNumberDemo} from './inputnumberdemo';
 import {InputNumberDemoRoutingModule} from './inputnumberdemo-routing.module';
 import {TabViewModule} from 'primeng/tabview';
 import {InputNumberModule} from 'primeng/inputnumber';
-import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -15,7 +15,7 @@ import {AppCodeModule} from '../../app.code.component';
 		InputNumberDemoRoutingModule,
         InputNumberModule,
 		TabViewModule,
-		AppInputStyleSwitchModule,
+		AppDemoActionsModule,
 		AppCodeModule
 	],
 	declarations: [

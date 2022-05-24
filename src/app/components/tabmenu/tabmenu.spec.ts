@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TabMenu } from './tabmenu';
+import { TabMenu, TabMenuModule } from './tabmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -16,9 +16,7 @@ describe('TabMenu', () => {
 				RouterTestingModule.withRoutes([
 					{ path: 'test', component: TabMenu }
 				]),
-			],
-			declarations: [
-				TabMenu
+                TabMenuModule
 			]
 		});
 
@@ -111,28 +109,6 @@ describe('TabMenu', () => {
 			{ label: 'Documentation', icon: 'pi pi-fw pi-book' },
 			{ label: 'Support', icon: 'pi pi-fw pi-support' },
 			{ label: 'Social', icon: 'pi pi-fw pi-twitter' }
-		];
-		const itemClickSpy = spyOn(tabmenu, 'itemClick').and.callThrough();
-		fixture.detectChanges();
-
-		const itemList = fixture.debugElement.query(By.css('ul'));
-		const calenderItem = itemList.children[1].children[0].nativeElement;
-		calenderItem.click();
-		fixture.detectChanges();
-
-		expect(itemList.children[1].nativeElement.className).toContain("p-highlight")
-		expect(tabmenu.activeItem.label).toEqual('Calendar');
-		expect(tabmenu.activeItem.icon).toContain('pi-calendar');
-		expect(itemClickSpy).toHaveBeenCalled();
-	});
-
-	it('should select item and highlight with routerLinkActive when click (routerLink)', () => {
-		tabmenu.model = [
-			{ label: 'Stats', icon: 'pi pi-fw pi-bar-chart', routerLink: 'test' },
-			{ label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: 'test' },
-			{ label: 'Documentation', icon: 'pi pi-fw pi-book', routerLink: 'test' },
-			{ label: 'Support', icon: 'pi pi-fw pi-support', routerLink: 'test' },
-			{ label: 'Social', icon: 'pi pi-fw pi-twitter', routerLink: 'test' }
 		];
 		const itemClickSpy = spyOn(tabmenu, 'itemClick').and.callThrough();
 		fixture.detectChanges();

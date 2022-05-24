@@ -2,25 +2,21 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Input, OnInit, 
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
-import { VersionService } from './service/versionservice';
+import { JsonService } from './service/jsonservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-topbar',
     template: `
-        <div class="layout-topbar">
+        <div class="layout-topbar" #containerElement>
             <a class="menu-button" (click)="onMenuButtonClick($event)">
                 <i class="pi pi-bars"></i>
-            </a>
-            <a [routerLink]="['/']" class="logo">
-                <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" />
             </a>
             <div class="app-theme" [pTooltip]="config.theme" tooltipPosition="bottom">
                 <img [src]="'assets/showcase/images/themes/' + logoMap[config.theme]" />
             </div>
             <ul #topbarMenu class="topbar-menu">
-                <li><a [routerLink]="['/setup']">Get Started</a></li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 0)">Themes</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 0" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
@@ -49,10 +45,27 @@ import { Subscription } from 'rxjs';
                         <li><a (click)="changeTheme($event, 'mdc-dark-indigo', true)"><img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Indigo Dark" /><span>Indigo Dark</span></a></li>
                         <li><a (click)="changeTheme($event, 'mdc-dark-deeppurple', true)"><img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Deep Purple Dark" /><span>Deep Purple Dark</span></a></li>
 
+                        <li class="topbar-submenu-header">TAILWIND</li>
+                        <li><a (click)="changeTheme($event, 'tailwind-light', false)"><img src="assets/showcase/images/themes/tailwind-light.png" alt="Tailwind Light" /><span>Tailwind Light</span></a></li>
+
                         <li class="topbar-submenu-header">FLUENT UI</li>
                         <li><a (click)="changeTheme($event, 'fluent-light', false)"><img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light" /><span>Fluent Light</span></a></li>
 
-                        <li class="topbar-submenu-header">PRIMEONE</li>
+                        <li class="topbar-submenu-header">PRIMEONE - 2022</li>
+                        <li><a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="assets/showcase/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="assets/showcase/images/themes/lara-light-purple.png" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="assets/showcase/images/themes/lara-dark-purple.png" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-light-blue', false)"><img src="assets/showcase/images/themes/lara-light-blue.png" alt="Lara Light Blue" /><span>Lara Light Blue</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-blue', true)"><img src="assets/showcase/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" /><span>Lara Dark Blue</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-light-teal', false)"><img src="assets/showcase/images/themes/lara-light-teal.png" alt="Lara Light Teal" /><span>Lara Light Teal</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-teal', true)"><img src="assets/showcase/images/themes/lara-dark-teal.png" alt="Lara Dark Teal" /><span>Lara Dark Teal</span></a></li>
+
+                        <li class="topbar-submenu-header">PRIMEONE - 2021</li>
+                        <li><a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="assets/showcase/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="assets/showcase/images/themes/lara-light-purple.png" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a></li>
+                        <li><a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="assets/showcase/images/themes/lara-dark-purple.png" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-blue', false)"><img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" /><span>Saga Blue</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-green', false)"><img src="assets/showcase/images/themes/saga-green.png" alt="Saga Green" /><span>Saga Green</span></a></li>
                         <li><a (click)="changeTheme($event, 'saga-orange', false)"><img src="assets/showcase/images/themes/saga-orange.png" alt="Saga Orange" /><span>Saga Orange</span></a></li>
@@ -88,7 +101,27 @@ import { Subscription } from 'rxjs';
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 1)">Templates</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
+                        <li class="topbar-submenu-header">FREE ADMIN TEMPLATE</li>
+                        <li>
+                            <a href="https://www.primefaces.org/sakai-ng">
+                                <img alt="Sakai" src="assets/showcase/images/layouts/sakai-logo.svg">
+                                <span>Sakai</span>
+                            </a>
+                        </li>
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
+
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/verona-ng">
+                                <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
+                                <span>Verona</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/atlantis-ng">
+                                <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-logo.svg">
+                                <span>Atlantis</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/ultima-ng">
                                 <img alt="Ultima" src="assets/showcase/images/layouts/ultima-logo.png">
@@ -170,7 +203,7 @@ import { Subscription } from 'rxjs';
                         <li>
                             <a href="https://www.primefaces.org/layouts/apollo-ng">
                                 <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.png">
-                                <span>Apollo</span>
+                                <span>Apollo</span><span class="theme-badge darkmode">darkmode</span>
                             </a>
                         </li>
                         <li>
@@ -183,12 +216,6 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/layouts/avalon-ng">
                                 <img alt="Avalon" src="assets/showcase/images/layouts/avalon-logo.png">
                                 <span>Avalon</span><span class="theme-badge bootstrap">bootstrap</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.primefaces.org/layouts/verona-ng">
-                                <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
-                                <span>Verona</span>
                             </a>
                         </li>
                         <li>
@@ -216,12 +243,6 @@ import { Subscription } from 'rxjs';
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-logo.png">
-                                <span>Atlantis</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="https://www.primefaces.org/layouts/omega-ng">
                                 <img alt="Omega" src="assets/showcase/images/layouts/omega-logo.png">
                                 <span>Omega</span>
@@ -230,25 +251,11 @@ import { Subscription } from 'rxjs';
                     </ul>
                 </li>
                 <li class="topbar-submenu">
-                    <a tabindex="0" (click)="toggleMenu($event, 2)">Resources</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
-
-                        <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
-                        <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
-                        <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>
-                        <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Forum</span></a></li>
-                        <li><a href="https://discord.gg/gzKFYnpmCY"><span>Discord Chat</span></a></li>
-                        <li><a [routerLink]="['/lts']"><span>LTS</span></a></li>
-                        <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
-                        <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
-                        <li><a [routerLink]="['/support']"><span>Support</span></a></li>
-                        <li><a href="https://twitter.com/prime_ng?lang=en" target="_blank"><span>Twitter</span></a></li>
-                        <li><a href="https://www.primefaces.org/whouses" target="_blank"><span>Who Uses</span></a></li>
-                    </ul>
+                    <a tabindex="0" href="https://www.primefaces.org/primeblocks-ng/" target="_blank">Blocks</a>
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 3)">{{versions ? versions[0].version : 'Latest'}}</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width:100%">
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width: 100%; min-width: 125px;">
                         <li *ngFor="let v of versions">
                             <a [href]="v.url">{{v.version}}</a>
                         </li>
@@ -275,6 +282,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
 
+    @ViewChild('containerElement') containerElement: ElementRef;
+
     activeMenuIndex: number;
 
     outsideClickListener: any;
@@ -296,6 +305,14 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'mdc-light-deeppurple': 'md-light-deeppurple.svg',
         'mdc-dark-indigo': 'md-dark-indigo.svg',
         'mdc-dark-deeppurple': 'md-dark-deeppurple.svg',
+        'lara-light-indigo': 'lara-light-indigo.png',
+        'lara-light-purple': 'lara-light-purple.png',
+        'lara-light-blue': 'lara-light-blue.png',
+        'lara-light-teal': 'lara-light-teal.png',
+        'lara-dark-indigo': 'lara-dark-indigo.png',
+        'lara-dark-purple': 'lara-dark-purple.png',
+        'lara-dark-blue': 'lara-dark-blue.png',
+        'lara-dark-teal': 'lara-dark-teal.png',
         'saga-blue': 'saga-blue.png',
         'saga-green': 'saga-green.png',
         'saga-orange': 'saga-orange.png',
@@ -324,23 +341,42 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'viva-dark': 'viva-dark.svg',
         'mira': 'mira.jpg',
         'nano': 'nano.jpg',
+        'tailwind-light': 'tailwind-light.png'
     };
 
     versions: any[];
 
-    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
+    scrollListener: any;
+
+    constructor(private router: Router, private JsonService: JsonService, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
-        this.versionService.getVersions().then(data => this.versions = data);
+        this.JsonService.getVersions().then(data => this.versions = data);
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 this.activeMenuIndex = null;
              }
         });
+
+        this.bindScrollListener();
     }
+
+    bindScrollListener() {
+        if (!this.scrollListener) {
+          this.scrollListener = () => {
+            if (window.scrollY > 0) {
+              this.containerElement.nativeElement.classList.add('layout-topbar-sticky');
+            } else {
+              this.containerElement.nativeElement.classList.remove('layout-topbar-sticky');
+            }
+          }
+        }
+    
+        window.addEventListener('scroll', this.scrollListener);
+      }
 
     onMenuButtonClick(event: Event) {
         this.menuButtonClick.emit();
@@ -348,8 +384,6 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        let themeElement = document.getElementById('theme-link');
-        themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
         this.configService.updateConfig({...this.config, ...{theme, dark}});
         this.activeMenuIndex = null;
         event.preventDefault();
@@ -371,6 +405,13 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         if (this.outsideClickListener) {
             document.removeEventListener('click', this.outsideClickListener);
             this.outsideClickListener = null;
+        }
+    }
+
+    unbindScrollListener() {
+        if (this.scrollListener) {
+            window.removeEventListener('scroll', this.scrollListener);
+            this.scrollListener = null;
         }
     }
 
@@ -399,5 +440,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+
+        this.unbindScrollListener();
     }
 }

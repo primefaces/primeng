@@ -14,6 +14,8 @@ export interface MenuItem {
     routerLinkActiveOptions?: any;
     separator?: boolean;
     badge?: string;
+    tooltip?: string;
+    tooltipPosition?: string;
     badgeStyleClass?: string;
     style?:any;
     styleClass?:string;
@@ -28,7 +30,25 @@ export interface MenuItem {
     preserveFragment?: boolean;
     skipLocationChange?: boolean;
     replaceUrl?: boolean;
+    iconStyle?: any;
+    iconClass?: string;
     state?: {
         [k: string]: any;
+    }
+    tooltipOptions?: {
+        tooltipLabel?: string;
+        tooltipPosition?: string;
+        tooltipEvent?: string;
+        appendTo?: any;
+        positionStyle?: string;
+        tooltipStyleClass?: string;
+        tooltipZIndex?: string;
+        escape?: boolean;
+        disabled?: boolean;
+        positionTop?: number;
+        positionLeft?: number;
+        showDelay?: number;
+        hideDelay?: number;
+        life?: number;
     }
 }

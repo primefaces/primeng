@@ -30,6 +30,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { AppCodeModule } from '../../app.code.component';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -44,7 +45,8 @@ import { AppCodeModule } from '../../app.code.component';
         MultiSelectModule,
         InputTextModule,
         ContextMenuModule,
-        AppCodeModule
+        AppCodeModule,
+        AppDemoActionsModule
 	],
 	declarations: [
         TreeTableDemo,

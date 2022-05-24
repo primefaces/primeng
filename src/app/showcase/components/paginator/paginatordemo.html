@@ -3,6 +3,7 @@
         <h1>Paginator</h1>
         <p>Paginator is a generic component to display content in paged format.</p>
     </div>
+    <app-demoActions github="paginator" stackblitz="paginator-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -11,15 +12,15 @@
         <p-paginator [rows]="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
 
         <h5>Custom</h5>
-        <div class="p-grid p-align-center">
-            <div class="p-col-1">
+        <div class="grid align-items-center">
+            <div class="col-1">
                 <p-button icon="pi pi-refresh" (onClick)="refresh()"></p-button>
             </div>
-            <div class="p-col-10">
+            <div class="col-10">
                 <p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
                 [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
             </div>
-            <div class="p-col-1 p-grid p-justify-end">
+            <div class="col-1 grid justify-content-end">
                 <p-button icon="pi pi-search"></p-button>
             </div>
         </div>
@@ -192,6 +193,12 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>Whether to display a dropdown to navigate to any page.</td>
                         </tr>
                         <tr>
+                            <td>showJumpToPageInput</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display a input to navigate to any page.</td>
+                        </tr>
+                        <tr>
                             <td>showPageLinks</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -309,15 +316,15 @@ export class MyComponent &#123;
     &lt;p-paginator [rows]="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 
     &lt;h5&gt;Custom&lt;/h5&gt;
-    &lt;div class="p-grid p-align-center"&gt;
-        &lt;div class="p-col-1"&gt;
+    &lt;div class="grid align-items-center"&gt;
+        &lt;div class="col-1"&gt;
             &lt;p-button icon="pi pi-refresh" (onClick)="refresh()"&gt;&lt;/p-button&gt;
         &lt;/div&gt;
-        &lt;div class="p-col-10"&gt;
+        &lt;div class="col-10"&gt;
             &lt;p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords2" (onPageChange)="onPageChange($event)"
             [showJumpToPageDropdown]="true" [showPageLinks]="false"&gt;&lt;/p-paginator&gt;
         &lt;/div&gt;
-        &lt;div class="p-col-1 p-grid p-justify-end"&gt;
+        &lt;div class="col-1 grid justify-content-end"&gt;
             &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -327,10 +334,6 @@ export class MyComponent &#123;
 &lt;/div&gt;
 </app-code>
 <app-code lang="css">
-.p-button.p-button-icon-only &#123;
-    border-radius: 0;
-&#125;
-
 .image-gallery &#123;
     text-align: center;
     padding: 1rem;

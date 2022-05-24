@@ -3,6 +3,7 @@
         <h1>Galleria <span>FullScreen</span></h1>
         <p>In fullscreen mode content covers the whole page over a mask..</p>
     </div>
+    <app-demoActions github="galleria"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -10,28 +11,28 @@
         <h5>With Thumbnails</h5>
         <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic = true"></button>
         <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions2" [containerStyle]="{'max-width': '50%'}" [numVisible]="9"
-            [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [baseZIndex]="100000"> 
+            [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;"/>
                 </div>
             </ng-template>
         </p-galleria>
     </div>
-    
+
     <div class="card">
         <h5>Without Thumbnails</h5>
         <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic2 = true"></button>
         <p-galleria [(value)]="images" [(visible)]="displayBasic2" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
-            [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"> 
+            [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;"/>
                 </div>
             </ng-template>
@@ -40,18 +41,18 @@
 
     <div class="card">
         <h5>Custom Contents</h5>
-        <div *ngIf="images" class="p-grid" style="max-width: 400px;">
-            <div *ngFor="let image of images; let index = index;" class="p-col-3" key="index">
+        <div *ngIf="images" class="grid" style="max-width: 400px;">
+            <div *ngFor="let image of images; let index = index;" class="col-3" key="index">
                 <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)"/>
             </div>
         </div>
         <p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
-            [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"> 
+            [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;"/>
                 </div>
             </ng-template>
@@ -114,7 +115,7 @@ export class GalleriaFullscreenDemo implements OnInit &#123;
     constructor(private photoService: PhotoService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.photoService.getImages().then(images =>&#123; 
+        this.photoService.getImages().then(images =>&#123;
             this.images = images
         &#125;)
     &#125;
@@ -133,12 +134,12 @@ export class GalleriaFullscreenDemo implements OnInit &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions2" [containerStyle]="&#123;'max-width': '50%'&#125;" [numVisible]="9"
-    [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [baseZIndex]="100000"&gt; 
+    [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [baseZIndex]="100000"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;div class="grid grid-nogutter justify-content-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" style="display: block;"/&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -146,12 +147,12 @@ export class GalleriaFullscreenDemo implements OnInit &#123;
 &lt;button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic = true"&gt;&lt;/button&gt;
 &lt;h5&gt;Without Thumbnails&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [(visible)]="displayBasic2" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '850px'&#125;" [numVisible]="7"
-    [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"&gt; 
+    [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;div class="grid grid-nogutter justify-content-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" style="display: block;"/&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -159,18 +160,18 @@ export class GalleriaFullscreenDemo implements OnInit &#123;
 &lt;button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic2 = true"&gt;&lt;/button&gt;
 &lt;h5&gt;Custom Contents&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '850px'&#125;" [numVisible]="7"
-    [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"&gt; 
+    [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+        &lt;div class="grid grid-nogutter justify-content-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" style="display: block;"/&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;div *ngIf="images" class="p-grid" style="max-width: 400px;"&gt;
-    &lt;div *ngFor="let image of images; let index = index;" class="p-col-3" key="index"&gt;
+&lt;div *ngIf="images" class="grid" style="max-width: 400px;"&gt;
+    &lt;div *ngFor="let image of images; let index = index;" class="col-3" key="index"&gt;
         &lt;img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)"/&gt;
     &lt;/div&gt;
 &lt;/div&gt;

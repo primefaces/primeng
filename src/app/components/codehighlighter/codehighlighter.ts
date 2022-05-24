@@ -2,7 +2,10 @@ import { NgModule, Directive, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Directive({
-    selector: '[pCode]'
+    selector: '[pCode]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class CodeHighlighter implements AfterViewInit {
 

@@ -1,8 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { OrderList } from './orderlist';
+import { OrderListModule, OrderList } from 'primeng/orderlist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Button } from 'primeng/button';
 import { Component } from '@angular/core';
 
 @Component({
@@ -44,10 +43,9 @@ describe('OrderList', () => {
 		TestBed.configureTestingModule({
 			imports: [
 				NoopAnimationsModule,
+				OrderListModule
 			],
 			declarations: [
-				OrderList,
-				Button,
 				TestOrderListComponent
 			],
 		});
@@ -92,15 +90,6 @@ describe('OrderList', () => {
 		const filterInputEl = fixture.debugElement.query(By.css('.p-inputtext'));
 		expect(filterInputEl).toBeTruthy();
 		expect(filterInputEl.nativeElement.placeholder).toEqual("Primeng ROCKS!");
-	});
-
-	it('should add droppoints when dragdrop is enabled', () => {
-		orderlist.dragdrop = true;
-		fixture.detectChanges();
-
-		const dragdropEl = fixture.debugElement.query(By.css('.p-orderlist-droppoint'));
-
-		expect(dragdropEl).toBeTruthy();
 	});
 
 	it('should show items', () => {
@@ -215,6 +204,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveUpButtonEl = buttonsEl[0];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveUpButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -222,8 +213,8 @@ describe('OrderList', () => {
 		expect(orderlist.selection.length).toEqual(1);
 		expect(orderlist.selection[0].brand).toEqual("BMW");
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[2].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].nativeElement.textContent).toContain("Renault");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[2].nativeElement.textContent).toContain("BMW");
 	});
 
 	it('should call moveDown', () => {
@@ -235,6 +226,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveDownButtonEl = buttonsEl[2];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveDownButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -242,8 +235,8 @@ describe('OrderList', () => {
 		expect(orderlist.selection.length).toEqual(1);
 		expect(orderlist.selection[0].brand).toEqual("BMW");
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[4].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].nativeElement.textContent).toContain("Mercedes");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[4].nativeElement.textContent).toContain("BMW");
 	});
 
 	it('should call MoveTop', () => {
@@ -255,6 +248,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[1];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -262,8 +257,8 @@ describe('OrderList', () => {
 		expect(orderlist.selection.length).toEqual(1);
 		expect(orderlist.selection[0].brand).toEqual("BMW");
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[0].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].nativeElement.textContent).toContain("Renault");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[0].nativeElement.textContent).toContain("BMW");
 	});
 
 	it('should call moveBottom', () => {
@@ -275,6 +270,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[3];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -282,8 +279,8 @@ describe('OrderList', () => {
 		expect(orderlist.selection.length).toEqual(1);
 		expect(orderlist.selection[0].brand).toEqual("BMW");
 		expect(bmwEl.nativeElement.className).toContain('p-highlight');
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
-		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[9].context.$implicit.brand).toEqual("BMW");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[3].nativeElement.textContent).toContain("Mercedes");
+		expect(itemListEl.queryAll(By.css('.p-orderlist-item'))[9].nativeElement.textContent).toContain("BMW");
 	});
 
 	it('should show filter items by default', () => {
@@ -298,12 +295,7 @@ describe('OrderList', () => {
 		expect(orderlist.visibleOptions.length).toEqual(2);
 		expect(orderlist.visibleOptions[0].brand).toEqual("VW");
 		expect(orderlist.visibleOptions[1].brand).toEqual("Volvo");
-		for (let i = 0; i < itemsEl.length; i++) {
-			if (i == 0 || i == 5)
-				expect(itemsEl[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(itemsEl[i].nativeElement.style.display).not.toEqual("block");
-		}
+		expect(itemsEl.length).toEqual(2);
 	});
 
 	it('should show filter items', () => {
@@ -320,12 +312,7 @@ describe('OrderList', () => {
 		expect(orderlist.visibleOptions.length).toEqual(2);
 		expect(orderlist.visibleOptions[0].brand).toEqual("VW");
 		expect(orderlist.visibleOptions[1].brand).toEqual("Volvo");
-		for (let i = 0; i < itemsEl.length; i++) {
-			if (i == 0 || i == 5)
-				expect(itemsEl[i].nativeElement.style.display).toEqual("block");
-			else
-				expect(itemsEl[i].nativeElement.style.display).not.toEqual("block");
-		}
+		expect(itemsEl.length).toEqual(2);
 	});
 
 	it('should listen onReorder in moveUp', () => {
@@ -339,6 +326,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveUpButtonEl = buttonsEl[0];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveUpButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -356,6 +345,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveDownButtonEl = buttonsEl[2];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveDownButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -373,6 +364,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[1];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -389,6 +382,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[1];
 		vwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -406,6 +401,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[0];
 		vwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -424,6 +421,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[3];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -440,6 +439,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[3];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -457,6 +458,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[2];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 

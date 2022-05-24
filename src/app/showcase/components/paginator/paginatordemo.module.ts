@@ -6,6 +6,7 @@ import {PaginatorModule} from 'primeng/paginator';
 import {TabViewModule} from 'primeng/tabview';
 import {ButtonModule} from 'primeng/button';
 import {AppCodeModule} from '../../app.code.component';
+import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,8 @@ import {AppCodeModule} from '../../app.code.component';
         PaginatorModule,
 		TabViewModule,
 		AppCodeModule,
-		ButtonModule
+		ButtonModule,
+		AppDemoActionsModule
 	],
 	declarations: [
 		PaginatorDemo

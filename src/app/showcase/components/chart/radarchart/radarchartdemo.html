@@ -3,11 +3,12 @@
         <h1>Radar Chart</h1>
         <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>
     </div>
+    <app-demoActions github="chart/radarchart"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
-    <div class="card">
-        <p-chart type="radar" [data]="data" [options]="chartOptions"></p-chart>
+    <div class="card flex justify-content-center">
+        <p-chart type="radar" [data]="data" [options]="chartOptions" [style]="{'width': '40%'}"></p-chart>
     </div>
 </div>
 
@@ -18,14 +19,22 @@
                 <span>View on GitHub</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-chart type="radar" [data]="data"&gt;&lt;/p-chart&gt;
+&lt;p-chart type="radar" [data]="data" [options]="chartOptions" [style]="&#123;'width': '40%'&#125;"&gt;&lt;/p-chart&gt;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class RadarChartDemo &#123;
 
     data: any;
 
-    constructor() &#123;
+    chartOptions: any;
+
+    subscription: Subscription;
+
+    config: AppConfig;
+
+    constructor(private configService: AppConfigService) &#123;&#125;
+
+    ngOnInit() &#123;
         this.data = &#123;
             labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
             datasets: [
@@ -51,9 +60,70 @@ export class RadarChartDemo &#123;
                 &#125;
             ]
         &#125;;
+
+        this.config = this.configService.config;
+        this.updateChartOptions();
+        this.subscription = this.configService.configUpdate$.subscribe(config =&gt; &#123;
+            this.config = config;
+            this.updateChartOptions();
+        &#125;);
+    &#125;
+
+    updateChartOptions() &#123;
+        this.chartOptions = this.config && this.config.dark ? this.getDarkTheme() : this.getLightTheme();
+    &#125;
+
+    getLightTheme() &#123;
+        return &#123;
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#495057'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                r: &#123;
+                    pointLabels: &#123;
+                        color: '#495057',
+                    &#125;,
+                    grid: &#123;
+                        color: '#ebedef',
+                    &#125;,
+                    angleLines: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    getDarkTheme() &#123;
+        return &#123;
+            plugins: &#123;
+                legend: &#123;
+                    labels: &#123;
+                        color: '#ebedef'
+                    &#125;
+                &#125;
+            &#125;,
+            scales: &#123;
+                r: &#123;
+                    pointLabels: &#123;
+                        color: '#ebedef',
+                    &#125;,
+                    grid: &#123;
+                        color: 'rgba(255,255,255,0.2)',
+                    &#125;,
+                    angleLines: &#123;
+                        color: 'rgba(255,255,255,0.2)'
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
     &#125;
 &#125;
-</app-code>            
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>

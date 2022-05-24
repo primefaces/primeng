@@ -3,6 +3,7 @@
         <h1>TreeTable</h1>
         <p>TreeTable is used to display hierarchical data in tabular format.</p>
     </div>
+    <app-demoActions github="treetable" stackblitz="treetable-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
@@ -379,7 +380,8 @@ export class TreeTableDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>emptymessage</td>
-                            <td>$implicit: Columns</td>
+                            <td>$implicit: Columns <br />
+                                frozen: Whether the body belongs to the frozen part of the table.</td>
                             <td>Content to display when there is no value to display.</td>
                         </tr>
                         <tr>
@@ -468,7 +470,7 @@ this.value = [...this.value];
             <h5>Column Grouping</h5>
             <p>Columns can easily be grouped using templating. Let's start with sample data of sales of brands per year.</p>
 
-<div style="height:400px;overflow: auto">
+<div>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TreeTableColGroupDemo implements OnInit &#123;
 

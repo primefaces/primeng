@@ -14,7 +14,10 @@ import { CommonModule } from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./chip.css']
+    styleUrls: ['./chip.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Chip {
 
@@ -32,7 +35,7 @@ export class Chip {
 
     @Input() removeIcon: string = "pi pi-times-circle";
 
-    @Output() remove: EventEmitter<any> = new EventEmitter();
+    @Output() onRemove: EventEmitter<any> = new EventEmitter();
 
     visible: boolean = true;
 
@@ -45,7 +48,7 @@ export class Chip {
 
     close(event) {
         this.visible = false;
-        this.remove.emit(event)
+        this.onRemove.emit(event)
     }
 }
 

@@ -1,13 +1,12 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild} from '@angular/core';
+    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild, OnInit} from '@angular/core';
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule, PrimeTemplate} from 'primeng/api';
+import {Header,Footer,SharedModule, PrimeTemplate, PrimeNGConfig} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
 import {RippleModule} from 'primeng/ripple';
-
-let idx: number = 0;
+import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -22,7 +21,7 @@ const hideAnimation = animation([
     selector: 'p-dialog',
     template: `
         <div *ngIf="maskVisible" [class]="maskStyleClass"
-            [ngClass]="{'p-dialog-mask': true, 'p-component-overlay': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
+            [ngClass]="{'p-dialog-mask': true, 'p-component-overlay p-component-overlay-enter': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
                 'p-dialog-left': position === 'left',
                 'p-dialog-right': position === 'right',
                 'p-dialog-top': position === 'top',
@@ -35,7 +34,7 @@ const hideAnimation = animation([
                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="header">{{header}}</span>
+                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{header}}</span>
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
@@ -44,7 +43,7 @@ const hideAnimation = animation([
                         <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                         </button>
-                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)" tabindex="-1" pRipple>
+                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" [attr.aria-label]="closeAriaLabel" (click)="close($event)" (keydown.enter)="close($event)" [attr.tabindex]="closeTabindex" pRipple>
                             <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                         </button>
                     </div>
@@ -71,11 +70,14 @@ const hideAnimation = animation([
             ])
         ])
     ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css']
+    styleUrls: ['../dialog/dialog.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
-export class Dialog implements AfterContentInit,OnDestroy {
+export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() header: string;
 
@@ -123,6 +125,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     @Input() appendTo: any;
 
+    @Input() breakpoints: any;
+
     @Input() styleClass: string;
 
     @Input() maskStyleClass: string;
@@ -134,7 +138,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
     };
 
     set breakpoint(_breakpoint: number) {
-        console.log("Breakpoint property is not utilized and deprecated, use CSS media queries instead.");
+        console.log("Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.");
     }
 
     @Input() blockScroll: boolean = false;
@@ -158,6 +162,10 @@ export class Dialog implements AfterContentInit,OnDestroy {
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() closeIcon: string = 'pi pi-times';
+
+    @Input() closeAriaLabel: string;
+
+    @Input() closeTabindex: string = "-1";
 
     @Input() minimizeIcon: string = 'pi pi-window-minimize';
 
@@ -237,7 +245,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     preMaximizePageY: number;
 
-    id: string = `p-dialog-${idx++}`;
+    id: string = UniqueComponentId();
 
     _style: any = {};
 
@@ -247,7 +255,9 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     transformOptions: any = "scale(0.7)";
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef) { }
+    styleElement: any;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -269,6 +279,12 @@ export class Dialog implements AfterContentInit,OnDestroy {
                 break;
             }
         });
+    }
+
+    ngOnInit() {
+        if (this.breakpoints) {
+            this.createStyle();
+        }
     }
 
     @Input() get visible(): any {
@@ -388,8 +404,28 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
     moveOnTop() {
         if (this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-            this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
+            ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+        }
+    }
+
+    createStyle() {
+        if (!this.styleElement) {
+            this.styleElement = document.createElement('style');
+            this.styleElement.type = 'text/css';
+            document.head.appendChild(this.styleElement);
+            let innerHTML = '';
+            for (let breakpoint in this.breakpoints) {
+                innerHTML += `
+                    @media screen and (max-width: ${breakpoint}) {
+                        .p-dialog[${this.id}] {
+                            width: ${this.breakpoints[breakpoint]} !important;
+                        }
+                    }
+                `
+            }
+
+            this.styleElement.innerHTML = innerHTML;
         }
     }
 
@@ -446,7 +482,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
             let containerHeight = DomHandler.getOuterHeight(this.container);
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
-            let offset = DomHandler.getOffset(this.container);
+            let offset = this.container.getBoundingClientRect();
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
@@ -517,7 +553,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
             let newHeight = containerHeight + deltaY;
             let minWidth = this.container.style.minWidth;
             let minHeight = this.container.style.minHeight;
-            let offset = DomHandler.getOffset(this.container);
+            let offset = this.container.getBoundingClientRect();
             let viewport = DomHandler.getViewport();
             let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
 
@@ -626,9 +662,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
-                    this.close(event);
-                }
+                this.close(event);
             }
         });
     }
@@ -663,6 +697,7 @@ export class Dialog implements AfterContentInit,OnDestroy {
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
+                this.container.setAttribute(this.id, '');
 
                 if (this.modal) {
                     this.enableModality();
@@ -674,6 +709,12 @@ export class Dialog implements AfterContentInit,OnDestroy {
 
                 if (this.focusOnShow) {
                     this.focus();
+                }
+            break;
+
+            case 'void':
+                if (this.wrapper && this.modal) {
+                    DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
             break;
         }
@@ -710,10 +751,21 @@ export class Dialog implements AfterContentInit,OnDestroy {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
         }
 
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
+
         this.container = null;
         this.wrapper = null;
 
         this._style = this.originalStyle ? {...this.originalStyle} : {};
+    }
+
+    destroyStyle() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;
+        }
     }
 
     ngOnDestroy() {
@@ -721,6 +773,8 @@ export class Dialog implements AfterContentInit,OnDestroy {
             this.restoreAppend();
             this.onContainerDestroy();
         }
+
+        this.destroyStyle();
     }
 
 }

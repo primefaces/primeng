@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppConfigService} from '../../../service/appconfigservice';
 import {AppConfig} from '../../../domain/appconfig';
@@ -6,12 +6,12 @@ import {AppConfig} from '../../../domain/appconfig';
 @Component({
     templateUrl: './polarareachartdemo.html'
 })
-export class PolarAreaChartDemo {
+export class PolarAreaChartDemo implements OnInit, OnDestroy {
 
     data: any;
 
     chartOptions: any;
-    
+
     subscription: Subscription;
 
     config: AppConfig;
@@ -29,11 +29,11 @@ export class PolarAreaChartDemo {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    "#42A5F5",
+                    "#66BB6A",
+                    "#FFA726",
+                    "#26C6DA",
+                    "#7E57C2"
                 ],
                 label: 'My dataset'
             }],
@@ -44,7 +44,7 @@ export class PolarAreaChartDemo {
                 "Grey",
                 "Blue"
             ]
-        }
+        };
 
         this.config = this.configService.config;
         this.updateChartOptions();
@@ -60,14 +60,18 @@ export class PolarAreaChartDemo {
 
     getLightTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#495057'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#495057'
+                    }
                 }
             },
-            scale: {
-                gridLines: {
-                    color: '#ebedef'
+            scales: {
+                r: {
+                    grid: {
+                        color: '#ebedef'
+                    }
                 }
             }
         }
@@ -75,16 +79,26 @@ export class PolarAreaChartDemo {
 
     getDarkTheme() {
         return {
-            legend: {
-                labels: {
-                    fontColor: '#ebedef'
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ebedef'
+                    }
                 }
             },
-            scale: {
-                gridLines: {
-                    color: 'rgba(255,255,255,0.2)'
+            scales: {
+                r: {
+                    grid: {
+                        color: 'rgba(255,255,255,0.2)'
+                    }
                 }
             }
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 }
