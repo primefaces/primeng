@@ -53,6 +53,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() positionLeft: number;
 
+    @Input() fitContent: boolean = true;
+
     @Input('pTooltip') text: string;
 
     @Input("tooltipDisabled") get disabled(): boolean {
@@ -300,6 +302,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             DomHandler.appendChild(this.container, this.getOption('appendTo'));
 
         this.container.style.display = 'inline-block';
+        
+        if (this.fitContent) {
+            this.container.style.width = 'fit-content';
+        }
     }
 
     show() {
