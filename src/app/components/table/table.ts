@@ -3296,16 +3296,6 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     @Input() pReorderableColumnDisabled: boolean;
 
-    dragStartListener: any;
-
-    dragOverListener: any;
-
-    dragEnterListener: any;
-
-    dragLeaveListener: any;
-
-    mouseDownListener: any;
-
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
@@ -3316,75 +3306,45 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     bindEvents() {
         this.zone.runOutsideAngular(() => {
-            this.mouseDownListener = this.onMouseDown.bind(this);
-            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-
-            this.dragStartListener = this.onDragStart.bind(this);
-            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
-
-            this.dragOverListener = this.onDragEnter.bind(this);
-            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
-
-            this.dragEnterListener = this.onDragEnter.bind(this);
-            this.el.nativeElement.addEventListener('dragenter', this.dragEnterListener);
-
-            this.dragLeaveListener = this.onDragLeave.bind(this);
-            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
+            this.el.nativeElement.addEventListener('mousedown', this.onMouseDown);
+            this.el.nativeElement.addEventListener('dragstart', this.onDragStart);
+            this.el.nativeElement.addEventListener('dragover', this.onDragOver);
+            this.el.nativeElement.addEventListener('dragenter', this.onDragEnter);
+            this.el.nativeElement.addEventListener('dragleave', this.onDragLeave);
         });
     }
 
     unbindEvents() {
-        if (this.mouseDownListener) {
-            document.removeEventListener('mousedown', this.mouseDownListener);
-            this.mouseDownListener = null;
-        }
-
-        if (this.dragOverListener) {
-            document.removeEventListener('dragover', this.dragOverListener);
-            this.dragOverListener = null;
-        }
-
-        if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
-            this.dragEnterListener = null;
-        }
-
-        if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
-            this.dragEnterListener = null;
-        }
-
-        if (this.dragLeaveListener) {
-            document.removeEventListener('dragleave', this.dragLeaveListener);
-            this.dragLeaveListener = null;
-        }
+        this.el.nativeElement.removeEventListener('mousedown', this.onMouseDown);
+        this.el.nativeElement.removeEventListener('dragstart', this.onDragStart);
+        this.el.nativeElement.removeEventListener('dragover', this.onDragOver);
+        this.el.nativeElement.removeEventListener('dragenter', this.onDragEnter);
+        this.el.nativeElement.removeEventListener('dragleave', this.onDragLeave);
     }
 
-    onMouseDown(event) {
-        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'p-column-resizer'))
-            this.el.nativeElement.draggable = false;
-        else
-            this.el.nativeElement.draggable = true;
+    onMouseDown = ({target}: MouseEvent) => {
+        const { nodeName } = target as HTMLElement;
+        this.el.nativeElement.draggable = !(nodeName === 'INPUT' || nodeName === 'TEXTAREA' || DomHandler.hasClass(target, 'p-column-resizer'));
     }
 
-    onDragStart(event) {
+    onDragStart = (event: DragEvent) => {
         this.dt.onColumnDragStart(event, this.el.nativeElement);
     }
 
-    onDragOver(event) {
+    onDragOver = (event: DragEvent) => {
         event.preventDefault();
     }
 
-    onDragEnter(event) {
+    onDragEnter = (event: DragEvent) => {
         this.dt.onColumnDragEnter(event, this.el.nativeElement);
     }
 
-    onDragLeave(event) {
+    onDragLeave = (event: DragEvent) => {
         this.dt.onColumnDragLeave(event);
     }
 
     @HostListener('drop', ['$event'])
-    onDrop(event) {
+    onDrop(event: DragEvent) {
         if (this.isEnabled()) {
             this.dt.onColumnDrop(event, this.el.nativeElement);
         }
@@ -4120,18 +4080,6 @@ export class ReorderableRow implements AfterViewInit {
 
     @Input() pReorderableRowDisabled: boolean;
 
-    mouseDownListener: any;
-
-    dragStartListener: any;
-
-    dragEndListener: any;
-
-    dragOverListener: any;
-
-    dragLeaveListener: any;
-
-    dropListener: any;
-
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
@@ -4143,72 +4091,41 @@ export class ReorderableRow implements AfterViewInit {
 
     bindEvents() {
         this.zone.runOutsideAngular(() => {
-            this.mouseDownListener = this.onMouseDown.bind(this);
-            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-
-            this.dragStartListener = this.onDragStart.bind(this);
-            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
-
-            this.dragEndListener = this.onDragEnd.bind(this);
-            this.el.nativeElement.addEventListener('dragend', this.dragEndListener);
-
-            this.dragOverListener = this.onDragOver.bind(this);
-            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
-
-            this.dragLeaveListener = this.onDragLeave.bind(this);
-            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
+            this.el.nativeElement.addEventListener('mousedown', this.onMouseDown);
+            this.el.nativeElement.addEventListener('dragstart', this.onDragStart);
+            this.el.nativeElement.addEventListener('dragend', this.onDragEnd);
+            this.el.nativeElement.addEventListener('dragover', this.onDragOver);
+            this.el.nativeElement.addEventListener('dragleave', this.onDragLeave);
         });
     }
 
     unbindEvents() {
-        if (this.mouseDownListener) {
-            document.removeEventListener('mousedown', this.mouseDownListener);
-            this.mouseDownListener = null;
-        }
-
-        if (this.dragStartListener) {
-            document.removeEventListener('dragstart', this.dragStartListener);
-            this.dragStartListener = null;
-        }
-
-        if (this.dragEndListener) {
-            document.removeEventListener('dragend', this.dragEndListener);
-            this.dragEndListener = null;
-        }
-
-        if (this.dragOverListener) {
-            document.removeEventListener('dragover', this.dragOverListener);
-            this.dragOverListener = null;
-        }
-
-        if (this.dragLeaveListener) {
-            document.removeEventListener('dragleave', this.dragLeaveListener);
-            this.dragLeaveListener = null;
-        }
+        this.el.nativeElement.removeEventListener('mousedown', this.onMouseDown);
+        this.el.nativeElement.removeEventListener('dragstart', this.onDragStart);
+        this.el.nativeElement.removeEventListener('dragend', this.onDragEnd);
+        this.el.nativeElement.removeEventListener('dragover', this.onDragOver);
+        this.el.nativeElement.removeEventListener('dragleave', this.onDragLeave);
     }
 
-    onMouseDown(event) {
-        if (DomHandler.hasClass(event.target, 'p-datatable-reorderablerow-handle'))
-            this.el.nativeElement.draggable = true;
-        else
-            this.el.nativeElement.draggable = false;
+    onMouseDown = ({ target }: MouseEvent) => {
+        this.el.nativeElement.draggable = DomHandler.hasClass(target, 'p-datatable-reorderablerow-handle');
     }
 
-    onDragStart(event) {
+    onDragStart = (event: DragEvent) => {
         this.dt.onRowDragStart(event, this.index);
     }
 
-    onDragEnd(event) {
+    onDragEnd = (event: DragEvent) => {
         this.dt.onRowDragEnd(event);
         this.el.nativeElement.draggable = false;
     }
 
-    onDragOver(event) {
+    onDragOver = (event: DragEvent) => {
         this.dt.onRowDragOver(event, this.index, this.el.nativeElement);
         event.preventDefault();
     }
 
-    onDragLeave(event) {
+    onDragLeave = (event: DragEvent) => {
         this.dt.onRowDragLeave(event, this.el.nativeElement);
     }
 
@@ -4217,7 +4134,7 @@ export class ReorderableRow implements AfterViewInit {
     }
 
     @HostListener('drop', ['$event'])
-    onDrop(event) {
+    onDrop(event: DragEvent) {
         if (this.isEnabled() && this.dt.rowDragging) {
             this.dt.onRowDrop(event, this.el.nativeElement);
         }
