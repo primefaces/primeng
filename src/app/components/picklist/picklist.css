@@ -49,6 +49,13 @@
     margin-top: -.5rem;
 }
 
+.p-picklist-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
 .p-picklist-filter-input {
     width: 100%;
 }

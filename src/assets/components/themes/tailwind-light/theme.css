@@ -3624,6 +3624,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   right: 0.75rem;
   color: #71717A;
 }
+.p-picklist .p-picklist-filter-container .p-picklist-clear-icon {
+  color: #71717A;
+  right: 3rem;
+}
 .p-picklist .p-picklist-list {
   border: 1px solid #e5e7eb;
   background: #ffffff;

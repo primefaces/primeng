@@ -3613,6 +3613,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
+.p-picklist .p-picklist-filter-container .p-picklist-clear-icon {
+  color: rgba(0, 0, 0, 0.6);
+  right: 2.357rem;
+}
 .p-picklist .p-picklist-list {
   border: 1px solid #e0e0e0;
   background: #ffffff;

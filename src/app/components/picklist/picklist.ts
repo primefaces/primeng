@@ -25,6 +25,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showSourceFilter !== false">
                     <div class="p-picklist-filter">
                         <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
+                        <i class="p-picklist-clear-icon pi pi-times" (click)="clearSource($event)" *ngIf="showClear"></i>
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
@@ -62,6 +63,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showTargetFilter !== false">
                     <div class="p-picklist-filter">
                         <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
+                        <i class="p-picklist-clear-icon pi pi-times" (click)="clearTarget($event)" *ngIf="showClear"></i>
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
@@ -152,6 +154,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() sourceStyle: any;
 
     @Input() targetStyle: any;
+
+    @Input() showClear: boolean = true;
 
     @Input() showSourceControls: boolean = true;
 
@@ -383,6 +387,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.visibleOptionsTarget = this.filterService.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode, this.filterLocale);
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
+    }
+
+    clearSource(event) {
+        console.log(event, this.SOURCE_LIST);
+    }
+
+    clearTarget(event) {
+        console.log(event, this.TARGET_LIST)
     }
 
     isItemVisible(item: any, listType: number): boolean {
