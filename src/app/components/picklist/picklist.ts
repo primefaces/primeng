@@ -25,7 +25,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showSourceFilter !== false">
                     <div class="p-picklist-filter">
                         <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
-                        <i class="p-picklist-clear-icon pi pi-times" (click)="clearSource($event)" *ngIf="showClear"></i>
+                        <i class="p-picklist-clear-icon pi pi-times" (click)="clearSourceFilter($event)" *ngIf="showClear && sourceFilter.value"></i>
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
@@ -63,7 +63,7 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showTargetFilter !== false">
                     <div class="p-picklist-filter">
                         <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
-                        <i class="p-picklist-clear-icon pi pi-times" (click)="clearTarget($event)" *ngIf="showClear"></i>
+                        <i class="p-picklist-clear-icon pi pi-times" (click)="clearTargetFilter($event)" *ngIf="showClear && targetFilter.value"></i>
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
@@ -198,6 +198,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Output() onSourceFilter: EventEmitter<any> = new EventEmitter();
 
     @Output() onTargetFilter: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClearTargetFilter: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClearSourceFilter: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('sourcelist') listViewSourceChild: ElementRef;
 
@@ -389,12 +393,20 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
 
-    clearSource(event) {
-        console.log(event, this.SOURCE_LIST);
+    clearSourceFilter(event) {
+        this.filterValueSource = null;
+        this.sourceFilterViewChild.nativeElement.value = '';
+        this.onClearSourceFilter.emit()
+        event.stopPropagation();
+        this.cd.markForCheck();
     }
 
-    clearTarget(event) {
-        console.log(event, this.TARGET_LIST)
+    clearTargetFilter(event) {
+        this.filterValueTarget = null;
+        this.targetFilterViewChild.nativeElement.value = '';
+        this.onClearTargetFilter.emit();
+        event.stopPropagation();
+        this.cd.markForCheck();
     }
 
     isItemVisible(item: any, listType: number): boolean {

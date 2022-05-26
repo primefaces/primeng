@@ -10,7 +10,7 @@
     <div class="card">
         <p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
             [responsive]="true" [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}" filterBy="name"
-            sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
+            sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" [showClear]="true">
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="image-container">
@@ -333,6 +333,12 @@ This dragdrop property also supports cross list actions.</p>
                             <td>false</td>
                             <td>Whether to displays rows with alternating colors.</td>
                         </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the filter value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -401,6 +407,16 @@ This dragdrop property also supports cross list actions.</p>
                             <td>event.query: Filter value <br />
                                 items: Filtered items</td>
                             <td>Callback to invoke when the target list is filtered</td>
+                        </tr>
+                        <tr>
+                            <td>onClearSourceFilter</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field of the source list is cleared.</td>
+                        </tr>
+                        <tr>
+                            <td>onClearTargetFilter</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field of the target list is cleared.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -528,7 +544,7 @@ This dragdrop property also supports cross list actions.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
     [responsive]="true" [sourceStyle]="&#123;'height':'30rem'&#125;" [targetStyle]="&#123;'height':'30rem'&#125;" filterBy="name"
-    sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name"&gt;
+    sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" [showClear]="true"&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="image-container"&gt;
