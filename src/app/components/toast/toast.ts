@@ -296,8 +296,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     onAnimationStart(event: AnimationEvent) {
         if (event.fromState === 'void') {
             this.containerViewChild.nativeElement.setAttribute(this.id, '');
-
-            if (this.autoZIndex) {
+            if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
                 ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
             }
         }
