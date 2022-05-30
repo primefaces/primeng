@@ -976,7 +976,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     bindScrollListener() {

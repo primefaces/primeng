@@ -267,7 +267,9 @@ export class Menu implements OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.visible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     itemClick(event: MouseEvent, item: MenuItem) {

@@ -219,7 +219,9 @@ export class PasswordDirective implements OnDestroy,DoCheck {
     }
 
     onWindowResize() {
-        this.hideOverlay();
+        if (!DomHandler.isTouchDevice()) {
+            this.hideOverlay();
+        }
     }
 
     ngOnDestroy() {
@@ -337,7 +339,7 @@ export class Password implements AfterContentInit,OnInit {
     @Input() placeholder: string;
 
     @Input() showClear: boolean = false;
-    
+
     @ViewChild('input') input: ElementRef;
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -606,7 +608,7 @@ export class Password implements AfterContentInit,OnInit {
     bindResizeListener() {
         if (!this.resizeListener) {
             this.resizeListener = () => {
-                if (this.overlayVisible) {
+                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
                     this.overlayVisible = false;
                 }
             };

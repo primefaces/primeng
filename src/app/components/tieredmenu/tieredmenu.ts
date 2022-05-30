@@ -217,7 +217,7 @@ export class TieredMenuSub implements OnDestroy {
             const viewport = DomHandler.getViewport();
             const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
             const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-    
+
             if ((parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
                 DomHandler.addClass(sublist, 'p-submenu-list-flipped');
             }
@@ -443,7 +443,9 @@ export class TieredMenu implements OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.visible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     onLeafClick() {

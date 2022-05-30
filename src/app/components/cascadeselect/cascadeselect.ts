@@ -630,7 +630,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     bindResizeListener() {
         if (!this.resizeListener) {
             this.resizeListener = () => {
-                if (this.overlayVisible) {
+                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
                     this.hide();
                 }
             };

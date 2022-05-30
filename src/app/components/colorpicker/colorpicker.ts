@@ -526,7 +526,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     bindScrollListener() {

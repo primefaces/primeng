@@ -66,7 +66,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                             <ng-template pTemplate="empty">
                                 <ng-container *ngTemplateOutlet="emptyTemplate;"></ng-container>
                             </ng-template>
-                        </ng-container>    
+                        </ng-container>
                 </p-tree>
             </div>
             <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: value, options: options}"></ng-container>
@@ -185,7 +185,7 @@ export class TreeSelect implements AfterContentInit {
     public filteredNodes: TreeNode[];
 
     filterValue: string = null;
-    
+
     serializedValue: any[];
 
     valueTemplate: TemplateRef<any>;
@@ -280,7 +280,7 @@ export class TreeSelect implements AfterContentInit {
             if (this.overlayVisible){
                 this.hide();
             }
-            else 
+            else
                 this.show();
 
             this.focusInput.nativeElement.focus();
@@ -369,7 +369,7 @@ export class TreeSelect implements AfterContentInit {
         if (this.filter && !this.resetFilterOnHide) {
             this.filteredNodes = this.treeViewChild.filteredNodes;
             this.treeViewChild.resetFilter();
-        } 
+        }
         else {
             this.filterValue = null;
         }
@@ -615,7 +615,7 @@ export class TreeSelect implements AfterContentInit {
     bindResizeListener() {
         if (!this.resizeListener) {
             this.resizeListener = () => {
-                if (this.overlayVisible) {
+                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
                     this.hide();
                 }
             };

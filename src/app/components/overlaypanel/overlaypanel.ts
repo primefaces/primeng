@@ -297,7 +297,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onWindowResize(event) {
-        this.hide();
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     bindDocumentResizeListener() {

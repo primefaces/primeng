@@ -2327,7 +2327,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
 
         let val = this.defaultDate && this.isValidDate(this.defaultDate) && !this.value ? this.defaultDate : (propValue && this.isValidDate(propValue) ? propValue : new Date());
-        
+
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();
         this.createMonths(this.currentMonth, this.currentYear);
@@ -3013,7 +3013,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isAndroid()) {
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
             this.hideOverlay();
         }
     }

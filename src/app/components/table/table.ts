@@ -2175,7 +2175,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.droppedRowIndex != null) {
             let dropIndex = (this.draggedRowIndex > this.droppedRowIndex) ? this.droppedRowIndex : (this.droppedRowIndex === 0) ? 0 : this.droppedRowIndex - 1;
             ObjectUtils.reorderArray(this.value, this.draggedRowIndex, dropIndex);
-            
+
             if (this.virtualScroll) {
                 this._value = [...this._value]
             }
@@ -2351,7 +2351,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (ObjectUtils.isNotEmpty(widths)) {
                 this.createStyleElement();
-                
+
                 let innerHTML = '';
                 widths.forEach((width,index) => {
                     let style = this.scrollable ? `flex: 1 1 ${width}px !important` : `width: ${width}px !important`;
@@ -4793,7 +4793,11 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = () => this.hide();
+        this.documentResizeListener = () => {
+            if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                this.hide();
+            }
+        };
         window.addEventListener('resize', this.documentResizeListener);
     }
 

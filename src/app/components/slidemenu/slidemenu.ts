@@ -354,7 +354,9 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.visible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     goBack() {
