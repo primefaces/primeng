@@ -106,7 +106,7 @@ export interface LocaleSettings {
                         </div>
                     </div>
                     <div class="p-monthpicker" *ngIf="currentView === 'month'">
-                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i)}" pRipple>
+                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i), 'p-disabled': isDisabledMonth(i)}" pRipple>
                             {{m}}
                         </span>
                     </div>
@@ -1291,46 +1291,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isSelectable(day, month, year, otherMonth): boolean {
-        let validMin = true;
-        let validMax = true;
-        let validDate = true;
-        let validDay = true;
-
         if (otherMonth && !this.selectOtherMonths) {
             return false;
         }
 
-        if (this.minDate) {
-             if (this.minDate.getFullYear() > year) {
-                 validMin = false;
-             }
-             else if (this.minDate.getFullYear() === year) {
-                 if (this.minDate.getMonth() > month) {
-                     validMin = false;
-                 }
-                 else if (this.minDate.getMonth() === month) {
-                     if (this.minDate.getDate() > day) {
-                         validMin = false;
-                     }
-                 }
-             }
-        }
-
-        if (this.maxDate) {
-             if (this.maxDate.getFullYear() < year) {
-                 validMax = false;
-             }
-             else if (this.maxDate.getFullYear() === year) {
-                 if (this.maxDate.getMonth() < month) {
-                     validMax = false;
-                 }
-                 else if (this.maxDate.getMonth() === month) {
-                     if (this.maxDate.getDate() < day) {
-                         validMax = false;
-                     }
-                 }
-             }
-        }
+        const validMin = this.isValidDateByMin(day, month, year);
+        const validMax = this.isValidDateByMax(day, month, year);
+        let validDate = true;
+        let validDay = true;
 
         if (this.disabledDates) {
            validDate = !this.isDateDisabled(day,month,year);
@@ -1343,16 +1311,59 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         return validMin && validMax && validDate && validDay;
     }
 
-    isDateDisabled(day:number, month:number, year:number):boolean {
+    isDisabledMonth(month: number): boolean {
+        const validMin = this.isValidDateByMin(1, month, this.currentYear);
+        const validMax = this.isValidDateByMax(1, month, this.currentYear);
+
+        return !(validMax && validMin && !this.isDateDisabled(1, month, this.currentYear, true))
+    }
+
+    isDateDisabled(day: number, month: number, year: number, isSkipDayValidation = false):boolean {
         if (this.disabledDates) {
             for (let disabledDate of this.disabledDates) {
-                if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
+                if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && (isSkipDayValidation || disabledDate.getDate() === day)) {
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    isValidDateByMin(day: number, month: number, year: number): boolean {
+        if (this.minDate) {
+            const minDateFullYear = this.minDate.getFullYear();
+
+            if (minDateFullYear > year) {
+                return false;
+            } else if (minDateFullYear === year) {
+                const minDateMonth = this.minDate.getMonth();
+
+                if (minDateMonth > month || (minDateMonth === month && this.minDate.getDate() > day)) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    isValidDateByMax(day: number, month: number, year: number): boolean {
+        if (this.maxDate) {
+            const maxDateFullYear = this.maxDate.getFullYear();
+
+            if (maxDateFullYear < year) {
+                return false;
+            } else if (maxDateFullYear === year) {
+                const maxDateMonth = this.maxDate.getMonth();
+
+                if (maxDateMonth < month || (maxDateMonth === month && this.maxDate.getDate() < day)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     isDayDisabled(day:number, month:number, year:number):boolean {
