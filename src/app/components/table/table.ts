@@ -1,8 +1,16 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Directive, Optional, AfterContentInit,
-    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation, Renderer2} from '@angular/core';
+    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild,
+    NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation,
+    Renderer2, Injectable
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService } from 'primeng/api';
+import {
+    PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator,
+    SelectItem, PrimeNGConfig, TranslationKeys, FilterService,
+    OverlayService, SortMeta, TableState, FilterMetadata,
+    BlockableUI
+} from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -13,11 +21,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { SortMeta } from 'primeng/api';
-import { TableState } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
-import { Injectable } from '@angular/core';
-import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
@@ -637,6 +640,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
+        const isRestoreProcess = !this.stateRestored;
+
         if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored) {
                 this.restoreState();
@@ -667,7 +672,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if (simpleChange.sortField) {
+        if (simpleChange.sortField && !isRestoreProcess) {
             this._sortField = simpleChange.sortField.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
@@ -687,7 +692,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if (simpleChange.sortOrder) {
+        if (simpleChange.sortOrder && !isRestoreProcess) {
             this._sortOrder = simpleChange.sortOrder.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
@@ -2197,7 +2202,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return data == null || data.length == 0;
     }
 
-    getBlockableElement(): HTMLElement {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
@@ -2331,6 +2336,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     saveColumnWidths(state) {
+        if (!this.containerViewChild) {
+            return;
+        }
+
         let widths = [];
         let headers = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-thead > tr > th');
         headers.forEach(header => widths.push(DomHandler.getOuterWidth(header)));
