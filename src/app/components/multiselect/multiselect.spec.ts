@@ -579,7 +579,8 @@ describe('MultiSelect', () => {
         const options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
-            {label: 'Fiat', value: 'Fiat'}] as const
+            {label: 'Fiat', value: 'Fiat'}
+        ] as const;
         multiselect.options = options;
     })
 });
