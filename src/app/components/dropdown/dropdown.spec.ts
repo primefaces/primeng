@@ -15,7 +15,7 @@ import { TooltipModule } from 'primeng/tooltip';
 			</ng-template>
 		</p-dropdown>
 		<p-dropdown [(ngModel)]="selectedCity"></p-dropdown>
-        <p-dropdown [options]="readonlyCars"></p-dropdown>
+		<p-dropdown [options]="readonlyCars"></p-dropdown>
 		<button (click)="setValue()"></button>
 	`
 })
