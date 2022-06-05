@@ -28,10 +28,11 @@ describe('SplitButton', () => {
     });
 
     it('should accept readonly options', () => {
-        const models : readonly MenuItem[] = [
-            {label:'home', url:'https://www.primefaces.org/primeng/'},
-            {label:'split-button', url:'https://www.primefaces.org/primeng/#/splitbutton'}
+        const models = [
+            {label: 'home', url: 'https://www.primefaces.org/primeng/'},
+            {label: 'split-button', url: 'https://www.primefaces.org/primeng/#/splitbutton'}
         ] as const;
         splitbutton.model = models;
     });
+
 });
