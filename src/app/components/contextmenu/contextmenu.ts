@@ -89,6 +89,7 @@ export class ContextMenuSub {
         }
 
         if (item.disabled) {
+            this.activeItemKey = null;
             return;
         }
 
