@@ -20,7 +20,7 @@ import { ZIndexUtils } from 'primeng/utils';
                 </ng-template>
             </div>
             <div #mask class="p-image-mask p-component-overlay p-component-overlay-enter" *ngIf="maskVisible" (click)="onMaskClick()">
-                <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
+                <div #toolbar class="p-image-toolbar" (click)="handleToolbarClick($event)">
                     <button class="p-image-action p-link" (click)="rotateRight()" type="button">
                         <i class="pi pi-refresh"></i>
                     </button>
@@ -93,6 +93,8 @@ export class Image implements AfterContentInit {
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('mask') mask: ElementRef;
+
+    @ViewChild('toolbar') toolbarViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -201,6 +203,7 @@ export class Image implements AfterContentInit {
         switch(event.toState) {
             case 'void':
                 ZIndexUtils.clear(this.container);
+                this.toolbarViewChild.nativeElement.style.zIndex = '';
                 this.maskVisible = false;
                 this.container = null;
                 this.wrapper = null;
@@ -216,6 +219,7 @@ export class Image implements AfterContentInit {
     moveOnTop() {
         ZIndexUtils.set('modal', this.container, this.config.zIndex.modal);
         this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+        this.toolbarViewChild.nativeElement.style.zIndex = String(ZIndexUtils.get(this.wrapper) + 2);
     }
 
     appendContainer() {
