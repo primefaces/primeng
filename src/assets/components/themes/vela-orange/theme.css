@@ -4477,7 +4477,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-overlaypanel:before {
   border: solid transparent;
   border-color: rgba(48, 69, 98, 0);
-  border-bottom-color: #2e425d;
+  border-bottom-color: #304562;
 }
 .p-overlaypanel.p-overlaypanel-flipped:after {
   border-top-color: #1f2d40;

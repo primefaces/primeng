@@ -1676,7 +1676,7 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
   background: #7B95A3;
 }
 .p-slider:not(.p-disabled) .p-slider-handle:hover {
-  background: 2px solid #7f7f7f;
+  background: #7f7f7f;
   border-color: #7B95A3;
 }
 .p-slider.p-slider-animate.p-slider-horizontal .p-slider-handle {
@@ -4453,7 +4453,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-overlaypanel:before {
   border: solid transparent;
   border-color: rgba(241, 241, 241, 0);
-  border-bottom-color: #e5e5e5;
+  border-bottom-color: #f1f1f1;
 }
 .p-overlaypanel.p-overlaypanel-flipped:after {
   border-top-color: #ffffff;
