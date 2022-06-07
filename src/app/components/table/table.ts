@@ -3322,7 +3322,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
             this.dragStartListener = this.onDragStart.bind(this);
             this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
 
-            this.dragOverListener = this.onDragEnter.bind(this);
+            this.dragOverListener = this.onDragOver.bind(this);
             this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
 
             this.dragEnterListener = this.onDragEnter.bind(this);
@@ -3335,27 +3335,27 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     unbindEvents() {
         if (this.mouseDownListener) {
-            document.removeEventListener('mousedown', this.mouseDownListener);
+            this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
             this.mouseDownListener = null;
         }
 
         if (this.dragOverListener) {
-            document.removeEventListener('dragover', this.dragOverListener);
+            this.el.nativeElement.removeEventListener('dragover', this.dragOverListener);
             this.dragOverListener = null;
         }
 
-        if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
-            this.dragEnterListener = null;
+        if (this.dragStartListener) {
+            this.el.nativeElement.removeEventListener('dragstart', this.dragStartListener);
+            this.dragStartListener = null;
         }
 
         if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
+            this.el.nativeElement.removeEventListener('dragenter', this.dragEnterListener);
             this.dragEnterListener = null;
         }
 
         if (this.dragLeaveListener) {
-            document.removeEventListener('dragleave', this.dragLeaveListener);
+            this.el.nativeElement.removeEventListener('dragleave', this.dragLeaveListener);
             this.dragLeaveListener = null;
         }
     }
@@ -4162,27 +4162,27 @@ export class ReorderableRow implements AfterViewInit {
 
     unbindEvents() {
         if (this.mouseDownListener) {
-            document.removeEventListener('mousedown', this.mouseDownListener);
+            this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
             this.mouseDownListener = null;
         }
 
         if (this.dragStartListener) {
-            document.removeEventListener('dragstart', this.dragStartListener);
+            this.el.nativeElement.removeEventListener('dragstart', this.dragStartListener);
             this.dragStartListener = null;
         }
 
         if (this.dragEndListener) {
-            document.removeEventListener('dragend', this.dragEndListener);
+            this.el.nativeElement.removeEventListener('dragend', this.dragEndListener);
             this.dragEndListener = null;
         }
 
         if (this.dragOverListener) {
-            document.removeEventListener('dragover', this.dragOverListener);
+            this.el.nativeElement.removeEventListener('dragover', this.dragOverListener);
             this.dragOverListener = null;
         }
 
         if (this.dragLeaveListener) {
-            document.removeEventListener('dragleave', this.dragLeaveListener);
+            this.el.nativeElement.removeEventListener('dragleave', this.dragLeaveListener);
             this.dragLeaveListener = null;
         }
     }
