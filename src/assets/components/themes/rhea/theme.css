@@ -1676,7 +1676,7 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
   background: #7B95A3;
 }
 .p-slider:not(.p-disabled) .p-slider-handle:hover {
-  background: 2px solid #7f7f7f;
+  background: #7f7f7f;
   border-color: #7B95A3;
 }
 .p-slider.p-slider-animate.p-slider-horizontal .p-slider-handle {
