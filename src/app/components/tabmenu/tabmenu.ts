@@ -1,8 +1,7 @@
-import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
-import {PrimeTemplate, SharedModule} from 'primeng/api';
+import {PrimeTemplate, SharedModule, MenuItem} from 'primeng/api';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {DomHandler} from 'primeng/dom';
 import {TooltipModule} from 'primeng/tooltip';
@@ -56,7 +55,7 @@ import {TooltipModule} from 'primeng/tooltip';
         'class': 'p-element'
     }
 })
-export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked {
+export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() model: MenuItem[];
 
@@ -90,6 +89,8 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 
     forwardIsDisabled: boolean = false;
 
+    private timerIdForInitialAutoScroll: number | null = null;
+
     constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
@@ -108,6 +109,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 
     ngAfterViewInit() {
         this.updateInkBar();
+        this.initAutoScrollForActiveItem();
     }
 
     ngAfterViewChecked() {
@@ -117,9 +119,13 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         }
     }
 
+    ngOnDestroy(): void {
+        this.clearAutoScrollHandler();
+    }
+
     isActive(item: MenuItem) {
         if (item.routerLink){
-            let routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+            const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
 
             return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
         }
@@ -149,7 +155,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
     }
 
     updateInkBar() {
-        let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        const tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
         if (tabHeader) {
             this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
             this.inkbar.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
@@ -170,9 +176,14 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
     }
 
 
-    updateScrollBar(index) {
-        let tabHeader = this.navbar.nativeElement.children[index];
-        tabHeader.scrollIntoView({ block: 'nearest' })
+    updateScrollBar(index: number): void {
+        const tabHeader = this.navbar.nativeElement.children[index];
+
+        if (!tabHeader) {
+            return;
+        }
+
+        tabHeader.scrollIntoView({ block: 'nearest', inline: 'center' });
     }
 
     onScroll(event) {
@@ -194,6 +205,29 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
         content.scrollLeft = pos >= lastPos ? lastPos : pos;
+    }
+
+    private initAutoScrollForActiveItem(): void {
+        if (!this.scrollable) {
+            return;
+        }
+
+        this.clearAutoScrollHandler();
+        // We have to wait for the rendering and then can scroll to element.
+        this.timerIdForInitialAutoScroll = setTimeout(() => {
+            const activeItem = this.model.findIndex(menuItem => this.isActive(menuItem));
+
+            if (activeItem !== -1) {
+                this.updateScrollBar(activeItem);
+            }
+        });
+    }
+
+    private clearAutoScrollHandler(): void {
+        if (this.timerIdForInitialAutoScroll) {
+            clearTimeout(this.timerIdForInitialAutoScroll);
+            this.timerIdForInitialAutoScroll = null;
+        }
     }
 }
 
