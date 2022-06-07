@@ -29,6 +29,8 @@ export interface LocaleSettings {
     weekHeader?: string;
 }
 
+export type CalendarTypeView = 'date' | 'month' | 'year';
+
 @Component({
     selector: 'p-calendar',
     template:  `
@@ -466,15 +468,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     _firstDayOfWeek: number;
 
-    _view: string = 'date';
+    _view: CalendarTypeView = 'date';
 
     preventFocus: boolean;
 
-    @Input() get view(): string {
+    @Input() get view(): CalendarTypeView {
         return this._view;
     };
 
-    set view(view: string) {
+    set view(view: CalendarTypeView) {
         this._view = view;
         this.currentView = this._view;
     }
@@ -1063,7 +1065,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    setCurrentView(currentView: string) {
+    setCurrentView(currentView: CalendarTypeView) {
         this.currentView = currentView;
         this.cd.detectChanges();
         this.alignOverlay();
@@ -2857,10 +2859,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             } while (true);
         }
 
+        if (this.view === 'year') {
+            month = month === - 1 ? 1 : month;
+            day = day === - 1 ? 1 : day;
+        }
+
         date = this.daylightSavingAdjust(new Date(year, month - 1, day));
-                if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
-                    throw "Invalid date"; // E.g. 31/02/00
-                }
+
+        if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
+            throw "Invalid date"; // E.g. 31/02/00
+        }
 
         return date;
     }
