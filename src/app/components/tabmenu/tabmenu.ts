@@ -107,9 +107,10 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
         });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.updateInkBar();
         this.initAutoScrollForActiveItem();
+        this.initButtonState();
     }
 
     ngAfterViewChecked() {
@@ -227,6 +228,17 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
         if (this.timerIdForInitialAutoScroll) {
             clearTimeout(this.timerIdForInitialAutoScroll);
             this.timerIdForInitialAutoScroll = null;
+        }
+    }
+
+    private initButtonState(): void {
+        if (this.scrollable) {
+            // We have to wait for the rendering and then retrieve the actual size element from the DOM.
+            // in future `Promise.resolve` can be changed to `queueMicrotask` (if ie11 support will be dropped)
+            Promise.resolve().then(() => {
+                this.updateButtonState();
+                this.cd.markForCheck();
+            });
         }
     }
 }
