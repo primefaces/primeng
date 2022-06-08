@@ -254,7 +254,7 @@ import { Subscription } from 'rxjs';
                     <a tabindex="0" href="https://www.primefaces.org/primeblocks-ng/" target="_blank">Blocks</a>
                 </li>
                 <li class="topbar-submenu">
-                    <a tabindex="0" (click)="toggleMenu($event, 3)">{{versions ? versions[0].version : 'Latest'}}</a>
+                    <a tabindex="0" (click)="toggleMenu($event, 3)">{{versions ? versions[0].version : 'Latest'}} <i class="pi pi-angle-down"></i></a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width: 100%; min-width: 125px;">
                         <li *ngFor="let v of versions">
                             <a [href]="v.url">{{v.version}}</a>
