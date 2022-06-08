@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
             <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{item.badge}}</span>
         </a>
         <a *ngIf="item.routerLink" (keydown)="onItemKeyDown($event)" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" [target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'"
@@ -24,6 +25,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{item.badge}}</span>
         </a>
     `,
     encapsulation: ViewEncapsulation.None,
@@ -108,6 +110,7 @@ export class MenuItemContent {
                     <li class="p-submenu-header" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}" pTooltip [tooltipOptions]="submenu.tooltipOptions" role="none">
                         <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{submenu.label}}</span>
                         <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="submenu.badge" [ngClass]="submenu.badgeStyleClass">{{submenu.badge}}</span>
                     </li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
                         <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}"  role="separator"></li>

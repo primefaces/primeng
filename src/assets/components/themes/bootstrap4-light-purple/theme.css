@@ -4706,6 +4706,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-contextmenu .p-submenu-icon {
   font-size: 0.875rem;
 }
+.p-contextmenu .p-menuitem-badge {
+  background: #883cae;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
 
 .p-dock .p-dock-list {
   background: rgba(255, 255, 255, 0.1);
@@ -4907,6 +4920,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-megamenu.p-megamenu-vertical .p-menuitem:last-child {
   margin: 0;
 }
+.p-megamenu .p-menuitem-badge {
+  background: #883cae;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
 
 .p-menu {
   padding: 0.5rem 0;
@@ -4973,6 +4999,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-menu .p-menuitem:last-child {
   margin: 0;
+}
+.p-menu .p-menuitem-badge {
+  background: #883cae;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .p-menubar {
@@ -5095,6 +5134,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-icon, .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-submenu-icon {
   color: #212529;
+}
+.p-menubar .p-menuitem-badge {
+  background: #883cae;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 @media screen and (max-width: 960px) {
@@ -5338,6 +5390,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }
+.p-panelmenu .p-menuitem-badge {
+  background: #883cae;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
 
 .p-slidemenu {
   padding: 0.5rem 0;
@@ -5411,6 +5476,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-slidemenu .p-slidemenu-backward {
   padding: 0.75rem 1rem;
   color: #212529;
+}
+.p-slidemenu .p-menuitem-badge {
+  background: #883cae;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .p-steps .p-steps-item .p-menuitem-link {
@@ -5590,6 +5668,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-tieredmenu .p-submenu-icon {
   font-size: 0.875rem;
+}
+.p-tieredmenu .p-menuitem-badge {
+  background: #883cae;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .p-inline-message {
