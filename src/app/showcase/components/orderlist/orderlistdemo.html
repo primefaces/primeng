@@ -109,6 +109,35 @@ export class MyComponent &#123;
 &lt;p-orderList [value]="cars" filterBy="brand,color,address.city"&gt;&lt;/p-orderList&gt;
 </app-code>
 
+<h6>Templating</h6>
+<p><i>filter</i> can easily be customized with the filter content instead of using the built-in modes.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-orderList [value]="products" header="List of Products"&gt;
+    &lt;ng-template pTemplate="filter" let-options="options"&gt;
+        &lt;div class="p-orderlist-filter"&gt;
+            &lt;input [(ngModel)]="filterValue" type="text" (keyup)="options.filter($event)" role="textbox" class="p-orderlist-filter-input p-inputtext p-component" placeholder="Filter by name"&gt;
+            &lt;span *ngIf="filterValue" class="p-orderlist-filter-icon pi pi-times" (click)="myResetFunction(options)"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-pickList&gt;
+</app-code>
+
+
+<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+    import &#123; OrderListFilterOptions &#125; from 'primeng/orderlist';
+    ...
+    export class MyComponent &#123;
+        ...
+    
+        filterValue = '';
+    
+        myResetFunction(options: OrderListFilterOptions) &#123;
+            options.reset();
+            this.filterValue = '';
+        &#125;
+    &#125;
+    </app-code>
+
             <h5>DragDrop</h5>
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -274,6 +303,26 @@ export class MyComponent &#123;
                 </table>
             </div>
 
+            <h5>Methods</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>resetFilter</td>
+                            <td>-</td>
+                            <td>Resets the filter of the list.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Templates</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -299,6 +348,12 @@ export class MyComponent &#123;
                         <tr>
                             <td>emptyfilter</td>
                             <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>options.filter: Callback to filter data by the value param<br />
+                                options.reset: Resets the filter.
+                            </td>
                         </tr>
                     </tbody>
                 </table>
