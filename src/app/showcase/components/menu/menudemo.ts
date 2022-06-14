@@ -14,12 +14,14 @@ export class MenuDemo {
     ngOnInit() {
         this.items = [{
             label: 'Options',
+            badge: 'hey',
             items: [{
                 label: 'Update',
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.update();
-                }
+                },
+                badge: 'hey',
             },
             {
                 label: 'Delete',

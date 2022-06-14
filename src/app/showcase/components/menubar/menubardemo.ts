@@ -13,13 +13,16 @@ export class MenubarDemo {
             {
                label:'File',
                icon:'pi pi-fw pi-file',
+               badge:'hey',
                items:[
                   {
                      label:'New',
                      icon:'pi pi-fw pi-plus',
+                     badge:'hey',
                      items:[
                         {
                            label:'Bookmark',
+                           badge:'hey',
                            icon:'pi pi-fw pi-bookmark'
                         },
                         {

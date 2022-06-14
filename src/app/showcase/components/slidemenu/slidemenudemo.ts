@@ -17,14 +17,17 @@ export class SlideMenuDemo {
         this.items = [
             {
                label:'File',
+               badge: 'hey',
                icon:'pi pi-fw pi-file',
                items:[
                   {
                      label:'New',
+                     badge: 'hey',
                      icon:'pi pi-fw pi-plus',
                      items:[
                         {
                            label:'Bookmark',
+                           badge: 'hey',
                            icon:'pi pi-fw pi-bookmark'
                         },
                         {
