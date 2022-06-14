@@ -102,13 +102,13 @@ export class MyComponent &#123;
     &lt;ng-template pTemplate="sourceFilter" let-options="options"&gt;
         &lt;div class="p-picklist-filter"&gt;
             &lt;input [(ngModel)]="sourceFilterValue" type="text" (keyup)="options.filter($event.target.value)" role="textbox" class="p-picklist-filter-input p-inputtext p-component"&gt;
-            &lt;span *ngIf="!!sourceFilterValue" class="p-picklist-filter-icon pi pi-times" (click)="options.reset(); test = ''"&gt;&lt;/span&gt;
+            &lt;span *ngIf="sourceFilterValue" class="p-picklist-filter-icon pi pi-times" (click)="options.reset(); sourceFilterValue = ''"&gt;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="targetFilter" let-options="options"&gt;
         &lt;div class="p-picklist-filter"&gt;
             &lt;input [(ngModel)]="targetFilterValue" type="text" (keyup)="options.filter($event.target.value)" role="textbox" class="p-picklist-filter-input p-inputtext p-component"&gt;
-            &lt;span *ngIf="!!targetFilterValue" class="p-picklist-filter-icon pi pi-times" (click)="myResetFunction(options)"&gt;&lt;/span&gt;
+            &lt;span *ngIf="targetFilterValue" class="p-picklist-filter-icon pi pi-times" (click)="myResetFunction(options)"&gt;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-pickList&gt;
@@ -120,7 +120,9 @@ import &#123; PickListFilterOptions &#125; from 'primeng/picklist';
 export class MyComponent &#123;
     ...
 
-    targetFilterValue = '';
+    sourceFilterValue: string = '';
+    
+    targetFilterValue: string = '';
 
     myResetFunction(options: PickListFilterOptions) &#123;
         options.reset();
