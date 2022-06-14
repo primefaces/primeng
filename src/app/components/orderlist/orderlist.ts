@@ -7,6 +7,10 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 
+export interface OrderListFilterOptions {
+    filter?: (value?: any) => void;
+    reset?: () => void;
+}
 @Component({
     selector: 'p-orderList',
     template: `
@@ -24,10 +28,15 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-orderlist-filter-container" *ngIf="filterBy">
-                    <div class="p-orderlist-filter">
-                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" [disabled]="disabled" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
-                        <span class="p-orderlist-filter-icon pi pi-search"></span>
-                    </div>
+                    <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+                        <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
+                    </ng-container>
+                    <ng-template #builtInFilterElement>
+                        <div class="p-orderlist-filter">
+                            <input #filter type="text" role="textbox" (keyup)="onFilterKeyup($event)" [disabled]="disabled" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
+                            <span class="p-orderlist-filter-icon pi pi-search"></span>
+                        </div>
+                    </ng-template>
                 </div>
                 <ul #listelement cdkDropList (cdkDropListDropped)="onDrop($event)" class="p-orderlist-list" [ngStyle]="listStyle">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
@@ -56,6 +65,7 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
         'class': 'p-element'
     }
 })
+
 export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() header: string;
@@ -102,6 +112,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @ViewChild('listelement') listViewChild: ElementRef;
 
+    @ViewChild('filter') filterViewChild: ElementRef;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public itemTemplate: TemplateRef<any>;
@@ -111,6 +123,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     public emptyMessageTemplate: TemplateRef<any>;
 
     public emptyFilterMessageTemplate: TemplateRef<any>;
+
+    public filterTemplate: TemplateRef<any>;
+
+    filterOptions: OrderListFilterOptions;
 
     _selection: any[] = [];
 
@@ -144,6 +160,13 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.responsive) {
             this.createStyle();
         }
+
+        if (this.filterBy) {
+            this.filterOptions = {
+                filter: (value) => this.onFilterKeyup(value),
+                reset: () => this.resetFilter()
+            }
+        }
     }
 
     ngAfterContentInit() {
@@ -159,6 +182,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
                 case 'emptyfilter':
                     this.emptyFilterMessageTemplate = item.template;
+                break;
+
+                case 'filter':
+                    this.filterTemplate = item.template;
                 break;
 
                 case 'header':
@@ -236,7 +263,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
 
     onFilterKeyup(event) {
-        this.filterValue = event.target.value.trim().toLocaleLowerCase(this.filterLocale);
+        this.filterValue = ((<HTMLInputElement> event.target).value.trim() as any).toLocaleLowerCase(this.filterLocale);
         this.filter();
 
         this.onFilterEvent.emit({
@@ -248,6 +275,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
         this.visibleOptions = this.filterService.filter(this.value, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+    }
+
+    resetFilter() {
+        this.filterValue = null;
+        this.filterViewChild && ((<HTMLInputElement> this.filterViewChild.nativeElement).value = '');
     }
 
     isItemVisible(item: any): boolean {
