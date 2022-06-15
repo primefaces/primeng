@@ -349,9 +349,9 @@ export class Carousel implements AfterContentInit {
 
 	createStyle() {
 			if (!this.carouselStyle) {
-        		this.carouselStyle = this.renderer.createElement('style')
+				this.carouselStyle = this.renderer.createElement('style')
 				this.carouselStyle.type = 'text/css';
-        		this.renderer.appendChild(this.document.head, this.carouselStyle);
+				this.renderer.appendChild(this.document.head, this.carouselStyle);
 			}
 
 			let innerHTML = `
@@ -657,13 +657,14 @@ export class Carousel implements AfterContentInit {
 			this.documentResizeListener = (e) => {
 				this.calculatePosition();
 			};
-      window.addEventListener('resize', this.documentResizeListener);
+
+			window.addEventListener('resize', this.documentResizeListener);
 		}
 	}
 
 	unbindDocumentListeners() {
 		if (this.documentResizeListener && typeof window !== 'undefined') {
-      		window.removeEventListener('resize', this.documentResizeListener);
+			window.removeEventListener('resize', this.documentResizeListener);
 			this.documentResizeListener = null;
 		}
 	}
