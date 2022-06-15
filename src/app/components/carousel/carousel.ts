@@ -350,7 +350,7 @@ export class Carousel implements AfterContentInit {
 	createStyle() {
 			if (!this.carouselStyle) {
         		this.carouselStyle = this.renderer.createElement('style')
-				    this.carouselStyle.type = 'text/css';
+				this.carouselStyle.type = 'text/css';
         		this.renderer.appendChild(this.document.head, this.carouselStyle);
 			}
 
