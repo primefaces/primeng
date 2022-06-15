@@ -350,7 +350,7 @@ export class Carousel implements AfterContentInit {
 	createStyle() {
 			if (!this.carouselStyle) {
         		this.carouselStyle = this.renderer.createElement('style')
-				this.carouselStyle.type = 'text/css';
+				    this.carouselStyle.type = 'text/css';
         		this.renderer.appendChild(this.document.head, this.carouselStyle);
 			}
 
@@ -398,7 +398,7 @@ export class Carousel implements AfterContentInit {
 
 	calculatePosition() {
 		if (this.responsiveOptions) {
-			let windowWidth = window.innerWidth;
+			let windowWidth = typeof window !== 'undefined'? window.innerWidth : Infinity;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,
 				numScroll: this.defaultNumScroll
@@ -653,18 +653,17 @@ export class Carousel implements AfterContentInit {
 	}
 
 	bindDocumentListeners() {
-		if (!this.documentResizeListener) {
+		if (!this.documentResizeListener && typeof window !== 'undefined') {
 			this.documentResizeListener = (e) => {
 				this.calculatePosition();
 			};
-
-			window.addEventListener('resize', this.documentResizeListener);
+      window.addEventListener('resize', this.documentResizeListener);
 		}
 	}
 
 	unbindDocumentListeners() {
-		if (this.documentResizeListener) {
-			window.removeEventListener('resize', this.documentResizeListener);
+		if (this.documentResizeListener && typeof window !== 'undefined') {
+      		window.removeEventListener('resize', this.documentResizeListener);
 			this.documentResizeListener = null;
 		}
 	}
