@@ -398,17 +398,19 @@ export class Carousel implements AfterContentInit {
 
 	calculatePosition() {
 		if (this.responsiveOptions) {
-			let windowWidth = typeof window !== 'undefined'? window.innerWidth : Infinity;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,
 				numScroll: this.defaultNumScroll
 			};
-
-			for (let i = 0; i < this.responsiveOptions.length; i++) {
-				let res = this.responsiveOptions[i];
-
-				if (parseInt(res.breakpoint, 10) >= windowWidth) {
-					matchedResponsiveData = res;
+			
+			if (typeof window !== "undefined") {
+				let windowWidth = window.innerWidth;
+				for (let i = 0; i < this.responsiveOptions.length; i++) {
+					let res = this.responsiveOptions[i];
+	
+					if (parseInt(res.breakpoint, 10) >= windowWidth) {
+						matchedResponsiveData = res;
+					}
 				}
 			}
 
