@@ -177,7 +177,7 @@ export class MultiSelectDemo &#123;
 
             <h5>Custom Content</h5>
             <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. 
-                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, footer and empty filter message can be provided using <i>header</i>, <i>footer</i> and <i>emptyfilter</i> templates. 
+                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, filter, footer and empty filter message can be provided using <i>header</i>, <i>filter</i>, <i>footer</i> and <i>emptyfilter</i> templates. 
                 In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -194,6 +194,13 @@ export class MultiSelectDemo &#123;
             Select Countries
         &lt;/div&gt;
     &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="filter" let-options="options"&gt;
+        &lt;div class="p-inputgroup"&gt;
+            &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-search"&gt;&lt;/i&gt;&lt;/span&gt;
+            &lt;input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="options.filter($event)"&gt;
+        &lt;/div&gt;
+        &lt;button pButton icon="pi pi-times" class="ml-3" (click)="myResetFunction(options)"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
             &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
@@ -207,6 +214,8 @@ export class MultiSelectDemo &#123;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;MultiSelectFilterOptions&#125; from 'primeng/multiselect';
+....
 interface Country &#123;
     name: string,
     code: string
@@ -217,6 +226,8 @@ export class MultiSelectDemo &#123;
     countries: Country[];
 
     selectedCountries: Country[];
+
+    filterValue = '';
 
     constructor() &#123;
         this.countries = [
@@ -231,6 +242,11 @@ export class MultiSelectDemo &#123;
             &#123;name: 'Spain', code: 'ES'&#125;,
             &#123;name: 'United States', code: 'US'&#125;
         ];
+    &#125;
+
+    myResetFunction(options: MultiSelectFilterOptions) &#123;
+        options.reset();
+        this.filterValue = '';
     &#125;
 
 &#125;
@@ -682,6 +698,12 @@ export class MultiSelectDemo &#123;
                         <tr>
                             <td>header</td>
                             <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>options.filter: Callback to filter data by the value param<br />
+                                options.reset: Resets the filter.
+                            </td>
                         </tr>
                         <tr>
                             <td>empty</td>
