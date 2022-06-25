@@ -2461,7 +2461,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     enableModality(element) {
-        if (!this.mask) {
+        if (!this.mask && !this.touchUI) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
             let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker p-component-overlay p-component-overlay-enter';
@@ -2484,6 +2484,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     destroyMask() {
+        if (!this.mask) {
+            return;
+        }
+
         document.body.removeChild(this.mask);
         let bodyChildren = document.body.children;
         let hasBlockerMasks: boolean;
