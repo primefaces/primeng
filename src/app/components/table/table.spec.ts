@@ -1,4 +1,3 @@
-import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Table, TableModule, EditableColumn } from './table';
@@ -427,7 +426,6 @@ describe('Table', () => {
                 NoopAnimationsModule,
                 FormsModule,
                 SharedModule,
-                ScrollingModule,
                 DropdownModule,
                 ContextMenuModule,
                 TableModule,

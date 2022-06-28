@@ -3,7 +3,6 @@ import { By } from '@angular/platform-browser';
 import { TreeTable, TreeTableModule, TTScrollableView } from './treetable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component } from '@angular/core';
 import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
 
@@ -89,7 +88,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{rowData[col.field]}}
                     </td>
-                </tr>            
+                </tr>
             </ng-template>
         </p-treeTable>
         <p-treeTable class="singleSelectionTreeTable" [value]="files" [columns]="cols" selectionMode="single" [(selection)]="selectedNode" dataKey="name">
@@ -169,7 +168,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
                             <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
                         </p-treeTableCellEditor>
                     </td>
-                </tr>            
+                </tr>
             </ng-template>
         </p-treeTable>
         <p-treeTable class="basicScrollTable" [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px">
@@ -186,7 +185,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{rowData[col.field]}}
                     </td>
-                </tr>            
+                </tr>
             </ng-template>
         </p-treeTable>
         <p-treeTable class="resizableTreeTable" [value]="files" [columns]="cols" [resizableColumns]="true">
@@ -203,7 +202,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{rowData[col.field]}}
                     </td>
-                </tr>            
+                </tr>
             </ng-template>
         </p-treeTable>
         <p-treeTable class="reorderableTreeTable" [value]="files" [columns]="cols" [reorderableColumns]="true">
@@ -220,7 +219,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{rowData[col.field]}}
                     </td>
-                </tr>            
+                </tr>
             </ng-template>
         </p-treeTable>
         <p-treeTable class="contextMenuTreeTable" [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
@@ -245,7 +244,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
 
         <p-treeTable class="filterTreeTable" #tt [value]="files" [columns]="cols">
             <ng-template pTemplate="caption">
-                <div style="text-align: right">        
+                <div style="text-align: right">
                     <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                     <input type="text" pInputText size="50" class="globalFilter" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                 </div>
@@ -271,7 +270,7 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
-                <tr>        
+                <tr>
                     <td [attr.colspan]="cols.length">No data found.</td>
                 </tr>
             </ng-template>
@@ -311,7 +310,7 @@ class TestTreeTableComponent {
     createLazyNodes(index, length) {
         for(let i = 0; i < length; i++) {
             let node = {
-                data: {  
+                data: {
                     name: 'Item ' + (index + i),
                     size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                     type: 'Type ' + (index + i)
@@ -327,37 +326,37 @@ class TestTreeTableComponent {
     totalRecords: number;
     virtualFiles: any[];
     showLoader: boolean;
-    files = [  
-        {  
-            "data":{  
+    files = [
+        {
+            "data":{
                 "name":"Applications",
                 "size":"200mb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data":{  
+            "children":[
+                {
+                    "data":{
                         "name":"Angular",
                         "size":"25mb",
                         "type":"Folder"
                     },
-                    "children":[  
-                        {  
-                            "data":{  
+                    "children":[
+                        {
+                            "data":{
                                 "name":"angular.app",
                                 "size":"10mb",
                                 "type":"Application"
                             }
                         },
-                        {  
-                            "data":{  
+                        {
+                            "data":{
                                 "name":"cli.app",
                                 "size":"10mb",
                                 "type":"Application"
                             }
                         },
-                        {  
-                            "data":{  
+                        {
+                            "data":{
                                 "name":"mobile.app",
                                 "size":"5mb",
                                 "type":"Application"
@@ -365,15 +364,15 @@ class TestTreeTableComponent {
                         }
                     ]
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"editor.app",
                         "size":"25mb",
                         "type":"Application"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"settings.app",
                         "size":"50mb",
                         "type":"Application"
@@ -381,22 +380,22 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data":{  
+        {
+            "data":{
                 "name":"Cloud",
                 "size":"20mb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data":{  
+            "children":[
+                {
+                    "data":{
                         "name":"backup-1.zip",
                         "size":"10mb",
                         "type":"Zip"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"backup-2.zip",
                         "size":"10mb",
                         "type":"Zip"
@@ -404,22 +403,22 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data": {  
+        {
+            "data": {
                 "name":"Desktop",
                 "size":"150kb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data":{  
+            "children":[
+                {
+                    "data":{
                         "name":"note-meeting.txt",
                         "size":"50kb",
                         "type":"Text"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"note-todo.txt",
                         "size":"100kb",
                         "type":"Text"
@@ -427,29 +426,29 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data":{  
+        {
+            "data":{
                 "name":"Documents",
                 "size":"75kb",
                 "type":"Folder"
             },
             "children":[
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"Work",
                         "size":"55kb",
                         "type":"Folder"
                     },
-                    "children":[  
-                        {  
-                            "data":{  
+                    "children":[
+                        {
+                            "data":{
                                 "name":"Expenses.doc",
                                 "size":"30kb",
                                 "type":"Document"
                             }
                         },
-                        {  
-                            "data":{  
+                        {
+                            "data":{
                                 "name":"Resume.doc",
                                 "size":"25kb",
                                 "type":"Resume"
@@ -457,15 +456,15 @@ class TestTreeTableComponent {
                         }
                     ]
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"Home",
                         "size":"20kb",
                         "type":"Folder"
                     },
-                    "children":[  
-                        {  
-                            "data":{  
+                    "children":[
+                        {
+                            "data":{
                                 "name":"Invoices",
                                 "size":"20kb",
                                 "type":"Text"
@@ -475,29 +474,29 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data": {  
+        {
+            "data": {
                 "name":"Downloads",
                 "size":"25mb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data": {  
+            "children":[
+                {
+                    "data": {
                         "name":"Spanish",
                         "size":"10mb",
                         "type":"Folder"
                     },
-                    "children":[  
-                        {  
-                            "data":{  
+                    "children":[
+                        {
+                            "data":{
                                 "name":"tutorial-a1.txt",
                                 "size":"5mb",
                                 "type":"Text"
                             }
                         },
-                        {  
-                            "data":{  
+                        {
+                            "data":{
                                 "name":"tutorial-a2.txt",
                                 "size":"5mb",
                                 "type":"Text"
@@ -505,22 +504,22 @@ class TestTreeTableComponent {
                         }
                     ]
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"Travel",
                         "size":"15mb",
                         "type":"Text"
                     },
-                    "children":[  
-                        {  
-                            "data":{  
+                    "children":[
+                        {
+                            "data":{
                                 "name":"Hotel.pdf",
                                 "size":"10mb",
                                 "type":"PDF"
                             }
                         },
-                        {  
-                            "data":{  
+                        {
+                            "data":{
                                 "name":"Flight.pdf",
                                 "size":"5mb",
                                 "type":"PDF"
@@ -530,29 +529,29 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data": {  
+        {
+            "data": {
                 "name":"Main",
                 "size":"50mb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data":{  
+            "children":[
+                {
+                    "data":{
                         "name":"bin",
                         "size":"50kb",
                         "type":"Link"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"etc",
                         "size":"100kb",
                         "type":"Link"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"var",
                         "size":"100kb",
                         "type":"Link"
@@ -560,22 +559,22 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data":{  
+        {
+            "data":{
                 "name":"Other",
                 "size":"5mb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data":{  
+            "children":[
+                {
+                    "data":{
                         "name":"todo.txt",
                         "size":"3mb",
                         "type":"Text"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"logo.png",
                         "size":"2mb",
                         "type":"Picture"
@@ -583,29 +582,29 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data":{  
+        {
+            "data":{
                 "name":"Pictures",
                 "size":"150kb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data":{  
+            "children":[
+                {
+                    "data":{
                         "name":"barcelona.jpg",
                         "size":"90kb",
                         "type":"Picture"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"primeng.png",
                         "size":"30kb",
                         "type":"Picture"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"prime.jpg",
                         "size":"30kb",
                         "type":"Picture"
@@ -613,22 +612,22 @@ class TestTreeTableComponent {
                 }
             ]
         },
-        {  
-            "data":{  
+        {
+            "data":{
                 "name":"Videos",
                 "size":"1500mb",
                 "type":"Folder"
             },
-            "children":[  
-                {  
-                    "data":{  
+            "children":[
+                {
+                    "data":{
                         "name":"primefaces.mkv",
                         "size":"1000mb",
                         "type":"Video"
                     }
                 },
-                {  
-                    "data":{  
+                {
+                    "data":{
                         "name":"intro.avi",
                         "size":"500mb",
                         "type":"Video"
@@ -662,7 +661,6 @@ describe('TreeTable', () => {
             imports: [
                 NoopAnimationsModule,
                 FormsModule,
-                ScrollingModule,
                 TreeTableModule,
                 ContextMenuModule
             ],
@@ -690,7 +688,7 @@ describe('TreeTable', () => {
 
     it('should show 11 rows', () => {
         fixture.detectChanges();
-  
+
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         const rowEls = basicTreeTableEl.queryAll(By.css("tr"));
         const toggleEls = basicTreeTableEl.queryAll(By.css("p-treeTableToggler"));
@@ -700,7 +698,7 @@ describe('TreeTable', () => {
 
     it('should expand first row', () => {
         fixture.detectChanges();
-  
+
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         let rowEls = basicTreeTableEl.queryAll(By.css("tr"));
         expect(rowEls.length).toEqual(11);
@@ -717,7 +715,7 @@ describe('TreeTable', () => {
 
     it('should expand and collapse first row', () => {
         fixture.detectChanges();
-  
+
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         let rowEls = basicTreeTableEl.queryAll(By.css("tr"));
         expect(rowEls.length).toEqual(11 );
@@ -739,7 +737,7 @@ describe('TreeTable', () => {
 
     it('should focus next row', () => {
         fixture.detectChanges();
-  
+
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         let rowEls = basicTreeTableEl.queryAll(By.css("tr"));
 		const keydownEvent: any = document.createEvent('CustomEvent');
@@ -754,7 +752,7 @@ describe('TreeTable', () => {
 
     it('should focus previous row', () => {
         fixture.detectChanges();
-  
+
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         let rowEls = basicTreeTableEl.queryAll(By.css("tr"));
 		const keydownEvent: any = document.createEvent('CustomEvent');
@@ -769,7 +767,7 @@ describe('TreeTable', () => {
 
     it('should expand and collapse row with nav keys', () => {
         fixture.detectChanges();
-  
+
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         let rowEls = basicTreeTableEl.queryAll(By.css("tr"));
         expect(rowEls.length).toEqual(11);
@@ -791,7 +789,7 @@ describe('TreeTable', () => {
 
     it('should create sections (caption footer summary)', () => {
         fixture.detectChanges();
-  
+
         const basicTreeTableEl = fixture.debugElement.query(By.css(".basicTreeTable"));
         const captionEl = basicTreeTableEl.query(By.css(".p-treetable-header"));
         const summaryEl = basicTreeTableEl.query(By.css(".p-treetable-footer"));
@@ -800,10 +798,10 @@ describe('TreeTable', () => {
         expect(summaryEl).toBeTruthy();
         expect(footerEl).toBeTruthy();
     });
-    
+
     it('should create paginator and 4 rows', () => {
         fixture.detectChanges();
-  
+
         const paginationTreeTableEl = fixture.debugElement.query(By.css(".paginationTreeTable"));
         let rowEls = paginationTreeTableEl.queryAll(By.css("tr"));
         const paginatorEl = paginationTreeTableEl.query(By.css("p-paginator"));
@@ -816,7 +814,7 @@ describe('TreeTable', () => {
 
     it('should change page', () => {
         fixture.detectChanges();
-  
+
         const paginationTreeTableEl = fixture.debugElement.query(By.css(".paginationTreeTable"));
         const pages = paginationTreeTableEl.queryAll(By.css(".p-paginator-page"));
         expect(paginationTreeTable.first).toEqual(0);
@@ -830,7 +828,7 @@ describe('TreeTable', () => {
 
     it('should sort the treetable', () => {
         fixture.detectChanges();
-  
+
         const sortSpy = spyOn(basicSortTreeTable,"sort").and.callThrough();
         const sortSingleSpy = spyOn(basicSortTreeTable,"sortSingle").and.callThrough();
         const basicSortTreeTableEl = fixture.debugElement.query(By.css(".basicSortTreeTable"));
@@ -852,7 +850,7 @@ describe('TreeTable', () => {
 
     it('should sort the treetable (multiple)', () => {
         fixture.detectChanges();
-  
+
         const sortMultipleSpy = spyOn(multipleSortTreeTable,"sortMultiple").and.callThrough();
         const multipleSortTreeTableEl = fixture.debugElement.query(By.css(".multipleSortTreeTable"));
         const sortableHeaders = multipleSortTreeTableEl.queryAll(By.css("th"));
@@ -875,7 +873,7 @@ describe('TreeTable', () => {
 
     it('should single select', () => {
         fixture.detectChanges();
-  
+
         const handleRowClickSpy = spyOn(singleSelectionTreeTable,"handleRowClick").and.callThrough();
         const singleSelectionTreeTableEl = fixture.debugElement.query(By.css(".singleSelectionTreeTable"));
         let rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
@@ -907,7 +905,7 @@ describe('TreeTable', () => {
 
     it('should single select with metaKeySelection', () => {
         fixture.detectChanges();
-  
+
         singleSelectionTreeTable.metaKeySelection = true;
         fixture.detectChanges();
 
@@ -925,7 +923,7 @@ describe('TreeTable', () => {
 
         expect(testcomponent.selectedNode.data.name).toEqual("Cloud");
         rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
-        
+
         rowEls[2].nativeElement.click();
         fixture.detectChanges();
 
@@ -942,7 +940,7 @@ describe('TreeTable', () => {
 
     it('should multiple select', () => {
         fixture.detectChanges();
-  
+
         const handleRowClickSpy = spyOn(multipleSelectionTreeTable,"handleRowClick").and.callThrough();
         const singleSelectionTreeTableEl = fixture.debugElement.query(By.css(".multipleSelectionTreeTable"));
         let rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
@@ -971,7 +969,7 @@ describe('TreeTable', () => {
 
     it('should multiple select with metaKeySeleciton', () => {
         fixture.detectChanges();
-  
+
         multipleSelectionTreeTable.metaKeySelection = true;
         fixture.detectChanges();
 
@@ -1009,7 +1007,7 @@ describe('TreeTable', () => {
 
     it('should select with checkbox', () => {
         fixture.detectChanges();
-  
+
         const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
         let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
         expect(checkboxEls.length).toEqual(10);
@@ -1034,7 +1032,7 @@ describe('TreeTable', () => {
 
     it('should select childs with checkbox', () => {
         fixture.detectChanges();
-  
+
         const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
         let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
         let toggleEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-treetable-toggler"));
@@ -1065,7 +1063,7 @@ describe('TreeTable', () => {
 
     it('should select with headerCheckbox', () => {
         fixture.detectChanges();
-  
+
         const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
         let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".p-checkbox"));
         checkboxEls[0].query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
@@ -1089,7 +1087,7 @@ describe('TreeTable', () => {
 
     it('should open cell and close', () => {
         fixture.detectChanges();
-        
+
         const editableTreeTableEl = fixture.debugElement.query(By.css(".editableTreeTable"));
         let editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         editableColumns[0].nativeElement.click();
@@ -1112,7 +1110,7 @@ describe('TreeTable', () => {
 
     it('should open cell and close with tab escape and enter key', () => {
         fixture.detectChanges();
-        
+
         const editableTreeTableEl = fixture.debugElement.query(By.css(".editableTreeTable"));
         let editableColumns = editableTreeTableEl.queryAll(By.css("td"));
         editableColumns[1].nativeElement.click();
@@ -1167,12 +1165,12 @@ describe('TreeTable', () => {
 
     it('should create scrollable body and view', () => {
         fixture.detectChanges();
-        
+
         const basicScrollTableEl = fixture.debugElement.query(By.css(".basicScrollTable"));
         const scrollEl = basicScrollTableEl.query(By.css(".p-treetable-scrollable-body"));
         const scrollBody = basicScrollTableEl.query(By.css(".p-treetable-scrollable-view"));
         fixture.detectChanges();
-        
+
         scrollBody.nativeElement.dispatchEvent(new Event("scroll"));
         fixture.detectChanges();
 
@@ -1371,7 +1369,7 @@ describe('TreeTable', () => {
         event.initEvent('contextmenu');
         rowEls[1].nativeElement.dispatchEvent(event);
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTreeTable.contextMenuSelection.data.name).toEqual("Applications");
@@ -1393,7 +1391,7 @@ describe('TreeTable', () => {
         event.initEvent('contextmenu');
         rowEls[1].nativeElement.dispatchEvent(event);
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTreeTable.selection.data.name).toEqual("Applications");
@@ -1416,7 +1414,7 @@ describe('TreeTable', () => {
         rowEls[1].nativeElement.dispatchEvent(event);
         rowEls[2].nativeElement.click();
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTreeTable.selection[0].data.name).toEqual("Applications");
