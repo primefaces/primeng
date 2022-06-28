@@ -7,7 +7,7 @@ import { AppMainComponent } from './app.main.component';
     imports: [
         RouterModule.forRoot([
             {path: '', component: LandingComponent, pathMatch: 'full'},
-            {path: '', component: AppMainComponent, 
+            {path: '', component: AppMainComponent,
                 children:[
                     {path: '', redirectTo:'setup', pathMatch:'full'},
                     {path: 'setup', loadChildren: () => import('./components/setup/setup.module').then(m => m.SetupModule)},
@@ -114,7 +114,8 @@ import { AppMainComponent } from './app.main.component';
                     {path: 'treetable', loadChildren: () => import('./components/treetable/treetabledemo.module').then(m => m.TreeTableDemoModule)},
                     {path: 'tristatecheckbox', loadChildren: () => import('./components/tristatecheckbox/tristatecheckboxdemo.module').then(m => m.TriStateCheckboxDemoModule)},
                     {path: 'virtualscroller', loadChildren: () => import('./components/virtualscroller/virtualscrollerdemo.module').then(m => m.VirtualScrollerDemoModule)},
-                    {path: 'accessibility', loadChildren: () => import('./components/accessibility/accessibilitydemo.module').then(m => m.AccessibilityDemoModule)}
+                    {path: 'accessibility', loadChildren: () => import('./components/accessibility/accessibilitydemo.module').then(m => m.AccessibilityDemoModule)},
+                    {path: 'scroller', loadChildren: () => import('./components/scroller/scrollerdemo.module').then(m => m.ScrollerDemoModule)}
                 ],
             },
         ],{scrollPositionRestoration: 'enabled', useHash: false})
