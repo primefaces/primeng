@@ -16,7 +16,7 @@
 
         <h5>Chips</h5>
         <p-multiSelect [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
-    
+
         <h5>Grouped</h5>
         <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
             <ng-template let-group pTemplate="group">
@@ -45,9 +45,9 @@
                 </div>
             </ng-template>
         </p-multiSelect>
-    
+
         <h5>Virtual Scroll</h5>
-        <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
+        <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
@@ -61,13 +61,6 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h5>CDK</h5>
-            <p>Virtual Scrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-npm install @angular/cdk --save
-</app-code>
-
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
@@ -136,7 +129,6 @@ export class MultiSelectDemo &#123;
 &#125;
 </app-code>
 
-        
             <h5>Chips Display</h5>
             <p>A comma separated list is used by default to display selected items whereas alternative chip mode is provided using the <i>display</i> property to visualize the items as tokens.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -176,8 +168,8 @@ export class MultiSelectDemo &#123;
 </app-code>
 
             <h5>Custom Content</h5>
-            <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. 
-                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, footer and empty filter message can be provided using <i>header</i>, <i>footer</i> and <i>emptyfilter</i> templates. 
+            <p>For custom content support when displaying options, define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection.
+                Similarly <i>selectedItems</i> template can be used to customize when displaying the selected options. Additionally a custom header, footer and empty filter message can be provided using <i>header</i>, <i>footer</i> and <i>emptyfilter</i> templates.
                 In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -238,9 +230,9 @@ export class MultiSelectDemo &#123;
 
             <h5>Virtual Scrolling</h5>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
-                to avoid performance issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining itemSize to specify the height of an item.</p>
+                to avoid performance issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining virtualScrollItemSize to specify the height of an item.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" [virtualScroll]="true" [virtualScrollItemSize]="30"&gt;&lt;/p-multiSelect&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
@@ -401,12 +393,6 @@ export class MultiSelectDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Identifier of the focus input to match a label defined for the component.</td>
-                        </tr>
-                        <tr>
-                            <td>itemSize</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Height of an item in the list for VirtualScrolling.</td>
                         </tr>
                         <tr>
                             <td>maxSelectedLabels</td>
@@ -583,16 +569,34 @@ export class MultiSelectDemo &#123;
                             <td>Type of CSS position.</td>
                         </tr>
                         <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
+                        <tr>
                             <td>virtualScroll</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                         <tr>
-                            <td>showClear</td>
+                            <td>virtualScrollItemSize</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of an item in the list for VirtualScrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScrollOptions</td>
+                            <td>ScrollerOptions</td>
+                            <td>false</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/theming']">scroller</a> component can be used like an object in it.</td>
+                        </tr>
+                        <tr>
+                            <td>lazy</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -653,6 +657,13 @@ export class MultiSelectDemo &#123;
                             <td>-</td>
                             <td>Callback to invoke when input field is cleared.</td>
                         </tr>
+                        <tr>
+                            <td>onLazyLoad</td>
+                            <td>event.first: First index of the new data range to be loaded.<br/>
+                                event.last: Last index of the new data range to be loaded.
+                            </td>
+                            <td>Callback to invoke in lazy mode to load new data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -694,6 +705,10 @@ export class MultiSelectDemo &#123;
                         <tr>
                             <td>footer</td>
                             <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>loader</td>
+                            <td>options: Options of the scroller on loading. *This template can be used with virtualScroll.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -751,7 +766,7 @@ export class MultiSelectDemo &#123;
             </div>
 
             <h5>Dependencies</h5>
-            <p>Angular CDK.</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -762,53 +777,55 @@ export class MultiSelectDemo &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Template Mode&lt;/h5&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="&#123;0&#125; items selected"&gt;&lt;/p-multiSelect&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Template Mode&lt;/h5&gt;
+    &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="&#123;0&#125; items selected"&gt;&lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Elipsis Mode&lt;/h5&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
+    &lt;h5&gt;Elipsis Mode&lt;/h5&gt;
+    &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities2" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Chips&lt;/h5&gt;
-&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"&gt;&lt;/p-multiSelect&gt;
+    &lt;h5&gt;Chips&lt;/h5&gt;
+    &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities3" defaultLabel="Select a City" optionLabel="name" display="chip"&gt;&lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Grouped&lt;/h5&gt;
-&lt;p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip"&gt;
-    &lt;ng-template let-group pTemplate="group"&gt;
-        &lt;div class="flex align-items-center"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
-            &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-multiSelect&gt;
+    &lt;h5&gt;Grouped&lt;/h5&gt;
+    &lt;p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip"&gt;
+        &lt;ng-template let-group pTemplate="group"&gt;
+            &lt;div class="flex align-items-center"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+                &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Advanced with Templating and Filtering&lt;/h5&gt;
-&lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
-    &lt;ng-template let-value pTemplate="selectedItems"&gt;
-        &lt;div class="country-item country-item-value" *ngFor="let option of selectedCountries1"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;option.name&#125;&#125;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder"&gt;
-            Select Countries
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template let-country pTemplate="item"&gt;
-        &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-multiSelect&gt;
+    &lt;h5&gt;Advanced with Templating and Filtering&lt;/h5&gt;
+    &lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
+        &lt;ng-template let-value pTemplate="selectedItems"&gt;
+            &lt;div class="country-item country-item-value" *ngFor="let option of selectedCountries1"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
+                &lt;div&gt;&#123;&#123;option.name&#125;&#125;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder"&gt;
+                Select Countries
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-country pTemplate="item"&gt;
+            &lt;div class="country-item"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+                &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Virtual Scroll&lt;/h5&gt;
-&lt;p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"&gt;
-    &lt;ng-template let-country pTemplate="item"&gt;
-        &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-multiSelect&gt;
+    &lt;h5&gt;Virtual Scroll&lt;/h5&gt;
+    &lt;p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll"&gt;
+        &lt;ng-template let-country pTemplate="item"&gt;
+            &lt;div class="country-item"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+                &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-multiSelect&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -875,7 +892,7 @@ export class MultiSelectDemo &#123;
 
         this.groupedCities = [
             &#123;
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     &#123;label: 'Berlin', value: 'Berlin'&#125;,
                     &#123;label: 'Frankfurt', value: 'Frankfurt'&#125;,
@@ -884,7 +901,7 @@ export class MultiSelectDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     &#123;name: 'Chicago', value: 'Chicago'&#125;,
                     &#123;name: 'Los Angeles', value: 'Los Angeles'&#125;,
@@ -893,7 +910,7 @@ export class MultiSelectDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     &#123;name: 'Kyoto', value: 'Kyoto'&#125;,
                     &#123;name: 'Osaka', value: 'Osaka'&#125;,
