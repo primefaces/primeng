@@ -15,9 +15,9 @@
     "module": "primeng.js",
     "typings": "primeng.d.ts",
     "peerDependencies": {
-      "@angular/core": "^13.0.0",
-      "@angular/common": "^13.0.0",
-      "@angular/forms": "^13.0.0",
+      "@angular/core": "^14.0.0",
+      "@angular/common": "^14.0.0",
+      "@angular/forms": "^14.0.0",
       "rxjs": "^6.0.0 || ^7.0.0",
       "zone.js": "^0.10.2 || ^0.11.0",
       "primeicons": "^5.0.0"

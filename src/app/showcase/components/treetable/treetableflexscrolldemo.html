@@ -1,8 +1,8 @@
 <div class="content-section implementation" style="height: calc(100vh - 149px)">
     <p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="flex"
-        [virtualScroll]="true" [virtualRowHeight]="34">
+        [virtualScroll]="true" [virtualScrollItemSize]="57">
         <ng-template pTemplate="caption">
-            Virtual Scrolling with Full Page Viewport 
+            Virtual Scrolling with Full Page Viewport
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -12,7 +12,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr style="height:34px">
+            <tr style="height:57px">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}

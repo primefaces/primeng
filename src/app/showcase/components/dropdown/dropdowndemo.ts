@@ -29,7 +29,15 @@ export class DropdownDemo {
 
     items: SelectItem[];
 
-    item: string;
+    lazyItems: SelectItem[];
+
+    selectedItem1: string;
+
+    selectedItem2: string;
+
+    loading: boolean = false;
+
+    loadLazyTimeout: any;
 
     constructor() {
         this.items = [];
@@ -47,7 +55,7 @@ export class DropdownDemo {
 
         this.groupedCities = [
             {
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     {label: 'Berlin', value: 'Berlin'},
                     {label: 'Frankfurt', value: 'Frankfurt'},
@@ -56,7 +64,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     {label: 'Chicago', value: 'Chicago'},
                     {label: 'Los Angeles', value: 'Los Angeles'},
@@ -65,7 +73,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     {label: 'Kyoto', value: 'Kyoto'},
                     {label: 'Osaka', value: 'Osaka'},
@@ -87,5 +95,28 @@ export class DropdownDemo {
             {name: 'Spain', code: 'ES'},
             {name: 'United States', code: 'US'}
         ];
+
+        this.lazyItems = Array.from({ length: 100000 });
+    }
+
+    onLazyLoad(event) {
+        this.loading = true;
+
+        if (this.loadLazyTimeout) {
+            clearTimeout(this.loadLazyTimeout);
+        }
+
+        //imitate delay of a backend call
+        this.loadLazyTimeout = setTimeout(() => {
+            const { first, last } = event;
+            const lazyItems = [...this.lazyItems];
+
+            for (let i = first; i < last; i++) {
+                lazyItems[i] = { label: `Item #${i}`, value: i };
+            }
+
+            this.lazyItems = lazyItems;
+            this.loading = false;
+        }, Math.random() * 1000 + 250);
     }
 }

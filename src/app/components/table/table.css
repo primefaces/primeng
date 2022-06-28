@@ -75,7 +75,7 @@
 }
 
 .p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead,
-.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-virtual-scrollable-body > .cdk-virtual-scroll-content-wrapper > .p-datatable-table > .p-datatable-thead {
+.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-thead {
     position: sticky;
     top: 0;
     z-index: 1;
@@ -144,6 +144,10 @@
 .p-datatable-scrollable.p-datatable-grouped-header .p-datatable-thead > tr > th,
 .p-datatable-scrollable.p-datatable-grouped-footer .p-datatable-tfoot > tr > td {
     display: table-cell;
+}
+
+.p-datatable-scrollable .p-scroller > .p-datatable-table {
+    display: inline-block; /* For Safari  */
 }
 
 /* Flex Scrollable */
@@ -310,8 +314,11 @@
     display: none;
 }
 
-/* Virtual Scroll*/
-
-cdk-virtual-scroll-viewport {
-    outline: 0 none;
+/* Virtual Scroll */
+.p-datatable .p-scroller-loading {
+    transform: none !important;
+    min-height: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
 }

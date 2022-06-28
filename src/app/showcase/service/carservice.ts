@@ -33,8 +33,9 @@ export class CarService {
         .then(data => { return data; });
     }
 
-    generateCar(): Car {
+    generateCar(id?: any): Car {
         return {
+            id,
             vin: this.generateVin(),
             brand: this.generateBrand(),
             color: this.generateColor(),
@@ -45,11 +46,11 @@ export class CarService {
     generateVin() {
         let text = "";
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        
+
         for (var i = 0; i < 5; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
-        
+
         return text;
     }
 

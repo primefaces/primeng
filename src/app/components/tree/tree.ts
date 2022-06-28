@@ -1,6 +1,5 @@
 import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,OnChanges,
     ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy,SimpleChanges, ViewEncapsulation, ViewChild} from '@angular/core';
-import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PrimeNGConfig, TranslationKeys, TreeNode} from 'primeng/api';
@@ -12,6 +11,7 @@ import {BlockableUI} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
 import {DomHandler} from 'primeng/dom';
 import {RippleModule} from 'primeng/ripple';
+import {ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 
 @Component({
     selector: 'p-treeNode',
@@ -19,7 +19,7 @@ import {RippleModule} from 'primeng/ripple';
         <ng-template [ngIf]="node">
             <li *ngIf="tree.droppableNodes" class="p-treenode-droppoint" [ngClass]="{'p-treenode-droppoint-active':draghoverPrev}"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <li *ngIf="!tree.horizontal" [ngClass]="['p-treenode',node.styleClass||'', isLeaf() ? 'p-treenode-leaf': '']">
+            <li *ngIf="!tree.horizontal" [ngClass]="['p-treenode',node.styleClass||'', isLeaf() ? 'p-treenode-leaf': '']" [ngStyle]="{'height': itemSize + 'px'}">
                 <div class="p-treenode-content" [style.paddingLeft]="(level * indentation)  + 'rem'" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" [attr.tabindex]="0"
@@ -43,7 +43,7 @@ import {RippleModule} from 'primeng/ripple';
                 </div>
                 <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
                     <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index; trackBy: tree.trackBy" [node]="childNode" [parentNode]="node"
-                        [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [style.height.px]="tree.virtualNodeHeight" [level]="level + 1"></p-treeNode>
+                        [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [itemSize]="itemSize" [level]="level + 1"></p-treeNode>
                 </ul>
             </li>
             <li *ngIf="tree.droppableNodes&&lastChild" class="p-treenode-droppoint" [ngClass]="{'p-treenode-droppoint-active':draghoverNext}"
@@ -113,6 +113,8 @@ export class UITreeNode implements OnInit {
     @Input() level: number;
 
     @Input() indentation: number;
+
+    @Input() itemSize: number;
 
     tree: Tree;
 
@@ -521,27 +523,36 @@ export class UITreeNode implements OnInit {
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div *ngIf="filter" class="p-tree-filter-container">
-                    <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                        (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
-                        <span class="p-tree-filter-icon pi pi-search"></span>
-                </div>
-            <ng-container *ngIf="!virtualScroll; else virtualScrollList">
+            <div *ngIf="filter" class="p-tree-filter-container">
+                <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
+                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)">
+                    <span class="p-tree-filter-icon pi pi-search"></span>
+            </div>
+
+            <p-scroller *ngIf="virtualScroll" [items]="serializedValue" styleClass="p-tree-wrapper" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_virtualNodeHeight"
+                [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
+                <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                    <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: items, options: scrollerOptions}"></ng-container>
+                </ng-template>
+                <ng-container *ngIf="loaderTemplate">
+                    <ng-template pTemplate="loader" let-scrollerOptions="options">
+                        <ng-container *ngTemplateOutlet="loaderTemplate; context: {options: scrollerOptions}"></ng-container>
+                    </ng-template>
+                </ng-container>
+            </p-scroller>
+            <ng-container *ngIf="!virtualScroll">
                 <div class="p-tree-wrapper" [style.max-height]="scrollHeight">
-                    <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                        <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [node]="node"
-                                    [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [level]="0"></p-treeNode>
-                    </ul>
+                    <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: serializedValue, options: {}}"></ng-container>
                 </div>
             </ng-container>
-            <ng-template #virtualScrollList>
-                <cdk-virtual-scroll-viewport class="p-tree-wrapper" [style.height]="scrollHeight" [itemSize]="virtualNodeHeight" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx">
-                    <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                        <p-treeNode *cdkVirtualFor="let rowNode of serializedValue; let firstChild=first; let lastChild=last; let index=index; trackBy: trackBy; templateCacheSize: 0"  [level]="rowNode.level"
-                                    [rowNode]="rowNode" [node]="rowNode.node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [style.height.px]="virtualNodeHeight" [indentation]="indentation"></p-treeNode>
-                    </ul>
-                </cdk-virtual-scroll-viewport>
+
+            <ng-template #buildInItems let-items let-scrollerOptions="options">
+                <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <p-treeNode *ngFor="let rowNode of items; let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [level]="rowNode.level"
+                                [rowNode]="rowNode" [node]="rowNode.node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="getIndex(scrollerOptions, index)" [itemSize]="scrollerOptions.itemSize" [indentation]="indentation"></p-treeNode>
+                </ul>
             </ng-template>
+
             <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
                 <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
                     {{emptyMessageLabel}}
@@ -581,20 +592,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     @Input() selectionMode: string;
 
     @Input() selection: any;
-
-    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeContextMenuSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeDrop: EventEmitter<any> = new EventEmitter();
 
     @Input() style: any;
 
@@ -646,31 +643,57 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() scrollHeight: string;
 
+    @Input() lazy: boolean = false;
+
     @Input() virtualScroll: boolean;
 
-    @Input() virtualNodeHeight: string;
+    @Input() virtualScrollItemSize: number;
 
-    @Input() minBufferPx: number;
-
-    @Input() maxBufferPx: number;
+    @Input() virtualScrollOptions: ScrollerOptions;
 
     @Input() indentation: number = 1.5;
 
     @Input() trackBy: Function = (index: number, item: any) => item;
 
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeContextMenuSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeDrop: EventEmitter<any> = new EventEmitter();
+
+    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
+
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
-
     @ViewChild('filter') filterViewChild: ElementRef;
+
+    /* @deprecated */
+    _virtualNodeHeight: number;
+    @Input() get virtualNodeHeight(): number {
+        return this._virtualNodeHeight;
+    }
+    set virtualNodeHeight(val: number) {
+        this._virtualNodeHeight = val;
+        console.warn("The virtualNodeHeight property is deprecated, use virtualScrollItemSize property instead.");
+    }
 
     serializedValue: any[];
 
     headerTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
+
+    loaderTemplate: TemplateRef<any>;
 
     emptyMessageTemplate: TemplateRef<any>;
 
@@ -723,10 +746,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         if (simpleChange.value) {
             this.updateSerializedValue();
         }
-
-        if (simpleChange.scrollHeight && this.virtualScrollBody) {
-            this.virtualScrollBody.ngOnInit();
-        }
     }
 
     get horizontal(): boolean {
@@ -754,6 +773,10 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                break;
+
+                case 'loader':
+                    this.loaderTemplate = item.template;
                 break;
 
                 default:
@@ -1265,7 +1288,12 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         return matched;
     }
 
-    getBlockableElement(): HTMLElement {
+    getIndex(options, index) {
+        const getItemOptions = options['getItemOptions'];
+        return getItemOptions ? getItemOptions(index).index : index;
+    }
+
+    getBlockableElement(): HTMLElement {
       return this.el.nativeElement.children[0];
     }
 
@@ -1280,8 +1308,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 }
 @NgModule({
-    imports: [CommonModule,ScrollingModule,RippleModule],
-    exports: [Tree,SharedModule,ScrollingModule],
+    imports: [CommonModule,SharedModule,RippleModule,ScrollerModule],
+    exports: [Tree,SharedModule,ScrollerModule],
     declarations: [Tree,UITreeNode]
 })
 export class TreeModule { }

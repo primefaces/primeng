@@ -162,15 +162,7 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h5>CDK</h5>
-            <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-
-<app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-npm install @angular/cdk --save
-</app-code>
-
             <h5>Import</h5>
-
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TableModule&#125; from 'primeng/table';
 </app-code>
@@ -2297,7 +2289,7 @@ export class TableExportDemo implements OnInit &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="page-content" style="height: calc(100vh - 149px)"&gt;
     &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="flex"
-        [virtualScroll]="true" [virtualRowHeight]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
+        [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Virtual Scrolling with Lazy Loading and Full Page Viewport
         &lt;/ng-template&gt;
@@ -2500,12 +2492,12 @@ export class TableExportDemo implements OnInit &#123;
             </div>
 
             <h5>Virtual Scrolling</h5>
-            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
-            would be enough to enable this functionality. It is also suggested to use the same <i>virtualRowHeight</i> value on the tr element inside the body template.</p>
+            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels
+            would be enough to enable this functionality. It is also suggested to use the same <i>virtualScrollItemSize</i> value on the tr element inside the body template.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
-    [virtualScroll]="true" [virtualRowHeight]="34"&gt;
+    [virtualScroll]="true" [virtualScrollItemSize]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -2556,7 +2548,7 @@ export class TableVirtualScrollDemo implements OnInit &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px"
-    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
+    [virtualScroll]="true" [virtualScrollItemSize]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -3238,10 +3230,16 @@ export class TableDemo implements OnInit &#123;
                             <td>Threshold in milliseconds to delay lazy loading during scrolling.</td>
                         </tr>
                         <tr>
-                            <td>virtualRowHeight</td>
+                            <td>virtualScrollItemSize</td>
                             <td>number</td>
                             <td>28</td>
                             <td>Height of a row to use in calculations of virtual scrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScrollOptions</td>
+                            <td>ScrollerOptions</td>
+                            <td>false</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/theming']">scroller</a> component can be used like an object in it.</td>
                         </tr>
                         <tr>
                             <td>contextMenu</td>
@@ -3349,18 +3347,6 @@ export class TableDemo implements OnInit &#123;
                             <td>Map instance to keep the rows being edited where key of the map is the data key of the row.</td>
                         </tr>
                         <tr>
-                            <td>minBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
-                        </tr>
-                        <tr>
-                            <td>maxBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
-                        </tr>
-                        <tr>
                             <td>exportHeader</td>
                             <td>string</td>
                             <td>null</td>
@@ -3420,6 +3406,7 @@ export class TableDemo implements OnInit &#123;
                         <tr>
                             <td>onLazyLoad</td>
                             <td>event.first = First row offset <br>
+                                event.last: Last index of the new data range to be loaded <br>
                                 event.rows = Number of rows per page <br>
                                 event.sortField = Field name to sort with <br>
                                 event.sortOrder = Sort order as number, 1 for asc and -1 for dec <br>
