@@ -32,7 +32,7 @@
         </p-autoComplete>
 
         <h5>Virtual Scroll (10000 Items)</h5>
-        <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [itemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true">
+        <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true">
         </p-autoComplete>
 
         <h5>Multiple</h5>
@@ -496,22 +496,34 @@ export class AutoCompleteDemo &#123;
                             <td>Used to define a string that autocomplete attribute the current element.</td>
                         </tr>
                         <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
+                        <tr>
                             <td>virtualScroll</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                         <tr>
-                            <td>itemSize</td>
+                            <td>virtualScrollItemSize</td>
                             <td>number</td>
                             <td>null</td>
                             <td>Height of an item in the list for VirtualScrolling.</td>
                         </tr>
                         <tr>
-                            <td>showClear</td>
+                            <td>virtualScrollOptions</td>
+                            <td>ScrollerOptions</td>
+                            <td>false</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/theming']">scroller</a> component can be used like an object in it.</td>
+                        </tr>
+                        <tr>
+                            <td>lazy</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -588,6 +600,13 @@ export class AutoCompleteDemo &#123;
                             <td>-</td>
                             <td>Callback to invoke when autocomplete overlay gets hidden.</td>
                         </tr>
+                        <tr>
+                            <td>onLazyLoad</td>
+                            <td>event.first: First index of the new data range to be loaded.<br/>
+                                event.last: Last index of the new data range to be loaded.
+                            </td>
+                            <td>Callback to invoke in lazy mode to load new data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -622,6 +641,10 @@ export class AutoCompleteDemo &#123;
                         <tr>
                             <td>footer</td>
                             <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>loader</td>
+                            <td>options: Options of the scroller on loading. *This template can be used with virtualScroll.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -687,38 +710,40 @@ export class AutoCompleteDemo &#123;
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-autoComplete [(ngModel)]="selectedCountry" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Basic&lt;/h5&gt;
+    &lt;p-autoComplete [(ngModel)]="selectedCountry" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
 
-&lt;h5&gt;Dropdown and Templating&lt;/h5&gt;
-&lt;p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true"&gt;
-    &lt;ng-template let-country pTemplate="item"&gt;
-        &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-autoComplete&gt;
-
-&lt;h5&gt;Grouped&lt;/h5&gt;
-&lt;p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [multiple]="true" [dropdown]="true"&gt;
-    &lt;ng-template let-group pTemplate="group"&gt;
-        &lt;div class="flex align-items-center"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
-            &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-autoComplete&gt;
-
-&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
-&lt;p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [itemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"&gt;
-&lt;/p-autoComplete&gt;
-
-&lt;h5&gt;Multiple&lt;/h5&gt;
-&lt;span class="p-fluid"&gt;
-    &lt;p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"&gt;
+    &lt;h5&gt;Dropdown and Templating&lt;/h5&gt;
+    &lt;p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true"&gt;
+        &lt;ng-template let-country pTemplate="item"&gt;
+            &lt;div class="country-item"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+                &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
     &lt;/p-autoComplete&gt;
-&lt;/span&gt;
+
+    &lt;h5&gt;Grouped&lt;/h5&gt;
+    &lt;p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [dropdown]="true"&gt;
+        &lt;ng-template let-group pTemplate="group"&gt;
+            &lt;div class="flex align-items-center"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+                &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-autoComplete&gt;
+
+    &lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+    &lt;p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"&gt;
+    &lt;/p-autoComplete&gt;
+
+    &lt;h5&gt;Multiple&lt;/h5&gt;
+    &lt;span class="p-fluid"&gt;
+        &lt;p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"&gt;
+        &lt;/p-autoComplete&gt;
+    &lt;/span&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>

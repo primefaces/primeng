@@ -8,7 +8,7 @@ import {SharedModule,PrimeTemplate, TranslationKeys, PrimeNGConfig, OverlayServi
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils, UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling';
+import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -44,44 +44,49 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <div #panel *ngIf="overlayVisible" (click)="onOverlayClick($event)" [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <ul role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="{'p-autocomplete-virtualscroll': virtualScroll}">
-                    <ng-container *ngIf="group">
-                        <ng-template ngFor let-optgroup [ngForOf]="suggestions">
-                            <li class="p-autocomplete-item-group">
-                                <span *ngIf="!groupTemplate">{{getOptionGroupLabel(optgroup)||'empty'}}</span>
-                                <ng-container *ngTemplateOutlet="groupTemplate; context: {$implicit: optgroup}"></ng-container>
-                            </li>
-                            <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: getOptionGroupChildren(optgroup)}"></ng-container>
-                        </ng-template>
-                    </ng-container>
-                    <ng-container *ngIf="!group">
-                            <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: suggestions}"></ng-container>
-                    </ng-container>
-                    <ng-template #itemslist let-suggestionsToDisplay>
-                        <ng-container *ngIf="!virtualScroll; else virtualScrollList">
-                            <li role="option" *ngFor="let option of suggestionsToDisplay; let idx = index" class="p-autocomplete-item" pRipple [ngClass]="{'p-highlight': (option === highlightOption)}" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
-                                <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
-                            </li>
-                        </ng-container>
-                        <ng-template #virtualScrollList>
-                            <cdk-virtual-scroll-viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && !noResults">
-                                <ng-container *cdkVirtualFor="let option of suggestionsToDisplay; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
-                                    <li role="option" class="p-autocomplete-item" pRipple [ngClass]="{'p-highlight': (option === highlightOption)}" [ngStyle]="{'height': itemSize + 'px'}" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
-                                        <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
-                                        <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
-                                    </li>
-                                </ng-container>
-                            </cdk-virtual-scroll-viewport>
-                        </ng-template>
-                        <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message">
-                            <ng-container *ngIf="!emptyTemplate; else empty">
-                                {{emptyMessageLabel}}
-                            </ng-container>
-                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                        </li>
+                <p-scroller *ngIf="virtualScroll" #scroller [items]="suggestions" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_itemSize" [autoSize]="true"
+                    [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
+                    <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                        <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: items, options: scrollerOptions}"></ng-container>
                     </ng-template>
-                </ul>
+                    <ng-container *ngIf="loaderTemplate">
+                        <ng-template pTemplate="loader" let-scrollerOptions="options">
+                            <ng-container *ngTemplateOutlet="loaderTemplate; context: {options: scrollerOptions}"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                </p-scroller>
+                <ng-container *ngIf="!virtualScroll">
+                    <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: suggestions, options: {}}"></ng-container>
+                </ng-container>
+
+                <ng-template #buildInItems let-items let-scrollerOptions="options">
+                    <ul #items role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle">
+                        <ng-container *ngIf="group">
+                            <ng-template ngFor let-optgroup [ngForOf]="items">
+                                <li class="p-autocomplete-item-group" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                                    <span *ngIf="!groupTemplate">{{getOptionGroupLabel(optgroup)||'empty'}}</span>
+                                    <ng-container *ngTemplateOutlet="groupTemplate; context: {$implicit: optgroup}"></ng-container>
+                                </li>
+                                <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: getOptionGroupChildren(optgroup)}"></ng-container>
+                            </ng-template>
+                        </ng-container>
+                        <ng-container *ngIf="!group">
+                            <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: items}"></ng-container>
+                        </ng-container>
+                        <ng-template #itemslist let-suggestionsToDisplay>
+                            <li role="option" *ngFor="let option of suggestionsToDisplay; let idx = index" class="p-autocomplete-item" pRipple [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}" [ngClass]="{'p-highlight': (option === highlightOption)}" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
+                                <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: scrollerOptions.getOptions ? scrollerOptions.getOptions(idx) : idx}"></ng-container>
+                            </li>
+                            <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                                <ng-container *ngIf="!emptyTemplate; else empty">
+                                    {{emptyMessageLabel}}
+                                </ng-container>
+                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            </li>
+                        </ng-template>
+                    </ul>
+                </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </span>
@@ -100,7 +105,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible',
+        '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible',
         '[class.p-autocomplete-clearable]': 'showClear && !disabled'
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
@@ -134,9 +139,15 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() disabled: boolean;
 
+    @Input() scrollHeight: string = '200px';
+
+    @Input() lazy: boolean = false;
+
     @Input() virtualScroll: boolean;
 
-    @Input() itemSize: number;
+    @Input() virtualScrollItemSize: number;
+
+    @Input() virtualScrollOptions: ScrollerOptions;
 
     @Input() maxlength: number;
 
@@ -174,29 +185,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() showClear: boolean = false;
 
-    @Output() completeMethod: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onUnselect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-
-	@Output() onClear: EventEmitter<any> = new EventEmitter();
-
-    @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
     @Input() field: string;
-
-    @Input() scrollHeight: string = '200px';
 
     @Input() dropdown: boolean;
 
@@ -234,9 +223,43 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @ViewChild('ddBtn') dropdownButton: ElementRef;
 
-    @ViewChild(CdkVirtualScrollViewport) viewPort: CdkVirtualScrollViewport;
+    @ViewChild('items') itemsViewChild: ElementRef;
+
+    @ViewChild('scroller') scroller: Scroller;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    @Output() completeMethod: EventEmitter<any> = new EventEmitter();
+
+    @Output() onSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onUnselect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
+
+	@Output() onClear: EventEmitter<any> = new EventEmitter();
+
+    @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
+    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
+
+    /* @deprecated */
+    _itemSize: number;
+    @Input() get itemSize(): number {
+        return this._itemSize;
+    }
+    set itemSize(val: number) {
+        this._itemSize = val;
+        console.warn("The itemSize property is deprecated, use virtualScrollItemSize property instead.");
+    }
 
     overlay: HTMLDivElement;
 
@@ -253,6 +276,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     selectedItemTemplate: TemplateRef<any>;
 
     groupTemplate: TemplateRef<any>;
+
+    loaderTemplate: TemplateRef<any>;
 
     value: any;
 
@@ -300,8 +325,6 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     itemClicked: boolean;
 
-    virtualScrollSelectedIndex: number;
-
     inputValue: string = null;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, public config: PrimeNGConfig, public overlayService: OverlayService) {
@@ -336,15 +359,6 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
                     if (listItem) {
                         DomHandler.scrollInView(this.itemsWrapper, listItem);
-                    }
-
-                    if (this.virtualScroll && this.viewPort) {
-                        let range = this.viewPort.getRenderedRange();
-                        this.updateVirtualScrollSelectedIndex();
-
-                        if (range.start > this.virtualScrollSelectedIndex || range.end < this.virtualScrollSelectedIndex) {
-                            this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex);
-                        }
                     }
                 }
             }, 1);
@@ -407,17 +421,15 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     this.footerTemplate = item.template;
                 break;
 
+                case 'loader':
+                    this.loaderTemplate = item.template;
+                break;
+
                 default:
                     this.itemTemplate = item.template;
                 break;
             }
         });
-    }
-
-    updateVirtualScrollSelectedIndex() {
-        if (this.highlightOption && this.suggestions && this.suggestions.length) {
-            this.virtualScrollSelectedIndex = this.findOptionIndex(this.highlightOption, this.suggestions);
-        }
     }
 
     writeValue(value: any) : void {
@@ -561,7 +573,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                this.itemsWrapper = this.virtualScroll ? DomHandler.findSingle(this.overlay, '.cdk-virtual-scroll-viewport') : this.overlay;
+                this.itemsWrapper = this.virtualScroll ? DomHandler.findSingle(this.overlay, '.p-scroller') : this.overlay;
+                this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild.nativeElement);
                 this.appendOverlay();
 
                 if (this.autoZIndex) {
@@ -1030,8 +1043,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule,ButtonModule,SharedModule,RippleModule,ScrollingModule],
-    exports: [AutoComplete,SharedModule,ScrollingModule],
+    imports: [CommonModule,InputTextModule,ButtonModule,SharedModule,RippleModule,ScrollerModule],
+    exports: [AutoComplete,SharedModule,ScrollerModule],
     declarations: [AutoComplete]
 })
 export class AutoCompleteModule { }
