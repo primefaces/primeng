@@ -169,9 +169,18 @@ export class DropdownDemo &#123;
             </p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country"&gt;
+&lt;p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" filterBy="name" [showClear]="true" placeholder="Select a Country"&gt;
+    &lt;ng-template pTemplate="filter" let-options="options"&gt;
+        &lt;div class="flex p-3"&gt;
+            &lt;div class="p-inputgroup" (click)="$event.stopPropagation()"&gt;
+                &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-search"&gt;&lt;/i&gt;&lt;/span&gt;
+                &lt;input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="options.filter($event)"&gt;
+            &lt;/div&gt;
+            &lt;button pButton icon="pi pi-times" class="ml-3" (click)="myResetFunction(options)"&gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template pTemplate="selectedItem"&gt;
-        &lt;div class="country-item country-item-value"  *ngIf="selectedCountry"&gt;
+        &lt;div class="country-item country-item-value" *ngIf="selectedCountry"&gt;
             &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" /&gt;
             &lt;div&gt;&#123;&#123;selectedCountry.name&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
@@ -186,6 +195,8 @@ export class DropdownDemo &#123;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;DropdownFilterOptions&#125; from 'primeng/dropdown';
+...
 interface City &#123;
     name: string,
     code: string
@@ -194,6 +205,8 @@ interface City &#123;
 export class DropdownDemo &#123;
 
     selectedCountry: Country;
+
+    filterValue = '';
 
     constructor() &#123;
         this.countries = [
@@ -208,6 +221,12 @@ export class DropdownDemo &#123;
             &#123;name: 'Spain', code: 'ES'&#125;,
             &#123;name: 'United States', code: 'US'&#125;
         ];
+    &#125;
+
+
+    myResetFunction(options: DropdownFilterOptions) &#123;
+        options.reset();
+        this.filterValue = '';
     &#125;
 &#125;
 </app-code>
@@ -685,6 +704,12 @@ export class DropdownDemo &#123;
                         <tr>
                             <td>header</td>
                             <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>options.filter: Callback to filter data by the value param<br />
+                                options.reset: Resets the filter.
+                            </td>
                         </tr>
                         <tr>
                             <td>empty</td>

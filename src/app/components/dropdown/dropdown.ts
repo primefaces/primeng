@@ -17,6 +17,11 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export interface DropdownFilterOptions {
+    filter?: (value?: any) => void;
+    reset?: () => void;
+}
+
 @Component({
     selector: 'p-dropdownItem',
     template: `
@@ -82,13 +87,18 @@ export class DropdownItem {
             </div>
             <div *ngIf="overlayVisible" [ngClass]="'p-dropdown-panel p-component'" (click)="onOverlayClick($event)" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div class="p-dropdown-header" *ngIf="filter">
-                    <div class="p-dropdown-filter-container" (click)="$event.stopPropagation()">
-                        <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="p-dropdown-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
-                        (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilterInputChange($event)" [attr.aria-label]="ariaFilterLabel" [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId">
-                        <span class="p-dropdown-filter-icon pi pi-search"></span>
+                <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+                    <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
+                </ng-container>
+                <ng-template #builtInFilterElement>
+                    <div class="p-dropdown-header" *ngIf="filter">
+                        <div class="p-dropdown-filter-container" (click)="$event.stopPropagation()">
+                            <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="p-dropdown-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
+                            (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilterInputChange($event)" [attr.aria-label]="ariaFilterLabel" [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId">
+                            <span class="p-dropdown-filter-icon pi pi-search"></span>
+                        </div>
                     </div>
-                </div>
+                </ng-template>
                 <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <p-scroller *ngIf="virtualScroll" #scroller [items]="optionsToDisplay" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_itemSize" [autoSize]="true"
                         [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
@@ -344,11 +354,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     headerTemplate: TemplateRef<any>;
 
+    filterTemplate: TemplateRef<any>;
+
     footerTemplate: TemplateRef<any>;
 
     emptyFilterTemplate: TemplateRef<any>;
 
     emptyTemplate: TemplateRef<any>;
+
+    filterOptions: DropdownFilterOptions;
 
     selectedOption: any;
 
@@ -423,6 +437,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                     this.headerTemplate = item.template;
                 break;
 
+                case 'filter':
+                    this.filterTemplate = item.template;
+                break;
+
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
@@ -455,6 +473,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(null);
         this.labelId = this.id + '_label';
         this.listId = this.id + '_list';
+
+        if (this.filterBy) {
+            this.filterOptions = {
+                filter: (value) => this.onFilterInputChange(value),
+                reset: () => this.resetFilter()
+            }
+        }
     }
 
     @Input() get options(): any[] {
@@ -639,9 +664,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.onClick.emit(event);
+
         this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
 
-        if (this.overlayVisible)
+        if (this.overlayVisible && this.isOutsideClicked(event))
             this.hide();
         else
             this.show();
@@ -1173,7 +1199,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     applyFocus(): void {
         if (this.editable)
             DomHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
-        else
+        else 
             DomHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
     }
 

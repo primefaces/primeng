@@ -16,6 +16,11 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export interface MultiSelectFilterOptions {
+    filter?: (value?: any) => void;
+    reset?: () => void;
+}
+
 @Component({
     selector: 'p-multiSelectItem',
     template: `
@@ -107,21 +112,26 @@ export class MultiSelectItem {
                 <div class="p-multiselect-header" *ngIf="showHeader">
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <div class="p-checkbox p-component" *ngIf="showToggleAll && !selectionLimit" [ngClass]="{'p-checkbox-disabled': disabled || toggleAllDisabled}">
-                        <div class="p-hidden-accessible">
-                            <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)" [disabled]="disabled || toggleAllDisabled">
+                    <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+                        <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
+                    </ng-container>
+                    <ng-template #builtInFilterElement>
+                        <div class="p-checkbox p-component" *ngIf="showToggleAll && !selectionLimit" [ngClass]="{'p-checkbox-disabled': disabled || toggleAllDisabled}">
+                            <div class="p-hidden-accessible">
+                                <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)" [disabled]="disabled || toggleAllDisabled">
+                            </div>
+                            <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="allChecked" [ngClass]="{'p-highlight':allChecked, 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled}" (click)="toggleAll($event)">
+                                <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
+                            </div>
                         </div>
-                        <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="allChecked" [ngClass]="{'p-highlight':allChecked, 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled}" (click)="toggleAll($event)">
-                            <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
+                        <div class="p-multiselect-filter-container" *ngIf="filter">
+                            <input #filterInput type="text" [attr.autocomplete]="autocomplete" role="textbox" [value]="filterValue||''" (input)="onFilterInputChange($event)" class="p-multiselect-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
+                            <span class="p-multiselect-filter-icon pi pi-search"></span>
                         </div>
-                    </div>
-                    <div class="p-multiselect-filter-container" *ngIf="filter">
-                        <input #filterInput type="text" [attr.autocomplete]="autocomplete" role="textbox" [value]="filterValue||''" (input)="onFilterInputChange($event)" class="p-multiselect-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
-                        <span class="p-multiselect-filter-icon pi pi-search"></span>
-                    </div>
-                    <button class="p-multiselect-close p-link" type="button" (click)="close($event)" pRipple>
-                        <span class="p-multiselect-close-icon pi pi-times"></span>
-                    </button>
+                        <button class="p-multiselect-close p-link" type="button" (click)="close($event)" pRipple>
+                            <span class="p-multiselect-close-icon pi pi-times"></span>
+                        </button>
+                    </ng-template>
                 </div>
                 <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <p-scroller *ngIf="virtualScroll" #scroller [items]="optionsToRender" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_itemSize" [autoSize]="true" [tabindex]="-1"
@@ -425,6 +435,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     public headerTemplate: TemplateRef<any>;
 
+    public filterTemplate: TemplateRef<any>;
+
     public footerTemplate: TemplateRef<any>;
 
     public emptyFilterTemplate: TemplateRef<any>;
@@ -434,6 +446,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     public selectedItemsTemplate: TemplateRef<any>;
 
     public headerCheckboxFocus: boolean;
+
+    filterOptions: MultiSelectFilterOptions;
 
     _options: any[];
 
@@ -451,6 +465,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     ngOnInit() {
         this.updateLabel();
+
+        if (this.filterBy) {
+            this.filterOptions = {
+                filter: (value) => this.onFilterInputChange(value),
+                reset: () => this.resetFilter()
+            }
+        }
     }
 
     ngAfterContentInit() {
@@ -470,6 +491,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
                 case 'header':
                     this.headerTemplate = item.template;
+                break;
+
+                case 'filter':
+                    this.filterTemplate = item.template;
                 break;
 
                 case 'emptyfilter':
@@ -787,13 +812,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.overlayVisible = false;
         this.unbindDocumentClickListener();
         if (this.resetFilterOnHide){
-            this.filterInputChild.nativeElement.value = '';
-            this._filterValue = null;
-            this._filteredOptions = null;
+            this.resetFilter();
         }
         this.onPanelHide.emit();
         this.cd.markForCheck();
     }
+
+    resetFilter() {
+        if (this.filterInputChild && this.filterInputChild.nativeElement) {
+            this.filterInputChild.nativeElement.value = '';
+        }
+
+        this._filterValue = null;
+        this._filteredOptions = null;
+    } 
 
     close(event) {
         this.hide();
