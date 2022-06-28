@@ -23,12 +23,6 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h5>CDK</h5>
-            <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-npm install @angular/cdk --save
-</app-code>
-
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TreeModule&#125; from 'primeng/tree';
@@ -473,9 +467,9 @@ export class TreeDemoComponent implements OnInit &#123;
 </app-code>
 
                 <h5>Virtual Scrolling</h5>
-                <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualNodeHeight</i> in pixels would be enough to enable this functionality.</p>
+                <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-tree [value]="files" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="files" [virtualScroll]="true" [virtualScrollItemSize]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 </app-code>
 
             <h5>Drag and Drop</h5>
@@ -705,25 +699,25 @@ onDrop(event) &#123;
                             <td>virtualScroll</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Whether the data should be rendered on demand during scroll.</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                         <tr>
-                            <td>virtualNodeHeight</td>
+                            <td>virtualScrollItemSize</td>
                             <td>number</td>
                             <td>null</td>
-                            <td>Height of a node to use in calculations of virtual scrolling.</td>
+                            <td>Height of an item in the list for VirtualScrolling.</td>
                         </tr>
                         <tr>
-                            <td>minBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
+                            <td>virtualScrollOptions</td>
+                            <td>ScrollerOptions</td>
+                            <td>false</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/theming']">scroller</a> component can be used like an object in it.</td>
                         </tr>
                         <tr>
-                            <td>maxBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
+                            <td>lazy</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
                         </tr>
                         <tr>
                             <td>trackBy</td>
@@ -796,6 +790,13 @@ onDrop(event) &#123;
                                 event.filteredValue: Filtered data after running the filtering.</td>
                             <td>Callback to invoke when data is filtered.</td>
                         </tr>
+                        <tr>
+                            <td>onLazyLoad</td>
+                            <td>event.first: First index of the new data range to be loaded.<br/>
+                                event.last: Last index of the new data range to be loaded.
+                            </td>
+                            <td>Callback to invoke in lazy mode to load new data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -828,26 +829,30 @@ onDrop(event) &#123;
             <h5>Templates</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Parameters</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>header</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>empty</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>footer</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>empty</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>loader</td>
+                            <td>options: Options of the scroller on loading. *This template can be used with virtualScroll.</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 
