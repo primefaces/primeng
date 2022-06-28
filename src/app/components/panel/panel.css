@@ -17,3 +17,11 @@
     overflow: hidden;
     position: relative;
 }
+
+.p-panel-expanded .p-toggleable-content:not(.ng-animating) {
+    overflow: visible;
+}
+
+.p-panel .p-toggleable-content{
+    overflow: hidden;
+}

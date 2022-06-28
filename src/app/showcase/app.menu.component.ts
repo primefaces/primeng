@@ -126,7 +126,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['picklist']" routerLinkActive="router-link-exact-active">PickList</a>
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, 'table')">Table </a>
-                        <div [@submenu]="isSubmenuActive('table') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('table') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['table']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['table/basic']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Basic</a></li>
@@ -165,7 +165,7 @@ declare let gtag: Function;
 
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, 'tree')">Tree</a>
-                        <div [@submenu]="isSubmenuActive('tree') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('tree') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['tree']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['tree/templating']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Templating</a></li>
@@ -182,7 +182,7 @@ declare let gtag: Function;
 
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, 'treetable')">TreeTable</a>
-                        <div [@submenu]="isSubmenuActive('treetable') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('treetable') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['treetable']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['treetable/templating']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Templating</a></li>
@@ -277,7 +277,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/carousel']" routerLinkActive="router-link-exact-active">Carousel</a>
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, 'galleria')">Galleria</a>
-                        <div [@submenu]="isSubmenuActive('galleria') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('galleria') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['galleria']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['galleria/programmatic']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Programmatic</a></li>
@@ -335,7 +335,6 @@ declare let gtag: Function;
         trigger('submenu', [
             state('hidden', style({
                 height: '0',
-                overflow: 'hidden',
                 opacity: 0,
             })),
             state('visible', style({
