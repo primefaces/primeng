@@ -718,6 +718,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     show() {
         this.overlayVisible = true;
+        this.preventDocumentDefault = true;
         this.cd.markForCheck();
     }
 
