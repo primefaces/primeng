@@ -68,37 +68,16 @@
     font-size: 12px;
 }
 
-.p-float-label input::placeholder {
-    opacity: 0;
-    transition-property: all;
-    transition-timing-function: ease;
-}
-
-.p-float-label input:focus::placeholder {
-    opacity: 1;
-    transition-property: all;
-    transition-timing-function: ease;
-}
-
+.p-float-label .p-placeholder,
+.p-float-label input::placeholder,
 .p-float-label .p-inputtext::placeholder {
     opacity: 0;
     transition-property: all;
     transition-timing-function: ease;
 }
-
+.p-float-label .p-focus .p-placeholder,
+.p-float-label input:focus::placeholder,
 .p-float-label .p-inputtext:focus::placeholder {
-    opacity: 1;
-    transition-property: all;
-    transition-timing-function: ease;
-}
-
-.p-float-label .p-placeholder {
-    opacity: 0;
-    transition-property: all;
-    transition-timing-function: ease;
-}
-
-.p-float-label .p-focus .p-placeholder {
     opacity: 1;
     transition-property: all;
     transition-timing-function: ease;
