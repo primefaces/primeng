@@ -1,4 +1,3 @@
-import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -9,6 +8,7 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils,UniqueComponentId,ZIndexUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {TooltipModule} from 'primeng/tooltip';
+import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 import {RippleModule} from 'primeng/ripple';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
@@ -80,7 +80,7 @@ export class DropdownItem {
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-dropdown-trigger-icon" [ngClass]="dropdownIcon"></span>
             </div>
-            <div *ngIf="overlayVisible" [ngClass]="'p-dropdown-panel p-component'" (click)="onOverlayClick($event)" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.start)="onOverlayAnimationEnd($event)"onOverlayAnimationEnd [ngStyle]="panelStyle" [class]="panelStyleClass">
+            <div *ngIf="overlayVisible" [ngClass]="'p-dropdown-panel p-component'" (click)="onOverlayClick($event)" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <div class="p-dropdown-header" *ngIf="filter">
                     <div class="p-dropdown-filter-container" (click)="$event.stopPropagation()">
@@ -90,50 +90,56 @@ export class DropdownItem {
                     </div>
                 </div>
                 <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
-                    <ul [attr.id]="listId" class="p-dropdown-items" [ngClass]="{'p-dropdown-virtualscroll': virtualScroll}" role="listbox">
-                        <ng-container *ngIf="group">
-                            <ng-template ngFor let-optgroup [ngForOf]="optionsToDisplay">
-                                <li class="p-dropdown-item-group">
-                                    <span *ngIf="!groupTemplate">{{getOptionGroupLabel(optgroup)||'empty'}}</span>
-                                    <ng-container *ngTemplateOutlet="groupTemplate; context: {$implicit: optgroup}"></ng-container>
-                                </li>
-                                <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: getOptionGroupChildren(optgroup), selectedOption: selectedOption}"></ng-container>
+                    <p-scroller *ngIf="virtualScroll" #scroller [items]="optionsToDisplay" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_itemSize" [autoSize]="true"
+                        [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
+                        <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                            <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: items, options: scrollerOptions}"></ng-container>
+                        </ng-template>
+                        <ng-container *ngIf="loaderTemplate">
+                            <ng-template pTemplate="loader" let-scrollerOptions="options">
+                                <ng-container *ngTemplateOutlet="loaderTemplate; context: {options: scrollerOptions}"></ng-container>
                             </ng-template>
                         </ng-container>
-                        <ng-container *ngIf="!group">
-                            <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToDisplay, selectedOption: selectedOption}"></ng-container>
-                        </ng-container>
-                        <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                            <ng-container *ngIf="!virtualScroll; else virtualScrollList">
-                                <ng-template ngFor let-option let-i="index" [ngForOf]="options">
+                    </p-scroller>
+                    <ng-container *ngIf="!virtualScroll">
+                        <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: optionsToDisplay, options: {}}"></ng-container>
+                    </ng-container>
+
+                    <ng-template #buildInItems let-items let-scrollerOptions="options">
+                        <ul #items [attr.id]="listId" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
+                            <ng-container *ngIf="group">
+                                <ng-template ngFor let-optgroup [ngForOf]="items">
+                                    <li class="p-dropdown-item-group" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                                        <span *ngIf="!groupTemplate">{{getOptionGroupLabel(optgroup)||'empty'}}</span>
+                                        <ng-container *ngTemplateOutlet="groupTemplate; context: {$implicit: optgroup}"></ng-container>
+                                    </li>
+                                    <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: getOptionGroupChildren(optgroup), selectedOption: selectedOption}"></ng-container>
+                                </ng-template>
+                            </ng-container>
+                            <ng-container *ngIf="!group">
+                                <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: items, selectedOption: selectedOption}"></ng-container>
+                            </ng-container>
+                            <ng-template #itemslist let-options let-selectedOption="selectedOption">
+                                <ng-template ngFor let-option let-i="index" [ngForOf]="items">
                                     <p-dropdownItem [option]="option" [selected]="selectedOption == option" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
                                                     (onClick)="onItemClick($event)"
                                                     [template]="itemTemplate"></p-dropdownItem>
                                 </ng-template>
-                            </ng-container>
-                            <ng-template #virtualScrollList>
-                                <cdk-virtual-scroll-viewport (scrolledIndexChange)="scrollToSelectedVirtualScrollElement()" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
-                                    <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
-                                        <p-dropdownItem [option]="option" [selected]="selectedOption == option" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
-                                                                   (onClick)="onItemClick($event)"
-                                                                   [template]="itemTemplate"></p-dropdownItem>
-                                    </ng-container>
-                                </cdk-virtual-scroll-viewport>
                             </ng-template>
-                        </ng-template>
-                        <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message">
-                            <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
-                                {{emptyFilterMessageLabel}}
-                            </ng-container>
-                            <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
-                        </li>
-                        <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message">
-                            <ng-container *ngIf="!emptyTemplate; else empty">
-                                {{emptyMessageLabel}}
-                            </ng-container>
-                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                        </li>
-                    </ul>
+                            <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                                <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                                    {{emptyFilterMessageLabel}}
+                                </ng-container>
+                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                            </li>
+                            <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                                <ng-container *ngIf="!emptyTemplate; else empty">
+                                    {{emptyMessageLabel}}
+                                </ng-container>
+                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            </li>
+                        </ul>
+                    </ng-template>
                 </div>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
@@ -226,9 +232,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() emptyMessage: string = '';
 
+    @Input() lazy: boolean = false;
+
     @Input() virtualScroll: boolean;
 
-    @Input() itemSize: number;
+    @Input() virtualScrollItemSize: number;
+
+    @Input() virtualScrollOptions: ScrollerOptions;
 
     @Input() autoZIndex: boolean = true;
 
@@ -274,15 +284,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Output() onClear: EventEmitter<any> = new EventEmitter();
 
+    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('filter') filterViewChild: ElementRef;
 
     @ViewChild('in') accessibleViewChild: ElementRef;
 
-    @ViewChild(CdkVirtualScrollViewport) viewPort: CdkVirtualScrollViewport;
-
     @ViewChild('editableInput') editableInputViewChild: ElementRef;
+
+    @ViewChild('items') itemsViewChild: ElementRef;
+
+    @ViewChild('scroller') scroller: Scroller;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -290,7 +304,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() get disabled(): boolean {
         return this._disabled;
-    };
+    }
 
     set disabled(_disabled: boolean) {
         if (_disabled) {
@@ -306,6 +320,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
+    /* @deprecated */
+    _itemSize: number;
+    @Input() get itemSize(): number {
+        return this._itemSize;
+    }
+    set itemSize(val: number) {
+        this._itemSize = val;
+        console.warn("The itemSize property is deprecated, use virtualScrollItemSize property instead.");
+    }
+
     overlay: HTMLDivElement;
 
     itemsWrapper: HTMLDivElement;
@@ -313,6 +337,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     itemTemplate: TemplateRef<any>;
 
     groupTemplate: TemplateRef<any>;
+
+    loaderTemplate: TemplateRef<any>;
 
     selectedItemTemplate: TemplateRef<any>;
 
@@ -370,12 +396,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     documentResizeListener: any;
 
-    virtualAutoScrolled: boolean;
-
-    virtualScrollSelectedIndex: number;
-
-    viewPortOffsetTop: number = 0;
-
     preventModelTouched: boolean;
 
     preventDocumentDefault: boolean;
@@ -417,6 +437,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
                 case 'group':
                     this.groupTemplate = item.template;
+                break;
+
+                case 'loader':
+                    this.loaderTemplate = item.template;
                 break;
 
                 default:
@@ -464,7 +488,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.activateFilter();
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit() {
         if (this.editable) {
             this.updateEditableLabel();
         }
@@ -493,19 +517,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : (option.label != undefined ? option.label : option);
+        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : (option && option.label !== undefined ? option.label : option);
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : (this.optionLabel || option.value === undefined ? option : option.value);
+        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : (!this.optionLabel && (option && option.value !== undefined) ? option.value : option);
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : (option.disabled !== undefined ? option.disabled : false);
+        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : (option && option.disabled !== undefined ? option.disabled : false);
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : (optionGroup.label != undefined ? optionGroup.label : optionGroup);
+        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : (optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup);
     }
 
     getOptionGroupChildren(optionGroup: any) {
@@ -536,22 +560,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 originalEvent: event,
                 value: this.value
             });
-
-            if (this.virtualScroll) {
-                setTimeout(() => {
-                    this.viewPortOffsetTop = this.viewPort ? this.viewPort.measureScrollOffset() : 0;
-                }, 1);
-            }
         }
     }
 
     ngAfterViewChecked() {
         if (this.optionsChanged && this.overlayVisible) {
             this.optionsChanged = false;
-
-            if (this.virtualScroll) {
-                this.updateVirtualScrollSelectedIndex(true);
-            }
 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
@@ -561,15 +575,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            if (this.virtualScroll && this.viewPort) {
-                let range = this.viewPort.getRenderedRange();
-                this.updateVirtualScrollSelectedIndex(false);
-
-                if (range.start > this.virtualScrollSelectedIndex || range.end < this.virtualScrollSelectedIndex) {
-                    this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex);
-                }
-            }
-
             let selectedItem = DomHandler.findSingle(this.overlay, 'li.p-highlight');
             if (selectedItem) {
                 DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.p-highlight'));
@@ -694,8 +699,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                let itemsWrapperSelector = this.virtualScroll ? '.cdk-virtual-scroll-viewport' : '.p-dropdown-items-wrapper';
-                this.itemsWrapper = DomHandler.findSingle(this.overlay, itemsWrapperSelector);
+                this.itemsWrapper = DomHandler.findSingle(this.overlay, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+                this.virtualScroll && this.scroller.setContentEl(this.itemsViewChild.nativeElement);
                 this.appendOverlay();
                 if (this.autoZIndex) {
                     ZIndexUtils.set('overlay', this.overlay, this.baseZIndex + this.config.zIndex.overlay);
@@ -706,7 +711,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.bindScrollListener();
 
                 if (this.options && this.options.length) {
-                    if (!this.virtualScroll) {
+                    if (this.virtualScroll) {
+                        const selectedIndex = this.selectedOption ? this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
+                        if (selectedIndex !== -1) {
+                            this.scroller.scrollToIndex(selectedIndex);
+                        }
+                    }
+                    else {
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
 
                         if (selectedListItem) {
@@ -741,29 +752,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    scrollToSelectedVirtualScrollElement() {
-        if (!this.virtualAutoScrolled) {
-            if (this.viewPortOffsetTop) {
-                this.viewPort.scrollToOffset(this.viewPortOffsetTop);
-            }
-            else if (this.virtualScrollSelectedIndex > -1) {
-                this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex);
-            }
-        }
-
-        this.virtualAutoScrolled = true;
-    }
-
-    updateVirtualScrollSelectedIndex(resetOffset) {
-        if (this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length) {
-            if (resetOffset) {
-                this.viewPortOffsetTop = 0;
-            }
-
-            this.virtualScrollSelectedIndex = this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay);
-        }
-    }
-
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
@@ -788,10 +776,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
-        }
-
-        if (this.virtualScroll) {
-            this.virtualAutoScrolled = false;
         }
 
         this.cd.markForCheck();
@@ -1095,7 +1079,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let index: number = -1;
         if (opts) {
             for (let i = 0; i < opts.length; i++) {
-                if ((val == null && this.getOptionValue(opts[i]) == null) || ObjectUtils.equals(val, this.getOptionValue(opts[i]), this.dataKey)) {
+                if ((val == null && this.getOptionValue(opts[i]) == null) || ObjectUtils.equals(val, this.getOptionValue(opts[i]), this.dataKey)) {
                     index = i;
                     break;
                 }
@@ -1157,12 +1141,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.optionsToDisplay = this.options;
         }
 
+        this.virtualScroll && this.scroller.scrollToIndex(0);
+
         this.optionsChanged = true;
         this.onFilter.emit({originalEvent: event, filter: this._filterValue});
     }
 
     activateFilter() {
-        let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
+        let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
 
         if (this.options && this.options.length) {
             if (this.group) {
@@ -1289,8 +1275,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ScrollingModule,TooltipModule,RippleModule],
-    exports: [Dropdown,SharedModule,ScrollingModule],
+    imports: [CommonModule,SharedModule,TooltipModule,RippleModule,ScrollerModule],
+    exports: [Dropdown,SharedModule,ScrollerModule],
     declarations: [Dropdown,DropdownItem]
 })
 export class DropdownModule { }

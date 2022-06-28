@@ -41,19 +41,22 @@
         </p-dropdown>
 
         <h5>Virtual Scroll (10000 Items)</h5>
-        <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
+        <p-dropdown [options]="items" [(ngModel)]="selectedItem1" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-dropdown>
+
+        <h5>Virtual Scroll (100000 Items) and Lazy</h5>
+        <p-dropdown [options]="lazyItems" [(ngModel)]="selectedItem2" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [virtualScrollOptions]="{ showLoader: true, loading: loading, delay: 250 }">
+            <ng-template pTemplate="loader" let-options="options">
+                <div class="flex align-items-center py-2 px-3" style="height: 38px">
+                    <p-skeleton [width]="options.even ? '60%' : '50%'" height="1rem"></p-skeleton>
+                </div>
+            </ng-template>
+        </p-dropdown>
     </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h5>CDK</h5>
-            <p>VirtualScrolling enabled Dropdown depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-npm install @angular/cdk --save
-</app-code>
-
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;DropdownModule&#125; from 'primeng/dropdown';
@@ -211,9 +214,9 @@ export class DropdownDemo &#123;
 
             <h5>Virtual Scrolling</h5>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
-                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. </p>
+                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item. </p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-dropdown [options]="cities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities" [virtualScroll]="true" [virtualScrollItemSize]="30"&gt;&lt;/p-dropdown&gt;
 </app-code>
 
             <h5>Animation Configuration</h5>
@@ -529,6 +532,30 @@ export class DropdownDemo &#123;
                             <td>absolute</td>
                             <td>Type of CSS position.</td>
                         </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScrollItemSize</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of an item in the list for VirtualScrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScrollOptions</td>
+                            <td>ScrollerOptions</td>
+                            <td>false</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/theming']">scroller</a> component can be used like an object in it.</td>
+                        </tr>
+                        <tr>
+                            <td>lazy</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -586,6 +613,13 @@ export class DropdownDemo &#123;
                             <td>onClear</td>
                             <td>event: Animation event</td>
                             <td>Callback to invoke when dropdown clears the value.</td>
+                        </tr>
+                        <tr>
+                            <td>onLazyLoad</td>
+                            <td>event.first: First index of the new data range to be loaded.<br/>
+                                event.last: Last index of the new data range to be loaded.
+                            </td>
+                            <td>Callback to invoke in lazy mode to load new data.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -664,6 +698,10 @@ export class DropdownDemo &#123;
                             <td>footer</td>
                             <td>-</td>
                         </tr>
+                        <tr>
+                            <td>loader</td>
+                            <td>options: Options of the scroller on loading. *This template can be used with virtualScroll.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -739,40 +777,51 @@ export class DropdownDemo &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Single&lt;/h5&gt;
-&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Basic&lt;/h5&gt;
+    &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
 
-&lt;h5&gt;Editable&lt;/h5&gt;
-&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [editable]="true" optionLabel="name"&gt;&lt;/p-dropdown&gt;
+    &lt;h5&gt;Editable&lt;/h5&gt;
+    &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [editable]="true" optionLabel="name"&gt;&lt;/p-dropdown&gt;
 
-&lt;h5&gt;Group&lt;/h5&gt;
-&lt;p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity3" placeholder="Select a City" [group]="true"&gt;
-    &lt;ng-template let-group pTemplate="group"&gt;
-        &lt;div class="flex align-items-center"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
-            &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-dropdown&gt;
+    &lt;h5&gt;Group&lt;/h5&gt;
+    &lt;p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity3" placeholder="Select a City" [group]="true"&gt;
+        &lt;ng-template let-group pTemplate="group"&gt;
+            &lt;div class="flex align-items-center"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+                &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-dropdown&gt;
 
-&lt;h5&gt;Content with Filters&lt;/h5&gt;
-&lt;p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country"&gt;
-    &lt;ng-template pTemplate="selectedItem"&gt;
-        &lt;div class="country-item country-item-value"  *ngIf="selectedCountry"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;selectedCountry.name&#125;&#125;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template let-country pTemplate="item"&gt;
-        &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
-            &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-dropdown&gt;
+    &lt;h5&gt;Advanced with Templating, Filtering and Clear Icon&lt;/h5&gt;
+    &lt;p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country"&gt;
+        &lt;ng-template pTemplate="selectedItem"&gt;
+            &lt;div class="country-item country-item-value" *ngIf="selectedCountry"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" /&gt;
+                &lt;div&gt;&#123;&#123;selectedCountry.name&#125;&#125;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-country pTemplate="item"&gt;
+            &lt;div class="country-item"&gt;
+                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+                &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-dropdown&gt;
 
-&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
-&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
+    &lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+    &lt;p-dropdown [options]="items" [(ngModel)]="selectedItem1" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38"&gt;&lt;/p-dropdown&gt;
+
+    &lt;h5&gt;Virtual Scroll (100000 Items) and Lazy&lt;/h5&gt;
+    &lt;p-dropdown [options]="lazyItems" [(ngModel)]="selectedItem2" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [virtualScrollOptions]="&#123; showLoader: true, loading: loading, delay: 250 &#125;"&gt;
+        &lt;ng-template pTemplate="loader" let-options="options"&gt;
+            &lt;div class="flex align-items-center py-2 px-3" style="height: 38px"&gt;
+                &lt;p-skeleton [width]="options.even ? '60%' : '50%'" height="1rem"&gt;&lt;/p-skeleton&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-dropdown&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -794,7 +843,15 @@ export class DropdownDemo &#123;
 
     items: SelectItem[];
 
-    item: string;
+    lazyItems: SelectItem[];
+
+    selectedItem1: string;
+
+    selectedItem2: string;
+
+    loading: boolean = false;
+
+    loadLazyTimeout: any;
 
     constructor() &#123;
         this.items = [];
@@ -852,6 +909,29 @@ export class DropdownDemo &#123;
             &#123;name: 'Spain', code: 'ES'&#125;,
             &#123;name: 'United States', code: 'US'&#125;
         ];
+
+        this.lazyItems = Array.from(&#123; length: 100000 &#125;);
+    &#125;
+
+    onLazyLoad(event) &#123;
+        this.loading = true;
+
+        if (this.loadLazyTimeout) &#123;
+            clearTimeout(this.loadLazyTimeout);
+        &#125;
+
+        //imitate delay of a backend call
+        this.loadLazyTimeout = setTimeout(() =&gt; &#123;
+            const &#123; first, last &#125; = event;
+            const lazyItems = [...this.lazyItems];
+
+            for (let i = first; i &lt; last; i++) &#123;
+                lazyItems[i] = &#123; label: `Item #$&#123;i&#125;`, value: i &#125;;
+            &#125;
+
+            this.lazyItems = lazyItems;
+            this.loading = false;
+        &#125;, Math.random() * 1000 + 250);
     &#125;
 &#125;
 </app-code>
@@ -865,6 +945,10 @@ export class DropdownDemo &#123;
     img.flag &#123;
         width: 17px;
     &#125;
+&#125;
+
+p-skeleton &#123;
+    width: 100%;
 &#125;
 </app-code>
 
