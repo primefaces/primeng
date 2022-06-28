@@ -10,4 +10,5 @@ export interface LazyLoadEvent {
     multiSortMeta?: SortMeta[];
     filters?: {[s: string]: FilterMetadata;};
     globalFilter?: any;
+    forceUpdate?: () => void;
 }

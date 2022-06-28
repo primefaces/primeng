@@ -431,7 +431,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
@@ -838,7 +838,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             sortOrder: this.sortOrder,
             filters: this.filters,
             globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
-            multiSortMeta: this.multiSortMeta
+            multiSortMeta: this.multiSortMeta,
+            forceUpdate: () => this.cd.detectChanges()
         };
     }
 

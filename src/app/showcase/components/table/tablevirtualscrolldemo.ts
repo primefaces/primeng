@@ -39,7 +39,7 @@ export class TableVirtualScrollDemo implements OnInit {
             Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
 
             //trigger change detection
-            this.virtualCars = [...this.virtualCars];
+            event.forceUpdate();
         }, Math.random() * 1000 + 250);
     }
 }

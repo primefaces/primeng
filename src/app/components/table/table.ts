@@ -1654,7 +1654,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             sortOrder: this.sortOrder,
             filters: this.filters,
             globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata> this.filters['global']).value : null,
-            multiSortMeta: this.multiSortMeta
+            multiSortMeta: this.multiSortMeta,
+            forceUpdate: () => this.cd.detectChanges()
         };
     }
 
@@ -1769,13 +1770,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onLazyItemLoad(event) {
         this.onLazyLoad.emit({
+            ...this.createLazyLoadMetadata(),
             ...event,
-            rows: event.last - event.first,
-            sortField: this.sortField,
-            sortOrder: this.sortOrder,
-            filters: this.filters,
-            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata> this.filters['global']).value : null,
-            multiSortMeta: this.multiSortMeta
+            rows: event.last - event.first
         });
     }
 

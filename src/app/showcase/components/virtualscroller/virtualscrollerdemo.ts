@@ -39,7 +39,7 @@ export class VirtualScrollerDemo implements OnInit {
             Array.prototype.splice.apply(this.virtualProducts, [...[event.first, event.rows], ...loadedProducts]);
 
             //trigger change detection
-            this.virtualProducts = [...this.virtualProducts];
+            event.forceUpdate();
         }, 1000);
     }
 

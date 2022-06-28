@@ -191,7 +191,7 @@ export class LazyVirtualScrollerDemo implements OnInit &#123;
             Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
 
             //trigger change detection
-            this.virtualCars = [...this.virtualCars];
+            event.forceUpdate();
         &#125;, 1000);
     &#125;
 
@@ -521,7 +521,7 @@ export class VirtualScrollerDemo implements OnInit &#123;
             Array.prototype.splice.apply(this.virtualProducts, [...[event.first, event.rows], ...loadedProducts]);
 
             //trigger change detection
-            this.virtualProducts = [...this.virtualProducts];
+            event.forceUpdate();
         &#125;, 1000);
     &#125;
 

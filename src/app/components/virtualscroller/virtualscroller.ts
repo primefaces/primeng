@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterContentInit, Input, Output, EventEmitter, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, Optional, ViewChild } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterContentInit, Input, Output, EventEmitter, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, Optional, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Header, Footer, PrimeTemplate, SharedModule, BlockableUI } from 'primeng/api';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
@@ -71,7 +71,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
 
     virtualScrollTimeout: any;
 
-    constructor(public el: ElementRef) { }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -105,7 +105,11 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
         }
 
         this.virtualScrollTimeout = setTimeout(() => {
-            this.onLazyLoad.emit({ ...event, rows: event.last - event.first });
+            this.onLazyLoad.emit({
+                ...event,
+                rows: event.last - event.first,
+                forceUpdate: () => this.cd.detectChanges()
+            });
         }, this.delay);
     }
 
