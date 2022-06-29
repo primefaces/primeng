@@ -87,18 +87,18 @@ export class DropdownItem {
             </div>
             <div *ngIf="overlayVisible" [ngClass]="'p-dropdown-panel p-component'" (click)="onOverlayClick($event)" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <ng-container *ngIf="filterTemplate; else builtInFilterElement">
-                    <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
-                </ng-container>
-                <ng-template #builtInFilterElement>
-                    <div class="p-dropdown-header" *ngIf="filter">
-                        <div class="p-dropdown-filter-container" (click)="$event.stopPropagation()">
+                <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">  
+                    <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+                        <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
+                    </ng-container>
+                    <ng-template #builtInFilterElement>
+                        <div class="p-dropdown-filter-container">
                             <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="p-dropdown-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder"
                             (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilterInputChange($event)" [attr.aria-label]="ariaFilterLabel" [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId">
                             <span class="p-dropdown-filter-icon pi pi-search"></span>
                         </div>
-                    </div>
-                </ng-template>
+                    </ng-template>
+                </div>
                 <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <p-scroller *ngIf="virtualScroll" #scroller [items]="optionsToDisplay" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_itemSize" [autoSize]="true"
                         [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
@@ -667,7 +667,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
         this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
 
-        if (this.overlayVisible && this.isOutsideClicked(event))
+        if (this.overlayVisible)
             this.hide();
         else
             this.show();
