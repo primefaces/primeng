@@ -9,12 +9,11 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Lazy Loading</h5>
-        <p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
-            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+        <p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
             <ng-template pTemplate="header">
                 List of Products
             </ng-template>
-            <ng-template let-product pTemplate="item" let-i="index">
+            <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="image-container">
                         <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
@@ -51,12 +50,12 @@
         <h5>Prepopulated List</h5>
         <p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100">
             <ng-template pTemplate="header">
-                <div class="flex align-items-center justify-content-center">
+                <div class="flex align-items-center justify-content-center gap-3 flex-wrap">
                     List of Products
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width':'10em'}"></p-dropdown>
                 </div>
             </ng-template>
-            <ng-template let-product pTemplate="item" let-i="index">
+            <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="image-container">
                         <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
@@ -79,12 +78,6 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h5>CDK</h5>
-            <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-npm install @angular/cdk --save
-</app-code>
-
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;VirtualScrollerModule&#125; from 'primeng/virtualscroller';
@@ -96,7 +89,7 @@ import &#123;VirtualScrollerModule&#125; from 'primeng/virtualscroller';
 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used
                 to define an object to be displayed by the VirtualScroller. Cars are loaded by a CarService that
-                connects to a server to fetch the cars with a Promise. Note that this is for demo purposes only, 
+                connects to a server to fetch the cars with a Promise. Note that this is for demo purposes only,
                 any data source such as an Observable can be used as an alternative as well.</p>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export interface Car &#123;
@@ -167,7 +160,7 @@ export class VirtualScrollerDemo implements OnInit &#123;
             enable <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using <i>onLazyLoad</i> that actually loads a chunk from a datasource. onLazyLoad gets an event object
             that contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-virtualScroller [value]="virtualCars" scrollHeight="500px" [itemSize]="150" [rows]="100"
+&lt;p-virtualScroller [value]="virtualCars" scrollHeight="500px" [itemSize]="150"
     [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
@@ -182,23 +175,23 @@ export class VirtualScrollerDemo implements OnInit &#123;
 export class LazyVirtualScrollerDemo implements OnInit &#123;
 
     virtualCars: Car[];
-   
+
     ngOnInit() &#123;
         this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.carService.generateCar());
         this.virtualCars =  Array.from(&#123;length: 10000&#125;);
     &#125;
 
-    loadCarsLazy(event: LazyLoadEvent) &#123;       
-        //simulate remote connection with a timeout 
+    loadCarsLazy(event: LazyLoadEvent) &#123;
+        //simulate remote connection with a timeout
         setTimeout(() => &#123;
             //load data of required page
-            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
+            let loadedCars = this.cars.slice(event.first, event.last);
 
             //populate page of virtual cars
             Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
-            
+
             //trigger change detection
-            this.virtualCars = [...this.virtualCars];
+            event.forceUpdate();
         &#125;, 1000);
     &#125;
 
@@ -223,7 +216,7 @@ export class LazyVirtualScrollerDemo implements OnInit &#123;
 reset() &#123;
     this.vs.scrollToIndex(0, 'smooth');
 &#125;
-</app-code>      
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -256,24 +249,6 @@ reset() &#123;
                             <td>Defines if data is loaded and interacted with in lazy manner.</td>
                         </tr>
                         <tr>
-                            <td>minBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
-                        </tr>
-                        <tr>
-                            <td>maxBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
-                        </tr>
-                        <tr>
-                            <td>rows</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Number of rows to display per page.</td>
-                        </tr>
-                        <tr>
                             <td>scrollHeight</td>
                             <td>any</td>
                             <td>null</td>
@@ -292,16 +267,16 @@ reset() &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
-                            <td>trackBy</td>
-                            <td>Function</td>
-                            <td>null</td>
-                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
-                        </tr>
-                        <tr>
                             <td>value</td>
                             <td>array</td>
                             <td>null</td>
                             <td>An array of objects to display.</td>
+                        </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>ScrollerOptions</td>
+                            <td>false</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/scroller']">scroller</a> component can be used like an object in it.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -321,6 +296,7 @@ reset() &#123;
                         <tr>
                             <td>onLazyLoad</td>
                             <td>event.first = First row offset <br>
+                                event.last = Last row offset <br>
                                 event.rows = Number of rows per page <br></td>
                             <td>Callback to invoke in lazy mode to load new data.</td>
                         </tr>
@@ -368,16 +344,16 @@ reset() &#123;
                                 <td>item</td>
                                 <td>$implicit: Data of the option <br />
                                     index: Index of the option <br />
-                                    count: Count of the options <br /> 
-                                    first: First row offset <br/> 
+                                    count: Count of the options <br />
+                                    first: First row offset <br/>
                                     last: Last row offset </td>
                             </tr>
                             <tr>
                                 <td>loadingItem</td>
                                 <td>$implicit: Data of the option <br />
                                     index: Index of the option <br />
-                                    count: Count of the options <br /> 
-                                    first: First row offset <br/> 
+                                    count: Count of the options <br />
+                                    first: First row offset <br/>
                                     last: Last row offset </td>
                             </tr>
                             <tr>
@@ -424,7 +400,7 @@ reset() &#123;
             </div>
 
             <h5>Dependencies</h5>
-            <p>Angular CDK.</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -437,12 +413,11 @@ reset() &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Lazy Loading&lt;/h5&gt;
-    &lt;p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
-        [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
+    &lt;p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
         &lt;ng-template pTemplate="header"&gt;
             List of Products
         &lt;/ng-template&gt;
-        &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
+        &lt;ng-template let-product pTemplate="item"&gt;
             &lt;div class="product-item"&gt;
                 &lt;div class="image-container"&gt;
                     &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
@@ -479,12 +454,12 @@ reset() &#123;
     &lt;h5&gt;Prepopulated List&lt;/h5&gt;
     &lt;p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100"&gt;
         &lt;ng-template pTemplate="header"&gt;
-            &lt;div class="flex align-items-center justify-content-center"&gt;
+            &lt;div class="flex align-items-center justify-content-center gap-3 flex-wrap"&gt;
                 List of Products
                 &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="&#123;'min-width':'10em'&#125;"&gt;&lt;/p-dropdown&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
+        &lt;ng-template let-product pTemplate="item"&gt;
             &lt;div class="product-item"&gt;
                 &lt;div class="image-container"&gt;
                     &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
@@ -536,17 +511,17 @@ export class VirtualScrollerDemo implements OnInit &#123;
         ];
     &#125;
 
-    loadCarsLazy(event: LazyLoadEvent) &#123;       
-        // simulate remote connection with a timeout 
+    loadCarsLazy(event: LazyLoadEvent) &#123;
+        // simulate remote connection with a timeout
         setTimeout(() => &#123;
             //load data of required page
             let loadedProducts = this.products.slice(event.first, (event.first + event.rows));
 
             //populate page of virtual cars
             Array.prototype.splice.apply(this.virtualProducts, [...[event.first, event.rows], ...loadedProducts]);
-            
+
             //trigger change detection
-            this.virtualProducts = [...this.virtualProducts];
+            event.forceUpdate();
         &#125;, 1000);
     &#125;
 

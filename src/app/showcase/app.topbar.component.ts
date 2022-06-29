@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Input, OnInit, 
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
-import { VersionService } from './service/versionservice';
+import { JsonService } from './service/jsonservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 
@@ -21,10 +21,10 @@ import { Subscription } from 'rxjs';
                     <a tabindex="0" (click)="toggleMenu($event, 0)">Themes</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 0" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">THEMING</li>
-                        <li><a [routerLink]="['/showcase/theming']"><i class="pi pi-fw pi-file"></i><span>Guide</span></a></li>
+                        <li><a [routerLink]="['/theming']"><i class="pi pi-fw pi-file"></i><span>Guide</span></a></li>
                         <li><a href="https://www.primefaces.org/designer/primeng"><i class="pi pi-fw pi-palette"></i><span>Designer</span></a></li>
                         <li><a href="https://www.primefaces.org/designer-ng"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a></li>
-                        <li><a [routerLink]="['/showcase/icons']"><i class="pi pi-fw pi-info-circle"></i><span>Icons</span></a></li>
+                        <li><a [routerLink]="['/icons']"><i class="pi pi-fw pi-info-circle"></i><span>Icons</span></a></li>
                         <li><a href="https://www.figma.com/community/file/890589747170608208"><i class="pi pi-fw pi-pencil"></i><span>Figma UI Kit</span></a></li>
 
                         <li class="topbar-submenu-header">BOOTSTRAP</li>
@@ -348,12 +348,12 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     scrollListener: any;
 
-    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
+    constructor(private router: Router, private JsonService: JsonService, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
-        this.versionService.getVersions().then(data => this.versions = data);
+        this.JsonService.getVersions().then(data => this.versions = data);
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {

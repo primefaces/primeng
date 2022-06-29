@@ -228,7 +228,9 @@ export class ConfirmPopup implements OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.visible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     bindDocumentResizeListener() {

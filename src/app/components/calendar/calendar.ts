@@ -29,6 +29,8 @@ export interface LocaleSettings {
     weekHeader?: string;
 }
 
+export type CalendarTypeView = 'date' | 'month' | 'year';
+
 @Component({
     selector: 'p-calendar',
     template:  `
@@ -36,8 +38,9 @@ export interface LocaleSettings {
             <ng-template [ngIf]="!inline">
                 <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [attr.aria-required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick()" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.inputmode]="touchUI ? 'off' : null"
-                    [ngClass]="'p-inputtext p-component'" autocomplete="off" [attr.aria-labelledby]="ariaLabelledBy"
-                    ><button type="button" [attr.aria-label]="iconAriaLabel" [icon]="icon" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="p-datepicker-trigger"
+                    [ngClass]="'p-inputtext p-component'" autocomplete="off" [attr.aria-labelledby]="ariaLabelledBy">
+                    <i *ngIf="showClear && !disabled && value != null" class="p-calendar-clear-icon pi pi-times" (click)="clear()"></i>
+                    <button type="button" [attr.aria-label]="iconAriaLabel" [icon]="icon" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="p-datepicker-trigger"
                     [disabled]="disabled" tabindex="0"></button>
             </ng-template>
             <div #contentWrapper [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'p-datepicker p-component': true, 'p-datepicker-inline':inline,
@@ -197,7 +200,8 @@ export interface LocaleSettings {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus'
+        '[class.p-inputwrapper-focus]': 'focus',
+        '[class.p-calendar-clearable]': 'showClear && !disabled'
     },
     providers: [CALENDAR_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -270,6 +274,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() showWeek: boolean = false;
 
+    @Input() showClear: boolean = false;
+
     @Input() dataType: string = 'date';
 
     @Input() selectionMode: string = 'single';
@@ -311,6 +317,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
 
@@ -460,15 +468,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     _firstDayOfWeek: number;
 
-    _view: string = 'date';
+    _view: CalendarTypeView = 'date';
 
     preventFocus: boolean;
 
-    @Input() get view(): string {
+    @Input() get view(): CalendarTypeView {
         return this._view;
     };
 
-    set view(view: string) {
+    set view(view: CalendarTypeView) {
         this._view = view;
         this.currentView = this._view;
     }
@@ -1057,7 +1065,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    setCurrentView(currentView: string) {
+    setCurrentView(currentView: CalendarTypeView) {
         this.currentView = currentView;
         this.cd.detectChanges();
         this.alignOverlay();
@@ -1391,6 +1399,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    clear() {
+        this.inputFieldValue = null;
+        this.value = null;
+        this.onModelChange(this.value);
+        this.onClear.emit();
+    }
+
     onOverlayClick(event) {
         this.overlayService.add({
             originalEvent: event,
@@ -1404,7 +1419,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     getYear(month) {
         return this.currentView === 'month' ? this.currentYear : month.year;
-     }
+    }
 
     switchViewButtonDisabled() {
         return this.numberOfMonths > 1 || this.disabled;
@@ -2314,7 +2329,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
 
         let val = this.defaultDate && this.isValidDate(this.defaultDate) && !this.value ? this.defaultDate : (propValue && this.isValidDate(propValue) ? propValue : new Date());
-        
+
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();
         this.createMonths(this.currentMonth, this.currentYear);
@@ -2844,10 +2859,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             } while (true);
         }
 
+        if (this.view === 'year') {
+            month = month === - 1 ? 1 : month;
+            day = day === - 1 ? 1 : day;
+        }
+
         date = this.daylightSavingAdjust(new Date(year, month - 1, day));
-                if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
-                    throw "Invalid date"; // E.g. 31/02/00
-                }
+
+        if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
+            throw "Invalid date"; // E.g. 31/02/00
+        }
 
         return date;
     }
@@ -3000,7 +3021,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isAndroid()) {
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
             this.hideOverlay();
         }
     }

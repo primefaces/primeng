@@ -35,7 +35,7 @@ export class BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenuSub',
     template: `
-        <ul [ngClass]="{'p-submenu-list': true, 'p-panelmenu-root-submenu': root}" [@submenu]="getAnimation()" role="tree">
+        <ul [ngClass]="{'p-submenu-list': true, 'p-panelmenu-root-submenu': root, 'p-submenu-expanded': expanded}" [@submenu]="getAnimation()" role="tree">
             <ng-template ngFor let-child [ngForOf]="item.items">
                 <li *ngIf="child.separator" class="p-menu-separator" role="separator">
                 <li *ngIf="!child.separator" class="p-menuitem" [ngClass]="child.styleClass" [class.p-hidden]="child.visible === false" [ngStyle]="child.style" pTooltip [tooltipOptions]="child.tooltipOptions">
@@ -46,6 +46,7 @@ export class BasePanelMenuItem {
                         <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{child.badge}}</span>
                     </a>
                     <a *ngIf="child.routerLink" (keydown)="onItemKeyDown($event)"  [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link"
                         [ngClass]="{'p-disabled':child.disabled}" [attr.tabindex]="!item.expanded || !parentExpanded ? null : child.disabled ? null : '0'" [attr.id]="child.id" role="treeitem" [attr.aria-expanded]="child.expanded"
@@ -55,6 +56,7 @@ export class BasePanelMenuItem {
                         <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{child.label}}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{child.badge}}</span>
                     </a>
                     <p-panelMenuSub [item]="child" [parentExpanded]="expanded && parentExpanded" [expanded]="child.expanded" [transitionOptions]="transitionOptions" *ngIf="child.items"></p-panelMenuSub>
                 </li>
@@ -64,13 +66,12 @@ export class BasePanelMenuItem {
     animations: [
         trigger('submenu', [
             state('hidden', style({
-                height: '0',
-                overflow: 'hidden'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
     ],
@@ -133,6 +134,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
                             <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{item.badge}}</span>
                         </a>
                         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
                            (click)="handleClick($event,item)" (keydown)="onItemKeyDown($event)" [target]="item.target" [attr.title]="item.title" class="p-panelmenu-header-link" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'"
@@ -141,9 +143,10 @@ export class PanelMenuSub extends BasePanelMenuItem {
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
                             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{item.badge}}</span>
                         </a>
                     </div>
-                    <div *ngIf="item.items" class="p-toggleable-content" [@rootItem]="getAnimation(item)"  (@rootItem.done)="onToggleDone()">
+                    <div *ngIf="item.items" class="p-toggleable-content" [ngClass]="{'p-panelmenu-expanded': item.expanded}" [@rootItem]="getAnimation(item)" (@rootItem.done)="onToggleDone()">
                         <div class="p-panelmenu-content" role="region" [attr.id]="item.id +'_content' " [attr.aria-labelledby]="item.id +'_header'">
                             <p-panelMenuSub [item]="item" [parentExpanded]="item.expanded" [expanded]="true" [transitionOptions]="transitionOptions" [root]="true"></p-panelMenuSub>
                         </div>
@@ -155,13 +158,12 @@ export class PanelMenuSub extends BasePanelMenuItem {
     animations: [
         trigger('rootItem', [
             state('hidden', style({
-                height: '0',
-                overflow: 'hidden'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
     ],

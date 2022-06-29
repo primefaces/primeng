@@ -10,6 +10,11 @@
     list-style: none;
 }
 
+.p-menu .p-submenu-header{
+    display: flex;
+    align-items: center;
+}
+
 .p-menu .p-menuitem-link {
     cursor: pointer;
     display: flex;

@@ -109,7 +109,7 @@ p-treetabletoggler + p-treetablecheckbox + span {
     height: 100%;
 }
 
-.p-treetable-flex-scrollable .p-treetable-scrollable-body {
+.p-treetable-flex-scrollable .p-treetable-virtual-scrollable-body {
     flex: 1;
 }
 
@@ -190,4 +190,14 @@ p-treetabletoggler + p-treetablecheckbox + span {
     align-items: center;
     justify-content: center;
     z-index: 2;
+}
+
+
+/* Virtual Scroll */
+.p-treetable .p-scroller-loading {
+    transform: none !important;
+    min-height: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
 }

@@ -36,13 +36,12 @@ let idx: number = 0;
     animations: [
         trigger('tabContent', [
             state('hidden', style({
-                height: '0',
-                overflow: 'hidden'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
     ],
