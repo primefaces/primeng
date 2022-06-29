@@ -1,5 +1,53 @@
 # Changelog
 
+
+## [14.0.0-rc.1](https://github.com/primefaces/primeng/tree/14.0.0-rc.1) (2022-06-29)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.4.1...14.0.0-rc.1)
+
+**Breaking changes:**
+- Reimplement virtual scroll feature on Table [\#11664](https://github.com/primefaces/primeng/issues/11664)
+- Reimplement virtual scroll feature on TreeTable [\#11663](https://github.com/primefaces/primeng/issues/11663)
+- Reimplement virtual scroll feature on Tree [\#11662](https://github.com/primefaces/primeng/issues/11662)
+- Reimplement virtual scroll feature on MultiSelect [\#11661](https://github.com/primefaces/primeng/issues/11661)
+- Reimplement virtual scroll feature on Dropdown [\#11660](https://github.com/primefaces/primeng/issues/11660)
+- Reimplement virtual scroll feature on AutoComplete [\#11659](https://github.com/primefaces/primeng/issues/11659)
+- Reimplement virtual scroll feature on VirtualScroller [\#11658](https://github.com/primefaces/primeng/issues/11658)
+
+**Implemented New Features and Enhancements:**
+- Support Angular 14 [\#11586](https://github.com/primefaces/primeng/issues/11586)
+- Add forceUpdate option to LazyLoadEvent [\#11668](https://github.com/primefaces/primeng/issues/11668)
+- MultiSelect, ListBox, Dropdown | Filter template support [\#11628](https://github.com/primefaces/primeng/issues/11628)
+- Floating label with placeholder [\#11508](https://github.com/primefaces/primeng/issues/11508)
+- Add color-scheme style to Themes [\#11657](https://github.com/primefaces/primeng/issues/11657)
+- New Component: Scroller [\#11656](https://github.com/primefaces/primeng/issues/11656)
+- Badge option for MenuComponents [\#10201](https://github.com/primefaces/primeng/issues/10201)
+- OrderList | Templating support for filter [\#11611](https://github.com/primefaces/primeng/issues/11611)
+- Add maskStyleClass property in DialogService [\#11569](https://github.com/primefaces/primeng/issues/11569)
+- Tooltip | fit-content support [\#11502](https://github.com/primefaces/primeng/issues/11502)
+
+**Fixed bugs:**
+- Dropdown method "show" not working [\#11648](https://github.com/primefaces/primeng/issues/11648)
+- Scrolling in a t-table that implements virtual scrolling and lazy loading bugs out the header of the t-table [\#11617](https://github.com/primefaces/primeng/issues/11617)
+- Dropdown | ng-dirty issue when options are set by a service call [\#11634](https://github.com/primefaces/primeng/issues/11634)
+- Dialog bottom has no border radius when footer does not exist [\#11626](https://github.com/primefaces/primeng/issues/11626)
+- AutoComplete showClear is not working when dropdown is enabled [\#11592](https://github.com/primefaces/primeng/issues/11592)
+- Event listeners not removed for ReorderableRow and ReorderableColumn [\#11414](https://github.com/primefaces/primeng/issues/11414)
+- Image Toolbar hidden behind large image in preview mode [\#11561](https://github.com/primefaces/primeng/issues/11561)
+- Overlay with hideTransitionOptions leads to TypeError: Cannot read properties of null (reading 'offsetHeight') [\#11405](https://github.com/primefaces/primeng/issues/11405)
+- Bug(calendar): yearpicker wont show value with reactive forms [\#11223](https://github.com/primefaces/primeng/issues/11223)
+- Tabmenu set as scrollable show forward button when no needed [\#11415](https://github.com/primefaces/primeng/issues/11415)
+- Tabmenu with routerLink items doesn't show offscreen item when reloaded [\#11411](https://github.com/primefaces/primeng/issues/11411)
+- Dropdown stays with red border after form reset [\#11503](https://github.com/primefaces/primeng/issues/11503)
+- The overlay elements automatically close on mobile devices [\#11567](https://github.com/primefaces/primeng/issues/11567)
+- Toast | wrong zIndex problem [\#11563](https://github.com/primefaces/primeng/issues/11563)
+- ConfirmDialog | keeps raising z-index in whole application [\#11523](https://github.com/primefaces/primeng/issues/11523)
+- Dropdown | Mouse click when it is partially off the top of the screen causes the page to jump [\#11512](https://github.com/primefaces/primeng/issues/11512)
+- Sidebar: closeOnEscape not working [\#11517](https://github.com/primefaces/primeng/issues/11517)
+- ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
+- Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
+- Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
 ## [13.4.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/13.4.0...13.4.1)
