@@ -191,3 +191,13 @@ p-treetabletoggler + p-treetablecheckbox + span {
     justify-content: center;
     z-index: 2;
 }
+
+
+/* Virtual Scroll */
+.p-treetable .p-scroller-loading {
+    transform: none !important;
+    min-height: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
+}

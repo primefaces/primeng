@@ -111,6 +111,12 @@ import { Subscription } from 'rxjs';
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
 
                         <li>
+                            <a href="https://www.primefaces.org/layouts/apollo-ng">
+                                <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.svg">
+                                <span>Apollo</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="https://www.primefaces.org/layouts/verona-ng">
                                 <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
                                 <span>Verona</span>
@@ -198,12 +204,6 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/layouts/harmony-ng">
                                 <img alt="Harmony" src="assets/showcase/images/layouts/harmony-logo.png">
                                 <span>Harmony</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.primefaces.org/layouts/apollo-ng">
-                                <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.png">
-                                <span>Apollo</span><span class="theme-badge darkmode">darkmode</span>
                             </a>
                         </li>
                         <li>

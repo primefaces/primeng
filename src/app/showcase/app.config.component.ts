@@ -370,6 +370,11 @@ import { DomHandler } from 'primeng/dom';
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/apollo-ng">
+                                    <img alt="Apollo" src="assets/showcase/images/layouts/apollo-ng.jpeg">
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/verona-ng">
                                     <img alt="Verona" src="assets/showcase/images/layouts/verona-ng.jpg">
                                 </a>
@@ -442,11 +447,6 @@ import { DomHandler } from 'primeng/dom';
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/harmony-ng">
                                     <img alt="Harmony" src="assets/showcase/images/layouts/harmony-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/apollo-ng">
-                                    <img alt="Apollo" src="assets/showcase/images/layouts/apollo-ng.jpg">
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">

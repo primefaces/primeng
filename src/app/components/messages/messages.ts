@@ -1,16 +1,16 @@
-import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,AfterContentInit,Optional,ElementRef,ChangeDetectionStrategy,ContentChildren,QueryList,TemplateRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Message,PrimeTemplate,MessageService} from 'primeng/api';
-import {Subscription} from 'rxjs';
-import {RippleModule} from 'primeng/ripple';
+import { NgModule, Component, OnDestroy, Input, Output, EventEmitter, AfterContentInit, Optional, ElementRef, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { trigger, style, transition, animate } from '@angular/animations';
+import { Message, PrimeTemplate, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'p-messages',
     template: `
         <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div *ngFor="let msg of value; let i=index" [ngClass]="'p-message p-message-' + msg.severity" role="alert"
+                <div *ngFor="let msg of value; let i=index" [class]="'p-message p-message-' + msg.severity" role="alert"
                     [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
                     <div class="p-message-wrapper">
                        <span [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')" [ngClass]="{'pi-info-circle': msg.severity === 'info',
@@ -43,11 +43,11 @@ import {RippleModule} from 'primeng/ripple';
     animations: [
         trigger('messageAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'translateY(-25%)'}),
+                style({ opacity: 0, transform: 'translateY(-25%)' }),
                 animate('{{showTransitionParams}}')
             ]),
             transition(':leave', [
-                animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, overflow: 'hidden', opacity: 0 }))
+                animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, opacity: 0 }))
             ])
         ])
     ],
@@ -90,18 +90,18 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
 
@@ -158,26 +158,26 @@ export class Messages implements AfterContentInit, OnDestroy {
         const severity = this.severity || (this.hasMessages() ? this.value[0].severity : null);
 
         if (this.hasMessages()) {
-            switch(severity) {
+            switch (severity) {
                 case 'success':
                     return 'pi-check';
-                break;
+                    break;
 
                 case 'info':
                     return 'pi-info-circle';
-                break;
+                    break;
 
                 case 'error':
                     return 'pi-times';
-                break;
+                    break;
 
                 case 'warn':
                     return 'pi-exclamation-triangle';
-                break;
+                    break;
 
                 default:
                     return 'pi-info-circle';
-                break;
+                    break;
             }
         }
 
@@ -196,7 +196,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
+    imports: [CommonModule, RippleModule],
     exports: [Messages],
     declarations: [Messages]
 })

@@ -42,6 +42,7 @@
   --surface-hover:hsla(0,0%,100%,.04);
   --maskbg: rgba(0, 0, 0, 0.32);
   --focus-ring: none;
+  color-scheme: dark;
 }
 
 /* roboto-regular - latin-ext_latin */
@@ -308,10 +309,7 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
-.p-autocomplete-panel .p-autocomplete-items:not(.p-autocomplete-virtualscroll) {
-  padding: 0;
-}
-.p-autocomplete-panel .p-autocomplete-items.p-autocomplete-virtualscroll .cdk-virtual-scroll-content-wrapper {
+.p-autocomplete-panel .p-autocomplete-items {
   padding: 0;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
@@ -352,7 +350,7 @@ p-autocomplete.p-autocomplete-clearable .p-autocomplete-clear-icon {
   right: 0.75rem;
 }
 
-p-autocomplete.p-autocomplete-clearable.p-autocomplete-dd .p-autocomplete-clear-icon {
+p-autocomplete.p-autocomplete-clearable .p-autocomplete-dd .p-autocomplete-clear-icon {
   color: rgba(255, 255, 255, 0.6);
   right: 3.5rem;
 }
@@ -869,10 +867,7 @@ p-chips.p-chips-clearable .p-chips-clear-icon {
   right: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
 }
-.p-dropdown-panel .p-dropdown-items:not(.p-dropdown-virtualscroll) {
-  padding: 0;
-}
-.p-dropdown-panel .p-dropdown-items.p-dropdown-virtualscroll .cdk-virtual-scroll-content-wrapper {
+.p-dropdown-panel .p-dropdown-items {
   padding: 0;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
@@ -1428,10 +1423,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   outline-offset: 0;
   box-shadow: none;
 }
-.p-multiselect-panel .p-multiselect-items:not(.p-multiselect-virtualscroll) {
-  padding: 0;
-}
-.p-multiselect-panel .p-multiselect-items.p-multiselect-virtualscroll .cdk-virtual-scroll-content-wrapper {
+.p-multiselect-panel .p-multiselect-items {
   padding: 0;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
@@ -4447,6 +4439,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: #262626;
   color: rgba(255, 255, 255, 0.87);
   padding: 0 1.25rem 1.25rem 1.25rem;
+}
+.p-dialog .p-dialog-content:last-of-type {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 .p-dialog .p-dialog-footer {
   border-top: 0 none;

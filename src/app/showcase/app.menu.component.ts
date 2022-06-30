@@ -53,7 +53,7 @@ declare let gtag: Function;
                     <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors</a>
                     <a href="https://www.primefaces.org/designer/api/primeng/13.0.0">SASS API</a>
                 </div>
-                
+
                 <div class="menu-category">Accessibility</div>
                 <div class="menu-items">
                     <a [routerLink]=" ['/accessibility']" routerLinkActive="router-link-exact-active">Overview</a>
@@ -104,7 +104,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['slider']" routerLinkActive="router-link-exact-active">Slider</a>
                     <a [routerLink]=" ['selectbutton']" routerLinkActive="router-link-exact-active">SelectButton</a>
                     <a [routerLink]=" ['togglebutton']" routerLinkActive="router-link-exact-active">ToggleButton</a>
-                    <a [routerLink]=" ['treeselect']" routerLinkActive="router-link-exact-active">TreeSelect <span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['treeselect']" routerLinkActive="router-link-exact-active">TreeSelect</a>
                     <a [routerLink]=" ['tristatecheckbox']" routerLinkActive="router-link-exact-active">TriCheckbox</a>
                 </div>
 
@@ -112,7 +112,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['button']" routerLinkActive="router-link-exact-active">Button</a>
                     <a [routerLink]=" ['splitbutton']" routerLinkActive="router-link-exact-active">SplitButton</a>
-                    <a [routerLink]=" ['speeddial']" routerLinkActive="router-link-exact-active">SpeedDial <span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['speeddial']" routerLinkActive="router-link-exact-active">SpeedDial</a>
                 </div>
 
                 <div class="menu-category">Data</div>
@@ -125,8 +125,8 @@ declare let gtag: Function;
                     <a [routerLink]=" ['paginator']" routerLinkActive="router-link-exact-active">Paginator</a>
                     <a [routerLink]=" ['picklist']" routerLinkActive="router-link-exact-active">PickList</a>
                     <div>
-                        <a tabindex="0" (click)="toggleSubmenu($event, 'table')">Table  <span class="p-tag">New</span></a>
-                        <div [@submenu]="isSubmenuActive('table') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <a tabindex="0" (click)="toggleSubmenu($event, 'table')">Table </a>
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('table') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['table']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['table/basic']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Basic</a></li>
@@ -141,7 +141,7 @@ declare let gtag: Function;
                                 <li><a [routerLink]=" ['table/filter']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Filter </a></li>
                                 <li><a [routerLink]=" ['table/selection']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Selection</a></li>
                                 <li><a [routerLink]=" ['table/lazy']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Lazy</a></li>
-                                <li><a [routerLink]=" ['table/scroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Scroll <span class="p-tag">New</span></a></li>
+                                <li><a [routerLink]=" ['table/scroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
                                 <li><a [routerLink]=" ['table/virtualscroll']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">VirtualScroll</a></li>
                                 <li><a [routerLink]=" ['table/flexscroll']" target="_blank" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">FlexScroll</a></li>
                                 <li><a [routerLink]=" ['table/rowexpansion']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">RowExpand</a></li>
@@ -165,7 +165,7 @@ declare let gtag: Function;
 
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, 'tree')">Tree</a>
-                        <div [@submenu]="isSubmenuActive('tree') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('tree') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['tree']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['tree/templating']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Templating</a></li>
@@ -182,7 +182,7 @@ declare let gtag: Function;
 
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, 'treetable')">TreeTable</a>
-                        <div [@submenu]="isSubmenuActive('treetable') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('treetable') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['treetable']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['treetable/templating']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Templating</a></li>
@@ -206,6 +206,7 @@ declare let gtag: Function;
                     </div>
 
                     <a [routerLink]=" ['virtualscroller']" routerLinkActive="router-link-exact-active">VirtualScroller</a>
+                    <a [routerLink]=" ['scroller']" routerLinkActive="router-link-exact-active">Scroller <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Panel</div>
@@ -242,7 +243,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['menumodel']" routerLinkActive="router-link-exact-active">MenuModel</a>
                     <a [routerLink]=" ['breadcrumb']" routerLinkActive="router-link-exact-active">Breadcrumb</a>
                     <a [routerLink]=" ['contextmenu']" routerLinkActive="router-link-exact-active">ContextMenu</a>
-                    <a [routerLink]=" ['dock']" routerLinkActive="router-link-exact-active">Dock <span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['dock']" routerLinkActive="router-link-exact-active">Dock</a>
                     <a [routerLink]=" ['megamenu']" routerLinkActive="router-link-exact-active">MegaMenu</a>
                     <a [routerLink]=" ['menu']" routerLinkActive="router-link-exact-active">Menu</a>
                     <a [routerLink]=" ['menubar']" routerLinkActive="router-link-exact-active">Menubar</a>
@@ -276,7 +277,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['/carousel']" routerLinkActive="router-link-exact-active">Carousel</a>
                     <div>
                         <a tabindex="0" (click)="toggleSubmenu($event, 'galleria')">Galleria</a>
-                        <div [@submenu]="isSubmenuActive('galleria') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
+                        <div class="overflow-hidden" [@submenu]="isSubmenuActive('galleria') ? 'visible': 'hidden'" (@submenu.done)="onAnimationDone()">
                             <ul>
                                 <li><a [routerLink]=" ['galleria']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]=" ['galleria/programmatic']" routerLinkActive="router-link-exact-active" [routerLinkActiveOptions]="{exact:true}">Programmatic</a></li>
@@ -291,7 +292,7 @@ declare let gtag: Function;
                             </ul>
                         </div>
                     </div>
-                    <a [routerLink]=" ['image']" routerLinkActive="router-link-exact-active">Image <span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['image']" routerLinkActive="router-link-exact-active">Image</a>
                 </div>
 
                 <div class="menu-category">DragDrop</div>
@@ -319,7 +320,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]=" ['defer']" routerLinkActive="router-link-exact-active">Defer</a>
                     <a [routerLink]=" ['focustrap']" routerLinkActive="router-link-exact-active">FocusTrap</a>
-                    <a [routerLink]=" ['styleclass']" routerLinkActive="router-link-exact-active">StyleClass <span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['styleclass']" routerLinkActive="router-link-exact-active">StyleClass</a>
                     <a [routerLink]=" ['ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
                 </div>
 
@@ -334,7 +335,6 @@ declare let gtag: Function;
         trigger('submenu', [
             state('hidden', style({
                 height: '0',
-                overflow: 'hidden',
                 opacity: 0,
             })),
             state('visible', style({
@@ -444,6 +444,7 @@ export class AppMenuComponent {
                 {label: 'PickList', value: '/picklist'},
                 {label: 'Timeline', value: '/timeline'},
                 {label: 'VirtualScroller', value: '/virtualscroller'},
+                {label: 'Scroller', value: '/scroller'}
             ]
         },
 
