@@ -532,7 +532,10 @@ export class UITreeNode implements OnInit {
             <p-scroller *ngIf="virtualScroll" [items]="serializedValue" styleClass="p-tree-wrapper" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_virtualNodeHeight"
                 [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
                 <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                    <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: items, options: scrollerOptions}"></ng-container>
+                    <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                        <p-treeNode *ngFor="let rowNode of items; let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [level]="rowNode.level"
+                                    [rowNode]="rowNode" [node]="rowNode.node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="getIndex(scrollerOptions, index)" [itemSize]="scrollerOptions.itemSize" [indentation]="indentation"></p-treeNode>
+                    </ul>
                 </ng-template>
                 <ng-container *ngIf="loaderTemplate">
                     <ng-template pTemplate="loader" let-scrollerOptions="options">
@@ -542,16 +545,12 @@ export class UITreeNode implements OnInit {
             </p-scroller>
             <ng-container *ngIf="!virtualScroll">
                 <div class="p-tree-wrapper" [style.max-height]="scrollHeight">
-                    <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: serializedValue, options: {}}"></ng-container>
+                    <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                        <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [node]="node"
+                                    [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [level]="0"></p-treeNode>
+                    </ul>
                 </div>
             </ng-container>
-
-            <ng-template #buildInItems let-items let-scrollerOptions="options">
-                <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                    <p-treeNode *ngFor="let rowNode of items; let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [level]="rowNode.level"
-                                [rowNode]="rowNode" [node]="rowNode.node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="getIndex(scrollerOptions, index)" [itemSize]="scrollerOptions.itemSize" [indentation]="indentation"></p-treeNode>
-                </ul>
-            </ng-template>
 
             <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
                 <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
