@@ -87,7 +87,7 @@ export class DropdownItem {
             </div>
             <div *ngIf="overlayVisible" [ngClass]="'p-dropdown-panel p-component'" (click)="onOverlayClick($event)" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">  
+                <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">
                     <ng-container *ngIf="filterTemplate; else builtInFilterElement">
                         <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
                     </ng-container>
@@ -130,7 +130,7 @@ export class DropdownItem {
                                 <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: items, selectedOption: selectedOption}"></ng-container>
                             </ng-container>
                             <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                                <ng-template ngFor let-option let-i="index" [ngForOf]="items">
+                                <ng-template ngFor let-option let-i="index" [ngForOf]="options">
                                     <p-dropdownItem [option]="option" [selected]="selectedOption == option" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)"
                                                     (onClick)="onItemClick($event)"
                                                     [template]="itemTemplate"></p-dropdownItem>
@@ -1200,7 +1200,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     applyFocus(): void {
         if (this.editable)
             DomHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
-        else 
+        else
             DomHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
     }
 
