@@ -5,6 +5,10 @@
             "url": "https://www.primefaces.org/primeng/showcase"
         },
         {
+            "version": "v13.4.1",
+            "url": "https://www.primefaces.org/primeng-v13"
+        },
+        {
             "version": "v12.2.5-lts",
             "url": "https://www.primefaces.org/primeng-v12-lts"
         },
