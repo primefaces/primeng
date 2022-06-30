@@ -426,6 +426,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     scrollTo(options: ScrollToOptions) {
+        this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
         this.elementViewChild?.nativeElement?.scrollTo(options);
     }
 
@@ -439,8 +440,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         if (this.both) {
             const newFirst = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
             if (newFirst.rows !== this.first.rows || newFirst.cols !== this.first.cols) {
-                scrollTo(calculateCoord(newFirst.cols, this._itemSize[1], contentPos.left), calculateCoord(newFirst.rows, this._itemSize[0], contentPos.top))
-                this.first = newFirst;
+                scrollTo(calculateCoord(newFirst.cols, this._itemSize[1], contentPos.left), calculateCoord(newFirst.rows, this._itemSize[0], contentPos.top));
             }
         }
         else {
@@ -448,7 +448,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             if (newFirst !== this.first) {
                 this.horizontal ? scrollTo(calculateCoord(newFirst, this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(newFirst, this._itemSize, contentPos.top));
-                this.first = newFirst;
             }
         }
     }
