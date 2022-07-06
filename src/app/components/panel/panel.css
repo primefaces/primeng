@@ -18,10 +18,10 @@
     position: relative;
 }
 
-.p-panel-expanded .p-toggleable-content:not(.ng-animating) {
+.p-panel-toggleable.p-panel-expanded .p-toggleable-content:not(.ng-animating) {
     overflow: visible;
 }
 
-.p-panel .p-toggleable-content{
+.p-panel-toggleable .p-toggleable-content{
     overflow: hidden;
 }

@@ -16,10 +16,10 @@
     line-height: 1;
 }
 
-.p-fieldset-expanded .p-toggleable-content:not(.ng-animating) {
+.p-fieldset-toggleable.p-fieldset-expanded .p-toggleable-content:not(.ng-animating) {
     overflow: visible;
 }
 
-.p-fieldset .p-toggleable-content{
+.p-fieldset-toggleable .p-toggleable-content{
     overflow: hidden;
 }
