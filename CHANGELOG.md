@@ -1,5 +1,423 @@
 # Changelog
 
+
+## [14.0.0-rc.1](https://github.com/primefaces/primeng/tree/14.0.0-rc.1) (2022-06-29)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.4.1...14.0.0-rc.1)
+
+**Breaking changes:**
+- Reimplement virtual scroll feature on Table [\#11664](https://github.com/primefaces/primeng/issues/11664)
+- Reimplement virtual scroll feature on TreeTable [\#11663](https://github.com/primefaces/primeng/issues/11663)
+- Reimplement virtual scroll feature on Tree [\#11662](https://github.com/primefaces/primeng/issues/11662)
+- Reimplement virtual scroll feature on MultiSelect [\#11661](https://github.com/primefaces/primeng/issues/11661)
+- Reimplement virtual scroll feature on Dropdown [\#11660](https://github.com/primefaces/primeng/issues/11660)
+- Reimplement virtual scroll feature on AutoComplete [\#11659](https://github.com/primefaces/primeng/issues/11659)
+- Reimplement virtual scroll feature on VirtualScroller [\#11658](https://github.com/primefaces/primeng/issues/11658)
+
+**Implemented New Features and Enhancements:**
+- Support Angular 14 [\#11586](https://github.com/primefaces/primeng/issues/11586)
+- Add forceUpdate option to LazyLoadEvent [\#11668](https://github.com/primefaces/primeng/issues/11668)
+- MultiSelect, ListBox, Dropdown | Filter template support [\#11628](https://github.com/primefaces/primeng/issues/11628)
+- Floating label with placeholder [\#11508](https://github.com/primefaces/primeng/issues/11508)
+- Add color-scheme style to Themes [\#11657](https://github.com/primefaces/primeng/issues/11657)
+- New Component: Scroller [\#11656](https://github.com/primefaces/primeng/issues/11656)
+- Badge option for MenuComponents [\#10201](https://github.com/primefaces/primeng/issues/10201)
+- OrderList | Templating support for filter [\#11611](https://github.com/primefaces/primeng/issues/11611)
+- Add maskStyleClass property in DialogService [\#11569](https://github.com/primefaces/primeng/issues/11569)
+- Tooltip | fit-content support [\#11502](https://github.com/primefaces/primeng/issues/11502)
+
+**Fixed bugs:**
+- Dropdown method "show" not working [\#11648](https://github.com/primefaces/primeng/issues/11648)
+- Scrolling in a t-table that implements virtual scrolling and lazy loading bugs out the header of the t-table [\#11617](https://github.com/primefaces/primeng/issues/11617)
+- Dropdown | ng-dirty issue when options are set by a service call [\#11634](https://github.com/primefaces/primeng/issues/11634)
+- Dialog bottom has no border radius when footer does not exist [\#11626](https://github.com/primefaces/primeng/issues/11626)
+- AutoComplete showClear is not working when dropdown is enabled [\#11592](https://github.com/primefaces/primeng/issues/11592)
+- Event listeners not removed for ReorderableRow and ReorderableColumn [\#11414](https://github.com/primefaces/primeng/issues/11414)
+- Image Toolbar hidden behind large image in preview mode [\#11561](https://github.com/primefaces/primeng/issues/11561)
+- Overlay with hideTransitionOptions leads to TypeError: Cannot read properties of null (reading 'offsetHeight') [\#11405](https://github.com/primefaces/primeng/issues/11405)
+- Bug(calendar): yearpicker wont show value with reactive forms [\#11223](https://github.com/primefaces/primeng/issues/11223)
+- Tabmenu set as scrollable show forward button when no needed [\#11415](https://github.com/primefaces/primeng/issues/11415)
+- Tabmenu with routerLink items doesn't show offscreen item when reloaded [\#11411](https://github.com/primefaces/primeng/issues/11411)
+- Dropdown stays with red border after form reset [\#11503](https://github.com/primefaces/primeng/issues/11503)
+- The overlay elements automatically close on mobile devices [\#11567](https://github.com/primefaces/primeng/issues/11567)
+- Toast | wrong zIndex problem [\#11563](https://github.com/primefaces/primeng/issues/11563)
+- ConfirmDialog | keeps raising z-index in whole application [\#11523](https://github.com/primefaces/primeng/issues/11523)
+- Dropdown | Mouse click when it is partially off the top of the screen causes the page to jump [\#11512](https://github.com/primefaces/primeng/issues/11512)
+- Sidebar: closeOnEscape not working [\#11517](https://github.com/primefaces/primeng/issues/11517)
+- ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
+- Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
+- Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
+## [13.4.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.4.0...13.4.1)
+
+
+**Fixed bugs:**
+- Dropdown value not set properly when options come later than value [\#11526](https://github.com/primefaces/primeng/issues/11526)
+- pTooltip | focus event does not work with p-components [\#11535](https://github.com/primefaces/primeng/issues/11535)
+
+## [13.4.0](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.3...13.4.0)
+
+**Implemented New Features and Enhancements:**
+
+- Input Components | Clear support [\#11471](https://github.com/primefaces/primeng/issues/11471)
+- TreeSelect | Filter [\#11461](https://github.com/primefaces/primeng/issues/11461)
+- Dropdown value is not cleared when options change [\#8806](https://github.com/primefaces/primeng/issues/8806)
+- Slider | Range slider can not be dragged to the left when both thumbs overlap [\#11427](https://github.com/primefaces/primeng/issues/11427)
+- add iconStyle in MenuModel API [\#11258](https://github.com/primefaces/primeng/issues/11258)
+  
+**Fixed bugs:**
+- Row reordering in table not working with virtual scroll [\#9817](https://github.com/primefaces/primeng/issues/9817)
+- TreeSelect | Duplicate Empty Message [\#11497](https://github.com/primefaces/primeng/issues/11497)
+- PrimeIcons.ts contains invalid icons [\#11472](https://github.com/primefaces/primeng/issues/11472)
+- p-autocomplete does not clears selected object when CTRL-Z is pressed in textbox [\#9842](https://github.com/primefaces/primeng/issues/9842)
+- Dropdown | auto-selects group entries instead of first entry inside first group [\#11485](https://github.com/primefaces/primeng/issues/11485)
+- p-colorPicker onInputClick using a button not working [\#11438](https://github.com/primefaces/primeng/issues/11438)
+- More than one dropdown can be opened at a time [\#11455](https://github.com/primefaces/primeng/issues/11455)
+- Slider Range | Vertical handles not aligned [\#11463](https://github.com/primefaces/primeng/issues/11463)
+
+## [13.3.3](https://github.com/primefaces/primeng/tree/HEAD) (2022-04-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.2...13.3.3)
+
+**Implemented New Features and Enhancements:**
+
+- Primary Color Palette [\#11413](https://github.com/primefaces/primeng/issues/11413)
+
+**Fixed bugs:**
+- onChange event triggered for selectButton even when no change occurs [\#11384](https://github.com/primefaces/primeng/issues/11384)
+- TreeTable | FlexScroll not working [\#11390](https://github.com/primefaces/primeng/issues/11390)
+
+## [13.3.2](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.1...13.3.2)
+
+**Fixed bugs:**
+- Calendar | Loses alignment when switching from year/month to date view [\#11362](https://github.com/primefaces/primeng/issues/11362)
+- Dialog | Scrolling breaks draggable dialog [\#11284](https://github.com/primefaces/primeng/issues/11284)
+- Event listener leak in ReorderableRow and ReorderableColumn [\#11357](https://github.com/primefaces/primeng/issues/11357)
+- Toast | z-index shouldn't removed when other toasts are shown [\#11313](https://github.com/primefaces/primeng/issues/11313)
+- Tooltip escape parameter not working after update [\#11348](https://github.com/primefaces/primeng/issues/11348)
+
+## [13.3.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-28)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.3.0...13.3.1)
+
+**Implemented New Features and Enhancements:**
+
+- Tooltip | Escape encode enhancement [\#11332](https://github.com/primefaces/primeng/issues/11332)
+
+**Fixed bugs:**
+- pStyleClass may fail to enter the element [\#11341](https://github.com/primefaces/primeng/issues/11341)
+
+## [13.3.0](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-16)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.2.1...13.3.0)
+
+**Implemented New Features and Enhancements:**
+
+- SplitButton | TieredMenu Support [\#11301](https://github.com/primefaces/primeng/issues/11301)
+- SplitButton | Templating Support [\#11300](https://github.com/primefaces/primeng/issues/11300)
+- OrderList | disabled support [\#11298](https://github.com/primefaces/primeng/issues/11298)
+- OrderList | Transfer buttons disable check [\#11297](https://github.com/primefaces/primeng/issues/11297)
+- PickList | Keep selection after moving an item [\#11283](https://github.com/primefaces/primeng/issues/11283)
+- PickList | Transfer buttons disable check [\#11281](https://github.com/primefaces/primeng/issues/11281)
+- Password, CascadeSelect, MultiSelect | ariaLabel and label does not exist [\#11277](https://github.com/primefaces/primeng/issues/11277)
+
+**Fixed bugs:**
+- Picklist | Selection is not updated when drag and drop transfer [\#11296](https://github.com/primefaces/primeng/issues/11296)
+- TieredMenu | responsive is not correct [\#11276](https://github.com/primefaces/primeng/issues/11276)
+- Property target does not working on p-menu [\#11226](https://github.com/primefaces/primeng/issues/11226)
+- Virtual Scroll with Lazy Loading fires onLazyLoad when lazyLoadOnInit is false [\#10414](https://github.com/primefaces/primeng/issues/10414)
+- Clear filter on table calls multiple times onLazyLoad [\#9980](https://github.com/primefaces/primeng/issues/9980)
+
+
+## [13.2.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-03-02)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.2.0...13.2.1)
+
+**Implemented New Features and Enhancements:**
+
+- Themes | Red Color Palette [\#11243](https://github.com/primefaces/primeng/issues/11243)
+- Change lara to use system font [\#11215](https://github.com/primefaces/primeng/issues/11215)
+
+**Fixed bugs:**
+- Multiselect overlay bug - baseZIndex property is unused [\#11191](https://github.com/primefaces/primeng/issues/11191)
+- Bug on Dark Themes related with fixed columns [\#11245](https://github.com/primefaces/primeng/issues/11245)
+- Material Calendar | Disabled Calendar getting opacity twice [\#11250](https://github.com/primefaces/primeng/issues/11250)
+- Lara Light Blue | Primary Button Hover is not Changing [\#11244](https://github.com/primefaces/primeng/issues/11244)
+- Breadcrumb | tooltip alignment fails if breadcrumb item has long text [\#11228](https://github.com/primefaces/primeng/issues/11228)
+- PanelMenu border top not always visible [\#11112](https://github.com/primefaces/primeng/issues/11112)
+- Material DataTable extension border typo fix [\#11248](https://github.com/primefaces/primeng/issues/11248)
+
+
+## [13.2.0:](https://github.com/primefaces/primeng/tree/HEAD) (2022-02-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.1.1...13.2.0)
+
+**Implemented New Features and Enhancements:**
+
+- Custom Table CSV Export Headers [\#11120](https://github.com/primefaces/primeng/issues/11120)
+- Striped Rows for OrderList and PickList [\#11190](https://github.com/primefaces/primeng/issues/11190)
+- Knob surface letters replaced with new surface variables [\#11189](https://github.com/primefaces/primeng/issues/11189)
+- Dropdown, button, inputSwitch, calendar, panel, autoComplete, inputNumber, inputText accessibility problems [\#11168](https://github.com/primefaces/primeng/issues/11168)
+- Hide multiselect panel on living by TAB key [\#11088](https://github.com/primefaces/primeng/issues/11088)
+- Alignment of Icon in Header of Collapsible Panel [\#11175](https://github.com/primefaces/primeng/issues/11175)
+- Scrollable TabMenu support [\#11154](https://github.com/primefaces/primeng/issues/11154)
+- Calendar | hide timepicker on month/year select [\#11180](https://github.com/primefaces/primeng/issues/11180)
+- p-image does not allow src to be of type SafeUrl [\#11143](https://github.com/primefaces/primeng/issues/11143)
+- confirmDialog documentation says acceptIcon and rejectIcon default values are null, but source code specifies default values [\#10430](https://github.com/primefaces/primeng/issues/10430)
+
+**Fixed bugs:**
+
+- Tabview and TabMenu | ForwardButton not hidden correctly [\#11197](https://github.com/primefaces/primeng/issues/11197)
+- Dynamic contextmenu items cause null exception in ContextMenu.positionSubmenu [\#11173](https://github.com/primefaces/primeng/issues/11173)
+
+## [13.1.1:](https://github.com/primefaces/primeng/tree/HEAD) (2022-02-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.1.0...13.1.1)
+
+**Implemented New Features and Enhancements:**
+
+- Custom Table CSV Export Headers [\#11120](https://github.com/primefaces/primeng/issues/11120)
+- MultiSelect | Filter autocomplete attribute support [\#11100](https://github.com/primefaces/primeng/issues/11100)
+
+**Fixed bugs:**
+
+- FullCalendar | Bootstrap background highlight is wrong [\#11152](https://github.com/primefaces/primeng/issues/11152)
+- PrimeNG Calendar (p-calendar) Loses alignment when positioned at the top of the input and the user clicks in the year/month [\#11040](https://github.com/primefaces/primeng/issues/11040)
+- Progress value in ProgressBar not clearly visible (theme Material Design) [\#11146](https://github.com/primefaces/primeng/issues/11146)
+- P-calendar defaultDate not work correctly [\#11104](https://github.com/primefaces/primeng/issues/11104)
+- Table multiple frozen columns aligned on the right [\#11134](https://github.com/primefaces/primeng/issues/11134)
+
+## [13.1.0:](https://github.com/primefaces/primeng/tree/13.1.0) (2022-01-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.4...13.1.0)
+
+**Implemented New Features and Enhancements:**
+
+- Update themes for list shadow style [\#11083](https://github.com/primefaces/primeng/issues/11083)
+- Calendar | KeepInvalid Support [\#11089](https://github.com/primefaces/primeng/issues/11089)
+- Improve resizable structure on DataTable [\#11082](https://github.com/primefaces/primeng/issues/11082)
+- MegaMenu | RouterLink CtrlKey support [\#11049](https://github.com/primefaces/primeng/issues/11049)
+
+**Fixed bugs:**
+
+- Calendar firstDayOfWeek returns the number of months [\#11070](https://github.com/primefaces/primeng/issues/11070)
+- Dropdown | filled background problem [\#11069](https://github.com/primefaces/primeng/issues/11069)
+- Multiple ContextMenu's on the same page/component do not work as expected [\#11048](https://github.com/primefaces/primeng/issues/11048)
+- TypeError: Cannot read properties of undefined (reading 'nativeElement') with scrollable and state enabled table [\#10792](https://github.com/primefaces/primeng/issues/10792)
+- p-tree node toggler button is shrunk until not visible if label starts to not fit the node [\#11039](https://github.com/primefaces/primeng/issues/11039)
+- multi select with group ignores filterBy option [\#11036](https://github.com/primefaces/primeng/issues/11036)
+- TabMenu and Steps | All items with routerLink being highlighted [\#11028](https://github.com/primefaces/primeng/issues/11028)
+- Table | Footer is not align when resize mode is enable. [\#10979](https://github.com/primefaces/primeng/issues/10979)
+- Table border is not showing in Firefox browser [\#11010](https://github.com/primefaces/primeng/issues/11010)
+- Calendar | Some Months are disabled when using disabled dates [\#11027](https://github.com/primefaces/primeng/issues/11027)
+- Calendar | Displayed year doesn't update for month picker [\#11024](https://github.com/primefaces/primeng/issues/11024)
+- TableHeaderCheckbox is checked when the selection array is empty [\#11025](https://github.com/primefaces/primeng/issues/11025)
+- Table | ColResize Expand Mode not Compatible with Table Scroll [\#11021](https://github.com/primefaces/primeng/issues/11021)
+- Material Light | Surface Border is invalid [\#11015](https://github.com/primefaces/primeng/issues/11015)
+
+## [13.0.4:](https://github.com/primefaces/primeng/tree/13.0.4)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.3...13.0.4)
+
+**Implemented New Features and Enhancements:**
+
+- Globally configure p-calendar firstDayOfWeek  [\#9635](https://github.com/primefaces/primeng/issues/9635)
+- Add rowSelectable property to DataTable [\#6736](https://github.com/primefaces/primeng/issues/6736)
+- New Color Scheme for Lara Dark [\#11012](https://github.com/primefaces/primeng/issues/11012)
+
+**Fixed bugs:**
+
+- Table Selection | Disabled checkbox getting pointer cursor [\#11004](https://github.com/primefaces/primeng/issues/11004)
+- Table, TreeTable | Checkbox and RadioButton Focus Missing on Material [\#10996](https://github.com/primefaces/primeng/issues/10996)
+- Calendar: the Year is incorrect for Multiple Months mode [\#10993](https://github.com/primefaces/primeng/issues/10993)
+- p-dropdown causes page to horizontally scroll [\#10992](https://github.com/primefaces/primeng/issues/10992)
+- Table ColumnFilter | Add p-button-sm class for Apply and Clear button [\#10987](https://github.com/primefaces/primeng/issues/10987)
+- Table ColumnFilter | Placeholder for Calendar [\#10986](https://github.com/primefaces/primeng/issues/10986)
+- Password Overlay not properly destroyed [\#10955](https://github.com/primefaces/primeng/issues/10955)
+- calendar firstDayOfWeek won't change dinamically [\#10574](https://github.com/primefaces/primeng/issues/10574)
+- TabMenu item not highlighted on navigation [\#9925](https://github.com/primefaces/primeng/issues/9925)
+
+## [13.0.3](https://github.com/primefaces/primeng/tree/13.0.3) (2021-12-20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.02...13.0.3)
+
+**Implemented New Features and Enhancements:**
+
+- Add selectionPageOnly property to DataTable [\#10967](https://github.com/primefaces/primeng/issues/10967)
+- Improve table row reorder highlight [\#10959](https://github.com/primefaces/primeng/issues/10959)
+- Improve lazy loading and select all implementation on DataTable [\#10951](https://github.com/primefaces/primeng/issues/10951)
+
+**Fixed bugs:**
+
+- Splitter control not allowing changing of panelSize dynamically [\#10981](https://github.com/primefaces/primeng/issues/10981)
+- Table | Frozen Columns not working when created partial dynamically  [\#10960](https://github.com/primefaces/primeng/issues/10960)
+- p-dropdown onChange - return null when using keyboard navigation [\#10940](https://github.com/primefaces/primeng/issues/10940)
+- p-calendar: Keyboard/mouse interaction with time selector controls behave differently [\#10937](https://github.com/primefaces/primeng/issues/10937)
+- TabView: p-tabview-ink-bar doesn't follow the size of TabPanel header property change [\#10837](https://github.com/primefaces/primeng/issues/10837)
+- Problem with keydown for FileUpload component [\#10575](https://github.com/primefaces/primeng/issues/10575)
+- Dropdown is not opening programmatically using the `show\(\)` method  [\#10454](https://github.com/primefaces/primeng/issues/10454)
+
+## [13.0.02](https://github.com/primefaces/primeng/tree/13.0.02) (2021-12-07)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.1...13.0.02)
+
+**Implemented New Features and Enhancements:**
+
+- Calendar | Escape Support For Month and Year Picker [\#10923](https://github.com/primefaces/primeng/issues/10923)
+
+**Fixed bugs:**
+
+- BreadCrumb | cursor is missing when href is not defined [\#10933](https://github.com/primefaces/primeng/issues/10933)
+- Calendar | Year Picker and Month Picker empty when value empty and using Range or Multiple Selection [\#10931](https://github.com/primefaces/primeng/issues/10931)
+- Calendar manual input doesn't work [\#10922](https://github.com/primefaces/primeng/issues/10922)
+- Some menu components not supporting ctrl click to open new duplicate screen [\#10919](https://github.com/primefaces/primeng/issues/10919)
+- TypeError: Cannot read properties of undefined \(reading 'classList'\) at Function.addClass [\#10909](https://github.com/primefaces/primeng/issues/10909)
+
+## [13.0.1](https://github.com/primefaces/primeng/tree/13.0.1) (2021-12-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.0...13.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- Menu | Submenu Tooltip Support [\#10675](https://github.com/primefaces/primeng/issues/10675)
+
+**Fixed bugs:**
+
+- Calendar | Year Picker and Month Picker empty when using Range and Multiple options [\#10906](https://github.com/primefaces/primeng/issues/10906)
+- Table header hides when scrolling [\#10887](https://github.com/primefaces/primeng/issues/10887)
+- p-sidebar not trigger visibleChange output event [\#10884](https://github.com/primefaces/primeng/issues/10884)
+- DynamicDialog does not block interaction with elements behind the mask [\#10882](https://github.com/primefaces/primeng/issues/10882)
+- Dropdown bug with selection via up key [\#10843](https://github.com/primefaces/primeng/issues/10843)
+- SpeedDial items visible even if MenuItem object property "visible" is false [\#10831](https://github.com/primefaces/primeng/issues/10831)
+- ExpressionChangedAfterItHasBeenCheckedError in table virtual scrolling after upgrading to 12.1.1 [\#10659](https://github.com/primefaces/primeng/issues/10659)
+- Wrong emit on accordion open [\#10509](https://github.com/primefaces/primeng/issues/10509)
+- Table | global filter doesn't reset on Table.clear\(\) [\#10246](https://github.com/primefaces/primeng/issues/10246)
+- Chips float label does not work when value is updated programmatically  [\#9289](https://github.com/primefaces/primeng/issues/9289)
+
+## [13.0.0](https://github.com/primefaces/primeng/tree/13.0.0) (2021-11-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/13.0.0-rc.2...13.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Calendar | Add space key support for time pickers [\#10863](https://github.com/primefaces/primeng/issues/10863)
+- Year Picker for Calendar [\#10856](https://github.com/primefaces/primeng/issues/10856)
+- Add responsiveOptions property to Calendar [\#10855](https://github.com/primefaces/primeng/issues/10855)
+
+**Fixed bugs:**
+
+- readonly not working on p-inputNumber [\#10866](https://github.com/primefaces/primeng/issues/10866)
+- Table | Row expansion table header scrolls above the main table header [\#10864](https://github.com/primefaces/primeng/issues/10864)
+- ProgressBar: color text accessibility issue [\#10862](https://github.com/primefaces/primeng/issues/10862)
+- Failed to execute 'querySelectorAll' \(not a valid selector\) error when tabbing out of calendar component [\#10859](https://github.com/primefaces/primeng/issues/10859)
+- Angular 13 Editor not loading properly "ERROR TypeError: \({get default\(value}\) is not a constructor" primeng-editor.mjs:29 [\#10834](https://github.com/primefaces/primeng/issues/10834)
+
+## [13.0.0-rc.1](https://github.com/primefaces/primeng/tree/13.0.0-rc.1) (2021-11-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.2.2...13.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- New Theme Lara 🎨  [\#10830](https://github.com/primefaces/primeng/issues/10830)
+- Update to PrimeIcons v5.0.0 [\#10811](https://github.com/primefaces/primeng/issues/10811)
+- Update to Angular 13 [\#10810](https://github.com/primefaces/primeng/issues/10810)
+- Match @angular 12 libraries to allow rxjs upgrade to v7.x [\#10804](https://github.com/primefaces/primeng/issues/10804)
+
+**Fixed bugs:**
+
+- The `escape` property does not work for label in Slide Menu component [\#10827](https://github.com/primefaces/primeng/issues/10827)
+- Button | loadingIcon is not displayed when icon is not provided [\#10822](https://github.com/primefaces/primeng/issues/10822)
+- sidebar causes javascript error if modal=false [\#10813](https://github.com/primefaces/primeng/issues/10813)
+- Dismissable Mask and Escape on Dynamic Dialogue [\#10809](https://github.com/primefaces/primeng/issues/10809)
+- Wrong zIndex for p-toast [\#10801](https://github.com/primefaces/primeng/issues/10801)
+- TypeError: Cannot read properties of undefined \(reading 'style'\) at FrozenColumn.updateStickyPosition [\#10794](https://github.com/primefaces/primeng/issues/10794)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [12.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/12.2.5) (2022-01-31)
+- p-tree node toggler button is shrunk until not visible if label starts to not fit the node [\#11039](https://github.com/primefaces/primeng/issues/11039)
+- multi select with group ignores filterBy option [\#11036](https://github.com/primefaces/primeng/issues/11036)
+- Material Light | Surface Border is invalid [\#11015](https://github.com/primefaces/primeng/issues/11015)
+- Table Selection | Disabled checkbox getting pointer cursor [\#11004](https://github.com/primefaces/primeng/issues/11004)
+- Table, TreeTable | Checkbox and RadioButton Focus Missing on Material [\#10996](https://github.com/primefaces/primeng/issues/10996)
+- Problem with keydown for FileUpload component [\#10575](https://github.com/primefaces/primeng/issues/10575)
+- calendar firstDayOfWeek won't change dinamically [\#10574](https://github.com/primefaces/primeng/issues/10574)
+- Wrong emit on accordion open [\#10509](https://github.com/primefaces/primeng/issues/10509)
+- Dropdown is not opening programmatically using the show() method [\#10454](https://github.com/primefaces/primeng/issues/10454)
+- Globally configure p-calendar firstDayOfWeek [\#9635](https://github.com/primefaces/primeng/issues/9635)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [12.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/12.2.4) (2021-12-06)
+- TypeError: Cannot read properties of undefined (reading 'classList') at Function.addClass [\#10909](https://github.com/primefaces/primeng/issues/10909)
+- Table header hides when scrolling [\#10887](https://github.com/primefaces/primeng/issues/10887)
+- p-sidebar not trigger visibleChange output event [\#10884](https://github.com/primefaces/primeng/issues/10884)
+- DynamicDialog does not block interaction with elements behind the mask [\#10882](https://github.com/primefaces/primeng/issues/10882)
+- readonly not working on p-inputNumber [\#10866](https://github.com/primefaces/primeng/issues/10866)
+- Table | Row expansion table header scrolls above the main table header [\#10864](https://github.com/primefaces/primeng/issues/10864)
+- Dropdown bug with selection via up key [\#10843](https://github.com/primefaces/primeng/issues/10843)
+- SpeedDial items visible even if MenuItem object property "visible" is false [\#10831](https://github.com/primefaces/primeng/issues/10831)
+- ExpressionChangedAfterItHasBeenCheckedError in table virtual scrolling after upgrading to 12.1.1 [\#10659](https://github.com/primefaces/primeng/issues/10659)
+- Table | global filter doesn't reset on Table.clear() [\#10246](https://github.com/primefaces/primeng/issues/10246)
+
+## [12.2.2](https://github.com/primefaces/primeng/tree/12.2.2) (2021-11-02)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.2.1...12.2.2)
+
+**Implemented New Features and Enhancements:**
+
+- Material | Use box-shadow for outlined Buttons [\#10799](https://github.com/primefaces/primeng/issues/10799)
+- Material Focus Improvements [\#10798](https://github.com/primefaces/primeng/issues/10798)
+- Multiselect missing itemValue in OnChange callback after removeChip [\#10789](https://github.com/primefaces/primeng/issues/10789)
+- PanelMenu | Keyboard Support [\#10784](https://github.com/primefaces/primeng/issues/10784)
+- SlideMenu | Keyboard Support [\#10781](https://github.com/primefaces/primeng/issues/10781)
+- Dynamic Dialog | BlockUI | Modal layer enter-leave transition  [\#10775](https://github.com/primefaces/primeng/issues/10775)
+- TreeSelect | Keyboard Support [\#10774](https://github.com/primefaces/primeng/issues/10774)
+- ConfirmPopup | Default Focus support [\#10772](https://github.com/primefaces/primeng/issues/10772)
+- Menu | Keyboard Support [\#10771](https://github.com/primefaces/primeng/issues/10771)
+- ZIndexUtils Support for ConfirmDialog [\#10762](https://github.com/primefaces/primeng/issues/10762)
+- Dropdown appendTo default changed to "body" in PrimeNG 12 [\#10751](https://github.com/primefaces/primeng/issues/10751)
+- CascadeSelect | Keyboard Exit Functionality [\#10749](https://github.com/primefaces/primeng/issues/10749)
+- Editor missing some text in template file [\#10745](https://github.com/primefaces/primeng/issues/10745)
+- p-Table: resizing a scrollable table resizes the expanded row [\#10609](https://github.com/primefaces/primeng/issues/10609)
+
+**Fixed bugs:**
+
+- MultiSelect and Listbox | Header Checkbox Should be focusable [\#10797](https://github.com/primefaces/primeng/issues/10797)
+- Dropdown | autoDisplayFirst not update value of dropdown [\#10768](https://github.com/primefaces/primeng/issues/10768)
+- Password and TreeSelect | Invalid styles are missing [\#10766](https://github.com/primefaces/primeng/issues/10766)
+- If appendTo property of confirmDialog is set, defaultFocus doesn't work [\#10722](https://github.com/primefaces/primeng/issues/10722)
+- Dropdown - scroll to selected item [\#10346](https://github.com/primefaces/primeng/issues/10346)
+
+## [12.2.1](https://github.com/primefaces/primeng/tree/12.2.1) (2021-10-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/12.2.0...12.2.1)
+
+**Implemented New Features and Enhancements:**
+
+- Integrate pTooltip with pMenu\* via MenuModel API extension [\#4714](https://github.com/primefaces/primeng/issues/4714)
+- CascadeSelect | Enter and Space support for toggle  [\#10742](https://github.com/primefaces/primeng/issues/10742)
+- BlockUI | Modal layer enter-leave transition  [\#10741](https://github.com/primefaces/primeng/issues/10741)
+- p-password | onFocus and onBlur Event [\#10736](https://github.com/primefaces/primeng/issues/10736)
+- Add onClear event to dropdown [\#10712](https://github.com/primefaces/primeng/issues/10712)
+- Dropdown Accessibility | Ensures every form element has a label" [\#10701](https://github.com/primefaces/primeng/issues/10701)
+- Improve scrollbar style on BreadCrumb and TabMenu [\#10698](https://github.com/primefaces/primeng/issues/10698)
+
+**Fixed bugs:**
+
+- Spaces are not accepted in p-dropdown-filter [\#10739](https://github.com/primefaces/primeng/issues/10739)
+- Tooltip hideDelay bug [\#10735](https://github.com/primefaces/primeng/issues/10735)
+- multiselect applies disabled UI state to all items when selectionLimit is reached and chip is removed [\#10734](https://github.com/primefaces/primeng/issues/10734)
+- float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
+- pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)
+- p-radioButton causes layout issues when used inside an overflow: auto div \(all elements with p-hidden-accessible?\) [\#10718](https://github.com/primefaces/primeng/issues/10718)
+- float-label pInputText problem [\#10716](https://github.com/primefaces/primeng/issues/10716)
+- Dropdown overlay bug - baseZIndex property is unused in PrimeNG 12.2.0 [\#10713](https://github.com/primefaces/primeng/issues/10713)
+- V12 - sidebar doesn't remove mask [\#10682](https://github.com/primefaces/primeng/issues/10682)
+- The "plugins" property is not assigned when creating the Chart object [\#10664](https://github.com/primefaces/primeng/issues/10664)
+- Cannot read property 'trim' of undefined with ButtonDirective  [\#10354](https://github.com/primefaces/primeng/issues/10354)
+
 ## [12.2.0](https://github.com/primefaces/primeng/tree/12.2.0) (2021-09-29)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/12.2.0-rc.1...12.2.0)
@@ -194,6 +612,56 @@
 
 - Sidebar - ngOnDestory throws an exception [\#10247](https://github.com/primefaces/primeng/issues/10247)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.10-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.10) (2022-01-31)
+- p-tree node toggler button is shrunk until not visible if label starts to not fit the node [\#11039](https://github.com/primefaces/primeng/issues/11039)
+- multi select with group ignores filterBy option [\#11036](https://github.com/primefaces/primeng/issues/11036)
+- Material Light | Surface Border is invalid [\#11015](https://github.com/primefaces/primeng/issues/11015)
+- Table Selection | Disabled checkbox getting pointer cursor [\#11004](https://github.com/primefaces/primeng/issues/11004)
+- Table, TreeTable | Checkbox and RadioButton Focus Missing on Material [\#10996](https://github.com/primefaces/primeng/issues/10996)
+- Problem with keydown for FileUpload component [\#10575](https://github.com/primefaces/primeng/issues/10575)
+- calendar firstDayOfWeek won't change dinamically [\#10574](https://github.com/primefaces/primeng/issues/10574)
+- Wrong emit on accordion open [\#10509](https://github.com/primefaces/primeng/issues/10509)
+- Dropdown is not opening programmatically using the show() method [\#10454](https://github.com/primefaces/primeng/issues/10454)
+- Globally configure p-calendar firstDayOfWeek [\#9635](https://github.com/primefaces/primeng/issues/9635)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.9-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.9) (2021-12-06)
+- p-sidebar not trigger visibleChange output event [\#10884](https://github.com/primefaces/primeng/issues/10884)
+- readonly not working on p-inputNumber [\#10866](https://github.com/primefaces/primeng/issues/10866)
+- Dropdown bug with selection via up key [\#10843](https://github.com/primefaces/primeng/issues/10843)
+- Multiselect missing itemValue in OnChange callback after removeChip [\#10789](https://github.com/primefaces/primeng/issues/10789)
+- CascadeSelect | Keyboard Exit Functionality [\#10749](https://github.com/primefaces/primeng/issues/10749)
+- CascadeSelect | Enter and Space support for toggle [\#10742](https://github.com/primefaces/primeng/issues/10742)
+- Add onClear event to dropdown [\#10712](https://github.com/primefaces/primeng/issues/10712)
+- p-password is not changing when I18N API called [\#10446](https://github.com/primefaces/primeng/issues/10446)
+- TreeTable PartialSelect not working [\#10370](https://github.com/primefaces/primeng/issues/10370)
+- Table | global filter doesn't reset on Table.clear()  [\#10246](https://github.com/primefaces/primeng/issues/10246)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.8-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.8) (2021-11-11)
+- The escape property does not work for label in Slide Menu component [\#10827](https://github.com/primefaces/primeng/issues/10827)
+- MultiSelect and Listbox | Header Checkbox Should be focusable [\#10797](https://github.com/primefaces/primeng/issues/10797)
+- Dropdown | autoDisplayFirst not update value of dropdown [\#10768](https://github.com/primefaces/primeng/issues/10768)
+- If appendTo property of confirmDialog is set, defaultFocus doesn't work [\#10722](https://github.com/primefaces/primeng/issues/10722)
+- Filtered Dropdown unusable on Windows Tablet [\#10648](https://github.com/primefaces/primeng/issues/10648)
+- Extra space between MultiSelect and filter list [\#10644](https://github.com/primefaces/primeng/issues/10644)
+- Dropdown - scroll to selected item [\#10346](https://github.com/primefaces/primeng/issues/10346)
+- Table frozen columns not working with colresize expand mode [\#10310](https://github.com/primefaces/primeng/issues/10310)
+- 10286 for ColorPicker [\#10309](https://github.com/primefaces/primeng/issues/10309)
+- Splitter error : Cannot read property '0' of undefined at Splitter.onResize [\#10286](https://github.com/primefaces/primeng/issues/10286)
+- FileUpload - long filename [\#10275](https://github.com/primefaces/primeng/issues/10275)
+- Sidebar wrong animation and close button display [\#10261](https://github.com/primefaces/primeng/issues/10261)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.7-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.7) (2021-10-18)
+- multiselect applies disabled UI state to all items when selectionLimit is reached and chip is removed [\#10734](https://github.com/primefaces/primeng/issues/10734)
+- float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
+- pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)
+- p-radioButton causes layout issues when used inside an overflow: auto div [\#10718](https://github.com/primefaces/primeng/issues/10718)
+- float-label pInputText problem [\#10716](https://github.com/primefaces/primeng/issues/10716)
+- Thumbnails are not displayed correctly on Galleria if numVisible is greater than the length of value [\#10594](https://github.com/primefaces/primeng/issues/10594)
+- Improve resize feature of Dialog [\#10465](https://github.com/primefaces/primeng/issues/10465)
+- A maximizable dialog cannot be maximized properly after its size or position has been changed [\#10464](https://github.com/primefaces/primeng/issues/10464)
+- Unsubscription error when running any default component test using Steps [\#10379](https://github.com/primefaces/primeng/issues/10379)
+- FileUpload Size Calculation is wrong [\#10369](https://github.com/primefaces/primeng/issues/10369)
+- p-checkbox causes layout issues when used inside an overflow: auto div [\#9725](https://github.com/primefaces/primeng/issues/9725)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [11.4.6-LTS](https://www.npmjs.com/package/primeng-lts/v/11.4.6) (2021-10-05)
 - Improve scrollbar style on BreadCrumb and TabMenu [\#10698](https://github.com/primefaces/primeng/issues/10698)
@@ -659,6 +1127,30 @@
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.5) (2021-11-11)
+- The escape property does not work for label in Slide Menu component [\#10827](https://github.com/primefaces/primeng/issues/10827)
+- Dropdown | autoDisplayFirst not update value of dropdown [\#10768](https://github.com/primefaces/primeng/issues/10768)
+- If appendTo property of confirmDialog is set, defaultFocus doesn't work [\#10722](https://github.com/primefaces/primeng/issues/10722)
+- Filtered Dropdown unusable on Windows Tablet [\#10648](https://github.com/primefaces/primeng/issues/10648)
+- Extra space between MultiSelect and filter list [\#10644](https://github.com/primefaces/primeng/issues/10644)
+- Dropdown - scroll to selected item [\#10346](https://github.com/primefaces/primeng/issues/10346)
+- Table frozen columns not working with colresize expand mode [\#10310](https://github.com/primefaces/primeng/issues/10310)
+- 10286 for ColorPicker [\#10309](https://github.com/primefaces/primeng/issues/10309)
+- FileUpload - long filename [\#10275](https://github.com/primefaces/primeng/issues/10275)
+- Sidebar wrong animation and close button display [\#10261](https://github.com/primefaces/primeng/issues/10261)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.4) (2021-10-18)
+- float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
+- pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)
+- p-radioButton causes layout issues when used inside an overflow: auto div [\#10718](https://github.com/primefaces/primeng/issues/10718)
+- float-label pInputText problem [\#10716](https://github.com/primefaces/primeng/issues/10716)
+- Thumbnails are not displayed correctly on Galleria if numVisible is greater than the length of value [\#10594](https://github.com/primefaces/primeng/issues/10594)
+- Improve resize feature of Dialog [\#10465](https://github.com/primefaces/primeng/issues/10465)
+- A maximizable dialog cannot be maximized properly after its size or position has been changed [\#10464](https://github.com/primefaces/primeng/issues/10464)
+- Unsubscription error when running any default component test using Steps [\#10379](https://github.com/primefaces/primeng/issues/10379)
+- FileUpload Size Calculation is wrong [\#10369](https://github.com/primefaces/primeng/issues/10369)
+- p-checkbox causes layout issues when used inside an overflow: auto div [\#9725](https://github.com/primefaces/primeng/issues/9725)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.3-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.3) (2021-10-05)
 - Improve scrollbar style on BreadCrumb and TabMenu [\#10698](https://github.com/primefaces/primeng/issues/10698)
 - Disable the navigation helpers when paginator empty [\#10661](https://github.com/primefaces/primeng/issues/10661)
@@ -988,7 +1480,7 @@
 - Deprecate ng-content in favor of ng-template [\#8775](https://github.com/primefaces/primeng/issues/8775)
 - Multiple Messages display should support multiple severities [\#8767](https://github.com/primefaces/primeng/issues/8767)
 - Remove ui-g [\#8761](https://github.com/primefaces/primeng/issues/8761)
-- Migrate all components to use ChangeDetectionStrategy.OnPush [\#8688](https://github.com/primefaces/primeng/issues/8688)
+- Migrate all components to use ChangeDetectionStrategy.**OnPush** [\#8688](https://github.com/primefaces/primeng/issues/8688)
 - Remove deprecated style classes [\#8630](https://github.com/primefaces/primeng/issues/8630)
 - Deprecate Responsive Table [\#8611](https://github.com/primefaces/primeng/issues/8611)
 - Listbox filter width problem when showToggleAll=false [\#8541](https://github.com/primefaces/primeng/issues/8541)

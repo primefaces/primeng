@@ -6,9 +6,9 @@ export class DynamicDialogRef {
 	close(result?: any) {
 		this._onClose.next(result);
     }
-    
+
     destroy() {
-		this._onDestroy.next();
+		this._onDestroy.next(null);
 	}
 
 	private readonly _onClose = new Subject<any>();

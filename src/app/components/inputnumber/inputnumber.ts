@@ -18,9 +18,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [ngStyle]="style" [class]="styleClass">
             <input #input [ngClass]="'p-inputnumber-input'" [ngStyle]="inputStyle" [class]="inputStyleClass" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
                 [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel"
-                [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.aria-valuemin]="min" [attr.aria-valuemax]="max" [readonly]="readonly" inputmode="decimal"
+                [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.min]="min" [attr.max]="max" [readonly]="readonly" inputmode="decimal"
                 (input)="onUserInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
                 (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
+            <i *ngIf="buttonLayout != 'vertical' && showClear && value" class="p-inputnumber-clear-icon pi pi-times" (click)="clear()"></i>
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
                 <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" [disabled]="disabled"
                     (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp()"></button>
@@ -40,7 +41,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused'
+        '[class.p-inputwrapper-focus]': 'focused',
+        '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
     }
 })
 export class InputNumber implements OnInit,ControlValueAccessor {
@@ -119,6 +121,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() inputStyleClass: string;
 
+    @Input() showClear: boolean = false;
+
     @ViewChild('input') input: ElementRef;
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
@@ -128,6 +132,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onKeyDown: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     value: number;
 
@@ -365,6 +371,12 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.handleOnInput(event, currentValue, newValue);
     }
 
+    clear() {
+        this.value = null;
+        this.onModelChange(this.value);
+        this.onClear.emit();
+    }
+
     onUpButtonMouseDown(event) {
         this.input.nativeElement.focus();
         this.repeat(event, null, 1);
@@ -414,6 +426,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onUserInput(event) {
+        if(this.readonly) {
+            return;
+        }
+
         if (this.isSpecialChar) {
             event.target.value = this.lastValue;
         }
@@ -421,6 +437,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyDown(event) {
+        if(this.readonly) {
+            return;
+        }
+
         this.lastValue = event.target.value;
         if (event.shiftKey || event.altKey) {
             this.isSpecialChar = true;
@@ -573,6 +593,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyPress(event) {
+        if (this.readonly) {
+            return;
+        }
+
         event.preventDefault();
         let code = event.which || event.keyCode;
         let char = String.fromCharCode(code);
@@ -585,7 +609,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onPaste(event) {
-        if (!this.disabled) {
+        if (!this.disabled && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || window['clipboardData']).getData('Text');
             if (data) {
@@ -793,7 +817,9 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputClick() {
-        this.initCursor();
+        if(!this.readonly) {
+            this.initCursor();
+        }
     }
 
     isNumeralChar(char) {

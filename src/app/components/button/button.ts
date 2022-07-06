@@ -32,7 +32,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._initialStyleClass = this.el.nativeElement.className;
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
 
-        if (this.icon) {
+        if (this.icon || this.loading) {
             this.createIconEl();
         }
 
@@ -81,7 +81,12 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             DomHandler.addClass(iconElement, iconPosClass);
         }
 
-        DomHandler.addMultipleClasses(iconElement, this.getIconClass());
+        let iconClass = this.getIconClass();
+
+        if(iconClass) {
+            DomHandler.addMultipleClasses(iconElement, iconClass);
+        }
+
         let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label')
 
         if (labelEl)
@@ -109,7 +114,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     removeIconElement() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
-        this.el.nativeElement.removeChild(iconElement)
+        this.el.nativeElement.removeChild(iconElement);
     }
 
     @Input() get label(): string {
@@ -121,7 +126,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         if (this.initialized) {
             DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
-            this.setIconClass();
+
+            if (this.loading || this.icon) {
+                this.setIconClass();
+            }
             this.setStyleClass();
         }
     }
@@ -164,7 +172,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-button',
     template: `
-        <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled || loading"
+        <button [attr.type]="type" [attr.aria-label]="ariaLabel" [class]="styleClass" [ngStyle]="style" [disabled]="disabled || loading"
             [ngClass]="{'p-button p-component':true,
                         'p-button-icon-only': (icon && !label),
                         'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
@@ -213,6 +221,8 @@ export class Button implements AfterContentInit {
     @Input() styleClass: string;
 
     @Input() badgeClass: string;
+
+    @Input() ariaLabel: string;
 
     contentTemplate: TemplateRef<any>;
 

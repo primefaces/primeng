@@ -120,6 +120,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     set header(header: string) {
         this._header = header;
+        this.tabView.updateInkBar();
         this.tabView.cd.markForCheck();
     }
 
@@ -380,9 +381,11 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
     }
 
     updateInkBar() {
-        let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
-        this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-        this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+        if (this.navbar) {
+            let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+            this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+            this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+        }
     }
 
     updateScrollBar(index) {
@@ -396,7 +399,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+        this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
     }
 
     onScroll(event) {

@@ -14,7 +14,7 @@
                 <img [src]="item.previewImageSrc" [ngStyle]="{'width': !fullscreen ? '100%' : '', 'display': !fullscreen ? 'block' : ''}" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="p-grid p-nogutter p-justify-center">
+                <div class="grid grid-nogutter justify-content-center">
                     <img [src]="item.thumbnailImageSrc" />
                 </div>
             </ng-template>
@@ -164,7 +164,7 @@ export class GalleriaAdvancedDemo implements OnInit &#123;
     &lt;img [src]="item.previewImageSrc" [ngStyle]="&#123;'width': !fullscreen ? '100%' : '', 'display': !fullscreen ? 'block' : ''&#125;" /&gt;
 &lt;/ng-template&gt;
 &lt;ng-template pTemplate="thumbnail" let-item&gt;
-    &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+    &lt;div class="grid grid-nogutter justify-content-center"&gt;
         &lt;img [src]="item.thumbnailImageSrc" /&gt;
     &lt;/div&gt;
 &lt;/ng-template&gt;

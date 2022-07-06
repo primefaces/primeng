@@ -17,6 +17,7 @@
 
 .p-breadcrumb .p-menuitem-link {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .p-breadcrumb::-webkit-scrollbar {

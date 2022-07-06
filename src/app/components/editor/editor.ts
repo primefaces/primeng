@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import * as Quill from "quill";
+import Quill from "quill";
 
 export const EDITOR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -46,9 +46,9 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     <button class="ql-list" value="bullet" aria-label="Unordered List" type="button"></button>
                     <select class="ql-align">
                         <option selected></option>
-                        <option value="center"></option>
-                        <option value="right"></option>
-                        <option value="justify"></option>
+                        <option value="center">center</option>
+                        <option value="right">right</option>
+                        <option value="justify">justify</option>
                     </select>
                 </span>
                 <span class="ql-formats">

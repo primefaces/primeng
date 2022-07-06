@@ -8,16 +8,16 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5>Basic</h5> 
+        <h5>Basic</h5>
         <p-rating [(ngModel)]="val1"></p-rating>
 
-        <h5>No Cancel</h5> 
+        <h5>No Cancel</h5>
         <p-rating [(ngModel)]="val2" [cancel]="false"></p-rating>
 
-        <h5>ReadOnly</h5> 
+        <h5>ReadOnly</h5>
         <p-rating [(ngModel)]="val3" readonly="true" stars="10" [cancel]="false"></p-rating>
 
-        <h5>Disabled</h5> 
+        <h5>Disabled</h5>
         <p-rating [(ngModel)]="val4" disabled="true" stars="10"></p-rating>
     </div>
 </div>
@@ -32,7 +32,7 @@ import &#123;RatingModule&#125; from 'primeng/rating';
 
             <h5>Getting Started</h5>
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
-                    
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-rating [(ngModel)]="val"&gt;&lt;/p-rating&gt;
 </app-code>
@@ -99,13 +99,13 @@ export class ModelComponent &#123;
                                 <tr>
                                     <td>iconOnClass</td>
                                     <td>string</td>
-                                    <td>pi pi-star</td>
+                                    <td>pi pi-star-fill</td>
                                     <td>Style class of the on icon.</td>
                                 </tr>
                                 <tr>
                                     <td>iconOffClass</td>
                                     <td>string</td>
-                                    <td>pi pi-star</td>
+                                    <td>pi pi-star-fill</td>
                                     <td>Style class of the off icon.</td>
                                 </tr>
                                 <tr>
@@ -206,16 +206,16 @@ export class ModelComponent &#123;
                         <span>Edit in StackBlitz</span>
                     </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;h5&gt;Basic&lt;/h5&gt; 
+&lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-rating [(ngModel)]="val1"&gt;&lt;/p-rating&gt;
 
-&lt;h5&gt;No Cancel&lt;/h5&gt; 
+&lt;h5&gt;No Cancel&lt;/h5&gt;
 &lt;p-rating [(ngModel)]="val2" [cancel]="false"&gt;&lt;/p-rating&gt;
 
-&lt;h5&gt;ReadOnly&lt;/h5&gt; 
+&lt;h5&gt;ReadOnly&lt;/h5&gt;
 &lt;p-rating [ngModel]="val3" readonly="true" stars="10" [cancel]="false"&gt;&lt;/p-rating&gt;
 
-&lt;h5&gt;Disabled&lt;/h5&gt; 
+&lt;h5&gt;Disabled&lt;/h5&gt;
 &lt;p-rating [ngModel]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
 </app-code>
 

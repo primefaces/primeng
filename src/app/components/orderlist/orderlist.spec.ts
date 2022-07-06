@@ -204,6 +204,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveUpButtonEl = buttonsEl[0];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveUpButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -224,6 +226,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveDownButtonEl = buttonsEl[2];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveDownButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -244,6 +248,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[1];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -264,6 +270,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[3];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -318,6 +326,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveUpButtonEl = buttonsEl[0];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveUpButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -335,6 +345,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveDownButtonEl = buttonsEl[2];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveDownButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -352,6 +364,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[1];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -368,6 +382,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[1];
 		vwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -385,6 +401,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveTopButtonEl = buttonsEl[0];
 		vwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveTopButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -403,6 +421,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[3];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -419,6 +439,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[3];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 
@@ -436,6 +458,8 @@ describe('OrderList', () => {
 		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
 		const moveBottomButtonEl = buttonsEl[2];
 		bmwEl.nativeElement.click();
+		fixture.detectChanges();
+
 		moveBottomButtonEl.nativeElement.click();
 		fixture.detectChanges();
 

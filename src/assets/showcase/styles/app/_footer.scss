@@ -1,7 +1,7 @@
 .layout-footer {
     padding: 2rem;
     font-size: 1rem;
-    background-color: var(--surface-a);
+    background-color: var(--surface-ground);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,6 +12,7 @@
     }
 
     .layout-footer-right {
+        display: flex;
         a {
             i {
                 color: var(--text-secondary-color);

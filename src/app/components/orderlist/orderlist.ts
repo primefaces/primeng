@@ -7,16 +7,20 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 
+export interface OrderListFilterOptions {
+    filter?: (value?: any) => void;
+    reset?: () => void;
+}
 @Component({
     selector: 'p-orderList',
     template: `
-        <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
+        <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
-                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown()"></button>
-                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-down" (click)="moveDown()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header || headerTemplate">
@@ -24,14 +28,19 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-orderlist-filter-container" *ngIf="filterBy">
-                    <div class="p-orderlist-filter">
-                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
-                        <span class="p-orderlist-filter-icon pi pi-search"></span>
-                    </div>
+                    <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+                        <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
+                    </ng-container>
+                    <ng-template #builtInFilterElement>
+                        <div class="p-orderlist-filter">
+                            <input #filter type="text" role="textbox" (keyup)="onFilterKeyup($event)" [disabled]="disabled" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
+                            <span class="p-orderlist-filter-icon pi pi-search"></span>
+                        </div>
+                    </ng-template>
                 </div>
                 <ul #listelement cdkDropList (cdkDropListDropped)="onDrop($event)" class="p-orderlist-list" [ngStyle]="listStyle">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
-                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
+                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item), 'p-disabled': disabled}" cdkDrag pRipple [cdkDragData]="item" [cdkDragDisabled]="!dragdrop"
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd()" (keydown)="onItemKeydown($event,item,i)"
                              *ngIf="isItemVisible(item)" role="option" [attr.aria-selected]="isSelected(item)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
@@ -56,6 +65,7 @@ import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-dr
         'class': 'p-element'
     }
 })
+
 export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() header: string;
@@ -86,6 +96,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() breakpoint: string = "960px";
 
+    @Input() stripedRows: boolean;
+
+    @Input() disabled: boolean = false;
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() trackBy: Function = (index: number, item: any) => item;
@@ -98,6 +112,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @ViewChild('listelement') listViewChild: ElementRef;
 
+    @ViewChild('filter') filterViewChild: ElementRef;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public itemTemplate: TemplateRef<any>;
@@ -108,7 +124,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
     public emptyFilterMessageTemplate: TemplateRef<any>;
 
-    _selection: any[];
+    public filterTemplate: TemplateRef<any>;
+
+    filterOptions: OrderListFilterOptions;
+
+    _selection: any[] = [];
 
     movedUp: boolean;
 
@@ -140,6 +160,13 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.responsive) {
             this.createStyle();
         }
+
+        if (this.filterBy) {
+            this.filterOptions = {
+                filter: (value) => this.onFilterKeyup(value),
+                reset: () => this.resetFilter()
+            }
+        }
     }
 
     ngAfterContentInit() {
@@ -155,6 +182,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
                 case 'emptyfilter':
                     this.emptyFilterMessageTemplate = item.template;
+                break;
+
+                case 'filter':
+                    this.filterTemplate = item.template;
                 break;
 
                 case 'header':
@@ -232,7 +263,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
 
     onFilterKeyup(event) {
-        this.filterValue = event.target.value.trim().toLocaleLowerCase(this.filterLocale);
+        this.filterValue = ((<HTMLInputElement> event.target).value.trim() as any).toLocaleLowerCase(this.filterLocale);
         this.filter();
 
         this.onFilterEvent.emit({
@@ -244,6 +275,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
         this.visibleOptions = this.filterService.filter(this.value, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+    }
+
+    resetFilter() {
+        this.filterValue = null;
+        this.filterViewChild && ((<HTMLInputElement> this.filterViewChild.nativeElement).value = '');
     }
 
     isItemVisible(item: any): boolean {
@@ -435,6 +471,12 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             return !DomHandler.hasClass(prevItem, 'p-orderlist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else
             return null;
+    }
+
+    moveDisabled(){
+        if(this.disabled || !this.selection.length) {
+            return true;
+        }
     }
 
     createStyle() {

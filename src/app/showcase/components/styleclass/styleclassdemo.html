@@ -9,12 +9,12 @@
     <div class="card">
         <h5>ToggleClass</h5>
         <button pButton label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled"></button>
-        <input type="text" pInputText class="p-d-block p-mt-3">
+        <input type="text" pInputText class="block mt-3">
 
         <h5>Animations</h5>
-        <button pButton label="Show" class="p-mr-2" pStyleClass=".box" enterClass="p-d-none" enterActiveClass="my-fadein"></button>
-        <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="my-fadeout" leaveToClass="p-d-none"></button>
-        <div class="box p-d-none">Content</div>
+        <button pButton label="Show" class="mr-2" pStyleClass=".box" enterClass="hidden" enterActiveClass="my-fadein"></button>
+        <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="my-fadeout" leaveToClass="hidden"></button>
+        <div class="box hidden">Content</div>
     </div>
 </div>
 
@@ -32,14 +32,14 @@ import &#123;StyleClassModule&#125; from 'primeng/styleclass';
             <p><b>ToggleClass</b></p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;button pButton label="Toggle" pStyleClass="@next" toggleClass="p-disabled"&gt;&lt;/button&gt;
-&lt;input type="text" pInputText class="p-d-block p-mt-3"&gt;
+&lt;input type="text" pInputText class="block mt-3"&gt;
 </app-code>
 
             <p><b>Enter/Leave Animation</b></p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;button pButton label="Show" class="p-mr-2" pStyleClass=".box" enterClass="p-d-none" enterActiveClass="my-fadein"&gt;&lt;/button&gt;
-&lt;button pButton label="Hide" pStyleClass=".box" leaveActiveClass="my-fadeout" leaveToClass="p-d-none"&gt;&lt;/button&gt;
-&lt;div class="box p-d-none"&gt;Content&lt;/div&gt;
+&lt;button pButton label="Show" class="mr-2" pStyleClass=".box" enterClass="hidden" enterActiveClass="my-fadein"&gt;&lt;/button&gt;
+&lt;button pButton label="Hide" pStyleClass=".box" leaveActiveClass="my-fadeout" leaveToClass="hidden"&gt;&lt;/button&gt;
+&lt;div class="box hidden"&gt;Content&lt;/div&gt;
 </app-code>
 
             <h5>Target</h5>
@@ -158,12 +158,12 @@ import &#123;StyleClassModule&#125; from 'primeng/styleclass';
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;ToggleClass&lt;/h5&gt;
 &lt;button pButton label="Toggle" pStyleClass="@next" toggleClass="p-disabled"&gt;&lt;/button&gt;
-&lt;input type="text" pInputText class="p-d-block p-mt-3"&gt;
+&lt;input type="text" pInputText class="block mt-3"&gt;
 
 &lt;h5&gt;Animations&lt;/h5&gt;
-&lt;button pButton label="Show" class="p-mr-2" pStyleClass=".box" enterClass="p-d-none" enterActiveClass="my-fadein"&gt;&lt;/button&gt;
-&lt;button pButton label="Hide" pStyleClass=".box" leaveActiveClass="my-fadeout" leaveToClass="p-d-none"&gt;&lt;/button&gt;
-&lt;div class="box p-d-none"&gt;Content&lt;/div&gt;
+&lt;button pButton label="Show" class="mr-2" pStyleClass=".box" enterClass="hidden" enterActiveClass="my-fadein"&gt;&lt;/button&gt;
+&lt;button pButton label="Hide" pStyleClass=".box" leaveActiveClass="my-fadeout" leaveToClass="hidden"&gt;&lt;/button&gt;
+&lt;div class="box hidden"&gt;Content&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>

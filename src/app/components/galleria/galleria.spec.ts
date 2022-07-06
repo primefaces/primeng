@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, tick, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Galleria } from './galleria';
+import { Galleria, GalleriaModule } from './galleria';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Galleria', () => {
@@ -11,10 +11,8 @@ describe('Galleria', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                NoopAnimationsModule
-            ],
-            declarations: [
-                Galleria
+                NoopAnimationsModule,
+                GalleriaModule
             ]
         });
 
@@ -22,5 +20,10 @@ describe('Galleria', () => {
         galleria = fixture.componentInstance;
     });
 
-    
+    it('should not display by default', () => {
+		fixture.detectChanges();
+
+		const galleriaEl = fixture.debugElement.query(By.css('.p-galleria'));
+		expect(galleriaEl).toBeNull();
+	});
 });

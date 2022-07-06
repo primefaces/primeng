@@ -36,11 +36,11 @@ export class Rating implements OnInit,ControlValueAccessor {
 
     @Input() cancel: boolean = true;
 
-    @Input() iconOnClass: string = 'pi pi-star';
+    @Input() iconOnClass: string = 'pi pi-star-fill';
 
     @Input() iconOnStyle: any;
 
-    @Input() iconOffClass: string = 'pi pi-star-o';
+    @Input() iconOffClass: string = 'pi pi-star';
 
     @Input() iconOffStyle: any;
 

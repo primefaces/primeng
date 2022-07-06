@@ -28,6 +28,7 @@
     justify-content: center;
     overflow: hidden;
     position: relative;
+    flex-shrink: 0;
 }
 
 .p-treenode-leaf > .p-treenode-content .p-tree-toggler {
@@ -147,4 +148,9 @@
 
 .p-tree.p-tree-horizontal table {
 	height: 0;
+}
+
+/* Virtual Scroll */
+.p-scroller .p-tree-container {
+    overflow: visible;
 }

@@ -14,7 +14,7 @@ export class TreeScrollDemo implements OnInit {
     files3: TreeNode[];
 
     dialogVisible: boolean;
-    
+
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
@@ -31,9 +31,9 @@ export class TreeScrollDemo implements OnInit {
             collapsedIcon: 'pi pi-folder',
             children: Array.from({length: children}).map((_,j) => {
                 return {
-                    label: 'Node ' + i + '.' + j, 
-                    data: 'Node ' + i + '.' + j, 
-                    icon: 'pi pi-file-o'
+                    label: 'Node ' + i + '.' + j,
+                    data: 'Node ' + i + '.' + j,
+                    icon: 'pi pi-file'
                 }
             })
         };

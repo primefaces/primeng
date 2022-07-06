@@ -58,7 +58,7 @@
             </ng-template>
         </p-table>
 
-        <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts2" styleClass="p-mt-5" dataKey="code" responsiveLayout="scroll">
+        <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts2" styleClass="mt-5" dataKey="code" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Multiple Selection without MetaKey
             </ng-template>
@@ -164,6 +164,7 @@
         <h5>Checkbox Selection</h5>
         <p>Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".</p>
 
+        <h6>Checkbox-Only Selection</h6>
         <p-table [value]="products" [(selection)]="selectedProducts3" dataKey="code" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
@@ -180,6 +181,58 @@
                 <tr>
                     <td>
                         <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    </td>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <h6>Page-Only Selection</h6>
+        <p-table [value]="products" [(selection)]="selectedProducts4" dataKey="code" responsiveLayout="scroll" [paginator]="true" [rows]="5" [selectionPageOnly]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th style="min-width:200px">Code</th>
+                    <th style="min-width:200px">Name</th>
+                    <th style="min-width:200px">Category</th>
+                    <th style="min-width:200px">Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    </td>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <h6>Controlled Selection</h6>
+        <p-table [value]="products" [(selection)]="selectedProducts5" dataKey="code" responsiveLayout="scroll" [rowSelectable]="isRowSelectable">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th style="min-width:200px">Code</th>
+                    <th style="min-width:200px">Name</th>
+                    <th style="min-width:200px">Category</th>
+                    <th style="min-width:200px">Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="product" [disabled]="isOutOfStock(product)"></p-tableCheckbox>
                     </td>
                     <td>{{product.code}}</td>
                     <td>{{product.name}}</td>
@@ -253,7 +306,7 @@
         &lt;/ng-template&gt;
     &lt;/p-table&gt;
 
-    &lt;p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts2" styleClass="p-mt-5" dataKey="code"&gt;
+    &lt;p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts2" styleClass="mt-5" dataKey="code"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Multiple Selection without MetaKey
         &lt;/ng-template&gt;
@@ -359,6 +412,7 @@
     &lt;h5&gt;Checkbox Selection&lt;/h5&gt;
     &lt;p&gt;Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".&lt;/p&gt;
 
+    &lt;h6&gt;Checkbox-Only Selection&lt;/h6&gt;
     &lt;p-table [value]="products" [(selection)]="selectedProducts3" dataKey="code" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
@@ -375,6 +429,60 @@
             &lt;tr&gt;
                 &lt;td&gt;
                     &lt;p-tableCheckbox [value]="product"&gt;&lt;/p-tableCheckbox&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+
+    &lt;h6&gt;Page-Only Selection&lt;/h6&gt;
+    &lt;p-table [value]="products" [(selection)]="selectedProducts4" dataKey="code" responsiveLayout="scroll" [paginator]="true" [rows]="5" [selectionPageOnly]="true"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th style="width: 3rem"&gt;
+                    &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+                &lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Code&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Category&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Quantity&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &lt;p-tableCheckbox [value]="product"&gt;&lt;/p-tableCheckbox&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+
+
+
+    &lt;h6&gt;Controlled Selection&lt;/h6&gt;
+    &lt;p-table [value]="products" [(selection)]="selectedProducts5" dataKey="code" responsiveLayout="scroll" [rowSelectable]="isRowSelectable"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th style="width: 3rem"&gt;
+                    &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+                &lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Code&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Category&lt;/th&gt;
+                &lt;th style="min-width:200px"&gt;Quantity&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &lt;p-tableCheckbox [value]="product" [disabled]="isOutOfStock(product)"&gt;&lt;/p-tableCheckbox&gt;
                 &lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
@@ -412,7 +520,13 @@ export class TableSelectionDemo implements OnInit &#123;
 
     selectedProducts3: Product[];
 
-    constructor(private productService: ProductService, private messageService: MessageService) &#123; &#125;
+    selectedProducts4: Product[];
+
+    selectedProducts5: Product[];
+
+    constructor(private productService: ProductService, private messageService: MessageService) &#123;
+        this.isRowSelectable = this.isRowSelectable.bind(this);
+    &#125;
 
     ngOnInit() &#123;
         this.productService.getProductsSmall().then(data =&gt; this.products = data);
@@ -428,6 +542,14 @@ export class TableSelectionDemo implements OnInit &#123;
 
     onRowUnselect(event) &#123;
         this.messageService.add(&#123;severity:'info', summary:'Product Unselected',  detail: event.data.name&#125;);
+    &#125;
+
+    isRowSelectable(event) &#123;
+        return !this.isOutOfStock(event.data);
+    &#125;
+
+    isOutOfStock(data) &#123;
+        return data.inventoryStatus === 'OUTOFSTOCK';
     &#125;
 
 &#125;

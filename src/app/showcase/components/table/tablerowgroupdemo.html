@@ -27,7 +27,7 @@
                 <tr pRowGroupHeader>
                     <td colspan="5">
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
                     </td>
                 </tr>
             </ng-template>
@@ -78,9 +78,9 @@
             <ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                 <tr>
                     <td colspan="5">
-                        <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                        <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
                     </td>
                 </tr>
             </ng-template>
@@ -132,7 +132,7 @@
                     <td>{{rowIndex}}</td>
                     <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
                     </td>
                     <td>
                         {{customer.name}}
@@ -184,7 +184,7 @@
             &lt;tr pRowGroupHeader&gt;
                 &lt;td colspan="5"&gt;
                     &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                    &lt;span class="font-bold ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -235,9 +235,9 @@
         &lt;ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded"&gt;
             &lt;tr&gt;
                 &lt;td colspan="5"&gt;
-                    &lt;button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
+                    &lt;button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
                     &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                    &lt;span class="font-bold ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -289,7 +289,7 @@
                 &lt;td&gt;&#123;&#123;rowIndex&#125;&#125;&lt;/td&gt;
                 &lt;td *ngIf="rowgroup" [attr.rowspan]="rowspan"&gt;
                     &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                    &lt;span class="font-bold ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
                 &lt;td&gt;
                     &#123;&#123;customer.name&#125;&#125;

@@ -35,6 +35,7 @@ export interface Translation {
     monthNames?: string[];
     monthNamesShort?: string[];
     dateFormat?: string;
+    firstDayOfWeek?: number;
     today?: string;
     weekHeader?: string;
     weak?: string;

@@ -18,8 +18,8 @@
             <ng-template pTemplate="option" let-option>
                 <div class="country-item">
                     <img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/>
-                    <i class="pi pi-compass p-mr-2" *ngIf="option.cities"></i>
-                    <i class="pi pi-map-marker p-mr-2" *ngIf="option.cname"></i>
+                    <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
+                    <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                     <span>{{option.cname || option.name}}</span>
                 </div>
             </ng-template>
@@ -136,8 +136,8 @@ ngOnInit() &#123;
     &lt;ng-template pTemplate="option" let-option&gt;
         &lt;div class="country-item"&gt;
             &lt;img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
-            &lt;i class="pi pi-compass p-mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
-            &lt;i class="pi pi-map-marker p-mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-compass mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-map-marker mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
             &lt;span&gt;&#123;&#123;option.cname || option.name&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -240,6 +240,30 @@ ngOnInit() &#123;
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                        <tr>
+                            <td>inputLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label of the input for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the input for accessibility.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Specifies one or more IDs in the DOM that labels the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -286,6 +310,11 @@ ngOnInit() &#123;
                             <td>onHide</td>
                             <td>-</td>
                             <td>Callback to invoke when the overlay is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field is cleared.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -380,8 +409,8 @@ ngOnInit() &#123;
     &lt;ng-template pTemplate="option" let-option&gt;
         &lt;div class="country-item"&gt;
             &lt;img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
-            &lt;i class="pi pi-compass p-mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
-            &lt;i class="pi pi-map-marker p-mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-compass mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-map-marker mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
             &lt;span&gt;&#123;&#123;option.cname || option.name&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
