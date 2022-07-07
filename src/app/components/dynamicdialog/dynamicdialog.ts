@@ -20,7 +20,15 @@ const hideAnimation = animation([
 @Component({
 	selector: 'p-dynamicDialog',
 	template: `
-        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false}" [class]="config.maskStyleClass">
+        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false,
+                'p-dialog-left': config.position === 'left',
+                'p-dialog-right': config.position === 'right',
+                'p-dialog-top': config.position === 'top',
+                'p-dialog-top-left': config.position === 'topleft' || config.position === 'top-left',
+                'p-dialog-top-right': config.position === 'topright' || config.position === 'top-right',
+                'p-dialog-bottom': config.position === 'bottom',
+                'p-dialog-bottom-left': config.position === 'bottomleft' || config.position === 'bottom-left',
+                'p-dialog-bottom-right': config.position === 'bottomright' || config.position === 'bottom-right'}" [class]="config.maskStyleClass">
             <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
@@ -86,12 +94,39 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     transformOptions: string = "scale(0.7)";
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig) { }
+			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig) {
+        this.setPosition();
+    }
 
 	ngAfterViewInit() {
 		this.loadChildComponent(this.childComponentType);
 		this.cd.detectChanges();
 	}
+
+	private setPosition() {
+
+        switch (this.config.position) {
+            case 'topleft':
+            case 'bottomleft':
+            case 'left':
+                this.transformOptions = "translate3d(-100%, 0px, 0px)";
+                break;
+            case 'topright':
+            case 'bottomright':
+            case 'right':
+                this.transformOptions = "translate3d(100%, 0px, 0px)";
+                break;
+            case 'bottom':
+                this.transformOptions = "translate3d(0px, 100%, 0px)";
+                break;
+            case 'top':
+                this.transformOptions = "translate3d(0px, -100%, 0px)";
+                break;
+            default:
+                this.transformOptions = "scale(0.7)";
+                break;
+        }
+    }
 
 	loadChildComponent(componentType: Type<any>) {
 		let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);

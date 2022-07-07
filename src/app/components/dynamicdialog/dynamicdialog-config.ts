@@ -17,4 +17,5 @@ export class DynamicDialogConfig {
 	showHeader?: boolean;
 	modal?: boolean;
 	maskStyleClass?: string;
+	position?: string;
 }

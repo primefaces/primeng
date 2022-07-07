@@ -7,6 +7,7 @@ import { Product } from '../../domain/product';
 
 @Component({
     templateUrl: './dynamicdialogdemo.html',
+    styleUrls: ['./dynamicdialogdemo.scss'],
     providers: [DialogService, MessageService]
 })
 export class DynamicDialogDemo implements OnDestroy {
@@ -34,6 +35,22 @@ export class DynamicDialogDemo implements OnDestroy {
         if (this.ref) {
             this.ref.close();
         }
+    }
+
+    public showPositionDialog(position: string) {
+        this.ref = this.dialogService.open(ProductListDemo, {
+            header: 'Choose a Product',
+            width: '70%',
+            contentStyle: { "max-height": "500px", "overflow": "auto" },
+            baseZIndex: 10000,
+            position
+        });
+
+        this.ref.onClose.subscribe((product: Product) =>{
+            if (product) {
+                this.messageService.add({severity:'info', summary: 'Product Selected', detail: product.name});
+            }
+        });
     }
 }
 
