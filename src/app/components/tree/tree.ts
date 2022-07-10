@@ -11,7 +11,7 @@ import {BlockableUI} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
 import {DomHandler} from 'primeng/dom';
 import {RippleModule} from 'primeng/ripple';
-import {ScrollerModule, ScrollerOptions} from 'primeng/scroller';
+import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 
 @Component({
     selector: 'p-treeNode',
@@ -529,8 +529,8 @@ export class UITreeNode implements OnInit {
                     <span class="p-tree-filter-icon pi pi-search"></span>
             </div>
 
-            <p-scroller *ngIf="virtualScroll" [items]="serializedValue" styleClass="p-tree-wrapper" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_virtualNodeHeight"
-                [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
+            <p-scroller #scroller *ngIf="virtualScroll" [items]="serializedValue" styleClass="p-tree-wrapper" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_virtualNodeHeight"
+                [lazy]="lazy" (onScroll)="onScroll.emit($event)" (onScrollIndexChange)="onScrollIndexChange.emit($event)" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
                 <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                     <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                         <p-treeNode *ngFor="let rowNode of items; let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [level]="rowNode.level"
@@ -544,7 +544,7 @@ export class UITreeNode implements OnInit {
                 </ng-container>
             </p-scroller>
             <ng-container *ngIf="!virtualScroll">
-                <div class="p-tree-wrapper" [style.max-height]="scrollHeight">
+                <div #wrapper class="p-tree-wrapper" [style.max-height]="scrollHeight">
                     <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                         <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [node]="node"
                                     [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [level]="0"></p-treeNode>
@@ -670,11 +670,19 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
+    @Output() onScroll: EventEmitter<any> = new EventEmitter();
+
+    @Output() onScrollIndexChange: EventEmitter<any> = new EventEmitter();
+
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('filter') filterViewChild: ElementRef;
+
+    @ViewChild('scroller') scroller: Scroller;
+
+    @ViewChild('wrapper') wrapperViewChild: ElementRef;
 
     /* @deprecated */
     _virtualNodeHeight: number;
@@ -1214,7 +1222,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         }
     }
 
-    _filter(value) {
+    public _filter(value) {
         let filterValue = value;
         if (filterValue === '') {
             this.filteredNodes = null;
@@ -1241,11 +1249,31 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
         });
     }
 
-    resetFilter() {
+    public resetFilter() {
         this.filteredNodes = null;
 
         if (this.filterViewChild && this.filterViewChild.nativeElement) {
             this.filterViewChild.nativeElement.value = '';
+        }
+    }
+
+    public scrollToVirtualIndex(index: number) {
+        console.log('hi?', index)
+        this.virtualScroll && this.scroller.scrollToIndex(index);
+    }
+
+    public scrollTo(options) {
+        if (this.virtualScroll) {
+            this.scroller.scrollTo(options);
+        }
+        else  if (this.wrapperViewChild && this.wrapperViewChild.nativeElement) {
+            if (this.wrapperViewChild.nativeElement.scrollTo) {
+                this.wrapperViewChild.nativeElement.scrollTo(options);
+            }
+            else {
+                this.wrapperViewChild.nativeElement.scrollLeft = options.left;
+                this.wrapperViewChild.nativeElement.scrollTop = options.top;
+            }
         }
     }
 
