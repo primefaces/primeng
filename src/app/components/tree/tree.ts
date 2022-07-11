@@ -1258,7 +1258,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 
     public scrollToVirtualIndex(index: number) {
-        console.log('hi?', index)
         this.virtualScroll && this.scroller.scrollToIndex(index);
     }
 
