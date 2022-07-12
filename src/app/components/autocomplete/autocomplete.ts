@@ -187,7 +187,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @Input() field: any;
+    @Input() field: string | ((input: any) => any);
 
     @Input() scrollHeight: string = '200px';
 
