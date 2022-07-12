@@ -55,12 +55,6 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h5>CDK</h5>
-            <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-npm install @angular/cdk --save
-</app-code>
-
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;TreeTableModule&#125; from 'primeng/treetable';
@@ -70,7 +64,7 @@ import &#123;TreeNode&#125; from 'primeng/api';
             <h5>Getting Started</h5>
             <p>TreeTable component requires a collection of TreeNode objects as its value and templates for the presentation. TreeNode API represents a node with various properties, here is the list of properties utilized by the TreeTable.</p>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-export interface TreeNode &#123;
+export interface TreeNode &#123;
     data?: any;
     children?: TreeNode[];
     leaf?: boolean;
@@ -1266,8 +1260,8 @@ export class TreeTableSelectionDemo &#123;
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="content-section implementation" style="height: calc(100vh - 149px)"&gt;
-    &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="flex"
-        [virtualScroll]="true" [virtualRowHeight]="34"&gt;
+    &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" scrollHeight="flex"
+        [virtualScroll]="true" [virtualScrollItemSize]="34"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Virtual Scrolling with Full Page Viewport
         &lt;/ng-template&gt;
@@ -1397,11 +1391,11 @@ export class TreeTableSelectionDemo &#123;
 </app-code>
 
             <h5>Virtual Scrolling</h5>
-            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
-                would be enough to enable this functionality. It is also suggested to use the same virtualRowHeight value on the tr element inside the body template.</p>
+            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels
+                would be enough to enable this functionality. It is also suggested to use the same virtualScrollItemSize value on the tr element inside the body template.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="200px"
-    [virtualScroll]="true" [virtualRowHeight]="34"&gt;
+&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" scrollHeight="200px"
+    [virtualScroll]="true" [virtualScrollItemSize]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -1999,22 +1993,16 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                         <tr>
-                            <td>virtualRowHeight</td>
+                            <td>virtualScrollItemSize</td>
                             <td>number</td>
                             <td>28</td>
                             <td>Height of a row to use in calculations of virtual scrolling.</td>
                         </tr>
                         <tr>
-                            <td>minBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
-                        </tr>
-                        <tr>
-                            <td>maxBufferPx</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
+                            <td>virtualScrollOptions</td>
+                            <td>ScrollerOptions</td>
+                            <td>false</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/theming']">scroller</a> component can be used like an object in it.</td>
                         </tr>
                         <tr>
                             <td>frozenWidth</td>
@@ -2107,6 +2095,7 @@ export class TreeTableDemo implements OnInit &#123;
                         <tr>
                             <td>onLazyLoad</td>
                             <td>event.first = First row offset <br>
+                                event.last: Last index of the new data range to be loaded. <br>
                                 event.rows = Number of rows per page <br>
                                 event.sortField = Field name to sort with <br>
                                 event.sortOrder = Sort order as number, 1 for asc and -1 for dec <br>
@@ -2131,7 +2120,7 @@ export class TreeTableDemo implements OnInit &#123;
                         <tr>
                             <td>onNodeSelect</td>
                             <td>event.originalEvent: Browser event <br>
-                                event.nıde: Selected node
+                                event.node: Selected node
                             </td>
                             <td>Callback to invoke when a node is selected.</td>
                         </tr>

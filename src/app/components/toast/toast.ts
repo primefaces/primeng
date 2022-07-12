@@ -4,7 +4,7 @@ import {Message, PrimeNGConfig} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
-import {UniqueComponentId} from 'primeng/utils';
+import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
@@ -296,8 +296,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     onAnimationStart(event: AnimationEvent) {
         if (event.fromState === 'void') {
             this.containerViewChild.nativeElement.setAttribute(this.id, '');
-
-            if (this.autoZIndex) {
+            if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
                 ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
             }
         }
@@ -305,7 +304,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     onAnimationEnd(event: AnimationEvent) {
         if (event.toState === 'void') {
-            if (this.autoZIndex) {
+            if (this.autoZIndex && ObjectUtils.isEmpty(this.messages)) {
                 ZIndexUtils.clear(this.containerViewChild.nativeElement);
             }
         }

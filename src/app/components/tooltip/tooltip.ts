@@ -53,6 +53,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() positionLeft: number;
 
+    @Input() fitContent: boolean = true;
+
     @Input('pTooltip') text: string;
 
     @Input("tooltipDisabled") get disabled(): boolean {
@@ -70,7 +72,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         tooltipEvent: 'hover',
         appendTo: 'body',
         tooltipZIndex: 'auto',
-        escape: false,
+        escape: true,
         positionTop: 0,
         positionLeft: 0
     }
@@ -118,8 +120,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             else if (this.getOption('tooltipEvent') === 'focus') {
                 this.focusListener = this.onFocus.bind(this);
                 this.blurListener = this.onBlur.bind(this);
-                this.el.nativeElement.addEventListener('focus', this.focusListener);
-                this.el.nativeElement.addEventListener('blur', this.blurListener);
+
+                let target = this.getTarget(this.el.nativeElement);
+                target.addEventListener('focus', this.focusListener);
+                target.addEventListener('blur', this.blurListener);
             }
         });
     }
@@ -298,6 +302,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             DomHandler.appendChild(this.container, this.getOption('appendTo'));
 
         this.container.style.display = 'inline-block';
+        
+        if (this.fitContent) {
+            this.container.style.width = 'fit-content';
+        }
     }
 
     show() {
@@ -457,6 +465,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         return this._tooltipOptions[option];
     }
 
+    getTarget(el) {
+        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input'): el;
+    }
+
     preAlign(position: string) {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
@@ -519,8 +531,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('click', this.clickListener);
         }
         else if (this.getOption('tooltipEvent') === 'focus') {
-            this.el.nativeElement.removeEventListener('focus', this.focusListener);
-            this.el.nativeElement.removeEventListener('blur', this.blurListener);
+            let target = this.getTarget(this.el.nativeElement);
+
+            target.removeEventListener('focus', this.focusListener);
+            target.removeEventListener('blur', this.blurListener);
         }
 
         this.unbindDocumentResizeListener();

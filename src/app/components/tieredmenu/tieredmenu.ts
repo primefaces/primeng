@@ -19,18 +19,20 @@ import { TooltipModule } from 'primeng/tooltip';
                          (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"
                          [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
                          [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
-                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{child.badge}}</span>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
                     <a *ngIf="child.routerLink" (keydown)="onItemKeyDown($event, child)" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
                         [target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" role="menuitem"
                         (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"  [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state" pRipple>
-                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{child.label}}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{child.badge}}</span>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
                     <p-tieredMenuSub (keydownItem)="onChildItemKeyDown($event)" [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay" (leafClick)="onLeafClick()" [popup]="popup"></p-tieredMenuSub>
@@ -152,12 +154,12 @@ export class TieredMenuSub implements OnDestroy {
         this.leafClick.emit();
     }
 
-    onItemKeyDown(event, item) {
+    onItemKeyDown(event, item: MenuItem) {
         let listItem = event.currentTarget.parentElement;
 
         switch (event.key) {
             case 'ArrowDown':
-                var nextItem = this.findNextItem(listItem);
+                const nextItem = this.findNextItem(listItem);
                 if (nextItem) {
                     nextItem.children[0].focus();
                 }
@@ -166,7 +168,7 @@ export class TieredMenuSub implements OnDestroy {
             break;
 
             case 'ArrowUp':
-                var prevItem = this.findPrevItem(listItem);
+                const prevItem = this.findPrevItem(listItem);
                 if (prevItem) {
                     prevItem.children[0].focus();
                 }
@@ -190,6 +192,14 @@ export class TieredMenuSub implements OnDestroy {
                 event.preventDefault();
             break;
 
+            case 'Enter':
+                if (!item.routerLink) {
+                    this.onItemClick(event, item);
+                }
+
+            break;
+
+
             default:
             break;
         }
@@ -209,7 +219,7 @@ export class TieredMenuSub implements OnDestroy {
             const viewport = DomHandler.getViewport();
             const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
             const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-    
+
             if ((parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
                 DomHandler.addClass(sublist, 'p-submenu-list-flipped');
             }
@@ -435,7 +445,9 @@ export class TieredMenu implements OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.visible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     onLeafClick() {

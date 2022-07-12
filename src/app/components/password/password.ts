@@ -219,7 +219,9 @@ export class PasswordDirective implements OnDestroy,DoCheck {
     }
 
     onWindowResize() {
-        this.hideOverlay();
+        if (!DomHandler.isTouchDevice()) {
+            this.hideOverlay();
+        }
     }
 
     ngOnDestroy() {
@@ -251,6 +253,7 @@ export const Password_VALUE_ACCESSOR: any = {
         <div [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
             <input #input [attr.label]="label" [attr.aria-label]="ariaLabel" [attr.aria-labelledBy]="ariaLabelledBy" [attr.id]="inputId" pInputText [ngClass]="inputFieldClass()" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="inputType()" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" />
+            <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
             <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
@@ -282,7 +285,9 @@ export const Password_VALUE_ACCESSOR: any = {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled()',
-        '[class.p-inputwrapper-focus]': 'focused'
+        '[class.p-inputwrapper-focus]': 'focused',
+        '[class.p-password-clearable]': 'showClear',
+        '[class.p-password-mask]': 'toggleMask'
     },
     providers: [Password_VALUE_ACCESSOR],
     styleUrls: ['./password.css'],
@@ -333,11 +338,15 @@ export class Password implements AfterContentInit,OnInit {
 
     @Input() placeholder: string;
 
+    @Input() showClear: boolean = false;
+
     @ViewChild('input') input: ElementRef;
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     contentTemplate: TemplateRef<any>;
 
@@ -599,7 +608,7 @@ export class Password implements AfterContentInit,OnInit {
     bindResizeListener() {
         if (!this.resizeListener) {
             this.resizeListener = () => {
-                if (this.overlayVisible) {
+                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
                     this.overlayVisible = false;
                 }
             };
@@ -682,6 +691,13 @@ export class Password implements AfterContentInit,OnInit {
 
     getTranslation(option: string) {
         return this.config.getTranslation(option);
+    }
+
+    clear() {
+        this.value = null;
+        this.onModelChange(this.value);
+        this.writeValue(this.value);
+        this.onClear.emit();
     }
 
     ngOnDestroy() {

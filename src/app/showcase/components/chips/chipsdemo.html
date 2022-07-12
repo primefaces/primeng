@@ -161,6 +161,12 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Separator char to add an item when pressed in addition to the enter key. Currently only possible value is ","</td>
                         </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -206,6 +212,11 @@ export class MyModel &#123;
                             <td>onBlur</td>
                             <td>originalEvent: Browser event</td>
                             <td>Callback to invoke when a input loses focus.</td>
+                        </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field is cleared.</td>
                         </tr>
                     </tbody>
                 </table>

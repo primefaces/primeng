@@ -1,8 +1,7 @@
-import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
-import {PrimeTemplate, SharedModule} from 'primeng/api';
+import {PrimeTemplate, SharedModule, MenuItem} from 'primeng/api';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {DomHandler} from 'primeng/dom';
 import {TooltipModule} from 'primeng/tooltip';
@@ -22,7 +21,7 @@ import {TooltipModule} from 'primeng/tooltip';
                             <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
                                 [target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                                 <ng-container *ngIf="!itemTemplate">
-                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>
@@ -33,7 +32,7 @@ import {TooltipModule} from 'primeng/tooltip';
                                 [target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                 [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
                                 <ng-container *ngIf="!itemTemplate">
-                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>
@@ -56,7 +55,7 @@ import {TooltipModule} from 'primeng/tooltip';
         'class': 'p-element'
     }
 })
-export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked {
+export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() model: MenuItem[];
 
@@ -90,6 +89,8 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 
     forwardIsDisabled: boolean = false;
 
+    private timerIdForInitialAutoScroll: number | null = null;
+
     constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
@@ -106,8 +107,10 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.updateInkBar();
+        this.initAutoScrollForActiveItem();
+        this.initButtonState();
     }
 
     ngAfterViewChecked() {
@@ -117,9 +120,13 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         }
     }
 
+    ngOnDestroy(): void {
+        this.clearAutoScrollHandler();
+    }
+
     isActive(item: MenuItem) {
         if (item.routerLink){
-            let routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+            const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
 
             return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
         }
@@ -149,7 +156,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
     }
 
     updateInkBar() {
-        let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        const tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
         if (tabHeader) {
             this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
             this.inkbar.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
@@ -170,9 +177,14 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
     }
 
 
-    updateScrollBar(index) {
-        let tabHeader = this.navbar.nativeElement.children[index];
-        tabHeader.scrollIntoView({ block: 'nearest' })
+    updateScrollBar(index: number): void {
+        const tabHeader = this.navbar.nativeElement.children[index];
+
+        if (!tabHeader) {
+            return;
+        }
+
+        tabHeader.scrollIntoView({ block: 'nearest', inline: 'center' });
     }
 
     onScroll(event) {
@@ -194,6 +206,40 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
         content.scrollLeft = pos >= lastPos ? lastPos : pos;
+    }
+
+    private initAutoScrollForActiveItem(): void {
+        if (!this.scrollable) {
+            return;
+        }
+
+        this.clearAutoScrollHandler();
+        // We have to wait for the rendering and then can scroll to element.
+        this.timerIdForInitialAutoScroll = setTimeout(() => {
+            const activeItem = this.model.findIndex(menuItem => this.isActive(menuItem));
+
+            if (activeItem !== -1) {
+                this.updateScrollBar(activeItem);
+            }
+        });
+    }
+
+    private clearAutoScrollHandler(): void {
+        if (this.timerIdForInitialAutoScroll) {
+            clearTimeout(this.timerIdForInitialAutoScroll);
+            this.timerIdForInitialAutoScroll = null;
+        }
+    }
+
+    private initButtonState(): void {
+        if (this.scrollable) {
+            // We have to wait for the rendering and then retrieve the actual size element from the DOM.
+            // in future `Promise.resolve` can be changed to `queueMicrotask` (if ie11 support will be dropped)
+            Promise.resolve().then(() => {
+                this.updateButtonState();
+                this.cd.markForCheck();
+            });
+        }
     }
 }
 

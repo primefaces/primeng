@@ -385,32 +385,4 @@ describe('Slider', () => {
         document.dispatchEvent(new Event("mouseup"));
         fixture.detectChanges();
     });
-
-    it('should select range with min and max options', () => {
-        slider.range = true;
-        slider.handleValues = [20,80];
-        slider.values = [20,80];
-        slider.min = 19;
-        slider.max = 81;
-        fixture.detectChanges();
-
-        slider.handleIndex = 0;
-        slider.updateValue(15);
-        fixture.detectChanges();
-
-        expect(slider.values[0]).toEqual(19);
-        slider.updateValue(85);
-        fixture.detectChanges();
-
-        expect(slider.values[0]).toEqual(80);
-        slider.handleIndex = 1;
-        slider.updateValue(85)
-        fixture.detectChanges();
-
-        expect(slider.values[1]).toEqual(81);
-        slider.updateValue(78);
-        fixture.detectChanges();
-
-        expect(slider.values[1]).toEqual(80);
-    });
 });

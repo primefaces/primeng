@@ -158,3 +158,14 @@
     overflow: hidden;
     position: relative;
 }
+
+.p-calendar-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-calendar-clearable {
+    position: relative;
+} 

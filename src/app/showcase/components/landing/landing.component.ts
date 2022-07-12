@@ -6,6 +6,7 @@ import { Table } from "primeng/table";
 import { AppConfigService } from "../../service/appconfigservice";
 import { AppConfig } from "../../domain/appconfig";
 import { Customer, Representative } from "../../domain/customer";
+import { AppComponent } from "../../app.component";
 interface City {
     name: string;
     code: string;
@@ -86,7 +87,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     theme: string = 'lara-light-blue';
 
-    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef) {}
+    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent) {}
 
     ngOnInit() {
         this.config = this.configService.config;

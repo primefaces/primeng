@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Basic</h5>
         <div class="field-checkbox">
-            <p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"></p-checkbox>
+            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox>
             <label for="binary">{{checked}}</label>
         </div>
         <h5>Multiple</h5>
@@ -324,7 +324,7 @@ export class ModelComponent &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;div class="field-checkbox"&gt;
-    &lt;p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"&gt;&lt;/p-checkbox&gt;
+    &lt;p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"&gt;&lt;/p-checkbox&gt;
     &lt;label for="binary"&gt;&#123;&#123;checked&#125;&#125;&lt;/label&gt;
 &lt;/div&gt;
 &lt;h5&gt;Multiple&lt;/h5&gt;

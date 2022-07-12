@@ -7,6 +7,11 @@ import {RippleModule} from 'primeng/ripple';
 import {CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 
+export interface PickListFilterOptions {
+    filter?: (value?: any) => void;
+    reset?: () => void;
+}
+
 @Component({
     selector: 'p-pickList',
     template: `
@@ -23,10 +28,15 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                     <ng-container *ngTemplateOutlet="sourceHeaderTemplate"></ng-container>
                 </div>
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showSourceFilter !== false">
-                    <div class="p-picklist-filter">
-                        <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
-                        <span class="p-picklist-filter-icon pi pi-search"></span>
-                    </div>
+                    <ng-container *ngIf="sourceFilterTemplate; else builtInSourceElement">
+                        <ng-container *ngTemplateOutlet="sourceFilterTemplate; context: {options: sourceFilterOptions}"></ng-container>
+                    </ng-container>
+                    <ng-template #builtInSourceElement>
+                        <div class="p-picklist-filter">
+                            <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,SOURCE_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
+                            <span class="p-picklist-filter-icon pi pi-search"></span>
+                        </div>
+                    </ng-template>
                 </div>
 
                 <ul #sourcelist class="p-picklist-list p-picklist-source" cdkDropList [cdkDropListData]="source" (cdkDropListDropped)="onDrop($event, SOURCE_LIST)"
@@ -60,10 +70,15 @@ import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
                     <ng-container *ngTemplateOutlet="targetHeaderTemplate"></ng-container>
                 </div>
                 <div class="p-picklist-filter-container" *ngIf="filterBy && showTargetFilter !== false">
-                    <div class="p-picklist-filter">
-                        <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
-                        <span class="p-picklist-filter-icon pi pi-search"></span>
-                    </div>
+                    <ng-container *ngIf="targetFilterTemplate; else builtInTargetElement">
+                        <ng-container *ngTemplateOutlet="targetFilterTemplate; context: {options: targetFilterOptions}"></ng-container>
+                    </ng-container>
+                    <ng-template #builtInTargetElement>
+                        <div class="p-picklist-filter">
+                            <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,TARGET_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
+                            <span class="p-picklist-filter-icon pi pi-search"></span>
+                        </div>
+                    </ng-template>
                 </div>
                 <ul #targetlist class="p-picklist-list p-picklist-target" cdkDropList [cdkDropListData]="target" (cdkDropListDropped)="onDrop($event, TARGET_LIST)"
                     [ngStyle]="targetStyle" role="listbox" aria-multiselectable="multiple">
@@ -245,6 +260,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     targetHeaderTemplate: TemplateRef<any>;
 
+    sourceFilterTemplate: TemplateRef<any>;
+
+    targetFilterTemplate: TemplateRef<any>;
+
+    sourceFilterOptions: PickListFilterOptions;
+
+    targetFilterOptions: PickListFilterOptions;
+
     readonly SOURCE_LIST = -1;
 
     readonly TARGET_LIST = 1;
@@ -254,6 +277,18 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     ngOnInit() {
         if (this.responsive) {
             this.createStyle();
+        }
+
+        if (this.filterBy) {
+            this.sourceFilterOptions = {
+                filter: (value) => this.filterSource(value),
+                reset: () => this.resetSourceFilter()
+            }
+
+            this.targetFilterOptions = {
+                filter: (value) => this.filterTarget(value),
+                reset: () => this.resetTargetFilter()
+            }
         }
     }
 
@@ -270,6 +305,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
                 case 'targetHeader':
                     this.targetHeaderTemplate = item.template;
+                break;
+
+                case 'sourceFilter':
+                    this.sourceFilterTemplate = item.template;
+                break;
+
+                case 'targetFilter':
+                    this.targetFilterTemplate = item.template;
                 break;
 
                 case 'emptymessagesource':
@@ -362,14 +405,22 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.moveLeft();
     }
 
-    onFilter(event: KeyboardEvent, data: any[], listType: number) {
-        let query = ((<HTMLInputElement> event.target).value.trim() as any).toLocaleLowerCase(this.filterLocale);
+    onFilter(event: KeyboardEvent, listType: number) {
+        let query = (<HTMLInputElement> event.target).value;
         if (listType === this.SOURCE_LIST)
-            this.filterValueSource = query;
+            this.filterSource(query);
         else if (listType === this.TARGET_LIST)
-            this.filterValueTarget = query;
+            this.filterTarget(query);
+    }
 
-        this.filter(data, listType);
+    filterSource(value: any = '') {
+        this.filterValueSource = value.trim().toLocaleLowerCase(this.filterLocale);
+        this.filter(this.source, this.SOURCE_LIST);
+    }
+
+    filterTarget(value: any = '') {
+        this.filterValueTarget = value.trim().toLocaleLowerCase(this.filterLocale);
+        this.filter(this.target, this.TARGET_LIST);
     }
 
     filter(data: any[], listType: number) {
@@ -606,7 +657,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             if (this.keepSelection) {
                 this.selectedItemsSource = [...this.selectedItemsSource, ...this.selectedItemsTarget]
             }
-            
+
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
@@ -741,14 +792,21 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
 
-    resetFilter() {
+    resetSourceFilter() {
         this.visibleOptionsSource = null;
         this.filterValueSource = null;
+        this.sourceFilterViewChild && ((<HTMLInputElement> this.sourceFilterViewChild.nativeElement).value = '');
+    }
+
+    resetTargetFilter() {
         this.visibleOptionsTarget = null;
         this.filterValueTarget = null;
+        this.targetFilterViewChild && ((<HTMLInputElement> this.targetFilterViewChild.nativeElement).value = '');
+    }
 
-        (<HTMLInputElement> this.sourceFilterViewChild.nativeElement).value = '';
-        (<HTMLInputElement> this.targetFilterViewChild.nativeElement).value = '';
+    resetFilter() {
+        this.resetSourceFilter();
+        this.resetTargetFilter();
     }
 
     onItemKeydown(event: KeyboardEvent, item: any, selectedItems: any[], callback: EventEmitter<any>) {

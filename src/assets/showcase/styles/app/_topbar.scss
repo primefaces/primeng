@@ -1,6 +1,6 @@
 .layout-topbar {
     padding: 0;
-    height: 70px;
+    height: 5rem;
     position: fixed;
     top: 0;
     left: 250px;
@@ -97,7 +97,7 @@
                 > ul {
                     position: absolute;
                     transform-origin: top;
-                    top: 40px;
+                    top: 3rem;
                     right: 0;
                     width: 275px;
                     max-height: 400px;
@@ -161,7 +161,31 @@
             }
         }
     }
+
+    .theme-badge {
+        padding: 2px 4px;
+        vertical-align: middle;
+        border-radius: 3px;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 11px;
+        position: relative;
+        top: -1px;
+    }
+
+    .theme-badge.material {
+        background: linear-gradient(to bottom, #2196F3, #2196F3);
+    }
+
+    .theme-badge.bootstrap {
+        background: linear-gradient(to bottom, #563D7C, #966BD8);
+    }
+
+    .theme-badge.darkmode {
+        background: linear-gradient(to bottom, #141d26, #5a6067);
+    }
 }
+
 
 .layout-wrapper-dark {
     .layout-topbar {
