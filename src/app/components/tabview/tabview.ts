@@ -18,14 +18,20 @@ import {
     ViewChild,
     AfterViewChecked,
     forwardRef,
-    Inject
+    Inject,
+    AfterViewInit,
+    NgZone,
+    Self
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
 import { SharedModule, PrimeTemplate, BlockableUI } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
+import { filter, fromEvent } from 'rxjs';
+import { OnDestroyService } from '../utils/on-destroy.service';
+import { takeUntil } from 'rxjs/operators';
+import { outsideZone } from '../utils/outside-zone-operator';
 
 let idx: number = 0;
 
@@ -224,9 +230,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     styleUrls: ['./tabview.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [OnDestroyService]
 })
-export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
+export class TabView implements AfterContentInit, AfterViewInit, AfterViewChecked, BlockableUI {
     @Input() orientation: string = 'top';
 
     @Input() style: any;
@@ -269,28 +276,25 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     forwardIsDisabled: boolean = false;
 
-    private tabChangesSubscription!: Subscription;
-
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, private zone: NgZone, @Self() private destroy$: OnDestroyService) {}
 
     ngAfterContentInit() {
         this.initTabs();
 
-        this.tabChangesSubscription = this.tabPanels.changes.subscribe((_) => {
+        this.tabPanels.changes.pipe(takeUntil(this.destroy$)).subscribe((_) => {
             this.initTabs();
         });
+    }
+
+    ngAfterViewInit(): void {
+        this.initButtonState();
+        this.listenWindowResize();
     }
 
     ngAfterViewChecked() {
         if (this.tabChanged) {
             this.updateInkBar();
             this.tabChanged = false;
-        }
-    }
-
-    ngOnDestroy(): void {
-        if (this.tabChangesSubscription) {
-            this.tabChangesSubscription.unsubscribe();
         }
     }
 
@@ -470,6 +474,35 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         const lastPos = content.scrollWidth - width;
 
         content.scrollLeft = pos >= lastPos ? lastPos : pos;
+    }
+
+    private initButtonState(): void {
+        if (this.scrollable) {
+            // We have to wait for the rendering and then retrieve the actual size element from the DOM.
+            // in future `Promise.resolve` can be changed to `queueMicrotask` (if ie11 support will be dropped)
+            Promise.resolve().then(() => {
+                this.updateButtonState();
+                this.cd.markForCheck();
+            });
+        }
+    }
+
+    private listenWindowResize(): void {
+        fromEvent(window, 'resize', { passive: true })
+            .pipe(
+                outsideZone(this.zone),
+                filter(() => this.scrollable),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                const prevBackwardIsDisabled = this.backwardIsDisabled;
+                const prevForwardIsDisabled = this.forwardIsDisabled;
+                this.updateButtonState();
+
+                if (this.forwardIsDisabled !== prevForwardIsDisabled || this.backwardIsDisabled !== prevBackwardIsDisabled) {
+                    this.cd.detectChanges();
+                }
+            });
     }
 }
 
