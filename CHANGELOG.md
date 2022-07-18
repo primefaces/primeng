@@ -1,5 +1,20 @@
 # Changelog
 
+## [14.0.0](https://github.com/primefaces/primeng/tree/14.0.0) (2022-07-18)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0-rc.1...14.0.0)
+
+**Breaking changes:**
+- Table Resize | Expand mode not working with Virtual Scroll [\#11717](https://github.com/primefaces/primeng/issues/11717)
+- p-calendar is hidden while in a p-panel [\#11685](https://github.com/primefaces/primeng/issues/11685)
+- Badge: Whitespaces are added before & after string [\#11627](https://github.com/primefaces/primeng/issues/11627)
+- P-Tree: Duplicated render [\#11669](https://github.com/primefaces/primeng/issues/11669)
+- The scrollTo method is not working as expected on Scroller API [\#11669](https://github.com/primefaces/primeng/issues/11669)
+- Dropdown: Options grouping feature is not working [\#11672](https://github.com/primefaces/primeng/issues/11672)
+
+**Implemented New Features and Enhancements:**
+- Tree | scrollTo, scrollToVirtualIndex, onScroll, and onScrollIndexChange support [\#11697](https://github.com/primefaces/primeng/issues/11697)
+
 
 ## [14.0.0-rc.1](https://github.com/primefaces/primeng/tree/14.0.0-rc.1) (2022-06-29)
 
