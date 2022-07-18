@@ -1950,9 +1950,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
             else if (this.columnResizeMode === 'expand') {
                 let tableWidth = this.tableViewChild.nativeElement.offsetWidth + delta;
-                this.tableViewChild.nativeElement.style.width = tableWidth + 'px';
-                this.tableViewChild.nativeElement.style.minWidth = tableWidth + 'px';
-
+                this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
             }
 
@@ -2311,7 +2309,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth =  DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth = this.virtualScroll ? DomHandler.getOuterWidth(DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-scroller'))  : DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+        }
+    }
+
+    setResizeTableWidth(width: string) {
+        if (this.virtualScroll) { 
+            const scrollerEl = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-scroller');
+            scrollerEl.style.width = width;
+            scrollerEl.style.minWidth = width;
+        }
+        else {
+            this.tableViewChild.nativeElement.style.width = width;
+            this.tableViewChild.nativeElement.style.minWidth = width;
         }
     }
 
@@ -2320,9 +2330,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let widths = this.columnWidthsState.split(',');
 
             if (this.columnResizeMode === 'expand' && this.tableWidthState) {
-                this.tableViewChild.nativeElement.style.width = this.tableWidthState;
-                this.tableViewChild.nativeElement.style.minWidth = this.tableWidthState;
-                this.containerViewChild.nativeElement.style.width = this.tableWidthState;
+                this.setResizeTableWidth(this.tableWidthState + 'px');
             }
 
             if (ObjectUtils.isNotEmpty(widths)) {
