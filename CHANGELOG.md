@@ -4,7 +4,7 @@
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0-rc.1...14.0.0)
 
-**Implemented New Features and Enhancements:**
+**Enhancements:**
 - Tree | scrollTo, scrollToVirtualIndex, onScroll, and onScrollIndexChange support [\#11697](https://github.com/primefaces/primeng/issues/11697)
 
 **Fixed bugs:**
