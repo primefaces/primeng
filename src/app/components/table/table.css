@@ -74,18 +74,19 @@
     align-items: center;
 }
 
-.p-datatable-scrollable .p-datatable-thead {
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead,
+.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-thead {
     position: sticky;
     top: 0;
     z-index: 1;
 }
 
-.p-datatable-scrollable .p-datatable-frozen-tbody {
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-frozen-tbody {
     position: sticky;
     z-index: 1;
 }
 
-.p-datatable-scrollable .p-datatable-tfoot {
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot {
     position: sticky;
     bottom: 0;
     z-index: 1;
@@ -145,6 +146,10 @@
     display: table-cell;
 }
 
+.p-datatable-scrollable .p-scroller > .p-datatable-table {
+    display: inline-block; /* For Safari  */
+}
+
 /* Flex Scrollable */
 .p-datatable-flex-scrollable {
     display: flex;
@@ -169,7 +174,7 @@
     white-space: nowrap;
 }
 
-.p-datatable-resizable .p-resizable-column {
+.p-datatable-resizable .p-resizable-column:not(.p-frozen-column) {
     background-clip: padding-box;
     position: relative;
 }
@@ -309,8 +314,11 @@
     display: none;
 }
 
-/* Virtual Scroll*/
-
-cdk-virtual-scroll-viewport {
-    outline: 0 none;
+/* Virtual Scroll */
+.p-datatable .p-scroller-loading {
+    transform: none !important;
+    min-height: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
 }

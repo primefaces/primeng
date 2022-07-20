@@ -16,4 +16,5 @@ export class DynamicDialogConfig {
 	closable?: boolean;
 	showHeader?: boolean;
 	modal?: boolean;
+	maskStyleClass?: string;
 }

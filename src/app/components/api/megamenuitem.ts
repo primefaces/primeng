@@ -17,6 +17,7 @@ export interface MegaMenuItem {
     badgeStyleClass?: string;
     style?:any;
     styleClass?:string;
+    iconStyle?: any;
     title?: string;
     id?: string;
     automationId?: any;

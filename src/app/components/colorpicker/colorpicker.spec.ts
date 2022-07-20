@@ -39,7 +39,7 @@ describe('ColorPicker', () => {
 
     it('should created by default', () => {
         fixture.detectChanges();
-  
+
         const colorPickerEl = fixture.debugElement.query(By.css('.p-colorpicker'));
         expect(colorPickerEl.nativeElement).toBeTruthy();
     });
@@ -47,7 +47,7 @@ describe('ColorPicker', () => {
     it('should inline', () => {
         colorpicker.inline = true;
         fixture.detectChanges();
-  
+
         const overlayEl = fixture.debugElement.query(By.css('.p-colorpicker-overlay'));
         expect(overlayEl).toBeFalsy();
     });
@@ -55,7 +55,7 @@ describe('ColorPicker', () => {
     it('should select color', () => {
         colorpicker.inline = true;
         fixture.detectChanges();
-  
+
         const pickColorSpy = spyOn(colorpicker,"pickColor").and.callThrough();
         const colorSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-color-selector'));
         colorSelectorEl.triggerEventHandler("mousedown",{pageX:100,pageY:120});
@@ -71,7 +71,7 @@ describe('ColorPicker', () => {
     it('should select hue', () => {
         colorpicker.inline = true;
         fixture.detectChanges();
-  
+
         const pickHueSpy = spyOn(colorpicker,"pickHue").and.callThrough();
         const hueSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-hue'));
         hueSelectorEl.triggerEventHandler("mousedown",{pageX:20,pageY:25});
@@ -83,7 +83,7 @@ describe('ColorPicker', () => {
 
     it('should call togglePanel when click on input', () => {
         fixture.detectChanges();
-  
+
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         const toggleSpy = spyOn(colorpicker,"togglePanel").and.callThrough();
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
@@ -98,7 +98,7 @@ describe('ColorPicker', () => {
     it('should select color (overlay)', () => {
         colorpicker.appendTo = "body";
         fixture.detectChanges();
-  
+
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         inputEl.nativeElement.click();
@@ -125,7 +125,7 @@ describe('ColorPicker', () => {
 
     it('should close when inputclick', () => {
         fixture.detectChanges();
-  
+
         const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
@@ -143,7 +143,7 @@ describe('ColorPicker', () => {
 
     it('should open space keydown and close esc keydown', () => {
         fixture.detectChanges();
-  
+
         const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         const openEvent: any = document.createEvent('CustomEvent');

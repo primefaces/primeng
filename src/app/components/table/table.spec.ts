@@ -1,4 +1,3 @@
-import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Table, TableModule, EditableColumn } from './table';
@@ -256,7 +255,7 @@ import { RouterTestingModule } from '@angular/router/testing';
             </tr>
         </ng-template>
     </p-table>
-    <p-table class="colResizeTable" [columns]="cols" [value]="cars" [resizableColumns]="true">
+    <p-table class="colResizeTable" responsiveLayout="scroll" [columns]="cols" [value]="cars" [resizableColumns]="true">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" >
@@ -277,7 +276,7 @@ import { RouterTestingModule } from '@angular/router/testing';
             </tr>
         </ng-template>
     </p-table>
-    <p-table class="reorderableTable" [columns]="cols" [value]="cars" [reorderableColumns]="true">
+    <p-table class="reorderableTable" responsiveLayout="scroll" [columns]="cols" [value]="cars" [reorderableColumns]="true">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:2.5em"></th>
@@ -315,7 +314,7 @@ import { RouterTestingModule } from '@angular/router/testing';
     </p-table>
 
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table class="stateTable" #dt1 [columns]="cols2" [value]="cars2" [paginator]="true" [rows]="3" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+    <p-table class="stateTable" #dt1 [columns]="cols2" responsiveLayout="scroll" [value]="cars2" [paginator]="true" [rows]="3" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
         selectionMode="single" stateKey="statedemo">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -427,7 +426,6 @@ describe('Table', () => {
                 NoopAnimationsModule,
                 FormsModule,
                 SharedModule,
-                ScrollingModule,
                 DropdownModule,
                 ContextMenuModule,
                 TableModule,
@@ -1040,60 +1038,6 @@ describe('Table', () => {
         expect(checkboxSelectionTable.selection).toEqual([]);
     });
 
-    it('should headerCheckbox changing by filtering', fakeAsync(() => {
-        fixture.detectChanges();
-
-        checkboxSelectionTable.stateKey = "vin";
-        fixture.detectChanges();
-
-        const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
-        headerCheckbox.nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        const rowCheckboxs = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
-        expect(rowCheckboxs.length).toEqual(2);
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(true);
-        rowCheckboxs[0].query(By.css("div")).nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(false);
-    }));
-
-    it('should headerCheckbox changing by filtering', fakeAsync(() => {
-        fixture.detectChanges();
-
-        checkboxSelectionTable.stateKey = "vin";
-        fixture.detectChanges();
-
-        const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
-        headerCheckbox.nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        const rowCheckboxs = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
-        expect(rowCheckboxs.length).toEqual(2);
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(true);
-        rowCheckboxs[0].query(By.css("div")).nativeElement.click();
-        fixture.detectChanges();
-
-        checkboxSelectionTable.filter("v","brand","contains");
-        tick(300);
-        fixture.detectChanges();
-
-        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(false);
-    }));
-
     it('should open cell', () => {
         fixture.detectChanges();
 
@@ -1223,7 +1167,6 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
@@ -1262,7 +1205,6 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);

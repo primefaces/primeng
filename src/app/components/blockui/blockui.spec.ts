@@ -11,14 +11,14 @@ import { Panel } from 'primeng/panel';
     <p-blockUI [target]="pnl">
     </p-blockUI>
     <p-panel #pnl header="Godfather I" [style]="{'margin-top':'20px'}">
-    </p-panel>  
+    </p-panel>
     `
   })
   class TestBlockUIComponent {
   }
-  
+
 describe('BlockUI', () => {
-  
+
     let blockui: BlockUI;
     let blockui2: BlockUI;
     let fixture: ComponentFixture<TestBlockUIComponent>;
@@ -43,7 +43,7 @@ describe('BlockUI', () => {
     it('should display by default', () => {
         blockui.blocked = false;
         fixture.detectChanges();
-  
+
         const blockEl = fixture.debugElement.query(By.css('div'));
         expect(blockEl.nativeElement).toBeTruthy();
     });
@@ -51,36 +51,36 @@ describe('BlockUI', () => {
     it('should block body', () => {
         blockui.blocked = false;
         fixture.detectChanges();
-        
+
         const blockSpy = spyOn(blockui,'block').and.callThrough();
         blockui.blocked = true;
         fixture.detectChanges();
-        
+
         expect(blockSpy).toHaveBeenCalled();
     });
 
     it('should unblock body', () => {
         blockui.blocked = false;
         fixture.detectChanges();
-        
+
         const unBlockSpy = spyOn(blockui,'unblock').and.callThrough();
         blockui.blocked = true;
         fixture.detectChanges();
 
         blockui.blocked = false;
         fixture.detectChanges();
-        
+
         expect(unBlockSpy).toHaveBeenCalled();
     });
 
     it('should block element with target', () => {
         blockui2.blocked = false;
         fixture.detectChanges();
-        
+
         const blockSpy = spyOn(blockui2,'block').and.callThrough();
         blockui2.blocked = true;
         fixture.detectChanges();
-        
+
         expect(blockSpy).toHaveBeenCalled();
         expect(blockui2.target.getBlockableElement().style.position).toEqual("relative");
     });

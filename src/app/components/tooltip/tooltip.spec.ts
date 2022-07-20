@@ -46,4 +46,13 @@ describe('Tooltip', () => {
         tooltip = fixture.debugElement.children[0].componentInstance;
         component = fixture.componentInstance;
     });
+
+
+
+	it('should display by default', () => {
+		fixture.detectChanges();
+
+		const tooltipEl = fixture.debugElement.query(By.css('.p-tooltip'));
+		expect(tooltipEl).toBeFalsy();
+	});
 });

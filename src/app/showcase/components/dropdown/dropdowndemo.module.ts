@@ -7,6 +7,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
 	imports: [
@@ -15,6 +16,7 @@ import {AppDemoActionsModule} from '../../app.demoactions.component';
 		DropdownDemoRoutingModule,
         DropdownModule,
 		TabViewModule,
+        SkeletonModule,
 		AppDemoActionsModule,
 		AppCodeModule
 	],

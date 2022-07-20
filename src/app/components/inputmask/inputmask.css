@@ -1,0 +1,10 @@
+.p-inputmask-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-inputmask-clearable {
+    position: relative;
+}

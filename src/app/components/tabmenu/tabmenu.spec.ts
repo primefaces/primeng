@@ -124,28 +124,6 @@ describe('TabMenu', () => {
 		expect(itemClickSpy).toHaveBeenCalled();
 	});
 
-	it('should select item and highlight with routerLinkActive when click (routerLink)', () => {
-		tabmenu.model = [
-			{ label: 'Stats', icon: 'pi pi-fw pi-bar-chart', routerLink: 'test' },
-			{ label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: 'test' },
-			{ label: 'Documentation', icon: 'pi pi-fw pi-book', routerLink: 'test' },
-			{ label: 'Support', icon: 'pi pi-fw pi-support', routerLink: 'test' },
-			{ label: 'Social', icon: 'pi pi-fw pi-twitter', routerLink: 'test' }
-		];
-		const itemClickSpy = spyOn(tabmenu, 'itemClick').and.callThrough();
-		fixture.detectChanges();
-
-		const itemList = fixture.debugElement.query(By.css('ul'));
-		const calenderItem = itemList.children[1].children[0].nativeElement;
-		calenderItem.click();
-		fixture.detectChanges();
-
-		expect(itemList.children[1].nativeElement.className).toContain("p-highlight")
-		expect(tabmenu.activeItem.label).toEqual('Calendar');
-		expect(tabmenu.activeItem.icon).toContain('pi-calendar');
-		expect(itemClickSpy).toHaveBeenCalled();
-	});
-
 	it('shouldn\'t show content', () => {
 		tabmenu.model = [
 			{ label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled: true },

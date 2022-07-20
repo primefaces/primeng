@@ -30,6 +30,8 @@ export interface MenuItem {
     preserveFragment?: boolean;
     skipLocationChange?: boolean;
     replaceUrl?: boolean;
+    iconStyle?: any;
+    iconClass?: string;
     state?: {
         [k: string]: any;
     }

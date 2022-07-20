@@ -14,3 +14,7 @@
     overflow: hidden;
     position: relative;
 }
+
+.p-messages .p-message.ng-animating {
+    overflow: hidden;
+}

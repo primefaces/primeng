@@ -38,7 +38,7 @@ export class Knob {
 
     @Input() valueColor: string = "var(--primary-color, Black)";
 
-    @Input() rangeColor: string = "var(--surface-d, LightGray)";
+    @Input() rangeColor: string = "var(--surface-border, LightGray)";
 
     @Input() textColor: string = "var(--text-color-secondary, Black)";
 

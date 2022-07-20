@@ -33,6 +33,7 @@ const hideAnimation = animation([
             <div #container [ngClass]="{'p-dialog p-component':true, 'p-dialog-rtl':rtl,'p-dialog-draggable':draggable,'p-dialog-resizable':resizable, 'p-dialog-maximized': maximized}"
                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
+                <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{header}}</span>
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
@@ -56,7 +57,6 @@ const hideAnimation = animation([
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
-                <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
             </div>
         </div>
     `,
@@ -482,7 +482,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
             let containerHeight = DomHandler.getOuterHeight(this.container);
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
-            let offset = DomHandler.getOffset(this.container);
+            let offset = this.container.getBoundingClientRect();
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
@@ -553,7 +553,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
             let newHeight = containerHeight + deltaY;
             let minWidth = this.container.style.minWidth;
             let minHeight = this.container.style.minHeight;
-            let offset = DomHandler.getOffset(this.container);
+            let offset = this.container.getBoundingClientRect();
             let viewport = DomHandler.getViewport();
             let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
 
@@ -713,7 +713,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
             break;
 
             case 'void':
-                if (this.modal) {
+                if (this.wrapper && this.modal) {
                     DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
             break;

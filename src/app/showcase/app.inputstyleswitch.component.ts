@@ -11,12 +11,12 @@ import { DomHandler } from 'primeng/dom';
     template: `
         <div class="app-inputstyleswitch">
             <h4>Input Style</h4>
-            <div class="p-formgroup-inline">
-                <div class="p-field-radiobutton">
+            <div class="formgroup-inline">
+                <div class="field-radiobutton">
                     <p-radioButton name="inputstyle" value="outlined" [(ngModel)]="config.inputStyle" (onClick)="onChange()" inputId="input_outlined"></p-radioButton>
                     <label for="input_outlined">Outlined</label>
                 </div>
-                <div class="p-field-radiobutton">
+                <div class="field-radiobutton">
                     <p-radioButton name="inputstyle" value="filled" [(ngModel)]="config.inputStyle" (onClick)="onChange()" inputId="input_filled"></p-radioButton>
                     <label for="input_filled">Filled</label>
                 </div>

@@ -36,13 +36,12 @@ let idx: number = 0;
     animations: [
         trigger('tabContent', [
             state('hidden', style({
-                height: '0',
-                overflow: 'hidden'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
     ],
@@ -133,9 +132,11 @@ export class AccordionTab implements AfterContentInit,OnDestroy {
         else {
             if (!this.accordion.multiple) {
                 for (var i = 0; i < this.accordion.tabs.length; i++) {
-                    this.accordion.tabs[i].selected = false;
-                    this.accordion.tabs[i].selectedChange.emit(false);
-                    this.accordion.tabs[i].changeDetector.markForCheck();
+                    if (this.accordion.tabs[i].selected) {
+                        this.accordion.tabs[i].selected = false;
+                        this.accordion.tabs[i].selectedChange.emit(false);
+                        this.accordion.tabs[i].changeDetector.markForCheck();
+                    }
                 }
             }
 

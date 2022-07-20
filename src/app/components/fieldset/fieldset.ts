@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, QueryList, ContentChildren, TemplateRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
@@ -10,7 +10,7 @@ let idx: number = 0;
 @Component({
     selector: 'p-fieldset',
     template: `
-        <fieldset [attr.id]="id" [ngClass]="{'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
+        <fieldset [attr.id]="id" [ngClass]="{'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable, 'p-fieldset-expanded': !collapsed && toggleable}" [ngStyle]="style" [class]="styleClass">
             <legend class="p-fieldset-legend">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" pRipple>
@@ -26,7 +26,7 @@ let idx: number = 0;
             </legend>
             <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}"
                         [attr.aria-labelledby]="id" [attr.aria-hidden]="collapsed"
-                         (@fieldsetContent.done)="onToggleDone($event)" role="region">
+                         (@fieldsetContent.done)="onToggleDone()" role="region">
                 <div class="p-fieldset-content">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -37,13 +37,12 @@ let idx: number = 0;
     animations: [
         trigger('fieldsetContent', [
             state('hidden', style({
-                height: '0',
-                overflow: 'hidden'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
     ],
@@ -131,7 +130,7 @@ export class Fieldset implements AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    onToggleDone(event: Event) {
+    onToggleDone() {
         this.animating = false;
     }
 

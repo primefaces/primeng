@@ -34,6 +34,10 @@
     flex-shrink: 0;
 }
 
+.p-dialog-draggable .p-dialog-header {
+    cursor: move;
+}
+
 .p-dialog-footer {
     flex-shrink: 0;
 }

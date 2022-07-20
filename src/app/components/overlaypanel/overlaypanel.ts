@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,
-        ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+        ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation, ViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {SharedModule,PrimeTemplate, PrimeNGConfig, OverlayService} from 'primeng/api';
@@ -83,6 +83,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     render: boolean = false;
 
+    isOverlayAnimationInProgress: boolean = false;
+
     selfClick: boolean = false;
 
     documentClickListener: any;
@@ -150,6 +152,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     toggle(event, target?) {
+        if (this.isOverlayAnimationInProgress) {
+            return;
+        }
+
         if (this.overlayVisible) {
             if (this.hasTargetChanged(event, target)) {
                 this.destroyCallback = () => {
@@ -165,6 +171,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     show(event, target?) {
+        if (this.isOverlayAnimationInProgress) {
+            return;
+        }
+
         this.target = target||event.currentTarget||event.target;
         this.overlayVisible = true;
         this.render = true;
@@ -246,6 +256,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
             this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
         }
+
+        this.isOverlayAnimationInProgress = true;
     }
 
     onAnimationEnd(event: AnimationEvent) {
@@ -275,6 +287,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 this.render = false;
             break;
         }
+
+        this.isOverlayAnimationInProgress = false;
     }
 
     focus() {
@@ -287,6 +301,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     hide() {
+        if (this.isOverlayAnimationInProgress) {
+            return;
+        }
+
         this.overlayVisible = false;
         this.cd.markForCheck();
     }
@@ -297,7 +315,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onWindowResize(event) {
-        this.hide();
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     bindDocumentResizeListener() {
@@ -331,7 +351,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onContainerDestroy() {
-        this.target = null;
+        if (!(this.cd as ViewRef).destroyed) {
+            this.target = null;
+        }
+
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
@@ -347,7 +370,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             ZIndexUtils.clear(this.container);
         }
 
-        this.target = null;
+        if (!(this.cd as ViewRef).destroyed) {
+            this.target = null;
+        }
+
         this.destroyCallback = null;
         if (this.container) {
             this.restoreAppend();

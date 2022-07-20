@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <p-toast></p-toast>
-    
+
     <div class="card">
         <p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>
         <p-confirmPopup></p-confirmPopup>
@@ -147,6 +147,12 @@ export class ConfirmPopupDemo &#123;
                             <td>null</td>
                             <td>Style class of the reject button.</td>
                         </tr>
+                        <tr>
+                            <td>defaultFocus</td>
+                            <td>string</td>
+                            <td>accept</td>
+                            <td>Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none".</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -177,7 +183,7 @@ export class ConfirmPopupDemo &#123;
             </div>
 
             <h5>Animation Configuration</h5>
-            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
+            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties,
                 example below disables the animations altogether.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-confirmPopup [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-confirmPopup&gt;
@@ -294,7 +300,7 @@ export class ConfirmPopupDemo &#123;
 
 &lt;button (click)="confirm($event)" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 </app-code>
-    
+
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 import &#123;Component&#125; from '@angular/core';
 import &#123;ConfirmationService, MessageService&#125; from 'primeng/api';

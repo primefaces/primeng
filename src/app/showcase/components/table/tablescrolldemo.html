@@ -150,7 +150,7 @@
         <h5>Frozen Columns</h5>
         <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Unfreeze Balance'" offLabel="Freeze Balance" [style]="{'width': '12rem'}"></p-toggleButton>
 
-        <p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="p-mt-3">
+        <p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:200px" pFrozenColumn>Name</th>
@@ -195,13 +195,13 @@
                 <tr pRowGroupHeader>
                     <td colspan="5">
                         <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
                     </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="groupfooter" let-customer>
                 <tr>
-                    <td style="text-align: right" class="p-text-bold p-pr-6">Total Customers: {{calculateCustomerTotal(customer.representative.name)}}</td>
+                    <td style="text-align: right" class="font-bold pr-6">Total Customers: {{calculateCustomerTotal(customer.representative.name)}}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
@@ -381,7 +381,7 @@
     &lt;h5&gt;Frozen Columns&lt;/h5&gt;
     &lt;p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Unfreeze Balance'" offLabel="Freeze Balance" [style]="&#123;'width': '12rem'&#125;"&gt;&lt;/p-toggleButton&gt;
 
-    &lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="p-mt-3"&gt;
+    &lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th style="width:200px" pFrozenColumn&gt;Name&lt;/th&gt;
@@ -426,13 +426,13 @@
             &lt;tr pRowGroupHeader&gt;
                 &lt;td colspan="5"&gt;
                     &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
-                    &lt;span class="p-text-bold p-ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                    &lt;span class="font-bold ml-2"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="groupfooter" let-customer&gt;
             &lt;tr&gt;
-                &lt;td style="text-align: right" class="p-text-bold p-pr-6"&gt;Total Customers: &#123;&#123;calculateCustomerTotal(customer.representative.name)&#125;&#125;&lt;/td&gt;
+                &lt;td style="text-align: right" class="font-bold pr-6"&gt;Total Customers: &#123;&#123;calculateCustomerTotal(customer.representative.name)&#125;&#125;&lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-customer let-rowIndex="rowIndex"&gt;

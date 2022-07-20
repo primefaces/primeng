@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppConfigService} from '../../../service/appconfigservice';
 import {AppConfig} from '../../../domain/appconfig';
@@ -6,7 +6,7 @@ import {AppConfig} from '../../../domain/appconfig';
 @Component({
     templateUrl: './combochartdemo.html'
 })
-export class ComboChartDemo {
+export class ComboChartDemo implements OnInit, OnDestroy {
 
     data: any;
 
@@ -168,5 +168,11 @@ export class ComboChartDemo {
                 }
             }
         };
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

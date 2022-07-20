@@ -2,11 +2,12 @@ import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild,Ch
 import {CommonModule} from '@angular/common';
 import {PrimeNGConfig, PrimeTemplate} from 'primeng/api';
 import {ZIndexUtils} from 'primeng/utils';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask [class]="styleClass" [ngClass]="{'p-blockui-document':!target, 'p-blockui p-component-overlay': true}" [ngStyle]="{display: blocked ? 'flex' : 'none'}">
+        <div #mask [class]="styleClass" [ngClass]="{'p-blockui-document':!target, 'p-blockui p-component-overlay p-component-overlay-enter': true}" [ngStyle]="{display: blocked ? 'flex' : 'none'}">
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </div>
@@ -34,6 +35,8 @@ export class BlockUI implements AfterViewInit,OnDestroy {
 
     _blocked: boolean;
 
+    animationEndListener: any;
+
     contentTemplate: TemplateRef<any>;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
@@ -43,13 +46,14 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     }
 
     set blocked(val: boolean) {
-        this._blocked = val;
-
         if (this.mask && this.mask.nativeElement) {
-            if (this._blocked)
+            if (val)
                 this.block();
             else
                 this.unblock();
+        }
+        else {
+            this._blocked = val;
         }
     }
 
@@ -74,6 +78,8 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     }
 
     block() {
+        this._blocked = true;
+
         if (this.target) {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
             this.target.getBlockableElement().style.position = 'relative';
@@ -88,12 +94,30 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     }
 
     unblock() {
+        this.animationEndListener = this.destroyModal.bind(this);
+        this.mask.nativeElement.addEventListener('animationend', this.animationEndListener);
+        DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave')
+    }
+
+    destroyModal() {
+        this._blocked = false;
+        DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
         ZIndexUtils.clear(this.mask.nativeElement);
         this.el.nativeElement.appendChild(this.mask.nativeElement);
+        this.unbindAnimationEndListener();
+        this.cd.markForCheck();
+    }
+
+    unbindAnimationEndListener() {
+        if (this.animationEndListener && this.mask) {
+            this.mask.nativeElement.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener = null;
+        }
     }
 
     ngOnDestroy() {
         this.unblock();
+        this.destroyModal();
     }
 }
 
