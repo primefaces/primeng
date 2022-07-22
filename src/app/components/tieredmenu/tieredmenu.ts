@@ -332,6 +332,10 @@ export class TieredMenu implements OnDestroy {
 
     @Input() hideTransitionOptions: string = '.1s linear';
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
     parentActive: boolean;
 
     container: HTMLDivElement;
@@ -387,6 +391,7 @@ export class TieredMenu implements OnDestroy {
                 if (this.popup) {
                     this.container = event.element;
                     this.moveOnTop();
+                    this.onShow.emit({});
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindDocumentClickListener();
@@ -397,6 +402,7 @@ export class TieredMenu implements OnDestroy {
 
             case 'void':
                 this.onOverlayHide();
+                this.onHide.emit({});
             break;
         }
     }
