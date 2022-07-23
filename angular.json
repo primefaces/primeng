@@ -157,8 +157,5 @@
         }
       }
     },
-    "defaultProject": "primeng",
-    "cli": {
-      "analytics": false
-    }
-  }
+    "defaultProject": "primeng"
+}
