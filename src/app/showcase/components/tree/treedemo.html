@@ -9,14 +9,14 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-tree [value]="files1"></p-tree>
+        <!-- <p-tree [value]="files1"></p-tree>
 
         <h5>Programmatic</h5>
         <div style="margin-bottom: 1rem">
             <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .5rem"></button>
             <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
-        </div>
-        <p-tree [value]="files2"></p-tree>
+        </div> -->
+        <p-tree [value]="files2" [filter]="true" [selectionMode]="'checkbox'"></p-tree>
     </div>
 </div>
 
