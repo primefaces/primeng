@@ -117,7 +117,7 @@ export class Badge {
     containerClass() {
         return {
             'p-badge p-component': true,
-            'p-badge-no-gutter': this.value != undefined && String(this.value).length === 1,
+            'p-badge-no-gutter': true,
             'p-badge-lg': this.size === 'large',
             'p-badge-xl': this.size === 'xlarge',
             'p-badge-info': this.severity === 'info',
