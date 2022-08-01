@@ -653,6 +653,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     @Input() indentation: number = 1.5;
 
     @Input() trackBy: Function = (index: number, item: any) => item;
+    
+    @Input() parentTemplates: any;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
@@ -764,7 +766,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 
     ngAfterContentInit() {
-        if (this.templates.length) {
+        if (this.templates.length || this.parentTemplates != undefined) {
             this.templateMap = {};
         }
 
@@ -791,6 +793,10 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 break;
             }
         });
+
+        for (let key in this.parentTemplates) {
+            this.templateMap[key] = this.parentTemplates[key];
+        }
     }
 
     updateSerializedValue() {

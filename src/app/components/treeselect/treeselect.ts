@@ -60,7 +60,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             </div>
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
                 <p-tree #tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
-                    [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)"
+                    [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" [parentTemplates]="getParentTemplates()"
                     (onNodeSelect)="onSelect($event)" [emptyMessage]="emptyMessage" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus" [filteredNodes]="filteredNodes">
                         <ng-container *ngIf="emptyTemplate">
                             <ng-template pTemplate="empty">
@@ -220,6 +220,8 @@ export class TreeSelect implements AfterContentInit {
 
     onModelTouched: Function = () => {};
 
+    templateMap: any;
+
     constructor(public config: PrimeNGConfig, public cd: ChangeDetectorRef, public el: ElementRef, public overlayService: OverlayService) { }
 
     ngOnInit() {
@@ -227,6 +229,9 @@ export class TreeSelect implements AfterContentInit {
     }
 
     ngAfterContentInit() {
+        if (this.templates.length) {
+            this.templateMap = {};
+        }
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'value':
@@ -246,7 +251,7 @@ export class TreeSelect implements AfterContentInit {
                 break;
 
                 default:
-                    this.valueTemplate = item.template;
+                    this.templateMap[item.name] = item.template;
                 break;
             }
         });
@@ -424,6 +429,14 @@ export class TreeSelect implements AfterContentInit {
     nodeExpand(event) {
         this.onNodeExpand.emit(event);
         this.expandedNodes.push(event.node);
+    }
+
+    getParentTemplates() {
+        if (this.templateMap != undefined) {
+            return this.templateMap;
+        } else {
+            return this.templates;
+        }
     }
 
     nodeCollapse(event) {
