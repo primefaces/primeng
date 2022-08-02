@@ -714,6 +714,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     labelClass() {
         return {
             'p-cascadeselect-label': true,
+            'p-inputtext': true,
             'p-placeholder': this.label() === this.placeholder,
             'p-cascadeselect-label-empty': !this.value && (this.label() === 'p-emptylabel' || this.label().length === 0)
         };
