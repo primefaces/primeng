@@ -11,9 +11,9 @@ import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => AutoComplete),
-    multi: true
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => AutoComplete),
+  multi: true
 };
 
 @Component({
@@ -96,10 +96,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             transition(':enter', [
                 style({opacity: 0, transform: 'scaleY(0.8)'}),
                 animate('{{showTransitionParams}}')
-            ]),
-            transition(':leave', [
+              ]),
+              transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-            ])
+              ])
         ])
     ],
     host: {
@@ -241,7 +241,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
 
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+	@Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
 
@@ -402,35 +402,35 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-                    break;
+                break;
 
                 case 'group':
                     this.groupTemplate = item.template;
-                    break;
+                break;
 
                 case 'selectedItem':
                     this.selectedItemTemplate = item.template;
-                    break;
+                break;
 
                 case 'header':
                     this.headerTemplate = item.template;
-                    break;
+                break;
 
                 case 'empty':
                     this.emptyTemplate = item.template;
-                    break;
+                break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                    break;
+                break;
 
                 case 'loader':
                     this.loaderTemplate = item.template;
-                    break;
+                break;
 
                 default:
                     this.itemTemplate = item.template;
-                    break;
+                break;
             }
         });
     }
@@ -482,7 +482,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         if (value.length === 0 && !this.multiple) {
             this.hide();
             this.onClear.emit(event);
-            this.onModelChange(value);
+	        this.onModelChange(value);
         }
 
         if (value.length >= this.minLength) {
@@ -505,16 +505,16 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     search(event: any, query: string) {
         //allow empty string but not undefined or null
-        if (query === undefined || query === null) {
-            return;
-        }
+       if (query === undefined || query === null) {
+           return;
+       }
 
-        this.loading = true;
+       this.loading = true;
 
-        this.completeMethod.emit({
-            originalEvent: event,
-            query: query
-        });
+       this.completeMethod.emit({
+           originalEvent: event,
+           query: query
+       });
     }
 
     selectItem(option: any, focus: boolean = true) {
@@ -589,11 +589,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 this.bindDocumentResizeListener();
                 this.bindScrollListener();
                 this.onShow.emit(event);
-                break;
+            break;
 
             case 'void':
                 this.onOverlayHide();
-                break;
+            break;
         }
     }
 
@@ -603,7 +603,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 if (this.autoZIndex) {
                     ZIndexUtils.clear(event.element);
                 }
-                break;
+            break;
         }
     }
 
@@ -729,7 +729,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     }
 
                     event.preventDefault();
-                    break;
+                break;
 
                 //up
                 case 38:
@@ -761,7 +761,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     }
 
                     event.preventDefault();
-                    break;
+                break;
 
                 //enter
                 case 13:
@@ -770,13 +770,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                         this.hide();
                     }
                     event.preventDefault();
-                    break;
+                break;
 
                 //escape
                 case 27:
                     this.hide();
                     event.preventDefault();
-                    break;
+                break;
 
 
                 //tab
@@ -785,7 +785,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                         this.selectItem(this.highlightOption);
                     }
                     this.hide();
-                    break;
+                break;
             }
         } else {
             if (event.which === 40 && this.suggestions) {
@@ -812,7 +812,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                         this.updateFilledState();
                         this.onUnselect.emit(removedValue);
                     }
-                    break;
+                break;
             }
         }
 
@@ -929,9 +929,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     updateFilledState() {
         if (this.multiple)
-            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
         else
-            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');
+            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');
     }
 
     updateInputField() {
