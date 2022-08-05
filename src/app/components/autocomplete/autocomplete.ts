@@ -11,9 +11,9 @@ import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => AutoComplete),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => AutoComplete),
+    multi: true
 };
 
 @Component({
@@ -22,7 +22,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         <span #container [ngClass]="{'p-autocomplete p-component':true,'p-autocomplete-dd':dropdown,'p-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" [autocomplete]="autocomplete" [attr.required]="required" [attr.name]="name"
             class="p-autocomplete-input p-inputtext p-component" [ngClass]="{'p-autocomplete-dd-input':dropdown,'p-disabled': disabled}" [value]="inputFieldValue" aria-autocomplete="list" role="searchbox"
-            (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
+            (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required">
             <i *ngIf="!multiple && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
             <i *ngIf="multiple && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
@@ -34,7 +34,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="p-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.maxlength]="maxlength" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" [autocomplete]="autocomplete"
+                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" [autocomplete]="autocomplete"
                             [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
                             aria-autocomplete="list" [attr.aria-controls]="listId" role="searchbox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'">
                 </li>
@@ -96,10 +96,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             transition(':enter', [
                 style({opacity: 0, transform: 'scaleY(0.8)'}),
                 animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
+            ]),
+            transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ],
     host: {
@@ -205,7 +205,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() hideTransitionOptions: string = '.1s linear';
 
-    @Input() autofocus: boolean;
+    @Input() autofocus: boolean = false;
 
     @Input() autocomplete: string = 'off';
 
@@ -241,7 +241,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
 
-	@Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
 
@@ -395,39 +395,42 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     ngAfterContentInit() {
+        if (this.autofocus) {
+            setTimeout(() => this.focusInput(), 0);
+        }
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-                break;
+                    break;
 
                 case 'group':
                     this.groupTemplate = item.template;
-                break;
+                    break;
 
                 case 'selectedItem':
                     this.selectedItemTemplate = item.template;
-                break;
+                    break;
 
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'empty':
                     this.emptyTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
 
                 case 'loader':
                     this.loaderTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.itemTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -479,7 +482,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         if (value.length === 0 && !this.multiple) {
             this.hide();
             this.onClear.emit(event);
-	        this.onModelChange(value);
+            this.onModelChange(value);
         }
 
         if (value.length >= this.minLength) {
@@ -502,16 +505,16 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     search(event: any, query: string) {
         //allow empty string but not undefined or null
-       if (query === undefined || query === null) {
-           return;
-       }
+        if (query === undefined || query === null) {
+            return;
+        }
 
-       this.loading = true;
+        this.loading = true;
 
-       this.completeMethod.emit({
-           originalEvent: event,
-           query: query
-       });
+        this.completeMethod.emit({
+            originalEvent: event,
+            query: query
+        });
     }
 
     selectItem(option: any, focus: boolean = true) {
@@ -586,11 +589,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 this.bindDocumentResizeListener();
                 this.bindScrollListener();
                 this.onShow.emit(event);
-            break;
+                break;
 
             case 'void':
                 this.onOverlayHide();
-            break;
+                break;
         }
     }
 
@@ -600,7 +603,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 if (this.autoZIndex) {
                     ZIndexUtils.clear(event.element);
                 }
-            break;
+                break;
         }
     }
 
@@ -726,7 +729,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     }
 
                     event.preventDefault();
-                break;
+                    break;
 
                 //up
                 case 38:
@@ -758,7 +761,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     }
 
                     event.preventDefault();
-                break;
+                    break;
 
                 //enter
                 case 13:
@@ -767,13 +770,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                         this.hide();
                     }
                     event.preventDefault();
-                break;
+                    break;
 
                 //escape
                 case 27:
                     this.hide();
                     event.preventDefault();
-                break;
+                    break;
 
 
                 //tab
@@ -782,7 +785,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                         this.selectItem(this.highlightOption);
                     }
                     this.hide();
-                break;
+                    break;
             }
         } else {
             if (event.which === 40 && this.suggestions) {
@@ -809,7 +812,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                         this.updateFilledState();
                         this.onUnselect.emit(removedValue);
                     }
-                break;
+                    break;
             }
         }
 
