@@ -42,8 +42,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     template: `
         <input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
             [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
-            (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
-            (input)="onInputChange($event)" (paste)="handleInputChange($event)">
+            (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" (input)="onInputChange($event)" (paste)="handleInputChange($event)">
         <i *ngIf="value != null && filled && showClear && !disabled" class="p-inputmask-clear-icon pi pi-times" (click)="clear()"></i>
     `,
     host: {
@@ -99,7 +98,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
 
     @Input() characterPattern: string = '[A-Za-z]';
 
-    @Input() autoFocus: boolean;
+    @Input() autofocus: boolean = false;
 
     @Input() autocomplete: string;
 
@@ -651,6 +650,12 @@ export class InputMask implements OnInit,ControlValueAccessor {
 
     updateFilledState() {
         this.filled = this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '';
+    }
+
+    ngAfterViewInit() {
+        if (this.autofocus) {
+            setTimeout(() => this.focus(), 0);
+        }
     }
 
     focus() {
