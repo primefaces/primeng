@@ -514,6 +514,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     ngAfterViewInit() {
+        if (this.autofocus) {
+            setTimeout(() => this.focus(), 0);
+        }
         if (this.editable) {
             this.updateEditableLabel();
         }
