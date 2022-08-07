@@ -487,7 +487,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 	getNormalizedValue(val: number): number {
 		let decimalsCount = this.getDecimalsCount(this.step);
 		if (decimalsCount > 0) {
-			return +val.toFixed(decimalsCount);
+			return +parseFloat(val.toString()).toFixed(decimalsCount);
 		}
 		else {
 			return Math.floor(val);
