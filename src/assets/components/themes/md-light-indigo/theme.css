@@ -7204,16 +7204,17 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
 .p-multiselect:not(.p-disabled).p-focus {
   box-shadow: inset 0 0 0 1px #3F51B5, inset 0 0 0 1px #3F51B5, inset 0 0 0 1px #3F51B5, inset 0 0 0 1px #3F51B5;
 }
-.p-multiselect .p-multiselect-items .p-multiselect-item .p-ink {
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-ink {
   background-color: rgba(63, 81, 181, 0.16);
 }
-.p-multiselect .p-multiselect-items .p-multiselect-item:focus {
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
   background: rgba(0, 0, 0, 0.12);
 }
-.p-multiselect .p-multiselect-items .p-multiselect-item:focus.p-highlight {
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus.p-highlight {
   background: rgba(63, 81, 181, 0.24);
 }
-.p-multiselect .p-multiselect-close:focus {
+.p-multiselect-panel .p-multiselect-close:focus {
   background: rgba(0, 0, 0, 0.12);
 }
 
