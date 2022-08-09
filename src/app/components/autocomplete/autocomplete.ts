@@ -78,13 +78,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: scrollerOptions.getOptions ? scrollerOptions.getOptions(idx) : idx}"></ng-container>
                             </li>
-                            <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
-                                <ng-container *ngIf="!emptyTemplate; else empty">
-                                    {{emptyMessageLabel}}
-                                </ng-container>
-                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                            </li>
                         </ng-template>
+                        <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                            <ng-container *ngIf="!emptyTemplate; else empty">
+                                {{emptyMessageLabel}}
+                            </ng-container>
+                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                        </li>
                     </ul>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>

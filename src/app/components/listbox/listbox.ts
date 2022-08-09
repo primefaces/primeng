@@ -71,19 +71,19 @@ export interface ListboxFilterOptions {
                     <span *ngIf="!itemTemplate">{{getOptionLabel(option)}}</span>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                 </li>
-                <li *ngIf="hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
-                    <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
-                        {{emptyFilterMessageLabel}}
-                    </ng-container>
-                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
-                </li>
-                <li *ngIf="!hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
-                    <ng-container *ngIf="!emptyTemplate; else empty">
-                        {{emptyMessageLabel}}
-                    </ng-container>
-                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                </li>
             </ng-template>
+            <li *ngIf="hasFilter() && isEmpty()" class="p-listbox-empty-message">
+                <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                    {{emptyFilterMessageLabel}}
+                </ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+            </li>
+            <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message">
+                <ng-container *ngIf="!emptyTemplate; else empty">
+                    {{emptyMessageLabel}}
+                </ng-container>
+                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+            </li>
         </ul>
       </div>
       <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
@@ -545,7 +545,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         return this._filteredOptions || this.options;
     }
 
-
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
@@ -558,8 +557,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         return this._filterValue && this._filterValue.trim().length > 0;
     }
 
-    isEmpty(optionsToDisplay) {
-        return !optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0);
+    isEmpty() {
+        return !this.optionsToRender || (this.optionsToRender && this.optionsToRender.length === 0);
     }
 
     onFilter(event: KeyboardEvent) {
@@ -595,7 +594,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         if (this.filterViewChild && this.filterViewChild.nativeElement) {
             this.filterViewChild.nativeElement.value = '';
         }
-        
+
         this._filterValue = null;
         this._filteredOptions = null;
     }
