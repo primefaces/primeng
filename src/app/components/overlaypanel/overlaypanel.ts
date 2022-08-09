@@ -231,6 +231,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
+
+            if (this.showCloseIcon) {
+                this.container.style.marginTop = '30px';
+            }
         }
     }
 

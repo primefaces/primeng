@@ -107,7 +107,7 @@ export class MultiSelectItem {
             <div [ngClass]="{'p-multiselect-trigger':true}">
                 <span class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon"></span>
             </div>
-            <div *ngIf="overlayVisible" [ngClass]="['p-multiselect-panel p-component']" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"onOverlayAnimationEnd
+            <div *ngIf="overlayVisible" [ngClass]="['p-multiselect-panel p-component']" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                 (@overlayAnimation.done)="onOverlayAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)" (click)="onOverlayClick($event)" >
                 <div class="p-multiselect-header" *ngIf="showHeader">
                     <ng-content select="p-header"></ng-content>
@@ -168,19 +168,19 @@ export class MultiSelectItem {
                                     <p-multiSelectItem [option]="option" [selected]="isSelected(option)" [label]="getOptionLabel(option)" [disabled]="isOptionDisabled(option)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)"
                                             [template]="itemTemplate" [itemSize]="scrollerOptions.itemSize"></p-multiSelectItem>
                                 </ng-template>
-                                <li *ngIf="hasFilter() && emptyOptions" class="p-multiselect-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
-                                    <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
-                                        {{emptyFilterMessageLabel}}
-                                    </ng-container>
-                                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
-                                </li>
-                                <li *ngIf="!hasFilter() && emptyOptions" class="p-multiselect-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
-                                    <ng-container *ngIf="!emptyTemplate; else empty">
-                                        {{emptyMessageLabel}}
-                                    </ng-container>
-                                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                                </li>
                             </ng-template>
+                            <li *ngIf="hasFilter() && isEmpty()" class="p-multiselect-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                                <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                                    {{emptyFilterMessageLabel}}
+                                </ng-container>
+                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                            </li>
+                            <li *ngIf="!hasFilter() && isEmpty()" class="p-multiselect-empty-message" [ngStyle]="{'height': scrollerOptions.itemSize + 'px'}">
+                                <ng-container *ngIf="!emptyTemplate; else empty">
+                                    {{emptyMessageLabel}}
+                                </ng-container>
+                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            </li>
                         </ul>
                     </ng-template>
                 </div>
@@ -825,7 +825,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
         this._filterValue = null;
         this._filteredOptions = null;
-    } 
+    }
 
     close(event) {
         this.hide();
@@ -1106,11 +1106,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return this._filteredOptions || this.options;
     }
 
-    get emptyOptions(): boolean {
-        let optionsToRender = this.optionsToRender;
-        return !optionsToRender || optionsToRender.length === 0;
-    }
-
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
@@ -1121,6 +1116,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     hasFilter() {
         return this._filterValue && this._filterValue.trim().length > 0;
+    }
+
+    isEmpty() {
+        return !this.optionsToRender || (this.optionsToRender && this.optionsToRender.length === 0);
     }
 
     onFilterInputChange(event: KeyboardEvent) {
