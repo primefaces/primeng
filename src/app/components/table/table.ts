@@ -2309,20 +2309,19 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = this.virtualScroll ? DomHandler.getOuterWidth(DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-scroller'))  : DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
         }
     }
 
     setResizeTableWidth(width: string) {
-        if (this.virtualScroll) { 
-            const scrollerEl = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-scroller');
-            scrollerEl.style.width = width;
-            scrollerEl.style.minWidth = width;
+        if (this.virtualScroll) {
+            const bodyEl = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-scroller > table > tbody');
+            bodyEl.style.width = width;
+            bodyEl.style.minWidth = width;
         }
-        else {
-            this.tableViewChild.nativeElement.style.width = width;
-            this.tableViewChild.nativeElement.style.minWidth = width;
-        }
+
+        this.tableViewChild.nativeElement.style.width = width;
+        this.tableViewChild.nativeElement.style.minWidth = width;
     }
 
     restoreColumnWidths() {
