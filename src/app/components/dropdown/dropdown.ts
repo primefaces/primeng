@@ -492,7 +492,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(this.value);
 
         this.selectedOption = this.findOption(this.value, this.optionsToDisplay);
-        if (!this.selectedOption && ObjectUtils.isNotEmpty(this.value)) {
+        if (!this.selectedOption && ObjectUtils.isNotEmpty(this.value) && !this.editable) {
             this.value = null;
             this.onModelChange(this.value);
         }
