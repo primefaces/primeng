@@ -9,6 +9,7 @@ import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
 import {ObjectUtils, UniqueComponentId, ZIndexUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
+import {AutoFocusModule} from 'primeng/autofocus';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,7 +21,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     selector: 'p-autoComplete',
     template: `
         <span #container [ngClass]="{'p-autocomplete p-component':true,'p-autocomplete-dd':dropdown,'p-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
-            <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" [autocomplete]="autocomplete" [attr.required]="required" [attr.name]="name"
+            <input [pAutoFocus]="autofocus" *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" [autocomplete]="autocomplete" [attr.required]="required" [attr.name]="name"
             class="p-autocomplete-input p-inputtext p-component" [ngClass]="{'p-autocomplete-dd-input':dropdown,'p-disabled': disabled}" [value]="inputFieldValue" aria-autocomplete="list" role="searchbox"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required">
@@ -33,7 +34,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <span  class="p-autocomplete-token-icon pi pi-times-circle" (click)="removeItem(token)" *ngIf="!disabled && !readonly"></span>
                 </li>
                 <li class="p-autocomplete-input-token">
-                    <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.maxlength]="maxlength" (input)="onInput($event)"  (click)="onInputClick($event)"
+                    <input [pAutoFocus]="autofocus" #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.maxlength]="maxlength" (input)="onInput($event)"  (click)="onInputClick($event)"
                             (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" [autocomplete]="autocomplete"
                             [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
                             aria-autocomplete="list" [attr.aria-controls]="listId" role="searchbox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'">
@@ -105,7 +106,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': '(focus && !disabled) || overlayVisible',
+        '[class.p-inputwrapper-focus]': '((focus && !disabled) || autofocus) || overlayVisible',
         '[class.p-autocomplete-clearable]': 'showClear && !disabled'
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
@@ -1043,7 +1044,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule,ButtonModule,SharedModule,RippleModule,ScrollerModule],
+    imports: [CommonModule,InputTextModule,ButtonModule,SharedModule,RippleModule,ScrollerModule,AutoFocusModule],
     exports: [AutoComplete,SharedModule,ScrollerModule],
     declarations: [AutoComplete]
 })
