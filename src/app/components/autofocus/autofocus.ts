@@ -1,5 +1,6 @@
-import { NgModule, Directive, ElementRef, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule, Directive, ElementRef, Input, AfterContentInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DomHandler} from 'primeng/dom';
 
 @Directive({
     selector: '[pAutoFocus]',
@@ -8,17 +9,31 @@ import { CommonModule } from '@angular/common';
     }
 })
 
-export class AutoFocus {
+export class AutoFocus implements AfterContentInit {
+
     constructor (private host: ElementRef) {}
 
     @Input('pAutoFocus') autofocus: boolean;
     
-    ngAfterViewInit () {
-
-        if(this.autofocus) {
-            this.host.nativeElement.focus();
+    ngAfterContentInit () {
+        
+        if(this.isInputElement(this.host)) {
+            if(this.autofocus) {
+                this.host.nativeElement.focus();
+            } 
         }
+        else {
+            let inputEl = DomHandler.findSingle(this.host.nativeElement, 'input');
+            DomHandler.addClass(this.host.nativeElement, 'p-inputwrapper-focus');
+            inputEl.focus();
+        }
+
     }
+
+    isInputElement(el) {
+        return el.nativeElement.nodeName.toLowerCase() === 'input';
+    }
+
 }
 
 @NgModule({
