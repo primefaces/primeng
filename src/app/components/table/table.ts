@@ -114,12 +114,12 @@ export class TableService {
                 <ng-template #buildInTable let-items let-scrollerOptions="options">
                     <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [style]="scrollerOptions.spacerStyle" [attr.id]="id+'-table'">
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
-                        <thead class="p-datatable-thead">
+                        <thead #thead class="p-datatable-thead">
                             <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
                         </thead>
                         <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="scrollerOptions.columns" [pTableBodyTemplate]="frozenBodyTemplate" [frozen]="true"></tbody>
                         <tbody class="p-datatable-tbody" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" [value]="dataToRender(scrollerOptions.rows)" [pTableBody]="scrollerOptions.columns" [pTableBodyTemplate]="bodyTemplate" [scrollerOptions]="scrollerOptions"></tbody>
-                        <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
+                        <tfoot *ngIf="footerGroupedTemplate||footerTemplate" #tfoot class="p-datatable-tfoot">
                             <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
                         </tfoot>
                     </table>
@@ -354,7 +354,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ViewChild('table') tableViewChild: ElementRef;
 
-    @ViewChild('tableHeader') tableHeaderViewChild: ElementRef;
+    @ViewChild('thead') tableHeaderViewChild: ElementRef;
+
+    @ViewChild('tfoot') tableFooterViewChild: ElementRef;
 
     @ViewChild('scroller') scroller: Scroller;
 
@@ -628,6 +630,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful() && this.resizableColumns) {
             this.restoreColumnWidths();
         }
+
+        if (this.virtualScroll && this.scroller?.vertical) {
+            this.updateScrollerPosition();
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -730,6 +736,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
             this.preventSelectionSetterPropagation = false;
+        }
+
+        if (simpleChange.virtualScrollOptions) {
+            const { previousValue, currentValue } = simpleChange.virtualScrollOptions;
+            if (this.virtualScroll && this.scroller?.vertical &&  previousValue.itemSize !== currentValue.itemSize) {
+                this.updateScrollerPosition();
+            }
         }
     }
 
@@ -834,6 +847,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             else {
                 this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
             }
+        }
+    }
+
+    updateScrollerPosition() {
+        if (this.tableFooterViewChild) {
+            const tableHeight = DomHandler.getOuterHeight(this.tableViewChild.nativeElement);
+            const tableFooterHeight = DomHandler.getOuterHeight(this.tableFooterViewChild.nativeElement);
+
+            this.tableViewChild.nativeElement.style.height = tableHeight + tableFooterHeight + 'px';
+            this.tableFooterViewChild.nativeElement.style.top = `calc(100% - ${tableFooterHeight}px)`;
         }
     }
 
