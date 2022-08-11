@@ -22,7 +22,7 @@ p-scroller {
     will-change: transform;
 }
 
-.p-scroller-spacer {
+.p-scroller-viewport-spacer {
     position: absolute;
     top: 0;
     left: 0;
@@ -48,4 +48,13 @@ p-scroller {
 
 .p-scroller-loading-icon {
     font-size: 2rem;
+}
+
+/* Inline */
+.p-scroller-inline .p-scroller-content {
+    position: static;
+}
+
+.p-scroller-inline .p-scroller-spacer {
+    contain: layout;
 }

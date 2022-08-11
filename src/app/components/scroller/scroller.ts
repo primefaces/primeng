@@ -19,6 +19,7 @@ export interface ScrollerOptions {
     orientation?: ScrollerOrientationType;
     delay?: number | undefined;
     lazy?: boolean;
+    inline?: boolean;
     disabled?: boolean;
     loaderDisabled?: boolean;
     columns?: any[] | undefined;
@@ -38,7 +39,7 @@ export interface ScrollerOptions {
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
             <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="_styleClass"
-                [ngClass]="{'p-scroller': true, 'p-both-scroll': both, 'p-horizontal-scroll': horizontal}"
+                [ngClass]="{'p-scroller': true, 'p-scroller-inline': inline, 'p-both-scroll': both, 'p-horizontal-scroll': horizontal}"
                 (scroll)="onContainerScroll($event)">
                 <ng-container *ngIf="contentTemplate; else buildInContent">
                     <ng-container *ngTemplateOutlet="contentTemplate; context: {$implicit: loadedItems, options: getContentOptions()}"></ng-container>
@@ -50,7 +51,7 @@ export interface ScrollerOptions {
                         </ng-container>
                     </div>
                 </ng-template>
-                <div *ngIf="_showSpacer" class="p-scroller-spacer" [ngStyle]="spacerStyle"></div>
+                <div *ngIf="_showSpacer && !inline" class="p-scroller-spacer p-scroller-viewport-spacer" [ngStyle]="spacerStyle"></div>
                 <div *ngIf="!loaderDisabled && _showLoader && d_loading" class="p-scroller-loader" [ngClass]="{'p-component-overlay': !loaderTemplate}">
                     <ng-container *ngIf="loaderTemplate; else buildInLoader">
                         <ng-container *ngFor="let item of loaderArr; let index = index">
@@ -119,6 +120,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     @Input() get lazy() { return this._lazy; }
     set lazy(val: boolean) { this._lazy = val; }
+
+    @Input() get inline() { return this._inline; }
+    set inline(val: boolean) { this._inline = val; }
 
     @Input() get disabled() { return this._disabled; }
     set disabled(val: boolean) { this._disabled = val; }
@@ -191,6 +195,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     _resizeDelay: number = 10;
 
     _lazy: boolean = false;
+
+    _inline: boolean = false;
 
     _disabled: boolean = false;
 
@@ -587,10 +593,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     getContentPosition() {
         if (this.contentEl) {
             const style = getComputedStyle(this.contentEl);
-            const left = parseInt(style.paddingLeft, 10) + Math.max(parseInt(style.left, 10), 0);
-            const right = parseInt(style.paddingRight, 10) + Math.max(parseInt(style.right, 10), 0);
-            const top = parseInt(style.paddingTop, 10) + Math.max(parseInt(style.top, 10), 0);
-            const bottom = parseInt(style.paddingBottom, 10) + Math.max(parseInt(style.bottom, 10), 0);
+            const left = parseFloat(style.paddingLeft) + Math.max((parseFloat(style.left) || 0), 0);
+            const right = parseFloat(style.paddingRight) + Math.max((parseFloat(style.right) || 0), 0);
+            const top = parseFloat(style.paddingTop) + Math.max((parseFloat(style.top) || 0), 0);
+            const bottom = parseFloat(style.paddingBottom) + Math.max((parseFloat(style.bottom) || 0), 0);
 
             return { left, right, top, bottom, x: left + right, y: top + bottom };
         }
@@ -810,6 +816,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             rows: this.loadedRows,
             columns: this.loadedColumns,
             spacerStyle: this.spacerStyle,
+            spacerStyleClass: 'p-scroller-spacer',
             contentStyle: this.contentStyle,
             vertical: this.vertical,
             horizontal: this.horizontal,
