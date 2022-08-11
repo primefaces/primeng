@@ -53,7 +53,6 @@ describe('InputMask', () => {
         inputmask.size = 5;
         inputmask.tabindex = "1";
         inputmask.required = true;
-        inputmask.autoFocus = true;
         inputmask.title = "TheTitle";
         fixture.detectChanges();
 
@@ -66,7 +65,6 @@ describe('InputMask', () => {
         expect(inputMaskEl.nativeElement.size).toEqual(5);
         expect(inputMaskEl.nativeElement.tabIndex).toEqual(1);
         expect(inputMaskEl.nativeElement.required).toBeTruthy();
-        expect(inputMaskEl.nativeElement.autofocus).toBeTruthy();
         expect(inputMaskEl.nativeElement.title).toEqual("TheTitle");
     });
 
