@@ -1,5 +1,22 @@
 # Changelog
 
+## [14.0.1](https://github.com/primefaces/primeng/tree/14.0.1) (2022-08-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0...14.0.1)
+
+**New Features:**
+- Add pAutoFocus directive to fix broken autoFocus property of components [\#11807](https://github.com/primefaces/primeng/issues/11807)
+
+**Fixed bugs:**
+- p-calendar in p-dialog with touchUI=true and inline=true clicking year and dismissing modal raises errors [\#11649](https://github.com/primefaces/primeng/issues/11649)
+- OverlayPanel | Close icon overflows in small screen (flipped) [\#11796](https://github.com/primefaces/primeng/issues/11796)
+- Error on adding an item to an empty tab panel [\#11454](https://github.com/primefaces/primeng/issues/11454)
+- cascadeSelect: showClear button not display after the second time value selected [\#11769](https://github.com/primefaces/primeng/issues/11769)
+- Empty messages are not displayed in the components with grouped options [\#11803](https://github.com/primefaces/primeng/issues/11803)
+- The close button doesn't have correct styling on focus state in MultiSelect [\#11802](https://github.com/primefaces/primeng/issues/11802)
+- Table: VirtualScroll not detecting changes of data [\#11771](https://github.com/primefaces/primeng/issues/11771)
+- DataTable with virtual scroll and expand mode is not working as expected [\#11801](https://github.com/primefaces/primeng/issues/11801)
+
 ## [14.0.0](https://github.com/primefaces/primeng/tree/14.0.0) (2022-07-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0-rc.1...14.0.0)
