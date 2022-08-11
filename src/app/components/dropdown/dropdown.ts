@@ -10,6 +10,7 @@ import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {TooltipModule} from 'primeng/tooltip';
 import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 import {RippleModule} from 'primeng/ripple';
+import {AutoFocusModule} from 'primeng/autofocus';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -72,7 +73,7 @@ export class DropdownItem {
             <div class="p-hidden-accessible">
                 <input #in [attr.id]="inputId" type="text" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox" [attr.placeholder]="placeholder"
                     aria-haspopup="listbox" [attr.aria-label]="ariaLabel" [attr.aria-expanded]="false" [attr.aria-labelledby]="ariaLabelledBy" (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)"
-                    [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus" [attr.aria-activedescendant]="overlayVisible ? labelId : null" role="combobox">
+                    [disabled]="disabled" [attr.tabindex]="tabindex" [pAutoFocus]="autofocus" [attr.aria-activedescendant]="overlayVisible ? labelId : null" role="combobox">
             </div>
             <span [attr.id]="labelId" [ngClass]="{'p-dropdown-label p-inputtext':true,'p-dropdown-label-empty':(label == null || label.length === 0)}" *ngIf="!editable && (label != null)" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
                 <ng-container *ngIf="!selectedItemTemplate">{{label||'empty'}}</ng-container>
@@ -1302,7 +1303,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,TooltipModule,RippleModule,ScrollerModule],
+    imports: [CommonModule,SharedModule,TooltipModule,RippleModule,ScrollerModule, AutoFocusModule],
     exports: [Dropdown,SharedModule,ScrollerModule],
     declarations: [Dropdown,DropdownItem]
 })
