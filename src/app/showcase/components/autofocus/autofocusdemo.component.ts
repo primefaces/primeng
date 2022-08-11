@@ -4,11 +4,4 @@ import { Component, OnInit } from '@angular/core';
     selector: 'autofocusdemo',
     templateUrl: './autofocusdemo.component.html'
 })
-export class AutoFocusDemo implements OnInit {
-
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
-}
+export class AutoFocusDemo {}
