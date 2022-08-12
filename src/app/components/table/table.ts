@@ -852,8 +852,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     updateScrollerPosition() {
         if (this.tableFooterViewChild) {
-            const tableHeight = DomHandler.getOuterHeight(this.tableViewChild.nativeElement);
-            const tableFooterHeight = DomHandler.getOuterHeight(this.tableFooterViewChild.nativeElement);
+            const getClientHeight = (el) => el ? parseFloat(getComputedStyle(el).height) || DomHandler.getOuterHeight(el) : 0;
+            const tableHeight = getClientHeight(this.tableViewChild.nativeElement);
+            const tableFooterHeight = getClientHeight(this.tableFooterViewChild.nativeElement);
 
             this.tableViewChild.nativeElement.style.height = tableHeight + tableFooterHeight + 'px';
             this.tableFooterViewChild.nativeElement.style.top = `calc(100% - ${tableFooterHeight}px)`;
