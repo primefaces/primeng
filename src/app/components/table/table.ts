@@ -4688,7 +4688,6 @@ export class ColumnFilter implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-
                 document.body.appendChild(this.overlay);
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
@@ -4810,7 +4809,7 @@ export class ColumnFilter implements AfterContentInit {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', event => {
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', event => {
                 if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
                     this.hide();
                 }
