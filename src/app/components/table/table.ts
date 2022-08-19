@@ -865,14 +865,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.first = event.first;
         this.rows = event.rows;
 
-        if (this.lazy) {
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-
         this.onPage.emit({
             first: this.first,
             rows: this.rows
         });
+
+        if (this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
 
         this.firstChange.emit(this.first);
         this.rowsChange.emit(this.rows);
