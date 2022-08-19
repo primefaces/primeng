@@ -1435,38 +1435,52 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRowWithCheckbox(event, rowData: any) {
-        this.selection = this.selection||[];
-        let selected = this.isSelected(rowData);
-        let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
-        this.preventSelectionSetterPropagation = true;
+      const rowIndex = event.rowIndex === undefined ? this.value.findIndex((d) => d === rowData) : event.rowIndex;
+
+      this.selection = this.selection || [];
+      let selected = this.isSelected(rowData);
+      this.preventSelectionSetterPropagation = true;
+
+      if (event.originalEvent.shiftKey && this.anchorRowIndex != null) {
+        if (this.rangeRowIndex != null) {
+          this.clearSelectionRange(event.originalEvent);
+        }
+        this.rangeRowIndex = rowIndex;
+        this.selectRange(event.originalEvent, rowIndex);
+      } else {
+        this.anchorRowIndex = rowIndex;
+        this.rangeRowIndex = rowIndex;
+
+        const dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
 
         if (selected) {
-            let selectionIndex = this.findIndexInSelection(rowData);
-            this._selection = this.selection.filter((val, i) => i != selectionIndex);
-            this.selectionChange.emit(this.selection);
-            this.onRowUnselect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'checkbox' });
-            if (dataKeyValue) {
-                delete this.selectionKeys[dataKeyValue];
-            }
-        }
-        else {
-            if (!this.isRowSelectable(rowData, event.rowIndex)) {
-                return;
-            }
+          const selectionIndex = this.findIndexInSelection(rowData);
+          this._selection = this.selection.filter((val, i) => i != selectionIndex);
+          this.selectionChange.emit(this.selection);
+          this.onRowUnselect.emit({originalEvent: event.originalEvent, index: rowIndex, data: rowData, type: 'checkbox'});
+          if (dataKeyValue) {
+            delete this.selectionKeys[dataKeyValue];
+          }
+        } else {
+          if (!this.isRowSelectable(rowData, rowIndex)) {
+            return;
+          }
 
-            this._selection = this.selection ? [...this.selection, rowData] : [rowData];
-            this.selectionChange.emit(this.selection);
-            this.onRowSelect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'checkbox' });
-            if (dataKeyValue) {
-                this.selectionKeys[dataKeyValue] = 1;
-            }
+          this._selection = this.selection ? [...this.selection, rowData] : [rowData];
+          this.selectionChange.emit(this.selection);
+          this.onRowSelect.emit({originalEvent: event.originalEvent, index: rowIndex, data: rowData, type: 'checkbox'});
+          if (dataKeyValue) {
+            this.selectionKeys[dataKeyValue] = 1;
+          }
         }
+      }
 
-        this.tableService.onSelectionChange();
 
-        if (this.isStateful()) {
-            this.saveState();
-        }
+      this.tableService.onSelectionChange();
+
+      if (this.isStateful()) {
+        this.saveState();
+      }
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
