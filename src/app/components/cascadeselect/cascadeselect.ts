@@ -257,7 +257,7 @@ export class CascadeSelectSub implements OnInit {
                     {{label()}}
                 </ng-template>
             </span>
-            <i *ngIf="!optionCleared && filled && !disabled && showClear" class="p-cascadeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
+            <i *ngIf="filled && !disabled && showClear" class="p-cascadeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
@@ -360,8 +360,6 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     selectionPath: any = null;
-
-    optionCleared: boolean = false;
 
     focused: boolean = false;
 
@@ -485,9 +483,9 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     }
 
     clear(event) {
-        this.optionCleared = true;
         this.value = null;
         this.selectionPath = null;
+        this.updateFilledState();
         this.onClear.emit();
         this.onModelChange(this.value);
         event.stopPropagation();
@@ -663,11 +661,12 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
-    label   () {
-        if (this.selectionPath && !this.optionCleared)
+    label() {
+        if (this.selectionPath) {
             return this.getOptionLabel(this.selectionPath[this.selectionPath.length - 1]);
-        else
-            return this.placeholder||'p-emptylabel';
+        }
+
+        return this.placeholder || 'p-emptylabel';
     }
 
     onKeyDown(event) {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
-
+import { ListboxFilterOptions } from 'primeng/listbox';
 interface City {
     name: string,
     code: string
@@ -15,6 +15,8 @@ interface Country {
     templateUrl: './listboxdemo.html'
 })
 export class ListboxDemo {
+
+    filterValue = '';
 
     groupedCities: SelectItemGroup[];
     
@@ -79,6 +81,11 @@ export class ListboxDemo {
                 ]
             }
         ];
+    }
+
+    myResetFunction(options: ListboxFilterOptions) {
+        options.reset();
+        this.filterValue = '';
     }
     
 }

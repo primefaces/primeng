@@ -24,8 +24,8 @@ import { Subscription } from 'rxjs';
                         <li><a [routerLink]="['/theming']"><i class="pi pi-fw pi-file"></i><span>Guide</span></a></li>
                         <li><a href="https://www.primefaces.org/designer/primeng"><i class="pi pi-fw pi-palette"></i><span>Designer</span></a></li>
                         <li><a href="https://www.primefaces.org/designer-ng"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a></li>
+                        <li><a [routerLink]="['/uikit']"><i class="pi pi-fw pi-pencil"></i><span>UI Kit</span></a></li>
                         <li><a [routerLink]="['/icons']"><i class="pi pi-fw pi-info-circle"></i><span>Icons</span></a></li>
-                        <li><a href="https://www.figma.com/community/file/890589747170608208"><i class="pi pi-fw pi-pencil"></i><span>Figma UI Kit</span></a></li>
 
                         <li class="topbar-submenu-header">BOOTSTRAP</li>
                         <li><a (click)="changeTheme($event, 'bootstrap4-light-blue', false)"><img src="assets/showcase/images/themes/bootstrap4-light-blue.svg" alt="Blue Light" /><span>Blue Light</span></a></li>
@@ -110,6 +110,12 @@ import { Subscription } from 'rxjs';
                         </li>
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
 
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/apollo-ng">
+                                <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.svg">
+                                <span>Apollo</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/verona-ng">
                                 <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
@@ -198,12 +204,6 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/layouts/harmony-ng">
                                 <img alt="Harmony" src="assets/showcase/images/layouts/harmony-logo.png">
                                 <span>Harmony</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.primefaces.org/layouts/apollo-ng">
-                                <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.png">
-                                <span>Apollo</span><span class="theme-badge darkmode">darkmode</span>
                             </a>
                         </li>
                         <li>

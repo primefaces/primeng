@@ -28,3 +28,13 @@
 .p-panelmenu .p-menuitem-text {
     line-height: 1;
 }
+
+.p-panelmenu-expanded.p-toggleable-content:not(.ng-animating),
+.p-panelmenu .p-submenu-expanded:not(.ng-animating) {
+    overflow: visible;
+}
+
+.p-panelmenu .p-toggleable-content,
+.p-panelmenu .p-submenu-list {
+    overflow: hidden;
+}

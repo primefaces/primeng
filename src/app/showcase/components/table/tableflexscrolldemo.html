@@ -1,6 +1,6 @@
 <div class="content-section implementation" style="height: calc(100vh - 149px)">
     <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="flex"
-        [virtualScroll]="true" [virtualRowHeight]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+        [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
         <ng-template pTemplate="caption">
             Virtual Scrolling with Lazy Loading and Full Page Viewport
         </ng-template>
@@ -21,7 +21,7 @@
         <ng-template pTemplate="loadingbody" let-columns="columns">
             <tr style="height:46px">
                 <td *ngFor="let col of columns">
-                    <div class="loading-text"></div>
+                    <p-skeleton [ngStyle]="{'width': '100%'}"></p-skeleton>
                 </td>
             </tr>
         </ng-template>

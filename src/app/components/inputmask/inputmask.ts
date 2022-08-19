@@ -30,6 +30,7 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {InputTextModule} from 'primeng/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {AutoFocusModule} from 'primeng/autofocus';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -42,7 +43,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     template: `
         <input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
             [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
-            (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
+            (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [pAutoFocus]="autoFocus"
             (input)="onInputChange($event)" (paste)="handleInputChange($event)">
         <i *ngIf="value != null && filled && showClear && !disabled" class="p-inputmask-clear-icon pi pi-times" (click)="clear()"></i>
     `,
@@ -666,7 +667,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule],
+    imports: [CommonModule,InputTextModule, AutoFocusModule],
     exports: [InputMask],
     declarations: [InputMask]
 })

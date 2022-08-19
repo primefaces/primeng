@@ -112,7 +112,7 @@ export class MyComponent &#123;
 <h6>Templating</h6>
 <p><i>filter</i> can easily be customized with the filter content instead of using the built-in modes.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-orderList [value]="products" header="List of Products"&gt;
+&lt;p-orderList [value]="products" header="List of Products" filterBy="name"&gt;
     &lt;ng-template pTemplate="filter" let-options="options"&gt;
         &lt;div class="p-orderlist-filter"&gt;
             &lt;input [(ngModel)]="filterValue" type="text" (keyup)="options.filter($event)" role="textbox" class="p-orderlist-filter-input p-inputtext p-component" placeholder="Filter by name"&gt;
