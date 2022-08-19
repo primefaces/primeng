@@ -4612,7 +4612,6 @@ export class ColumnFilter implements AfterContentInit {
 
     addConstraint() {
         (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator()});
-        this.dt._filter();
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
