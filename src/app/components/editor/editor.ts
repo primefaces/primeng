@@ -1,9 +1,26 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    AfterViewInit,
+    Input,
+    Output,
+    EventEmitter,
+    ContentChild,
+    forwardRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    TemplateRef,
+    AfterViewChecked
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import Quill from "quill";
+import Quill from 'quill';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -71,7 +88,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         'class': 'p-element'
     }
 })
-export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccessor {
+export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,ControlValueAccessor {
 
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
 
@@ -111,14 +128,78 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
 
     headerTemplate: TemplateRef<any>;
 
+    private quillElements: {editorElement: HTMLElement, toolbarElement: HTMLElement} | null = null;
+
     constructor(public el: ElementRef) {}
 
-    ngAfterViewInit() {
-        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-content');
-        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-toolbar');
+    ngAfterViewInit(): void {
+        this.initQuillElements();
+
+        if (this.quillElements?.editorElement?.isConnected) {
+            this.initQuillEditor();
+        }
+    }
+    
+    ngAfterViewChecked(): void {
+        if (!this.quill && this.quillElements?.editorElement?.isConnected) {
+            this.initQuillEditor();
+        }
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+            }
+        });
+    }
+
+    writeValue(value: any) : void {
+        this.value = value;
+
+        if (this.quill) {
+            if (value)
+                this.quill.setContents(this.quill.clipboard.convert(value));
+            else
+                this.quill.setText('');
+        }
+    }
+
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
+    }
+
+    getQuill() {
+        return this.quill;
+    }
+
+    @Input() get readonly(): boolean {
+        return this._readonly;
+    }
+
+    set readonly(val:boolean) {
+        this._readonly = val;
+
+        if (this.quill) {
+            if (this._readonly)
+                this.quill.disable();
+            else
+                this.quill.enable();
+        }
+    }
+
+    private initQuillEditor(): void {
+        this.initQuillElements();
+
+        const { toolbarElement, editorElement } = this.quillElements;
         let defaultModule  = {toolbar: toolbarElement};
         let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
-
         this.quill = new Quill(editorElement, {
             modules: modules,
             placeholder: this.placeholder,
@@ -167,51 +248,12 @@ export class Editor implements AfterViewInit,AfterContentInit,ControlValueAccess
         });
     }
 
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch(item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                break;
-            }
-        });
-    }
-
-    writeValue(value: any) : void {
-        this.value = value;
-
-        if (this.quill) {
-            if (value)
-                this.quill.setContents(this.quill.clipboard.convert(value));
-            else
-                this.quill.setText('');
-        }
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    getQuill() {
-        return this.quill;
-    }
-
-    @Input() get readonly(): boolean {
-        return this._readonly;
-    }
-
-    set readonly(val:boolean) {
-        this._readonly = val;
-
-        if (this.quill) {
-            if (this._readonly)
-                this.quill.disable();
-            else
-                this.quill.enable();
+    private initQuillElements(): void {
+        if (!this.quillElements) {
+            this.quillElements = {
+                editorElement: DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-content'),
+                toolbarElement: DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-toolbar')
+            };
         }
     }
 }
