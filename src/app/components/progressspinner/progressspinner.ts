@@ -12,20 +12,23 @@ import {CommonModule} from '@angular/common';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./progressspinner.css']
+    styleUrls: ['./progressspinner.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ProgressSpinner {
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() strokeWidth: string = "2";
-    
+
     @Input() fill: string = "none";
-    
+
     @Input() animationDuration: string = "2s";
-    
+
 }
 
 @NgModule({

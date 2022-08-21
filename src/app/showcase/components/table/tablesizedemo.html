@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products" styleClass="p-datatable-sm">
+        <p-table [value]="products" styleClass="p-datatable-sm" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Small Table
             </ng-template>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="card">
-        <p-table [value]="products">
+        <p-table [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Normal Table
             </ng-template>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="card">
-        <p-table [value]="products" styleClass="p-datatable-lg">
+        <p-table [value]="products" styleClass="p-datatable-lg" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 Large Table
             </ng-template>
@@ -89,10 +89,10 @@
             <a href="https://stackblitz.com/edit/primeng-tablesize-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-                        
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
-    &lt;p-table [value]="products" styleClass="p-datatable-sm"&gt;
+    &lt;p-table [value]="products" styleClass="p-datatable-sm" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Small Table
         &lt;/ng-template&gt;
@@ -116,7 +116,7 @@
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
-    &lt;p-table [value]="products"&gt;
+    &lt;p-table [value]="products" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Normale Table
         &lt;/ng-template&gt;
@@ -140,7 +140,7 @@
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
-    &lt;p-table [value]="products" styleClass="p-datatable-lg"&gt;
+    &lt;p-table [value]="products" styleClass="p-datatable-lg" responsiveLayout="scroll"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Large Table
         &lt;/ng-template&gt;
@@ -181,7 +181,7 @@ export class TableSizeDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.productService.getProductsSmall().then(data =&gt; this.products = data);
     &#125;
-    
+
 &#125;
 </app-code>
 

@@ -1,16 +1,22 @@
-import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { RippleModule } from 'primeng/ripple';  
+import { RippleModule } from 'primeng/ripple';
+import { Subscription } from 'rxjs';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Listbox),
     multi: true
 };
+
+export interface ListboxFilterOptions {
+    filter?: (value?: any) => void;
+    reset?: () => void;
+}
 
 @Component({
     selector: 'p-listbox',
@@ -23,16 +29,21 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter">
         <div class="p-checkbox p-component" *ngIf="checkbox && multiple && showToggleAll" [ngClass]="{'p-checkbox-disabled': disabled || toggleAllDisabled}">
           <div class="p-hidden-accessible">
-            <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)" [attr.disabled]="disabled || toggleAllDisabled">
+            <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)" [disabled]="disabled || toggleAllDisabled">
           </div>
           <div #headerchkbox class="p-checkbox-box" [ngClass]="{'p-highlight': allChecked, 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled}" (click)="toggleAll($event)">
             <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
           </div>
         </div>
-        <div class="p-listbox-filter-container" *ngIf="filter">
-          <input type="text" [value]="filterValue||''" (input)="onFilter($event)" class="p-listbox-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
-          <span class="p-listbox-filter-icon pi pi-search"></span>
-        </div>
+        <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+            <ng-container *ngTemplateOutlet="filterTemplate; context: {options: filterOptions}"></ng-container>
+        </ng-container>
+        <ng-template #builtInFilterElement>
+            <div class="p-listbox-filter-container" *ngIf="filter">
+              <input #filter type="text" [value]="filterValue||''" (input)="onFilter($event)" class="p-listbox-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
+              <span class="p-listbox-filter-icon pi pi-search"></span>
+            </div>
+        </ng-template>
       </div>
       <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass">
         <ul class="p-listbox-list" role="listbox" aria-multiselectable="multiple">
@@ -60,19 +71,19 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <span *ngIf="!itemTemplate">{{getOptionLabel(option)}}</span>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                 </li>
-                <li *ngIf="hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
-                    <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
-                        {{emptyFilterMessageLabel}}
-                    </ng-container>
-                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
-                </li>
-                <li *ngIf="!hasFilter() && isEmpty(optionsToDisplay)" class="p-listbox-empty-message">
-                    <ng-container *ngIf="!emptyTemplate; else empty">
-                        {{emptyMessageLabel}}
-                    </ng-container>
-                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                </li>
             </ng-template>
+            <li *ngIf="hasFilter() && isEmpty()" class="p-listbox-empty-message">
+                <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                    {{emptyFilterMessageLabel}}
+                </ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+            </li>
+            <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message">
+                <ng-container *ngIf="!emptyTemplate; else empty">
+                    {{emptyMessageLabel}}
+                </ng-container>
+                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+            </li>
         </ul>
       </div>
       <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
@@ -84,9 +95,12 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     providers: [LISTBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./listbox.css']
+    styleUrls: ['./listbox.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
-export class Listbox implements AfterContentInit, ControlValueAccessor {
+export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
 
     @Input() multiple: boolean;
 
@@ -106,6 +120,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() filter: boolean = false;
 
+    @Input() filterBy: string;
+
     @Input() filterMatchMode: string = 'contains';
 
     @Input() filterLocale: string;
@@ -121,7 +137,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     @Input() optionValue: string;
 
     @Input() optionGroupChildren: string = "items";
-    
+
     @Input() optionGroupLabel: string;
 
     @Input() optionDisabled: string;
@@ -144,6 +160,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: ElementRef;
 
+    @ViewChild('filter') filterViewChild: ElementRef;
+
     @ContentChild(Header) headerFacet;
 
     @ContentChild(Footer) footerFacet;
@@ -158,6 +176,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerTemplate: TemplateRef<any>;
 
+    public filterTemplate: TemplateRef<any>;
+
     public footerTemplate: TemplateRef<any>;
 
     public emptyFilterTemplate: TemplateRef<any>;
@@ -167,6 +187,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     public _filterValue: string;
 
     public _filteredOptions: any[];
+
+    filterOptions: ListboxFilterOptions;
 
     public filtered: boolean;
 
@@ -182,6 +204,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerCheckboxFocus: boolean;
 
+    translationSubscription: Subscription;
+
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) { }
 
     @Input() get options(): any[] {
@@ -190,7 +214,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     set options(val: any[]) {
         this._options = val;
-        
+
         if (this.hasFilter())
             this.activateFilter();
     }
@@ -202,6 +226,19 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     set filterValue(val: string) {
         this._filterValue = val;
         this.activateFilter();
+    }
+
+    ngOnInit() {
+        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+            this.cd.markForCheck();
+        });
+
+        if (this.filterBy) {
+            this.filterOptions = {
+                filter: (value) => this.onFilter(value),
+                reset: () => this.resetFilter()
+            }
+        }
     }
 
     ngAfterContentInit() {
@@ -217,6 +254,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
                 case 'header':
                     this.headerTemplate = item.template;
+                break;
+
+                case 'filter':
+                    this.filterTemplate = item.template;
                 break;
 
                 case 'footer':
@@ -249,7 +290,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     getOptionGroupLabel(optionGroup: any) {
         return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : (optionGroup.label != undefined ? optionGroup.label : optionGroup);
     }
-    
+
     getOptionValue(option: any) {
         return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : (this.optionLabel || option.value === undefined ? option : option.value);
     }
@@ -451,16 +492,16 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             let unselectedDisabledItemsLength = 0;
             let selectedEnabledItemsLength = 0;
             let visibleOptionsLength = this.group ? 0 : this.optionsToRender.length;
-            
+
             for (let option of optionsToRender) {
                 if (!this.group) {
                     let disabled = this.isOptionDisabled(option);
                     let selected = this.isSelected(option);
-    
+
                     if (disabled) {
                         if (selected)
                             selectedDisabledItemsLength++;
-                        else 
+                        else
                             unselectedDisabledItemsLength++;
                     }
                     else {
@@ -474,11 +515,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                     for (let opt of this.getOptionGroupChildren(option)) {
                         let disabled = this.isOptionDisabled(opt);
                         let selected = this.isSelected(opt);
-        
+
                         if (disabled) {
                             if (selected)
                                 selectedDisabledItemsLength++;
-                            else 
+                            else
                                 unselectedDisabledItemsLength++;
                         }
                         else {
@@ -494,8 +535,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 }
             }
 
-            return (visibleOptionsLength === selectedDisabledItemsLength 
-                    || visibleOptionsLength === selectedEnabledItemsLength 
+            return (visibleOptionsLength === selectedDisabledItemsLength
+                    || visibleOptionsLength === selectedEnabledItemsLength
                     || selectedEnabledItemsLength && visibleOptionsLength === (selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength));
         }
     }
@@ -503,7 +544,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     get optionsToRender(): any[] {
         return this._filteredOptions || this.options;
     }
-
 
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
@@ -514,11 +554,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     hasFilter() {
-        return this._filterValue && this._filterValue.trim().length > 0; 
+        return this._filterValue && this._filterValue.trim().length > 0;
     }
 
-    isEmpty(optionsToDisplay) {
-        return !optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0);
+    isEmpty() {
+        return !this.optionsToRender || (this.optionsToRender && this.optionsToRender.length === 0);
     }
 
     onFilter(event: KeyboardEvent) {
@@ -529,7 +569,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     activateFilter() {
         if (this.hasFilter() && this._options) {
             if (this.group) {
-                let searchFields: string[] = (this.optionLabel || 'label').split(',');
+                let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
 
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
@@ -548,6 +588,15 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             this._filteredOptions = null;
         }
+    }
+
+    resetFilter() {
+        if (this.filterViewChild && this.filterViewChild.nativeElement) {
+            this.filterViewChild.nativeElement.value = '';
+        }
+
+        this._filterValue = null;
+        this._filteredOptions = null;
     }
 
     get toggleAllDisabled(): boolean {
@@ -569,8 +618,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         if (this.disabled || this.toggleAllDisabled || this.readonly) {
             return;
         }
-        
-        let allChecked = this.allChecked;     
+
+        let allChecked = this.allChecked;
 
         if (allChecked)
             this.uncheckAll();
@@ -588,7 +637,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
         optionsToRender.forEach(opt => {
             if (!this.group) {
-                let optionDisabled = this.isOptionDisabled(opt); 
+                let optionDisabled = this.isOptionDisabled(opt);
                 if (!optionDisabled || (optionDisabled && this.isSelected(opt))) {
                     val.push(this.getOptionValue(opt));
                 }
@@ -598,7 +647,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
                 if (subOptions) {
                     subOptions.forEach(option => {
-                        let optionDisabled = this.isOptionDisabled(option); 
+                        let optionDisabled = this.isOptionDisabled(option);
                         if (!optionDisabled || (optionDisabled && this.isSelected(option))) {
                             val.push(this.getOptionValue(option));
                         }
@@ -616,7 +665,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
         optionsToRender.forEach(opt => {
             if (!this.group) {
-                let optionDisabled = this.isOptionDisabled(opt); 
+                let optionDisabled = this.isOptionDisabled(opt);
                 if (optionDisabled && this.isSelected(opt)) {
                     val.push(this.getOptionValue(opt));
                 }
@@ -624,7 +673,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             else {
                 if (opt.items) {
                     opt.items.forEach(option => {
-                        let optionDisabled = this.isOptionDisabled(option); 
+                        let optionDisabled = this.isOptionDisabled(option);
                         if (optionDisabled && this.isSelected(option)) {
                             val.push(this.getOptionValue(option));
                         }
@@ -696,6 +745,12 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     onHeaderCheckboxBlur() {
         this.headerCheckboxFocus = false;
+    }
+
+    ngOnDestroy() {
+        if (this.translationSubscription) {
+            this.translationSubscription.unsubscribe();
+        }
     }
 }
 

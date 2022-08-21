@@ -9,4 +9,6 @@ export interface Message {
     closable?: boolean;
     data?: any;
     icon?: string;
+    contentStyleClass?: string;
+    styleClass?: string;
 }

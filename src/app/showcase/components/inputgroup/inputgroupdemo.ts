@@ -4,5 +4,7 @@ import {Component} from '@angular/core';
     templateUrl: './inputgroupdemo.html'
 })
 export class InputGroupDemo {
-
+    category: string;
+    checkbox1: boolean = false;
+    checkbox2: boolean = false;
 }

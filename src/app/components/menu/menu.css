@@ -1,11 +1,18 @@
 .p-menu-overlay {
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .p-menu ul {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+.p-menu .p-submenu-header{
+    display: flex;
+    align-items: center;
 }
 
 .p-menu .p-menuitem-link {

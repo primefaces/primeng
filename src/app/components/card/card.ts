@@ -31,9 +31,12 @@ import { BlockableUI } from 'primeng/api';
             </div>
         </div>
     `,
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./card.css']
+    styleUrls: ['./card.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Card implements AfterContentInit,BlockableUI {
 
@@ -52,13 +55,13 @@ export class Card implements AfterContentInit,BlockableUI {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     headerTemplate: TemplateRef<any>;
-    
+
     titleTemplate: TemplateRef<any>;
-    
+
     subtitleTemplate: TemplateRef<any>;
-    
+
     contentTemplate: TemplateRef<any>;
-    
+
     footerTemplate: TemplateRef<any>;
 
     constructor(private el: ElementRef) { }
@@ -85,7 +88,7 @@ export class Card implements AfterContentInit,BlockableUI {
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;

@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { PanelMenu, PanelMenuSub } from './panelmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PanelModule } from '../panel/panel';
 
 describe('PanelMenu', () => {
 
@@ -13,11 +14,8 @@ describe('PanelMenu', () => {
 		TestBed.configureTestingModule({
 			imports: [
 				NoopAnimationsModule,
-				RouterTestingModule
-			],
-			declarations: [
-				PanelMenu,
-				PanelMenuSub
+				RouterTestingModule,
+                PanelModule
 			]
 		});
 
@@ -65,7 +63,7 @@ describe('PanelMenu', () => {
 		fixture.detectChanges();
 
 		const panelEl = fixture.debugElement.query(By.css('.p-panelmenu-panel'));
-		expect(panelEl.nativeElement.className).toContain("p-hidden");
+		expect(panelEl).toBeFalsy();
 	});
 
 	it('should change item style styleClass and disable ', () => {

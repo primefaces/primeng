@@ -1,0 +1,105 @@
+.p-treeselect {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.p-treeselect-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.p-treeselect-label-container {
+    overflow: hidden;
+    flex: 1 1 auto;
+    cursor: pointer;
+}
+
+.p-treeselect-label  {
+    display: block;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.p-treeselect-label-empty {
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.p-treeselect-token {
+    cursor: default;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.p-treeselect .p-treeselect-panel {
+    min-width: 100%;
+}
+
+.p-treeselect-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.p-treeselect-items-wrapper {
+    overflow: auto;
+}
+
+.p-treeselect-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p-treeselect-filter-container {
+    position: relative;
+    flex: 1 1 auto;
+}
+
+.p-treeselect-filter-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+}
+
+.p-treeselect-filter-container .p-inputtext {
+    width: 100%;
+}
+
+.p-treeselect-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    margin-left: auto;
+}
+
+.p-treeselect-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+}
+
+.p-fluid .p-treeselect {
+    display: flex;
+}
+
+.p-treeselect-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-treeselect-clearable {
+    position: relative;
+} 

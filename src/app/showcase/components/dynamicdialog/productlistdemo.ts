@@ -6,7 +6,7 @@ import {Product} from '../../domain/product';
 
 @Component({
     template: `
-        <p-table [value]="products" [paginator]="true" [rows]="5" [responsive]="true">
+        <p-table [value]="products" responsiveLayout="scroll" [paginator]="true" [rows]="5" [responsive]="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="name">Name <p-sortIcon field="vin"></p-sortIcon></th>
@@ -39,7 +39,7 @@ import {Product} from '../../domain/product';
 export class ProductListDemo {
 
     products: Product[];
-            
+
     constructor(private productService: ProductService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
     ngOnInit() {

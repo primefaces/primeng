@@ -43,7 +43,10 @@ const SAFARI_KEYS = {
 
 @Directive({
     selector: '[pKeyFilter]',
-    providers: [KEYFILTER_VALIDATOR]
+    providers: [KEYFILTER_VALIDATOR],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class KeyFilter implements Validator {
 

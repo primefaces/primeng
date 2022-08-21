@@ -38,6 +38,11 @@
     list-style: none;
 }
 
+.p-megamenu-submenu-header {
+    display: flex;
+    align-items: center;
+}
+
 /* Horizontal */
 .p-megamenu-horizontal .p-megamenu-root-list {
     display: flex;

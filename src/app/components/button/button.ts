@@ -1,38 +1,41 @@
 import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
-import {RippleModule} from 'primeng/ripple'; 
-import {PrimeTemplate} from 'primeng/api'; 
+import {RippleModule} from 'primeng/ripple';
+import {PrimeTemplate} from 'primeng/api';
 
 @Directive({
-    selector: '[pButton]'
+    selector: '[pButton]',
+    host: {
+        'class': 'p-element'
+    }
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
-            
+
     @Input() loadingIcon: string = "pi pi-spinner pi-spin";
 
     public _label: string;
-    
+
     public _icon: string;
 
     public _loading: boolean = false;
-            
+
     public initialized: boolean;
-    
+
     public _initialStyleClass: string;
 
     constructor(public el: ElementRef) {}
-    
+
     ngAfterViewInit() {
         this._initialStyleClass = this.el.nativeElement.className;
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
 
-        if (this.icon) {
+        if (this.icon || this.loading) {
             this.createIconEl();
         }
-        
+
         let labelElement = document.createElement("span");
         if (this.icon && !this.label) {
             labelElement.setAttribute('aria-hidden', 'true');
@@ -41,13 +44,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         if (this.label)
             labelElement.appendChild(document.createTextNode(this.label));
-        else 
+        else
             labelElement.innerHTML = '&nbsp;';
-        
+
         this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     }
-        
+
     getStyleClass(): string {
         let styleClass = 'p-button p-component';
         if (this.icon && !this.label) {
@@ -59,7 +62,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             if (!this.icon && this.label)
                 styleClass = styleClass + ' p-button-loading-label-only';
         }
-        
+
         return styleClass;
     }
 
@@ -73,12 +76,17 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         iconElement.className = 'p-button-icon';
         iconElement.setAttribute("aria-hidden", "true");
         let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
-        
+
         if (iconPosClass) {
             DomHandler.addClass(iconElement, iconPosClass);
         }
 
-        DomHandler.addMultipleClasses(iconElement, this.getIconClass());
+        let iconClass = this.getIconClass();
+
+        if(iconClass) {
+            DomHandler.addMultipleClasses(iconElement, iconClass);
+        }
+
         let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label')
 
         if (labelEl)
@@ -94,9 +102,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     setIconClass() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
         if (iconElement) {
-            if (this.iconPos) 
+            if (this.iconPos)
                 iconElement.className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this.getIconClass();
-            else 
+            else
                 iconElement.className = 'p-button-icon ' + this.getIconClass();
         }
         else {
@@ -106,29 +114,33 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     removeIconElement() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
-        this.el.nativeElement.removeChild(iconElement)
+        this.el.nativeElement.removeChild(iconElement);
     }
-    
+
     @Input() get label(): string {
         return this._label;
     }
 
     set label(val: string) {
         this._label = val;
-        
+
         if (this.initialized) {
             DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
+
+            if (this.loading || this.icon) {
+                this.setIconClass();
+            }
             this.setStyleClass();
         }
     }
-    
+
     @Input() get icon(): string {
         return this._icon;
     }
 
     set icon(val: string) {
         this._icon = val;
-        
+
         if (this.initialized) {
             this.setIconClass();
             this.setStyleClass();
@@ -141,17 +153,17 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     set loading(val: boolean) {
         this._loading = val;
-        
+
         if (this.initialized) {
             if (this.loading || this.icon)
                 this.setIconClass();
-            else 
+            else
                 this.removeIconElement();
-            
+
             this.setStyleClass();
         }
     }
-    
+
     ngOnDestroy() {
         this.initialized = false;
     }
@@ -160,7 +172,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-button',
     template: `
-        <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled || loading"
+        <button [attr.type]="type" [attr.aria-label]="ariaLabel" [class]="styleClass" [ngStyle]="style" [disabled]="disabled || loading"
             [ngClass]="{'p-button p-component':true,
                         'p-button-icon-only': (icon && !label),
                         'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
@@ -181,7 +193,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
 })
 export class Button implements AfterContentInit {
 
@@ -207,6 +222,8 @@ export class Button implements AfterContentInit {
 
     @Input() badgeClass: string;
 
+    @Input() ariaLabel: string;
+
     contentTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
@@ -223,7 +240,7 @@ export class Button implements AfterContentInit {
                 case 'content':
                     this.contentTemplate = item.template;
                 break;
-                
+
                 default:
                     this.contentTemplate = item.template;
                 break;
