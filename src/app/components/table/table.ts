@@ -114,12 +114,12 @@ export class TableService {
                 <ng-template #buildInTable let-items let-scrollerOptions="options">
                     <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [style]="scrollerOptions.spacerStyle" [attr.id]="id+'-table'">
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
-                        <thead class="p-datatable-thead">
+                        <thead #thead class="p-datatable-thead">
                             <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
                         </thead>
                         <tbody class="p-datatable-tbody p-datatable-frozen-tbody" *ngIf="frozenValue||frozenBodyTemplate" [value]="frozenValue" [frozenRows]="true" [pTableBody]="scrollerOptions.columns" [pTableBodyTemplate]="frozenBodyTemplate" [frozen]="true"></tbody>
                         <tbody class="p-datatable-tbody" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" [value]="dataToRender(scrollerOptions.rows)" [pTableBody]="scrollerOptions.columns" [pTableBodyTemplate]="bodyTemplate" [scrollerOptions]="scrollerOptions"></tbody>
-                        <tfoot *ngIf="footerGroupedTemplate||footerTemplate" class="p-datatable-tfoot">
+                        <tfoot *ngIf="footerGroupedTemplate||footerTemplate" #tfoot class="p-datatable-tfoot">
                             <ng-container *ngTemplateOutlet="footerGroupedTemplate||footerTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
                         </tfoot>
                     </table>
@@ -354,7 +354,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ViewChild('table') tableViewChild: ElementRef;
 
-    @ViewChild('tableHeader') tableHeaderViewChild: ElementRef;
+    @ViewChild('thead') tableHeaderViewChild: ElementRef;
+
+    @ViewChild('tfoot') tableFooterViewChild: ElementRef;
 
     @ViewChild('scroller') scroller: Scroller;
 
@@ -628,6 +630,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful() && this.resizableColumns) {
             this.restoreColumnWidths();
         }
+
+        if (this.virtualScroll && this.scroller?.vertical) {
+            this.updateScrollerPosition();
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -730,6 +736,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
             this.preventSelectionSetterPropagation = false;
+        }
+
+        if (simpleChange.virtualScrollOptions) {
+            const { previousValue, currentValue } = simpleChange.virtualScrollOptions;
+            if (this.virtualScroll && this.scroller?.vertical &&  previousValue.itemSize !== currentValue.itemSize) {
+                this.updateScrollerPosition();
+            }
         }
     }
 
@@ -837,18 +850,29 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    updateScrollerPosition() {
+        if (this.tableFooterViewChild) {
+            const getClientHeight = (el) => el ? parseFloat(getComputedStyle(el).height) || DomHandler.getOuterHeight(el) : 0;
+            const tableHeight = getClientHeight(this.tableViewChild.nativeElement);
+            const tableFooterHeight = getClientHeight(this.tableFooterViewChild.nativeElement);
+
+            this.tableViewChild.nativeElement.style.height = tableHeight + tableFooterHeight + 'px';
+            this.tableFooterViewChild.nativeElement.style.top = `calc(100% - ${tableFooterHeight}px)`;
+        }
+    }
+
     onPageChange(event) {
         this.first = event.first;
         this.rows = event.rows;
-
-        if (this.lazy) {
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
 
         this.onPage.emit({
             first: this.first,
             rows: this.rows
         });
+
+        if (this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
 
         this.firstChange.emit(this.first);
         this.rowsChange.emit(this.rows);
@@ -4588,7 +4612,6 @@ export class ColumnFilter implements AfterContentInit {
 
     addConstraint() {
         (<FilterMetadata[]> this.dt.filters[this.field]).push({value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator()});
-        this.dt._filter();
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
@@ -4665,7 +4688,6 @@ export class ColumnFilter implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-
                 document.body.appendChild(this.overlay);
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement)
@@ -4787,7 +4809,7 @@ export class ColumnFilter implements AfterContentInit {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', event => {
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', event => {
                 if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
                     this.hide();
                 }

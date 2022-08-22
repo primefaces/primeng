@@ -51,7 +51,7 @@ declare let gtag: Function;
                     <a href="https://www.primefaces.org/designer/primeng">Theme Designer</a>
                     <a href="https://www.primefaces.org/designer-ng">Visual Editor</a>
                     <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors</a>
-                    <a href="https://www.primefaces.org/designer/api/primeng/13.0.0">SASS API</a>
+                    <a href="https://www.primefaces.org/designer/api/primeng/14.0.0">SASS API</a>
                 </div>
 
                 <div class="menu-category">UIKit</div>

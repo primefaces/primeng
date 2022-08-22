@@ -86,7 +86,8 @@
     z-index: 1;
 }
 
-.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot {
+.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot,
+.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-tfoot {
     position: sticky;
     bottom: 0;
     z-index: 1;
@@ -315,7 +316,7 @@
 }
 
 /* Virtual Scroll */
-.p-datatable .p-scroller-loading {
+.p-datatable .p-scroller .p-scroller-loading {
     transform: none !important;
     min-height: 0;
     position: sticky;
