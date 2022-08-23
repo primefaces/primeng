@@ -2826,7 +2826,8 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: #f8f9fa;
 }
 .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead,
-.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot {
+.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot, .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-thead,
+.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-tfoot {
   background-color: #f8f9fa;
 }
 .p-datatable .p-datatable-loading-icon {
@@ -6191,7 +6192,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color: #6366F1;
   transition: 500ms cubic-bezier(0.35, 0, 0.25, 1);
 }
 
