@@ -307,27 +307,24 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
-        if (this.initialized) {
-            let areItemsChanged = false;
-            if (simpleChanges.items) {
-                const { previousValue: prevItems, currentValue: currentItems } = simpleChanges.items;
-                areItemsChanged = !prevItems || prevItems.length !== (currentItems || []).length;
-            }
-
-            const isChanged = (areItemsChanged || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
-            isChanged && this.init();
-        }
-
-        if (simpleChanges.orientation) {
-            this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
-        }
+        let isLoadingChanged = false;
 
         if (simpleChanges.loading) {
             const { previousValue, currentValue } = simpleChanges.loading;
 
             if (this.lazy && previousValue !== currentValue && currentValue !== this.d_loading) {
                 this.d_loading = currentValue;
+                isLoadingChanged = true;
             }
+        }
+
+        if (this.initialized) {
+            const isChanged = !isLoadingChanged && (simpleChanges.items || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
+            isChanged && this.init();
+        }
+
+        if (simpleChanges.orientation) {
+            this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
         }
 
         if (simpleChanges.numToleratedItems) {
@@ -590,10 +587,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     getContentPosition() {
         if (this.contentEl) {
             const style = getComputedStyle(this.contentEl);
-            const left = parseInt(style.paddingLeft, 10) + Math.max(parseInt(style.left, 10), 0);
-            const right = parseInt(style.paddingRight, 10) + Math.max(parseInt(style.right, 10), 0);
-            const top = parseInt(style.paddingTop, 10) + Math.max(parseInt(style.top, 10), 0);
-            const bottom = parseInt(style.paddingBottom, 10) + Math.max(parseInt(style.bottom, 10), 0);
+            const left = parseFloat(style.paddingLeft) + Math.max((parseFloat(style.left) || 0), 0);
+            const right = parseFloat(style.paddingRight) + Math.max((parseFloat(style.right) || 0), 0);
+            const top = parseFloat(style.paddingTop) + Math.max((parseFloat(style.top) || 0), 0);
+            const bottom = parseFloat(style.paddingBottom) + Math.max((parseFloat(style.bottom) || 0), 0);
 
             return { left, right, top, bottom, x: left + right, y: top + bottom };
         }

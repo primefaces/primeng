@@ -51,7 +51,12 @@ declare let gtag: Function;
                     <a href="https://www.primefaces.org/designer/primeng">Theme Designer</a>
                     <a href="https://www.primefaces.org/designer-ng">Visual Editor</a>
                     <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors</a>
-                    <a href="https://www.primefaces.org/designer/api/primeng/13.0.0">SASS API</a>
+                    <a href="https://www.primefaces.org/designer/api/primeng/14.0.0">SASS API</a>
+                </div>
+
+                <div class="menu-category">UIKit</div>
+                <div class="menu-items">
+                    <a [routerLink]=" ['/uikit']" routerLinkActive="router-link-exact-active">Figma <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Accessibility</div>
@@ -322,6 +327,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['focustrap']" routerLinkActive="router-link-exact-active">FocusTrap</a>
                     <a [routerLink]=" ['styleclass']" routerLinkActive="router-link-exact-active">StyleClass</a>
                     <a [routerLink]=" ['ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
+                    <a [routerLink]=" ['autofocus']" routerLinkActive="router-link-exact-active">AutoFocus<span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Utilities</div>

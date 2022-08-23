@@ -24,8 +24,8 @@ import { Subscription } from 'rxjs';
                         <li><a [routerLink]="['/theming']"><i class="pi pi-fw pi-file"></i><span>Guide</span></a></li>
                         <li><a href="https://www.primefaces.org/designer/primeng"><i class="pi pi-fw pi-palette"></i><span>Designer</span></a></li>
                         <li><a href="https://www.primefaces.org/designer-ng"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a></li>
+                        <li><a [routerLink]="['/uikit']"><i class="pi pi-fw pi-pencil"></i><span>UI Kit</span></a></li>
                         <li><a [routerLink]="['/icons']"><i class="pi pi-fw pi-info-circle"></i><span>Icons</span></a></li>
-                        <li><a href="https://www.figma.com/community/file/890589747170608208"><i class="pi pi-fw pi-pencil"></i><span>Figma UI Kit</span></a></li>
 
                         <li class="topbar-submenu-header">BOOTSTRAP</li>
                         <li><a (click)="changeTheme($event, 'bootstrap4-light-blue', false)"><img src="assets/showcase/images/themes/bootstrap4-light-blue.svg" alt="Blue Light" /><span>Blue Light</span></a></li>

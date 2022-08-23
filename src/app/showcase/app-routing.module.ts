@@ -115,7 +115,9 @@ import { AppMainComponent } from './app.main.component';
                     {path: 'tristatecheckbox', loadChildren: () => import('./components/tristatecheckbox/tristatecheckboxdemo.module').then(m => m.TriStateCheckboxDemoModule)},
                     {path: 'virtualscroller', loadChildren: () => import('./components/virtualscroller/virtualscrollerdemo.module').then(m => m.VirtualScrollerDemoModule)},
                     {path: 'accessibility', loadChildren: () => import('./components/accessibility/accessibilitydemo.module').then(m => m.AccessibilityDemoModule)},
-                    {path: 'scroller', loadChildren: () => import('./components/scroller/scrollerdemo.module').then(m => m.ScrollerDemoModule)}
+                    {path: 'scroller', loadChildren: () => import('./components/scroller/scrollerdemo.module').then(m => m.ScrollerDemoModule)},
+                    {path: 'uikit', loadChildren: () => import('./components/uikit/uikit.module').then(m => m.UIKitModule)},
+                    {path: 'autofocus', loadChildren: () => import('./components/autofocus/autofocusdemo.module').then(m => m.AutoFocusDemoModule)}
                 ],
             },
         ],{scrollPositionRestoration: 'enabled', useHash: false})
