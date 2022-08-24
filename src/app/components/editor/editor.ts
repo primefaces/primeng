@@ -1,21 +1,4 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    AfterViewInit,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChild,
-    forwardRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ContentChildren,
-    QueryList,
-    AfterContentInit,
-    TemplateRef,
-    AfterViewChecked
-} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy,ViewEncapsulation,ContentChildren,QueryList,AfterContentInit,TemplateRef,AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
