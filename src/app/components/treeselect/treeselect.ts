@@ -61,7 +61,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <div class="p-treeselect-items-wrapper" [ngStyle]="{'max-height': scrollHeight}">
                 <p-tree #tree [value]="options" [propagateSelectionDown]="propagateSelectionDown" [propagateSelectionUp]="propagateSelectionUp" [selectionMode]="selectionMode" (selectionChange)="onSelectionChange($event)" [selection]="value"
                     [metaKeySelection]="metaKeySelection" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)"
-                    (onNodeSelect)="onSelect($event)" [emptyMessage]="emptyMessage" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus" [filteredNodes]="filteredNodes">
+                    (onNodeSelect)="onSelect($event)" [emptyMessage]="emptyMessage" (onNodeUnselect)="onUnselect($event)" [filterBy]="filterBy" [filterMode]="filterMode" [filterPlaceholder]="filterPlaceholder" [filterLocale]="filterLocale" [filterInputAutoFocus]="filterInputAutoFocus" [filteredNodes]="filteredNodes" [_templateMap]="templateMap">
                         <ng-container *ngIf="emptyTemplate">
                             <ng-template pTemplate="empty">
                                 <ng-container *ngTemplateOutlet="emptyTemplate;"></ng-container>
@@ -174,7 +174,7 @@ export class TreeSelect implements AfterContentInit {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-	  @Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
@@ -210,6 +210,8 @@ export class TreeSelect implements AfterContentInit {
 
     outsideClickListener: any;
 
+    public templateMap: any;
+
     scrollHandler: any;
 
     resizeListener: any;
@@ -227,6 +229,10 @@ export class TreeSelect implements AfterContentInit {
     }
 
     ngAfterContentInit() {
+        if (this.templates.length) {
+            this.templateMap = {};
+        }
+
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'value':
@@ -246,8 +252,11 @@ export class TreeSelect implements AfterContentInit {
                 break;
 
                 default:
-                    this.valueTemplate = item.template;
-                break;
+                    if(item.name)
+                        this.templateMap[item.name] = item.template;
+                    else
+                        this.valueTemplate = item.template; //TODO: @deprecated Used "value" template instead
+                    break;
             }
         });
     }
