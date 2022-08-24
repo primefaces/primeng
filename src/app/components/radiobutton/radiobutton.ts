@@ -135,7 +135,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
             this.checked = true;
             this.onModelChange(this.value);
             this.registry.select(this);
-            this.onClick.emit(event);
+            this.onClick.emit({originalEvent: event, value: this.value});
         }
     }
 
