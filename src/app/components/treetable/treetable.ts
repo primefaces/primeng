@@ -774,6 +774,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     multisortField(node1, node2, multiSortMeta, index) {
+        if (typeof multiSortMeta[index] === 'undefined') {
+            return 1;
+        }
         let value1 = ObjectUtils.resolveFieldData(node1.data, multiSortMeta[index].field);
         let value2 = ObjectUtils.resolveFieldData(node2.data, multiSortMeta[index].field);
         let result = null;
