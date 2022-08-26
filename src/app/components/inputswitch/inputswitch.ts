@@ -52,7 +52,7 @@ export class InputSwitch implements ControlValueAccessor {
 
     @Input() ariaLabelledBy: string;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    @Output() onChange: EventEmitter<{ originalEvent: Event; checked: boolean }> = new EventEmitter();
 
     modelValue: any = false;
 
