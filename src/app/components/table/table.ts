@@ -300,6 +300,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() breakpoint: string = '960px';
 
+    @Input() areTableFiltersImmutableObject :boolean =false
+
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -341,6 +343,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() onStateSave: EventEmitter<any> = new EventEmitter();
 
     @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
+    @Output () onTableFiltersImmutableChange :EventEmitter<{ [s: string]: FilterMetadata | FilterMetadata[] }> = new EventEmitter()
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -4556,7 +4559,15 @@ export class ColumnFilter implements AfterContentInit {
 
     initFieldFilterConstraint() {
         let defaultMatchMode = this.getDefaultMatchMode();
-        this.dt.filters[this.field] = this.display == 'row' ? {value: null, matchMode: defaultMatchMode} : [{value: null, matchMode: defaultMatchMode, operator: this.operator}];
+        const rowFilterDefaults:FilterMetadata = { value: null, matchMode: defaultMatchMode };
+        const menuFilterDefaults:FilterMetadata[] = [{ value: null, matchMode: defaultMatchMode, operator: this.operator }]
+
+        if(this.dt.areTableFiltersImmutableObject){
+            this.dt.onTableFiltersImmutableChange.emit(this.display == 'row' ? rowFilterDefaults : menuFilterDefaults)
+        }
+        else{
+            this.dt.filters[this.field] = this.display == 'row' ? rowFilterDefaults : menuFilterDefaults;
+        }
     }
 
     onMenuMatchModeChange(value: any, filterMeta: FilterMetadata) {
