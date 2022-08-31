@@ -19,14 +19,14 @@ import {Subscription} from 'rxjs';
         <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="p-fileupload-buttonbar">
                 <span class="p-button p-component p-fileupload-choose" [ngClass]="{'p-focus': focus, 'p-disabled':disabled || isChooseDisabled()}" (focus)="onFocus()" (blur)="onBlur()" pRipple
-                    (click)="choose()" (keydown.enter)="choose()" tabindex="0">
+                    (click)="choose()" (keydown.enter)="choose()" tabindex="0" [class]="chooseStyleClass">
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
                     <span class="p-button-label">{{chooseButtonLabel}}</span>
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadButtonLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelButtonLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadButtonLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass"></p-button>
+                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelButtonLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass"></p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -42,7 +42,7 @@ import {Subscription} from 'rxjs';
                             <div class="p-fileupload-filename">{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
                             <div>
-                                <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading"></button>
+                                <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading" [class]="removeStyleClass"></button>
                             </div>
                         </div>
                     </div>
@@ -132,6 +132,14 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     @Input() customUpload: boolean;
 
     @Input() fileLimit: number;
+
+    @Input() uploadStyleClass: string;
+
+    @Input() cancelStyleClass: string;
+
+    @Input() removeStyleClass: string;
+
+    @Input() chooseStyleClass: string;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
