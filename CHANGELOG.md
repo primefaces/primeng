@@ -48,7 +48,7 @@
 - p-calendar is hidden while in a p-panel [\#11685](https://github.com/primefaces/primeng/issues/11685)
 - Badge: Whitespaces are added before & after string [\#11627](https://github.com/primefaces/primeng/issues/11627)
 - P-Tree: Duplicated render [\#11669](https://github.com/primefaces/primeng/issues/11669)
-- The scrollTo method is not working as expected on Scroller API [\#11669](https://github.com/primefaces/primeng/issues/11669)
+- The scrollTo method is not working as expected on Scroller API [\#11675](https://github.com/primefaces/primeng/issues/11675)
 - Dropdown: Options grouping feature is not working [\#11672](https://github.com/primefaces/primeng/issues/11672)
 
 ## [14.0.0-rc.1](https://github.com/primefaces/primeng/tree/14.0.0-rc.1) (2022-06-29)
@@ -78,7 +78,7 @@
 
 **Fixed bugs:**
 - Dropdown method "show" not working [\#11648](https://github.com/primefaces/primeng/issues/11648)
-- Scrolling in a t-table that implements virtual scrolling and lazy loading bugs out the header of the t-table [\#11617](https://github.com/primefaces/primeng/issues/11617)
+- Scrolling in a t-table that implements virtual scrolling and lazy loading bugs out the header of the t-table [\#10630](https://github.com/primefaces/primeng/issues/10630)
 - Dropdown | ng-dirty issue when options are set by a service call [\#11634](https://github.com/primefaces/primeng/issues/11634)
 - Dialog bottom has no border radius when footer does not exist [\#11626](https://github.com/primefaces/primeng/issues/11626)
 - AutoComplete showClear is not working when dropdown is enabled [\#11592](https://github.com/primefaces/primeng/issues/11592)
