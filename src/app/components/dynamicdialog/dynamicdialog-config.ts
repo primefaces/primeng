@@ -18,4 +18,8 @@ export class DynamicDialogConfig {
 	modal?: boolean;
 	maskStyleClass?: string;
     resizable?: boolean;
+    draggable?: boolean;
+    keepInViewport?: boolean;
+    minX?: number;
+    minY?: number;
 }
