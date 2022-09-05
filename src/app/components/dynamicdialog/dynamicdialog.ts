@@ -21,10 +21,11 @@ const hideAnimation = animation([
 	selector: 'p-dynamicDialog',
 	template: `
         <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false}" [class]="config.maskStyleClass">
-            <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
+            <div #container [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
+                <div *ngIf="config.resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div class="p-dialog-header" *ngIf="config.showHeader === false ? false: true">
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons">
@@ -33,7 +34,7 @@ const hideAnimation = animation([
                         </button>
                     </div>
                 </div>
-                <div class="p-dialog-content" [ngStyle]="config.contentStyle">
+                <div #content class="p-dialog-content" [ngStyle]="config.contentStyle">
                     <ng-template pDynamicDialogContent></ng-template>
                 </div>
                 <div class="p-dialog-footer" *ngIf="config.footer">
@@ -67,9 +68,21 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	mask: HTMLDivElement;
 
+    resizing: boolean;
+
+    _style: any = {};
+
+    originalStyle: any;
+
+    lastPageX: number;
+
+    lastPageY: number;
+
 	@ViewChild(DynamicDialogContent) insertionPoint: DynamicDialogContent;
 
 	@ViewChild('mask') maskViewChild: ElementRef;
+
+    @ViewChild('content') contentViewChild: ElementRef;
 
 	childComponentType: Type<any>;
 
@@ -84,6 +97,21 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     maskClickListener: Function;
 
     transformOptions: string = "scale(0.7)";
+
+    documentResizeListener: null;
+
+    documentResizeEndListener: null;
+
+    get style(): any {
+        return this._style;
+    }
+
+    set style(value:any) {
+        if (value) {
+            this._style = {...value};
+            this.originalStyle = value;
+        }
+    }
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
 			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig) { }
@@ -231,17 +259,95 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    initResize(event: MouseEvent) {
+        console.log('resize init')
+        if (this.config.resizable) {
+            this.resizing = true;
+            this.lastPageX = event.pageX;
+            this.lastPageY = event.pageY;
+            DomHandler.addClass(document.body, 'p-unselectable-text');
+        }
+    }
+
+    onResize(event: MouseEvent) {
+        if (this.resizing) {
+            let deltaX = event.pageX - this.lastPageX;
+            let deltaY = event.pageY - this.lastPageY;
+            let containerWidth = DomHandler.getOuterWidth(this.container);
+            let containerHeight = DomHandler.getOuterHeight(this.container);
+            let contentHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement);
+            let newWidth = containerWidth + deltaX;
+            let newHeight = containerHeight + deltaY;
+            let minWidth = this.container.style.minWidth;
+            let minHeight = this.container.style.minHeight;
+            let offset = this.container.getBoundingClientRect();
+            let viewport = DomHandler.getViewport();
+            let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
+
+            if (hasBeenDragged) {
+                newWidth += deltaX;
+                newHeight += deltaY;
+            }
+
+            if ((!minWidth || newWidth > parseInt(minWidth)) && (offset.left + newWidth) < viewport.width) {
+                this._style.width = newWidth + 'px';
+                this.container.style.width = this._style.width;
+            }
+
+            if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
+                this.contentViewChild.nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
+
+                if (this._style.height) {
+                    this._style.height = newHeight + 'px';
+                    this.container.style.height = this._style.height;
+                }
+            }
+
+            this.lastPageX = event.pageX;
+            this.lastPageY = event.pageY;
+        }
+    }
+
+    resizeEnd(event) {
+        if(this.resizing) {
+            this.resizing = false;
+            DomHandler.removeClass(document.body, 'p-unselectable-text');
+        }
+    }
+
+    bindDocumentResizeListeners() {
+        this.zone.runOutsideAngular(() => {
+            this.documentResizeListener = this.onResize.bind(this);
+            this.documentResizeEndListener = this.resizeEnd.bind(this);
+            window.document.addEventListener('mousemove', this.documentResizeListener);
+            window.document.addEventListener('mouseup', this.documentResizeEndListener);
+        })
+    }
+
+    unbindDocumentResizeListeners() {
+        if (this.documentResizeListener && this.documentResizeEndListener) {
+            window.document.removeEventListener('mousemove', this.documentResizeListener);
+            window.document.removeEventListener('mouseup', this.documentResizeEndListener);
+            this.documentResizeListener = null;
+            this.documentResizeEndListener = null;
+        }
+    }
+
 	bindGlobalListeners() {
         this.bindDocumentKeydownListener();
 
         if (this.config.closeOnEscape !== false && this.config.closable !== false) {
             this.bindDocumentEscapeListener();
         }
+        if (this.config.resizable) {
+            this.bindDocumentResizeListeners();
+        }
     }
 
     unbindGlobalListeners() {
         this.unbindDocumentKeydownListener();
         this.unbindDocumentEscapeListener();
+        this.unbindDocumentResizeListeners();
     }
 
     bindDocumentKeydownListener() {
