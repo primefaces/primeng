@@ -25,4 +25,5 @@ export class DynamicDialogConfig {
     maximizable?: boolean;
     maximizeIcon?: string;
     minimizeIcon?: string;
+    position?: string;
 }

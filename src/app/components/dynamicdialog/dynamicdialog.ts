@@ -20,7 +20,16 @@ const hideAnimation = animation([
 @Component({
 	selector: 'p-dynamicDialog',
 	template: `
-        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false}" [class]="config.maskStyleClass">
+        <div #mask [ngClass]="{'p-dialog-mask':true, 
+            'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false, 
+            'p-dialog-left': position === 'left', 
+            'p-dialog-right': position === 'right',
+            'p-dialog-top': position === 'top', 
+            'p-dialog-bottom': position === 'bottom', 
+            'p-dialog-top-left': position === 'topleft' || position === 'top-left',
+            'p-dialog-top-right': position === 'topright' || position === 'top-right',
+            'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
+            'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'}" [class]="config.maskStyleClass">
             <div #container [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable, 'p-dialog-draggable': config.draggable, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
@@ -141,6 +150,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     get style(): any {
         return this._style;
+    }
+
+    get position(): string {
+        return this.config.position;
     }
 
     set style(value:any) {
