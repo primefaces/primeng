@@ -17,4 +17,13 @@ export class DynamicDialogConfig {
 	showHeader?: boolean;
 	modal?: boolean;
 	maskStyleClass?: string;
+    resizable?: boolean;
+    draggable?: boolean;
+    keepInViewport?: boolean;
+    minX?: number;
+    minY?: number;
+    maximizable?: boolean;
+    maximizeIcon?: string;
+    minimizeIcon?: string;
+    position?: string;
 }
