@@ -20,7 +20,7 @@ export class DynamicDialogRef {
     }
 
     resizeStart(event: MouseEvent) {
-        this._onResizeStart.next(event);
+        this._onResizeInit.next(event);
     }
 
     resizeEnd(event: MouseEvent) {
@@ -43,8 +43,8 @@ export class DynamicDialogRef {
     private readonly _onDragEnd = new Subject<any>();
     onDragEnd: Observable<any> = this._onDragEnd.asObservable();
 
-    private readonly _onResizeStart = new Subject<any>();
-    onResizeStart: Observable<any> = this._onResizeStart.asObservable();
+    private readonly _onResizeInit = new Subject<any>();
+    onResizeInit: Observable<any> = this._onResizeInit.asObservable();
 
     private readonly _onResizeEnd = new Subject<any>();
     onResizeEnd: Observable<any> = this._onResizeEnd.asObservable();
