@@ -198,11 +198,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 if (this.config.modal !== false) {
                     this.enableModality();
                 }
-
-                if (this.config.onShow) {
-                    this.config.onShow({})
-                }
-
                 this.focus();
 			break;
 
@@ -218,10 +213,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 		if (event.toState === 'void') {
             this.onContainerDestroy();
 			this.dialogRef.destroy();
-
-            if (this.config.onClose) {
-                this.config.onClose({})
-            }
 		}
 	}
 
@@ -327,9 +318,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         else {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
         }
-        if (this.config.onMaximize) {
-            this.config.onMaximize({'maximized': this.maximized});
-        }
+
+        this.dialogRef.maximize({'maximized': this.maximized})
     }
 
     initResize(event: MouseEvent) {
@@ -339,9 +329,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.lastPageY = event.pageY;
             DomHandler.addClass(document.body, 'p-unselectable-text');
 
-            if (this.config.onResizeInit) {
-                this.config.onResizeInit(event)
-            }
+            this.dialogRef.resizeStart(event)
         }
     }
 
@@ -388,10 +376,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         if(this.resizing) {
             this.resizing = false;
             DomHandler.removeClass(document.body, 'p-unselectable-text');
-
-            if (this.config.onResizeEnd) {
-                this.config.onResizeEnd(event);
-            }
+            this.dialogRef.resizeEnd(event)
         }
     }
     
@@ -408,9 +393,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.container.style.margin = '0';
             DomHandler.addClass(document.body, 'p-unselectable-text');
 
-            if(this.config.onDragStart) {
-                this.config.onDragStart(event);
-            }
+            this.dialogRef.dragStart(event);
         }
     }
 
@@ -453,11 +436,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         if (this.dragging) {
             this.dragging = false;
             DomHandler.removeClass(document.body, 'p-unselectable-text');
-
-            if (this.config.onDragEnd) {
-                this.config.onDragEnd(event);
-            }
-
+            this.dialogRef.dragEnd(event)
             this.cd.detectChanges();
         }
     }

@@ -26,11 +26,4 @@ export class DynamicDialogConfig {
     maximizeIcon?: string;
     minimizeIcon?: string;
     position?: string;
-    onMaximize?: (value?:any) => void;
-    onShow?: (value?: any) => void;
-    onClose?: (value?: any) => void;
-    onResizeInit?: (event?: MouseEvent) => void;
-    onResizeEnd?: (value?: any) => void;
-    onDragEnd?: (event?: MouseEvent) => void;
-    onDragStart?: (event?: MouseEvent) => void;
 }
