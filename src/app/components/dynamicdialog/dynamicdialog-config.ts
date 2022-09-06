@@ -22,4 +22,7 @@ export class DynamicDialogConfig {
     keepInViewport?: boolean;
     minX?: number;
     minY?: number;
+    maximizable?: boolean;
+    maximizeIcon?: string;
+    minimizeIcon?: string;
 }

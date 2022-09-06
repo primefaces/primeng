@@ -21,7 +21,7 @@ const hideAnimation = animation([
 	selector: 'p-dynamicDialog',
 	template: `
         <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false}" [class]="config.maskStyleClass">
-            <div #container [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable, 'p-dialog-draggable': config.draggable}" [ngStyle]="config.style" [class]="config.styleClass"
+            <div #container [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable, 'p-dialog-draggable': config.draggable, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
@@ -29,6 +29,9 @@ const hideAnimation = animation([
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="config.showHeader === false ? false: true">
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons">
+                        <button *ngIf="config.maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                            <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                        </button>
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
                             <span class="p-dialog-header-close-icon pi pi-times"></span>
                         </button>
@@ -72,6 +75,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     dragging: boolean;
 
+    maximized: boolean;
+
     _style: any = {};
 
     originalStyle: any;
@@ -79,10 +84,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     lastPageX: number;
 
     lastPageY: number;
-
-    _minX: number = 0;
-
-    _minY: number = 0;
 
 	@ViewChild(DynamicDialogContent) insertionPoint: DynamicDialogContent;
 
@@ -114,7 +115,29 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     documentDragEndListener: null;
 
-    keepInViewport: boolean = true;
+    get minX(): number {
+        return this.config.minX ? this.config.minX : 0;
+    }
+
+    get minY(): number {
+        return this.config.minY ? this.config.minY : 0;
+    }
+
+    get keepInViewport(): boolean {
+        return this.config.keepInViewport
+    }
+
+    get maximizable(): boolean {
+        return this.config.maximizable;
+    }
+
+    get maximizeIcon(): string {
+        return this.config.maximizeIcon ? this.config.maximizeIcon : 'pi pi-window-maximize';
+    }
+
+    get minimizeIcon(): string {
+        return this.config.minimizeIcon ? this.config.minimizeIcon : 'pi pi-window-minimize';
+    }
 
     get style(): any {
         return this._style;
@@ -273,6 +296,17 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    maximize() {
+        this.maximized = !this.maximized;
+
+        if(this.maximized) {
+            DomHandler.addClass(document.body, 'p-overflow-hidden');
+        }
+        else {
+            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        }
+    }
+
     initResize(event: MouseEvent) {
         if (this.config.resizable) {
             this.resizing = true;
@@ -353,19 +387,17 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
-            this._minX = this.config.minX ? this.config.minX : 0;
-            this._minY = this.config.minY ? this.config.minY : 0;
-
+            
             this.container.style.position = 'fixed';
 
             if (this.keepInViewport) {
-                if (leftPos >= this._minX && (leftPos + containerWidth) < viewport.width) {
+                if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
                     this._style.left = leftPos + 'px';
                     this.lastPageX = event.pageX;
                     this.container.style.left = leftPos + 'px';
                 }
 
-                if (topPos >= this._minY && (topPos + containerHeight) < viewport.height) {
+                if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
                     this._style.top = topPos + 'px';
                     this.lastPageY = event.pageY;
                     this.container.style.top = topPos + 'px';
