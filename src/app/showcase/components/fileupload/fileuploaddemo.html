@@ -13,7 +13,7 @@
     <div class="card">
         <h5>Advanced</h5>
         <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-                multiple="multiple" accept="image/*" maxFileSize="1000000" uploadStyleClass="w-20rem">
+                multiple="multiple" accept="image/*" maxFileSize="1000000">
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
                         <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
