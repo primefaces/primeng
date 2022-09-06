@@ -459,15 +459,20 @@ export class DynamicDialogDemo implements OnDestroy &#123;
         this.ref = this.dialogService.open(ProductListDemo, &#123;
             header: 'Choose a Product',
             width: '70%',
-            contentStyle: &#123;"max-height": "500px", "overflow": "auto"&#125;,
-            baseZIndex: 10000
+            contentStyle: &#123;"overflow": "auto"&#125;,
+            baseZIndex: 10000,
+            maximizable: true
         &#125;);
 
-        this.ref.onClose.subscribe((product: Product) =>&#123;
+        this.ref.onClose.subscribe((product: Product) => &#123;
             if (product) &#123;
                 this.messageService.add(&#123;severity:'info', summary: 'Product Selected', detail: product.name&#125;);
             &#125;
         &#125;);
+
+        this.ref.onMaximize.subscribe((value: any) => &#123;
+            this.messageService.add(&#123;severity: 'info', summary: 'Maximized', detail:  `maximized: $&#123;value.maximized&#125;`&#125;);
+    &#125;);
     &#125;
 
     ngOnDestroy() &#123;

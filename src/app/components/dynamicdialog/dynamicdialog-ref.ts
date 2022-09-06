@@ -19,7 +19,7 @@ export class DynamicDialogRef {
         this._onDragEnd.next(event);
     }
 
-    resizeStart(event: MouseEvent) {
+    resizeInit(event: MouseEvent) {
         this._onResizeInit.next(event);
     }
 

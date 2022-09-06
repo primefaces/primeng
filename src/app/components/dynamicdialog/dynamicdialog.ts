@@ -328,7 +328,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
             DomHandler.addClass(document.body, 'p-unselectable-text');
-            this.dialogRef.resizeStart(event)
+            this.dialogRef.resizeInit(event)
         }
     }
 
