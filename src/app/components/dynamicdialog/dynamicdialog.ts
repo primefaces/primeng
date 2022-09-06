@@ -328,7 +328,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
             DomHandler.addClass(document.body, 'p-unselectable-text');
-
             this.dialogRef.resizeStart(event)
         }
     }
@@ -392,7 +391,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
             this.container.style.margin = '0';
             DomHandler.addClass(document.body, 'p-unselectable-text');
-
             this.dialogRef.dragStart(event);
         }
     }
