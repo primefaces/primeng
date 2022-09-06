@@ -219,8 +219,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.onContainerDestroy();
 			this.dialogRef.destroy();
 
-            if (this.config.onHide) {
-                this.config.onHide({})
+            if (this.config.onClose) {
+                this.config.onClose({})
             }
 		}
 	}

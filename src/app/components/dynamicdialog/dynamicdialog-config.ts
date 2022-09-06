@@ -28,7 +28,7 @@ export class DynamicDialogConfig {
     position?: string;
     onMaximize?: (value?:any) => void;
     onShow?: (value?: any) => void;
-    onHide?: (value?: any) => void;
+    onClose?: (value?: any) => void;
     onResizeInit?: (event?: MouseEvent) => void;
     onResizeEnd?: (value?: any) => void;
     onDragEnd?: (event?: MouseEvent) => void;
