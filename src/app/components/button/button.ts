@@ -44,9 +44,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         if (this.label)
             labelElement.appendChild(document.createTextNode(this.label));
-        else
-            labelElement.innerHTML = '&nbsp;';
-
         this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     }
@@ -125,7 +122,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._label = val;
 
         if (this.initialized) {
-            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
+            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label;
 
             if (this.loading || this.icon) {
                 this.setIconClass();
@@ -188,7 +185,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-button-icon-top': iconPos === 'top' && label,
                         'p-button-icon-bottom': iconPos === 'bottom' && label}"
                         [class]="loading ? 'p-button-loading-icon ' + loadingIcon : icon" *ngIf="!contentTemplate && (icon||loading)" [attr.aria-hidden]="true"></span>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate">{{label||'&nbsp;'}}</span>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate">{{label}}</span>
             <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{badge}}</span>
         </button>
     `,
