@@ -193,10 +193,17 @@ export class ConfirmPopup implements OnDestroy {
         });
     }
 
-    bindListeners() {
-        this.bindDocumentClickListener();
-        this.bindDocumentResizeListener();
-        this.bindScrollListener();
+    bindListeners(): void {
+        /*
+         * Called inside `setTimeout` to avoid listening to the click event that appears when `confirm` is first called(bubbling).
+         * Need wait when bubbling event up and hang the handler on the next tick.
+         * This is the case when eventTarget and confirmation.target do not match when the `confirm` method is called.
+         */
+        setTimeout(() => {
+            this.bindDocumentClickListener();
+            this.bindDocumentResizeListener();
+            this.bindScrollListener();
+        });
     }
 
     unbindListeners() {
