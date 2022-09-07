@@ -1961,7 +1961,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
         let columnWidth = this.resizeColumnElement.offsetWidth;
         let newColumnWidth = columnWidth + delta;
-        let minWidth = this.resizeColumnElement.style.minWidth||15;
+        let minWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '')||15;
 
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
