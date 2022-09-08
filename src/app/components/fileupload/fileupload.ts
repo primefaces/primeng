@@ -313,6 +313,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     }
 
     validate(file: File): boolean {
+        this.msgs = [];
         if (this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
                 severity: 'error',
@@ -465,6 +466,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     }
 
     checkFileLimit() {
+        this.msgs = [];
         if (this.isFileLimitExceeded()) {
             this.msgs.push({
                 severity: 'error',
