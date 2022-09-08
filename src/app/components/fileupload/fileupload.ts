@@ -7,7 +7,7 @@ import {MessagesModule} from 'primeng/messages';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {DomHandler} from 'primeng/dom';
 import {Message, TranslationKeys} from 'primeng/api';
-import {PrimeTemplate,SharedModule,PrimeNGConfig} from 'primeng/api';
+import {PrimeTemplate,SharedModule,PrimeNGConfig, MessageService} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
@@ -33,7 +33,7 @@ import {Subscription} from 'rxjs';
             <div #content class="p-fileupload-content" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
 
-                <p-messages [value]="msgs" [enableService]="false"></p-messages>
+                <p-messages [closable]="true"></p-messages>
 
                 <div class="p-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
@@ -54,7 +54,7 @@ import {Subscription} from 'rxjs';
             </div>
         </div>
         <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'">
-            <p-messages [value]="msgs" [enableService]="false"></p-messages>
+            <p-messages [closable]="true"></p-messages>
             <span [ngClass]="{'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !chooseLabel, 'p-fileupload-choose-selected': hasFiles(),'p-focus': focus, 'p-disabled':disabled}"
                 [ngStyle]="style" [class]="styleClass" (mouseup)="onBasicUploaderClick()" (keydown)="onBasicKeydown($event)" tabindex="0" pRipple>
                 <span class="p-button-icon p-button-icon-left pi" [ngClass]="hasFiles()&&!auto ? uploadIcon : chooseIcon"></span>
@@ -67,6 +67,7 @@ import {Subscription} from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./fileupload.css'],
+    providers: [MessageService],
     host: {
         'class': 'p-element'
     }
@@ -211,7 +212,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
 
     translationSubscription: Subscription;
 
-    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef, public config: PrimeNGConfig){}
+    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private messageService: MessageService){}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -314,20 +315,24 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
 
     validate(file: File): boolean {
         if (this.accept && !this.isFileTypeValid(file)) {
-            this.msgs.push({
+            const message = {
                 severity: 'error',
                 summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
                 detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept)
-            });
+            }
+            
+            this.messageService.add(message)
             return false;
         }
 
         if (this.maxFileSize  && file.size > this.maxFileSize) {
-            this.msgs.push({
+            const message = {
                 severity: 'error',
                 summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name),
                 detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
-            });
+            }
+
+            this.messageService.add(message)
             return false;
         }
 
@@ -466,11 +471,12 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
 
     checkFileLimit() {
         if (this.isFileLimitExceeded()) {
-            this.msgs.push({
+            const message = {
                 severity: 'error',
                 summary: this.invalidFileLimitMessageSummary.replace('{0}', this.fileLimit.toString()),
                 detail: this.invalidFileLimitMessageDetail.replace('{0}', this.fileLimit.toString())
-            });
+            };
+            this.messageService.add(message)
         } else {
             this.msgs = [];
         }
