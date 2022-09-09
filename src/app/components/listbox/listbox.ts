@@ -46,7 +46,7 @@ export interface ListboxFilterOptions {
         </ng-template>
       </div>
       <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass">
-        <ul class="p-listbox-list" role="listbox" aria-multiselectable="multiple">
+        <ul class="p-listbox-list" role="listbox" [attr.aria-multiselectable]="multiple">
             <ng-container *ngIf="group">
                 <ng-template ngFor let-optgroup [ngForOf]="optionsToRender">
                     <li class="p-listbox-item-group">
