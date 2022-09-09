@@ -597,11 +597,14 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             return;
         }
 
-        event.preventDefault();
         let code = event.which || event.keyCode;
         let char = String.fromCharCode(code);
         const isDecimalSign = this.isDecimalSign(char);
         const isMinusSign = this.isMinusSign(char);
+        
+        if (code != 13) {
+            event.preventDefault();
+        }
 
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
