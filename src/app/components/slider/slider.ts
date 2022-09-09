@@ -412,6 +412,23 @@ export class Slider implements OnDestroy,ControlValueAccessor {
             else
                 this.handleValue = (this.value - this.min) * 100 / (this.max - this.min);
         }
+
+        if(this.step) {
+            this.updateDiffAndOffset()
+        }  
+    }
+
+    updateDiffAndOffset(): void {
+        this.diff = this.getDiff()
+        this.offset = this.getOffset()
+    }
+
+    getDiff(): number {
+        return Math.abs(this.handleValues[0] - this.handleValues[1]);
+    }
+
+    getOffset(): number {
+        return Math.min(this.handleValues[0], this.handleValues[1]);
     }
 
     updateValue(val: number, event?: Event): void {
@@ -449,8 +466,12 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 this.sliderHandleEnd.nativeElement.focus();
             }
 
-            this.diff = Math.abs(this.handleValues[0] - this.handleValues[1]);
-            this.offset = Math.min(this.handleValues[0], this.handleValues[1])
+            if(this.step) {
+                this.updateHandleValue()
+            } else {
+                this.updateDiffAndOffset()
+            }
+
             this.values[this.handleIndex] = this.getNormalizedValue(value);
             let newValues = [this.minVal, this.maxVal];
             this.onModelChange(newValues);
