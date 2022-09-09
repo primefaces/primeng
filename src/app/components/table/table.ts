@@ -1055,6 +1055,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
+        if (typeof multiSortMeta[index] === 'undefined') {
+            return 1;
+        }
         let value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
         let value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
         let result = null;
