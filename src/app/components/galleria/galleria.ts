@@ -456,12 +456,13 @@ export class GalleriaItem implements OnInit {
 
     set activeIndex(activeIndex) {
         this._activeIndex = activeIndex;
-        this.activeItem = this.value[this._activeIndex];
+    }
+
+    get activeItem() {
+        return this.value[this._activeIndex];
     }
 
     _activeIndex: number = 0;
-
-    activeItem: any;
 
     ngOnInit() {
         if (this.autoPlay) {
