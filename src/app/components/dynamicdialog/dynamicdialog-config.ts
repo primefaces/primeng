@@ -1,5 +1,5 @@
-export class DynamicDialogConfig {
-	data?: any;
+export class DynamicDialogConfig<T = any> {
+	data?: T;
 	header?: string;
 	footer?: string;
 	width?: string;
