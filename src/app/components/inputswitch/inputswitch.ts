@@ -8,6 +8,11 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export interface InputSwitchOnChangeEvent {
+    originalEvent: Event; 
+    checked: boolean;
+}
+
 @Component({
     selector: 'p-inputSwitch',
     template: `
@@ -52,7 +57,7 @@ export class InputSwitch implements ControlValueAccessor {
 
     @Input() ariaLabelledBy: string;
 
-    @Output() onChange: EventEmitter<{ originalEvent: Event; checked: boolean }> = new EventEmitter();
+    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter();
 
     modelValue: any = false;
 
