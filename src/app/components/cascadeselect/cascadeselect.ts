@@ -262,6 +262,7 @@ export class CascadeSelectSub implements OnInit {
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
             <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
+                 [ngStyle]="panelStyle" [class]="panelStyleClass"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
                 <div class="p-cascadeselect-items-wrapper">
                     <p-cascadeSelectSub [options]="options" [selectionPath]="selectionPath" class="p-cascadeselect-items"
@@ -297,7 +298,11 @@ export class CascadeSelectSub implements OnInit {
 })
 export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
+    @Input() panelStyle: any;
+
     @Input() styleClass: string;
+
+    @Input() panelStyleClass: string;
 
     @Input() style: any;
 
