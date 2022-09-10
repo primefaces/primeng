@@ -126,7 +126,7 @@ export class SelectButton implements ControlValueAccessor {
         }
         else {
             let value = this.getOptionValue(option);
-            
+
             if (this.value !== value) {
                 this.value = this.getOptionValue(option);
                 this.onModelChange(this.value);
@@ -159,7 +159,7 @@ export class SelectButton implements ControlValueAccessor {
         let optionValue = this.getOptionValue(option);
 
         if (this.multiple) {
-            if (this.value) {
+            if (this.value && this.value instanceof Array) {
                 for (let val of this.value) {
                     if (ObjectUtils.equals(val, optionValue, this.dataKey)) {
                         selected = true;
