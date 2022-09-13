@@ -21,7 +21,7 @@ jobs:
           conflict_label_name: 'need revision'
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Add Conflicts Comment
-        if: ${{ success() }}
+        if: ${{ failure() }}
         uses: peter-evans/create-or-update-comment@c9fcb64660bc90ec1cc535646af190c992007c32
         with:
           issue-number: ${{ github.event.issue.number }}
