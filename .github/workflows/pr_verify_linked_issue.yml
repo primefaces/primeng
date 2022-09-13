@@ -11,9 +11,6 @@ permissions:
 jobs:
   verify_linked_issue:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
     steps:
       - name: Verify Linked Issue
         uses: hattan/verify-linked-issue-action@v1.1.5
