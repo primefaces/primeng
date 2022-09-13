@@ -9,6 +9,20 @@ permissions:
   contents: read
 
 jobs:
+  conflicts:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: prince-chrismc/label-merge-conflicts-action@v2
+        with:
+          conflict_label_name: 'need revision'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          detect_merge_changes: false
+          conflict_comment: |
+            :wave: Hi, @${author},
+            This PR has conflicts, please resolve those before we can evaluate it.!
   verify_linked_issue:
     runs-on: ubuntu-latest
     permissions:
