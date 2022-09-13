@@ -1,5 +1,34 @@
 # Changelog
 
+## [14.0.2](https://github.com/primefaces/primeng/tree/14.1.0) (2022-09-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.2...14.1.0)
+
+**New Features:**
+- TieredMenu | onShow/onHide event support [\#11727](https://github.com/primefaces/primeng/issues/11727)
+- Draggable and Resizable DynamicDialog [\#7811](https://github.com/primefaces/primeng/issues/7811)
+
+**Fixed bugs:**
+- SelectButton | throws a exception when options are changed [\#11915](https://github.com/primefaces/primeng/issues/11915)
+- Table Module: Export ColumnFilterFormElement [\#11733](https://github.com/primefaces/primeng/issues/11733)
+- p-slider: Entering a decimal value without a preceding number before decimal point gives error [\#11790](https://github.com/primefaces/primeng/issues/11790)
+- p-dropdown: FormControl loses value if it contains a value not in options and options array is updated [\#11645](https://github.com/primefaces/primeng/issues/11645)
+- p-slider: Range slider with a step has the middle bar lag behind by one update [\#11749](https://github.com/primefaces/primeng/issues/11749)
+- Table: Unhandled exception if multiSortMeta array is empty [\#11868](https://github.com/primefaces/primeng/issues/11868)
+- Galleria: GalleriaItem activeItem has stale reference when value array is changed [\#11882](https://github.com/primefaces/primeng/issues/11882)
+- fileUpload | Notification messages not work [\#11886](https://github.com/primefaces/primeng/issues/11886)
+- Table: Column resize not working with minimum width [\#11873](https://github.com/primefaces/primeng/issues/11873)
+- p-confirmPopup: Does not show even with a valid target [\#11831](https://github.com/primefaces/primeng/issues/11831)
+- ListBox: Incorrect value for "aria-multiselectable" attribute ( WCAG: 4.1.2 violation) [\#11743](https://github.com/primefaces/primeng/issues/11743)
+
+**Enhancements:**
+- Carousel SSR broken [\#8447](https://github.com/primefaces/primeng/issues/8447)
+- DynamicDialog: Add generic support to DynamicDialogConfig [\#11665](https://github.com/primefaces/primeng/issues/11665)
+- InputNumber | Do not swallow Enter key press event [\#11913](https://github.com/primefaces/primeng/issues/11913)
+- InputSwitch | Add event type to onChange emitter [\#11912](https://github.com/primefaces/primeng/issues/11912)
+- Table | add showButtons input to inputNumber in ColumnFilter [\#11881](https://github.com/primefaces/primeng/issues/11881)
+- FileUploader | StyleClass support for buttons [\#11884](https://github.com/primefaces/primeng/issues/11884)
+
 ## [14.0.2](https://github.com/primefaces/primeng/tree/14.0.2) (2022-08-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/14.0.1...14.0.2)
