@@ -9,7 +9,28 @@ permissions:
   contents: read
 
 jobs:
+  conflicts:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Check Conflicts
+        uses: mschilde/auto-label-merge-conflicts@master
+        with:
+          conflict_label_name: 'need revision'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add Conflicts Comment
+        if: ${{ failure() }}
+        uses: peter-evans/create-or-update-comment@c9fcb64660bc90ec1cc535646af190c992007c32
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            :wave: Hi @${author},
+            Thanks a lot for your contribution! But, PR has conflicts, please resolve those before we can evaluate this PR.!
   verify_linked_issue:
+    if: ${{ success() }}
+    needs: [conflicts]
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -20,10 +41,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          message: 'Thanks a lot for your contribution! But, PR does not seem to be linked to any issues. Please [manually link to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#manually-linking-a-pull-request-or-branch-to-an-issue-using-the-issue-sidebar) or mention it in the description using #<issue_id>.'
+          message: |
+            :wave: Hi @${author},
+            Thanks a lot for your contribution! But, PR does not seem to be linked to any issues. Please [manually link to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#manually-linking-a-pull-request-or-branch-to-an-issue-using-the-issue-sidebar) or mention it in the description using #<issue_id>.
   labeler:
     if: ${{ failure() }}
-    needs: [verify_linked_issue]
+    needs: [verify_linked_issue, conflicts]
     runs-on: ubuntu-latest
     permissions:
       issues: write
