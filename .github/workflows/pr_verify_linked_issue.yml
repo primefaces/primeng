@@ -34,3 +34,4 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           add-labels: 'need revision'
+          remove-labels: 'pending-review'
