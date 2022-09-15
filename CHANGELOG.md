@@ -1,4 +1,11 @@
 # Changelog
+## [14.1.0](https://github.com/primefaces/primeng/tree/14.1.1) (2022-09-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.1.0...14.1.1)
+
+**Fixed bugs:**
+- Table "Sticky" headers fail to "stick" when a table is placed inside an Accordion panel [\#11924](https://github.com/primefaces/primeng/issues/11924)
+- Ripple is triggered when not properly destroyed [\#11933](https://github.com/primefaces/primeng/issues/11933)
 
 ## [14.1.0](https://github.com/primefaces/primeng/tree/14.1.0) (2022-09-13)
 
