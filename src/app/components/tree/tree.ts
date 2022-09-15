@@ -19,7 +19,7 @@ import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
         <ng-template [ngIf]="node">
             <li *ngIf="tree.droppableNodes" class="p-treenode-droppoint" [ngClass]="{'p-treenode-droppoint-active':draghoverPrev}"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <li *ngIf="!tree.horizontal" [ngClass]="['p-treenode',node.styleClass||'', isLeaf() ? 'p-treenode-leaf': '']" [ngStyle]="{'height': itemSize + 'px'}">
+            <li *ngIf="!tree.horizontal" [ngClass]="['p-treenode',node.styleClass||'', isLeaf() ? 'p-treenode-leaf': '']" [ngStyle]="{'height': itemSize + 'px'}" [style]="node.style">
                 <div class="p-treenode-content" [style.paddingLeft]="(level * indentation)  + 'rem'" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" [attr.tabindex]="0"
@@ -130,7 +130,6 @@ export class UITreeNode implements OnInit {
 
     ngOnInit() {
         this.node.parent = this.parentNode;
-
         if (this.parentNode) {
             this.tree.syncNodeOption(this.node, this.tree.value, 'parent', this.tree.getNodeWithKey(this.parentNode.key, this.tree.value));
         }
@@ -652,6 +651,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() indentation: number = 1.5;
 
+    @Input() _templateMap: any;
+
     @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
@@ -703,8 +704,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     loaderTemplate: TemplateRef<any>;
 
     emptyMessageTemplate: TemplateRef<any>;
-
-    public templateMap: any;
 
     public nodeTouched: boolean;
 
@@ -765,7 +764,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     ngAfterContentInit() {
         if (this.templates.length) {
-            this.templateMap = {};
+            this._templateMap = {};
         }
 
         this.templates.forEach((item) => {
@@ -787,7 +786,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
                 break;
 
                 default:
-                    this.templateMap[item.name] = item.template;
+                    this._templateMap[item.name] = item.template;
                 break;
             }
         });
@@ -1091,8 +1090,8 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
-        if (this.templateMap)
-            return node.type ? this.templateMap[node.type] : this.templateMap['default'];
+        if (this._templateMap)
+            return node.type ? this._templateMap[node.type] : this._templateMap['default'];
         else
             return null;
     }

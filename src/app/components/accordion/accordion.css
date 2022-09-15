@@ -15,10 +15,6 @@
     line-height: 1;
 }
 
-.p-accordion-tab-active .p-toggleable-content:not(.ng-animating) {
-    overflow: visible;
-}
-
 .p-accordion .p-toggleable-content{
     overflow: hidden;
 }

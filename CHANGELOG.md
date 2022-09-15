@@ -1,5 +1,53 @@
 # Changelog
 
+## [14.1.0](https://github.com/primefaces/primeng/tree/14.1.0) (2022-09-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.2...14.1.0)
+
+**New Features:**
+- TieredMenu | onShow/onHide event support [\#11727](https://github.com/primefaces/primeng/issues/11727)
+- Draggable and Resizable DynamicDialog [\#7811](https://github.com/primefaces/primeng/issues/7811)
+
+**Fixed bugs:**
+- SelectButton | throws a exception when options are changed [\#11915](https://github.com/primefaces/primeng/issues/11915)
+- Table Module: Export ColumnFilterFormElement [\#11733](https://github.com/primefaces/primeng/issues/11733)
+- p-slider: Entering a decimal value without a preceding number before decimal point gives error [\#11790](https://github.com/primefaces/primeng/issues/11790)
+- p-dropdown: FormControl loses value if it contains a value not in options and options array is updated [\#11645](https://github.com/primefaces/primeng/issues/11645)
+- p-slider: Range slider with a step has the middle bar lag behind by one update [\#11749](https://github.com/primefaces/primeng/issues/11749)
+- Table: Unhandled exception if multiSortMeta array is empty [\#11868](https://github.com/primefaces/primeng/issues/11868)
+- Galleria: GalleriaItem activeItem has stale reference when value array is changed [\#11882](https://github.com/primefaces/primeng/issues/11882)
+- fileUpload | Notification messages not work [\#11886](https://github.com/primefaces/primeng/issues/11886)
+- Table: Column resize not working with minimum width [\#11873](https://github.com/primefaces/primeng/issues/11873)
+- p-confirmPopup: Does not show even with a valid target [\#11831](https://github.com/primefaces/primeng/issues/11831)
+- ListBox: Incorrect value for "aria-multiselectable" attribute ( WCAG: 4.1.2 violation) [\#11743](https://github.com/primefaces/primeng/issues/11743)
+
+**Enhancements:**
+- Carousel SSR broken [\#8447](https://github.com/primefaces/primeng/issues/8447)
+- DynamicDialog: Add generic support to DynamicDialogConfig [\#11665](https://github.com/primefaces/primeng/issues/11665)
+- InputNumber | Do not swallow Enter key press event [\#11913](https://github.com/primefaces/primeng/issues/11913)
+- InputSwitch | Add event type to onChange emitter [\#11912](https://github.com/primefaces/primeng/issues/11912)
+- Table | add showButtons input to inputNumber in ColumnFilter [\#11881](https://github.com/primefaces/primeng/issues/11881)
+- FileUploader | StyleClass support for buttons [\#11884](https://github.com/primefaces/primeng/issues/11884)
+
+## [14.0.2](https://github.com/primefaces/primeng/tree/14.0.2) (2022-08-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.1...14.0.2)
+
+**Fixed bugs:**
+- Table Sticky Footer doesn't work with VirtualScroll on DataTable [\#11819](https://github.com/primefaces/primeng/issues/11819)
+- Table | ColumnFilter overlay not closing after clicked an input element inside the container [\#11822](https://github.com/primefaces/primeng/issues/11822)
+- pColumnFilter | Filter is applied by adding a new constraint [\#11841](https://github.com/primefaces/primeng/issues/11841)
+- Table | LazyLoad emits before onPage event [\#11843](https://github.com/primefaces/primeng/issues/11843)
+- Accordion Panel within an Accordion Panel is broken [\#11848](https://github.com/primefaces/primeng/issues/11848)
+- TabView | inkbar does not work correctly [\#11855](https://github.com/primefaces/primeng/issues/11855)
+- Table | Header and Footer have no background color with virtualScroller [\#11858](https://github.com/primefaces/primeng/issues/11858)
+- p-autoComplete : onHide firing on destroy [\#11839](https://github.com/primefaces/primeng/issues/11839)
+- Dropdown: Allow empty string while not showing clear button [\#11836](https://github.com/primefaces/primeng/issues/11836)
+- Editor: Not displaying content correctly in dialog [\#11814](https://github.com/primefaces/primeng/issues/11814)
+- FileUpload | The error message does not disappear correctly when removing file(s), to match your file limit [\#11799](https://github.com/primefaces/primeng/issues/11799)
+- TreeSelect: style and type attribute of TreeNode API doesn't work [\#11761](https://github.com/primefaces/primeng/issues/11761)
+- p-radioButton: can't get the value from onClick event [\#11861](https://github.com/primefaces/primeng/issues/11861)
+
 ## [14.0.1](https://github.com/primefaces/primeng/tree/14.0.1) (2022-08-11)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0...14.0.1)
@@ -29,7 +77,7 @@
 - p-calendar is hidden while in a p-panel [\#11685](https://github.com/primefaces/primeng/issues/11685)
 - Badge: Whitespaces are added before & after string [\#11627](https://github.com/primefaces/primeng/issues/11627)
 - P-Tree: Duplicated render [\#11669](https://github.com/primefaces/primeng/issues/11669)
-- The scrollTo method is not working as expected on Scroller API [\#11669](https://github.com/primefaces/primeng/issues/11669)
+- The scrollTo method is not working as expected on Scroller API [\#11675](https://github.com/primefaces/primeng/issues/11675)
 - Dropdown: Options grouping feature is not working [\#11672](https://github.com/primefaces/primeng/issues/11672)
 
 ## [14.0.0-rc.1](https://github.com/primefaces/primeng/tree/14.0.0-rc.1) (2022-06-29)
@@ -59,7 +107,7 @@
 
 **Fixed bugs:**
 - Dropdown method "show" not working [\#11648](https://github.com/primefaces/primeng/issues/11648)
-- Scrolling in a t-table that implements virtual scrolling and lazy loading bugs out the header of the t-table [\#11617](https://github.com/primefaces/primeng/issues/11617)
+- Scrolling in a t-table that implements virtual scrolling and lazy loading bugs out the header of the t-table [\#10630](https://github.com/primefaces/primeng/issues/10630)
 - Dropdown | ng-dirty issue when options are set by a service call [\#11634](https://github.com/primefaces/primeng/issues/11634)
 - Dialog bottom has no border radius when footer does not exist [\#11626](https://github.com/primefaces/primeng/issues/11626)
 - AutoComplete showClear is not working when dropdown is enabled [\#11592](https://github.com/primefaces/primeng/issues/11592)

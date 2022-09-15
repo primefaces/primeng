@@ -1,7 +1,7 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, SimpleChanges, Renderer2, Inject } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
 
 @Component({
@@ -202,7 +202,7 @@ export class Carousel implements AfterContentInit {
 
     footerTemplate: TemplateRef<any>;
 
-	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) {
+	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
 		this.totalShiftedItems = this.page * this.numScroll * -1;
 	}
 
@@ -349,9 +349,9 @@ export class Carousel implements AfterContentInit {
 
 	createStyle() {
 			if (!this.carouselStyle) {
-				this.carouselStyle = document.createElement('style');
+				this.carouselStyle = this.renderer.createElement('style')
 				this.carouselStyle.type = 'text/css';
-				document.body.appendChild(this.carouselStyle);
+				this.renderer.appendChild(this.document.head, this.carouselStyle);
 			}
 
 			let innerHTML = `
@@ -398,17 +398,19 @@ export class Carousel implements AfterContentInit {
 
 	calculatePosition() {
 		if (this.responsiveOptions) {
-			let windowWidth = window.innerWidth;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,
 				numScroll: this.defaultNumScroll
 			};
-
-			for (let i = 0; i < this.responsiveOptions.length; i++) {
-				let res = this.responsiveOptions[i];
-
-				if (parseInt(res.breakpoint, 10) >= windowWidth) {
-					matchedResponsiveData = res;
+			
+			if (typeof window !== "undefined") {
+				let windowWidth = window.innerWidth;
+				for (let i = 0; i < this.responsiveOptions.length; i++) {
+					let res = this.responsiveOptions[i];
+	
+					if (parseInt(res.breakpoint, 10) >= windowWidth) {
+						matchedResponsiveData = res;
+					}
 				}
 			}
 
@@ -653,7 +655,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	bindDocumentListeners() {
-		if (!this.documentResizeListener) {
+		if (!this.documentResizeListener && typeof window !== 'undefined') {
 			this.documentResizeListener = (e) => {
 				this.calculatePosition();
 			};
@@ -663,7 +665,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	unbindDocumentListeners() {
-		if (this.documentResizeListener) {
+		if (this.documentResizeListener && typeof window !== 'undefined') {
 			window.removeEventListener('resize', this.documentResizeListener);
 			this.documentResizeListener = null;
 		}
