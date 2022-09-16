@@ -1,15 +1,15 @@
 # Changelog
-## [14.1.0](https://github.com/primefaces/primeng/tree/14.1.1) (2022-09-15)
+## [14.1.1](https://github.com/primefaces/primeng/tree/v14.1.1) (2022-09-15)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/14.1.0...14.1.1)
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.0...v14.1.1)
 
 **Fixed bugs:**
 - Table "Sticky" headers fail to "stick" when a table is placed inside an Accordion panel [\#11924](https://github.com/primefaces/primeng/issues/11924)
 - Ripple is triggered when not properly destroyed [\#11933](https://github.com/primefaces/primeng/issues/11933)
 
-## [14.1.0](https://github.com/primefaces/primeng/tree/14.1.0) (2022-09-13)
+## [14.1.0](https://github.com/primefaces/primeng/tree/v14.1.0) (2022-09-13)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.2...14.1.0)
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.2...v14.1.0)
 
 **New Features:**
 - TieredMenu | onShow/onHide event support [\#11727](https://github.com/primefaces/primeng/issues/11727)
@@ -38,7 +38,7 @@
 
 ## [14.0.2](https://github.com/primefaces/primeng/tree/14.0.2) (2022-08-24)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.1...14.0.2)
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.0.1...14.0.2)
 
 **Fixed bugs:**
 - Table Sticky Footer doesn't work with VirtualScroll on DataTable [\#11819](https://github.com/primefaces/primeng/issues/11819)
@@ -55,9 +55,9 @@
 - TreeSelect: style and type attribute of TreeNode API doesn't work [\#11761](https://github.com/primefaces/primeng/issues/11761)
 - p-radioButton: can't get the value from onClick event [\#11861](https://github.com/primefaces/primeng/issues/11861)
 
-## [14.0.1](https://github.com/primefaces/primeng/tree/14.0.1) (2022-08-11)
+## [14.0.1](https://github.com/primefaces/primeng/tree/v14.0.1) (2022-08-11)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0...14.0.1)
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0...v14.0.1)
 
 **New Features:**
 - Add pAutoFocus directive to fix broken autoFocus property of components [\#11807](https://github.com/primefaces/primeng/issues/11807)
