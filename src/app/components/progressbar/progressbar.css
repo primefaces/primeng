@@ -16,7 +16,9 @@
 }
 
 .p-progressbar-determinate .p-progressbar-label {
-    display: inline-flex;
+    position: absolute;
+    left: 50%;
+    z-index: 1;
 }
 
 .p-progressbar-determinate .p-progressbar-value-animate {
