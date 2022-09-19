@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible">
             <ng-content></ng-content>
-            <img [src]="image" *ngIf="image;else iconTemplate">
+            <img [src]="image" *ngIf="image;else iconTemplate" (error)="onError($event)">
             <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'"></span></ng-template>
             <div class="p-chip-text" *ngIf="label">{{label}}</div>
             <span *ngIf="removable" tabindex="0" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)"></span>
@@ -36,7 +36,9 @@ export class Chip {
     @Input() removeIcon: string = "pi pi-times-circle";
 
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
-
+    
+    @Output() onImageError: EventEmitter<any> = new EventEmitter();
+    
     visible: boolean = true;
 
     containerClass() {
@@ -49,6 +51,10 @@ export class Chip {
     close(event) {
         this.visible = false;
         this.onRemove.emit(event)
+    }
+
+    onError(event) {
+        this.onImageError.emit(event);
     }
 }
 
