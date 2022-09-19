@@ -38,7 +38,7 @@ import {Subscription} from 'rxjs';
                 <div class="p-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
                         <div class="p-fileupload-row" *ngFor="let file of files; let i = index;">
-                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
+                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" (error)="imageError($event)"/></div>
                             <div class="p-fileupload-filename">{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
                             <div>
@@ -158,6 +158,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     @Output() onProgress: EventEmitter<any> = new EventEmitter();
 
     @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
+
+    @Output() onImageError: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -572,6 +574,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
                 event.preventDefault();
             break;
         }
+    }
+
+    imageError(event) {
+        this.onImageError.emit(event);
     }
 
     getBlockableElement(): HTMLElement {

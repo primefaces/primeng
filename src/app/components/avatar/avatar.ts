@@ -1,4 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
             <ng-content></ng-content>
             <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{label}}</span>
             <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img [src]="image" *ngIf="image"></ng-template>
+            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="imageError($event)"></ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +34,8 @@ export class Avatar {
 
     @Input() styleClass: string;
 
+    @Output() onImageError: EventEmitter<any> = new EventEmitter();
+
     containerClass() {
         return {
             'p-avatar p-component': true,
@@ -42,6 +44,10 @@ export class Avatar {
             'p-avatar-lg': this.size === 'large',
             'p-avatar-xl': this.size === 'xlarge'
         };
+    }
+
+    imageError(event) {
+        this.onImageError.emit(event);
     }
 }
 
