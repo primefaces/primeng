@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
             <ng-content></ng-content>
             <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{label}}</span>
             <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img src="asdasdasdas" *ngIf="image" (error)="onError($event)"></ng-template>
+            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="onError($event)"></ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
