@@ -10,7 +10,7 @@ import { ZIndexUtils } from 'primeng/utils';
     selector: 'p-image',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <img [attr.src]="src" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" />
+            <img [attr.src]="src" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="onError($event)"/>
             <div class="p-image-preview-indicator" *ngIf="preview" (click)="onImageClick()">
                 <ng-container *ngIf="indicatorTemplate;else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
@@ -92,6 +92,8 @@ export class Image implements AfterContentInit {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
+    @Output() onImageError: EventEmitter<any> = new EventEmitter();
+    
     @ViewChild('mask') mask: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
@@ -245,6 +247,10 @@ export class Image implements AfterContentInit {
         this.previewVisible = false;
         this.rotate = 0;
         this.scale = this.zoomSettings.default;
+    }
+
+    onError(event) {
+        this.onImageError.emit(event);
     }
 }
 
