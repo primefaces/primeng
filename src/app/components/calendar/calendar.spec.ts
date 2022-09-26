@@ -1591,7 +1591,73 @@ describe('Calendar', () => {
 		expect(calendar.value.length).toEqual(2);
 	});
 
-	it('should select range (touchUI third times)', () => {
+    it('should highlight selected range in month view', () => {
+        const date = new Date(2017, 2, 12);
+        calendar.defaultDate = date;
+        jasmine.clock().mockDate(date);
+        calendar.selectionMode = "range";
+        calendar.view = "month";
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const focusEvent = new Event('focus');
+        inputEl.click();
+        inputEl.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const containerEl = fixture.debugElement.query(By.css('.p-monthpicker'));
+
+        const firstMonthEl = containerEl.queryAll(By.css('span.p-monthpicker-month:not(.p-disabled)'))[0].nativeElement;
+        const secondMonthEl = containerEl.queryAll(By.css('span.p-monthpicker-month:not(.p-disabled)'))[1].nativeElement;
+        const thirdMonthEl = containerEl.queryAll(By.css('span.p-monthpicker-month:not(.p-disabled)'))[2].nativeElement;
+
+        firstMonthEl.click();
+        fixture.detectChanges();
+
+        thirdMonthEl.click();
+        fixture.detectChanges();
+
+        expect(calendar.overlayVisible).toEqual(true);
+        expect(calendar.value.length).toEqual(2);
+
+        expect(firstMonthEl.classList).toContain('p-highlight')
+        expect(secondMonthEl.classList).toContain('p-highlight')
+        expect(thirdMonthEl.classList).toContain('p-highlight')
+    });
+
+    it('should show disabled months in month range selection mode', () => {
+        const date = new Date(2017, 2, 12);
+        calendar.defaultDate = date;
+        jasmine.clock().mockDate(date);
+        calendar.selectionMode = "range";
+        calendar.view = "month";
+        calendar.maxDate = new Date(date.getFullYear(), 6, 1)
+        calendar.minDate = new Date(date.getFullYear(), 3, 1)
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const focusEvent = new Event('focus');
+        inputEl.click();
+        inputEl.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const containerEl = fixture.debugElement.query(By.css('.p-monthpicker'));
+
+        const monthEl = (m: number) =>
+            containerEl.queryAll(By.css('span.p-monthpicker-month'))[m].nativeElement;
+
+        [0, 1, 2, 7, 8, 9, 10, 11].forEach(m => {
+            expect(monthEl(m).classList).withContext(`${m} month must be disabled`)
+                .toContain('p-disabled')
+        });
+
+        [3, 4, 5, 6].forEach(m => {
+            expect(monthEl(m).classList).withContext(`${m} month must be enabled`)
+                .not.toContain('p-disabled')
+        })
+    });
+
+    it('should select range (touchUI third times)', () => {
 		const date = new Date(2017, 2, 12);
 		calendar.defaultDate = date;
 		jasmine.clock().mockDate(date);
