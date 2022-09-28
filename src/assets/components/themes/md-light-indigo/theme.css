@@ -267,6 +267,7 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container {
   padding: 0.5rem 1rem;
+  gap: 0.5rem;
 }
 .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
   border-color: rgba(0, 0, 0, 0.87);
@@ -289,7 +290,6 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
   padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
   background: rgba(63, 81, 181, 0.12);
   color: #3F51B5;
   border-radius: 4px;
@@ -740,6 +740,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 
 .p-chips .p-chips-multiple-container {
   padding: 0.5rem 1rem;
+  gap: 0.5rem;
 }
 .p-chips .p-chips-multiple-container:not(.p-disabled):hover {
   border-color: rgba(0, 0, 0, 0.87);
@@ -752,7 +753,6 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
   background: rgba(63, 81, 181, 0.12);
   color: #3F51B5;
   border-radius: 4px;
