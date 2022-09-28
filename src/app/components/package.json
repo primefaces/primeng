@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "14.1.1",
+    "version": "14.1.2",
     "repository": {
       "type": "git",
       "url": "https://github.com/primefaces/primeng"
@@ -20,6 +20,6 @@
       "@angular/forms": "^14.0.0",
       "rxjs": "^6.0.0 || ^7.0.0",
       "zone.js": "^0.10.2 || ^0.11.0",
-      "primeicons": "^5.0.0"
+      "primeicons": "^6.0.1"
     }
   }
