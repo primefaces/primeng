@@ -12,6 +12,9 @@
     "bugs": {
       "url": "https://github.com/primefaces/primeng/issues"
     },
+    "exports": {
+      "./resources/": "./resources/"
+    },
     "module": "primeng.js",
     "typings": "primeng.d.ts",
     "peerDependencies": {
