@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/primeng.svg)](https://www.npmjs.com/package/primeng)
 [![Discord Chat](https://img.shields.io/discord/557940238991753223.svg?color=7289da&label=chat&logo=discord)](https://discord.gg/gzKFYnpmCY)
 
-[![PrimeNG Hero](https://www.primefaces.org/wp-content/uploads/2022/09/primeng-github.jpg)](https://www.primefaces.org/primeng)
+[![PrimeNG Hero](https://www.primefaces.org/wp-content/uploads/2022/09/primeng-readme.jpg)](https://www.primefaces.org/primeng)
 
 ### Website
 
