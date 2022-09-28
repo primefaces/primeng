@@ -1,4 +1,20 @@
 # Changelog
+## [14.1.2](https://github.com/primefaces/primeng/tree/14.1.2) (2022-09-28)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.1...14.1.2)
+
+**Fixed bugs:**
+- Calendar view="month" and selectionMode="range" not working properly. [\#11153](https://github.com/primefaces/primeng/issues/11153)
+- MenuItem visible property not working in Menu p-menu with sub items. [\#11928](https://github.com/primefaces/primeng/issues/11928)
+- Chips | Clear icon is not visible with long text content. [\#11957](https://github.com/primefaces/primeng/issues/11957)
+- Float Label always above dropdown when using reactive forms. [\#10964](https://github.com/primefaces/primeng/issues/10964)
+
+**Enhancements:**
+- Add onError event to image contents. [\#11945](https://github.com/primefaces/primeng/issues/11945)
+
+**New Features:**
+- CascadeSelect | Add panelStyle and panelStyleClass. [\#11943](https://github.com/primefaces/primeng/issues/11943)
+
 ## [14.1.1](https://github.com/primefaces/primeng/tree/v14.1.1) (2022-09-15)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.0...v14.1.1)
