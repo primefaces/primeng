@@ -54,7 +54,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "^1.7.0",
-    "ng-packagr": "~13.0.0",
+    "ng-packagr": "~14.0.0",
     "primeflex": "^3.1.0",
     "primeicons": "^6.0.1",
     "prismjs": "1.20.0",

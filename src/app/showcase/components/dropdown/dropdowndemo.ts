@@ -35,9 +35,11 @@ export class DropdownDemo {
 
     selectedItem2: string;
 
-    loading: boolean = false;
+    loading: boolean = undefined;
 
     loadLazyTimeout: any;
+
+    lazyFilterValue = '';
 
     constructor() {
         this.items = [];
@@ -95,28 +97,33 @@ export class DropdownDemo {
             {name: 'Spain', code: 'ES'},
             {name: 'United States', code: 'US'}
         ];
-
-        this.lazyItems = Array.from({ length: 100000 });
     }
 
     onLazyLoad(event) {
-        this.loading = true;
-
-        if (this.loadLazyTimeout) {
-            clearTimeout(this.loadLazyTimeout);
+        const {first: first = 0, last: last = 10, filter} = event;
+        const filterChanged = filter !== this.lazyFilterValue;
+        if (filterChanged) {
+            this.lazyFilterValue = filter;
         }
-
-        //imitate delay of a backend call
-        this.loadLazyTimeout = setTimeout(() => {
-            const { first, last } = event;
-            const lazyItems = [...this.lazyItems];
-
-            for (let i = first; i < last; i++) {
-                lazyItems[i] = { label: `Item #${i}`, value: i };
+        if ((filter || first) && (filterChanged || this.lazyItems.slice(first, last).some(i => i === undefined))) {
+            if (this.loadLazyTimeout) {
+                clearTimeout(this.loadLazyTimeout);
             }
-
-            this.lazyItems = lazyItems;
-            this.loading = false;
-        }, Math.random() * 1000 + 250);
+            //imitate delay of a backend call
+            this.loadLazyTimeout = setTimeout(() => {
+                this.loading = true;
+                let lazyItems = undefined;
+                if (filterChanged) {
+                    lazyItems = Array.from({length: 1000});
+                } else {
+                    lazyItems = this.lazyItems ? this.lazyItems : Array.from({length: 1000});
+                }
+                for (let i = first; i < last; i++) {
+                    lazyItems[i] = {label: `Item #${filter ?? ''}${i}`, value: `${filter ?? ''}${i}`};
+                }
+                this.lazyItems = [...lazyItems];
+                this.loading = false;
+            }, Math.random() * 1000 + 250);
+        }
     }
 }

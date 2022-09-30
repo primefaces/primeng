@@ -102,7 +102,7 @@ export class DropdownItem {
                 </div>
                 <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <p-scroller *ngIf="virtualScroll" #scroller [items]="optionsToDisplay" [style]="{'height': scrollHeight}" [itemSize]="virtualScrollItemSize||_itemSize" [autoSize]="true"
-                        [lazy]="lazy" (onLazyLoad)="onLazyLoad.emit($event)" [options]="virtualScrollOptions">
+                        [lazy]="lazy" (onLazyLoad)="onScrollerLazyLoadEvent($event)" [options]="virtualScrollOptions" [loading]="loading">
                         <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                             <ng-container *ngTemplateOutlet="buildInItems; context: {$implicit: items, options: scrollerOptions}"></ng-container>
                         </ng-template>
@@ -500,7 +500,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
         this.optionsChanged = true;
 
-        if (this._filterValue && this._filterValue.length) {
+        if (!this.lazy && this._filterValue && this._filterValue.length) {
             this.activateFilter();
         }
     }
@@ -511,7 +511,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     set filterValue(val: string) {
         this._filterValue = val;
-        this.activateFilter();
+        if (this.lazy) {
+            this.onLazyLoad.emit({ filter: this._filterValue })
+        } else {
+            this.activateFilter();
+        }
     }
 
     ngAfterViewInit() {
@@ -637,6 +641,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     updateSelectedOption(val: any): void {
+        const previousOption = this.selectedOption;
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
 
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
@@ -648,8 +653,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.value = this.getOptionValue(this.selectedOption);
             this.onModelChange(this.value);
         }
-
-        this.selectedOptionUpdated = true;
+        if (previousOption !== this.selectedOption) {
+            this.selectedOptionUpdated = true;
+        }
     }
 
     registerOnChange(fn: Function): void {
@@ -837,6 +843,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.onModelTouched();
         }
         this.preventModelTouched = false;
+    }
+
+    onScrollerLazyLoadEvent(event) {
+        this.onLazyLoad.emit({...event, filter: this._filterValue})
     }
 
     findPrevEnabledOption(index) {
@@ -1160,19 +1170,36 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
         else {
             let index: number = this.findOptionIndex(val, opts);
-            return (index != -1) ? opts[index] : null;
+            if (index !== -1) {
+                return opts[index];
+            }
+            if (this.lazy) {
+                // in case options updated we can't find the selected options anymore, we check if the already selected one is good
+                if (this.findOptionIndex(val, [this.selectedOption]) !== 1) {
+                    return this.selectedOption;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
         }
     }
 
     onFilterInputChange(event): void {
         let inputValue = event.target.value;
-        if (inputValue && inputValue.length) {
+        if (this.lazy) {
             this._filterValue = inputValue;
-            this.activateFilter();
-        }
-        else {
-            this._filterValue = null;
-            this.optionsToDisplay = this.options;
+            this.onLazyLoad.emit({ filter: this._filterValue })
+        } else {
+            if (inputValue && inputValue.length) {
+                this._filterValue = inputValue;
+                this.activateFilter();
+            }
+            else {
+                this._filterValue = null;
+                this.optionsToDisplay = this.options;
+            }
         }
 
         this.virtualScroll && this.scroller.scrollToIndex(0);

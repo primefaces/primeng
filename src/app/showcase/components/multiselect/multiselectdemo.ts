@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CountryService} from '../../service/countryservice';
-import {SelectItemGroup} from 'primeng/api';
+import {SelectItem, SelectItemGroup} from 'primeng/api';
 
 interface City {
     name: string,
@@ -37,6 +37,14 @@ export class MultiSelectDemo {
     countries: City[];
 
     virtualCountries: Country[];
+
+    selectedLazyItems: SelectItem[];
+
+    lazyItems: SelectItem[];
+
+    loadLazyTimeout: any;
+
+    lazyFilterValue = '';
 
     constructor(private countryService: CountryService) {
         this.cities = [
@@ -93,5 +101,32 @@ export class MultiSelectDemo {
         this.countryService.getCountries().then(countries => {
             this.virtualCountries = countries;
         });
+    }
+
+    onLazyLoad(event) {
+        const {first: first = 0, last: last = 10, filter} = event;
+        const filterChanged = filter !== this.lazyFilterValue;
+        if (filterChanged) {
+            this.lazyFilterValue = filter;
+        }
+        if ((filter || first) && (filterChanged || this.lazyItems.slice(first, last).some(i => i === undefined))) {
+            if (this.loadLazyTimeout) {
+                clearTimeout(this.loadLazyTimeout);
+            }
+            //imitate delay of a backend call
+            this.loadLazyTimeout = setTimeout(() => {
+                let lazyItems = undefined;
+                if (filterChanged) {
+                    lazyItems = Array.from({length: 1000});
+                } else {
+                    lazyItems = this.lazyItems ? this.lazyItems : Array.from({length: 1000});
+                }
+                for (let i = first; i < last; i++) {
+                    lazyItems[i] = {label: `Item #${filter ?? ''}${i}`, value: `${filter ?? ''}${i}`};
+                }
+                this.lazyItems = [...lazyItems];
+
+            }, Math.random() * 1000 + 250);
+        }
     }
 }
