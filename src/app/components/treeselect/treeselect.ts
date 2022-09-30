@@ -18,13 +18,13 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-treeSelect',
     template: `
-    <div #container [ngClass]="containerClass()" (click)="onClick($event)">
+    <div #container [ngClass]="containerClass()" [class]="containerStyleClass" [ngStyle]="containerStyle" (click)="onClick($event)">
         <div class="p-hidden-accessible">
             <input #focusInput type="text" role="listbox" [attr.id]="inputId" readonly [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()" (keydown)="onKeyDown($event)" [attr.tabindex]="tabindex"
             aria-haspopup="true" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy"/>
         </div>
         <div class="p-treeselect-label-container">
-            <div [ngClass]="labelClass()">
+            <div [ngClass]="labelClass()" [class]="labelStyleClass" [ngStyle]="labelStyle">
                 <ng-container *ngIf="valueTemplate;else defaultValueTemplate">
                         <ng-container *ngTemplateOutlet="valueTemplate; context: {$implicit: value, placeholder: placeholder}"></ng-container>
                 </ng-container>
@@ -118,6 +118,14 @@ export class TreeSelect implements AfterContentInit {
     @Input() placeholder: string;
 
     @Input() panelClass: string;
+
+    @Input() containerStyle: any;
+
+    @Input() containerStyleClass: string;
+    
+    @Input() labelStyle: any;
+
+    @Input() labelStyleClass: string;
 
     @Input() emptyMessage: string = '';
 
