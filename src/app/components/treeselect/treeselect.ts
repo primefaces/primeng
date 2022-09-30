@@ -418,8 +418,7 @@ export class TreeSelect implements AfterContentInit {
 
             if (selectedNodes.length > 0 && node.children) {
                 for (let childNode of node.children) {
-                    path.push(node);
-                    this.updateTreeBranchState(childNode, path, selectedNodes);
+                    this.updateTreeBranchState(childNode, [...path, node], selectedNodes);
                 }
             }
         }
