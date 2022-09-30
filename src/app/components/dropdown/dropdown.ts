@@ -199,8 +199,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() editable: boolean;
 
-    @Input() appendTo: any;
-
     @Input() tabindex: number;
 
     @Input() placeholder: string;
@@ -339,6 +337,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     set itemSize(val: number) {
         this._itemSize = val;
         console.warn("The itemSize property is deprecated, use virtualScrollItemSize property instead.");
+    }
+
+    private _appendTo: any;
+    
+    @Input() set appendTo(val) {
+        this._appendTo = val;
+    }
+
+    get appendTo(): any {
+        return this._appendTo;
     }
 
     overlay: HTMLDivElement;
