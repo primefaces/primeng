@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { Translation } from './translation';
@@ -7,6 +7,8 @@ import { Translation } from './translation';
 export class PrimeNGConfig {
 
     ripple: boolean = false;
+
+    appendTo: any = "body" || HTMLElement || ElementRef || TemplateRef;
 
     filterMatchModeOptions = {
         text: [
