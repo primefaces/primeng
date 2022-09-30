@@ -119,11 +119,11 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() panelClass: string;
 
-    @Input() containerStyle: any;
+    @Input() containerStyle: object;
 
     @Input() containerStyleClass: string;
     
-    @Input() labelStyle: any;
+    @Input() labelStyle: object;
 
     @Input() labelStyleClass: string;
 
