@@ -1,8 +1,24 @@
-import { NgModule, Component, OnDestroy, Input, Output, EventEmitter, AfterContentInit, Optional, ElementRef, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    OnDestroy,
+    Input,
+    Output,
+    EventEmitter,
+    AfterContentInit,
+    Optional,
+    ElementRef,
+    ChangeDetectionStrategy,
+    ContentChildren,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    ChangeDetectorRef
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { Message, PrimeTemplate, MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { RippleModule } from 'primeng/ripple';
 
 @Component({
@@ -11,7 +27,7 @@ import { RippleModule } from 'primeng/ripple';
         <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
                 <div *ngFor="let msg of value; let i=index" [class]="'p-message p-message-' + msg.severity" role="alert"
-                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+                     [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
                     <div class="p-message-wrapper">
                        <span [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')" [ngClass]="{'pi-info-circle': msg.severity === 'info',
                             'pi-check': msg.severity === 'success',
@@ -38,7 +54,7 @@ import { RippleModule } from 'primeng/ripple';
                     </div>
                 </div>
             </ng-template>
-            </div>
+        </div>
     `,
     animations: [
         trigger('messageAnimation', [
@@ -88,6 +104,8 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     clearSubscription: Subscription;
 
+    timerSubscriptions: Subscription[] = [];
+
     contentTemplate: TemplateRef<any>;
 
     constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) { }
@@ -106,15 +124,15 @@ export class Messages implements AfterContentInit, OnDestroy {
         });
 
         if (this.messageService && this.enableService && !this.contentTemplate) {
-            this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
+            this.messageSubscription = this.messageService.messageObserver.subscribe((messages: Message | Message[]) => {
                 if (messages) {
-                    if (messages instanceof Array) {
-                        let filteredMessages = messages.filter(m => this.key === m.key);
-                        this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
+                    if (!(messages instanceof Array)) {
+                        messages = [messages];
                     }
-                    else if (this.key === messages.key) {
-                        this.value = this.value ? [...this.value, ...[messages]] : [messages];
-                    }
+
+                    const filteredMessages = messages.filter(m => this.key === m.key);
+                    this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
+                    filteredMessages?.forEach(message => message.life && this.startMessageLife(message));
 
                     this.cd.markForCheck();
                 }
@@ -192,6 +210,18 @@ export class Messages implements AfterContentInit, OnDestroy {
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
+
+        this.timerSubscriptions?.forEach(subscription => subscription.unsubscribe());
+    }
+
+    private startMessageLife(message: Message): void {
+        const timerSubsctiption = timer(message.life).subscribe(() => {
+            this.value = this.value?.filter(msgEl => msgEl !== message);
+            this.timerSubscriptions = this.timerSubscriptions?.filter(timerEl => timerEl !== timerSubsctiption);
+            this.valueChange.emit(this.value);
+            this.cd.markForCheck();
+        });
+        this.timerSubscriptions.push(timerSubsctiption);
     }
 }
 
