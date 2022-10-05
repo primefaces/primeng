@@ -243,6 +243,7 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container {
   padding: 0.375rem 0.75rem;
+  gap: 0.5rem;
 }
 .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
   border-color: #93C5FD;
@@ -265,7 +266,6 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
   padding: 0.375rem 0.75rem;
-  margin-right: 0.5rem;
   background: rgba(147, 197, 253, 0.16);
   color: rgba(255, 255, 255, 0.87);
   border-radius: 6px;
@@ -716,6 +716,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 
 .p-chips .p-chips-multiple-container {
   padding: 0.375rem 0.75rem;
+  gap: 0.5rem;
 }
 .p-chips .p-chips-multiple-container:not(.p-disabled):hover {
   border-color: #93C5FD;
@@ -728,7 +729,6 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.375rem 0.75rem;
-  margin-right: 0.5rem;
   background: rgba(147, 197, 253, 0.16);
   color: rgba(255, 255, 255, 0.87);
   border-radius: 6px;
@@ -1331,9 +1331,11 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
+.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  gap: 0.5rem;
+}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.375rem 0.75rem;
-  margin-right: 0.5rem;
   background: rgba(147, 197, 253, 0.16);
   color: rgba(255, 255, 255, 0.87);
   border-radius: 6px;
@@ -2826,7 +2828,8 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: #071426;
 }
 .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead,
-.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot {
+.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot, .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-thead,
+.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-tfoot {
   background-color: #071426;
 }
 .p-datatable .p-datatable-loading-icon {
@@ -6191,7 +6194,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color: #93C5FD;
   transition: 500ms cubic-bezier(0.35, 0, 0.25, 1);
 }
 

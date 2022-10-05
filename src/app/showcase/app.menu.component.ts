@@ -78,7 +78,7 @@ declare let gtag: Function;
 
                 <div class="menu-category">PrimeIcons</div>
                 <div class="menu-items">
-                    <a [routerLink]=" ['/icons']" routerLinkActive="router-link-exact-active">Icons v5</a>
+                    <a [routerLink]=" ['/icons']" routerLinkActive="router-link-exact-active">Icons v6 <span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Form</div>
@@ -394,7 +394,7 @@ export class AppMenuComponent {
         {
             label: 'PrimeIcons', value: 'primeicons',
             items: [
-                {label: 'Icons v5', value: '/icons'}
+                {label: 'Icons v6', value: '/icons'}
             ]
         },
         {

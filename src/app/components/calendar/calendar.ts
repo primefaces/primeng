@@ -108,7 +108,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                         </div>
                     </div>
                     <div class="p-monthpicker" *ngIf="currentView === 'month'">
-                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i)}" pRipple>
+                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="p-monthpicker-month" [ngClass]="{'p-highlight': isMonthSelected(i), 'p-disabled': isMonthDisabled(i)}" pRipple>
                             {{m}}
                         </span>
                     </div>
@@ -1240,13 +1240,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isMonthSelected(month) {
-        if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
-
-            return !this.isMultipleSelection() ? (value.getMonth() === month && value.getFullYear() === this.currentYear) : false;
+        if (this.isComparable() && !this.isMultipleSelection()) {
+            const [start, end] = this.isRangeSelection() ? this.value : [this.value, this.value];
+            const selected  = new Date(this.currentYear, month, 1)
+            return selected >= start && selected <= (end ?? start);
         }
-
         return false;
+    }
+
+    isMonthDisabled(month) {
+        return !this.isSelectable(1, month, this.currentYear, false)
     }
 
     isYearSelected(year) {

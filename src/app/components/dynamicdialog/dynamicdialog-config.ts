@@ -1,5 +1,5 @@
-export class DynamicDialogConfig {
-	data?: any;
+export class DynamicDialogConfig<T = any> {
+	data?: T;
 	header?: string;
 	footer?: string;
 	width?: string;
@@ -17,4 +17,13 @@ export class DynamicDialogConfig {
 	showHeader?: boolean;
 	modal?: boolean;
 	maskStyleClass?: string;
+    resizable?: boolean;
+    draggable?: boolean;
+    keepInViewport?: boolean;
+    minX?: number;
+    minY?: number;
+    maximizable?: boolean;
+    maximizeIcon?: string;
+    minimizeIcon?: string;
+    position?: string;
 }

@@ -82,7 +82,7 @@ export class DropdownItem {
             <span [ngClass]="{'p-dropdown-label p-inputtext p-placeholder':true,'p-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</span>
             <input #editableInput type="text" [attr.maxlength]="maxlength" class="p-dropdown-label p-inputtext" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                 aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" (click)="onEditableInputClick()" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
-            <i class="p-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
+            <i class="p-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="isVisibleClearIcon"></i>
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-dropdown-trigger-icon" [ngClass]="dropdownIcon"></span>
             </div>
@@ -493,7 +493,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(this.value);
 
         this.selectedOption = this.findOption(this.value, this.optionsToDisplay);
-        if (!this.selectedOption && ObjectUtils.isNotEmpty(this.value)) {
+        if (!this.selectedOption && ObjectUtils.isNotEmpty(this.value) && !this.editable) {
             this.value = null;
             this.onModelChange(this.value);
         }
@@ -532,8 +532,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
     }
 
-    get filled() {
+    get filled(): boolean {
+        if (typeof this.value === 'string') return !!this.value;
+        
         return this.value || this.value != null || this.value != undefined;
+    }
+
+    get isVisibleClearIcon(): boolean {
+        return (this.value != null && this.value !== '') && this.showClear && !this.disabled;
     }
 
     updateEditableLabel(): void {
@@ -1009,7 +1015,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             //search item based on keyboard input
             default:
-                if (search && !event.metaKey) {
+                if (search && !event.metaKey && event.which !== 17) {
                     this.search(event);
                 }
             break;

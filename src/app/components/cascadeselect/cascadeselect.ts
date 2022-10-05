@@ -261,7 +261,7 @@ export class CascadeSelectSub implements OnInit {
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
-            <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
+            <div class="p-cascadeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)" [class]="panelStyleClass" [ngStyle]="panelStyle"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
                 <div class="p-cascadeselect-items-wrapper">
                     <p-cascadeSelectSub [options]="options" [selectionPath]="selectionPath" class="p-cascadeselect-items"
@@ -338,6 +338,10 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     @Input() hideTransitionOptions: string = '.1s linear';
 
     @Input() showClear: boolean = false;
+
+    @Input() panelStyleClass: string;
+
+    @Input() panelStyle: object;
 
     @ViewChild('focusInput') focusInputEl: ElementRef;
 
@@ -713,6 +717,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     labelClass() {
         return {
             'p-cascadeselect-label': true,
+            'p-inputtext': true,
             'p-placeholder': this.label() === this.placeholder,
             'p-cascadeselect-label-empty': !this.value && (this.label() === 'p-emptylabel' || this.label().length === 0)
         };

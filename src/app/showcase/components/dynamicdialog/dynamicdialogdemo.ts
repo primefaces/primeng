@@ -19,14 +19,19 @@ export class DynamicDialogDemo implements OnDestroy {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Choose a Product',
             width: '70%',
-            contentStyle: {"max-height": "500px", "overflow": "auto"},
-            baseZIndex: 10000
+            contentStyle: {"overflow": "auto"},
+            baseZIndex: 10000,
+            maximizable: true
         });
 
         this.ref.onClose.subscribe((product: Product) =>{
             if (product) {
                 this.messageService.add({severity:'info', summary: 'Product Selected', detail: product.name});
             }
+        });
+
+        this.ref.onMaximize.subscribe(value => {
+            this.messageService.add({severity: 'info', summary: 'Maximized', detail:  `maximized: ${value.maximized}`})
         });
     }
 

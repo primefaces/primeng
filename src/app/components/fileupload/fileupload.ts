@@ -19,14 +19,14 @@ import {Subscription} from 'rxjs';
         <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="p-fileupload-buttonbar">
                 <span class="p-button p-component p-fileupload-choose" [ngClass]="{'p-focus': focus, 'p-disabled':disabled || isChooseDisabled()}" (focus)="onFocus()" (blur)="onBlur()" pRipple
-                    (click)="choose()" (keydown.enter)="choose()" tabindex="0">
+                    (click)="choose()" (keydown.enter)="choose()" tabindex="0" [class]="chooseStyleClass">
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
                     <span class="p-button-label">{{chooseButtonLabel}}</span>
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadButtonLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelButtonLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadButtonLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass"></p-button>
+                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelButtonLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass"></p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -38,11 +38,11 @@ import {Subscription} from 'rxjs';
                 <div class="p-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
                         <div class="p-fileupload-row" *ngFor="let file of files; let i = index;">
-                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
+                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" (error)="imageError($event)"/></div>
                             <div class="p-fileupload-filename">{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
                             <div>
-                                <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading"></button>
+                                <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading" [class]="removeStyleClass"></button>
                             </div>
                         </div>
                     </div>
@@ -133,6 +133,14 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
 
     @Input() fileLimit: number;
 
+    @Input() uploadStyleClass: string;
+
+    @Input() cancelStyleClass: string;
+
+    @Input() removeStyleClass: string;
+
+    @Input() chooseStyleClass: string;
+
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
     @Output() onSend: EventEmitter<any> = new EventEmitter();
@@ -150,6 +158,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     @Output() onProgress: EventEmitter<any> = new EventEmitter();
 
     @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
+
+    @Output() onImageError: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -305,6 +315,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     }
 
     validate(file: File): boolean {
+        this.msgs = [];
         if (this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
                 severity: 'error',
@@ -441,6 +452,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
         this.clearInputElement();
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
+        this.checkFileLimit();
     }
 
     isFileLimitExceeded() {
@@ -456,12 +468,15 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
     }
 
     checkFileLimit() {
+        this.msgs = [];
         if (this.isFileLimitExceeded()) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileLimitMessageSummary.replace('{0}', this.fileLimit.toString()),
                 detail: this.invalidFileLimitMessageDetail.replace('{0}', this.fileLimit.toString())
             });
+        } else {
+            this.msgs = [];
         }
     }
 
@@ -559,6 +574,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnInit,OnDestr
                 event.preventDefault();
             break;
         }
+    }
+
+    imageError(event) {
+        this.onImageError.emit(event);
     }
 
     getBlockableElement(): HTMLElement {
