@@ -303,23 +303,23 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             let viewport = DomHandler.getViewport();
 
             //flip
-            if (left + width - document.body.scrollLeft > viewport.width) {
+            if (left + width - document.scrollingElement.scrollLeft > viewport.width) {
                 left -= width;
             }
 
             //flip
-            if (top + height - document.body.scrollTop > viewport.height) {
+            if (top + height - document.scrollingElement.scrollTop > viewport.height) {
                 top -= height;
             }
 
             //fit
-            if (left < document.body.scrollLeft) {
-                left = document.body.scrollLeft;
+            if (left < document.scrollingElement.scrollLeft) {
+                left = document.scrollingElement.scrollLeft;
             }
 
             //fit
-            if (top < document.body.scrollTop) {
-                top = document.body.scrollTop;
+            if (top < document.scrollingElement.scrollTop) {
+                top = document.scrollingElement.scrollTop;
             }
 
             this.containerViewChild.nativeElement.style.left = left + 'px';
