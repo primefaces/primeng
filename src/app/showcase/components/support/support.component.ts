@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: './support.component.html',
-    styleUrls: ['support.component.scss']
+    templateUrl: './support.component.html'
 })
 export class SupportComponent {
 
