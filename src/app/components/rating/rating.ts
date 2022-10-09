@@ -11,12 +11,25 @@ export const RATING_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-rating',
     template: `
-        <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
-            <span [attr.tabindex]="(disabled || readonly) ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-            <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'"  (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
+        <ng-container *ngIf="!isCustomIcon;else customTemplate">
+            <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
+                <span [attr.tabindex]="(disabled || readonly) ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
+                <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'"  (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
                 [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
-                [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"></span>
-        </div>
+                [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle">
+                </span>
+            </div>
+        </ng-container>
+        <ng-template #customTemplate>
+            <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
+                <a (click)="clearCustomIcons()" (keydown.enter)="clearCustomIcons()" *ngIf="isCustomCancelIcon"  class="p-rating-icon p-rating-cancel">
+                    <img src={{customCancelIcon}} width="25px"height="25px" >
+                </a>
+                <a *ngFor="let star of starsArray;let i=index" (click)="setIndex(i == undefined ? 0 : i)" class="p-rating-icon">
+                    <img src="{{getIconSrc(i)}}" alt="custom-image-active" width="25px"height="25px"/>
+                </a>
+            </div>
+        </ng-template>
     `,
     providers: [RATING_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,7 +39,19 @@ export const RATING_VALUE_ACCESSOR: any = {
         'class': 'p-element'
     }
 })
-export class Rating implements OnInit,ControlValueAccessor {
+export class Rating implements OnInit, ControlValueAccessor {
+
+    @Input() isCustomIcon: boolean = false;
+
+    @Input() customIconOn: string;
+
+    @Input() customIconOff: string;
+
+    @Input() isCustomCancelIcon: boolean = true;
+
+    @Input() customCancelIcon: string;
+
+    @Input() index: number;
 
     @Input() disabled: boolean;
 
@@ -66,6 +91,22 @@ export class Rating implements OnInit,ControlValueAccessor {
         this.starsArray = [];
         for(let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
+        }
+    }
+
+    setIndex(i: number) {
+        this.index = i;
+    }
+
+    clearCustomIcons() {
+        this.index = undefined;
+    }
+
+    getIconSrc(i) {
+        if(this.index >= i) {
+            return this.customIconOn;
+        } else {
+            return this.customIconOff;
         }
     }
 

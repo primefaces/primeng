@@ -12,8 +12,12 @@ export class RatingDemo {
     val3: number = 5;
 
     val4: number = 5;
-    
+
     val5: number;
+
+    val6: number;
+
+    error: string;
 
     msg: string;
 }

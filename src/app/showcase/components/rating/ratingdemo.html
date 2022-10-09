@@ -19,9 +19,17 @@
 
         <h5>Disabled</h5>
         <p-rating [(ngModel)]="val4" disabled="true" stars="10"></p-rating>
-    </div>
-</div>
 
+        <h5>Custom Icons</h5>
+        <p-rating [(ngModel)]="val5" iconCancelClass="pi pi-times" iconOnClass="pi pi-heart-fill" iconOffClass="pi pi-heart"></p-rating>
+
+        <h5>Template</h5>
+        <p-rating [(ngModel)]="val6" stars="10" [isCustomIcon]="true" [isCustomCancelIcon]="true"
+        customIconOn="assets/showcase/images/demo/rating/custom-icon-active.png"
+        customIconOff="assets/showcase/images/demo/rating/custom-icon.png"
+        customCancelIcon="assets/showcase/images/demo/rating/cancel.png">
+        </p-rating>
+</div>
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
