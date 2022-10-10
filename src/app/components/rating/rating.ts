@@ -1,6 +1,7 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, QueryList, ContentChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { PrimeTemplate, SharedModule } from '../api/shared';
 
 export const RATING_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -21,14 +22,12 @@ export const RATING_VALUE_ACCESSOR: any = {
             </div>
         </ng-container>
         <ng-template #customTemplate>
-            <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
-                <a (click)="clearCustomIcons()" (keydown.enter)="clearCustomIcons()" *ngIf="isCustomCancelIcon"  class="p-rating-icon p-rating-cancel">
-                    <img src={{customCancelIcon}} width="25px"height="25px" >
-                </a>
-                <a *ngFor="let star of starsArray;let i=index" (click)="setIndex(i == undefined ? 0 : i)" class="p-rating-icon">
-                    <img src="{{getIconSrc(i)}}" alt="custom-image-active" width="25px"height="25px"/>
-                </a>
-            </div>
+            <a *ngIf="isCustomCancelIcon" (click)="clearCustomIcons()" (keydown.enter)="clearCustomIcons()"  class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
+                <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
+            </a>
+            <a *ngFor="let star of starsArray;let i=index" (click)="setIndex(i == undefined ? 0 : i)" [attr.tabindex]="(disabled || readonly) ? null : '0'" class="p-rating-icon" >
+                <ng-container *ngTemplateOutlet="getIconSrc(i)"></ng-container>
+            </a>
         </ng-template>
     `,
     providers: [RATING_VALUE_ACCESSOR],
@@ -43,13 +42,15 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     @Input() isCustomIcon: boolean = false;
 
-    @Input() customIconOn: string;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @Input() customIconOff: string;
+    onIconTemplate: TemplateRef<any>;
+
+    offIconTemplate: TemplateRef<any>;
+
+    cancelIconTemplate: TemplateRef<any>;
 
     @Input() isCustomCancelIcon: boolean = true;
-
-    @Input() customCancelIcon: string;
 
     @Input() index: number;
 
@@ -93,6 +94,23 @@ export class Rating implements OnInit, ControlValueAccessor {
             this.starsArray[i] = i;
         }
     }
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'onicon':
+                    this.onIconTemplate = item.template;
+                break;
+
+                case 'officon':
+                    this.offIconTemplate = item.template;
+                break;
+
+                case 'cancel':
+                    this.cancelIconTemplate = item.template;
+                break;
+            }
+        });
+    }
 
     setIndex(i: number) {
         this.index = i;
@@ -102,11 +120,11 @@ export class Rating implements OnInit, ControlValueAccessor {
         this.index = undefined;
     }
 
-    getIconSrc(i) {
+    getIconSrc(i: number) {
         if(this.index >= i) {
-            return this.customIconOn;
+            return this.onIconTemplate;
         } else {
-            return this.customIconOff;
+            return this.offIconTemplate;
         }
     }
 
@@ -154,7 +172,7 @@ export class Rating implements OnInit, ControlValueAccessor {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Rating],
+    exports: [Rating, SharedModule],
     declarations: [Rating]
 })
 export class RatingModule { }

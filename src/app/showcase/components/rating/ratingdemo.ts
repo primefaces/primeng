@@ -17,7 +17,5 @@ export class RatingDemo {
 
     val6: number;
 
-    error: string;
-
     msg: string;
 }
