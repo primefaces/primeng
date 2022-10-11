@@ -22,12 +22,12 @@ export const RATING_VALUE_ACCESSOR: any = {
             </div>
         </ng-container>
         <ng-template #customTemplate>
-            <a *ngIf="isCustomCancelIcon" (click)="clearCustomIcons()" (keydown.enter)="clearCustomIcons()"  class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
+            <span *ngIf="isCustomCancelIcon" (click)="clearCustomIcons()" (keydown.enter)="clearCustomIcons()"  class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
                 <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
-            </a>
-            <a *ngFor="let star of starsArray;let i=index" (click)="setIndex(i == undefined ? 0 : i)" [attr.tabindex]="(disabled || readonly) ? null : '0'" class="p-rating-icon" >
-                <ng-container *ngTemplateOutlet="getIconSrc(i)"></ng-container>
-            </a>
+            </span>
+            <span *ngFor="let star of starsArray;let i=index" (click)="setIndex(i == undefined ? 0 : i)" [attr.tabindex]="(disabled || readonly) ? null : '0'" class="p-rating-icon" >
+                <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
+            </span>
         </ng-template>
     `,
     providers: [RATING_VALUE_ACCESSOR],
@@ -120,7 +120,7 @@ export class Rating implements OnInit, ControlValueAccessor {
         this.index = undefined;
     }
 
-    getIconSrc(i: number) {
+    getIconTemplate(i: number) {
         if(this.index >= i) {
             return this.onIconTemplate;
         } else {
