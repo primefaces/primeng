@@ -69,7 +69,7 @@
         <h5>Maximizable</h5>
         <p-button (click)="showMaximizableDialog()" icon="pi pi-external-link" label="Show"></p-button>
         <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
-            [draggable]="false" [resizable]="false">
+                  [draggable]="false" [resizable]="false">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
@@ -77,6 +77,16 @@
                <ng-template pTemplate="footer">
                    <p-button icon="pi pi-check" (click)="displayMaximizable=false" label="Ok" styleClass="p-button-text"></p-button>
                </ng-template>
+        </p-dialog>
+
+        <h5>Customized Header Buttons</h5>
+        <p-button (click)="showCustomButtonDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        <p-dialog header="Header" [(visible)]="displayCustomButton" [modal]="true" [style]="{width: '50vw'}"
+                  [draggable]="false" [resizable]="false" [headerButtons]="headerData">
+            <p>The custom header question mark button was pressed {{headerButtonPressedCount}} times.</p>
+            <ng-template pTemplate="footer">
+                <p-button icon="pi pi-check" (click)="displayCustomButton=false" label="Ok" styleClass="p-button-text"></p-button>
+            </ng-template>
         </p-dialog>
 
         <h5>Position</h5>
@@ -425,6 +435,14 @@ Content
                             <td>pi pi-window-maximize</td>
                             <td>Name of the maximize icon.</td>
                         </tr>
+                        <tr>
+                            <td>headerButtons</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to display custom header buttons.<br>Custom button object format:
+                                <code>&#123;icon: 'pi-question', action: () => &#123;&#125;&#125;</code>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -627,6 +645,16 @@ Content
         &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 
+&lt;h5&gt;Customized Header Buttons&lt;/h5&gt;
+&lt;p-button (click)=&quot;showCustomButtonDialog()&quot; icon=&quot;pi pi-external-link&quot; label=&quot;Show&quot;&gt;&lt;/p-button&gt;
+&lt;p-dialog header=&quot;Header&quot; [(visible)]=&quot;displayCustomButton&quot; [modal]=&quot;true&quot; [style]=&quot;&#123;width: '50vw'&#125;&quot;
+    [draggable]=&quot;false&quot; [resizable]=&quot;false&quot; [headerButtons]=&quot;headerData&quot;&gt;
+    &lt;p&gt;The custom header question mark button was pressed &#123;&#123;headerButtonPressedCount&#125;&#125; times.&lt;/p&gt;
+    &lt;ng-template pTemplate=&quot;footer&quot;&gt;
+        &lt;p-button icon=&quot;pi pi-check&quot; (click)=&quot;displayCustomButton=false&quot; label=&quot;Ok&quot; styleClass=&quot;p-button-text&quot;&gt;&lt;/p-button&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+
 &lt;h5&gt;Position&lt;/h5&gt;
 &lt;div class="grid flex-column"&gt;
     &lt;div class="col mb-2"&gt;
@@ -660,6 +688,12 @@ Content
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class DialogDemo &#123;
 
+    headerButtonPressedCount: number;
+
+    headerData: any = [
+        &#123;icon: 'pi-question', action: () => &#123;this.headerButtonPressedCount++; &#125;&#125;
+    ];
+
     displayModal: boolean;
 
     displayBasic: boolean;
@@ -667,6 +701,8 @@ export class DialogDemo &#123;
     displayBasic2: boolean;
 
     displayMaximizable: boolean;
+
+    displayCustomButton: boolean;
 
     displayPosition: boolean;
 
@@ -686,6 +722,11 @@ export class DialogDemo &#123;
 
     showMaximizableDialog() &#123;
         this.displayMaximizable = true;
+    &#125;
+
+    showCustomButtonDialog() &#123;
+        this.headerButtonPressedCount = 0;
+        this.displayCustomButton = true;
     &#125;
 
     showPositionDialog(position: string) &#123;

@@ -6,6 +6,12 @@ import {Component} from '@angular/core';
 })
 export class DialogDemo {
 
+    headerButtonPressedCount: number;
+
+    headerData: any = [
+        {icon: 'pi-question', action: () => {this.headerButtonPressedCount++; }}
+    ];
+
     displayModal: boolean;
 
     displayBasic: boolean;
@@ -14,13 +20,15 @@ export class DialogDemo {
 
     displayMaximizable: boolean;
 
+    displayCustomButton: boolean;
+
     displayResponsive: boolean;
 
     displayPosition: boolean;
 
     position: string;
 
-    showModalDialog() { 
+    showModalDialog() {
         this.displayModal = true;
     }
 
@@ -31,9 +39,14 @@ export class DialogDemo {
     showBasicDialog2() {
         this.displayBasic2 = true;
     }
-    
+
     showMaximizableDialog() {
         this.displayMaximizable = true;
+    }
+
+    showCustomButtonDialog() {
+        this.headerButtonPressedCount = 0;
+        this.displayCustomButton = true;
     }
 
     showPositionDialog(position: string) {
