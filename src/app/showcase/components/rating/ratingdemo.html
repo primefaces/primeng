@@ -24,15 +24,15 @@
         <p-rating [(ngModel)]="val5" iconCancelClass="pi pi-times" iconOnClass="pi pi-heart-fill" iconOffClass="pi pi-heart"></p-rating>
 
         <h5>Template</h5>
-        <p-rating [(ngModel)]="val6" stars="5" [isCustomCancelIcon]="true" [isCustomIcon]="true">
+        <p-rating [(ngModel)]="val6" stars="5">
             <ng-template pTemplate="cancel">
-                <img src="assets/showcase/images/demo/rating/cancel.png" width="25px"height="25px" >
+                <img src="assets/showcase/images/demo/rating/cancel.png" width="25px" height="25px">
             </ng-template>
             <ng-template pTemplate="onicon">
-                <img src="assets/showcase/images/demo/rating/custom-icon-active.png" width="25px"height="25px" >
+                <img src="assets/showcase/images/demo/rating/custom-icon-active.png" width="25px" height="25px">
             </ng-template>
             <ng-template pTemplate="officon">
-                <img src="assets/showcase/images/demo/rating/custom-icon.png" width="25px"height="25px" >
+                <img src="assets/showcase/images/demo/rating/custom-icon.png" width="25px" height="25px">
             </ng-template>
         </p-rating>
 </div>

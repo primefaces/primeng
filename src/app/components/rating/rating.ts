@@ -12,23 +12,23 @@ export const RATING_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-rating',
     template: `
-        <ng-container *ngIf="!isCustomIcon;else customTemplate">
-            <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
-                <span [attr.tabindex]="(disabled || readonly) ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-                <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'"  (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
-                [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
-                [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle">
+        <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
+            <ng-container *ngIf="!isCustomIcon;else customTemplate">
+                <span *ngIf="cancel" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
+                <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
+                    [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
+                    [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle">
                 </span>
-            </div>
-        </ng-container>
-        <ng-template #customTemplate>
-            <span *ngIf="isCustomCancelIcon" (click)="clearCustomIcons()" (keydown.enter)="clearCustomIcons()"  class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
-                <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
-            </span>
-            <span *ngFor="let star of starsArray;let i=index" (click)="setIndex(i == undefined ? 0 : i)" [attr.tabindex]="(disabled || readonly) ? null : '0'" class="p-rating-icon" >
-                <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
-            </span>
-        </ng-template>
+            </ng-container>
+            <ng-template #customTemplate>
+                <span *ngIf="cancel" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
+                    <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
+                </span>
+                <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="rate($event,i)" (keydown.enter)="rate($event,i)">
+                    <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
+                </span>
+            </ng-template>
+        </div>
     `,
     providers: [RATING_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,8 +39,6 @@ export const RATING_VALUE_ACCESSOR: any = {
     }
 })
 export class Rating implements OnInit, ControlValueAccessor {
-
-    @Input() isCustomIcon: boolean = false;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -112,20 +110,8 @@ export class Rating implements OnInit, ControlValueAccessor {
         });
     }
 
-    setIndex(i: number) {
-        this.index = i;
-    }
-
-    clearCustomIcons() {
-        this.index = undefined;
-    }
-
-    getIconTemplate(i: number) {
-        if(this.index >= i) {
-            return this.onIconTemplate;
-        } else {
-            return this.offIconTemplate;
-        }
+    getIconTemplate(i: number): TemplateRef<any> {
+        return (!this.value || i >= this.value) ? this.offIconTemplate : this.onIconTemplate;
     }
 
     rate(event, i: number): void {
@@ -167,6 +153,10 @@ export class Rating implements OnInit, ControlValueAccessor {
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();
+    }
+
+    get isCustomIcon(): boolean {
+        return this.templates && this.templates.length > 0;
     }
 }
 
