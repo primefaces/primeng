@@ -3,6 +3,7 @@ import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
+import { take, tap } from 'rxjs';
 
 @Injectable()
 export class DialogService {
@@ -16,6 +17,15 @@ export class DialogService {
         const dialogRef = this.appendDialogComponentToBody(config);
 
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
+
+        const parentDialog = this.injector.get(DynamicDialogComponent, null);
+        if (parentDialog) {
+            parentDialog.unbindDocumentKeydownListener();
+            dialogRef.onDestroy.pipe(
+                take(1),
+                tap(() => parentDialog.bindDocumentKeydownListener())
+            ).subscribe();
+        }
 
         return dialogRef;
     }
