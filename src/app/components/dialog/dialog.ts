@@ -21,7 +21,7 @@ const hideAnimation = animation([
     selector: 'p-dialog',
     template: `
         <div *ngIf="maskVisible" [class]="maskStyleClass"
-            [ngClass]="{'p-dialog-mask': true, 'p-component-overlay p-component-overlay-enter': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
+             [ngClass]="{'p-dialog-mask': true, 'p-component-overlay p-component-overlay-enter': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
                 'p-dialog-left': position === 'left',
                 'p-dialog-right': position === 'right',
                 'p-dialog-top': position === 'top',
@@ -30,21 +30,38 @@ const hideAnimation = animation([
                 'p-dialog-bottom': position === 'bottom',
                 'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
                 'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'}">
-            <div #container [ngClass]="{'p-dialog p-component':true, 'p-dialog-rtl':rtl,'p-dialog-draggable':draggable,'p-dialog-resizable':resizable, 'p-dialog-maximized': maximized}"
-                [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
-                [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
-                <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+            <div #container
+                 [ngClass]="{'p-dialog p-component':true, 'p-dialog-rtl':rtl,'p-dialog-draggable':draggable,'p-dialog-resizable':resizable, 'p-dialog-maximized': maximized}"
+                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap
+                 [pFocusTrapDisabled]="focusTrap === false"
+                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}"
+                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog"
+                 [attr.aria-labelledby]="id + '-label'">
+                <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;"
+                     (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{header}}</span>
+                    <span [attr.id]="id + '-label'" class="p-dialog-title"
+                          *ngIf="!headerFacet && !headerTemplate">{{header}}</span>
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
-                            <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                        <button *ngFor="let btn of headerButtons" type="button"
+                                [ngClass]="{'p-dialog-header-icon p-link':true}" (click)="btn.action()"
+                                (keydown.enter)="btn.action()" tabindex="-1" pRipple>
+                            <span class="pi" [class]="btn.icon"></span>
                         </button>
-                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" [attr.aria-label]="closeAriaLabel" (click)="close($event)" (keydown.enter)="close($event)" [attr.tabindex]="closeTabindex" pRipple>
+                        <button *ngIf="maximizable" type="button"
+                                [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}"
+                                (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                            <span class="p-dialog-header-maximize-icon"
+                                  [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                        </button>
+                        <button *ngIf="closable" type="button"
+                                [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}"
+                                [attr.aria-label]="closeAriaLabel" (click)="close($event)"
+                                (keydown.enter)="close($event)" [attr.tabindex]="closeTabindex" pRipple>
                             <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                         </button>
                     </div>
@@ -170,6 +187,8 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
     @Input() minimizeIcon: string = 'pi pi-window-minimize';
 
     @Input() maximizeIcon: string = 'pi pi-window-maximize';
+
+    @Input() headerButtons: any[] = null;
 
     @ContentChild(Header) headerFacet: QueryList<Header>;
 

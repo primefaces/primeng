@@ -60,7 +60,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         const headerEl = fixture.debugElement.query(By.css('.p-dialog-title'));
-        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Dialog Header')
+        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Dialog Header');
     });
 
     it('should display the close icon when closable', () => {
@@ -119,6 +119,28 @@ describe('Dialog', () => {
 
         expect(show).toEqual(false);
     });
+
+    it('should create and click custom buttons', fakeAsync(() => {
+        let headerButtonPressedCount = 0;
+
+        dialog.headerButtons = [
+            {icon: 'pi-question', action: () => {headerButtonPressedCount++; }}
+        ];
+        fixture.detectChanges();
+
+        const buttonEl = fixture.debugElement.query(By.css('button'));
+        buttonEl.nativeElement.click();
+        fixture.detectChanges();
+
+        tick(300);
+
+        const maximizableEl = fixture.nativeElement.querySelector('button.p-dialog-header-icon');
+        expect(maximizableEl).toBeTruthy();
+        maximizableEl.click();
+        fixture.detectChanges();
+
+        expect(headerButtonPressedCount).toEqual(1);
+    }));
 
     it('should maximizable', fakeAsync(() => {
         dialog.maximizable = true;
