@@ -1,4 +1,4 @@
-import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, ViewEncapsulation } from '@angular/core';
+import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, ViewEncapsulation, SkipSelf, Optional } from '@angular/core';
 import { trigger,style,transition,animate,AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -20,12 +20,12 @@ const hideAnimation = animation([
 @Component({
 	selector: 'p-dynamicDialog',
 	template: `
-        <div #mask [ngClass]="{'p-dialog-mask':true, 
-            'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false, 
-            'p-dialog-left': position === 'left', 
+        <div #mask [ngClass]="{'p-dialog-mask':true,
+            'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false,
+            'p-dialog-left': position === 'left',
             'p-dialog-right': position === 'right',
-            'p-dialog-top': position === 'top', 
-            'p-dialog-bottom': position === 'bottom', 
+            'p-dialog-top': position === 'top',
+            'p-dialog-bottom': position === 'bottom',
             'p-dialog-top-left': position === 'topleft' || position === 'top-left',
             'p-dialog-top-right': position === 'topright' || position === 'top-right',
             'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
@@ -164,7 +164,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig) { }
+			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public primeNGConfig: PrimeNGConfig,
+            @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent) { }
 
 	ngAfterViewInit() {
 		this.loadChildComponent(this.childComponentType);
@@ -378,7 +379,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.dialogRef.resizeEnd(event)
         }
     }
-    
+
     initDrag(event: MouseEvent) {
         if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((<HTMLElement> event.target).parentElement, 'p-dialog-header-icon')) {
             return;
@@ -405,7 +406,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
-            
+
             this.container.style.position = 'fixed';
 
             if (this.keepInViewport) {
@@ -494,6 +495,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
 	bindGlobalListeners() {
+        if (this.parentDialog) {
+            this.parentDialog.unbindDocumentKeydownListener();
+        }
+
         this.bindDocumentKeydownListener();
 
         if (this.config.closeOnEscape !== false && this.config.closable !== false) {
@@ -516,6 +521,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.unbindDocumentResizeListeners();
         this.unbindDocumentDragListener();
         this.unbindDocumentDragEndListener();
+
+        if (this.parentDialog) {
+            this.parentDialog.bindDocumentKeydownListener();
+        }
     }
 
     bindDocumentKeydownListener() {
