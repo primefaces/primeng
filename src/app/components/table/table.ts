@@ -4294,134 +4294,7 @@ export class ReorderableRow implements AfterViewInit {
         'class': 'p-element'
     }
 })
-export class ColumnFilterFormElement implements OnInit {
 
-    @Input() field: string;
-
-    @Input() type: string;
-
-    @Input() filterConstraint: FilterMetadata;
-
-    @Input() filterTemplate: TemplateRef<any>;
-
-    @Input() placeholder: string;
-
-    @Input() minFractionDigits: number
-
-    @Input() maxFractionDigits: number;
-
-    @Input() prefix: string;
-
-    @Input() suffix: string;
-
-    @Input() locale: string;
-
-    @Input() localeMatcher: string;
-
-    @Input() currency: string;
-
-    @Input() currencyDisplay: string;
-
-    @Input() useGrouping: boolean = true;
-
-    get showButtons(): boolean {
-        return this.colFilter.showButtons;
-    }
-
-    filterCallback: Function;
-
-    constructor(public dt: Table, private colFilter: ColumnFilter) {}
-
-    ngOnInit() {
-        this.filterCallback = value => {
-            this.filterConstraint.value = value;
-            this.dt._filter();
-        };
-    }
-
-    onModelChange(value: any) {
-        this.filterConstraint.value = value;
-
-        if (this.type === 'boolean' || value === '') {
-            this.dt._filter();
-        }
-    }
-
-    onTextInputEnterKeyDown(event: KeyboardEvent) {
-        this.dt._filter();
-        event.preventDefault();
-    }
-
-    onNumericInputKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Enter') {
-            this.dt._filter();
-            event.preventDefault();
-        }
-    }
-}
-
-@Component({
-    selector: 'p-columnFilter',
-    template: `
-        <div class="p-column-filter" [ngClass]="{'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu'}">
-            <p-columnFilterFormElement *ngIf="display === 'row'" class="p-fluid" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
-                                    [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping" [showButtons]="showButtons"></p-columnFilterFormElement>
-            <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" aria-haspopup="true" [attr.aria-expanded]="overlayVisible"
-                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}"
-                (click)="toggleMenu()" (keydown)="onToggleButtonKeyDown($event)"><span class="pi pi-filter-icon pi-filter"></span></button>
-            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-filter-slash"></span></button>
-            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" (click)="onContentClick()"
-                [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" (keydown.escape)="onEscape()">
-                <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
-                <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
-                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
-                        [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}" [attr.tabindex]="i === 0 ? '0' : null">{{matchMode.label}}</li>
-                    <li class="p-column-filter-separator"></li>
-                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">{{noFilterLabel}}</li>
-                </ul>
-                <ng-template #menu>
-                    <div class="p-column-filter-operator" *ngIf="isShowOperator">
-                        <p-dropdown [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" styleClass="p-column-filter-operator-dropdown"></p-dropdown>
-                    </div>
-                    <div class="p-column-filter-constraints">
-                        <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" class="p-column-filter-constraint">
-                            <p-dropdown  *ngIf="showMatchModes && matchModes" [options]="matchModes" [ngModel]="fieldConstraint.matchMode" (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)" styleClass="p-column-filter-matchmode-dropdown"></p-dropdown>
-                            <p-columnFilterFormElement [type]="type" [field]="field" [filterConstraint]="fieldConstraint" [filterTemplate]="filterTemplate" [placeholder]="placeholder"
-                            [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
-                            [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
-                            <div>
-                                <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [label]="removeRuleButtonLabel"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton [label]="addRuleButtonLabel" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
-                    </div>
-                    <div class="p-column-filter-buttonbar">
-                        <button *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
-                    </div>
-                </ng-template>
-                <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: field}"></ng-container>
-            </div>
-        </div>
-    `,
-    animations: [
-        trigger('overlayAnimation', [
-            transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
-                animate('.12s cubic-bezier(0, 0, 0.2, 1)')
-            ]),
-            transition(':leave', [
-                animate('.1s linear', style({ opacity: 0 }))
-            ])
-        ])
-    ],
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        'class': 'p-element'
-    }
-})
 export class ColumnFilter implements AfterContentInit {
 
     @Input() field: string;
@@ -4914,6 +4787,135 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 }
+
+export class ColumnFilterFormElement implements OnInit {
+
+    @Input() field: string;
+
+    @Input() type: string;
+
+    @Input() filterConstraint: FilterMetadata;
+
+    @Input() filterTemplate: TemplateRef<any>;
+
+    @Input() placeholder: string;
+
+    @Input() minFractionDigits: number
+
+    @Input() maxFractionDigits: number;
+
+    @Input() prefix: string;
+
+    @Input() suffix: string;
+
+    @Input() locale: string;
+
+    @Input() localeMatcher: string;
+
+    @Input() currency: string;
+
+    @Input() currencyDisplay: string;
+
+    @Input() useGrouping: boolean = true;
+
+    get showButtons(): boolean {
+        return this.colFilter.showButtons;
+    }
+
+    filterCallback: Function;
+
+    constructor(public dt: Table, private colFilter: ColumnFilter) {}
+
+    ngOnInit() {
+        this.filterCallback = value => {
+            this.filterConstraint.value = value;
+            this.dt._filter();
+        };
+    }
+
+    onModelChange(value: any) {
+        this.filterConstraint.value = value;
+
+        if (this.type === 'boolean' || value === '') {
+            this.dt._filter();
+        }
+    }
+
+    onTextInputEnterKeyDown(event: KeyboardEvent) {
+        this.dt._filter();
+        event.preventDefault();
+    }
+
+    onNumericInputKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            this.dt._filter();
+            event.preventDefault();
+        }
+    }
+}
+
+@Component({
+    selector: 'p-columnFilter',
+    template: `
+        <div class="p-column-filter" [ngClass]="{'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu'}">
+            <p-columnFilterFormElement *ngIf="display === 'row'" class="p-fluid" [type]="type" [field]="field" [filterConstraint]="dt.filters[field]" [filterTemplate]="filterTemplate" [placeholder]="placeholder" [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
+                                    [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping" [showButtons]="showButtons"></p-columnFilterFormElement>
+            <button #icon *ngIf="showMenuButton" type="button" class="p-column-filter-menu-button p-link" aria-haspopup="true" [attr.aria-expanded]="overlayVisible"
+                [ngClass]="{'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter()}"
+                (click)="toggleMenu()" (keydown)="onToggleButtonKeyDown($event)"><span class="pi pi-filter-icon pi-filter"></span></button>
+            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{'p-hidden-space': !hasRowFilter()}" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()"><span class="pi pi-filter-slash"></span></button>
+            <div *ngIf="showMenu && overlayVisible" [ngClass]="{'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu'}" (click)="onContentClick()"
+                [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" (keydown.escape)="onEscape()">
+                <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: field}"></ng-container>
+                <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
+                    <li class="p-column-filter-row-item" *ngFor="let matchMode of matchModes; let i = index;" (click)="onRowMatchModeChange(matchMode.value)" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
+                        [ngClass]="{'p-highlight': isRowMatchModeSelected(matchMode.value)}" [attr.tabindex]="i === 0 ? '0' : null">{{matchMode.label}}</li>
+                    <li class="p-column-filter-separator"></li>
+                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">{{noFilterLabel}}</li>
+                </ul>
+                <ng-template #menu>
+                    <div class="p-column-filter-operator" *ngIf="isShowOperator">
+                        <p-dropdown [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" styleClass="p-column-filter-operator-dropdown"></p-dropdown>
+                    </div>
+                    <div class="p-column-filter-constraints">
+                        <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" class="p-column-filter-constraint">
+                            <p-dropdown  *ngIf="showMatchModes && matchModes" [options]="matchModes" [ngModel]="fieldConstraint.matchMode" (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)" styleClass="p-column-filter-matchmode-dropdown"></p-dropdown>
+                            <p-columnFilterFormElement [type]="type" [field]="field" [filterConstraint]="fieldConstraint" [filterTemplate]="filterTemplate" [placeholder]="placeholder"
+                            [minFractionDigits]="minFractionDigits" [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix"
+                            [locale]="locale"  [localeMatcher]="localeMatcher" [currency]="currency" [currencyDisplay]="currencyDisplay" [useGrouping]="useGrouping"></p-columnFilterFormElement>
+                            <div>
+                                <button *ngIf="showRemoveIcon" type="button" pButton icon="pi pi-trash" class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [label]="removeRuleButtonLabel"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
+                        <button type="button" pButton [label]="addRuleButtonLabel" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
+                    </div>
+                    <div class="p-column-filter-buttonbar">
+                        <button *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
+                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
+                    </div>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: field}"></ng-container>
+            </div>
+        </div>
+    `,
+    animations: [
+        trigger('overlayAnimation', [
+            transition(':enter', [
+                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                animate('.12s cubic-bezier(0, 0, 0.2, 1)')
+            ]),
+            transition(':leave', [
+                animate('.1s linear', style({ opacity: 0 }))
+            ])
+        ])
+    ],
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'p-element'
+    }
+})
 
 @NgModule({
     imports: [CommonModule,PaginatorModule,InputTextModule,DropdownModule,FormsModule,ButtonModule,SelectButtonModule,CalendarModule,InputNumberModule,TriStateCheckboxModule,ScrollerModule],
