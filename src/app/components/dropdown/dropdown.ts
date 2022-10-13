@@ -1,16 +1,17 @@
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {trigger,transition,AnimationEvent, query, animateChild} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {OverlayService, PrimeNGConfig, SelectItem, TranslationKeys} from 'primeng/api';
+import {PrimeNGConfig, SelectItem, TranslationKeys} from 'primeng/api';
 import {SharedModule,PrimeTemplate, FilterService} from 'primeng/api';
 import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {ObjectUtils,UniqueComponentId,ZIndexUtils} from 'primeng/utils';
+import {ObjectUtils,UniqueComponentId} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {TooltipModule} from 'primeng/tooltip';
 import {Scroller, ScrollerModule, ScrollerOptions} from 'primeng/scroller';
 import {RippleModule} from 'primeng/ripple';
 import {AutoFocusModule} from 'primeng/autofocus';
+import {Overlay, OverlayModule} from '../overlay/overlay';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -86,7 +87,7 @@ export class DropdownItem {
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-dropdown-trigger-icon" [ngClass]="dropdownIcon"></span>
             </div>
-            <div *ngIf="overlayVisible" [ngClass]="'p-dropdown-panel p-component'" (click)="onOverlayClick($event)" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
+            <p-overlay #overlay  *ngIf="overlayVisible" [autoZIndex]="autoZIndex" [container]="container" @overlayAnimation (@overlayAnimation.start)="onOverlayAnimationStart($event)" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions" [panelStyle]="panelStyle" [panelStyleClass]="panelStyleClass" [panelClass]="'p-dropdown-panel p-component'" [appendTo]="appendTo" [overlayDirection]="overlayDirection" [baseZIndex]="baseZIndex">                
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">
                     <ng-container *ngIf="filterTemplate; else builtInFilterElement">
@@ -153,17 +154,13 @@ export class DropdownItem {
                     </ng-template>
                 </div>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+            </p-overlay>
         </div>
     `,
     animations: [
         trigger('overlayAnimation', [
-            transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
-                animate('{{showTransitionParams}}')
-            ]),
-            transition(':leave', [
-                animate('{{hideTransitionParams}}', style({ opacity: 0 }))
+            transition(':enter, :leave', [
+                query('@*', animateChild(), {optional: true})
             ])
         ])
     ],
@@ -279,6 +276,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() autofocusFilter: boolean = true;
 
+    @Input() overlayDirection: string = 'end';
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
@@ -308,6 +307,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('items') itemsViewChild: ElementRef;
 
     @ViewChild('scroller') scroller: Scroller;
+
+    @ViewChild('overlay') overlayViewChild: Overlay;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -340,8 +341,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this._itemSize = val;
         console.warn("The itemSize property is deprecated, use virtualScrollItemSize property instead.");
     }
-
-    overlay: HTMLDivElement;
 
     itemsWrapper: HTMLDivElement;
 
@@ -421,7 +420,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     listId: string;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -601,15 +600,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    this.alignOverlay();
+                    this.overlayViewChild.alignOverlay();
                 }, 1);
             });
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlay, 'li.p-highlight');
+            let selectedItem = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.p-highlight'));
+                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight'));
             }
             this.selectedOptionUpdated = false;
         }
@@ -682,13 +681,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.cd.detectChanges();
     }
 
-    onOverlayClick(event) {
-        this.overlayService.add({
-            originalEvent: event,
-            target: this.el.nativeElement
-        });
-    }
-
     isInputClick(event): boolean {
         return DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') ||
             event.target.isSameNode(this.accessibleViewChild.nativeElement) ||
@@ -696,7 +688,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     isOutsideClicked(event: Event): boolean {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node> event.target)));
+        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || (this.overlayViewChild && this.overlayViewChild.el.nativeElement.contains(<Node> event.target)));
     }
 
     isEmpty() {
@@ -730,78 +722,50 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.overlay = event.element;
-                this.itemsWrapper = DomHandler.findSingle(this.overlay, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
-                this.virtualScroll && this.scroller.setContentEl(this.itemsViewChild.nativeElement);
-                this.appendOverlay();
-                if (this.autoZIndex) {
-                    ZIndexUtils.set('overlay', this.overlay, this.baseZIndex + this.config.zIndex.overlay);
-                }
-                this.alignOverlay();
-                this.bindDocumentClickListener();
-                this.bindDocumentResizeListener();
-                this.bindScrollListener();
+        if (event.toState === null && event.fromState === 'void') {
+            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.virtualScroll && this.scroller.setContentEl(this.itemsViewChild.nativeElement);
+            this.overlayViewChild.appendOverlay();
+            this.overlayViewChild.alignOverlay();
+            this.bindDocumentClickListener();
+            this.bindDocumentResizeListener();
+            this.bindScrollListener();
 
-                if (this.options && this.options.length) {
-                    if (this.virtualScroll) {
-                        const selectedIndex = this.selectedOption ? this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
-                        if (selectedIndex !== -1) {
-                            this.scroller.scrollToIndex(selectedIndex);
-                        }
-                    }
-                    else {
-                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
-
-                        if (selectedListItem) {
-                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
-                        }
+            if (this.options && this.options.length) {
+                if (this.virtualScroll) {
+                    const selectedIndex = this.selectedOption ? this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
+                    if (selectedIndex !== -1) {
+                        this.scroller.scrollToIndex(selectedIndex);
                     }
                 }
+                else {
+                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
 
-                if (this.filterViewChild && this.filterViewChild.nativeElement) {
-                    this.preventModelTouched = true;
-
-                    if (this.autofocusFilter) {
-                        this.filterViewChild.nativeElement.focus();
+                    if (selectedListItem) {
+                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
                     }
                 }
-
-                this.onShow.emit(event);
-            break;
-
-            case 'void':
-                this.onOverlayHide();
-                this.onHide.emit(event);
-            break;
-        }
-    }
-
-    onOverlayAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                ZIndexUtils.clear(event.element);
-            break;
-        }
-    }
-
-    appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
-            else
-                DomHandler.appendChild(this.overlay, this.appendTo);
-
-            if (!this.overlay.style.minWidth) {
-                this.overlay.style.minWidth = DomHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
             }
+
+            if (this.filterViewChild && this.filterViewChild.nativeElement) {
+                this.preventModelTouched = true;
+
+                if (this.autofocusFilter) {
+                    this.filterViewChild.nativeElement.focus();
+                }
+            }
+
+            this.onShow.emit(event);
+        }
+        if (event.toState === 'void' && event.fromState === null) {
+            this.onOverlayHide();
+            this.onHide.emit(event);
         }
     }
 
     restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlay);
+        if (this.overlayViewChild && this.appendTo) {
+            this.el.nativeElement.appendChild(this.overlayViewChild.el.nativeElement);
         }
     }
 
@@ -811,17 +775,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
-
         this.cd.markForCheck();
-    }
-
-    alignOverlay() {
-        if (this.overlay) {
-            if (this.appendTo)
-                DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
-            else
-                DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
-        }
     }
 
     onInputFocus(event) {
@@ -1288,7 +1242,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
-        this.overlay = null;
         this.itemsWrapper = null;
         this.onModelTouched();
     }
@@ -1298,19 +1251,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
-
-        if (this.overlay) {
-            ZIndexUtils.clear(this.overlay);
-        }
-
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,TooltipModule,RippleModule,ScrollerModule, AutoFocusModule],
+    imports: [CommonModule,OverlayModule,SharedModule,TooltipModule,RippleModule,ScrollerModule, AutoFocusModule],
     exports: [Dropdown,SharedModule,ScrollerModule],
-    declarations: [Dropdown,DropdownItem]
+    declarations: [Dropdown,DropdownItem],
+    entryComponents: [Overlay]
 })
 export class DropdownModule { }

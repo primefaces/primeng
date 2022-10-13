@@ -1,0 +1,28 @@
+.p-overlay-mask {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.p-overlay-responsive {
+    overflow: hidden;
+    position: static;
+    height: fit-content;
+    width: inherit;
+}
+
+.p-overlay-panel-start {
+    align-self: flex-start;
+}
+
+.p-overlay-panel-center {
+    align-self: center;
+}
+
+.p-overlay-panel-end {
+    align-self: flex-end;
+}
