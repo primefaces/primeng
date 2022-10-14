@@ -76,19 +76,8 @@ export class TableService {
         <div #container [ngStyle]="style" [class]="styleClass"
             [ngClass]="{'p-datatable p-component': true,
                 'p-datatable-hoverable-rows': (rowHover||selectionMode),
-                'p-datatable-auto-layout': autoLayout,
-                'p-datatable-resizable': resizableColumns,
-                'p-datatable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'p-datatable-scrollable': scrollable,
-                'p-datatable-scrollable-vertical': scrollable && scrollDirection === 'vertical',
-                'p-datatable-scrollable-horizontal': scrollable && scrollDirection === 'horizontal',
-                'p-datatable-scrollable-both': scrollable && scrollDirection === 'both',
-                'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex'),
-                'p-datatable-responsive-stack': responsiveLayout === 'stack',
-                'p-datatable-responsive-scroll': responsiveLayout === 'scroll',
-                'p-datatable-responsive': responsive,
-                'p-datatable-grouped-header': headerGroupedTemplate != null,
-                'p-datatable-grouped-footer': footerGroupedTemplate != null}" [attr.id]="id">
+                'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex')}" [attr.id]="id">
             <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
                 <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
@@ -112,7 +101,11 @@ export class TableService {
                 </ng-container>
 
                 <ng-template #buildInTable let-items let-scrollerOptions="options">
-                    <table #table role="table" class="p-datatable-table" [ngClass]="tableStyleClass" [ngStyle]="tableStyle" [style]="scrollerOptions.spacerStyle" [attr.id]="id+'-table'">
+                    <table #table role="table" [ngClass]="{'p-datatable-table': true, 
+                                                        'p-datatable-scrollable-table': scrollable,
+                                                        'p-datatable-resizable-table': resizableColumns,
+                                                        'p-datatable-resizable-table-fit': (resizableColumns && columnResizeMode === 'fit')}" 
+                        [class]="tableStyleClass" [ngStyle]="tableStyle" [style]="scrollerOptions.spacerStyle" [attr.id]="id+'-table'">
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
                         <thead #thead class="p-datatable-thead">
                             <ng-container *ngTemplateOutlet="headerGroupedTemplate||headerTemplate; context: {$implicit: scrollerOptions.columns}"></ng-container>
@@ -258,7 +251,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() frozenWidth: string;
 
-    @Input() responsive: boolean;
+    /* @deprecated */
+    _responsive: boolean;
+    @Input() get responsive(): boolean {
+        return this._responsive;
+    }
+    set responsive(val: boolean) {
+        this._responsive = val;
+        console.warn("responsive propery is deprecated as table is always responsive with scrollable behavior.");
+    }
 
     @Input() contextMenu: any;
 
@@ -296,7 +297,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() groupRowsByOrder: number = 1;
 
-    @Input() responsiveLayout: string = 'stack';
+    @Input() responsiveLayout: string = 'scroll';
 
     @Input() breakpoint: string = '960px';
 
@@ -2009,11 +2010,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let innerHTML = '';
         widths.forEach((width,index) => {
             let colWidth = index === colIndex ? newColumnWidth : (nextColumnWidth && index === colIndex + 1) ? nextColumnWidth : width;
-            let style = this.scrollable ? `flex: 1 1 ${colWidth}px !important` : `width: ${colWidth}px !important`;
+            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important`;
             innerHTML += `
-                #${this.id} .p-datatable-thead > tr > th:nth-child(${index + 1}),
-                #${this.id} .p-datatable-tbody > tr > td:nth-child(${index + 1}),
-                #${this.id} .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
+                #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
+                #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
+                #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
                     ${style}
                 }
             `
@@ -2365,12 +2366,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 let innerHTML = '';
                 widths.forEach((width,index) => {
-                    let style = this.scrollable ? `flex: 1 1 ${width}px !important` : `width: ${width}px !important`;
+                    let style = `width: ${width}px !important; max-width: ${width}px !important`;
 
                     innerHTML += `
-                        #${this.id} .p-datatable-thead > tr > th:nth-child(${index + 1}),
-                        #${this.id} .p-datatable-tbody > tr > td:nth-child(${index + 1}),
-                        #${this.id} .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
+                        #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
+                        #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
+                        #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
                             ${style}
                         }
                     `
@@ -2445,29 +2446,29 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             let innerHTML = `
 @media screen and (max-width: ${this.breakpoint}) {
-    #${this.id} .p-datatable-thead > tr > th,
-    #${this.id} .p-datatable-tfoot > tr > td {
+    #${this.id}-table > .p-datatable-thead > tr > th,
+    #${this.id}-table > .p-datatable-tfoot > tr > td {
         display: none !important;
     }
 
-    #${this.id} .p-datatable-tbody > tr > td {
+    #${this.id}-table > .p-datatable-tbody > tr > td {
         display: flex;
         width: 100% !important;
         align-items: center;
         justify-content: space-between;
     }
 
-    #${this.id} .p-datatable-tbody > tr > td:not(:last-child) {
+    #${this.id}-table > .p-datatable-tbody > tr > td:not(:last-child) {
         border: 0 none;
     }
 
-    #${this.id}.p-datatable-gridlines .p-datatable-tbody > tr > td:last-child {
+    #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
         border-top: 0;
         border-right: 0;
         border-left: 0;
     }
 
-    #${this.id} .p-datatable-tbody > tr > td > .p-column-title {
+    #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
         display: block;
     }
 }
