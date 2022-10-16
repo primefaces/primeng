@@ -480,7 +480,7 @@ export class Carousel implements AfterContentInit {
     }
 
     totalDots() {
-        return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
+        return this.value?.length ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
     }
 
     totalDotsArray() {
