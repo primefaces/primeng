@@ -26,18 +26,38 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     public _initialStyleClass: string;
 
+    private isExistElementContent = false;
+
+    private isExistTextContent = false;
+
+    private get currentElement(): HTMLElement {
+        return (this.el.nativeElement as HTMLElement);
+    }
+
+    private get isExistAdditionalContent(): boolean {
+        return this.isExistElementContent || this.isExistTextContent;
+    }
+
+    private get isNotExistContent(): boolean {
+        return (!this.label && !this.isExistAdditionalContent);
+    }
+
+    private currentNode: Element | ChildNode | null = null;
+
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
         this._initialStyleClass = this.el.nativeElement.className;
+        this.setInitElementInformation();
+
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
 
         if (this.icon || this.loading) {
             this.createIconEl();
         }
 
-        let labelElement = document.createElement("span");
-        if (this.icon && !this.label) {
+        let labelElement = document.createElement('span');
+        if (this.icon && this.isNotExistContent) {
             labelElement.setAttribute('aria-hidden', 'true');
         }
         labelElement.className = 'p-button-label';
@@ -53,14 +73,16 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     getStyleClass(): string {
         let styleClass = 'p-button p-component';
-        if (this.icon && !this.label) {
+        if (this.icon && this.isNotExistContent) {
             styleClass = styleClass + ' p-button-icon-only';
         }
 
         if (this.loading) {
             styleClass = styleClass + ' p-disabled p-button-loading';
-            if (!this.icon && this.label)
+
+            if (!this.icon && this.label) {
                 styleClass = styleClass + ' p-button-loading-label-only';
+            }
         }
 
         return styleClass;
@@ -72,10 +94,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createIconEl() {
-        let iconElement = document.createElement("span");
+        let iconElement = document.createElement('span');
         iconElement.className = 'p-button-icon';
-        iconElement.setAttribute("aria-hidden", "true");
-        let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
+        iconElement.setAttribute('aria-hidden', 'true');
+        let iconPosClass = this.label || this.isExistAdditionalContent ? 'p-button-icon-' + this.iconPos : null;
 
         if (iconPosClass) {
             DomHandler.addClass(iconElement, iconPosClass);
@@ -89,10 +111,12 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label')
 
-        if (labelEl)
-            this.el.nativeElement.insertBefore(iconElement, labelEl);
-        else
+        if (labelEl || this.isExistAdditionalContent) {
+            const itemBefore = labelEl ?? this.currentNode;
+            this.el.nativeElement.insertBefore(iconElement, itemBefore);
+        } else {
             this.el.nativeElement.appendChild(iconElement)
+        }
     }
 
     getIconClass() {
@@ -162,6 +186,17 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
             this.setStyleClass();
         }
+    }
+
+    private setInitElementInformation(): void {
+        const transformedNodes = Array.from(this.currentElement.childNodes);
+
+        this.isExistTextContent = transformedNodes.length > 0 && transformedNodes
+          .some(({nodeType}) => nodeType === Node.TEXT_NODE);
+
+        this.isExistElementContent = this.currentElement.children.length > 0;
+
+        this.currentNode = this.currentElement.firstElementChild ?? this.currentElement.firstChild;
     }
 
     ngOnDestroy() {
