@@ -298,12 +298,20 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         }
     }
 
-    updateMaxedOut() {
+    updateMaxedOut(): void {
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.max && this.value && this.max === this.value.length)
+            if (this.max && this.value && this.max === this.value.length) {
+                // Calling `blur` is necessary because firefox does not call `onfocus` events
+                // for disabled inputs, unlike chromium browsers.
+                this.inputViewChild.nativeElement.blur();
                 this.inputViewChild.nativeElement.disabled = true;
-            else
+            } else {
+                if (this.disabled) {
+                    this.inputViewChild.nativeElement.blur();
+                }
+
                 this.inputViewChild.nativeElement.disabled = this.disabled || false;
+            }
         }
     }
 }
