@@ -509,7 +509,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.bindDocumentResizeListeners();
         }
 
-        if(this.config.draggable) {
+        if (this.config.draggable) {
             this.bindDocumentDragListener();
             this.bindDocumentDragEndListener();
         }
@@ -528,6 +528,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentKeydownListener() {
+        if (this.documentKeydownListener) {
+            return;
+        }
+
         this.zone.runOutsideAngular(() => {
             this.documentKeydownListener = this.onKeydown.bind(this);
             window.document.addEventListener('keydown', this.documentKeydownListener);
