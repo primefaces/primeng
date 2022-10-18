@@ -60,8 +60,13 @@ export class MultiSelectItem {
     @Output() onKeydown: EventEmitter<any> = new EventEmitter();
 
     onOptionClick(event: Event) {
+        const originalEvent = {
+            ...event,
+            selected: this.selected
+        };
+        
         this.onClick.emit({
-            originalEvent: event,
+            originalEvent,
             option: this.option
         });
     }
