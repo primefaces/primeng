@@ -113,7 +113,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event,y)" class="p-yearpicker-year" [ngClass]="{'p-highlight': isYearSelected(y)}" pRipple>
+                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event,y)" class="p-yearpicker-year" [ngClass]="{'p-highlight': isYearSelected(y), 'p-disabled': isLessThanMinYear(y) || isGreaterThanMaxYear(y)}" pRipple>
                             {{y}}
                         </span>
                     </div>
@@ -1254,9 +1254,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     isYearSelected(year) {
         if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
-
-            return !this.isMultipleSelection() ? (value.getFullYear() === year) : false;
+            if (this.isMultipleSelection()) {
+                return false
+            }
+            else if (this.isRangeSelection()) {
+                if (this.value[1])
+                    return this.isYearEquals(this.value[0], year) || this.isYearEquals(this.value[1], year) || this.isYearBetween(this.value[0], this.value[1], year);
+                else
+                    return this.isYearEquals(this.value[0], year)
+            }
+            else {
+                return this.isYearEquals(this.value, year);
+            }
         }
 
         return false;
@@ -1277,6 +1286,22 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
 
         return between;
+    }
+
+    isYearEquals(value, year) {
+        return (value && value instanceof Date && value.getFullYear() === year);
+    }
+
+    isYearBetween(start, end, year) {
+        return start && start instanceof Date && end && end instanceof Date && start.getFullYear() <= year && end.getFullYear() >= year
+    }
+
+    isLessThanMinYear(year) {
+        return this.minDate && year < this.minDate.getFullYear()
+    }
+
+    isGreaterThanMaxYear(year) {
+        return this.maxDate && this.maxDate.getFullYear() < year
     }
 
     isSingleSelection(): boolean {
