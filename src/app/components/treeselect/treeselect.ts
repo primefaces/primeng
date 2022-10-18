@@ -372,6 +372,7 @@ export class TreeSelect implements AfterContentInit {
     clear(event) {
         this.value = null;
         this.resetExpandedNodes();
+        this.resetPartialSelected();
         this.onModelChange(this.value);
         this.onClear.emit();
 
@@ -403,6 +404,7 @@ export class TreeSelect implements AfterContentInit {
         if (this.value) {
             let selectedNodes = this.selectionMode === "single" ? [this.value] : [...this.value];
             this.resetExpandedNodes();
+            this.resetPartialSelected();
             if (selectedNodes && this.options) {
                 this.updateTreeBranchState(null, null, selectedNodes);
             }
@@ -453,6 +455,20 @@ export class TreeSelect implements AfterContentInit {
         }
 
         this.expandedNodes = [];
+    }
+
+    resetPartialSelected(nodes = this.options): void {
+        if (!nodes) {
+            return;
+        }
+
+        for (let node of nodes) {
+            node.partialSelected = false;
+
+            if (node.children && node.children?.length > 0) {
+                this.resetPartialSelected(node.children);
+            }
+        }
     }
 
     findSelectedNodes(node, keys, selectedNodes) {
