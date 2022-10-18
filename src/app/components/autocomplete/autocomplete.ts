@@ -480,6 +480,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         if (value.length === 0 && !this.multiple) {
             this.hide();
             this.onClear.emit(event);
+            this.value = undefined;
 	        this.onModelChange(value);
         }
 
