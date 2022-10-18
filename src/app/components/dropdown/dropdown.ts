@@ -151,7 +151,7 @@ export class DropdownItem {
                 (focus)="onEditableInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <i class="p-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="isVisibleClearIcon"></i>
+            <i class="p-dropdown-clear-icon" [ngClass]="clearIcon" (click)="clear($event)" *ngIf="isVisibleClearIcon"></i>
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="p-dropdown-trigger-icon" [ngClass]="dropdownIcon"></span>
             </div>
@@ -321,6 +321,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     @Input() resetFilterOnHide: boolean = false;
 
     @Input() dropdownIcon: string = 'pi pi-chevron-down';
+
+    @Input() clearIcon: string = 'pi pi-times';
 
     @Input() optionLabel: string;
 
