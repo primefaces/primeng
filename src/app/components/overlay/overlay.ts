@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,OnDestroy,Renderer2,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Inject} from '@angular/core';
+import {NgModule,Component,Input,OnDestroy,Renderer2,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Inject, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {SharedModule, PrimeNGConfig, OverlayService} from 'primeng/api';
@@ -7,7 +7,7 @@ import {trigger,style,transition,animate, animation, useAnimation} from '@angula
 import {ZIndexUtils} from 'primeng/utils';
 
 const showAnimation = animation([
-    style({ transform: '{{transform}}', opacity: 1 }),
+    style({ transform: '{{transform}}', opacity: 0 }),
     animate('{{showTransitionParams}}')
 ]);
 
@@ -18,17 +18,20 @@ const hideAnimation = animation([
 @Component({
     selector: 'p-overlay',
     template: `
-    <div #overlay [ngClass]="panelClass" [class]="panelStyleClass" [ngStyle]="panelStyle" [@overlayAnimation]="{value: 'visible', params: {transform: transformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (click)="onOverlayClick($event)" (click)="onOverlayClick($event)">
-        <ng-content></ng-content>
+    <div class="p-overlay" #overlay (click)="onOverlayClick($event)">
+        <div #mask [ngClass]="{'p-mask p-overlay-mask p-component-overlay-enter': responsive}">
+            <div #content [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
+                <ng-content></ng-content>
+            </div>
+        </div>
     </div>
-
     `,
     animations: [
         trigger('overlayAnimation', [
-            transition('void => visible', [
+            transition(':enter', [
                 useAnimation(showAnimation)
             ]),
-            transition('visible => void', [
+            transition(':leave', [
                 useAnimation(hideAnimation)
             ])
         ])
@@ -37,8 +40,7 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./overlay.css'],
     host: {
-        'class': 'p-element',
-        '[class.p-overlay-panel]': 'true'
+        'class': 'p-element'
     }
 })
 export class Overlay implements OnDestroy {
@@ -48,27 +50,27 @@ export class Overlay implements OnDestroy {
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
-    
-    @Input() panelClass: string;
-    
-    @Input() panelStyleClass: string;
-
-    @Input() overlayAnimation: string;
 
     @Input() container: ElementRef;
 
     @Input() autoZIndex: boolean;
 
-    @Input() panelStyle: string;
-    
-    get overlayDirection(): string {
-        return this._overlayDirection;
-    }
+    @Output() onAnimationStart: EventEmitter<any> = new EventEmitter();
+
+    @Output() onAnimationEnd: EventEmitter<any> = new EventEmitter();
+
+    @Output() onOverlayHide: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('overlay') overlayViewChild: ElementRef;
+
+    @ViewChild('content') contentViewChild: ElementRef;
+
+    @ViewChild('mask') maskViewChild: ElementRef;
 
     @Input() set overlayDirection(value: string) {
-        const viewport = DomHandler.getViewport();
-        if (value && viewport.width < this.overlayBreakpoints) {
+        if (value && this.viewport.width < this.overlayBreakpoints) {
             this._overlayDirection = value;
+
             switch (value) {
                 case 'start':
                     this.transformOptions = "translate3d(0px, -100%, 0px)";
@@ -86,6 +88,10 @@ export class Overlay implements OnDestroy {
         }
     }
 
+    get overlayDirection(): string {
+        return this._overlayDirection;
+    }
+
     @Input() set appendTo(val) {
         this._appendTo = val;
     }
@@ -93,14 +99,29 @@ export class Overlay implements OnDestroy {
     get appendTo(): any {
         return this._appendTo;
     }
+    
+    @Input() set visible(value: boolean) {
+        this._visible = value;
+    }
 
-    get overlayBreakpoints() {
+    get visible(): boolean {
+        return this._visible;
+    }
+
+    get overlayBreakpoints(): any {
         return this.config.overlayOptions ? this.config.overlayOptions.breakpoint : null;
     }
 
-    @ViewChild('overlay') overlayViewChild: ElementRef;
+    get viewport(): any { 
+        this._viewport = DomHandler.getViewport();
+        return this._viewport;
+    }
+
+    _visible: boolean;
 
     _overlayDirection: string;
+
+    _viewport: any;
 
     _overlayBreakpoints: number;
 
@@ -108,12 +129,16 @@ export class Overlay implements OnDestroy {
 
     transformOptions: string = "scaleY(0.8)";
 
-    mask: HTMLDivElement;
+    documentResizeListener: any;
 
-    maskClickListener: Function;
+    responsive: boolean;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {}
 
+    ngOnInit() {
+        this.bindDocumentResizeListener();
+    }
+    
     onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
@@ -121,83 +146,68 @@ export class Overlay implements OnDestroy {
         });
     }
 
-    appendOverlay() {
-        const viewport = DomHandler.getViewport();
-        if (this.autoZIndex) {
-            ZIndexUtils.set('overlay', this.overlayViewChild.nativeElement, this.baseZIndex + this.config.zIndex.overlay);
+    onOverlayAnimationStart(event) {
+        this.onAnimationStart.emit(event);
+    }
+
+    onOverlayAnimationEnd(event) {
+        if (event.toState === 'void') {
+            this.destroyOverlay();
         }
-        if (viewport.width < this.overlayBreakpoints) {
-            this.appendMask();
+        this.onAnimationEnd.emit(event);
+    }
+
+    appendOverlay() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set('modal', this.el.nativeElement, this.baseZIndex + this.config.zIndex.modal);
+        }
+        if (this.viewport.width < this.overlayBreakpoints) {
+            this.responsive = true;
             DomHandler.addClass(this.document.body, 'p-overflow-hidden');
             DomHandler.addClass(this.overlayViewChild.nativeElement, 'p-overlay-responsive');
-            this.mask.appendChild(this.el.nativeElement);
+            DomHandler.addClass(this.contentViewChild.nativeElement.firstChild, 'p-overlay-panel-static');
         }
         else {
+            this.responsive = false;
             if (this.appendTo) {
                 if (this.appendTo === 'body') {
-                    this.document.body.appendChild(this.el.nativeElement);
+                    this.document.body.appendChild(this.overlayViewChild.nativeElement);
                 }
                 else {
-                    DomHandler.appendChild(this.el.nativeElement, this.appendTo);
+                    DomHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
                 }
             }
         }
-
-        if (!this.overlayViewChild.nativeElement.style.minWidth) {
-            this.overlayViewChild.nativeElement.style.minWidth = DomHandler.getWidth(this.container) + 'px';
+        if (!this.contentViewChild.nativeElement.style.minWidth) {
+            this.contentViewChild.nativeElement.style.minWidth = DomHandler.getWidth(this.container) + 'px';
         }
     }
 
     alignOverlay() {
-        const viewport = DomHandler.getViewport();
-
         if(this.overlayViewChild) {
-            if (viewport.width < this.overlayBreakpoints) {
+            if (this.viewport.width < this.overlayBreakpoints) {
                 switch (this.overlayDirection) {
                     case 'start':
-                        DomHandler.addClass(this.el.nativeElement, 'p-overlay-panel-start')
+                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-start')
                     break;
                     
                     case 'center':
-                        DomHandler.addClass(this.el.nativeElement, 'p-overlay-panel-center')
+                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-center')
                     break;
                     
                     case 'end':
-                        DomHandler.addClass(this.el.nativeElement, 'p-overlay-panel-end')
+                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-end')
                     break;
                 }
             }
             else {
                 if (this.appendTo) {
-                    DomHandler.absolutePosition(this.el.nativeElement.firstChild, this.container);
+                    DomHandler.absolutePosition(this.overlayViewChild.nativeElement, this.container);
                 }
                 else {
-                    DomHandler.relativePosition(this.el.nativeElement.firstChild, this.container);
+                    DomHandler.relativePosition(this.overlayViewChild.nativeElement, this.container);
                 }
             }
-        }
-    }
-
-    appendMask() {
-        if (!this.mask) {
-            this.mask = this.renderer.createElement('div');
-            DomHandler.addMultipleClasses(this.mask, 'p-overlay-mask p-component-overlay-enter');
-            ZIndexUtils.set('modal', this.mask, this.baseZIndex + this.config.zIndex.modal);
-            this.document.body.appendChild(this.mask);
-            this.blockScroll();
-            this.bindMaskClickListener();
-        }
-    }
-
-    removeMask() {
-        this.unbindMaskClickListener();
-
-        if (this.mask) {
-            DomHandler.addClass(this.mask, 'p-component-overlay-leave');
-            ZIndexUtils.clear(this.mask);
-            this.document.body.removeChild(this.mask);
-            this.mask = null;
-            this.unblockScroll();
         }
     }
 
@@ -209,34 +219,41 @@ export class Overlay implements OnDestroy {
         DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
     }
 
-    bindMaskClickListener() {
-        if (!this.maskClickListener) {
-            this.maskClickListener = this.renderer.listen(this.mask, 'click', () => {
-                this.removeMask();
-            });
+    bindDocumentResizeListener() {
+        if (!this.documentResizeListener) {
+            this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
         }
     }
 
-    unbindMaskClickListener() {
-        if (this.maskClickListener) {
-            this.maskClickListener();
-            this.maskClickListener = null;
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            this.documentResizeListener();
+            this.documentResizeListener = null;
         }
     }
-    
-    ngOnDestroy() {
-        if (this.maskClickListener) {
-            this.unbindMaskClickListener();
+
+    onWindowResize() {
+        if (this.visible) {
+            this.visible = false;
+            this.onOverlayHide.emit({visible: this.visible});
+            this.cd.markForCheck();
         }
+    }
+
+    destroyOverlay() {
+        this.unblockScroll();
+        this.unbindDocumentResizeListener();
         
-        if (this.overlayViewChild && this.el.nativeElement) {
-            ZIndexUtils.clear(this.overlayViewChild.nativeElement);
+        if (this.overlayViewChild && this.overlayViewChild.nativeElement) {
+            ZIndexUtils.clear(this.el.nativeElement);
             this.overlayViewChild = null;
         }
 
-        if(this.mask) {
-            this.removeMask();
-        }
+        this.onOverlayHide.emit({visible: this.visible});
+    }
+    
+    ngOnDestroy() {
+        this.destroyOverlay();
     }
 
 }
