@@ -23,6 +23,7 @@ const hideAnimation = animation([
             'p-sidebar-top': (position === 'top' && !fullScreen), 'p-sidebar-bottom': (position === 'bottom' && !fullScreen),
             'p-sidebar-full': fullScreen}"  *ngIf="visible" [@panelState]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@panelState.start)="onAnimationStart($event)" (@panelState.done)="onAnimationEnd($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
             <div class="p-sidebar-header">
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <button type="button" class="p-sidebar-close p-sidebar-icon p-link" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel"  *ngIf="showCloseIcon" pRipple>
                     <span class="p-sidebar-close-icon pi pi-times"></span>
                 </button>
@@ -106,6 +107,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
+    headerTemplate: TemplateRef<any>;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
 
     ngAfterViewInit() {
@@ -118,7 +121,9 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 case 'content':
                     this.contentTemplate = item.template;
                     break;
-
+                case 'header':
+                    this.headerTemplate = item.template;
+                    break;
                 default:
                     this.contentTemplate = item.template;
                     break;
