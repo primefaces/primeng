@@ -26,4 +26,5 @@ export class DynamicDialogConfig<T = any> {
     maximizeIcon?: string;
     minimizeIcon?: string;
     position?: string;
+    minimal?: string;
 }

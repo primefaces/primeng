@@ -13,6 +13,80 @@ const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
+    selector: 'p-dialog-title',
+    template: ` <div class="p-dialog-header" (mousedown)="initDrag($event)">
+        <span class="p-dialog-title">{{ config.header }}<ng-content></ng-content></span>
+        <div class="p-dialog-header-icons">
+            <button *ngIf="config.maximizable" type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+            </button>
+            <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
+                <span class="p-dialog-header-close-icon pi pi-times"></span>
+            </button>
+        </div>
+    </div>`
+})
+export class DynamicDialogTitle {
+    get config(): DynamicDialogConfig {
+        return this.parent.config;
+    }
+
+    get maximizable(): boolean {
+        return this.config.maximizable;
+    }
+
+    get maximizeIcon(): string {
+        return this.config.maximizeIcon ? this.config.maximizeIcon : 'pi pi-window-maximize';
+    }
+
+    get minimizeIcon(): string {
+        return this.config.minimizeIcon ? this.config.minimizeIcon : 'pi pi-window-minimize';
+    }
+
+    get maximized() {
+        return this.parent.maximized;
+    }
+
+    set maximized(value: boolean) {
+        this.parent.maximized = value;
+    }
+
+    maximize() {
+        this.maximized = !this.maximized;
+
+        if (this.maximized) {
+            DomHandler.addClass(document.body, 'p-overflow-hidden');
+        } else {
+            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        }
+
+        this.parent.dialogRef.maximize({ maximized: this.maximized });
+    }
+
+    hide() {
+        this.parent.hide();
+    }
+
+    initDrag($event: MouseEvent) {
+        this.parent.initDrag($event);
+    }
+
+    constructor(public parent: DynamicDialogComponent) {}
+}
+
+@Component({
+    selector: 'p-dialog-content',
+    template: '<div class="p-dialog-content"><ng-content></ng-content></div>'
+})
+export class DynamicDialogActualContent {}
+
+@Component({
+    selector: 'p-dialog-actions',
+    template: '<div class="p-dialog-footer"><ng-content></ng-content></div>'
+})
+export class DynamicDialogActions {}
+
+@Component({
     selector: 'p-dynamicDialog',
     template: `
         <div
@@ -33,7 +107,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         >
             <div
                 #container
-                [ngClass]="{ 'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable, 'p-dialog-draggable': config.draggable, 'p-dialog-maximized': maximized }"
+                class="p-dialog p-dynamic-dialog p-component"
+                [ngClass]="{ 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable, 'p-dialog-draggable': config.draggable, 'p-dialog-maximized': maximized }"
                 [ngStyle]="config.style"
                 [class]="config.styleClass"
                 [@animation]="{ value: 'visible', params: { transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)' } }"
@@ -45,21 +120,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [style.height]="config.height"
             >
                 <div *ngIf="config.resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
-                <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="config.showHeader === false ? false : true">
-                    <span class="p-dialog-title">{{ config.header }}</span>
-                    <div class="p-dialog-header-icons">
-                        <button *ngIf="config.maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
-                            <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                        </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
-                            <span class="p-dialog-header-close-icon pi pi-times"></span>
-                        </button>
-                    </div>
-                </div>
-                <div #content class="p-dialog-content" [ngStyle]="config.contentStyle">
+                <p-dialog-title #titlebar *ngIf="!config.minimal && config.showHeader !== false"></p-dialog-title>
+                <div #content ng-class="{ 'p-dialog-content': !config.minimal }" [ngStyle]="config.contentStyle">
                     <ng-template pDynamicDialogContent></ng-template>
                 </div>
-                <div class="p-dialog-footer" *ngIf="config.footer">
+                <div class="p-dialog-footer" *ngIf="!config.minimal && config.footer">
                     {{ config.footer }}
                 </div>
             </div>
@@ -136,18 +201,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         return this.config.keepInViewport;
     }
 
-    get maximizable(): boolean {
-        return this.config.maximizable;
-    }
-
-    get maximizeIcon(): string {
-        return this.config.maximizeIcon ? this.config.maximizeIcon : 'pi pi-window-maximize';
-    }
-
-    get minimizeIcon(): string {
-        return this.config.minimizeIcon ? this.config.minimizeIcon : 'pi pi-window-minimize';
-    }
-
     get style(): any {
         return this._style;
     }
@@ -168,7 +221,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         private cd: ChangeDetectorRef,
         public renderer: Renderer2,
         public config: DynamicDialogConfig,
-        private dialogRef: DynamicDialogRef,
+        public dialogRef: DynamicDialogRef,
         public zone: NgZone,
         public primeNGConfig: PrimeNGConfig
     ) {}
@@ -308,18 +361,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 setTimeout(() => focusable.focus(), 5);
             });
         }
-    }
-
-    maximize() {
-        this.maximized = !this.maximized;
-
-        if (this.maximized) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
-        } else {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
-        }
-
-        this.dialogRef.maximize({ maximized: this.maximized });
     }
 
     initResize(event: MouseEvent) {
@@ -567,7 +608,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [DynamicDialogComponent, DynamicDialogContent],
+    declarations: [DynamicDialogComponent, DynamicDialogContent, DynamicDialogTitle, DynamicDialogActualContent, DynamicDialogActions],
+    exports: [DynamicDialogTitle, DynamicDialogActualContent, DynamicDialogActions],
     entryComponents: [DynamicDialogComponent]
 })
 export class DynamicDialogModule {}
