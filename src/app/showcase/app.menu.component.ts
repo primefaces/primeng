@@ -328,6 +328,7 @@ declare let gtag: Function;
                     <a [routerLink]=" ['styleclass']" routerLinkActive="router-link-exact-active">StyleClass</a>
                     <a [routerLink]=" ['ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
                     <a [routerLink]=" ['autofocus']" routerLinkActive="router-link-exact-active">AutoFocus<span class="p-tag">New</span></a>
+                    <a [routerLink]=" ['animate']" routerLinkActive="router-link-exact-active">Animate<span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Utilities</div>

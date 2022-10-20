@@ -117,7 +117,8 @@ import { AppMainComponent } from './app.main.component';
                     {path: 'accessibility', loadChildren: () => import('./components/accessibility/accessibilitydemo.module').then(m => m.AccessibilityDemoModule)},
                     {path: 'scroller', loadChildren: () => import('./components/scroller/scrollerdemo.module').then(m => m.ScrollerDemoModule)},
                     {path: 'uikit', loadChildren: () => import('./components/uikit/uikit.module').then(m => m.UIKitModule)},
-                    {path: 'autofocus', loadChildren: () => import('./components/autofocus/autofocusdemo.module').then(m => m.AutoFocusDemoModule)}
+                    {path: 'autofocus', loadChildren: () => import('./components/autofocus/autofocusdemo.module').then(m => m.AutoFocusDemoModule)},
+                    {path: 'animate', loadChildren: () => import('./components/animate/animatedemo.module').then(m => m.AnimateDemoModule)}
                 ],
             },
         ],{scrollPositionRestoration: 'enabled', useHash: false})
