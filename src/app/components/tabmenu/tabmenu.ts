@@ -24,6 +24,7 @@ import {TooltipModule} from 'primeng/tooltip';
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{item.badge}}</span>
                                 </ng-container>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                             </a>
@@ -35,6 +36,7 @@ import {TooltipModule} from 'primeng/tooltip';
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{item.badge}}</span>
                                 </ng-container>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                             </a>
@@ -130,7 +132,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
 
             return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
         }
-            
+
         return item === this.activeItem;
     }
 
