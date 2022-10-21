@@ -53,7 +53,7 @@
     "gulp-uglifycss": "^1.0.6",
     "jasmine-core": "~4.1.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.2.5",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
