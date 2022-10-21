@@ -11,7 +11,7 @@ export const KEYFILTER_VALIDATOR: any = {
 
 const DEFAULT_MASKS = {
     pint: /[\d]/,
-    'int': /[\d\-]/,
+    int: /[\d\-]/,
     pnum: /[\d\.]/,
     money: /[\d\.\s,]/,
     num: /[\d\-\.]/,
@@ -38,18 +38,17 @@ const SAFARI_KEYS = {
     63277: 34, // page down
     63272: 46, // delete
     63273: 36, // home
-    63275: 35  // end
+    63275: 35 // end
 };
 
 @Directive({
     selector: '[pKeyFilter]',
     providers: [KEYFILTER_VALIDATOR],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class KeyFilter implements Validator {
-
     @Input() pValidateOnly: boolean;
 
     @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
@@ -77,22 +76,20 @@ export class KeyFilter implements Validator {
 
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
-        k = DomHandler.getBrowser().safari ? (SAFARI_KEYS[k] || k) : k;
+        k = DomHandler.getBrowser().safari ? SAFARI_KEYS[k] || k : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
-    };
+    }
 
     isSpecialKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
 
-        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 ||(k >= 18 && k <= 20) ||
-            (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
+        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) || (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
     }
-
 
     getKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
-        return DomHandler.getBrowser().safari ? (SAFARI_KEYS[k] || k) : k;
+        return DomHandler.getBrowser().safari ? SAFARI_KEYS[k] || k : k;
     }
 
     getCharCode(e: KeyboardEvent) {
@@ -105,8 +102,7 @@ export class KeyFilter implements Validator {
         for (let i = 0; i < value.length; i++) {
             let str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
 
-            if (str === prevValue)
-                delta = value.substr(i, value.length - prevValue.length);
+            if (str === prevValue) delta = value.substr(i, value.length - prevValue.length);
         }
 
         return delta;
@@ -141,8 +137,7 @@ export class KeyFilter implements Validator {
                     this.el.nativeElement.value = lastVal;
                     this.ngModelChange.emit(lastVal);
                 }
-            }
-            else if (!removed) {
+            } else if (!removed) {
                 if (!this.isValidChar(inserted)) {
                     this.el.nativeElement.value = lastVal;
                     this.ngModelChange.emit(lastVal);
@@ -167,8 +162,7 @@ export class KeyFilter implements Validator {
 
         if (browser.mozilla && (e.ctrlKey || e.altKey)) {
             return;
-        }
-        else if (k == 17 || k == 18) {
+        } else if (k == 17 || k == 18) {
             return;
         }
 
@@ -207,11 +201,10 @@ export class KeyFilter implements Validator {
             if (value && !this.regex.test(value)) {
                 return {
                     validatePattern: false
-                }
+                };
             }
         }
     }
-
 }
 
 @NgModule({
@@ -219,4 +212,4 @@ export class KeyFilter implements Validator {
     exports: [KeyFilter],
     declarations: [KeyFilter]
 })
-export class KeyFilterModule { }
+export class KeyFilterModule {}

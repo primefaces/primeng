@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './splitterdemo.html'
 })
-export class SplitterDemo {
-}
+export class SplitterDemo {}

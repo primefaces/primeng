@@ -8,7 +8,6 @@
  */
 // @dynamic
 export class DomHandler {
-
     public static zindex: number = 1000;
 
     private static calculatedScrollbarWidth: number = null;
@@ -18,10 +17,8 @@ export class DomHandler {
     private static browser: any;
 
     public static addClass(element: any, className: string): void {
-        if (element.classList)
-            element.classList.add(className);
-        else
-            element.className += ' ' + className;
+        if (element.classList) element.classList.add(className);
+        else element.className += ' ' + className;
     }
 
     public static addMultipleClasses(element: any, className: string): void {
@@ -30,9 +27,7 @@ export class DomHandler {
             for (let i = 0; i < styles.length; i++) {
                 element.classList.add(styles[i]);
             }
-
-        }
-        else {
+        } else {
             let styles: string[] = className.split(' ');
             for (let i = 0; i < styles.length; i++) {
                 element.className += ' ' + styles[i];
@@ -41,17 +36,13 @@ export class DomHandler {
     }
 
     public static removeClass(element: any, className: string): void {
-        if (element.classList)
-            element.classList.remove(className);
-        else
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        if (element.classList) element.classList.remove(className);
+        else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
 
     public static hasClass(element: any, className: string): boolean {
-        if (element.classList)
-            return element.classList.contains(className);
-        else
-            return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+        if (element.classList) return element.classList.contains(className);
+        else return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
     }
 
     public static siblings(element: any): any {
@@ -98,14 +89,13 @@ export class DomHandler {
         const viewport = this.getViewport();
         let top: number, left: number;
 
-        if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
-            top = -1 * (elementDimensions.height);
+        if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
+            top = -1 * elementDimensions.height;
             element.style.transformOrigin = 'bottom';
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
-        }
-        else {
+        } else {
             top = targetHeight;
             element.style.transformOrigin = 'top';
         }
@@ -113,12 +103,10 @@ export class DomHandler {
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
             left = targetOffset.left * -1;
-        }
-        else if ((targetOffset.left + elementDimensions.width) > viewport.width) {
+        } else if (targetOffset.left + elementDimensions.width > viewport.width) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
             left = (targetOffset.left + elementDimensions.width - viewport.width) * -1;
-        }
-        else {
+        } else {
             // element fits on screen (align with target)
             left = 0;
         }
@@ -146,22 +134,19 @@ export class DomHandler {
             if (top < 0) {
                 top = windowScrollTop;
             }
-        }
-        else {
+        } else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
             element.style.transformOrigin = 'top';
         }
 
-        if (targetOffset.left + elementOuterWidth > viewport.width)
-            left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
-        else
-            left = targetOffset.left + windowScrollLeft;
+        if (targetOffset.left + elementOuterWidth > viewport.width) left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
+        else left = targetOffset.left + windowScrollLeft;
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
     }
 
-    static getParents(element: any, parents:any = []): any {
+    static getParents(element: any, parents: any = []): any {
         return element['parentNode'] === null ? parents : this.getParents(element.parentNode, parents.concat([element.parentNode]));
     }
 
@@ -236,15 +221,14 @@ export class DomHandler {
         let paddingTop: number = paddingTopValue ? parseFloat(paddingTopValue) : 0;
         let containerRect = container.getBoundingClientRect();
         let itemRect = item.getBoundingClientRect();
-        let offset = (itemRect.top + document.body.scrollTop) - (containerRect.top + document.body.scrollTop) - borderTop - paddingTop;
+        let offset = itemRect.top + document.body.scrollTop - (containerRect.top + document.body.scrollTop) - borderTop - paddingTop;
         let scroll = container.scrollTop;
         let elementHeight = container.clientHeight;
         let itemHeight = this.getOuterHeight(item);
 
         if (offset < 0) {
             container.scrollTop = scroll + offset;
-        }
-        else if ((offset + itemHeight) > elementHeight) {
+        } else if (offset + itemHeight > elementHeight) {
             container.scrollTop = scroll + offset - elementHeight + itemHeight;
         }
     }
@@ -255,7 +239,7 @@ export class DomHandler {
         let last = +new Date();
         let opacity = 0;
         let tick = function () {
-            opacity = +element.style.opacity.replace(",", ".") + (new Date().getTime() - last) / duration;
+            opacity = +element.style.opacity.replace(',', '.') + (new Date().getTime() - last) / duration;
             element.style.opacity = opacity;
             last = +new Date();
 
@@ -297,9 +281,14 @@ export class DomHandler {
 
     public static matches(element, selector: string): boolean {
         var p = Element.prototype;
-        var f = p['matches'] || p.webkitMatchesSelector || p['mozMatchesSelector'] || p['msMatchesSelector'] || function (s) {
-            return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
-        };
+        var f =
+            p['matches'] ||
+            p.webkitMatchesSelector ||
+            p['mozMatchesSelector'] ||
+            p['msMatchesSelector'] ||
+            function (s) {
+                return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+            };
         return f.call(element, selector);
     }
 
@@ -393,14 +382,13 @@ export class DomHandler {
 
         return {
             top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
+            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0)
         };
     }
 
     public static replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
-        if (!parentNode)
-            throw `Can't replace element`;
+        if (!parentNode) throw `Can't replace element`;
         return parentNode.replaceChild(replacementElement, element);
     }
 
@@ -408,7 +396,7 @@ export class DomHandler {
         return navigator.userAgent;
     }
 
-    public static  isIE() {
+    public static isIE() {
         var ua = window.navigator.userAgent;
 
         var msie = ua.indexOf('MSIE ');
@@ -426,8 +414,8 @@ export class DomHandler {
 
         var edge = ua.indexOf('Edge/');
         if (edge > 0) {
-           // Edge (IE 12+) => return version number
-           return true;
+            // Edge (IE 12+) => return version number
+            return true;
         }
 
         // other browser
@@ -443,51 +431,39 @@ export class DomHandler {
     }
 
     public static isTouchDevice() {
-        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
 
     public static appendChild(element: any, target: any) {
-        if (this.isElement(target))
-            target.appendChild(element);
-        else if (target.el && target.el.nativeElement)
-            target.el.nativeElement.appendChild(element);
-        else
-            throw 'Cannot append ' + target + ' to ' + element;
+        if (this.isElement(target)) target.appendChild(element);
+        else if (target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
+        else throw 'Cannot append ' + target + ' to ' + element;
     }
 
     public static removeChild(element: any, target: any) {
-        if (this.isElement(target))
-            target.removeChild(element);
-        else if (target.el && target.el.nativeElement)
-            target.el.nativeElement.removeChild(element);
-        else
-            throw 'Cannot remove ' + element + ' from ' + target;
+        if (this.isElement(target)) target.removeChild(element);
+        else if (target.el && target.el.nativeElement) target.el.nativeElement.removeChild(element);
+        else throw 'Cannot remove ' + element + ' from ' + target;
     }
 
     public static removeElement(element: Element) {
-        if (!('remove' in Element.prototype))
-            element.parentNode.removeChild(element);
-        else
-            element.remove();
+        if (!('remove' in Element.prototype)) element.parentNode.removeChild(element);
+        else element.remove();
     }
 
     public static isElement(obj: any) {
-        return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :
-            obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
-        );
+        return typeof HTMLElement === 'object' ? obj instanceof HTMLElement : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string';
     }
 
     public static calculateScrollbarWidth(el?: HTMLElement): number {
         if (el) {
             let style = getComputedStyle(el);
-            return (el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth));
-        }
-        else {
-            if (this.calculatedScrollbarWidth !== null)
-                return this.calculatedScrollbarWidth;
+            return el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth);
+        } else {
+            if (this.calculatedScrollbarWidth !== null) return this.calculatedScrollbarWidth;
 
-            let scrollDiv = document.createElement("div");
-            scrollDiv.className = "p-scrollbar-measure";
+            let scrollDiv = document.createElement('div');
+            scrollDiv.className = 'p-scrollbar-measure';
             document.body.appendChild(scrollDiv);
 
             let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
@@ -500,11 +476,10 @@ export class DomHandler {
     }
 
     public static calculateScrollbarHeight(): number {
-        if (this.calculatedScrollbarHeight !== null)
-            return this.calculatedScrollbarHeight;
+        if (this.calculatedScrollbarHeight !== null) return this.calculatedScrollbarHeight;
 
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "p-scrollbar-measure";
+        let scrollDiv = document.createElement('div');
+        scrollDiv.className = 'p-scrollbar-measure';
         document.body.appendChild(scrollDiv);
 
         let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
@@ -526,11 +501,10 @@ export class DomHandler {
             } else if (window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
                 window.getSelection().removeAllRanges();
             }
-        }
-        else if (document['selection'] && document['selection'].empty) {
+        } else if (document['selection'] && document['selection'].empty) {
             try {
                 document['selection'].empty();
-            } catch(error) {
+            } catch (error) {
                 //ignore IE bug
             }
         }
@@ -558,25 +532,20 @@ export class DomHandler {
 
     public static resolveUserAgent() {
         let ua = navigator.userAgent.toLowerCase();
-        let match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
-            /(webkit)[ \/]([\w.]+)/.exec(ua) ||
-            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
-            /(msie) ([\w.]+)/.exec(ua) ||
-            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
-            [];
+        let match =
+            /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
 
         return {
-            browser: match[1] || "",
-            version: match[2] || "0"
+            browser: match[1] || '',
+            version: match[2] || '0'
         };
     }
 
     public static isInteger(value): boolean {
         if (Number.isInteger) {
             return Number.isInteger(value);
-        }
-        else {
-            return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+        } else {
+            return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
         }
     }
 
@@ -584,24 +553,25 @@ export class DomHandler {
         return element.offsetParent === null;
     }
 
-    public static getFocusableElements(element:HTMLElement) {
-        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+    public static getFocusableElements(element: HTMLElement) {
+        let focusableElements = DomHandler.find(
+            element,
+            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]):not(.p-disabled)`
-            );
+        );
 
-            let visibleFocusableElements = [];
-            for(let focusableElement of focusableElements) {
-                if (getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
-                    visibleFocusableElements.push(focusableElement);
-            }
+        let visibleFocusableElements = [];
+        for (let focusableElement of focusableElements) {
+            if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') visibleFocusableElements.push(focusableElement);
+        }
         return visibleFocusableElements;
     }
 
     static generateZIndex() {
-        this.zindex = this.zindex||999;
+        this.zindex = this.zindex || 999;
         return ++this.zindex;
     }
 }

@@ -39,8 +39,3 @@ jobs:
       if: ${{ success() }}
       run: |
         npm run security:check
-
-    - name: Test
-      if: ${{ success() }}
-      run: |
-        npm run test

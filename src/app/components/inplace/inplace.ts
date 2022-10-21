@@ -1,13 +1,13 @@
-import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, TemplateRef, QueryList, ContentChildren} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {PrimeTemplate} from 'primeng/api';
+import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, TemplateRef, QueryList, ContentChildren } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-inplaceDisplay',
     template: '<ng-content></ng-content>',
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class InplaceDisplay {}
@@ -16,7 +16,7 @@ export class InplaceDisplay {}
     selector: 'p-inplaceContent',
     template: '<ng-content></ng-content>',
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class InplaceContent {}
@@ -24,9 +24,8 @@ export class InplaceContent {}
 @Component({
     selector: 'p-inplace',
     template: `
-        <div [ngClass]="{'p-inplace p-component': true, 'p-inplace-closable': closable}" [ngStyle]="style" [class]="styleClass">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"
-                [ngClass]="{'p-disabled':disabled}" *ngIf="!active">
+        <div [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }" [ngStyle]="style" [class]="styleClass">
+            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
                 <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
             </div>
@@ -41,11 +40,10 @@ export class InplaceContent {}
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inplace.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Inplace implements AfterContentInit {
-
     @Input() active: boolean;
 
     @Input() closable: boolean;
@@ -76,26 +74,24 @@ export class Inplace implements AfterContentInit {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'display':
                     this.displayTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
 
     onActivateClick(event) {
-        if (!this.preventClick)
-            this.activate(event);
+        if (!this.preventClick) this.activate(event);
     }
 
     onDeactivateClick(event) {
-        if (!this.preventClick)
-            this.deactivate(event);
+        if (!this.preventClick) this.deactivate(event);
     }
 
     activate(event?: Event) {
@@ -124,8 +120,8 @@ export class Inplace implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
-    exports: [Inplace,InplaceDisplay,InplaceContent,ButtonModule],
-    declarations: [Inplace,InplaceDisplay,InplaceContent]
+    imports: [CommonModule, ButtonModule],
+    exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule],
+    declarations: [Inplace, InplaceDisplay, InplaceContent]
 })
-export class InplaceModule { }
+export class InplaceModule {}

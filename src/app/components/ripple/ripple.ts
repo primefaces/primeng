@@ -6,12 +6,11 @@ import { PrimeNGConfig } from 'primeng/api';
 @Directive({
     selector: '[pRipple]',
     host: {
-        'class': 'p-ripple p-element'
+        class: 'p-ripple p-element'
     }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
-
-    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
 
     animationListener: any;
 
@@ -112,4 +111,4 @@ export class Ripple implements AfterViewInit, OnDestroy {
     exports: [Ripple],
     declarations: [Ripple]
 })
-export class RippleModule { }
+export class RippleModule {}

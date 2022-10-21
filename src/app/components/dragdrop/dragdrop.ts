@@ -1,15 +1,14 @@
-import {NgModule,Directive,OnDestroy,AfterViewInit,ElementRef,HostListener,Input,Output,EventEmitter,NgZone} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
+import { NgModule, Directive, OnDestroy, AfterViewInit, ElementRef, HostListener, Input, Output, EventEmitter, NgZone } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
 
 @Directive({
     selector: '[pDraggable]',
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Draggable implements AfterViewInit, OnDestroy {
-
     @Input('pDraggable') scope: string;
 
     @Input() dragEffect: string;
@@ -37,13 +36,12 @@ export class Draggable implements AfterViewInit, OnDestroy {
     @Input() get pDraggableDisabled(): boolean {
         return this._pDraggableDisabled;
     }
-    set pDraggableDisabled(_pDraggableDisabled:boolean) {
+    set pDraggableDisabled(_pDraggableDisabled: boolean) {
         this._pDraggableDisabled = _pDraggableDisabled;
 
         if (this._pDraggableDisabled) {
             this.unbindMouseListeners();
-        }
-        else {
+        } else {
             this.el.nativeElement.draggable = true;
             this.bindMouseListeners();
         }
@@ -111,8 +109,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
             this.onDragStart.emit(event);
 
             this.bindDragListener();
-        }
-        else {
+        } else {
             event.preventDefault();
         }
     }
@@ -131,29 +128,25 @@ export class Draggable implements AfterViewInit, OnDestroy {
         this.handle = null;
     }
 
-    allowDrag() : boolean {
-        if (this.dragHandle && this.handle)
-            return DomHandler.matches(this.handle, this.dragHandle);
-        else
-            return true;
+    allowDrag(): boolean {
+        if (this.dragHandle && this.handle) return DomHandler.matches(this.handle, this.dragHandle);
+        else return true;
     }
 
     ngOnDestroy() {
         this.unbindDragListener();
         this.unbindMouseListeners();
     }
-
 }
 
 @Directive({
     selector: '[pDroppable]',
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Droppable implements AfterViewInit, OnDestroy {
-
-    @Input('pDroppable') scope: string|string[];
+    @Input('pDroppable') scope: string | string[];
 
     @Input() pDroppableDisabled: boolean;
 
@@ -228,11 +221,10 @@ export class Droppable implements AfterViewInit, OnDestroy {
 
     allowDrop(event): boolean {
         let dragScope = event.dataTransfer.getData('text');
-        if (typeof (this.scope) == "string" && dragScope == this.scope) {
+        if (typeof this.scope == 'string' && dragScope == this.scope) {
             return true;
-        }
-        else if (this.scope instanceof Array) {
-            for(let j = 0; j < this.scope.length; j++) {
+        } else if (this.scope instanceof Array) {
+            for (let j = 0; j < this.scope.length; j++) {
                 if (dragScope == this.scope[j]) {
                     return true;
                 }
@@ -248,7 +240,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Draggable,Droppable],
-    declarations: [Draggable,Droppable]
+    exports: [Draggable, Droppable],
+    declarations: [Draggable, Droppable]
 })
-export class DragDropModule { }
+export class DragDropModule {}

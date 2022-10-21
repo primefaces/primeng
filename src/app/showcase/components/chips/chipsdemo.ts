@@ -1,12 +1,11 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './chipsdemo.html'
 })
 export class ChipsDemo {
-
     values1: string[];
-    
+
     values2: string[];
 
     values3: string[];

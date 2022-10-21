@@ -25,30 +25,28 @@ import { AppCodeModule } from '../../app.code.component';
 import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		InvalidDemoRoutingModule,
-		ButtonModule,
-		CascadeSelectModule,
+    imports: [
+        CommonModule,
+        InvalidDemoRoutingModule,
+        ButtonModule,
+        CascadeSelectModule,
         PanelModule,
-		TabViewModule,
-		InputTextModule,
-		AutoCompleteModule,
-		CalendarModule,
-		ChipsModule,
-		InputMaskModule,
-		InputNumberModule,
-		DropdownModule,
-		MultiSelectModule,
-		InputTextareaModule,
+        TabViewModule,
+        InputTextModule,
+        AutoCompleteModule,
+        CalendarModule,
+        ChipsModule,
+        InputMaskModule,
+        InputNumberModule,
+        DropdownModule,
+        MultiSelectModule,
+        InputTextareaModule,
         PasswordModule,
         TreeSelectModule,
-		FormsModule,
-		AppDemoActionsModule,
+        FormsModule,
+        AppDemoActionsModule,
         AppCodeModule
-	],
-	declarations: [
-		InvalidDemo
-	]
+    ],
+    declarations: [InvalidDemo]
 })
 export class InvalidDemoModule {}

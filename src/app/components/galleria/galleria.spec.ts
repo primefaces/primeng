@@ -4,16 +4,12 @@ import { Galleria, GalleriaModule } from './galleria';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Galleria', () => {
-
     let galleria: Galleria;
     let fixture: ComponentFixture<Galleria>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                GalleriaModule
-            ]
+            imports: [NoopAnimationsModule, GalleriaModule]
         });
 
         fixture = TestBed.createComponent(Galleria);
@@ -21,9 +17,9 @@ describe('Galleria', () => {
     });
 
     it('should not display by default', () => {
-		fixture.detectChanges();
+        fixture.detectChanges();
 
-		const galleriaEl = fixture.debugElement.query(By.css('.p-galleria'));
-		expect(galleriaEl).toBeNull();
-	});
+        const galleriaEl = fixture.debugElement.query(By.css('.p-galleria'));
+        expect(galleriaEl).toBeNull();
+    });
 });

@@ -4,7 +4,6 @@ import { Confirmation } from './confirmation';
 
 @Injectable()
 export class ConfirmationService {
-
     private requireConfirmationSource = new Subject<Confirmation>();
     private acceptConfirmationSource = new Subject<Confirmation>();
 

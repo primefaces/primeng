@@ -7,14 +7,13 @@ import { LazyLoadEvent } from 'primeng/api';
     templateUrl: './tablevirtualscrolldemo.html'
 })
 export class TableVirtualScrollDemo implements OnInit {
-
     cars: Car[];
 
     virtualCars: Car[];
 
     cols: any[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.cols = [
@@ -33,7 +32,7 @@ export class TableVirtualScrollDemo implements OnInit {
         //simulate remote connection with a timeout
         setTimeout(() => {
             //load data of required page
-            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
+            let loadedCars = this.cars.slice(event.first, event.first + event.rows);
 
             //populate page of virtual cars
             Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);

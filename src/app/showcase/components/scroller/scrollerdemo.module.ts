@@ -9,17 +9,7 @@ import { AppCodeModule } from '../../app.code.component';
 import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ScrollerModule,
-        ScrollerDemoRoutingModule,
-        SkeletonModule,
-        TabViewModule,
-        AppCodeModule,
-        AppDemoActionsModule
-    ],
-    declarations: [
-        ScrollerDemo
-    ]
+    imports: [CommonModule, ScrollerModule, ScrollerDemoRoutingModule, SkeletonModule, TabViewModule, AppCodeModule, AppDemoActionsModule],
+    declarations: [ScrollerDemo]
 })
-export class ScrollerDemoModule { }
+export class ScrollerDemoModule {}
