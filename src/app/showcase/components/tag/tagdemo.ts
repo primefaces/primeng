@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './tagdemo.html'
 })
-export class TagDemo {
-}
+export class TagDemo {}

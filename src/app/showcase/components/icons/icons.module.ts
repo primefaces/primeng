@@ -6,14 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        InputTextModule,
-        AppCodeModule,
-        IconsRoutingModule
-    ],
-    declarations: [
-        IconsComponent
-    ]
+    imports: [CommonModule, InputTextModule, AppCodeModule, IconsRoutingModule],
+    declarations: [IconsComponent]
 })
-export class IconsModule { }
+export class IconsModule {}

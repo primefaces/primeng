@@ -1,13 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AppConfigService} from '../../../service/appconfigservice';
-import {AppConfig} from '../../../domain/appconfig';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../../service/appconfigservice';
+import { AppConfig } from '../../../domain/appconfig';
 
 @Component({
     templateUrl: './radarchartdemo.html'
 })
 export class RadarChartDemo implements OnInit, OnDestroy {
-
     data: any;
 
     chartOptions: any;
@@ -47,7 +46,7 @@ export class RadarChartDemo implements OnInit, OnDestroy {
 
         this.config = this.configService.config;
         this.updateChartOptions();
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
             this.updateChartOptions();
         });
@@ -69,17 +68,17 @@ export class RadarChartDemo implements OnInit, OnDestroy {
             scales: {
                 r: {
                     pointLabels: {
-                        color: '#495057',
+                        color: '#495057'
                     },
                     grid: {
-                        color: '#ebedef',
+                        color: '#ebedef'
                     },
                     angleLines: {
                         color: '#ebedef'
                     }
                 }
             }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -94,17 +93,17 @@ export class RadarChartDemo implements OnInit, OnDestroy {
             scales: {
                 r: {
                     pointLabels: {
-                        color: '#ebedef',
+                        color: '#ebedef'
                     },
                     grid: {
-                        color: 'rgba(255,255,255,0.2)',
+                        color: 'rgba(255,255,255,0.2)'
                     },
                     angleLines: {
                         color: 'rgba(255,255,255,0.2)'
                     }
                 }
             }
-        }
+        };
     }
 
     ngOnDestroy() {

@@ -6,15 +6,14 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './tableresponsivedemo.html'
 })
 export class TableResponsiveDemo implements OnInit {
-
     products: Product[];
 
     cols: any[];
 
-    constructor(private productService: ProductService) { }
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(data => this.products = data);
+        this.productService.getProductsSmall().then((data) => (this.products = data));
 
         this.cols = [
             { field: 'code', header: 'Code' },
@@ -25,5 +24,4 @@ export class TableResponsiveDemo implements OnInit {
             { field: 'rating', header: 'Rating' }
         ];
     }
-
 }

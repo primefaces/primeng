@@ -7,36 +7,16 @@ interface OverlayOptions {
     breakpoint: number;
 }
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
-
     ripple: boolean = false;
 
     overlayOptions: OverlayOptions;
 
     filterMatchModeOptions = {
-        text: [
-            FilterMatchMode.STARTS_WITH,
-            FilterMatchMode.CONTAINS,
-            FilterMatchMode.NOT_CONTAINS,
-            FilterMatchMode.ENDS_WITH,
-            FilterMatchMode.EQUALS,
-            FilterMatchMode.NOT_EQUALS
-        ],
-        numeric: [
-            FilterMatchMode.EQUALS,
-            FilterMatchMode.NOT_EQUALS,
-            FilterMatchMode.LESS_THAN,
-            FilterMatchMode.LESS_THAN_OR_EQUAL_TO,
-            FilterMatchMode.GREATER_THAN,
-            FilterMatchMode.GREATER_THAN_OR_EQUAL_TO
-        ],
-        date: [
-            FilterMatchMode.DATE_IS,
-            FilterMatchMode.DATE_IS_NOT,
-            FilterMatchMode.DATE_BEFORE,
-            FilterMatchMode.DATE_AFTER
-        ]
+        text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
+        numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
+        date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
     };
 
     private translation: Translation = {
@@ -70,11 +50,11 @@ export class PrimeNGConfig {
         choose: 'Choose',
         upload: 'Upload',
         cancel: 'Cancel',
-        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-        monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December"],
-        monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         dateFormat: 'mm/dd/yy',
         firstDayOfWeek: 0,
         today: 'Today',
@@ -85,14 +65,14 @@ export class PrimeNGConfig {
         passwordPrompt: 'Enter a password',
         emptyMessage: 'No results found',
         emptyFilterMessage: 'No results found'
-    }
+    };
 
     zIndex = {
         modal: 1100,
         overlay: 1000,
         menu: 1000,
         tooltip: 1100
-    }
+    };
 
     private translationSource = new Subject<any>();
 
@@ -103,7 +83,7 @@ export class PrimeNGConfig {
     }
 
     setTranslation(value: Translation) {
-        this.translation = {...this.translation, ...value};
+        this.translation = { ...this.translation, ...value };
         this.translationSource.next(this.translation);
     }
 }

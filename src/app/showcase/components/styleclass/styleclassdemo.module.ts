@@ -8,22 +8,10 @@ import { StyleClassDemo } from './styleclassdemo';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppCodeModule } from '../../app.code.component';
 import { TabViewModule } from 'primeng/tabview';
-import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		StyleClassDemoRoutingModule,
-        FormsModule,
-        ButtonModule,
-		InputTextModule,
-		StyleClassModule,
-		AppCodeModule,
-		TabViewModule,
-		AppDemoActionsModule
-	],
-	declarations: [
-		StyleClassDemo
-	]
+    imports: [CommonModule, StyleClassDemoRoutingModule, FormsModule, ButtonModule, InputTextModule, StyleClassModule, AppCodeModule, TabViewModule, AppDemoActionsModule],
+    declarations: [StyleClassDemo]
 })
 export class StyleClassDemoModule {}

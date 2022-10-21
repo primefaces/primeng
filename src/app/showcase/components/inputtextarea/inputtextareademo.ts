@@ -1,8 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './inputtextareademo.html'
 })
-export class InputTextareaDemo {
-
-}
+export class InputTextareaDemo {}

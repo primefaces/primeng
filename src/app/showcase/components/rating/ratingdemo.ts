@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './ratingdemo.html'
 })
 export class RatingDemo {
-
     val1: number;
 
     val2: number = 3;

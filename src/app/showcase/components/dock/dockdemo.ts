@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,6 @@ import { PhotoService } from '../../service/photoservice';
     providers: [MessageService, TerminalService]
 })
 export class DockDemo {
-
     displayTerminal: boolean;
 
     displayFinder: boolean;
@@ -32,25 +31,25 @@ export class DockDemo {
 
     subscription: Subscription;
 
-    constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) { }
+    constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) {}
 
     ngOnInit() {
         this.dockBasicItems = [
             {
                 label: 'Finder',
-                icon: "assets/showcase/images/dock/finder.svg"
+                icon: 'assets/showcase/images/dock/finder.svg'
             },
             {
                 label: 'App Store',
-                icon: "assets/showcase/images/dock/appstore.svg"
+                icon: 'assets/showcase/images/dock/appstore.svg'
             },
             {
                 label: 'Photos',
-                icon: "assets/showcase/images/dock/photos.svg"
+                icon: 'assets/showcase/images/dock/photos.svg'
             },
             {
                 label: 'Trash',
-                icon: "assets/showcase/images/dock/trash.png"
+                icon: 'assets/showcase/images/dock/trash.png'
             }
         ];
 
@@ -58,13 +57,13 @@ export class DockDemo {
             {
                 label: 'Finder',
                 tooltipOptions: {
-                    tooltipLabel: "Finder",
+                    tooltipLabel: 'Finder',
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: "assets/showcase/images/dock/finder.svg",
+                icon: 'assets/showcase/images/dock/finder.svg',
                 command: () => {
                     this.displayFinder = true;
                 }
@@ -72,13 +71,13 @@ export class DockDemo {
             {
                 label: 'Terminal',
                 tooltipOptions: {
-                    tooltipLabel: "Terminal",
+                    tooltipLabel: 'Terminal',
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: "assets/showcase/images/dock/terminal.svg",
+                icon: 'assets/showcase/images/dock/terminal.svg',
                 command: () => {
                     this.displayTerminal = true;
                 }
@@ -86,68 +85,68 @@ export class DockDemo {
             {
                 label: 'App Store',
                 tooltipOptions: {
-                    tooltipLabel: "App Store",
+                    tooltipLabel: 'App Store',
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: "assets/showcase/images/dock/appstore.svg",
+                icon: 'assets/showcase/images/dock/appstore.svg',
                 command: () => {
-                    this.messageService.add({severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE'});
+                    this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE' });
                 }
             },
             {
                 label: 'Safari',
                 tooltipOptions: {
-                    tooltipLabel: "Safari",
+                    tooltipLabel: 'Safari',
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: "assets/showcase/images/dock/safari.svg",
+                icon: 'assets/showcase/images/dock/safari.svg',
                 command: () => {
-                    this.messageService.add({severity: 'warn', summary: 'Safari has stopped working'});
+                    this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working' });
                 }
             },
             {
                 label: 'Photos',
                 tooltipOptions: {
-                    tooltipLabel: "Photos",
+                    tooltipLabel: 'Photos',
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: "assets/showcase/images/dock/photos.svg",
+                icon: 'assets/showcase/images/dock/photos.svg',
                 command: () => {
-                    this.displayGalleria = true
+                    this.displayGalleria = true;
                 }
             },
             {
                 label: 'GitHub',
                 tooltipOptions: {
-                    tooltipLabel: "GitHub",
+                    tooltipLabel: 'GitHub',
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: "assets/showcase/images/dock/github.svg",
+                icon: 'assets/showcase/images/dock/github.svg'
             },
             {
                 label: 'Trash',
                 tooltipOptions: {
-                    tooltipLabel: "Trash",
+                    tooltipLabel: 'Trash',
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: "assets/showcase/images/dock/trash.png",
+                icon: 'assets/showcase/images/dock/trash.png',
                 command: () => {
-                    this.messageService.add({severity: 'info', summary: 'Empty Trash'});
+                    this.messageService.add({ severity: 'info', summary: 'Empty Trash' });
                 }
             }
         ];
@@ -171,8 +170,7 @@ export class DockDemo {
                             {
                                 label: 'Video',
                                 icon: 'pi pi-fw pi-video'
-                            },
-
+                            }
                         ]
                     },
                     {
@@ -206,8 +204,7 @@ export class DockDemo {
                     {
                         label: 'Justify',
                         icon: 'pi pi-fw pi-align-justify'
-                    },
-
+                    }
                 ]
             },
             {
@@ -215,13 +212,11 @@ export class DockDemo {
                 items: [
                     {
                         label: 'New',
-                        icon: 'pi pi-fw pi-user-plus',
-
+                        icon: 'pi pi-fw pi-user-plus'
                     },
                     {
                         label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus',
-
+                        icon: 'pi pi-fw pi-user-minus'
                     },
                     {
                         label: 'Search',
@@ -294,10 +289,10 @@ export class DockDemo {
             }
         ];
 
-        this.subscription = this.terminalService.commandHandler.subscribe(command => this.commandHandler(command));
+        this.subscription = this.terminalService.commandHandler.subscribe((command) => this.commandHandler(command));
 
-        this.galleriaService.getImages().then(data => this.images = data);
-        this.nodeService.getFiles().then(data => this.nodes = data);
+        this.galleriaService.getImages().then((data) => (this.images = data));
+        this.nodeService.getFiles().then((data) => (this.nodes = data));
     }
 
     commandHandler(text) {
@@ -308,19 +303,19 @@ export class DockDemo {
         switch (command) {
             case 'date':
                 response = 'Today is ' + new Date().toDateString();
-            break;
+                break;
 
             case 'greet':
                 response = 'Hola ' + text.substring(argsIndex + 1) + '!';
-            break;
+                break;
 
             case 'random':
                 response = Math.floor(Math.random() * 100);
-            break;
+                break;
 
             default:
                 response = 'Unknown command: ' + command;
-            break;
+                break;
         }
 
         if (response) {

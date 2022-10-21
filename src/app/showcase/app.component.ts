@@ -10,9 +10,8 @@ import { JsonService } from './service/jsonservice';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-
     constructor(private configService: AppConfigService, private JsonService: JsonService) {}
-       
+
     config: AppConfig;
 
     public subscription: Subscription;
@@ -21,18 +20,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public newsActive: boolean;
 
-    storageKey = "primeng";
+    storageKey = 'primeng';
 
     ngOnInit() {
-        this.config = {theme: 'lara-light-blue', dark: false}
+        this.config = { theme: 'lara-light-blue', dark: false };
 
-        this.subscription = this.configService.configUpdate$.subscribe( config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             const linkElement = document.getElementById('theme-link');
             this.replaceLink(linkElement, config.theme);
             this.config = config;
         });
 
-        this.JsonService.getAnnouncement().then(data => {
+        this.JsonService.getAnnouncement().then((data) => {
             this.announcement = data;
 
             const itemString = localStorage.getItem(this.storageKey);
@@ -41,8 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 if (item.hiddenNews && item.hiddenNews !== data.id) {
                     this.newsActive = true;
                 }
-            }
-            else {
+            } else {
                 this.newsActive = true;
             }
         });

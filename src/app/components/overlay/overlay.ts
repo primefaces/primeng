@@ -1,50 +1,40 @@
-import {NgModule,Component,Input,OnDestroy,Renderer2,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Inject, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
-import {CommonModule, DOCUMENT} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {SharedModule, PrimeNGConfig, OverlayService} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
-import {trigger,style,transition,animate, animation, useAnimation} from '@angular/animations';
-import {ZIndexUtils} from 'primeng/utils';
+import { NgModule, Component, Input, OnDestroy, Renderer2, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Inject, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
+import { SharedModule, PrimeNGConfig, OverlayService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { trigger, style, transition, animate, animation, useAnimation } from '@angular/animations';
+import { ZIndexUtils } from 'primeng/utils';
 
-const showAnimation = animation([
-    style({ transform: '{{transform}}', opacity: 0 }),
-    animate('{{showTransitionParams}}')
-]);
+const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
 
-const hideAnimation = animation([
-    animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))
-]);
+const hideAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
     selector: 'p-overlay',
     template: `
-    <div class="p-overlay" #overlay (click)="onOverlayClick($event)">
-        <div #mask [ngClass]="{'p-mask p-overlay-mask p-component-overlay-enter': responsive}">
-            <div #content [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
-                <ng-content></ng-content>
+        <div class="p-overlay" #overlay (click)="onOverlayClick($event)">
+            <div #mask [ngClass]="{ 'p-mask p-overlay-mask p-component-overlay-enter': responsive }">
+                <div
+                    #content
+                    [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions } }"
+                    (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+                    (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+                >
+                    <ng-content></ng-content>
+                </div>
             </div>
         </div>
-    </div>
     `,
-    animations: [
-        trigger('overlayAnimation', [
-            transition(':enter', [
-                useAnimation(showAnimation)
-            ]),
-            transition(':leave', [
-                useAnimation(hideAnimation)
-            ])
-        ])
-    ],
+    animations: [trigger('overlayAnimation', [transition(':enter', [useAnimation(showAnimation)]), transition(':leave', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./overlay.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Overlay implements OnDestroy {
-
     @Input() baseZIndex: number = 0;
 
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
@@ -73,18 +63,17 @@ export class Overlay implements OnDestroy {
 
             switch (value) {
                 case 'start':
-                    this.transformOptions = "translate3d(0px, -100%, 0px)";
-                break;
+                    this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                    break;
                 case 'end':
-                    this.transformOptions = "translate3d(0px, 100%, 0px)";
-                break;
-                case 'center': 
-                    this.transformOptions = "scale(0.8)";
-                break;
+                    this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                    break;
+                case 'center':
+                    this.transformOptions = 'scale(0.8)';
+                    break;
             }
-        } 
-        else {
-            this.transformOptions = "scaleY(0.8)";
+        } else {
+            this.transformOptions = 'scaleY(0.8)';
         }
     }
 
@@ -99,7 +88,7 @@ export class Overlay implements OnDestroy {
     get appendTo(): any {
         return this._appendTo;
     }
-    
+
     @Input() set visible(value: boolean) {
         this._visible = value;
     }
@@ -112,7 +101,7 @@ export class Overlay implements OnDestroy {
         return this.config.overlayOptions ? this.config.overlayOptions.breakpoint : null;
     }
 
-    get viewport(): any { 
+    get viewport(): any {
         this._viewport = DomHandler.getViewport();
         return this._viewport;
     }
@@ -127,7 +116,7 @@ export class Overlay implements OnDestroy {
 
     _appendTo: any;
 
-    transformOptions: string = "scaleY(0.8)";
+    transformOptions: string = 'scaleY(0.8)';
 
     documentResizeListener: any;
 
@@ -138,7 +127,7 @@ export class Overlay implements OnDestroy {
     ngOnInit() {
         this.bindDocumentResizeListener();
     }
-    
+
     onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
@@ -166,14 +155,12 @@ export class Overlay implements OnDestroy {
             DomHandler.addClass(this.document.body, 'p-overflow-hidden');
             DomHandler.addClass(this.overlayViewChild.nativeElement, 'p-overlay-responsive');
             DomHandler.addClass(this.contentViewChild.nativeElement.firstChild, 'p-overlay-panel-static');
-        }
-        else {
+        } else {
             this.responsive = false;
             if (this.appendTo) {
                 if (this.appendTo === 'body') {
                     this.document.body.appendChild(this.overlayViewChild.nativeElement);
-                }
-                else {
+                } else {
                     DomHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
                 }
             }
@@ -184,27 +171,25 @@ export class Overlay implements OnDestroy {
     }
 
     alignOverlay() {
-        if(this.overlayViewChild) {
+        if (this.overlayViewChild) {
             if (this.viewport.width < this.overlayBreakpoints) {
                 switch (this.overlayDirection) {
                     case 'start':
-                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-start')
-                    break;
-                    
+                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-start');
+                        break;
+
                     case 'center':
-                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-center')
-                    break;
-                    
+                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-center');
+                        break;
+
                     case 'end':
-                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-end')
-                    break;
+                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-end');
+                        break;
                 }
-            }
-            else {
+            } else {
                 if (this.appendTo) {
                     DomHandler.absolutePosition(this.overlayViewChild.nativeElement, this.container);
-                }
-                else {
+                } else {
                     DomHandler.relativePosition(this.overlayViewChild.nativeElement, this.container);
                 }
             }
@@ -235,7 +220,7 @@ export class Overlay implements OnDestroy {
     onWindowResize() {
         if (this.visible) {
             this.visible = false;
-            this.onOverlayHide.emit({visible: this.visible});
+            this.onOverlayHide.emit({ visible: this.visible });
             this.cd.markForCheck();
         }
     }
@@ -243,24 +228,23 @@ export class Overlay implements OnDestroy {
     destroyOverlay() {
         this.unblockScroll();
         this.unbindDocumentResizeListener();
-        
+
         if (this.overlayViewChild && this.overlayViewChild.nativeElement) {
             ZIndexUtils.clear(this.el.nativeElement);
             this.overlayViewChild = null;
         }
 
-        this.onOverlayHide.emit({visible: this.visible});
+        this.onOverlayHide.emit({ visible: this.visible });
     }
-    
+
     ngOnDestroy() {
         this.destroyOverlay();
     }
-
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule, SharedModule],
+    imports: [CommonModule, RippleModule, SharedModule],
     exports: [Overlay, SharedModule],
     declarations: [Overlay]
 })
-export class OverlayModule { }
+export class OverlayModule {}

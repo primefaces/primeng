@@ -1,8 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './i18n.component.html'
 })
-export class I18NComponent {
-
-}
+export class I18NComponent {}

@@ -1,13 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AppConfigService} from '../../../service/appconfigservice';
-import {AppConfig} from '../../../domain/appconfig';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../../service/appconfigservice';
+import { AppConfig } from '../../../domain/appconfig';
 
 @Component({
     templateUrl: './combochartdemo.html'
 })
 export class ComboChartDemo implements OnInit, OnDestroy {
-
     data: any;
 
     chartOptions: any;
@@ -21,53 +20,33 @@ export class ComboChartDemo implements OnInit, OnDestroy {
     ngOnInit() {
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                type: 'line',
-                label: 'Dataset 1',
-                borderColor: '#42A5F5',
-                borderWidth: 2,
-                fill: false,
-                data: [
-                    50,
-                    25,
-                    12,
-                    48,
-                    56,
-                    76,
-                    42
-                ]
-            }, {
-                type: 'bar',
-                label: 'Dataset 2',
-                backgroundColor: '#66BB6A',
-                data: [
-                    21,
-                    84,
-                    24,
-                    75,
-                    37,
-                    65,
-                    34
-                ],
-                borderColor: 'white',
-                borderWidth: 2
-            }, {
-                type: 'bar',
-                label: 'Dataset 3',
-                backgroundColor: '#FFA726',
-                data: [
-                    41,
-                    52,
-                    24,
-                    74,
-                    23,
-                    21,
-                    32
-                ]
-            }]
+            datasets: [
+                {
+                    type: 'line',
+                    label: 'Dataset 1',
+                    borderColor: '#42A5F5',
+                    borderWidth: 2,
+                    fill: false,
+                    data: [50, 25, 12, 48, 56, 76, 42]
+                },
+                {
+                    type: 'bar',
+                    label: 'Dataset 2',
+                    backgroundColor: '#66BB6A',
+                    data: [21, 84, 24, 75, 37, 65, 34],
+                    borderColor: 'white',
+                    borderWidth: 2
+                },
+                {
+                    type: 'bar',
+                    label: 'Dataset 3',
+                    backgroundColor: '#FFA726',
+                    data: [41, 52, 24, 74, 23, 21, 32]
+                }
+            ]
         };
 
-        this.chartOptions =  {
+        this.chartOptions = {
             plugins: {
                 legend: {
                     labels: {
@@ -97,17 +76,15 @@ export class ComboChartDemo implements OnInit, OnDestroy {
 
         this.config = this.configService.config;
         this.updateChartOptions();
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
             this.updateChartOptions();
         });
     }
 
     updateChartOptions() {
-        if (this.config.dark)
-            this.applyDarkTheme();
-        else
-            this.applyLightTheme();
+        if (this.config.dark) this.applyDarkTheme();
+        else this.applyLightTheme();
     }
 
     applyLightTheme() {
@@ -137,7 +114,7 @@ export class ComboChartDemo implements OnInit, OnDestroy {
                     }
                 }
             }
-        }
+        };
     }
 
     applyDarkTheme() {

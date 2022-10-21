@@ -1,7 +1,7 @@
 import { Component, NgModule, OnInit, OnDestroy } from '@angular/core';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
-import { AppConfigService} from './service/appconfigservice';
+import { AppConfigService } from './service/appconfigservice';
 import { Subscription } from 'rxjs';
 import { AppConfig } from './domain/appconfig';
 import { DomHandler } from 'primeng/dom';
@@ -25,27 +25,24 @@ import { DomHandler } from 'primeng/dom';
     `
 })
 export class AppInputStyleSwitchComponent implements OnInit, OnDestroy {
-
     value: string;
-    
+
     config: AppConfig;
-    
+
     public subscription: Subscription;
 
     constructor(private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+        this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
     }
 
     onChange() {
         this.configService.updateConfig(this.config);
 
-        if (this.config.inputStyle === 'filled')
-            DomHandler.addClass(document.body, 'p-input-filled');
-        else
-            DomHandler.removeClass(document.body, 'p-input-filled');
+        if (this.config.inputStyle === 'filled') DomHandler.addClass(document.body, 'p-input-filled');
+        else DomHandler.removeClass(document.body, 'p-input-filled');
     }
 
     ngOnDestroy() {
@@ -60,4 +57,4 @@ export class AppInputStyleSwitchComponent implements OnInit, OnDestroy {
     exports: [AppInputStyleSwitchComponent],
     declarations: [AppInputStyleSwitchComponent]
 })
-export class AppInputStyleSwitchModule { }
+export class AppInputStyleSwitchModule {}

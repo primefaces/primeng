@@ -91,7 +91,7 @@ export class PrimeIcons {
     public static readonly ENVELOPE = 'pi pi-envelope';
     public static readonly EURO = 'pi pi-euro';
     public static readonly EXCLAMATION_CIRCLE = 'pi pi-exclamation-circle';
-    public static readonly EXCLAMATION_TRIANGLE  = 'pi pi-exclamation-triangle';
+    public static readonly EXCLAMATION_TRIANGLE = 'pi pi-exclamation-triangle';
     public static readonly EXTERNAL_LINK = 'pi pi-external-link';
     public static readonly EYE = 'pi pi-eye';
     public static readonly EYE_SLASH = 'pi pi-eye-slash';
@@ -234,5 +234,5 @@ export class PrimeIcons {
     public static readonly WIFI = 'pi pi-wifi';
     public static readonly WINDOW_MAXIMIZE = 'pi pi-window-maximize';
     public static readonly WINDOW_MINIMIZE = 'pi pi-window-minimize';
-    public static readonly YOUTUBE = 'pi pi-youtube'
+    public static readonly YOUTUBE = 'pi pi-youtube';
 }

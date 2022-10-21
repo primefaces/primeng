@@ -6,7 +6,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None
 })
 export class ScrollerDemo implements OnInit {
-
     basicItems: string[];
 
     multiItems: string[][];

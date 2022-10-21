@@ -1,8 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './codehighlighterdemo.html'
 })
-export class CodeHighlighterDemo {
-    
-}
+export class CodeHighlighterDemo {}
