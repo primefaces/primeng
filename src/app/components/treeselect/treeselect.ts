@@ -47,7 +47,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
         </div>
         <div #overlayRef class="p-treeselect-panel p-component" *ngIf="overlayVisible" (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
+            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
             <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: value, options: options}"></ng-container>
             <div class="p-treeselect-header" *ngIf="filter">
                 <div class="p-treeselect-filter-container">
@@ -119,10 +119,14 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() panelClass: string;
 
+    @Input() panelStyle: any;
+
+    @Input() panelStyleClass: string;
+
     @Input() containerStyle: object;
 
     @Input() containerStyleClass: string;
-    
+
     @Input() labelStyle: object;
 
     @Input() labelStyleClass: string;
