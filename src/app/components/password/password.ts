@@ -256,7 +256,7 @@ export const Password_VALUE_ACCESSOR: any = {
             <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
             <i *ngIf="toggleMask" [ngClass]="toggleIconClass()" (click)="onMaskToggle()"></i>
             <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -325,6 +325,10 @@ export class Password implements AfterContentInit,OnInit {
     @Input() toggleMask: boolean;
 
     @Input() inputStyleClass: string;
+
+    @Input() panelStyle: any;
+
+    @Input() panelStyleClass: string;
 
     @Input() styleClass: string;
 
