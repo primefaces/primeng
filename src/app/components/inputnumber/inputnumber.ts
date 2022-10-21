@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { DomHandler } from '../dom/domhandler';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -865,7 +866,8 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     onInputClick() {
-        if (!this.readonly) {
+        const currentValue = this.input.nativeElement.value;
+        if (!this.readonly && currentValue !== DomHandler.getSelection()) {
             this.initCursor();
         }
     }
