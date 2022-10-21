@@ -30,11 +30,6 @@ jobs:
       run: |
         npm install --legacy-peer-deps
 
-    - name: Lint Check
-      if: ${{ success() }}
-      run: |
-        npm run lint
-
     - name: Code Format
       if: ${{ success() }}
       run: |
