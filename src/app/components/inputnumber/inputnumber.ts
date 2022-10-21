@@ -856,7 +856,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     handleOnInput(event, currentValue, newValue) {
         if (this.isValueChanged(currentValue, newValue)) {
-            this.onInput.emit({ originalEvent: event, value: newValue });
+            this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
     }
 
