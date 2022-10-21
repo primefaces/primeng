@@ -1,15 +1,21 @@
 {
   "name": "primeng",
-  "version": "14.1.2",
+  "version": "14.2.0-SNAPSHOT",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-lib": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets"
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "format": "prettier --write \"**/*.{js,ts,d.ts}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,d.ts}\"",
+    "build:lib": "npm run build:check && npm run build:package",
+    "build:package": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets",
+    "build:check": "npm run lint && npm run format:check && npm run security:check && npm run test",
+    "security:check": "npm audit --production --audit-level high"
   },
   "repository": {
     "type": "git",
@@ -55,6 +61,7 @@
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "^1.7.0",
     "ng-packagr": "~13.0.0",
+    "prettier": "2.7.1",
     "primeflex": "^3.1.0",
     "primeicons": "^6.0.1",
     "prismjs": "1.20.0",
