@@ -22,7 +22,7 @@
     "url": "https://github.com/primefaces/primeng.git"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~14.0.3",
+    "@angular-devkit/build-angular": "~14.2.6",
     "@angular/animations": "~14.0.0",
     "@angular/cdk": "~14.0.0",
     "@angular/cli": "~14.0.3",
