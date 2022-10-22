@@ -26,7 +26,7 @@ import { RippleModule } from 'primeng/ripple';
     template: `
         <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div *ngFor="let msg of value; let i=index" [class]="'p-message p-message-' + msg.severity" role="alert"
+                <div *ngFor="let msg of messages; let i=index" [class]="'p-message p-message-' + msg.severity" role="alert"
                      [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
                     <div class="p-message-wrapper">
                        <span [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')" [ngClass]="{'pi-info-circle': msg.severity === 'info',
@@ -75,8 +75,10 @@ import { RippleModule } from 'primeng/ripple';
     }
 })
 export class Messages implements AfterContentInit, OnDestroy {
-
-    @Input() value: Message[];
+    @Input() set value(messages: Message[]) {
+        this.messages = messages;
+        this.startMessageLifes(this.messages);
+    }
 
     @Input() closable: boolean = true;
 
@@ -99,6 +101,8 @@ export class Messages implements AfterContentInit, OnDestroy {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
+
+    messages: Message[];
 
     messageSubscription: Subscription;
 
@@ -131,9 +135,8 @@ export class Messages implements AfterContentInit, OnDestroy {
                     }
 
                     const filteredMessages = messages.filter(m => this.key === m.key);
-                    this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
-                    filteredMessages?.forEach(message => message.life && this.startMessageLife(message));
-
+                    this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
+                    this.startMessageLifes(filteredMessages);
                     this.cd.markForCheck();
                 }
             });
@@ -141,11 +144,10 @@ export class Messages implements AfterContentInit, OnDestroy {
             this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
                 if (key) {
                     if (this.key === key) {
-                        this.value = null;
+                        this.messages = null;
                     }
-                }
-                else {
-                    this.value = null;
+                } else {
+                    this.messages = null;
                 }
 
                 this.cd.markForCheck();
@@ -156,24 +158,24 @@ export class Messages implements AfterContentInit, OnDestroy {
     hasMessages() {
         let parentEl = this.el.nativeElement.parentElement;
         if (parentEl && parentEl.offsetParent) {
-            return this.contentTemplate != null || this.value && this.value.length > 0;
+            return this.contentTemplate != null || this.messages && this.messages.length > 0;
         }
 
         return false;
     }
 
     clear() {
-        this.value = [];
-        this.valueChange.emit(this.value);
+        this.messages = [];
+        this.valueChange.emit(this.messages);
     }
 
     removeMessage(i: number) {
-        this.value = this.value.filter((msg, index) => index !== i);
-        this.valueChange.emit(this.value);
+        this.messages = this.messages.filter((msg, index) => index !== i);
+        this.valueChange.emit(this.messages);
     }
 
     get icon(): string {
-        const severity = this.severity || (this.hasMessages() ? this.value[0].severity : null);
+        const severity = this.severity || (this.hasMessages() ? this.messages[0].severity : null);
 
         if (this.hasMessages()) {
             switch (severity) {
@@ -214,11 +216,15 @@ export class Messages implements AfterContentInit, OnDestroy {
         this.timerSubscriptions?.forEach(subscription => subscription.unsubscribe());
     }
 
+    private startMessageLifes(messages: Message[]): void {
+        messages?.forEach(message => message.life && this.startMessageLife(message));
+    }
+
     private startMessageLife(message: Message): void {
         const timerSubsctiption = timer(message.life).subscribe(() => {
-            this.value = this.value?.filter(msgEl => msgEl !== message);
+            this.messages = this.messages?.filter(msgEl => msgEl !== message);
             this.timerSubscriptions = this.timerSubscriptions?.filter(timerEl => timerEl !== timerSubsctiption);
-            this.valueChange.emit(this.value);
+            this.valueChange.emit(this.messages);
             this.cd.markForCheck();
         });
         this.timerSubscriptions.push(timerSubsctiption);
