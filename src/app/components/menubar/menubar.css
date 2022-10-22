@@ -46,7 +46,7 @@
     z-index: 1;
 }
 
-.p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list  {
+.p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
     display: block;
     left: 100%;
     top: 0;
@@ -67,4 +67,8 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
+}
+
+.p-menubar-button-hidden {
+    display: none !important;
 }

@@ -213,7 +213,7 @@ export class MenubarSub implements OnDestroy {
             <div class="p-menubar-start" *ngIf="startTemplate">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
-            <a #menubutton tabindex="0" class="p-menubar-button" (click)="toggle($event)">
+            <a #menubutton tabindex="0" class="p-menubar-button" [ngClass]="{'p-menubar-button-hidden': !model?.length}" (click)="toggle($event)">
                 <i class="pi pi-bars"></i>
             </a>
             <p-menubarSub #rootmenu [item]="model" root="root" [baseZIndex]="baseZIndex" (leafClick)="onLeafClick()" [autoZIndex]="autoZIndex" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay"></p-menubarSub>
