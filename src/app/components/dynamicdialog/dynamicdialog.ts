@@ -1,5 +1,23 @@
-import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, ViewEncapsulation, SkipSelf, Optional } from '@angular/core';
-import { trigger,style,transition,animate,AnimationEvent, animation, useAnimation } from '@angular/animations';
+import {
+    Component,
+    NgModule,
+    Type,
+    ComponentFactoryResolver,
+    ViewChild,
+    OnDestroy,
+    ComponentRef,
+    AfterViewInit,
+    ChangeDetectorRef,
+    Renderer2,
+    NgZone,
+    ElementRef,
+    ChangeDetectionStrategy,
+    ViewRef,
+    ViewEncapsulation,
+    SkipSelf,
+    Optional
+} from '@angular/core';
+import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
