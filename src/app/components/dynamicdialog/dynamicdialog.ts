@@ -170,9 +170,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         public config: DynamicDialogConfig,
         private dialogRef: DynamicDialogRef,
         public zone: NgZone,
-        public primeNGConfig: PrimeNGConfig
-    ,
-            @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent) {}
+        public primeNGConfig: PrimeNGConfig,
+        @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent
+    ) {}
 
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType);
