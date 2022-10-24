@@ -1,50 +1,53 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,AfterViewInit,OnDestroy,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
+import { NgModule, Component, ElementRef, Input, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-lightbox',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'image')">
-            <a *ngFor="let image of images; let i = index;" [href]="image.source" (click)="onImageClick($event,image,i,content)">
-                <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt">
+        <div [ngStyle]="style" [class]="styleClass" *ngIf="type == 'image'">
+            <a *ngFor="let image of images; let i = index" [href]="image.source" (click)="onImageClick($event, image, i, content)">
+                <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt" />
             </a>
         </div>
-        <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content)">
+        <span [ngStyle]="style" [class]="styleClass" *ngIf="type == 'content'" (click)="onLinkClick($event, content)">
             <ng-content select="a"></ng-content>
         </span>
-        <div class="ui-lightbox ui-widget ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
-            [ngClass]="{'ui-lightbox-loading': loading}"
-            [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing" (click)="preventDocumentClickListener=true">
-           <div class="ui-lightbox-content-wrapper">
-              <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
-                [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="ui-lightbox-nav-icon pi pi-chevron-left"></span></a>
-              <div #content class="ui-lightbox-content ui-corner-all"
-                [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
-                <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,content)" style="display:none">
-                <ng-content></ng-content>
-              </div>
-              <a class="ui-state-default ui-lightbox-nav-right ui-corner-left ui-helper-hidden" [style.zIndex]="zindex + 1" (click)="next(img)"
-                [ngClass]="{'ui-helper-hidden':!rightVisible}"><span class="ui-lightbox-nav-icon pi pi-chevron-right"></span></a>
-           </div>
-           <div class="ui-lightbox-caption ui-widget-header" [style.display]="captionText ? 'block' : 'none'">
-              <span class="ui-lightbox-caption-text">{{captionText}}</span><a class="ui-lightbox-close ui-corner-all" tabindex="0" (click)="hide($event)" (keydown.enter)="hide($event)"><span class="pi pi-times"></span></a>
-              <div style="clear:both"></div>
-           </div>
+        <div
+            class="ui-lightbox ui-widget ui-corner-all ui-shadow"
+            [style.display]="visible ? 'block' : 'none'"
+            [style.zIndex]="zindex"
+            [ngClass]="{ 'ui-lightbox-loading': loading }"
+            [style.transitionProperty]="'all'"
+            [style.transitionDuration]="effectDuration"
+            [style.transitionTimingFunction]="easing"
+            (click)="preventDocumentClickListener = true"
+        >
+            <div class="ui-lightbox-content-wrapper">
+                <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)" [ngClass]="{ 'ui-helper-hidden': !leftVisible }"><span class="ui-lightbox-nav-icon pi pi-chevron-left"></span></a>
+                <div #content class="ui-lightbox-content ui-corner-all" [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
+                    <img #img [src]="currentImage ? currentImage.source || '' : ''" (load)="onImageLoad($event, content)" style="display:none" />
+                    <ng-content></ng-content>
+                </div>
+                <a class="ui-state-default ui-lightbox-nav-right ui-corner-left ui-helper-hidden" [style.zIndex]="zindex + 1" (click)="next(img)" [ngClass]="{ 'ui-helper-hidden': !rightVisible }"
+                    ><span class="ui-lightbox-nav-icon pi pi-chevron-right"></span
+                ></a>
+            </div>
+            <div class="ui-lightbox-caption ui-widget-header" [style.display]="captionText ? 'block' : 'none'">
+                <span class="ui-lightbox-caption-text">{{ captionText }}</span
+                ><a class="ui-lightbox-close ui-corner-all" tabindex="0" (click)="hide($event)" (keydown.enter)="hide($event)"><span class="pi pi-times"></span></a>
+                <div style="clear:both"></div>
+            </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: [
-        './lightbox.css',
-        '../dialog/dialog.css'
-    ],
+    styleUrls: ['./lightbox.css', '../dialog/dialog.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Lightbox implements AfterViewInit,OnDestroy {
-
+export class Lightbox implements AfterViewInit, OnDestroy {
     @Input() images: any[];
 
     @Input() type: string = 'image';
@@ -87,9 +90,9 @@ export class Lightbox implements AfterViewInit,OnDestroy {
 
     public documentEscapeListener: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
-    onImageClick(event,image,i,content) {
+    onImageClick(event, image, i, content) {
         this.index = i;
         this.loading = true;
         content.style.width = 32 + 'px';
@@ -104,14 +107,12 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.panel = DomHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
 
         if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.panel);
-            else
-                DomHandler.appendChild(this.panel, this.appendTo);
+            if (this.appendTo === 'body') document.body.appendChild(this.panel);
+            else DomHandler.appendChild(this.panel, this.appendTo);
         }
     }
 
-    onLinkClick(event,content) {
+    onLinkClick(event, content) {
         this.preventDocumentClickListener = true;
         this.show();
         event.preventDefault();
@@ -132,7 +133,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
         document.body.appendChild(this.mask);
         if (this.autoZIndex) {
-            this.zindex = this.baseZIndex + (++DomHandler.zindex);
+            this.zindex = this.baseZIndex + ++DomHandler.zindex;
         }
         this.mask.style.zIndex = this.zindex - 1;
         this.center();
@@ -168,7 +169,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         }
     }
 
-    onImageLoad(event,content) {
+    onImageLoad(event, content) {
         let image = event.target;
         image.style.visibility = 'hidden';
         image.style.display = 'block';
@@ -204,7 +205,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.captionText = null;
         this.loading = true;
         placeholder.style.display = 'none';
-        if (this.index <= (this.images.length - 1)) {
+        if (this.index <= this.images.length - 1) {
             this.displayImage(this.images[++this.index]);
         }
     }
@@ -221,8 +222,8 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         });
         if (this.closeOnEscape && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-                    if (event.which == 27) {
-                    if (parseInt(this.panel.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                if (event.which == 27) {
+                    if (parseInt(this.panel.style.zIndex) === DomHandler.zindex + this.baseZIndex) {
                         this.hide(event);
                     }
                 }
@@ -231,7 +232,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     }
 
     unbindGlobalListeners() {
-        if (this.documentEscapeListener){
+        if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
@@ -242,12 +243,12 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         }
     }
 
-    get leftVisible():boolean {
+    get leftVisible(): boolean {
         return this.images && this.images.length && this.index != 0 && !this.loading;
     }
 
-    get rightVisible():boolean {
-        return this.images && this.images.length && this.index < (this.images.length - 1) && !this.loading;
+    get rightVisible(): boolean {
+        return this.images && this.images.length && this.index < this.images.length - 1 && !this.loading;
     }
 
     ngOnDestroy() {
@@ -257,7 +258,6 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.el.nativeElement.appendChild(this.panel);
         }
     }
-
 }
 
 @NgModule({
@@ -265,4 +265,4 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     exports: [Lightbox],
     declarations: [Lightbox]
 })
-export class LightboxModule { }
+export class LightboxModule {}

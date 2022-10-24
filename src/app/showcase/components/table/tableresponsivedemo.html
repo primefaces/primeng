@@ -1,16 +1,16 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Table <span>Responsive</span></h1>
-        <span>DataTable display can be optimized according for different screen sizes, this example demonstrates a demo where columns are stacked on a small screens.</span>
+        <span>DataTable display can be optimized according for different screen sizes.</span>
     </div>
     <app-demoActions github="table" stackblitz="tableresponsive-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table responsiveLayout="scroll" [value]="products">
+        <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
-                Scroll
+                Default
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="card">
-        <p-table responsiveLayout="stack" [value]="products">
+        <p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
                 Stack
             </ng-template>
@@ -76,9 +76,9 @@
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
-    &lt;p-table responsiveLayout="scroll" [value]="products"&gt;
+    &lt;p-table [value]="products" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="caption"&gt;
-            Scroll
+            Default
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
@@ -104,13 +104,13 @@
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
-    &lt;p-table responsiveLayout="stack" [value]="products"&gt;
+    &lt;p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Stack
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
-                &lt;th&gt;Name &lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
                 &lt;th&gt;Price&lt;/th&gt;
                 &lt;th&gt;Category&lt;/th&gt;
                 &lt;th&gt;Quantity&lt;/th&gt;

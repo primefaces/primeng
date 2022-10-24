@@ -10,20 +10,24 @@ import { RippleModule } from 'primeng/ripple';
     template: `
         <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div *ngFor="let msg of value; let i=index" [class]="'p-message p-message-' + msg.severity" role="alert"
-                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+                <div
+                    *ngFor="let msg of value; let i = index"
+                    [class]="'p-message p-message-' + msg.severity"
+                    role="alert"
+                    [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+                >
                     <div class="p-message-wrapper">
-                       <span [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')" [ngClass]="{'pi-info-circle': msg.severity === 'info',
-                            'pi-check': msg.severity === 'success',
-                            'pi-exclamation-triangle': msg.severity === 'warn',
-                            'pi-times-circle': msg.severity === 'error'}"></span>
+                        <span
+                            [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')"
+                            [ngClass]="{ 'pi-info-circle': msg.severity === 'info', 'pi-check': msg.severity === 'success', 'pi-exclamation-triangle': msg.severity === 'warn', 'pi-times-circle': msg.severity === 'error' }"
+                        ></span>
                         <ng-container *ngIf="!escape; else escapeOut">
                             <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary"></span>
                             <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail"></span>
                         </ng-container>
                         <ng-template #escapeOut>
-                            <span *ngIf="msg.summary" class="p-message-summary">{{msg.summary}}</span>
-                            <span *ngIf="msg.detail" class="p-message-detail">{{msg.detail}}</span>
+                            <span *ngIf="msg.summary" class="p-message-summary">{{ msg.summary }}</span>
+                            <span *ngIf="msg.detail" class="p-message-detail">{{ msg.detail }}</span>
                         </ng-template>
                         <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple>
                             <i class="p-message-close-icon pi pi-times"></i>
@@ -38,28 +42,22 @@ import { RippleModule } from 'primeng/ripple';
                     </div>
                 </div>
             </ng-template>
-            </div>
+        </div>
     `,
     animations: [
         trigger('messageAnimation', [
-            transition(':enter', [
-                style({ opacity: 0, transform: 'translateY(-25%)' }),
-                animate('{{showTransitionParams}}')
-            ]),
-            transition(':leave', [
-                animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, opacity: 0 }))
-            ])
+            transition(':enter', [style({ opacity: 0, transform: 'translateY(-25%)' }), animate('{{showTransitionParams}}')]),
+            transition(':leave', [animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, opacity: 0 }))])
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./messages.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Messages implements AfterContentInit, OnDestroy {
-
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
@@ -90,7 +88,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) { }
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -109,10 +107,9 @@ export class Messages implements AfterContentInit, OnDestroy {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
                 if (messages) {
                     if (messages instanceof Array) {
-                        let filteredMessages = messages.filter(m => this.key === m.key);
+                        let filteredMessages = messages.filter((m) => this.key === m.key);
                         this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
-                    }
-                    else if (this.key === messages.key) {
+                    } else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
                     }
 
@@ -120,13 +117,12 @@ export class Messages implements AfterContentInit, OnDestroy {
                 }
             });
 
-            this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
+            this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
                 if (key) {
                     if (this.key === key) {
                         this.value = null;
                     }
-                }
-                else {
+                } else {
                     this.value = null;
                 }
 
@@ -138,7 +134,7 @@ export class Messages implements AfterContentInit, OnDestroy {
     hasMessages() {
         let parentEl = this.el.nativeElement.parentElement;
         if (parentEl && parentEl.offsetParent) {
-            return this.contentTemplate != null || this.value && this.value.length > 0;
+            return this.contentTemplate != null || (this.value && this.value.length > 0);
         }
 
         return false;
@@ -200,4 +196,4 @@ export class Messages implements AfterContentInit, OnDestroy {
     exports: [Messages],
     declarations: [Messages]
 })
-export class MessagesModule { }
+export class MessagesModule {}

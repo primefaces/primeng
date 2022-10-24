@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '../../service/appconfigservice';
 
@@ -7,7 +7,6 @@ import { AppConfigService } from '../../service/appconfigservice';
     styleUrls: ['uikit.component.scss']
 })
 export class UIKitComponent implements OnInit, OnDestroy {
-
     subscription: Subscription;
 
     colorScheme: string = 'light';
@@ -15,7 +14,7 @@ export class UIKitComponent implements OnInit, OnDestroy {
     constructor(private configService: AppConfigService) {}
 
     ngOnInit() {
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.colorScheme = config.dark ? 'dark' : 'light';
         });
     }

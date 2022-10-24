@@ -1,4 +1,4 @@
-export interface TreeNode<T = any> {
+export interface TreeNode<T = any> {
     label?: string;
     data?: T;
     icon?: string;

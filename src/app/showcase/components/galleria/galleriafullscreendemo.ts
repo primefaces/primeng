@@ -1,13 +1,12 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 @Component({
     templateUrl: './galleriafullscreendemo.html'
 })
 export class GalleriaFullscreenDemo implements OnInit {
-    
     images: any[];
 
-    responsiveOptions:any[] = [
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5
@@ -22,7 +21,7 @@ export class GalleriaFullscreenDemo implements OnInit {
         }
     ];
 
-    responsiveOptions2:any[] = [
+    responsiveOptions2: any[] = [
         {
             breakpoint: '1500px',
             numVisible: 5
@@ -49,12 +48,12 @@ export class GalleriaFullscreenDemo implements OnInit {
 
     activeIndex: number = 0;
 
-    constructor(private photoService: PhotoService) { }
+    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then(images =>{ 
-            this.images = images
-        })
+        this.photoService.getImages().then((images) => {
+            this.images = images;
+        });
     }
 
     imageClick(index: number) {

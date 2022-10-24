@@ -6,11 +6,9 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 
 @Injectable()
 export class DialogService {
-
     dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) {
-    }
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) {}
 
     public open(componentType: Type<any>, config: DynamicDialogConfig) {
         const dialogRef = this.appendDialogComponentToBody(config);

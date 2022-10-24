@@ -6,17 +6,16 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './tablecoltoggledemo.html'
 })
 export class TableColToggleDemo implements OnInit {
-
     products: Product[];
-    
+
     cols: any[];
 
     _selectedColumns: any[];
 
-    constructor(private productService: ProductService) { }
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(data => this.products = data);
+        this.productService.getProductsSmall().then((data) => (this.products = data));
 
         this.cols = [
             { field: 'name', header: 'Name' },
@@ -33,6 +32,6 @@ export class TableColToggleDemo implements OnInit {
 
     set selectedColumns(val: any[]) {
         //restore original order
-        this._selectedColumns = this.cols.filter(col => val.includes(col));
+        this._selectedColumns = this.cols.filter((col) => val.includes(col));
     }
 }
