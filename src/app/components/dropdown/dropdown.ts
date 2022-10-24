@@ -22,7 +22,7 @@ import {
     ChangeDetectionStrategy,
     ViewEncapsulation
 } from '@angular/core';
-import { trigger, transition, AnimationEvent, query, animateChild } from '@angular/animations';
+import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { PrimeNGConfig, SelectItem, TranslationKeys } from 'primeng/api';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
