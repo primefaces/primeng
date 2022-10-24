@@ -243,7 +243,7 @@ export class Overlay implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule],
+    imports: [CommonModule, SharedModule],
     exports: [Overlay, SharedModule],
     declarations: [Overlay]
 })
