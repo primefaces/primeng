@@ -699,7 +699,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    this.overlayViewChild.alignOverlay();
+                    if (this.overlayViewChild) {
+                        this.overlayViewChild.alignOverlay();
+                    }
                 }, 1);
             });
         }
