@@ -117,8 +117,8 @@ describe('Paginator', () => {
         const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
         const activePage = fixture.debugElement.query(By.css('.p-highlight'));
         expect(onPageLinkClickSpy);
-        expect(activePage.nativeElement.textContent).toEqual('4');
-        expect((paginator.getPage() + 1).toString()).toEqual(pickedPage.nativeElement.textContent);
+        expect(activePage.nativeElement.textContent.replace(/\s+/g, '')).toEqual('4');
+        expect((paginator.getPage() + 1).toString().replace(/\s+/g, '')).toEqual(pickedPage.nativeElement.textContent.replace(/\s+/g, ''));
         let pageValue = paginator.getPage() - 1;
         for (let link of paginator.pageLinks) {
             expect(link).toEqual(pageValue);
@@ -148,8 +148,8 @@ describe('Paginator', () => {
         const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
         const activePage = fixture.debugElement.query(By.css('.p-highlight'));
         expect(changePageToNextSpy);
-        expect(activePage.nativeElement.textContent).toEqual('2');
-        expect((paginator.getPage() + 1).toString()).toEqual(nextPageEl.nativeElement.textContent);
+        expect(activePage.nativeElement.textContent.replace(/\s+/g, '')).toEqual('2');
+        expect((paginator.getPage() + 1).toString().replace(/\s+/g, '')).toEqual(nextPageEl.nativeElement.textContent.replace(/\s+/g, ''));
         let pageValue = paginator.getPage();
         for (let link of paginator.pageLinks) {
             expect(link).toEqual(pageValue);
@@ -183,8 +183,8 @@ describe('Paginator', () => {
         const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
         const activePage = fixture.debugElement.query(By.css('.p-highlight'));
         expect(changePageToPrevSpy);
-        expect(activePage.nativeElement.textContent).toEqual('1');
-        expect((paginator.getPage() + 1).toString()).toEqual(prevPageEl.nativeElement.textContent);
+        expect(activePage.nativeElement.textContent.replace(/\s+/g, '')).toEqual('1');
+        expect((paginator.getPage() + 1).toString().replace(/\s+/g, '')).toEqual(prevPageEl.nativeElement.textContent.replace(/\s+/g, ''));
         let pageValue = paginator.getPage() + 1;
         for (let link of paginator.pageLinks) {
             expect(link).toEqual(pageValue);
@@ -212,7 +212,7 @@ describe('Paginator', () => {
         const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
         const activePage = fixture.debugElement.query(By.css('.p-highlight'));
         expect(changePageToLastSpy);
-        expect(activePage.nativeElement.textContent).toEqual('12');
+        expect(activePage.nativeElement.textContent.replace(/\s+/g, '')).toEqual('12');
         let pageValue = paginator.getPage() - 3;
         for (let link of paginator.pageLinks) {
             expect(link).toEqual(pageValue);
@@ -245,7 +245,7 @@ describe('Paginator', () => {
         const pageElsAfterClick = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
         const activePage = fixture.debugElement.query(By.css('.p-highlight'));
         expect(changePageToFirstSpy);
-        expect(activePage.nativeElement.textContent).toEqual('1');
+        expect(activePage.nativeElement.textContent.replace(/\s+/g, '')).toEqual('1');
         let pageValue = paginator.getPage() + 1;
         for (let link of paginator.pageLinks) {
             expect(link).toEqual(pageValue);
