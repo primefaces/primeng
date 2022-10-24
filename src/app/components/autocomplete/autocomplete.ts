@@ -86,7 +86,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="p-autocomplete-input-token">
                     <input
-                        [pAutoFocus]="autofocus"
+                        pAutoFocus
+                        [autofocus]="autofocus"
                         #multiIn
                         [attr.type]="type"
                         [attr.id]="inputId"
@@ -1127,7 +1128,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
 @NgModule({
     imports: [CommonModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule],
-    exports: [AutoComplete, SharedModule, ScrollerModule],
+    exports: [AutoComplete, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })
 export class AutoCompleteModule {}
