@@ -42,7 +42,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     template: `
         <span #container [ngClass]="{ 'p-autocomplete p-component': true, 'p-autocomplete-dd': dropdown, 'p-autocomplete-multiple': multiple }" [ngStyle]="style" [class]="styleClass">
             <input
-                [pAutoFocus]="autofocus"
+                pAutoFocus
+                [autofocus]="autofocus"
                 *ngIf="!multiple"
                 #in
                 [attr.type]="type"

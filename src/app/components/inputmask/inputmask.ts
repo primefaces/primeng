@@ -65,7 +65,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
-            [pAutoFocus]="autoFocus"
+            pAutoFocus
+            [autofocus]="autoFocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
         />

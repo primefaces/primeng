@@ -11,7 +11,7 @@ import { DomHandler } from 'primeng/dom';
 export class AutoFocus {
     constructor(private host: ElementRef) {}
 
-    @Input('pAutoFocus') autofocus: boolean;
+    @Input() autofocus: boolean;
 
     focused: boolean = false;
 
