@@ -119,7 +119,8 @@ export class DropdownItem {
                     (keydown)="onKeydown($event, true)"
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
-                    [pAutoFocus]="autofocus"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                     [attr.aria-activedescendant]="overlayVisible ? labelId : null"
                     role="combobox"
                 />
