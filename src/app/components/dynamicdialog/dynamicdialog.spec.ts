@@ -65,7 +65,7 @@ describe('DynamicDialog', () => {
         const titleEl = dynamicDialogEl.getElementsByClassName('p-dialog-title')[0];
         const testComponentHeader = dynamicDialogEl.getElementsByTagName('h2')[0];
         expect(titleEl.textContent).toEqual('Demo Header');
-        expect(testComponentHeader.textContent).toEqual(' PrimeNG ROCKS! ');
+        expect(testComponentHeader.textContent).toEqual('PrimeNG ROCKS!');
         let dynamicDialogTitlebarIconEl = document.querySelector('.p-dynamic-dialog .p-dialog-header-icon') as HTMLElement;
         dynamicDialogTitlebarIconEl.click();
         fixture.detectChanges();
