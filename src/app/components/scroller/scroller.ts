@@ -1,27 +1,27 @@
-import {
-    NgModule,
-    Component,
-    Input,
-    ElementRef,
-    ViewChild,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
-    AfterContentInit,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    Output,
-    EventEmitter,
-    SimpleChanges,
-    OnInit,
-    AfterViewChecked,
-    OnDestroy,
-    NgZone
-} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
 
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
 
@@ -389,16 +389,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._columns;
     }
 
-    constructor(private cd: ChangeDetectorRef, private zone: NgZone) {
-        if (!this._disabled) {
-            this.zone.runOutsideAngular(() => {
-                this.windowResizeListener = this.onWindowResize.bind(this);
-
-                window.addEventListener('resize', this.windowResizeListener);
-                window.addEventListener('orientationchange', this.windowResizeListener);
-            });
-        }
-    }
+    constructor(private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
         this.setInitialState();
@@ -414,11 +405,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 this.d_loading = currentValue;
                 isLoadingChanged = true;
             }
-        }
-
-        if (this.initialized) {
-            const isChanged = !isLoadingChanged && (simpleChanges.items || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
-            isChanged && this.init();
         }
 
         if (simpleChanges.orientation) {
@@ -438,11 +424,17 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             if (this.lazy && previousValue?.loading !== currentValue?.loading && currentValue?.loading !== this.d_loading) {
                 this.d_loading = currentValue.loading;
+                isLoadingChanged = true;
             }
 
             if (previousValue?.numToleratedItems !== currentValue?.numToleratedItems && currentValue?.numToleratedItems !== this.d_numToleratedItems) {
                 this.d_numToleratedItems = currentValue.numToleratedItems;
             }
+        }
+
+        if (this.initialized) {
+            const isChanged = !isLoadingChanged && (simpleChanges.items || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
+            isChanged && this.init();
         }
     }
 
@@ -473,24 +465,30 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     ngAfterViewInit() {
-        this.setContentEl(this.contentEl);
-        this.init();
+        if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
+            this.setInitialState();
+            this.setContentEl(this.contentEl);
+            this.init();
 
-        this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
-        this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
-        this.initialized = true;
+            this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
+            this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
+            this.initialized = true;
+        }
     }
 
     ngAfterViewChecked() {
+        if (!this.initialized) {
+            this.ngAfterViewInit();
+        }
+
         this.calculateAutoSize();
     }
 
     ngOnDestroy() {
-        if (this.windowResizeListener) {
-            window.removeEventListener('resize', this.windowResizeListener);
-            window.removeEventListener('orientationchange', this.windowResizeListener);
-            this.windowResizeListener = null;
-        }
+        this.unbindResizeListener();
+
+        this.contentEl = null;
+        this.initialized = false;
     }
 
     init() {
@@ -498,6 +496,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             this.setSize();
             this.calculateOptions();
             this.setSpacerSize();
+            this.bindResizeListener();
 
             this.cd.detectChanges();
         }
@@ -514,6 +513,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
         this.d_loading = this._loading || false;
         this.d_numToleratedItems = this._numToleratedItems;
+        this.loaderArr = [];
+        this.spacerStyle = {};
+        this.contentStyle = {};
     }
 
     getElementRef() {
@@ -646,7 +648,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
 
         if (this._lazy) {
-            this.handleEvents('onLazyLoad', { first, last });
+            Promise.resolve().then(() => {
+                this.handleEvents('onLazyLoad', { first, last });
+            });
         }
     }
 
@@ -850,13 +854,32 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
     }
 
+    bindResizeListener() {
+        if (!this.windowResizeListener) {
+            this.zone.runOutsideAngular(() => {
+                this.windowResizeListener = this.onWindowResize.bind(this);
+
+                window.addEventListener('resize', this.windowResizeListener);
+                window.addEventListener('orientationchange', this.windowResizeListener);
+            });
+        }
+    }
+
+    unbindResizeListener() {
+        if (this.windowResizeListener) {
+            window.removeEventListener('resize', this.windowResizeListener);
+            window.removeEventListener('orientationchange', this.windowResizeListener);
+            this.windowResizeListener = null;
+        }
+    }
+
     onWindowResize() {
         if (this.resizeTimeout) {
             clearTimeout(this.resizeTimeout);
         }
 
         this.resizeTimeout = setTimeout(() => {
-            if (this.elementViewChild) {
+            if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 const [width, height] = [DomHandler.getWidth(this.elementViewChild.nativeElement), DomHandler.getHeight(this.elementViewChild.nativeElement)];
                 const [isDiffWidth, isDiffHeight] = [width !== this.defaultWidth, height !== this.defaultHeight];
                 const reinit = this.both ? isDiffWidth || isDiffHeight : this.horizontal ? isDiffWidth : this.vertical ? isDiffHeight : false;

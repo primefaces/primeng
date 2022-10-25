@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
+import { OverlayOptions } from './overlayoptions';
 import { Translation } from './translation';
-
-interface OverlayOptions {
-    breakpoint: number;
-}
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
     ripple: boolean = false;
 
-    overlayOptions: OverlayOptions;
+    overlayOptions: OverlayOptions = {
+        responsive: {
+            breakpoint: '640px',
+            direction: 'end'
+        }
+    };
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
