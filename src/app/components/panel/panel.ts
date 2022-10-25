@@ -5,6 +5,8 @@ import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
+type PanelIconPosition = 'start' | 'end' | 'center';
+
 let idx: number = 0;
 
 @Component({
@@ -103,7 +105,7 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     @Input() styleClass: string;
 
-    @Input() iconPos: string = 'end';
+    @Input() iconPos: PanelIconPosition = 'end';
 
     @Input() expandIcon: string = 'pi pi-plus';
 
