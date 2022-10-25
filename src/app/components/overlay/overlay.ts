@@ -12,9 +12,9 @@ export const OVERLAY_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
+const showOverlayAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
 
-const hideAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
+const hideOverlayAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
     selector: 'p-overlay',
@@ -49,7 +49,7 @@ const hideAnimation = animation([animate('{{hideTransitionParams}}', style({ tra
             </div>
         </ng-template>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [useAnimation(showAnimation)]), transition(':leave', [useAnimation(hideAnimation)])])],
+    animations: [trigger('overlayAnimation', [transition(':enter', [useAnimation(showOverlayAnimation)]), transition(':leave', [useAnimation(hideOverlayAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [OVERLAY_VALUE_ACCESSOR],
@@ -318,7 +318,7 @@ export class Overlay implements OnDestroy {
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.targetEl, (event) => {
-                const valid = this.listener ? this.listener(event, { type: 'scroll', valid: true }) : true;
+                const valid = this.listener ? this.listener(event, { type: 'scroll', mode: this.mode, valid: true }) : true;
 
                 valid && this.hide(event, true);
             });
@@ -337,7 +337,7 @@ export class Overlay implements OnDestroy {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                 const isOutsideClicked = this.targetEl && !(this.targetEl.isSameNode(event.target) || this.targetEl.contains(event.target) || (this.overlayEl && this.overlayEl.contains(<Node>event.target)));
-                const valid = this.listener ? this.listener(event, { type: 'outside', valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
+                const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.mode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
 
                 valid && this.hide(event);
             });
@@ -354,7 +354,7 @@ export class Overlay implements OnDestroy {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen('window', 'resize', (event) => {
-                const valid = this.listener ? this.listener(event, { type: 'resize', valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.mode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
 
                 valid && this.hide(event, true);
             });
