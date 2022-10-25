@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { PrimeTemplate } from 'primeng/api';
 
+type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
+
 @Directive({
     selector: '[pButton]',
     host: {
@@ -11,7 +13,7 @@ import { PrimeTemplate } from 'primeng/api';
     }
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
-    @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
+    @Input() iconPos: ButtonIconPosition = 'left';
 
     @Input() loadingIcon: string = 'pi pi-spinner pi-spin';
 
@@ -207,7 +209,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 export class Button implements AfterContentInit {
     @Input() type: string = 'button';
 
-    @Input() iconPos: string = 'left';
+    @Input() iconPos: ButtonIconPosition = 'left';
 
     @Input() icon: string;
 

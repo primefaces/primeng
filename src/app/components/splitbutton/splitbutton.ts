@@ -4,6 +4,8 @@ import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TieredMenuModule, TieredMenu } from 'primeng/tieredmenu';
 
+type SplitButtonIconPosition = 'left' | 'right';
+
 @Component({
     selector: 'p-splitButton',
     template: `
@@ -32,7 +34,7 @@ export class SplitButton {
 
     @Input() icon: string;
 
-    @Input() iconPos: string = 'left';
+    @Input() iconPos: SplitButtonIconPosition = 'left';
 
     @Input() label: string;
 
