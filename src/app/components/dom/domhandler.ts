@@ -82,6 +82,24 @@ export class DomHandler {
         return -1;
     }
 
+    public static appendOverlay(overlay: any, target: any, appendTo: any = 'self') {
+        if (appendTo !== 'self' && overlay && target) {
+            this.appendChild(overlay, target);
+        }
+    }
+
+    public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
+        if (overlay && target) {
+            calculateMinWidth && (overlay.style.minWidth || (overlay.style.minWidth = DomHandler.getOuterWidth(target) + 'px'));
+
+            if (appendTo === 'self') {
+                this.relativePosition(overlay, target);
+            } else {
+                this.absolutePosition(overlay, target);
+            }
+        }
+    }
+
     public static relativePosition(element: any, target: any): void {
         let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const targetHeight = target.offsetHeight;
@@ -550,7 +568,19 @@ export class DomHandler {
     }
 
     public static isHidden(element: HTMLElement): boolean {
-        return element.offsetParent === null;
+        return !element || element.offsetParent === null;
+    }
+
+    public static isVisible(element: HTMLElement) {
+        return element && element.offsetParent != null;
+    }
+
+    public static isExist(element: HTMLElement) {
+        return element !== null && typeof element !== 'undefined' && element.nodeName && element.parentNode;
+    }
+
+    public static focus(element: HTMLElement, options?: FocusOptions): void {
+        element && document.activeElement !== element && element.focus(options);
     }
 
     public static getFocusableElements(element: HTMLElement) {

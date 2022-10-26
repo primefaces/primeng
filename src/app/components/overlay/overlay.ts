@@ -1,212 +1,372 @@
-import { NgModule, Component, Input, OnDestroy, Renderer2, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Inject, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { SharedModule, PrimeNGConfig, OverlayService } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
-import { trigger, style, transition, animate, animation, useAnimation } from '@angular/animations';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { OverlayModeType, OverlayOptions, OverlayService, PrimeNGConfig, SharedModule } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 
-const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
+export const OVERLAY_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => Overlay),
+    multi: true
+};
 
-const hideAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
+const showOverlayAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
+
+const hideOverlayAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
     selector: 'p-overlay',
     template: `
-        <div class="p-overlay" #overlay (click)="onOverlayClick($event)">
-            <div #mask [ngClass]="{ 'p-mask p-overlay-mask p-component-overlay-enter': responsive }">
-                <div
-                    #content
-                    [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions } }"
-                    (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                    (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-                >
-                    <ng-content></ng-content>
-                </div>
+        <ng-container *ngIf="modal; else overlayTemplate">
+            <div
+                *ngIf="modalVisible"
+                #modal
+                [ngClass]="{
+                    'p-overlay-modal p-component-overlay p-component-overlay-enter': true,
+                    'p-overlay-start': overlayResponsiveDirection === 'start',
+                    'p-overlay-center': overlayResponsiveDirection === 'center',
+                    'p-overlay-end': overlayResponsiveDirection === 'end'
+                }"
+            >
+                <ng-container *ngTemplateOutlet="overlayTemplate"></ng-container>
             </div>
-        </div>
+        </ng-container>
+        <ng-template #overlayTemplate>
+            <div
+                *ngIf="visible"
+                #overlay
+                [ngStyle]="style"
+                [ngClass]="'p-overlay p-component'"
+                [class]="styleClass"
+                (click)="onOverlayClick($event)"
+                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions[modal ? overlayResponsiveDirection : 'default'] } }"
+                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+                (@overlayAnimation.done)="onOverlayAnimationDone($event)"
+            >
+                <ng-content></ng-content>
+            </div>
+        </ng-template>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [useAnimation(showAnimation)]), transition(':leave', [useAnimation(hideAnimation)])])],
+    animations: [trigger('overlayAnimation', [transition(':enter', [useAnimation(showOverlayAnimation)]), transition(':leave', [useAnimation(hideOverlayAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    providers: [OVERLAY_VALUE_ACCESSOR],
     styleUrls: ['./overlay.css'],
     host: {
         class: 'p-element'
     }
 })
 export class Overlay implements OnDestroy {
-    @Input() baseZIndex: number = 0;
+    @Input() get visible(): boolean {
+        return this._visible;
+    }
+    set visible(value: boolean) {
+        this._visible = value;
 
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
-    @Input() hideTransitionOptions: string = '.1s linear';
-
-    @Input() container: ElementRef;
-
-    @Input() autoZIndex: boolean;
-
-    @Output() onAnimationStart: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAnimationEnd: EventEmitter<any> = new EventEmitter();
-
-    @Output() onOverlayHide: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild('overlay') overlayViewChild: ElementRef;
-
-    @ViewChild('content') contentViewChild: ElementRef;
-
-    @ViewChild('mask') maskViewChild: ElementRef;
-
-    @Input() set overlayDirection(value: string) {
-        if (value && this.viewport.width < this.overlayBreakpoints) {
-            this._overlayDirection = value;
-
-            switch (value) {
-                case 'start':
-                    this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                    break;
-                case 'end':
-                    this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                    break;
-                case 'center':
-                    this.transformOptions = 'scale(0.8)';
-                    break;
-            }
-        } else {
-            this.transformOptions = 'scaleY(0.8)';
+        if (this._visible && !this.modalVisible) {
+            this.modalVisible = true;
         }
     }
 
-    get overlayDirection(): string {
-        return this._overlayDirection;
+    @Input() get mode(): OverlayModeType | string {
+        return this._mode || this.overlayOptions?.mode;
+    }
+    set mode(value: string) {
+        this._mode = value;
     }
 
-    @Input() set appendTo(val) {
-        this._appendTo = val;
+    @Input() get style(): any {
+        return this._style || (this.modal ? this.overlayResponsiveOptions?.style : this.overlayOptions?.style);
+    }
+    set style(value: any) {
+        this._style = value;
     }
 
-    get appendTo(): any {
-        return this._appendTo;
+    @Input() get styleClass(): string | undefined {
+        return this._styleClass || (this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
+    }
+    set styleClass(value: string) {
+        this._styleClass = value;
     }
 
-    @Input() set visible(value: boolean) {
-        this._visible = value;
+    @Input() get appendTo(): any {
+        return this._appendTo || this.overlayOptions?.appendTo;
+    }
+    set appendTo(value: any) {
+        this._appendTo = value;
     }
 
-    get visible(): boolean {
-        return this._visible;
+    @Input() get autoZIndex(): boolean | undefined {
+        const value = this._autoZIndex || this.overlayOptions?.autoZIndex;
+        return value === undefined ? true : value;
+    }
+    set autoZIndex(value: boolean) {
+        this._autoZIndex = value;
     }
 
-    get overlayBreakpoints(): any {
-        return this.config.overlayOptions ? this.config.overlayOptions.breakpoint : null;
+    @Input() get baseZIndex(): number | undefined {
+        const value = this._baseZIndex || this.overlayOptions?.baseZIndex;
+        return value === undefined ? 0 : value;
+    }
+    set baseZIndex(value: number) {
+        this._baseZIndex = value;
     }
 
-    get viewport(): any {
-        this._viewport = DomHandler.getViewport();
-        return this._viewport;
+    @Input() get showTransitionOptions(): string {
+        const value = this._showTransitionOptions || this.overlayOptions?.showTransitionOptions;
+        return value === undefined ? '.12s cubic-bezier(0, 0, 0.2, 1)' : value;
     }
+    set showTransitionOptions(value: string) {
+        this._showTransitionOptions = value;
+    }
+
+    @Input() get hideTransitionOptions(): string {
+        const value = this._hideTransitionOptions || this.overlayOptions?.hideTransitionOptions;
+        return value === undefined ? '.1s linear' : value;
+    }
+    set hideTransitionOptions(value: string) {
+        this._hideTransitionOptions = value;
+    }
+
+    @Input() get listener(): any {
+        return this._listener || this.overlayOptions?.listener;
+    }
+    set listener(value: any) {
+        this._listener = value;
+    }
+
+    @Input() get options(): OverlayOptions | undefined {
+        return this._options;
+    }
+    set options(val: OverlayOptions) {
+        this._options = val;
+    }
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
+    @Output() onAnimationStart: EventEmitter<any> = new EventEmitter();
+
+    @Output() onAnimationDone: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('modal') modalViewChild: ElementRef;
+
+    @ViewChild('overlay') overlayViewChild: ElementRef;
 
     _visible: boolean;
 
-    _overlayDirection: string;
+    _mode: OverlayModeType | string;
 
-    _viewport: any;
+    _style: any;
 
-    _overlayBreakpoints: number;
+    _styleClass: string;
 
-    _appendTo: any;
+    _appendTo: 'body' | HTMLElement | undefined;
 
-    transformOptions: string = 'scaleY(0.8)';
+    _autoZIndex: boolean;
+
+    _baseZIndex: number;
+
+    _showTransitionOptions: string;
+
+    _hideTransitionOptions: string;
+
+    _listener: any;
+
+    _options: OverlayOptions | undefined;
+
+    modalVisible: boolean;
+
+    scrollHandler: any;
+
+    documentClickListener: any;
 
     documentResizeListener: any;
 
-    responsive: boolean;
+    private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {}
+    protected transformOptions: any = {
+        default: 'scaleY(0.8)',
+        start: 'translate3d(0px, -100%, 0px)',
+        center: 'scale(0.7)',
+        end: 'translate3d(0px, 100%, 0px)'
+    };
 
-    ngOnInit() {
-        this.bindDocumentResizeListener();
+    get modal() {
+        return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+    }
+
+    get overlayMode() {
+        return this.mode || (this.modal ? 'modal' : 'overlay');
+    }
+
+    get overlayOptions() {
+        return { ...this.config?.overlayOptions, ...this.options }; // TODO: Improve performance
+    }
+
+    get overlayResponsiveOptions() {
+        return { ...this.config?.overlayOptions?.responsive, ...this.options?.responsive }; // TODO: Improve performance
+    }
+
+    get overlayResponsiveDirection() {
+        return this.overlayResponsiveOptions?.direction;
+    }
+
+    get modalEl() {
+        return this.modalViewChild?.nativeElement;
+    }
+
+    get overlayEl() {
+        return this.overlayViewChild?.nativeElement;
+    }
+
+    get containerEl() {
+        return this.modal ? this.modalEl : this.overlayEl;
+    }
+
+    get targetEl() {
+        return this.el?.nativeElement?.parentElement;
+    }
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
+        this.window = this.document.defaultView;
+    }
+
+    show(container?: HTMLElement, isFocus: boolean = false) {
+        this.visible = true;
+        this.handleEvents('onShow', { container: container || this.containerEl, target: this.targetEl, mode: this.overlayMode });
+
+        isFocus && DomHandler.focus(this.targetEl);
+        this.modal && DomHandler.addClass(this.document?.body, 'p-overflow-hidden');
+    }
+
+    hide(container?: HTMLElement, isFocus: boolean = false) {
+        this.visible = false;
+        this.handleEvents('onHide', { container: container || this.containerEl, target: this.targetEl, mode: this.overlayMode });
+
+        isFocus && DomHandler.focus(this.targetEl);
+        this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+    }
+
+    alignOverlay() {
+        DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
     }
 
     onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
-            target: this.el.nativeElement
+            target: this.targetEl
         });
     }
 
-    onOverlayAnimationStart(event) {
-        this.onAnimationStart.emit(event);
-    }
-
-    onOverlayAnimationEnd(event) {
-        if (event.toState === 'void') {
-            this.destroyOverlay();
-        }
-        this.onAnimationEnd.emit(event);
-    }
-
-    appendOverlay() {
-        if (this.autoZIndex) {
-            ZIndexUtils.set('modal', this.el.nativeElement, this.baseZIndex + this.config.zIndex.modal);
-        }
-        if (this.viewport.width < this.overlayBreakpoints) {
-            this.responsive = true;
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-            DomHandler.addClass(this.overlayViewChild.nativeElement, 'p-overlay-responsive');
-            DomHandler.addClass(this.contentViewChild.nativeElement.firstChild, 'p-overlay-panel-static');
-        } else {
-            this.responsive = false;
-            if (this.appendTo) {
-                if (this.appendTo === 'body') {
-                    this.document.body.appendChild(this.overlayViewChild.nativeElement);
-                } else {
-                    DomHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
+    onOverlayAnimationStart(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'visible':
+                if (this.autoZIndex) {
+                    ZIndexUtils.set(this.overlayMode, this.containerEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
-            }
+
+                DomHandler.appendOverlay(this.containerEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
+                this.alignOverlay();
+                this.bindListeners();
+
+                break;
+
+            case 'void':
+                DomHandler.appendOverlay(this.containerEl, this.targetEl, this.appendTo);
+                this.modal && DomHandler.addClass(this.containerEl, 'p-component-overlay-leave');
+                this.unbindListeners();
+
+                break;
         }
-        if (!this.contentViewChild.nativeElement.style.minWidth) {
-            this.contentViewChild.nativeElement.style.minWidth = DomHandler.getWidth(this.container) + 'px';
+
+        this.handleEvents('onAnimationStart', event);
+    }
+
+    onOverlayAnimationDone(event: AnimationEvent) {
+        const container = this.containerEl || (this.modal ? event.element.parentElement : event.element);
+
+        switch (event.toState) {
+            case 'visible':
+                this.show(container, true);
+
+                break;
+
+            case 'void':
+                ZIndexUtils.clear(container);
+                this.modalVisible = false;
+
+                this.hide(container, true);
+                break;
+        }
+
+        this.handleEvents('onAnimationDone', event);
+    }
+
+    handleEvents(name: string, params: any) {
+        this[name].emit(params);
+        this.options && this.options[name] && this.options[name](params);
+        this.config?.overlayOptions && this.config?.overlayOptions[name] && this.config?.overlayOptions[name](params);
+    }
+
+    bindListeners() {
+        this.bindScrollListener();
+        this.bindDocumentClickListener();
+        this.bindDocumentResizeListener();
+    }
+
+    unbindListeners() {
+        this.unbindScrollListener();
+        this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
+    }
+
+    bindScrollListener() {
+        if (!this.scrollHandler) {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.targetEl, (event) => {
+                const valid = this.listener ? this.listener(event, { type: 'scroll', mode: this.overlayMode, valid: true }) : true;
+
+                valid && this.hide(event, true);
+            });
+        }
+
+        this.scrollHandler.bindScrollListener();
+    }
+
+    unbindScrollListener() {
+        if (this.scrollHandler) {
+            this.scrollHandler.unbindScrollListener();
         }
     }
 
-    alignOverlay() {
-        if (this.overlayViewChild) {
-            if (this.viewport.width < this.overlayBreakpoints) {
-                switch (this.overlayDirection) {
-                    case 'start':
-                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-start');
-                        break;
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                const isOutsideClicked = this.targetEl && !(this.targetEl.isSameNode(event.target) || this.targetEl.contains(event.target) || (this.overlayEl && this.overlayEl.contains(<Node>event.target)));
+                const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
 
-                    case 'center':
-                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-center');
-                        break;
-
-                    case 'end':
-                        DomHandler.addClass(this.maskViewChild.nativeElement, 'p-overlay-panel-end');
-                        break;
-                }
-            } else {
-                if (this.appendTo) {
-                    DomHandler.absolutePosition(this.overlayViewChild.nativeElement, this.container);
-                } else {
-                    DomHandler.relativePosition(this.overlayViewChild.nativeElement, this.container);
-                }
-            }
+                valid && this.hide(event);
+            });
         }
     }
 
-    blockScroll() {
-        DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-    }
-
-    unblockScroll() {
-        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
     }
 
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
-            this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
+            this.documentResizeListener = this.renderer.listen('window', 'resize', (event) => {
+                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+
+                valid && this.hide(event, true);
+            });
         }
     }
 
@@ -217,28 +377,20 @@ export class Overlay implements OnDestroy {
         }
     }
 
-    onWindowResize() {
-        if (this.visible) {
-            this.visible = false;
-            this.onOverlayHide.emit({ visible: this.visible });
-            this.cd.markForCheck();
-        }
-    }
-
-    destroyOverlay() {
-        this.unblockScroll();
-        this.unbindDocumentResizeListener();
-
-        if (this.overlayViewChild && this.overlayViewChild.nativeElement) {
-            ZIndexUtils.clear(this.el.nativeElement);
-            this.overlayViewChild = null;
-        }
-
-        this.onOverlayHide.emit({ visible: this.visible });
-    }
-
     ngOnDestroy() {
-        this.destroyOverlay();
+        this.hide(this.containerEl, true);
+
+        if (this.containerEl) {
+            DomHandler.appendOverlay(this.containerEl, this.targetEl, this.appendTo);
+            ZIndexUtils.clear(this.containerEl);
+        }
+
+        if (this.scrollHandler) {
+            this.scrollHandler.destroy();
+            this.scrollHandler = null;
+        }
+
+        this.unbindListeners();
     }
 }
 

@@ -1,39 +1,38 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnInit,
-    AfterViewInit,
-    AfterContentInit,
-    AfterViewChecked,
-    OnDestroy,
-    Input,
-    Output,
-    Renderer2,
-    EventEmitter,
-    ContentChildren,
-    QueryList,
-    ViewChild,
-    TemplateRef,
-    forwardRef,
-    ChangeDetectorRef,
-    NgZone,
-    ViewRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation
-} from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { PrimeNGConfig, SelectItem, TranslationKeys } from 'primeng/api';
-import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { TooltipModule } from 'primeng/tooltip';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
-import { RippleModule } from 'primeng/ripple';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { Overlay, OverlayModule } from '../overlay/overlay';
+import { DomHandler } from 'primeng/dom';
+import { Overlay, OverlayModule } from 'primeng/overlay';
+import { RippleModule } from 'primeng/ripple';
+import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { TooltipModule } from 'primeng/tooltip';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -148,7 +147,6 @@ export class DropdownItem {
                 [attr.placeholder]="placeholder"
                 aria-haspopup="listbox"
                 [attr.aria-expanded]="overlayVisible"
-                (click)="onEditableInputClick()"
                 (input)="onEditableInputChange($event)"
                 (focus)="onEditableInputFocus($event)"
                 (blur)="onInputBlur($event)"
@@ -159,14 +157,15 @@ export class DropdownItem {
             </div>
             <p-overlay
                 #overlay
-                *ngIf="overlayVisible"
                 [(visible)]="overlayVisible"
+                [options]="overlayOptions"
+                [appendTo]="appendTo"
                 [autoZIndex]="autoZIndex"
                 [baseZIndex]="baseZIndex"
-                [container]="container"
-                (onOverlayHide)="hide()"
+                [showTransitionOptions]="showTransitionOptions"
+                [hideTransitionOptions]="hideTransitionOptions"
                 (onAnimationStart)="onOverlayAnimationStart($event)"
-                [overlayDirection]="overlayDirection"
+                (onHide)="hide()"
             >
                 <div [ngClass]="'p-dropdown-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -348,13 +347,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     @Input() virtualScrollOptions: ScrollerOptions;
 
-    @Input() autoZIndex: boolean = true;
-
-    @Input() baseZIndex: number = 0;
-
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
-    @Input() hideTransitionOptions: string = '.1s linear';
+    @Input() overlayOptions: OverlayOptions;
 
     @Input() ariaFilterLabel: string;
 
@@ -441,6 +434,46 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
 
+    /* @deprecated */
+    _autoZIndex: boolean;
+    @Input() get autoZIndex(): boolean {
+        return this._autoZIndex;
+    }
+    set autoZIndex(val: boolean) {
+        this._autoZIndex = val;
+        console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
+    /* @deprecated */
+    _baseZIndex: number;
+    @Input() get baseZIndex(): number {
+        return this._baseZIndex;
+    }
+    set baseZIndex(val: number) {
+        this._baseZIndex = val;
+        console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
+    /* @deprecated */
+    _showTransitionOptions: string;
+    @Input() get showTransitionOptions(): string {
+        return this._showTransitionOptions;
+    }
+    set showTransitionOptions(val: string) {
+        this._showTransitionOptions = val;
+        console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
+    /* @deprecated */
+    _hideTransitionOptions: boolean;
+    @Input() get hideTransitionOptions(): boolean {
+        return this._hideTransitionOptions;
+    }
+    set hideTransitionOptions(val: boolean) {
+        this._hideTransitionOptions = val;
+        console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
     itemsWrapper: HTMLDivElement;
 
     itemTemplate: TemplateRef<any>;
@@ -481,10 +514,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     overlayVisible: boolean;
 
-    documentClickListener: any;
-
-    scrollHandler: any;
-
     optionsChanged: boolean;
 
     panel: HTMLDivElement;
@@ -507,11 +536,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     currentSearchChar: string;
 
-    documentResizeListener: any;
-
     preventModelTouched: boolean;
-
-    preventDocumentDefault: boolean;
 
     id: string = UniqueComponentId();
 
@@ -676,7 +701,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         setTimeout(() => {
             this.hide();
-        }, 150);
+        }, 1);
     }
 
     selectItem(event, option) {
@@ -784,16 +809,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') || event.target.isSameNode(this.accessibleViewChild.nativeElement) || (this.editableInputViewChild && event.target.isSameNode(this.editableInputViewChild.nativeElement));
     }
 
-    isOutsideClicked(event: Event): boolean {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || (this.overlayViewChild && this.overlayViewChild.el.nativeElement.contains(<Node>event.target)));
-    }
-
     isEmpty() {
         return !this.optionsToDisplay || (this.optionsToDisplay && this.optionsToDisplay.length === 0);
-    }
-
-    onEditableInputClick() {
-        this.bindDocumentClickListener();
     }
 
     onEditableInputFocus(event) {
@@ -814,7 +831,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     show() {
         this.overlayVisible = true;
-        this.preventDocumentDefault = true;
         this.cd.markForCheck();
     }
 
@@ -822,10 +838,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (event.toState === 'visible') {
             this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
             this.virtualScroll && this.scroller.setContentEl(this.itemsViewChild.nativeElement);
-            this.overlayViewChild.appendOverlay();
-            this.overlayViewChild.alignOverlay();
-            this.bindDocumentClickListener();
-            this.bindScrollListener();
 
             if (this.options && this.options.length) {
                 if (this.virtualScroll) {
@@ -858,18 +870,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
     }
 
-    restoreOverlayAppend() {
-        if (this.overlayViewChild && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlayViewChild.el.nativeElement);
-        }
-    }
-
     hide() {
         this.overlayVisible = false;
 
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
+
+        this.scroller && this.scroller.ngOnDestroy();
         this.cd.markForCheck();
     }
 
@@ -1257,63 +1265,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.applyFocus();
     }
 
-    bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (!this.preventDocumentDefault && this.isOutsideClicked(event)) {
-                    this.hide();
-                    this.unbindDocumentClickListener();
-                }
-                this.preventDocumentDefault = false;
-            });
-        }
-    }
-
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
-    }
-
-    bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
-    }
-
-    unbindDocumentResizeListener() {
-        if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
-        }
-    }
-
-    onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
-            this.hide();
-        }
-    }
-
-    bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild.nativeElement, (event: any) => {
-                if (this.overlayVisible) {
-                    this.hide();
-                }
-            });
-        }
-
-        this.scrollHandler.bindScrollListener();
-    }
-
-    unbindScrollListener() {
-        if (this.scrollHandler) {
-            this.scrollHandler.unbindScrollListener();
-        }
-    }
-
     clear(event: Event) {
         this.value = null;
         this.onModelChange(this.value);
@@ -1327,19 +1278,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onOverlayHide() {
-        this.unbindDocumentClickListener();
-        this.unbindDocumentResizeListener();
-        this.unbindScrollListener();
         this.itemsWrapper = null;
         this.onModelTouched();
     }
 
     ngOnDestroy() {
-        if (this.scrollHandler) {
-            this.scrollHandler.destroy();
-            this.scrollHandler = null;
-        }
-        this.restoreOverlayAppend();
         this.onOverlayHide();
     }
 }
