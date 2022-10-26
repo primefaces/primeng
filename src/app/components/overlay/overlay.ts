@@ -2,7 +2,7 @@ import { animate, animation, AnimationEvent, style, transition, trigger, useAnim
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, SharedModule } from 'primeng/api';
+import { OverlayModeType, OverlayOptions, OverlayService, PrimeNGConfig, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 
@@ -59,15 +59,22 @@ const hideOverlayAnimation = animation([animate('{{hideTransitionParams}}', styl
     }
 })
 export class Overlay implements OnDestroy {
-    @Input() get visible(): any {
+    @Input() get visible(): boolean {
         return this._visible;
     }
-    set visible(value: any) {
+    set visible(value: boolean) {
         this._visible = value;
 
         if (this._visible && !this.modalVisible) {
             this.modalVisible = true;
         }
+    }
+
+    @Input() get mode(): OverlayModeType | string {
+        return this._mode || this.overlayOptions?.mode;
+    }
+    set mode(value: string) {
+        this._mode = value;
     }
 
     @Input() get style(): any {
@@ -151,6 +158,8 @@ export class Overlay implements OnDestroy {
 
     _visible: boolean;
 
+    _mode: OverlayModeType | string;
+
     _style: any;
 
     _styleClass: string;
@@ -187,11 +196,11 @@ export class Overlay implements OnDestroy {
     };
 
     get modal() {
-        return this.overlayResponsiveOptions && this.window.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches;
+        return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
     }
 
-    get mode() {
-        return this.modal ? 'modal' : 'overlay';
+    get overlayMode() {
+        return this.mode || (this.modal ? 'modal' : 'overlay');
     }
 
     get overlayOptions() {
@@ -228,7 +237,7 @@ export class Overlay implements OnDestroy {
 
     show(container?: HTMLElement, isFocus: boolean = false) {
         this.visible = true;
-        this.handleEvents('onShow', { container: container || this.containerEl, target: this.targetEl, mode: this.mode });
+        this.handleEvents('onShow', { container: container || this.containerEl, target: this.targetEl, mode: this.overlayMode });
 
         isFocus && DomHandler.focus(this.targetEl);
         this.modal && DomHandler.addClass(this.document?.body, 'p-overflow-hidden');
@@ -236,7 +245,7 @@ export class Overlay implements OnDestroy {
 
     hide(container?: HTMLElement, isFocus: boolean = false) {
         this.visible = false;
-        this.handleEvents('onHide', { container: container || this.containerEl, target: this.targetEl, mode: this.mode });
+        this.handleEvents('onHide', { container: container || this.containerEl, target: this.targetEl, mode: this.overlayMode });
 
         isFocus && DomHandler.focus(this.targetEl);
         this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
@@ -257,7 +266,7 @@ export class Overlay implements OnDestroy {
         switch (event.toState) {
             case 'visible':
                 if (this.autoZIndex) {
-                    ZIndexUtils.set('overlay', this.containerEl, this.baseZIndex + this.config?.zIndex[this.mode]);
+                    ZIndexUtils.set(this.overlayMode, this.containerEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
 
                 DomHandler.appendOverlay(this.containerEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
@@ -318,7 +327,7 @@ export class Overlay implements OnDestroy {
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.targetEl, (event) => {
-                const valid = this.listener ? this.listener(event, { type: 'scroll', mode: this.mode, valid: true }) : true;
+                const valid = this.listener ? this.listener(event, { type: 'scroll', mode: this.overlayMode, valid: true }) : true;
 
                 valid && this.hide(event, true);
             });
@@ -337,7 +346,7 @@ export class Overlay implements OnDestroy {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                 const isOutsideClicked = this.targetEl && !(this.targetEl.isSameNode(event.target) || this.targetEl.contains(event.target) || (this.overlayEl && this.overlayEl.contains(<Node>event.target)));
-                const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.mode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
+                const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
 
                 valid && this.hide(event);
             });
@@ -354,7 +363,7 @@ export class Overlay implements OnDestroy {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen('window', 'resize', (event) => {
-                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.mode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
 
                 valid && this.hide(event, true);
             });

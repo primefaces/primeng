@@ -27,6 +27,7 @@ export interface OverlayOnShowEvent {
 export interface OverlayOnHideEvent extends OverlayOnShowEvent {}
 
 export interface OverlayOptions {
+    mode?: OverlayModeType;
     style?: any;
     styleClass?: string;
     appendTo?: 'body' | HTMLElement | undefined;
