@@ -19,7 +19,7 @@ export interface ResponsiveOverlayOptions {
 }
 
 export interface OverlayOnShowEvent {
-    container?: HTMLElement | undefined;
+    overlay?: HTMLElement | undefined;
     target?: HTMLElement | undefined;
     mode?: OverlayModeType;
 }
@@ -30,6 +30,8 @@ export interface OverlayOptions {
     mode?: OverlayModeType;
     style?: any;
     styleClass?: string;
+    contentStyle?: any;
+    contentStyleClass?: string;
     appendTo?: 'body' | HTMLElement | undefined;
     autoZIndex?: boolean;
     baseZIndex?: number;

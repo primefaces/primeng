@@ -15,8 +15,11 @@
     height: 100%;
 }
 
-.p-overlay-modal > .p-overlay {
-    position: static;
+.p-overlay-content {
+    transform-origin: inherit;
+}
+
+.p-overlay-modal > .p-overlay-content {
     z-index: 1;
     width: 90%;
 }

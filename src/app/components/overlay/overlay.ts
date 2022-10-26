@@ -12,44 +12,42 @@ export const OVERLAY_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-const showOverlayAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
+const showOverlayContentAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
 
-const hideOverlayAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
+const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
     selector: 'p-overlay',
     template: `
-        <ng-container *ngIf="modal; else overlayTemplate">
-            <div
-                *ngIf="modalVisible"
-                #modal
-                [ngClass]="{
-                    'p-overlay-modal p-component-overlay p-component-overlay-enter': true,
-                    'p-overlay-start': overlayResponsiveDirection === 'start',
-                    'p-overlay-center': overlayResponsiveDirection === 'center',
-                    'p-overlay-end': overlayResponsiveDirection === 'end'
-                }"
-            >
-                <ng-container *ngTemplateOutlet="overlayTemplate"></ng-container>
-            </div>
-        </ng-container>
-        <ng-template #overlayTemplate>
+        <div
+            *ngIf="modalVisible"
+            #overlay
+            [ngStyle]="style"
+            [class]="styleClass"
+            [ngClass]="{
+                'p-overlay p-component': true,
+                'p-overlay-modal p-component-overlay p-component-overlay-enter': modal,
+                'p-overlay-start': overlayResponsiveDirection === 'start',
+                'p-overlay-center': overlayResponsiveDirection === 'center',
+                'p-overlay-end': overlayResponsiveDirection === 'end'
+            }"
+        >
             <div
                 *ngIf="visible"
-                #overlay
-                [ngStyle]="style"
-                [ngClass]="'p-overlay p-component'"
-                [class]="styleClass"
-                (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions[modal ? overlayResponsiveDirection : 'default'] } }"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationDone($event)"
+                #content
+                [ngStyle]="contentStyle"
+                [class]="contentStyleClass"
+                [ngClass]="'p-overlay-content'"
+                (click)="onOverlayContentClick($event)"
+                [@overlayContentAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions[modal ? overlayResponsiveDirection : 'default'] } }"
+                (@overlayContentAnimation.start)="onOverlayContentAnimationStart($event)"
+                (@overlayContentAnimation.done)="onOverlayContentAnimationDone($event)"
             >
                 <ng-content></ng-content>
             </div>
-        </ng-template>
+        </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [useAnimation(showOverlayAnimation)]), transition(':leave', [useAnimation(hideOverlayAnimation)])])],
+    animations: [trigger('overlayContentAnimation', [transition(':enter', [useAnimation(showOverlayContentAnimation)]), transition(':leave', [useAnimation(hideOverlayContentAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [OVERLAY_VALUE_ACCESSOR],
@@ -89,6 +87,20 @@ export class Overlay implements OnDestroy {
     }
     set styleClass(value: string) {
         this._styleClass = value;
+    }
+
+    @Input() get contentStyle(): any {
+        return this._contentStyle || this.overlayOptions?.contentStyle;
+    }
+    set contentStyle(value: any) {
+        this._contentStyle = value;
+    }
+
+    @Input() get contentStyleClass(): string | undefined {
+        return this._contentStyleClass || this.overlayOptions?.contentStyleClass;
+    }
+    set contentStyleClass(value: string) {
+        this._contentStyleClass = value;
     }
 
     @Input() get appendTo(): any {
@@ -152,9 +164,9 @@ export class Overlay implements OnDestroy {
 
     @Output() onAnimationDone: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('modal') modalViewChild: ElementRef;
-
     @ViewChild('overlay') overlayViewChild: ElementRef;
+
+    @ViewChild('content') contentViewChild: ElementRef;
 
     _visible: boolean;
 
@@ -163,6 +175,10 @@ export class Overlay implements OnDestroy {
     _style: any;
 
     _styleClass: string;
+
+    _contentStyle: any;
+
+    _contentStyleClass: string;
 
     _appendTo: 'body' | HTMLElement | undefined;
 
@@ -215,16 +231,12 @@ export class Overlay implements OnDestroy {
         return this.overlayResponsiveOptions?.direction;
     }
 
-    get modalEl() {
-        return this.modalViewChild?.nativeElement;
-    }
-
     get overlayEl() {
         return this.overlayViewChild?.nativeElement;
     }
 
-    get containerEl() {
-        return this.modal ? this.modalEl : this.overlayEl;
+    get contentEl() {
+        return this.contentViewChild?.nativeElement;
     }
 
     get targetEl() {
@@ -235,49 +247,49 @@ export class Overlay implements OnDestroy {
         this.window = this.document.defaultView;
     }
 
-    show(container?: HTMLElement, isFocus: boolean = false) {
+    show(overlay?: HTMLElement, isFocus: boolean = false) {
         this.visible = true;
-        this.handleEvents('onShow', { container: container || this.containerEl, target: this.targetEl, mode: this.overlayMode });
+        this.handleEvents('onShow', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
         isFocus && DomHandler.focus(this.targetEl);
         this.modal && DomHandler.addClass(this.document?.body, 'p-overflow-hidden');
     }
 
-    hide(container?: HTMLElement, isFocus: boolean = false) {
+    hide(overlay?: HTMLElement, isFocus: boolean = false) {
         this.visible = false;
-        this.handleEvents('onHide', { container: container || this.containerEl, target: this.targetEl, mode: this.overlayMode });
+        this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
         isFocus && DomHandler.focus(this.targetEl);
         this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
     }
 
     alignOverlay() {
-        DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
+        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
     }
 
-    onOverlayClick(event: MouseEvent) {
+    onOverlayContentClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
             target: this.targetEl
         });
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
+    onOverlayContentAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
                 if (this.autoZIndex) {
-                    ZIndexUtils.set(this.overlayMode, this.containerEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
+                    ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
 
-                DomHandler.appendOverlay(this.containerEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
+                DomHandler.appendOverlay(this.overlayEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
                 this.alignOverlay();
                 this.bindListeners();
 
                 break;
 
             case 'void':
-                DomHandler.appendOverlay(this.containerEl, this.targetEl, this.appendTo);
-                this.modal && DomHandler.addClass(this.containerEl, 'p-component-overlay-leave');
+                DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+                this.modal && DomHandler.addClass(this.overlayEl, 'p-component-overlay-leave');
                 this.unbindListeners();
 
                 break;
@@ -286,8 +298,8 @@ export class Overlay implements OnDestroy {
         this.handleEvents('onAnimationStart', event);
     }
 
-    onOverlayAnimationDone(event: AnimationEvent) {
-        const container = this.containerEl || (this.modal ? event.element.parentElement : event.element);
+    onOverlayContentAnimationDone(event: AnimationEvent) {
+        const container = this.overlayEl || event.element.parentElement;
 
         switch (event.toState) {
             case 'visible':
@@ -296,10 +308,10 @@ export class Overlay implements OnDestroy {
                 break;
 
             case 'void':
+                this.hide(container, true);
+
                 ZIndexUtils.clear(container);
                 this.modalVisible = false;
-
-                this.hide(container, true);
                 break;
         }
 
@@ -345,7 +357,7 @@ export class Overlay implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                const isOutsideClicked = this.targetEl && !(this.targetEl.isSameNode(event.target) || this.targetEl.contains(event.target) || (this.overlayEl && this.overlayEl.contains(<Node>event.target)));
+                const isOutsideClicked = this.targetEl && !(this.targetEl.isSameNode(event.target) || this.targetEl.contains(event.target) || (this.contentEl && this.contentEl.contains(<Node>event.target)));
                 const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
 
                 valid && this.hide(event);
@@ -378,11 +390,11 @@ export class Overlay implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.hide(this.containerEl, true);
+        this.hide(this.overlayEl, true);
 
-        if (this.containerEl) {
-            DomHandler.appendOverlay(this.containerEl, this.targetEl, this.appendTo);
-            ZIndexUtils.clear(this.containerEl);
+        if (this.overlayEl) {
+            DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+            ZIndexUtils.clear(this.overlayEl);
         }
 
         if (this.scrollHandler) {
