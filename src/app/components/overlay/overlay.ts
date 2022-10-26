@@ -27,9 +27,9 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
             [ngClass]="{
                 'p-overlay p-component': true,
                 'p-overlay-modal p-component-overlay p-component-overlay-enter': modal,
-                'p-overlay-start': overlayResponsiveDirection === 'start',
-                'p-overlay-center': overlayResponsiveDirection === 'center',
-                'p-overlay-end': overlayResponsiveDirection === 'end'
+                'p-overlay-start': modal && overlayResponsiveDirection === 'start',
+                'p-overlay-center': modal && overlayResponsiveDirection === 'center',
+                'p-overlay-end': modal && overlayResponsiveDirection === 'end'
             }"
         >
             <div
