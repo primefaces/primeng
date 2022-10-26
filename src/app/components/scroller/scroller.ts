@@ -465,20 +465,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     ngAfterViewInit() {
-        if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
-            this.setInitialState();
-            this.setContentEl(this.contentEl);
-            this.init();
-
-            this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
-            this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
-            this.initialized = true;
-        }
+        this.viewInit();
     }
 
     ngAfterViewChecked() {
         if (!this.initialized) {
-            this.ngAfterViewInit();
+            this.viewInit();
         }
 
         this.calculateAutoSize();
@@ -489,6 +481,18 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         this.contentEl = null;
         this.initialized = false;
+    }
+
+    viewInit() {
+        if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
+            this.setInitialState();
+            this.setContentEl(this.contentEl);
+            this.init();
+
+            this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
+            this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
+            this.initialized = true;
+        }
     }
 
     init() {
