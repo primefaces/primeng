@@ -10,8 +10,6 @@ import { DomHandler } from '../dom/domhandler';
 })
 export class Animate {
 
-    @Input('parent') parentElement: any;
-
     @Input() enterClass: string;
 
     @Input() leaveClass: string;
@@ -26,45 +24,28 @@ export class Animate {
 
     loaded: boolean;
 
-    scroll: boolean;
-
     constructor(@Inject(DOCUMENT) private document: Document, private host: ElementRef, public el: ElementRef, public renderer: Renderer2) { }
 
     ngOnInit() {
-        if (this.isImage()) {
-            if (this.isInViewport()) {
-                this.enter();
-            }
-            this.bindLoadListener();
+        if (this.isInViewport()) {
+            this.enter();
         }
+        this.bindLoadListener();
     }
 
     constructIntersectionObserver() {
         const options = {
             root: null,
             rootMargin: '0px',
-            treshold: 1.0
+            threshold: 1.0
         }
 
-        this.observer = new IntersectionObserver((el) => this.isVisible(el), options);
+        this.observer = new IntersectionObserver(el => this.isVisible(el), options);
         this.observer.observe(this.host.nativeElement);
-    }
-
-    isVisible(element) {
-        const [intersectionObserverEntry] = element;
-        this.entered = intersectionObserverEntry.isIntersecting;
-
-        if (this.entered || this.isInViewport()) {
-            this.blockOverflow();
-        }
-        if (!this.scroll && !this.isInViewport()) {
-            this.unblockOverflow();
-        }
     }
 
     isInViewport() {
         let rect = this.host.nativeElement.getBoundingClientRect();
-
         return (
             rect.top >= 0 &&
             rect.left >= 0 &&
@@ -73,16 +54,13 @@ export class Animate {
         );
     }
 
-    isImage(): boolean {
-        return this.el.nativeElement.tagName === 'IMG';
+    isVisible(element) {
+        const [intersectionObserverEntry] = element
+        this.entered = intersectionObserverEntry.isIntersecting;
     }
 
     animate() {
         if (this.loaded) {
-            if (this.isInViewport() && !this.entered) {
-                this.enter();
-            }
-
             if (this.isInViewport() && this.entered) {
                 this.enter();
             }
@@ -99,35 +77,13 @@ export class Animate {
     }
 
     leave() {
-        this.host.nativeElement.style.visibility = 'hidden';
-        if (this.leaveClass) {
-            DomHandler.addClass(this.host.nativeElement, this.leaveClass);
-        }
         DomHandler.removeClass(this.host.nativeElement, this.enterClass);
-    }
-
-    blockOverflow() {
-        if (this.parentElement.nativeElement) {
-            DomHandler.addClass(this.parentElement.nativeElement, 'overflow-x-hidden');
-        }
-        if (!this.parentElement.nativeElement && this.parentElement) {
-            DomHandler.addClass(this.parentElement, 'overflow-x-hidden');
-        }
-    }
-
-    unblockOverflow() {
-        if (this.parentElement.nativeElement) {
-            DomHandler.removeClass(this.parentElement.nativeElement, 'overflow-x-hidden');
-        }
-        if (!this.parentElement.nativeElement && this.parentElement) {
-            DomHandler.removeClass(this.parentElement, 'overflow-x-hidden');
-        }
+        this.host.nativeElement.style.visibility = 'hidden';
     }
 
     bindDocumentScrollListener() {
         if (!this.documentScrollListener) {
             this.documentScrollListener = this.renderer.listen(window, 'scroll', () => {
-                this.scroll = true;
                 if (!this.observer) {
                     this.constructIntersectionObserver();
                 }
@@ -138,14 +94,13 @@ export class Animate {
 
     unbindDocumentScrollListener() {
         if (this.documentScrollListener) {
-            this.scroll = false;
             this.documentScrollListener();
             this.documentScrollListener = null;
         }
     }
 
     bindLoadListener() {
-        this.loadListener = this.renderer.listen(this.el.nativeElement, 'load', () => {
+        this.loadListener = this.renderer.listen(window, 'load', () => {
             if (!this.loaded) {
                 this.animate();
             }
@@ -166,7 +121,6 @@ export class Animate {
     ngOnDestroy() {
         this.unbindDocumentScrollListener();
         this.unbindLoadListener();
-        this.unblockOverflow();
     }
 }
 
