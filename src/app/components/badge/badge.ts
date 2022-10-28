@@ -4,6 +4,8 @@ import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
 
+type BadgeDirectiveIconPosition = 'left' | 'right' | 'top' | 'bottom';
+
 @Directive({
     selector: '[pBadge]',
     host: {
@@ -11,7 +13,7 @@ import { UniqueComponentId } from 'primeng/utils';
     }
 })
 export class BadgeDirective implements AfterViewInit, OnDestroy {
-    @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
+    @Input() iconPos: BadgeDirectiveIconPosition = 'left';
 
     public _value: string;
 

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
+type ToggleButtonIconPosition = 'left' | 'right';
+
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => ToggleButton),
