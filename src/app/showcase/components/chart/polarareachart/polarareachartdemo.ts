@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AppConfigService} from '../../../service/appconfigservice';
-import {AppConfig} from '../../../domain/appconfig';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../../service/appconfigservice';
+import { AppConfig } from '../../../domain/appconfig';
 
 @Component({
     templateUrl: './polarareachartdemo.html'
 })
-export class PolarAreaChartDemo {
-
+export class PolarAreaChartDemo implements OnInit, OnDestroy {
     data: any;
 
     chartOptions: any;
@@ -20,35 +19,19 @@ export class PolarAreaChartDemo {
 
     ngOnInit() {
         this.data = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3,
-                    14
-                ],
-                backgroundColor: [
-                    "#42A5F5",
-                    "#66BB6A",
-                    "#FFA726",
-                    "#26C6DA",
-                    "#7E57C2"
-                ],
-                label: 'My dataset'
-            }],
-            labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
-            ]
+            datasets: [
+                {
+                    data: [11, 16, 7, 3, 14],
+                    backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#26C6DA', '#7E57C2'],
+                    label: 'My dataset'
+                }
+            ],
+            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
         };
 
         this.config = this.configService.config;
         this.updateChartOptions();
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
             this.updateChartOptions();
         });
@@ -74,7 +57,7 @@ export class PolarAreaChartDemo {
                     }
                 }
             }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -93,6 +76,12 @@ export class PolarAreaChartDemo {
                     }
                 }
             }
+        };
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 }

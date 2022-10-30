@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AppConfigService} from '../../../service/appconfigservice';
-import {AppConfig} from '../../../domain/appconfig';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../../service/appconfigservice';
+import { AppConfig } from '../../../domain/appconfig';
 
 @Component({
     templateUrl: './doughnutchartdemo.html'
 })
-export class DoughnutChartDemo {
-
+export class DoughnutChartDemo implements OnInit, OnDestroy {
     data: any;
 
     chartOptions: any;
@@ -20,27 +19,19 @@ export class DoughnutChartDemo {
 
     ngOnInit() {
         this.data = {
-            labels: ['A','B','C'],
+            labels: ['A', 'B', 'C'],
             datasets: [
                 {
                     data: [300, 50, 100],
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ]
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
                 }
             ]
         };
 
         this.config = this.configService.config;
         this.updateChartOptions();
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
             this.updateChartOptions();
         });
@@ -59,7 +50,7 @@ export class DoughnutChartDemo {
                     }
                 }
             }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -71,6 +62,12 @@ export class DoughnutChartDemo {
                     }
                 }
             }
+        };
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 }

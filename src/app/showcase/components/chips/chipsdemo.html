@@ -17,7 +17,7 @@
         <h5>Template</h5>
         <p-chips [(ngModel)]="values3">
             <ng-template let-item pTemplate="item">
-                {{item}} - (active) <span class="pi pi-user p-ml-2"></span>
+                {{item}} - (active) <i class="pi pi-user ml-2"></i>
             </ng-template>
         </p-chips>
     </div>
@@ -55,7 +55,7 @@ export class MyModel &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-chips [(ngModel)]="values"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
-        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user"&gt;&lt;/i&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user ml-2"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </app-code>
@@ -161,6 +161,12 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Separator char to add an item when pressed in addition to the enter key. Currently only possible value is ","</td>
                         </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -206,6 +212,11 @@ export class MyModel &#123;
                             <td>onBlur</td>
                             <td>originalEvent: Browser event</td>
                             <td>Callback to invoke when a input loses focus.</td>
+                        </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field is cleared.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -285,7 +296,7 @@ export class MyModel &#123;
 &lt;h5&gt;ng-template&lt;/h5&gt;
 &lt;p-chips [(ngModel)]="values3"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
-        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user p-ml-2"&gt;&lt;/i&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user ml-2"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </app-code>

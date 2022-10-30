@@ -8,58 +8,58 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <div class="p-fluid p-grid">
-            <div class="p-field p-col-12 p-md-4">
+        <div class="p-fluid grid">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <input type="text" id="inputtext" pInputText [(ngModel)]="value1"> 
                     <label for="inputtext">InputText</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input type="text" id="inputtext-left" pInputText [(ngModel)]="valueIconLeft"> 
                     <label for="inputtext-left">Left Icon</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label p-input-icon-right">
                     <i class="pi pi-spin pi-spinner"></i>
                     <input type="text" id="inputtext-right" pInputText [(ngModel)]="valueIconRight"> 
                     <label for="inputtext-right">Right Icon</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-autoComplete inputId="autocomplete" [(ngModel)]="value2" [suggestions]="filteredCountries" (completeMethod)="searchCountry($event)" field="name"></p-autoComplete>
                     <label for="autocomplete">AutoComplete</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-calendar inputId="calendar" [(ngModel)]="value3"></p-calendar>
                     <label for="calendar">Calendar</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-chips inputId="chips" [(ngModel)]="value4"></p-chips>
                     <label for="chips">Chips</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5"></p-inputMask>
                     <label for="inputmask">InputMask</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-inputNumber inputId="inputnumber" [(ngModel)]="value6"></p-inputNumber>
                     <label for="inputnumber">InputNumber</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">
                         <i class="pi pi-user"></i>
@@ -70,32 +70,32 @@
                     </span>
                 </div>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-cascadeSelect inputId="cascadeSelect" [options]="cascadeSelectCountries" optionLabel="cname" optionGroupLabel="name" 
                         [optionGroupChildren]="['states', 'cities']"></p-cascadeSelect>
                     <label for="cascadeSelect">CascadeSelect</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="cities" [(ngModel)]="value8" optionLabel="name"></p-dropdown>
                     <label for="dropdown">Dropdown</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-multiSelect inputId="multiselect" [options]="cities" [(ngModel)]="value9" optionLabel="name" [filter]="false"></p-multiSelect>
                     <label for="multiselect">MultiSelect</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <textarea inputId="textarea" rows="3" style="resize: none;" cols="30" [(ngModel)]="value10" pInputTextarea></textarea>
                     <label for="textarea">Textarea</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-password inputId="password" [(ngModel)]="value11"></p-password>
                     <label for="password">Password</label>
@@ -117,58 +117,58 @@
             </a>
             
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div class="p-fluid p-grid"&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+&lt;div class="p-fluid grid"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;input type="text" id="inputtext" pInputText [(ngModel)]="value1"&gt; 
             &lt;label for="inputtext"&gt;InputText&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label p-input-icon-left"&gt;
             &lt;i class="pi pi-search"&gt;&lt;/i&gt;
             &lt;input type="text" id="inputtext-left" pInputText [(ngModel)]="valueIconLeft"&gt; 
             &lt;label for="inputtext-left"&gt;Left Icon&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label p-input-icon-right"&gt;
             &lt;i class="pi pi-spin pi-spinner"&gt;&lt;/i&gt;
             &lt;input type="text" id="inputtext-right" pInputText [(ngModel)]="valueIconRight"&gt; 
             &lt;label for="inputtext-right"&gt;Right Icon&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-autoComplete inputId="autocomplete" [(ngModel)]="value2" [suggestions]="filteredCountries" (completeMethod)="searchCountry($event)" field="name"&gt;&lt;/p-autoComplete&gt;
             &lt;label for="autocomplete"&gt;AutoComplete&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-calendar inputId="calendar" [(ngModel)]="value3"&gt;&lt;/p-calendar&gt;
             &lt;label for="calendar"&gt;Calendar&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-chips inputId="chips" [(ngModel)]="value4"&gt;&lt;/p-chips&gt;
             &lt;label for="chips"&gt;Chips&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value5"&gt;&lt;/p-inputMask&gt;
             &lt;label for="inputmask"&gt;InputMask&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-inputNumber inputId="inputnumber" [(ngModel)]="value6"&gt;&lt;/p-inputNumber&gt;
             &lt;label for="inputnumber"&gt;InputNumber&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;div class="p-inputgroup"&gt;
             &lt;span class="p-inputgroup-addon"&gt;
                 &lt;i class="pi pi-user"&gt;&lt;/i&gt;
@@ -179,32 +179,32 @@
             &lt;/span&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-cascadeSelect inputId="cascadeSelect" [options]="cascadeSelectCountries" optionLabel="cname" optionGroupLabel="name" 
                 [optionGroupChildren]="['states', 'cities']"&gt;&lt;/p-cascadeSelect&gt;
             &lt;label for="cascadeSelect"&gt;CascadeSelect&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="cities" [(ngModel)]="value8" optionLabel="name"&gt;&lt;/p-dropdown&gt;
             &lt;label for="dropdown"&gt;Dropdown&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-multiSelect inputId="multiselect" [options]="cities" [(ngModel)]="value9" optionLabel="name" [filter]="false"&gt;&lt;/p-multiSelect&gt;
             &lt;label for="multiselect"&gt;MultiSelect&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;textarea inputId="textarea" rows="3" style="resize: none;" cols="30" [(ngModel)]="value10" pInputTextarea&gt;&lt;/textarea&gt;
             &lt;label for="textarea"&gt;Textarea&lt;/label&gt;
         &lt;/span&gt;
     &lt;/div&gt;
-    &lt;div class="p-field p-col-12 p-md-4"&gt;
+    &lt;div class="field col-12 md:col-4"&gt;
         &lt;span class="p-float-label"&gt;
             &lt;p-password inputId="password" [(ngModel)]="value11"&gt;&lt;/p-password&gt;
             &lt;label for="password"&gt;Password&lt;/label&gt;

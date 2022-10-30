@@ -122,7 +122,7 @@
         <p-button label="Search" [loading]="loading[3]" (onClick)="load(3)"></p-button>
 
         <h5>Templating</h5>
-        <p-button styleClass="p-px-3">
+        <p-button styleClass="px-3">
             <ng-template pTemplate="content">
                 <img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem"/>
             </ng-template>
@@ -130,7 +130,7 @@
 
         <p-button styleClass="p-button-outlined">
             <img alt="logo" src="assets/showcase/images/primeng-icon.svg" style="width: 1.5rem"/>
-            <span class="p-ml-2 p-text-bold">PrimeNG</span>
+            <span class="ml-2 font-bold">PrimeNG</span>
         </p-button>
 
         <h5>Button Set</h5>
@@ -231,7 +231,7 @@ export class Model &#123;
 &lt;button pButton type="button" label="Submit" class="p-button-text"&gt;&lt;/button&gt;
 &lt;button pButton type="button" icon="pi pi-check" class="p-button-text"&gt;&lt;/button&gt;
 &lt;button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-text"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Search" icon="pi pi-search" iconPos="right" class="p-button-text p-button-text"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Search" icon="pi pi-search" iconPos="right" class="p-button-text"&gt;&lt;/button&gt;
 </app-code>
             <h5>Raised and Rounded Buttons</h5>
 				<p>A button can be raised by having "p-button-raised" style class and similarly borders can be made rounded using "p-button-rounded" class.</p>
@@ -426,6 +426,12 @@ export class Model &#123;
                             <td>null</td>
                             <td>Callback to execute when button loses focus.</td>
                         </tr>
+                        <tr>
+                            <td>ariaLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Used to define a string that autocomplete attribute the current element.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -602,7 +608,7 @@ export class Model &#123;
 &lt;p-button label="Search" [loading]="loading[3]" (onClick)="load(3)"&gt;&lt;/p-button&gt;
 
 &lt;h5&gt;Templating&lt;/h5&gt;
-&lt;p-button styleClass="p-px-3"&gt;
+&lt;p-button styleClass="px-3"&gt;
     &lt;ng-template pTemplate="content"&gt;
         &lt;img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem"/&gt;
     &lt;/ng-template&gt;
@@ -610,7 +616,7 @@ export class Model &#123;
 
 &lt;p-button styleClass="p-button-outlined"&gt;
     &lt;img alt="logo" src="assets/showcase/images/primeng-icon.svg" style="width: 1.5rem"/&gt;
-    &lt;span class="p-ml-2 p-text-bold"&gt;PrimeNG&lt;/span&gt;
+    &lt;span class="ml-2 font-bold"&gt;PrimeNG&lt;/span&gt;
 &lt;/p-button&gt;
 
 &lt;h5&gt;Button Set&lt;/h5&gt;

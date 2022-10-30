@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
@@ -39,7 +39,7 @@ export class InputNumberDemo {
 
     value17: number = 20;
 
-    value18: number = 10.50;
+    value18: number = 10.5;
 
     value19: number = 25;
 

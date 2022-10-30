@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="sales" responsiveLayout="scroll">
+        <p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th rowspan="3">Product</th>
@@ -36,7 +36,7 @@
             </ng-template>
             <ng-template pTemplate="footer">
                 <tr>
-                    <td colspan="3" class="p-text-right">Totals</td>
+                    <td colspan="3" class="text-right">Totals</td>
                     <td>{{lastYearTotal | currency: 'USD'}}</td>
                     <td>{{thisYearTotal | currency: 'USD'}}</td>
                 </tr>
@@ -55,7 +55,7 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="sales" responsiveLayout="scroll"&gt;
+&lt;p-table [value]="sales" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th rowspan="3"&gt;Product&lt;/th&gt;
@@ -83,7 +83,7 @@
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="footer"&gt;
         &lt;tr&gt;
-            &lt;td colspan="3" class="p-text-right"&gt;Totals&lt;/td&gt;
+            &lt;td colspan="3" class="text-right"&gt;Totals&lt;/td&gt;
             &lt;td&gt;&#123;&#123;lastYearTotal | currency: 'USD'&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;thisYearTotal | currency: 'USD'&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;

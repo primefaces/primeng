@@ -7,46 +7,45 @@ import * as FileSaver from 'file-saver';
     templateUrl: './tableexportdemo.html'
 })
 export class TableExportDemo implements OnInit {
-
     products: Product[];
 
     selectedProducts: Product[];
 
-    constructor(private productService: ProductService) { }
+    constructor(private productService: ProductService) {}
 
     cols: any[];
 
     exportColumns: any[];
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(data => this.products = data);
+        this.productService.getProductsSmall().then((data) => (this.products = data));
 
         this.cols = [
-            { field: 'code', header: 'Code' },
+            { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
             { field: 'quantity', header: 'Quantity' }
         ];
 
-        this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
+        this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
 
     exportPdf() {
-        import("jspdf").then(jsPDF => {
-            import("jspdf-autotable").then(x => {
-                const doc = new jsPDF.default(0,0);
+        import('jspdf').then((jsPDF) => {
+            import('jspdf-autotable').then((x) => {
+                const doc = new jsPDF.default(0, 0);
                 doc.autoTable(this.exportColumns, this.products);
                 doc.save('products.pdf');
-            })
-        })
+            });
+        });
     }
 
     exportExcel() {
-        import("xlsx").then(xlsx => {
+        import('xlsx').then((xlsx) => {
             const worksheet = xlsx.utils.json_to_sheet(this.products);
-            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
             const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-            this.saveAsExcelFile(excelBuffer, "products");
+            this.saveAsExcelFile(excelBuffer, 'products');
         });
     }
 

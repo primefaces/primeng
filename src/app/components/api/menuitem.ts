@@ -17,8 +17,8 @@ export interface MenuItem {
     tooltip?: string;
     tooltipPosition?: string;
     badgeStyleClass?: string;
-    style?:any;
-    styleClass?:string;
+    style?: any;
+    styleClass?: string;
     title?: string;
     id?: string;
     automationId?: any;
@@ -30,9 +30,11 @@ export interface MenuItem {
     preserveFragment?: boolean;
     skipLocationChange?: boolean;
     replaceUrl?: boolean;
+    iconStyle?: any;
+    iconClass?: string;
     state?: {
         [k: string]: any;
-    }
+    };
     tooltipOptions?: {
         tooltipLabel?: string;
         tooltipPosition?: string;
@@ -48,5 +50,5 @@ export interface MenuItem {
         showDelay?: number;
         hideDelay?: number;
         life?: number;
-    }
+    };
 }

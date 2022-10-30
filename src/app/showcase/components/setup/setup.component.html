@@ -26,11 +26,16 @@ import &#123;MenuItem&#125; from 'primeng/api';                  //api
     <h5>Styles</h5>
 
     <p>The css dependencies are as follows, Prime Icons, theme of your choice and structural css of components.</p>
+    <p>In angular.json file find the <i>styles</i> array and add the following:</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-node_modules/primeicons/primeicons.css
-node_modules/primeng/resources/themes/lara-light-indigo/theme.css
-node_modules/primeng/resources/primeng.min.css
+...
+"styles": [
+    "node_modules/primeicons/primeicons.css",
+    "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+    "node_modules/primeng/resources/primeng.min.css",
+    ...
+]
 </app-code>
 
     <h5>Free Themes</h5>
@@ -57,7 +62,7 @@ primeng/resources/themes/lara-light-purple/theme.css
 primeng/resources/themes/lara-dark-purple/theme.css
 primeng/resources/themes/lara-light-blue/theme.css
 primeng/resources/themes/lara-dark-blue/theme.css
-primeng/resources/themes/lara-teal-teal/theme.css
+primeng/resources/themes/lara-light-teal/theme.css
 primeng/resources/themes/lara-dark-teal/theme.css
 primeng/resources/themes/saga-blue/theme.css
 primeng/resources/themes/saga-green/theme.css
@@ -95,7 +100,7 @@ primeng/resources/themes/rhea/theme.css
             <tbody>
                 <tr>
                     <td>Schedule</td>
-                    <td>FullCalendar 4.1.0</td>
+                    <td>FullCalendar 5.11.0</td>
                 </tr>
                 <tr>
                     <td>Editor</td>
@@ -171,8 +176,8 @@ export class YourAppModule &#123; &#125;
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 "dependencies": &#123;
     //...
-    "primeng": "^11.0.0",
-    "primeicons": "^4.1.0"
+    "primeng": "^14.0.0-rc.1",
+    "primeicons": "^5.0.0"
 &#125;,
 </app-code>
 
@@ -181,7 +186,7 @@ export class YourAppModule &#123; &#125;
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 "styles": [
-  "node_modules/primeng/resources/themes/saga-blue/theme.css",
+  "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
   "node_modules/primeng/resources/primeng.min.css",
   "node_modules/primeicons/primeicons.css",
   //...
@@ -196,32 +201,32 @@ export class YourAppModule &#123; &#125;
             <thead>
                 <tr>
                     <th>
-                        <div class="p-d-flex p-ai-center">
-                            <img src="assets/showcase/images/browsers/edge.svg" alt="edge" style="width: 1.5rem;" class="p-mr-2">
+                        <div class="flex align-items-center">
+                            <img src="assets/showcase/images/browsers/edge.svg" alt="edge" style="width: 1.5rem;" class="mr-2">
                             IE / Edge
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-ai-center">
-                            <img src="assets/showcase/images/browsers/firefox.svg" alt="firefox" style="width: 1.5rem;" class="p-mr-2">
+                        <div class="flex align-items-center">
+                            <img src="assets/showcase/images/browsers/firefox.svg" alt="firefox" style="width: 1.5rem;" class="mr-2">
                             Firefox
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-ai-center">
-                            <img src="assets/showcase/images/browsers/chrome.svg" alt="chrome" style="width: 1.5rem;" class="p-mr-2">
+                        <div class="flex align-items-center">
+                            <img src="assets/showcase/images/browsers/chrome.svg" alt="chrome" style="width: 1.5rem;" class="mr-2">
                             Chrome
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-ai-center">
-                            <img src="assets/showcase/images/browsers/safari.svg" alt="safari" style="width: 1.5rem;" class="p-mr-2">
+                        <div class="flex align-items-center">
+                            <img src="assets/showcase/images/browsers/safari.svg" alt="safari" style="width: 1.5rem;" class="mr-2">
                             Safari
                         </div>
                     </th>
                     <th>
-                        <div class="p-d-flex p-ai-center">
-                            <img src="assets/showcase/images/browsers/opera.svg" alt="opera" style="width: 1.5rem;" class="p-mr-2">
+                        <div class="flex align-items-center">
+                            <img src="assets/showcase/images/browsers/opera.svg" alt="opera" style="width: 1.5rem;" class="mr-2">
                             Opera
                         </div>
                     </th>

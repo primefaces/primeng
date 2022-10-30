@@ -15,8 +15,9 @@ export interface MegaMenuItem {
     separator?: boolean;
     badge?: string;
     badgeStyleClass?: string;
-    style?:any;
-    styleClass?:string;
+    style?: any;
+    styleClass?: string;
+    iconStyle?: any;
     title?: string;
     id?: string;
     automationId?: any;
@@ -30,5 +31,5 @@ export interface MegaMenuItem {
     replaceUrl?: boolean;
     state?: {
         [k: string]: any;
-    }
+    };
 }

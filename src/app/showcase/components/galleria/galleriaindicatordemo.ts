@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 @Component({
     templateUrl: './galleriaindicatordemo.html'
@@ -6,7 +6,7 @@ import { PhotoService } from '../../service/photoservice';
 export class GalleriaIndicatorDemo implements OnInit {
     images: any[];
 
-    responsiveOptions:any[] = [
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5
@@ -21,11 +21,11 @@ export class GalleriaIndicatorDemo implements OnInit {
         }
     ];
 
-    constructor(private photoService: PhotoService) { }
+    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then(images =>{ 
-            this.images = images
+        this.photoService.getImages().then((images) => {
+            this.images = images;
         });
     }
 }

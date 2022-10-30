@@ -1,4 +1,4 @@
-import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, Renderer2, Inject, forwardRef, ViewChild, NgZone, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem, ContextMenuService, PrimeNGConfig } from 'primeng/api';
@@ -12,26 +12,66 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'p-contextMenuSub',
     template: `
-        <ul #sublist [ngClass]="{'p-submenu-list':!root}">
-            <ng-template ngFor let-child let-index="index" [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" #menuitem class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}" role="separator">
-                <li *ngIf="!child.separator" #menuitem [ngClass]="{'p-menuitem':true,'p-menuitem-active': isActive(getKey(index)),'p-hidden': child.visible === false}" [ngStyle]="child.style" [class]="child.styleClass" pTooltip [tooltipOptions]="child.tooltipOptions"
-                    (mouseenter)="onItemMouseEnter($event,child,getKey(index))" (mouseleave)="onItemMouseLeave($event,child)" role="none" [attr.data-ik]="getKey(index)">
-                    <a *ngIf="!child.routerLink" [attr.href]="child.url ? child.url : null" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                        [attr.tabindex]="child.disabled ? null : '0'" (click)="onItemClick($event, child, menuitem, getKey(index))" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" pRipple
-                        [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="isActive(getKey(index))">
-                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
+        <ul #sublist [ngClass]="{ 'p-submenu-list': !root }">
+            <ng-template ngFor let-child let-index="index" [ngForOf]="root ? item : item.items">
+                <li *ngIf="child.separator" #menuitem class="p-menu-separator" [ngClass]="{ 'p-hidden': child.visible === false }" role="separator"></li>
+                <li
+                    *ngIf="!child.separator"
+                    #menuitem
+                    [ngClass]="{ 'p-menuitem': true, 'p-menuitem-active': isActive(getKey(index)), 'p-hidden': child.visible === false }"
+                    [ngStyle]="child.style"
+                    [class]="child.styleClass"
+                    pTooltip
+                    [tooltipOptions]="child.tooltipOptions"
+                    (mouseenter)="onItemMouseEnter($event, child, getKey(index))"
+                    (mouseleave)="onItemMouseLeave($event, child)"
+                    role="none"
+                    [attr.data-ik]="getKey(index)"
+                >
+                    <a
+                        *ngIf="!child.routerLink"
+                        [attr.href]="child.url ? child.url : null"
+                        [target]="child.target"
+                        [attr.title]="child.title"
+                        [attr.id]="child.id"
+                        [attr.tabindex]="child.disabled ? null : '0'"
+                        (click)="onItemClick($event, child, menuitem, getKey(index))"
+                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
+                        pRipple
+                        [attr.aria-haspopup]="item.items != null"
+                        [attr.aria-expanded]="isActive(getKey(index))"
+                    >
+                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
+                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" role="menuitem"
-                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'"
-                        (click)="onItemClick($event, child, menuitem, getKey(index))" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
-                         pRipple [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
-                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{child.label}}</span>
+                    <a
+                        *ngIf="child.routerLink"
+                        [routerLink]="child.routerLink"
+                        [queryParams]="child.queryParams"
+                        [routerLinkActive]="'p-menuitem-link-active'"
+                        role="menuitem"
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions || { exact: false }"
+                        [target]="child.target"
+                        [attr.title]="child.title"
+                        [attr.id]="child.id"
+                        [attr.tabindex]="child.disabled ? null : '0'"
+                        (click)="onItemClick($event, child, menuitem, getKey(index))"
+                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
+                        pRipple
+                        [fragment]="child.fragment"
+                        [queryParamsHandling]="child.queryParamsHandling"
+                        [preserveFragment]="child.preserveFragment"
+                        [skipLocationChange]="child.skipLocationChange"
+                        [replaceUrl]="child.replaceUrl"
+                        [state]="child.state"
+                    >
+                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
+                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
                     <p-contextMenuSub [parentItemKey]="getKey(index)" [item]="child" *ngIf="child.items" (leafClick)="onLeafClick()"></p-contextMenuSub>
@@ -41,11 +81,10 @@ import { TooltipModule } from 'primeng/tooltip';
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class ContextMenuSub {
-
     @Input() item: MenuItem;
 
     @Input() root: boolean;
@@ -89,6 +128,7 @@ export class ContextMenuSub {
         }
 
         if (item.disabled) {
+            this.activeItemKey = null;
             return;
         }
 
@@ -105,7 +145,7 @@ export class ContextMenuSub {
             return;
         }
 
-        if (this.contextMenu.el.nativeElement.contains(<Node> event.toElement)) {
+        if (this.contextMenu.el.nativeElement.contains(<Node>event.toElement)) {
             if (item.items) {
                 this.contextMenu.removeActiveFromSubLists(event.currentTarget);
             }
@@ -139,8 +179,7 @@ export class ContextMenuSub {
             if (childSublist) {
                 if (this.isActive(key) && DomHandler.hasClass(childSublist, 'p-submenu-list-active')) {
                     this.contextMenu.removeActiveFromSubLists(menuitem);
-                }
-                else {
+                } else {
                     DomHandler.addClass(childSublist, 'p-submenu-list-active');
                 }
 
@@ -166,7 +205,7 @@ export class ContextMenuSub {
     }
 
     isActive(key) {
-        return (this.activeItemKey &&(this.activeItemKey.startsWith(key + '_') || this.activeItemKey === key));
+        return this.activeItemKey && (this.activeItemKey.startsWith(key + '_') || this.activeItemKey === key);
     }
 }
 
@@ -181,11 +220,10 @@ export class ContextMenuSub {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./contextmenu.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class ContextMenu implements AfterViewInit, OnDestroy {
-
     @Input() model: MenuItem[];
 
     @Input() global: boolean;
@@ -212,6 +250,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     documentClickListener: any;
 
+    documentTriggerListener: any;
+
     documentKeydownListener: any;
 
     windowResizeListener: any;
@@ -220,7 +260,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     ngDestroy$ = new Subject();
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) { }
+    preventDocumentDefault: boolean = false;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         if (this.global) {
@@ -230,20 +272,16 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                 this.show(event);
                 event.preventDefault();
             });
-        }
-        else if (this.target) {
+        } else if (this.target) {
             this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
                 this.show(event);
                 event.preventDefault();
-                event.stopPropagation();
             });
         }
 
         if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
-            else
-                DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            if (this.appendTo === 'body') document.body.appendChild(this.containerViewChild.nativeElement);
+            else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
 
@@ -252,6 +290,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.position(event);
         this.moveOnTop();
         this.containerViewChild.nativeElement.style.display = 'block';
+        this.preventDocumentDefault = true;
         DomHandler.fadeIn(this.containerViewChild.nativeElement, 250);
         this.bindGlobalListeners();
 
@@ -269,6 +308,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             ZIndexUtils.clear(this.containerViewChild.nativeElement);
         }
 
+        this.clearActiveItem();
         this.unbindGlobalListeners();
         this.onHide.emit();
     }
@@ -280,10 +320,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     toggle(event?: MouseEvent) {
-        if (this.containerViewChild.nativeElement.offsetParent)
-            this.hide();
-        else
-            this.show(event);
+        if (this.containerViewChild.nativeElement.offsetParent) this.hide();
+        else this.show(event);
     }
 
     position(event?: MouseEvent) {
@@ -330,19 +368,17 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         sublist.style.zIndex = ++DomHandler.zindex;
 
-        if ((parseInt(containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
+        if (parseInt(containerOffset.top) + itemOuterHeight + sublistHeight > viewport.height - DomHandler.calculateScrollbarHeight()) {
             sublist.style.removeProperty('top');
             sublist.style.bottom = '0px';
-        }
-        else {
+        } else {
             sublist.style.removeProperty('bottom');
             sublist.style.top = '0px';
         }
 
-        if ((parseInt(containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
+        if (parseInt(containerOffset.left) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
             sublist.style.left = -sublistWidth + 'px';
-        }
-        else {
+        } else {
             sublist.style.left = itemOuterWidth + 'px';
         }
     }
@@ -356,11 +392,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         if (nextMenuitem) {
             return this.isItemMatched(nextMenuitem) ? nextMenuitem : this.findNextItem(nextMenuitem, isRepeated);
-        }
-        else {
+        } else {
             let firstItem = menuitem.parentElement.children[0];
 
-            return this.isItemMatched(firstItem) ? firstItem : (!isRepeated ? this.findNextItem(firstItem, true) : null);
+            return this.isItemMatched(firstItem) ? firstItem : !isRepeated ? this.findNextItem(firstItem, true) : null;
         }
     }
 
@@ -369,11 +404,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         if (prevMenuitem) {
             return this.isItemMatched(prevMenuitem) ? prevMenuitem : this.findPrevItem(prevMenuitem, isRepeated);
-        }
-        else {
+        } else {
             let lastItem = menuitem.parentElement.children[menuitem.parentElement.children.length - 1];
 
-            return this.isItemMatched(lastItem) ? lastItem : (!isRepeated ? this.findPrevItem(lastItem, true) : null);
+            return this.isItemMatched(lastItem) ? lastItem : !isRepeated ? this.findPrevItem(lastItem, true) : null;
         }
     }
 
@@ -417,11 +451,18 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                     this.hide();
                 }
             });
+
+            this.documentTriggerListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
+                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !this.preventDocumentDefault) {
+                    this.hide();
+                }
+                this.preventDocumentDefault = false;
+            });
         }
 
         this.zone.runOutsideAngular(() => {
             if (!this.windowResizeListener) {
-            this.windowResizeListener = this.onWindowResize.bind(this);
+                this.windowResizeListener = this.onWindowResize.bind(this);
                 window.addEventListener('resize', this.windowResizeListener);
             }
         });
@@ -437,8 +478,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                         if (activeItem) {
                             this.removeActiveFromSublist(activeItem);
                             activeItem = this.findNextItem(activeItem);
-                        }
-                        else {
+                        } else {
                             let firstItem = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-menuitem-link').parentElement;
                             activeItem = this.isItemMatched(firstItem) ? firstItem : this.findNextItem(firstItem);
                         }
@@ -454,8 +494,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                         if (activeItem) {
                             this.removeActiveFromSublist(activeItem);
                             activeItem = this.findPrevItem(activeItem);
-                        }
-                        else {
+                        } else {
                             let sublist = DomHandler.findSingle(this.containerViewChild.nativeElement, 'ul');
                             let lastItem = sublist.children[sublist.children.length - 1];
                             activeItem = this.isItemMatched(lastItem) ? lastItem : this.findPrevItem(lastItem);
@@ -554,8 +593,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             if (childSublist) {
                 if (DomHandler.hasClass(childSublist, 'p-submenu-list-active')) {
                     this.removeActiveFromSubLists(menuitem);
-                }
-                else {
+                } else {
                     DomHandler.addClass(childSublist, 'p-submenu-list-active');
                     this.positionSubmenu(childSublist);
                 }
@@ -571,6 +609,11 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
+        }
+
+        if (this.documentTriggerListener) {
+            this.documentTriggerListener();
+            this.documentTriggerListener = null;
         }
 
         if (this.windowResizeListener) {
@@ -612,13 +655,12 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.ngDestroy$.next(true);
         this.ngDestroy$.complete();
     }
-
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
-    exports: [ContextMenu,RouterModule,TooltipModule],
-    declarations: [ContextMenu,ContextMenuSub],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
+    exports: [ContextMenu, RouterModule, TooltipModule],
+    declarations: [ContextMenu, ContextMenuSub],
     providers: [ContextMenuService]
 })
-export class ContextMenuModule { }
+export class ContextMenuModule {}

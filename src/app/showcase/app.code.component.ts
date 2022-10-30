@@ -9,12 +9,11 @@ import { CommonModule } from '@angular/common';
     `
 })
 export class AppCodeComponent implements AfterViewInit {
-
     @Input() lang = 'markup';
 
     @ViewChild('code') codeViewChild: ElementRef;
 
-    constructor(public el: ElementRef) { }
+    constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
         if (window['Prism']) {
@@ -28,4 +27,4 @@ export class AppCodeComponent implements AfterViewInit {
     exports: [AppCodeComponent],
     declarations: [AppCodeComponent]
 })
-export class AppCodeModule { }
+export class AppCodeModule {}

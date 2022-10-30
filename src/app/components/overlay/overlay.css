@@ -1,0 +1,38 @@
+.p-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.p-overlay-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.p-overlay-content {
+    transform-origin: inherit;
+}
+
+.p-overlay-modal > .p-overlay-content {
+    z-index: 1;
+    width: 90%;
+}
+
+/* Position */
+.p-overlay-start {
+    align-items: flex-start;
+}
+
+.p-overlay-center {
+    align-items: center;
+}
+
+.p-overlay-end {
+    align-items: flex-end;
+}

@@ -1,5 +1,5 @@
 export enum ConfirmEventType {
-    ACCEPT, 
-    REJECT, 
+    ACCEPT,
+    REJECT,
     CANCEL
 }

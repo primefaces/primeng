@@ -9,14 +9,14 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Implicit Pagination</h5>
-        <p-table [value]="customers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+        <p-table [value]="customers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Company</th>
-                    <th>Representative</th>
+                    <th style="width:25%">Name</th>
+                    <th style="width:25%">Country</th>
+                    <th style="width:25%">Company</th>
+                    <th style="width:25%">Representative</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>
@@ -38,19 +38,19 @@
 
     <div class="card">
         <h5>Programmatic Control</h5>
-        <div class="p-mb-3">
+        <div class="mb-3">
             <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
             <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
             <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
         </div>
-        <p-table [value]="customers" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" responsiveLayout="scroll"
+        <p-table [value]="customers" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" [tableStyle]="{'min-width': '50rem'}"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Company</th>
-                    <th>Representative</th>
+                    <th style="width:25%">Name</th>
+                    <th style="width:25%">Country</th>
+                    <th style="width:25%">Company</th>
+                    <th style="width:25%">Representative</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>
@@ -77,14 +77,14 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Implicit Pagination&lt;/h5&gt;
-    &lt;p-table [value]="customers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+    &lt;p-table [value]="customers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="&#123;'min-width': '50rem'&#125;"
         currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [rowsPerPageOptions]="[10,25,50]"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Company&lt;/th&gt;
-                &lt;th&gt;Representative&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Name&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Country&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Company&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Representative&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-customer&gt;
@@ -106,19 +106,19 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Programmatic Control&lt;/h5&gt;
-    &lt;div class="p-mb-3"&gt;
+    &lt;div class="mb-3"&gt;
         &lt;p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"&gt;&lt;/p-button&gt;
         &lt;p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"&gt;&lt;/p-button&gt;
         &lt;p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
-    &lt;p-table [value]="customers" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" responsiveLayout="scroll"
+    &lt;p-table [value]="customers" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" [tableStyle]="&#123;'min-width': '50rem'&#125;"
         currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [rowsPerPageOptions]="[10,25,50]"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Company&lt;/th&gt;
-                &lt;th&gt;Representative&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Name&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Country&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Company&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Representative&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-customer&gt;

@@ -7,7 +7,6 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['./tabledemo.scss']
 })
 export class TableStateDemo implements OnInit {
-
     customers1: Customer[];
 
     customers2: Customer[];
@@ -16,11 +15,10 @@ export class TableStateDemo implements OnInit {
 
     selectedCustomer2: Customer;
 
-    constructor(private customerService: CustomerService) { }
+    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
-        this.customerService.getCustomersMedium().then(data => this.customers1 = data);
-        this.customerService.getCustomersMedium().then(data => this.customers2 = data);
+        this.customerService.getCustomersMedium().then((data) => (this.customers1 = data));
+        this.customerService.getCustomersMedium().then((data) => (this.customers2 = data));
     }
-    
 }

@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './badgedemo.html'
 })
-export class BadgeDemo {
-}
+export class BadgeDemo {}

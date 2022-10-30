@@ -89,7 +89,7 @@ import &#123;ImageModule&#125; from 'primeng/image';
                         </tr>
                         <tr>
                             <td>src</td>
-                            <td>string</td>
+                            <td>string | SafeUrl</td>
                             <td>null</td>
                             <td>src attribute of the image element.</td>
                         </tr>
@@ -135,6 +135,11 @@ import &#123;ImageModule&#125; from 'primeng/image';
                             <td>onHide</td>
                             <td>-</td>
                             <td>Triggered when the preview overlay is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onImageError</td>
+                            <td>event: Browser event</td>
+                            <td>This event is triggered if an error occurs while loading an image file.</td>
                         </tr>
                     </tbody>
                 </table>

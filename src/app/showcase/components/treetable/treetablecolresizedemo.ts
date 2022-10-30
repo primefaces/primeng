@@ -6,7 +6,6 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetablecolresizedemo.html'
 })
 export class TreeTableColResizeDemo {
-
     files1: TreeNode[];
 
     files2: TreeNode[];
@@ -17,13 +16,13 @@ export class TreeTableColResizeDemo {
 
     cols: any[];
 
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files1 = files);
-        this.nodeService.getFilesystem().then(files => this.files2 = files);
-        this.nodeService.getFilesystem().then(files => this.files3 = files);
-        this.nodeService.getFilesystem().then(files => this.files4 = files);
+        this.nodeService.getFilesystem().then((files) => (this.files1 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files2 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files3 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files4 = files));
 
         this.cols = [
             { field: 'name', header: 'Name', width: '50%' },

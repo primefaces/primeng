@@ -1,4 +1,4 @@
-export interface TreeNode<T = any> {
+export interface TreeNode<T = any> {
     label?: string;
     data?: T;
     icon?: string;
@@ -10,6 +10,7 @@ export interface TreeNode<T = any> {
     type?: string;
     parent?: TreeNode<T>;
     partialSelected?: boolean;
+    style?: string;
     styleClass?: string;
     draggable?: boolean;
     droppable?: boolean;
