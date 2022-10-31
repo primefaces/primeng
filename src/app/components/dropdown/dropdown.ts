@@ -1289,8 +1289,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
 @NgModule({
     imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule],
-    exports: [Dropdown, SharedModule, ScrollerModule],
-    declarations: [Dropdown, DropdownItem],
-    entryComponents: [Overlay]
+    exports: [Dropdown, OverlayModule, SharedModule, ScrollerModule],
+    declarations: [Dropdown, DropdownItem]
 })
 export class DropdownModule {}
