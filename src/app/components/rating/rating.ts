@@ -1,7 +1,7 @@
-import { NgModule, Component, OnInit, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, QueryList, ContentChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from '../api/shared';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
