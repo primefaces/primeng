@@ -46,9 +46,6 @@
               ],
               "styles": [
                 "src/assets/showcase/styles/app/app.scss",
-                "./node_modules/@fullcalendar/common/main.css",
-                "./node_modules/@fullcalendar/daygrid/main.css",
-                "./node_modules/@fullcalendar/timegrid/main.css",
                 "src/styles.scss"
               ],
               "scripts": [
