@@ -43,4 +43,4 @@ jobs:
     - name: Test
       if: ${{ success() }}
       run: |
-        npm run test
+        npm run test:headless

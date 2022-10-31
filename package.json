@@ -7,13 +7,14 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
+    "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "format": "prettier --write \"**/*.{js,ts,d.ts}\"",
     "format:check": "prettier --check \"**/*.{js,ts,d.ts}\"",
     "build:lib": "npm run build:check && npm run build:package",
     "build:package": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets",
-    "build:check": "npm run format:check && npm run security:check && npm run test",
+    "build:check": "npm run format:check && npm run security:check && npm run test:headless",
     "security:check": "npm audit --production --audit-level high"
   },
   "repository": {
