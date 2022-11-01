@@ -58,7 +58,10 @@
                 "@fullcalendar/daygrid",
                 "chart.js",
                 "xlsx",
-                "jspdf-autotable"
+                "jspdf-autotable",
+                "file-saver",
+                "jspdf",
+                "quill"
              ]
             },
             "configurations": {
