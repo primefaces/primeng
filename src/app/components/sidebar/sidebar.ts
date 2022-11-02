@@ -60,6 +60,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
+            <div class="p-sidebar-footer">
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+            </div>
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
@@ -127,6 +130,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     headerTemplate: TemplateRef<any>;
 
+    footerTemplate: TemplateRef<any>;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
@@ -141,6 +146,9 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                     break;
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+                case 'footer':
+                    this.footerTemplate = item.template;
                     break;
                 default:
                     this.contentTemplate = item.template;

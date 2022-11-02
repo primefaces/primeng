@@ -7,7 +7,7 @@
 }
 
 .p-datatable-table {
-    border-collapse: collapse;
+    border-spacing: 0px;
     width: 100%;
 }
 
@@ -79,10 +79,6 @@
 .p-datatable-scrollable-table > .p-datatable-tbody > .p-rowgroup-header {
     position: sticky;
     z-index: 1;
-}
-
-.p-scroller > .p-datatable-scrollable-table {
-    display: inline-block; /* For Safari */
 }
 
 /* Resizable */
@@ -234,6 +230,10 @@
 }
 
 /* Virtual Scroll */
+.p-datatable-scroller-spacer {
+    display: flex;
+}
+
 .p-datatable .p-scroller .p-scroller-loading {
     transform: none !important;
     min-height: 0;

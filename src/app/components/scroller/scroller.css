@@ -49,3 +49,8 @@ p-scroller {
 .p-scroller-loading-icon {
     font-size: 2rem;
 }
+
+/* Inline */
+.p-scroller-inline .p-scroller-content {
+    position: static;
+}
