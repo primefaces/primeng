@@ -2,8 +2,27 @@ import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
-    AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter,
-    forwardRef, Input, NgModule, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -70,7 +89,6 @@ export class MultiSelectItem {
     @Output() onKeydown: EventEmitter<any> = new EventEmitter();
 
     onOptionClick(event: Event) {
-        event.stopPropagation();
         this.onClick.emit({
             originalEvent: event,
             option: this.option
@@ -769,7 +787,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.onChange.emit({ originalEvent: event, value: this.value });
         this.updateFilledState();
         this.updateLabel();
-        event.stopPropagation();
         event.preventDefault();
     }
 
@@ -895,17 +912,19 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.accessibleViewChild.nativeElement)) {
             return;
         }
-
         this.onClick.emit(event);
-
         if (!this.isOverlayClick(event) && !DomHandler.hasClass(event.target, 'p-multiselect-token-icon')) {
-            if (this.overlayVisible) {
+            if (this.overlayVisible && !this.isOutsideClick(event)) {
                 this.hide();
             } else {
                 input.focus();
                 this.show();
             }
         }
+    }
+
+    isOutsideClick(event) {
+        return this.containerViewChild.nativeElement.contains(<Node>event.target);
     }
 
     removeChip(chip: any, event: MouseEvent) {
