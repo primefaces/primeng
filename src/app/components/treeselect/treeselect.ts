@@ -1,12 +1,13 @@
 import { NgModule, Component, EventEmitter, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList, forwardRef, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeNode } from 'primeng/api';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode, OverlayOptions } from 'primeng/api';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Tree, TreeModule } from 'primeng/tree';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
+import { Overlay, OverlayModule } from 'primeng/overlay';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -57,17 +58,20 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <div class="p-treeselect-trigger">
                 <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
-            <div
-                #overlayRef
-                class="p-treeselect-panel p-component"
-                *ngIf="overlayVisible"
-                (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationDone($event)"
-                [ngStyle]="panelStyle"
-                [class]="panelStyleClass"
+            <p-overlay
+                #overlay
+                [(visible)]="overlayVisible"
+                [options]="overlayOptions"
+                [appendTo]="appendTo"
+                [autoZIndex]="autoZIndex"
+                [baseZIndex]="baseZIndex"
+                [showTransitionOptions]="showTransitionOptions"
+                [hideTransitionOptions]="hideTransitionOptions"
+                (onAnimationStart)="onOverlayAnimationStart($event)"
+                (onAnimationDone)="onOverlayAnimationDone($event)"
+                (onHide)="hide()"
             >
+                <div [ngClass]="'p-treeselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
                 <div class="p-treeselect-header" *ngIf="filter">
                     <div class="p-treeselect-filter-container">
@@ -106,7 +110,6 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                         [filterMode]="filterMode"
                         [filterPlaceholder]="filterPlaceholder"
                         [filterLocale]="filterLocale"
-                        [filterInputAutoFocus]="filterInputAutoFocus"
                         [filteredNodes]="filteredNodes"
                         [_templateMap]="templateMap"
                     >
@@ -118,11 +121,11 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     </p-tree>
                 </div>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: value, options: options }"></ng-container>
-            </div>
+                </div>
+            </p-overlay>
         </div>
     `,
     styleUrls: ['./treeselect.css'],
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': '!emptyValue',
@@ -134,6 +137,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class TreeSelect implements AfterContentInit {
+
     @Input() type: string = 'button';
 
     @Input() inputId: string;
@@ -168,6 +172,10 @@ export class TreeSelect implements AfterContentInit {
 
     @Input() labelStyleClass: string;
 
+    @Input() overlayVisible: boolean;
+
+    @Input() overlayOptions: OverlayOptions;
+
     @Input() emptyMessage: string = '';
 
     @Input() appendTo: any;
@@ -200,9 +208,44 @@ export class TreeSelect implements AfterContentInit {
         this.updateTreeState();
     }
 
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
+    _autoZIndex: boolean;
+    @Input() get autoZIndex(): boolean {
+        return this._autoZIndex;
+    }
+    set autoZIndex(val: boolean) {
+        this._autoZIndex = val;
+        console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
 
-    @Input() hideTransitionOptions: string = '.1s linear';
+    /* @deprecated */
+    _baseZIndex: number;
+    @Input() get baseZIndex(): number {
+        return this._baseZIndex;
+    }
+    set baseZIndex(val: number) {
+        this._baseZIndex = val;
+        console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
+    /* @deprecated */
+    _showTransitionOptions: string;
+    @Input() get showTransitionOptions(): string {
+        return this._showTransitionOptions;
+    }
+    set showTransitionOptions(val: string) {
+        this._showTransitionOptions = val;
+        console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
+    /* @deprecated */
+    _hideTransitionOptions: boolean;
+    @Input() get hideTransitionOptions(): boolean {
+        return this._hideTransitionOptions;
+    }
+    set hideTransitionOptions(val: boolean) {
+        this._hideTransitionOptions = val;
+        console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -213,6 +256,8 @@ export class TreeSelect implements AfterContentInit {
     @ViewChild('filter') filterViewChild: ElementRef;
 
     @ViewChild('tree') treeViewChild: Tree;
+
+    @ViewChild('overlay') overlayViewChild: Overlay;
 
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
 
@@ -246,8 +291,6 @@ export class TreeSelect implements AfterContentInit {
 
     focused: boolean;
 
-    overlayVisible: boolean;
-
     selfChange: boolean;
 
     value;
@@ -261,8 +304,6 @@ export class TreeSelect implements AfterContentInit {
     public templateMap: any;
 
     scrollHandler: any;
-
-    resizeListener: any;
 
     overlayEl: any;
 
@@ -311,7 +352,7 @@ export class TreeSelect implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlayEl = event.element;
-                this.onOverlayEnter();
+                this.onShow.emit(event);
                 break;
         }
     }
@@ -319,7 +360,7 @@ export class TreeSelect implements AfterContentInit {
     onOverlayAnimationDone(event: AnimationEvent) {
         switch (event.toState) {
             case 'void':
-                this.onOverlayLeave();
+                this.onHide.emit(event);
                 break;
         }
     }
@@ -338,6 +379,11 @@ export class TreeSelect implements AfterContentInit {
 
             this.focusInput.nativeElement.focus();
         }
+    }
+
+    isOverlayClick(event: MouseEvent) {
+        let targetNode = <Node>event.target;
+        return this.overlayEl ? this.overlayEl.isSameNode(targetNode) || this.overlayEl.contains(targetNode) : false;
     }
 
     onKeyDown(event) {
@@ -400,7 +446,11 @@ export class TreeSelect implements AfterContentInit {
 
     hide() {
         this.overlayVisible = false;
-        this.resetFilter();
+
+        if (this.resetFilterOnHide) {
+            this.resetFilter();
+        }
+
         this.cd.markForCheck();
     }
 
@@ -425,13 +475,6 @@ export class TreeSelect implements AfterContentInit {
         } else {
             this.filterValue = null;
         }
-    }
-
-    onOverlayClick(event) {
-        this.overlayService.add({
-            originalEvent: event,
-            target: this.el.nativeElement
-        });
     }
 
     updateTreeState() {
@@ -561,30 +604,6 @@ export class TreeSelect implements AfterContentInit {
         this.onNodeUnselect.emit(node);
     }
 
-    onOverlayEnter() {
-        ZIndexUtils.set('overlay', this.overlayEl, this.config.zIndex.overlay);
-
-        if (this.filter && this.filterInputAutoFocus) {
-            this.filterViewChild.nativeElement.focus();
-        }
-
-        this.appendContainer();
-        this.alignOverlay();
-        this.bindOutsideClickListener();
-        this.bindScrollListener();
-        this.bindResizeListener();
-        this.onShow.emit();
-    }
-
-    onOverlayLeave() {
-        this.unbindOutsideClickListener();
-        this.unbindScrollListener();
-        this.unbindResizeListener();
-        ZIndexUtils.clear(this.overlayEl);
-        this.overlayEl = null;
-        this.onHide.emit();
-    }
-
     onFocus() {
         this.focused = true;
     }
@@ -607,100 +626,22 @@ export class TreeSelect implements AfterContentInit {
         this.onModelTouched = fn;
     }
 
+    onOverlayHide() {
+        this.onModelTouched();
+    }
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();
     }
 
-    appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlayEl);
-            else document.getElementById(this.appendTo).appendChild(this.overlayEl);
-        }
-    }
-
-    restoreAppend() {
-        if (this.overlayEl && this.appendTo) {
-            if (this.appendTo === 'body') document.body.removeChild(this.overlayEl);
-            else document.getElementById(this.appendTo).removeChild(this.overlayEl);
-        }
-    }
-
-    alignOverlay() {
-        if (this.appendTo) {
-            DomHandler.absolutePosition(this.overlayEl, this.containerEl.nativeElement);
-            this.overlayEl.style.minWidth = DomHandler.getOuterWidth(this.containerEl.nativeElement) + 'px';
-        } else {
-            DomHandler.relativePosition(this.overlayEl, this.containerEl.nativeElement);
-        }
-    }
-
-    bindOutsideClickListener() {
-        if (!this.outsideClickListener) {
-            this.outsideClickListener = (event) => {
-                if (this.overlayVisible && this.overlayEl && !this.containerEl.nativeElement.contains(event.target) && !this.overlayEl.contains(event.target)) {
-                    this.hide();
-                }
-            };
-            document.addEventListener('click', this.outsideClickListener);
-        }
-    }
-
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
-            this.outsideClickListener = null;
-        }
-    }
-
-    bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerEl.nativeElement, () => {
-                if (this.overlayVisible) {
-                    this.hide();
-                }
-            });
-        }
-
-        this.scrollHandler.bindScrollListener();
-    }
-
-    unbindScrollListener() {
-        if (this.scrollHandler) {
-            this.scrollHandler.unbindScrollListener();
-        }
-    }
-
-    bindResizeListener() {
-        if (!this.resizeListener) {
-            this.resizeListener = () => {
-                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
-                    this.hide();
-                }
-            };
-            window.addEventListener('resize', this.resizeListener);
-        }
-    }
-
-    unbindResizeListener() {
-        if (this.resizeListener) {
-            window.removeEventListener('resize', this.resizeListener);
-            this.resizeListener = null;
-        }
-    }
-
     ngOnDestroy() {
-        this.restoreAppend();
-        this.unbindOutsideClickListener();
-        this.unbindResizeListener();
-
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
 
         if (this.overlayEl) {
-            ZIndexUtils.clear(this.overlayEl);
             this.overlayEl = null;
         }
     }
@@ -737,7 +678,7 @@ export class TreeSelect implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, TreeModule],
+    imports: [CommonModule, RippleModule, SharedModule, TreeModule, OverlayModule],
     exports: [TreeSelect, SharedModule, TreeModule],
     declarations: [TreeSelect]
 })
