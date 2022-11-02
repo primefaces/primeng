@@ -2,12 +2,12 @@ import { NgModule, Component, EventEmitter, Output, Input, ChangeDetectionStrate
 import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode, OverlayOptions } from 'primeng/api';
-import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
+import { AnimationEvent } from '@angular/animations';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { DomHandler } from 'primeng/dom';
 import { Tree, TreeModule } from 'primeng/tree';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { Overlay, OverlayModule } from 'primeng/overlay';
+import { ObjectUtils } from 'primeng/utils';
+import { OverlayModule } from 'primeng/overlay';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -59,7 +59,6 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
             </div>
             <p-overlay
-                #overlay
                 [(visible)]="overlayVisible"
                 [options]="overlayOptions"
                 [appendTo]="appendTo"
@@ -71,56 +70,56 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 (onAnimationDone)="onOverlayAnimationDone($event)"
                 (onHide)="hide()"
             >
-                <div [ngClass]="'p-treeselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
-                <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
-                <div class="p-treeselect-header" *ngIf="filter">
-                    <div class="p-treeselect-filter-container">
-                        <input
-                            #filter
-                            type="text"
-                            autocomplete="off"
-                            class="p-treeselect-filter p-inputtext p-component"
-                            [attr.placeholder]="filterPlaceholder"
-                            (keydown.enter)="$event.preventDefault()"
-                            (input)="onFilterInput($event)"
-                            [value]="filterValue"
-                        />
-                        <span class="p-treeselect-filter-icon pi pi-search"></span>
+                <div #panel [ngClass]="'p-treeselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                    <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
+                    <div class="p-treeselect-header" *ngIf="filter">
+                        <div class="p-treeselect-filter-container">
+                            <input
+                                #filter
+                                type="text"
+                                autocomplete="off"
+                                class="p-treeselect-filter p-inputtext p-component"
+                                [attr.placeholder]="filterPlaceholder"
+                                (keydown.enter)="$event.preventDefault()"
+                                (input)="onFilterInput($event)"
+                                [value]="filterValue"
+                            />
+                            <span class="p-treeselect-filter-icon pi pi-search"></span>
+                        </div>
+                        <button class="p-treeselect-close p-link" (click)="hide()">
+                            <span class="p-treeselect-filter-icon pi pi-times"></span>
+                        </button>
                     </div>
-                    <button class="p-treeselect-close p-link" (click)="hide()">
-                        <span class="p-treeselect-filter-icon pi pi-times"></span>
-                    </button>
-                </div>
-                <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
-                    <p-tree
-                        #tree
-                        [value]="options"
-                        [propagateSelectionDown]="propagateSelectionDown"
-                        [propagateSelectionUp]="propagateSelectionUp"
-                        [selectionMode]="selectionMode"
-                        (selectionChange)="onSelectionChange($event)"
-                        [selection]="value"
-                        [metaKeySelection]="metaKeySelection"
-                        (onNodeExpand)="nodeExpand($event)"
-                        (onNodeCollapse)="nodeCollapse($event)"
-                        (onNodeSelect)="onSelect($event)"
-                        [emptyMessage]="emptyMessage"
-                        (onNodeUnselect)="onUnselect($event)"
-                        [filterBy]="filterBy"
-                        [filterMode]="filterMode"
-                        [filterPlaceholder]="filterPlaceholder"
-                        [filterLocale]="filterLocale"
-                        [filteredNodes]="filteredNodes"
-                        [_templateMap]="templateMap"
-                    >
-                        <ng-container *ngIf="emptyTemplate">
-                            <ng-template pTemplate="empty">
-                                <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
-                            </ng-template>
-                        </ng-container>
-                    </p-tree>
-                </div>
-                <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: value, options: options }"></ng-container>
+                    <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
+                        <p-tree
+                            #tree
+                            [value]="options"
+                            [propagateSelectionDown]="propagateSelectionDown"
+                            [propagateSelectionUp]="propagateSelectionUp"
+                            [selectionMode]="selectionMode"
+                            (selectionChange)="onSelectionChange($event)"
+                            [selection]="value"
+                            [metaKeySelection]="metaKeySelection"
+                            (onNodeExpand)="nodeExpand($event)"
+                            (onNodeCollapse)="nodeCollapse($event)"
+                            (onNodeSelect)="onSelect($event)"
+                            [emptyMessage]="emptyMessage"
+                            (onNodeUnselect)="onUnselect($event)"
+                            [filterBy]="filterBy"
+                            [filterMode]="filterMode"
+                            [filterPlaceholder]="filterPlaceholder"
+                            [filterLocale]="filterLocale"
+                            [filteredNodes]="filteredNodes"
+                            [_templateMap]="templateMap"
+                        >
+                            <ng-container *ngIf="emptyTemplate">
+                                <ng-template pTemplate="empty">
+                                    <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                </ng-template>
+                            </ng-container>
+                        </p-tree>
+                    </div>
+                    <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: value, options: options }"></ng-container>
                 </div>
             </p-overlay>
         </div>
@@ -137,7 +136,6 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class TreeSelect implements AfterContentInit {
-
     @Input() type: string = 'button';
 
     @Input() inputId: string;
@@ -257,7 +255,7 @@ export class TreeSelect implements AfterContentInit {
 
     @ViewChild('tree') treeViewChild: Tree;
 
-    @ViewChild('overlay') overlayViewChild: Overlay;
+    @ViewChild('panel') panelViewChild: ElementRef;
 
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
 
@@ -305,8 +303,6 @@ export class TreeSelect implements AfterContentInit {
 
     scrollHandler: any;
 
-    overlayEl: any;
-
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
@@ -351,7 +347,6 @@ export class TreeSelect implements AfterContentInit {
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
-                this.overlayEl = event.element;
                 this.onShow.emit(event);
                 break;
         }
@@ -372,18 +367,13 @@ export class TreeSelect implements AfterContentInit {
     }
 
     onClick(event) {
-        if (!this.disabled && (!this.overlayEl || !this.overlayEl.contains(event.target)) && !DomHandler.hasClass(event.target, 'p-treeselect-close')) {
+        if (!this.disabled && !DomHandler.hasClass(event.target, 'p-treeselect-close')) {
             if (this.overlayVisible) {
                 this.hide();
             } else this.show();
 
             this.focusInput.nativeElement.focus();
         }
-    }
-
-    isOverlayClick(event: MouseEvent) {
-        let targetNode = <Node>event.target;
-        return this.overlayEl ? this.overlayEl.isSameNode(targetNode) || this.overlayEl.contains(targetNode) : false;
     }
 
     onKeyDown(event) {
@@ -393,8 +383,8 @@ export class TreeSelect implements AfterContentInit {
                 if (!this.overlayVisible && event.altKey) {
                     this.show();
                     event.preventDefault();
-                } else if (this.overlayVisible && this.overlayEl) {
-                    let focusableElements = DomHandler.getFocusableElements(this.overlayEl);
+                } else if (this.overlayVisible && this.panelViewChild) {
+                    let focusableElements = DomHandler.getFocusableElements(this.panelViewChild.nativeElement);
 
                     if (focusableElements && focusableElements.length > 0) {
                         focusableElements[0].focus();
@@ -641,9 +631,9 @@ export class TreeSelect implements AfterContentInit {
             this.scrollHandler = null;
         }
 
-        if (this.overlayEl) {
-            this.overlayEl = null;
-        }
+        // if (this.overlayEl) {
+        //     this.overlayEl = null;
+        // }
     }
 
     containerClass() {
