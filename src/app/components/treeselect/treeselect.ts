@@ -342,22 +342,6 @@ export class TreeSelect implements AfterContentInit {
         });
     }
 
-    // onOverlayAnimationStart(event: AnimationEvent) {
-    //     switch (event.toState) {
-    //         case 'visible':
-    //             this.onShow.emit(event);
-    //             break;
-    //     }
-    // }
-
-    // onOverlayAnimationDone(event: AnimationEvent) {
-    //     switch (event.toState) {
-    //         case 'void':
-    //             this.onHide.emit(event);
-    //             break;
-    //     }
-    // }
-
     onSelectionChange(event) {
         this.value = event;
         this.onModelChange(this.value);
@@ -630,10 +614,6 @@ export class TreeSelect implements AfterContentInit {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
-
-        // if (this.overlayEl) {
-        //     this.overlayEl = null;
-        // }
     }
 
     containerClass() {
