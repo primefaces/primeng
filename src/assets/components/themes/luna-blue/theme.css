@@ -364,7 +364,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-datepicker-header .p-datepicker-next {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -452,7 +452,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-timepicker button {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -1387,7 +1387,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   margin-left: 0.5rem;
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -1818,7 +1818,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-treeselect-panel .p-treeselect-header .p-treeselect-close {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2648,7 +2648,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-carousel .p-carousel-content .p-carousel-next {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2787,7 +2787,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2858,13 +2858,46 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-width: 0 1px 1px 1px;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
-  border-width: 1px 1px 1px 1px;
+  border-width: 1px 0 1px 1px;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th:last-child {
+  border-width: 1px;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
+  border-width: 1px 0 0 1px;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td:last-child {
+  border-width: 1px 1px 0 1px;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
+  border-width: 1px 0 1px 1px;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr:last-child > td:last-child {
   border-width: 1px;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-tfoot > tr > td {
-  border-width: 1px;
+  border-width: 1px 0 1px 1px;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-tfoot > tr > td:last-child {
+  border-width: 1px 1px 1px 1px;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-thead + .p-datatable-tfoot > tr > td {
+  border-width: 0 0 1px 1px;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-thead + .p-datatable-tfoot > tr > td:last-child {
+  border-width: 0 1px 1px 1px;
+}
+.p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
+  border-width: 0 0 1px 1px;
+}
+.p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td:last-child {
+  border-width: 0 1px 1px 1px;
+}
+.p-datatable.p-datatable-gridlines:has(.p-datatable-tbody):has(.p-datatable-tfoot) .p-datatable-tbody > tr:last-child > td {
+  border-width: 0 0 0 1px;
+}
+.p-datatable.p-datatable-gridlines:has(.p-datatable-tbody):has(.p-datatable-tfoot) .p-datatable-tbody > tr:last-child > td:last-child {
+  border-width: 0 1px 0 1px;
 }
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
   background: #323232;
@@ -2961,7 +2994,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-column-filter-menu-button {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2989,7 +3022,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-column-filter-clear-button {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3221,7 +3254,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1rem;
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3687,7 +3720,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   margin-right: 0.5rem;
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3884,7 +3917,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4169,7 +4202,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-panel .p-panel-header .p-panel-header-icon {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4380,7 +4413,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-dialog .p-dialog-header .p-dialog-header-icon {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4484,7 +4517,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-sidebar .p-sidebar-header .p-sidebar-icon {
   width: 2rem;
   height: 2rem;
-  color: rgba(136, 136, 136, 0.5333333333);
+  color: #8888;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4507,9 +4540,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-sidebar .p-sidebar-content {
   padding: 0.571rem 1rem;
-}
-.p-sidebar .p-sidebar-footer {
-  padding: 0.857rem 1rem;
 }
 
 .p-tooltip .p-tooltip-text {
