@@ -243,7 +243,6 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container {
   padding: 0.2145rem 0.429rem;
-  gap: 0.5rem;
 }
 .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
   border-color: #81D4FA;
@@ -266,6 +265,7 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
   padding: 0.2145rem 0.429rem;
+  margin-right: 0.5rem;
   background: #81D4FA;
   color: #212529;
   border-radius: 3px;
@@ -364,7 +364,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-datepicker-header .p-datepicker-next {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -452,7 +452,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-timepicker button {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -720,7 +720,6 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 
 .p-chips .p-chips-multiple-container {
   padding: 0.2145rem 0.429rem;
-  gap: 0.5rem;
 }
 .p-chips .p-chips-multiple-container:not(.p-disabled):hover {
   border-color: #81D4FA;
@@ -733,6 +732,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.2145rem 0.429rem;
+  margin-right: 0.5rem;
   background: #81D4FA;
   color: #212529;
   border-radius: 3px;
@@ -1335,11 +1335,9 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: #9b9b9b;
 }
-.p-multiselect.p-multiselect-chip .p-multiselect-label {
-  gap: 0.5rem;
-}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.2145rem 0.429rem;
+  margin-right: 0.5rem;
   background: #81D4FA;
   color: #212529;
   border-radius: 3px;
@@ -1389,7 +1387,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   margin-left: 0.5rem;
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -1820,7 +1818,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-treeselect-panel .p-treeselect-header .p-treeselect-close {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2650,7 +2648,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-carousel .p-carousel-content .p-carousel-next {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2789,7 +2787,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2963,7 +2961,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-column-filter-menu-button {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2991,7 +2989,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-column-filter-clear-button {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3223,7 +3221,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1rem;
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3689,7 +3687,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   margin-right: 0.5rem;
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3886,7 +3884,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4171,7 +4169,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-panel .p-panel-header .p-panel-header-icon {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4382,7 +4380,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-dialog .p-dialog-header .p-dialog-header-icon {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4486,7 +4484,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-sidebar .p-sidebar-header .p-sidebar-icon {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4509,6 +4507,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-sidebar .p-sidebar-content {
   padding: 0.571rem 1rem;
+}
+.p-sidebar .p-sidebar-footer {
+  padding: 0.857rem 1rem;
 }
 
 .p-tooltip .p-tooltip-text {
