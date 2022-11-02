@@ -22,7 +22,7 @@ import {
     ViewEncapsulation,
     NgZone
 } from '@angular/core';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
@@ -287,7 +287,6 @@ export class MultiSelectItem {
             </p-overlay>
         </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
@@ -939,10 +938,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     isOverlayClick(event: MouseEvent) {
         let targetNode = <Node>event.target;
         return this.overlay ? this.overlay.isSameNode(targetNode) || this.overlay.contains(targetNode) : false;
-    }
-
-    isOutsideClicked(event: MouseEvent): boolean {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || this.isOverlayClick(event));
     }
 
     onInputFocus(event) {
