@@ -604,7 +604,7 @@ export class DomHandler {
         const focusableElements = DomHandler.getFocusableElements(element);
         let index = 0;
         if (focusableElements && focusableElements.length > 0) {
-            let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+            const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
             if (reverse) {
               if (focusedIndex == -1 || focusedIndex === 0) {
