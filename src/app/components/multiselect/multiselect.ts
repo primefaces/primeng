@@ -1,37 +1,18 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnInit,
-    AfterViewInit,
-    AfterContentInit,
-    AfterViewChecked,
-    OnDestroy,
-    Input,
-    Output,
-    Renderer2,
-    EventEmitter,
-    forwardRef,
-    ViewChild,
-    ChangeDetectorRef,
-    TemplateRef,
-    ContentChildren,
-    QueryList,
-    ContentChild,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    NgZone
-} from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import {
+    AfterContentInit,
+    AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter,
+    forwardRef, Input, NgModule, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys, OverlayService, OverlayOptions } from 'primeng/api';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { TooltipModule } from 'primeng/tooltip';
-import { RippleModule } from 'primeng/ripple';
 import { Overlay, OverlayModule } from 'primeng/overlay';
+import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { TooltipModule } from 'primeng/tooltip';
+import { ObjectUtils } from 'primeng/utils';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -788,6 +769,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.onChange.emit({ originalEvent: event, value: this.value });
         this.updateFilledState();
         this.updateLabel();
+        event.stopPropagation();
         event.preventDefault();
     }
 
