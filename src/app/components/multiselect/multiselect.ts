@@ -913,7 +913,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
         this.onClick.emit(event);
-        if (!this.isOverlayClick(event) && !DomHandler.hasClass(event.target, 'p-multiselect-token-icon')) {
+        if (!DomHandler.hasClass(event.target, 'p-multiselect-token-icon')) {
             if (this.overlayVisible && !this.isOutsideClick(event)) {
                 this.hide();
             } else {
@@ -934,11 +934,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.onChange.emit({ originalEvent: event, value: this.value, itemValue: chip });
         this.updateLabel();
         this.updateFilledState();
-    }
-
-    isOverlayClick(event: MouseEvent) {
-        let targetNode = <Node>event.target;
-        return this.overlay ? this.overlay.isSameNode(targetNode) || this.overlay.contains(targetNode) : false;
     }
 
     onInputFocus(event) {
