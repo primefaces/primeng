@@ -1855,7 +1855,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     set scrollHeight(val: string) {
         this._scrollHeight = val;
         if (val != null && (val.includes('%') || val.includes('calc'))) {
-            console.log('Percentage scroll height calculation is removed in favor of the more performance CSS based flex mode, use scrollHeight="flex" instead.');
+            console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.');
         }
     }
 
