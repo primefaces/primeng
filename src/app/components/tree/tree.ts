@@ -887,7 +887,6 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     onNodeClick(event, node: TreeNode) {
         let eventTarget = <Element>event.target;
-
         if (DomHandler.hasClass(eventTarget, 'p-tree-toggler') || DomHandler.hasClass(eventTarget, 'p-tree-toggler-icon')) {
             return;
         } else if (this.selectionMode) {
