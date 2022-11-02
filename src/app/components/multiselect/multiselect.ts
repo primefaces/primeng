@@ -1218,7 +1218,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 @NgModule({
     imports: [CommonModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, OverlayModule],
     exports: [MultiSelect, SharedModule, ScrollerModule],
-    declarations: [MultiSelect, MultiSelectItem],
-    entryComponents: [Overlay]
+    declarations: [MultiSelect, MultiSelectItem]
 })
 export class MultiSelectModule {}
