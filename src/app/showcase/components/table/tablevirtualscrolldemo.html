@@ -9,8 +9,8 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Virtual Scroll with Preloaded Data (10000 Rows)</h5>
-        <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px"
-            [virtualScroll]="true" [virtualScrollItemSize]="40">
+        <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
+            [virtualScroll]="true" [virtualScrollItemSize]="46">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -19,7 +19,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-                <tr style="height:40px">
+                <tr style="height:46px">
                     <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                     </td>
@@ -30,8 +30,8 @@
 
     <div class="card">
         <h5>Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)</h5>
-        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px"
-            [virtualScroll]="true" [virtualScrollItemSize]="40" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [virtualScrollOptions]="{numToleratedItems: 10}">
+        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
+            [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [virtualScrollOptions]="{numToleratedItems: 10}">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -40,14 +40,14 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr style="height:40px">
+                <tr style="height:46px">
                     <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                     </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="loadingbody" let-columns="columns">
-                <tr style="height:40px">
+                <tr style="height:46px">
                     <td *ngFor="let col of columns; let even = even">
                         <p-skeleton [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
                     </td>
@@ -70,8 +70,8 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Preloaded Data (10000 Rows)&lt;/h5&gt;
-    &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px"
-        [virtualScroll]="true" [virtualScrollItemSize]="40"&gt;
+    &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
+        [virtualScroll]="true" [virtualScrollItemSize]="46"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
                 &lt;th *ngFor="let col of columns"&gt;
@@ -80,7 +80,7 @@
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns"&gt;
-            &lt;tr style="height:40px"&gt;
+            &lt;tr style="height:46px"&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
@@ -91,8 +91,8 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)&lt;/h5&gt;
-    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px"
-        [virtualScroll]="true" [virtualScrollItemSize]="40" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [virtualScrollOptions]="&#123;numToleratedItems: 10&#125;"&gt;
+    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
+        [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [virtualScrollOptions]="&#123;numToleratedItems: 10&#125;"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
                 &lt;th *ngFor="let col of columns"&gt;
@@ -101,14 +101,14 @@
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-            &lt;tr style="height:40px"&gt;
+            &lt;tr style="height:46px"&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
-            &lt;tr style="height:40px"&gt;
+            &lt;tr style="height:46px"&gt;
                 &lt;td *ngFor="let col of columns; let even = even"&gt;
                     &lt;p-skeleton [ngStyle]="&#123;'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'&#125;"&gt;&lt;/p-skeleton&gt;
                 &lt;/td&gt;

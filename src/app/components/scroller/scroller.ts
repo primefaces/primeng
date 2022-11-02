@@ -38,6 +38,7 @@ export interface ScrollerOptions {
     scrollWidth?: string | undefined;
     orientation?: ScrollerOrientationType;
     delay?: number | undefined;
+    inline?: boolean;
     lazy?: boolean;
     disabled?: boolean;
     loaderDisabled?: boolean;
@@ -57,7 +58,15 @@ export interface ScrollerOptions {
     selector: 'p-scroller',
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
-            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="_styleClass" [ngClass]="{ 'p-scroller': true, 'p-both-scroll': both, 'p-horizontal-scroll': horizontal }" (scroll)="onContainerScroll($event)">
+            <div
+                #element
+                [attr.id]="_id"
+                [attr.tabindex]="tabindex"
+                [ngStyle]="_style"
+                [class]="_styleClass"
+                [ngClass]="{ 'p-scroller': true, 'p-scroller-inline': inline, 'p-both-scroll': both, 'p-horizontal-scroll': horizontal }"
+                (scroll)="onContainerScroll($event)"
+            >
                 <ng-container *ngIf="contentTemplate; else buildInContent">
                     <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
@@ -178,6 +187,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this._resizeDelay = val;
     }
 
+    @Input() get inline() {
+        return this._inline;
+    }
+    set inline(val: boolean) {
+        this._inline = val;
+    }
+
     @Input() get lazy() {
         return this._lazy;
     }
@@ -292,6 +308,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     _delay: number = 0;
 
     _resizeDelay: number = 10;
+
+    _inline: boolean = false;
 
     _lazy: boolean = false;
 
