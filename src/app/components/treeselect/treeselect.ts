@@ -1,13 +1,12 @@
-import { NgModule, Component, EventEmitter, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList, forwardRef, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode, OverlayOptions } from 'primeng/api';
-import { AnimationEvent } from '@angular/animations';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { OverlayModule } from 'primeng/overlay';
+import { RippleModule } from 'primeng/ripple';
 import { Tree, TreeModule } from 'primeng/tree';
 import { ObjectUtils } from 'primeng/utils';
-import { OverlayModule } from 'primeng/overlay';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -66,9 +65,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 [baseZIndex]="baseZIndex"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
-                (onAnimationStart)="onOverlayAnimationStart($event)"
-                (onAnimationDone)="onOverlayAnimationDone($event)"
-                (onHide)="hide()"
+                (onShow)="onShow.emit($event)"
+                (onHide)="hide($event)"
             >
                 <div #panel [ngClass]="'p-treeselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
@@ -344,21 +342,21 @@ export class TreeSelect implements AfterContentInit {
         });
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.onShow.emit(event);
-                break;
-        }
-    }
+    // onOverlayAnimationStart(event: AnimationEvent) {
+    //     switch (event.toState) {
+    //         case 'visible':
+    //             this.onShow.emit(event);
+    //             break;
+    //     }
+    // }
 
-    onOverlayAnimationDone(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                this.onHide.emit(event);
-                break;
-        }
-    }
+    // onOverlayAnimationDone(event: AnimationEvent) {
+    //     switch (event.toState) {
+    //         case 'void':
+    //             this.onHide.emit(event);
+    //             break;
+    //     }
+    // }
 
     onSelectionChange(event) {
         this.value = event;
@@ -434,12 +432,14 @@ export class TreeSelect implements AfterContentInit {
         this.overlayVisible = true;
     }
 
-    hide() {
+    hide(event?: any) {
         this.overlayVisible = false;
 
         if (this.resetFilterOnHide) {
             this.resetFilter();
         }
+
+        this.onHide.emit(event);
 
         this.cd.markForCheck();
     }
