@@ -9,11 +9,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Virtual Scroll with Preloaded Data (10000 Rows)</h5>
-        <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
-            [virtualScroll]="true" [virtualScrollItemSize]="46">
+        <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" style="width: 20%;">
                         {{col.header}}
                     </th>
                 </tr>
@@ -30,11 +29,11 @@
 
     <div class="card">
         <h5>Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)</h5>
-        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
+        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px"
             [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [virtualScrollOptions]="{numToleratedItems: 10}">
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" style="width: 20%;">
                         {{col.header}}
                     </th>
                 </tr>
@@ -70,11 +69,10 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Preloaded Data (10000 Rows)&lt;/h5&gt;
-    &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
-        [virtualScroll]="true" [virtualScrollItemSize]="46"&gt;
+    &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
-                &lt;th *ngFor="let col of columns"&gt;
+                &lt;th *ngFor="let col of columns" style="width: 20%;"&gt;
                     &#123;&#123;col.header&#125;&#125;
                 &lt;/th&gt;
             &lt;/tr&gt;
@@ -91,11 +89,11 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)&lt;/h5&gt;
-    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" tableStyle="table-layout: fixed"
+    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px"
         [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [virtualScrollOptions]="&#123;numToleratedItems: 10&#125;"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
-                &lt;th *ngFor="let col of columns"&gt;
+                &lt;th *ngFor="let col of columns" style="width: 20%;"&gt;
                     &#123;&#123;col.header&#125;&#125;
                 &lt;/th&gt;
             &lt;/tr&gt;
