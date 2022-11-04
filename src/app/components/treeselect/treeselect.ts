@@ -234,11 +234,11 @@ export class TreeSelect implements AfterContentInit {
     }
 
     /* @deprecated */
-    _hideTransitionOptions: boolean;
-    @Input() get hideTransitionOptions(): boolean {
+    _hideTransitionOptions: string;
+    @Input() get hideTransitionOptions(): string {
         return this._hideTransitionOptions;
     }
-    set hideTransitionOptions(val: boolean) {
+    set hideTransitionOptions(val: string) {
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
