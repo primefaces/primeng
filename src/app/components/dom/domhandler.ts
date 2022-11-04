@@ -17,32 +17,42 @@ export class DomHandler {
     private static browser: any;
 
     public static addClass(element: any, className: string): void {
-        if (element.classList) element.classList.add(className);
-        else element.className += ' ' + className;
+        if (element && className) {
+            if (element.classList) element.classList.add(className);
+            else element.className += ' ' + className;
+        }
     }
 
     public static addMultipleClasses(element: any, className: string): void {
-        if (element.classList) {
-            let styles: string[] = className.trim().split(' ');
-            for (let i = 0; i < styles.length; i++) {
-                element.classList.add(styles[i]);
-            }
-        } else {
-            let styles: string[] = className.split(' ');
-            for (let i = 0; i < styles.length; i++) {
-                element.className += ' ' + styles[i];
+        if (element && className) {
+            if (element.classList) {
+                let styles: string[] = className.trim().split(' ');
+                for (let i = 0; i < styles.length; i++) {
+                    element.classList.add(styles[i]);
+                }
+            } else {
+                let styles: string[] = className.split(' ');
+                for (let i = 0; i < styles.length; i++) {
+                    element.className += ' ' + styles[i];
+                }
             }
         }
     }
 
     public static removeClass(element: any, className: string): void {
-        if (element.classList) element.classList.remove(className);
-        else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        if (element && className) {
+            if (element.classList) element.classList.remove(className);
+            else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
     }
 
     public static hasClass(element: any, className: string): boolean {
-        if (element.classList) return element.classList.contains(className);
-        else return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+        if (element && className) {
+            if (element.classList) return element.classList.contains(className);
+            else return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+        }
+
+        return false;
     }
 
     public static siblings(element: any): any {
