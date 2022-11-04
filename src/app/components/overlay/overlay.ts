@@ -156,7 +156,11 @@ export class Overlay implements OnDestroy {
         this._options = val;
     }
 
+    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
+
     @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
@@ -277,6 +281,8 @@ export class Overlay implements OnDestroy {
     onOverlayContentAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
+                this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+
                 if (this.autoZIndex) {
                     ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
@@ -288,6 +294,8 @@ export class Overlay implements OnDestroy {
                 break;
 
             case 'void':
+                this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+
                 DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
                 this.modal && DomHandler.addClass(this.overlayEl, 'p-component-overlay-leave');
                 this.unbindListeners();

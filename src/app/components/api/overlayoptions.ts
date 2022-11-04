@@ -24,6 +24,10 @@ export interface OverlayOnShowEvent {
     mode?: OverlayModeType;
 }
 
+export interface OverlayOnBeforeShowEvent extends OverlayOnShowEvent {}
+
+export interface OverlayOnBeforeHideEvent extends OverlayOnBeforeShowEvent {}
+
 export interface OverlayOnHideEvent extends OverlayOnShowEvent {}
 
 export interface OverlayOptions {
@@ -39,7 +43,9 @@ export interface OverlayOptions {
     hideTransitionOptions?: string;
     listener?: (event: Event, options?: OverlayListenerOptions) => boolean | void;
     responsive?: ResponsiveOverlayOptions | undefined;
+    onBeforeShow?: (event?: OverlayOnBeforeShowEvent) => void;
     onShow?: (event?: OverlayOnShowEvent) => void;
+    onBeforeHide?: (event?: OverlayOnBeforeHideEvent) => void;
     onHide?: (event?: OverlayOnHideEvent) => void;
     onAnimationStart?: (event?: AnimationEvent) => void;
     onAnimationDone?: (event?: AnimationEvent) => void;
