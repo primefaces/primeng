@@ -156,6 +156,8 @@ export class Overlay implements OnDestroy {
         this._options = val;
     }
 
+    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
+
     @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
@@ -252,7 +254,7 @@ export class Overlay implements OnDestroy {
     }
 
     show(overlay?: HTMLElement, isFocus: boolean = false) {
-        this.visible = true;
+        this.onVisibleChange(true);
         this.handleEvents('onShow', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
         isFocus && DomHandler.focus(this.targetEl);
@@ -260,11 +262,16 @@ export class Overlay implements OnDestroy {
     }
 
     hide(overlay?: HTMLElement, isFocus: boolean = false) {
-        this.visible = false;
+        this.onVisibleChange(false);
         this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
         isFocus && DomHandler.focus(this.targetEl);
         this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+    }
+
+    onVisibleChange(visible: boolean) {
+        this._visible = visible;
+        this.visibleChange.emit(visible);
     }
 
     alignOverlay() {
