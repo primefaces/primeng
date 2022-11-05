@@ -312,13 +312,13 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
     }
 
+    alignOverlay() {
+        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
+    }
+
     onVisibleChange(visible: boolean) {
         this._visible = visible;
         this.visibleChange.emit(visible);
-    }
-
-    alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
     }
 
     onOverlayClick() {
