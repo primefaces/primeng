@@ -50,6 +50,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                 'p-overlay-center': modal && overlayResponsiveDirection === 'center',
                 'p-overlay-end': modal && overlayResponsiveDirection === 'end'
             }"
+            (click)="onOverlayClick($event)"
         >
             <div
                 *ngIf="visible"
@@ -226,6 +227,10 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     modalVisible: boolean;
 
+    isOverlayClicked: boolean = false;
+
+    isOverlayContentClicked: boolean = false;
+
     scrollHandler: any;
 
     documentClickListener: any;
@@ -316,11 +321,17 @@ export class Overlay implements AfterContentInit, OnDestroy {
         !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
     }
 
+    onOverlayClick() {
+        this.isOverlayClicked = true;
+    }
+
     onOverlayContentClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
             target: this.targetEl
         });
+
+        this.isOverlayContentClicked = true;
     }
 
     onOverlayContentAnimationStart(event: AnimationEvent) {
@@ -334,7 +345,6 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
                 DomHandler.appendOverlay(this.overlayEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
                 this.alignOverlay();
-                this.bindListeners();
 
                 break;
 
@@ -343,7 +353,6 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
                 DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
                 this.modal && DomHandler.addClass(this.overlayEl, 'p-component-overlay-leave');
-                this.unbindListeners();
 
                 break;
         }
@@ -357,11 +366,13 @@ export class Overlay implements AfterContentInit, OnDestroy {
         switch (event.toState) {
             case 'visible':
                 this.show(container, true);
+                this.bindListeners();
 
                 break;
 
             case 'void':
                 this.hide(container, true);
+                this.unbindListeners();
 
                 ZIndexUtils.clear(container);
                 this.modalVisible = false;
@@ -410,10 +421,12 @@ export class Overlay implements AfterContentInit, OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                const isOutsideClicked = this.targetEl && !(this.targetEl.isSameNode(event.target) || this.targetEl.contains(event.target) || (this.contentEl && this.contentEl.contains(<Node>event.target)));
+                const isTargetClicked = this.targetEl && (this.targetEl.isSameNode(event.target) || (!this.isOverlayClicked && this.targetEl.contains(event.target)));
+                const isOutsideClicked = !isTargetClicked && !this.isOverlayContentClicked;
                 const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
 
                 valid && this.hide(event);
+                this.isOverlayClicked = this.isOverlayContentClicked = false;
             });
         }
     }
