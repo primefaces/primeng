@@ -14,7 +14,6 @@ import {
     Input,
     NgModule,
     NgZone,
-    OnDestroy,
     OnInit,
     Output,
     QueryList,
@@ -167,99 +166,101 @@ export class DropdownItem {
                 (onAnimationStart)="onOverlayAnimationStart($event)"
                 (onHide)="hide()"
             >
-                <div [ngClass]="'p-dropdown-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">
-                        <ng-container *ngIf="filterTemplate; else builtInFilterElement">
-                            <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
-                        </ng-container>
-                        <ng-template #builtInFilterElement>
-                            <div class="p-dropdown-filter-container">
-                                <input
-                                    #filter
-                                    type="text"
-                                    autocomplete="off"
-                                    [value]="filterValue || ''"
-                                    class="p-dropdown-filter p-inputtext p-component"
-                                    [attr.placeholder]="filterPlaceholder"
-                                    (keydown.enter)="$event.preventDefault()"
-                                    (keydown)="onKeydown($event, false)"
-                                    (input)="onFilterInputChange($event)"
-                                    [attr.aria-label]="ariaFilterLabel"
-                                    [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId"
-                                />
-                                <span class="p-dropdown-filter-icon pi pi-search"></span>
-                            </div>
-                        </ng-template>
-                    </div>
-                    <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
-                        <p-scroller
-                            *ngIf="virtualScroll"
-                            #scroller
-                            [items]="optionsToDisplay"
-                            [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize || _itemSize"
-                            [autoSize]="true"
-                            [lazy]="lazy"
-                            (onLazyLoad)="onLazyLoad.emit($event)"
-                            [options]="virtualScrollOptions"
-                        >
-                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                                <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
-                            </ng-template>
-                            <ng-container *ngIf="loaderTemplate">
-                                <ng-template pTemplate="loader" let-scrollerOptions="options">
-                                    <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
-                                </ng-template>
+                <ng-template pTemplate="content">
+                    <div [ngClass]="'p-dropdown-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                        <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">
+                            <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+                                <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
                             </ng-container>
-                        </p-scroller>
-                        <ng-container *ngIf="!virtualScroll">
-                            <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: optionsToDisplay, options: {} }"></ng-container>
-                        </ng-container>
-
-                        <ng-template #buildInItems let-items let-scrollerOptions="options">
-                            <ul #items [attr.id]="listId" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
-                                <ng-container *ngIf="group">
-                                    <ng-template ngFor let-optgroup [ngForOf]="items">
-                                        <li class="p-dropdown-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
-                                            <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(optgroup) || 'empty' }}</span>
-                                            <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: optgroup }"></ng-container>
-                                        </li>
-                                        <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: getOptionGroupChildren(optgroup), selectedOption: selectedOption }"></ng-container>
-                                    </ng-template>
-                                </ng-container>
-                                <ng-container *ngIf="!group">
-                                    <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: items, selectedOption: selectedOption }"></ng-container>
-                                </ng-container>
-                                <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                                    <ng-template ngFor let-option let-i="index" [ngForOf]="options">
-                                        <p-dropdownItem
-                                            [option]="option"
-                                            [selected]="selectedOption == option"
-                                            [label]="getOptionLabel(option)"
-                                            [disabled]="isOptionDisabled(option)"
-                                            (onClick)="onItemClick($event)"
-                                            [template]="itemTemplate"
-                                        ></p-dropdownItem>
-                                    </ng-template>
+                            <ng-template #builtInFilterElement>
+                                <div class="p-dropdown-filter-container">
+                                    <input
+                                        #filter
+                                        type="text"
+                                        autocomplete="off"
+                                        [value]="filterValue || ''"
+                                        class="p-dropdown-filter p-inputtext p-component"
+                                        [attr.placeholder]="filterPlaceholder"
+                                        (keydown.enter)="$event.preventDefault()"
+                                        (keydown)="onKeydown($event, false)"
+                                        (input)="onFilterInputChange($event)"
+                                        [attr.aria-label]="ariaFilterLabel"
+                                        [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId"
+                                    />
+                                    <span class="p-dropdown-filter-icon pi pi-search"></span>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                            <p-scroller
+                                *ngIf="virtualScroll"
+                                #scroller
+                                [items]="optionsToDisplay"
+                                [style]="{ height: scrollHeight }"
+                                [itemSize]="virtualScrollItemSize || _itemSize"
+                                [autoSize]="true"
+                                [lazy]="lazy"
+                                (onLazyLoad)="onLazyLoad.emit($event)"
+                                [options]="virtualScrollOptions"
+                            >
+                                <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                                 </ng-template>
-                                <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
-                                    <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
-                                        {{ emptyFilterMessageLabel }}
+                                <ng-container *ngIf="loaderTemplate">
+                                    <ng-template pTemplate="loader" let-scrollerOptions="options">
+                                        <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                                    </ng-template>
+                                </ng-container>
+                            </p-scroller>
+                            <ng-container *ngIf="!virtualScroll">
+                                <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: optionsToDisplay, options: {} }"></ng-container>
+                            </ng-container>
+
+                            <ng-template #buildInItems let-items let-scrollerOptions="options">
+                                <ul #items [attr.id]="listId" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
+                                    <ng-container *ngIf="group">
+                                        <ng-template ngFor let-optgroup [ngForOf]="items">
+                                            <li class="p-dropdown-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
+                                                <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(optgroup) || 'empty' }}</span>
+                                                <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: optgroup }"></ng-container>
+                                            </li>
+                                            <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: getOptionGroupChildren(optgroup), selectedOption: selectedOption }"></ng-container>
+                                        </ng-template>
                                     </ng-container>
-                                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
-                                </li>
-                                <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
-                                    <ng-container *ngIf="!emptyTemplate; else empty">
-                                        {{ emptyMessageLabel }}
+                                    <ng-container *ngIf="!group">
+                                        <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: items, selectedOption: selectedOption }"></ng-container>
                                     </ng-container>
-                                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                                </li>
-                            </ul>
-                        </ng-template>
+                                    <ng-template #itemslist let-options let-selectedOption="selectedOption">
+                                        <ng-template ngFor let-option let-i="index" [ngForOf]="options">
+                                            <p-dropdownItem
+                                                [option]="option"
+                                                [selected]="selectedOption == option"
+                                                [label]="getOptionLabel(option)"
+                                                [disabled]="isOptionDisabled(option)"
+                                                (onClick)="onItemClick($event)"
+                                                [template]="itemTemplate"
+                                            ></p-dropdownItem>
+                                        </ng-template>
+                                    </ng-template>
+                                    <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
+                                        <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                                            {{ emptyFilterMessageLabel }}
+                                        </ng-container>
+                                        <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                    </li>
+                                    <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
+                                        <ng-container *ngIf="!emptyTemplate; else empty">
+                                            {{ emptyMessageLabel }}
+                                        </ng-container>
+                                        <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                    </li>
+                                </ul>
+                            </ng-template>
+                        </div>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                     </div>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-                </div>
+                </ng-template>
             </p-overlay>
         </div>
     `,
@@ -274,7 +275,7 @@ export class DropdownItem {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./dropdown.css']
 })
-export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, ControlValueAccessor {
+export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
     @Input() scrollHeight: string = '200px';
 
     @Input() filter: boolean;
@@ -865,7 +866,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.onShow.emit(event);
         }
         if (event.toState === 'void') {
-            this.onOverlayHide();
+            this.itemsWrapper = null;
+            this.onModelTouched();
             this.onHide.emit(event);
         }
     }
@@ -877,7 +879,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.resetFilter();
         }
 
-        this.scroller && this.scroller.ngOnDestroy();
         this.cd.markForCheck();
     }
 
@@ -1275,15 +1276,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.updateSelectedOption(this.value);
         this.updateEditableLabel();
         this.onClear.emit(event);
-    }
-
-    onOverlayHide() {
-        this.itemsWrapper = null;
-        this.onModelTouched();
-    }
-
-    ngOnDestroy() {
-        this.onOverlayHide();
     }
 }
 
