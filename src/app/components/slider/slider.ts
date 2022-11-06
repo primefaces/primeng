@@ -477,7 +477,6 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                         value = this.max;
                         this.handleValues[0] = 100;
                     }
-                    this.handleValues[0] = value;
                 }
                 this.sliderHandleStart.nativeElement.focus();
             } else {
@@ -487,7 +486,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                     this.offset = this.handleValues[1];
                 } else if (value < this.min) {
                     value = this.min;
-                    this.handleValues[1] = value;
+                    this.handleValues[1] = 0;
                 } else if (value < this.values[0]) {
                     this.offset = this.handleValues[1];
                 }
