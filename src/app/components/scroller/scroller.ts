@@ -173,6 +173,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this._orientation = val;
     }
 
+    @Input() get step() {
+        return this._step;
+    }
+    set step(val: number) {
+        this._step = val;
+    }
+
     @Input() get delay() {
         return this._delay;
     }
@@ -305,6 +312,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     _orientation: string = 'vertical';
 
+    _step: number = 0;
+
     _delay: number = 0;
 
     _resizeDelay: number = 10;
@@ -351,9 +360,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     last: any = 0;
 
+    page: number = 0;
+
     numItemsInViewport: any = 0;
 
     lastScrollPos: any = 0;
+
+    lazyLoadState: any = {};
 
     loaderArr: any[] = [];
 
@@ -405,6 +418,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
 
         return this._columns;
+    }
+
+    get isPageChanged() {
+        return this._step ? this.page !== this.getPageByFirst() : true;
     }
 
     constructor(private cd: ChangeDetectorRef, private zone: NgZone) {}
@@ -544,6 +561,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this.elementViewChild;
     }
 
+    getPageByFirst() {
+        return Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
+    }
+
     scrollTo(options: ScrollToOptions) {
         this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
         this.elementViewChild?.nativeElement?.scrollTo(options);
@@ -671,7 +692,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         if (this._lazy) {
             Promise.resolve().then(() => {
-                this.handleEvents('onLazyLoad', { first, last });
+                this.lazyLoadState = {
+                    first: this._step ? (this.both ? { rows: 0, cols: first.cols } : 0) : first,
+                    last: Math.min(this._step ? this._step : this.last, this.items.length)
+                };
+
+                this.handleEvents('onLazyLoad', this.lazyLoadState);
             });
         }
     }
@@ -839,8 +865,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             this.handleEvents('onScrollIndexChange', newState);
 
-            if (this._lazy) {
-                this.handleEvents('onLazyLoad', newState);
+            if (this._lazy && this.isPageChanged) {
+                const lazyLoadState = {
+                    first: this._step ? Math.min(this.getPageByFirst() * this._step, this.items.length - this._step) : first,
+                    last: Math.min(this._step ? (this.getPageByFirst() + 1) * this._step : last, this.items.length)
+                };
+                const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
+
+                isLazyStateChanged && this.handleEvents('onLazyLoad', lazyLoadState);
+                this.lazyLoadState = lazyLoadState;
             }
         }
     }
@@ -848,13 +881,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     onContainerScroll(event) {
         this.handleEvents('onScroll', { originalEvent: event });
 
-        if (this._delay) {
+        if (this._delay && this.isPageChanged) {
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
 
             if (!this.d_loading && this.showLoader) {
-                const { isRangeChanged: changed } = this.onScrollPositionChange(event);
+                const { isRangeChanged } = this.onScrollPositionChange(event);
+                const changed = isRangeChanged || (this._step ? this.isPageChanged : false);
+
                 if (changed) {
                     this.d_loading = true;
 
@@ -867,12 +902,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
                 if (this.d_loading && this.showLoader && (!this._lazy || this._loading === undefined)) {
                     this.d_loading = false;
-
+                    this.page = this.getPageByFirst();
                     this.cd.detectChanges();
                 }
             }, this._delay);
         } else {
-            this.onScrollChange(event);
+            !this.d_loading && this.onScrollChange(event);
         }
     }
 
