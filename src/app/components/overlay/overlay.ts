@@ -21,7 +21,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayModeType, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayModeType, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 
@@ -170,6 +170,13 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this._listener = value;
     }
 
+    @Input() get responsive(): ResponsiveOverlayOptions | undefined {
+        return this._responsive || this.overlayOptions?.responsive;
+    }
+    set responsive(val: ResponsiveOverlayOptions) {
+        this._responsive = val;
+    }
+
     @Input() get options(): OverlayOptions | undefined {
         return this._options;
     }
@@ -223,6 +230,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     _listener: any;
 
+    _responsive: ResponsiveOverlayOptions | undefined;
+
     _options: OverlayOptions | undefined;
 
     modalVisible: boolean;
@@ -259,7 +268,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     get overlayResponsiveOptions() {
-        return { ...this.config?.overlayOptions?.responsive, ...this.options?.responsive }; // TODO: Improve performance
+        return { ...this.overlayOptions?.responsive, ...this.responsive }; // TODO: Improve performance
     }
 
     get overlayResponsiveDirection() {
