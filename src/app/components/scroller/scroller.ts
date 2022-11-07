@@ -37,7 +37,9 @@ export interface ScrollerOptions {
     scrollHeight?: string | undefined;
     scrollWidth?: string | undefined;
     orientation?: ScrollerOrientationType;
+    step?: number | undefined;
     delay?: number | undefined;
+    resizeDelay?: number | undefined;
     inline?: boolean;
     lazy?: boolean;
     disabled?: boolean;
