@@ -40,6 +40,7 @@ export interface ScrollerOptions {
     step?: number | undefined;
     delay?: number | undefined;
     resizeDelay?: number | undefined;
+    appendOnly?: boolean;
     inline?: boolean;
     lazy?: boolean;
     disabled?: boolean;
@@ -196,6 +197,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this._resizeDelay = val;
     }
 
+    @Input() get appendOnly() {
+        return this._appendOnly;
+    }
+    set appendOnly(val: boolean) {
+        this._appendOnly = val;
+    }
+
     @Input() get inline() {
         return this._inline;
     }
@@ -320,6 +328,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     _resizeDelay: number = 10;
 
+    _appendOnly: boolean = false;
+
     _inline: boolean = false;
 
     _lazy: boolean = false;
@@ -402,9 +412,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     get loadedItems() {
         if (this._items && !this.d_loading) {
-            if (this.both) return this._items.slice(this.first.rows, this.last.rows).map((item) => (this._columns ? item : item.slice(this.first.cols, this.last.cols)));
+            if (this.both) return this._items.slice(this._appendOnly ? 0 : this.first.rows, this.last.rows).map((item) => (this._columns ? item : item.slice(this._appendOnly ? 0 : this.first.cols, this.last.cols)));
             else if (this.horizontal && this._columns) return this._items;
-            else return this._items.slice(this.first, this.last);
+            else return this._items.slice(this._appendOnly ? 0 : this.first, this.last);
         }
 
         return [];
@@ -769,7 +779,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     setContentPosition(pos) {
-        if (this.contentEl) {
+        if (this.contentEl && !this._appendOnly) {
             const first = pos ? pos.first : this.first;
             const calculateTranslateVal = (_first, _size) => _first * _size;
             const setTransform = (_x = 0, _y = 0) => (this.contentStyle = { ...this.contentStyle, ...{ transform: `translate3d(${_x}px, ${_y}px, 0)` } });
@@ -816,33 +826,39 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         if (this.both) {
             const isScrollDown = this.lastScrollPos.top <= scrollTop;
             const isScrollRight = this.lastScrollPos.left <= scrollLeft;
-            const currentIndex = { rows: calculateCurrentIndex(scrollTop, this._itemSize[0]), cols: calculateCurrentIndex(scrollLeft, this._itemSize[1]) };
-            const triggerIndex = {
-                rows: calculateTriggerIndex(currentIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
-                cols: calculateTriggerIndex(currentIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
-            };
 
-            newFirst = {
-                rows: calculateFirst(currentIndex.rows, triggerIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
-                cols: calculateFirst(currentIndex.cols, triggerIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
-            };
-            newLast = {
-                rows: calculateLast(currentIndex.rows, newFirst.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0]),
-                cols: calculateLast(currentIndex.cols, newFirst.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], true)
-            };
+            if (!this._appendOnly || (this._appendOnly && (isScrollDown || isScrollRight))) {
+                const currentIndex = { rows: calculateCurrentIndex(scrollTop, this._itemSize[0]), cols: calculateCurrentIndex(scrollLeft, this._itemSize[1]) };
+                const triggerIndex = {
+                    rows: calculateTriggerIndex(currentIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
+                    cols: calculateTriggerIndex(currentIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
+                };
 
-            isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols;
-            newScrollPos = { top: scrollTop, left: scrollLeft };
+                newFirst = {
+                    rows: calculateFirst(currentIndex.rows, triggerIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
+                    cols: calculateFirst(currentIndex.cols, triggerIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
+                };
+                newLast = {
+                    rows: calculateLast(currentIndex.rows, newFirst.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0]),
+                    cols: calculateLast(currentIndex.cols, newFirst.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], true)
+                };
+
+                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols;
+                newScrollPos = { top: scrollTop, left: scrollLeft };
+            }
         } else {
             const scrollPos = this.horizontal ? scrollLeft : scrollTop;
             const isScrollDownOrRight = this.lastScrollPos <= scrollPos;
-            const currentIndex = calculateCurrentIndex(scrollPos, this._itemSize);
-            const triggerIndex = calculateTriggerIndex(currentIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
 
-            newFirst = calculateFirst(currentIndex, triggerIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
-            newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
-            isRangeChanged = newFirst !== this.first || newLast !== this.last;
-            newScrollPos = scrollPos;
+            if (!this._appendOnly || (this._appendOnly && isScrollDownOrRight)) {
+                const currentIndex = calculateCurrentIndex(scrollPos, this._itemSize);
+                const triggerIndex = calculateTriggerIndex(currentIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
+
+                newFirst = calculateFirst(currentIndex, triggerIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
+                newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
+                isRangeChanged = newFirst !== this.first || newLast !== this.last;
+                newScrollPos = scrollPos;
+            }
         }
 
         return {
