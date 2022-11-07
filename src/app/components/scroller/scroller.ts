@@ -468,7 +468,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
 
         if (this.initialized) {
-            const isChanged = !isLoadingChanged && (simpleChanges.items || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
+            const isChanged = !isLoadingChanged && (simpleChanges.items?.previousValue?.length !== simpleChanges.items?.currentValue?.length || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
             isChanged && this.init();
         }
     }
