@@ -1118,9 +1118,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
         return this.compareValuesOnSort(value1, value2, multiSortMeta[index].order);
     }
-    
+
     compareValuesOnSort(value1, value2, order) {
-        return ObjectUtils.sort(value1, value2, order, this.filterLocale, this.sortOrder)
+        return ObjectUtils.sort(value1, value2, order, this.filterLocale, this.sortOrder);
     }
 
     getSortMeta(field: string) {

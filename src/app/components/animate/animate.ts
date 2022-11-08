@@ -9,14 +9,13 @@ import { DomHandler } from '../dom/domhandler';
     }
 })
 export class Animate {
-
     @Input() enterClass: string;
 
     @Input() leaveClass: string;
 
     documentScrollListener: Function | null = null;
 
-    loadListener: Function = () => { };
+    loadListener: Function = () => {};
 
     entered: boolean;
 
@@ -24,7 +23,7 @@ export class Animate {
 
     loaded: boolean;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private host: ElementRef, public el: ElementRef, public renderer: Renderer2, private zone: NgZone) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private host: ElementRef, public el: ElementRef, public renderer: Renderer2, private zone: NgZone) {}
 
     ngOnInit() {
         if (this.isInViewport()) {
@@ -38,23 +37,18 @@ export class Animate {
             root: null,
             rootMargin: '0px',
             threshold: 1.0
-        }
-        
+        };
+
         this.zone.runOutsideAngular(() => {
-            this.observer = new IntersectionObserver(el => this.isVisible(el), options);
+            this.observer = new IntersectionObserver((el) => this.isVisible(el), options);
             this.observer.observe(this.host.nativeElement);
-        })
+        });
     }
 
     isInViewport() {
         let rect = this.host.nativeElement.getBoundingClientRect();
 
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= ((window.innerHeight + rect.height) || this.document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || this.document.documentElement.clientWidth)
-        );
+        return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight + rect.height || this.document.documentElement.clientHeight) && rect.right <= (window.innerWidth || this.document.documentElement.clientWidth);
     }
 
     isVisible(element: IntersectionObserverEntry[]) {
@@ -92,8 +86,8 @@ export class Animate {
                         this.bindIntersectionObserver();
                     }
                     this.animate();
-                })
-            })
+                });
+            });
         }
     }
 
@@ -115,7 +109,7 @@ export class Animate {
                 }
                 this.loaded = true;
             });
-        })
+        });
     }
 
     unbindLoadListener() {
@@ -141,4 +135,4 @@ export class Animate {
     exports: [Animate],
     declarations: [Animate]
 })
-export class AnimateModule { }
+export class AnimateModule {}

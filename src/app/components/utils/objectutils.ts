@@ -184,7 +184,6 @@ export class ObjectUtils {
         return result;
     }
 
-
     public static sort(value1, value2, order = 1, locale, nullSortOrder = 1) {
         const result = ObjectUtils.compare(value1, value2, locale, order);
         // nullSortOrder == 1 means Excel like sort nulls at bottom
@@ -192,7 +191,7 @@ export class ObjectUtils {
 
         return finalSortOrder * result;
     }
-    
+
     public static merge(obj1?: any, obj2?: any): any {
         if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
             return { ...(obj1 || {}), ...(obj2 || {}) };

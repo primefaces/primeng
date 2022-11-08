@@ -1,11 +1,35 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, Component, AfterContentInit, ViewChild, ChangeDetectorRef, forwardRef, Output, EventEmitter, Pipe, PipeTransform} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {animate, style, transition, trigger} from '@angular/animations';
-import {NG_VALUE_ACCESSOR} from '@angular/forms';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule} from 'primeng/api';
-import {ZIndexUtils} from 'primeng/utils';
-import {InputTextModule} from 'primeng/inputtext';
+import {
+    NgModule,
+    Directive,
+    ElementRef,
+    HostListener,
+    Input,
+    OnDestroy,
+    DoCheck,
+    NgZone,
+    OnInit,
+    ViewEncapsulation,
+    ChangeDetectionStrategy,
+    ContentChildren,
+    QueryList,
+    TemplateRef,
+    Component,
+    AfterContentInit,
+    ViewChild,
+    ChangeDetectorRef,
+    forwardRef,
+    Output,
+    EventEmitter,
+    Pipe,
+    PipeTransform
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule } from 'primeng/api';
+import { ZIndexUtils } from 'primeng/utils';
+import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -255,19 +279,43 @@ export const Password_VALUE_ACCESSOR: any = {
     selector: 'p-password',
     template: `
         <div [ngClass]="toggleMask | mapper: containerClass" [ngStyle]="style" [class]="styleClass">
-            <input #input [attr.label]="label" [attr.aria-label]="ariaLabel" [attr.aria-labelledBy]="ariaLabelledBy" [attr.id]="inputId" pInputText [ngClass]="disabled | mapper: inputFieldClass" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.type]="unmasked | mapper: inputType" [attr.placeholder]="placeholder" [value]="value" (input)="onInput($event)" (focus)="onInputFocus($event)"
-                (blur)="onInputBlur($event)" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" />
+            <input
+                #input
+                [attr.label]="label"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledBy]="ariaLabelledBy"
+                [attr.id]="inputId"
+                pInputText
+                [ngClass]="disabled | mapper: inputFieldClass"
+                [ngStyle]="inputStyle"
+                [class]="inputStyleClass"
+                [attr.type]="unmasked | mapper: inputType"
+                [attr.placeholder]="placeholder"
+                [value]="value"
+                (input)="onInput($event)"
+                (focus)="onInputFocus($event)"
+                (blur)="onInputBlur($event)"
+                (keyup)="onKeyUp($event)"
+                (keydown)="onKeyDown($event)"
+            />
             <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
             <i *ngIf="toggleMask" [ngClass]="unmasked | mapper: toggleIconClass" (click)="onMaskToggle()"></i>
-            <div #overlay *ngIf="overlayVisible" [ngClass]="'p-password-panel p-component'" (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onAnimationStart($event)" (@overlayAnimation.done)="onAnimationEnd($event)">
+            <div
+                #overlay
+                *ngIf="overlayVisible"
+                [ngClass]="'p-password-panel p-component'"
+                (click)="onOverlayClick($event)"
+                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+                (@overlayAnimation.start)="onAnimationStart($event)"
+                (@overlayAnimation.done)="onAnimationEnd($event)"
+            >
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-meter">
-                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{'width': meter ? meter.width : ''}"></div>
+                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
                     </div>
                     <div className="p-password-info">{{ infoText }}</div>
                 </ng-template>
@@ -625,15 +673,11 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     containerClass(toggleMask: boolean) {
-        return {'p-password p-component p-inputwrapper': true,
-            'p-input-icon-right': toggleMask
-        };
+        return { 'p-password p-component p-inputwrapper': true, 'p-input-icon-right': toggleMask };
     }
 
     inputFieldClass(disabled: boolean) {
-        return {'p-password-input' : true,
-                'p-disabled': disabled
-        };
+        return { 'p-password-input': true, 'p-disabled': disabled };
     }
 
     toggleIconClass(unmasked: boolean) {
