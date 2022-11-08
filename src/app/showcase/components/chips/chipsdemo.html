@@ -12,7 +12,7 @@
         <p-chips [(ngModel)]="values1"></p-chips>
 
         <h5>Comma Separator</h5>
-        <p-chips [(ngModel)]="values2" [separator]="chipSeparator"></p-chips>
+        <p-chips [(ngModel)]="values2" [separator]="{ key: ',', keyboardCode: 188 }"></p-chips>
         
         <h5>Template</h5>
         <p-chips [(ngModel)]="values3">
@@ -158,7 +158,7 @@ export class MyModel &#123;
                         <tr>
                             <td>separator</td>
                             <td>ChipsSeparator</td>
-                            <td>null</td>
+                            <td>&#123; text: ',', keyboardCode: 188 &#125;</td>
                             <td>Separator char to add an item when pressed in addition to the enter key.</td>
                         </tr>
                         <tr>

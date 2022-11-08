@@ -84,7 +84,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     @Input() addOnBlur: boolean;
 
-    @Input() separator: ChipsSeparator | null = null;
+    @Input() separator: ChipsSeparator | null = { text: ',', keyboardCode: 188 };
 
     @Input() showClear: boolean = false;
 
