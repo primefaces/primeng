@@ -10,7 +10,7 @@
     <p-toast></p-toast>
 
     <div class="card">
-        <p-toolbar styleClass="mb-4">
+        <p-toolbar styleClass="mb-4 gap-2">
             <ng-template pTemplate="left">
                 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
                 <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
@@ -22,7 +22,7 @@
             </ng-template>
         </p-toolbar>
 
-        <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+        <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [tableStyle]="{'min-width': '75rem'}"
             [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -36,15 +36,15 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 3rem">
+                    <th style="width: 4rem">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
-                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
                     <th>Image</th>
                     <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="category" style="min-width:10rem">Category <p-sortIcon field="category"></p-sortIcon></th>
                     <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                    <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                    <th pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
                     <th></th>
                 </tr>
             </ng-template>
@@ -152,7 +152,7 @@
 &lt;p-toast&gt;&lt;/p-toast&gt;
 
 &lt;div class="card"&gt;
-    &lt;p-toolbar styleClass="mb-4"&gt;
+    &lt;p-toolbar styleClass="mb-4 gap-2"&gt;
         &lt;ng-template pTemplate="left"&gt;
             &lt;button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"&gt;&lt;/button&gt;
             &lt;button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"&gt;&lt;/button&gt;
@@ -164,7 +164,7 @@
         &lt;/ng-template&gt;
     &lt;/p-toolbar&gt;
 
-    &lt;p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+    &lt;p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [tableStyle]="&#123;'min-width': '75rem'&#125;"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries" [showCurrentPageReport]="true"&gt;
         &lt;ng-template pTemplate="caption"&gt;
@@ -178,15 +178,15 @@
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th style="width: 3rem"&gt;
+                &lt;th style="width: 4rem"&gt;
                     &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
                 &lt;/th&gt;
-                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="name" style="min-width:15rem"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
                 &lt;th&gt;Image&lt;/th&gt;
                 &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="category"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="category" style="min-width:10rem"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
                 &lt;th pSortableColumn="rating"&gt;Reviews &lt;p-sortIcon field="rating"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="inventoryStatus"&gt;Status &lt;p-sortIcon field="inventoryStatus"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="inventoryStatus" style="min-width:10rem"&gt;Status &lt;p-sortIcon field="inventoryStatus"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
                 &lt;th&gt;&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -227,6 +227,7 @@
             &lt;label for="description"&gt;Description&lt;/label&gt;
             &lt;textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"&gt;&lt;/textarea&gt;
         &lt;/div&gt;
+
         &lt;div class="field"&gt;
             &lt;label for="inventoryStatus"&gt;Inventory Status&lt;/label&gt;
             &lt;p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select"&gt;

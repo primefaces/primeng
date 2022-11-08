@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,OnInit,AfterViewChecked,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Calendar} from '@fullcalendar/core';
+import { NgModule, Component, ElementRef, OnDestroy, Input, OnInit, AfterViewChecked, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Calendar } from '@fullcalendar/core';
 
 @Component({
     selector: 'p-fullCalendar',
@@ -8,11 +8,10 @@ import {Calendar} from '@fullcalendar/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
-
+export class FullCalendar implements OnDestroy, OnInit, AfterViewChecked {
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -105,4 +104,4 @@ export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
     exports: [FullCalendar],
     declarations: [FullCalendar]
 })
-export class FullCalendarModule { }
+export class FullCalendarModule {}

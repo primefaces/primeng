@@ -11,13 +11,13 @@
 
     <div class="card">
         <h5>Cell Editing</h5>
-        <p-table [value]="products1" dataKey="id" responsiveLayout="scroll">
+        <p-table [value]="products1" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
+                    <th style="width:25%">Code</th>
+                    <th style="width:25%">Name</th>
+                    <th style="width:25%">Category</th>
+                    <th style="width:25%">Price</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
@@ -69,14 +69,14 @@
 
     <div class="card">
     <h5>Row Editing</h5>
-        <p-table [value]="products2" dataKey="id" editMode="row" responsiveLayout="scroll">
+        <p-table [value]="products2" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th style="width:8rem"></th>
+                    <th style="width:20%">Code</th>
+                    <th style="width:20%">Name</th>
+                    <th style="width:20%">Category</th>
+                    <th style="width:20%">Price</th>
+                    <th style="width:20%"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
@@ -104,7 +104,7 @@
                     <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-dropdown [options]="statuses" [(ngModel)]="product.inventoryStatus" [style]="{'width':'100%'}"></p-dropdown>
+                                <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{'width':'100%'}"></p-dropdown>
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{product.inventoryStatus}}
@@ -121,10 +121,12 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="text-align:center">
-                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    <td>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        </div>
                     </td>
                 </tr>
             </ng-template>
@@ -147,13 +149,13 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Cell Editing&lt;/h5&gt;
-    &lt;p-table [value]="products1" dataKey="id" responsiveLayout="scroll"&gt;
+    &lt;p-table [value]="products1" dataKey="id" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Code&lt;/th&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Category&lt;/th&gt;
-                &lt;th&gt;Quantity&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Code&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Name&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Category&lt;/th&gt;
+                &lt;th style="width:25%"&gt;Price&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-product&gt;
@@ -205,14 +207,14 @@
 
 &lt;div class="card"&gt;
 &lt;h5&gt;Row Editing&lt;/h5&gt;
-    &lt;p-table [value]="products2" dataKey="id" editMode="row" responsiveLayout="scroll"&gt;
+    &lt;p-table [value]="products2" dataKey="id" editMode="row" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Code&lt;/th&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Category&lt;/th&gt;
-                &lt;th&gt;Quantity&lt;/th&gt;
-                &lt;th style="width:8rem"&gt;&lt;/th&gt;
+                &lt;th style="width:20%"&gt;Code&lt;/th&gt;
+                &lt;th style="width:20%"&gt;Name&lt;/th&gt;
+                &lt;th style="width:20%"&gt;Category&lt;/th&gt;
+                &lt;th style="width:20%"&gt;Price&lt;/th&gt;
+                &lt;th style="width:20%"&gt;&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex"&gt;
@@ -240,7 +242,7 @@
                 &lt;td&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
-                            &lt;p-dropdown [options]="statuses" [(ngModel)]="product.inventoryStatus" [style]="&#123;'width':'100%'&#125;"&gt;&lt;/p-dropdown&gt;
+                            &lt;p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="&#123;'width':'100%'&#125;"&gt;&lt;/p-dropdown&gt;
                         &lt;/ng-template&gt;
                         &lt;ng-template pTemplate="output"&gt;
                             &#123;&#123;product.inventoryStatus&#125;&#125;
@@ -257,10 +259,12 @@
                         &lt;/ng-template&gt;
                     &lt;/p-cellEditor&gt;
                 &lt;/td&gt;
-                &lt;td style="text-align:center"&gt;
-                    &lt;button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
-                    &lt;button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"&gt;&lt;/button&gt;
-                    &lt;button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"&gt;&lt;/button&gt;
+                &lt;td&gt;
+                    &lt;div class="flex align-items-center justify-content-center gap-2"&gt;
+                        &lt;button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
+                        &lt;button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"&gt;&lt;/button&gt;
+                        &lt;button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"&gt;&lt;/button&gt;
+                    &lt;/div&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;

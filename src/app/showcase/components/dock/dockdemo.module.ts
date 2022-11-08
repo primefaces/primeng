@@ -15,23 +15,7 @@ import { TerminalModule } from 'primeng/terminal';
 import { TreeModule } from 'primeng/tree';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		DockDemoRoutingModule,
-		CardModule,
-        DockModule,
-		TabViewModule,
-		AppCodeModule,
-        MenubarModule,
-        DialogModule,
-        TerminalModule,
-        TreeModule,
-        ToastModule,
-        GalleriaModule,
-		AppDemoActionsModule
-	],
-	declarations: [
-		DockDemo
-	]
+    imports: [CommonModule, DockDemoRoutingModule, CardModule, DockModule, TabViewModule, AppCodeModule, MenubarModule, DialogModule, TerminalModule, TreeModule, ToastModule, GalleriaModule, AppDemoActionsModule],
+    declarations: [DockDemo]
 })
 export class DockDemoModule {}

@@ -8,9 +8,9 @@ import { ContextMenuService } from 'primeng/api';
 
 @Component({
     template: `
-    <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
-    <p-contextMenu [target]="p" [model]="items1" [appendTo]="p"></p-contextMenu>
-    <p #p>PrimeNG ROCKS!</p>
+        <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
+        <p-contextMenu [target]="p" [model]="items1" [appendTo]="p"></p-contextMenu>
+        <p #p>PrimeNG ROCKS!</p>
     `
 })
 class TestContextMenuTest {
@@ -18,25 +18,23 @@ class TestContextMenuTest {
         {
             label: 'File',
             icon: 'pi pi-fw pi-file',
-            items: [{
+            items: [
+                {
                     label: 'New',
                     icon: 'pi pi-fw pi-plus',
-                    items: [
-                        {label: 'Project'},
-                        {label: 'Other'},
-                    ]
+                    items: [{ label: 'Project' }, { label: 'Other' }]
                 },
-                {label: 'Open'},
-                {separator:true},
-                {label: 'Quit'}
+                { label: 'Open' },
+                { separator: true },
+                { label: 'Quit' }
             ]
         },
         {
             label: 'Edit',
             icon: 'pi pi-fw pi-pencil',
             items: [
-                {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-                {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
+                { label: 'Delete', icon: 'pi pi-fw pi-trash' },
+                { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
             ]
         },
         {
@@ -61,7 +59,8 @@ class TestContextMenuTest {
                         {
                             label: 'File'
                         }
-                ]}
+                    ]
+                }
             ]
         },
         {
@@ -72,47 +71,35 @@ class TestContextMenuTest {
                     label: 'Edit',
                     icon: 'pi pi-fw pi-pencil',
                     items: [
-                        {label: 'Save', icon: 'pi pi-fw pi-save'},
-                        {label: 'Update', icon: 'pi pi-fw pi-save'},
+                        { label: 'Save', icon: 'pi pi-fw pi-save' },
+                        { label: 'Update', icon: 'pi pi-fw pi-save' }
                     ]
                 },
                 {
                     label: 'Other',
                     icon: 'pi pi-fw pi-tags',
-                    items: [
-                        {label: 'Delete', icon: 'pi pi-fw pi-minus'}
-                    ]
+                    items: [{ label: 'Delete', icon: 'pi pi-fw pi-minus' }]
                 }
             ]
         },
-        {separator:true},
+        { separator: true },
         {
-            label: 'Quit', icon: 'pi pi-fw pi-times'
+            label: 'Quit',
+            icon: 'pi pi-fw pi-times'
         }
     ];
 }
 
 describe('ConextMenu', () => {
+    let contextmenu: ContextMenu;
+    let contextmenuP: ContextMenu;
+    let fixture: ComponentFixture<TestContextMenuTest>;
 
-  let contextmenu: ContextMenu;
-  let contextmenuP: ContextMenu;
-  let fixture: ComponentFixture<TestContextMenuTest>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-        imports: [
-            NoopAnimationsModule,
-            RouterTestingModule.withRoutes([
-                { path: 'test', component: ContextMenu }
-            ]),
-            ContextMenuModule
-            ],
-            declarations: [
-            TestContextMenuTest
-            ],
-            providers: [
-                ContextMenuService
-            ]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }]), ContextMenuModule],
+            declarations: [TestContextMenuTest],
+            providers: [ContextMenuService]
         });
 
         fixture = TestBed.createComponent(TestContextMenuTest);
@@ -130,9 +117,9 @@ describe('ConextMenu', () => {
     it('should open contextmenu (global)', () => {
         fixture.detectChanges();
 
-        const showSpy = spyOn(contextmenu,"show").and.callThrough();
+        const showSpy = spyOn(contextmenu, 'show').and.callThrough();
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         document.dispatchEvent(contextmenuEvent);
@@ -145,32 +132,32 @@ describe('ConextMenu', () => {
         fixture.detectChanges();
 
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         document.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
 
-        const closeSpy = spyOn(contextmenu,"hide").and.callThrough();
-        document.dispatchEvent(new Event("click"));
+        const closeSpy = spyOn(contextmenu, 'hide').and.callThrough();
+        document.dispatchEvent(new Event('click'));
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();
     });
 
     it('should close contextmenu when outside window resize (global)', () => {
-        contextmenu.appendTo = "body";
+        contextmenu.appendTo = 'body';
         fixture.detectChanges();
 
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         document.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
 
-        const hideSpy = spyOn(contextmenu,"hide").and.callThrough();
-        window.dispatchEvent(new Event("resize"));
+        const hideSpy = spyOn(contextmenu, 'hide').and.callThrough();
+        window.dispatchEvent(new Event('resize'));
         fixture.detectChanges();
 
         expect(hideSpy).toHaveBeenCalled();
@@ -179,12 +166,12 @@ describe('ConextMenu', () => {
     it('should open and close programmaticlaly', () => {
         fixture.detectChanges();
 
-        const showSpy = spyOn(contextmenu,"show").and.callThrough();
+        const showSpy = spyOn(contextmenu, 'show').and.callThrough();
         contextmenu.toggle();
         fixture.detectChanges();
 
         expect(showSpy).toHaveBeenCalled();
-        const hideSpy = spyOn(contextmenu,"hide").and.callThrough();
+        const hideSpy = spyOn(contextmenu, 'hide').and.callThrough();
         contextmenu.toggle();
         fixture.detectChanges();
 
@@ -194,10 +181,10 @@ describe('ConextMenu', () => {
     it('should open contextmenu (target)', () => {
         fixture.detectChanges();
 
-        const showSpy = spyOn(contextmenuP,"show").and.callThrough();
+        const showSpy = spyOn(contextmenuP, 'show').and.callThrough();
         const target = fixture.debugElement.query(By.css('p'));
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         target.nativeElement.dispatchEvent(contextmenuEvent);
@@ -211,33 +198,33 @@ describe('ConextMenu', () => {
 
         const target = fixture.debugElement.query(By.css('p'));
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         target.nativeElement.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
 
-        const closeSpy = spyOn(contextmenuP,"hide").and.callThrough();
-        document.dispatchEvent(new Event("click"));
+        const closeSpy = spyOn(contextmenuP, 'hide').and.callThrough();
+        document.dispatchEvent(new Event('click'));
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();
     });
 
     it('should close contextmenu when outside window resize (target)', () => {
-        contextmenu.appendTo = "body";
+        contextmenu.appendTo = 'body';
         fixture.detectChanges();
 
         const target = fixture.debugElement.query(By.css('p'));
         const contextmenuEvent: any = document.createEvent('CustomEvent');
-        contextmenuEvent.pageX = 20
+        contextmenuEvent.pageX = 20;
         contextmenuEvent.pageY = 20;
         contextmenuEvent.initEvent('contextmenu', true, true);
         target.nativeElement.dispatchEvent(contextmenuEvent);
         fixture.detectChanges();
 
-        const hideSpy = spyOn(contextmenuP,"hide").and.callThrough();
-        window.dispatchEvent(new Event("resize"));
+        const hideSpy = spyOn(contextmenuP, 'hide').and.callThrough();
+        window.dispatchEvent(new Event('resize'));
         fixture.detectChanges();
 
         expect(hideSpy).toHaveBeenCalled();

@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Table <span>VirtualScroll</span></h1>
-        <span>VirtualScroller is a performant approach to handle huge data efficiently.</span>
+        <span>VirtualScroller is a performance-approach to handle huge data efficiently.</span>
     </div>
     <app-demoActions github="table" stackblitz="tablevirtualscroll-demo"></app-demoActions>
 </div>
@@ -9,17 +9,16 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Virtual Scroll with Preloaded Data (10000 Rows)</h5>
-        <p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
-            [virtualScroll]="true" [virtualRowHeight]="40">
+        <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" style="width: 20%;">
                         {{col.header}}
                     </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-                <tr style="height:40px">
+                <tr style="height:46px">
                     <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                     </td>
@@ -30,26 +29,26 @@
 
     <div class="card">
         <h5>Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)</h5>
-        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px"
-            [virtualScroll]="true" [virtualRowHeight]="40" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+        <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" [rows]="100"
+            [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" style="width: 20%;">
                         {{col.header}}
                     </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr style="height:40px">
+                <tr style="height:46px">
                     <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                     </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="loadingbody" let-columns="columns">
-                <tr style="height:40px">
-                    <td *ngFor="let col of columns">
-                        <p-skeleton [ngStyle]="{'width': '100%'}"></p-skeleton>
+                <tr style="height:46px">
+                    <td *ngFor="let col of columns; let even = even">
+                        <p-skeleton [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
                     </td>
                 </tr>
             </ng-template>
@@ -70,17 +69,16 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Preloaded Data (10000 Rows)&lt;/h5&gt;
-    &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px"
-        [virtualScroll]="true" [virtualRowHeight]="40"&gt;
+    &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
-                &lt;th *ngFor="let col of columns"&gt;
+                &lt;th *ngFor="let col of columns" style="width: 20%;"&gt;
                     &#123;&#123;col.header&#125;&#125;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns"&gt;
-            &lt;tr style="height:40px"&gt;
+            &lt;tr style="height:46px"&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
@@ -91,27 +89,26 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)&lt;/h5&gt;
-    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px"
-        [virtualScroll]="true" [virtualRowHeight]="40" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
+    &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" [rows]="100"
+        [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
-                &lt;th *ngFor="let col of columns"&gt;
+                &lt;th *ngFor="let col of columns" style="width: 20%;"&gt;
                     &#123;&#123;col.header&#125;&#125;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-            &lt;tr style="height:40px"&gt;
+            &lt;tr style="height:46px"&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
-            &lt;tr style="height:40px"&gt;
-                &lt;td *ngFor="let col of columns"&gt;
-                    &lt;div class="loading-text"&gt;&lt;/div&gt;
-                    &lt;p-skeleton [ngStyle]="&#123;'width': '100%'&#125;"&gt;&lt;/p-skeleton&gt;
+            &lt;tr style="height:46px"&gt;
+                &lt;td *ngFor="let col of columns; let even = even"&gt;
+                    &lt;p-skeleton [ngStyle]="&#123;'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'&#125;"&gt;&lt;/p-skeleton&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -120,10 +117,10 @@
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;Component, OnInit&#125; from '@angular/core';
-import &#123;Car&#125; from '../../components/domain/car';
-import &#123;CarService&#125; from '../../service/carservice';
-import &#123;LazyLoadEvent&#125; from 'primeng/api';
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Car &#125; from '../../components/domain/car';
+import &#123; CarService &#125; from '../../service/carservice';
+import &#123; LazyLoadEvent &#125; from 'primeng/api';
 
 @Component(&#123;
     templateUrl: './tablevirtualscrolldemo.html'
@@ -136,18 +133,19 @@ export class TableVirtualScrollDemo implements OnInit &#123;
 
     cols: any[];
 
-    constructor(private carService: CarService) &#123;&#125;
+    constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.cols = [
-            &#123;field: 'vin', header: 'Vin'&#125;,
-            &#123;field: 'year', header: 'Year'&#125;,
-            &#123;field: 'brand', header: 'Brand'&#125;,
-            &#123;field: 'color', header: 'Color'&#125;
+            &#123; field: 'id', header: 'Id' &#125;,
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
         ];
 
-        this.cars = Array.from(&#123;length: 10000&#125;).map(() =&gt; this.carService.generateCar());
-        this.virtualCars = Array.from(&#123;length: 10000&#125;);
+        this.cars = Array.from(&#123; length: 10000 &#125;).map((_, i) =&gt; this.carService.generateCar(i + 1));
+        this.virtualCars = Array.from(&#123; length: 10000 &#125;);
     &#125;
 
     loadCarsLazy(event: LazyLoadEvent) &#123;
@@ -160,7 +158,7 @@ export class TableVirtualScrollDemo implements OnInit &#123;
             Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
 
             //trigger change detection
-            this.virtualCars = [...this.virtualCars];
+            event.forceUpdate();
         &#125;, Math.random() * 1000 + 250);
     &#125;
 &#125;

@@ -274,6 +274,60 @@ show() &#123;
                             <td>true</td>
                             <td>Whether to show the header or not.</td>
                         </tr>
+                        <tr>
+                            <td>maximizable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the dialog can be displayed full screen.</td>
+                        </tr>
+                        <tr>
+                            <td>minimizeIcon</td>
+                            <td>string</td>
+                            <td>pi pi-window-minimize</td>
+                            <td>Name of the minimize icon.</td>
+                        </tr>
+                        <tr>
+                            <td>maximizeIcon</td>
+                            <td>string</td>
+                            <td>pi pi-window-maximize</td>
+                            <td>Name of the maximize icon.</td>
+                        </tr>
+                        <tr>
+                            <td>minX</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Minimum value for the left coordinate of dialog in dragging.</td>
+                        </tr>
+                        <tr>
+                            <td>minY</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Minimum value for the top coordinate of dialog in dragging.</td>
+                        </tr>
+                        <tr>
+                            <td>position</td>
+                            <td>string</td>
+                            <td>center</td>
+                            <td>Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".</td>
+                        </tr>
+                        <tr>
+                            <td>keepInViewport</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Keeps dialog in the viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>resizable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables resizing of the content.</td>
+                        </tr>
+                        <tr>
+                            <td>draggable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables dragging to change the position using header.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -298,6 +352,31 @@ show() &#123;
                             <td>onDestroy</td>
                             <td>event: Event object</td>
                             <td>Callback to invoke when dialog is destroyed.</td>
+                        </tr>
+                        <tr>
+                            <td>onMaximize</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog maximized or unmaximized.</td>
+                        </tr>
+                        <tr>
+                            <td>onDragStart</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog dragging is started.</td>
+                        </tr>
+                        <tr>
+                            <td>onDragEnd</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog dragging is completed.</td>
+                        </tr>
+                        <tr>
+                            <td>onResizeInit</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog resizing is initiated.</td>
+                        </tr>
+                        <tr>
+                            <td>onResizeEnd</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog resizing is completed.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -380,15 +459,20 @@ export class DynamicDialogDemo implements OnDestroy &#123;
         this.ref = this.dialogService.open(ProductListDemo, &#123;
             header: 'Choose a Product',
             width: '70%',
-            contentStyle: &#123;"max-height": "500px", "overflow": "auto"&#125;,
-            baseZIndex: 10000
+            contentStyle: &#123;"overflow": "auto"&#125;,
+            baseZIndex: 10000,
+            maximizable: true
         &#125;);
 
-        this.ref.onClose.subscribe((product: Product) =>&#123;
+        this.ref.onClose.subscribe((product: Product) => &#123;
             if (product) &#123;
                 this.messageService.add(&#123;severity:'info', summary: 'Product Selected', detail: product.name&#125;);
             &#125;
         &#125;);
+
+        this.ref.onMaximize.subscribe((value: any) => &#123;
+            this.messageService.add(&#123;severity: 'info', summary: 'Maximized', detail:  `maximized: $&#123;value.maximized&#125;`&#125;);
+    &#125;);
     &#125;
 
     ngOnDestroy() &#123;

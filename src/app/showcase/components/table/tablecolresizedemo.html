@@ -10,7 +10,7 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Fit Mode</h5>
-        <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+        <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Code</th>
@@ -32,7 +32,7 @@
 
     <div class="card">
         <h5>Expand Mode</h5>
-        <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+        <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Code</th>
@@ -54,7 +54,7 @@
 
     <div class="card">
         <h5>Scrollable</h5>
-        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn>Name</th>
@@ -73,28 +73,6 @@
             </ng-template>
         </p-table>
     </div>
-
-    <div class="card">
-        <h5>Scrollable with Variable Width</h5>
-        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pResizableColumn style="flex-basis:25%">Name</th>
-                    <th pResizableColumn style="flex-basis:25%">Country</th>
-                    <th pResizableColumn style="flex-basis:25%">Company</th>
-                    <th pResizableColumn style="flex-basis:25%">Representative</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-customer>
-                <tr>
-                    <td style="flex-basis:25%">{{customer.name}}</td>
-                    <td style="flex-basis:25%">{{customer.country.name}}</td>
-                    <td style="flex-basis:25%">{{customer.company}}</td>
-                    <td style="flex-basis:25%">{{customer.representative.name}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
 </div>
 
 <div class="content-section documentation">
@@ -109,7 +87,7 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Fit Mode&lt;/h5&gt;
-    &lt;p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;
+    &lt;p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pResizableColumn&gt;Code&lt;/th&gt;
@@ -131,7 +109,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Expand Mode&lt;/h5&gt;
-    &lt;p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;
+    &lt;p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pResizableColumn&gt;Code&lt;/th&gt;
@@ -153,7 +131,7 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Scrollable&lt;/h5&gt;
-    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pResizableColumn&gt;Name&lt;/th&gt;
@@ -168,28 +146,6 @@
                 &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-    &lt;/p-table&gt;
-&lt;/div&gt;
-
-&lt;div class="card"&gt;
-    &lt;h5&gt;Scrollable with Variable Width&lt;/h5&gt;
-    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" styleClass="p-datatable-gridlines" responsiveLayout="scroll"&gt;
-        &lt;ng-template pTemplate="header"&gt;
-            &lt;tr&gt;
-                &lt;th pResizableColumn style="flex-basis:25%"&gt;Name&lt;/th&gt;
-                &lt;th pResizableColumn style="flex-basis:25%"&gt;Country&lt;/th&gt;
-                &lt;th pResizableColumn style="flex-basis:25%"&gt;Company&lt;/th&gt;
-                &lt;th pResizableColumn style="flex-basis:25%"&gt;Representative&lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-customer&gt;
-            &lt;tr&gt;
-                &lt;td style="flex-basis:25%"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-                &lt;td style="flex-basis:25%"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-                &lt;td style="flex-basis:25%"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-                &lt;td style="flex-basis:25%"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
     &lt;/p-table&gt;

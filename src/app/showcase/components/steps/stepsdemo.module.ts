@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {StepsDemo} from './stepsdemo';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StepsDemo } from './stepsdemo';
 import { StepsDemoRoutingModule } from './stepsdemo-routing.module';
 import { StepsModule } from 'primeng/steps';
 import { TabViewModule } from 'primeng/tabview';
@@ -21,31 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { TicketService } from './ticketservice';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		StepsDemoRoutingModule,
-        StepsModule,
-		TabViewModule,
-		AppCodeModule,
-		AppDemoActionsModule,
-		ButtonModule,
-		CardModule,
-		InputTextModule,
-		DropdownModule,
-		InputMaskModule,
-		CheckboxModule,
-		ToastModule,
-		FormsModule
-	],
-	declarations: [
-		StepsDemo,
-		SeatDemo,
-		ConfirmationDemo,
-		PersonalDemo,
-		PaymentDemo
-	],
-	providers: [
-		TicketService
-	]
+    imports: [CommonModule, StepsDemoRoutingModule, StepsModule, TabViewModule, AppCodeModule, AppDemoActionsModule, ButtonModule, CardModule, InputTextModule, DropdownModule, InputMaskModule, CheckboxModule, ToastModule, FormsModule],
+    declarations: [StepsDemo, SeatDemo, ConfirmationDemo, PersonalDemo, PaymentDemo],
+    providers: [TicketService]
 })
 export class StepsDemoModule {}

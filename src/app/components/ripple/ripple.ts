@@ -6,16 +6,17 @@ import { PrimeNGConfig } from 'primeng/api';
 @Directive({
     selector: '[pRipple]',
     host: {
-        'class': 'p-ripple p-element'
+        class: 'p-ripple p-element'
     }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
-
-    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
 
     animationListener: any;
 
     mouseDownListener: any;
+
+    timeout: any;
 
     ngAfterViewInit() {
         if (this.config && this.config.ripple) {
@@ -48,6 +49,13 @@ export class Ripple implements AfterViewInit, OnDestroy {
         ink.style.top = y + 'px';
         ink.style.left = x + 'px';
         DomHandler.addClass(ink, 'p-ink-active');
+
+        this.timeout = setTimeout(() => {
+            let ink = this.getInk();
+            if (ink) {
+                DomHandler.removeClass(ink, 'p-ink-active');
+            }
+        }, 401);
     }
 
     getInk() {
@@ -66,7 +74,10 @@ export class Ripple implements AfterViewInit, OnDestroy {
         }
     }
 
-    onAnimationEnd(event) {
+    onAnimationEnd(event: Event) {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
         DomHandler.removeClass(event.currentTarget, 'p-ink-active');
     }
 
@@ -100,4 +111,4 @@ export class Ripple implements AfterViewInit, OnDestroy {
     exports: [Ripple],
     declarations: [Ripple]
 })
-export class RippleModule { }
+export class RippleModule {}

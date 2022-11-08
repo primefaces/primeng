@@ -1,25 +1,24 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 @Component({
     templateUrl: './galleriaprogrammaticdemo.html'
 })
 export class GalleriaProgrammaticDemo implements OnInit {
-    
     images: any[];
 
     get activeIndex(): number {
         return this._activeIndex;
-      }
-    
+    }
+
     set activeIndex(newValue) {
-        if (this.images && 0 <= newValue && newValue <= (this.images.length - 1)) {
+        if (this.images && 0 <= newValue && newValue <= this.images.length - 1) {
             this._activeIndex = newValue;
         }
     }
 
     _activeIndex: number = 2;
-    
-    responsiveOptions:any[] = [
+
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5
@@ -34,10 +33,10 @@ export class GalleriaProgrammaticDemo implements OnInit {
         }
     ];
 
-    constructor(private photoService: PhotoService) { }
+    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then(images => this.images = images)
+        this.photoService.getImages().then((images) => (this.images = images));
     }
 
     next() {

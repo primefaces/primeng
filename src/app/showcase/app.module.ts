@@ -6,7 +6,6 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -16,7 +15,7 @@ import { ChartModule } from 'primeng/chart';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { SliderModule } from 'primeng/slider';
 import { CalendarModule } from 'primeng/calendar';
-import { TreeModule } from 'primeng/tree'; 
+import { TreeModule } from 'primeng/tree';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ChipModule } from 'primeng/chip';
@@ -51,17 +50,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { AppMainComponent } from './app.main.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        AppNewsComponent,
-        AppTopBarComponent,
-        AppMenuComponent,
-        AppConfigComponent,
-        AppFooterComponent,
-        LandingComponent,
-        AppMainComponent
-    ],
+    declarations: [AppComponent, AppNewsComponent, AppTopBarComponent, AppMenuComponent, AppConfigComponent, AppFooterComponent, LandingComponent, AppMainComponent],
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -91,10 +80,7 @@ import { AppMainComponent } from './app.main.component';
         InputMaskModule,
         DropdownModule
     ],
-    providers: [
-        { provide: LocationStrategy, useClass: PathLocationStrategy },
-        CarService,CountryService,EventService,NodeService,IconService,CustomerService,PhotoService,JsonService,AppConfigService, ProductService
-    ],
+    providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, JsonService, AppConfigService, ProductService],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

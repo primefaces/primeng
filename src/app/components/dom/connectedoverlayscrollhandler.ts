@@ -1,7 +1,6 @@
-import {DomHandler} from './domhandler';
+import { DomHandler } from './domhandler';
 
 export class ConnectedOverlayScrollHandler {
-
     element: any;
 
     listener: any;
