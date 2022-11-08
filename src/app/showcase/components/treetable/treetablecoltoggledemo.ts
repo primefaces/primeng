@@ -6,17 +6,16 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetablecoltoggledemo.html'
 })
 export class TreeTableColToggleDemo {
-    
     files: TreeNode[];
 
     cols: any[];
 
     selectedColumns: any[];
 
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.cols = [
             { field: 'name', header: 'Name' },

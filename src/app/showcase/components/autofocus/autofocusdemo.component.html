@@ -7,7 +7,7 @@
 </div>
 
 <div class="content-section implementation">
-    <input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" /> 
+    <input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" /> 
 </div>
 
 <div class="content-section documentation">
@@ -22,7 +22,7 @@ import &#123;AutoFocusModule&#125; from 'primeng/autofocus';
             <p>AutoFocus is applied to any focusable input element on initial load. It's disabled by default and needs to be enabled manually.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;input [pAutoFocus]="true" &gt;
+&lt;input pAutoFocus [autofocus]="true" &gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -42,7 +42,7 @@ export class AutoFocusDemo &#123; &#125;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>pAutoFocus</td>
+                            <td>autofocus</td>
                             <td>boolean</td>
                             <td>null</td>
                             <td>When present, it specifies that the component should automatically get focus on load.</td>
@@ -70,7 +70,7 @@ export class AutoFocusDemo &#123; &#125;
             </a>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" &gt;
+&lt;input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" &gt;
 </app-code>
 
         </p-tabPanel>

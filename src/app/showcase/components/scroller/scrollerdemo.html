@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Scroller</h1>
-        <p>Scroller is a performant approach to handle huge data efficiently.</p>
+        <p>Scroller is a performance-approach to handle huge data efficiently.</p>
     </div>
     <app-demoActions github="scroller" stackblitz="scroller-demo"></app-demoActions>
 </div>
@@ -359,6 +359,12 @@ export class LazyScrollerDemo implements OnInit &#123;
                             <td>The orientation of scrollbar, valid values are 'vertical', 'horizontal' and 'both'.</td>
                         </tr>
                         <tr>
+                            <td>step</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Used to specify how many items to load in each load method in lazy mode.</td>
+                        </tr>
+                        <tr>
                             <td>delay</td>
                             <td>number</td>
                             <td>0</td>
@@ -369,6 +375,12 @@ export class LazyScrollerDemo implements OnInit &#123;
                             <td>number</td>
                             <td>10</td>
                             <td>Delay after window's resize finishes.</td>
+                        </tr>
+                        <tr>
+                            <td>appendOnly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Used to append each loaded item to top without removing any items from the DOM. Using very large data may cause the browser to crash.</td>
                         </tr>
                         <tr>
                             <td>lazy</td>

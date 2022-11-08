@@ -8,8 +8,8 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"  responsiveLayout="scroll"
+        <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" [rowHover]="true"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
             <ng-template pTemplate="caption">
@@ -23,24 +23,24 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 3rem">
+                    <th style="width: 4rem">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
-                    <th pSortableColumn="name">
+                    <th pSortableColumn="name" style="min-width: 14rem">
                         <div class="flex justify-content-between align-items-center">
                             Name
                             <p-sortIcon field="name"></p-sortIcon>
                             <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="country.name">
+                    <th pSortableColumn="country.name"style="min-width: 14rem">
                         <div class="flex justify-content-between align-items-center">
                             Country
                             <p-sortIcon field="country.name"></p-sortIcon>
                             <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto"></p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="representative.name">
+                    <th pSortableColumn="representative.name" style="min-width: 14rem">
                         <div class="flex justify-content-between align-items-center">
                             Agent
                             <p-sortIcon field="representative.name"></p-sortIcon>
@@ -63,21 +63,21 @@
                             </p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="date">
+                    <th pSortableColumn="date" style="min-width: 10rem">
                         <div class="flex justify-content-between align-items-center">
                             Date
                             <p-sortIcon field="date"></p-sortIcon>
                             <p-columnFilter type="date" field="date" display="menu" class="ml-auto"></p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="balance">
+                    <th pSortableColumn="balance" style="min-width: 10rem">
                         <div class="flex justify-content-between align-items-center">
                             Balance
                             <p-sortIcon field="balance"></p-sortIcon>
                             <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto"></p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="status">
+                    <th pSortableColumn="status" style="min-width: 10rem">
                         <div class="flex justify-content-between align-items-center">
                             Status
                             <p-sortIcon field="status"></p-sortIcon>
@@ -92,7 +92,7 @@
                             </p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="activity">
+                    <th pSortableColumn="activity" style="min-width: 10rem">
                         <div class="flex justify-content-between align-items-center">
                             Activity
                             <p-sortIcon field="activity"></p-sortIcon>
@@ -107,7 +107,7 @@
                             </p-columnFilter>
                         </div>
                     </th>
-                    <th style="width: 8rem"></th>
+                    <th style="width: 5rem"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>
@@ -312,11 +312,6 @@ export class DynamicColumnsDemo implements OnInit &#123;
 
             <p>Tip: Use ngSwitch to customize the column content per dynamic column.</p>
 
-            <h5>Table Layout</h5>
-            <p>For performance reasons, default table-layout is fixed meaning the cell widths do not depend on their content. If you require cells to scale based on their contents,
-                set <i>autoLayout</i> property to true. Note that Scrollable and/or Resizable tables do not support auto layout due to technical reasons.
-            </p>
-
             <h5>Templates</h5>
             <p>Table is a template driven component with named templates such as header and body that we've used so far. Templates grant a great level of customization and flexibility
                 where you have total control over the presentation while table handles the features such as paging, sorting, filtering and more. This speeds up development without sacrificing
@@ -345,7 +340,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                         <tr>
                             <td>headergrouped</td>
                             <td>$implicit: Columns</td>
-                            <td>Content of the thead element.</td>
+                            <td>Content of the thead element. <b> Deprecated: </b> Use header with v14.2.0+.</td>
                         </tr>
                         <tr>
                             <td>body</td>
@@ -366,7 +361,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                         <tr>
                             <td>footergrouped</td>
                             <td>$implicit: Columns</td>
-                            <td>Content of the tfoot element.</td>
+                            <td>Content of the tfoot element. <b> Deprecated: </b> Use footer with v14.2.0+.</td>
                         </tr>
                         <tr>
                             <td>summary</td>
@@ -495,7 +490,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/sections']">live example.</a></p>
 
             <h5>Column Grouping</h5>
-            <p>Columns can easily be grouped using templating. Let's start with sample data of sales of brands per year. Note that if you use Scrollable table should be used headergrouped and footergrouped templates instead of header and footer templates.</p>
+            <p>Columns can easily be grouped using templating. Let's start with sample data of sales of brands per year.</p>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TableColGroupDemo implements OnInit &#123;
@@ -1224,6 +1219,12 @@ export class TableFilterDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to display the add a rule button.</td>
+                        </tr>
+                        <tr>
+                            <td>showButtons</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to display the spinner buttons in "numeric" mode.</td>
                         </tr>
                         <tr>
                             <td>hideOnClear</td>
@@ -2209,10 +2210,10 @@ export class TableExportDemo implements OnInit &#123;
             <h5>Scrolling</h5>
             <p>Table supports both horizontal and vertical scrolling as well as frozen columns and rows. Additionally, <i>virtualScroll</i> mode enables dealing with large datasets by rendering data on demand during scrolling.</p>
 
-            <p>Sample below uses vertical scrolling where headers are fixed, and data is scrollable.</p>
+            <p>Sample below uses vertical scrolling where headers are fixed and data is scrollable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="200px"&gt;
+&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -2230,28 +2231,6 @@ export class TableExportDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </app-code>
 
-            <h5>Column Widths of a Scrollable Table</h5>
-            <p>Scrollable table uses flex layout so there are a couple of rules to consider when adjusting the widths of columns.</p>
-            <ul>
-                <li>Use <i>min-width</i> in vertical scrolling only so that when there is enough space columns may grow and for smaller screens a horizontal scrollbar is displayed to provide responsive design.</li>
-                <li>When horizontal scrolling is enabled, prefer <i>width</i> instead of <i>min-width</i>.</li>
-                <li>In vertical scrolling only, use <i>flex</i> to disable grow and shrink while defining a initial width. When horizontal scrolling is enabled, this is not required as columns do not grow or shrink in horizontal scrolling.</li>
-            </ul>
-
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;ng-template pTemplate="header"&gt;
-    &lt;tr&gt;
-        &lt;th style="flex: 0 0 4rem"&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-&lt;/ng-template&gt;
-&lt;ng-template pTemplate="body" let-customer let-index="rowIndex"&gt;
-    &lt;tr&gt;
-        &lt;td style="flex: 0 0 4rem"&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/ng-template&gt;
-</app-code>
-
-
             <h5>Flex Scroll</h5>
             <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
             table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
@@ -2262,14 +2241,14 @@ export class TableExportDemo implements OnInit &#123;
     &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="flex"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
-                &lt;th *ngFor="let col of columns" style="min-width:200px"&gt;
+                &lt;th *ngFor="let col of columns"&gt;
                     &#123;&#123;col.header&#125;&#125;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
             &lt;tr&gt;
-                &lt;td *ngFor="let col of columns" style="min-width:200px"&gt;
+                &lt;td *ngFor="let col of columns"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
@@ -2281,7 +2260,6 @@ export class TableExportDemo implements OnInit &#123;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 </app-code>
-
 
             <h5>Full Page Scroll</h5>
             <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/table/flexscroll']">Full Page</a> demo for an example.</p>
@@ -2320,73 +2298,72 @@ export class TableExportDemo implements OnInit &#123;
 
 
             <h5>Horizontal Scrolling</h5>
-            <p>For horizontal scrolling, it is required to set <i>scrollDirection</i> to "horizontal" and give fixed widths to columns.</p>
+            <p>Horizontal scrollbar is displayed whenever the table width exceeds the viewport. Note that this is also the default behavior to achieve responsive tables regardless of <i>scrollable</i> property value.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="customers" [scrollable]="true" scrollDirection="horizontal"&gt;
+&lt;p-table [value]="customers" [scrollable]="true" scrollHeight="400px"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th style="width:100px"&gt;Id&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Name&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Country&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Date&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Balance&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Company&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Status&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
+            &lt;th style="min-width:100px"&gt;Id&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Date&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Balance&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Status&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Activity&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Representative&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-customer&gt;
         &lt;tr&gt;
-            &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
 </app-code>
 
             <h5>Horizontal and Vertical Scrolling</h5>
-            <p>Set <i>scrollDirection</i> to "both" and give fixed widths to columns to scroll both ways.</p>
+            <p>Scrolling can be implemented both ways.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="customers" [scrollable]="true" scrollDirection="both"&gt;
+&lt;p-table [value]="customers" [scrollable]="true" scrollHeight="400px"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th style="width:100px"&gt;Id&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Name&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Country&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Date&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Balance&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Company&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Status&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
+            &lt;th style="min-width:100px"&gt;Id&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Name&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Date&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Balance&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Status&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Activity&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Representative&lt;/th&gt;
         &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
         &lt;tr&gt;
-            &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
 </app-code>
-
 
             <h5>Frozen Rows</h5>
             <p>Frozen rows are used to fix certain rows while scrolling, this data is defined with the <i>frozenValue</i> property.</p>
@@ -2432,32 +2409,32 @@ export class TableExportDemo implements OnInit &#123;
             be fixed on the left or right.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="customers" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3"&gt;
+&lt;p-table [value]="customers" [scrollable]="true" scrollHeight="400px"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th style="width:200px" pFrozenColumn&gt;Name&lt;/th&gt;
-            &lt;th style="width:100px"&gt;Id&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Country&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Date&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Company&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Status&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Activity&lt;/th&gt;
-            &lt;th style="width:200px"&gt;Representative&lt;/th&gt;
-            &lt;th style="width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen"&gt;Balance&lt;/th&gt;
+            &lt;th style="min-width:200px" pFrozenColumn&gt;Name&lt;/th&gt;
+            &lt;th style="min-width:100px"&gt;Id&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Country&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Date&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Company&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Status&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Activity&lt;/th&gt;
+            &lt;th style="min-width:200px"&gt;Representative&lt;/th&gt;
+            &lt;th style="min-width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen"&gt;Balance&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 
     &lt;ng-template pTemplate="body" let-customer&gt;
         &lt;tr&gt;
-            &lt;td style="width:200px" pFrozenColumn&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:100px"&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
-            &lt;td style="width:200px" alignFrozen="right"  pFrozenColumn [frozen]="balanceFrozen"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
+            &lt;td pFrozenColumn&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;td alignFrozen="right"  pFrozenColumn [frozen]="balanceFrozen"&gt;&#123;&#123;formatCurrency(customer.balance)&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
@@ -2492,7 +2469,7 @@ export class TableExportDemo implements OnInit &#123;
             </div>
 
             <h5>Virtual Scrolling</h5>
-            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels
+            <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels
             would be enough to enable this functionality. It is also suggested to use the same <i>virtualScrollItemSize</i> value on the tr element inside the body template.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -2769,22 +2746,22 @@ export class TableDemo implements OnInit &#123;
 </app-code>
 
             <h5>Responsive</h5>
-            <p>DataTable responsive layout can be achieved in two ways: first approach is displaying a horizontal scrollbar for smaller screens,
-                and the second one is defining a breakpoint to display the cells of a row as stacked. Scrollable tables use the scroll layout approach internally and do not require additional configuration.</p>
+            <p>DataTable responsive layout can be achieved in two ways: default approach is displaying a horizontal scrollbar for smaller screens,
+                and the alternative is defining a breakpoint to display the cells of a row as stacked. Scrollable tables use the scroll layout approach internally and do not require additional configuration.</p>
 
             <h5>Scroll Layout</h5>
-            <p>Set <i>responsiveLayout</i> to scroll to enabled this layout. Note that when scroll mode is enabled, table-layout automatically switches to auto from fixed
-            as a result table widths are likely to differ and resizable columns are not supported. Read more about <a href="https://www.w3schools.com/cssref/pr_tab_table-layout.asp">table-layout</a> for more details.</p>
+            <p>When there is not enough space for the table to fit all the content efficiently, table displays a horizontal scrollbar. It is suggested to give a min-width to the table to avoid design issues due wrapping of cell contents.</p>
 
+            <p>Following table displays a horizontal scrollbar when viewport is smaller than 640px.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" responsiveLayout="scroll"&gt;
+&lt;p-table [value]="products" [tableStyle]="&#123;'min-width': '640px'&#125;"&gt;
 
 &lt;/p-table&gt;
 </app-code>
 
             <h5>Stack Layout</h5>
-            <p>In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px'. This feature is enabled
-                by setting responsiveLayout to stack and adding an element whose class name is "p-column-title" to the body cells.</p>
+            <p>In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px' as max-width. This feature is enabled
+                by setting responsiveLayout to stack and adding an element with "p-column-title" style class to the body cells.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table [columns]="cols" [value]="customers" responsiveLayout="stack" breakpoint="680px"&gt;
@@ -2807,6 +2784,7 @@ export class TableDemo implements OnInit &#123;
 </app-code>
 
 <p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
+
             <h5>Styling Certain Rows and Columns</h5>
             <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class.</p>
 
@@ -2884,7 +2862,7 @@ export class TableDemo implements OnInit &#123;
                         <tr>
                             <td>responsiveLayout</td>
                             <td>string</td>
-                            <td>stack</td>
+                            <td>scroll</td>
                             <td>Defines the responsive mode, valid options are "stack" and "scroll".</td>
                         </tr>
                         <tr>
@@ -3203,13 +3181,13 @@ export class TableDemo implements OnInit &#123;
                             <td>scrollable</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When specifies, enables horizontal and/or vertical scrolling.</td>
+                            <td>Enables scrollable tables.</td>
                         </tr>
                         <tr>
                             <td>scrollDirection</td>
                             <td>string</td>
                             <td>vertical</td>
-                            <td>Orientation of the scrolling, options are "vertical", "horizontal" and "both".</td>
+                            <td>Orientation of the scrolling, options are "vertical", "horizontal" and "both". <b> Deprecated: </b> Property is obselete since v14.2.0.</td>
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
@@ -3305,7 +3283,7 @@ export class TableDemo implements OnInit &#123;
                             <td>autoLayout</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Whether the cell widths scale according to their content or not.</td>
+                            <td>Whether the cell widths scale according to their content or not. <b> Deprecated: </b> Table layout is always "auto".</td>
                         </tr>
                         <tr>
                             <td>resetPageOnSort</td>
@@ -3593,22 +3571,6 @@ export class TableDemo implements OnInit &#123;
                             <td>Container element when scrolling is enabled.</td>
                         </tr>
                         <tr>
-                            <td>p-datatable-scrollable-frozen</td>
-                            <td>Container element of a frozen view.</td>
-                        </tr>
-                        <tr>
-                            <td>p-datatable-scrollable-header</td>
-                            <td>Container of header in a scrollable table.</td>
-                        </tr>
-                        <tr>
-                            <td>p-datatable-scrollable-body</td>
-                            <td>Container of body in a scrollable table.</td>
-                        </tr>
-                        <tr>
-                            <td>p-datatable-scrollable-footer</td>
-                            <td>Container of footer in a scrollable table.</td>
-                        </tr>
-                        <tr>
                             <td>p-datatable-resizable</td>
                             <td>Container element when column resizing is enabled.</td>
                         </tr>
@@ -3656,8 +3618,8 @@ export class TableDemo implements OnInit &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
-    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll"
+&lt;p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" [rowHover]="true"
+    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
     [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
     &lt;ng-template pTemplate="caption"&gt;
@@ -3671,24 +3633,24 @@ export class TableDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th style="width: 3rem"&gt;
+            &lt;th style="width: 4rem"&gt;
                 &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
             &lt;/th&gt;
-            &lt;th pSortableColumn="name"&gt;
+            &lt;th pSortableColumn="name" style="min-width: 14rem"&gt;
                 &lt;div class="flex justify-content-between align-items-center"&gt;
                     Name
                     &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;
                     &lt;p-columnFilter type="text" field="name" display="menu" class="ml-auto"&gt;&lt;/p-columnFilter&gt;
                 &lt;/div&gt;
             &lt;/th&gt;
-            &lt;th pSortableColumn="country.name"&gt;
+            &lt;th pSortableColumn="country.name"style="min-width: 14rem"&gt;
                 &lt;div class="flex justify-content-between align-items-center"&gt;
                     Country
                     &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;
                     &lt;p-columnFilter type="text" field="country.name" display="menu" class="ml-auto"&gt;&lt;/p-columnFilter&gt;
                 &lt;/div&gt;
             &lt;/th&gt;
-            &lt;th pSortableColumn="representative.name"&gt;
+            &lt;th pSortableColumn="representative.name" style="min-width: 14rem"&gt;
                 &lt;div class="flex justify-content-between align-items-center"&gt;
                     Agent
                     &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;
@@ -3711,21 +3673,21 @@ export class TableDemo implements OnInit &#123;
                     &lt;/p-columnFilter&gt;
                 &lt;/div&gt;
             &lt;/th&gt;
-            &lt;th pSortableColumn="date"&gt;
+            &lt;th pSortableColumn="date" style="min-width: 10rem"&gt;
                 &lt;div class="flex justify-content-between align-items-center"&gt;
                     Date
                     &lt;p-sortIcon field="date"&gt;&lt;/p-sortIcon&gt;
                     &lt;p-columnFilter type="date" field="date" display="menu" class="ml-auto"&gt;&lt;/p-columnFilter&gt;
                 &lt;/div&gt;
             &lt;/th&gt;
-            &lt;th pSortableColumn="balance"&gt;
+            &lt;th pSortableColumn="balance" style="min-width: 10rem"&gt;
                 &lt;div class="flex justify-content-between align-items-center"&gt;
                     Balance
                     &lt;p-sortIcon field="balance"&gt;&lt;/p-sortIcon&gt;
                     &lt;p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto"&gt;&lt;/p-columnFilter&gt;
                 &lt;/div&gt;
             &lt;/th&gt;
-            &lt;th pSortableColumn="status"&gt;
+            &lt;th pSortableColumn="status" style="min-width: 10rem"&gt;
                 &lt;div class="flex justify-content-between align-items-center"&gt;
                     Status
                     &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;
@@ -3740,7 +3702,7 @@ export class TableDemo implements OnInit &#123;
                     &lt;/p-columnFilter&gt;
                 &lt;/div&gt;
             &lt;/th&gt;
-            &lt;th pSortableColumn="activity"&gt;
+            &lt;th pSortableColumn="activity" style="min-width: 10rem"&gt;
                 &lt;div class="flex justify-content-between align-items-center"&gt;
                     Activity
                     &lt;p-sortIcon field="activity"&gt;&lt;/p-sortIcon&gt;
@@ -3755,7 +3717,7 @@ export class TableDemo implements OnInit &#123;
                     &lt;/p-columnFilter&gt;
                 &lt;/div&gt;
             &lt;/th&gt;
-            &lt;th style="width: 8rem"&gt;&lt;/th&gt;
+            &lt;th style="width: 5rem"&gt;&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-customer&gt;
@@ -3782,6 +3744,7 @@ export class TableDemo implements OnInit &#123;
                 &#123;&#123;customer.date | date: 'MM/dd/yyyy'&#125;&#125;
             &lt;/td&gt;
             &lt;td&gt;
+                &lt;span class="p-column-title"&gt;Balance&lt;/span&gt;
                 &#123;&#123;customer.balance | currency:'USD':'symbol'&#125;&#125;
             &lt;/td&gt;
             &lt;td&gt;

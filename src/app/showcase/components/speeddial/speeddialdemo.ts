@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
@@ -7,14 +7,13 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeedDialDemo implements OnInit {
-
     items: MenuItem[];
 
     tooltipItems: MenuItem[];
 
     leftTooltipItems: MenuItem[];
 
-    constructor(private messageService: MessageService) { }
+    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -43,14 +42,13 @@ export class SpeedDialDemo implements OnInit {
             {
                 icon: 'pi pi-external-link',
                 url: 'http://angular.io'
-
             }
         ];
 
         this.tooltipItems = [
             {
                 tooltipOptions: {
-                    tooltipLabel: "Add"
+                    tooltipLabel: 'Add'
                 },
                 icon: 'pi pi-pencil',
                 command: () => {
@@ -59,7 +57,7 @@ export class SpeedDialDemo implements OnInit {
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: "Update"
+                    tooltipLabel: 'Update'
                 },
                 icon: 'pi pi-refresh',
                 command: () => {
@@ -68,7 +66,7 @@ export class SpeedDialDemo implements OnInit {
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: "Delete"
+                    tooltipLabel: 'Delete'
                 },
                 icon: 'pi pi-trash',
                 command: () => {
@@ -77,14 +75,14 @@ export class SpeedDialDemo implements OnInit {
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: "Upload"
+                    tooltipLabel: 'Upload'
                 },
                 icon: 'pi pi-upload',
                 routerLink: ['/fileupload']
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: "Angular Website"
+                    tooltipLabel: 'Angular Website'
                 },
                 icon: 'pi pi-external-link',
                 url: 'http://angular.io'
@@ -94,8 +92,8 @@ export class SpeedDialDemo implements OnInit {
         this.leftTooltipItems = [
             {
                 tooltipOptions: {
-                    tooltipLabel: "Add",
-                    tooltipPosition: "left",
+                    tooltipLabel: 'Add',
+                    tooltipPosition: 'left'
                 },
                 icon: 'pi pi-pencil',
                 command: () => {
@@ -104,8 +102,8 @@ export class SpeedDialDemo implements OnInit {
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: "Update",
-                    tooltipPosition: "left",
+                    tooltipLabel: 'Update',
+                    tooltipPosition: 'left'
                 },
                 icon: 'pi pi-refresh',
                 command: () => {
@@ -114,8 +112,8 @@ export class SpeedDialDemo implements OnInit {
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: "Delete",
-                    tooltipPosition: "left",
+                    tooltipLabel: 'Delete',
+                    tooltipPosition: 'left'
                 },
                 icon: 'pi pi-trash',
                 command: () => {
@@ -125,15 +123,15 @@ export class SpeedDialDemo implements OnInit {
             {
                 icon: 'pi pi-upload',
                 tooltipOptions: {
-                    tooltipLabel: "Upload",
-                    tooltipPosition: "left",
+                    tooltipLabel: 'Upload',
+                    tooltipPosition: 'left'
                 },
                 routerLink: ['/fileupload']
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: "Angular Website",
-                    tooltipPosition: "left",
+                    tooltipLabel: 'Angular Website',
+                    tooltipPosition: 'left'
                 },
                 icon: 'pi pi-external-link',
                 url: 'http://angular.io'

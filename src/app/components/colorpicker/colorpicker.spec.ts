@@ -6,30 +6,21 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-        template: `
-            <p-colorPicker [(ngModel)]="color1"></p-colorPicker>
-        `
-    })
-    class TestColorPickerComponent {
-        color1:string = '#1976D2';
-    }
+    template: ` <p-colorPicker [(ngModel)]="color1"></p-colorPicker> `
+})
+class TestColorPickerComponent {
+    color1: string = '#1976D2';
+}
 
 describe('ColorPicker', () => {
-
     let colorpicker: ColorPicker;
     let testComponent: TestColorPickerComponent;
     let fixture: ComponentFixture<TestColorPickerComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                FormsModule
-            ],
-            declarations: [
-                ColorPicker,
-                TestColorPickerComponent
-            ]
+            imports: [NoopAnimationsModule, FormsModule],
+            declarations: [ColorPicker, TestColorPickerComponent]
         });
 
         fixture = TestBed.createComponent(TestColorPickerComponent);
@@ -56,15 +47,15 @@ describe('ColorPicker', () => {
         colorpicker.inline = true;
         fixture.detectChanges();
 
-        const pickColorSpy = spyOn(colorpicker,"pickColor").and.callThrough();
+        const pickColorSpy = spyOn(colorpicker, 'pickColor').and.callThrough();
         const colorSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-color-selector'));
-        colorSelectorEl.triggerEventHandler("mousedown",{pageX:100,pageY:120});
+        colorSelectorEl.triggerEventHandler('mousedown', { pageX: 100, pageY: 120 });
         fixture.detectChanges();
 
-        document.dispatchEvent(new Event("mouseup"));
+        document.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(testComponent.color1).not.toEqual("#1976D2");
+        expect(testComponent.color1).not.toEqual('#1976D2');
         expect(pickColorSpy).toHaveBeenCalled();
     });
 
@@ -72,12 +63,12 @@ describe('ColorPicker', () => {
         colorpicker.inline = true;
         fixture.detectChanges();
 
-        const pickHueSpy = spyOn(colorpicker,"pickHue").and.callThrough();
+        const pickHueSpy = spyOn(colorpicker, 'pickHue').and.callThrough();
         const hueSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-hue'));
-        hueSelectorEl.triggerEventHandler("mousedown",{pageX:20,pageY:25});
+        hueSelectorEl.triggerEventHandler('mousedown', { pageX: 20, pageY: 25 });
         fixture.detectChanges();
 
-        expect(testComponent.color1).not.toEqual("#1976D2");
+        expect(testComponent.color1).not.toEqual('#1976D2');
         expect(pickHueSpy).toHaveBeenCalled();
     });
 
@@ -85,29 +76,29 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
-        const toggleSpy = spyOn(colorpicker,"togglePanel").and.callThrough();
-        inputEl.nativeElement.dispatchEvent(new Event("focus"));
+        const toggleSpy = spyOn(colorpicker, 'togglePanel').and.callThrough();
+        inputEl.nativeElement.dispatchEvent(new Event('focus'));
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
+        const selectorEl = fixture.debugElement.query(By.css('.p-colorpicker-panel'));
         expect(toggleSpy).toHaveBeenCalled();
         expect(selectorEl).toBeTruthy();
     });
 
     it('should select color (overlay)', () => {
-        colorpicker.appendTo = "body";
+        colorpicker.appendTo = 'body';
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
-        inputEl.nativeElement.dispatchEvent(new Event("focus"));
+        inputEl.nativeElement.dispatchEvent(new Event('focus'));
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const pickColorSpy = spyOn(colorpicker,"pickColor").and.callThrough();
+        const pickColorSpy = spyOn(colorpicker, 'pickColor').and.callThrough();
         const colorSelectorEl = fixture.debugElement.query(By.css('.p-colorpicker-color-selector'));
         colorSelectorEl.nativeElement.click();
-        colorSelectorEl.triggerEventHandler("mousedown",{pageX:100,pageY:120});
+        colorSelectorEl.triggerEventHandler('mousedown', { pageX: 100, pageY: 120 });
         const mouseMoveEvent: any = document.createEvent('CustomEvent');
         mouseMoveEvent.pageX = 101;
         mouseMoveEvent.pageY = 121;
@@ -116,35 +107,35 @@ describe('ColorPicker', () => {
         document.dispatchEvent(mouseMoveEvent as MouseEvent);
         fixture.detectChanges();
 
-        document.dispatchEvent(new Event("mouseup"));
+        document.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(testComponent.color1).not.toEqual("#1976D2");
+        expect(testComponent.color1).not.toEqual('#1976D2');
         expect(pickColorSpy).toHaveBeenCalled();
     });
 
     it('should close when inputclick', () => {
         fixture.detectChanges();
 
-        const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
+        const hideSpy = spyOn(colorpicker, 'hide').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
-        inputEl.nativeElement.dispatchEvent(new Event("focus"));
+        inputEl.nativeElement.dispatchEvent(new Event('focus'));
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        let selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
+        let selectorEl = fixture.debugElement.query(By.css('.p-colorpicker-panel'));
         expect(selectorEl).toBeTruthy();
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
+        selectorEl = fixture.debugElement.query(By.css('.p-colorpicker-panel'));
         expect(hideSpy).toHaveBeenCalled();
     });
 
     it('should open space keydown and close esc keydown', () => {
         fixture.detectChanges();
 
-        const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
+        const hideSpy = spyOn(colorpicker, 'hide').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
         const openEvent: any = document.createEvent('CustomEvent');
         openEvent.which = 32;
@@ -152,7 +143,7 @@ describe('ColorPicker', () => {
         inputEl.nativeElement.dispatchEvent(openEvent);
         fixture.detectChanges();
 
-        let selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
+        let selectorEl = fixture.debugElement.query(By.css('.p-colorpicker-panel'));
         expect(selectorEl).toBeTruthy();
         const escapeEvent: any = document.createEvent('CustomEvent');
         escapeEvent.which = 27;
@@ -160,7 +151,7 @@ describe('ColorPicker', () => {
         inputEl.nativeElement.dispatchEvent(escapeEvent);
         fixture.detectChanges();
 
-        selectorEl = fixture.debugElement.query(By.css(".p-colorpicker-panel"));
+        selectorEl = fixture.debugElement.query(By.css('.p-colorpicker-panel'));
         expect(hideSpy).toHaveBeenCalled();
     });
 });

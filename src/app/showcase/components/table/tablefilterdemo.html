@@ -11,9 +11,9 @@
         <h5>Filter Menu</h5>
         <p>Filters are displayed in an overlay.</p>
         <p-table #dt1 [value]="customers" dataKey="id"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+            [globalFilterFields]="['name','country.name','representative.name','status']">
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
@@ -25,19 +25,19 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th>
+                    <th style="min-width:15rem">
                         <div class="flex justify-content-center align-items-center">
                             Name
                             <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th>
+                    <th style="min-width:15rem">
                         <div class="flex justify-content-center align-items-center">
                             Country
                             <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th>
+                    <th style="min-width:15rem">
                         <div class="flex justify-content-center align-items-center">
                             Agent
                             <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
@@ -59,19 +59,19 @@
                             </p-columnFilter>
                         </div>
                     </th>
-                    <th>
+                    <th style="min-width:10rem">
                         <div class="flex justify-content-center align-items-center">
                             Date
                             <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th>
+                    <th style="min-width:10rem">
                         <div class="flex justify-content-center align-items-center">
                             Balance
                             <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
                         </div>
                     </th>
-                    <th>
+                    <th style="min-width:10rem">
                         <div class="flex justify-content-center align-items-center">
                             Status
                             <p-columnFilter field="status" matchMode="equals" display="menu">
@@ -85,7 +85,7 @@
                             </p-columnFilter>
                         </div>
                     </th>
-                    <th>
+                    <th style="min-width:10rem">
                         <div class="flex justify-content-center align-items-center">
                             Activity
                             <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
@@ -99,7 +99,7 @@
                             </p-columnFilter>
                         </div>
                     </th>
-                    <th style="width: 8rem">
+                    <th style="width: 3rem">
                         <div class="flex justify-content-center align-items-center">
                             Verified
                             <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
@@ -151,7 +151,7 @@
         <p-table #dt2 [value]="customers" dataKey="id"
             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+            [globalFilterFields]="['name','country.name','representative.name','status']" [tableStyle]="{'min-width':'75rem'}">
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <span class="p-input-icon-left ml-auto">
@@ -162,11 +162,11 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Agent</th>
-                    <th>Status</th>
-                    <th style="width: 6rem">Verified</th>
+                    <th style="width:22%">Name</th>
+                    <th style="width:22%">Country</th>
+                    <th style="width:22%">Agent</th>
+                    <th style="width:22%">Status</th>
+                    <th style="width:12%">Verified</th>
                 </tr>
                 <tr>
                     <th>
@@ -249,7 +249,7 @@
     &lt;h5&gt;Filter Menu&lt;/h5&gt;
     &lt;p&gt;Filters are displayed in an overlay.&lt;/p&gt;
     &lt;p-table #dt1 [value]="customers" dataKey="id"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
         [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
         &lt;ng-template pTemplate="caption"&gt;
@@ -263,19 +263,19 @@
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;
+                &lt;th style="min-width:15rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Name
                         &lt;p-columnFilter type="text" field="name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
-                &lt;th&gt;
+                &lt;th style="min-width:15rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Country
                         &lt;p-columnFilter type="text" field="country.name" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
-                &lt;th&gt;
+                &lt;th style="min-width:15rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Agent
                         &lt;p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
@@ -297,19 +297,19 @@
                         &lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
-                &lt;th&gt;
+                &lt;th style="min-width:10rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Date
                         &lt;p-columnFilter type="date" field="date" display="menu"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
-                &lt;th&gt;
+                &lt;th style="min-width:10rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Balance
                         &lt;p-columnFilter type="numeric" field="balance" display="menu" currency="USD"&gt;&lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
-                &lt;th&gt;
+                &lt;th style="min-width:10rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Status
                         &lt;p-columnFilter field="status" matchMode="equals" display="menu"&gt;
@@ -323,7 +323,7 @@
                         &lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
-                &lt;th&gt;
+                &lt;th style="min-width:10rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Activity
                         &lt;p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"&gt;
@@ -337,7 +337,7 @@
                         &lt;/p-columnFilter&gt;
                     &lt;/div&gt;
                 &lt;/th&gt;
-                &lt;th style="width: 8rem"&gt;
+                &lt;th style="width: 3rem"&gt;
                     &lt;div class="flex justify-content-center align-items-center"&gt;
                         Verified
                         &lt;p-columnFilter type="boolean" field="verified" display="menu"&gt;&lt;/p-columnFilter&gt;
@@ -389,7 +389,7 @@
     &lt;p-table #dt2 [value]="customers" dataKey="id"
         [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
         [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
-        [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
+        [globalFilterFields]="['name','country.name','representative.name','status']" [tableStyle]="&#123;'min-width':'75rem'&#125;"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             &lt;div class="flex"&gt;
                 &lt;span class="p-input-icon-left ml-auto"&gt;
@@ -400,11 +400,11 @@
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Country&lt;/th&gt;
-                &lt;th&gt;Agent&lt;/th&gt;
-                &lt;th&gt;Status&lt;/th&gt;
-                &lt;th style="width: 6rem"&gt;Verified&lt;/th&gt;
+                &lt;th style="width:22%"&gt;Name&lt;/th&gt;
+                &lt;th style="width:22%"&gt;Country&lt;/th&gt;
+                &lt;th style="width:22%"&gt;Agent&lt;/th&gt;
+                &lt;th style="width:22%"&gt;Status&lt;/th&gt;
+                &lt;th style="width:12%"&gt;Verified&lt;/th&gt;
             &lt;/tr&gt;
             &lt;tr&gt;
                 &lt;th&gt;

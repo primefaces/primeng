@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {InputTextModule} from 'primeng/inputtext';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, ElementRef, OnInit, Input, Output, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const SPINNER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -13,22 +13,60 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #inputfield type="text" [attr.id]="inputId" [value]="formattedValue||null" [attr.name]="name" [attr.aria-valumin]="min" [attr.aria-valuemax]="max" [attr.aria-valuenow]="value" [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
-            (keydown)="onInputKeydown($event)" (blur)="onInputBlur($event)" (input)="onInput($event)" (change)="onInputChange($event)" (focus)="onInputFocus($event)"
-            [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
-            <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled||readonly" tabindex="-1" [attr.readonly]="readonly"
-                (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event)" (mouseup)="onUpButtonMouseup($event)">
+            <input
+                #inputfield
+                type="text"
+                [attr.id]="inputId"
+                [value]="formattedValue || null"
+                [attr.name]="name"
+                [attr.aria-valumin]="min"
+                [attr.aria-valuemax]="max"
+                [attr.aria-valuenow]="value"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.size]="size"
+                [attr.maxlength]="maxlength"
+                [attr.tabindex]="tabindex"
+                [attr.placeholder]="placeholder"
+                [disabled]="disabled"
+                [readonly]="readonly"
+                [attr.required]="required"
+                (keydown)="onInputKeydown($event)"
+                (blur)="onInputBlur($event)"
+                (input)="onInput($event)"
+                (change)="onInputChange($event)"
+                (focus)="onInputFocus($event)"
+                [ngStyle]="inputStyle"
+                [class]="inputStyleClass"
+                [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'"
+            />
+            <button
+                type="button"
+                [ngClass]="{ 'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default': true, 'ui-state-disabled': disabled }"
+                [disabled]="disabled || readonly"
+                tabindex="-1"
+                [attr.readonly]="readonly"
+                (mouseleave)="onUpButtonMouseleave($event)"
+                (mousedown)="onUpButtonMousedown($event)"
+                (mouseup)="onUpButtonMouseup($event)"
+            >
                 <span class="ui-spinner-button-icon pi pi-caret-up ui-clickable"></span>
             </button>
-            <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled||readonly" tabindex="-1" [attr.readonly]="readonly"
-                (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event)" (mouseup)="onDownButtonMouseup($event)">
+            <button
+                type="button"
+                [ngClass]="{ 'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default': true, 'ui-state-disabled': disabled }"
+                [disabled]="disabled || readonly"
+                tabindex="-1"
+                [attr.readonly]="readonly"
+                (mouseleave)="onDownButtonMouseleave($event)"
+                (mousedown)="onDownButtonMousedown($event)"
+                (mouseup)="onDownButtonMouseup($event)"
+            >
                 <span class="ui-spinner-button-icon pi pi-caret-down ui-clickable"></span>
             </button>
         </span>
     `,
     host: {
-        'class': 'p-element',
+        class: 'p-element',
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
@@ -37,8 +75,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./spinner.css']
 })
-export class Spinner implements OnInit,ControlValueAccessor {
-
+export class Spinner implements OnInit, ControlValueAccessor {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -114,7 +151,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() get step(): number {
         return this._step;
     }
-    set step(val:number) {
+    set step(val: number) {
         this._step = val;
 
         if (this._step != null) {
@@ -132,13 +169,13 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.thousandRegExp = new RegExp(`[${this.thousandSeparator || this.localeThousandSeparator}]`, 'gim');
 
             if (this.decimalSeparator && this.thousandSeparator && this.decimalSeparator === this.thousandSeparator) {
-                console.warn("thousandSeparator and decimalSeparator cannot have the same value.");
+                console.warn('thousandSeparator and decimalSeparator cannot have the same value.');
             }
         }
     }
 
     repeat(event: Event, interval: number, dir: number) {
-        let i = interval||500;
+        let i = interval || 500;
 
         this.clearTimer();
         this.timer = setTimeout(() => {
@@ -153,15 +190,11 @@ export class Spinner implements OnInit,ControlValueAccessor {
         let currentValue: number;
         let precision = this.getPrecision();
 
-        if (this.value)
-            currentValue = (typeof this.value === 'string') ? this.parseValue(this.value) : this.value;
-        else
-            currentValue = 0;
+        if (this.value) currentValue = typeof this.value === 'string' ? this.parseValue(this.value) : this.value;
+        else currentValue = 0;
 
-        if (precision)
-            this.value = parseFloat(this.toFixed(currentValue + step, precision));
-        else
-            this.value = currentValue + step;
+        if (precision) this.value = parseFloat(this.toFixed(currentValue + step, precision));
+        else this.value = currentValue + step;
 
         if (this.maxlength !== undefined && this.value.toString().length > this.maxlength) {
             this.value = currentValue;
@@ -185,7 +218,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
 
     toFixed(value: number, precision: number) {
-        let power = Math.pow(10, precision||0);
+        let power = Math.pow(10, precision || 0);
         return String(Math.round(value * power) / power);
     }
 
@@ -235,8 +268,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         if (event.which == 38) {
             this.spin(event, 1);
             event.preventDefault();
-        }
-        else if (event.which == 40) {
+        } else if (event.which == 40) {
             this.spin(event, -1);
             event.preventDefault();
         }
@@ -247,7 +279,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
 
     onInput(event: KeyboardEvent) {
-        this.value = this.parseValue((<HTMLInputElement> event.target).value);
+        this.value = this.parseValue((<HTMLInputElement>event.target).value);
         this.onModelChange(this.value);
         this.updateFilledState();
     }
@@ -270,8 +302,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
 
         if (val.trim() === '') {
             value = null;
-        }
-        else {
+        } else {
             if (this.formatInput) {
                 val = val.replace(this.thousandRegExp, '');
             }
@@ -279,8 +310,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             if (precision) {
                 val = this.formatInput ? val.replace(this.decimalSeparator || this.localeDecimalSeparator, '.') : val.replace(',', '.');
                 value = parseFloat(val);
-            }
-            else {
+            } else {
                 value = parseInt(val, 10);
             }
 
@@ -292,8 +322,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
                 if (this.min !== null && value < this.min) {
                     value = this.min;
                 }
-            }
-            else {
+            } else {
                 value = null;
             }
         }
@@ -307,7 +336,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
 
         if (value != null) {
             if (this.formatInput) {
-                value = value.toLocaleString(undefined, {maximumFractionDigits: 20});
+                value = value.toLocaleString(undefined, { maximumFractionDigits: 20 });
 
                 if (this.decimalSeparator && this.thousandSeparator) {
                     value = value.split(this.localeDecimalSeparator);
@@ -325,8 +354,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             }
 
             this.formattedValue = value.toString();
-        }
-        else {
+        } else {
             this.formattedValue = null;
         }
 
@@ -341,7 +369,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         }
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
         this.formatValue();
         this.updateFilledState();
@@ -362,14 +390,13 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
 
     updateFilledState() {
-        this.filled = (this.value !== undefined && this.value != null);
+        this.filled = this.value !== undefined && this.value != null;
     }
 }
 
-
 @NgModule({
-    imports: [CommonModule,InputTextModule],
+    imports: [CommonModule, InputTextModule],
     exports: [Spinner],
     declarations: [Spinner]
 })
-export class SpinnerModule { }
+export class SpinnerModule {}
