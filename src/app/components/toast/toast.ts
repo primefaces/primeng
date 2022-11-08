@@ -1,30 +1,58 @@
-import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Message, PrimeNGConfig} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate,SharedModule} from 'primeng/api';
-import {MessageService} from 'primeng/api';
-import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
-import {RippleModule} from 'primeng/ripple';
-import {Subscription} from 'rxjs';
-import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
+import {
+    NgModule,
+    Component,
+    Input,
+    Output,
+    OnInit,
+    AfterViewInit,
+    AfterContentInit,
+    OnDestroy,
+    ElementRef,
+    ViewChild,
+    EventEmitter,
+    ContentChildren,
+    QueryList,
+    TemplateRef,
+    ChangeDetectionStrategy,
+    NgZone,
+    ChangeDetectorRef,
+    ViewEncapsulation
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Message, PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { RippleModule } from 'primeng/ripple';
+import { Subscription } from 'rxjs';
+import { trigger, state, style, transition, animate, query, animateChild, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-                (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
+        <div
+            #container
+            [attr.id]="message.id"
+            [class]="message.styleClass"
+            [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']"
+            [@messageState]="{ value: 'visible', params: { showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            (mouseenter)="onMouseEnter()"
+            (mouseleave)="onMouseLeave()"
+        >
+            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true" [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
-                    <span [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
-                        'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
+                    <span
+                        [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')"
+                        [ngClass]="{ 'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn', 'pi-times-circle': message.severity == 'error', 'pi-check': message.severity == 'success' }"
+                    ></span>
                     <div class="p-toast-message-text">
-                        <div class="p-toast-summary">{{message.summary}}</div>
-                        <div class="p-toast-detail">{{message.detail}}</div>
+                        <div class="p-toast-summary">{{ message.summary }}</div>
+                        <div class="p-toast-detail">{{ message.detail }}</div>
                     </div>
                 </ng-container>
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
+                <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                 <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
                     <span class="p-toast-icon-close-icon pi pi-times"></span>
                 </button>
@@ -33,31 +61,33 @@ import { ZIndexUtils } from 'primeng/utils';
     `,
     animations: [
         trigger('messageState', [
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => *', [
-                style({transform: '{{showTransformParams}}', opacity: 0}),
-                animate('{{showTransitionParams}}')
-            ]),
+            state(
+                'visible',
+                style({
+                    transform: 'translateY(0)',
+                    opacity: 1
+                })
+            ),
+            transition('void => *', [style({ transform: '{{showTransformParams}}', opacity: 0 }), animate('{{showTransitionParams}}')]),
             transition('* => void', [
-                animate(('{{hideTransitionParams}}'), style({
-                    height: 0,
-                    opacity: 0,
-                    transform: '{{hideTransformParams}}'
-                }))
+                animate(
+                    '{{hideTransitionParams}}',
+                    style({
+                        height: 0,
+                        opacity: 0,
+                        transform: '{{hideTransformParams}}'
+                    })
+                )
             ])
         ])
     ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
-
     @Input() message: Message;
 
     @Input() index: number;
@@ -132,28 +162,31 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     selector: 'p-toast',
     template: `
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
-            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" (@toastAnimation.done)="onAnimationEnd($event)"
-                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
-                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
+            <p-toastItem
+                *ngFor="let msg of messages; let i = index"
+                [message]="msg"
+                [index]="i"
+                (onClose)="onMessageClose($event)"
+                [template]="template"
+                @toastAnimation
+                (@toastAnimation.start)="onAnimationStart($event)"
+                (@toastAnimation.done)="onAnimationEnd($event)"
+                [showTransformOptions]="showTransformOptions"
+                [hideTransformOptions]="hideTransformOptions"
+                [showTransitionOptions]="showTransitionOptions"
+                [hideTransitionOptions]="hideTransitionOptions"
+            ></p-toastItem>
         </div>
     `,
-    animations: [
-        trigger('toastAnimation', [
-            transition(':enter, :leave', [
-                query('@*', animateChild())
-            ])
-        ])
-    ],
+    animations: [trigger('toastAnimation', [transition(':enter, :leave', [query('@*', animateChild())])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./toast.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Toast implements OnInit,AfterContentInit,OnDestroy {
-
+export class Toast implements OnInit, AfterContentInit, OnDestroy {
     @Input() key: string;
 
     @Input() autoZIndex: boolean = true;
@@ -203,25 +236,23 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     id: string = UniqueComponentId();
 
     ngOnInit() {
-        this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
+        this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
             if (messages) {
                 if (messages instanceof Array) {
-                    const filteredMessages = messages.filter(m => this.canAdd(m));
+                    const filteredMessages = messages.filter((m) => this.canAdd(m));
                     this.add(filteredMessages);
-                }
-                else if (this.canAdd(messages)) {
+                } else if (this.canAdd(messages)) {
                     this.add([messages]);
                 }
             }
         });
 
-        this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
+        this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
             if (key) {
                 if (this.key === key) {
                     this.messages = null;
                 }
-            }
-            else {
+            } else {
                 this.messages = null;
             }
 
@@ -264,21 +295,23 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
             return false;
         }
 
-        return collection.find(m => {
-           return ((m.summary === message.summary) && (m.detail == message.detail) && (m.severity === message.severity));
-        }) != null;
+        return (
+            collection.find((m) => {
+                return m.summary === message.summary && m.detail == message.detail && m.severity === message.severity;
+            }) != null
+        );
     }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'message':
                     this.template = item.template;
-                break;
+                    break;
 
                 default:
                     this.template = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -327,7 +360,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
                            ${breakpointStyle}
                         }
                     }
-                `
+                `;
             }
 
             this.styleElement.innerHTML = innerHTML;
@@ -359,8 +392,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
-    exports: [Toast,SharedModule],
-    declarations: [Toast,ToastItem]
+    imports: [CommonModule, RippleModule],
+    exports: [Toast, SharedModule],
+    declarations: [Toast, ToastItem]
 })
-export class ToastModule { }
+export class ToastModule {}

@@ -88,6 +88,15 @@ Content
 &lt;/p-sidebar&gt;
 </app-code>
 
+            <h5>Custom Content</h5>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-sidebar [(visible)]="display"&gt;
+&emsp; &lt;ng-template pTemplate="header"&gt;Header Content&lt;/ng-template&gt;
+&emsp; &lt;ng-template pTemplate="content"&gt;Body Content&lt;/ng-template&gt;
+&emsp; &lt;ng-template pTemplate="footer"&gt;Footer Content&lt;/ng-template&gt;
+&lt;/p-sidebar&gt;
+</app-code>
+
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -235,7 +244,15 @@ Content
                     </thead>
                     <tbody>
                         <tr>
+                            <td>header</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
                             <td>content</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
                             <td>-</td>
                         </tr>
                     </tbody>

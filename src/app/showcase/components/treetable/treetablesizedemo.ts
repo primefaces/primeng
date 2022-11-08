@@ -1,12 +1,11 @@
-import {Component,OnInit} from '@angular/core';
-import {NodeService} from '../../service/nodeservice';
-import {TreeNode} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { NodeService } from '../../service/nodeservice';
+import { TreeNode } from 'primeng/api';
 
 @Component({
     templateUrl: './treetablesizedemo.html'
 })
 export class TreeTableSizeDemo implements OnInit {
-
     files1: TreeNode[];
 
     files2: TreeNode[];
@@ -15,12 +14,12 @@ export class TreeTableSizeDemo implements OnInit {
 
     cols: any[];
 
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files1 = files);
-        this.nodeService.getFilesystem().then(files => this.files2 = files);
-        this.nodeService.getFilesystem().then(files => this.files3 = files);
+        this.nodeService.getFilesystem().then((files) => (this.files1 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files2 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files3 = files));
 
         this.cols = [
             { field: 'name', header: 'Name' },

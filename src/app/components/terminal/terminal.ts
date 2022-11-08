@@ -1,25 +1,25 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {TerminalService} from './terminalservice';
-import {Subscription}   from 'rxjs';
+import { NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
+import { TerminalService } from './terminalservice';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-terminal',
     template: `
         <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
-            <div *ngIf="welcomeMessage">{{welcomeMessage}}</div>
+            <div *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
             <div class="p-terminal-content">
                 <div *ngFor="let command of commands">
-                    <span class="p-terminal-prompt">{{prompt}}</span>
-                    <span class="p-terminal-command">{{command.text}}</span>
-                    <div class="p-terminal-response">{{command.response}}</div>
+                    <span class="p-terminal-prompt">{{ prompt }}</span>
+                    <span class="p-terminal-command">{{ command.text }}</span>
+                    <div class="p-terminal-response">{{ command.response }}</div>
                 </div>
             </div>
             <div class="p-terminal-prompt-container">
-                <span class="p-terminal-content-prompt">{{prompt}}</span>
-                <input #in type="text" [(ngModel)]="command" class="p-terminal-input" autocomplete="off" (keydown)="handleCommand($event)" autofocus>
+                <span class="p-terminal-content-prompt">{{ prompt }}</span>
+                <input #in type="text" [(ngModel)]="command" class="p-terminal-input" autocomplete="off" (keydown)="handleCommand($event)" autofocus />
             </div>
         </div>
     `,
@@ -27,11 +27,10 @@ import {Subscription}   from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./terminal.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
-
+export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
     @Input() welcomeMessage: string;
 
     @Input() prompt: string;
@@ -51,7 +50,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     subscription: Subscription;
 
     constructor(public el: ElementRef, public terminalService: TerminalService, public cd: ChangeDetectorRef) {
-        this.subscription = terminalService.responseHandler.subscribe(response => {
+        this.subscription = terminalService.responseHandler.subscribe((response) => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;
         });
@@ -78,7 +77,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     handleCommand(event: KeyboardEvent) {
         if (event.keyCode == 13) {
-            this.commands.push({text: this.command});
+            this.commands.push({ text: this.command });
             this.terminalService.sendCommand(this.command);
             this.command = '';
         }
@@ -93,12 +92,11 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.subscription.unsubscribe();
         }
     }
-
 }
 
 @NgModule({
-    imports: [CommonModule,FormsModule],
+    imports: [CommonModule, FormsModule],
     exports: [Terminal],
     declarations: [Terminal]
 })
-export class TerminalModule { }
+export class TerminalModule {}

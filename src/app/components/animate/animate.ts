@@ -55,6 +55,7 @@ export class Animate {
     }
 
     isVisible(element) {
+        console.log(typeof element)
         const [intersectionObserverEntry] = element
         this.entered = intersectionObserverEntry.isIntersecting;
     }

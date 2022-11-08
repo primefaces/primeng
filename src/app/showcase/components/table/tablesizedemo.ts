@@ -6,13 +6,11 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './tablesizedemo.html'
 })
 export class TableSizeDemo implements OnInit {
-
     products: Product[];
 
-    constructor(private productService: ProductService) { }
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(data => this.products = data);
+        this.productService.getProductsSmall().then((data) => (this.products = data));
     }
-    
 }

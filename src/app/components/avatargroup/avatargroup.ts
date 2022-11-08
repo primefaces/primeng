@@ -12,11 +12,10 @@ import { CommonModule } from '@angular/common';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./avatargroup.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class AvatarGroup {
-
     @Input() styleClass: string;
 
     @Input() style: any;
@@ -27,4 +26,4 @@ export class AvatarGroup {
     exports: [AvatarGroup],
     declarations: [AvatarGroup]
 })
-export class AvatarGroupModule { }
+export class AvatarGroupModule {}

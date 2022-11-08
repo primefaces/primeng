@@ -1,5 +1,5 @@
-import {NgModule,AfterViewInit,Component,EventEmitter,Input,NgZone,OnDestroy,Output,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, AfterViewInit, Component, EventEmitter, Input, NgZone, OnDestroy, Output, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-captcha',
@@ -7,11 +7,10 @@ import {CommonModule} from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Captcha implements AfterViewInit,OnDestroy {
-
+export class Captcha implements AfterViewInit, OnDestroy {
     @Input() siteKey: string = null;
 
     @Input() theme = 'light';
@@ -22,7 +21,7 @@ export class Captcha implements AfterViewInit,OnDestroy {
 
     @Input() tabindex = 0;
 
-    @Input() initCallback = "initRecaptcha";
+    @Input() initCallback = 'initRecaptcha';
 
     @Output() onResponse: EventEmitter<any> = new EventEmitter();
 
@@ -31,7 +30,6 @@ export class Captcha implements AfterViewInit,OnDestroy {
     private _instance: any = null;
 
     private _language: any = null;
-
 
     @Input() get language(): string {
         return this._language;
@@ -46,46 +44,46 @@ export class Captcha implements AfterViewInit,OnDestroy {
 
     ngAfterViewInit() {
         if ((<any>window).grecaptcha) {
-            if (!(<any>window).grecaptcha.render){
-                setTimeout(() =>{
+            if (!(<any>window).grecaptcha.render) {
+                setTimeout(() => {
                     this.init();
-                },100)
-            }
-            else {
+                }, 100);
+            } else {
                 this.init();
             }
-        }
-        else {
+        } else {
             (<any>window)[this.initCallback] = () => {
-              this.init();
-            }
+                this.init();
+            };
         }
     }
 
-    init() {
+    init() {
         this._instance = (<any>window).grecaptcha.render(this.el.nativeElement.children[0], {
-            'sitekey': this.siteKey,
-            'theme': this.theme,
-            'type': this.type,
-            'size': this.size,
-            'tabindex': this.tabindex,
-            'hl': this.language,
-            'callback': (response: string) => {this._zone.run(() => this.recaptchaCallback(response))},
-            'expired-callback': () => {this._zone.run(() => this.recaptchaExpiredCallback())}
+            sitekey: this.siteKey,
+            theme: this.theme,
+            type: this.type,
+            size: this.size,
+            tabindex: this.tabindex,
+            hl: this.language,
+            callback: (response: string) => {
+                this._zone.run(() => this.recaptchaCallback(response));
+            },
+            'expired-callback': () => {
+                this._zone.run(() => this.recaptchaExpiredCallback());
+            }
         });
     }
 
     reset() {
-        if (this._instance === null)
-            return;
+        if (this._instance === null) return;
 
         (<any>window).grecaptcha.reset(this._instance);
         this.cd.markForCheck();
     }
 
     getResponse(): String {
-        if (this._instance === null)
-            return null;
+        if (this._instance === null) return null;
 
         return (<any>window).grecaptcha.getResponse(this._instance);
     }
@@ -102,7 +100,7 @@ export class Captcha implements AfterViewInit,OnDestroy {
 
     ngOnDestroy() {
         if (this._instance != null) {
-          (<any>window).grecaptcha.reset(this._instance);
+            (<any>window).grecaptcha.reset(this._instance);
         }
     }
 }
@@ -112,4 +110,4 @@ export class Captcha implements AfterViewInit,OnDestroy {
     exports: [Captcha],
     declarations: [Captcha]
 })
-export class CaptchaModule { }
+export class CaptchaModule {}

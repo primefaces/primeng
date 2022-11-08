@@ -1,14 +1,13 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
     templateUrl: './galleriaautoplaydemo.html'
 })
 export class GalleriaAutoPlayDemo implements OnInit {
-    
     images: any[];
 
-    responsiveOptions:any[] = [
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5
@@ -23,9 +22,9 @@ export class GalleriaAutoPlayDemo implements OnInit {
         }
     ];
 
-    constructor(private photoService: PhotoService) { }
+    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then(images => this.images = images)
+        this.photoService.getImages().then((images) => (this.images = images));
     }
 }

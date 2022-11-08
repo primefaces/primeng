@@ -1,30 +1,36 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, QueryList, ContentChildren} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { PrimeTemplate, SharedModule } from '../api/shared';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 export const RATING_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => Rating),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => Rating),
+    multi: true
 };
 
 @Component({
     selector: 'p-rating',
     template: `
-        <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
-            <ng-container *ngIf="!isCustomIcon;else customTemplate">
-                <span *ngIf="cancel" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-                <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
-                    [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
-                    [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle">
+        <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }">
+            <ng-container *ngIf="!isCustomIcon; else customTemplate">
+                <span *ngIf="cancel" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
+                <span
+                    *ngFor="let star of starsArray; let i = index"
+                    class="p-rating-icon"
+                    [attr.tabindex]="disabled || readonly ? null : '0'"
+                    (click)="rate($event, i)"
+                    (keydown.enter)="rate($event, i)"
+                    [ngClass]="!value || i >= value ? iconOffClass : iconOnClass"
+                    [ngStyle]="!value || i >= value ? iconOffStyle : iconOnStyle"
+                >
                 </span>
             </ng-container>
             <ng-template #customTemplate>
-                <span *ngIf="cancel" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
+                <span *ngIf="cancel" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
                     <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
                 </span>
-                <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'" (click)="rate($event,i)" (keydown.enter)="rate($event,i)">
+                <span *ngFor="let star of starsArray; let i = index" class="p-rating-icon" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="rate($event, i)" (keydown.enter)="rate($event, i)">
                     <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
                 </span>
             </ng-template>
@@ -35,11 +41,10 @@ export const RATING_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./rating.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Rating implements OnInit, ControlValueAccessor {
-
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     onIconTemplate: TemplateRef<any>;
@@ -88,47 +93,47 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     ngOnInit() {
         this.starsArray = [];
-        for(let i = 0; i < this.stars; i++) {
+        for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
     }
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'onicon':
                     this.onIconTemplate = item.template;
-                break;
+                    break;
 
                 case 'officon':
                     this.offIconTemplate = item.template;
-                break;
+                    break;
 
                 case 'cancel':
                     this.cancelIconTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
 
     getIconTemplate(i: number): TemplateRef<any> {
-        return (!this.value || i >= this.value) ? this.offIconTemplate : this.onIconTemplate;
+        return !this.value || i >= this.value ? this.offIconTemplate : this.onIconTemplate;
     }
 
     rate(event, i: number): void {
-        if (!this.readonly&&!this.disabled) {
-            this.value = (i + 1);
+        if (!this.readonly && !this.disabled) {
+            this.value = i + 1;
             this.onModelChange(this.value);
             this.onModelTouched();
             this.onRate.emit({
                 originalEvent: event,
-                value: (i+1)
+                value: i + 1
             });
         }
         event.preventDefault();
     }
 
     clear(event): void {
-        if (!this.readonly&&!this.disabled) {
+        if (!this.readonly && !this.disabled) {
             this.value = null;
             this.onModelChange(this.value);
             this.onModelTouched();
@@ -137,7 +142,7 @@ export class Rating implements OnInit, ControlValueAccessor {
         event.preventDefault();
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
         this.cd.detectChanges();
     }
@@ -165,4 +170,4 @@ export class Rating implements OnInit, ControlValueAccessor {
     exports: [Rating, SharedModule],
     declarations: [Rating]
 })
-export class RatingModule { }
+export class RatingModule {}

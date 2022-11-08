@@ -267,7 +267,6 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container {
   padding: 0.5rem 1rem;
-  gap: 0.5rem;
 }
 .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
   border-color: rgba(255, 255, 255, 0.6);
@@ -290,6 +289,7 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
   padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
   background: rgba(159, 168, 218, 0.16);
   color: #9FA8DA;
   border-radius: 4px;
@@ -680,6 +680,15 @@ p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
   right: 2.357rem;
 }
 
+.p-overlay-modal .p-cascadeselect-sublist .p-cascadeselect-panel {
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0.25rem 0 0.25rem 0.5rem;
+}
+.p-overlay-modal .p-cascadeselect-item-active > .p-cascadeselect-item-content .p-cascadeselect-group-icon {
+  transform: rotate(90deg);
+}
+
 .p-checkbox {
   width: 18px;
   height: 18px;
@@ -740,7 +749,6 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 
 .p-chips .p-chips-multiple-container {
   padding: 0.5rem 1rem;
-  gap: 0.5rem;
 }
 .p-chips .p-chips-multiple-container:not(.p-disabled):hover {
   border-color: rgba(255, 255, 255, 0.6);
@@ -753,6 +761,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
   background: rgba(159, 168, 218, 0.16);
   color: #9FA8DA;
   border-radius: 4px;
@@ -1355,11 +1364,9 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
-.p-multiselect.p-multiselect-chip .p-multiselect-label {
-  gap: 0.5rem;
-}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
   background: rgba(159, 168, 218, 0.16);
   color: #9FA8DA;
   border-radius: 4px;
@@ -4544,6 +4551,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   padding-top: 0;
 }
 .p-sidebar .p-sidebar-content {
+  padding: 1rem;
+}
+.p-sidebar .p-sidebar-footer {
   padding: 1rem;
 }
 

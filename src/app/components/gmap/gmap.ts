@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,DoCheck,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, Component, ElementRef, AfterViewChecked, DoCheck, Input, Output, EventEmitter, IterableDiffers, ChangeDetectorRef, NgZone, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 declare var google: any;
 
@@ -9,11 +9,10 @@ declare var google: any;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class GMap implements AfterViewChecked,DoCheck {
-
+export class GMap implements AfterViewChecked, DoCheck {
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -44,7 +43,7 @@ export class GMap implements AfterViewChecked,DoCheck {
 
     map: any;
 
-    constructor(public el: ElementRef,differs: IterableDiffers, public cd: ChangeDetectorRef, public zone:NgZone) {
+    constructor(public el: ElementRef, differs: IterableDiffers, public cd: ChangeDetectorRef, public zone: NgZone) {
         this.differ = differs.find([]).create(null);
     }
 
@@ -61,7 +60,7 @@ export class GMap implements AfterViewChecked,DoCheck {
         });
 
         if (this.overlays) {
-            for(let overlay of this.overlays) {
+            for (let overlay of this.overlays) {
                 overlay.setMap(this.map);
                 this.bindOverlayEvents(overlay);
             }
@@ -91,7 +90,7 @@ export class GMap implements AfterViewChecked,DoCheck {
             this.zone.run(() => {
                 this.onOverlayClick.emit({
                     originalEvent: event,
-                    'overlay': overlay,
+                    overlay: overlay,
                     map: this.map
                 });
             });
@@ -101,7 +100,7 @@ export class GMap implements AfterViewChecked,DoCheck {
             this.zone.run(() => {
                 this.onOverlayDblClick.emit({
                     originalEvent: event,
-                    'overlay': overlay,
+                    overlay: overlay,
                     map: this.map
                 });
             });
@@ -182,4 +181,4 @@ export class GMap implements AfterViewChecked,DoCheck {
     exports: [GMap],
     declarations: [GMap]
 })
-export class GMapModule { }
+export class GMapModule {}

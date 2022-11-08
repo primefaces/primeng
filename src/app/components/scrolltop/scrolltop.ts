@@ -1,15 +1,24 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef} from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils'
+import { ZIndexUtils } from 'primeng/utils';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
     selector: 'p-scrollTop',
     template: `
-        <button  *ngIf="visible" [@animation]="{value: 'open', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@animation.start)="onEnter($event)" (@animation.done)="onLeave($event)"
-            [ngClass]="containerClass()" (click)="onClick()" [class]="styleClass" [ngStyle]="style" type="button">
+        <button
+            *ngIf="visible"
+            [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            (@animation.start)="onEnter($event)"
+            (@animation.done)="onLeave($event)"
+            [ngClass]="containerClass()"
+            (click)="onClick()"
+            [class]="styleClass"
+            [ngStyle]="style"
+            type="button"
+        >
             <span [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
         </button>
     `,
@@ -18,33 +27,38 @@ import { PrimeNGConfig } from 'primeng/api';
     styleUrls: ['./scrolltop.css'],
     animations: [
         trigger('animation', [
-            state('void', style({
-                opacity: 0
-            })),
-            state('open', style({
-                opacity: 1
-            })),
+            state(
+                'void',
+                style({
+                    opacity: 0
+                })
+            ),
+            state(
+                'open',
+                style({
+                    opacity: 1
+                })
+            ),
             transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => void', animate('{{hideTransitionParams}}')),
+            transition('open => void', animate('{{hideTransitionParams}}'))
         ])
     ],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class ScrollTop implements OnInit, OnDestroy {
-
     @Input() styleClass: string;
 
     @Input() style: any;
 
-    @Input() target: string = "window";
+    @Input() target: string = 'window';
 
     @Input() threshold: number = 400;
 
-    @Input() icon: string = "pi pi-chevron-up";
+    @Input() icon: string = 'pi pi-chevron-up';
 
-    @Input() behavior: string = "smooth";
+    @Input() behavior: string = 'smooth';
 
     @Input() showTransitionOptions: string = '.15s';
 
@@ -56,56 +70,50 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     overlay: any;
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
-        if (this.target === 'window')
-            this.bindDocumentScrollListener();
-        else if (this.target === 'parent')
-            this.bindParentScrollListener();
+        if (this.target === 'window') this.bindDocumentScrollListener();
+        else if (this.target === 'parent') this.bindParentScrollListener();
     }
 
     onClick() {
         let scrollElement = this.target === 'window' ? window : this.el.nativeElement.parentElement;
-         scrollElement.scroll({
+        scrollElement.scroll({
             top: 0,
             behavior: this.behavior
         });
     }
 
     onEnter(event: AnimationEvent) {
-
-        switch(event.toState) {
+        switch (event.toState) {
             case 'open':
                 this.overlay = event.element;
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-            break;
+                break;
             case 'void':
                 this.overlay = null;
-            break;
+                break;
         }
     }
 
     onLeave(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'void':
                 ZIndexUtils.clear(event.element);
-            break;
+                break;
         }
     }
 
     checkVisibility(scrollY) {
-        if (scrollY > this.threshold)
-            this.visible = true;
-        else
-            this.visible = false;
+        if (scrollY > this.threshold) this.visible = true;
+        else this.visible = false;
 
         this.cd.markForCheck();
     }
 
     bindParentScrollListener() {
         this.scrollListener = () => {
-
             this.checkVisibility(this.el.nativeElement.parentElement.scrollTop);
         };
 
@@ -142,10 +150,8 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.target === 'window')
-            this.unbindDocumentScrollListener();
-        else if (this.target === 'parent')
-            this.unbindParentScrollListener();
+        if (this.target === 'window') this.unbindDocumentScrollListener();
+        else if (this.target === 'parent') this.unbindParentScrollListener();
 
         if (this.overlay) {
             ZIndexUtils.clear(this.overlay);
@@ -159,4 +165,4 @@ export class ScrollTop implements OnInit, OnDestroy {
     exports: [ScrollTop],
     declarations: [ScrollTop]
 })
-export class ScrollTopModule { }
+export class ScrollTopModule {}
