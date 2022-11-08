@@ -1,6 +1,6 @@
 import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, QueryList, TemplateRef, forwardRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate } from 'primeng/api';
+import { SharedModule, PrimeTemplate, ChipsSeparator } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
@@ -84,7 +84,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     @Input() addOnBlur: boolean;
 
-    @Input() separator: string;
+    @Input() separator: ChipsSeparator | null = null;
 
     @Input() showClear: boolean = false;
 
@@ -148,7 +148,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         if (!this.disabled) {
             if (this.separator) {
                 let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
-                pastedData.split(this.separator).forEach((val) => {
+                pastedData.split(this.separator.text).forEach((val) => {
                     this.addItem(event, val, true);
                 });
                 this.inputViewChild.nativeElement.value = '';
@@ -299,7 +299,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 if (this.max && this.value && this.max === this.value.length) {
                     event.preventDefault();
                 } else if (this.separator) {
-                    if (this.separator === ',' && event.which === 188) {
+                    if (this.separator.text === event.key && event.which === this.separator.keyboardCode) {
                         this.addItem(event, this.inputViewChild.nativeElement.value, true);
                     }
                 }
