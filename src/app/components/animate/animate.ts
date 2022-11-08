@@ -33,7 +33,7 @@ export class Animate {
         this.bindLoadListener();
     }
 
-    constructIntersectionObserver() {
+    bindIntersectionObserver() {
         const options = {
             root: null,
             rootMargin: '0px',
@@ -85,7 +85,7 @@ export class Animate {
         if (!this.documentScrollListener) {
             this.documentScrollListener = this.renderer.listen(window, 'scroll', () => {
                 if (!this.observer) {
-                    this.constructIntersectionObserver();
+                    this.bindIntersectionObserver();
                 }
                 this.animate();
             })
@@ -118,9 +118,14 @@ export class Animate {
         }
     }
 
+    unbindIntersectionObserver() {
+        this.observer.unobserve(this.host.nativeElement);
+    }
+
     ngOnDestroy() {
         this.unbindDocumentScrollListener();
         this.unbindLoadListener();
+        this.unbindIntersectionObserver();
     }
 }
 
