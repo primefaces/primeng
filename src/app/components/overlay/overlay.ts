@@ -23,7 +23,7 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayModeType, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
+import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 
 export const OVERLAY_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -46,9 +46,19 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
             [ngClass]="{
                 'p-overlay p-component': true,
                 'p-overlay-modal p-component-overlay p-component-overlay-enter': modal,
-                'p-overlay-start': modal && overlayResponsiveDirection === 'start',
                 'p-overlay-center': modal && overlayResponsiveDirection === 'center',
-                'p-overlay-end': modal && overlayResponsiveDirection === 'end'
+                'p-overlay-top': modal && overlayResponsiveDirection === 'top',
+                'p-overlay-top-start': modal && overlayResponsiveDirection === 'top-start',
+                'p-overlay-top-end': modal && overlayResponsiveDirection === 'top-end',
+                'p-overlay-bottom': modal && overlayResponsiveDirection === 'bottom',
+                'p-overlay-bottom-start': modal && overlayResponsiveDirection === 'bottom-start',
+                'p-overlay-bottom-end': modal && overlayResponsiveDirection === 'bottom-end',
+                'p-overlay-left': modal && overlayResponsiveDirection === 'left',
+                'p-overlay-left-start': modal && overlayResponsiveDirection === 'left-start',
+                'p-overlay-left-end': modal && overlayResponsiveDirection === 'left-end',
+                'p-overlay-right': modal && overlayResponsiveDirection === 'right',
+                'p-overlay-right-start': modal && overlayResponsiveDirection === 'right-start',
+                'p-overlay-right-end': modal && overlayResponsiveDirection === 'right-end'
             }"
             (click)="onOverlayClick($event)"
         >
@@ -64,7 +74,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                 (@overlayContentAnimation.done)="onOverlayContentAnimationDone($event)"
             >
                 <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
             </div>
         </div>
     `,
@@ -97,31 +107,39 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     @Input() get style(): any {
-        return this._style || (this.modal ? this.overlayResponsiveOptions?.style : this.overlayOptions?.style);
+        return ObjectUtils.merge(this._style, this.modal ? this.overlayResponsiveOptions?.style : this.overlayOptions?.style);
     }
     set style(value: any) {
         this._style = value;
     }
 
     @Input() get styleClass(): string | undefined {
-        return this._styleClass || (this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
+        return ObjectUtils.merge(this._styleClass, this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
     }
     set styleClass(value: string) {
         this._styleClass = value;
     }
 
     @Input() get contentStyle(): any {
-        return this._contentStyle || this.overlayOptions?.contentStyle;
+        return ObjectUtils.merge(this._contentStyle, this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle);
     }
     set contentStyle(value: any) {
         this._contentStyle = value;
     }
 
     @Input() get contentStyleClass(): string | undefined {
-        return this._contentStyleClass || this.overlayOptions?.contentStyleClass;
+        return ObjectUtils.merge(this._contentStyleClass, this.modal ? this.overlayResponsiveOptions?.contentStyleClass : this.overlayOptions?.contentStyleClass);
     }
     set contentStyleClass(value: string) {
         this._contentStyleClass = value;
+    }
+
+    @Input() get target(): any {
+        const value = this._target || this.overlayOptions?.target;
+        return value === undefined ? '@prev' : value;
+    }
+    set target(value: any) {
+        this._target = value;
     }
 
     @Input() get appendTo(): any {
@@ -218,6 +236,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     _contentStyleClass: string;
 
+    _target: any;
+
     _appendTo: 'body' | HTMLElement | undefined;
 
     _autoZIndex: boolean;
@@ -250,9 +270,19 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     protected transformOptions: any = {
         default: 'scaleY(0.8)',
-        start: 'translate3d(0px, -100%, 0px)',
         center: 'scale(0.7)',
-        end: 'translate3d(0px, 100%, 0px)'
+        top: 'translate3d(0px, -100%, 0px)',
+        'top-start': 'translate3d(0px, -100%, 0px)',
+        'top-end': 'translate3d(0px, -100%, 0px)',
+        bottom: 'translate3d(0px, 100%, 0px)',
+        'bottom-start': 'translate3d(0px, 100%, 0px)',
+        'bottom-end': 'translate3d(0px, 100%, 0px)',
+        left: 'translate3d(-100%, 0px, 0px)',
+        'left-start': 'translate3d(-100%, 0px, 0px)',
+        'left-end': 'translate3d(-100%, 0px, 0px)',
+        right: 'translate3d(100%, 0px, 0px)',
+        'right-start': 'translate3d(100%, 0px, 0px)',
+        'right-end': 'translate3d(100%, 0px, 0px)'
     };
 
     get modal() {
@@ -272,7 +302,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     get overlayResponsiveDirection() {
-        return this.overlayResponsiveOptions?.direction;
+        return this.overlayResponsiveOptions?.direction || 'center';
     }
 
     get overlayEl() {
@@ -284,7 +314,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     get targetEl() {
-        return this.el?.nativeElement?.parentElement;
+        return DomHandler.getTargetElement(this.target, this.el?.nativeElement);
     }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {

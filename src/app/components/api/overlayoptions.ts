@@ -2,7 +2,7 @@ import { AnimationEvent } from '@angular/animations';
 
 export type OverlayModeType = 'modal' | 'overlay' | undefined;
 
-export type ResponsiveOverlayDirectionType = 'start' | 'center' | 'end' | undefined;
+export type ResponsiveOverlayDirectionType = 'center' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' | undefined;
 
 export interface OverlayListenerOptions {
     type?: 'scroll' | 'outside' | 'resize' | undefined;
@@ -13,6 +13,8 @@ export interface OverlayListenerOptions {
 export interface ResponsiveOverlayOptions {
     style?: any;
     styleClass?: string;
+    contentStyle?: any;
+    contentStyleClass?: string;
     breakpoint?: string;
     media?: string;
     direction?: ResponsiveOverlayDirectionType;
@@ -36,6 +38,7 @@ export interface OverlayOptions {
     styleClass?: string;
     contentStyle?: any;
     contentStyleClass?: string;
+    target?: any;
     appendTo?: 'body' | HTMLElement | undefined;
     autoZIndex?: boolean;
     baseZIndex?: number;
