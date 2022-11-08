@@ -1,8 +1,10 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ViewChild,ChangeDetectionStrategy,ViewEncapsulation, TemplateRef, ContentChildren, QueryList} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MenuItem, PrimeTemplate} from 'primeng/api';
-import {ButtonModule} from 'primeng/button';
+import { NgModule, Component, ElementRef, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, ContentChildren, QueryList } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MenuItem, PrimeTemplate } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { TieredMenuModule, TieredMenu } from 'primeng/tieredmenu';
+
+type SplitButtonIconPosition = 'left' | 'right';
 
 @Component({
     selector: 'p-splitButton',
@@ -17,24 +19,22 @@ import { TieredMenuModule, TieredMenu } from 'primeng/tieredmenu';
                 <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
             </ng-template>
             <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled" [attr.aria-label]="expandAriaLabel"></button>
-            <p-tieredMenu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo"
-                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-tieredMenu>
+            <p-tieredMenu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-tieredMenu>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./splitbutton.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class SplitButton {
-
     @Input() model: MenuItem[];
 
     @Input() icon: string;
 
-    @Input() iconPos: string = 'left';
+    @Input() iconPos: SplitButtonIconPosition = 'left';
 
     @Input() label: string;
 
@@ -69,21 +69,21 @@ export class SplitButton {
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
     @ViewChild('menu') menu: TieredMenu;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     contentTemplate: TemplateRef<any>;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -94,14 +94,13 @@ export class SplitButton {
 
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
-        this.menu.toggle({currentTarget: this.containerViewChild.nativeElement, relativeAlign: this.appendTo == null});
+        this.menu.toggle({ currentTarget: this.containerViewChild.nativeElement, relativeAlign: this.appendTo == null });
     }
-
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule, TieredMenuModule],
-    exports: [SplitButton,ButtonModule, TieredMenuModule],
+    imports: [CommonModule, ButtonModule, TieredMenuModule],
+    exports: [SplitButton, ButtonModule, TieredMenuModule],
     declarations: [SplitButton]
 })
-export class SplitButtonModule { }
+export class SplitButtonModule {}

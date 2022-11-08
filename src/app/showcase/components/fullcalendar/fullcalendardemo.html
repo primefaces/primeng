@@ -19,53 +19,26 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fullcalendar" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
-</app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;NgModule&#125; from '@angular/core';
-import &#123;CommonModule&#125; from '@angular/common';
-import &#123;FormsModule&#125; from '@angular/forms';
-import &#123;FullCalendarModule&#125; from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import &#123;FullCalendarDemo&#125; from './fullcalendardemo';
-import &#123;FullCalendarDemoRoutingModule&#125; from './fullcalendardemo-routing.module';
-import &#123;DialogModule&#125; from 'primeng/dialog';
-import &#123;InputTextModule&#125; from 'primeng/inputtext';
-import &#123;CalendarModule&#125; from 'primeng/calendar';
-import &#123;CheckboxModule&#125; from 'primeng/checkbox';
-import &#123;ButtonModule&#125; from 'primeng/button';
+import &#123;CUSTOM_ELEMENTS_SCHEMA, NgModule&#125; from '@angular/core';
 import &#123;TabViewModule&#125; from 'primeng/tabview';
 import &#123;AppCodeModule&#125; from '../../app.code.component';
 import &#123;AppDemoActionsModule&#125; from '../../app.demoactions.component';
-
-FullCalendarModule.registerPlugins([
-    dayGridPlugin,
-    timeGridPlugin,
-    interactionPlugin
-]);
+import &#123;FullCalendarDemo&#125; from './fullcalendardemo';
+import &#123;FullCalendarDemoRoutingModule&#125; from './fullcalendardemo-routing.module';
 
 @NgModule(&#123;
 	imports: [
-		CommonModule,
-        FormsModule,
-		FullCalendarDemoRoutingModule,
-        FullCalendarModule,
-        DialogModule,
-        InputTextModule,
-        CalendarModule,
-        CheckboxModule,
-        ButtonModule,
-        TabViewModule,
+        FullCalendarDemoRoutingModule,
         AppDemoActionsModule,
-        AppCodeModule
+        AppCodeModule,
+        TabViewModule,
 	],
 	declarations: [
 		FullCalendarDemo
-	]
+	],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 &#125;)
 export class FullCalendarDemoModule &#123;&#125;
 </app-code>

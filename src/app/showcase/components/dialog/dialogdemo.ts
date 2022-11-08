@@ -1,11 +1,10 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './dialogdemo.html',
     styleUrls: ['./dialogdemo.scss']
 })
 export class DialogDemo {
-
     displayModal: boolean;
 
     displayBasic: boolean;
@@ -20,7 +19,7 @@ export class DialogDemo {
 
     position: string;
 
-    showModalDialog() { 
+    showModalDialog() {
         this.displayModal = true;
     }
 
@@ -31,7 +30,7 @@ export class DialogDemo {
     showBasicDialog2() {
         this.displayBasic2 = true;
     }
-    
+
     showMaximizableDialog() {
         this.displayMaximizable = true;
     }

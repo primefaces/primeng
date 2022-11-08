@@ -13,13 +13,13 @@
 .p-sidebar-header {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
 }
 
 .p-sidebar-icon {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto;
 }
 
 .p-sidebar-left {

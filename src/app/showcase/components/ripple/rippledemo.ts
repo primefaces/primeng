@@ -1,9 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './rippledemo.html',
     styleUrls: ['./rippledemo.scss']
 })
-export class RippleDemo {
-
-}
+export class RippleDemo {}

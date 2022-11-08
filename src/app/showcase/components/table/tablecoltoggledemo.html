@@ -8,10 +8,10 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [columns]="selectedColumns" [value]="products"  responsiveLayout="scroll">
+        <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
+                    selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}" placeholder="Choose Columns"></p-multiSelect>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -43,10 +43,10 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [columns]="selectedColumns" [value]="products"  responsiveLayout="scroll"&gt;
+&lt;p-table [columns]="selectedColumns" [value]="products" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-            selectedItemsLabel="&#123;0&#125; columns selected" [style]="&#123;minWidth: '200px'&#125;" placeholder="Choose Columns"&gt;&lt;/p-multiSelect&gt;
+            selectedItemsLabel="&#123;0&#125; columns selected" [style]="&#123;'min-width': '200px'&#125;" placeholder="Choose Columns"&gt;&lt;/p-multiSelect&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;

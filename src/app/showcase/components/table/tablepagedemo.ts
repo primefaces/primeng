@@ -6,17 +6,16 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: './tablepagedemo.html'
 })
 export class TablePageDemo implements OnInit {
-
     customers: Customer[];
 
     first = 0;
 
     rows = 10;
 
-    constructor(private customerService: CustomerService) { }
+    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
-        this.customerService.getCustomersLarge().then(customers => this.customers = customers);
+        this.customerService.getCustomersLarge().then((customers) => (this.customers = customers));
     }
 
     next() {
@@ -32,7 +31,7 @@ export class TablePageDemo implements OnInit {
     }
 
     isLastPage(): boolean {
-        return this.customers ? this.first === (this.customers.length - this.rows): true;
+        return this.customers ? this.first === this.customers.length - this.rows : true;
     }
 
     isFirstPage(): boolean {

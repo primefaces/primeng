@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './scrolltopdemo.html',
     styleUrls: ['./scrolltopdemo.scss']
 })
-export class ScrollTopDemo {
-}
+export class ScrollTopDemo {}
