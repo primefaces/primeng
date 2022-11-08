@@ -3,6 +3,7 @@ import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, Co
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
+import { ObjectUtils } from 'primeng/utils';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -53,7 +54,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     getStyleClass(): string {
         let styleClass = 'p-button p-component';
-        if (this.icon && !this.label) {
+        if (this.icon && !this.label && ObjectUtils.isEmpty(this.el.nativeElement.textContent)) {
             styleClass = styleClass + ' p-button-icon-only';
         }
 
@@ -86,10 +87,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             DomHandler.addMultipleClasses(iconElement, iconClass);
         }
 
-        let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label');
-
-        if (labelEl) this.el.nativeElement.insertBefore(iconElement, labelEl);
-        else this.el.nativeElement.appendChild(iconElement);
+        this.el.nativeElement.insertBefore(iconElement, this.el.nativeElement.firstChild);
     }
 
     getIconClass() {
