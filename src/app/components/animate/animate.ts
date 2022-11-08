@@ -1,4 +1,4 @@
-import { NgModule, Directive, ElementRef, Input, Renderer2, Inject } from '@angular/core';
+import { NgModule, Directive, ElementRef, Input, Renderer2, Inject, NgZone } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
 
@@ -24,7 +24,7 @@ export class Animate {
 
     loaded: boolean;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private host: ElementRef, public el: ElementRef, public renderer: Renderer2) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private host: ElementRef, public el: ElementRef, public renderer: Renderer2, private zone: NgZone) { }
 
     ngOnInit() {
         if (this.isInViewport()) {
@@ -39,13 +39,16 @@ export class Animate {
             rootMargin: '0px',
             threshold: 1.0
         }
-
-        this.observer = new IntersectionObserver(el => this.isVisible(el), options);
-        this.observer.observe(this.host.nativeElement);
+        
+        this.zone.runOutsideAngular(() => {
+            this.observer = new IntersectionObserver(el => this.isVisible(el), options);
+            this.observer.observe(this.host.nativeElement);
+        })
     }
 
     isInViewport() {
         let rect = this.host.nativeElement.getBoundingClientRect();
+
         return (
             rect.top >= 0 &&
             rect.left >= 0 &&
@@ -54,9 +57,8 @@ export class Animate {
         );
     }
 
-    isVisible(element) {
-        console.log(typeof element)
-        const [intersectionObserverEntry] = element
+    isVisible(element: IntersectionObserverEntry[]) {
+        const [intersectionObserverEntry] = element;
         this.entered = intersectionObserverEntry.isIntersecting;
     }
 
@@ -84,11 +86,13 @@ export class Animate {
 
     bindDocumentScrollListener() {
         if (!this.documentScrollListener) {
-            this.documentScrollListener = this.renderer.listen(window, 'scroll', () => {
-                if (!this.observer) {
-                    this.bindIntersectionObserver();
-                }
-                this.animate();
+            this.zone.runOutsideAngular(() => {
+                this.documentScrollListener = this.renderer.listen(window, 'scroll', () => {
+                    if (!this.observer) {
+                        this.bindIntersectionObserver();
+                    }
+                    this.animate();
+                })
             })
         }
     }
@@ -101,15 +105,17 @@ export class Animate {
     }
 
     bindLoadListener() {
-        this.loadListener = this.renderer.listen(window, 'load', () => {
-            if (!this.loaded) {
-                this.animate();
-            }
-            if (!this.documentScrollListener) {
-                this.bindDocumentScrollListener();
-            }
-            this.loaded = true;
-        });
+        this.zone.runOutsideAngular(() => {
+            this.loadListener = this.renderer.listen(window, 'load', () => {
+                if (!this.loaded) {
+                    this.animate();
+                }
+                if (!this.documentScrollListener) {
+                    this.bindDocumentScrollListener();
+                }
+                this.loaded = true;
+            });
+        })
     }
 
     unbindLoadListener() {
