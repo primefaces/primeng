@@ -111,32 +111,42 @@ export class DomHandler {
     }
 
     public static relativePosition(element: any, target: any): void {
-        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
+        const getClosestRelativeElement = (el) => {
+            if (!el) return;
+
+            return getComputedStyle(el).getPropertyValue('position') === 'relative' ? el : getClosestRelativeElement(el.parentElement);
+        };
+
+        const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const targetHeight = target.offsetHeight;
         const targetOffset = target.getBoundingClientRect();
+        const windowScrollTop = this.getWindowScrollTop();
+        const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
+        const relativeElement = getClosestRelativeElement(element);
+        const relativeElementOffset = relativeElement?.getBoundingClientRect() || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
         let top: number, left: number;
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
-            top = -1 * elementDimensions.height;
+            top = targetOffset.top - relativeElementOffset.top - elementDimensions.height;
             element.style.transformOrigin = 'bottom';
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
         } else {
-            top = targetHeight;
+            top = targetHeight + targetOffset.top - relativeElementOffset.top;
             element.style.transformOrigin = 'top';
         }
 
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
-            left = targetOffset.left * -1;
-        } else if (targetOffset.left + elementDimensions.width > viewport.width) {
+            left = (targetOffset.left - relativeElementOffset.left) * -1;
+        } else if (targetOffset.left - relativeElementOffset.left + elementDimensions.width > viewport.width) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = (targetOffset.left + elementDimensions.width - viewport.width) * -1;
+            left = (targetOffset.left - relativeElementOffset.left + elementDimensions.width - viewport.width) * -1;
         } else {
             // element fits on screen (align with target)
-            left = 0;
+            left = targetOffset.left - relativeElementOffset.left;
         }
 
         element.style.top = top + 'px';
@@ -144,16 +154,16 @@ export class DomHandler {
     }
 
     public static absolutePosition(element: any, target: any): void {
-        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
-        let elementOuterHeight = elementDimensions.height;
-        let elementOuterWidth = elementDimensions.width;
-        let targetOuterHeight = target.offsetHeight;
-        let targetOuterWidth = target.offsetWidth;
-        let targetOffset = target.getBoundingClientRect();
-        let windowScrollTop = this.getWindowScrollTop();
-        let windowScrollLeft = this.getWindowScrollLeft();
-        let viewport = this.getViewport();
-        let top, left;
+        const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
+        const elementOuterHeight = elementDimensions.height;
+        const elementOuterWidth = elementDimensions.width;
+        const targetOuterHeight = target.offsetHeight;
+        const targetOuterWidth = target.offsetWidth;
+        const targetOffset = target.getBoundingClientRect();
+        const windowScrollTop = this.getWindowScrollTop();
+        const windowScrollLeft = this.getWindowScrollLeft();
+        const viewport = this.getViewport();
+        let top: number, left: number;
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
@@ -621,5 +631,37 @@ export class DomHandler {
         else if (document['selection']) return document['selection'].createRange().text;
 
         return null;
+    }
+
+    public static getTargetElement(target: any, el?: HTMLElement) {
+        if (!target) return null;
+
+        switch (target) {
+            case 'document':
+                return document;
+            case 'window':
+                return window;
+            case '@next':
+                return el?.nextElementSibling;
+            case '@prev':
+                return el?.previousElementSibling;
+            case '@parent':
+                return el?.parentElement;
+            case '@grandparent':
+                return el?.parentElement.parentElement;
+            default:
+                const type = typeof target;
+
+                if (type === 'string') {
+                    return document.querySelector(target);
+                } else if (type === 'object' && target.hasOwnProperty('nativeElement')) {
+                    return this.isExist(target.nativeElement) ? target.nativeElement : undefined;
+                }
+
+                const isFunction = (obj: any) => !!(obj && obj.constructor && obj.call && obj.apply);
+                const element = isFunction(target) ? target() : target;
+
+                return (element && element.nodeType === 9) || this.isExist(element) ? element : null;
+        }
     }
 }

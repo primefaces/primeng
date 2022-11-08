@@ -169,4 +169,14 @@ export class ObjectUtils {
     public static isNotEmpty(value) {
         return !this.isEmpty(value);
     }
+
+    public static merge(obj1?: any, obj2?: any): any {
+        if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
+            return { ...(obj1 || {}), ...(obj2 || {}) };
+        } else if ((obj1 == undefined || typeof obj1 === 'string') && (obj2 == undefined || typeof obj2 === 'string')) {
+            return [obj1 || '', obj2 || ''].join(' ');
+        }
+
+        return obj2 || obj1;
+    }
 }
