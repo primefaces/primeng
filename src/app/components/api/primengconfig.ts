@@ -11,7 +11,7 @@ export class PrimeNGConfig {
     overlayOptions: OverlayOptions = {
         responsive: {
             breakpoint: '640px',
-            direction: 'end'
+            direction: 'bottom'
         }
     };
 

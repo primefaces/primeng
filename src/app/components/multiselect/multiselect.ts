@@ -157,6 +157,7 @@ export class MultiSelectItem {
                 #overlay
                 [(visible)]="overlayVisible"
                 [options]="overlayOptions"
+                [target]="'@parent'"
                 [appendTo]="appendTo"
                 [autoZIndex]="autoZIndex"
                 [baseZIndex]="baseZIndex"

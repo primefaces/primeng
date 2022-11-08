@@ -307,6 +307,7 @@ export class CascadeSelectSub implements OnInit {
                 #overlay
                 [(visible)]="overlayVisible"
                 [options]="overlayOptions"
+                [target]="'@parent'"
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"

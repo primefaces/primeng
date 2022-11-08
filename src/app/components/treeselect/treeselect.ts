@@ -62,6 +62,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 #overlay
                 [(visible)]="overlayVisible"
                 [options]="overlayOptions"
+                [target]="'@parent'"
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
