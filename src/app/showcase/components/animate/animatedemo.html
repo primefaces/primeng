@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Animate</h1>
-        <p>Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.</p>
+        <p>Animate manages PrimeFlex CSS classes declaratively to during enter animations on scroll or on page load.</p>
     </div>
     <app-demoActions github="animate" stackblitz="animate-demo"></app-demoActions>
 </div>
@@ -19,30 +19,6 @@
         <div pAnimate enterClass="flipleft" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
             <span class="text-900 text-3xl font-bold">flipleft</span>
         </div>
-        <div class="h-30rem"></div>
-        <div pAnimate enterClass="flipright" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
-            <span class="text-900 text-3xl font-bold">flipright</span>
-        </div>
-        <div class="h-30rem"></div>
-        <div pAnimate enterClass="zoomin" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
-            <span class="text-900 text-3xl font-bold">zoomin</span>
-        </div>
-        <div class="h-30rem"></div>
-        <div pAnimate enterClass="zoomindown" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
-            <span class="text-900 text-3xl font-bold">zoomindown</span>
-        </div>
-        <div class="h-30rem"></div>
-        <div pAnimate enterClass="zoominup" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
-            <span class="text-900 text-3xl font-bold">zoominup</span>
-        </div>
-        <div class="h-30rem"></div>
-        <div pAnimate enterClass="zoominleft" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
-            <span class="text-900 text-3xl font-bold">zoominleft</span>
-        </div>
-        <div class="h-30rem"></div>
-        <div pAnimate enterClass="zoominright" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
-            <span class="text-900 text-3xl font-bold">zoominright</span>
-        </div>
     </div>
 </div>
 
@@ -55,11 +31,11 @@ import &#123;AnimateModule&#125; from 'primeng/animate';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>Animate uses PrimeFlex animations, however it can perform animations with custom CSS classes too. Takes two properties <i>enterClass</i> and <i>leaveClass</i> to simply add-remove a class and enter/leave during scroll or page load to manage elements animation if the element is in viewport.</p>
+            <p>Animate uses <a href="http://primefaces.org/primeflex/animations">PrimeFlex animations</a>, however it can perform animations with custom CSS classes too. Takes <i>enterClass</i> property to simply add animation class during scroll or page load to manage elements animation if the element is in viewport.</p>
 
-    <p><b>Enter/Leave Animation</b></p>
+    <p><b>Enter Animation</b></p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;img pAnimate enterClass="scalein" src="assets/showcase/images/galleria/galleria1.jpg" alt="image 1" class="w-full h-30rem mb-5 border-round shadow-2 animation-duration-1000 animation-ease-out"&gt;
+&lt;div pAnimate enterClass="flip" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out"&gt;&lt;/div&gt;
 </app-code>
 
             <h5>Properties</h5>
