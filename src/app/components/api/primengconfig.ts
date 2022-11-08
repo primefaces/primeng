@@ -8,12 +8,7 @@ import { Translation } from './translation';
 export class PrimeNGConfig {
     ripple: boolean = false;
 
-    overlayOptions: OverlayOptions = {
-        responsive: {
-            breakpoint: '640px',
-            direction: 'bottom'
-        }
-    };
+    overlayOptions: OverlayOptions = {};
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
