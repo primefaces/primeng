@@ -1111,30 +1111,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
-        if (ObjectUtils.isEmpty(this.multiSortMeta) || ObjectUtils.isEmpty(multiSortMeta[index])) {
-            return 0;
-        }
-
-        let value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
-        let value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
-        let result = null;
-
-        if (value1 == null && value2 != null) result = -1;
-        else if (value1 != null && value2 == null) result = 1;
-        else if (value1 == null && value2 == null) result = 0;
-        else if (typeof value1 == 'string' || value1 instanceof String) {
-            if (value1.localeCompare && value1 != value2) {
-                return multiSortMeta[index].order * value1.localeCompare(value2);
-            }
-        } else {
-            result = value1 < value2 ? -1 : 1;
-        }
-
-        if (value1 == value2) {
+        const value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
+        const value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
+        if (ObjectUtils.compare(value1, value2, this.filterLocale) === 0) {
             return multiSortMeta.length - 1 > index ? this.multisortField(data1, data2, multiSortMeta, index + 1) : 0;
         }
-
-        return multiSortMeta[index].order * result;
+        return this.compareValuesOnSort(value1, value2, multiSortMeta[index].order);
+    }
+    
+    compareValuesOnSort(value1, value2, order) {
+        return ObjectUtils.sort(value1, value2, order, this.filterLocale, this.sortOrder)
     }
 
     getSortMeta(field: string) {
