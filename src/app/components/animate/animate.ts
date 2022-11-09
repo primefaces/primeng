@@ -120,7 +120,9 @@ export class Animate {
     }
 
     unbindIntersectionObserver() {
-        this.observer.unobserve(this.host.nativeElement);
+        if (this.observer) {
+            this.observer.unobserve(this.host.nativeElement);
+        }
     }
 
     ngOnDestroy() {
