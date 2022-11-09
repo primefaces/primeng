@@ -1877,6 +1877,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #212529;
   border-color: #54b358;
 }
+.p-button .p-button-label {
+  line-height: 1rem;
+}
 .p-button.p-button-outlined {
   background-color: transparent;
   color: #81C784;

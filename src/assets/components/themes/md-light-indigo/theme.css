@@ -1901,6 +1901,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #ffffff;
   border-color: transparent;
 }
+.p-button .p-button-label {
+  line-height: 1rem;
+}
 .p-button.p-button-outlined {
   background-color: transparent;
   color: #3F51B5;
