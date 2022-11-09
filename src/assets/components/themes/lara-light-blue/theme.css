@@ -243,6 +243,7 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container {
   padding: 0.375rem 0.75rem;
+  gap: 0.5rem;
 }
 .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
   border-color: #3B82F6;
@@ -265,7 +266,6 @@
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
   padding: 0.375rem 0.75rem;
-  margin-right: 0.5rem;
   background: #EFF6FF;
   color: #1D4ED8;
   border-radius: 6px;
@@ -656,15 +656,6 @@ p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
   right: 3rem;
 }
 
-.p-overlay-modal .p-cascadeselect-sublist .p-cascadeselect-panel {
-  box-shadow: none;
-  border-radius: 0;
-  padding: 0.25rem 0 0.25rem 0.5rem;
-}
-.p-overlay-modal .p-cascadeselect-item-active > .p-cascadeselect-item-content .p-cascadeselect-group-icon {
-  transform: rotate(90deg);
-}
-
 .p-checkbox {
   width: 22px;
   height: 22px;
@@ -725,6 +716,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 
 .p-chips .p-chips-multiple-container {
   padding: 0.375rem 0.75rem;
+  gap: 0.5rem;
 }
 .p-chips .p-chips-multiple-container:not(.p-disabled):hover {
   border-color: #3B82F6;
@@ -737,7 +729,6 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.375rem 0.75rem;
-  margin-right: 0.5rem;
   background: #EFF6FF;
   color: #1D4ED8;
   border-radius: 6px;
@@ -1340,9 +1331,11 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: #6c757d;
 }
+.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  gap: 0.5rem;
+}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.375rem 0.75rem;
-  margin-right: 0.5rem;
   background: #EFF6FF;
   color: #1D4ED8;
   border-radius: 6px;
@@ -1877,9 +1870,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #ffffff;
   border-color: #1D4ED8;
 }
-.p-button .p-button-label {
-  line-height: 1rem;
-}
 .p-button.p-button-outlined {
   background-color: transparent;
   color: #3B82F6;
@@ -1937,9 +1927,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #BFDBFE;
-}
-.p-button .p-button-label {
-  transition-duration: 0.2s;
 }
 .p-button .p-button-icon-left {
   margin-right: 0.5rem;
@@ -2861,46 +2848,13 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-width: 0 1px 1px 1px;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
-  border-width: 1px 0 1px 1px;
-}
-.p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th:last-child {
-  border-width: 1px;
+  border-width: 1px 1px 1px 1px;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
-  border-width: 1px 0 0 1px;
-}
-.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td:last-child {
-  border-width: 1px 1px 0 1px;
-}
-.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
-  border-width: 1px 0 1px 1px;
-}
-.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr:last-child > td:last-child {
   border-width: 1px;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-tfoot > tr > td {
-  border-width: 1px 0 1px 1px;
-}
-.p-datatable.p-datatable-gridlines .p-datatable-tfoot > tr > td:last-child {
-  border-width: 1px 1px 1px 1px;
-}
-.p-datatable.p-datatable-gridlines .p-datatable-thead + .p-datatable-tfoot > tr > td {
-  border-width: 0 0 1px 1px;
-}
-.p-datatable.p-datatable-gridlines .p-datatable-thead + .p-datatable-tfoot > tr > td:last-child {
-  border-width: 0 1px 1px 1px;
-}
-.p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
-  border-width: 0 0 1px 1px;
-}
-.p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td:last-child {
-  border-width: 0 1px 1px 1px;
-}
-.p-datatable.p-datatable-gridlines:has(.p-datatable-tbody):has(.p-datatable-tfoot) .p-datatable-tbody > tr:last-child > td {
-  border-width: 0 0 0 1px;
-}
-.p-datatable.p-datatable-gridlines:has(.p-datatable-tbody):has(.p-datatable-tfoot) .p-datatable-tbody > tr:last-child > td:last-child {
-  border-width: 0 1px 0 1px;
+  border-width: 1px;
 }
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
   background: #fcfcfc;
@@ -4542,9 +4496,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   padding-top: 0;
 }
 .p-sidebar .p-sidebar-content {
-  padding: 1.25rem;
-}
-.p-sidebar .p-sidebar-footer {
   padding: 1.25rem;
 }
 
