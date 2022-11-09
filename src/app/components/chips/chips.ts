@@ -1,8 +1,8 @@
-import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, QueryList, TemplateRef, forwardRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, ChipsSeparator } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -84,7 +84,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     @Input() addOnBlur: boolean;
 
-    @Input() separator: ChipsSeparator | null = { text: ',', keyboardCode: 188 };
+    @Input() separator: string;
 
     @Input() showClear: boolean = false;
 
@@ -148,7 +148,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         if (!this.disabled) {
             if (this.separator) {
                 let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
-                pastedData.split(this.separator.text).forEach((val) => {
+                pastedData.split(this.separator).forEach((val) => {
                     this.addItem(event, val, true);
                 });
                 this.inputViewChild.nativeElement.value = '';
@@ -299,7 +299,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 if (this.max && this.value && this.max === this.value.length) {
                     event.preventDefault();
                 } else if (this.separator) {
-                    if (this.separator.text === event.key && event.which === this.separator.keyboardCode) {
+                    if (this.separator === event.key || event.key.match(this.separator)) {
                         this.addItem(event, this.inputViewChild.nativeElement.value, true);
                     }
                 }

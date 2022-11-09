@@ -9,4 +9,8 @@ export class ChipsDemo {
     values2: string[];
 
     values3: string[];
+
+    values4: string[];
+
+    separatorExp: RegExp = /,| /;
 }
