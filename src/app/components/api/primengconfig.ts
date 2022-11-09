@@ -64,7 +64,7 @@ export class PrimeNGConfig {
         emptyFilterMessage: 'No results found'
     };
 
-    zIndex = {
+    zIndex: any = {
         modal: 1100,
         overlay: 1000,
         menu: 1000,

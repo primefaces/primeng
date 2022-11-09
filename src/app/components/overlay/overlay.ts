@@ -216,13 +216,13 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     @Output() onAnimationDone: EventEmitter<any> = new EventEmitter();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 
-    @ViewChild('overlay') overlayViewChild: ElementRef;
+    @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content') contentViewChild: ElementRef | undefined;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
     _visible: boolean = false;
 
@@ -230,23 +230,23 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     _style: any;
 
-    _styleClass: string;
+    _styleClass: string | undefined;
 
     _contentStyle: any;
 
-    _contentStyleClass: string;
+    _contentStyleClass: string | undefined;
 
     _target: any;
 
     _appendTo: 'body' | HTMLElement | undefined;
 
-    _autoZIndex: boolean;
+    _autoZIndex: boolean | undefined;
 
-    _baseZIndex: number;
+    _baseZIndex: number | undefined;
 
-    _showTransitionOptions: string;
+    _showTransitionOptions: string | undefined;
 
-    _hideTransitionOptions: string;
+    _hideTransitionOptions: string | undefined;
 
     _listener: any;
 
@@ -266,7 +266,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     documentResizeListener: any;
 
-    private window: Window;
+    private window: Window | null;
 
     protected transformOptions: any = {
         default: 'scaleY(0.8)',
@@ -286,7 +286,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     };
 
     get modal() {
-        return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+        return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
     }
 
     get overlayMode() {
@@ -322,7 +322,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -422,9 +422,9 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     handleEvents(name: string, params: any) {
-        this[name].emit(params);
-        this.options && this.options[name] && this.options[name](params);
-        this.config?.overlayOptions && this.config?.overlayOptions[name] && this.config?.overlayOptions[name](params);
+        (this as any)[name].emit(params);
+        this.options && (this.options as any)[name] && (this.options as any)[name](params);
+        this.config?.overlayOptions && (this.config?.overlayOptions as any)[name] && (this.config?.overlayOptions as any)[name](params);
     }
 
     bindListeners() {
@@ -441,7 +441,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.targetEl, (event) => {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.targetEl, (event: any) => {
                 const valid = this.listener ? this.listener(event, { type: 'scroll', mode: this.overlayMode, valid: true }) : true;
 
                 valid && this.hide(event, true);
