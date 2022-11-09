@@ -1,4 +1,12 @@
 # Changelog
+
+## [14.2.1](https://github.com/primefaces/primeng/tree/14.2.1) (2022-10-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.2.0...14.2.1)
+
+**Fixed bugs:**
+- 14.2.0 TS2380 in overlay.d.ts [\#12159](https://github.com/primefaces/primeng/issues/12159)
+
 ## [14.2.0](https://github.com/primefaces/primeng/tree/14.2.0) (2022-10-09)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.2...14.2.0)
