@@ -7,6 +7,10 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['./tabledemo.scss'],
     styles: [
         `
+            :host ::ng-deep .p-datatable > .p-datatable-wrapper {
+                overflow: visible;
+            }
+
             :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
                 position: -webkit-sticky;
                 position: sticky;
