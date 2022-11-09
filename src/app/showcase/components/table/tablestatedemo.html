@@ -11,27 +11,27 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Session Storage</h5>
-        <p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
+        <p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
             [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
-                    <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
-                    <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                    <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="country.name" style="width:25%">Country <p-sortIcon field="country.name"></p-sortIcon></th>
+                    <th pSortableColumn="representative.name" style="width:25%">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+                    <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="w-full">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="w-full">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="w-full">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="w-full">
                     </th>
                 </tr>
             </ng-template>
@@ -67,27 +67,27 @@
 
     <div class="card">
         <h5>Local Storage</h5>
-        <p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
+        <p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
             [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
-                    <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
-                    <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                    <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="country.name" style="width:25%">Country <p-sortIcon field="country.name"></p-sortIcon></th>
+                    <th pSortableColumn="representative.name" style="width:25%">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+                    <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th>
-                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="w-full">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="w-full">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="w-full">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="w-full">
                     </th>
                 </tr>
             </ng-template>
@@ -135,27 +135,27 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Session Storage&lt;/h5&gt;
-    &lt;p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
+    &lt;p-table #dt1 [value]="customers1" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" [tableStyle]="&#123;'min-width': '50rem'&#125;"
         [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="country.name"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="representative.name"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="status"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="name" style="width:25%"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="country.name" style="width:25%"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="representative.name" style="width:25%"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="status" style="width:25%"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
             &lt;/tr&gt;
             &lt;tr&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="w-full"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="w-full"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="w-full"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="w-full"&gt;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
@@ -191,27 +191,27 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Local Storage&lt;/h5&gt;
-    &lt;p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
+    &lt;p-table #dt2 [value]="customers2" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" [tableStyle]="&#123;'min-width': '50rem'&#125;"
         [rows]="10" [paginator]="true" stateStorage="local" stateKey="statedemo-local"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="country.name"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="representative.name"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="status"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="name" style="width:25%"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="country.name" style="width:25%"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="representative.name" style="width:25%"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="status" style="width:25%"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
             &lt;/tr&gt;
             &lt;tr&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="w-full"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="w-full"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="w-full"&gt;
                 &lt;/th&gt;
                 &lt;th&gt;
-                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter"&gt;
+                    &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="w-full"&gt;
                 &lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;

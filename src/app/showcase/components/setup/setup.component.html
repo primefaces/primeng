@@ -26,11 +26,16 @@ import &#123;MenuItem&#125; from 'primeng/api';                  //api
     <h5>Styles</h5>
 
     <p>The css dependencies are as follows, Prime Icons, theme of your choice and structural css of components.</p>
+    <p>In angular.json file find the <i>styles</i> array and add the following:</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-node_modules/primeicons/primeicons.css
-node_modules/primeng/resources/themes/lara-light-blue/theme.css
-node_modules/primeng/resources/primeng.min.css
+...
+"styles": [
+    "node_modules/primeicons/primeicons.css",
+    "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+    "node_modules/primeng/resources/primeng.min.css",
+    ...
+]
 </app-code>
 
     <h5>Free Themes</h5>

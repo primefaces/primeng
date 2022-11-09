@@ -8,7 +8,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class TreeTableSelectionDemo {
-
     files1: TreeNode[];
 
     files2: TreeNode[];
@@ -31,14 +30,14 @@ export class TreeTableSelectionDemo {
 
     cols: any[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files1 = files);
-        this.nodeService.getFilesystem().then(files => this.files2 = files);
-        this.nodeService.getFilesystem().then(files => this.files3 = files);
-        this.nodeService.getFilesystem().then(files => this.files4 = files);
-        this.nodeService.getFilesystem().then(files => this.files5 = files);
+        this.nodeService.getFilesystem().then((files) => (this.files1 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files2 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files3 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files4 = files));
+        this.nodeService.getFilesystem().then((files) => (this.files5 = files));
 
         this.cols = [
             { field: 'name', header: 'Name' },
@@ -48,11 +47,10 @@ export class TreeTableSelectionDemo {
     }
 
     nodeSelect(event) {
-        this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.data.name});
+        this.messageService.add({ severity: 'info', summary: 'Node Selected', detail: event.node.data.name });
     }
-    
+
     nodeUnselect(event) {
-        this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.data.name});
+        this.messageService.add({ severity: 'info', summary: 'Node Unselected', detail: event.node.data.name });
     }
-    
 }

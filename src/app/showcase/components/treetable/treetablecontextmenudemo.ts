@@ -8,7 +8,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class TreeTableContextMenuDemo {
-
     files: TreeNode[];
 
     selectedNode: TreeNode;
@@ -17,10 +16,10 @@ export class TreeTableContextMenuDemo {
 
     items: MenuItem[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.cols = [
             { field: 'name', header: 'Name' },
@@ -42,5 +41,4 @@ export class TreeTableContextMenuDemo {
         node.expanded = !node.expanded;
         this.files = [...this.files];
     }
-
 }

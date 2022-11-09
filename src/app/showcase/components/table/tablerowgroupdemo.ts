@@ -7,13 +7,12 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['./tablerowgroupdemo.scss']
 })
 export class TableRowGroupDemo implements OnInit {
-
     customers: Customer[];
 
-    constructor(private customerService: CustomerService) { }
+    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
-        this.customerService.getCustomersMedium().then(data => {
+        this.customerService.getCustomersMedium().then((data) => {
             this.customers = data;
         });
     }

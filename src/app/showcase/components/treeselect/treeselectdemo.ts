@@ -1,14 +1,16 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     templateUrl: './treeselectdemo.html',
-    styles: [`
-        :host ::ng-deep .p-treeselect {
-            width:20rem;
-            display: inline-flex;
-        }
-    `]
+    styles: [
+        `
+            :host ::ng-deep .p-treeselect {
+                width: 20rem;
+                display: inline-flex;
+            }
+        `
+    ]
 })
 export class TreeSelectDemo {
     nodes1: any[];
@@ -16,7 +18,7 @@ export class TreeSelectDemo {
     nodes2: any[];
 
     nodes3: any[];
-    
+
     nodes4: any[];
 
     selectedNodes1: any[] = [];
@@ -27,12 +29,12 @@ export class TreeSelectDemo {
 
     selectedNode: any;
 
-    constructor(public nodeService: NodeService) { }
+    constructor(public nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then(files => this.nodes1 = files);
-        this.nodeService.getFiles().then(files => this.nodes2 = files);
-        this.nodeService.getFiles().then(files => this.nodes3 = files);
-        this.nodeService.getFiles().then(files => this.nodes4 = files);
+        this.nodeService.getFiles().then((files) => (this.nodes1 = files));
+        this.nodeService.getFiles().then((files) => (this.nodes2 = files));
+        this.nodeService.getFiles().then((files) => (this.nodes3 = files));
+        this.nodeService.getFiles().then((files) => (this.nodes4 = files));
     }
 }

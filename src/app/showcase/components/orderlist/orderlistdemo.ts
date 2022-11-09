@@ -7,12 +7,11 @@ import { Product } from '../../domain/product';
     styleUrls: ['./orderlistdemo.scss']
 })
 export class OrderListDemo {
-
     products: Product[];
-    
-    constructor(private productService: ProductService) { }
+
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(cars => this.products = cars);
+        this.productService.getProductsSmall().then((cars) => (this.products = cars));
     }
 }

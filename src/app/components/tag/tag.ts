@@ -1,4 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input} from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,18 +7,17 @@ import { CommonModule } from '@angular/common';
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
             <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
-            <span class="p-tag-value">{{value}}</span>
+            <span class="p-tag-value">{{ value }}</span>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./tag.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Tag {
-
     @Input() styleClass: string;
 
     @Input() style: any;
@@ -30,7 +29,6 @@ export class Tag {
     @Input() icon: string;
 
     @Input() rounded: boolean;
-
 
     containerClass() {
         return {
@@ -49,4 +47,4 @@ export class Tag {
     exports: [Tag],
     declarations: [Tag]
 })
-export class TagModule { }
+export class TagModule {}

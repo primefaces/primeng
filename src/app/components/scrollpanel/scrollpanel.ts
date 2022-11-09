@@ -21,11 +21,10 @@ import { PrimeTemplate } from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./scrollpanel.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -83,14 +82,14 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -101,15 +100,14 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         let xBar = this.xBarViewChild.nativeElement;
 
         let containerStyles = getComputedStyle(container),
-        xBarStyles = getComputedStyle(xBar),
-        pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
+            xBarStyles = getComputedStyle(xBar),
+            pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
 
-        if (containerStyles['max-height'] != "none" && pureContainerHeight == 0) {
+        if (containerStyles['max-height'] != 'none' && pureContainerHeight == 0) {
             if (content.offsetHeight + parseInt(xBarStyles['height'], 10) > parseInt(containerStyles['max-height'], 10)) {
                 container.style.height = containerStyles['max-height'];
-            }
-            else {
-                container.style.height = content.offsetHeight + parseFloat(containerStyles.paddingTop) + parseFloat(containerStyles.paddingBottom) + parseFloat(containerStyles.borderTopWidth) + parseFloat(containerStyles.borderBottomWidth) + "px";
+            } else {
+                container.style.height = content.offsetHeight + parseFloat(containerStyles.paddingTop) + parseFloat(containerStyles.paddingBottom) + parseFloat(containerStyles.borderTopWidth) + parseFloat(containerStyles.borderBottomWidth) + 'px';
             }
         }
     }
@@ -137,21 +135,19 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         this.requestAnimationFrame(() => {
             if (this.scrollXRatio >= 1) {
                 DomHandler.addClass(xBar, 'p-scrollpanel-hidden');
-            }
-            else {
+            } else {
                 DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max(this.scrollXRatio * 100, 10);
-                const xBarLeft = content.scrollLeft * (100 - xBarWidth) / (totalWidth - ownWidth);
+                const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
                 xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
             }
 
             if (this.scrollYRatio >= 1) {
                 DomHandler.addClass(yBar, 'p-scrollpanel-hidden');
-            }
-            else {
+            } else {
                 DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max(this.scrollYRatio * 100, 10);
-                const yBarTop = content.scrollTop * (100 - yBarHeight) / (totalHeight - ownHeight);
+                const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
                 yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
             }
         });
@@ -185,15 +181,12 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     onDocumentMouseMove(e: MouseEvent) {
         if (this.isXBarClicked) {
             this.onMouseMoveForXBar(e);
-        }
-        else if (this.isYBarClicked) {
+        } else if (this.isYBarClicked) {
             this.onMouseMoveForYBar(e);
-        }
-        else {
+        } else {
             this.onMouseMoveForXBar(e);
             this.onMouseMoveForYBar(e);
         }
-
     }
 
     onMouseMoveForXBar(e: MouseEvent) {
@@ -232,7 +225,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     requestAnimationFrame(f: Function) {
-        let frame = window.requestAnimationFrame || this.timeoutFrame;
+        let frame = window.requestAnimationFrame || this.timeoutFrame;
         frame(f);
     }
 
@@ -249,7 +242,6 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     refresh() {
         this.moveBar();
     }
-
 }
 
 @NgModule({
@@ -257,4 +249,4 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     exports: [ScrollPanel],
     declarations: [ScrollPanel]
 })
-export class ScrollPanelModule { }
+export class ScrollPanelModule {}

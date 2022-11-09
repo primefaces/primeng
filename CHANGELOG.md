@@ -1,8 +1,60 @@
 # Changelog
+## [14.1.2](https://github.com/primefaces/primeng/tree/14.1.2) (2022-09-28)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.1...14.1.2)
+
+**Fixed bugs:**
+- Calendar view="month" and selectionMode="range" not working properly. [\#11153](https://github.com/primefaces/primeng/issues/11153)
+- MenuItem visible property not working in Menu p-menu with sub items. [\#11928](https://github.com/primefaces/primeng/issues/11928)
+- Chips | Clear icon is not visible with long text content. [\#11957](https://github.com/primefaces/primeng/issues/11957)
+- Float Label always above dropdown when using reactive forms. [\#10964](https://github.com/primefaces/primeng/issues/10964)
+
+**Enhancements:**
+- Add onError event to image contents. [\#11945](https://github.com/primefaces/primeng/issues/11945)
+
+**New Features:**
+- CascadeSelect | Add panelStyle and panelStyleClass. [\#11943](https://github.com/primefaces/primeng/issues/11943)
+
+## [14.1.1](https://github.com/primefaces/primeng/tree/v14.1.1) (2022-09-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.0...v14.1.1)
+
+**Fixed bugs:**
+- Table "Sticky" headers fail to "stick" when a table is placed inside an Accordion panel [\#11924](https://github.com/primefaces/primeng/issues/11924)
+- Ripple is triggered when not properly destroyed [\#11933](https://github.com/primefaces/primeng/issues/11933)
+
+## [14.1.0](https://github.com/primefaces/primeng/tree/v14.1.0) (2022-09-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.2...v14.1.0)
+
+**New Features:**
+- TieredMenu | onShow/onHide event support [\#11727](https://github.com/primefaces/primeng/issues/11727)
+- Draggable and Resizable DynamicDialog [\#7811](https://github.com/primefaces/primeng/issues/7811)
+
+**Fixed bugs:**
+- SelectButton | throws a exception when options are changed [\#11915](https://github.com/primefaces/primeng/issues/11915)
+- Table Module: Export ColumnFilterFormElement [\#11733](https://github.com/primefaces/primeng/issues/11733)
+- p-slider: Entering a decimal value without a preceding number before decimal point gives error [\#11790](https://github.com/primefaces/primeng/issues/11790)
+- p-dropdown: FormControl loses value if it contains a value not in options and options array is updated [\#11645](https://github.com/primefaces/primeng/issues/11645)
+- p-slider: Range slider with a step has the middle bar lag behind by one update [\#11749](https://github.com/primefaces/primeng/issues/11749)
+- Table: Unhandled exception if multiSortMeta array is empty [\#11868](https://github.com/primefaces/primeng/issues/11868)
+- Galleria: GalleriaItem activeItem has stale reference when value array is changed [\#11882](https://github.com/primefaces/primeng/issues/11882)
+- fileUpload | Notification messages not work [\#11886](https://github.com/primefaces/primeng/issues/11886)
+- Table: Column resize not working with minimum width [\#11873](https://github.com/primefaces/primeng/issues/11873)
+- p-confirmPopup: Does not show even with a valid target [\#11831](https://github.com/primefaces/primeng/issues/11831)
+- ListBox: Incorrect value for "aria-multiselectable" attribute ( WCAG: 4.1.2 violation) [\#11743](https://github.com/primefaces/primeng/issues/11743)
+
+**Enhancements:**
+- Carousel SSR broken [\#8447](https://github.com/primefaces/primeng/issues/8447)
+- DynamicDialog: Add generic support to DynamicDialogConfig [\#11665](https://github.com/primefaces/primeng/issues/11665)
+- InputNumber | Do not swallow Enter key press event [\#11913](https://github.com/primefaces/primeng/issues/11913)
+- InputSwitch | Add event type to onChange emitter [\#11912](https://github.com/primefaces/primeng/issues/11912)
+- Table | add showButtons input to inputNumber in ColumnFilter [\#11881](https://github.com/primefaces/primeng/issues/11881)
+- FileUploader | StyleClass support for buttons [\#11884](https://github.com/primefaces/primeng/issues/11884)
 
 ## [14.0.2](https://github.com/primefaces/primeng/tree/14.0.2) (2022-08-24)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.1...14.0.2)
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.0.1...14.0.2)
 
 **Fixed bugs:**
 - Table Sticky Footer doesn't work with VirtualScroll on DataTable [\#11819](https://github.com/primefaces/primeng/issues/11819)
@@ -19,9 +71,9 @@
 - TreeSelect: style and type attribute of TreeNode API doesn't work [\#11761](https://github.com/primefaces/primeng/issues/11761)
 - p-radioButton: can't get the value from onClick event [\#11861](https://github.com/primefaces/primeng/issues/11861)
 
-## [14.0.1](https://github.com/primefaces/primeng/tree/14.0.1) (2022-08-11)
+## [14.0.1](https://github.com/primefaces/primeng/tree/v14.0.1) (2022-08-11)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0...14.0.1)
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.0.0...v14.0.1)
 
 **New Features:**
 - Add pAutoFocus directive to fix broken autoFocus property of components [\#11807](https://github.com/primefaces/primeng/issues/11807)

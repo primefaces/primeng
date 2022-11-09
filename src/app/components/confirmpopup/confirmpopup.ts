@@ -1,56 +1,86 @@
-import {NgModule ,Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys} from 'primeng/api';
-import {Subscription} from 'rxjs';
-import {ButtonModule} from 'primeng/button';
-import {ZIndexUtils} from 'primeng/utils';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { ZIndexUtils } from 'primeng/utils';
+import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-confirmPopup',
     template: `
-        <div *ngIf="visible" [ngClass]="'p-confirm-popup p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
-            [@animation]="{value: 'open', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-            (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
+        <div
+            *ngIf="visible"
+            [ngClass]="'p-confirm-popup p-component'"
+            [ngStyle]="style"
+            [class]="styleClass"
+            (click)="onOverlayClick($event)"
+            [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            (@animation.start)="onAnimationStart($event)"
+            (@animation.done)="onAnimationEnd($event)"
+        >
             <div #content class="p-confirm-popup-content">
                 <i [ngClass]="'p-confirm-popup-icon'" [class]="confirmation.icon" *ngIf="confirmation.icon"></i>
-                <span class="p-confirm-popup-message">{{confirmation.message}}</span>
+                <span class="p-confirm-popup-message">{{ confirmation.message }}</span>
             </div>
             <div class="p-confirm-popup-footer">
-                <button type="button" pButton [icon]="confirmation.rejectIcon" [label]="rejectButtonLabel" (click)="reject()" [ngClass]="'p-confirm-popup-reject p-button-sm'"
-                    [class]="confirmation.rejectButtonStyleClass || 'p-button-text'" *ngIf="confirmation.rejectVisible !== false" [attr.aria-label]="rejectButtonLabel"></button>
-                <button type="button" pButton [icon]="confirmation.acceptIcon" [label]="acceptButtonLabel" (click)="accept()" [ngClass]="'p-confirm-popup-accept p-button-sm'"
-                    [class]="confirmation.acceptButtonStyleClass" *ngIf="confirmation.acceptVisible !== false" [attr.aria-label]="acceptButtonLabel"></button>
+                <button
+                    type="button"
+                    pButton
+                    [icon]="confirmation.rejectIcon"
+                    [label]="rejectButtonLabel"
+                    (click)="reject()"
+                    [ngClass]="'p-confirm-popup-reject p-button-sm'"
+                    [class]="confirmation.rejectButtonStyleClass || 'p-button-text'"
+                    *ngIf="confirmation.rejectVisible !== false"
+                    [attr.aria-label]="rejectButtonLabel"
+                ></button>
+                <button
+                    type="button"
+                    pButton
+                    [icon]="confirmation.acceptIcon"
+                    [label]="acceptButtonLabel"
+                    (click)="accept()"
+                    [ngClass]="'p-confirm-popup-accept p-button-sm'"
+                    [class]="confirmation.acceptButtonStyleClass"
+                    *ngIf="confirmation.acceptVisible !== false"
+                    [attr.aria-label]="acceptButtonLabel"
+                ></button>
             </div>
         </div>
     `,
     animations: [
         trigger('animation', [
-            state('void', style({
-                transform: 'scaleY(0.8)',
-                opacity: 0
-            })),
-            state('open', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
+            state(
+                'void',
+                style({
+                    transform: 'scaleY(0.8)',
+                    opacity: 0
+                })
+            ),
+            state(
+                'open',
+                style({
+                    transform: 'translateY(0)',
+                    opacity: 1
+                })
+            ),
             transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => void', animate('{{hideTransitionParams}}')),
+            transition('open => void', animate('{{hideTransitionParams}}'))
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./confirmpopup.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class ConfirmPopup implements OnDestroy {
-
     @Input() key: string;
 
-    @Input() defaultFocus: string = "accept";
+    @Input() defaultFocus: string = 'accept';
 
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
@@ -81,13 +111,13 @@ export class ConfirmPopup implements OnDestroy {
     @Input() get visible(): any {
         return this._visible;
     }
-    set visible(value:any) {
+    set visible(value: any) {
         this._visible = value;
         this.cd.markForCheck();
     }
 
     constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
-        this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
+        this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
                 return;
@@ -128,12 +158,12 @@ export class ConfirmPopup implements OnDestroy {
         switch (event.toState) {
             case 'void':
                 this.onContainerDestroy();
-            break;
+                break;
         }
     }
 
     getElementToFocus() {
-        switch(this.defaultFocus) {
+        switch (this.defaultFocus) {
             case 'accept':
                 return DomHandler.findSingle(this.container, '.p-confirm-popup-accept');
 
@@ -193,10 +223,17 @@ export class ConfirmPopup implements OnDestroy {
         });
     }
 
-    bindListeners() {
-        this.bindDocumentClickListener();
-        this.bindDocumentResizeListener();
-        this.bindScrollListener();
+    bindListeners(): void {
+        /*
+         * Called inside `setTimeout` to avoid listening to the click event that appears when `confirm` is first called(bubbling).
+         * Need wait when bubbling event up and hang the handler on the next tick.
+         * This is the case when eventTarget and confirmation.target do not match when the `confirm` method is called.
+         */
+        setTimeout(() => {
+            this.bindDocumentClickListener();
+            this.bindDocumentResizeListener();
+            this.bindScrollListener();
+        });
     }
 
     unbindListeners() {
@@ -211,9 +248,8 @@ export class ConfirmPopup implements OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                let targetElement = <HTMLElement> this.confirmation.target;
-                if (this.container !== event.target && !this.container.contains(event.target) &&
-                    targetElement !== event.target && !targetElement.contains(event.target)) {
+                let targetElement = <HTMLElement>this.confirmation.target;
+                if (this.container !== event.target && !this.container.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
                     this.hide();
                 }
             });
@@ -313,8 +349,8 @@ export class ConfirmPopup implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
+    imports: [CommonModule, ButtonModule],
     exports: [ConfirmPopup],
     declarations: [ConfirmPopup]
 })
-export class ConfirmPopupModule { }
+export class ConfirmPopupModule {}

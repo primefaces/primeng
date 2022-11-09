@@ -6,15 +6,14 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetablereorderdemo.html'
 })
 export class TreeTableReorderDemo {
-
     files: TreeNode[];
 
     cols: any[];
 
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.cols = [
             { field: 'name', header: 'Name' },

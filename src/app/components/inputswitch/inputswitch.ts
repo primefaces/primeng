@@ -1,21 +1,39 @@
-import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, Input, forwardRef, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => InputSwitch),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => InputSwitch),
+    multi: true
 };
+
+export interface InputSwitchOnChangeEvent {
+    originalEvent: Event;
+    checked: boolean;
+}
 
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused}"
-            [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
+        <div [ngClass]="{ 'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused }" [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
             <div class="p-hidden-accessible">
-                <input #cb type="checkbox" [attr.aria-label]="ariaLabel" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked()" (change)="onInputChange($event)"
-                    (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" role="switch" [attr.aria-checked]="checked()" [attr.aria-labelledby]="ariaLabelledBy"/>
+                <input
+                    #cb
+                    type="checkbox"
+                    [attr.aria-label]="ariaLabel"
+                    [attr.id]="inputId"
+                    [attr.name]="name"
+                    [attr.tabindex]="tabindex"
+                    [checked]="checked()"
+                    (change)="onInputChange($event)"
+                    (focus)="onFocus($event)"
+                    (blur)="onBlur($event)"
+                    [disabled]="disabled"
+                    role="switch"
+                    [attr.aria-checked]="checked()"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                />
             </div>
             <span class="p-inputswitch-slider"></span>
         </div>
@@ -25,11 +43,10 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inputswitch.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class InputSwitch implements ControlValueAccessor {
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -48,11 +65,11 @@ export class InputSwitch implements ControlValueAccessor {
 
     @Input() falseValue: any = false;
 
-    @Input() ariaLabel:string;
+    @Input() ariaLabel: string;
 
     @Input() ariaLabelledBy: string;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter();
 
     modelValue: any = false;
 
@@ -74,7 +91,7 @@ export class InputSwitch implements ControlValueAccessor {
 
     onInputChange(event: Event) {
         if (!this.readonly) {
-            const inputChecked = (<HTMLInputElement> event.target).checked;
+            const inputChecked = (<HTMLInputElement>event.target).checked;
             this.updateModel(event, inputChecked);
         }
     }
@@ -101,7 +118,7 @@ export class InputSwitch implements ControlValueAccessor {
         this.onModelTouched();
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.modelValue = value;
         this.cd.markForCheck();
     }
@@ -129,4 +146,4 @@ export class InputSwitch implements ControlValueAccessor {
     exports: [InputSwitch],
     declarations: [InputSwitch]
 })
-export class InputSwitchModule { }
+export class InputSwitchModule {}
