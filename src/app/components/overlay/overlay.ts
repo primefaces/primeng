@@ -102,7 +102,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     @Input() get mode(): OverlayModeType | string {
         return this._mode || this.overlayOptions?.mode;
     }
-    set mode(value: string) {
+    set mode(value: OverlayModeType | string) {
         this._mode = value;
     }
 
@@ -113,7 +113,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this._style = value;
     }
 
-    @Input() get styleClass(): string | undefined {
+    @Input() get styleClass(): string {
         return ObjectUtils.merge(this._styleClass, this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
     }
     set styleClass(value: string) {
@@ -127,7 +127,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this._contentStyle = value;
     }
 
-    @Input() get contentStyleClass(): string | undefined {
+    @Input() get contentStyleClass(): string {
         return ObjectUtils.merge(this._contentStyleClass, this.modal ? this.overlayResponsiveOptions?.contentStyleClass : this.overlayOptions?.contentStyleClass);
     }
     set contentStyleClass(value: string) {
@@ -149,7 +149,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this._appendTo = value;
     }
 
-    @Input() get autoZIndex(): boolean | undefined {
+    @Input() get autoZIndex(): boolean {
         const value = this._autoZIndex || this.overlayOptions?.autoZIndex;
         return value === undefined ? true : value;
     }
@@ -157,7 +157,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this._autoZIndex = value;
     }
 
-    @Input() get baseZIndex(): number | undefined {
+    @Input() get baseZIndex(): number {
         const value = this._baseZIndex || this.overlayOptions?.baseZIndex;
         return value === undefined ? 0 : value;
     }
@@ -191,14 +191,14 @@ export class Overlay implements AfterContentInit, OnDestroy {
     @Input() get responsive(): ResponsiveOverlayOptions | undefined {
         return this._responsive || this.overlayOptions?.responsive;
     }
-    set responsive(val: ResponsiveOverlayOptions) {
+    set responsive(val: ResponsiveOverlayOptions | undefined) {
         this._responsive = val;
     }
 
     @Input() get options(): OverlayOptions | undefined {
         return this._options;
     }
-    set options(val: OverlayOptions) {
+    set options(val: OverlayOptions | undefined) {
         this._options = val;
     }
 
@@ -224,7 +224,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    _visible: boolean;
+    _visible: boolean = false;
 
     _mode: OverlayModeType | string;
 
@@ -254,7 +254,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     _options: OverlayOptions | undefined;
 
-    modalVisible: boolean;
+    modalVisible: boolean = false;
 
     isOverlayClicked: boolean = false;
 
