@@ -46,6 +46,7 @@
 - Sidebar | Add header template [\#12025](https://github.com/primefaces/primeng/issues/12025)
 - add panelStyle and panelStyleClass properties to components [\#11917](https://github.com/primefaces/primeng/issues/11917)
 - TreeSelect | Add styleClass and style support for container and label [\#11982](https://github.com/primefaces/primeng/issues/11982)
+- Rating | Templating support [\#12156](https://github.com/primefaces/primeng/issues/12156)
 
 ## [14.1.2](https://github.com/primefaces/primeng/tree/14.1.2) (2022-09-28)
 
