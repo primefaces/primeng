@@ -1,6 +1,6 @@
-import { NgModule, Directive, ElementRef, Input, Renderer2, Inject, NgZone } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { DomHandler } from '../dom/domhandler';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2 } from '@angular/core';
+import { DomHandler } from 'primeng/dom';
 
 @Directive({
     selector: '[pAnimate]',
@@ -8,28 +8,15 @@ import { DomHandler } from '../dom/domhandler';
         '[class.p-animate]': 'true'
     }
 })
-export class Animate {
+export class Animate implements AfterViewInit {
     @Input() enterClass: string;
-
-    @Input() leaveClass: string;
-
-    documentScrollListener: Function | null = null;
-
-    loadListener: Function = () => {};
-
-    entered: boolean;
 
     observer: IntersectionObserver;
 
-    loaded: boolean;
+    constructor(private host: ElementRef, public el: ElementRef, public renderer: Renderer2) {}
 
-    constructor(@Inject(DOCUMENT) private document: Document, private host: ElementRef, public el: ElementRef, public renderer: Renderer2, private zone: NgZone) {}
-
-    ngOnInit() {
-        if (this.isInViewport()) {
-            this.enter();
-        }
-        this.bindLoadListener();
+    ngAfterViewInit() {
+        this.bindIntersectionObserver();
     }
 
     bindIntersectionObserver() {
@@ -39,33 +26,13 @@ export class Animate {
             threshold: 1.0
         };
 
-        this.zone.runOutsideAngular(() => {
-            this.observer = new IntersectionObserver((el) => this.isVisible(el), options);
-            this.observer.observe(this.host.nativeElement);
-        });
-    }
-
-    isInViewport() {
-        let rect = this.host.nativeElement.getBoundingClientRect();
-
-        return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight + rect.height || this.document.documentElement.clientHeight) && rect.right <= (window.innerWidth || this.document.documentElement.clientWidth);
+        this.observer = new IntersectionObserver((el) => this.isVisible(el), options);
+        this.observer.observe(this.host.nativeElement);
     }
 
     isVisible(element: IntersectionObserverEntry[]) {
         const [intersectionObserverEntry] = element;
-        this.entered = intersectionObserverEntry.isIntersecting;
-    }
-
-    animate() {
-        if (this.loaded) {
-            if (this.isInViewport() && this.entered) {
-                this.enter();
-            }
-
-            if (!this.isInViewport() && !this.entered) {
-                this.leave();
-            }
-        }
+        intersectionObserverEntry.isIntersecting ? this.enter() : this.leave();
     }
 
     enter() {
@@ -78,47 +45,6 @@ export class Animate {
         this.host.nativeElement.style.visibility = 'hidden';
     }
 
-    bindDocumentScrollListener() {
-        if (!this.documentScrollListener) {
-            this.zone.runOutsideAngular(() => {
-                this.documentScrollListener = this.renderer.listen(window, 'scroll', () => {
-                    if (!this.observer) {
-                        this.bindIntersectionObserver();
-                    }
-                    this.animate();
-                });
-            });
-        }
-    }
-
-    unbindDocumentScrollListener() {
-        if (this.documentScrollListener) {
-            this.documentScrollListener();
-            this.documentScrollListener = null;
-        }
-    }
-
-    bindLoadListener() {
-        this.zone.runOutsideAngular(() => {
-            this.loadListener = this.renderer.listen(window, 'load', () => {
-                if (!this.loaded) {
-                    this.animate();
-                }
-                if (!this.documentScrollListener) {
-                    this.bindDocumentScrollListener();
-                }
-                this.loaded = true;
-            });
-        });
-    }
-
-    unbindLoadListener() {
-        if (this.loadListener) {
-            this.loadListener();
-            this.loadListener = null;
-        }
-    }
-
     unbindIntersectionObserver() {
         if (this.observer) {
             this.observer.unobserve(this.host.nativeElement);
@@ -126,8 +52,6 @@ export class Animate {
     }
 
     ngOnDestroy() {
-        this.unbindDocumentScrollListener();
-        this.unbindLoadListener();
         this.unbindIntersectionObserver();
     }
 }
