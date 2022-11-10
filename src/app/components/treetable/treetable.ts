@@ -1,41 +1,36 @@
+import { CommonModule } from '@angular/common';
 import {
-    NgModule,
     AfterContentInit,
-    OnInit,
-    OnDestroy,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    EventEmitter,
     HostListener,
     Injectable,
-    Directive,
-    Component,
     Input,
-    Output,
-    EventEmitter,
-    ContentChildren,
-    TemplateRef,
-    QueryList,
-    ElementRef,
+    NgModule,
     NgZone,
-    ViewChild,
-    AfterViewInit,
-    AfterViewChecked,
     OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
     SimpleChanges,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TreeNode } from 'primeng/api';
-import { Subject, Subscription } from 'rxjs';
+import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, SharedModule, SortMeta, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { PaginatorModule } from 'primeng/paginator';
-import { PrimeTemplate, SharedModule, FilterService } from 'primeng/api';
-import { SortMeta } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { ObjectUtils } from 'primeng/utils';
+import { Subject, Subscription } from 'rxjs';
 
 @Injectable()
 export class TreeTableService {

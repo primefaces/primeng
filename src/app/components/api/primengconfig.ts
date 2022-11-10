@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
+import { OverlayOptions } from './overlayoptions';
 import { Translation } from './translation';
-
-interface OverlayOptions {
-    breakpoint: number;
-}
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
     ripple: boolean = false;
 
-    overlayOptions: OverlayOptions;
+    overlayOptions: OverlayOptions = {};
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
@@ -67,7 +64,7 @@ export class PrimeNGConfig {
         emptyFilterMessage: 'No results found'
     };
 
-    zIndex = {
+    zIndex: any = {
         modal: 1100,
         overlay: 1000,
         menu: 1000,

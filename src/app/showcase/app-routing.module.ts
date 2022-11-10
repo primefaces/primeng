@@ -1,7 +1,7 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { LandingComponent } from './components/landing/landing.component';
+import { RouterModule } from '@angular/router';
 import { AppMainComponent } from './app.main.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
     imports: [
@@ -120,7 +120,9 @@ import { AppMainComponent } from './app.main.component';
                         { path: 'accessibility', loadChildren: () => import('./components/accessibility/accessibilitydemo.module').then((m) => m.AccessibilityDemoModule) },
                         { path: 'scroller', loadChildren: () => import('./components/scroller/scrollerdemo.module').then((m) => m.ScrollerDemoModule) },
                         { path: 'uikit', loadChildren: () => import('./components/uikit/uikit.module').then((m) => m.UIKitModule) },
-                        { path: 'autofocus', loadChildren: () => import('./components/autofocus/autofocusdemo.module').then((m) => m.AutoFocusDemoModule) }
+                        { path: 'autofocus', loadChildren: () => import('./components/autofocus/autofocusdemo.module').then((m) => m.AutoFocusDemoModule) },
+                        { path: 'overlay', loadChildren: () => import('./components/overlay/overlaydemo.module').then((m) => m.OverlayDemoModule) },
+                        { path: 'animate', loadChildren: () => import('./components/animate/animatedemo.module').then((m) => m.AnimateDemoModule) }
                     ]
                 }
             ],

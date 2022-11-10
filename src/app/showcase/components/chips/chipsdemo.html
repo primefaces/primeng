@@ -12,10 +12,13 @@
         <p-chips [(ngModel)]="values1"></p-chips>
 
         <h5>Comma Separator</h5>
-        <p-chips [(ngModel)]="values2" separator=","></p-chips>
-        
+        <p-chips [(ngModel)]="values2" separator="," placeholder="Hint: a, b, c"></p-chips>
+
+        <h5>RegExp Separator</h5>
+        <p-chips [(ngModel)]="values3" [separator]="separatorExp" placeholder="Hint: a, b c"></p-chips>
+
         <h5>Template</h5>
-        <p-chips [(ngModel)]="values3">
+        <p-chips [(ngModel)]="values4">
             <ng-template let-item pTemplate="item">
                 {{item}} - (active) <i class="pi pi-user ml-2"></i>
             </ng-template>
@@ -159,7 +162,7 @@ export class MyModel &#123;
                             <td>separator</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Separator char to add an item when pressed in addition to the enter key. Currently only possible value is ","</td>
+                            <td>Separator char to add an item when pressed in addition to the enter key.</td>
                         </tr>
                         <tr>
                             <td>showClear</td>
@@ -291,10 +294,13 @@ export class MyModel &#123;
 &lt;p-chips [(ngModel)]="values1" &gt;&lt;/p-chips&gt;
 
 &lt;h5&gt;Comma Separator&lt;/h5&gt;
-&lt;p-chips [(ngModel)]="values2" separator=","&gt;&lt;/p-chips&gt;
+&lt;p-chips [(ngModel)]="values2" separator="," placeholder="Hint: a, b, c"&gt;&lt;/p-chips&gt;
+
+&lt;h5&gt;RegExp Separator&lt;/h5&gt;
+&lt;p-chips [(ngModel)]="values3" [separator]="separatorExp" placeholder="Hint: a, b c"&gt;&lt;/p-chips&gt;
 
 &lt;h5&gt;ng-template&lt;/h5&gt;
-&lt;p-chips [(ngModel)]="values3"&gt;
+&lt;p-chips [(ngModel)]="values4"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user ml-2"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
@@ -305,10 +311,14 @@ export class MyModel &#123;
 export class ChipsDemo &#123;
 
     values1: string[];
-    
+
     values2: string[];
 
     values3: string[];
+
+    values4: string[];
+
+    separatorExp: RegExp = /,| /;
 &#125;
 </app-code>
         </p-tabPanel>

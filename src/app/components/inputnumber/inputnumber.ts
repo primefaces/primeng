@@ -1,9 +1,9 @@
-import { NgModule, Component, ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputTextModule } from 'primeng/inputtext';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
+import { InputTextModule } from 'primeng/inputtext';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1013,9 +1013,12 @@ export class InputNumber implements OnInit, ControlValueAccessor {
             let decimalCharIndex = val2.search(this._decimal);
             this._decimal.lastIndex = 0;
 
-            return decimalCharIndex !== -1 ? val1.split(this._decimal)[0] + val2.slice(decimalCharIndex) : val1;
+            if (this.suffixChar) {
+                return val1.replace(this.suffixChar, '').split(this._decimal)[0] + val2.replace(this.suffixChar, '').slice(decimalCharIndex) + this.suffixChar;
+            } else {
+                return decimalCharIndex !== -1 ? val1.split(this._decimal)[0] + val2.slice(decimalCharIndex) : val1;
+            }
         }
-
         return val1;
     }
 

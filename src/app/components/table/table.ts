@@ -1,50 +1,46 @@
-import {
-    NgModule,
-    Component,
-    HostListener,
-    OnInit,
-    OnDestroy,
-    AfterViewInit,
-    Directive,
-    Optional,
-    AfterContentInit,
-    Input,
-    Output,
-    EventEmitter,
-    ElementRef,
-    ContentChildren,
-    TemplateRef,
-    QueryList,
-    ViewChild,
-    NgZone,
-    ChangeDetectorRef,
-    OnChanges,
-    SimpleChanges,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    Renderer2
-} from '@angular/core';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Injectable,
+    Input,
+    NgModule,
+    NgZone,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    QueryList,
+    Renderer2,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService } from 'primeng/api';
-import { PaginatorModule } from 'primeng/paginator';
-import { InputTextModule } from 'primeng/inputtext';
+import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, OverlayService, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
+import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
-import { CalendarModule } from 'primeng/calendar';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { DropdownModule } from 'primeng/dropdown';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { SortMeta } from 'primeng/api';
-import { TableState } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
-import { Injectable } from '@angular/core';
-import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 
 @Injectable()
 export class TableService {
@@ -141,7 +137,9 @@ export class TableService {
                     [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
                     [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
                     [itemSize]="virtualScrollItemSize || _virtualRowHeight"
+                    [step]="rows"
                     [delay]="lazy ? virtualScrollDelay : 0"
+                    [inline]="true"
                     [lazy]="lazy"
                     (onLazyLoad)="onLazyItemLoad($event)"
                     [loaderDisabled]="true"
@@ -163,8 +161,7 @@ export class TableService {
                         role="table"
                         [ngClass]="{ 'p-datatable-table': true, 'p-datatable-scrollable-table': scrollable, 'p-datatable-resizable-table': resizableColumns, 'p-datatable-resizable-table-fit': resizableColumns && columnResizeMode === 'fit' }"
                         [class]="tableStyleClass"
-                        [ngStyle]="tableStyle"
-                        [style]="scrollerOptions.spacerStyle"
+                        [style]="tableStyle"
                         [attr.id]="id + '-table'"
                     >
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
@@ -189,6 +186,7 @@ export class TableService {
                             [pTableBodyTemplate]="bodyTemplate"
                             [scrollerOptions]="scrollerOptions"
                         ></tbody>
+                        <tbody *ngIf="scrollerOptions.spacerStyle" [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'" class="p-datatable-scroller-spacer"></tbody>
                         <tfoot *ngIf="footerGroupedTemplate || footerTemplate" #tfoot class="p-datatable-tfoot">
                             <ng-container *ngTemplateOutlet="footerGroupedTemplate || footerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
                         </tfoot>
@@ -725,10 +723,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful() && this.resizableColumns) {
             this.restoreColumnWidths();
         }
-
-        if (this.virtualScroll && this.scroller?.vertical) {
-            this.updateScrollerPosition();
-        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -830,13 +824,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
             this.preventSelectionSetterPropagation = false;
-        }
-
-        if (simpleChange.virtualScrollOptions) {
-            const { previousValue, currentValue } = simpleChange.virtualScrollOptions;
-            if (this.virtualScroll && this.scroller?.vertical && previousValue.itemSize !== currentValue.itemSize) {
-                this.updateScrollerPosition();
-            }
         }
     }
 
@@ -940,17 +927,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             } else {
                 this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
             }
-        }
-    }
-
-    updateScrollerPosition() {
-        if (this.tableFooterViewChild) {
-            const getClientHeight = (el) => (el ? parseFloat(getComputedStyle(el).height) || DomHandler.getOuterHeight(el) : 0);
-            const tableHeight = getClientHeight(this.tableViewChild.nativeElement);
-            const tableFooterHeight = getClientHeight(this.tableFooterViewChild.nativeElement);
-
-            this.tableViewChild.nativeElement.style.height = tableHeight + tableFooterHeight + 'px';
-            this.tableFooterViewChild.nativeElement.style.top = `calc(100% - ${tableFooterHeight}px)`;
         }
     }
 
@@ -1135,30 +1111,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
-        if (ObjectUtils.isEmpty(this.multiSortMeta) || ObjectUtils.isEmpty(multiSortMeta[index])) {
-            return 0;
-        }
-
-        let value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
-        let value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
-        let result = null;
-
-        if (value1 == null && value2 != null) result = -1;
-        else if (value1 != null && value2 == null) result = 1;
-        else if (value1 == null && value2 == null) result = 0;
-        else if (typeof value1 == 'string' || value1 instanceof String) {
-            if (value1.localeCompare && value1 != value2) {
-                return multiSortMeta[index].order * value1.localeCompare(value2);
-            }
-        } else {
-            result = value1 < value2 ? -1 : 1;
-        }
-
-        if (value1 == value2) {
+        const value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
+        const value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
+        if (ObjectUtils.compare(value1, value2, this.filterLocale) === 0) {
             return multiSortMeta.length - 1 > index ? this.multisortField(data1, data2, multiSortMeta, index + 1) : 0;
         }
+        return this.compareValuesOnSort(value1, value2, multiSortMeta[index].order);
+    }
 
-        return multiSortMeta[index].order * result;
+    compareValuesOnSort(value1, value2, order) {
+        return ObjectUtils.sort(value1, value2, order, this.filterLocale, this.sortOrder);
     }
 
     getSortMeta(field: string) {
@@ -2206,6 +2168,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             ObjectUtils.reorderArray(this.value, this.draggedRowIndex, dropIndex);
 
             if (this.virtualScroll) {
+                // TODO: Check
                 this._value = [...this._value];
             }
 
@@ -2369,12 +2332,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     setResizeTableWidth(width: string) {
-        if (this.virtualScroll) {
-            const bodyEl = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-scroller > table > tbody');
-            bodyEl.style.width = width;
-            bodyEl.style.minWidth = width;
-        }
-
         this.tableViewChild.nativeElement.style.width = width;
         this.tableViewChild.nativeElement.style.minWidth = width;
     }
@@ -2528,44 +2485,39 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 @Component({
     selector: '[pTableBody]',
     template: `
-        <ng-container *ngIf="!dt.expandedRowTemplate && !dt.virtualScroll">
+        <ng-container *ngIf="!dt.expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngIf="dt.groupHeaderTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))" role="row">
+                <ng-container *ngIf="dt.groupHeaderTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
                     <ng-container
                         *ngTemplateOutlet="dt.groupHeaderTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
                     ></ng-container>
                 </ng-container>
                 <ng-container *ngIf="dt.rowGroupMode !== 'rowspan'">
-                    <ng-container *ngTemplateOutlet="template; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="rowData ? template : dt.loadingBodyTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
+                    ></ng-container>
                 </ng-container>
                 <ng-container *ngIf="dt.rowGroupMode === 'rowspan'">
                     <ng-container
                         *ngTemplateOutlet="
-                            template;
+                            rowData ? template : dt.loadingBodyTemplate;
                             context: {
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
                                 columns: columns,
                                 editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
                                 frozen: frozen,
-                                rowgroup: shouldRenderRowspan(value, rowData, getRowIndex(rowIndex)),
-                                rowspan: calculateRowGroupSize(value, rowData, getRowIndex(rowIndex))
+                                rowgroup: shouldRenderRowspan(value, rowData, rowIndex),
+                                rowspan: calculateRowGroupSize(value, rowData, rowIndex)
                             }
                         "
                     ></ng-container>
                 </ng-container>
-                <ng-container *ngIf="dt.groupFooterTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))" role="row">
+                <ng-container *ngIf="dt.groupFooterTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
                     <ng-container
                         *ngTemplateOutlet="dt.groupFooterTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
                     ></ng-container>
                 </ng-container>
-            </ng-template>
-        </ng-container>
-        <ng-container *ngIf="!dt.expandedRowTemplate && dt.virtualScroll">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container
-                    *ngTemplateOutlet="rowData ? template : dt.loadingBodyTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
-                ></ng-container>
             </ng-template>
         </ng-container>
         <ng-container *ngIf="dt.expandedRowTemplate && !(frozen && dt.frozenExpandedRowTemplate)">
@@ -2656,19 +2608,6 @@ export class TableBody implements AfterViewInit, OnDestroy {
         if (this.dt.scrollable && this.dt.rowGroupMode === 'subheader') {
             this.updateFrozenRowGroupHeaderStickyPosition();
         }
-
-        if (this.dt.virtualScroll && this.getScrollerOption('vertical')) {
-            this.updateScrollerPosition();
-        }
-    }
-
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.scrollerOptions) {
-            const { previousValue, currentValue } = simpleChanges.scrollerOptions;
-            if (this.dt.virtualScroll && this.getScrollerOption('vertical') && this.getScrollerOption('itemSize', previousValue) !== this.getScrollerOption('itemSize', currentValue)) {
-                this.updateScrollerPosition();
-            }
-        }
     }
 
     constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef, public el: ElementRef) {
@@ -2745,11 +2684,6 @@ export class TableBody implements AfterViewInit, OnDestroy {
             let tableHeaderHeight = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling);
             this.dt.rowGroupHeaderStyleObject.top = tableHeaderHeight + 'px';
         }
-    }
-
-    updateScrollerPosition() {
-        const tableHeaderHeight = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling);
-        this.el.nativeElement.style.top = (this.el.nativeElement.style.top || 0) + tableHeaderHeight + 'px';
     }
 
     getScrollerOption(option, options?) {

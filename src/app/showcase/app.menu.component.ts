@@ -1,11 +1,11 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, Input } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { AppConfigService } from './service/appconfigservice';
 import { Subscription } from 'rxjs';
 import { AppConfig } from './domain/appconfig';
+import { AppConfigService } from './service/appconfigservice';
 
 declare let gtag: Function;
 
@@ -35,6 +35,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]="['setup']" routerLinkActive="router-link-exact-active">Get Started</a>
                     <a [routerLink]="['i18n']" routerLinkActive="router-link-exact-active">Locale</a>
+                    <a [routerLink]="['overlay']" routerLinkActive="router-link-exact-active">Overlay <span class="p-tag">New</span></a>
                     <a href="https://github.com/primefaces/primeng/wiki/Migration-Guide" target="_blank">Migration Guide</a>
                 </div>
 
@@ -337,6 +338,7 @@ declare let gtag: Function;
                     <a [routerLink]="['styleclass']" routerLinkActive="router-link-exact-active">StyleClass</a>
                     <a [routerLink]="['ripple']" routerLinkActive="router-link-exact-active">Ripple</a>
                     <a [routerLink]="['autofocus']" routerLinkActive="router-link-exact-active">AutoFocus<span class="p-tag">New</span></a>
+                    <a [routerLink]="['animate']" routerLinkActive="router-link-exact-active">Animate<span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Utilities</div>
@@ -383,7 +385,8 @@ export class AppMenuComponent {
             value: 'general',
             items: [
                 { label: 'Setup', value: '/setup' },
-                { label: 'Locale', value: '/i18n' }
+                { label: 'Locale', value: '/i18n' },
+                { label: 'Overlay', value: '/overlay' }
             ]
         },
         {

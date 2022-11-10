@@ -1,8 +1,11 @@
-import { NgModule, Directive, Component, ElementRef, EventEmitter, AfterViewInit, Output, OnDestroy, Input, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
+import { ObjectUtils } from 'primeng/utils';
+
+type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
 @Directive({
     selector: '[pButton]',
@@ -11,7 +14,7 @@ import { PrimeTemplate } from 'primeng/api';
     }
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
-    @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
+    @Input() iconPos: ButtonIconPosition = 'left';
 
     @Input() loadingIcon: string = 'pi pi-spinner pi-spin';
 
@@ -35,22 +38,23 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.createIconEl();
         }
 
-        let labelElement = document.createElement('span');
-        if (this.icon && !this.label) {
-            labelElement.setAttribute('aria-hidden', 'true');
+        if (this.label) {
+            let labelElement = document.createElement('span');
+            if (this.icon && !this.label) {
+                labelElement.setAttribute('aria-hidden', 'true');
+            }
+            labelElement.className = 'p-button-label';
+            labelElement.appendChild(document.createTextNode(this.label));
+
+            this.el.nativeElement.appendChild(labelElement);
         }
-        labelElement.className = 'p-button-label';
 
-        if (this.label) labelElement.appendChild(document.createTextNode(this.label));
-        else labelElement.innerHTML = '&nbsp;';
-
-        this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     }
 
     getStyleClass(): string {
         let styleClass = 'p-button p-component';
-        if (this.icon && !this.label) {
+        if (this.icon && !this.label && ObjectUtils.isEmpty(this.el.nativeElement.textContent)) {
             styleClass = styleClass + ' p-button-icon-only';
         }
 
@@ -83,10 +87,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             DomHandler.addMultipleClasses(iconElement, iconClass);
         }
 
-        let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label');
-
-        if (labelEl) this.el.nativeElement.insertBefore(iconElement, labelEl);
-        else this.el.nativeElement.appendChild(iconElement);
+        this.el.nativeElement.insertBefore(iconElement, this.el.nativeElement.firstChild);
     }
 
     getIconClass() {
@@ -116,7 +117,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._label = val;
 
         if (this.initialized) {
-            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
+            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label;
 
             if (this.loading || this.icon) {
                 this.setIconClass();
@@ -194,7 +195,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 *ngIf="!contentTemplate && (icon || loading)"
                 [attr.aria-hidden]="true"
             ></span>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate">{{ label || '&nbsp;' }}</span>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>
             <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{ badge }}</span>
         </button>
     `,
@@ -207,7 +208,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 export class Button implements AfterContentInit {
     @Input() type: string = 'button';
 
-    @Input() iconPos: string = 'left';
+    @Input() iconPos: ButtonIconPosition = 'left';
 
     @Input() icon: string;
 

@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AppConfig } from './domain/appconfig';
 import { AppConfigService } from './service/appconfigservice';
 import { JsonService } from './service/jsonservice';
@@ -31,19 +32,21 @@ export class AppComponent implements OnInit, OnDestroy {
             this.config = config;
         });
 
-        this.JsonService.getAnnouncement().then((data) => {
-            this.announcement = data;
+        if (environment.production) {
+            this.JsonService.getAnnouncement().then((data) => {
+                this.announcement = data;
 
-            const itemString = localStorage.getItem(this.storageKey);
-            if (itemString) {
-                const item = JSON.parse(itemString);
-                if (item.hiddenNews && item.hiddenNews !== data.id) {
+                const itemString = localStorage.getItem(this.storageKey);
+                if (itemString) {
+                    const item = JSON.parse(itemString);
+                    if (item.hiddenNews && item.hiddenNews !== data.id) {
+                        this.newsActive = true;
+                    }
+                } else {
                     this.newsActive = true;
                 }
-            } else {
-                this.newsActive = true;
-            }
-        });
+            });
+        }
     }
 
     onNewsClose() {

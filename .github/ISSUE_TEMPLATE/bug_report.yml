@@ -1,7 +1,7 @@
 name: Bug report
 description: Create a report to help us improve
 title: "Component: Title"
-labels: "defect"
+labels: ['Status: Needs Triage']
 body:
   - type: markdown
     attributes:
@@ -29,7 +29,7 @@ body:
       label: Reproducer
       placeholder: https://stackblitz.com/github/primefaces/primeng-issue-template
       description: |
-        Please fork one of the issue template 
+        Please fork one of the issue template
         [PrimeNG Issue Template](https://stackblitz.com/github/primefaces/primeng-issue-template)
         and create a case demonstrating your bug report. Issues **without** a StackBlitz example have much less possibility to be reviewed.
     validations:

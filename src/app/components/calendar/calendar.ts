@@ -1,32 +1,32 @@
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import {
-    NgModule,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
+    ContentChildren,
     ElementRef,
-    OnDestroy,
-    OnInit,
-    Input,
-    Output,
     EventEmitter,
     forwardRef,
-    Renderer2,
-    ViewChild,
-    ChangeDetectorRef,
-    TemplateRef,
-    ContentChildren,
-    QueryList,
+    Input,
+    NgModule,
     NgZone,
-    ChangeDetectionStrategy,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys, OverlayService } from 'primeng/api';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { UniqueComponentId, ZIndexUtils, ObjectUtils } from 'primeng/utils';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1930,34 +1930,35 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     initFocusableCell() {
+        const contentEl = this.contentViewChild?.nativeElement;
         let cell;
 
         if (this.currentView === 'month') {
-            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
-            let selectedCell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-highlight');
+            let cells = DomHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+            let selectedCell = DomHandler.findSingle(contentEl, '.p-monthpicker .p-monthpicker-month.p-highlight');
             cells.forEach((cell) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
+                let disabledCells = DomHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
-            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
-            let selectedCell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year.p-highlight');
+            let cells = DomHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+            let selectedCell = DomHandler.findSingle(contentEl, '.p-yearpicker .p-yearpicker-year.p-highlight');
             cells.forEach((cell) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
+                let disabledCells = DomHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell) => (cell.tabIndex = -1));
             }
         } else {
-            cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'span.p-highlight');
+            cell = DomHandler.findSingle(contentEl, 'span.p-highlight');
             if (!cell) {
-                let todayCell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
+                let todayCell = DomHandler.findSingle(contentEl, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
                 if (todayCell) cell = todayCell;
-                else cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                else cell = DomHandler.findSingle(contentEl, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
             }
         }
 

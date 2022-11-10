@@ -1,24 +1,6 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    AfterContentInit,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChild,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    Inject,
-    Optional,
-    ViewChild,
-    ChangeDetectorRef
-} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Header, Footer, PrimeTemplate, SharedModule, BlockableUI } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 
 @Component({
