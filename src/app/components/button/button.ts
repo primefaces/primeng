@@ -38,7 +38,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.createIconEl();
         }
 
-        if (this.label) {
             let labelElement = document.createElement('span');
             if (this.icon && !this.label) {
                 labelElement.setAttribute('aria-hidden', 'true');
@@ -47,7 +46,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             labelElement.appendChild(document.createTextNode(this.label));
 
             this.el.nativeElement.appendChild(labelElement);
-        }
 
         this.initialized = true;
     }
