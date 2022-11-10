@@ -15,17 +15,30 @@ type BadgeDirectiveIconPosition = 'left' | 'right' | 'top' | 'bottom';
 export class BadgeDirective implements AfterViewInit, OnDestroy {
     @Input() iconPos: BadgeDirectiveIconPosition = 'left';
 
+    @Input('badgeDisabled') get disabled(): boolean {
+        return this._disabled;
+    }
+    set disabled(val: boolean) {
+        this._disabled = val;
+    }
+
     public _value: string;
 
     public initialized: boolean;
 
     private id: string;
 
+    _disabled: boolean = false;
+
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
         this.id = UniqueComponentId() + '_badge';
         let el = this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
+
+        if (this._disabled) {
+            return null;
+        }
 
         let badge = document.createElement('span');
         badge.id = this.id;
