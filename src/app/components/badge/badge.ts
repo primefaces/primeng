@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, QueryList, ContentChildren, TemplateRef, Directive, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
@@ -89,7 +89,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
 
 @Component({
     selector: 'p-badge',
-    template: ` <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
+    template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./badge.css'],
@@ -107,6 +107,8 @@ export class Badge {
     @Input() severity: string;
 
     @Input() value: string;
+
+    @Input() badgeDisabled: boolean = false;
 
     containerClass() {
         return {
