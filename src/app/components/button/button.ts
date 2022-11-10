@@ -38,14 +38,14 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.createIconEl();
         }
 
-            let labelElement = document.createElement('span');
-            if (this.icon && !this.label) {
-                labelElement.setAttribute('aria-hidden', 'true');
-            }
-            labelElement.className = 'p-button-label';
-            labelElement.appendChild(document.createTextNode(this.label));
+        let labelElement = document.createElement('span');
+        if (this.icon && !this.label) {
+            labelElement.setAttribute('aria-hidden', 'true');
+        }
+        labelElement.className = 'p-button-label';
+        labelElement.appendChild(document.createTextNode(this.label));
 
-            this.el.nativeElement.appendChild(labelElement);
+        this.el.nativeElement.appendChild(labelElement);
 
         this.initialized = true;
     }
