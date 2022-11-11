@@ -18,6 +18,46 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     @Input() loadingIcon: string = 'pi pi-spinner pi-spin';
 
+    @Input() get label(): string {
+        return this._label;
+    }
+
+    set label(val: string) {
+        this._label = val;
+
+        if (this.initialized) {
+            this.updateLabel();
+            this.updateIcon();
+            this.setStyleClass();
+        }
+    }
+
+    @Input() get icon(): string {
+        return this._icon;
+    }
+
+    set icon(val: string) {
+        this._icon = val;
+
+        if (this.initialized) {
+            this.updateIcon();
+            this.setStyleClass();
+        }
+    }
+
+    @Input() get loading(): boolean {
+        return this._loading;
+    }
+
+    set loading(val: boolean) {
+        this._loading = val;
+
+        if (this.initialized) {
+            this.updateIcon();
+            this.setStyleClass();
+        }
+    }
+
     public _label: string;
 
     public _icon: string;
@@ -34,20 +74,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._initialStyleClass = this.el.nativeElement.className;
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
 
-        if (this.icon || this.loading) {
-            this.createIconEl();
-        }
-
-        if (this.label) {
-            let labelElement = document.createElement('span');
-            if (this.icon && !this.label) {
-                labelElement.setAttribute('aria-hidden', 'true');
-            }
-            labelElement.className = 'p-button-label';
-            labelElement.appendChild(document.createTextNode(this.label));
-
-            this.el.nativeElement.appendChild(labelElement);
-        }
+        this.createIcon();
+        this.createLabel();
 
         this.initialized = true;
     }
@@ -71,87 +99,69 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.el.nativeElement.className = styleClass + ' ' + this._initialStyleClass;
     }
 
-    createIconEl() {
-        let iconElement = document.createElement('span');
-        iconElement.className = 'p-button-icon';
-        iconElement.setAttribute('aria-hidden', 'true');
-        let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
+    createLabel() {
+        if (this.label) {
+            let labelElement = document.createElement('span');
+            if (this.icon && !this.label) {
+                labelElement.setAttribute('aria-hidden', 'true');
+            }
+            labelElement.className = 'p-button-label';
+            labelElement.appendChild(document.createTextNode(this.label));
 
-        if (iconPosClass) {
-            DomHandler.addClass(iconElement, iconPosClass);
+            this.el.nativeElement.appendChild(labelElement);
         }
-
-        let iconClass = this.getIconClass();
-
-        if (iconClass) {
-            DomHandler.addMultipleClasses(iconElement, iconClass);
-        }
-
-        this.el.nativeElement.insertBefore(iconElement, this.el.nativeElement.firstChild);
     }
 
-    getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + this.loadingIcon : this._icon;
+    createIcon() {
+        if (this.icon || this.loading) {
+            let iconElement = document.createElement('span');
+            iconElement.className = 'p-button-icon';
+            iconElement.setAttribute('aria-hidden', 'true');
+            let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
+
+            if (iconPosClass) {
+                DomHandler.addClass(iconElement, iconPosClass);
+            }
+
+            let iconClass = this.getIconClass();
+
+            if (iconClass) {
+                DomHandler.addMultipleClasses(iconElement, iconClass);
+            }
+
+            this.el.nativeElement.insertBefore(iconElement, this.el.nativeElement.firstChild);
+        }
     }
 
-    setIconClass() {
+    updateLabel() {
+        let labelElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-label');
+
+        if (!this.label) {
+            labelElement && this.el.nativeElement.removeChild(labelElement);
+            return;
+        }
+
+        labelElement ? (labelElement.textContent = this.label) : this.createLabel();
+    }
+
+    updateIcon() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
+
+        if (!this.icon && !this.loading) {
+            iconElement && this.el.nativeElement.removeChild(iconElement);
+            return;
+        }
+
         if (iconElement) {
             if (this.iconPos) iconElement.className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this.getIconClass();
             else iconElement.className = 'p-button-icon ' + this.getIconClass();
         } else {
-            this.createIconEl();
+            this.createIcon();
         }
     }
 
-    removeIconElement() {
-        let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
-        this.el.nativeElement.removeChild(iconElement);
-    }
-
-    @Input() get label(): string {
-        return this._label;
-    }
-
-    set label(val: string) {
-        this._label = val;
-
-        if (this.initialized) {
-            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label;
-
-            if (this.loading || this.icon) {
-                this.setIconClass();
-            }
-            this.setStyleClass();
-        }
-    }
-
-    @Input() get icon(): string {
-        return this._icon;
-    }
-
-    set icon(val: string) {
-        this._icon = val;
-
-        if (this.initialized) {
-            this.setIconClass();
-            this.setStyleClass();
-        }
-    }
-
-    @Input() get loading(): boolean {
-        return this._loading;
-    }
-
-    set loading(val: boolean) {
-        this._loading = val;
-
-        if (this.initialized) {
-            if (this.loading || this.icon) this.setIconClass();
-            else this.removeIconElement();
-
-            this.setStyleClass();
-        }
+    getIconClass() {
+        return this.loading ? 'p-button-loading-icon ' + this.loadingIcon : this._icon;
     }
 
     ngOnDestroy() {
