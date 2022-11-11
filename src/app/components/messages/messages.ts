@@ -1,20 +1,4 @@
-import {
-    NgModule,
-    Component,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
-    AfterContentInit,
-    Optional,
-    ElementRef,
-    ChangeDetectionStrategy,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation,
-    ChangeDetectorRef
-} from '@angular/core';
+import { NgModule, Component, OnDestroy, Input, Output, EventEmitter, AfterContentInit, Optional, ElementRef, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { Message, PrimeTemplate, MessageService } from 'primeng/api';
@@ -26,8 +10,12 @@ import { RippleModule } from 'primeng/ripple';
     template: `
         <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div *ngFor="let msg of messages; let i=index" [class]="'p-message p-message-' + msg.severity" role="alert"
-                     [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+                <div
+                    *ngFor="let msg of messages; let i = index"
+                    [class]="'p-message p-message-' + msg.severity"
+                    role="alert"
+                    [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+                >
                     <div class="p-message-wrapper">
                         <span
                             [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')"
@@ -129,7 +117,7 @@ export class Messages implements AfterContentInit, OnDestroy {
                         messages = [messages];
                     }
 
-                    const filteredMessages = messages.filter(m => this.key === m.key);
+                    const filteredMessages = messages.filter((m) => this.key === m.key);
                     this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
                     this.startMessageLifes(filteredMessages);
                     this.cd.markForCheck();
@@ -153,7 +141,7 @@ export class Messages implements AfterContentInit, OnDestroy {
     hasMessages() {
         let parentEl = this.el.nativeElement.parentElement;
         if (parentEl && parentEl.offsetParent) {
-            return this.contentTemplate != null || this.messages && this.messages.length > 0;
+            return this.contentTemplate != null || (this.messages && this.messages.length > 0);
         }
 
         return false;
@@ -208,17 +196,17 @@ export class Messages implements AfterContentInit, OnDestroy {
             this.clearSubscription.unsubscribe();
         }
 
-        this.timerSubscriptions?.forEach(subscription => subscription.unsubscribe());
+        this.timerSubscriptions?.forEach((subscription) => subscription.unsubscribe());
     }
 
     private startMessageLifes(messages: Message[]): void {
-        messages?.forEach(message => message.life && this.startMessageLife(message));
+        messages?.forEach((message) => message.life && this.startMessageLife(message));
     }
 
     private startMessageLife(message: Message): void {
         const timerSubsctiption = timer(message.life).subscribe(() => {
-            this.messages = this.messages?.filter(msgEl => msgEl !== message);
-            this.timerSubscriptions = this.timerSubscriptions?.filter(timerEl => timerEl !== timerSubsctiption);
+            this.messages = this.messages?.filter((msgEl) => msgEl !== message);
+            this.timerSubscriptions = this.timerSubscriptions?.filter((timerEl) => timerEl !== timerSubsctiption);
             this.valueChange.emit(this.messages);
             this.cd.markForCheck();
         });
