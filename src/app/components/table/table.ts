@@ -3497,6 +3497,17 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
         }
     }
 
+    @HostListener('keydown.tab', ['$event'])
+    onTabKeyDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            if (this.dt.isEditingCellValid()) {
+                this.closeEditingCell(true, event);
+            }
+
+            event.preventDefault();
+        }
+    }
+
     @HostListener('keydown.escape', ['$event'])
     onEscapeKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
