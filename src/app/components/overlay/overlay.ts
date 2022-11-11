@@ -390,7 +390,6 @@ export class Overlay implements AfterContentInit, OnDestroy {
             case 'void':
                 this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
-                DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
                 this.modal && DomHandler.addClass(this.overlayEl, 'p-component-overlay-leave');
 
                 break;
@@ -413,8 +412,10 @@ export class Overlay implements AfterContentInit, OnDestroy {
                 this.hide(container, true);
                 this.unbindListeners();
 
+                DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
                 ZIndexUtils.clear(container);
                 this.modalVisible = false;
+
                 break;
         }
 
