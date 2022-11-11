@@ -4,78 +4,72 @@ import { UIMessage } from './message';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UIMessage', () => {
-  
     let message: UIMessage;
     let fixture: ComponentFixture<UIMessage>;
 
     beforeEach(() => {
-    TestBed.configureTestingModule({
-        imports: [
-        NoopAnimationsModule
-        ],
-        declarations: [
-        UIMessage
-        ]
-    });
+        TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule],
+            declarations: [UIMessage]
+        });
 
-    fixture = TestBed.createComponent(UIMessage);
-    message = fixture.componentInstance;
+        fixture = TestBed.createComponent(UIMessage);
+        message = fixture.componentInstance;
     });
 
     it('should change severity to success and text', () => {
-        message.severity = "success";
-        message.text = "Primeng Rocks!";
+        message.severity = 'success';
+        message.text = 'Primeng Rocks!';
         fixture.detectChanges();
-  
+
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         const textEl = fixture.debugElement.query(By.css('.p-inline-message-text'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("p-inline-message-success");
-        expect(iconEl.nativeElement.className).toContain("pi pi-check");
-        expect(textEl.nativeElement.textContent).toContain("Primeng Rocks!");
+        expect(messageEl.nativeElement.className).toContain('p-inline-message-success');
+        expect(iconEl.nativeElement.className).toContain('pi pi-check');
+        expect(textEl.nativeElement.textContent).toContain('Primeng Rocks!');
     });
 
     it('should change severity to info', () => {
-        message.severity = "info";
+        message.severity = 'info';
         fixture.detectChanges();
-  
+
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("p-inline-message-info");
-        expect(iconEl.nativeElement.className).toContain("pi pi-info-circle");
+        expect(messageEl.nativeElement.className).toContain('p-inline-message-info');
+        expect(iconEl.nativeElement.className).toContain('pi pi-info-circle');
     });
 
     it('should change severity to error', () => {
-        message.severity = "error";
+        message.severity = 'error';
         fixture.detectChanges();
-  
+
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("p-inline-message-error");
-        expect(iconEl.nativeElement.className).toContain("pi pi-times");
+        expect(messageEl.nativeElement.className).toContain('p-inline-message-error');
+        expect(iconEl.nativeElement.className).toContain('pi pi-times');
     });
 
     it('should change severity to warning', () => {
-        message.severity = "warn";
+        message.severity = 'warn';
         fixture.detectChanges();
-  
+
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain("p-inline-message-warn");
-        expect(iconEl.nativeElement.className).toContain("pi pi-exclamation-triangle");
+        expect(messageEl.nativeElement.className).toContain('p-inline-message-warn');
+        expect(iconEl.nativeElement.className).toContain('pi pi-exclamation-triangle');
     });
     it('should change severity to default', () => {
-        message.severity = " ";
+        message.severity = ' ';
         fixture.detectChanges();
-  
+
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain("pi pi-info-circle");
+        expect(iconEl.nativeElement.className).toContain('pi pi-info-circle');
     });
-
 });

@@ -1,15 +1,13 @@
-import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,TemplateRef,EmbeddedViewRef,
-        ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Directive({
     selector: '[pDefer]',
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class DeferredLoader implements AfterViewInit,OnDestroy {
-
+export class DeferredLoader implements AfterViewInit, OnDestroy {
     @Output() onLoad: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(TemplateRef) template: TemplateRef<any>;
@@ -39,13 +37,12 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     shouldLoad(): boolean {
         if (this.isLoaded()) {
             return false;
-        }
-        else {
+        } else {
             let rect = this.el.nativeElement.getBoundingClientRect();
             let docElement = document.documentElement;
             let winHeight = docElement.clientHeight;
 
-            return (winHeight >= rect.top);
+            return winHeight >= rect.top;
         }
     }
 
@@ -73,4 +70,4 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     exports: [DeferredLoader],
     declarations: [DeferredLoader]
 })
-export class DeferModule { }
+export class DeferModule {}

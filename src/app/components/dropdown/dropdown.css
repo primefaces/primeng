@@ -37,16 +37,6 @@ input.p-dropdown-label  {
     cursor: default;
 }
 
-.p-dropdown .p-dropdown-panel {
-    min-width: 100%;
-}
-
-.p-dropdown-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 .p-dropdown-items-wrapper {
     overflow: auto;
 }

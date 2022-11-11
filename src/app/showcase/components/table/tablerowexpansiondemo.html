@@ -8,10 +8,10 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products" dataKey="name" responsiveLayout="scroll">
+        <p-table [value]="products" dataKey="name" [tableStyle]="{'min-width': '60rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 3rem"></th>
+                    <th style="width: 5rem"></th>
                     <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
                     <th>Image</th>
                     <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
@@ -82,10 +82,10 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-table [value]="products" dataKey="name" responsiveLayout="scroll"&gt;
+&lt;p-table [value]="products" dataKey="name" [tableStyle]="&#123;'min-width': '60rem'&#125;"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th style="width: 3rem"&gt;&lt;/th&gt;
+            &lt;th style="width: 5rem"&gt;&lt;/th&gt;
             &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
             &lt;th&gt;Image&lt;/th&gt;
             &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;

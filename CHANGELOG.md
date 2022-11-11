@@ -1,4 +1,61 @@
 # Changelog
+
+## [14.2.1](https://github.com/primefaces/primeng/tree/14.2.1) (2022-11-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.2.0...14.2.1)
+
+**Fixed bugs:**
+- 14.2.0 TS2380 in overlay.d.ts [\#12159](https://github.com/primefaces/primeng/issues/12159)
+
+## [14.2.0](https://github.com/primefaces/primeng/tree/14.2.0) (2022-11-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.2...14.2.0)
+
+**Breaking changes:**
+- Remove p-fullCalendar component [\#12152](https://github.com/primefaces/primeng/issues/12152)
+- Table CSS Improvements [\#12047](https://github.com/primefaces/primeng/issues/12047)
+
+**New Features:**
+- Chips | Allow multiple seperators [\#12089](https://github.com/primefaces/primeng/issues/12089)
+- pAnimate Directive [\#12057](https://github.com/primefaces/primeng/issues/12057)
+- Component: Overlay [\#12031](https://github.com/primefaces/primeng/issues/12031)
+- TreeSelect | replace overlay with p-overlay [\#12116](https://github.com/primefaces/primeng/issues/12116)
+- MultiSelect | replace overlay with p-overlay [\#12110](https://github.com/primefaces/primeng/issues/12110)
+- Add appendOnly option to Scroller API [\#12142](https://github.com/primefaces/primeng/issues/12142)
+- Add step option to Scroller API [\#12141](https://github.com/primefaces/primeng/issues/12141)
+- Sidebar | Add footer template [\#12117](https://github.com/primefaces/primeng/issues/12117)
+- Sidebar | Add header template [\#12025](https://github.com/primefaces/primeng/issues/12025)
+- add panelStyle and panelStyleClass properties to components [\#11917](https://github.com/primefaces/primeng/issues/11917)
+- TreeSelect | Add styleClass and style support for container and label [\#11982](https://github.com/primefaces/primeng/issues/11982)
+- Rating | Templating support [\#12156](https://github.com/primefaces/primeng/issues/12156)
+
+**Enhancements:**
+- Improve Scroller and DataTable with virtualScroller implementation [\#12120](https://github.com/primefaces/primeng/issues/12120)
+- Table: VirtualScroll + Lazy Load incorrectly paginates load requests, displays loadingbody too frequently [\#11789](https://github.com/primefaces/primeng/issues/11789)
+- RowSpan Grouping does not work on DataTable with virtualScroll feature [\#10851](https://github.com/primefaces/primeng/issues/10851)
+- InputNumber | Pass formattedValue to input event [\#12070](https://github.com/primefaces/primeng/issues/12070)
+- Table CSS Improvements [\#12047](https://github.com/primefaces/primeng/issues/12047)
+- Add flex-gap to p-chips and autocomplete multiple input container [\#11985](https://github.com/primefaces/primeng/issues/11985)
+
+**Fixed bugs:**
+- inputNumber | minFractionDigits fails if set to "0" when using with a suffix [\#11902](https://github.com/primefaces/primeng/issues/11902)
+- MenuBar: Menu Icon in mobile view is shown even though there are no items in model [\#12084](https://github.com/primefaces/primeng/issues/12084)
+- Button | Renders empty label when the label is not defined [\#9482](https://github.com/primefaces/primeng/issues/9482)
+- The scrollToVirtualIndexmethod is not working as expected on Table [\#11948](https://github.com/primefaces/primeng/issues/11948)
+- Incorrect class assignment for true value of toggleMask in the password component [\#12147](https://github.com/primefaces/primeng/issues/12147)
+- DataTable: Multiple sorting with Date field as first sort [\#11918](https://github.com/primefaces/primeng/issues/11918)
+- VirtualScroller triggers onLazyLoad event even though there is no scroll event [\#11987](https://github.com/primefaces/primeng/issues/11987)
+- primeicons.ts not updated for v6 missing strings [\#12105](https://github.com/primefaces/primeng/issues/12105)
+- Slider: The slider when I reset the values the style of the bar is not modified [\#12093](https://github.com/primefaces/primeng/issues/12093)
+- Cannot bind "pAutoFocus" [\#12090](https://github.com/primefaces/primeng/issues/12090)
+- InputNumber | Support highlight on focus property [\#12077](https://github.com/primefaces/primeng/issues/12077)
+- Table | ReferenceError: Cannot access 'ColumnFilter' before initialization [\#11931](https://github.com/primefaces/primeng/issues/11931)
+- p-treeSelect: selectionMode="checkbox" and showClear="true" doesn't work properly [\#12050](https://github.com/primefaces/primeng/issues/12050)
+- Chips | Cannot remove p-focus (Firefox) [\#12016](https://github.com/primefaces/primeng/issues/12016)
+- Autocomplete value remains the old when entered text changed [\#12027](https://github.com/primefaces/primeng/issues/12027)
+- Dropdown selecting an unwanted option when pressing Control key on the keyboard [\#11889](https://github.com/primefaces/primeng/issues/11889)
+- TreeSelect selection expands sibling nodes above the selection [\#11224](https://github.com/primefaces/primeng/issues/11224)
+
 ## [14.1.2](https://github.com/primefaces/primeng/tree/14.1.2) (2022-09-28)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/v14.1.1...14.1.2)

@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 declare let gtag: Function;
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './app.main.component.html',
+    selector: 'app-main',
+    templateUrl: './app.main.component.html'
 })
 export class AppMainComponent implements OnInit {
     menuActive: boolean;
@@ -21,7 +21,7 @@ export class AppMainComponent implements OnInit {
 
     news_key = 'primenews';
 
-    theme: string = "lara-light-blue";
+    theme: string = 'lara-light-blue';
 
     public subscription: Subscription;
 
@@ -30,20 +30,18 @@ export class AppMainComponent implements OnInit {
     ngOnInit() {
         this.primengConfig.ripple = true;
         this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
         });
 
-        this.router.events.subscribe(event => {
+        this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                gtag('config', 'UA-93461466-1',
-                      {
-                        'page_path': '/primeng' + event.urlAfterRedirects
-                      }
-                );
+                gtag('config', 'UA-93461466-1', {
+                    page_path: '/primeng' + event.urlAfterRedirects
+                });
 
                 this.hideMenu();
-             }
+            }
         });
 
         this.newsActive = this.newsActive && this.isNewsStorageExpired();
@@ -64,17 +62,13 @@ export class AppMainComponent implements OnInit {
     }
 
     addClass(element: any, className: string) {
-        if (element.classList)
-            element.classList.add(className);
-        else
-            element.className += ' ' + className;
+        if (element.classList) element.classList.add(className);
+        else element.className += ' ' + className;
     }
 
     removeClass(element: any, className: string) {
-        if (element.classList)
-            element.classList.remove(className);
-        else
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        if (element.classList) element.classList.remove(className);
+        else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
 
     hideNews() {
@@ -82,8 +76,8 @@ export class AppMainComponent implements OnInit {
         const now = new Date();
         const item = {
             value: false,
-            expiry: now.getTime() + 604800000,
-        }
+            expiry: now.getTime() + 604800000
+        };
         localStorage.setItem(this.news_key, JSON.stringify(item));
     }
 
@@ -93,7 +87,7 @@ export class AppMainComponent implements OnInit {
             return true;
         }
         const newsItem = JSON.parse(newsString);
-        const now = new Date()
+        const now = new Date();
 
         if (now.getTime() > newsItem.expiry) {
             localStorage.removeItem(this.news_key);
@@ -117,4 +111,3 @@ export class AppMainComponent implements OnInit {
         }
     }
 }
-
