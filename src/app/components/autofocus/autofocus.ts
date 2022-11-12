@@ -18,7 +18,7 @@ export class AutoFocus {
     ngAfterContentChecked() {
         if (!this.focused) {
             if (this.autofocus) {
-                const focusableElements = DomHandler.getFocusableElements(this.host.nativeElement);
+                const focusableElements = DomHandler.getFocusableElementsForAutoFocus(this.host.nativeElement);
 
                 if (focusableElements.length === 0) {
                     this.host.nativeElement.focus();
