@@ -192,6 +192,31 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.disabled = val;
         this.cd.markForCheck();
     }
+    
+    isUnique(item: string): boolean {
+        if(this.field) {
+            return this.value.map((element: any) => this.resolveFieldData(element, this.field)).indexOf(item) === -1;
+        }
+        return this.value.indexOf(item) === -1
+    }
+        
+    createFieldData(item: string, field: string): any {
+         if (item && field) {
+            const indexOf = field.indexOf('.');
+            if (indexOf == -1) {
+                const data = {};
+                data[field] = item;
+                return data;
+            } else {
+               const data = {};
+                const currentField = field.substring(0, field.indexOf("."));
+                const nextField = field.substring(field.indexOf(".") + 1, field.length);      
+                data[currentField] = this.createFieldData(item, nextField);
+            }
+        } else {
+            return null;
+        }
+    }
 
     resolveFieldData(data: any, field: string): any {
         if (data && field) {
@@ -243,12 +268,13 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     addItem(event: Event, item: string, preventDefault: boolean): void {
         this.value = this.value || [];
         if (item && item.trim().length) {
-            if (this.allowDuplicate || this.value.indexOf(item) === -1) {
-                this.value = [...this.value, item];
+             if (this.allowDuplicate || this.isItemUnique(item)) {
+                const itemToAdd = this.field ? this.createFieldData(item, this.field) : item;
+                this.value = [...this.value, itemToAdd];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
                     originalEvent: event,
-                    value: item
+                    value: itemToAdd
                 });
             }
         }
