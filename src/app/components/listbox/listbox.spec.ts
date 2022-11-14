@@ -187,18 +187,18 @@ describe('Listbox', () => {
         const clickMultipleSpy = spyOn(listbox, 'onOptionClickMultiple').and.callThrough();
         fixture.detectChanges();
 
-        const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const audiEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        bmwEl.click();
+        const bmwEl = fixture.debugElement.query(By.css('ul')).children[1];
+        const audiEl = fixture.debugElement.query(By.css('ul')).children[0];
+        bmwEl.triggerEventHandler('mousedown', {});
         fixture.detectChanges();
 
-        audiEl.click();
+        audiEl.triggerEventHandler('mousedown', {});
         fixture.detectChanges();
 
         expect(listbox.value[0]).toEqual('BMW');
         expect(listbox.value[1]).toEqual('Audi');
-        expect(bmwEl.className).toContain('p-highlight');
-        expect(audiEl.className).toContain('p-highlight');
+        expect(bmwEl.nativeElement.className).toContain('p-highlight');
+        expect(audiEl.nativeElement.className).toContain('p-highlight');
         expect(clickMultipleSpy).toHaveBeenCalledTimes(2);
     });
 
@@ -220,18 +220,18 @@ describe('Listbox', () => {
         const clickMultipleSpy = spyOn(listbox, 'onOptionClickMultiple').and.callThrough();
         fixture.detectChanges();
 
-        const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const audiEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        bmwEl.click();
-        audiEl.click();
-        bmwEl.click();
-        audiEl.click();
+        const bmwEl = fixture.debugElement.query(By.css('ul')).children[1];
+        const audiEl = fixture.debugElement.query(By.css('ul')).children[0];
+        bmwEl.triggerEventHandler('mousedown', {});
+        audiEl.triggerEventHandler('mousedown', {});
+        bmwEl.triggerEventHandler('mousedown', {});
+        audiEl.triggerEventHandler('mousedown', {});
         fixture.detectChanges();
 
         expect(listbox.value[0]).not.toEqual('BMW');
         expect(listbox.value[1]).not.toEqual('Audi');
-        expect(bmwEl.className).not.toContain('p-highlight');
-        expect(audiEl.className).not.toContain('p-highlight');
+        expect(bmwEl.nativeElement.className).not.toContain('p-highlight');
+        expect(audiEl.nativeElement.className).not.toContain('p-highlight');
         expect(clickMultipleSpy).toHaveBeenCalledTimes(4);
     });
 
@@ -420,26 +420,100 @@ describe('Listbox', () => {
         ];
         listbox.metaKeySelection = true;
         listbox.multiple = true;
-        const onOptionClick = spyOn(listbox, 'onOptionClick').and.callThrough();
+        const onOptionMouseDown = spyOn(listbox, 'onOptionMouseDown').and.callThrough();
         fixture.detectChanges();
 
         let data;
         listbox.onChange.subscribe((value) => (data = value));
-        const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const event: any = document.createEvent('CustomEvent');
-        event.metaKey = true;
-        event.ctrlKey = true;
-        bmwEl.click();
+        const bmwEl = fixture.debugElement.query(By.css('ul')).children[1];
+        bmwEl.triggerEventHandler('mousedown', {});
         fixture.detectChanges();
 
-        listbox.onOptionClick(event, listbox.options[1]);
+        expect(listbox.value[0]).toEqual('BMW');
+
+        bmwEl.triggerEventHandler('mousedown', { metaKey: true, ctrlKey: true });
         fixture.detectChanges();
 
         listbox.cd.detectChanges();
         expect(listbox.value).toEqual([]);
-        expect(bmwEl.className).not.toContain('p-highlight');
-        expect(onOptionClick).toHaveBeenCalled();
+        expect(bmwEl.nativeElement.className).not.toContain('p-highlight');
+        expect(onOptionMouseDown).toHaveBeenCalledTimes(2);
         expect(data.value).toEqual([]);
+    });
+
+    it('should select every item under the pointer when mousedown + mouse mouvement', () => {
+        listbox.options = [
+            { label: 'Audi', value: 'Audi' },
+            { label: 'BMW', value: 'BMW' },
+            { label: 'Fiat', value: 'Fiat' },
+            { label: 'Ford', value: 'Ford' },
+            { label: 'Honda', value: 'Honda' },
+            { label: 'Jaguar', value: 'Jaguar' },
+            { label: 'Mercedes', value: 'Mercedes' },
+            { label: 'Renault', value: 'Renault' },
+            { label: 'VW', value: 'VW' },
+            { label: 'Volvo', value: 'Volvo' }
+        ];
+        listbox.metaKeySelection = true;
+        listbox.multiple = true;
+
+        fixture.detectChanges();
+
+        let data;
+        listbox.onChange.subscribe((value) => (data = value));
+
+        const lis = fixture.debugElement.query(By.css('ul')).children;
+        const bmwEl = lis[1];
+        const jaguarEl = lis[5];
+        const bmwToJaguar = lis.slice(1, 6);
+        const fiatToJaguar = lis.slice(2, 6);
+        bmwEl.triggerEventHandler('mousedown', {});
+        fiatToJaguar.forEach((el) => el.triggerEventHandler('mouseenter', {}));
+        jaguarEl.triggerEventHandler('mouseup', {});
+        fixture.detectChanges();
+
+        expect(listbox.value.length).toEqual(5);
+        expect(listbox.value[0]).toEqual('BMW');
+        expect(listbox.value[4]).toEqual('Jaguar');
+        bmwToJaguar.forEach((el) => expect(el.nativeElement.className).toContain('p-highlight'));
+        expect(data.value).toEqual(listbox.value);
+    });
+
+    it('should select every item between last selected item and current item with Shift key', () => {
+        listbox.options = [
+            { label: 'Audi', value: 'Audi' },
+            { label: 'BMW', value: 'BMW' },
+            { label: 'Fiat', value: 'Fiat' },
+            { label: 'Ford', value: 'Ford' },
+            { label: 'Honda', value: 'Honda' },
+            { label: 'Jaguar', value: 'Jaguar' },
+            { label: 'Mercedes', value: 'Mercedes' },
+            { label: 'Renault', value: 'Renault' },
+            { label: 'VW', value: 'VW' },
+            { label: 'Volvo', value: 'Volvo' }
+        ];
+        listbox.metaKeySelection = true;
+        listbox.multiple = true;
+
+        fixture.detectChanges();
+
+        let data;
+        listbox.onChange.subscribe((value) => (data = value));
+
+        const lis = fixture.debugElement.query(By.css('ul')).children;
+        const bmwEl = lis[1];
+        const jaguarEl = lis[5];
+        const bmwToJaguar = lis.slice(1, 6);
+
+        bmwEl.triggerEventHandler('mousedown', {});
+        jaguarEl.triggerEventHandler('mousedown', { shiftKey: true });
+        fixture.detectChanges();
+
+        expect(listbox.value.length).toEqual(5);
+        expect(listbox.value[0]).toEqual('BMW');
+        expect(listbox.value[4]).toEqual('Jaguar');
+        bmwToJaguar.forEach((el) => expect(el.nativeElement.className).toContain('p-highlight'));
+        expect(data.value).toEqual(listbox.value);
     });
 
     it('should select two item and drop one', () => {

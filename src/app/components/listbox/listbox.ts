@@ -16,7 +16,8 @@ import {
     ChangeDetectionStrategy,
     ViewEncapsulation,
     OnInit,
-    OnDestroy
+    OnDestroy,
+    HostListener
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig } from 'primeng/api';
@@ -100,6 +101,8 @@ export interface ListboxFilterOptions {
                             (dblclick)="onOptionDoubleClick($event, option)"
                             (touchend)="onOptionTouchEnd(option)"
                             (keydown)="onOptionKeyDown($event, option)"
+                            (mousedown)="onOptionMouseDown($event, option, i)"
+                            (mouseenter)="onOptionMouseEnter($event, option, i)"
                         >
                             <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{ 'p-checkbox-disabled': disabled || isOptionDisabled(option) }">
                                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(option) }">
@@ -204,6 +207,9 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     @ContentChild(Footer) footerFacet;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    private dragSelectionStart = null;
+    private lastClicked = null;
 
     public _options: any[];
 
@@ -360,7 +366,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
         if (this.multiple) {
             if (this.checkbox) this.onOptionClickCheckbox(event, option);
-            else this.onOptionClickMultiple(event, option);
+            // FIXME
+            // else this.onOptionClickMultiple(event, option);
         } else {
             this.onOptionClickSingle(event, option);
         }
@@ -370,6 +377,31 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
             value: this.value
         });
         this.optionTouched = false;
+    }
+
+    onOptionMouseDown(event: MouseEvent, option: any, i: number) {
+        if (this.multiple && !this.checkbox) {
+            const selected = this.isSelected(option);
+            const metaKey = event.metaKey || event.ctrlKey;
+            const shiftKey = event.shiftKey;
+            const valueTmp = [...(this.value || [])];
+            this.dragSelectionStart = { i, metaKey, shiftKey, selected, valueTmp };
+            this.onOptionClickMultiple(event, option, i);
+            if (!shiftKey) {
+                this.lastClicked = i;
+            }
+        }
+    }
+
+    onOptionMouseEnter(event: MouseEvent, option: any, i: number) {
+        if (this.multiple && !this.checkbox && this.dragSelectionStart !== null) {
+            this.onOptionClickMultiple(event, option, i);
+        }
+    }
+
+    @HostListener('document:mouseup', ['$event'])
+    onDragSelectionStop() {
+        this.dragSelectionStart = null;
     }
 
     onOptionTouchEnd(option: any) {
@@ -423,25 +455,19 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         }
     }
 
-    onOptionClickMultiple(event, option) {
-        let selected = this.isSelected(option);
-        let valueChanged = false;
-        let metaSelection = this.optionTouched ? false : this.metaKeySelection;
+    onOptionClickMultiple(event, option, i: number) {
+        const selected = this.isSelected(option);
+        const metaSelection = this.optionTouched ? false : this.metaKeySelection;
 
         if (metaSelection) {
-            let metaKey = event.metaKey || event.ctrlKey;
-
-            if (selected) {
-                if (metaKey) {
-                    this.removeOption(option);
-                } else {
-                    this.value = [this.getOptionValue(option)];
-                }
-                valueChanged = true;
+            const i2 = this.dragSelectionStart.shiftKey ? (this.lastClicked !== null ? this.lastClicked : i) : this.dragSelectionStart.i;
+            const selectedOptions = this.options.slice(Math.min(i, i2), Math.max(i, i2) + 1);
+            const originalValue = this.dragSelectionStart.metaKey ? this.dragSelectionStart.valueTmp : [];
+            if (this.dragSelectionStart.selected && this.dragSelectionStart.metaKey) {
+                this.value = originalValue;
+                selectedOptions.forEach((opt) => this.removeOption(opt));
             } else {
-                this.value = metaKey ? this.value || [] : [];
-                this.value = [...this.value, this.getOptionValue(option)];
-                valueChanged = true;
+                this.value = [...new Set([...originalValue, ...selectedOptions.map((opt) => this.getOptionValue(opt))])];
             }
         } else {
             if (selected) {
@@ -449,17 +475,13 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
             } else {
                 this.value = [...(this.value || []), this.getOptionValue(option)];
             }
-
-            valueChanged = true;
         }
 
-        if (valueChanged) {
-            this.onModelChange(this.value);
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
-        }
+        this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
     }
 
     onOptionClickCheckbox(event, option) {
