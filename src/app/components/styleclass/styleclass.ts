@@ -1,15 +1,14 @@
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { NgModule, Directive, ElementRef, Input, Renderer2, OnDestroy, AfterViewInit } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
     selector: '[pStyleClass]',
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class StyleClass implements AfterViewInit, OnDestroy {
-
     constructor(public el: ElementRef, public renderer: Renderer2) {}
 
     @Input('pStyleClass') selector: string;
@@ -47,16 +46,11 @@ export class StyleClass implements AfterViewInit, OnDestroy {
             this.target = this.resolveTarget();
 
             if (this.toggleClass) {
-                if (DomHandler.hasClass(this.target, this.toggleClass))
-                    DomHandler.removeClass(this.target, this.toggleClass);
-                else
-                    DomHandler.addClass(this.target, this.toggleClass);
-            }
-            else {
-                if (this.target.offsetParent === null)
-                    this.enter();
-                else
-                    this.leave();
+                if (DomHandler.hasClass(this.target, this.toggleClass)) DomHandler.removeClass(this.target, this.toggleClass);
+                else DomHandler.addClass(this.target, this.toggleClass);
+            } else {
+                if (this.target.offsetParent === null) this.enter();
+                else this.leave();
             }
         });
     }
@@ -92,8 +86,7 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                     this.animating = false;
                 });
             }
-        }
-        else {
+        } else {
             if (this.enterClass) {
                 DomHandler.removeClass(this.target, this.enterClass);
             }
@@ -126,8 +119,7 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                     this.animating = false;
                 });
             }
-        }
-        else {
+        } else {
             if (this.leaveClass) {
                 DomHandler.removeClass(this.target, this.leaveClass);
             }
@@ -167,11 +159,9 @@ export class StyleClass implements AfterViewInit, OnDestroy {
 
     bindDocumentListener() {
         if (!this.documentListener) {
-            this.documentListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', event => {
-                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static')
-                    this.unbindDocumentListener();
-                else if (this.isOutsideClick(event))
-                    this.leave();
+            this.documentListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
+                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentListener();
+                else if (this.isOutsideClick(event)) this.leave();
             });
         }
     }
@@ -181,8 +171,7 @@ export class StyleClass implements AfterViewInit, OnDestroy {
     }
 
     isOutsideClick(event: MouseEvent) {
-        return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && 
-            !this.target.contains(<HTMLElement> event.target);
+        return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !this.target.contains(<HTMLElement>event.target);
     }
 
     unbindDocumentListener() {
@@ -206,4 +195,4 @@ export class StyleClass implements AfterViewInit, OnDestroy {
     exports: [StyleClass],
     declarations: [StyleClass]
 })
-export class StyleClassModule { }
+export class StyleClassModule {}

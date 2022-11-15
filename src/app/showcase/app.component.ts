@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AppConfig } from './domain/appconfig';
 import { AppConfigService } from './service/appconfigservice';
 import { JsonService } from './service/jsonservice';
@@ -10,9 +11,8 @@ import { JsonService } from './service/jsonservice';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-
     constructor(private configService: AppConfigService, private JsonService: JsonService) {}
-       
+
     config: AppConfig;
 
     public subscription: Subscription;
@@ -21,31 +21,32 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public newsActive: boolean;
 
-    storageKey = "primeng";
+    storageKey = 'primeng';
 
     ngOnInit() {
-        this.config = {theme: 'lara-light-blue', dark: false}
+        this.config = { theme: 'lara-light-blue', dark: false };
 
-        this.subscription = this.configService.configUpdate$.subscribe( config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             const linkElement = document.getElementById('theme-link');
             this.replaceLink(linkElement, config.theme);
             this.config = config;
         });
 
-        this.JsonService.getAnnouncement().then(data => {
-            this.announcement = data;
+        if (environment.production) {
+            this.JsonService.getAnnouncement().then((data) => {
+                this.announcement = data;
 
-            const itemString = localStorage.getItem(this.storageKey);
-            if (itemString) {
-                const item = JSON.parse(itemString);
-                if (item.hiddenNews && item.hiddenNews !== data.id) {
+                const itemString = localStorage.getItem(this.storageKey);
+                if (itemString) {
+                    const item = JSON.parse(itemString);
+                    if (item.hiddenNews && item.hiddenNews !== data.id) {
+                        this.newsActive = true;
+                    }
+                } else {
                     this.newsActive = true;
                 }
-            }
-            else {
-                this.newsActive = true;
-            }
-        });
+            });
+        }
     }
 
     onNewsClose() {

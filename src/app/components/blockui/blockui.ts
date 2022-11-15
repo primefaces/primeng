@@ -1,13 +1,13 @@
-import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {PrimeNGConfig, PrimeTemplate} from 'primeng/api';
-import {ZIndexUtils} from 'primeng/utils';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask [class]="styleClass" [ngClass]="{'p-blockui-document':!target, 'p-blockui p-component-overlay p-component-overlay-enter': true}" [ngStyle]="{display: blocked ? 'flex' : 'none'}">
+        <div #mask [class]="styleClass" [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }" [ngStyle]="{ display: blocked ? 'flex' : 'none' }">
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </div>
@@ -16,11 +16,10 @@ import { DomHandler } from 'primeng/dom';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./blockui.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class BlockUI implements AfterViewInit,OnDestroy {
-
+export class BlockUI implements AfterViewInit, OnDestroy {
     @Input() target: any;
 
     @Input() autoZIndex: boolean = true;
@@ -47,12 +46,9 @@ export class BlockUI implements AfterViewInit,OnDestroy {
 
     set blocked(val: boolean) {
         if (this.mask && this.mask.nativeElement) {
-            if (val)
-                this.block();
-            else
-                this.unblock();
-        }
-        else {
+            if (val) this.block();
+            else this.unblock();
+        } else {
             this._blocked = val;
         }
     }
@@ -65,14 +61,14 @@ export class BlockUI implements AfterViewInit,OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -83,8 +79,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
         if (this.target) {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
             this.target.getBlockableElement().style.position = 'relative';
-        }
-        else {
+        } else {
             document.body.appendChild(this.mask.nativeElement);
         }
 
@@ -96,7 +91,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     unblock() {
         this.animationEndListener = this.destroyModal.bind(this);
         this.mask.nativeElement.addEventListener('animationend', this.animationEndListener);
-        DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave')
+        DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
     }
 
     destroyModal() {
@@ -126,4 +121,4 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     exports: [BlockUI],
     declarations: [BlockUI]
 })
-export class BlockUIModule { }
+export class BlockUIModule {}

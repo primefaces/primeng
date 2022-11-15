@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
@@ -11,40 +11,90 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'p-tieredMenuSub',
     template: `
-        <ul #sublist [ngClass]="{'p-submenu-list': !root}">
-            <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
-                <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" [ngStyle]="child.style" [class]="child.styleClass" pTooltip [tooltipOptions]="child.tooltipOptions">
-                    <a *ngIf="!child.routerLink" (keydown)="onItemKeyDown($event, child)" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                         (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"
-                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
-                         [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
+        <ul #sublist [ngClass]="{ 'p-submenu-list': !root }">
+            <ng-template ngFor let-child [ngForOf]="root ? item : item.items">
+                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{ 'p-hidden': child.visible === false }"></li>
+                <li
+                    *ngIf="!child.separator"
+                    #listItem
+                    [ngClass]="{ 'p-menuitem': true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false }"
+                    [ngStyle]="child.style"
+                    [class]="child.styleClass"
+                    pTooltip
+                    [tooltipOptions]="child.tooltipOptions"
+                >
+                    <a
+                        *ngIf="!child.routerLink"
+                        (keydown)="onItemKeyDown($event, child)"
+                        [attr.href]="child.url"
+                        [attr.data-automationid]="child.automationId"
+                        [target]="child.target"
+                        [attr.title]="child.title"
+                        [attr.id]="child.id"
+                        (click)="onItemClick($event, child)"
+                        (mouseenter)="onItemMouseEnter($event, child)"
+                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
+                        [attr.tabindex]="child.disabled ? null : '0'"
+                        [attr.aria-haspopup]="item.items != null"
+                        [attr.aria-expanded]="item === activeItem"
+                        pRipple
+                    >
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
+                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <a *ngIf="child.routerLink" (keydown)="onItemKeyDown($event, child)" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
-                        [target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" role="menuitem"
-                        (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"  [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
-                        [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state" pRipple>
+                    <a
+                        *ngIf="child.routerLink"
+                        (keydown)="onItemKeyDown($event, child)"
+                        [routerLink]="child.routerLink"
+                        [attr.data-automationid]="child.automationId"
+                        [queryParams]="child.queryParams"
+                        [routerLinkActive]="'p-menuitem-link-active'"
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions || { exact: false }"
+                        [target]="child.target"
+                        [attr.title]="child.title"
+                        [attr.id]="child.id"
+                        [attr.tabindex]="child.disabled ? null : '0'"
+                        role="menuitem"
+                        (click)="onItemClick($event, child)"
+                        (mouseenter)="onItemMouseEnter($event, child)"
+                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
+                        [fragment]="child.fragment"
+                        [queryParamsHandling]="child.queryParamsHandling"
+                        [preserveFragment]="child.preserveFragment"
+                        [skipLocationChange]="child.skipLocationChange"
+                        [replaceUrl]="child.replaceUrl"
+                        [state]="child.state"
+                        pRipple
+                    >
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{child.label}}</span>
+                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
                     </a>
-                    <p-tieredMenuSub (keydownItem)="onChildItemKeyDown($event)" [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay" (leafClick)="onLeafClick()" [popup]="popup"></p-tieredMenuSub>
+                    <p-tieredMenuSub
+                        (keydownItem)="onChildItemKeyDown($event)"
+                        [parentActive]="child === activeItem"
+                        [item]="child"
+                        *ngIf="child.items"
+                        [mobileActive]="mobileActive"
+                        [autoDisplay]="autoDisplay"
+                        (leafClick)="onLeafClick()"
+                        [popup]="popup"
+                    ></p-tieredMenuSub>
                 </li>
             </ng-template>
         </ul>
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class TieredMenuSub implements OnDestroy {
-
     @Input() item: MenuItem;
 
     @Input() root: boolean;
@@ -59,18 +109,15 @@ export class TieredMenuSub implements OnDestroy {
 
     @Input() popup: boolean;
 
-    @Input() get parentActive():boolean
-    {
+    @Input() get parentActive(): boolean {
         return this._parentActive;
     }
     set parentActive(value) {
         if (!this.root) {
             this._parentActive = value;
 
-            if (!value)
-                this.activeItem = null;
-            else
-                this.positionSubmenu()
+            if (!value) this.activeItem = null;
+            else this.positionSubmenu();
         }
     }
 
@@ -88,7 +135,7 @@ export class TieredMenuSub implements OnDestroy {
 
     activeItem: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     onItemClick(event, item) {
         if (item.disabled) {
@@ -111,8 +158,7 @@ export class TieredMenuSub implements OnDestroy {
             if (this.activeItem && item === this.activeItem) {
                 this.activeItem = null;
                 this.unbindDocumentClickListener();
-            }
-            else {
+            } else {
                 this.activeItem = item;
                 if (this.root) {
                     this.bindDocumentClickListener();
@@ -136,8 +182,7 @@ export class TieredMenuSub implements OnDestroy {
                 this.activeItem = item;
                 this.bindDocumentClickListener();
             }
-        }
-        else {
+        } else {
             this.activeItem = item;
             this.bindDocumentClickListener();
         }
@@ -152,27 +197,27 @@ export class TieredMenuSub implements OnDestroy {
         this.leafClick.emit();
     }
 
-    onItemKeyDown(event, item) {
+    onItemKeyDown(event, item: MenuItem) {
         let listItem = event.currentTarget.parentElement;
 
         switch (event.key) {
             case 'ArrowDown':
-                var nextItem = this.findNextItem(listItem);
+                const nextItem = this.findNextItem(listItem);
                 if (nextItem) {
                     nextItem.children[0].focus();
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
             case 'ArrowUp':
-                var prevItem = this.findPrevItem(listItem);
+                const prevItem = this.findPrevItem(listItem);
                 if (prevItem) {
                     prevItem.children[0].focus();
                 }
 
                 event.preventDefault();
-            break;
+                break;
 
             case 'ArrowRight':
                 if (item.items) {
@@ -188,10 +233,17 @@ export class TieredMenuSub implements OnDestroy {
                 }
 
                 event.preventDefault();
-            break;
+                break;
+
+            case 'Enter':
+                if (!item.routerLink) {
+                    this.onItemClick(event, item);
+                }
+
+                break;
 
             default:
-            break;
+                break;
         }
 
         this.keydownItem.emit({
@@ -209,8 +261,8 @@ export class TieredMenuSub implements OnDestroy {
             const viewport = DomHandler.getViewport();
             const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
             const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-    
-            if ((parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
+
+            if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
                 DomHandler.addClass(sublist, 'p-submenu-list-flipped');
             }
         }
@@ -219,19 +271,15 @@ export class TieredMenuSub implements OnDestroy {
     findNextItem(item) {
         let nextItem = item.nextElementSibling;
 
-        if (nextItem)
-            return DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
-        else
-            return null;
+        if (nextItem) return DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
+        else return null;
     }
 
     findPrevItem(item) {
         let prevItem = item.previousElementSibling;
 
-        if (prevItem)
-            return DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
-        else
-            return null;
+        if (prevItem) return DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
+        else return null;
     }
 
     onChildItemKeyDown(event) {
@@ -275,33 +323,29 @@ export class TieredMenuSub implements OnDestroy {
 @Component({
     selector: 'p-tieredMenu',
     template: `
-        <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-overlay':popup}" [class]="styleClass" [ngStyle]="style" (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)" *ngIf="!popup || visible">
-            <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" (leafClick)="onLeafClick()"
-                [autoDisplay]="autoDisplay" [popup]="popup"></p-tieredMenuSub>
+        <div
+            [ngClass]="{ 'p-tieredmenu p-component': true, 'p-tieredmenu-overlay': popup }"
+            [class]="styleClass"
+            [ngStyle]="style"
+            (click)="onOverlayClick($event)"
+            [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            [@.disabled]="popup !== true"
+            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+            (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+            *ngIf="!popup || visible"
+        >
+            <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" (leafClick)="onLeafClick()" [autoDisplay]="autoDisplay" [popup]="popup"></p-tieredMenuSub>
         </div>
     `,
-    animations: [
-        trigger('overlayAnimation', [
-            transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
-                animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
-                animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
-        ])
-    ],
+    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./tieredmenu.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class TieredMenu implements OnDestroy {
-
     @Input() model: MenuItem[];
 
     @Input() popup: boolean;
@@ -321,6 +365,10 @@ export class TieredMenu implements OnDestroy {
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     parentActive: boolean;
 
@@ -343,10 +391,8 @@ export class TieredMenu implements OnDestroy {
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     toggle(event) {
-        if (this.visible)
-            this.hide();
-        else
-            this.show(event);
+        if (this.visible) this.hide();
+        else this.show(event);
 
         this.preventDocumentDefault = true;
     }
@@ -372,46 +418,44 @@ export class TieredMenu implements OnDestroy {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 if (this.popup) {
                     this.container = event.element;
                     this.moveOnTop();
+                    this.onShow.emit({});
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                 }
-            break;
+                break;
 
             case 'void':
                 this.onOverlayHide();
-            break;
+                this.onHide.emit({});
+                break;
         }
     }
 
     alignOverlay() {
-        if (this.relativeAlign)
-            DomHandler.relativePosition(this.container, this.target);
-        else
-            DomHandler.absolutePosition(this.container, this.target);
+        if (this.relativeAlign) DomHandler.relativePosition(this.container, this.target);
+        else DomHandler.absolutePosition(this.container, this.target);
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'void':
                 ZIndexUtils.clear(event.element);
-            break;
+                break;
         }
     }
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.container);
-            else
-                DomHandler.appendChild(this.container, this.appendTo);
+            if (this.appendTo === 'body') document.body.appendChild(this.container);
+            else DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -435,7 +479,9 @@ export class TieredMenu implements OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.visible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     onLeafClick() {
@@ -523,12 +569,11 @@ export class TieredMenu implements OnDestroy {
             this.onOverlayHide();
         }
     }
-
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule,TooltipModule],
-    exports: [TieredMenu,RouterModule,TooltipModule],
-    declarations: [TieredMenu,TieredMenuSub]
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
+    exports: [TieredMenu, RouterModule, TooltipModule],
+    declarations: [TieredMenu, TieredMenuSub]
 })
-export class TieredMenuModule { }
+export class TieredMenuModule {}

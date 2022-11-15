@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, OnDestroy} from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
@@ -8,7 +8,7 @@ import { DomHandler } from 'primeng/dom';
 @Component({
     selector: 'app-config',
     template: `
-        <div class="layout-config" [ngClass]="{'layout-config-active': active}">
+        <div class="layout-config" [ngClass]="{ 'layout-config-active': active }">
             <div class="layout-config-content-wrapper">
                 <a tabindex="0" class="layout-config-button" (click)="toggleConfigurator($event)">
                     <i class="pi pi-cog"></i>
@@ -22,8 +22,8 @@ import { DomHandler } from 'primeng/dom';
                         <h4>Component Scale</h4>
                         <div class="config-scale">
                             <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text" [disabled]="scale === scales[0]"></button>
-                            <i class="pi pi-circle-fill" *ngFor="let s of scales" [ngClass]="{'scale-active': s === scale}"></i>
-                            <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text" [disabled]="scale === scales[scales.length - 1]"></button>
+                            <i class="pi pi-circle-fill" *ngFor="let s of scales" [ngClass]="{ 'scale-active': s === scale }"></i>
+                            <button icon="pi pi-plus" type="button" pButton (click)="incrementScale()" class="p-button-text" [disabled]="scale === scales[scales.length - 1]"></button>
                         </div>
 
                         <app-inputStyleSwitch></app-inputStyleSwitch>
@@ -94,7 +94,7 @@ import { DomHandler } from 'primeng/dom';
                         <div class="grid free-themes">
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'mdc-light-indigo', false)">
-                                    <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo"/>
+                                    <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo" />
                                 </button>
                                 <span>Indigo</span>
                             </div>
@@ -132,7 +132,7 @@ import { DomHandler } from 'primeng/dom';
                         <div class="grid free-themes">
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'fluent-light', false)">
-                                    <img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light"/>
+                                    <img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light" />
                                 </button>
                                 <span>Fluent Light</span>
                             </div>
@@ -147,7 +147,7 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-dark-indigo', true)">
-                                <img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" />
+                                    <img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" />
                                 </button>
                                 <span>Lara Dark Indigo</span>
                             </div>
@@ -172,7 +172,7 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-dark-blue', true)">
-                                <img src="assets/showcase/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" />
+                                    <img src="assets/showcase/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" />
                                 </button>
                                 <span>Lara Dark Blue</span>
                             </div>
@@ -272,37 +272,37 @@ import { DomHandler } from 'primeng/dom';
                         <div class="grid free-themes">
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'soho-light', false)">
-                                    <img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light"/>
+                                    <img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light" />
                                 </button>
                                 <span>Soho Light</span>
                             </div>
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'soho-dark', true)">
-                                <img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark"/>
+                                    <img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark" />
                                 </button>
                                 <span>Soho Dark</span>
                             </div>
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'viva-light', false)">
-                                    <img src="assets/showcase/images/themes/viva-light.svg" alt="Viva Light"/>
+                                    <img src="assets/showcase/images/themes/viva-light.svg" alt="Viva Light" />
                                 </button>
                                 <span>Viva Light</span>
                             </div>
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'viva-dark', true)">
-                                <img src="assets/showcase/images/themes/viva-dark.svg" alt="Viva Dark"/>
+                                    <img src="assets/showcase/images/themes/viva-dark.svg" alt="Viva Dark" />
                                 </button>
                                 <span>Viva Dark</span>
                             </div>
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'mira', false)">
-                                    <img src="assets/showcase/images/themes/mira.jpg" alt="Mira"/>
+                                    <img src="assets/showcase/images/themes/mira.jpg" alt="Mira" />
                                 </button>
                                 <span>Mira</span>
                             </div>
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'nano', false)">
-                                    <img src="assets/showcase/images/themes/nano.jpg" alt="Nano"/>
+                                    <img src="assets/showcase/images/themes/nano.jpg" alt="Nano" />
                                 </button>
                                 <span>Nano</span>
                             </div>
@@ -366,122 +366,122 @@ import { DomHandler } from 'primeng/dom';
                         <div class="grid premium-themes">
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/sakai-ng">
-                                    <img alt="Sakai" src="assets/showcase/images/layouts/sakai-ng.png">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/verona-ng">
-                                    <img alt="Verona" src="assets/showcase/images/layouts/verona-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/freya-ng">
-                                    <img alt="Freya" src="assets/showcase/images/layouts/freya-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/poseidon-ng">
-                                    <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/diamond-ng">
-                                    <img alt="Diamond" src="assets/showcase/images/layouts/diamond-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/mirage-ng">
-                                    <img alt="Mirage" src="assets/showcase/images/layouts/mirage-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/prestige-ng">
-                                    <img alt="Prestige" src="assets/showcase/images/layouts/prestige-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/sapphire-ng">
-                                    <img alt="Sapphire" src="assets/showcase/images/layouts/sapphire-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/roma-ng">
-                                    <img alt="Roma" src="assets/showcase/images/layouts/roma-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/babylon-ng">
-                                    <img alt="Babylon" src="assets/showcase/images/layouts/babylon-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/olympia-ng">
-                                    <img alt="Olympia" src="assets/showcase/images/layouts/olympia-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/california-ng">
-                                    <img alt="California" src="assets/showcase/images/layouts/california-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/ecuador-ng">
-                                    <img alt="Ecuador" src="assets/showcase/images/layouts/ecuador-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="col-12 md:col-4">
-                                <a href="https://www.primefaces.org/layouts/harmony-ng">
-                                    <img alt="Harmony" src="assets/showcase/images/layouts/harmony-ng.jpg">
+                                    <img alt="Sakai" src="assets/showcase/images/layouts/sakai-ng.png" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/apollo-ng">
-                                    <img alt="Apollo" src="assets/showcase/images/layouts/apollo-ng.jpg">
+                                    <img alt="Apollo" src="assets/showcase/images/layouts/apollo-ng.jpeg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/verona-ng">
+                                    <img alt="Verona" src="assets/showcase/images/layouts/verona-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/atlantis-ng">
+                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/freya-ng">
+                                    <img alt="Freya" src="assets/showcase/images/layouts/freya-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/poseidon-ng">
+                                    <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/diamond-ng">
+                                    <img alt="Diamond" src="assets/showcase/images/layouts/diamond-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/mirage-ng">
+                                    <img alt="Mirage" src="assets/showcase/images/layouts/mirage-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/prestige-ng">
+                                    <img alt="Prestige" src="assets/showcase/images/layouts/prestige-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/sapphire-ng">
+                                    <img alt="Sapphire" src="assets/showcase/images/layouts/sapphire-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/roma-ng">
+                                    <img alt="Roma" src="assets/showcase/images/layouts/roma-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/babylon-ng">
+                                    <img alt="Babylon" src="assets/showcase/images/layouts/babylon-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/olympia-ng">
+                                    <img alt="Olympia" src="assets/showcase/images/layouts/olympia-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/california-ng">
+                                    <img alt="California" src="assets/showcase/images/layouts/california-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/ecuador-ng">
+                                    <img alt="Ecuador" src="assets/showcase/images/layouts/ecuador-ng.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <a href="https://www.primefaces.org/layouts/harmony-ng">
+                                    <img alt="Harmony" src="assets/showcase/images/layouts/harmony-ng.jpg" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/serenity-ng">
-                                    <img alt="Serenity" src="assets/showcase/images/layouts/serenity-ng.jpg">
+                                    <img alt="Serenity" src="assets/showcase/images/layouts/serenity-ng.jpg" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/avalon-ng">
-                                    <img alt="Avalon" src="assets/showcase/images/layouts/avalon-ng.jpg">
+                                    <img alt="Avalon" src="assets/showcase/images/layouts/avalon-ng.jpg" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/manhattan-ng">
-                                    <img alt="Manhattan" src="assets/showcase/images/layouts/manhattan-ng.jpg">
+                                    <img alt="Manhattan" src="assets/showcase/images/layouts/manhattan-ng.jpg" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/paradise-ng">
-                                    <img alt="Paradise" src="assets/showcase/images/layouts/paradise-ng.jpg">
+                                    <img alt="Paradise" src="assets/showcase/images/layouts/paradise-ng.jpg" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/barcelona-ng">
-                                    <img alt="Barcelona" src="assets/showcase/images/layouts/barcelona-ng.jpg">
+                                    <img alt="Barcelona" src="assets/showcase/images/layouts/barcelona-ng.jpg" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/morpheus-ng">
-                                    <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-ng.jpg">
+                                    <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-ng.jpg" />
                                 </a>
                             </div>
                             <div class="col-12 md:col-4">
                                 <a href="https://www.primefaces.org/layouts/omega-ng">
-                                    <img alt="Omega" src="assets/showcase/images/layouts/omega-ng.jpg">
+                                    <img alt="Omega" src="assets/showcase/images/layouts/omega-ng.jpg" />
                                 </a>
                             </div>
                         </div>
@@ -492,11 +492,10 @@ import { DomHandler } from 'primeng/dom';
     `
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
-
     active: boolean;
 
     scale: number = 14;
-    scales: number[] = [12,13,14,15,16];
+    scales: number[] = [12, 13, 14, 15, 16];
 
     outsideClickListener: any;
 
@@ -508,34 +507,29 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
-            if (this.config.theme === 'nano')
-                this.scale = 12;
-            else
-                this.scale = 14;
+            if (this.config.theme === 'nano') this.scale = 12;
+            else this.scale = 14;
 
             this.applyScale();
         });
 
-        this.router.events.subscribe(event => {
+        this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                this.active = false
-             }
+                this.active = false;
+            }
         });
 
-        if (this.config.theme === 'nano')
-            this.scale = 12;
+        if (this.config.theme === 'nano') this.scale = 12;
     }
 
     toggleConfigurator(event: Event) {
         this.active = !this.active;
         event.preventDefault();
 
-        if (this.active)
-            this.bindOutsideClickListener();
-        else
-            this.unbindOutsideClickListener();
+        if (this.active) this.bindOutsideClickListener();
+        else this.unbindOutsideClickListener();
     }
 
     hideConfigurator(event) {
@@ -545,16 +539,14 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        this.configService.updateConfig({...this.config, ...{theme, dark}});
+        this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
         event.preventDefault();
-    } 
+    }
 
     onRippleChange() {
         this.configService.updateConfig(this.config);
-        if (this.config.ripple)
-            DomHandler.removeClass(document.body, 'p-ripple-disabled');
-        else
-            DomHandler.addClass(document.body, 'p-ripple-disabled');
+        if (this.config.ripple) DomHandler.removeClass(document.body, 'p-ripple-disabled');
+        else DomHandler.addClass(document.body, 'p-ripple-disabled');
     }
 
     bindOutsideClickListener() {
@@ -598,5 +590,4 @@ export class AppConfigComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
         }
     }
-
 }

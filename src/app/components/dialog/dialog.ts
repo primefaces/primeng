@@ -1,27 +1,47 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, TemplateRef, ContentChild, OnInit} from '@angular/core';
-import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule, PrimeTemplate, PrimeNGConfig} from 'primeng/api';
-import {FocusTrapModule} from 'primeng/focustrap';
-import {RippleModule} from 'primeng/ripple';
-import {UniqueComponentId, ZIndexUtils} from 'primeng/utils';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    OnDestroy,
+    Input,
+    Output,
+    EventEmitter,
+    Renderer2,
+    ContentChildren,
+    QueryList,
+    ViewChild,
+    NgZone,
+    ChangeDetectorRef,
+    ViewRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    AfterContentInit,
+    TemplateRef,
+    ContentChild,
+    OnInit
+} from '@angular/core';
+import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
+import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
+import { FocusTrapModule } from 'primeng/focustrap';
+import { RippleModule } from 'primeng/ripple';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
-const showAnimation = animation([
-    style({ transform: '{{transform}}', opacity: 0 }),
-    animate('{{transition}}')
-]);
+const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
-const hideAnimation = animation([
-    animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))
-]);
+const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
     selector: 'p-dialog',
     template: `
-        <div *ngIf="maskVisible" [class]="maskStyleClass"
-            [ngClass]="{'p-dialog-mask': true, 'p-component-overlay p-component-overlay-enter': this.modal, 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
+        <div
+            *ngIf="maskVisible"
+            [class]="maskStyleClass"
+            [ngClass]="{
+                'p-dialog-mask': true,
+                'p-component-overlay p-component-overlay-enter': this.modal,
+                'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
                 'p-dialog-left': position === 'left',
                 'p-dialog-right': position === 'right',
                 'p-dialog-top': position === 'top',
@@ -29,21 +49,44 @@ const hideAnimation = animation([
                 'p-dialog-top-right': position === 'topright' || position === 'top-right',
                 'p-dialog-bottom': position === 'bottom',
                 'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
-                'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'}">
-            <div #container [ngClass]="{'p-dialog p-component':true, 'p-dialog-rtl':rtl,'p-dialog-draggable':draggable,'p-dialog-resizable':resizable, 'p-dialog-maximized': maximized}"
-                [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
-                [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
+                'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'
+            }"
+        >
+            <div
+                #container
+                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-rtl': rtl, 'p-dialog-draggable': draggable, 'p-dialog-resizable': resizable, 'p-dialog-maximized': maximized }"
+                [ngStyle]="style"
+                [class]="styleClass"
+                *ngIf="visible"
+                pFocusTrap
+                [pFocusTrapDisabled]="focusTrap === false"
+                [@animation]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
+                (@animation.start)="onAnimationStart($event)"
+                (@animation.done)="onAnimationEnd($event)"
+                role="dialog"
+                [attr.aria-labelledby]="id + '-label'"
+            >
+                <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{header}}</span>
+                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                        <button *ngIf="maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                         </button>
-                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" [attr.aria-label]="closeAriaLabel" (click)="close($event)" (keydown.enter)="close($event)" [attr.tabindex]="closeTabindex" pRipple>
+                        <button
+                            *ngIf="closable"
+                            type="button"
+                            [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }"
+                            [attr.aria-label]="closeAriaLabel"
+                            (click)="close($event)"
+                            (keydown.enter)="close($event)"
+                            [attr.tabindex]="closeTabindex"
+                            pRipple
+                        >
                             <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                         </button>
                     </div>
@@ -56,29 +99,18 @@ const hideAnimation = animation([
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
-                <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
             </div>
         </div>
     `,
-    animations: [
-        trigger('animation', [
-            transition('void => visible', [
-                useAnimation(showAnimation)
-            ]),
-            transition('visible => void', [
-                useAnimation(hideAnimation)
-            ])
-        ])
-    ],
+    animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Dialog implements AfterContentInit,OnInit,OnDestroy {
-
+export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     @Input() header: string;
 
     @Input() draggable: boolean = true;
@@ -87,18 +119,18 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() get positionLeft(): number {
         return 0;
-    };
+    }
 
     set positionLeft(_positionLeft: number) {
-        console.log("positionLeft property is deprecated.");
+        console.log('positionLeft property is deprecated.');
     }
 
     @Input() get positionTop(): number {
         return 0;
-    };
+    }
 
     set positionTop(_positionTop: number) {
-        console.log("positionTop property is deprecated.");
+        console.log('positionTop property is deprecated.');
     }
 
     @Input() contentStyle: any;
@@ -117,10 +149,10 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() get responsive(): boolean {
         return false;
-    };
+    }
 
     set responsive(_responsive: boolean) {
-        console.log("Responsive property is deprecated.");
+        console.log('Responsive property is deprecated.');
     }
 
     @Input() appendTo: any;
@@ -135,10 +167,10 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() get breakpoint(): number {
         return 649;
-    };
+    }
 
     set breakpoint(_breakpoint: number) {
-        console.log("Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.");
+        console.log('Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.');
     }
 
     @Input() blockScroll: boolean = false;
@@ -165,7 +197,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() closeAriaLabel: string;
 
-    @Input() closeTabindex: string = "-1";
+    @Input() closeTabindex: string = '-1';
 
     @Input() minimizeIcon: string = 'pi pi-window-minimize';
 
@@ -187,7 +219,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @Output() visibleChange:EventEmitter<any> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onResizeInit: EventEmitter<any> = new EventEmitter();
 
@@ -249,34 +281,34 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     _style: any = {};
 
-    _position: string = "center";
+    _position: string = 'center';
 
     originalStyle: any;
 
-    transformOptions: any = "scale(0.7)";
+    transformOptions: any = 'scale(0.7)';
 
     styleElement: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -290,7 +322,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
     @Input() get visible(): any {
         return this._visible;
     }
-    set visible(value:any) {
+    set visible(value: any) {
         this._visible = value;
 
         if (this._visible && !this.maskVisible) {
@@ -301,16 +333,16 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
     @Input() get style(): any {
         return this._style;
     }
-    set style(value:any) {
+    set style(value: any) {
         if (value) {
-            this._style = {...value};
+            this._style = { ...value };
             this.originalStyle = value;
         }
     }
 
     @Input() get position(): string {
         return this._position;
-    };
+    }
 
     set position(value: string) {
         this._position = value;
@@ -319,22 +351,22 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
             case 'topleft':
             case 'bottomleft':
             case 'left':
-                this.transformOptions = "translate3d(-100%, 0px, 0px)";
-            break;
+                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                break;
             case 'topright':
             case 'bottomright':
             case 'right':
-                this.transformOptions = "translate3d(100%, 0px, 0px)";
-            break;
+                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                break;
             case 'bottom':
-                this.transformOptions = "translate3d(0px, 100%, 0px)";
-            break;
+                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                break;
             case 'top':
-                this.transformOptions = "translate3d(0px, -100%, 0px)";
-            break;
+                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                break;
             default:
-                this.transformOptions = "scale(0.7)";
-            break;
+                this.transformOptions = 'scale(0.7)';
+                break;
         }
     }
 
@@ -386,13 +418,11 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
         this.maximized = !this.maximized;
 
         if (!this.modal && !this.blockScroll) {
-            if (this.maximized)
-                DomHandler.addClass(document.body, 'p-overflow-hidden');
-            else
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            if (this.maximized) DomHandler.addClass(document.body, 'p-overflow-hidden');
+            else DomHandler.removeClass(document.body, 'p-overflow-hidden');
         }
 
-        this.onMaximize.emit({'maximized': this.maximized});
+        this.onMaximize.emit({ maximized: this.maximized });
     }
 
     unbindMaskClickListener() {
@@ -422,7 +452,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
                             width: ${this.breakpoints[breakpoint]} !important;
                         }
                     }
-                `
+                `;
             }
 
             this.styleElement.innerHTML = innerHTML;
@@ -430,7 +460,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((<HTMLElement> event.target).parentElement, 'p-dialog-header-icon')) {
+        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -454,21 +484,15 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
                 if (focusableElements && focusableElements.length > 0) {
                     if (!focusableElements[0].ownerDocument.activeElement) {
                         focusableElements[0].focus();
-                    }
-                    else {
+                    } else {
                         let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
                         if (event.shiftKey) {
-                            if (focusedIndex == -1 || focusedIndex === 0)
-                                focusableElements[focusableElements.length - 1].focus();
-                            else
-                                focusableElements[focusedIndex - 1].focus();
-                        }
-                        else {
-                            if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
-                                focusableElements[0].focus();
-                            else
-                                focusableElements[focusedIndex + 1].focus();
+                            if (focusedIndex == -1 || focusedIndex === 0) focusableElements[focusableElements.length - 1].focus();
+                            else focusableElements[focusedIndex - 1].focus();
+                        } else {
+                            if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) focusableElements[0].focus();
+                            else focusableElements[focusedIndex + 1].focus();
                         }
                     }
                 }
@@ -490,19 +514,18 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
             this.container.style.position = 'fixed';
 
             if (this.keepInViewport) {
-                if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
+                if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
                     this._style.left = leftPos + 'px';
                     this.lastPageX = event.pageX;
                     this.container.style.left = leftPos + 'px';
                 }
 
-                if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
+                if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
                     this._style.top = topPos + 'px';
                     this.lastPageY = event.pageY;
                     this.container.style.top = topPos + 'px';
                 }
-            }
-            else {
+            } else {
                 this.lastPageX = event.pageX;
                 this.container.style.left = leftPos + 'px';
                 this.lastPageY = event.pageY;
@@ -562,12 +585,12 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
                 newHeight += deltaY;
             }
 
-            if ((!minWidth || newWidth > parseInt(minWidth)) && (offset.left + newWidth) < viewport.width) {
+            if ((!minWidth || newWidth > parseInt(minWidth)) && offset.left + newWidth < viewport.width) {
                 this._style.width = newWidth + 'px';
                 this.container.style.width = this._style.width;
             }
 
-            if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
+            if ((!minHeight || newHeight > parseInt(minHeight)) && offset.top + newHeight < viewport.height) {
                 this.contentViewChild.nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
@@ -676,10 +699,8 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.wrapper);
-            else
-                DomHandler.appendChild(this.wrapper, this.appendTo);
+            if (this.appendTo === 'body') document.body.appendChild(this.wrapper);
+            else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
 
@@ -690,7 +711,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
     }
 
     onAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
@@ -710,25 +731,25 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
                 if (this.focusOnShow) {
                     this.focus();
                 }
-            break;
+                break;
 
             case 'void':
                 if (this.wrapper && this.modal) {
                     DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
-            break;
+                break;
         }
     }
 
     onAnimationEnd(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'void':
                 this.onContainerDestroy();
                 this.onHide.emit({});
-            break;
+                break;
             case 'visible':
                 this.onShow.emit({});
-            break;
+                break;
         }
     }
 
@@ -758,7 +779,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
         this.container = null;
         this.wrapper = null;
 
-        this._style = this.originalStyle ? {...this.originalStyle} : {};
+        this._style = this.originalStyle ? { ...this.originalStyle } : {};
     }
 
     destroyStyle() {
@@ -776,12 +797,11 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
         this.destroyStyle();
     }
-
 }
 
 @NgModule({
-    imports: [CommonModule,FocusTrapModule,RippleModule],
-    exports: [Dialog,SharedModule],
+    imports: [CommonModule, FocusTrapModule, RippleModule],
+    exports: [Dialog, SharedModule],
     declarations: [Dialog]
 })
-export class DialogModule { }
+export class DialogModule {}

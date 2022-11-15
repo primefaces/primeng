@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-footer',
     template: `
         <div class="layout-footer">
             <div class="layout-footer-left">
-                <span>PrimeNG 13.3.4-SNAPSHOT by </span>
+                <span>PrimeNG 14.2.1 by </span>
                 <a href="https://www.primetek.com.tr">PrimeTek</a>
             </div>
 
@@ -24,5 +24,4 @@ import {Component} from '@angular/core';
         </div>
     `
 })
-export class AppFooterComponent {
-}
+export class AppFooterComponent {}

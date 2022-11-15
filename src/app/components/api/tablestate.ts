@@ -7,11 +7,11 @@ export interface TableState {
     sortField?: string;
     sortOrder?: number;
     multiSortMeta?: SortMeta[];
-    filters?: {[s: string]: FilterMetadata | FilterMetadata[];};
+    filters?: { [s: string]: FilterMetadata | FilterMetadata[] };
     columnWidths?: string;
     tableWidth?: string;
     wrapperWidth?: string;
     selection?: any;
     columnOrder?: string[];
-    expandedRowKeys?: {[s: string]: boolean;};
+    expandedRowKeys?: { [s: string]: boolean };
 }

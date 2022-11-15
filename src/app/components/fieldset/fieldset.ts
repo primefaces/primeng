@@ -1,32 +1,38 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, QueryList, ContentChildren, TemplateRef} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {SharedModule, PrimeTemplate} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
+import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, QueryList, ContentChildren, TemplateRef } from '@angular/core';
+import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { SharedModule, PrimeTemplate } from 'primeng/api';
+import { BlockableUI } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
 
 let idx: number = 0;
 
 @Component({
     selector: 'p-fieldset',
     template: `
-        <fieldset [attr.id]="id" [ngClass]="{'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
+        <fieldset [attr.id]="id" [ngClass]="{ 'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable, 'p-fieldset-expanded': !collapsed && toggleable }" [ngStyle]="style" [class]="styleClass">
             <legend class="p-fieldset-legend">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" pRipple>
-                        <span class="p-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{'pi-minus': !collapsed,'pi-plus':collapsed}"></span>
+                        <span class="p-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{ 'pi-minus': !collapsed, 'pi-plus': collapsed }"></span>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </a>
                 </ng-container>
                 <ng-template #legendContent>
-                    <span class="p-fieldset-legend-text">{{legend}}</span>
+                    <span class="p-fieldset-legend-text">{{ legend }}</span>
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </ng-template>
             </legend>
-            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}"
-                        [attr.aria-labelledby]="id" [attr.aria-hidden]="collapsed"
-                         (@fieldsetContent.done)="onToggleDone()" role="region">
+            <div
+                [attr.id]="id + '-content'"
+                class="p-toggleable-content"
+                [@fieldsetContent]="collapsed ? { value: 'hidden', params: { transitionParams: transitionOptions, height: '0' } } : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*' } }"
+                [attr.aria-labelledby]="id"
+                [attr.aria-hidden]="collapsed"
+                (@fieldsetContent.done)="onToggleDone()"
+                role="region"
+            >
                 <div class="p-fieldset-content">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -36,14 +42,19 @@ let idx: number = 0;
     `,
     animations: [
         trigger('fieldsetContent', [
-            state('hidden', style({
-                height: '0',
-                overflow: 'hidden'
-            })),
-            state('visible', style({
-                height: '*'
-            })),
-            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            state(
+                'hidden',
+                style({
+                    height: '0'
+                })
+            ),
+            state(
+                'visible',
+                style({
+                    height: '*'
+                })
+            ),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
     ],
@@ -51,11 +62,10 @@ let idx: number = 0;
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./fieldset.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Fieldset implements AfterContentInit,BlockableUI {
-
+export class Fieldset implements AfterContentInit, BlockableUI {
     @Input() legend: string;
 
     @Input() toggleable: boolean;
@@ -88,14 +98,14 @@ export class Fieldset implements AfterContentInit,BlockableUI {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -106,14 +116,12 @@ export class Fieldset implements AfterContentInit,BlockableUI {
         }
 
         this.animating = true;
-        this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
+        this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
-        if (this.collapsed)
-            this.expand(event);
-        else
-            this.collapse(event);
+        if (this.collapsed) this.expand(event);
+        else this.collapse(event);
 
-        this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});
+        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
         event.preventDefault();
     }
 
@@ -127,19 +135,18 @@ export class Fieldset implements AfterContentInit,BlockableUI {
         this.collapsedChange.emit(this.collapsed);
     }
 
-    getBlockableElement(): HTMLElement {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
     onToggleDone() {
         this.animating = false;
     }
-
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule],
-    exports: [Fieldset,SharedModule],
+    imports: [CommonModule, RippleModule],
+    exports: [Fieldset, SharedModule],
     declarations: [Fieldset]
 })
-export class FieldsetModule { }
+export class FieldsetModule {}

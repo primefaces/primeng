@@ -576,7 +576,7 @@ export class MyModel &#123;
                         </tr>
                         <tr>
                             <td>view</td>
-                            <td>string</td>
+                            <td>'date' | 'month' | 'year'</td>
                             <td>date</td>
                             <td>Type of view to display, valid values are "date" for datepicker and "month" for month picker.</td>
                         </tr>
@@ -621,6 +621,12 @@ export class MyModel &#123;
                             <td>number</td>
                             <td>0</td>
                             <td>Defines the first of the week for various date calculations.</td>
+                        </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -705,6 +711,11 @@ export class MyModel &#123;
                                 event.year: New year
                             </td>
                             <td>Callback to invoke when a year is changed using the navigators.</td>
+                        </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field is cleared.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,5 +1,5 @@
-import { NgModule}     from '@angular/core';
-import { RouterModule } from '@angular/router'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { TreeTableDemo } from './treetabledemo';
 import { TreeTablePageDemo } from './treetablepagedemo';
 import { TreeTableSortDemo } from './treetablesortdemo';
@@ -20,30 +20,28 @@ import { TreeTableFilterDemo } from './treetablefilterdemo';
 import { TreeTableSizeDemo } from './treetablesizedemo';
 
 @NgModule({
-	imports: [
-		RouterModule.forChild([
-            {path:'',component: TreeTableDemo},
+    imports: [
+        RouterModule.forChild([
+            { path: '', component: TreeTableDemo },
             { path: 'page', component: TreeTablePageDemo },
-			{ path: 'sort', component: TreeTableSortDemo },
-			{ path: 'selection', component: TreeTableSelectionDemo },
-			{ path: 'templating', component: TreeTableTemplatingDemo },
-			{ path: 'style', component: TreeTableStyleDemo },
-			{ path: 'lazy', component: TreeTableLazyDemo },
-			{ path: 'colgroup', component: TreeTableColGroupDemo },
+            { path: 'sort', component: TreeTableSortDemo },
+            { path: 'selection', component: TreeTableSelectionDemo },
+            { path: 'templating', component: TreeTableTemplatingDemo },
+            { path: 'style', component: TreeTableStyleDemo },
+            { path: 'lazy', component: TreeTableLazyDemo },
+            { path: 'colgroup', component: TreeTableColGroupDemo },
             { path: 'scroll', component: TreeTableScrollDemo },
             { path: 'flexscroll', component: TreeTableFlexScrollDemo },
-			{ path: 'coltoggle', component: TreeTableColToggleDemo },
-			{ path: 'responsive', component: TreeTableResponsiveDemo },
-			{ path: 'contextmenu', component: TreeTableContextMenuDemo },
-			{ path: 'colresize', component: TreeTableColResizeDemo },
-			{ path: 'reorder', component: TreeTableReorderDemo },
-			{ path: 'edit', component: TreeTableEditDemo },
-			{ path: 'filter', component: TreeTableFilterDemo },
-			{ path: 'size', component: TreeTableSizeDemo }
-		])
-	],
-	exports: [
-		RouterModule
-	]
+            { path: 'coltoggle', component: TreeTableColToggleDemo },
+            { path: 'responsive', component: TreeTableResponsiveDemo },
+            { path: 'contextmenu', component: TreeTableContextMenuDemo },
+            { path: 'colresize', component: TreeTableColResizeDemo },
+            { path: 'reorder', component: TreeTableReorderDemo },
+            { path: 'edit', component: TreeTableEditDemo },
+            { path: 'filter', component: TreeTableFilterDemo },
+            { path: 'size', component: TreeTableSizeDemo }
+        ])
+    ],
+    exports: [RouterModule]
 })
 export class TreeTableDemoRoutingModule {}

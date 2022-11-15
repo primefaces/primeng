@@ -4,12 +4,11 @@ import { CommonModule } from '@angular/common';
 @Directive({
     selector: '[pCode]',
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class CodeHighlighter implements AfterViewInit {
-
-    constructor(public el: ElementRef) { }
+    constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
         if (window['Prism']) {
@@ -23,6 +22,4 @@ export class CodeHighlighter implements AfterViewInit {
     exports: [CodeHighlighter],
     declarations: [CodeHighlighter]
 })
-export class CodeHighlighterModule { }
-
-
+export class CodeHighlighterModule {}

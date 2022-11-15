@@ -4,7 +4,6 @@ import { AppConfig } from '../domain/appconfig';
 
 @Injectable()
 export class AppConfigService {
-
     config: AppConfig = {
         theme: 'lara-light-blue',
         dark: false,

@@ -32,22 +32,8 @@ import { AppCodeModule } from '../../app.code.component';
 import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-        FormsModule,
-		TreeTableDemoRoutingModule,
-        TreeTableModule,
-        ToastModule,
-        DialogModule,
-        ButtonModule,
-        TabViewModule,
-        MultiSelectModule,
-        InputTextModule,
-        ContextMenuModule,
-        AppCodeModule,
-        AppDemoActionsModule
-	],
-	declarations: [
+    imports: [CommonModule, FormsModule, TreeTableDemoRoutingModule, TreeTableModule, ToastModule, DialogModule, ButtonModule, TabViewModule, MultiSelectModule, InputTextModule, ContextMenuModule, AppCodeModule, AppDemoActionsModule],
+    declarations: [
         TreeTableDemo,
         TreeTablePageDemo,
         TreeTableSortDemo,
@@ -66,6 +52,6 @@ import { AppDemoActionsModule } from '../../app.demoactions.component';
         TreeTableEditDemo,
         TreeTableFilterDemo,
         TreeTableSizeDemo
-	]
+    ]
 })
 export class TreeTableDemoModule {}

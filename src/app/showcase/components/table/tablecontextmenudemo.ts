@@ -8,32 +8,30 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class TableContextMenuDemo implements OnInit {
-
     products: Product[];
 
     selectedProduct: Product;
 
     items: MenuItem[];
 
-    constructor(private productService: ProductService, private messageService: MessageService) { }
+    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(data => this.products = data);
+        this.productService.getProductsSmall().then((data) => (this.products = data));
 
         this.items = [
-            {label: 'View', icon: 'pi pi-fw pi-search', command: () => this.viewProduct(this.selectedProduct)},
-                {label: 'Delete', icon: 'pi pi-fw pi-times', command: () => this.deleteProduct(this.selectedProduct)}
+            { label: 'View', icon: 'pi pi-fw pi-search', command: () => this.viewProduct(this.selectedProduct) },
+            { label: 'Delete', icon: 'pi pi-fw pi-times', command: () => this.deleteProduct(this.selectedProduct) }
         ];
     }
 
     viewProduct(product: Product) {
-        this.messageService.add({severity: 'info', summary: 'Product Selected', detail: product.name });
+        this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
     }
 
     deleteProduct(product: Product) {
         this.products = this.products.filter((p) => p.id !== product.id);
-        this.messageService.add({severity: 'info', summary: 'Product Deleted', detail: product.name});
+        this.messageService.add({ severity: 'info', summary: 'Product Deleted', detail: product.name });
         this.selectedProduct = null;
     }
-
 }
