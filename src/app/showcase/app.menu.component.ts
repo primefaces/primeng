@@ -406,6 +406,13 @@ export class AppMenuComponent {
             ]
         },
         {
+            label: 'UI Kit',
+            value: 'uikit',
+            items: [
+                { label: 'Figma', value: '/uikit' }
+            ]
+        },
+        {
             label: 'Accessibility',
             value: 'accessibility',
             items: [{ label: 'Overview', value: '/accessibility' }]
@@ -675,6 +682,8 @@ export class AppMenuComponent {
                 { label: 'Defer', value: '/defer' },
                 { label: 'FocusTrap', value: '/focustrap' },
                 { label: 'StyleClass', value: '/styleclass' },
+                { label: 'AutoFocus', value: '/autofocus' },
+                { label: 'Animate', value: '/animate' },
                 { label: 'Ripple', value: '/ripple' }
             ]
         },
