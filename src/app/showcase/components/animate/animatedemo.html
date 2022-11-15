@@ -1,14 +1,14 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Animate</h1>
-        <p>Animate manages PrimeFlex CSS classes declaratively to during enter animations on scroll or on page load.</p>
+        <p>Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.</p>
     </div>
     <app-demoActions github="animate" stackblitz="animate-demo"></app-demoActions>
 </div>
 
 <div class="content-section implementation">
     <div class="card flex flex-column align-items-center">
-        <div pAnimate enterClass="flip" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
+        <div pAnimate enterClass="flip" leaveClass="fadeoutleft" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out">
             <span class="text-900 text-3xl font-bold">flip</span>
         </div>
         <div class="h-30rem"></div>
@@ -31,11 +31,11 @@ import &#123;AnimateModule&#125; from 'primeng/animate';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>Animate uses <a href="http://primefaces.org/primeflex/animations">PrimeFlex animations</a>, however it can perform animations with custom CSS classes too. Takes <i>enterClass</i> property to simply add animation class during scroll or page load to manage elements animation if the element is in viewport.</p>
+            <p>Animate uses <a href="http://primefaces.org/primeflex/animations">PrimeFlex animations</a>, however it can perform animations with custom CSS classes too. Takes <i>enterClass</i> and <i>leaveClass</i> properties to simply add animation class during scroll or page load to manage elements animation if the element is entering or leaving the viewport.</p>
 
     <p><b>Enter Animation</b></p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;div pAnimate enterClass="flip" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out"&gt;&lt;/div&gt;
+&lt;div pAnimate enterClass="flip" leaveClass="fadeoutleft" class="flex justify-content-center align-items-center h-20rem w-20rem border-round shadow-2 animation-duration-1000 animation-ease-out"&gt;&lt;/div&gt;
 </app-code>
 
             <h5>Properties</h5>
@@ -54,7 +54,13 @@ import &#123;AnimateModule&#125; from 'primeng/animate';
                             <td>enterClass</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Selector to define the CSS class for animation.</td>
+                            <td>Selector to define the CSS class for enter animation.</td>
+                        </tr>
+                        <tr>
+                            <td>leaveClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Selector to define the CSS class for leave animation.</td>
                         </tr>
                     </tbody>
                 </table>
