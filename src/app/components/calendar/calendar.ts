@@ -772,6 +772,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.createWeekDays();
+            this.cd.markForCheck();
         });
 
         this.initialized = true;
