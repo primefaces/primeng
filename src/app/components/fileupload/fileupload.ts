@@ -92,7 +92,7 @@ import { Subscription } from 'rxjs';
                 pRipple
             >
                 <span class="p-button-icon p-button-icon-left pi" [ngClass]="hasFiles() && !auto ? uploadIcon : chooseIcon"></span>
-                <span class="p-button-label">{{ auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel }}</span>
+                <span class="p-button-label">{{ basicButtonLabel }}</span>
                 <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" />
             </span>
         </div>
@@ -219,6 +219,14 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     get files(): File[] {
         return this._files;
+    }
+
+    public get basicButtonLabel(): string {
+        if (this.auto || !this.hasFiles()) {
+            return this.chooseLabel;
+        }
+
+        return this.uploadLabel ?? this.files[0].name;
     }
 
     public _files: File[] = [];

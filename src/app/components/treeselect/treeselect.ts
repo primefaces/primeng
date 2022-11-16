@@ -71,7 +71,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 (onHide)="hide($event)"
             >
                 <ng-template pTemplate="content">
-                    <div #panel class="p-treeselect-panel p-component" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                    <div #panel class="p-treeselect-panel p-component" [ngStyle]="panelStyle" [class]="panelStyleClass" [ngClass]="panelClass">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
                         <div class="p-treeselect-header" *ngIf="filter">
                             <div class="p-treeselect-filter-container">
