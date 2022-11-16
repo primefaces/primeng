@@ -2006,7 +2006,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let innerHTML = '';
         widths.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
-            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important`;
+            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
                 #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
                 #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
@@ -2739,7 +2739,9 @@ export class FrozenColumn implements AfterViewInit {
     constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
-        this.updateStickyPosition();
+        setTimeout(() => {
+            this.updateStickyPosition();
+        }, 1000);
     }
 
     _frozen: boolean = true;
