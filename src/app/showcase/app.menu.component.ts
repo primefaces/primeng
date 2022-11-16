@@ -408,9 +408,7 @@ export class AppMenuComponent {
         {
             label: 'UI Kit',
             value: 'uikit',
-            items: [
-                { label: 'Figma', value: '/uikit' }
-            ]
+            items: [{ label: 'Figma', value: '/uikit' }]
         },
         {
             label: 'Accessibility',
