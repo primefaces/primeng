@@ -100,9 +100,9 @@ export class KeyFilter implements Validator {
         let delta = '';
 
         for (let i = 0; i < value.length; i++) {
-            let str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
+            let str = value.slice(0, i) + value.slice(i + value.length - prevValue.length);
 
-            if (str === prevValue) delta = value.substr(i, value.length - prevValue.length);
+            if (str === prevValue) delta = value.slice(i, -prevValue.length);
         }
 
         return delta;
@@ -114,7 +114,7 @@ export class KeyFilter implements Validator {
 
     isValidString(str: string) {
         for (let i = 0; i < str.length; i++) {
-            if (!this.isValidChar(str.substr(i, 1))) {
+            if (!this.isValidChar(str.slice(i, i + 1))) {
                 return false;
             }
         }

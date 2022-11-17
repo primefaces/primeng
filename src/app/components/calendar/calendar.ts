@@ -2786,7 +2786,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
                 for (let i = 0; i < names.length; i++) {
                     let name = names[i][1];
-                    if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
+                    if (value.slice(iValue, iValue + name.length).toLowerCase() === name.toLowerCase()) {
                         index = names[i][0];
                         iValue += name.length;
                         break;
@@ -2863,7 +2863,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (iValue < value.length) {
-            extra = value.substr(iValue);
+            extra = value.slice(iValue);
             if (!/^\s+/.test(extra)) {
                 throw 'Extra/unparsed characters found in date: ' + extra;
             }
