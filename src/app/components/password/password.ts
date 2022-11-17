@@ -681,7 +681,7 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     toggleIconClass(unmasked: boolean) {
-        return unmasked ? 'pi pi-eye-slash' : 'pi pi-eye';
+        return unmasked ? 'pi pi-eye' : 'pi pi-eye-slash';
     }
 
     strengthClass(meter: any) {
