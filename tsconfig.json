@@ -14,8 +14,7 @@
         "typeRoots": ["node_modules/@types"],
         "lib": ["es2020", "dom"],
         "paths": {
-            "primeng/*": ["src/app/components/*/public_api"],
-            "tslib": ["node_modules/tslib/tslib.d.ts"]
+            "primeng/*": ["src/app/components/*/public_api"]
         },
         "useDefineForClassFields": false
     }
