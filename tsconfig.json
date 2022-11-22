@@ -10,16 +10,13 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "importHelpers": true,
-        "target": "es2020",
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "lib": [
-            "es2020",
-            "dom"
-        ],
+        "target": "ES2022",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["es2020", "dom"],
         "paths": {
-            "primeng/*": ["src/app/components/*/public_api"]
-        }
-     }
+            "primeng/*": ["src/app/components/*/public_api"],
+            "tslib": ["node_modules/tslib/tslib.d.ts"]
+        },
+        "useDefineForClassFields": false
     }
+}

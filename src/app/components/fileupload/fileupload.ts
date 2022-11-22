@@ -1,34 +1,32 @@
-import {
-    NgModule,
-    Component,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
-    TemplateRef,
-    AfterViewInit,
-    AfterContentInit,
-    ContentChildren,
-    QueryList,
-    ViewChild,
-    ElementRef,
-    NgZone,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
-    OnInit
-} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { BlockableUI, Message, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { DomHandler } from 'primeng/dom';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { DomHandler } from 'primeng/dom';
-import { Message, TranslationKeys } from 'primeng/api';
-import { PrimeTemplate, SharedModule, PrimeNGConfig } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -92,7 +90,7 @@ import { Subscription } from 'rxjs';
                 pRipple
             >
                 <span class="p-button-icon p-button-icon-left pi" [ngClass]="hasFiles() && !auto ? uploadIcon : chooseIcon"></span>
-                <span class="p-button-label">{{ basicButtonLabel }}</span>
+                <span *ngIf="basicButtonLabel" class="p-button-label">{{ basicButtonLabel }}</span>
                 <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" />
             </span>
         </div>
