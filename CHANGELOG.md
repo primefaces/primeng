@@ -1,5 +1,18 @@
 # Changelog
 
+## [15.0.0-rc.1](https://github.com/primefaces/primeng/tree/15.0.0-rc.1) (2022-11-22)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.2.2...15.0.0-rc.1)
+
+**Enhancements:**
+- Add Angular 15 support [\#12243](https://github.com/primefaces/primeng/issues/12243)
+
+**Fixed bugs:**
+- pFileUpload | button does not render correctly in basic mode if chooseLabel is null or undefined [\#12270](https://github.com/primefaces/primeng/issues/12270)
+- Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
+- Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
+- Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
 ## [14.2.2](https://github.com/primefaces/primeng/tree/14.2.2) (2022-11-16)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/v14.2.1...14.2.2)
