@@ -42,7 +42,7 @@ export class DialogService {
         this.appRef.attachView(componentRef.hostView);
 
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        if (!config.appendTo) {
+        if (!config.appendTo || config.appendTo === 'body') {
             document.body.appendChild(domElem);
         } else {
             DomHandler.appendChild(domElem, config.appendTo);
