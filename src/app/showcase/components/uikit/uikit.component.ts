@@ -14,7 +14,7 @@ export class UIKitComponent implements OnInit, OnDestroy {
 
     colorScheme: string = 'light';
 
-    pricing: any = {};
+    pricing: any;
 
     constructor(private configService: AppConfigService, private uiKitService: UIKitService) {}
 
