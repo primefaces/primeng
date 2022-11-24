@@ -1,4 +1,5 @@
 import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef } from '@angular/core';
+import { DomHandler } from 'primeng/dom';
 import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -41,7 +42,11 @@ export class DialogService {
         this.appRef.attachView(componentRef.hostView);
 
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        document.body.appendChild(domElem);
+        if (!config.appendTo) {
+            document.body.appendChild(domElem);
+        } else {
+            DomHandler.appendChild(domElem, config.appendTo);
+        }
 
         this.dialogComponentRefMap.set(dialogRef, componentRef);
 
