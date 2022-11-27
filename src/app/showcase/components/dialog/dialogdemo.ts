@@ -8,10 +8,6 @@ export class DialogDemo {
 
     headerButtonPressedCount: number;
 
-    headerData: any = [
-        {icon: 'pi-question', action: () => {this.headerButtonPressedCount++; }}
-    ];
-
     displayModal: boolean;
 
     displayBasic: boolean;
@@ -56,5 +52,9 @@ export class DialogDemo {
 
     showResponsiveDialog() {
         this.displayResponsive = true;
+    }
+
+    incrementHeaderButtonPressedCount() {
+        this.headerButtonPressedCount++;
     }
 }

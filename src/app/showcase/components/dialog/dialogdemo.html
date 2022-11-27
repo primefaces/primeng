@@ -82,8 +82,13 @@
         <h5>Customized Header Buttons</h5>
         <p-button (click)="showCustomButtonDialog()" icon="pi pi-external-link" label="Show"></p-button>
         <p-dialog header="Header" [(visible)]="displayCustomButton" [modal]="true" [style]="{width: '50vw'}"
-                  [draggable]="false" [resizable]="false" [headerButtons]="headerData">
+                  [draggable]="false" [resizable]="false">
             <p>The custom header question mark button was pressed {{headerButtonPressedCount}} times.</p>
+            <ng-template pTemplate="buttons">
+                <button type="button" class="p-dialog-header-icon p-link" (click)="incrementHeaderButtonPressedCount()" pRipple>
+                    <span class="pi pi-question"></span>
+                </button>
+            </ng-template>
             <ng-template pTemplate="footer">
                 <p-button icon="pi pi-check" (click)="displayCustomButton=false" label="Ok" styleClass="p-button-text"></p-button>
             </ng-template>
@@ -181,6 +186,18 @@ export class ModelComponent &#123;
     Content
     &lt;ng-template pTemplate="footer"&gt;
         //buttons
+    &lt;/ng-template&gt;
+&lt;/p-dialog&gt;
+</app-code>
+
+            <h5>Customized Header Buttons</h5>
+            <p>Additional buttons can be placed at the header section of the dialog using the special <i>buttons</i> selector. For a unified look, it is suggest to add <i>.p-dialog-header-icon</i> class to your buttons.</p>
+<app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
+&lt;p-dialog [(visible)]=&quot;display&quot;&gt;
+    &lt;ng-template pTemplate=&quot;buttons&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;p-dialog-header-icon p-link&quot; pRipple&gt;
+            &lt;span class=&quot;pi pi-question&quot;&gt;&lt;/span&gt;
+        &lt;/button&gt;
     &lt;/ng-template&gt;
 &lt;/p-dialog&gt;
 </app-code>
@@ -435,14 +452,6 @@ Content
                             <td>pi pi-window-maximize</td>
                             <td>Name of the maximize icon.</td>
                         </tr>
-                        <tr>
-                            <td>headerButtons</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of objects to display custom header buttons.<br>Custom button object format:
-                                <code>&#123;icon: 'pi-question', action: () => &#123;&#125;&#125;</code>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -648,8 +657,13 @@ Content
 &lt;h5&gt;Customized Header Buttons&lt;/h5&gt;
 &lt;p-button (click)=&quot;showCustomButtonDialog()&quot; icon=&quot;pi pi-external-link&quot; label=&quot;Show&quot;&gt;&lt;/p-button&gt;
 &lt;p-dialog header=&quot;Header&quot; [(visible)]=&quot;displayCustomButton&quot; [modal]=&quot;true&quot; [style]=&quot;&#123;width: '50vw'&#125;&quot;
-    [draggable]=&quot;false&quot; [resizable]=&quot;false&quot; [headerButtons]=&quot;headerData&quot;&gt;
+    [draggable]=&quot;false&quot; [resizable]=&quot;false&quot;&gt;
     &lt;p&gt;The custom header question mark button was pressed &#123;&#123;headerButtonPressedCount&#125;&#125; times.&lt;/p&gt;
+    &lt;ng-template pTemplate=&quot;buttons&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;p-dialog-header-icon p-link&quot; (click)=&quot;incrementHeaderButtonPressedCount()&quot; pRipple&gt;
+            &lt;span class=&quot;pi pi-question&quot;&gt;&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template pTemplate=&quot;footer&quot;&gt;
         &lt;p-button icon=&quot;pi pi-check&quot; (click)=&quot;displayCustomButton=false&quot; label=&quot;Ok&quot; styleClass=&quot;p-button-text&quot;&gt;&lt;/p-button&gt;
     &lt;/ng-template&gt;
@@ -690,10 +704,6 @@ export class DialogDemo &#123;
 
     headerButtonPressedCount: number;
 
-    headerData: any = [
-        &#123;icon: 'pi-question', action: () => &#123;this.headerButtonPressedCount++; &#125;&#125;
-    ];
-
     displayModal: boolean;
 
     displayBasic: boolean;
@@ -732,6 +742,10 @@ export class DialogDemo &#123;
     showPositionDialog(position: string) &#123;
         this.position = position;
         this.displayPosition = true;
+    &#125;
+
+    incrementHeaderButtonPressedCount() &#123;
+        this.headerButtonPressedCount++;
     &#125;
 
 &#125;
