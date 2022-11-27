@@ -47,11 +47,9 @@ const hideAnimation = animation([
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
-                        <button *ngFor="let btn of headerButtons; let index = index; trackBy: customButtonTrackBy" type="button"
-                                class="p-dialog-header-icon p-link" (click)="btn.action()"
-                                (keydown.enter)="btn.action()" tabindex="-1" pRipple>
-                            <span class="pi" [class]="btn.icon"></span>
-                        </button>
+                        <ng-container #buttons>
+                            <ng-template *ngTemplateOutlet="buttonTemplate"></ng-template>
+                        </ng-container>
                         <button *ngIf="maximizable" type="button"
                                 class="p-dialog-header-icon p-dialog-header-maximize p-link"
                                 (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
@@ -188,7 +186,7 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
     @Input() maximizeIcon: string = 'pi pi-window-maximize';
 
-    @Input() headerButtons: any[] = null;
+    public buttonTemplate: TemplateRef<any>;
 
     @ContentChild(Header) headerFacet: QueryList<Header>;
 
@@ -293,6 +291,10 @@ export class Dialog implements AfterContentInit,OnInit,OnDestroy {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                break;
+
+                case 'buttons':
+                    this.buttonTemplate = item.template;
                 break;
 
                 default:
