@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef} from '@angular/core';
-import { PhotoService } from '../../service/photoservice';import { Galleria } from 'primeng/galleria';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { PhotoService } from '../../service/photoservice';
+import { Galleria } from 'primeng/galleria';
 
 @Component({
     templateUrl: './galleriaadvanceddemo.html',
     styleUrls: ['./galleriaadvanceddemo.scss']
-    
 })
 export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     images: any[];
@@ -12,17 +12,16 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     showThumbnails: boolean;
 
     fullscreen: boolean = false;
-    
+
     activeIndex: number = 0;
-    
+
     onFullScreenListener: any;
 
     @ViewChild('galleria') galleria: Galleria;
 
-    
-    constructor(private photoService: PhotoService, private cd: ChangeDetectorRef) { }
+    constructor(private photoService: PhotoService, private cd: ChangeDetectorRef) {}
 
-    responsiveOptions:any[] = [
+    responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
             numVisible: 5
@@ -37,7 +36,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
         }
     ];
     ngOnInit() {
-        this.photoService.getImages().then(images => this.images = images);
+        this.photoService.getImages().then((images) => (this.images = images));
         this.bindDocumentListeners();
     }
 
@@ -48,8 +47,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     toggleFullScreen() {
         if (this.fullscreen) {
             this.closePreviewFullScreen();
-        }
-        else {
+        } else {
             this.openPreviewFullScreen();
         }
 
@@ -57,17 +55,17 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     openPreviewFullScreen() {
-        let elem = this.galleria.element.nativeElement.querySelector(".p-galleria");
+        let elem = this.galleria.element.nativeElement.querySelector('.p-galleria');
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
-        }
-        else if (elem['mozRequestFullScreen']) { /* Firefox */
+        } else if (elem['mozRequestFullScreen']) {
+            /* Firefox */
             elem['mozRequestFullScreen']();
-        }
-        else if (elem['webkitRequestFullscreen']) { /* Chrome, Safari & Opera */
+        } else if (elem['webkitRequestFullscreen']) {
+            /* Chrome, Safari & Opera */
             elem['webkitRequestFullscreen']();
-        }
-        else if (elem['msRequestFullscreen']) { /* IE/Edge */
+        } else if (elem['msRequestFullscreen']) {
+            /* IE/Edge */
             elem['msRequestFullscreen']();
         }
     }
@@ -81,31 +79,28 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     closePreviewFullScreen() {
         if (document.exitFullscreen) {
             document.exitFullscreen();
-        }
-        else if (document['mozCancelFullScreen']) {
+        } else if (document['mozCancelFullScreen']) {
             document['mozCancelFullScreen']();
-        }
-        else if (document['webkitExitFullscreen']) {
+        } else if (document['webkitExitFullscreen']) {
             document['webkitExitFullscreen']();
-        }
-        else if (document['msExitFullscreen']) {
+        } else if (document['msExitFullscreen']) {
             document['msExitFullscreen']();
         }
     }
 
     bindDocumentListeners() {
         this.onFullScreenListener = this.onFullScreenChange.bind(this);
-        document.addEventListener("fullscreenchange", this.onFullScreenListener);
-        document.addEventListener("mozfullscreenchange", this.onFullScreenListener);
-        document.addEventListener("webkitfullscreenchange", this.onFullScreenListener);
-        document.addEventListener("msfullscreenchange", this.onFullScreenListener);
+        document.addEventListener('fullscreenchange', this.onFullScreenListener);
+        document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
+        document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
+        document.addEventListener('msfullscreenchange', this.onFullScreenListener);
     }
 
     unbindDocumentListeners() {
-        document.removeEventListener("fullscreenchange", this.onFullScreenListener);
-        document.removeEventListener("mozfullscreenchange", this.onFullScreenListener);
-        document.removeEventListener("webkitfullscreenchange", this.onFullScreenListener);
-        document.removeEventListener("msfullscreenchange", this.onFullScreenListener);
+        document.removeEventListener('fullscreenchange', this.onFullScreenListener);
+        document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
+        document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
+        document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
         this.onFullScreenListener = null;
     }
 

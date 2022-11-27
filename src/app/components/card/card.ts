@@ -13,11 +13,11 @@ import { BlockableUI } from 'primeng/api';
             </div>
             <div class="p-card-body">
                 <div class="p-card-title" *ngIf="header || titleTemplate">
-                    {{header}}
+                    {{ header }}
                     <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
                 </div>
                 <div class="p-card-subtitle" *ngIf="subheader || subtitleTemplate">
-                    {{subheader}}
+                    {{ subheader }}
                     <ng-container *ngTemplateOutlet="subtitleTemplate"></ng-container>
                 </div>
                 <div class="p-card-content">
@@ -35,11 +35,10 @@ import { BlockableUI } from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./card.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Card implements AfterContentInit,BlockableUI {
-
+export class Card implements AfterContentInit, BlockableUI {
     @Input() header: string;
 
     @Input() subheader: string;
@@ -64,42 +63,41 @@ export class Card implements AfterContentInit,BlockableUI {
 
     footerTemplate: TemplateRef<any>;
 
-    constructor(private el: ElementRef) { }
+    constructor(private el: ElementRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
 
                 case 'title':
                     this.titleTemplate = item.template;
-                break;
+                    break;
 
                 case 'subtitle':
                     this.subtitleTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 case 'footer':
                     this.footerTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
 
-    getBlockableElement(): HTMLElement  {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-
 }
 
 @NgModule({
@@ -107,4 +105,4 @@ export class Card implements AfterContentInit,BlockableUI {
     exports: [Card, SharedModule],
     declarations: [Card]
 })
-export class CardModule { }
+export class CardModule {}

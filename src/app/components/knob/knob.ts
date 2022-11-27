@@ -1,4 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter} from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -12,12 +12,20 @@ export const KNOB_VALUE_ACCESSOR: any = {
     selector: 'p-knob',
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-        <svg viewBox="0 0 100 100" [style.width]="size + 'px'" [style.height]="size + 'px'" (click)="onClick($event)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
-            (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
-            <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
-            <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
-            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" class="p-knob-text" [attr.name]="name">{{valueToDisplay()}}</text>
-        </svg>
+            <svg
+                viewBox="0 0 100 100"
+                [style.width]="size + 'px'"
+                [style.height]="size + 'px'"
+                (click)="onClick($event)"
+                (mousedown)="onMouseDown($event)"
+                (mouseup)="onMouseUp($event)"
+                (touchstart)="onTouchStart($event)"
+                (touchend)="onTouchEnd($event)"
+            >
+                <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
+                <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
+                <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" class="p-knob-text" [attr.name]="name">{{ valueToDisplay() }}</text>
+            </svg>
         </div>
     `,
     providers: [KNOB_VALUE_ACCESSOR],
@@ -25,24 +33,23 @@ export const KNOB_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./knob.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Knob {
-
     @Input() styleClass: string;
 
     @Input() style: any;
 
     @Input() severity: string;
 
-    @Input() valueColor: string = "var(--primary-color, Black)";
+    @Input() valueColor: string = 'var(--primary-color, Black)';
 
-    @Input() rangeColor: string = "var(--surface-border, LightGray)";
+    @Input() rangeColor: string = 'var(--surface-border, LightGray)';
 
-    @Input() textColor: string = "var(--text-color-secondary, Black)";
+    @Input() textColor: string = 'var(--text-color-secondary, Black)';
 
-    @Input() valueTemplate: string = "{value}";
+    @Input() valueTemplate: string = '{value}';
 
     @Input() name: string;
 
@@ -70,7 +77,7 @@ export class Knob {
 
     midY: number = 50;
 
-    minRadians: number = 4 * Math.PI / 3;
+    minRadians: number = (4 * Math.PI) / 3;
 
     maxRadians: number = -Math.PI / 3;
 
@@ -88,10 +95,10 @@ export class Knob {
 
     onModelTouched: Function = () => {};
 
-    constructor(private cd: ChangeDetectorRef, private el: ElementRef) { }
+    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {}
 
     mapRange(x, inMin, inMax, outMin, outMax) {
-        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+        return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
     }
 
     onClick(event) {
@@ -102,7 +109,7 @@ export class Knob {
 
     updateValue(offsetX, offsetY) {
         let dx = offsetX - this.size / 2;
-        let dy =  this.size / 2 - offsetY;
+        let dy = this.size / 2 - offsetY;
         let angle = Math.atan2(dy, dx);
         let start = -Math.PI / 2 - Math.PI / 6;
         this.updateModel(angle, start);
@@ -110,12 +117,9 @@ export class Knob {
 
     updateModel(angle, start) {
         let mappedValue;
-        if (angle > this.maxRadians)
-            mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.min, this.max);
-        else if (angle < start)
-            mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.min, this.max);
-        else
-            return;
+        if (angle > this.maxRadians) mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.min, this.max);
+        else if (angle < start) mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.min, this.max);
+        else return;
 
         let newValue = Math.round((mappedValue - this.min) / this.step) * this.step + this.min;
         this.value = newValue;
@@ -125,8 +129,8 @@ export class Knob {
 
     onMouseDown(event) {
         if (!this.disabled && !this.readonly) {
-            this.windowMouseMoveListener = this.onMouseMove.bind(this)
-            this.windowMouseUpListener = this.onMouseUp.bind(this)
+            this.windowMouseMoveListener = this.onMouseMove.bind(this);
+            this.windowMouseUpListener = this.onMouseUp.bind(this);
             window.addEventListener('mousemove', this.windowMouseMoveListener);
             window.addEventListener('mouseup', this.windowMouseUpListener);
             event.preventDefault();
@@ -180,7 +184,7 @@ export class Knob {
         }
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
         this.cd.markForCheck();
     }
@@ -214,10 +218,8 @@ export class Knob {
     }
 
     zeroRadians() {
-        if (this.min > 0 && this.max > 0)
-            return this.mapRange(this.min, this.min, this.max, this.minRadians, this.maxRadians);
-        else
-            return this.mapRange(0, this.min, this.max, this.minRadians, this.maxRadians);
+        if (this.min > 0 && this.max > 0) return this.mapRange(this.min, this.min, this.max, this.minRadians, this.maxRadians);
+        else return this.mapRange(0, this.min, this.max, this.minRadians, this.maxRadians);
     }
 
     valueRadians() {
@@ -265,7 +267,7 @@ export class Knob {
     }
 
     valueToDisplay() {
-        return this.valueTemplate.replace("{value}", this._value.toString());
+        return this.valueTemplate.replace('{value}', this._value.toString());
     }
 
     get _value(): number {
@@ -278,4 +280,4 @@ export class Knob {
     exports: [Knob],
     declarations: [Knob]
 })
-export class KnobModule { }
+export class KnobModule {}

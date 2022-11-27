@@ -9,14 +9,14 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Single Column</h5>
-        <p-table [value]="products1" responsiveLayout="scroll">
+        <p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
-                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                    <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
+                    <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                    <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
@@ -35,14 +35,14 @@
         <h5>Multiple Columns</h5>
         <p>Use metakey to add a column to the sort selection.</p>
 
-        <p-table [value]="products2" sortMode="multiple" responsiveLayout="scroll">
+        <p-table [value]="products2" sortMode="multiple" [tableStyle]="{'min-width': '60rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
-                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                    <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
+                    <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                    <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
@@ -59,14 +59,14 @@
 
     <div class="card">
         <h5>Custom Sort</h5>
-        <p-table [value]="products3" (sortFunction)="customSort($event)" [customSort]="true" responsiveLayout="scroll">
+        <p-table [value]="products3" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="{'min-width': '60rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
-                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                    <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
+                    <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                    <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
@@ -94,14 +94,14 @@
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
     &lt;h5&gt;Single Column&lt;/h5&gt;
-    &lt;p-table [value]="products1"&gt;
+    &lt;p-table [value]="products1" [tableStyle]="&#123;'min-width': '60rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th pSortableColumn="code"&gt;Code &lt;p-sortIcon field="code"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="category"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="quantity"&gt;Quantity &lt;p-sortIcon field="quantity"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="code" style="width:20%"&gt;Code &lt;p-sortIcon field="code"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="name" style="width:20%"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="category" style="width:20%"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="quantity" style="width:20%"&gt;Quantity &lt;p-sortIcon field="quantity"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="price" style="width:20%"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-product&gt;
@@ -120,14 +120,14 @@
     &lt;h5&gt;Multiple Columns&lt;/h5&gt;
     &lt;p&gt;Use metakey to add a column to the sort selection.&lt;/p&gt;
 
-    &lt;p-table [value]="products2" sortMode="multiple"&gt;
+    &lt;p-table [value]="products2" sortMode="multiple" [tableStyle]="&#123;'min-width': '60rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th pSortableColumn="code"&gt;Code &lt;p-sortIcon field="code"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="category"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="quantity"&gt;Quantity &lt;p-sortIcon field="quantity"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="code" style="width:20%"&gt;Code &lt;p-sortIcon field="code"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="name" style="width:20%"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="category" style="width:20%"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="quantity" style="width:20%"&gt;Quantity &lt;p-sortIcon field="quantity"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="price" style="width:20%"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-product&gt;
@@ -144,14 +144,14 @@
 
 &lt;div class="card"&gt;
     &lt;h5&gt;Custom Sort&lt;/h5&gt;
-    &lt;p-table [value]="products3" (sortFunction)="customSort($event)" [customSort]="true"&gt;
+    &lt;p-table [value]="products3" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="&#123;'min-width': '60rem'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th pSortableColumn="code"&gt;Code &lt;p-sortIcon field="code"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="category"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="quantity"&gt;Quantity &lt;p-sortIcon field="quantity"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="price"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="code" style="width:20%"&gt;Code &lt;p-sortIcon field="code"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="name" style="width:20%"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="category" style="width:20%"&gt;Category &lt;p-sortIcon field="category"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="quantity" style="width:20%"&gt;Quantity &lt;p-sortIcon field="quantity"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="price" style="width:20%"&gt;Price &lt;p-sortIcon field="price"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-product&gt;

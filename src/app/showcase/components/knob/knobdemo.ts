@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './knobdemo.html'
 })
 export class KnobDemo {
-
     value1: number = 0;
 
     value2: number = 50;
@@ -22,5 +21,4 @@ export class KnobDemo {
     value8: number = 60;
 
     value9: number = 50;
-    
 }

@@ -2,7 +2,7 @@ name: Verify Linked Issue In PRs
 
 on:
   pull_request_target:
-    types: [edited, synchronize, opened, reopened]
+    types: [opened, reopened]
   check_run:
 
 permissions:
@@ -35,5 +35,5 @@ jobs:
         uses: andymckay/labeler@1.0.4
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          add-labels: 'need revision'
-          remove-labels: 'pending-review'
+          add-labels: 'Resolution: Needs Revision'
+          remove-labels: 'Status: Pending Review'

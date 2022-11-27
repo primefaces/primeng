@@ -5,8 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 
 @Component({
-  template: `
-  <pre>
+    template: ` <pre>
     <code  pCode ngNonBindable class="language-css">
     .ui-table table &#123;
         border-collapse:collapse;
@@ -16,33 +15,26 @@ import { Component } from '@angular/core';
     </code>
   </pre>`
 })
-class TestCodeHighlighterComponent {
-}
+class TestCodeHighlighterComponent {}
 
 describe('CodeHighlighter', () => {
-  
     let codehighlighter: CodeHighlighter;
     let fixture: ComponentFixture<TestCodeHighlighterComponent>;
 
     beforeEach(() => {
-    TestBed.configureTestingModule({
-        imports: [
-        NoopAnimationsModule
-        ],
-        declarations: [
-        CodeHighlighter,
-        TestCodeHighlighterComponent
-        ]
-    });
+        TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule],
+            declarations: [CodeHighlighter, TestCodeHighlighterComponent]
+        });
 
-    fixture = TestBed.createComponent(TestCodeHighlighterComponent);
-    codehighlighter = fixture.debugElement.children[0].componentInstance;
+        fixture = TestBed.createComponent(TestCodeHighlighterComponent);
+        codehighlighter = fixture.debugElement.children[0].componentInstance;
     });
 
     it('should display by default', () => {
         fixture.detectChanges();
-  
+
         const codeEl = fixture.debugElement.query(By.css('code'));
         expect(codeEl.nativeElement).toBeTruthy();
-      });
+    });
 });

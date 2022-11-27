@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './dialogdemo.html',
@@ -53,7 +53,7 @@ export class DialogDemo {
     showResponsiveDialog() {
         this.displayResponsive = true;
     }
-
+    
     incrementHeaderButtonPressedCount() {
         this.headerButtonPressedCount++;
     }

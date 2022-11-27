@@ -1,15 +1,9 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {KnobDemo} from './knobdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { KnobDemo } from './knobdemo';
 
 @NgModule({
-	imports: [
-		RouterModule.forChild([
-			{path:'',component: KnobDemo}
-		])
-	],
-	exports: [
-		RouterModule
-	]
+    imports: [RouterModule.forChild([{ path: '', component: KnobDemo }])],
+    exports: [RouterModule]
 })
 export class KnobDemoRoutingModule {}

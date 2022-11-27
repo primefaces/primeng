@@ -15,12 +15,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { AppCodeModule } from '../../app.code.component';
-import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FocusTrapDemoRoutingModule,
+    imports: [
+        CommonModule,
+        FocusTrapDemoRoutingModule,
         FormsModule,
         DialogModule,
         ButtonModule,
@@ -29,15 +29,13 @@ import {AppDemoActionsModule} from '../../app.demoactions.component';
         TabViewModule,
         AppCodeModule,
         FocusTrapModule,
-		AutoCompleteModule,
-		CalendarModule,
-		MultiSelectModule,
-		DropdownModule,
-		EditorModule,
-		AppDemoActionsModule
-	],
-	declarations: [
-		FocusTrapDemo
-	]
+        AutoCompleteModule,
+        CalendarModule,
+        MultiSelectModule,
+        DropdownModule,
+        EditorModule,
+        AppDemoActionsModule
+    ],
+    declarations: [FocusTrapDemo]
 })
 export class FocusTrapDemoModule {}

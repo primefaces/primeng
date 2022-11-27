@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -10,29 +10,69 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'p-menubarSub',
     template: `
-        <ul [ngClass]="{'p-submenu-list': !root, 'p-menubar-root-list': root}" [attr.role]="root ? 'menubar' : 'menu'">
-            <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}" role="separator">
-                <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false}" [ngStyle]="child.style" [class]="child.styleClass" role="none" pTooltip [tooltipOptions]="child.tooltipOptions">
-                    <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [target]="child.target" [attr.title]="child.title" [attr.id]="child.id" role="menuitem"
-                        (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"
-                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
+        <ul [ngClass]="{ 'p-submenu-list': !root, 'p-menubar-root-list': root }" [attr.role]="root ? 'menubar' : 'menu'">
+            <ng-template ngFor let-child [ngForOf]="root ? item : item.items">
+                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{ 'p-hidden': child.visible === false }" role="separator"></li>
+                <li
+                    *ngIf="!child.separator"
+                    #listItem
+                    [ngClass]="{ 'p-menuitem': true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false }"
+                    [ngStyle]="child.style"
+                    [class]="child.styleClass"
+                    role="none"
+                    pTooltip
+                    [tooltipOptions]="child.tooltipOptions"
+                >
+                    <a
+                        *ngIf="!child.routerLink"
+                        [attr.href]="child.url"
+                        [attr.data-automationid]="child.automationId"
+                        [target]="child.target"
+                        [attr.title]="child.title"
+                        [attr.id]="child.id"
+                        role="menuitem"
+                        (click)="onItemClick($event, child)"
+                        (mouseenter)="onItemMouseEnter($event, child)"
+                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
+                        [attr.tabindex]="child.disabled ? null : '0'"
+                        [attr.aria-haspopup]="item.items != null"
+                        [attr.aria-expanded]="item === activeItem"
+                        pRipple
+                    >
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
+                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
-                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{child.badge}}</span>
-                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{'pi-angle-down':root,'pi-angle-right':!root}"></span>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
+                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{ 'pi-angle-down': root, 'pi-angle-right': !root }"></span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
-                        [target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" role="menuitem"
-                        (click)="onItemClick($event, child)" (mouseenter)="onItemMouseEnter($event,child)"
-                        [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}"
-                        [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state" pRipple>
+                    <a
+                        *ngIf="child.routerLink"
+                        [routerLink]="child.routerLink"
+                        [attr.data-automationid]="child.automationId"
+                        [queryParams]="child.queryParams"
+                        [routerLinkActive]="'p-menuitem-link-active'"
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions || { exact: false }"
+                        [target]="child.target"
+                        [attr.title]="child.title"
+                        [attr.id]="child.id"
+                        [attr.tabindex]="child.disabled ? null : '0'"
+                        role="menuitem"
+                        (click)="onItemClick($event, child)"
+                        (mouseenter)="onItemMouseEnter($event, child)"
+                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
+                        [fragment]="child.fragment"
+                        [queryParamsHandling]="child.queryParamsHandling"
+                        [preserveFragment]="child.preserveFragment"
+                        [skipLocationChange]="child.skipLocationChange"
+                        [replaceUrl]="child.replaceUrl"
+                        [state]="child.state"
+                        pRipple
+                    >
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{child.label}}</span>
+                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
-                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{child.badge}}</span>
-                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{'pi-angle-down':root,'pi-angle-right':!root}"></span>
+                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
+                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{ 'pi-angle-down': root, 'pi-angle-right': !root }"></span>
                     </a>
                     <p-menubarSub [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay" (leafClick)="onLeafClick()"></p-menubarSub>
                 </li>
@@ -41,11 +81,10 @@ import { TooltipModule } from 'primeng/tooltip';
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class MenubarSub implements OnDestroy {
-
     @Input() item: MenuItem;
 
     @Input() root: boolean;
@@ -58,16 +97,14 @@ export class MenubarSub implements OnDestroy {
 
     @Input() autoDisplay: boolean;
 
-    @Input() get parentActive():boolean
-    {
+    @Input() get parentActive(): boolean {
         return this._parentActive;
     }
     set parentActive(value) {
         if (!this.root) {
             this._parentActive = value;
 
-            if (!value)
-                this.activeItem = null;
+            if (!value) this.activeItem = null;
         }
     }
 
@@ -81,7 +118,7 @@ export class MenubarSub implements OnDestroy {
 
     activeItem: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     onItemClick(event, item) {
         if (item.disabled) {
@@ -104,8 +141,7 @@ export class MenubarSub implements OnDestroy {
             if (this.activeItem && item === this.activeItem) {
                 this.activeItem = null;
                 this.unbindDocumentClickListener();
-            }
-            else {
+            } else {
                 this.activeItem = item;
                 if (this.root) {
                     this.bindDocumentClickListener();
@@ -129,8 +165,7 @@ export class MenubarSub implements OnDestroy {
                 this.activeItem = item;
                 this.bindDocumentClickListener();
             }
-        }
-        else {
+        } else {
             this.activeItem = item;
             this.bindDocumentClickListener();
         }
@@ -174,11 +209,11 @@ export class MenubarSub implements OnDestroy {
 @Component({
     selector: 'p-menubar',
     template: `
-        <div [ngClass]="{'p-menubar p-component':true, 'p-menubar-mobile-active': mobileActive}" [class]="styleClass" [ngStyle]="style">
+        <div [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile-active': mobileActive }" [class]="styleClass" [ngStyle]="style">
             <div class="p-menubar-start" *ngIf="startTemplate">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
-            <a #menubutton tabindex="0" class="p-menubar-button" (click)="toggle($event)">
+            <a #menubutton tabindex="0" *ngIf="model && model.length > 0" class="p-menubar-button" (click)="toggle($event)">
                 <i class="pi pi-bars"></i>
             </a>
             <p-menubarSub #rootmenu [item]="model" root="root" [baseZIndex]="baseZIndex" (leafClick)="onLeafClick()" [autoZIndex]="autoZIndex" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay"></p-menubarSub>
@@ -196,11 +231,10 @@ export class MenubarSub implements OnDestroy {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./menubar.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Menubar implements AfterContentInit, OnDestroy {
-
     @Input() model: MenuItem[];
 
     @Input() style: any;
@@ -227,18 +261,18 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     outsideClickListener: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'start':
                     this.startTemplate = item.template;
-                break;
+                    break;
 
                 case 'end':
                     this.endTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -247,8 +281,7 @@ export class Menubar implements AfterContentInit, OnDestroy {
         if (this.mobileActive) {
             this.hide();
             ZIndexUtils.clear(this.rootmenu.el.nativeElement);
-        }
-        else {
+        } else {
             this.mobileActive = true;
             ZIndexUtils.set('menu', this.rootmenu.el.nativeElement, this.config.zIndex.menu);
         }
@@ -260,8 +293,13 @@ export class Menubar implements AfterContentInit, OnDestroy {
     bindOutsideClickListener() {
         if (!this.outsideClickListener) {
             this.outsideClickListener = (event) => {
-                if (this.mobileActive && this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target)
-                    && this.menubutton.nativeElement !== event.target && !this.menubutton.nativeElement.contains(event.target)) {
+                if (
+                    this.mobileActive &&
+                    this.rootmenu.el.nativeElement !== event.target &&
+                    !this.rootmenu.el.nativeElement.contains(event.target) &&
+                    this.menubutton.nativeElement !== event.target &&
+                    !this.menubutton.nativeElement.contains(event.target)
+                ) {
                     this.hide();
                 }
             };
@@ -293,8 +331,8 @@ export class Menubar implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,RippleModule,TooltipModule,SharedModule],
-    exports: [Menubar,RouterModule,TooltipModule,SharedModule],
-    declarations: [Menubar,MenubarSub]
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule],
+    exports: [Menubar, RouterModule, TooltipModule, SharedModule],
+    declarations: [Menubar, MenubarSub]
 })
-export class MenubarModule { }
+export class MenubarModule {}

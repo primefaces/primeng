@@ -6,15 +6,14 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetableeditdemo.html'
 })
 export class TreeTableEditDemo {
-    
     files: TreeNode[];
 
     cols: any[];
 
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.cols = [
             { field: 'name', header: 'Name' },
