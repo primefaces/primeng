@@ -1,27 +1,27 @@
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import {
-    NgModule,
-    Component,
-    Input,
-    Output,
-    OnDestroy,
-    EventEmitter,
-    Renderer2,
-    ElementRef,
-    ChangeDetectorRef,
-    NgZone,
-    ContentChildren,
-    TemplateRef,
     AfterContentInit,
-    QueryList,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { SharedModule, PrimeTemplate, PrimeNGConfig, OverlayService } from 'primeng/api';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 
@@ -334,10 +334,6 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     hide() {
-        if (this.isOverlayAnimationInProgress) {
-            return;
-        }
-
         this.overlayVisible = false;
         this.cd.markForCheck();
     }
