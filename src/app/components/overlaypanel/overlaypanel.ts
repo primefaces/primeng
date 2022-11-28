@@ -334,10 +334,6 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     hide() {
-        if (this.isOverlayAnimationInProgress) {
-            return;
-        }
-
         this.overlayVisible = false;
         this.cd.markForCheck();
     }
