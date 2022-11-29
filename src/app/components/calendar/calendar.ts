@@ -1968,7 +1968,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
             if (!this.preventFocus && (!this.navigationState || !this.navigationState.button)) {
                 setTimeout(() => {
-                    cell.focus();
+                    if (!this.disabled) {
+                        cell.focus();
+                    }
                 }, 1);
             }
 
