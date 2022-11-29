@@ -90,7 +90,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     unblock() {
         this.animationEndListener = this.destroyModal.bind(this);
-        if(this.mask) {
+        if (this.mask) {
             this.mask.nativeElement.addEventListener('animationend', this.animationEndListener);
             DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
         }
@@ -98,7 +98,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     destroyModal() {
         this._blocked = false;
-        if(this.mask) {
+        if (this.mask) {
             DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
             ZIndexUtils.clear(this.mask.nativeElement);
             this.el.nativeElement.appendChild(this.mask.nativeElement);

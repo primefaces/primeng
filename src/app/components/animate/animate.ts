@@ -51,10 +51,10 @@ export class Animate implements AfterViewInit {
         }
 
         const animationDuration = this.host.nativeElement.style.animationDuration || 500;
-        
+
         this.timeout = setTimeout(() => {
             this.host.nativeElement.style.visibility = 'hidden';
-        }, animationDuration)
+        }, animationDuration);
     }
 
     unbindIntersectionObserver() {
