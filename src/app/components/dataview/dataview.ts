@@ -64,7 +64,7 @@ import { Subscription } from 'rxjs';
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue || value | slice: (lazy ? 0 : first):(lazy ? 0 : first) + rows) : filteredValue || value" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: rowData, rowIndex: rowIndex }"></ng-container>
                     </ng-template>
-                    <div *ngIf="isEmpty()" class="p-col col">
+                    <div *ngIf="isEmpty() && !loading" class="p-col col">
                         <div class="p-dataview-emptymessage">
                             <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
                                 {{ emptyMessageLabel }}
