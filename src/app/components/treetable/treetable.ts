@@ -277,7 +277,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
-    @Input() filters: { [s: string]: FilterMetadata } = {};
+    @Input() filters: { [s: string]: FilterMetadata | undefined } = {};
 
     @Input() globalFilterFields: string[];
 
