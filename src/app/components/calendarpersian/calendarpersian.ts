@@ -3229,7 +3229,7 @@ export class CalendarPersian implements OnInit, OnDestroy, ControlValueAccessor 
 
 @NgModule({
     imports: [CommonModule, ButtonModule, SharedModule, RippleModule],
-    exports: [CalendarPersian, ButtonModule, SharedModule],
+    exports: [CalendarPersian, ButtonModule, SharedModule, FaNumPipe],
     declarations: [CalendarPersian, FaNumPipe]
 })
 export class CalendarPersianModule {}
