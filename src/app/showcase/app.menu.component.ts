@@ -95,6 +95,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]="['autocomplete']" routerLinkActive="router-link-exact-active">AutoComplete</a>
                     <a [routerLink]="['calendar']" routerLinkActive="router-link-exact-active">Calendar</a>
+                    <a [routerLink]="['calendarpersian']" routerLinkActive="router-link-exact-active">CalendarPersian</a>
                     <a [routerLink]="['cascadeselect']" routerLinkActive="router-link-exact-active">CascadeSelect</a>
                     <a [routerLink]="['checkbox']" routerLinkActive="router-link-exact-active">Checkbox</a>
                     <a [routerLink]="['chips']" routerLinkActive="router-link-exact-active">Chips</a>
@@ -426,6 +427,7 @@ export class AppMenuComponent {
             items: [
                 { label: 'AutoComplete', value: '/autocomplete' },
                 { label: 'Calendar', value: '/calendar' },
+                { label: 'CalendarPersian', value: '/calendarpersian' },
                 { label: 'CascadeSelect', value: '/cascadeselect' },
                 { label: 'Checkbox', value: '/checkbox' },
                 { label: 'Chips', value: '/chips' },

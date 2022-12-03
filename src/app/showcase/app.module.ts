@@ -24,6 +24,7 @@ import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
+import { CalendarPersianModule } from 'primeng/calendarpersian';
 import { AppComponent } from './app.component';
 
 import { CarService } from './service/carservice';
@@ -78,7 +79,8 @@ import { LandingComponent } from './components/landing/landing.component';
         CheckboxModule,
         ListboxModule,
         InputMaskModule,
-        DropdownModule
+        DropdownModule,
+        CalendarPersianModule
     ],
     providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, JsonService, AppConfigService, ProductService],
     bootstrap: [AppComponent]

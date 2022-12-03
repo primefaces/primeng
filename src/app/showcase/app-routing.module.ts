@@ -24,6 +24,7 @@ import { LandingComponent } from './components/landing/landing.component';
                         { path: 'breadcrumb', loadChildren: () => import('./components/breadcrumb/breadcrumbdemo.module').then((m) => m.BreadcrumbDemoModule) },
                         { path: 'button', loadChildren: () => import('./components/button/buttondemo.module').then((m) => m.ButtonDemoModule) },
                         { path: 'calendar', loadChildren: () => import('./components/calendar/calendardemo.module').then((m) => m.CalendarDemoModule) },
+                        { path: 'calendarpersian', loadChildren: () => import('./components/calendarpersian/calendarpersiandemo.module').then((m) => m.CalendarPersianDemoModule) },
                         { path: 'captcha', loadChildren: () => import('./components/captcha/captchademo.module').then((m) => m.CaptchaDemoModule) },
                         { path: 'card', loadChildren: () => import('./components/card/carddemo.module').then((m) => m.CardDemoModule) },
                         { path: 'cascadeselect', loadChildren: () => import('./components/cascadeselect/cascadeselectdemo.module').then((m) => m.CascadeSelectDemoModule) },
