@@ -311,7 +311,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
+    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined } = {};
 
     @Input() globalFilterFields: string[];
 
@@ -601,7 +601,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     responsiveStyleElement: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) { }
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -2702,7 +2702,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 })
 export class RowGroupHeader {
-    constructor(public dt: Table) {}
+    constructor(public dt: Table) { }
 
     get getFrozenRowGroupHeaderStickyPosition() {
         return this.dt.rowGroupHeaderStyleObject ? this.dt.rowGroupHeaderStyleObject.top : '';
@@ -2728,7 +2728,7 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef) { }
 
     ngAfterViewInit() {
         setTimeout(() => {
@@ -3185,7 +3185,7 @@ export class RowToggler {
 
     @Input() pRowTogglerDisabled: boolean;
 
-    constructor(public dt: Table) {}
+    constructor(public dt: Table) { }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3217,7 +3217,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     documentMouseUpListener: any;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -3303,7 +3303,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: any;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -3413,7 +3413,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
 
     overlayEventListener;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -3719,7 +3719,7 @@ export class EditableRow {
 
     @Input() pEditableRowDisabled: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
     isEnabled() {
         return this.pEditableRowDisabled !== true;
@@ -3733,7 +3733,7 @@ export class EditableRow {
     }
 })
 export class InitEditableRow {
-    constructor(public dt: Table, public editableRow: EditableRow) {}
+    constructor(public dt: Table, public editableRow: EditableRow) { }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3749,7 +3749,7 @@ export class InitEditableRow {
     }
 })
 export class SaveEditableRow {
-    constructor(public dt: Table, public editableRow: EditableRow) {}
+    constructor(public dt: Table, public editableRow: EditableRow) { }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3765,7 +3765,7 @@ export class SaveEditableRow {
     }
 })
 export class CancelEditableRow {
-    constructor(public dt: Table, public editableRow: EditableRow) {}
+    constructor(public dt: Table, public editableRow: EditableRow) { }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3796,7 +3796,7 @@ export class CellEditor implements AfterContentInit {
 
     outputTemplate: TemplateRef<any>;
 
-    constructor(public dt: Table, @Optional() public editableColumn: EditableColumn, @Optional() public editableRow: EditableRow) {}
+    constructor(public dt: Table, @Optional() public editableColumn: EditableColumn, @Optional() public editableRow: EditableRow) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -4076,7 +4076,7 @@ export class TableHeaderCheckbox {
 export class ReorderableRowHandle implements AfterViewInit {
     @Input('pReorderableRowHandle') index: number;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
     ngAfterViewInit() {
         DomHandler.addClass(this.el.nativeElement, 'p-datatable-reorderablerow-handle');
@@ -4106,7 +4106,7 @@ export class ReorderableRow implements AfterViewInit {
 
     dropListener: any;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -4382,7 +4382,7 @@ export class ColumnFilter implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService) { }
 
     overlaySubscription: Subscription;
 
@@ -4885,7 +4885,7 @@ export class ColumnFilterFormElement implements OnInit {
 
     filterCallback: Function;
 
-    constructor(public dt: Table, private colFilter: ColumnFilter) {}
+    constructor(public dt: Table, private colFilter: ColumnFilter) { }
 
     ngOnInit() {
         this.filterCallback = (value) => {
@@ -4973,4 +4973,4 @@ export class ColumnFilterFormElement implements OnInit {
         ColumnFilterFormElement
     ]
 })
-export class TableModule {}
+export class TableModule { }

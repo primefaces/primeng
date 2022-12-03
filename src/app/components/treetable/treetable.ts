@@ -277,7 +277,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
-    @Input() filters: { [s: string]: FilterMetadata } = {};
+    @Input() filters: { [s: string]: FilterMetadata | undefined } = {};
 
     @Input() globalFilterFields: string[];
 
@@ -496,7 +496,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) { }
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
@@ -1859,7 +1859,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (!this.frozen) {
@@ -2129,7 +2129,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     documentMouseUpListener: any;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -2213,7 +2213,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: any;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -2641,7 +2641,7 @@ export class TTEditableColumn implements AfterViewInit {
 
     @Input() ttEditableColumnDisabled: boolean;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -2823,7 +2823,7 @@ export class TreeTableCellEditor implements AfterContentInit {
 
     outputTemplate: TemplateRef<any>;
 
-    constructor(public tt: TreeTable, public editableColumn: TTEditableColumn) {}
+    constructor(public tt: TreeTable, public editableColumn: TTEditableColumn) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -2850,7 +2850,7 @@ export class TreeTableCellEditor implements AfterContentInit {
 export class TTRow {
     @Input('ttRow') rowNode: any;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) { }
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
@@ -2946,7 +2946,7 @@ export class TTRow {
 export class TreeTableToggler {
     @Input() rowNode: any;
 
-    constructor(public tt: TreeTable) {}
+    constructor(public tt: TreeTable) { }
 
     onClick(event: Event) {
         this.rowNode.node.expanded = !this.rowNode.node.expanded;
@@ -3009,4 +3009,4 @@ export class TreeTableToggler {
         TreeTableCellEditor
     ]
 })
-export class TreeTableModule {}
+export class TreeTableModule { }
