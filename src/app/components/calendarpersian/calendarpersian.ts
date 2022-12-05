@@ -201,7 +201,7 @@ export class FaNumPipe implements PipeTransform {
                                         <tr *ngFor="let week of month.dates; let j = index">
                                             <td *ngIf="showWeek" class="p-datepicker-weeknumber">
                                                 <span class="p-disabled">
-                                                    {{ month.weekNumbers[j] }}
+                                                    {{ month.weekNumbers[j] | faNum }}
                                                 </span>
                                             </td>
                                             <td
