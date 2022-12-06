@@ -588,12 +588,12 @@ describe('Calendar', () => {
         expect(calendar.inputFieldValue).toEqual('01');
     }));
 
-    it('should use min date and max date with month picker', fakeAsync(() => {
+    fit('should use min date and max date with month picker', fakeAsync(() => {
         calendar.view = 'month';
         calendar.dateFormat = 'mm';
         const today = new Date();
         const minDate = new Date(today.getFullYear(), today.getMonth(), 2);
-        const maxDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        const maxDate = new Date(today.getFullYear(), today.getMonth(), 20);
         calendar.minDate = minDate;
         calendar.maxDate = maxDate;
         fixture.detectChanges();
