@@ -1351,7 +1351,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isMonthDisabled(month) {
-        return !this.isSelectable(1, month, this.currentYear, false);
+        return !this.isSelectable(1, month, this.currentYear, false) && !this.isSelectable(this.getDaysCountInMonth(month, this.currentYear) ,month, this.currentYear, false);
     }
 
     isYearSelected(year) {
