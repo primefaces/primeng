@@ -16,13 +16,13 @@
                 <tr>
                     <th style="width:25%">Code</th>
                     <th style="width:25%">Name</th>
-                    <th style="width:25%">Category</th>
+                    <th style="width:25%">Inventory Status</th>
                     <th style="width:25%">Price</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template pTemplate="body" let-product let-editing="editing">
                 <tr>
-                    <td pEditableColumn>
+                    <td [pEditableColumn]="product.code" pEditableColumnField="code">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="product.code">
@@ -32,7 +32,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
+                    <td [pEditableColumn]="product.name" pEditableColumnField="name">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="product.name" required>
@@ -42,7 +42,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
+                    <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText [(ngModel)]="product.inventoryStatus">
@@ -52,7 +52,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
+                    <td [pEditableColumn]="product.price" pEditableColumnField="price">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="product.price">
@@ -74,7 +74,7 @@
                 <tr>
                     <th style="width:20%">Code</th>
                     <th style="width:20%">Name</th>
-                    <th style="width:20%">Category</th>
+                    <th style="width:20%">Inventory Status</th>
                     <th style="width:20%">Price</th>
                     <th style="width:20%"></th>
                 </tr>
@@ -158,9 +158,9 @@
                 &lt;th style="width:25%"&gt;Price&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-product&gt;
+        &lt;ng-template pTemplate="body" let-product let-editing="editing"&gt;
             &lt;tr&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td [pEditableColumn]="product.code" pEditableColumnField="code"&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;input pInputText type="text" [(ngModel)]="product.code"&gt;
@@ -170,7 +170,7 @@
                         &lt;/ng-template&gt;
                     &lt;/p-cellEditor&gt;
                 &lt;/td&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td [pEditableColumn]="product.name" pEditableColumnField="name"&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;input pInputText type="text" [(ngModel)]="product.name" required&gt;
@@ -180,7 +180,7 @@
                         &lt;/ng-template&gt;
                     &lt;/p-cellEditor&gt;
                 &lt;/td&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus"&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;input pInputText [(ngModel)]="product.inventoryStatus"&gt;
@@ -190,7 +190,7 @@
                         &lt;/ng-template&gt;
                     &lt;/p-cellEditor&gt;
                 &lt;/td&gt;
-                &lt;td pEditableColumn&gt;
+                &lt;td [pEditableColumn]="product.price" pEditableColumnField="price"&gt;
                     &lt;p-cellEditor&gt;
                         &lt;ng-template pTemplate="input"&gt;
                             &lt;input pInputText type="text" [(ngModel)]="product.price"&gt;
