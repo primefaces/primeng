@@ -61,10 +61,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
     getInk() {
         const children = this.el.nativeElement.children;
         for (let i = 0; i < children.length; i++) {
-            if (
-                typeof children[i].className === "string" &&
-                children[i].className.indexOf("p-ink") !== -1
-            ) {
+            if (typeof children[i].className === 'string' && children[i].className.indexOf('p-ink') !== -1) {
                 return children[i];
             }
         }
