@@ -1309,7 +1309,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         return;
                     }
 
-                    if (this.isSingleSelectionMode()) {
+                    if (this.isSingleSelectionMode() || this.isMovableSelectorMode()) {
                         this.selection = rowData;
                         this.selectionChange.emit(rowData);
 
