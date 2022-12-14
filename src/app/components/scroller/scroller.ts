@@ -481,7 +481,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         if (this.initialized) {
             const isChanged = !isLoadingChanged && (simpleChanges.items?.previousValue?.length !== simpleChanges.items?.currentValue?.length || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
-            isChanged && this.init();
+            if (isChanged) {
+                this.init()
+                this.calculateAutoSize();
+            }
         }
     }
 
@@ -519,8 +522,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         if (!this.initialized) {
             this.viewInit();
         }
-
-        this.calculateAutoSize();
     }
 
     ngOnDestroy() {
