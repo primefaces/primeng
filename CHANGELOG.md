@@ -2,7 +2,7 @@
 
 ## [14.2.3](https://github.com/primefaces/primeng/tree/14.2.3) (2022-12-14)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/14.2.2...14.2.3)
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.2.2...v14.2.3)
 
 **Fixed bugs:**
 - Table | On col reorder the col destination position indicators are not shown properly [\#12379](https://github.com/primefaces/primeng/issues/12379)
