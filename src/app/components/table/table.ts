@@ -222,8 +222,8 @@ export class TableService {
             </div>
 
             <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display:none" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display:none" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [TableService],
@@ -2033,10 +2033,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
-                let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
-                let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
-                let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
                 this.reorderIndicatorUpViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (this.reorderIconHeight - 1) + 'px';
@@ -2051,14 +2048,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.reorderIndicatorDownViewChild.nativeElement.style.left = targetLeft - Math.ceil(this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
                 }
-
-                if ((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dropIndex - dragIndex === -1 && this.dropPosition === 1)) {
-                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
-                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
-                } else {
-                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
-                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
-                }
+                this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
+                this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
             } else {
                 event.dataTransfer.dropEffect = 'none';
             }
@@ -2068,8 +2059,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onColumnDragLeave(event) {
         if (this.reorderableColumns && this.draggedColumn) {
             event.preventDefault();
-            this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
-            this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
         }
     }
 
