@@ -79,6 +79,7 @@ export class MenuDemo &#123;
             <h5>Popup Mode</h5>
             <p>Menu is inline by default, popup mode is also supported by enabling popup property and calling toggle method by passing the event 
                     from the anchor element.</p>
+            <p>It is possible to keep the popup menu opened with the closeOnItemClick property set to false </p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-menu #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
 &lt;button type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
@@ -114,6 +115,12 @@ export class MenuDemo &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if menu would displayed as a popup.</td>
+                        </tr>
+                        <tr>
+                            <td>closeOnItemClick</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>On popup mode, defines if the menu popup will close when an item is clicked</td>
                         </tr>
                         <tr>
                             <td>style</td>

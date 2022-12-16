@@ -200,6 +200,8 @@ export class Menu implements OnDestroy {
     @Input() model: MenuItem[];
 
     @Input() popup: boolean;
+    
+    @Input() closeOnItemClick: boolean = true;
 
     @Input() style: any;
 
@@ -340,7 +342,10 @@ export class Menu implements OnDestroy {
         }
 
         if (this.popup) {
-            this.hide();
+            if (this.closeOnItemClick)
+                this.hide();
+            else
+                this.alignOverlay();
         }
     }
 
