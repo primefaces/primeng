@@ -2334,7 +2334,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let widths = this.columnWidthsState.split(',');
 
             if (this.columnResizeMode === 'expand' && this.tableWidthState) {
-                this.setResizeTableWidth(this.tableWidthState + 'px');
+                this.setResizeTableWidth(this.tableWidthState);
             }
 
             if (ObjectUtils.isNotEmpty(widths)) {
