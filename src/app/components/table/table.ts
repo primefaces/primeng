@@ -2320,7 +2320,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -2334,7 +2334,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let widths = this.columnWidthsState.split(',');
 
             if (this.columnResizeMode === 'expand' && this.tableWidthState) {
-                this.setResizeTableWidth(this.tableWidthState);
+                this.setResizeTableWidth(this.tableWidthState + 'px');
             }
 
             if (ObjectUtils.isNotEmpty(widths)) {
