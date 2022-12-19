@@ -214,6 +214,8 @@ export class UITreeNode implements OnInit {
     toggle(event: Event) {
         if (this.node.expanded) this.collapse(event);
         else this.expand(event);
+
+        event.stopPropagation();
     }
 
     expand(event: Event) {
