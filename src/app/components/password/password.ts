@@ -627,6 +627,7 @@ export class Password implements AfterContentInit, OnInit {
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     bindScrollListener() {
