@@ -2320,7 +2320,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
