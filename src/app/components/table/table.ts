@@ -2729,9 +2729,13 @@ export class FrozenColumn implements AfterViewInit {
     constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
+        const siblings = DomHandler.siblings(this.el.nativeElement);
+        const index = DomHandler.index(this.el.nativeElement);
+        const time = (siblings.length - index + 1) * 50;
+
         setTimeout(() => {
             this.updateStickyPosition();
-        }, 1000);
+        }, time);
     }
 
     _frozen: boolean = true;
