@@ -137,6 +137,7 @@ export class TableService {
                     [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
                     [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
                     [itemSize]="virtualScrollItemSize || _virtualRowHeight"
+                    [step]="rows"
                     [delay]="lazy ? virtualScrollDelay : 0"
                     [inline]="true"
                     [lazy]="lazy"
@@ -145,6 +146,7 @@ export class TableService {
                     [showSpacer]="false"
                     [showLoader]="loadingBodyTemplate"
                     [options]="virtualScrollOptions"
+                    [autoSize]="true"
                 >
                     <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: items, options: scrollerOptions }"></ng-container>
@@ -221,8 +223,8 @@ export class TableService {
             </div>
 
             <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display:none" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display:none" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [TableService],
@@ -1110,30 +1112,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
-        if (ObjectUtils.isEmpty(this.multiSortMeta) || ObjectUtils.isEmpty(multiSortMeta[index])) {
-            return 0;
-        }
-
-        let value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
-        let value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
-        let result = null;
-
-        if (value1 == null && value2 != null) result = -1;
-        else if (value1 != null && value2 == null) result = 1;
-        else if (value1 == null && value2 == null) result = 0;
-        else if (typeof value1 == 'string' || value1 instanceof String) {
-            if (value1.localeCompare && value1 != value2) {
-                return multiSortMeta[index].order * value1.localeCompare(value2);
-            }
-        } else {
-            result = value1 < value2 ? -1 : 1;
-        }
-
-        if (value1 == value2) {
+        const value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
+        const value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
+        if (ObjectUtils.compare(value1, value2, this.filterLocale) === 0) {
             return multiSortMeta.length - 1 > index ? this.multisortField(data1, data2, multiSortMeta, index + 1) : 0;
         }
+        return this.compareValuesOnSort(value1, value2, multiSortMeta[index].order);
+    }
 
-        return multiSortMeta[index].order * result;
+    compareValuesOnSort(value1, value2, order) {
+        return ObjectUtils.sort(value1, value2, order, this.filterLocale, this.sortOrder);
     }
 
     getSortMeta(field: string) {
@@ -2019,7 +2007,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let innerHTML = '';
         widths.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
-            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important`;
+            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
                 #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
                 #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
@@ -2064,14 +2052,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.reorderIndicatorDownViewChild.nativeElement.style.left = targetLeft - Math.ceil(this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
                 }
-
-                if ((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dropIndex - dragIndex === -1 && this.dropPosition === 1)) {
-                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
-                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
-                } else {
-                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
-                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
-                }
+                this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
+                this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
             } else {
                 event.dataTransfer.dropEffect = 'none';
             }
@@ -2081,8 +2063,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onColumnDragLeave(event) {
         if (this.reorderableColumns && this.draggedColumn) {
             event.preventDefault();
-            this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
-            this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
         }
     }
 
@@ -2340,7 +2320,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -2752,7 +2732,9 @@ export class FrozenColumn implements AfterViewInit {
     constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
-        this.updateStickyPosition();
+        setTimeout(() => {
+            this.updateStickyPosition();
+        }, 1000);
     }
 
     _frozen: boolean = true;
@@ -3485,8 +3467,17 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     closeEditingCell(completed, event) {
-        if (completed) this.dt.onEditComplete.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
-        else this.dt.onEditCancel.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
+        if (completed) {
+            this.dt.onEditComplete.emit({ field: this.dt.editingCellField, data: this.data, originalEvent: event, index: this.dt.editingCellRowIndex });
+        } else {
+            this.dt.onEditCancel.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
+
+            this.dt.value.forEach((element) => {
+                if (element[this.dt.editingCellField] === this.data) {
+                    element[this.dt.editingCellField] = this.dt.editingCellData;
+                }
+            });
+        }
 
         DomHandler.removeClass(this.dt.editingCell, 'p-cell-editing');
         this.dt.editingCell = null;
@@ -3501,6 +3492,17 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
 
     @HostListener('keydown.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            if (this.dt.isEditingCellValid()) {
+                this.closeEditingCell(true, event);
+            }
+
+            event.preventDefault();
+        }
+    }
+
+    @HostListener('keydown.tab', ['$event'])
+    onTabKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             if (this.dt.isEditingCellValid()) {
                 this.closeEditingCell(true, event);

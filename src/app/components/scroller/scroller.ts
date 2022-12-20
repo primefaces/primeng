@@ -37,7 +37,10 @@ export interface ScrollerOptions {
     scrollHeight?: string | undefined;
     scrollWidth?: string | undefined;
     orientation?: ScrollerOrientationType;
+    step?: number | undefined;
     delay?: number | undefined;
+    resizeDelay?: number | undefined;
+    appendOnly?: boolean;
     inline?: boolean;
     lazy?: boolean;
     disabled?: boolean;
@@ -173,6 +176,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this._orientation = val;
     }
 
+    @Input() get step() {
+        return this._step;
+    }
+    set step(val: number) {
+        this._step = val;
+    }
+
     @Input() get delay() {
         return this._delay;
     }
@@ -185,6 +195,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
     set resizeDelay(val: number) {
         this._resizeDelay = val;
+    }
+
+    @Input() get appendOnly() {
+        return this._appendOnly;
+    }
+    set appendOnly(val: boolean) {
+        this._appendOnly = val;
     }
 
     @Input() get inline() {
@@ -305,9 +322,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     _orientation: string = 'vertical';
 
+    _step: number = 0;
+
     _delay: number = 0;
 
     _resizeDelay: number = 10;
+
+    _appendOnly: boolean = false;
 
     _inline: boolean = false;
 
@@ -351,9 +372,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     last: any = 0;
 
+    page: number = 0;
+
     numItemsInViewport: any = 0;
 
     lastScrollPos: any = 0;
+
+    lazyLoadState: any = {};
 
     loaderArr: any[] = [];
 
@@ -387,9 +412,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     get loadedItems() {
         if (this._items && !this.d_loading) {
-            if (this.both) return this._items.slice(this.first.rows, this.last.rows).map((item) => (this._columns ? item : item.slice(this.first.cols, this.last.cols)));
+            if (this.both) return this._items.slice(this._appendOnly ? 0 : this.first.rows, this.last.rows).map((item) => (this._columns ? item : item.slice(this._appendOnly ? 0 : this.first.cols, this.last.cols)));
             else if (this.horizontal && this._columns) return this._items;
-            else return this._items.slice(this.first, this.last);
+            else return this._items.slice(this._appendOnly ? 0 : this.first, this.last);
         }
 
         return [];
@@ -405,6 +430,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
 
         return this._columns;
+    }
+
+    get isPageChanged() {
+        return this._step ? this.page !== this.getPageByFirst() : true;
     }
 
     constructor(private cd: ChangeDetectorRef, private zone: NgZone) {}
@@ -451,8 +480,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
 
         if (this.initialized) {
-            const isChanged = !isLoadingChanged && (simpleChanges.items || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
-            isChanged && this.init();
+            const isChanged = !isLoadingChanged && (simpleChanges.items?.previousValue?.length !== simpleChanges.items?.currentValue?.length || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
+
+            if (isChanged) {
+                this.init();
+                this.calculateAutoSize();
+            }
         }
     }
 
@@ -490,8 +523,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         if (!this.initialized) {
             this.viewInit();
         }
-
-        this.calculateAutoSize();
     }
 
     ngOnDestroy() {
@@ -544,6 +575,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this.elementViewChild;
     }
 
+    getPageByFirst() {
+        return Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
+    }
+
     scrollTo(options: ScrollToOptions) {
         this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
         this.elementViewChild?.nativeElement?.scrollTo(options);
@@ -557,16 +592,11 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
 
         if (this.both) {
-            const newFirst = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
-            if (newFirst.rows !== this.first.rows || newFirst.cols !== this.first.cols) {
-                scrollTo(calculateCoord(newFirst.cols, this._itemSize[1], contentPos.left), calculateCoord(newFirst.rows, this._itemSize[0], contentPos.top));
-            }
+            this.first = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
+            scrollTo(calculateCoord(this.first.cols, this._itemSize[1], contentPos.left), calculateCoord(this.first.rows, this._itemSize[0], contentPos.top));
         } else {
-            const newFirst = calculateFirst(index, numToleratedItems);
-
-            if (newFirst !== this.first) {
-                this.horizontal ? scrollTo(calculateCoord(newFirst, this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(newFirst, this._itemSize, contentPos.top));
-            }
+            this.first = calculateFirst(index, numToleratedItems);
+            this.horizontal ? scrollTo(calculateCoord(this.first, this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(this.first, this._itemSize, contentPos.top));
         }
     }
 
@@ -671,7 +701,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         if (this._lazy) {
             Promise.resolve().then(() => {
-                this.handleEvents('onLazyLoad', { first, last });
+                this.lazyLoadState = {
+                    first: this._step ? (this.both ? { rows: 0, cols: first.cols } : 0) : first,
+                    last: Math.min(this._step ? this._step : this.last, this.items.length)
+                };
+
+                this.handleEvents('onLazyLoad', this.lazyLoadState);
             });
         }
     }
@@ -741,7 +776,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     setContentPosition(pos) {
-        if (this.contentEl) {
+        if (this.contentEl && !this._appendOnly) {
             const first = pos ? pos.first : this.first;
             const calculateTranslateVal = (_first, _size) => _first * _size;
             const setTransform = (_x = 0, _y = 0) => (this.contentStyle = { ...this.contentStyle, ...{ transform: `translate3d(${_x}px, ${_y}px, 0)` } });
@@ -788,33 +823,39 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         if (this.both) {
             const isScrollDown = this.lastScrollPos.top <= scrollTop;
             const isScrollRight = this.lastScrollPos.left <= scrollLeft;
-            const currentIndex = { rows: calculateCurrentIndex(scrollTop, this._itemSize[0]), cols: calculateCurrentIndex(scrollLeft, this._itemSize[1]) };
-            const triggerIndex = {
-                rows: calculateTriggerIndex(currentIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
-                cols: calculateTriggerIndex(currentIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
-            };
 
-            newFirst = {
-                rows: calculateFirst(currentIndex.rows, triggerIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
-                cols: calculateFirst(currentIndex.cols, triggerIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
-            };
-            newLast = {
-                rows: calculateLast(currentIndex.rows, newFirst.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0]),
-                cols: calculateLast(currentIndex.cols, newFirst.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], true)
-            };
+            if (!this._appendOnly || (this._appendOnly && (isScrollDown || isScrollRight))) {
+                const currentIndex = { rows: calculateCurrentIndex(scrollTop, this._itemSize[0]), cols: calculateCurrentIndex(scrollLeft, this._itemSize[1]) };
+                const triggerIndex = {
+                    rows: calculateTriggerIndex(currentIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
+                    cols: calculateTriggerIndex(currentIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
+                };
 
-            isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols;
-            newScrollPos = { top: scrollTop, left: scrollLeft };
+                newFirst = {
+                    rows: calculateFirst(currentIndex.rows, triggerIndex.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], isScrollDown),
+                    cols: calculateFirst(currentIndex.cols, triggerIndex.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], isScrollRight)
+                };
+                newLast = {
+                    rows: calculateLast(currentIndex.rows, newFirst.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0]),
+                    cols: calculateLast(currentIndex.cols, newFirst.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], true)
+                };
+
+                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols;
+                newScrollPos = { top: scrollTop, left: scrollLeft };
+            }
         } else {
             const scrollPos = this.horizontal ? scrollLeft : scrollTop;
             const isScrollDownOrRight = this.lastScrollPos <= scrollPos;
-            const currentIndex = calculateCurrentIndex(scrollPos, this._itemSize);
-            const triggerIndex = calculateTriggerIndex(currentIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
 
-            newFirst = calculateFirst(currentIndex, triggerIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
-            newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
-            isRangeChanged = newFirst !== this.first || newLast !== this.last;
-            newScrollPos = scrollPos;
+            if (!this._appendOnly || (this._appendOnly && isScrollDownOrRight)) {
+                const currentIndex = calculateCurrentIndex(scrollPos, this._itemSize);
+                const triggerIndex = calculateTriggerIndex(currentIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
+
+                newFirst = calculateFirst(currentIndex, triggerIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
+                newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
+                isRangeChanged = newFirst !== this.first || newLast !== this.last;
+                newScrollPos = scrollPos;
+            }
         }
 
         return {
@@ -839,8 +880,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             this.handleEvents('onScrollIndexChange', newState);
 
-            if (this._lazy) {
-                this.handleEvents('onLazyLoad', newState);
+            if (this._lazy && this.isPageChanged) {
+                const lazyLoadState = {
+                    first: this._step ? Math.min(this.getPageByFirst() * this._step, this.items.length - this._step) : first,
+                    last: Math.min(this._step ? (this.getPageByFirst() + 1) * this._step : last, this.items.length)
+                };
+                const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
+
+                isLazyStateChanged && this.handleEvents('onLazyLoad', lazyLoadState);
+                this.lazyLoadState = lazyLoadState;
             }
         }
     }
@@ -848,13 +896,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     onContainerScroll(event) {
         this.handleEvents('onScroll', { originalEvent: event });
 
-        if (this._delay) {
+        if (this._delay && this.isPageChanged) {
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
 
             if (!this.d_loading && this.showLoader) {
-                const { isRangeChanged: changed } = this.onScrollPositionChange(event);
+                const { isRangeChanged } = this.onScrollPositionChange(event);
+                const changed = isRangeChanged || (this._step ? this.isPageChanged : false);
+
                 if (changed) {
                     this.d_loading = true;
 
@@ -867,12 +917,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
                 if (this.d_loading && this.showLoader && (!this._lazy || this._loading === undefined)) {
                     this.d_loading = false;
-
+                    this.page = this.getPageByFirst();
                     this.cd.detectChanges();
                 }
             }, this._delay);
         } else {
-            this.onScrollChange(event);
+            !this.d_loading && this.onScrollChange(event);
         }
     }
 

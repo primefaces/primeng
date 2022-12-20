@@ -1,8 +1,9 @@
-import { NgModule, Directive, Component, ElementRef, EventEmitter, AfterViewInit, Output, OnDestroy, Input, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
+import { ObjectUtils } from 'primeng/utils';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -16,6 +17,46 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     @Input() iconPos: ButtonIconPosition = 'left';
 
     @Input() loadingIcon: string = 'pi pi-spinner pi-spin';
+
+    @Input() get label(): string {
+        return this._label;
+    }
+
+    set label(val: string) {
+        this._label = val;
+
+        if (this.initialized) {
+            this.updateLabel();
+            this.updateIcon();
+            this.setStyleClass();
+        }
+    }
+
+    @Input() get icon(): string {
+        return this._icon;
+    }
+
+    set icon(val: string) {
+        this._icon = val;
+
+        if (this.initialized) {
+            this.updateIcon();
+            this.setStyleClass();
+        }
+    }
+
+    @Input() get loading(): boolean {
+        return this._loading;
+    }
+
+    set loading(val: boolean) {
+        this._loading = val;
+
+        if (this.initialized) {
+            this.updateIcon();
+            this.setStyleClass();
+        }
+    }
 
     public _label: string;
 
@@ -33,26 +74,15 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._initialStyleClass = this.el.nativeElement.className;
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
 
-        if (this.icon || this.loading) {
-            this.createIconEl();
-        }
+        this.createIcon();
+        this.createLabel();
 
-        let labelElement = document.createElement('span');
-        if (this.icon && !this.label) {
-            labelElement.setAttribute('aria-hidden', 'true');
-        }
-        labelElement.className = 'p-button-label';
-
-        if (this.label) labelElement.appendChild(document.createTextNode(this.label));
-        else labelElement.innerHTML = '&nbsp;';
-
-        this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     }
 
     getStyleClass(): string {
         let styleClass = 'p-button p-component';
-        if (this.icon && !this.label) {
+        if (this.icon && !this.label && ObjectUtils.isEmpty(this.el.nativeElement.textContent)) {
             styleClass = styleClass + ' p-button-icon-only';
         }
 
@@ -69,90 +99,69 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.el.nativeElement.className = styleClass + ' ' + this._initialStyleClass;
     }
 
-    createIconEl() {
-        let iconElement = document.createElement('span');
-        iconElement.className = 'p-button-icon';
-        iconElement.setAttribute('aria-hidden', 'true');
-        let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
+    createLabel() {
+        if (this.label) {
+            let labelElement = document.createElement('span');
+            if (this.icon && !this.label) {
+                labelElement.setAttribute('aria-hidden', 'true');
+            }
+            labelElement.className = 'p-button-label';
+            labelElement.appendChild(document.createTextNode(this.label));
 
-        if (iconPosClass) {
-            DomHandler.addClass(iconElement, iconPosClass);
+            this.el.nativeElement.appendChild(labelElement);
         }
-
-        let iconClass = this.getIconClass();
-
-        if (iconClass) {
-            DomHandler.addMultipleClasses(iconElement, iconClass);
-        }
-
-        let labelEl = DomHandler.findSingle(this.el.nativeElement, '.p-button-label');
-
-        if (labelEl) this.el.nativeElement.insertBefore(iconElement, labelEl);
-        else this.el.nativeElement.appendChild(iconElement);
     }
 
-    getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + this.loadingIcon : this._icon;
+    createIcon() {
+        if (this.icon || this.loading) {
+            let iconElement = document.createElement('span');
+            iconElement.className = 'p-button-icon';
+            iconElement.setAttribute('aria-hidden', 'true');
+            let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
+
+            if (iconPosClass) {
+                DomHandler.addClass(iconElement, iconPosClass);
+            }
+
+            let iconClass = this.getIconClass();
+
+            if (iconClass) {
+                DomHandler.addMultipleClasses(iconElement, iconClass);
+            }
+
+            this.el.nativeElement.insertBefore(iconElement, this.el.nativeElement.firstChild);
+        }
     }
 
-    setIconClass() {
+    updateLabel() {
+        let labelElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-label');
+
+        if (!this.label) {
+            labelElement && this.el.nativeElement.removeChild(labelElement);
+            return;
+        }
+
+        labelElement ? (labelElement.textContent = this.label) : this.createLabel();
+    }
+
+    updateIcon() {
         let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
+
+        if (!this.icon && !this.loading) {
+            iconElement && this.el.nativeElement.removeChild(iconElement);
+            return;
+        }
+
         if (iconElement) {
             if (this.iconPos) iconElement.className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this.getIconClass();
             else iconElement.className = 'p-button-icon ' + this.getIconClass();
         } else {
-            this.createIconEl();
+            this.createIcon();
         }
     }
 
-    removeIconElement() {
-        let iconElement = DomHandler.findSingle(this.el.nativeElement, '.p-button-icon');
-        this.el.nativeElement.removeChild(iconElement);
-    }
-
-    @Input() get label(): string {
-        return this._label;
-    }
-
-    set label(val: string) {
-        this._label = val;
-
-        if (this.initialized) {
-            DomHandler.findSingle(this.el.nativeElement, '.p-button-label').textContent = this._label || '&nbsp;';
-
-            if (this.loading || this.icon) {
-                this.setIconClass();
-            }
-            this.setStyleClass();
-        }
-    }
-
-    @Input() get icon(): string {
-        return this._icon;
-    }
-
-    set icon(val: string) {
-        this._icon = val;
-
-        if (this.initialized) {
-            this.setIconClass();
-            this.setStyleClass();
-        }
-    }
-
-    @Input() get loading(): boolean {
-        return this._loading;
-    }
-
-    set loading(val: boolean) {
-        this._loading = val;
-
-        if (this.initialized) {
-            if (this.loading || this.icon) this.setIconClass();
-            else this.removeIconElement();
-
-            this.setStyleClass();
-        }
+    getIconClass() {
+        return this.loading ? 'p-button-loading-icon ' + this.loadingIcon : this._icon;
     }
 
     ngOnDestroy() {
@@ -196,7 +205,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 *ngIf="!contentTemplate && (icon || loading)"
                 [attr.aria-hidden]="true"
             ></span>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate">{{ label || '&nbsp;' }}</span>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>
             <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{ badge }}</span>
         </button>
     `,

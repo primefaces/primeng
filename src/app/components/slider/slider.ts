@@ -1,7 +1,7 @@
-import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, forwardRef, Renderer2, NgZone, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -404,7 +404,8 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     get rangeStartLeft() {
-        return this.isVertical() ? null : this.handleValues[0] + '%';
+        if (!this.isVertical()) return this.handleValues[0] > 100 ? 100 + '%' : this.handleValues[0] + '%';
+        return null;
     }
 
     get rangeStartBottom() {
@@ -477,7 +478,6 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                         value = this.max;
                         this.handleValues[0] = 100;
                     }
-                    this.handleValues[0] = value;
                 }
                 this.sliderHandleStart.nativeElement.focus();
             } else {
@@ -487,7 +487,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                     this.offset = this.handleValues[1];
                 } else if (value < this.min) {
                     value = this.min;
-                    this.handleValues[1] = value;
+                    this.handleValues[1] = 0;
                 } else if (value < this.values[0]) {
                     this.offset = this.handleValues[1];
                 }

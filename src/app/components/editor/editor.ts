@@ -117,6 +117,8 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     value: string;
 
+    delayedCommand: Function | null = null;
+
     _readonly: boolean;
 
     onModelChange: Function = () => {};
@@ -127,6 +129,10 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     headerTemplate: TemplateRef<any>;
 
+    private get isAttachedQuillEditorToDOM(): boolean {
+        return this.quillElements?.editorElement?.isConnected;
+    }
+
     private quillElements: { editorElement: HTMLElement; toolbarElement: HTMLElement } | null = null;
 
     constructor(public el: ElementRef) {}
@@ -134,14 +140,24 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
     ngAfterViewInit(): void {
         this.initQuillElements();
 
-        if (this.quillElements?.editorElement?.isConnected) {
+        if (this.isAttachedQuillEditorToDOM) {
             this.initQuillEditor();
         }
     }
 
     ngAfterViewChecked(): void {
-        if (!this.quill && this.quillElements?.editorElement?.isConnected) {
+        // The problem is inside the `quill` library, we need to wait for a new release.
+        // Function `isLine` - used `getComputedStyle`, it was rewritten in the next release.
+        // (We need to wait for a release higher than 1.3.7).
+        // These checks and code can be removed.
+        if (!this.quill && this.isAttachedQuillEditorToDOM) {
             this.initQuillEditor();
+        }
+
+        // Can also be deleted after updating `quill`.
+        if (this.delayedCommand && this.isAttachedQuillEditorToDOM) {
+            this.delayedCommand();
+            this.delayedCommand = null;
         }
     }
 
@@ -159,8 +175,27 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
         this.value = value;
 
         if (this.quill) {
-            if (value) this.quill.setContents(this.quill.clipboard.convert(value));
-            else this.quill.setText('');
+            if (value) {
+                const command = (): void => {
+                    this.quill.setContents(this.quill.clipboard.convert(this.value));
+                };
+
+                if (this.isAttachedQuillEditorToDOM) {
+                    command();
+                } else {
+                    this.delayedCommand = command;
+                }
+            } else {
+                const command = (): void => {
+                    this.quill.setText('');
+                };
+
+                if (this.isAttachedQuillEditorToDOM) {
+                    command();
+                } else {
+                    this.delayedCommand = command;
+                }
+            }
         }
     }
 

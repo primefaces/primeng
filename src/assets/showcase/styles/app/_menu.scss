@@ -58,7 +58,7 @@
                 padding: .5rem .75rem;
                 border-radius: 10px;
                 cursor: pointer;
-                
+
                 .layout-menu-badge {
                     padding: .14rem .5rem;
                     font-size: .7rem;
@@ -93,7 +93,7 @@
                     > a {
                         font-weight: 700;
                     }
-                    
+
                     ul {
                         display: block;
                     }
@@ -104,9 +104,13 @@
                     margin: 0;
                     list-style-type: none;
 
-                    a {
-                        font-size: .875rem;
-                        padding: .475rem .5rem .475rem 2rem;
+                    li {
+                        padding: 0 .2rem;
+
+                        a {
+                            font-size: .875rem;
+                            padding: .475rem .3rem .475rem 1.8rem;
+                        }
                     }
                 }
             }
@@ -114,7 +118,7 @@
 
         .menu-image {
             padding: 0 0 1rem 0;
-            
+
             img {
                 width: 100%;
             }

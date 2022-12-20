@@ -1,5 +1,5 @@
-import { NgModule, Directive, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Directive, ElementRef, Input, NgModule } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
@@ -15,7 +15,7 @@ export class AutoFocus {
 
     focused: boolean = false;
 
-    ngAfterContentChecked() {
+    ngAfterViewChecked() {
         if (!this.focused) {
             if (this.autofocus) {
                 const focusableElements = DomHandler.getFocusableElements(this.host.nativeElement);

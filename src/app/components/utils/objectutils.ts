@@ -169,4 +169,36 @@ export class ObjectUtils {
     public static isNotEmpty(value) {
         return !this.isEmpty(value);
     }
+
+    public static compare(value1, value2, locale, order = 1) {
+        let result = -1;
+        const emptyValue1 = this.isEmpty(value1);
+        const emptyValue2 = this.isEmpty(value2);
+
+        if (emptyValue1 && emptyValue2) result = 0;
+        else if (emptyValue1) result = order;
+        else if (emptyValue2) result = -order;
+        else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2, locale, { numeric: true });
+        else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+
+        return result;
+    }
+
+    public static sort(value1, value2, order = 1, locale, nullSortOrder = 1) {
+        const result = ObjectUtils.compare(value1, value2, locale, order);
+        // nullSortOrder == 1 means Excel like sort nulls at bottom
+        const finalSortOrder = nullSortOrder === 1 ? order : nullSortOrder;
+
+        return finalSortOrder * result;
+    }
+
+    public static merge(obj1?: any, obj2?: any): any {
+        if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
+            return { ...(obj1 || {}), ...(obj2 || {}) };
+        } else if ((obj1 == undefined || typeof obj1 === 'string') && (obj2 == undefined || typeof obj2 === 'string')) {
+            return [obj1 || '', obj2 || ''].join(' ');
+        }
+
+        return obj2 || obj1;
+    }
 }

@@ -1,9 +1,10 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { MultiSelect, MultiSelectItem } from './multiselect';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayModule } from 'primeng/overlay';
 import { TooltipModule } from 'primeng/tooltip';
+import { MultiSelect, MultiSelectItem } from './multiselect';
 
 describe('MultiSelect', () => {
     let multiselect: MultiSelect;
@@ -11,7 +12,7 @@ describe('MultiSelect', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ScrollingModule, TooltipModule],
+            imports: [NoopAnimationsModule, ScrollingModule, TooltipModule, OverlayModule],
             declarations: [MultiSelect, MultiSelectItem]
         });
 
@@ -286,8 +287,8 @@ describe('MultiSelect', () => {
 
         const multiselectItemEl = fixture.debugElement.queryAll(By.css('.p-multiselect-item'));
         expect(multiselectItemEl.length).toEqual(10);
-        const fiatEl = multiselectItemEl[2];
-        const bmwEl = multiselectItemEl[1];
+        const fiatEl = multiselectItemEl[1];
+        const bmwEl = multiselectItemEl[2];
         const audiEl = multiselectItemEl[0];
         const onOptionClickSpy = spyOn(multiselect, 'onOptionClick').and.callThrough();
         bmwEl.nativeElement.click();
@@ -463,10 +464,6 @@ describe('MultiSelect', () => {
 
         expect(multiselect.value.length).toEqual(5);
         expect(toggleSpy).toHaveBeenCalled();
-        multiselectEl.click();
-        fixture.detectChanges();
-
-        allCheckedEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
         allCheckedEl.click();
         fixture.detectChanges();
 

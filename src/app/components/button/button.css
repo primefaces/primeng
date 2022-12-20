@@ -26,10 +26,11 @@
     justify-content: center;
 }
 
-.p-button-icon-only .p-button-label {
+.p-button-icon-only:after {
+    content: 'p';
     visibility: hidden;
+    clip: rect(0 0 0 0);
     width: 0;
-    flex: 0 0 auto;
 }
 
 .p-button-vertical {

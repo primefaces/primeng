@@ -88,7 +88,7 @@
 
             <div class="field">
                 <label for="inventoryStatus">Inventory Status</label>
-                <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+                <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" optionValue="label" [options]="statuses" placeholder="Select">
                     <ng-template let-option pTemplate="item">
                         <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
                     </ng-template>
