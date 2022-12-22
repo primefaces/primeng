@@ -19,7 +19,6 @@
     flex-direction: column;
     pointer-events: auto;
     max-height: 90%;
-    transform: scale(1);
     position: relative;
 }
 .p-dialog-content {
