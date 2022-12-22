@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 export class DialogDemo {
     displayModal: boolean;
 
+    displayNestedModal: boolean;
+    displayNested2Modal: boolean;
+
     displayBasic: boolean;
 
     displayBasic2: boolean;
@@ -21,6 +24,11 @@ export class DialogDemo {
 
     showModalDialog() {
         this.displayModal = true;
+    }
+
+    showNestedModalDialog() {
+        this.displayNestedModal = true;
+        this.displayNested2Modal = true;
     }
 
     showBasicDialog() {
