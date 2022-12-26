@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 
-import { JDate } from 'src/app/components/api/JDate/jdate';
+import { JDate } from 'src/app/components/calendarpersian/JDate/jdate';
 
 @Component({
     templateUrl: './calendarpersiandemo.html'

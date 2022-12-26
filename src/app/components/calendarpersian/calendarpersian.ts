@@ -31,9 +31,10 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { JDateCalculatorService } from '../api/JDate/calculator/jdate-calculator.service';
-import { JDate } from '../api/JDate/jdate';
-import { PersianNumberService } from '../api/persian-number.service';
+
+import { PersianNumberService } from './persian-number.service';
+import { JDateCalculatorService } from './jdate-calculator.service';
+import { JDate } from './jdate';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

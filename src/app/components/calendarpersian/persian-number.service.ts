@@ -2,9 +2,7 @@
 
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PersianNumberService {
   static persianNumberPattern = '\u06F0-\u06F9';
 

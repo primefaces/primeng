@@ -6,7 +6,7 @@ import { CalendarPersian } from './calendarpersian';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { JDate, SharedModule } from 'primeng/api';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('Calendar', () => {
@@ -183,7 +183,7 @@ describe('Calendar', () => {
     });
 
     it('should select date when click', fakeAsync(() => {
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         fixture.detectChanges();
@@ -236,19 +236,19 @@ describe('Calendar', () => {
     });
 
     it('should use min and max date', () => {
-        let minDate: Date;
-        let maxDate: Date;
-        let today = new Date();
+        let minDate: JDate;
+        let maxDate: JDate;
+        let today = new JDate();
         let month = today.getMonth();
         let year = today.getFullYear();
         let prevMonth = month === 0 ? 11 : month - 1;
         let prevYear = prevMonth === 11 ? year - 1 : year;
         let nextMonth = month === 11 ? 0 : month + 1;
         let nextYear = nextMonth === 0 ? year + 1 : year;
-        minDate = new Date();
+        minDate = new JDate();
         minDate.setMonth(prevMonth);
         minDate.setFullYear(prevYear);
-        maxDate = new Date();
+        maxDate = new JDate();
         maxDate.setMonth(nextMonth);
         maxDate.setFullYear(nextYear);
         calendar.minDate = minDate;
@@ -273,10 +273,10 @@ describe('Calendar', () => {
     });
 
     it('should use invalidDates', () => {
-        let invalidDates: Array<Date>;
-        let invalidDate = new Date();
+        let invalidDates: Array<JDate>;
+        let invalidDate = new JDate();
         invalidDate.setDate(15);
-        let invalidDate2 = new Date();
+        let invalidDate2 = new JDate();
         invalidDate2.setDate(invalidDate.getDate() - 1);
         invalidDates = [invalidDate, invalidDate2];
         calendar.disabledDates = invalidDates;
@@ -316,7 +316,7 @@ describe('Calendar', () => {
     });
 
     it('should show time', () => {
-        const date = new Date(2017, 8, 23, 15, 12);
+        const date = new JDate(2017, 8, 23, 15, 12);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         const updateInputfieldSpy = spyOn(calendar, 'updateInputfield').and.callThrough();
@@ -424,8 +424,8 @@ describe('Calendar', () => {
     });
 
     it('should select multiple', () => {
-        calendar.defaultDate = new Date(2017, 8, 23, 11, 12);
-        jasmine.clock().mockDate(new Date(2017, 8, 23, 11, 12));
+        calendar.defaultDate = new JDate(2017, 8, 23, 11, 12);
+        jasmine.clock().mockDate(new JDate(2017, 8, 23, 11, 12));
         calendar.selectionMode = 'multiple';
         fixture.detectChanges();
 
@@ -456,8 +456,8 @@ describe('Calendar', () => {
     });
 
     it('should select multiple with dataType string', () => {
-        calendar.defaultDate = new Date(2017, 8, 23, 11, 12);
-        jasmine.clock().mockDate(new Date(2017, 8, 23, 11, 12));
+        calendar.defaultDate = new JDate(2017, 8, 23, 11, 12);
+        jasmine.clock().mockDate(new JDate(2017, 8, 23, 11, 12));
         calendar.selectionMode = 'multiple';
         calendar.dataType = 'string';
         fixture.detectChanges();
@@ -749,7 +749,7 @@ describe('Calendar', () => {
     });
 
     it('should show hourFormat', () => {
-        const date = new Date(2018, 9, 23, 15, 12);
+        const date = new JDate(2018, 9, 23, 15, 12);
         jasmine.clock().mockDate(date);
         fixture.detectChanges();
 
@@ -775,7 +775,7 @@ describe('Calendar', () => {
     });
 
     it('should change hourFormat', () => {
-        const date = new Date(2018, 9, 23, 11, 12);
+        const date = new JDate(2018, 9, 23, 11, 12);
         jasmine.clock().mockDate(date);
         fixture.detectChanges();
 
@@ -816,7 +816,7 @@ describe('Calendar', () => {
     });
 
     it('should change hourFormat with ampm buttons', () => {
-        const date = new Date(2018, 9, 23, 11, 12);
+        const date = new JDate(2018, 9, 23, 11, 12);
         jasmine.clock().mockDate(date);
         fixture.detectChanges();
 
@@ -851,8 +851,8 @@ describe('Calendar', () => {
     });
 
     it('should set defaultDate', () => {
-        calendar.defaultDate = new Date(2017, 8, 23, 11, 12);
-        jasmine.clock().mockDate(new Date(2017, 8, 23, 11, 12));
+        calendar.defaultDate = new JDate(2017, 8, 23, 11, 12);
+        jasmine.clock().mockDate(new JDate(2017, 8, 23, 11, 12));
         calendar.showTime = true;
         fixture.detectChanges();
 
@@ -878,7 +878,7 @@ describe('Calendar', () => {
     });
 
     it('should show seconds', () => {
-        const date = new Date(2017, 8, 23, 11, 12, 21);
+        const date = new JDate(2017, 8, 23, 11, 12, 21);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.showTime = true;
@@ -905,7 +905,7 @@ describe('Calendar', () => {
     });
 
     it('should change seconds', () => {
-        const date = new Date(2017, 8, 23, 11, 12, 21);
+        const date = new JDate(2017, 8, 23, 11, 12, 21);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.showTime = true;
@@ -940,7 +940,7 @@ describe('Calendar', () => {
     });
 
     it('should change stepSecond stepHour and stepMinute', () => {
-        const date = new Date(2017, 8, 23, 11, 12, 21);
+        const date = new JDate(2017, 8, 23, 11, 12, 21);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.showTime = true;
@@ -997,7 +997,7 @@ describe('Calendar', () => {
     });
 
     it('should change stepSecond stepHour and stepMinute (out of border values)', () => {
-        const date = new Date(2017, 8, 23, 22, 58, 58);
+        const date = new JDate(2017, 8, 23, 22, 58, 58);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.showTime = true;
@@ -1073,7 +1073,7 @@ describe('Calendar', () => {
     });
 
     it('should change dataType', () => {
-        const date = new Date(2017, 8, 23, 11, 12, 21);
+        const date = new JDate(2017, 8, 23, 11, 12, 21);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.dataType = 'string';
@@ -1096,7 +1096,7 @@ describe('Calendar', () => {
     });
 
     it('should single select ', () => {
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         const onDateSelectSpy = spyOn(calendar, 'onDateSelect').and.callThrough();
@@ -1113,13 +1113,13 @@ describe('Calendar', () => {
         dates[7].nativeElement.click();
         fixture.detectChanges();
 
-        const pickedDate = new Date(2017, 8, 8);
+        const pickedDate = new JDate(2017, 8, 8);
         expect(calendar.value).toEqual(pickedDate);
         expect(onDateSelectSpy).toHaveBeenCalled();
     });
 
     it('should change maxDateCount ', () => {
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         const onDateSelectSpy = spyOn(calendar, 'onDateSelect').and.callThrough();
@@ -1220,7 +1220,7 @@ describe('Calendar', () => {
     });
 
     it('should change selectOtherMonths', () => {
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.selectOtherMonths = true;
@@ -1261,7 +1261,7 @@ describe('Calendar', () => {
     });
 
     it('should change selectionMode', () => {
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.selectionMode = 'range';
@@ -1285,7 +1285,7 @@ describe('Calendar', () => {
     });
 
     it('should change selectionMode (range max date first pick)', () => {
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.selectionMode = 'range';
@@ -1313,7 +1313,7 @@ describe('Calendar', () => {
     });
 
     it('should change selectionMode (range three times pick)', () => {
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.selectionMode = 'range';
@@ -1367,7 +1367,7 @@ describe('Calendar', () => {
 
     it('should change appendto', () => {
         calendar.appendTo = 'body';
-        const date = new Date(2017, 8, 23);
+        const date = new JDate(2017, 8, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.showTime = true;
@@ -1422,7 +1422,7 @@ describe('Calendar', () => {
     }));
 
     it('should be next year', () => {
-        const date = new Date(2017, 11, 23);
+        const date = new JDate(2017, 11, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         fixture.detectChanges();
@@ -1446,7 +1446,7 @@ describe('Calendar', () => {
     });
 
     it('should be previous year', () => {
-        const date = new Date(2017, 0, 23);
+        const date = new JDate(2017, 0, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         fixture.detectChanges();
@@ -1470,7 +1470,7 @@ describe('Calendar', () => {
     });
 
     it('should use Year Picker', () => {
-        const date = new Date(2017, 0, 23);
+        const date = new JDate(2017, 0, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.dateFormat = 'mm/yy';
@@ -1498,7 +1498,7 @@ describe('Calendar', () => {
     });
 
     it('should be next year', () => {
-        const date = new Date(2017, 11, 23);
+        const date = new JDate(2017, 11, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.yearNavigator = true;
@@ -1521,7 +1521,7 @@ describe('Calendar', () => {
     });
 
     it('should be previous year', () => {
-        const date = new Date(2017, 0, 23);
+        const date = new JDate(2017, 0, 23);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.yearNavigator = true;
@@ -1544,7 +1544,7 @@ describe('Calendar', () => {
     });
 
     it('should select range (touchUI)', () => {
-        const date = new Date(2017, 2, 12);
+        const date = new JDate(2017, 2, 12);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.touchUI = true;
@@ -1573,7 +1573,7 @@ describe('Calendar', () => {
     });
 
     it('should highlight selected range in month view', () => {
-        const date = new Date(2017, 2, 12);
+        const date = new JDate(2017, 2, 12);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.selectionMode = 'range';
@@ -1607,13 +1607,13 @@ describe('Calendar', () => {
     });
 
     it('should show disabled months in month range selection mode', () => {
-        const date = new Date(2017, 2, 12);
+        const date = new JDate(2017, 2, 12);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.selectionMode = 'range';
         calendar.view = 'month';
-        calendar.maxDate = new Date(date.getFullYear(), 6, 1);
-        calendar.minDate = new Date(date.getFullYear(), 3, 1);
+        calendar.maxDate = new JDate(date.getFullYear(), 6, 1);
+        calendar.minDate = new JDate(date.getFullYear(), 3, 1);
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1636,7 +1636,7 @@ describe('Calendar', () => {
     });
 
     it('should select range (touchUI third times)', () => {
-        const date = new Date(2017, 2, 12);
+        const date = new JDate(2017, 2, 12);
         calendar.defaultDate = date;
         jasmine.clock().mockDate(date);
         calendar.touchUI = true;
