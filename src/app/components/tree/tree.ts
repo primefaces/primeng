@@ -1,36 +1,33 @@
-import {
-    NgModule,
-    Component,
-    Input,
-    AfterContentInit,
-    OnDestroy,
-    Output,
-    EventEmitter,
-    OnInit,
-    OnChanges,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    Inject,
-    ElementRef,
-    forwardRef,
-    ChangeDetectionStrategy,
-    SimpleChanges,
-    ViewEncapsulation,
-    ViewChild
-} from '@angular/core';
-import { Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeNGConfig, TranslationKeys, TreeNode } from 'primeng/api';
-import { SharedModule } from 'primeng/api';
-import { PrimeTemplate } from 'primeng/api';
-import { TreeDragDropService } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { BlockableUI } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    NgModule,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { BlockableUI, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { ObjectUtils } from 'primeng/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-treeNode',
@@ -67,6 +64,7 @@ import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
                     [attr.aria-expanded]="this.node.expanded"
                     [attr.aria-selected]="isSelected()"
                     [attr.aria-label]="node.label"
+                    [attr.data-id]="node.data"
                 >
                     <button type="button" [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{ 'pi-chevron-right': !node.expanded, 'pi-chevron-down': node.expanded }"></span>
@@ -181,6 +179,8 @@ export class UITreeNode implements OnInit {
 
     tree: Tree;
 
+    timeout: any;
+
     constructor(@Inject(forwardRef(() => Tree)) tree) {
         this.tree = tree as Tree;
     }
@@ -222,6 +222,7 @@ export class UITreeNode implements OnInit {
         this.node.expanded = true;
         if (this.tree.virtualScroll) {
             this.tree.updateSerializedValue();
+            this.focusVirtualNode();
         }
         this.tree.onNodeExpand.emit({ originalEvent: event, node: this.node });
     }
@@ -230,6 +231,7 @@ export class UITreeNode implements OnInit {
         this.node.expanded = false;
         if (this.tree.virtualScroll) {
             this.tree.updateSerializedValue();
+            this.focusVirtualNode();
         }
         this.tree.onNodeCollapse.emit({ originalEvent: event, node: this.node });
     }
@@ -467,7 +469,6 @@ export class UITreeNode implements OnInit {
                         }
                     }
                 }
-
                 event.preventDefault();
                 break;
 
@@ -490,7 +491,6 @@ export class UITreeNode implements OnInit {
                 if (!this.node.expanded && !this.tree.isNodeLeaf(this.node)) {
                     this.expand(event);
                 }
-
                 event.preventDefault();
                 break;
 
@@ -552,6 +552,13 @@ export class UITreeNode implements OnInit {
         if (this.tree.droppableNodes) element.children[1].children[0].focus();
         else element.children[0].children[0].focus();
     }
+
+    focusVirtualNode() {
+        this.timeout = setTimeout(() => {
+            let node = DomHandler.findSingle(document.body, `[data-id="${this.node.data}"]`);
+            DomHandler.focus(node);
+        }, 1);
+    }
 }
 
 @Component({
@@ -580,6 +587,7 @@ export class UITreeNode implements OnInit {
                 #scroller
                 *ngIf="virtualScroll"
                 [items]="serializedValue"
+                [tabindex]="-1"
                 styleClass="p-tree-wrapper"
                 [style]="{ height: scrollHeight }"
                 [itemSize]="virtualScrollItemSize || _virtualNodeHeight"
@@ -592,6 +600,7 @@ export class UITreeNode implements OnInit {
                 <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                     <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                         <p-treeNode
+                            #treeNode
                             *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
                             [level]="rowNode.level"
                             [rowNode]="rowNode"
@@ -796,7 +805,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription;
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
