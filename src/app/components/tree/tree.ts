@@ -667,8 +667,6 @@ export class UITreeNode implements OnInit {
     }
 })
 export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
-    @ViewChild('treeNode') treeNode: UITreeNode;
-
     @Input() value: TreeNode[];
 
     @Input() selectionMode: string;
@@ -1375,10 +1373,6 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
         if (this.dragStopSubscription) {
             this.dragStopSubscription.unsubscribe();
-        }
-
-        if (this.treeNode.timeout) {
-            clearTimeout(this.treeNode.timeout);
         }
     }
 }
