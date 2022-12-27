@@ -81,7 +81,7 @@ import { Subscription } from 'rxjs';
         <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'">
             <p-messages [value]="msgs" [enableService]="false"></p-messages>
             <span
-                [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !chooseLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
+                [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !basicButtonLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
                 [ngStyle]="style"
                 [class]="styleClass"
                 (mouseup)="onBasicUploaderClick()"
