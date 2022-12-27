@@ -38,8 +38,8 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                         [class]="inputStyleClass"
                     />
                 </li>
-                <li>
-                    <i *ngIf="value != null && filled && !disabled && showClear" class="p-chips-clear-icon pi pi-times" (click)="clear()"></i>
+                <li *ngIf="value != null && filled && !disabled && showClear">
+                    <i class="p-chips-clear-icon pi pi-times" (click)="clear()"></i>
                 </li>
             </ul>
         </div>
