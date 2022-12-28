@@ -108,14 +108,6 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         return this._selected;
     }
 
-    get iconClass() {
-        if (this.iconPos === 'end') {
-            return 'p-accordion-toggle-icon-end';
-        } else {
-            return 'p-accordion-toggle-icon';
-        }
-    }
-
     set selected(val: any) {
         this._selected = val;
 
@@ -125,6 +117,14 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             }
 
             this.changeDetector.detectChanges();
+        }
+    }
+
+    get iconClass() {
+        if (this.iconPos === 'end') {
+            return 'p-accordion-toggle-icon-end';
+        } else {
+            return 'p-accordion-toggle-icon';
         }
     }
 
