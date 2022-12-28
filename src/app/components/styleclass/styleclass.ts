@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Directive, ElementRef, Input, Renderer2, OnDestroy, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, NgModule, OnDestroy, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
@@ -8,7 +8,7 @@ import { DomHandler } from 'primeng/dom';
         class: 'p-element'
     }
 })
-export class StyleClass implements AfterViewInit, OnDestroy {
+export class StyleClass implements OnDestroy {
     constructor(public el: ElementRef, public renderer: Renderer2) {}
 
     @Input('pStyleClass') selector: string;
@@ -29,6 +29,10 @@ export class StyleClass implements AfterViewInit, OnDestroy {
 
     @Input() toggleClass: string;
 
+    @Input() hideOnEscape: boolean;
+
+    @Input() escapeClass: string;
+
     eventListener: Function;
 
     documentListener: Function;
@@ -41,21 +45,54 @@ export class StyleClass implements AfterViewInit, OnDestroy {
 
     animating: boolean;
 
-    ngAfterViewInit() {
-        this.eventListener = this.renderer.listen(this.el.nativeElement, 'click', () => {
-            this.target = this.resolveTarget();
-
-            if (this.toggleClass) {
-                if (DomHandler.hasClass(this.target, this.toggleClass)) DomHandler.removeClass(this.target, this.toggleClass);
-                else DomHandler.addClass(this.target, this.toggleClass);
-            } else {
-                if (this.target.offsetParent === null) this.enter();
-                else this.leave();
+    @HostListener('keyup.escape', ['$event'])
+    escapeListener($event) {
+        if (this.isVisible()) {
+            if (this.enterClass) {
+                DomHandler.removeClass(this.target, this.enterClass);
             }
-        });
+            if (this.enterToClass) {
+                DomHandler.removeClass(this.target, this.enterToClass);
+            }
+            if (this.enterActiveClass) {
+                DomHandler.removeClass(this.target, this.enterActiveClass);
+            }
+            if (this.escapeClass) {
+                DomHandler.addClass(this.target, this.escapeClass);
+            } else if (this.leaveToClass) {
+                DomHandler.addClass(this.target, this.leaveToClass);
+            } else if (this.toggleClass) {
+                DomHandler.addClass(this.target, this.toggleClass);
+            } else if (this.leaveClass) {
+                DomHandler.addClass(this.target, this.leaveClass);
+            } else if (this.leaveActiveClass) {
+                DomHandler.addClass(this.target, this.leaveActiveClass);
+            }
+
+            this.unbindDocumentListener();
+        }
+    }
+
+    @HostListener('click', ['$event'])
+    clickListener() {
+        this.target = this.resolveTarget();
+
+        if (this.toggleClass) {
+            this.toggle();
+        } else {
+            if (this.target.offsetParent === null) this.enter();
+            else this.leave();
+        }
+    }
+
+    toggle() {
+        if (DomHandler.hasClass(this.target, this.escapeClass)) DomHandler.removeClass(this.target, this.escapeClass);
+        if (DomHandler.hasClass(this.target, this.toggleClass)) DomHandler.removeClass(this.target, this.toggleClass);
+        else DomHandler.addClass(this.target, this.toggleClass);
     }
 
     enter() {
+        if (DomHandler.hasClass(this.target, this.escapeClass)) DomHandler.removeClass(this.target, this.escapeClass);
         if (this.enterActiveClass) {
             if (!this.animating) {
                 this.animating = true;
