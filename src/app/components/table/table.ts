@@ -312,7 +312,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
+    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined } = {};
 
     @Input() globalFilterFields: string[];
 
