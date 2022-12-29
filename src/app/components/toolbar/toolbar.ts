@@ -1,16 +1,19 @@
-import {NgModule,Component,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {BlockableUI, PrimeTemplate} from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-toolbar',
     template: `
         <div [ngClass]="'p-toolbar p-component'" [ngStyle]="style" [class]="styleClass" role="toolbar">
             <ng-content></ng-content>
-            <div class="p-toolbar-group-left" *ngIf="leftTemplate">
-                <ng-container *ngTemplateOutlet="leftTemplate"></ng-container>
+            <div class="p-toolbar-group-left p-toolbar-group-start" *ngIf="startTemplate">
+                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
-            <div class="p-toolbar-group-right" *ngIf="rightTemplate">
+            <div class="p-toolbar-group-center" *ngIf="centerTemplate">
+                <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
+            </div>
+            <div class="p-toolbar-group-right p-toolbar-group-end" *ngIf="endTemplate">
                 <ng-container *ngTemplateOutlet="rightTemplate"></ng-container>
             </div>
         </div>
@@ -19,41 +22,45 @@ import {BlockableUI, PrimeTemplate} from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./toolbar.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Toolbar implements AfterContentInit,BlockableUI {
-
+export class Toolbar implements AfterContentInit, BlockableUI {
     @Input() style: any;
 
     @Input() styleClass: string;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    leftTemplate: TemplateRef<any>;
+    startTemplate: TemplateRef<any>;
 
-    rightTemplate: TemplateRef<any>;
+    endTemplate: TemplateRef<any>;
+
+    centerTemplate: TemplateRef<any>;
 
     constructor(private el: ElementRef) {}
 
     getBlockableElement(): HTMLElement {
-      return this.el.nativeElement.children[0];
+        return this.el.nativeElement.children[0];
     }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'left':
-                    this.leftTemplate = item.template;
-                break;
+                    this.startTemplate = item.template;
+                    break;
 
                 case 'right':
-                    this.rightTemplate = item.template;
-                break;
+                    this.endTemplate = item.template;
+                    break;
+
+                case 'center':
+                    this.centerTemplate = item.template;
+                    break;
             }
         });
     }
-
 }
 
 @NgModule({
@@ -61,4 +68,4 @@ export class Toolbar implements AfterContentInit,BlockableUI {
     exports: [Toolbar],
     declarations: [Toolbar]
 })
-export class ToolbarModule { }
+export class ToolbarModule {}

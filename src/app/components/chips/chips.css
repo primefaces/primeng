@@ -18,6 +18,16 @@
     display: inline-flex;
     align-items: center;
     flex: 0 0 auto;
+    max-width: 100%;
+}
+
+.p-chips-token-label {
+    min-width: 0%;
+    overflow: auto;
+}
+
+.p-chips-token-label::-webkit-scrollbar {
+    display: none;
 }
 
 .p-chips-input-token {
@@ -43,3 +53,14 @@
 .p-fluid .p-chips {
     display: flex;
 }
+
+.p-chips-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+    cursor: pointer;
+}
+
+.p-chips-clearable .p-inputtext {
+    position: relative;
+} 

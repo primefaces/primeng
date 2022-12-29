@@ -15,13 +15,31 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass" [ngClass]="{'p-colorpicker p-component':true,'p-colorpicker-overlay':!inline,'p-colorpicker-dragging':colorDragging||hueDragging}">
-            <input #input type="text" *ngIf="!inline" class="p-colorpicker-preview p-inputtext" readonly="readonly" [ngClass]="{'p-disabled': disabled}"
-                (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)" [attr.id]="inputId" [attr.tabindex]="tabindex" [disabled]="disabled"
-                [style.backgroundColor]="inputBgColor">
-            <div *ngIf="inline || overlayVisible" [ngClass]="{'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel':!inline, 'p-disabled': disabled}" (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true"
-                    (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationEnd($event)">
+        <div #container [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-colorpicker p-component': true, 'p-colorpicker-overlay': !inline, 'p-colorpicker-dragging': colorDragging || hueDragging }">
+            <input
+                #input
+                type="text"
+                *ngIf="!inline"
+                class="p-colorpicker-preview p-inputtext"
+                readonly="readonly"
+                [ngClass]="{ 'p-disabled': disabled }"
+                (focus)="onInputFocus()"
+                (click)="onInputClick()"
+                (keydown)="onInputKeydown($event)"
+                [attr.id]="inputId"
+                [attr.tabindex]="tabindex"
+                [disabled]="disabled"
+                [style.backgroundColor]="inputBgColor"
+            />
+            <div
+                *ngIf="inline || overlayVisible"
+                [ngClass]="{ 'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel': !inline, 'p-disabled': disabled }"
+                (click)="onOverlayClick($event)"
+                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+                [@.disabled]="inline === true"
+                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+                (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+            >
                 <div class="p-colorpicker-content">
                     <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)">
                         <div class="p-colorpicker-color">
@@ -35,27 +53,16 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    animations: [
-        trigger('overlayAnimation', [
-            transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
-                animate('{{showTransitionParams}}')
-              ]),
-              transition(':leave', [
-                animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
-        ])
-    ],
+    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     providers: [COLORPICKER_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./colorpicker.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -90,7 +97,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @ViewChild('input') inputViewChild: ElementRef;
 
-    value: any = {h:0, s: 100, b: 100};
+    value: any = { h: 0, s: 100, b: 100 };
 
     inputBgColor: string;
 
@@ -184,7 +191,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         let pageY = position ? position.pageY : event.pageY;
         let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         this.value = this.validateHSB({
-            h: Math.floor(360 * (150 - Math.max(0, Math.min(150, (pageY - top)))) / 150),
+            h: Math.floor((360 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150),
             s: this.value.s,
             b: this.value.b
         });
@@ -192,7 +199,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.updateColorSelector();
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
+        this.onChange.emit({ originalEvent: event, value: this.getValueToUpdate() });
     }
 
     onColorMousedown(event: MouseEvent) {
@@ -233,8 +240,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
         let top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         let left = rect.left + document.body.scrollLeft;
-        let saturation = Math.floor(100 * (Math.max(0, Math.min(150, ((pageX)- left)))) / 150);
-        let brightness = Math.floor(100 * (150 - Math.max(0, Math.min(150, ((pageY) - top)))) / 150);
+        let saturation = Math.floor((100 * Math.max(0, Math.min(150, pageX - left))) / 150);
+        let brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150);
         this.value = this.validateHSB({
             h: this.value.h,
             s: saturation,
@@ -243,23 +250,23 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
+        this.onChange.emit({ originalEvent: event, value: this.getValueToUpdate() });
     }
 
     getValueToUpdate() {
         let val: any;
-        switch(this.format) {
+        switch (this.format) {
             case 'hex':
                 val = '#' + this.HSBtoHEX(this.value);
-            break;
+                break;
 
             case 'rgb':
                 val = this.HSBtoRGB(this.value);
-            break;
+                break;
 
             case 'hsb':
                 val = this.value;
-            break;
+                break;
         }
 
         return val;
@@ -271,21 +278,20 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     writeValue(value: any): void {
         if (value) {
-            switch(this.format) {
+            switch (this.format) {
                 case 'hex':
                     this.value = this.HEXtoHSB(value);
-                break;
+                    break;
 
                 case 'rgb':
                     this.value = this.RGBtoHSB(value);
-                break;
+                    break;
 
                 case 'hsb':
                     this.value = value;
-                break;
+                    break;
             }
-        }
-        else {
+        } else {
             this.value = this.HEXtoHSB(this.defaultColor);
         }
 
@@ -307,10 +313,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     updateUI() {
         if (this.colorHandleViewChild && this.hueHandleViewChild.nativeElement) {
-            this.colorHandleViewChild.nativeElement.style.left =  Math.floor(150 * this.value.s / 100) + 'px';
-            this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px';
-            this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
-
+            this.colorHandleViewChild.nativeElement.style.left = Math.floor((150 * this.value.s) / 100) + 'px';
+            this.colorHandleViewChild.nativeElement.style.top = Math.floor((150 * (100 - this.value.b)) / 100) + 'px';
+            this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h) / 360) + 'px';
         }
 
         this.inputBgColor = '#' + this.HSBtoHEX(this.value);
@@ -322,10 +327,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     show() {
         this.overlayVisible = true;
+        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 if (!this.inline) {
                     this.overlay = event.element;
@@ -343,38 +349,36 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
                     this.updateColorSelector();
                     this.updateUI();
                 }
-            break;
+                break;
 
             case 'void':
                 this.onOverlayHide();
-            break;
+                break;
         }
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 if (!this.inline) {
-                    this.onShow.emit({})
+                    this.onShow.emit({});
                 }
-            break;
+                break;
 
             case 'void':
                 if (this.autoZIndex) {
                     ZIndexUtils.clear(event.element);
                 }
 
-                this.onHide.emit({})
-            break;
+                this.onHide.emit({});
+                break;
         }
     }
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
-            else
-                DomHandler.appendChild(this.overlay, this.appendTo);
+            if (this.appendTo === 'body') document.body.appendChild(this.overlay);
+            else DomHandler.appendChild(this.overlay, this.appendTo);
         }
     }
 
@@ -385,10 +389,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.appendTo)
-            DomHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
-        else
-            DomHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
+        if (this.appendTo) DomHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
+        else DomHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
     }
 
     hide() {
@@ -402,25 +404,23 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     togglePanel() {
-        if (!this.overlayVisible)
-            this.show();
-        else
-            this.hide();
+        if (!this.overlayVisible) this.show();
+        else this.hide();
     }
 
     onInputKeydown(event: KeyboardEvent) {
-        switch(event.which) {
+        switch (event.which) {
             //space
             case 32:
                 this.togglePanel();
                 event.preventDefault();
-            break;
+                break;
 
             //escape and tab
             case 27:
             case 9:
                 this.hide();
-            break;
+                break;
         }
     }
 
@@ -525,7 +525,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     onWindowResize() {
-        this.hide();
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     bindScrollListener() {
@@ -566,7 +568,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         var len = 6 - hex.length;
         if (len > 0) {
             var o = [];
-            for (var i=0; i<len; i++) {
+            for (var i = 0; i < len; i++) {
                 o.push('0');
             }
             o.push(hex);
@@ -576,8 +578,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     HEXtoRGB(hex) {
-        let hexValue = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
-        return {r: hexValue >> 16, g: (hexValue & 0x00FF00) >> 8, b: (hexValue & 0x0000FF)};
+        let hexValue = parseInt(hex.indexOf('#') > -1 ? hex.substring(1) : hex, 16);
+        return { r: hexValue >> 16, g: (hexValue & 0x00ff00) >> 8, b: hexValue & 0x0000ff };
     }
 
     HEXtoHSB(hex) {
@@ -594,7 +596,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         var max = Math.max(rgb.r, rgb.g, rgb.b);
         var delta = max - min;
         hsb.b = max;
-        hsb.s = max != 0 ? 255 * delta / max : 0;
+        hsb.s = max != 0 ? (255 * delta) / max : 0;
         if (hsb.s != 0) {
             if (rgb.r == max) {
                 hsb.h = (rgb.g - rgb.b) / delta;
@@ -610,49 +612,68 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         if (hsb.h < 0) {
             hsb.h += 360;
         }
-        hsb.s *= 100/255;
-        hsb.b *= 100/255;
+        hsb.s *= 100 / 255;
+        hsb.b *= 100 / 255;
         return hsb;
     }
 
     HSBtoRGB(hsb) {
         var rgb = {
-            r: null, g: null, b: null
+            r: null,
+            g: null,
+            b: null
         };
         let h: number = hsb.h;
-        let s: number = hsb.s*255/100;
-        let v: number = hsb.b*255/100;
+        let s: number = (hsb.s * 255) / 100;
+        let v: number = (hsb.b * 255) / 100;
         if (s == 0) {
             rgb = {
                 r: v,
                 g: v,
                 b: v
+            };
+        } else {
+            let t1: number = v;
+            let t2: number = ((255 - s) * v) / 255;
+            let t3: number = ((t1 - t2) * (h % 60)) / 60;
+            if (h == 360) h = 0;
+            if (h < 60) {
+                rgb.r = t1;
+                rgb.b = t2;
+                rgb.g = t2 + t3;
+            } else if (h < 120) {
+                rgb.g = t1;
+                rgb.b = t2;
+                rgb.r = t1 - t3;
+            } else if (h < 180) {
+                rgb.g = t1;
+                rgb.r = t2;
+                rgb.b = t2 + t3;
+            } else if (h < 240) {
+                rgb.b = t1;
+                rgb.r = t2;
+                rgb.g = t1 - t3;
+            } else if (h < 300) {
+                rgb.b = t1;
+                rgb.g = t2;
+                rgb.r = t2 + t3;
+            } else if (h < 360) {
+                rgb.r = t1;
+                rgb.g = t2;
+                rgb.b = t1 - t3;
+            } else {
+                rgb.r = 0;
+                rgb.g = 0;
+                rgb.b = 0;
             }
         }
-        else {
-            let t1: number = v;
-            let t2: number = (255-s)*v/255;
-            let t3: number = (t1-t2)*(h%60)/60;
-            if (h==360) h = 0;
-            if (h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
-            else if (h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}
-            else if (h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3}
-            else if (h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3}
-            else if (h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3}
-            else if (h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3}
-            else {rgb.r=0; rgb.g=0;	rgb.b=0}
-        }
-        return {r:Math.round(rgb.r), g:Math.round(rgb.g), b:Math.round(rgb.b)};
+        return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
     }
 
     RGBtoHEX(rgb) {
-        var hex = [
-            rgb.r.toString(16),
-            rgb.g.toString(16),
-            rgb.b.toString(16)
-        ];
+        var hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
 
-        for(var key in hex) {
+        for (var key in hex) {
             if (hex[key].length == 1) {
                 hex[key] = '0' + hex[key];
             }
@@ -692,4 +713,4 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     exports: [ColorPicker],
     declarations: [ColorPicker]
 })
-export class ColorPickerModule { }
+export class ColorPickerModule {}

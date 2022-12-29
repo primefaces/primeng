@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Basic</h5>
         <div class="field-checkbox">
-            <p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"></p-checkbox>
+            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox>
             <label for="binary">{{checked}}</label>
         </div>
         <h5>Multiple</h5>
@@ -280,19 +280,19 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>p-chkbox</td>
+                            <td>p-checkbox</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>p-chkbox-box</td>
+                            <td>p-checkbox-box</td>
                             <td>Container of icon.</td>
                         </tr>
                         <tr>
-                            <td>p-chkbox-icon</td>
+                            <td>p-checkbox-icon</td>
                             <td>Icon element.</td>
                         </tr>
                         <tr>
-                            <td>p-chkbox-label</td>
+                            <td>p-checkbox-label</td>
                             <td>Label element.</td>
                         </tr>
                         <tr>
@@ -324,7 +324,7 @@ export class ModelComponent &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;div class="field-checkbox"&gt;
-    &lt;p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"&gt;&lt;/p-checkbox&gt;
+    &lt;p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"&gt;&lt;/p-checkbox&gt;
     &lt;label for="binary"&gt;&#123;&#123;checked&#125;&#125;&lt;/label&gt;
 &lt;/div&gt;
 &lt;h5&gt;Multiple&lt;/h5&gt;

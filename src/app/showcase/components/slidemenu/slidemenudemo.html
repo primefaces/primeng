@@ -9,11 +9,11 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Basic</h5>
-        <p-slideMenu [model]="items" [viewportHeight]="250" [menuWidth]="175"></p-slideMenu>
+        <p-slideMenu [model]="items" [viewportHeight]="250" [menuWidth]="175" [style]="{'min-width':'175px'}"></p-slideMenu>
 
         <h5>Popup</h5>
         <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
-        <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250" [menuWidth]="175"></p-slideMenu>
+        <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250" [menuWidth]="175" [style]="{'min-width':'175px'}"></p-slideMenu>
     </div>
 
 </div>
@@ -74,7 +74,7 @@ export class SlideMenuDemo &#123;
             <p>SlideMenu is inline by default, popup mode is also supported by enabling popup property and calling toggle method by passing the event 
                     from the anchor element.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-slideMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-slideMenu&gt;
+&lt;p-slideMenu #menu [model]="items" [popup]="true" &gt;&lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </app-code>
 
@@ -287,11 +287,11 @@ export class SlideMenuDemo &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;h5&gt;Basic&lt;/h5&gt;
-&lt;p-slideMenu [model]="items" [viewportHeight]="250"&gt;&lt;/p-slideMenu&gt;
+&lt;p-slideMenu [model]="items" [viewportHeight]="250" [style]="&#123;'min-width':'175px'&#125;" &gt;&lt;/p-slideMenu&gt;
 
 &lt;h5&gt;Popup&lt;/h5&gt;
 &lt;button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
-&lt;p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"&gt;&lt;/p-slideMenu&gt;
+&lt;p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250" [style]="&#123;'min-width':'175px'&#125;" &gt;&lt;/p-slideMenu&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>

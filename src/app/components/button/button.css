@@ -26,10 +26,11 @@
     justify-content: center;
 }
 
-.p-button-icon-only .p-button-label {
+.p-button-icon-only:after {
+    content: 'p';
     visibility: hidden;
+    clip: rect(0 0 0 0);
     width: 0;
-    flex: 0 0 auto;
 }
 
 .p-button-vertical {
@@ -65,8 +66,4 @@
 .p-buttonset .p-button:focus {
     position: relative;
     z-index: 1;
-}
-
-.p-button-label {
-    transition: all .2s;
 }

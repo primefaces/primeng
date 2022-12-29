@@ -7,7 +7,6 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['./tablescrolldemo.css']
 })
 export class TableScrollDemo implements OnInit {
-
     customers: Customer[];
 
     dialogVisible: boolean;
@@ -22,29 +21,29 @@ export class TableScrollDemo implements OnInit {
 
     rowGroupMetadata: any;
 
-    constructor(private customerService: CustomerService) { }
+    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
-        this.customerService.getCustomersMedium().then(data => {
-            this.customers = data
+        this.customerService.getCustomersMedium().then((data) => {
+            this.customers = data;
         });
-        this.customerService.getCustomersMedium().then(data => this.unlockedCustomers = data);
+        this.customerService.getCustomersMedium().then((data) => (this.unlockedCustomers = data));
 
         this.lockedCustomers = [
             {
                 id: 5135,
-                name: "Geraldine Bisset",
+                name: 'Geraldine Bisset',
                 country: {
-                    name: "France",
-                   code: "fr"
+                    name: 'France',
+                    code: 'fr'
                 },
-                company: "Bisset Group",
-                status: "proposal",
-                date: "2019-05-05",
+                company: 'Bisset Group',
+                status: 'proposal',
+                date: '2019-05-05',
                 activity: 0,
                 representative: {
-                    name: "Amy Elsner",
-                    image: "amyelsner.png"
+                    name: 'Amy Elsner',
+                    image: 'amyelsner.png'
                 }
             }
         ];
@@ -67,8 +66,7 @@ export class TableScrollDemo implements OnInit {
         if (frozen) {
             this.lockedCustomers = this.lockedCustomers.filter((c, i) => i !== index);
             this.unlockedCustomers.push(data);
-        }
-        else {
+        } else {
             this.unlockedCustomers = this.unlockedCustomers.filter((c, i) => i !== index);
             this.lockedCustomers.push(data);
         }
@@ -93,6 +91,6 @@ export class TableScrollDemo implements OnInit {
     }
 
     formatCurrency(value) {
-        return value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 }

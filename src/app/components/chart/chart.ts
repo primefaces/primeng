@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -12,11 +12,10 @@ import Chart from 'chart.js/auto';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class UIChart implements AfterViewInit, OnDestroy {
-
     @Input() type: string;
 
     @Input() plugins: any[] = [];
@@ -43,7 +42,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
         return this._data;
     }
 
-    set data(val:any) {
+    set data(val: any) {
         this._data = val;
         this.reinit();
     }
@@ -52,7 +51,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
         return this._options;
     }
 
-    set options(val:any) {
+    set options(val: any) {
         this._options = val;
         this.reinit();
     }
@@ -68,17 +67,17 @@ export class UIChart implements AfterViewInit, OnDestroy {
             const dataset = this.chart.getElementsAtEventForMode(event, 'dataset', { intersect: true }, false);
 
             if (element && element[0] && dataset) {
-                this.onDataSelect.emit({originalEvent: event, element: element[0], dataset: dataset});
+                this.onDataSelect.emit({ originalEvent: event, element: element[0], dataset: dataset });
             }
         }
     }
 
     initChart() {
-        let opts = this.options||{};
+        let opts = this.options || {};
         opts.responsive = this.responsive;
 
         // allows chart to resize in responsive mode
-        if (opts.responsive&&(this.height||this.width)) {
+        if (opts.responsive && (this.height || this.width)) {
             opts.maintainAspectRatio = false;
         }
 
@@ -131,4 +130,4 @@ export class UIChart implements AfterViewInit, OnDestroy {
     exports: [UIChart],
     declarations: [UIChart]
 })
-export class ChartModule { }
+export class ChartModule {}

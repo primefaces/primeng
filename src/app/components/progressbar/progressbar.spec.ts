@@ -4,71 +4,66 @@ import { ProgressBar } from './progressbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ProgressBar', () => {
+    let progressbar: ProgressBar;
+    let fixture: ComponentFixture<ProgressBar>;
 
-	let progressbar: ProgressBar;
-	let fixture: ComponentFixture<ProgressBar>;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule],
+            declarations: [ProgressBar]
+        });
 
-	beforeEach(() => {
-		TestBed.configureTestingModule({
-			imports: [
-				NoopAnimationsModule
-			],
-			declarations: [
-				ProgressBar
-			]
-		});
+        fixture = TestBed.createComponent(ProgressBar);
+        progressbar = fixture.componentInstance;
+    });
 
-		fixture = TestBed.createComponent(ProgressBar);
-		progressbar = fixture.componentInstance;
-	});
+    it('should fill %50', () => {
+        progressbar.value = 50;
+        fixture.detectChanges();
 
-	it('should fill %50', () => {
-		progressbar.value = 50;
-		fixture.detectChanges();
+        const progressbarValueEl = fixture.debugElement.query(By.css('.p-progressbar-value')).nativeElement;
+        const progressbarLabelEl = fixture.debugElement.query(By.css('.p-progressbar-label')).nativeElement;
+        expect(progressbarValueEl.style.width).toEqual('50%');
+        expect(progressbarLabelEl.textContent).toEqual('50%');
+    });
 
-		const progressbarValueEl = fixture.debugElement.query(By.css('.p-progressbar-value')).nativeElement;
-		const progressbarLabelEl = fixture.debugElement.query(By.css('.p-progressbar-label')).nativeElement;
-		expect(progressbarValueEl.style.width).toEqual('50%');
-		expect(progressbarLabelEl.textContent).toEqual('50%');
-	});
+    it('should not show value', () => {
+        progressbar.value = 50;
+        progressbar.showValue = false;
+        fixture.detectChanges();
 
-	it('should not show value', () => {
-		progressbar.value = 50;
-		progressbar.showValue = false;
-		fixture.detectChanges();
+        const progressbarValueEl = fixture.debugElement.query(By.css('.p-progressbar-value')).nativeElement;
+        const progressbarLabelEl = fixture.debugElement.query(By.css('.p-progressbar-label'));
+        expect(progressbarValueEl.style.width).toEqual('50%');
+        expect(progressbarLabelEl).toBeFalsy();
+    });
 
-		const progressbarValueEl = fixture.debugElement.query(By.css('.p-progressbar-value')).nativeElement;
-		const progressbarLabelEl = fixture.debugElement.query(By.css('.p-progressbar-label'));
-		expect(progressbarValueEl.style.width).toEqual('50%');
-		expect(progressbarLabelEl).toBeFalsy();
-	});
+    it('should change style and styleClass', () => {
+        progressbar.value = 50;
+        progressbar.style = { height: '300px' };
+        progressbar.styleClass = 'Primeng';
+        fixture.detectChanges();
 
-	it('should change style and styleClass', () => {
-		progressbar.value = 50;
-		progressbar.style = { 'height': '300px' };
-		progressbar.styleClass = "Primeng";
-		fixture.detectChanges();
+        const progressbarEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        expect(progressbarEl.style.height).toEqual('300px');
+        expect(progressbarEl.className).toContain('Primeng');
+    });
 
-		const progressbarEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(progressbarEl.style.height).toEqual('300px');
-		expect(progressbarEl.className).toContain('Primeng');
-	});
+    it('should change unit', () => {
+        progressbar.value = 50;
+        progressbar.unit = '&';
+        fixture.detectChanges();
 
-	it('should change unit', () => {
-		progressbar.value = 50;
-		progressbar.unit = '&';
-		fixture.detectChanges();
+        const progressbarLabelEl = fixture.debugElement.query(By.css('.p-progressbar-label')).nativeElement;
+        expect(progressbarLabelEl.textContent).toEqual('50&');
+    });
 
-		const progressbarLabelEl = fixture.debugElement.query(By.css('.p-progressbar-label')).nativeElement;
-		expect(progressbarLabelEl.textContent).toEqual('50&');
-	});
+    it('should change mode', () => {
+        progressbar.value = 50;
+        progressbar.mode = 'indeterminate';
+        fixture.detectChanges();
 
-	it('should change mode', () => {
-		progressbar.value = 50;
-		progressbar.mode = 'indeterminate';
-		fixture.detectChanges();
-
-		const progressbarLabelEl = fixture.debugElement.query(By.css('div')).nativeElement;
-		expect(progressbarLabelEl.className).toContain('p-progressbar-indeterminate');
-	});
+        const progressbarLabelEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        expect(progressbarLabelEl.className).toContain('p-progressbar-indeterminate');
+    });
 });

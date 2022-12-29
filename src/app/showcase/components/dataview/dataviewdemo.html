@@ -134,7 +134,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h5>Layouts</h5>
             <p>DataView has two layout modes; "list" and "grid" where a separate template is used to render an item in each mode. In list mode name of the template is "listItem" whereas
-                in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/flexgrid']">PrimeFlex</a> style class of your choice.</p>
+                in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a href="https://www.primefaces.org/primeflex/gridsystem" target="_blank">PrimeFlex</a> style class of your choice.</p>
             <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
@@ -351,9 +351,9 @@ export class DataViewSortDemo implements OnInit &#123;
                 An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-dataview [value]="cars" [loading]="loading"&gt;
+&lt;p-dataView [value]="cars" [loading]="loading"&gt;
     //content
-&lt;/p-dataview&gt;
+&lt;/p-dataView&gt;
 </app-code>
 
             <h5>Properties</h5>
@@ -494,7 +494,7 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>trackBy</td>
                             <td>Function</td>
                             <td>null</td>
-                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.</td>
                         </tr>
                         <tr>
                             <td>filterBy</td>

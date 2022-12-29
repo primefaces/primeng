@@ -1,19 +1,43 @@
-import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,
-        ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation, ViewRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate, PrimeNGConfig, OverlayService} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {ZIndexUtils} from 'primeng/utils';
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
+import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-overlayPanel',
     template: `
-        <div *ngIf="render" [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
-            [@animation]="{value: (overlayVisible ? 'open': 'close'), params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-                (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
+        <div
+            *ngIf="render"
+            [ngClass]="'p-overlaypanel p-component'"
+            [ngStyle]="style"
+            [class]="styleClass"
+            (click)="onOverlayClick($event)"
+            [@animation]="{ value: overlayVisible ? 'open' : 'close', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            (@animation.start)="onAnimationStart($event)"
+            (@animation.done)="onAnimationEnd($event)"
+        >
             <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -25,30 +49,38 @@ import { Subscription } from 'rxjs';
     `,
     animations: [
         trigger('animation', [
-            state('void', style({
-                transform: 'scaleY(0.8)',
-                opacity: 0
-            })),
-            state('close', style({
-                opacity: 0
-            })),
-            state('open', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
+            state(
+                'void',
+                style({
+                    transform: 'scaleY(0.8)',
+                    opacity: 0
+                })
+            ),
+            state(
+                'close',
+                style({
+                    opacity: 0
+                })
+            ),
+            state(
+                'open',
+                style({
+                    transform: 'translateY(0)',
+                    opacity: 1
+                })
+            ),
             transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => close', animate('{{hideTransitionParams}}')),
+            transition('open => close', animate('{{hideTransitionParams}}'))
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./overlaypanel.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
-
     @Input() dismissable: boolean = true;
 
     @Input() showCloseIcon: boolean;
@@ -83,6 +115,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     render: boolean = false;
 
+    isOverlayAnimationInProgress: boolean = false;
+
     selfClick: boolean = false;
 
     documentClickListener: any;
@@ -107,14 +141,14 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
-                break;
+                    break;
             }
 
             this.cd.markForCheck();
@@ -150,22 +184,29 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     toggle(event, target?) {
+        if (this.isOverlayAnimationInProgress) {
+            return;
+        }
+
         if (this.overlayVisible) {
             if (this.hasTargetChanged(event, target)) {
                 this.destroyCallback = () => {
-                    this.show(null, (target||event.currentTarget||event.target));
+                    this.show(null, target || event.currentTarget || event.target);
                 };
             }
 
             this.hide();
-        }
-        else {
+        } else {
             this.show(event, target);
         }
     }
 
     show(event, target?) {
-        this.target = target||event.currentTarget||event.target;
+        if (this.isOverlayAnimationInProgress) {
+            return;
+        }
+
+        this.target = target || event.currentTarget || event.target;
         this.overlayVisible = true;
         this.render = true;
         this.cd.markForCheck();
@@ -185,15 +226,13 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     hasTargetChanged(event, target) {
-        return this.target != null && this.target !== (target||event.currentTarget||event.target);
+        return this.target != null && this.target !== (target || event.currentTarget || event.target);
     }
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
-                document.body.appendChild(this.container);
-            else
-                DomHandler.appendChild(this.container, this.appendTo);
+            if (this.appendTo === 'body') document.body.appendChild(this.container);
+            else DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -221,13 +260,16 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
+
+            if (this.showCloseIcon) {
+                this.container.style.marginTop = '30px';
+            }
         }
     }
 
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            this.onShow.emit(null);
             this.appendContainer();
             this.align();
             this.bindDocumentClickListener();
@@ -242,10 +284,13 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 if (this.container && this.container.contains(e.target)) {
                     this.selfClick = true;
                 }
-            }
+            };
 
             this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
+            this.onShow.emit(null);
         }
+
+        this.isOverlayAnimationInProgress = true;
     }
 
     onAnimationEnd(event: AnimationEvent) {
@@ -259,7 +304,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 if (this.overlaySubscription) {
                     this.overlaySubscription.unsubscribe();
                 }
-            break;
+                break;
 
             case 'close':
                 if (this.autoZIndex) {
@@ -273,8 +318,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 this.onContainerDestroy();
                 this.onHide.emit({});
                 this.render = false;
-            break;
+                break;
         }
+
+        this.isOverlayAnimationInProgress = false;
     }
 
     focus() {
@@ -297,7 +344,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onWindowResize(event) {
-        this.hide();
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+            this.hide();
+        }
     }
 
     bindDocumentResizeListener() {
@@ -367,8 +416,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RippleModule, SharedModule],
+    imports: [CommonModule, RippleModule, SharedModule],
     exports: [OverlayPanel, SharedModule],
     declarations: [OverlayPanel]
 })
-export class OverlayPanelModule { }
+export class OverlayPanelModule {}

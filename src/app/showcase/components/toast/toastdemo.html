@@ -7,7 +7,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast></p-toast>
+    <p-toast [baseZIndex]="5000"></p-toast>
     <p-toast position="top-left" key="tl"></p-toast>
     <p-toast position="top-center" key="tc"></p-toast>
     <p-toast position="bottom-center" key="bc"></p-toast>
@@ -432,11 +432,11 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                             <td>Container of message texts.</td>
                         </tr>
                         <tr>
-                            <td>p-toast-title</td>
+                            <td>p-toast-summary</td>
                             <td>Summary of the message.</td>
                         </tr>
                         <tr>
-                            <td>p-toast-title</td>
+                            <td>p-toast-detail</td>
                             <td>Detail of the message.</td>
                         </tr>
                     </tbody>

@@ -177,13 +177,20 @@ export class ListboxDemo &#123;
 
       <h5>Custom Content</h5>
       <p>For custom content support define a ng-template named <i>item</i> where the local ng-template variable refers to an option in the options collection. Additionally a custom header and footer can be provided
-        using <i>header</i> and <i>footer</i> templates. In addition when grouping is enabled, <i>group</i> template is available
+        using <i>header</i>, <i>filter</i> and <i>footer</i> templates. In addition when grouping is enabled, <i>group</i> template is available
         to customize the option groups. All templates get the option instance as the default local template variable.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-listbox [options]="countries" [(ngModel)]="selectedCountries" [multiple]="true" optionLabel="name" [listStyle]="&#123;'max-height':'250px'&#125;"&gt;
+&lt;p-listbox [options]="countries" [(ngModel)]="selectedCountries" [multiple]="true" optionLabel="name" filterBy="label" [listStyle]="&#123;'max-height':'250px'&#125;"&gt;
     &lt;ng-template pTemplate="header"&gt;
         Header Content
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="filter" let-options="options"&gt;
+        &lt;div class="p-inputgroup"&gt;
+            &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-search"&gt;&lt;/i&gt;&lt;/span&gt;
+            &lt;input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="options.filter($event)"&gt;
+        &lt;/div&gt;
+        &lt;button pButton icon="pi pi-times" class="ml-3" (click)="myResetFunction(options)"&gt;&lt;/button&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
@@ -198,6 +205,8 @@ export class ListboxDemo &#123;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
+import &#123;ListboxFilterOptions&#125; from 'primeng/listbox';
+...
 interface Country &#123;
     name: string,
     code: string
@@ -208,6 +217,8 @@ export class ListboxDemo &#123;
     countries: Country[];
 
     selectedCountries: Country[];
+
+    filterValue = '';
 
     constructor() &#123;
         this.countries = [
@@ -224,6 +235,11 @@ export class ListboxDemo &#123;
         ];
     &#125;
     
+    myResetFunction(options: MultiSelectFilterOptions) &#123;
+        options.reset();
+        this.filterValue = '';
+    &#125;
+
 &#125;
 </app-code>
 
@@ -287,6 +303,12 @@ export class ListboxDemo &#123;
                     <td>string</td>
                     <td>undefined</td>
                     <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                </tr>
+                <tr>
+                    <td>filterBy</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
                 </tr>
                 <tr>
                     <td>filterPlaceHolder</td>
@@ -469,6 +491,12 @@ export class ListboxDemo &#123;
                 <tr>
                     <td>header</td>
                     <td>-</td>
+                </tr>
+                <tr>
+                    <td>filter</td>
+                    <td>options.filter: Callback to filter data by the value param<br />
+                        options.reset: Resets the filter.
+                    </td>
                 </tr>
                 <tr>
                     <td>empty</td>

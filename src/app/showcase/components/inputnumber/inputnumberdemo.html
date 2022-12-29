@@ -296,7 +296,7 @@ Vertical
                             <td>string</td>
                             <td>best fit</td>
                             <td>The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit".
-                                See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation">Locale Negotation</a> for details.
+                                See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation">Locale Negotiation</a> for details.
                             </td>
                         </tr>
                         <tr>
@@ -474,6 +474,12 @@ Vertical
                             <td>null</td>
                             <td>Used to define a string that autocomplete attribute the current element.</td>
                         </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -524,6 +530,11 @@ Vertical
                             <td>event.originalEvent: Browser event <br />
                                 event.value: New value</td>
                             <td>Callback to invoke when the value is entered.</td>
+                        </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>-</td>
+                            <td>Callback to invoke when input field is cleared.</td>
                         </tr>
                     </tbody>
                 </table>

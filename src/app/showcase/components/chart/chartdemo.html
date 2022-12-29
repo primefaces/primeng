@@ -15,7 +15,7 @@ npm install chart.js --save
         
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 "scripts": [
-    "../node_modules/chart.js/dist/Chart.js",
+    "../node_modules/chart.js/dist/chart.js",
     //..others
 ],
 </app-code>
@@ -201,13 +201,15 @@ export class LineChartDemo &#123;
         &#125;
         
         this.options = &#123;
-            title: &#123;
-                display: true,
-                text: 'My Title',
-                fontSize: 16
-            &#125;,
-            legend: &#123;
-                position: 'bottom'
+            plugins: &#123;
+                title: &#123;
+                    display: true,
+                    text: 'My Title',
+                    fontSize: 16
+                &#125;,
+                legend: &#123;
+                    position: 'bottom'
+                &#125;
             &#125;
         &#125;;
     &#125;

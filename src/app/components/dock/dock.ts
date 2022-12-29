@@ -12,18 +12,50 @@ import { TooltipModule } from 'primeng/tooltip';
             <div class="p-dock-list-container">
                 <ul #list class="p-dock-list" role="menu" (mouseleave)="onListMouseLeave()">
                     <li *ngFor="let item of model; let i = index" [ngClass]="itemClass(i)" (mouseenter)="onItemMouseEnter(i)">
-                        <a *ngIf="isClickableRouterLink(item); else elseBlock" pRipple [routerLink]="item.routerLink" [queryParams]="item.queryParams"
-                            [ngClass]="{'p-disabled':item.disabled}" class="p-dock-action"  role="menuitem" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" (click)="onItemClick($event, item)" (keydown.enter)="onItemClick($event, item, i)"
-                            [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled || readonly ? null : (item.tabindex ? item.tabindex : '0')"  pTooltip [tooltipOptions]="item.tooltipOptions"
-                            [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
-                                <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon"></span>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+                        <a
+                            *ngIf="isClickableRouterLink(item); else elseBlock"
+                            pRipple
+                            [routerLink]="item.routerLink"
+                            [queryParams]="item.queryParams"
+                            [ngClass]="{ 'p-disabled': item.disabled }"
+                            class="p-dock-action"
+                            role="menuitem"
+                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                            (click)="onItemClick($event, item)"
+                            (keydown.enter)="onItemClick($event, item, i)"
+                            [target]="item.target"
+                            [attr.id]="item.id"
+                            [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '0'"
+                            pTooltip
+                            [tooltipOptions]="item.tooltipOptions"
+                            [fragment]="item.fragment"
+                            [queryParamsHandling]="item.queryParamsHandling"
+                            [preserveFragment]="item.preserveFragment"
+                            [skipLocationChange]="item.skipLocationChange"
+                            [replaceUrl]="item.replaceUrl"
+                            [state]="item.state"
+                        >
+                            <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                         </a>
                         <ng-template #elseBlock>
-                            <a [tooltipPosition]="item.tooltipPosition" [attr.href]="item.url||null" class="p-dock-action"  role="menuitem" pRipple (click)="onItemClick($event, item)"  pTooltip [tooltipOptions]="item.tooltipOptions"
-                                [ngClass]="{'p-disabled':item.disabled}" (keydown.enter)="onItemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
-                                <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon"></span>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+                            <a
+                                [tooltipPosition]="item.tooltipPosition"
+                                [attr.href]="item.url || null"
+                                class="p-dock-action"
+                                role="menuitem"
+                                pRipple
+                                (click)="onItemClick($event, item)"
+                                pTooltip
+                                [tooltipOptions]="item.tooltipOptions"
+                                [ngClass]="{ 'p-disabled': item.disabled }"
+                                (keydown.enter)="onItemClick($event, item, i)"
+                                [target]="item.target"
+                                [attr.id]="item.id"
+                                [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '0'"
+                            >
+                                <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </a>
                         </ng-template>
                     </li>
@@ -35,11 +67,10 @@ import { TooltipModule } from 'primeng/tooltip';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./dock.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Dock implements AfterContentInit {
-
     @Input() id: string;
 
     @Input() style: any;
@@ -48,7 +79,7 @@ export class Dock implements AfterContentInit {
 
     @Input() model: any[] = null;
 
-    @Input() position: string = "bottom";
+    @Input() position: string = 'bottom';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -62,14 +93,14 @@ export class Dock implements AfterContentInit {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.itemTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -83,7 +114,6 @@ export class Dock implements AfterContentInit {
         this.currentIndex = index;
 
         if (index === 1) {
-
         }
 
         this.cd.markForCheck();
@@ -108,14 +138,13 @@ export class Dock implements AfterContentInit {
     itemClass(index) {
         return {
             'p-dock-item': true,
-            'p-dock-item-second-prev': (this.currentIndex - 2) === index,
-            'p-dock-item-prev': (this.currentIndex - 1) === index,
+            'p-dock-item-second-prev': this.currentIndex - 2 === index,
+            'p-dock-item-prev': this.currentIndex - 1 === index,
             'p-dock-item-current': this.currentIndex === index,
-            'p-dock-item-next': (this.currentIndex + 1) === index,
-            'p-dock-item-second-next': (this.currentIndex + 2) === index
-        }
+            'p-dock-item-next': this.currentIndex + 1 === index,
+            'p-dock-item-second-next': this.currentIndex + 2 === index
+        };
     }
-
 }
 
 @NgModule({
@@ -123,4 +152,4 @@ export class Dock implements AfterContentInit {
     exports: [Dock, SharedModule, TooltipModule, RouterModule],
     declarations: [Dock]
 })
-export class DockModule { }
+export class DockModule {}
