@@ -4827,7 +4827,29 @@ export class ColumnFilter implements AfterContentInit {
     selector: 'p-columnFilterFormElement',
     template: `
         <ng-container *ngIf="filterTemplate; else builtInElement">
-            <ng-container *ngTemplateOutlet="filterTemplate; context: { $implicit: filterConstraint.value, filterCallback: filterCallback }"></ng-container>
+            <ng-container
+                *ngTemplateOutlet="
+                    filterTemplate;
+                    context: {
+                        $implicit: filterConstraint.value,
+                        filterCallback: filterCallback,
+                        type: type,
+                        field: field,
+                        filterConstraint: filterConstraint,
+                        placeholder: placeholder,
+                        minFractionDigits: minFractionDigits,
+                        maxFractionDigits: maxFractionDigits,
+                        prefix: prefix,
+                        suffix: suffix,
+                        locale: locale,
+                        localeMatcher: localeMatcher,
+                        currency: currency,
+                        currencyDisplay: currencyDisplay,
+                        useGrouping: useGrouping,
+                        showButtons: showButtons
+                    }
+                "
+            ></ng-container>
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
