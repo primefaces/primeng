@@ -185,7 +185,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         if (item.routerLink) {
             const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
 
-            return this.router.isActive(this.router.createUrlTree(routerLink, { relativeTo: this.route }).toString(), false);
+            return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(),
+                item.routerLinkActiveOptions?.exact ?? item.routerLinkActiveOptions ?? false);
         }
 
         return item === this.activeItem;
