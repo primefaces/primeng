@@ -38,7 +38,7 @@ import &#123;MenuItem&#125; from 'primeng/api';
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
-    
+
     items: MenuItem[];
 
     ngOnInit() &#123;
@@ -60,9 +60,9 @@ export class TabMenuDemo &#123;
 </app-code>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
-    
+
     items: MenuItem[];
-    
+
     activeItem: MenuItem;
 
     ngOnInit() &#123;
@@ -73,7 +73,7 @@ export class TabMenuDemo &#123;
             &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
             &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
-        
+
         this.activeItem = this.items[0];
     &#125;
 &#125;
@@ -154,6 +154,26 @@ export class TabMenuDemo &#123;
                 </table>
             </div>
 
+            <h5>Events</h5>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>activeItemChange</td>
+                            <td>item: Newly selected MenuItem</td>
+                            <td>Event fired when a tab is selected.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h5>Templates of TabPanel</h5>
             <div class="doc-tablewrapper">
                <table class="doc-table">
@@ -172,7 +192,7 @@ export class TabMenuDemo &#123;
                      </tbody>
                </table>
             </div>
-            
+
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -232,7 +252,7 @@ export class TabMenuDemo &#123;
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class TabMenuDemo &#123;
-    
+
     items: MenuItem[];
 
     scrollableItems: MenuItem[];

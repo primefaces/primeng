@@ -1,9 +1,9 @@
-
-import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation, ChangeDetectorRef, SimpleChanges} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {InputTextModule} from 'primeng/inputtext';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { DomHandler } from 'primeng/dom';
+import { InputTextModule } from 'primeng/inputtext';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -13,25 +13,108 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber',
     template: `
-        <span [ngClass]="{'p-inputnumber p-component': true,'p-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked',
-                'p-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal', 'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'}"
-                [ngStyle]="style" [class]="styleClass">
-            <input #input [ngClass]="'p-inputnumber-input'" [ngStyle]="inputStyle" [class]="inputStyleClass" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
-                [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel"
-                [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.min]="min" [attr.max]="max" [readonly]="readonly" inputmode="decimal"
-                (input)="onUserInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
-                (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
+        <span
+            [ngClass]="{
+                'p-inputnumber p-component': true,
+                'p-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked',
+                'p-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
+                'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'
+            }"
+            [ngStyle]="style"
+            [class]="styleClass"
+        >
+            <input
+                #input
+                [ngClass]="'p-inputnumber-input'"
+                [ngStyle]="inputStyle"
+                [class]="inputStyleClass"
+                pInputText
+                [value]="formattedValue()"
+                [attr.placeholder]="placeholder"
+                [attr.title]="title"
+                [attr.id]="inputId"
+                [attr.size]="size"
+                [attr.name]="name"
+                [attr.autocomplete]="autocomplete"
+                [attr.maxlength]="maxlength"
+                [attr.tabindex]="tabindex"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-required]="ariaRequired"
+                [disabled]="disabled"
+                [attr.required]="required"
+                [attr.min]="min"
+                [attr.max]="max"
+                [readonly]="readonly"
+                inputmode="decimal"
+                (input)="onUserInput($event)"
+                (keydown)="onInputKeyDown($event)"
+                (keypress)="onInputKeyPress($event)"
+                (paste)="onPaste($event)"
+                (click)="onInputClick()"
+                (focus)="onInputFocus($event)"
+                (blur)="onInputBlur($event)"
+            />
             <i *ngIf="buttonLayout != 'vertical' && showClear && value" class="p-inputnumber-clear-icon pi pi-times" (click)="clear()"></i>
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
-                <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" [disabled]="disabled"
-                    (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp()"></button>
-                <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-down': true}" [class]="decrementButtonClass" [icon]="decrementButtonIcon" [disabled]="disabled"
-                    (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp()" (mouseleave)="onDownButtonMouseLeave()" (keydown)="onDownButtonKeyDown($event)" (keyup)="onDownButtonKeyUp()"></button>
+                <button
+                    type="button"
+                    pButton
+                    [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
+                    [class]="incrementButtonClass"
+                    [icon]="incrementButtonIcon"
+                    [disabled]="disabled"
+                    (mousedown)="this.onUpButtonMouseDown($event)"
+                    (mouseup)="onUpButtonMouseUp()"
+                    (mouseleave)="onUpButtonMouseLeave()"
+                    (keydown)="onUpButtonKeyDown($event)"
+                    (keyup)="onUpButtonKeyUp()"
+                    tabindex="-1"
+                ></button>
+                <button
+                    type="button"
+                    pButton
+                    [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
+                    [class]="decrementButtonClass"
+                    [icon]="decrementButtonIcon"
+                    [disabled]="disabled"
+                    (mousedown)="this.onDownButtonMouseDown($event)"
+                    (mouseup)="onDownButtonMouseUp()"
+                    (mouseleave)="onDownButtonMouseLeave()"
+                    (keydown)="onDownButtonKeyDown($event)"
+                    (keyup)="onDownButtonKeyUp()"
+                    tabindex="-1"
+                ></button>
             </span>
-            <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" *ngIf="showButtons && buttonLayout !== 'stacked'" [disabled]="disabled"
-                (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp()"></button>
-            <button type="button" pButton [ngClass]="{'p-inputnumber-button p-inputnumber-button-down': true}" [class]="decrementButtonClass" [icon]="decrementButtonIcon" *ngIf="showButtons && buttonLayout !== 'stacked'" [disabled]="disabled"
-                (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp()" (mouseleave)="onDownButtonMouseLeave()" (keydown)="onDownButtonKeyDown($event)" (keyup)="onDownButtonKeyUp()"></button>
+            <button
+                type="button"
+                pButton
+                [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
+                [class]="incrementButtonClass"
+                [icon]="incrementButtonIcon"
+                *ngIf="showButtons && buttonLayout !== 'stacked'"
+                [disabled]="disabled"
+                (mousedown)="this.onUpButtonMouseDown($event)"
+                (mouseup)="onUpButtonMouseUp()"
+                (mouseleave)="onUpButtonMouseLeave()"
+                (keydown)="onUpButtonKeyDown($event)"
+                (keyup)="onUpButtonKeyUp()"
+                tabindex="-1"
+            ></button>
+            <button
+                type="button"
+                pButton
+                [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
+                [class]="decrementButtonClass"
+                [icon]="decrementButtonIcon"
+                *ngIf="showButtons && buttonLayout !== 'stacked'"
+                [disabled]="disabled"
+                (mousedown)="this.onDownButtonMouseDown($event)"
+                (mouseup)="onDownButtonMouseUp()"
+                (mouseleave)="onDownButtonMouseLeave()"
+                (keydown)="onDownButtonKeyDown($event)"
+                (keyup)="onDownButtonKeyUp()"
+                tabindex="-1"
+            ></button>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,19 +122,18 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inputnumber.css'],
     host: {
-        'class': 'p-element p-inputwrapper',
+        class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused',
         '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
     }
 })
-export class InputNumber implements OnInit,ControlValueAccessor {
-
+export class InputNumber implements OnInit, ControlValueAccessor {
     @Input() showButtons: boolean = false;
 
     @Input() format: boolean = true;
 
-    @Input() buttonLayout: string = "stacked";
+    @Input() buttonLayout: string = 'stacked';
 
     @Input() inputId: string;
 
@@ -101,7 +183,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     @Input() localeMatcher: string;
 
-    @Input() mode: string = "decimal";
+    @Input() mode: string = 'decimal';
 
     @Input() currency: string;
 
@@ -182,20 +264,18 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     set disabled(disabled: boolean) {
-        if (disabled)
-            this.focused = false;
+        if (disabled) this.focused = false;
 
         this._disabled = disabled;
 
-        if (this.timer)
-            this.clearTimer();
+        if (this.timer) this.clearTimer();
     }
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
-        if (props.some(p => !!simpleChange[p])) {
+        if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
         }
     }
@@ -220,7 +300,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     constructParser() {
         this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
-        const numerals = [...new Intl.NumberFormat(this.locale, {useGrouping: false}).format(9876543210)].reverse();
+        const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [d, i]));
         this._numeral = new RegExp(`[${numerals.join('')}]`, 'g');
         this._group = this.getGroupingExpression();
@@ -229,7 +309,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this._decimal = this.getDecimalExpression();
         this._suffix = this.getSuffixExpression();
         this._prefix = this.getPrefixExpression();
-        this._index = d => index.get(d);
+        this._index = (d) => index.get(d);
     }
 
     updateConstructParser() {
@@ -243,59 +323,56 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     getDecimalExpression() {
-        const formatter = new Intl.NumberFormat(this.locale, {...this.getOptions(), useGrouping: false});
+        const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
         return new RegExp(`[${formatter.format(1.1).replace(this._currency, '').trim().replace(this._numeral, '')}]`, 'g');
     }
 
     getGroupingExpression() {
-        const formatter = new Intl.NumberFormat(this.locale, {useGrouping: true});
+        const formatter = new Intl.NumberFormat(this.locale, { useGrouping: true });
         this.groupChar = formatter.format(1000000).trim().replace(this._numeral, '').charAt(0);
         return new RegExp(`[${this.groupChar}]`, 'g');
     }
 
     getMinusSignExpression() {
-        const formatter = new Intl.NumberFormat(this.locale, {useGrouping: false});
+        const formatter = new Intl.NumberFormat(this.locale, { useGrouping: false });
         return new RegExp(`[${formatter.format(-1).trim().replace(this._numeral, '')}]`, 'g');
     }
 
     getCurrencyExpression() {
         if (this.currency) {
-            const formatter = new Intl.NumberFormat(this.locale, {style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay,
-                minimumFractionDigits: 0, maximumFractionDigits: 0});
+            const formatter = new Intl.NumberFormat(this.locale, { style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay, minimumFractionDigits: 0, maximumFractionDigits: 0 });
             return new RegExp(`[${formatter.format(1).replace(/\s/g, '').replace(this._numeral, '').replace(this._group, '')}]`, 'g');
         }
 
-        return new RegExp(`[]`,'g');
+        return new RegExp(`[]`, 'g');
     }
 
     getPrefixExpression() {
         if (this.prefix) {
             this.prefixChar = this.prefix;
-        }
-        else {
-            const formatter = new Intl.NumberFormat(this.locale, {style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay});
+        } else {
+            const formatter = new Intl.NumberFormat(this.locale, { style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay });
             this.prefixChar = formatter.format(1).split('1')[0];
         }
 
-        return new RegExp(`${this.escapeRegExp(this.prefixChar||'')}`, 'g');
+        return new RegExp(`${this.escapeRegExp(this.prefixChar || '')}`, 'g');
     }
 
     getSuffixExpression() {
         if (this.suffix) {
             this.suffixChar = this.suffix;
-        }
-        else {
-            const formatter = new Intl.NumberFormat(this.locale, {style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay,
-                minimumFractionDigits: 0, maximumFractionDigits: 0});
+        } else {
+            const formatter = new Intl.NumberFormat(this.locale, { style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay, minimumFractionDigits: 0, maximumFractionDigits: 0 });
             this.suffixChar = formatter.format(1).split('1')[1];
         }
 
-        return new RegExp(`${this.escapeRegExp(this.suffixChar||'')}`, 'g');
+        return new RegExp(`${this.escapeRegExp(this.suffixChar || '')}`, 'g');
     }
 
     formatValue(value) {
         if (value != null) {
-            if (value === '-') { // Minus sign
+            if (value === '-') {
+                // Minus sign
                 return value;
             }
 
@@ -321,18 +398,19 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     parseValue(text) {
         let filteredText = text
-                            .replace(this._suffix, '')
-                            .replace(this._prefix, '')
-                            .trim()
-                            .replace(/\s/g, '')
-                            .replace(this._currency, '')
-                            .replace(this._group, '')
-                            .replace(this._minusSign, '-')
-                            .replace(this._decimal, '.')
-                            .replace(this._numeral, this._index);
+            .replace(this._suffix, '')
+            .replace(this._prefix, '')
+            .trim()
+            .replace(/\s/g, '')
+            .replace(this._currency, '')
+            .replace(this._group, '')
+            .replace(this._minusSign, '-')
+            .replace(this._decimal, '.')
+            .replace(this._numeral, this._index);
 
         if (filteredText) {
-            if (filteredText === '-') // Minus sign
+            if (filteredText === '-')
+                // Minus sign
                 return filteredText;
 
             let parsedValue = +filteredText;
@@ -426,7 +504,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onUserInput(event) {
-        if(this.readonly) {
+        if (this.readonly) {
             return;
         }
 
@@ -437,7 +515,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyDown(event) {
-        if(this.readonly) {
+        if (this.readonly) {
             return;
         }
 
@@ -461,27 +539,27 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             case 38:
                 this.spin(event, 1);
                 event.preventDefault();
-            break;
+                break;
 
             //down
             case 40:
                 this.spin(event, -1);
                 event.preventDefault();
-            break;
+                break;
 
             //left
             case 37:
                 if (!this.isNumeralChar(inputValue.charAt(selectionStart - 1))) {
                     event.preventDefault();
                 }
-            break;
+                break;
 
             //right
             case 39:
                 if (!this.isNumeralChar(inputValue.charAt(selectionStart))) {
                     event.preventDefault();
                 }
-            break;
+                break;
 
             //enter
             case 13:
@@ -489,7 +567,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
                 this.input.nativeElement.value = this.formatValue(newValueStr);
                 this.input.nativeElement.setAttribute('aria-valuenow', newValueStr);
                 this.updateModel(event, newValueStr);
-            break;
+                break;
 
             //backspace
             case 8: {
@@ -505,33 +583,27 @@ export class InputNumber implements OnInit,ControlValueAccessor {
                         if (this._group.test(deleteChar)) {
                             this._group.lastIndex = 0;
                             newValueStr = inputValue.slice(0, selectionStart - 2) + inputValue.slice(selectionStart - 1);
-                        }
-                        else if (this._decimal.test(deleteChar)) {
+                        } else if (this._decimal.test(deleteChar)) {
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
                                 this.input.nativeElement.setSelectionRange(selectionStart - 1, selectionStart - 1);
-                            }
-                            else {
+                            } else {
                                 newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                             }
-                        }
-                        else if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
+                        } else if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
                             const insertedText = this.isDecimalMode() && (this.minFractionDigits || 0) < decimalLength ? '' : '0';
                             newValueStr = inputValue.slice(0, selectionStart - 1) + insertedText + inputValue.slice(selectionStart);
-                        }
-                        else if (decimalCharIndexWithoutPrefix === 1) {
+                        } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + '0' + inputValue.slice(selectionStart);
                             newValueStr = this.parseValue(newValueStr) > 0 ? newValueStr : '';
-                        }
-                        else {
+                        } else {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                         }
                     }
 
                     this.updateValue(event, newValueStr, null, 'delete-single');
-                }
-                else {
+                } else {
                     newValueStr = this.deleteRange(inputValue, selectionStart, selectionEnd);
                     this.updateValue(event, newValueStr, null, 'delete-range');
                 }
@@ -553,40 +625,34 @@ export class InputNumber implements OnInit,ControlValueAccessor {
                         if (this._group.test(deleteChar)) {
                             this._group.lastIndex = 0;
                             newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 2);
-                        }
-                        else if (this._decimal.test(deleteChar)) {
+                        } else if (this._decimal.test(deleteChar)) {
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
                                 this.input.nativeElement.setSelectionRange(selectionStart + 1, selectionStart + 1);
-                            }
-                            else {
+                            } else {
                                 newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 1);
                             }
-                        }
-                        else if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
+                        } else if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
                             const insertedText = this.isDecimalMode() && (this.minFractionDigits || 0) < decimalLength ? '' : '0';
                             newValueStr = inputValue.slice(0, selectionStart) + insertedText + inputValue.slice(selectionStart + 1);
-                        }
-                        else if (decimalCharIndexWithoutPrefix === 1) {
+                        } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart) + '0' + inputValue.slice(selectionStart + 1);
                             newValueStr = this.parseValue(newValueStr) > 0 ? newValueStr : '';
-                        }
-                        else {
+                        } else {
                             newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 1);
                         }
                     }
 
                     this.updateValue(event, newValueStr, null, 'delete-back-single');
-                }
-                else {
+                } else {
                     newValueStr = this.deleteRange(inputValue, selectionStart, selectionEnd);
                     this.updateValue(event, newValueStr, null, 'delete-range');
                 }
-            break;
+                break;
 
             default:
-            break;
+                break;
         }
 
         this.onKeyDown.emit(event);
@@ -601,7 +667,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         let char = String.fromCharCode(code);
         const isDecimalSign = this.isDecimalSign(char);
         const isMinusSign = this.isMinusSign(char);
-        
+
         if (code != 13) {
             event.preventDefault();
         }
@@ -696,33 +762,28 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
                 this.updateValue(event, newValueStr, text, 'insert');
             }
-        }
-        else if (sign.isDecimalSign) {
+        } else if (sign.isDecimalSign) {
             if (decimalCharIndex > 0 && selectionStart === decimalCharIndex) {
                 this.updateValue(event, inputValue, text, 'insert');
-            }
-            else if (decimalCharIndex > selectionStart && decimalCharIndex < selectionEnd) {
+            } else if (decimalCharIndex > selectionStart && decimalCharIndex < selectionEnd) {
+                newValueStr = this.insertText(inputValue, text, selectionStart, selectionEnd);
+                this.updateValue(event, newValueStr, text, 'insert');
+            } else if (decimalCharIndex === -1 && this.maxFractionDigits) {
                 newValueStr = this.insertText(inputValue, text, selectionStart, selectionEnd);
                 this.updateValue(event, newValueStr, text, 'insert');
             }
-            else if (decimalCharIndex === -1 && this.maxFractionDigits) {
-                newValueStr = this.insertText(inputValue, text, selectionStart, selectionEnd);
-                this.updateValue(event, newValueStr, text, 'insert');
-            }
-        }
-        else {
+        } else {
             const maxFractionDigits = this.numberFormat.resolvedOptions().maximumFractionDigits;
             const operation = selectionStart !== selectionEnd ? 'range-insert' : 'insert';
 
             if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
-                if ((selectionStart + text.length - (decimalCharIndex + 1)) <= maxFractionDigits) {
-                    const charIndex = currencyCharIndex >= selectionStart ? currencyCharIndex - 1 : (suffixCharIndex >= selectionStart ? suffixCharIndex : inputValue.length);
+                if (selectionStart + text.length - (decimalCharIndex + 1) <= maxFractionDigits) {
+                    const charIndex = currencyCharIndex >= selectionStart ? currencyCharIndex - 1 : suffixCharIndex >= selectionStart ? suffixCharIndex : inputValue.length;
 
                     newValueStr = inputValue.slice(0, selectionStart) + text + inputValue.slice(selectionStart + text.length, charIndex) + inputValue.slice(charIndex);
                     this.updateValue(event, newValueStr, text, operation);
                 }
-            }
-            else {
+            } else {
                 newValueStr = this.insertText(inputValue, text, selectionStart, selectionEnd);
                 this.updateValue(event, newValueStr, text, operation);
             }
@@ -735,18 +796,14 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         if (textSplit.length === 2) {
             const decimalCharIndex = value.slice(start, end).search(this._decimal);
             this._decimal.lastIndex = 0;
-            return (decimalCharIndex > 0) ? value.slice(0, start) + this.formatValue(text) + value.slice(end) : (value || this.formatValue(text));
-        }
-        else if ((end - start) === value.length) {
+            return decimalCharIndex > 0 ? value.slice(0, start) + this.formatValue(text) + value.slice(end) : value || this.formatValue(text);
+        } else if (end - start === value.length) {
             return this.formatValue(text);
-        }
-        else if (start === 0) {
+        } else if (start === 0) {
             return text + value.slice(end);
-        }
-        else if (end === value.length) {
+        } else if (end === value.length) {
             return value.slice(0, start) + text;
-        }
-        else {
+        } else {
             return value.slice(0, start) + text + value.slice(end);
         }
     }
@@ -754,14 +811,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     deleteRange(value, start, end) {
         let newValueStr;
 
-        if ((end - start) === value.length)
-            newValueStr = '';
-        else if (start === 0)
-            newValueStr = value.slice(end);
-        else if (end === value.length)
-            newValueStr = value.slice(0, start);
-        else
-            newValueStr = value.slice(0, start) + value.slice(end);
+        if (end - start === value.length) newValueStr = '';
+        else if (start === 0) newValueStr = value.slice(end);
+        else if (end === value.length) newValueStr = value.slice(0, start);
+        else newValueStr = value.slice(0, start) + value.slice(end);
 
         return newValueStr;
     }
@@ -789,24 +842,21 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             if (this.isNumeralChar(char)) {
                 index = i + prefixLength;
                 break;
-            }
-            else {
+            } else {
                 i--;
             }
         }
 
         if (index !== null) {
             this.input.nativeElement.setSelectionRange(index + 1, index + 1);
-        }
-        else {
+        } else {
             i = selectionStart;
             while (i < valueLength) {
                 char = inputValue.charAt(i);
                 if (this.isNumeralChar(char)) {
                     index = i + prefixLength;
                     break;
-                }
-                else {
+                } else {
                     i++;
                 }
             }
@@ -820,7 +870,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     onInputClick() {
-        if(!this.readonly) {
+        const currentValue = this.input.nativeElement.value;
+        if (!this.readonly && currentValue !== DomHandler.getSelection()) {
             this.initCursor();
         }
     }
@@ -835,10 +886,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     resetRegex() {
-        this._numeral.lastIndex =  0;
-        this._decimal.lastIndex =  0;
-        this._group.lastIndex =  0;
-        this._minusSign.lastIndex =  0;
+        this._numeral.lastIndex = 0;
+        this._decimal.lastIndex = 0;
+        this._group.lastIndex = 0;
+        this._minusSign.lastIndex = 0;
     }
 
     updateValue(event, valueStr, insertedValueStr, operation) {
@@ -856,7 +907,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     handleOnInput(event, currentValue, newValue) {
         if (this.isValueChanged(currentValue, newValue)) {
-            this.onInput.emit({ originalEvent: event, value: newValue });
+            this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
     }
 
@@ -866,7 +917,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         }
 
         if (newValue != null) {
-            let parsedCurrentValue = (typeof currentValue === 'string') ? this.parseValue(currentValue) : currentValue;
+            let parsedCurrentValue = typeof currentValue === 'string' ? this.parseValue(currentValue) : currentValue;
             return newValue !== parsedCurrentValue;
         }
 
@@ -906,8 +957,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             const index = this.initCursor();
             const selectionEnd = index + insertedValueStr.length;
             this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
-        }
-        else {
+        } else {
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
             if (this.maxlength && this.maxlength < newValue.length) {
@@ -930,16 +980,11 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
                 selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
-            }
-            else if (newLength === currentLength) {
-                if (operation === 'insert' || operation === 'delete-back-single')
-                    this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
-                else if (operation === 'delete-single')
-                    this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
-                else if (operation === 'delete-range' || operation === 'spin')
-                    this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
-            }
-            else if (operation === 'delete-back-single') {
+            } else if (newLength === currentLength) {
+                if (operation === 'insert' || operation === 'delete-back-single') this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
+                else if (operation === 'delete-single') this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
+                else if (operation === 'delete-range' || operation === 'spin') this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+            } else if (operation === 'delete-back-single') {
                 let prevChar = inputValue.charAt(selectionEnd - 1);
                 let nextChar = inputValue.charAt(selectionEnd);
                 let diff = currentLength - newLength;
@@ -947,21 +992,18 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
                 if (isGroupChar && diff === 1) {
                     selectionEnd += 1;
-                }
-                else if (!isGroupChar && this.isNumeralChar(prevChar)) {
-                    selectionEnd += (-1 * diff) + 1;
+                } else if (!isGroupChar && this.isNumeralChar(prevChar)) {
+                    selectionEnd += -1 * diff + 1;
                 }
 
                 this._group.lastIndex = 0;
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
-            }
-            else if (inputValue === '-' && operation === 'insert') {
+            } else if (inputValue === '-' && operation === 'insert') {
                 this.input.nativeElement.setSelectionRange(0, 0);
                 const index = this.initCursor();
                 const selectionEnd = index + insertedValueStr.length + 1;
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
-            }
-            else {
+            } else {
                 selectionEnd = selectionEnd + (newLength - currentLength);
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             }
@@ -975,9 +1017,12 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             let decimalCharIndex = val2.search(this._decimal);
             this._decimal.lastIndex = 0;
 
-            return decimalCharIndex !== -1 ? (val1.split(this._decimal)[0] + val2.slice(decimalCharIndex)) : val1;
+            if (this.suffixChar) {
+                return val1.replace(this.suffixChar, '').split(this._decimal)[0] + val2.replace(this.suffixChar, '').slice(decimalCharIndex) + this.suffixChar;
+            } else {
+                return decimalCharIndex !== -1 ? val1.split(this._decimal)[0] + val2.slice(decimalCharIndex) : val1;
+            }
         }
-
         return val1;
     }
 
@@ -986,10 +1031,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
             const valueSplit = value.split(this._decimal);
 
             if (valueSplit.length === 2) {
-                return valueSplit[1].replace(this._suffix, '')
-                            .trim()
-                            .replace(/\s/g, '')
-                            .replace(this._currency, '').length;
+                return valueSplit[1].replace(this._suffix, '').trim().replace(/\s/g, '').replace(this._currency, '').length;
             }
         }
 
@@ -1026,7 +1068,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         this.onModelTouched();
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
         this.cd.markForCheck();
     }
@@ -1045,7 +1087,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     }
 
     get filled() {
-        return (this.value != null && this.value.toString().length > 0)
+        return this.value != null && this.value.toString().length > 0;
     }
 
     clearTimer() {
@@ -1060,8 +1102,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule, ButtonModule],
+    imports: [CommonModule, InputTextModule, ButtonModule],
     exports: [InputNumber],
     declarations: [InputNumber]
 })
-export class InputNumberModule { }
+export class InputNumberModule {}

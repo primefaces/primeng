@@ -1,5 +1,5 @@
-import { Component,OnInit } from '@angular/core';
-import { LazyLoadEvent,SelectItem } from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -8,7 +8,6 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./virtualscrollerdemo.scss']
 })
 export class VirtualScrollerDemo implements OnInit {
-
     products: Product[];
 
     virtualProducts: Product[];
@@ -20,12 +19,12 @@ export class VirtualScrollerDemo implements OnInit {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.products = Array.from({length: 10000}).map(() => this.productService.generatePrduct());
-        this.virtualProducts = Array.from({length: 10000});
+        this.products = Array.from({ length: 10000 }).map(() => this.productService.generatePrduct());
+        this.virtualProducts = Array.from({ length: 10000 });
 
         this.sortOptions = [
-            {label: 'Cheapest First', value: 'price'},
-            {label: 'Expensive First', value: '!price'}
+            { label: 'Cheapest First', value: 'price' },
+            { label: 'Expensive First', value: '!price' }
         ];
     }
 
@@ -33,7 +32,7 @@ export class VirtualScrollerDemo implements OnInit {
         // simulate remote connection with a timeout
         setTimeout(() => {
             //load data of required page
-            let loadedProducts = this.products.slice(event.first, (event.first + event.rows));
+            let loadedProducts = this.products.slice(event.first, event.first + event.rows);
 
             //populate page of virtual cars
             Array.prototype.splice.apply(this.virtualProducts, [...[event.first, event.rows], ...loadedProducts]);
@@ -44,10 +43,8 @@ export class VirtualScrollerDemo implements OnInit {
     }
 
     onSortChange() {
-        if (this.sortKey.indexOf('!') === 0)
-            this.sort(-1);
-        else
-            this.sort(1);
+        if (this.sortKey.indexOf('!') === 0) this.sort(-1);
+        else this.sort(1);
     }
 
     sort(order: number): void {
@@ -55,9 +52,9 @@ export class VirtualScrollerDemo implements OnInit {
         products.sort((data1, data2) => {
             let value1 = data1.price;
             let value2 = data2.price;
-            let result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+            let result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-            return (order * result);
+            return order * result;
         });
 
         this.products = products;

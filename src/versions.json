@@ -1,8 +1,12 @@
 {
     "versions": [
         {
-            "version": "v14.1.2",
+            "version": "v15.0.0",
             "url": "https://www.primefaces.org/primeng"
+        },
+        {
+            "version": "v14.2.2",
+            "url": "https://www.primefaces.org/primeng-v14"
         },
         {
             "version": "v13.4.1",

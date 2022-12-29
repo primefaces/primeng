@@ -1,18 +1,13 @@
-import {Component,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TicketService } from './ticketservice';
 import { Router } from '@angular/router';
-
 
 @Component({
     template: `
         <div class="stepsdemo-content">
             <p-card>
-                <ng-template pTemplate="title">
-                    Seat Information
-                </ng-template>
-                <ng-template pTemplate="subtitle">
-                    Choose your seat
-                </ng-template>
+                <ng-template pTemplate="title"> Seat Information </ng-template>
+                <ng-template pTemplate="subtitle"> Choose your seat </ng-template>
                 <ng-template pTemplate="content">
                     <div class="p-fluid formgrid grid">
                         <div class="field col-12 md:col-6">
@@ -37,28 +32,27 @@ import { Router } from '@angular/router';
                 </ng-template>
             </p-card>
         </div>
-    `,
+    `
 })
 export class SeatDemo implements OnInit {
-    
-    constructor(public ticketService: TicketService, private router: Router) { }
+    constructor(public ticketService: TicketService, private router: Router) {}
 
     classes: any[];
 
     vagons: any[];
-    
+
     seats: any[];
 
     seatInformation: any;
 
-    ngOnInit() { 
+    ngOnInit() {
         this.seatInformation = this.ticketService.ticketInformation.seatInformation;
 
         this.classes = [
-            {name: 'First Class', code: 'A', factor: 1},
-            {name: 'Second Class', code: 'B', factor: 2},
-            {name: 'Third Class', code: 'C', factor: 3}
-        ];    
+            { name: 'First Class', code: 'A', factor: 1 },
+            { name: 'Second Class', code: 'B', factor: 2 },
+            { name: 'Third Class', code: 'C', factor: 3 }
+        ];
     }
 
     setVagons(event) {
@@ -66,16 +60,16 @@ export class SeatDemo implements OnInit {
             this.vagons = [];
             this.seats = [];
             for (let i = 1; i < 3 * event.value.factor; i++) {
-                this.vagons.push({wagon: i + event.value.code, type: event.value.name, factor: event.value.factor});
+                this.vagons.push({ wagon: i + event.value.code, type: event.value.name, factor: event.value.factor });
             }
         }
     }
-    
+
     setSeats(event) {
         if (this.seatInformation.wagon && event.value) {
             this.seats = [];
             for (let i = 1; i < 10 * event.value.factor; i++) {
-                this.seats.push({seat: i, type: event.value.type});
+                this.seats.push({ seat: i, type: event.value.type });
             }
         }
     }

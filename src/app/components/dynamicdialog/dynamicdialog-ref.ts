@@ -1,15 +1,15 @@
 import { Observable, Subject } from 'rxjs';
 
 export class DynamicDialogRef {
-	constructor() { }
+    constructor() {}
 
-	close(result?: any) {
-		this._onClose.next(result);
+    close(result?: any) {
+        this._onClose.next(result);
     }
 
     destroy() {
-		this._onDestroy.next(null);
-	}
+        this._onDestroy.next(null);
+    }
 
     dragStart(event: MouseEvent) {
         this._onDragStart.next(event);
@@ -31,11 +31,11 @@ export class DynamicDialogRef {
         this._onMaximize.next(value);
     }
 
-	private readonly _onClose = new Subject<any>();
+    private readonly _onClose = new Subject<any>();
     onClose: Observable<any> = this._onClose.asObservable();
 
     private readonly _onDestroy = new Subject<any>();
-	onDestroy: Observable<any> = this._onDestroy.asObservable();
+    onDestroy: Observable<any> = this._onDestroy.asObservable();
 
     private readonly _onDragStart = new Subject<any>();
     onDragStart: Observable<any> = this._onDragStart.asObservable();

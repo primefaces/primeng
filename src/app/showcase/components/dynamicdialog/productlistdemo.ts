@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {DynamicDialogRef} from '../../../components/dynamicdialog/dynamicdialog-ref';
-import {DynamicDialogConfig} from '../../../components/dynamicdialog/dynamicdialog-config';
-import {ProductService} from '../../service/productservice';
-import {Product} from '../../domain/product';
+import { Component } from '@angular/core';
+import { DynamicDialogRef } from '../../../components/dynamicdialog/dynamicdialog-ref';
+import { DynamicDialogConfig } from '../../../components/dynamicdialog/dynamicdialog-config';
+import { ProductService } from '../../service/productservice';
+import { Product } from '../../domain/product';
 
 @Component({
     template: `
@@ -18,10 +18,12 @@ import {Product} from '../../domain/product';
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
-                    <td>{{product.name}}</td>
-                    <td><img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.image" class="product-image" /></td>
-                    <td>{{product.price}}</td>
-                    <td><span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+                    <td>{{ product.name }}</td>
+                    <td><img src="assets/showcase/images/demo/product/{{ product.image }}" [alt]="product.image" class="product-image" /></td>
+                    <td>{{ product.price }}</td>
+                    <td>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                    </td>
                     <td>
                         <button type="button" pButton icon="pi pi-search" (click)="selectProduct(product)"></button>
                     </td>
@@ -29,21 +31,22 @@ import {Product} from '../../domain/product';
             </ng-template>
         </p-table>
     `,
-    styles: [`
-        .product-image {
-            width: 50px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
-        }
-    `]
+    styles: [
+        `
+            .product-image {
+                width: 50px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            }
+        `
+    ]
 })
 export class ProductListDemo {
-
     products: Product[];
 
-    constructor(private productService: ProductService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
+    constructor(private productService: ProductService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(products => this.products = products);
+        this.productService.getProductsSmall().then((products) => (this.products = products));
     }
 
     selectProduct(product: Product) {

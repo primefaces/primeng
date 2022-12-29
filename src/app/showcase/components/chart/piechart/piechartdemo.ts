@@ -1,13 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AppConfigService} from '../../../service/appconfigservice';
-import {AppConfig} from '../../../domain/appconfig';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../../service/appconfigservice';
+import { AppConfig } from '../../../domain/appconfig';
 
 @Component({
     templateUrl: './piechartdemo.html'
 })
 export class PieChartDemo implements OnInit, OnDestroy {
-
     data: any;
 
     chartOptions: any;
@@ -20,27 +19,19 @@ export class PieChartDemo implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.data = {
-            labels: ['A','B','C'],
+            labels: ['A', 'B', 'C'],
             datasets: [
                 {
                     data: [300, 50, 100],
-                    backgroundColor: [
-                        "#42A5F5",
-                        "#66BB6A",
-                        "#FFA726"
-                    ],
-                    hoverBackgroundColor: [
-                        "#64B5F6",
-                        "#81C784",
-                        "#FFB74D"
-                    ]
+                    backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726'],
+                    hoverBackgroundColor: ['#64B5F6', '#81C784', '#FFB74D']
                 }
             ]
         };
 
         this.config = this.configService.config;
         this.updateChartOptions();
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
             this.updateChartOptions();
         });
@@ -59,7 +50,7 @@ export class PieChartDemo implements OnInit, OnDestroy {
                     }
                 }
             }
-        }
+        };
     }
 
     getDarkTheme() {
@@ -71,7 +62,7 @@ export class PieChartDemo implements OnInit, OnDestroy {
                     }
                 }
             }
-        }
+        };
     }
 
     ngOnDestroy() {

@@ -14,21 +14,14 @@ class TestInputNumberComponent {
 }
 
 describe('InputNumber', () => {
-
     let inputNumber: InputNumber;
     let testComponent: TestInputNumberComponent;
     let fixture: ComponentFixture<TestInputNumberComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                FormsModule
-            ],
-            declarations: [
-                InputNumber,
-                TestInputNumberComponent
-            ]
+            imports: [NoopAnimationsModule, FormsModule],
+            declarations: [InputNumber, TestInputNumberComponent]
         });
 
         fixture = TestBed.createComponent(TestInputNumberComponent);

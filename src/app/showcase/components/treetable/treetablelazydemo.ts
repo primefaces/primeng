@@ -6,7 +6,6 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './treetablelazydemo.html'
 })
 export class TreeTableLazyDemo {
-    
     files: TreeNode[];
 
     cols: any[];
@@ -15,7 +14,7 @@ export class TreeTableLazyDemo {
 
     loading: boolean;
 
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.cols = [
@@ -45,9 +44,9 @@ export class TreeTableLazyDemo {
             this.loading = false;
             this.files = [];
 
-            for(let i = 0; i < event.rows; i++) {
+            for (let i = 0; i < event.rows; i++) {
                 let node = {
-                    data: {  
+                    data: {
                         name: 'Item ' + (event.first + i),
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'Type ' + (event.first + i)
@@ -69,14 +68,14 @@ export class TreeTableLazyDemo {
 
             node.children = [
                 {
-                    data: {  
+                    data: {
                         name: node.data.name + ' - 0',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'File'
-                    },
+                    }
                 },
                 {
-                    data: {  
+                    data: {
                         name: node.data.name + ' - 1',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'File'
@@ -86,6 +85,5 @@ export class TreeTableLazyDemo {
 
             this.files = [...this.files];
         }, 250);
-        
     }
 }

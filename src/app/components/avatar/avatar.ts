@@ -6,29 +6,28 @@ import { CommonModule } from '@angular/common';
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
-            <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{label}}</span>
+            <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
             <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="imageError($event)"></ng-template>
+            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="imageError($event)" /></ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./avatar.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class Avatar {
-
     @Input() label: string;
 
     @Input() icon: string;
 
     @Input() image: string;
 
-    @Input() size: string = "normal";
+    @Input() size: string = 'normal';
 
-    @Input() shape: string = "square";
+    @Input() shape: string = 'square';
 
     @Input() style: any;
 
@@ -56,4 +55,4 @@ export class Avatar {
     exports: [Avatar],
     declarations: [Avatar]
 })
-export class AvatarModule { }
+export class AvatarModule {}

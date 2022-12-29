@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <p-table [value]="products" styleClass="p-datatable-sm" responsiveLayout="scroll">
+        <p-table [value]="products" styleClass="p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
                 Small Table
             </ng-template>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="card">
-        <p-table [value]="products" responsiveLayout="scroll">
+        <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
                 Normal Table
             </ng-template>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="card">
-        <p-table [value]="products" styleClass="p-datatable-lg" responsiveLayout="scroll">
+        <p-table [value]="products" styleClass="p-datatable-lg" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
                 Large Table
             </ng-template>
@@ -92,7 +92,7 @@
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;div class="card"&gt;
-    &lt;p-table [value]="products" styleClass="p-datatable-sm" responsiveLayout="scroll"&gt;
+    &lt;p-table [value]="products" styleClass="p-datatable-sm" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Small Table
         &lt;/ng-template&gt;
@@ -116,7 +116,7 @@
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
-    &lt;p-table [value]="products" responsiveLayout="scroll"&gt;
+    &lt;p-table [value]="products" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Normale Table
         &lt;/ng-template&gt;
@@ -140,7 +140,7 @@
 &lt;/div&gt;
 
 &lt;div class="card"&gt;
-    &lt;p-table [value]="products" styleClass="p-datatable-lg" responsiveLayout="scroll"&gt;
+    &lt;p-table [value]="products" styleClass="p-datatable-lg" [tableStyle]="&#123;'min-width': '50rem'&#125;"&gt;
         &lt;ng-template pTemplate="caption"&gt;
             Large Table
         &lt;/ng-template&gt;

@@ -1,14 +1,31 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy,ViewEncapsulation,ContentChildren,QueryList,AfterContentInit,TemplateRef,AfterViewChecked} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
-import {DomHandler} from 'primeng/dom';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    AfterViewInit,
+    Input,
+    Output,
+    EventEmitter,
+    ContentChild,
+    forwardRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    TemplateRef,
+    AfterViewChecked
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SharedModule, Header, PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import Quill from 'quill';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => Editor),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => Editor),
+    multi: true
 };
 
 @Component({
@@ -22,14 +39,14 @@ export const EDITOR_VALUE_ACCESSOR: any = {
             <div class="p-editor-toolbar" *ngIf="!toolbar && !headerTemplate">
                 <span class="ql-formats">
                     <select class="ql-header">
-                      <option value="1">Heading</option>
-                      <option value="2">Subheading</option>
-                      <option selected>Normal</option>
+                        <option value="1">Heading</option>
+                        <option value="2">Subheading</option>
+                        <option selected>Normal</option>
                     </select>
                     <select class="ql-font">
-                      <option selected>Sans Serif</option>
-                      <option value="serif">Serif</option>
-                      <option value="monospace">Monospace</option>
+                        <option selected>Sans Serif</option>
+                        <option value="serif">Serif</option>
+                        <option value="monospace">Monospace</option>
                     </select>
                 </span>
                 <span class="ql-formats">
@@ -68,11 +85,10 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     styleUrls: ['./editor.css'],
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,ControlValueAccessor {
-
+export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit, ControlValueAccessor {
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
@@ -101,6 +117,8 @@ export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,C
 
     value: string;
 
+    delayedCommand: Function | null = null;
+
     _readonly: boolean;
 
     onModelChange: Function = () => {};
@@ -111,42 +129,73 @@ export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,C
 
     headerTemplate: TemplateRef<any>;
 
-    private quillElements: {editorElement: HTMLElement, toolbarElement: HTMLElement} | null = null;
+    private get isAttachedQuillEditorToDOM(): boolean {
+        return this.quillElements?.editorElement?.isConnected;
+    }
+
+    private quillElements: { editorElement: HTMLElement; toolbarElement: HTMLElement } | null = null;
 
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit(): void {
         this.initQuillElements();
 
-        if (this.quillElements?.editorElement?.isConnected) {
+        if (this.isAttachedQuillEditorToDOM) {
             this.initQuillEditor();
         }
     }
-    
+
     ngAfterViewChecked(): void {
-        if (!this.quill && this.quillElements?.editorElement?.isConnected) {
+        // The problem is inside the `quill` library, we need to wait for a new release.
+        // Function `isLine` - used `getComputedStyle`, it was rewritten in the next release.
+        // (We need to wait for a release higher than 1.3.7).
+        // These checks and code can be removed.
+        if (!this.quill && this.isAttachedQuillEditorToDOM) {
             this.initQuillEditor();
+        }
+
+        // Can also be deleted after updating `quill`.
+        if (this.delayedCommand && this.isAttachedQuillEditorToDOM) {
+            this.delayedCommand();
+            this.delayedCommand = null;
         }
     }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
 
         if (this.quill) {
-            if (value)
-                this.quill.setContents(this.quill.clipboard.convert(value));
-            else
-                this.quill.setText('');
+            if (value) {
+                const command = (): void => {
+                    this.quill.setContents(this.quill.clipboard.convert(this.value));
+                };
+
+                if (this.isAttachedQuillEditorToDOM) {
+                    command();
+                } else {
+                    this.delayedCommand = command;
+                }
+            } else {
+                const command = (): void => {
+                    this.quill.setText('');
+                };
+
+                if (this.isAttachedQuillEditorToDOM) {
+                    command();
+                } else {
+                    this.delayedCommand = command;
+                }
+            }
         }
     }
 
@@ -166,14 +215,12 @@ export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,C
         return this._readonly;
     }
 
-    set readonly(val:boolean) {
+    set readonly(val: boolean) {
         this._readonly = val;
 
         if (this.quill) {
-            if (this._readonly)
-                this.quill.disable();
-            else
-                this.quill.enable();
+            if (this._readonly) this.quill.disable();
+            else this.quill.enable();
         }
     }
 
@@ -181,8 +228,8 @@ export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,C
         this.initQuillElements();
 
         const { toolbarElement, editorElement } = this.quillElements;
-        let defaultModule  = {toolbar: toolbarElement};
-        let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
+        let defaultModule = { toolbar: toolbarElement };
+        let modules = this.modules ? { ...defaultModule, ...this.modules } : defaultModule;
         this.quill = new Quill(editorElement, {
             modules: modules,
             placeholder: this.placeholder,
@@ -234,8 +281,8 @@ export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,C
     private initQuillElements(): void {
         if (!this.quillElements) {
             this.quillElements = {
-                editorElement: DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-content'),
-                toolbarElement: DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-toolbar')
+                editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
+                toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
             };
         }
     }
@@ -243,7 +290,7 @@ export class Editor implements AfterViewInit,AfterViewChecked,AfterContentInit,C
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Editor,SharedModule],
+    exports: [Editor, SharedModule],
     declarations: [Editor]
 })
-export class EditorModule { }
+export class EditorModule {}

@@ -1,6 +1,6 @@
-import { NgModule, Component, ElementRef, AfterContentInit, Input, Output, EventEmitter, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, Optional, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Header, Footer, PrimeTemplate, SharedModule, BlockableUI } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 
 @Component({
@@ -12,11 +12,10 @@ import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div #content class="p-virtualscroller-content">
-                <p-scroller #scroller [items]="value" styleClass="p-virtualscroller-list" [style]="{'height': scrollHeight}" [itemSize]="itemSize"
-                    [lazy]="lazy" (onLazyLoad)="onLazyItemLoad($event)" [options]="options">
+                <p-scroller #scroller [items]="value" styleClass="p-virtualscroller-list" [style]="{ height: scrollHeight }" [itemSize]="itemSize" [lazy]="lazy" (onLazyLoad)="onLazyItemLoad($event)" [options]="options">
                     <ng-template pTemplate="item" let-item let-scrollerOptions="options">
-                        <div [ngStyle]="{'height': itemSize + 'px'}" class="p-virtualscroller-item">
-                            <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: {$implicit: item, options: scrollerOptions}"></ng-container>
+                        <div [ngStyle]="{ height: itemSize + 'px' }" class="p-virtualscroller-item">
+                            <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: { $implicit: item, options: scrollerOptions }"></ng-container>
                         </div>
                     </ng-template>
                 </p-scroller>
@@ -30,11 +29,10 @@ import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class VirtualScroller implements AfterContentInit, BlockableUI {
-
     @Input() value: any[];
 
     @Input() itemSize: number;
@@ -71,7 +69,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
 
     virtualScrollTimeout: any;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -127,5 +125,4 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
     exports: [VirtualScroller, SharedModule, ScrollerModule],
     declarations: [VirtualScroller]
 })
-export class VirtualScrollerModule { }
-
+export class VirtualScrollerModule {}

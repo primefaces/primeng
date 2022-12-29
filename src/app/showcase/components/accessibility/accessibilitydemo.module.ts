@@ -6,12 +6,7 @@ import { AppCodeModule } from '../../app.code.component';
 import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CheckboxModule,
-    AccessibilityDemoRoutingModule,
-    AppCodeModule
-  ],
-  declarations: [AccessibilityDemoComponent],
+    imports: [CommonModule, CheckboxModule, AccessibilityDemoRoutingModule, AppCodeModule],
+    declarations: [AccessibilityDemoComponent]
 })
-export class AccessibilityDemoModule { }
+export class AccessibilityDemoModule {}

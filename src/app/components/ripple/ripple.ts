@@ -6,12 +6,11 @@ import { PrimeNGConfig } from 'primeng/api';
 @Directive({
     selector: '[pRipple]',
     host: {
-        'class': 'p-ripple p-element'
+        class: 'p-ripple p-element'
     }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
-
-    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
 
     animationListener: any;
 
@@ -60,9 +59,10 @@ export class Ripple implements AfterViewInit, OnDestroy {
     }
 
     getInk() {
-        for (let i = 0; i < this.el.nativeElement.children.length; i++) {
-            if (this.el.nativeElement.children[i].className.indexOf('p-ink') !== -1) {
-                return this.el.nativeElement.children[i];
+        const children = this.el.nativeElement.children;
+        for (let i = 0; i < children.length; i++) {
+            if (typeof children[i].className === 'string' && children[i].className.indexOf('p-ink') !== -1) {
+                return children[i];
             }
         }
         return null;
@@ -112,4 +112,4 @@ export class Ripple implements AfterViewInit, OnDestroy {
     exports: [Ripple],
     declarations: [Ripple]
 })
-export class RippleModule { }
+export class RippleModule {}

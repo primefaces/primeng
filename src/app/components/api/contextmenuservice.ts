@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class ContextMenuService {
-
     private activeItemKeyChange = new Subject<string>();
 
     activeItemKeyChange$ = this.activeItemKeyChange.asObservable();

@@ -19,6 +19,6 @@
     overflow: hidden;
 }
 
-.p-accordion .p-accordion-tab-active .p-toggleable-content:not(.ng-animating) {
+.p-accordion .p-accordion-tab-active > .p-toggleable-content:not(.ng-animating) {
     overflow: inherit;
 }

@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './calendardemo.html'
 })
 export class CalendarDemo {
-
     date1: Date;
 
     date2: Date;
@@ -47,10 +46,10 @@ export class CalendarDemo {
         let today = new Date();
         let month = today.getMonth();
         let year = today.getFullYear();
-        let prevMonth = (month === 0) ? 11 : month -1;
-        let prevYear = (prevMonth === 11) ? year - 1 : year;
-        let nextMonth = (month === 11) ? 0 : month + 1;
-        let nextYear = (nextMonth === 0) ? year + 1 : year;
+        let prevMonth = month === 0 ? 11 : month - 1;
+        let prevYear = prevMonth === 11 ? year - 1 : year;
+        let nextMonth = month === 11 ? 0 : month + 1;
+        let nextYear = nextMonth === 0 ? year + 1 : year;
         this.minDate = new Date();
         this.minDate.setMonth(prevMonth);
         this.minDate.setFullYear(prevYear);
@@ -60,6 +59,6 @@ export class CalendarDemo {
 
         let invalidDate = new Date();
         invalidDate.setDate(today.getDate() - 1);
-        this.invalidDates = [today,invalidDate];
+        this.invalidDates = [today, invalidDate];
     }
- }
+}

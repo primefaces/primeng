@@ -1,41 +1,40 @@
-import {Component,OnInit} from '@angular/core';
-import {NodeService} from '../../service/nodeservice';
-import {TreeNode} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { NodeService } from '../../service/nodeservice';
+import { TreeNode } from 'primeng/api';
 
 @Component({
     templateUrl: './treedemo.html'
 })
 export class TreeDemo implements OnInit {
-
     files1: TreeNode[];
-    
+
     files2: TreeNode[];
-    
-    constructor(private nodeService: NodeService) { }
+
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then(files => this.files1 = files);
-        this.nodeService.getFiles().then(files => this.files2 = files);
-    }
-    
-    expandAll(){
-        this.files2.forEach( node => {
-            this.expandRecursive(node, true);
-        } );
+        this.nodeService.getFiles().then((files) => (this.files1 = files));
+        this.nodeService.getFiles().then((files) => (this.files2 = files));
     }
 
-    collapseAll(){
-        this.files2.forEach( node => {
-            this.expandRecursive(node, false);
-        } );
+    expandAll() {
+        this.files2.forEach((node) => {
+            this.expandRecursive(node, true);
+        });
     }
-    
-    private expandRecursive(node:TreeNode, isExpand:boolean){
+
+    collapseAll() {
+        this.files2.forEach((node) => {
+            this.expandRecursive(node, false);
+        });
+    }
+
+    private expandRecursive(node: TreeNode, isExpand: boolean) {
         node.expanded = isExpand;
-        if (node.children){
-            node.children.forEach( childNode => {
+        if (node.children) {
+            node.children.forEach((childNode) => {
                 this.expandRecursive(childNode, isExpand);
-            } );
+            });
         }
     }
 }

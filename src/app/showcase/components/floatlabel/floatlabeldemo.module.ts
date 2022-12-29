@@ -19,34 +19,32 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 
-import {AppCodeModule} from '../../app.code.component';
-import {AppDemoActionsModule} from '../../app.demoactions.component';
+import { AppCodeModule } from '../../app.code.component';
+import { AppDemoActionsModule } from '../../app.demoactions.component';
 import { PasswordModule } from 'primeng/password';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FloatLabelDemoRoutingModule,
+    imports: [
+        CommonModule,
+        FloatLabelDemoRoutingModule,
         ButtonModule,
         PanelModule,
-		TabViewModule,
-		InputTextModule,
-		AutoCompleteModule,
-		CalendarModule,
-		CascadeSelectModule,
-		ChipsModule,
-		InputMaskModule,
-		InputNumberModule,
-		DropdownModule,
-		MultiSelectModule,
-		InputTextareaModule,
-		FormsModule,
-		AppDemoActionsModule,
+        TabViewModule,
+        InputTextModule,
+        AutoCompleteModule,
+        CalendarModule,
+        CascadeSelectModule,
+        ChipsModule,
+        InputMaskModule,
+        InputNumberModule,
+        DropdownModule,
+        MultiSelectModule,
+        InputTextareaModule,
+        FormsModule,
+        AppDemoActionsModule,
         AppCodeModule,
-		PasswordModule
-	],
-	declarations: [
-		FloatLabelDemo
-	]
+        PasswordModule
+    ],
+    declarations: [FloatLabelDemo]
 })
 export class FloatLabelDemoModule {}
