@@ -26,6 +26,8 @@ import { DomHandler } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig } from '../api/primengconfig';
+import { Footer, Header, PrimeTemplate, SharedModule } from '../api/shared';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
