@@ -1736,7 +1736,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
-        } else {
+        } 
+        else if(options && options.allValues) {
+            data = this.value || [];
+        }
+        else {
             data = this.filteredValue || this.value;
 
             if (this.frozenValue) {
