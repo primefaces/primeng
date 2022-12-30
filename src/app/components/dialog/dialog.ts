@@ -1,29 +1,28 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
-    Renderer2,
-    ContentChildren,
-    QueryList,
-    ViewChild,
-    NgZone,
-    ChangeDetectorRef,
-    ViewRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    AfterContentInit,
-    TemplateRef,
-    ContentChild,
-    OnInit
-} from '@angular/core';
-import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
+import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
 import { DomHandler } from 'primeng/dom';
-import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
@@ -67,7 +66,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-labelledby]="id + '-label'"
             >
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
-                <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader" [class]="headerStyleClass">
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
@@ -95,7 +94,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
-                <div #footer class="p-dialog-footer" *ngIf="footerFacet || footerTemplate">
+                <div #footer class="p-dialog-footer" *ngIf="footerFacet || footerTemplate" [class]="footerStyleClass">
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
@@ -132,6 +131,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     set positionTop(_positionTop: number) {
         console.log('positionTop property is deprecated.');
     }
+
+    @Input() headerStyleClass: any;
+
+    @Input() footerStyleClass: any;
 
     @Input() contentStyle: any;
 
