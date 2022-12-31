@@ -16,6 +16,7 @@
         "paths": {
             "primeng/*": ["src/app/components/*/public_api"]
         },
-        "useDefineForClassFields": false
+        "useDefineForClassFields": false,
+        "noFallthroughCasesInSwitch": true
     }
 }
