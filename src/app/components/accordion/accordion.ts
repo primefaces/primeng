@@ -193,7 +193,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (event.which === 32 || event.which === 13) {
+        if (event.code === 'Space' || event.code === 'Enter') {
             this.toggle(event);
             event.preventDefault();
         }
