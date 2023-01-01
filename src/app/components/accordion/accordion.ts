@@ -13,7 +13,6 @@ import {
     Inject,
     forwardRef,
     TemplateRef,
-    ViewRef,
     ChangeDetectionStrategy,
     ViewEncapsulation
 } from '@angular/core';
@@ -83,25 +82,25 @@ let idx: number = 0;
 export class AccordionTab implements AfterContentInit, OnDestroy {
     @Input() header: string;
 
-    @Input() disabled: boolean;
+    @Input() disabled: boolean = false;
 
     @Input() cache: boolean = true;
 
-    @Output() selectedChange: EventEmitter<any> = new EventEmitter();
+    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter();
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     private _selected: boolean;
 
-    @Input() get selected(): any {
+    @Input() get selected(): boolean {
         return this._selected;
     }
 
-    set selected(val: any) {
+    set selected(val: boolean) {
         this._selected = val;
 
         if (!this.loaded) {
@@ -113,18 +112,18 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         }
     }
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<HTMLElement>;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<HTMLElement>;
 
     id: string = `p-accordiontab-${idx++}`;
 
-    loaded: boolean;
+    loaded: boolean = false;
 
     accordion: Accordion;
 
-    constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
-        this.accordion = accordion as Accordion;
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public changeDetector: ChangeDetectorRef) {
+        this.accordion = accordion;
     }
 
     ngAfterContentInit() {
@@ -145,7 +144,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         });
     }
 
-    toggle(event) {
+    toggle(event: MouseEvent | KeyboardEvent) {
         if (this.disabled) {
             return false;
         }
@@ -157,7 +156,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             this.accordion.onClose.emit({ originalEvent: event, index: index });
         } else {
             if (!this.accordion.multiple) {
-                for (var i = 0; i < this.accordion.tabs.length; i++) {
+                for (let i = 0; i < this.accordion.tabs.length; i++) {
                     if (this.accordion.tabs[i].selected) {
                         this.accordion.tabs[i].selected = false;
                         this.accordion.tabs[i].selectedChange.emit(false);
@@ -180,7 +179,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     findTabIndex() {
         let index = -1;
-        for (var i = 0; i < this.accordion.tabs.length; i++) {
+        for (let i = 0; i < this.accordion.tabs.length; i++) {
             if (this.accordion.tabs[i] == this) {
                 index = i;
                 break;
@@ -224,21 +223,21 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     @Output() onOpen: EventEmitter<any> = new EventEmitter();
 
-    @Input() style: any;
+    @Input() style: { [key: string]: string } | null | undefined;
 
-    @Input() styleClass: string;
+    @Input() styleClass?: string;
 
-    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
+    @Input() expandIcon?: string = 'pi pi-fw pi-chevron-right';
 
-    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
+    @Input() collapseIcon?: string = 'pi pi-fw pi-chevron-down';
 
-    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter();
 
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
     tabListSubscription: Subscription;
 
-    private _activeIndex: any;
+    private _activeIndex: number | number[];
 
     preventActiveIndexPropagation: boolean;
 
@@ -254,7 +253,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         });
     }
 
-    initTabs(): any {
+    initTabs(): void {
         this.tabs = this.tabList.toArray();
         this.updateSelectionState();
         this.changeDetector.markForCheck();
@@ -264,11 +263,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         return this.el.nativeElement.children[0];
     }
 
-    @Input() get activeIndex(): any {
+    @Input() get activeIndex(): number | number[] {
         return this._activeIndex;
     }
 
-    set activeIndex(val: any) {
+    set activeIndex(val: number | number[]) {
         this._activeIndex = val;
         if (this.preventActiveIndexPropagation) {
             this.preventActiveIndexPropagation = false;
@@ -281,7 +280,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     updateSelectionState() {
         if (this.tabs && this.tabs.length && this._activeIndex != null) {
             for (let i = 0; i < this.tabs.length; i++) {
-                let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
+                let selected = this.isMultiple(this._activeIndex) ? this._activeIndex.includes(i) : i === this._activeIndex;
                 let changed = selected !== this.tabs[i].selected;
 
                 if (changed) {
@@ -294,14 +293,13 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     updateActiveIndex() {
-        let index: any = this.multiple ? [] : null;
+        let index: number | number[] = this.multiple ? [] : null;
         this.tabs.forEach((tab, i) => {
             if (tab.selected) {
-                if (this.multiple) {
+                if (this.isMultiple(index)) {
                     index.push(i);
                 } else {
                     index = i;
-                    return;
                 }
             }
         });
@@ -314,6 +312,10 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         if (this.tabListSubscription) {
             this.tabListSubscription.unsubscribe();
         }
+    }
+
+    private isMultiple(selected: number | number[]): selected is number[] {
+        return this.multiple;
     }
 }
 
