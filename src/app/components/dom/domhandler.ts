@@ -620,6 +620,26 @@ export class DomHandler {
         return visibleFocusableElements;
     }
 
+    public static getNextFocusableElement(element: HTMLElement, reverse = false) {
+        const focusableElements = DomHandler.getFocusableElements(element);
+        let index = 0;
+        if (focusableElements && focusableElements.length > 0) {
+            const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+
+            if (reverse) {
+                if (focusedIndex == -1 || focusedIndex === 0) {
+                    index = focusableElements.length - 1;
+                } else {
+                    index = focusedIndex - 1;
+                }
+            } else if (focusedIndex != -1 && focusedIndex !== focusableElements.length - 1) {
+                index = focusedIndex + 1;
+            }
+        }
+
+        return focusableElements[index];
+    }
+
     static generateZIndex() {
         this.zindex = this.zindex || 999;
         return ++this.zindex;
