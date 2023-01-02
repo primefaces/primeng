@@ -4394,7 +4394,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 1rem;
   border-radius: 4px;
-  gap: 0.5rem;
 }
 .p-toolbar .p-toolbar-separator {
   margin: 0 0.5rem;
