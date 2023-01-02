@@ -588,6 +588,35 @@ describe('Calendar', () => {
         expect(calendar.inputFieldValue).toEqual('01');
     }));
 
+    it('should use min date and max date with month picker', fakeAsync(() => {
+        calendar.view = 'month';
+        calendar.dateFormat = 'mm';
+        const today = new Date();
+        const minDate = new Date(today.getFullYear(), today.getMonth(), 2);
+        const maxDate = new Date(today.getFullYear(), today.getMonth(), 20);
+        calendar.minDate = minDate;
+        calendar.maxDate = maxDate;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const focusEvent = new Event('focus');
+        inputEl.click();
+        inputEl.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const monthpickerEl = fixture.debugElement.query(By.css('.p-monthpicker'));
+        const currentMonth = monthpickerEl.children[today.getMonth()];
+        const unselectableMonths = monthpickerEl.queryAll(By.css('.p-disabled'));
+        expect(currentMonth.classes['.p-disabled']).toBeFalsy();
+        expect(unselectableMonths.length).toEqual(11);
+    
+        currentMonth.nativeElement.click();
+        fixture.detectChanges();
+        tick(200);
+
+        expect(+calendar.inputFieldValue).toEqual(today.getMonth() + 1);
+    }));
+
     it('should use touchUI', fakeAsync(() => {
         calendar.touchUI = true;
         fixture.detectChanges();
