@@ -1355,7 +1355,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.isSelectable(day, month, this.currentYear, false)) {
                 return false;
             }
-            
         }
         return true;
     }

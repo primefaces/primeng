@@ -609,7 +609,7 @@ describe('Calendar', () => {
         const unselectableMonths = monthpickerEl.queryAll(By.css('.p-disabled'));
         expect(currentMonth.classes['.p-disabled']).toBeFalsy();
         expect(unselectableMonths.length).toEqual(11);
-    
+
         currentMonth.nativeElement.click();
         fixture.detectChanges();
         tick(200);
