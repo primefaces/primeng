@@ -553,7 +553,9 @@ export class InputMask implements OnInit, ControlValueAccessor {
                 while (pos++ < test.length) {
                     c = test.charAt(pos - 1);
                     if (this.tests[i].test(c)) {
-                        // this.buffer[i] = c;
+                        if (!this.keepBuffer) {
+                            this.buffer[i] = c;
+                        }
                         lastMatch = i;
                         break;
                     }
