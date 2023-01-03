@@ -1,5 +1,35 @@
 # Changelog
 
+## [15.0.1](https://github.com/primefaces/primeng/tree/15.0.1) (2023-01-02)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.0.0...15.0.1)
+
+**New Features:**
+- Center content to Toolbar [\#12365](https://github.com/primefaces/primeng/issues/12365)
+
+**Enhancements:**
+- Table/TreeTable: filters property might have undefined value when access by key [\#12321](https://github.com/primefaces/primeng/issues/12321)
+- p-columnFilterFormElement with custom template can't adapt according to the matchMode [\#11466](https://github.com/primefaces/primeng/issues/11466)
+- Add gap when Toolbar wraps [\#12366](https://github.com/primefaces/primeng/issues/12366)
+- Deprecate Toolbar CSS classes [\#12364](https://github.com/primefaces/primeng/issues/12364)
+
+**Fixed bugs:**
+- MultiSelect: onPanelHide triggers twice [\#12382](https://github.com/primefaces/primeng/issues/12382)
+- Calendar: wrong logic of disabling the month [\#12330](https://github.com/primefaces/primeng/issues/12330)
+- Tab key in p-dialog with p-InputNumber [\#9380](https://github.com/primefaces/primeng/issues/9380)
+- Component: TabMenu incorrectly checks if routerLink is active [\#11999](https://github.com/primefaces/primeng/issues/11999)
+- FileUpload: Upload button does not expand when text is added [\#12420](https://github.com/primefaces/primeng/issues/12420)
+- Chips | Remove extra bottom spacing [\#12419](https://github.com/primefaces/primeng/issues/12419)
+- Tree with virtualScroll: Inconsistent focus [\#12351](https://github.com/primefaces/primeng/issues/12351)
+- Password: Eye icon problem in MS Edge and IE [\#12335](https://github.com/primefaces/primeng/issues/12335)
+- Button: Directive class on label change [\#12083](https://github.com/primefaces/primeng/issues/12083)
+- Table: Resizable columns in expand mode with state feature. Column sizes not properly restored [\#12398](https://github.com/primefaces/primeng/issues/12398)
+- Password input with reactive form, does not disable until clicked even though control is reported as disabled [\#12317](https://github.com/primefaces/primeng/issues/12317)
+- Tree: Multiple Selection with Checkbox - double click on chevron makes subtree to be selected [\#12347](https://github.com/primefaces/primeng/issues/12347)
+- VirtualScroll | autoSize = "true" causes browser freeze [\#12377](https://github.com/primefaces/primeng/issues/12377)
+- inputNumber | Unnecessary focus on up/down buttons [\#12369](https://github.com/primefaces/primeng/issues/12369)
+- Bug report: users are allowed to focus a speed dial action while the action panel is hidden [\#11238](https://github.com/primefaces/primeng/issues/11238)
+
 ## [15.0.0](https://github.com/primefaces/primeng/tree/15.0.0) (2022-12-12)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.0.0-rc.1...15.0.0)

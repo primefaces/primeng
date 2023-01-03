@@ -146,6 +146,7 @@ export class TableService {
                     [showSpacer]="false"
                     [showLoader]="loadingBodyTemplate"
                     [options]="virtualScrollOptions"
+                    [autoSize]="true"
                 >
                     <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: items, options: scrollerOptions }"></ng-container>
@@ -311,7 +312,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
+    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined } = {};
 
     @Input() globalFilterFields: string[];
 
@@ -2332,7 +2333,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -4986,7 +4987,29 @@ export class ColumnFilter implements AfterContentInit {
     selector: 'p-columnFilterFormElement',
     template: `
         <ng-container *ngIf="filterTemplate; else builtInElement">
-            <ng-container *ngTemplateOutlet="filterTemplate; context: { $implicit: filterConstraint.value, filterCallback: filterCallback }"></ng-container>
+            <ng-container
+                *ngTemplateOutlet="
+                    filterTemplate;
+                    context: {
+                        $implicit: filterConstraint.value,
+                        filterCallback: filterCallback,
+                        type: type,
+                        field: field,
+                        filterConstraint: filterConstraint,
+                        placeholder: placeholder,
+                        minFractionDigits: minFractionDigits,
+                        maxFractionDigits: maxFractionDigits,
+                        prefix: prefix,
+                        suffix: suffix,
+                        locale: locale,
+                        localeMatcher: localeMatcher,
+                        currency: currency,
+                        currencyDisplay: currencyDisplay,
+                        useGrouping: useGrouping,
+                        showButtons: showButtons
+                    }
+                "
+            ></ng-container>
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">

@@ -47,9 +47,9 @@ import { RouterModule } from '@angular/router';
                         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                         (click)="onItemClick($event, item)"
                         (keydown.enter)="onItemClick($event, item, i)"
-                        [target]="item.target"
+                        [attr.target]="item.target"
                         [attr.id]="item.id"
-                        [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '0'"
+                        [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
                         [fragment]="item.fragment"
                         [queryParamsHandling]="item.queryParamsHandling"
                         [preserveFragment]="item.preserveFragment"
@@ -68,9 +68,9 @@ import { RouterModule } from '@angular/router';
                             (click)="onItemClick($event, item)"
                             [ngClass]="{ 'p-disabled': item.disabled }"
                             (keydown.enter)="onItemClick($event, item, i)"
-                            [target]="item.target"
+                            [attr.target]="item.target"
                             [attr.id]="item.id"
-                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '0'"
+                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
                         >
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                         </a>
