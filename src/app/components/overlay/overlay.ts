@@ -344,11 +344,14 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     hide(overlay?: HTMLElement, isFocus: boolean = false) {
-        this.onVisibleChange(false);
-        this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-
-        isFocus && DomHandler.focus(this.targetEl);
-        this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+        if (!this.visible) {
+            return;
+        } else {
+            this.onVisibleChange(false);
+            this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+            isFocus && DomHandler.focus(this.targetEl);
+            this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+        }
     }
 
     alignOverlay() {
@@ -360,7 +363,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.visibleChange.emit(visible);
     }
 
-    onOverlayClick() {
+    onOverlayClick(event) {
         this.isOverlayClicked = true;
     }
 
