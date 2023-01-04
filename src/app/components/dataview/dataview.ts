@@ -60,7 +60,7 @@ import { Subscription } from 'rxjs';
                 [showPageLinks]="showPageLinks"
             ></p-paginator>
             <div class="p-dataview-content">
-                <div class="p-grid p-nogutter grid grid-nogutter">
+                <div class="p-grid p-nogutter grid grid-nogutter" [ngClass]="gridStyleClass">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue || value | slice: (lazy ? 0 : first):(lazy ? 0 : first) + rows) : filteredValue || value" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: rowData, rowIndex: rowIndex }"></ng-container>
                     </ng-template>
@@ -146,6 +146,8 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() gridStyleClass: string = '';
 
     @Input() trackBy: Function = (index: number, item: any) => item;
 
