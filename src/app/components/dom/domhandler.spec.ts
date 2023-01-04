@@ -82,6 +82,7 @@ describe('DomHandler', () => {
         element.appendChild(childEl);
         element.appendChild(childEl2);
         element.appendChild(childEl3);
+        document.body.appendChild(element);
         expect(DomHandler.getNextFocusableElement(element)).toEqual(childEl3);
     });
 
