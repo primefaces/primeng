@@ -74,7 +74,10 @@ import { Subscription } from 'rxjs';
                             <span class="p-checkbox-icon pi" [ngClass]="{ 'pi-check': isSelected(), 'pi-minus': node.partialSelected }"></span>
                         </div>
                     </div>
-                    <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
+                    <span  [class]="getIcon()" *ngIf="(node.icon || node.expandedIcon || node.collapsedIcon) && !node.customImage "></span>
+                    <span  *ngIf="node.customImage">
+                        <img class="tree-custom-img" [src]="node.icon"/>
+                    </span>
                     <span class="p-treenode-label">
                         <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
                         <span *ngIf="tree.getTemplateForNode(node)">
@@ -195,6 +198,9 @@ export class UITreeNode implements OnInit {
         this.node.parent = this.parentNode;
         if (this.parentNode) {
             this.tree.syncNodeOption(this.node, this.tree.value, 'parent', this.tree.getNodeWithKey(this.parentNode.key, this.tree.value));
+        }
+        if (this.node.customImage == undefined || !this.node.customImage) {
+            this.node.customImage = false;
         }
     }
 

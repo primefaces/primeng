@@ -16,4 +16,5 @@ export interface TreeNode<T = any> {
     droppable?: boolean;
     selectable?: boolean;
     key?: string;
+    customImage?: boolean;
 }

@@ -9,12 +9,19 @@ export class TreeDemo implements OnInit {
     files1: TreeNode[];
 
     files2: TreeNode[];
+    files1withCustomImageIcon: TreeNode[]
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => (this.files1 = files));
         this.nodeService.getFiles().then((files) => (this.files2 = files));
+        this.nodeService.getFiles().then((files) => {
+            this.files1withCustomImageIcon = files;
+            this.files1withCustomImageIcon[0].customImage = true;
+            this.files1withCustomImageIcon[0].icon = "../assets/components/images/password-meter.png";
+        });
+
     }
 
     expandAll() {

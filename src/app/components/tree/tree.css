@@ -154,3 +154,10 @@
 .p-scroller .p-tree-container {
     overflow: visible;
 }
+
+.tree-custom-img{
+    height: 20px;
+    margin-right: 7px;
+    width: 20px;
+    border-radius: 4px;
+}
