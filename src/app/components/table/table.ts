@@ -4086,8 +4086,6 @@ export class TableHeaderCheckbox {
     }
 })
 export class ReorderableRowHandle implements AfterViewInit {
-    @Input('pReorderableRowHandle') index: number;
-
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
