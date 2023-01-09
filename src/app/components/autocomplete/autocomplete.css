@@ -25,14 +25,7 @@
      border-bottom-left-radius: 0px;
 }
 
-.p-autocomplete .p-autocomplete-panel {
-    min-width: 100%;
-    top: 0;
-    left: 0;
-}
-
 .p-autocomplete-panel {
-    position: absolute;
     overflow: auto;
 }
 
