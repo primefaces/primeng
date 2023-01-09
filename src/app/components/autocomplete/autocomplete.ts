@@ -1,35 +1,37 @@
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import {
-    NgModule,
-    Component,
-    ViewChild,
-    ElementRef,
-    AfterViewChecked,
     AfterContentInit,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    Renderer2,
-    forwardRef,
-    ChangeDetectorRef,
-    IterableDiffers,
+    AfterViewChecked,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    IterableDiffers,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { SharedModule, PrimeTemplate, TranslationKeys, PrimeNGConfig, OverlayService } from 'primeng/api';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { ButtonModule } from 'primeng/button';
+import { DomHandler } from 'primeng/dom';
+import { InputTextModule } from 'primeng/inputtext';
+import { Overlay, OverlayModule } from 'primeng/overlay';
+import { RippleModule } from 'primeng/ripple';
+import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -133,82 +135,84 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 *ngIf="dropdown"
                 [attr.tabindex]="tabindex"
             ></button>
-            <div
-                #panel
-                *ngIf="overlayVisible"
-                (click)="onOverlayClick($event)"
-                [ngClass]="['p-autocomplete-panel p-component']"
-                [style.max-height]="virtualScroll ? 'auto' : scrollHeight"
-                [ngStyle]="panelStyle"
-                [class]="panelStyleClass"
-                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+            <p-overlay
+                #overlay
+                [(visible)]="overlayVisible"
+                [options]="virtualScrollOptions"
+                [target]="'@parent'"
+                [appendTo]="appendTo"
+                [showTransitionOptions]="showTransitionOptions"
+                [hideTransitionOptions]="hideTransitionOptions"
+                (onAnimationStart)="onOverlayAnimationStart($event)"
+                (onShow)="show($event)"
+                (onHide)="hide($event)"
             >
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <p-scroller
-                    *ngIf="virtualScroll"
-                    #scroller
-                    [items]="suggestions"
-                    [style]="{ height: scrollHeight }"
-                    [itemSize]="virtualScrollItemSize || _itemSize"
-                    [autoSize]="true"
-                    [lazy]="lazy"
-                    (onLazyLoad)="onLazyLoad.emit($event)"
-                    [options]="virtualScrollOptions"
-                >
-                    <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                        <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
-                    </ng-template>
-                    <ng-container *ngIf="loaderTemplate">
-                        <ng-template pTemplate="loader" let-scrollerOptions="options">
-                            <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                <div [ngClass]="['p-autocomplete-panel p-component']" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <p-scroller
+                        *ngIf="virtualScroll"
+                        #scroller
+                        [items]="suggestions"
+                        [style]="{ height: scrollHeight }"
+                        [itemSize]="virtualScrollItemSize || _itemSize"
+                        [autoSize]="true"
+                        [lazy]="lazy"
+                        (onLazyLoad)="onLazyLoad.emit($event)"
+                        [options]="virtualScrollOptions"
+                    >
+                        <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                            <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                         </ng-template>
-                    </ng-container>
-                </p-scroller>
-                <ng-container *ngIf="!virtualScroll">
-                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: suggestions, options: {} }"></ng-container>
-                </ng-container>
-
-                <ng-template #buildInItems let-items let-scrollerOptions="options">
-                    <ul #items role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle">
-                        <ng-container *ngIf="group">
-                            <ng-template ngFor let-optgroup [ngForOf]="items">
-                                <li class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
-                                    <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(optgroup) || 'empty' }}</span>
-                                    <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: optgroup }"></ng-container>
-                                </li>
-                                <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: getOptionGroupChildren(optgroup) }"></ng-container>
+                        <ng-container *ngIf="loaderTemplate">
+                            <ng-template pTemplate="loader" let-scrollerOptions="options">
+                                <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                             </ng-template>
                         </ng-container>
-                        <ng-container *ngIf="!group">
-                            <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: items }"></ng-container>
-                        </ng-container>
-                        <ng-template #itemslist let-suggestionsToDisplay>
-                            <li
-                                role="option"
-                                *ngFor="let option of suggestionsToDisplay; let idx = index"
-                                class="p-autocomplete-item"
-                                pRipple
-                                [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
-                                [ngClass]="{ 'p-highlight': option === highlightOption }"
-                                [id]="highlightOption == option ? 'p-highlighted-option' : ''"
-                                (click)="selectItem(option)"
-                            >
-                                <span *ngIf="!itemTemplate">{{ resolveFieldData(option) }}</span>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: scrollerOptions.getOptions ? scrollerOptions.getOptions(idx) : idx }"></ng-container>
-                            </li>
-                        </ng-template>
-                        <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
-                            <ng-container *ngIf="!emptyTemplate; else empty">
-                                {{ emptyMessageLabel }}
+                    </p-scroller>
+                    <ng-container *ngIf="!virtualScroll">
+                        <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: suggestions, options: {} }"></ng-container>
+                    </ng-container>
+
+                    <ng-template #buildInItems let-items let-scrollerOptions="options">
+                        <ul #items role="listbox" [attr.id]="listId" class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle">
+                            <ng-container *ngIf="group">
+                                <ng-template ngFor let-optgroup [ngForOf]="items">
+                                    <li class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
+                                        <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(optgroup) || 'empty' }}</span>
+                                        <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: optgroup }"></ng-container>
+                                    </li>
+                                    <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: getOptionGroupChildren(optgroup) }"></ng-container>
+                                </ng-template>
                             </ng-container>
-                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
-                        </li>
-                    </ul>
-                </ng-template>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+                            <ng-container *ngIf="!group">
+                                <ng-container *ngTemplateOutlet="itemslist; context: { $implicit: items }"></ng-container>
+                            </ng-container>
+                            <ng-template #itemslist let-suggestionsToDisplay>
+                                <li
+                                    role="option"
+                                    *ngFor="let option of suggestionsToDisplay; let idx = index"
+                                    class="p-autocomplete-item"
+                                    pRipple
+                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    [ngClass]="{ 'p-highlight': option === highlightOption }"
+                                    [id]="highlightOption == option ? 'p-highlighted-option' : ''"
+                                    (click)="selectItem(option)"
+                                >
+                                    <span *ngIf="!itemTemplate">{{ resolveFieldData(option) }}</span>
+                                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: scrollerOptions.getOptions ? scrollerOptions.getOptions(idx) : idx }"></ng-container>
+                                </li>
+                            </ng-template>
+                            <li *ngIf="noResults && showEmptyMessage" class="p-autocomplete-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
+                                <ng-container *ngIf="!emptyTemplate; else empty">
+                                    {{ emptyMessageLabel }}
+                                </ng-container>
+                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            </li>
+                        </ul>
+                    </ng-template>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
+            </p-overlay>
         </span>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
@@ -322,6 +326,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @Input() optionGroupLabel: string;
 
+    @Input() overlayOptions: OverlayOptions;
+
     @ViewChild('container') containerEL: ElementRef;
 
     @ViewChild('in') inputEL: ElementRef;
@@ -335,6 +341,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @ViewChild('items') itemsViewChild: ElementRef;
 
     @ViewChild('scroller') scroller: Scroller;
+
+    @ViewChild('overlay') overlayViewChild: Overlay;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -436,7 +444,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue: string = null;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
         this.differ = differs.find([]).create(null);
         this.listId = UniqueComponentId() + '_list';
     }
@@ -452,26 +460,30 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     ngAfterViewChecked() {
         //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
-        if (this.suggestionsUpdated && this.overlay && this.overlay.offsetParent) {
-            setTimeout(() => {
-                if (this.overlay) {
-                    this.alignOverlay();
-                }
-            }, 1);
-            this.suggestionsUpdated = false;
+        if (this.suggestionsUpdated && this.overlayViewChild) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    if (this.overlayViewChild) {
+                        this.overlayViewChild.alignOverlay();
+                    }
+                }, 1);
+                this.suggestionsUpdated = false;
+            });
         }
 
         if (this.highlightOptionChanged) {
-            setTimeout(() => {
-                if (this.overlay && this.itemsWrapper) {
-                    let listItem = DomHandler.findSingle(this.overlay, 'li.p-highlight');
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    if (this.overlay && this.itemsWrapper) {
+                        let listItem = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, 'li.p-highlight');
 
-                    if (listItem) {
-                        DomHandler.scrollInView(this.itemsWrapper, listItem);
+                        if (listItem) {
+                            DomHandler.scrollInView(this.itemsWrapper, listItem);
+                        }
                     }
-                }
-            }, 1);
-            this.highlightOptionChanged = false;
+                }, 1);
+                this.highlightOptionChanged = false;
+            });
         }
     }
 
@@ -647,9 +659,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.itemClicked = true;
             this.focusInput();
         }
+
+        this.hide();
     }
 
-    show() {
+    show(event?: Event) {
         if (this.multiInputEL || this.inputEL) {
             let hasFocus = this.multiple ? this.multiInputEL.nativeElement.ownerDocument.activeElement == this.multiInputEL.nativeElement : this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement;
 
@@ -657,6 +671,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                 this.overlayVisible = true;
             }
         }
+
+        this.onShow.emit(event);
+        this.cd.markForCheck();
     }
 
     clear() {
@@ -673,55 +690,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.overlay = event.element;
-                this.itemsWrapper = this.virtualScroll ? DomHandler.findSingle(this.overlay, '.p-scroller') : this.overlay;
-                this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild.nativeElement);
-                this.appendOverlay();
-
-                if (this.autoZIndex) {
-                    ZIndexUtils.set('overlay', this.overlay, this.baseZIndex + this.config.zIndex.overlay);
-                }
-
-                this.alignOverlay();
-                this.bindDocumentClickListener();
-                this.bindDocumentResizeListener();
-                this.bindScrollListener();
-                this.onShow.emit(event);
-                break;
-
-            case 'void':
-                this.onOverlayHide();
-                break;
-        }
-    }
-
-    onOverlayAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                if (this.autoZIndex) {
-                    ZIndexUtils.clear(event.element);
-                }
-                break;
-        }
-    }
-
-    onOverlayClick(event) {
-        this.overlayService.add({
-            originalEvent: event,
-            target: this.el.nativeElement
-        });
-    }
-
-    appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlay);
-            else DomHandler.appendChild(this.overlay, this.appendTo);
-
-            if (!this.overlay.style.minWidth) {
-                this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
-            }
+        if (event.toState === 'visible') {
+            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild.nativeElement);
         }
     }
 
@@ -730,19 +701,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return data !== (null || undefined) ? data : '';
     }
 
-    restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlay);
-        }
-    }
-
-    alignOverlay() {
-        if (this.appendTo) DomHandler.absolutePosition(this.overlay, this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement);
-        else DomHandler.relativePosition(this.overlay, this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement);
-    }
-
-    hide() {
+    hide(event?: any) {
         this.overlayVisible = false;
+
+        this.onHide.emit(event);
         this.cd.markForCheck();
     }
 
@@ -788,7 +750,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                 case 40:
                     if (this.group) {
                         let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, this.suggestions);
-
                         if (highlightItemIndex !== -1) {
                             let nextItemIndex = highlightItemIndex.itemIndex + 1;
                             if (nextItemIndex < this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex]).length) {
@@ -803,7 +764,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                         }
                     } else {
                         let highlightItemIndex = this.findOptionIndex(this.highlightOption, this.suggestions);
-
                         if (highlightItemIndex != -1) {
                             var nextItemIndex = highlightItemIndex + 1;
                             if (nextItemIndex != this.suggestions.length) {
@@ -1025,87 +985,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.updateFilledState();
     }
 
-    bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (event.which === 3) {
-                    return;
-                }
-
-                if (!this.inputClick && !this.isDropdownClick(event)) {
-                    this.hide();
-                }
-
-                this.inputClick = false;
-                this.cd.markForCheck();
-            });
-        }
-    }
-
-    isDropdownClick(event) {
-        if (this.dropdown) {
-            let target = event.target;
-            return target === this.dropdownButton.nativeElement || target.parentNode === this.dropdownButton.nativeElement;
-        } else {
-            return false;
-        }
-    }
-
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
-    }
-
-    bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
-    }
-
-    unbindDocumentResizeListener() {
-        if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
-        }
-    }
-
-    onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
-            this.hide();
-        }
-    }
-
-    bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerEL.nativeElement, () => {
-                if (this.overlayVisible) {
-                    this.hide();
-                }
-            });
-        }
-
-        this.scrollHandler.bindScrollListener();
-    }
-
-    unbindScrollListener() {
-        if (this.scrollHandler) {
-            this.scrollHandler.unbindScrollListener();
-        }
-    }
-
-    onOverlayHide() {
-        this.unbindDocumentClickListener();
-        this.unbindDocumentResizeListener();
-        this.unbindScrollListener();
-        if (this.overlay) {
-            this.overlay = null;
-            this.onHide.emit();
-        }
-    }
-
     ngOnDestroy() {
         if (this.forceSelectionUpdateModelTimeout) {
             clearTimeout(this.forceSelectionUpdateModelTimeout);
@@ -1116,19 +995,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
-
-        if (this.overlay) {
-            ZIndexUtils.clear(this.overlay);
-        }
-
-        this.restoreOverlayAppend();
-        this.onOverlayHide();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule],
-    exports: [AutoComplete, SharedModule, ScrollerModule, AutoFocusModule],
+    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule],
+    exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })
 export class AutoCompleteModule {}
