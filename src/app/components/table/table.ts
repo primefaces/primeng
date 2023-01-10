@@ -2924,16 +2924,15 @@ export class SortIcon implements OnInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pSelectableRow]',
     host: {
         class: 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
-        '[class.p-highlight]': 'selected',
-        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+        '[class.p-highlight]': 'selected'
     }
 })
-export class SelectableRow implements OnInit, OnDestroy {
-    @Input('pSelectableRow') data: any;
+export class SelectableBaseClass implements OnInit, OnDestroy {
+
+    data: any;
 
     @Input('pSelectableRowIndex') index: number;
 
@@ -2941,21 +2940,65 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     selected: boolean;
 
-    subscription: Subscription;
-
-    constructor(public dt: Table, public tableService: TableService) {
-        if (this.isEnabled()) {
-            this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-                this.selected = this.dt.isSelected(this.data);
-            });
-        }
-    }
+    subscription = new Subscription();
 
     ngOnInit() {
         if (this.isEnabled()) {
             this.selected = this.dt.isSelected(this.data);
         }
     }
+
+    constructor(public dt: Table, public tableService: TableService, public el: ElementRef) {
+        if (this.isEnabled()) {
+            this.subscription.add(
+                this.dt.tableService.selectionSource$.subscribe(() => {
+                    this.selected = this.dt.isSelected(this.data);
+                })
+            );
+        }
+    }
+
+    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let nextRow = <HTMLTableRowElement>row.nextElementSibling;
+        if (nextRow) {
+            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
+            else return this.findNextSelectableRow(nextRow);
+        } else {
+            return null;
+        }
+    }
+
+    findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let prevRow = <HTMLTableRowElement>row.previousElementSibling;
+        if (prevRow) {
+            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
+            else return this.findPrevSelectableRow(prevRow);
+        } else {
+            return null;
+        }
+    }
+
+    isEnabled() {
+        return this.pSelectableRowDisabled !== true;
+    }
+
+    focusElement() {
+        this.el.nativeElement.focus();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+}
+
+@Directive({
+    selector: '[pSelectableRow]',
+    host: {
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+    }
+})
+export class SelectableRow extends SelectableBaseClass {
+    @Input('pSelectableRow') data: any;
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3039,69 +3082,13 @@ export class SelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
-        let nextRow = <HTMLTableRowElement>row.nextElementSibling;
-        if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
-            else return this.findNextSelectableRow(nextRow);
-        } else {
-            return null;
-        }
-    }
-
-    findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
-        let prevRow = <HTMLTableRowElement>row.previousElementSibling;
-        if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
-            else return this.findPrevSelectableRow(prevRow);
-        } else {
-            return null;
-        }
-    }
-
-    isEnabled() {
-        return this.pSelectableRowDisabled !== true;
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
-    selector: '[pSelectableRowDblClick]',
-    host: {
-        class: 'p-element',
-        '[class.p-selectable-row]': 'isEnabled()',
-        '[class.p-highlight]': 'selected'
-    }
+    selector: '[pSelectableRowDblClick]'
 })
-export class SelectableRowDblClick implements OnInit, OnDestroy {
+export class SelectableRowDblClick extends SelectableBaseClass {
     @Input('pSelectableRowDblClick') data: any;
-
-    @Input('pSelectableRowIndex') index: number;
-
-    @Input() pSelectableRowDisabled: boolean;
-
-    selected: boolean;
-
-    subscription: Subscription;
-
-    constructor(public dt: Table, public tableService: TableService) {
-        if (this.isEnabled()) {
-            this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-                this.selected = this.dt.isSelected(this.data);
-            });
-        }
-    }
-
-    ngOnInit() {
-        if (this.isEnabled()) {
-            this.selected = this.dt.isSelected(this.data);
-        }
-    }
 
     @HostListener('dblclick', ['$event'])
     onClick(event: Event) {
@@ -3114,15 +3101,6 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
         }
     }
 
-    isEnabled() {
-        return this.pSelectableRowDisabled !== true;
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
