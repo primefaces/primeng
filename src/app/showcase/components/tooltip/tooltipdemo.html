@@ -9,18 +9,24 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Positions</h5>
-        <div class="grid p-fluid">
-            <div class="col-12 md:col-3">
+        <div class="grid gap-4 p-fluid">
+            <div class="md:col-3">
                 <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">
             </div>
-            <div class="col-12 md:col-3">
+            <div class="md:col-3">
                 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top">
             </div>
-            <div class="col-12 md:col-3">
+            <div class="md:col-3">
                 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom">
             </div>
-            <div class="col-12 md:col-3">
+            <div class="md:col-3">
                 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left">
+            </div>
+        </div>
+        <h5>AutoHide</h5>
+        <div class="grid gap-4 p-fluid">
+            <div class="col-12 md:col-3">
+                <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="autoHide" [autoHide]="false">
             </div>
         </div>
 
@@ -167,6 +173,12 @@ import &#123;TooltipModule&#125; from 'primeng/tooltip';
                             <td>string</td>
                             <td>auto</td>
                             <td>Whether the z-index should be managed automatically to always go on top or have a fixed value.</td>
+                        </tr>
+                        <tr>
+                            <td>autoHide</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to hide tooltip when hovering over tooltip content.</td>
                         </tr>
                     </tbody>
                 </table>
