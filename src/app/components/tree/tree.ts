@@ -64,7 +64,7 @@ import { Subscription } from 'rxjs';
                     [attr.aria-expanded]="this.node.expanded"
                     [attr.aria-selected]="isSelected()"
                     [attr.aria-label]="node.label"
-                    [attr.data-id]="node.data"
+                    [attr.data-id]="node.key"
                 >
                     <button type="button" [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{ 'pi-chevron-right': !node.expanded, 'pi-chevron-down': node.expanded }"></span>
@@ -555,7 +555,7 @@ export class UITreeNode implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = DomHandler.findSingle(document.body, `[data-id="${this.node.data}"]`);
+            let node = DomHandler.findSingle(document.body, `[data-id="${this.node.key ?? this.node.data}"]`);
             DomHandler.focus(node);
         }, 1);
     }
