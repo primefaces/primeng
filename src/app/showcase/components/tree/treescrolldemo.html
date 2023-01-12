@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5>Regular Scroll</h5>
+        <!-- <h5>Regular Scroll</h5>
         <p-tree [value]="files1" scrollHeight="200px"></p-tree>
 
         <h5>Flexible Viewport</h5>
@@ -22,7 +22,7 @@
             <ng-template pTemplate="footer">
                 <button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Ok" class="p-button-text"></button>
             </ng-template>
-        </p-dialog>
+        </p-dialog> -->
 
         <h5>Virtual Scroll</h5>
         <p-tree [value]="files3" [virtualScroll]="true" [virtualScrollItemSize]="46" scrollHeight="200px"></p-tree>
@@ -90,6 +90,7 @@ export class TreeScrollDemo implements OnInit &#123;
         let node: TreeNode = &#123;
             label: 'Node ' + i,
             data: 'Node ' + i,
+            key: 'node-key' + i,
             expandedIcon: 'pi pi-folder-open',
             collapsedIcon: 'pi pi-folder',
             children: Array.from(&#123;length: children&#125;).map((_,j) => &#123;
