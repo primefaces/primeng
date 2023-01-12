@@ -746,6 +746,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             case 'void':
                 this.onContainerDestroy();
                 this.onHide.emit({});
+                this.cd.markForCheck();
                 break;
             case 'visible':
                 this.onShow.emit({});
