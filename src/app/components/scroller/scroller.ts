@@ -398,6 +398,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     defaultHeight: number;
 
+    defaultContentWidth: number;
+
+    defaultContentHeight: number;
+
     get vertical() {
         return this._orientation === 'vertical';
     }
@@ -540,6 +544,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
             this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
+            this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
+            this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
             this.initialized = true;
         }
     }
@@ -716,12 +722,20 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             Promise.resolve().then(() => {
                 if (this.contentEl) {
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = 'auto';
+                    this.contentEl.style.position = 'relative';
+                    this.elementViewChild.nativeElement.style.contain = 'none';
 
-                    const { offsetWidth, offsetHeight } = this.contentEl;
+                    const [contentWidth, contentHeight] = [DomHandler.getWidth(this.contentEl), DomHandler.getHeight(this.contentEl)];
+                    contentWidth !== this.defaultContentWidth && (this.elementViewChild.nativeElement.style.width = '');
+                    contentHeight !== this.defaultContentHeight && (this.elementViewChild.nativeElement.style.height = '');
 
-                    (this.both || this.horizontal) && (this.elementViewChild.nativeElement.style.width = (offsetWidth < this.defaultWidth ? offsetWidth : this.defaultWidth) + 'px');
-                    (this.both || this.vertical) && (this.elementViewChild.nativeElement.style.height = (offsetHeight < this.defaultHeight ? offsetHeight : this.defaultHeight) + 'px');
+                    const [width, height] = [DomHandler.getWidth(this.elementViewChild.nativeElement), DomHandler.getHeight(this.elementViewChild.nativeElement)];
+                    (this.both || this.horizontal) && (this.elementViewChild.nativeElement.style.width = width < this.defaultWidth ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
+                    (this.both || this.vertical) && (this.elementViewChild.nativeElement.style.height = height < this.defaultHeight ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
+
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = '';
+                    this.contentEl.style.position = '';
+                    this.elementViewChild.nativeElement.style.contain = '';
                 }
             });
         }
@@ -961,6 +975,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                         this.d_numToleratedItems = this._numToleratedItems;
                         this.defaultWidth = width;
                         this.defaultHeight = height;
+                        this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
+                        this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
 
                         this.init();
                     });
