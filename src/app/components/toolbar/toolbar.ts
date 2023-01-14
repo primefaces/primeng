@@ -14,7 +14,7 @@ import { BlockableUI, PrimeTemplate } from 'primeng/api';
                 <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </div>
             <div class="p-toolbar-group-right p-toolbar-group-end" *ngIf="endTemplate">
-                <ng-container *ngTemplateOutlet="rightTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
             </div>
         </div>
     `,
