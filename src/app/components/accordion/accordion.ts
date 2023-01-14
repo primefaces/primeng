@@ -122,8 +122,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     accordion: Accordion;
 
-    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public changeDetector: ChangeDetectorRef) {
-        this.accordion = accordion;
+    constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
+        this.accordion = accordion as Accordion;
     }
 
     ngAfterContentInit() {
