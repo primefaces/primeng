@@ -179,10 +179,8 @@ describe('Accordion', () => {
 
     it('should be closed', () => {
         fixture.detectChanges();
-
-        const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
-        let spaceEvent = { which: 32, preventDefault() {} };
-        secondAccordionTab.onKeydown(spaceEvent as KeyboardEvent);
+        const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
+        secondAccordionTab.onKeydown(spaceEvent);
         fixture.detectChanges();
 
         const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.p-accordion-header')).nativeElement;
