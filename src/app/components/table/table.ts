@@ -1736,6 +1736,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
+        } else if (options && options.allValues) {
+            data = this.value || [];
         } else {
             data = this.filteredValue || this.value;
 
@@ -4084,8 +4086,6 @@ export class TableHeaderCheckbox {
     }
 })
 export class ReorderableRowHandle implements AfterViewInit {
-    @Input('pReorderableRowHandle') index: number;
-
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
