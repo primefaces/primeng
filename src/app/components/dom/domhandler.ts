@@ -615,7 +615,7 @@ export class DomHandler {
 
         let visibleFocusableElements = [];
         for (let focusableElement of focusableElements) {
-            if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') visibleFocusableElements.push(focusableElement);
+            if (!!(focusableElement.offsetWidth || focusableElement.offsetHeight || focusableElement.getClientRects().length)) visibleFocusableElements.push(focusableElement);
         }
         return visibleFocusableElements;
     }
