@@ -128,6 +128,8 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     @Input() autocomplete: string;
 
+    @Input() keepBuffer: boolean = false;
+
     @ViewChild('input', { static: true }) inputViewChild: ElementRef;
 
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
@@ -404,7 +406,9 @@ export class InputMask implements OnInit, ControlValueAccessor {
     onInputBlur(e) {
         this.focused = false;
         this.onModelTouched();
-        this.checkVal();
+        if (!this.keepBuffer) {
+            this.checkVal();
+        }
         this.updateFilledState();
         this.onBlur.emit(e);
 
@@ -442,7 +446,11 @@ export class InputMask implements OnInit, ControlValueAccessor {
             }
 
             this.clearBuffer(begin, end);
-            this.shiftL(begin, end - 1);
+            if (this.keepBuffer) {
+                this.shiftL(begin, end - 2);
+            } else {
+                this.shiftL(begin, end - 1);
+            }
             this.updateModel(e);
             this.onInput.emit(e);
 
@@ -523,10 +531,12 @@ export class InputMask implements OnInit, ControlValueAccessor {
     }
 
     clearBuffer(start, end) {
-        let i;
-        for (i = start; i < end && i < this.len; i++) {
-            if (this.tests[i]) {
-                this.buffer[i] = this.getPlaceholder(i);
+        if (!this.keepBuffer) {
+            let i;
+            for (i = start; i < end && i < this.len; i++) {
+                if (this.tests[i]) {
+                    this.buffer[i] = this.getPlaceholder(i);
+                }
             }
         }
     }
@@ -549,7 +559,9 @@ export class InputMask implements OnInit, ControlValueAccessor {
                 while (pos++ < test.length) {
                     c = test.charAt(pos - 1);
                     if (this.tests[i].test(c)) {
-                        this.buffer[i] = c;
+                        if (!this.keepBuffer) {
+                            this.buffer[i] = c;
+                        }
                         lastMatch = i;
                         break;
                     }
@@ -599,7 +611,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
         this.focusText = this.inputViewChild.nativeElement.value;
 
-        pos = this.checkVal();
+        pos = this.keepBuffer ? this.inputViewChild.nativeElement.value.length : this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
             if (this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
