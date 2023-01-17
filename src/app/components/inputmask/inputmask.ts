@@ -293,6 +293,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
             if (this.inputViewChild.nativeElement.setSelectionRange) {
                 begin = this.inputViewChild.nativeElement.selectionStart;
                 end = this.inputViewChild.nativeElement.selectionEnd;
+                console.log('input', begin, end);
             } else if (document['selection'] && document['selection'].createRange) {
                 range = document['selection'].createRange();
                 begin = 0 - range.duplicate().moveStart('character', -100000);
@@ -447,7 +448,6 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
             this.clearBuffer(begin, end);
             if (this.keepBuffer) {
-                //TODO: improve calculation of shifting distance if keepBuffer exist
                 this.shiftL(begin, end - 2);
             } else {
                 this.shiftL(begin, end - 1);
@@ -611,7 +611,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
         let pos;
 
         this.focusText = this.inputViewChild.nativeElement.value;
-        // TODO: improve way to find position
+
         pos = this.keepBuffer ? this.inputViewChild.nativeElement.value.length : this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
