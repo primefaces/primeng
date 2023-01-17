@@ -293,7 +293,6 @@ export class InputMask implements OnInit, ControlValueAccessor {
             if (this.inputViewChild.nativeElement.setSelectionRange) {
                 begin = this.inputViewChild.nativeElement.selectionStart;
                 end = this.inputViewChild.nativeElement.selectionEnd;
-                console.log('input', begin, end);
             } else if (document['selection'] && document['selection'].createRange) {
                 range = document['selection'].createRange();
                 begin = 0 - range.duplicate().moveStart('character', -100000);
