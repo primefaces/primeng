@@ -1,5 +1,36 @@
 # Changelog
 
+## [15.1.0](https://github.com/primefaces/primeng/tree/15.1.0) (2023-01-18)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.0.1...15.1.0)
+
+**New Features:**
+- pStyleClass | hideOnEscape support [\#12429](https://github.com/primefaces/primeng/issues/12429)
+- MultiSelect: Add event onRemove [\#12460](https://github.com/primefaces/primeng/issues/12460)
+- Overlay | close on escape key [\#12474](https://github.com/primefaces/primeng/issues/12474)
+- Accordion | Add new style and styleClass properties [\#12432](https://github.com/primefaces/primeng/issues/12432)
+- ProgressBar: Color for the background of the progress [\#12374](https://github.com/primefaces/primeng/issues/12374)
+- Badge Attribute - Size option [\#12205](https://github.com/primefaces/primeng/issues/12205)
+- DataView: add gridStyleClass to customize the grid class [\#12448](https://github.com/primefaces/primeng/issues/12448)
+- Customizable hide timeout for Menubar on mouse leave [\#12454](https://github.com/primefaces/primeng/issues/12454)
+
+
+**Enhancements:**
+- Update to Angular 15.1.0 [\#12487](https://github.com/primefaces/primeng/issues/12487)
+- Tree with autoSize virtualScrollOptions, Scroller does not update its size to fit parent on size changed [\#12492](https://github.com/primefaces/primeng/issues/12492)
+- no option to generate csv the whole entire data when the table is filtered [\#12436](https://github.com/primefaces/primeng/issues/12436)
+
+**Fixed bugs:**
+- InputMask | numbers entered in the middle of the field, get moved to the left [\#12426](https://github.com/primefaces/primeng/issues/12426)
+- pFocusTrap: focus stuck when ancestor of tabbable element is hidden [\#12349](https://github.com/primefaces/primeng/issues/12349)
+- Tabmenu | menuItem API badge does not work [\#12503](https://github.com/primefaces/primeng/issues/12503)
+- Dynamic Dialog | Focus is broken in case of nested dialogs [\#12486](https://github.com/primefaces/primeng/issues/12486)
+- Button | incorrect work with dynamic classes [\#12456](https://github.com/primefaces/primeng/issues/12456)
+- Component: Dialog/Dynamic Dialog Mask Not Clearing [\#12456](https://github.com/primefaces/primeng/issues/12456)
+- Table: pReorderableRowHandle directive generates error TS2322: Type 'string' is not assignable to type 'number' [\#12416](https://github.com/primefaces/primeng/issues/12416)
+- p-dropdown: option displays "empty" when value is 0 (zero) instead of the actual value 0 [\#12455](https://github.com/primefaces/primeng/issues/12455)
+- PrimeNG dropdown not properly highlighting selected items when appendTo="body" [\#12256](https://github.com/primefaces/primeng/issues/12256)
+
 ## [15.0.1](https://github.com/primefaces/primeng/tree/15.0.1) (2023-01-02)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.0.0...15.0.1)
