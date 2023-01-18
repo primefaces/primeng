@@ -1242,7 +1242,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     activateFilter() {
-        let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
+        let searchFields: string[] | Function[];
+
+        if (this.options && this.options.length > 0 && typeof this.options[0] === 'string') {
+            searchFields = [(item: any) => item];
+        } else {
+            searchFields = (this.filterBy || this.optionLabel || 'label').split(',');
+        }
 
         if (this.options && this.options.length) {
             if (this.group) {

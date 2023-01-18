@@ -24,6 +24,9 @@
             </ng-template>
         </p-dropdown>
 
+        <h5>Simple filtering</h5>
+        <p-dropdown [options]="citiesArr" [(ngModel)]="selectedCity4" placeholder="Select a City" [filter]="true" [showClear]="true"></p-dropdown>
+
         <h5>Advanced with Templating, Filtering and Clear Icon</h5>
         <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
             <ng-template pTemplate="selectedItem">
@@ -66,7 +69,7 @@ import &#123;DropdownModule&#125; from 'primeng/dropdown';
             <p>Dropdown requires a value to bind and a collection of options.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" &gt;&lt;/p-dropdown&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
@@ -83,11 +86,11 @@ export class DropdownDemo &#123;
 
     constructor() &#123;
         this.cities = [
-            &#123;name: 'New York', code: 'NY'&#125;,
-            &#123;name: 'Rome', code: 'RM'&#125;,
-            &#123;name: 'London', code: 'LDN'&#125;,
-            &#123;name: 'Istanbul', code: 'IST'&#125;,
-            &#123;name: 'Paris', code: 'PRS'&#125;
+           'New York',
+           'Rome',
+           'London',
+           'Istanbul',
+           'Paris'
         ];
     &#125;
 
@@ -261,7 +264,7 @@ export class DropdownDemo &#123;
                             <td>options</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>An array of objects to display as the available options.</td>
+                            <td>An array of strings or objects to display as the available options.</td>
                         </tr>
                         <tr>
                             <td>optionLabel</td>
@@ -819,6 +822,9 @@ export class DropdownDemo &#123;
         &lt;/ng-template&gt;
     &lt;/p-dropdown&gt;
 
+    &lt;h5&gt;Simple filtering&lt;/h5&gt;
+    &lt;p-dropdown [options]="citiesArr" [(ngModel)]="selectedCity4" placeholder="Select a City" optionLabel="name" [filter]="true" [showClear]="true"&gt;&lt;/p-dropdown&gt;
+
     &lt;h5&gt;Advanced with Templating, Filtering and Clear Icon&lt;/h5&gt;
     &lt;p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country"&gt;
         &lt;ng-template pTemplate="selectedItem"&gt;
@@ -859,6 +865,8 @@ export class DropdownDemo &#123;
     selectedCity2: City;
 
     selectedCity3: string;
+
+    selectedCity4: string;
 
     selectedCountry: string;
 

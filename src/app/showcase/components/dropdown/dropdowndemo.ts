@@ -14,11 +14,15 @@ interface City {
 export class DropdownDemo {
     cities: City[];
 
+    citiesArr: string[];
+
     selectedCity1: City;
 
     selectedCity2: City;
 
     selectedCity3: string;
+
+    selectedCity4: string;
 
     selectedCountry: string;
 
@@ -50,6 +54,14 @@ export class DropdownDemo {
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
             { name: 'Paris', code: 'PRS' }
+        ];
+
+        this.citiesArr = [
+            'New York',
+            'Rome',
+            'London',
+            'Istanbul',
+            'Paris',
         ];
 
         this.groupedCities = [
