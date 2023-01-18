@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, NgModule, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
@@ -9,7 +9,7 @@ import { DomHandler } from 'primeng/dom';
     }
 })
 export class StyleClass implements OnDestroy {
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private zone: NgZone) {}
 
     @Input('pStyleClass') selector: string;
 
@@ -31,11 +31,11 @@ export class StyleClass implements OnDestroy {
 
     @Input() hideOnEscape: boolean;
 
-    @Input() escapeClass: string;
-
     eventListener: Function;
 
-    documentListener: Function;
+    documentClickListener: Function;
+
+    documentKeydownListener: Function;
 
     target: HTMLElement;
 
@@ -44,34 +44,6 @@ export class StyleClass implements OnDestroy {
     leaveListener: Function;
 
     animating: boolean;
-
-    @HostListener('keyup.escape', ['$event'])
-    escapeListener($event) {
-        if (this.isVisible()) {
-            if (this.enterClass) {
-                DomHandler.removeClass(this.target, this.enterClass);
-            }
-            if (this.enterToClass) {
-                DomHandler.removeClass(this.target, this.enterToClass);
-            }
-            if (this.enterActiveClass) {
-                DomHandler.removeClass(this.target, this.enterActiveClass);
-            }
-            if (this.escapeClass) {
-                DomHandler.addClass(this.target, this.escapeClass);
-            } else if (this.leaveToClass) {
-                DomHandler.addClass(this.target, this.leaveToClass);
-            } else if (this.toggleClass) {
-                DomHandler.addClass(this.target, this.toggleClass);
-            } else if (this.leaveClass) {
-                DomHandler.addClass(this.target, this.leaveClass);
-            } else if (this.leaveActiveClass) {
-                DomHandler.addClass(this.target, this.leaveActiveClass);
-            }
-
-            this.unbindDocumentListener();
-        }
-    }
 
     @HostListener('click', ['$event'])
     clickListener() {
@@ -86,13 +58,11 @@ export class StyleClass implements OnDestroy {
     }
 
     toggle() {
-        if (DomHandler.hasClass(this.target, this.escapeClass)) DomHandler.removeClass(this.target, this.escapeClass);
         if (DomHandler.hasClass(this.target, this.toggleClass)) DomHandler.removeClass(this.target, this.toggleClass);
         else DomHandler.addClass(this.target, this.toggleClass);
     }
 
     enter() {
-        if (DomHandler.hasClass(this.target, this.escapeClass)) DomHandler.removeClass(this.target, this.escapeClass);
         if (this.enterActiveClass) {
             if (!this.animating) {
                 this.animating = true;
@@ -134,7 +104,11 @@ export class StyleClass implements OnDestroy {
         }
 
         if (this.hideOnOutsideClick) {
-            this.bindDocumentListener();
+            this.bindDocumentClickListener();
+        }
+
+        if (this.hideOnEscape) {
+            this.bindDocumentKeydownListener();
         }
     }
 
@@ -167,7 +141,11 @@ export class StyleClass implements OnDestroy {
         }
 
         if (this.hideOnOutsideClick) {
-            this.unbindDocumentListener();
+            this.unbindDocumentClickListener();
+        }
+
+        if (this.hideOnEscape) {
+            this.unbindDocumentKeydownListener();
         }
     }
 
@@ -194,11 +172,23 @@ export class StyleClass implements OnDestroy {
         }
     }
 
-    bindDocumentListener() {
-        if (!this.documentListener) {
-            this.documentListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
-                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentListener();
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
+                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentClickListener();
                 else if (this.isOutsideClick(event)) this.leave();
+            });
+        }
+    }
+
+    bindDocumentKeydownListener() {
+        if (!this.documentKeydownListener) {
+            this.zone.runOutsideAngular(() => {
+                this.documentKeydownListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'keydown', (event) => {
+                    const { key, keyCode, which, type } = event;
+                    if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentKeydownListener();
+                    if (this.isVisible() && key === 'Escape' && keyCode === 27 && which === 27) this.leave();
+                });
             });
         }
     }
@@ -211,10 +201,17 @@ export class StyleClass implements OnDestroy {
         return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !this.target.contains(<HTMLElement>event.target);
     }
 
-    unbindDocumentListener() {
-        if (this.documentListener) {
-            this.documentListener();
-            this.documentListener = null;
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    unbindDocumentKeydownListener() {
+        if (this.documentKeydownListener) {
+            this.documentKeydownListener();
+            this.documentKeydownListener = null;
         }
     }
 
@@ -223,7 +220,8 @@ export class StyleClass implements OnDestroy {
         if (this.eventListener) {
             this.eventListener();
         }
-        this.unbindDocumentListener();
+        this.unbindDocumentClickListener();
+        this.unbindDocumentKeydownListener();
     }
 }
 
