@@ -1,13 +1,13 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Table, TableModule, EditableColumn } from './table';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
-import { DropdownModule } from 'primeng/dropdown';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from 'primeng/api';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { RouterTestingModule } from '@angular/router/testing';
+import { DropdownModule } from 'primeng/dropdown';
+import { EditableColumn, Table, TableModule } from './table';
 
 @Component({
     template: `
@@ -488,6 +488,7 @@ describe('Table', () => {
         const tableEl = fixture.debugElement.query(By.css('.filterTable'));
         const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(2);
+        flush();
     }));
 
     it('should use custom filter and show 2 items and after call reset', fakeAsync(() => {
@@ -506,6 +507,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(filterTable.filteredValue).toBeNull();
+        flush();
     }));
 
     it('should use global filter and show 1 items', fakeAsync(() => {
@@ -520,6 +522,7 @@ describe('Table', () => {
         const tableEl = fixture.debugElement.query(By.css('.filterTable'));
         const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
+        flush();
     }));
 
     it('should use globalFilterFields and show 0 items', fakeAsync(() => {
@@ -537,6 +540,7 @@ describe('Table', () => {
         const tableEl = fixture.debugElement.query(By.css('.filterTable'));
         const bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(0);
+        flush();
     }));
 
     it('should use endsWith filter and show 1 item. It should clear the filter and show 10 item.', fakeAsync(() => {
@@ -555,6 +559,7 @@ describe('Table', () => {
 
         bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(10);
+        flush();
     }));
 
     it('should use equals filter and show 1 item', fakeAsync(() => {
@@ -567,6 +572,7 @@ describe('Table', () => {
         let tableEl = fixture.debugElement.query(By.css('.filterTable'));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
+        flush();
     }));
 
     it('should use not equals filter and show 9 item', fakeAsync(() => {
@@ -579,6 +585,7 @@ describe('Table', () => {
         let tableEl = fixture.debugElement.query(By.css('.filterTable'));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(9);
+        flush();
     }));
 
     it('should use in filter and show 1 item', fakeAsync(() => {
@@ -596,6 +603,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(bodyRows.length).toEqual(1);
+        flush();
     }));
 
     it('should use lt filter and show 5 item', fakeAsync(() => {
@@ -608,6 +616,7 @@ describe('Table', () => {
         let tableEl = fixture.debugElement.query(By.css('.filterTable'));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(3);
+        flush();
     }));
 
     it('should use lte filter and show 5 item', fakeAsync(() => {
@@ -620,6 +629,7 @@ describe('Table', () => {
         let tableEl = fixture.debugElement.query(By.css('.filterTable'));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(5);
+        flush();
     }));
 
     it('should use gt filter and show 5 item', fakeAsync(() => {
@@ -632,6 +642,7 @@ describe('Table', () => {
         let tableEl = fixture.debugElement.query(By.css('.filterTable'));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(5);
+        flush();
     }));
 
     it('should use gte filter and show 5 item', fakeAsync(() => {
@@ -644,6 +655,7 @@ describe('Table', () => {
         let tableEl = fixture.debugElement.query(By.css('.filterTable'));
         let bodyRows = tableEl.query(By.css('.p-datatable-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(7);
+        flush();
     }));
 
     it('should use basic sort', () => {
@@ -678,6 +690,7 @@ describe('Table', () => {
 
         const firstRow = fixture.debugElement.query(By.css('.sortTable')).query(By.css('.p-datatable-tbody')).query(By.css('tr'));
         expect(firstRow.children[2].nativeElement.outerText).toEqual('2000');
+        flush();
     }));
 
     it('should use custom sort', () => {
