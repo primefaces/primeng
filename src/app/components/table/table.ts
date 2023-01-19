@@ -1977,9 +1977,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
-                let tableWidth = this.tableViewChild.nativeElement.offsetWidth + delta;
-                this.setResizeTableWidth(tableWidth + 'px');
-                this.resizeTableCells(newColumnWidth, null);
+                const totalColWidth = this.resizeTableCells(newColumnWidth, null);
+                this.setResizeTableWidth(totalColWidth + 'px');
             }
 
             this.onColResize.emit({
@@ -2007,9 +2006,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.createStyleElement();
 
         let innerHTML = '';
+        let totalColWidth = 0;
+
         widths.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
-            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
+            totalColWidth += colWidth;
+
+            let style = `width: ${colWidth}px; max-width: ${colWidth}px;`;
             innerHTML += `
                 #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
                 #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
@@ -2020,6 +2023,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         });
 
         this.styleElement.innerHTML = innerHTML;
+        return totalColWidth;
     }
 
     onColumnDragStart(event, columnElement) {
@@ -2344,7 +2348,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 let innerHTML = '';
                 widths.forEach((width, index) => {
-                    let style = `width: ${width}px !important; max-width: ${width}px !important`;
+                    let style = `width: ${width}px; max-width: ${width}px`;
 
                     innerHTML += `
                         #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
