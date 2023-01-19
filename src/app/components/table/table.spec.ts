@@ -1147,7 +1147,7 @@ describe('Table', () => {
         expect(onColumnResizeEndSpy).toHaveBeenCalled();
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
-        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
+        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 31);
     });
 
     it('should call resize and resizeColGroup with scrollableTable (expand)', () => {
