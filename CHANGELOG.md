@@ -1,5 +1,12 @@
 # Changelog
 
+## [15.1.0](https://github.com/primefaces/primeng/tree/15.1.1) (2023-01-20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.1.0...15.1.1)
+**Fixed bugs:**
+- Dropdown and Multiselect: ERROR TypeError: value.trim is not a function [\#12525](https://github.com/primefaces/primeng/issues/12525)
+- Dropdown virtualScroll filter bug [\#12461](https://github.com/primefaces/primeng/issues/12461)
+
 ## [15.1.0](https://github.com/primefaces/primeng/tree/15.1.0) (2023-01-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.0.1...15.1.0)
