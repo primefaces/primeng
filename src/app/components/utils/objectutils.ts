@@ -193,7 +193,9 @@ export class ObjectUtils {
     }
 
     public static merge(obj1?: any, obj2?: any): any {
-        if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
+        if (obj1 == undefined && obj2 == undefined) {
+            return undefined;
+        } else if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
             return { ...(obj1 || {}), ...(obj2 || {}) };
         } else if ((obj1 == undefined || typeof obj1 === 'string') && (obj2 == undefined || typeof obj2 === 'string')) {
             return [obj1 || '', obj2 || ''].join(' ');
