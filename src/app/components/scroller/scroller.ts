@@ -374,6 +374,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     page: number = 0;
 
+    isRangeChanged: boolean = false;
+
     numItemsInViewport: any = 0;
 
     lastScrollPos: any = 0;
@@ -596,14 +598,18 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const calculateFirst = (_index = 0, _numT) => (_index <= _numT ? 0 : _index);
         const calculateCoord = (_first, _size, _cpos) => _first * _size + _cpos;
         const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
+        let newFirst: any = 0;
 
         if (this.both) {
-            this.first = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
-            scrollTo(calculateCoord(this.first.cols, this._itemSize[1], contentPos.left), calculateCoord(this.first.rows, this._itemSize[0], contentPos.top));
+            newFirst = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
+            scrollTo(calculateCoord(newFirst.cols, this._itemSize[1], contentPos.left), calculateCoord(newFirst.rows, this._itemSize[0], contentPos.top));
         } else {
-            this.first = calculateFirst(index, numToleratedItems);
-            this.horizontal ? scrollTo(calculateCoord(this.first, this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(this.first, this._itemSize, contentPos.top));
+            newFirst = calculateFirst(index, numToleratedItems);
+            this.horizontal ? scrollTo(calculateCoord(newFirst, this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(newFirst, this._itemSize, contentPos.top));
         }
+
+        this.isRangeChanged = this.first !== newFirst;
+        this.first = newFirst;
     }
 
     scrollInView(index: number, to: ScrollerToType, behavior: ScrollBehavior = 'auto') {
@@ -854,7 +860,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     cols: calculateLast(currentIndex.cols, newFirst.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], true)
                 };
 
-                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols;
+                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols || this.isRangeChanged;
                 newScrollPos = { top: scrollTop, left: scrollLeft };
             }
         } else {
@@ -867,7 +873,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
                 newFirst = calculateFirst(currentIndex, triggerIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
                 newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
-                isRangeChanged = newFirst !== this.first || newLast !== this.last;
+                isRangeChanged = newFirst !== this.first || newLast !== this.last || this.isRangeChanged;
                 newScrollPos = scrollPos;
             }
         }
