@@ -89,6 +89,9 @@
             <div class="field">
                 <label for="inventoryStatus">Inventory Status</label>
                 <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" optionValue="label" [options]="statuses" placeholder="Select">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="product && product.inventoryStatus" [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                    </ng-template>
                     <ng-template let-option pTemplate="item">
                         <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
                     </ng-template>
