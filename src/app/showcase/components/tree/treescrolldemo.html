@@ -90,6 +90,7 @@ export class TreeScrollDemo implements OnInit &#123;
         let node: TreeNode = &#123;
             label: 'Node ' + i,
             data: 'Node ' + i,
+            key: 'node-key' + i,
             expandedIcon: 'pi pi-folder-open',
             collapsedIcon: 'pi pi-folder',
             children: Array.from(&#123;length: children&#125;).map((_,j) => &#123;

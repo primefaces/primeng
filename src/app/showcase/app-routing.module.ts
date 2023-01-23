@@ -14,6 +14,7 @@ import { LandingComponent } from './components/landing/landing.component';
                     children: [
                         { path: '', redirectTo: 'setup', pathMatch: 'full' },
                         { path: 'setup', loadChildren: () => import('./components/setup/setup.module').then((m) => m.SetupModule) },
+                        { path: 'roadmap', loadChildren: () => import('./components/roadmap/roadmap.module').then((m) => m.RoadmapModule) },
                         { path: 'theming', loadChildren: () => import('./components/theming/theming.module').then((m) => m.ThemingModule) },
                         { path: 'icons', loadChildren: () => import('./components/icons/icons.module').then((m) => m.IconsModule) },
                         { path: 'accordion', loadChildren: () => import('./components/accordion/accordiondemo.module').then((m) => m.AccordionDemoModule) },

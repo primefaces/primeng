@@ -8,16 +8,16 @@
 
 <div class="content-section implementation">
     <p-toolbar>
-        <div class="p-toolbar-group-left">
+        <div class="p-toolbar-group-start">
             <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
             <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
-                
+
             <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
-            
+
             <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
         </div>
-        
-        <div class="p-toolbar-group-right">
+
+        <div class="p-toolbar-group-end">
             <p-button icon="pi pi-search" class="mr-2"></p-button>
             <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
             <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
@@ -34,27 +34,27 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>Toolbar is a container component defined using p-toolbar element. Left aligned content is placed inside a div 
-            having <i>.p-toolbar-group-left</i> class and similarly <i>.p-toolbar-group-right</i> for right alignment.</p>
+            <p>Toolbar provides <i>start</i>, <i>center</i> and <i>end</i> templates to place content at these sections.</p>
+
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toolbar&gt;
-    &lt;div class="p-toolbar-group-left"&gt;
+    &lt;div class="p-toolbar-group-start"&gt;
         &lt;p-button label="New" icon="pi pi-plus"&gt;&lt;/p-button&gt;
         &lt;p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"&gt;&lt;/p-button&gt;
-            
+
         &lt;i class="pi pi-bars"&gt;&lt;/i&gt;
-        
+
         &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
-    
-    &lt;div class="p-toolbar-group-right"&gt;
+
+    &lt;div class="p-toolbar-group-end"&gt;
         &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
         &lt;p-button icon="pi pi-calendar" styleClass="p-button-success"&gt;&lt;/p-button&gt;
         &lt;p-button icon="pi pi-times" styleClass="p-button-danger"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
 </app-code>
-            
+
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -99,12 +99,16 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
                             <td>Main container element.</td>
                         </tr>
                         <tr>
-                            <td>p-toolbar-group-left</td>
-                            <td>Left content container.</td>
+                            <td>p-toolbar-group-start</td>
+                            <td>Start content container.</td>
                         </tr>
                         <tr>
-                            <td>p-toolbar-group-right</td>
-                            <td>Right content container.</td>
+                            <td>p-toolbar-group-center</td>
+                            <td>Center content container.</td>
+                        </tr>
+                        <tr>
+                            <td>p-toolbar-group-end</td>
+                            <td>End content container.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -121,11 +125,15 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
                         </thead>
                         <tbody>
                             <tr>
-                                <td>right</td>
+                                <td>start</td>
                                 <td>-</td>
                             </tr>
                             <tr>
-                                <td>left</td>
+                                <td>center</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>end</td>
                                 <td>-</td>
                             </tr>
                         </tbody>
@@ -145,16 +153,16 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-toolbar&gt;
-    &lt;div class="p-toolbar-group-left"&gt;
+    &lt;div class="p-toolbar-group-start"&gt;
         &lt;p-button label="New" icon="pi pi-plus" class="mr-2"&gt;&lt;/p-button&gt;
         &lt;p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"&gt;&lt;/p-button&gt;
-            
+
         &lt;i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"&gt;&lt;/i&gt;
-        
+
         &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
-    
-    &lt;div class="p-toolbar-group-right"&gt;
+
+    &lt;div class="p-toolbar-group-end"&gt;
         &lt;p-button icon="pi pi-search" class="mr-2"&gt;&lt;/p-button&gt;
         &lt;p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"&gt;&lt;/p-button&gt;
         &lt;p-button icon="pi pi-times" styleClass="p-button-danger"&gt;&lt;/p-button&gt;

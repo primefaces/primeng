@@ -17,7 +17,9 @@ import {
     SimpleChanges,
     ViewEncapsulation,
     ChangeDetectorRef,
-    AfterViewInit
+    AfterViewInit,
+    KeyValueDiffers,
+    DoCheck
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
@@ -306,7 +308,7 @@ export class Galleria implements OnChanges, OnDestroy {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleriaContent {
+export class GalleriaContent implements DoCheck {
     @Input() get activeIndex(): number {
         return this._activeIndex;
     }
@@ -325,8 +327,6 @@ export class GalleriaContent {
 
     id: string = this.galleria.id || UniqueComponentId();
 
-    slideShowActicve: boolean = false;
-
     _activeIndex: number = 0;
 
     slideShowActive: boolean = true;
@@ -335,7 +335,21 @@ export class GalleriaContent {
 
     styleClass: string;
 
-    constructor(public galleria: Galleria, public cd: ChangeDetectorRef) {}
+    private differ = this.differs.find(this.galleria).create();
+
+    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers) {}
+
+    ngDoCheck(): void {
+        const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
+
+        if (changes?.forEachItem.length > 0) {
+            // Because we change the properties of the parent component,
+            // and the children take our entity from the injector.
+            // We can tell the children to redraw themselves when we change the properties of the parent component.
+            // Since we have an onPush strategy
+            this.cd.markForCheck();
+        }
+    }
 
     galleriaClass() {
         const thumbnailsPosClass = this.galleria.showThumbnails && this.getPositionClass('p-galleria-thumbnails', this.galleria.thumbnailsPosition);
@@ -496,7 +510,7 @@ export class GalleriaItemSlot {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleriaItem implements OnInit {
+export class GalleriaItem implements OnChanges {
     @Input() circular: boolean = false;
 
     @Input() value: any[];
@@ -537,9 +551,13 @@ export class GalleriaItem implements OnInit {
 
     _activeIndex: number = 0;
 
-    ngOnInit() {
-        if (this.autoPlay) {
+    ngOnChanges({ autoPlay }: SimpleChanges): void {
+        if (autoPlay?.currentValue) {
             this.startSlideShow.emit();
+        }
+
+        if (autoPlay && autoPlay.currentValue === false) {
+            this.stopTheSlideShow();
         }
     }
 

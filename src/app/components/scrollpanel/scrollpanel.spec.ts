@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ScrollPanel } from './scrollpanel';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ScrollPanel } from './scrollpanel';
 
 @Component({
     template: `
@@ -66,6 +66,7 @@ describe('ScrollPanel', () => {
         mouseUpEvent.pageY = 201;
         mouseUpEvent.initEvent('mouseup', true, true);
         barYEl.nativeElement.dispatchEvent(mouseUpEvent);
+        flush();
     }));
 
     it('should scroll when mousedown and move (x)', fakeAsync(() => {
@@ -92,6 +93,7 @@ describe('ScrollPanel', () => {
         mouseUpEvent.pageY = 201;
         mouseUpEvent.initEvent('mouseup', true, true);
         barXEl.nativeElement.dispatchEvent(mouseUpEvent);
+        flush();
     }));
 
     it('should scroll with scrollTop', fakeAsync(() => {

@@ -1,9 +1,27 @@
-import { NgModule, Component, Input, ContentChildren, QueryList, AfterContentInit, AfterViewInit, AfterViewChecked, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
-import { PrimeTemplate, SharedModule, MenuItem } from 'primeng/api';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
@@ -44,6 +62,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
                                 </ng-container>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
@@ -73,6 +92,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
                                 </ng-container>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
@@ -97,6 +117,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     @Input() model: MenuItem[];
 
     @Input() activeItem: MenuItem;
+
+    @Output() activeItemChange = new EventEmitter<MenuItem>();
 
     @Input() scrollable: boolean;
 
@@ -165,7 +187,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         if (item.routerLink) {
             const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
 
-            return this.router.isActive(this.router.createUrlTree(routerLink, { relativeTo: this.route }).toString(), false);
+            return this.router.isActive(this.router.createUrlTree(routerLink, { relativeTo: this.route }).toString(), item.routerLinkActiveOptions?.exact ?? item.routerLinkActiveOptions ?? false);
         }
 
         return item === this.activeItem;
@@ -189,6 +211,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         }
 
         this.activeItem = item;
+        this.activeItemChange.emit(item);
         this.tabChanged = true;
     }
 

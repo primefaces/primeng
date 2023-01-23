@@ -34,9 +34,14 @@ declare let gtag: Function;
                 <div class="menu-category">General</div>
                 <div class="menu-items">
                     <a [routerLink]="['setup']" routerLinkActive="router-link-exact-active">Get Started</a>
+                    <a href="https://github.com/primefaces/primeng/wiki/Migration-Guide" target="_blank">Migration Guide</a>
+                    <a [routerLink]="['roadmap']" routerLinkActive="router-link-exact-active">Roadmap <span class="p-tag">New</span></a>
+                </div>
+
+                <div class="menu-category">Configuration</div>
+                <div class="menu-items">
                     <a [routerLink]="['i18n']" routerLinkActive="router-link-exact-active">Locale</a>
                     <a [routerLink]="['overlay']" routerLinkActive="router-link-exact-active">Overlay <span class="p-tag">New</span></a>
-                    <a href="https://github.com/primefaces/primeng/wiki/Migration-Guide" target="_blank">Migration Guide</a>
                 </div>
 
                 <div class="menu-category">Support</div>

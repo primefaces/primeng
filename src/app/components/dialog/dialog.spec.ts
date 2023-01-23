@@ -1,11 +1,11 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Dialog } from './dialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Footer } from 'primeng/api';
-import { FocusTrapModule } from '../focustrap/focustrap';
 import { ButtonModule } from '../button/button';
+import { FocusTrapModule } from '../focustrap/focustrap';
+import { Dialog } from './dialog';
 
 @Component({
     template: `
@@ -125,6 +125,7 @@ describe('Dialog', () => {
         expect(maximizableEl).toBeTruthy();
         maximizableEl.click();
         fixture.detectChanges();
+        flush();
 
         const minIconEl = fixture.debugElement.query(By.css('.pi-window-minimize'));
         expect(maximizeSpy).toHaveBeenCalled();
@@ -138,6 +139,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         expect(dialog.maximized).toEqual(false);
+        flush();
     }));
 
     it('should close (maximized)', fakeAsync(() => {
@@ -163,6 +165,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         expect(dialog.visible).toEqual(false);
+        flush();
     }));
 
     it('should change modal blockScroll and dismissableMask ', fakeAsync(() => {
@@ -187,6 +190,7 @@ describe('Dialog', () => {
 
         expect(dialog.visible).toEqual(false);
         expect(closeSpy).toHaveBeenCalled();
+        flush();
     }));
 
     it('should open with focusOnShow', () => {
@@ -256,6 +260,7 @@ describe('Dialog', () => {
         expect(onOverlayHideSpy).toHaveBeenCalled();
         expect(disableModalitySpy).toHaveBeenCalled();
         expect(dialog.container).toEqual(null);
+        flush();
     }));
 
     it('should change location with drag actions', fakeAsync(() => {
@@ -284,6 +289,7 @@ describe('Dialog', () => {
         expect(dialog.container.style.left).not.toEqual(firstLeft);
         expect(dialog.container.style.top).not.toEqual(firstTop);
         expect(dialog.dragging).toEqual(false);
+        flush();
     }));
 
     it('should change location with resize actions', fakeAsync(() => {
@@ -311,6 +317,7 @@ describe('Dialog', () => {
         expect(parseInt(dialog.container.style.width)).not.toEqual(firstWidth);
         expect(parseInt(dialog.container.style.height)).not.toEqual(firstHeight);
         expect(dialog.resizing).toEqual(false);
+        flush();
     }));
 
     it('should close when press esc key', fakeAsync(() => {
@@ -330,5 +337,6 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();
+        flush();
     }));
 });

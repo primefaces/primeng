@@ -1,9 +1,9 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { RadioButton, RadioButtonModule } from './radiobutton';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RadioButton, RadioButtonModule } from './radiobutton';
 
 @Component({
     template: ` <p-radioButton [(ngModel)]="city"></p-radioButton> `
@@ -67,25 +67,25 @@ describe('RadioButton', () => {
         radiobutton.value = 'prime';
         radiobutton.disabled = true;
         radiobutton.label = 'prime';
-        fixture.detectChanges();
+        radiobutton.cd.detectChanges();
 
         const handleClickSpy = spyOn(radiobutton, 'handleClick').and.callThrough();
         const selectSpy = spyOn(radiobutton, 'select').and.callThrough();
         const radiobuttonEl = fixture.debugElement.queryAll(By.css('div'))[2];
         const inputEl = fixture.debugElement.query(By.css('input'));
         const labelEl = fixture.debugElement.query(By.css('label'));
+
         expect(inputEl.nativeElement.disabled).toEqual(true);
         expect(radiobuttonEl.nativeElement.className).toContain('p-disabled');
         expect(labelEl.nativeElement.className).toContain('p-disabled');
-
         radiobuttonEl.nativeElement.click();
-        fixture.detectChanges();
+        radiobutton.cd.detectChanges();
 
         expect(handleClickSpy).toHaveBeenCalled();
         expect(selectSpy).not.toHaveBeenCalled();
         expect(radiobutton.checked).toBeFalsy();
         labelEl.nativeElement.click();
-        fixture.detectChanges();
+        radiobutton.cd.detectChanges();
 
         expect(handleClickSpy).toHaveBeenCalledTimes(1);
         expect(selectSpy).toHaveBeenCalled();

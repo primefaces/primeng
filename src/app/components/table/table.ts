@@ -146,6 +146,7 @@ export class TableService {
                     [showSpacer]="false"
                     [showLoader]="loadingBodyTemplate"
                     [options]="virtualScrollOptions"
+                    [autoSize]="true"
                 >
                     <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: items, options: scrollerOptions }"></ng-container>
@@ -222,8 +223,8 @@ export class TableService {
             </div>
 
             <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display:none" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display:none" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [TableService],
@@ -311,7 +312,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
+    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined } = {};
 
     @Input() globalFilterFields: string[];
 
@@ -1735,6 +1736,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
+        } else if (options && options.allValues) {
+            data = this.value || [];
         } else {
             data = this.filteredValue || this.value;
 
@@ -2006,7 +2009,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let innerHTML = '';
         widths.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
-            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important`;
+            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
                 #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
                 #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
@@ -2051,14 +2054,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.reorderIndicatorDownViewChild.nativeElement.style.left = targetLeft - Math.ceil(this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
                 }
-
-                if ((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dropIndex - dragIndex === -1 && this.dropPosition === 1)) {
-                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
-                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
-                } else {
-                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
-                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
-                }
+                this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
+                this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
             } else {
                 event.dataTransfer.dropEffect = 'none';
             }
@@ -2068,8 +2065,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onColumnDragLeave(event) {
         if (this.reorderableColumns && this.draggedColumn) {
             event.preventDefault();
-            this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
-            this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
         }
     }
 
@@ -2327,7 +2322,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -2739,7 +2734,9 @@ export class FrozenColumn implements AfterViewInit {
     constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
-        this.updateStickyPosition();
+        setTimeout(() => {
+            this.updateStickyPosition();
+        }, 1000);
     }
 
     _frozen: boolean = true;
@@ -3472,8 +3469,17 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     closeEditingCell(completed, event) {
-        if (completed) this.dt.onEditComplete.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
-        else this.dt.onEditCancel.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
+        if (completed) {
+            this.dt.onEditComplete.emit({ field: this.dt.editingCellField, data: this.data, originalEvent: event, index: this.dt.editingCellRowIndex });
+        } else {
+            this.dt.onEditCancel.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
+
+            this.dt.value.forEach((element) => {
+                if (element[this.dt.editingCellField] === this.data) {
+                    element[this.dt.editingCellField] = this.dt.editingCellData;
+                }
+            });
+        }
 
         DomHandler.removeClass(this.dt.editingCell, 'p-cell-editing');
         this.dt.editingCell = null;
@@ -4080,8 +4086,6 @@ export class TableHeaderCheckbox {
     }
 })
 export class ReorderableRowHandle implements AfterViewInit {
-    @Input('pReorderableRowHandle') index: number;
-
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
@@ -4823,7 +4827,29 @@ export class ColumnFilter implements AfterContentInit {
     selector: 'p-columnFilterFormElement',
     template: `
         <ng-container *ngIf="filterTemplate; else builtInElement">
-            <ng-container *ngTemplateOutlet="filterTemplate; context: { $implicit: filterConstraint.value, filterCallback: filterCallback }"></ng-container>
+            <ng-container
+                *ngTemplateOutlet="
+                    filterTemplate;
+                    context: {
+                        $implicit: filterConstraint.value,
+                        filterCallback: filterCallback,
+                        type: type,
+                        field: field,
+                        filterConstraint: filterConstraint,
+                        placeholder: placeholder,
+                        minFractionDigits: minFractionDigits,
+                        maxFractionDigits: maxFractionDigits,
+                        prefix: prefix,
+                        suffix: suffix,
+                        locale: locale,
+                        localeMatcher: localeMatcher,
+                        currency: currency,
+                        currencyDisplay: currencyDisplay,
+                        useGrouping: useGrouping,
+                        showButtons: showButtons
+                    }
+                "
+            ></ng-container>
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">

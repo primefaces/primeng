@@ -1,11 +1,11 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Calendar } from './calendar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { Calendar } from './calendar';
 
 describe('Calendar', () => {
     let calendar: Calendar;
@@ -209,6 +209,7 @@ describe('Calendar', () => {
         expect(calendar.isSingleSelection()).toEqual(true);
         tick(150);
         expect(calendar.overlayVisible).toEqual(false);
+        flush();
     }));
 
     it('should change date format', () => {
@@ -514,6 +515,7 @@ describe('Calendar', () => {
         expect(calendar.value).not.toEqual(null);
         clearButtonEl.nativeElement.click();
         fixture.detectChanges();
+        flush();
 
         tick(150);
         expect(calendar.overlayVisible).toEqual(false);
@@ -521,6 +523,7 @@ describe('Calendar', () => {
         expect(inputEl.value).toEqual('');
         expect(calendar.value).toEqual(null);
         expect(onClearButtonClickSpy).toHaveBeenCalled();
+        flush();
     }));
 
     it('should change today & clear button styleClass', () => {
@@ -586,6 +589,37 @@ describe('Calendar', () => {
         expect(calendar.value).toBeTruthy();
         expect(janEl.className).toContain('p-highlight');
         expect(calendar.inputFieldValue).toEqual('01');
+        flush();
+    }));
+
+    it('should use min date and max date with month picker', fakeAsync(() => {
+        calendar.view = 'month';
+        calendar.dateFormat = 'mm';
+        const today = new Date();
+        const minDate = new Date(today.getFullYear(), today.getMonth(), 2);
+        const maxDate = new Date(today.getFullYear(), today.getMonth(), 20);
+        calendar.minDate = minDate;
+        calendar.maxDate = maxDate;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const focusEvent = new Event('focus');
+        inputEl.click();
+        inputEl.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const monthpickerEl = fixture.debugElement.query(By.css('.p-monthpicker'));
+        const currentMonth = monthpickerEl.children[today.getMonth()];
+        const unselectableMonths = monthpickerEl.queryAll(By.css('.p-disabled'));
+        expect(currentMonth.classes['.p-disabled']).toBeFalsy();
+        expect(unselectableMonths.length).toEqual(11);
+
+        currentMonth.nativeElement.click();
+        fixture.detectChanges();
+        tick(200);
+
+        expect(+calendar.inputFieldValue).toEqual(today.getMonth() + 1);
+        flush();
     }));
 
     it('should use touchUI', fakeAsync(() => {
@@ -616,6 +650,7 @@ describe('Calendar', () => {
         expect(onOverlayAnimationStartSpy).toHaveBeenCalled();
         calendar.destroyMask();
         tick(300);
+        flush();
     }));
 
     it('should select date with keyboardEvent', () => {
@@ -1417,6 +1452,7 @@ describe('Calendar', () => {
         fixture.detectChanges();
 
         expect(calendar.overlayVisible).toEqual(false);
+        flush();
     }));
 
     it('should be next year', () => {

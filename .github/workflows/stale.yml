@@ -20,7 +20,7 @@ jobs:
           exempt-issue-labels: 'Core Team,PRO Support,good first issue,question,Resolution: Help Wanted,Resolution: Workaround,Status: Discussion,Status: In Progress,Status: Needs Triage,Status: Pending Review,Type: Enhancement,Type: New Feature'
           exempt-pr-labels: 'Core Team,Resolution: Help Wanted,Resolution: Workaround,Status: Discussion,Status: In Progress,Status: Pending Review'
           exempt-all-milestones: true
-          days-before-stale: 60
+          days-before-stale: 120
           days-before-close: 7
           close-issue-reason: 'not_planned'
           stale-issue-message: 'This issue has been automatically marked as stale. **If this issue is still affecting you with the latest version, please leave any comment**, and we will keep it open. We are sorry that we have not been able to prioritize it yet. If you have any new additional information, please include it with your comment!'

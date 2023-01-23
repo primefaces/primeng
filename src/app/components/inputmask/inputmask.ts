@@ -25,12 +25,12 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import { NgModule, Component, ElementRef, OnInit, Input, forwardRef, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { AutoFocusModule } from 'primeng/autofocus';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -128,6 +128,8 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     @Input() autocomplete: string;
 
+    @Input() keepBuffer: boolean = false;
+
     @ViewChild('input', { static: true }) inputViewChild: ElementRef;
 
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
@@ -180,7 +182,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     focused: boolean;
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         let ua = DomHandler.getUserAgent();
@@ -404,7 +406,9 @@ export class InputMask implements OnInit, ControlValueAccessor {
     onInputBlur(e) {
         this.focused = false;
         this.onModelTouched();
-        this.checkVal();
+        if (!this.keepBuffer) {
+            this.checkVal();
+        }
         this.updateFilledState();
         this.onBlur.emit(e);
 
@@ -442,7 +446,11 @@ export class InputMask implements OnInit, ControlValueAccessor {
             }
 
             this.clearBuffer(begin, end);
-            this.shiftL(begin, end - 1);
+            if (this.keepBuffer) {
+                this.shiftL(begin, end - 2);
+            } else {
+                this.shiftL(begin, end - 1);
+            }
             this.updateModel(e);
             this.onInput.emit(e);
 
@@ -523,10 +531,12 @@ export class InputMask implements OnInit, ControlValueAccessor {
     }
 
     clearBuffer(start, end) {
-        let i;
-        for (i = start; i < end && i < this.len; i++) {
-            if (this.tests[i]) {
-                this.buffer[i] = this.getPlaceholder(i);
+        if (!this.keepBuffer) {
+            let i;
+            for (i = start; i < end && i < this.len; i++) {
+                if (this.tests[i]) {
+                    this.buffer[i] = this.getPlaceholder(i);
+                }
             }
         }
     }
@@ -549,7 +559,9 @@ export class InputMask implements OnInit, ControlValueAccessor {
                 while (pos++ < test.length) {
                     c = test.charAt(pos - 1);
                     if (this.tests[i].test(c)) {
-                        this.buffer[i] = c;
+                        if (!this.keepBuffer) {
+                            this.buffer[i] = c;
+                        }
                         lastMatch = i;
                         break;
                     }
@@ -599,7 +611,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
         this.focusText = this.inputViewChild.nativeElement.value;
 
-        pos = this.checkVal();
+        pos = this.keepBuffer ? this.inputViewChild.nativeElement.value.length : this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
             if (this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {

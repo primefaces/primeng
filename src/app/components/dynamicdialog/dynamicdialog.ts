@@ -1,30 +1,12 @@
-import {
-    Component,
-    NgModule,
-    Type,
-    ComponentFactoryResolver,
-    ViewChild,
-    OnDestroy,
-    ComponentRef,
-    AfterViewInit,
-    ChangeDetectorRef,
-    Renderer2,
-    NgZone,
-    ElementRef,
-    ChangeDetectionStrategy,
-    ViewRef,
-    ViewEncapsulation,
-    SkipSelf,
-    Optional
-} from '@angular/core';
-import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
-import { DynamicDialogContent } from './dynamicdialogcontent';
-import { DynamicDialogConfig } from './dynamicdialog-config';
+import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { DynamicDialogRef } from './dynamicdialog-ref';
-import { ZIndexUtils } from 'primeng/utils';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { ZIndexUtils } from 'primeng/utils';
+import { DynamicDialogConfig } from './dynamicdialog-config';
+import { DynamicDialogRef } from './dynamicdialog-ref';
+import { DynamicDialogContent } from './dynamicdialogcontent';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -181,6 +163,13 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    get parent() {
+        const domElements = Array.from(document.getElementsByClassName('p-dialog'));
+        if (domElements.length > 1) {
+            return domElements.pop();
+        }
+    }
+
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         private cd: ChangeDetectorRef,
@@ -219,6 +208,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
                 this.moveOnTop();
+                if (this.parent) {
+                    this.unbindGlobalListeners();
+                }
                 this.bindGlobalListeners();
 
                 if (this.config.modal !== false) {
@@ -297,23 +289,27 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (event.which === 9) {
-            event.preventDefault();
+        if (this.parent) {
+            return;
+        } else {
+            // tab
+            if (event.which === 9) {
+                event.preventDefault();
 
-            let focusableElements = DomHandler.getFocusableElements(this.container);
-
-            if (focusableElements && focusableElements.length > 0) {
-                if (!focusableElements[0].ownerDocument.activeElement) {
-                    focusableElements[0].focus();
-                } else {
-                    let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
-
-                    if (event.shiftKey) {
-                        if (focusedIndex == -1 || focusedIndex === 0) focusableElements[focusableElements.length - 1].focus();
-                        else focusableElements[focusedIndex - 1].focus();
+                let focusableElements = DomHandler.getFocusableElements(this.container);
+                if (focusableElements && focusableElements.length > 0) {
+                    if (!focusableElements[0].ownerDocument.activeElement) {
+                        focusableElements[0].focus();
                     } else {
-                        if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) focusableElements[0].focus();
-                        else focusableElements[focusedIndex + 1].focus();
+                        let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+
+                        if (event.shiftKey) {
+                            if (focusedIndex == -1 || focusedIndex === 0) focusableElements[focusableElements.length - 1].focus();
+                            else focusableElements[focusedIndex - 1].focus();
+                        } else {
+                            if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) focusableElements[0].focus();
+                            else focusableElements[focusedIndex + 1].focus();
+                        }
                     }
                 }
             }

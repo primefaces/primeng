@@ -615,9 +615,29 @@ export class DomHandler {
 
         let visibleFocusableElements = [];
         for (let focusableElement of focusableElements) {
-            if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') visibleFocusableElements.push(focusableElement);
+            if (!!(focusableElement.offsetWidth || focusableElement.offsetHeight || focusableElement.getClientRects().length)) visibleFocusableElements.push(focusableElement);
         }
         return visibleFocusableElements;
+    }
+
+    public static getNextFocusableElement(element: HTMLElement, reverse = false) {
+        const focusableElements = DomHandler.getFocusableElements(element);
+        let index = 0;
+        if (focusableElements && focusableElements.length > 0) {
+            const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+
+            if (reverse) {
+                if (focusedIndex == -1 || focusedIndex === 0) {
+                    index = focusableElements.length - 1;
+                } else {
+                    index = focusedIndex - 1;
+                }
+            } else if (focusedIndex != -1 && focusedIndex !== focusableElements.length - 1) {
+                index = focusedIndex + 1;
+            }
+        }
+
+        return focusableElements[index];
     }
 
     static generateZIndex() {

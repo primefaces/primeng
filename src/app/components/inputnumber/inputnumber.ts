@@ -68,6 +68,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     (mouseleave)="onUpButtonMouseLeave()"
                     (keydown)="onUpButtonKeyDown($event)"
                     (keyup)="onUpButtonKeyUp()"
+                    tabindex="-1"
                 ></button>
                 <button
                     type="button"
@@ -81,6 +82,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     (mouseleave)="onDownButtonMouseLeave()"
                     (keydown)="onDownButtonKeyDown($event)"
                     (keyup)="onDownButtonKeyUp()"
+                    tabindex="-1"
                 ></button>
             </span>
             <button
@@ -96,6 +98,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mouseleave)="onUpButtonMouseLeave()"
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
+                tabindex="-1"
             ></button>
             <button
                 type="button"
@@ -110,6 +113,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
+                tabindex="-1"
             ></button>
         </span>
     `,

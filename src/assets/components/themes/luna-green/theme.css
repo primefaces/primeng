@@ -4358,6 +4358,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border: 1px solid #191919;
   padding: 0.857rem 1rem;
   border-radius: 3px;
+  gap: 0.5rem;
 }
 .p-toolbar .p-toolbar-separator {
   margin: 0 0.5rem;
@@ -5539,6 +5540,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: transparent;
   border: 0 none;
   border-width: 1px;
+}
+.p-tabmenu .p-tabmenu-nav .p-menuitem-badge {
+  background: #C5E1A5;
+  color: #212529;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem {
   margin-right: 2px;

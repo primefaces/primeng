@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
-import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
     templateUrl: './tablelazydemo.html'
@@ -10,8 +10,6 @@ export class TableLazyDemo implements OnInit {
     customers: Customer[];
 
     totalRecords: number;
-
-    cols: any[];
 
     loading: boolean;
 

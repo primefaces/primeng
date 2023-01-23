@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
 import { TreeNode } from 'primeng/api';
+import { NodeService } from '../../service/nodeservice';
 
 @Component({
     templateUrl: './treescrolldemo.html'
@@ -26,11 +26,13 @@ export class TreeScrollDemo implements OnInit {
         let node: TreeNode = {
             label: 'Node ' + i,
             data: 'Node ' + i,
+            key: 'node-key' + i,
             expandedIcon: 'pi pi-folder-open',
             collapsedIcon: 'pi pi-folder',
             children: Array.from({ length: children }).map((_, j) => {
                 return {
                     label: 'Node ' + i + '.' + j,
+                    key: 'node-key' + i + j,
                     data: 'Node ' + i + '.' + j,
                     icon: 'pi pi-file'
                 };

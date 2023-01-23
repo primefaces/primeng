@@ -57,7 +57,7 @@ export interface DropdownFilterOptions {
             [id]="selected ? 'p-highlighted-option' : ''"
             [ngClass]="{ 'p-dropdown-item': true, 'p-highlight': selected, 'p-disabled': disabled }"
         >
-            <span *ngIf="!template">{{ label || 'empty' }}</span>
+            <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,
@@ -69,6 +69,7 @@ export class DropdownItem {
     @Input() option: SelectItem;
 
     @Input() selected: boolean;
+    _label: string;
 
     @Input() label: string;
 
@@ -646,6 +647,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get label(): string {
+        if (typeof this.selectedOption === 'number') {
+            this.selectedOption = this.selectedOption.toString();
+        }
+
         return this.selectedOption ? this.getOptionLabel(this.selectedOption) : null;
     }
 
@@ -734,9 +739,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight');
+            let selectedItem = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight'));
+                DomHandler.scrollInView(this.itemsWrapper, selectedItem);
             }
             this.selectedOptionUpdated = false;
         }
@@ -838,7 +843,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
             this.virtualScroll && this.scroller.setContentEl(this.itemsViewChild.nativeElement);
 
             if (this.options && this.options.length) {

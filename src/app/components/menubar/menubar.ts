@@ -1,11 +1,44 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Injectable,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { debounce, filter, interval, Subject, Subscription } from 'rxjs';
+
+@Injectable()
+export class MenubarService {
+    autoHide: boolean;
+
+    autoHideDelay: number;
+
+    readonly mouseLeaves = new Subject<boolean>();
+
+    readonly mouseLeft$ = this.mouseLeaves.pipe(
+        debounce(() => interval(this.autoHideDelay)),
+        filter((mouseLeft) => this.autoHide && mouseLeft)
+    );
+}
 
 @Component({
     selector: 'p-menubarSub',
@@ -33,6 +66,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         role="menuitem"
                         (click)="onItemClick($event, child)"
                         (mouseenter)="onItemMouseEnter($event, child)"
+                        (mouseleave)="onItemMouseLeave($event, child)"
                         [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
                         [attr.tabindex]="child.disabled ? null : '0'"
                         [attr.aria-haspopup]="item.items != null"
@@ -59,6 +93,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         role="menuitem"
                         (click)="onItemClick($event, child)"
                         (mouseenter)="onItemMouseEnter($event, child)"
+                        (mouseleave)="onItemMouseLeave($event, child)"
                         [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
                         [fragment]="child.fragment"
                         [queryParamsHandling]="child.queryParamsHandling"
@@ -84,7 +119,7 @@ import { TooltipModule } from 'primeng/tooltip';
         class: 'p-element'
     }
 })
-export class MenubarSub implements OnDestroy {
+export class MenubarSub implements OnInit, OnDestroy {
     @Input() item: MenuItem;
 
     @Input() root: boolean;
@@ -118,7 +153,17 @@ export class MenubarSub implements OnDestroy {
 
     activeItem: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    mouseLeaveSubscriber: Subscription;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+
+    ngOnInit() {
+        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
+            this.activeItem = null;
+            this.cd.markForCheck();
+            this.unbindDocumentClickListener();
+        });
+    }
 
     onItemClick(event, item) {
         if (item.disabled) {
@@ -154,7 +199,13 @@ export class MenubarSub implements OnDestroy {
         }
     }
 
+    onItemMouseLeave(event, item) {
+        this.menubarService.mouseLeaves.next(true);
+    }
+
     onItemMouseEnter(event, item) {
+        this.menubarService.mouseLeaves.next(false);
+
         if (item.disabled || this.mobileActive) {
             event.preventDefault();
             return;
@@ -202,6 +253,7 @@ export class MenubarSub implements OnDestroy {
     }
 
     ngOnDestroy() {
+        this.mouseLeaveSubscriber.unsubscribe();
         this.unbindDocumentClickListener();
     }
 }
@@ -232,9 +284,10 @@ export class MenubarSub implements OnDestroy {
     styleUrls: ['./menubar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [MenubarService]
 })
-export class Menubar implements AfterContentInit, OnDestroy {
+export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     @Input() model: MenuItem[];
 
     @Input() style: any;
@@ -246,6 +299,10 @@ export class Menubar implements AfterContentInit, OnDestroy {
     @Input() baseZIndex: number = 0;
 
     @Input() autoDisplay: boolean;
+
+    @Input() autoHide: boolean;
+
+    @Input() autoHideDelay: number = 100;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -261,7 +318,15 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     outsideClickListener: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    mouseLeaveSubscriber: Subscription;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private menubarService: MenubarService) {}
+
+    ngOnInit(): void {
+        this.menubarService.autoHide = this.autoHide;
+        this.menubarService.autoHideDelay = this.autoHideDelay;
+        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -326,6 +391,7 @@ export class Menubar implements AfterContentInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.mouseLeaveSubscriber.unsubscribe();
         this.unbindOutsideClickListener();
     }
 }

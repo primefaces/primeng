@@ -772,6 +772,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.createWeekDays();
+            this.cd.markForCheck();
         });
 
         this.initialized = true;
@@ -1350,7 +1351,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isMonthDisabled(month) {
-        return !this.isSelectable(1, month, this.currentYear, false);
+        for (let day = 1; day < this.getDaysCountInMonth(month, this.currentYear) + 1; day++) {
+            if (this.isSelectable(day, month, this.currentYear, false)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     isYearSelected(year) {
@@ -1967,7 +1973,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
             if (!this.preventFocus && (!this.navigationState || !this.navigationState.button)) {
                 setTimeout(() => {
-                    cell.focus();
+                    if (!this.disabled) {
+                        cell.focus();
+                    }
                 }, 1);
             }
 

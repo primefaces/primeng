@@ -43,6 +43,11 @@ export interface MultiSelectFilterOptions {
     reset?: () => void;
 }
 
+export interface MultiselectOnRemoveEvent {
+    newValue: object;
+    removed: MultiSelectItem;
+}
+
 @Component({
     selector: 'p-multiSelectItem',
     template: `
@@ -90,7 +95,8 @@ export class MultiSelectItem {
     onOptionClick(event: Event) {
         this.onClick.emit({
             originalEvent: event,
-            option: this.option
+            option: this.option,
+            selected: this.selected
         });
     }
 
@@ -443,6 +449,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
+    @Output() onRemove: EventEmitter<MultiselectOnRemoveEvent> = new EventEmitter();
+
     /* @deprecated */
     _autoZIndex: boolean;
     @Input() get autoZIndex(): boolean {
@@ -723,6 +731,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         let selectionIndex = this.findSelectionIndex(optionValue);
         if (selectionIndex != -1) {
             this.value = this.value.filter((val, i) => i != selectionIndex);
+            this.onRemove.emit({ newValue: this.value, removed: optionValue });
 
             if (this.selectionLimit) {
                 this.maxSelectionLimitReached = false;
