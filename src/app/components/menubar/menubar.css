@@ -1,6 +1,7 @@
 .p-menubar {
     display: flex;
     align-items: center;
+    overflow: auto;
 }
 
 .p-menubar ul {
