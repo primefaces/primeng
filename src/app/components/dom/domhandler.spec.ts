@@ -66,12 +66,15 @@ describe('DomHandler', () => {
         const element = document.createElement('div');
         const childEl = document.createElement('p');
         const childEl2 = document.createElement('a');
-        const childEl3 = document.createElement('button');
+        const childEl3 = document.createElement('a');
+        const childEl4 = document.createElement('button');
+        childEl2.setAttribute('href', 'https://www.primefaces.org/primeng/');
         element.appendChild(childEl);
         element.appendChild(childEl2);
         element.appendChild(childEl3);
+        element.appendChild(childEl4);
         document.body.appendChild(element);
-        expect(DomHandler.getFocusableElements(element).length).toEqual(1);
+        expect(DomHandler.getFocusableElements(element).length).toEqual(2);
     });
 
     it('should get the next focusable element', () => {
