@@ -113,7 +113,7 @@ export class Messages implements AfterContentInit, OnDestroy {
         if (this.messageService && this.enableService && !this.contentTemplate) {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: Message | Message[]) => {
                 if (messages) {
-                    if (!(messages instanceof Array)) {
+                    if (!Array.isArray(messages)) {
                         messages = [messages];
                     }
 

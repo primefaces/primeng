@@ -223,7 +223,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
         let dragScope = event.dataTransfer.getData('text');
         if (typeof this.scope == 'string' && dragScope == this.scope) {
             return true;
-        } else if (this.scope instanceof Array) {
+        } else if (Array.isArray(this.scope)) {
             for (let j = 0; j < this.scope.length; j++) {
                 if (dragScope == this.scope[j]) {
                     return true;
