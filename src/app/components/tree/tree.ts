@@ -1247,11 +1247,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         if (dropScope) {
             if (typeof dropScope === 'string') {
                 if (typeof dragScope === 'string') return dropScope === dragScope;
-                else if (dragScope instanceof Array) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
-            } else if (dropScope instanceof Array) {
+                else if (Array.isArray(dragScope)) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
+            } else if (Array.isArray(dropScope)) {
                 if (typeof dragScope === 'string') {
                     return (<Array<any>>dropScope).indexOf(dragScope) != -1;
-                } else if (dragScope instanceof Array) {
+                } else if (Array.isArray(dragScope)) {
                     for (let s of dropScope) {
                         for (let ds of dragScope) {
                             if (s === ds) {

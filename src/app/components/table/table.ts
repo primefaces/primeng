@@ -1396,7 +1396,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.dataKey) {
                 return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
             } else {
-                if (this.selection instanceof Array) return this.findIndexInSelection(rowData) > -1;
+                if (Array.isArray(this.selection)) return this.findIndexInSelection(rowData) > -1;
                 else return this.equals(rowData, this.selection);
             }
         }
@@ -1543,7 +1543,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0)) return true;
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (Array.isArray(filter) && filter.length == 0)) return true;
             else return false;
         }
         return true;
